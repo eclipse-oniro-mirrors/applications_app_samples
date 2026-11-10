@@ -17,7 +17,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitleSafeBoundaryCoreTest() {
   describe('subtitleSafeBoundaryCoreTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0001
      * @tc.name      testSafeWrap0001
      * @tc.desc      10 chars wrap at width 10 into 1 lines.
      * @tc.size      MediumTest
@@ -34,7 +34,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0002
      * @tc.name      testSafeWrap0002
      * @tc.desc      17 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -51,7 +51,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0003
      * @tc.name      testSafeWrap0003
      * @tc.desc      22 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -68,7 +68,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0004
      * @tc.name      testSafeWrap0004
      * @tc.desc      27 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -85,7 +85,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0005
      * @tc.name      testSafeWrap0005
      * @tc.desc      36 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -102,7 +102,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0006
      * @tc.name      testSafeWrap0006
      * @tc.desc      45 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -119,7 +119,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0007
      * @tc.name      testSafeWrap0007
      * @tc.desc      16 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -136,7 +136,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0008
      * @tc.name      testSafeWrap0008
      * @tc.desc      23 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -153,7 +153,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0009
      * @tc.name      testSafeWrap0009
      * @tc.desc      28 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -170,7 +170,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0010
      * @tc.name      testSafeWrap0010
      * @tc.desc      33 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -187,7 +187,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0011
      * @tc.name      testSafeWrap0011
      * @tc.desc      42 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -204,7 +204,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0012
      * @tc.name      testSafeWrap0012
      * @tc.desc      51 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -221,7 +221,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0013
      * @tc.name      testSafeWrap0013
      * @tc.desc      22 chars wrap at width 10 into 3 lines.
      * @tc.size      MediumTest
@@ -238,7 +238,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0014
      * @tc.name      testSafeWrap0014
      * @tc.desc      29 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -255,7 +255,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0015
      * @tc.name      testSafeWrap0015
      * @tc.desc      34 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -272,7 +272,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0016
      * @tc.name      testSafeWrap0016
      * @tc.desc      24 chars wrap at width 24 into 1 lines.
      * @tc.size      MediumTest
@@ -289,7 +289,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0017
      * @tc.name      testSafeWrap0017
      * @tc.desc      33 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0018
      * @tc.name      testSafeWrap0018
      * @tc.desc      42 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -323,7 +323,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0019
      * @tc.name      testSafeWrap0019
      * @tc.desc      13 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -340,7 +340,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0020
      * @tc.name      testSafeWrap0020
      * @tc.desc      20 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -357,7 +357,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0021
      * @tc.name      testSafeWrap0021
      * @tc.desc      25 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -374,7 +374,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0022
      * @tc.name      testSafeWrap0022
      * @tc.desc      30 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -391,7 +391,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0023
      * @tc.name      testSafeWrap0023
      * @tc.desc      39 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -408,7 +408,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0024
      * @tc.name      testSafeWrap0024
      * @tc.desc      48 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -425,7 +425,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0025
      * @tc.name      testSafeWrap0025
      * @tc.desc      19 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -442,7 +442,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0026
      * @tc.name      testSafeWrap0026
      * @tc.desc      26 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -459,7 +459,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0027
      * @tc.name      testSafeWrap0027
      * @tc.desc      31 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -476,7 +476,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0028
      * @tc.name      testSafeWrap0028
      * @tc.desc      36 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -493,7 +493,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0029
      * @tc.name      testSafeWrap0029
      * @tc.desc      45 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -510,7 +510,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0030
      * @tc.name      testSafeWrap0030
      * @tc.desc      54 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -527,7 +527,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0031
      * @tc.name      testSafeWrap0031
      * @tc.desc      10 chars wrap at width 10 into 1 lines.
      * @tc.size      MediumTest
@@ -544,7 +544,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0032
      * @tc.name      testSafeWrap0032
      * @tc.desc      17 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -561,7 +561,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0033
      * @tc.name      testSafeWrap0033
      * @tc.desc      22 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -578,7 +578,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0034
      * @tc.name      testSafeWrap0034
      * @tc.desc      27 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -595,7 +595,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0035
      * @tc.name      testSafeWrap0035
      * @tc.desc      36 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0036
      * @tc.name      testSafeWrap0036
      * @tc.desc      45 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -629,7 +629,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0037
      * @tc.name      testSafeWrap0037
      * @tc.desc      16 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -646,7 +646,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0038
      * @tc.name      testSafeWrap0038
      * @tc.desc      23 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -663,7 +663,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0039
      * @tc.name      testSafeWrap0039
      * @tc.desc      28 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -680,7 +680,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0040
      * @tc.name      testSafeWrap0040
      * @tc.desc      33 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -697,7 +697,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0041
      * @tc.name      testSafeWrap0041
      * @tc.desc      42 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -714,7 +714,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0042
      * @tc.name      testSafeWrap0042
      * @tc.desc      51 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -731,7 +731,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0043
      * @tc.name      testSafeWrap0043
      * @tc.desc      22 chars wrap at width 10 into 3 lines.
      * @tc.size      MediumTest
@@ -748,7 +748,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0044
      * @tc.name      testSafeWrap0044
      * @tc.desc      29 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -765,7 +765,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0045
      * @tc.name      testSafeWrap0045
      * @tc.desc      34 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -782,7 +782,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0046
      * @tc.name      testSafeWrap0046
      * @tc.desc      24 chars wrap at width 24 into 1 lines.
      * @tc.size      MediumTest
@@ -799,7 +799,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0047
      * @tc.name      testSafeWrap0047
      * @tc.desc      33 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -816,7 +816,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0048
      * @tc.name      testSafeWrap0048
      * @tc.desc      42 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -833,7 +833,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0049
      * @tc.name      testSafeWrap0049
      * @tc.desc      13 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -850,7 +850,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0050
      * @tc.name      testSafeWrap0050
      * @tc.desc      20 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -867,7 +867,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0051
      * @tc.name      testSafeWrap0051
      * @tc.desc      25 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -884,7 +884,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0052
      * @tc.name      testSafeWrap0052
      * @tc.desc      30 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -901,7 +901,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0053
      * @tc.name      testSafeWrap0053
      * @tc.desc      39 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0054
      * @tc.name      testSafeWrap0054
      * @tc.desc      48 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -935,7 +935,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0055
      * @tc.name      testSafeWrap0055
      * @tc.desc      19 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -952,7 +952,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0056
      * @tc.name      testSafeWrap0056
      * @tc.desc      26 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -969,7 +969,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0057
      * @tc.name      testSafeWrap0057
      * @tc.desc      31 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -986,7 +986,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0058
      * @tc.name      testSafeWrap0058
      * @tc.desc      36 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -1003,7 +1003,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0059
      * @tc.name      testSafeWrap0059
      * @tc.desc      45 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -1020,7 +1020,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0060
      * @tc.name      testSafeWrap0060
      * @tc.desc      54 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -1037,7 +1037,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0061
      * @tc.name      testSafeWrap0061
      * @tc.desc      10 chars wrap at width 10 into 1 lines.
      * @tc.size      MediumTest
@@ -1054,7 +1054,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0062
      * @tc.name      testSafeWrap0062
      * @tc.desc      17 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -1071,7 +1071,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0063
      * @tc.name      testSafeWrap0063
      * @tc.desc      22 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -1088,7 +1088,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0064
      * @tc.name      testSafeWrap0064
      * @tc.desc      27 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -1105,7 +1105,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0065
      * @tc.name      testSafeWrap0065
      * @tc.desc      36 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -1122,7 +1122,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0066
      * @tc.name      testSafeWrap0066
      * @tc.desc      45 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -1139,7 +1139,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0067
      * @tc.name      testSafeWrap0067
      * @tc.desc      16 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -1156,7 +1156,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0068
      * @tc.name      testSafeWrap0068
      * @tc.desc      23 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -1173,7 +1173,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0069
      * @tc.name      testSafeWrap0069
      * @tc.desc      28 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -1190,7 +1190,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0070
      * @tc.name      testSafeWrap0070
      * @tc.desc      33 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -1207,7 +1207,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0071
      * @tc.name      testSafeWrap0071
      * @tc.desc      42 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0072
      * @tc.name      testSafeWrap0072
      * @tc.desc      51 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -1241,7 +1241,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0073
      * @tc.name      testSafeWrap0073
      * @tc.desc      22 chars wrap at width 10 into 3 lines.
      * @tc.size      MediumTest
@@ -1258,7 +1258,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0074
      * @tc.name      testSafeWrap0074
      * @tc.desc      29 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -1275,7 +1275,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0075
      * @tc.name      testSafeWrap0075
      * @tc.desc      34 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -1292,7 +1292,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0076
      * @tc.name      testSafeWrap0076
      * @tc.desc      24 chars wrap at width 24 into 1 lines.
      * @tc.size      MediumTest
@@ -1309,7 +1309,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0077
      * @tc.name      testSafeWrap0077
      * @tc.desc      33 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -1326,7 +1326,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0078
      * @tc.name      testSafeWrap0078
      * @tc.desc      42 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -1343,7 +1343,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0079
      * @tc.name      testSafeWrap0079
      * @tc.desc      13 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -1360,7 +1360,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0080
      * @tc.name      testSafeWrap0080
      * @tc.desc      20 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -1377,7 +1377,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0081
      * @tc.name      testSafeWrap0081
      * @tc.desc      25 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -1394,7 +1394,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0082
      * @tc.name      testSafeWrap0082
      * @tc.desc      30 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest
@@ -1411,7 +1411,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0083
      * @tc.name      testSafeWrap0083
      * @tc.desc      39 chars wrap at width 32 into 2 lines.
      * @tc.size      MediumTest
@@ -1428,7 +1428,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0084
      * @tc.name      testSafeWrap0084
      * @tc.desc      48 chars wrap at width 40 into 2 lines.
      * @tc.size      MediumTest
@@ -1445,7 +1445,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0085
      * @tc.name      testSafeWrap0085
      * @tc.desc      19 chars wrap at width 10 into 2 lines.
      * @tc.size      MediumTest
@@ -1462,7 +1462,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0086
      * @tc.name      testSafeWrap0086
      * @tc.desc      26 chars wrap at width 16 into 2 lines.
      * @tc.size      MediumTest
@@ -1479,7 +1479,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0087
      * @tc.name      testSafeWrap0087
      * @tc.desc      31 chars wrap at width 20 into 2 lines.
      * @tc.size      MediumTest
@@ -1496,7 +1496,7 @@ export default function subtitleSafeBoundaryCoreTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_BC_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_BC_0088
      * @tc.name      testSafeWrap0088
      * @tc.desc      36 chars wrap at width 24 into 2 lines.
      * @tc.size      MediumTest

@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function fileDescriptor8wTest() {
   describe('fileDescriptor8wTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0001
      * @tc.name      test8wFileDescriptor0001
      * @tc.desc      Descriptor fd=1 offset=0 size=1024 leaves 1024 readable bytes.
      * @tc.size      MediumTest
@@ -36,7 +36,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0002
      * @tc.name      test8wFileDescriptor0002
      * @tc.desc      Descriptor fd=2 offset=8 size=1040 leaves 1032 readable bytes.
      * @tc.size      MediumTest
@@ -54,7 +54,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0003
      * @tc.name      test8wFileDescriptor0003
      * @tc.desc      Descriptor fd=3 offset=16 size=1056 leaves 1040 readable bytes.
      * @tc.size      MediumTest
@@ -72,7 +72,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0004
      * @tc.name      test8wFileDescriptor0004
      * @tc.desc      Descriptor fd=4 offset=24 size=1072 leaves 1048 readable bytes.
      * @tc.size      MediumTest
@@ -90,7 +90,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0005
      * @tc.name      test8wFileDescriptor0005
      * @tc.desc      Descriptor fd=5 offset=32 size=1088 leaves 1056 readable bytes.
      * @tc.size      MediumTest
@@ -108,7 +108,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0006
      * @tc.name      test8wFileDescriptor0006
      * @tc.desc      Descriptor fd=6 offset=40 size=1104 leaves 1064 readable bytes.
      * @tc.size      MediumTest
@@ -126,7 +126,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0007
      * @tc.name      test8wFileDescriptor0007
      * @tc.desc      Descriptor fd=7 offset=48 size=1120 leaves 1072 readable bytes.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0008
      * @tc.name      test8wFileDescriptor0008
      * @tc.desc      Descriptor fd=8 offset=56 size=1136 leaves 1080 readable bytes.
      * @tc.size      MediumTest
@@ -162,7 +162,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0009
      * @tc.name      test8wFileDescriptor0009
      * @tc.desc      Descriptor fd=9 offset=64 size=1152 leaves 1088 readable bytes.
      * @tc.size      MediumTest
@@ -180,7 +180,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0010
      * @tc.name      test8wFileDescriptor0010
      * @tc.desc      Descriptor fd=10 offset=72 size=1168 leaves 1096 readable bytes.
      * @tc.size      MediumTest
@@ -198,7 +198,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0011
      * @tc.name      test8wFileDescriptor0011
      * @tc.desc      Descriptor fd=11 offset=80 size=1184 leaves 1104 readable bytes.
      * @tc.size      MediumTest
@@ -216,7 +216,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0012
      * @tc.name      test8wFileDescriptor0012
      * @tc.desc      Descriptor fd=12 offset=88 size=1200 leaves 1112 readable bytes.
      * @tc.size      MediumTest
@@ -234,7 +234,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0013
      * @tc.name      test8wFileDescriptor0013
      * @tc.desc      Descriptor fd=13 offset=96 size=1216 leaves 1120 readable bytes.
      * @tc.size      MediumTest
@@ -252,7 +252,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0014
      * @tc.name      test8wFileDescriptor0014
      * @tc.desc      Descriptor fd=14 offset=104 size=1232 leaves 1128 readable bytes.
      * @tc.size      MediumTest
@@ -270,7 +270,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0015
      * @tc.name      test8wFileDescriptor0015
      * @tc.desc      Descriptor fd=15 offset=112 size=1248 leaves 1136 readable bytes.
      * @tc.size      MediumTest
@@ -288,7 +288,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0016
      * @tc.name      test8wFileDescriptor0016
      * @tc.desc      Descriptor fd=16 offset=120 size=1264 leaves 1144 readable bytes.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0017
      * @tc.name      test8wFileDescriptor0017
      * @tc.desc      Descriptor fd=17 offset=128 size=1280 leaves 1152 readable bytes.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0018
      * @tc.name      test8wFileDescriptor0018
      * @tc.desc      Descriptor fd=18 offset=136 size=1296 leaves 1160 readable bytes.
      * @tc.size      MediumTest
@@ -342,7 +342,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0019
      * @tc.name      test8wFileDescriptor0019
      * @tc.desc      Descriptor fd=19 offset=144 size=1312 leaves 1168 readable bytes.
      * @tc.size      MediumTest
@@ -360,7 +360,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0020
      * @tc.name      test8wFileDescriptor0020
      * @tc.desc      Descriptor fd=20 offset=152 size=1328 leaves 1176 readable bytes.
      * @tc.size      MediumTest
@@ -378,7 +378,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0021
      * @tc.name      test8wFileDescriptor0021
      * @tc.desc      Descriptor fd=21 offset=160 size=1344 leaves 1184 readable bytes.
      * @tc.size      MediumTest
@@ -396,7 +396,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0022
      * @tc.name      test8wFileDescriptor0022
      * @tc.desc      Descriptor fd=22 offset=168 size=1360 leaves 1192 readable bytes.
      * @tc.size      MediumTest
@@ -414,7 +414,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0023
      * @tc.name      test8wFileDescriptor0023
      * @tc.desc      Descriptor fd=23 offset=176 size=1376 leaves 1200 readable bytes.
      * @tc.size      MediumTest
@@ -432,7 +432,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0024
      * @tc.name      test8wFileDescriptor0024
      * @tc.desc      Descriptor fd=24 offset=184 size=1392 leaves 1208 readable bytes.
      * @tc.size      MediumTest
@@ -450,7 +450,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0025
      * @tc.name      test8wFileDescriptor0025
      * @tc.desc      Descriptor fd=25 offset=192 size=1408 leaves 1216 readable bytes.
      * @tc.size      MediumTest
@@ -468,7 +468,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0026
      * @tc.name      test8wFileDescriptor0026
      * @tc.desc      Descriptor fd=26 offset=200 size=1424 leaves 1224 readable bytes.
      * @tc.size      MediumTest
@@ -486,7 +486,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0027
      * @tc.name      test8wFileDescriptor0027
      * @tc.desc      Descriptor fd=27 offset=208 size=1440 leaves 1232 readable bytes.
      * @tc.size      MediumTest
@@ -504,7 +504,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0028
      * @tc.name      test8wFileDescriptor0028
      * @tc.desc      Descriptor fd=28 offset=216 size=1456 leaves 1240 readable bytes.
      * @tc.size      MediumTest
@@ -522,7 +522,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0029
      * @tc.name      test8wFileDescriptor0029
      * @tc.desc      Descriptor fd=29 offset=224 size=1472 leaves 1248 readable bytes.
      * @tc.size      MediumTest
@@ -540,7 +540,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0030
      * @tc.name      test8wFileDescriptor0030
      * @tc.desc      Descriptor fd=30 offset=232 size=1488 leaves 1256 readable bytes.
      * @tc.size      MediumTest
@@ -558,7 +558,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0031
      * @tc.name      test8wFileDescriptor0031
      * @tc.desc      Descriptor fd=31 offset=240 size=1504 leaves 1264 readable bytes.
      * @tc.size      MediumTest
@@ -576,7 +576,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0032
      * @tc.name      test8wFileDescriptor0032
      * @tc.desc      Descriptor fd=32 offset=248 size=1520 leaves 1272 readable bytes.
      * @tc.size      MediumTest
@@ -594,7 +594,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0033
      * @tc.name      test8wFileDescriptor0033
      * @tc.desc      Descriptor fd=33 offset=256 size=1536 leaves 1280 readable bytes.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0034
      * @tc.name      test8wFileDescriptor0034
      * @tc.desc      Descriptor fd=34 offset=264 size=1552 leaves 1288 readable bytes.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0035
      * @tc.name      test8wFileDescriptor0035
      * @tc.desc      Descriptor fd=35 offset=272 size=1568 leaves 1296 readable bytes.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0036
      * @tc.name      test8wFileDescriptor0036
      * @tc.desc      Descriptor fd=36 offset=280 size=1584 leaves 1304 readable bytes.
      * @tc.size      MediumTest
@@ -666,7 +666,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0037
      * @tc.name      test8wFileDescriptor0037
      * @tc.desc      Descriptor fd=37 offset=288 size=1600 leaves 1312 readable bytes.
      * @tc.size      MediumTest
@@ -684,7 +684,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0038
      * @tc.name      test8wFileDescriptor0038
      * @tc.desc      Descriptor fd=38 offset=296 size=1616 leaves 1320 readable bytes.
      * @tc.size      MediumTest
@@ -702,7 +702,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0039
      * @tc.name      test8wFileDescriptor0039
      * @tc.desc      Descriptor fd=39 offset=304 size=1632 leaves 1328 readable bytes.
      * @tc.size      MediumTest
@@ -720,7 +720,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0040
      * @tc.name      test8wFileDescriptor0040
      * @tc.desc      Descriptor fd=40 offset=312 size=1648 leaves 1336 readable bytes.
      * @tc.size      MediumTest
@@ -738,7 +738,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0041
      * @tc.name      test8wFileDescriptor0041
      * @tc.desc      Descriptor fd=41 offset=320 size=1664 leaves 1344 readable bytes.
      * @tc.size      MediumTest
@@ -756,7 +756,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0042
      * @tc.name      test8wFileDescriptor0042
      * @tc.desc      Descriptor fd=42 offset=328 size=1680 leaves 1352 readable bytes.
      * @tc.size      MediumTest
@@ -774,7 +774,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0043
      * @tc.name      test8wFileDescriptor0043
      * @tc.desc      Descriptor fd=43 offset=336 size=1696 leaves 1360 readable bytes.
      * @tc.size      MediumTest
@@ -792,7 +792,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0044
      * @tc.name      test8wFileDescriptor0044
      * @tc.desc      Descriptor fd=44 offset=344 size=1712 leaves 1368 readable bytes.
      * @tc.size      MediumTest
@@ -810,7 +810,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0045
      * @tc.name      test8wFileDescriptor0045
      * @tc.desc      Descriptor fd=45 offset=352 size=1728 leaves 1376 readable bytes.
      * @tc.size      MediumTest
@@ -828,7 +828,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0046
      * @tc.name      test8wFileDescriptor0046
      * @tc.desc      Descriptor fd=46 offset=360 size=1744 leaves 1384 readable bytes.
      * @tc.size      MediumTest
@@ -846,7 +846,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0047
      * @tc.name      test8wFileDescriptor0047
      * @tc.desc      Descriptor fd=47 offset=368 size=1760 leaves 1392 readable bytes.
      * @tc.size      MediumTest
@@ -864,7 +864,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0048
      * @tc.name      test8wFileDescriptor0048
      * @tc.desc      Descriptor fd=48 offset=376 size=1776 leaves 1400 readable bytes.
      * @tc.size      MediumTest
@@ -882,7 +882,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0049
      * @tc.name      test8wFileDescriptor0049
      * @tc.desc      Descriptor fd=49 offset=384 size=1792 leaves 1408 readable bytes.
      * @tc.size      MediumTest
@@ -900,7 +900,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0050
      * @tc.name      test8wFileDescriptor0050
      * @tc.desc      Descriptor fd=50 offset=392 size=1808 leaves 1416 readable bytes.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0051
      * @tc.name      test8wFileDescriptor0051
      * @tc.desc      Descriptor fd=51 offset=400 size=1824 leaves 1424 readable bytes.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0052
      * @tc.name      test8wFileDescriptor0052
      * @tc.desc      Descriptor fd=52 offset=408 size=1840 leaves 1432 readable bytes.
      * @tc.size      MediumTest
@@ -954,7 +954,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0053
      * @tc.name      test8wFileDescriptor0053
      * @tc.desc      Descriptor fd=53 offset=416 size=1856 leaves 1440 readable bytes.
      * @tc.size      MediumTest
@@ -972,7 +972,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0054
      * @tc.name      test8wFileDescriptor0054
      * @tc.desc      Descriptor fd=54 offset=424 size=1872 leaves 1448 readable bytes.
      * @tc.size      MediumTest
@@ -990,7 +990,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0055
      * @tc.name      test8wFileDescriptor0055
      * @tc.desc      Descriptor fd=55 offset=432 size=1888 leaves 1456 readable bytes.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0056
      * @tc.name      test8wFileDescriptor0056
      * @tc.desc      Descriptor fd=56 offset=440 size=1904 leaves 1464 readable bytes.
      * @tc.size      MediumTest
@@ -1026,7 +1026,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0057
      * @tc.name      test8wFileDescriptor0057
      * @tc.desc      Descriptor fd=57 offset=448 size=1920 leaves 1472 readable bytes.
      * @tc.size      MediumTest
@@ -1044,7 +1044,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0058
      * @tc.name      test8wFileDescriptor0058
      * @tc.desc      Descriptor fd=58 offset=456 size=1936 leaves 1480 readable bytes.
      * @tc.size      MediumTest
@@ -1062,7 +1062,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0059
      * @tc.name      test8wFileDescriptor0059
      * @tc.desc      Descriptor fd=59 offset=464 size=1952 leaves 1488 readable bytes.
      * @tc.size      MediumTest
@@ -1080,7 +1080,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0060
      * @tc.name      test8wFileDescriptor0060
      * @tc.desc      Descriptor fd=60 offset=472 size=1968 leaves 1496 readable bytes.
      * @tc.size      MediumTest
@@ -1098,7 +1098,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0061
      * @tc.name      test8wFileDescriptor0061
      * @tc.desc      Descriptor fd=61 offset=480 size=1984 leaves 1504 readable bytes.
      * @tc.size      MediumTest
@@ -1116,7 +1116,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0062
      * @tc.name      test8wFileDescriptor0062
      * @tc.desc      Descriptor fd=62 offset=488 size=2000 leaves 1512 readable bytes.
      * @tc.size      MediumTest
@@ -1134,7 +1134,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0063
      * @tc.name      test8wFileDescriptor0063
      * @tc.desc      Descriptor fd=63 offset=496 size=2016 leaves 1520 readable bytes.
      * @tc.size      MediumTest
@@ -1152,7 +1152,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0064
      * @tc.name      test8wFileDescriptor0064
      * @tc.desc      Descriptor fd=64 offset=504 size=2032 leaves 1528 readable bytes.
      * @tc.size      MediumTest
@@ -1170,7 +1170,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0065
      * @tc.name      test8wFileDescriptor0065
      * @tc.desc      Descriptor fd=65 offset=512 size=2048 leaves 1536 readable bytes.
      * @tc.size      MediumTest
@@ -1188,7 +1188,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0066
      * @tc.name      test8wFileDescriptor0066
      * @tc.desc      Descriptor fd=66 offset=520 size=2064 leaves 1544 readable bytes.
      * @tc.size      MediumTest
@@ -1206,7 +1206,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0067
      * @tc.name      test8wFileDescriptor0067
      * @tc.desc      Descriptor fd=67 offset=528 size=2080 leaves 1552 readable bytes.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0068
      * @tc.name      test8wFileDescriptor0068
      * @tc.desc      Descriptor fd=68 offset=536 size=2096 leaves 1560 readable bytes.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0069
      * @tc.name      test8wFileDescriptor0069
      * @tc.desc      Descriptor fd=69 offset=544 size=2112 leaves 1568 readable bytes.
      * @tc.size      MediumTest
@@ -1260,7 +1260,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0070
      * @tc.name      test8wFileDescriptor0070
      * @tc.desc      Descriptor fd=70 offset=552 size=2128 leaves 1576 readable bytes.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0071
      * @tc.name      test8wFileDescriptor0071
      * @tc.desc      Descriptor fd=71 offset=560 size=2144 leaves 1584 readable bytes.
      * @tc.size      MediumTest
@@ -1296,7 +1296,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0072
      * @tc.name      test8wFileDescriptor0072
      * @tc.desc      Descriptor fd=72 offset=568 size=2160 leaves 1592 readable bytes.
      * @tc.size      MediumTest
@@ -1314,7 +1314,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0073
      * @tc.name      test8wFileDescriptor0073
      * @tc.desc      Descriptor fd=73 offset=576 size=2176 leaves 1600 readable bytes.
      * @tc.size      MediumTest
@@ -1332,7 +1332,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0074
      * @tc.name      test8wFileDescriptor0074
      * @tc.desc      Descriptor fd=74 offset=584 size=2192 leaves 1608 readable bytes.
      * @tc.size      MediumTest
@@ -1350,7 +1350,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0075
      * @tc.name      test8wFileDescriptor0075
      * @tc.desc      Descriptor fd=75 offset=592 size=2208 leaves 1616 readable bytes.
      * @tc.size      MediumTest
@@ -1368,7 +1368,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0076
      * @tc.name      test8wFileDescriptor0076
      * @tc.desc      Descriptor fd=76 offset=600 size=2224 leaves 1624 readable bytes.
      * @tc.size      MediumTest
@@ -1386,7 +1386,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0077
      * @tc.name      test8wFileDescriptor0077
      * @tc.desc      Descriptor fd=77 offset=608 size=2240 leaves 1632 readable bytes.
      * @tc.size      MediumTest
@@ -1404,7 +1404,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0078
      * @tc.name      test8wFileDescriptor0078
      * @tc.desc      Descriptor fd=78 offset=616 size=2256 leaves 1640 readable bytes.
      * @tc.size      MediumTest
@@ -1422,7 +1422,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0079
      * @tc.name      test8wFileDescriptor0079
      * @tc.desc      Descriptor fd=79 offset=624 size=2272 leaves 1648 readable bytes.
      * @tc.size      MediumTest
@@ -1440,7 +1440,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0080
      * @tc.name      test8wFileDescriptor0080
      * @tc.desc      Descriptor fd=80 offset=632 size=2288 leaves 1656 readable bytes.
      * @tc.size      MediumTest
@@ -1458,7 +1458,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0081
      * @tc.name      test8wFileDescriptor0081
      * @tc.desc      Descriptor fd=81 offset=640 size=2304 leaves 1664 readable bytes.
      * @tc.size      MediumTest
@@ -1476,7 +1476,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0082
      * @tc.name      test8wFileDescriptor0082
      * @tc.desc      Descriptor fd=82 offset=648 size=2320 leaves 1672 readable bytes.
      * @tc.size      MediumTest
@@ -1494,7 +1494,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0083
      * @tc.name      test8wFileDescriptor0083
      * @tc.desc      Descriptor fd=83 offset=656 size=2336 leaves 1680 readable bytes.
      * @tc.size      MediumTest
@@ -1512,7 +1512,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0084
      * @tc.name      test8wFileDescriptor0084
      * @tc.desc      Descriptor fd=84 offset=664 size=2352 leaves 1688 readable bytes.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0085
      * @tc.name      test8wFileDescriptor0085
      * @tc.desc      Descriptor fd=85 offset=672 size=2368 leaves 1696 readable bytes.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0086
      * @tc.name      test8wFileDescriptor0086
      * @tc.desc      Descriptor fd=86 offset=680 size=2384 leaves 1704 readable bytes.
      * @tc.size      MediumTest
@@ -1566,7 +1566,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0087
      * @tc.name      test8wFileDescriptor0087
      * @tc.desc      Descriptor fd=87 offset=688 size=2400 leaves 1712 readable bytes.
      * @tc.size      MediumTest
@@ -1584,7 +1584,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0088
      * @tc.name      test8wFileDescriptor0088
      * @tc.desc      Descriptor fd=88 offset=696 size=2416 leaves 1720 readable bytes.
      * @tc.size      MediumTest
@@ -1602,7 +1602,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0089
      * @tc.name      test8wFileDescriptor0089
      * @tc.desc      Descriptor fd=89 offset=704 size=2432 leaves 1728 readable bytes.
      * @tc.size      MediumTest
@@ -1620,7 +1620,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0090
      * @tc.name      test8wFileDescriptor0090
      * @tc.desc      Descriptor fd=90 offset=712 size=2448 leaves 1736 readable bytes.
      * @tc.size      MediumTest
@@ -1638,7 +1638,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0091
      * @tc.name      test8wFileDescriptor0091
      * @tc.desc      Descriptor fd=91 offset=720 size=2464 leaves 1744 readable bytes.
      * @tc.size      MediumTest
@@ -1656,7 +1656,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0092
      * @tc.name      test8wFileDescriptor0092
      * @tc.desc      Descriptor fd=92 offset=728 size=2480 leaves 1752 readable bytes.
      * @tc.size      MediumTest
@@ -1674,7 +1674,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0093
      * @tc.name      test8wFileDescriptor0093
      * @tc.desc      Descriptor fd=93 offset=736 size=2496 leaves 1760 readable bytes.
      * @tc.size      MediumTest
@@ -1692,7 +1692,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0094
      * @tc.name      test8wFileDescriptor0094
      * @tc.desc      Descriptor fd=94 offset=744 size=2512 leaves 1768 readable bytes.
      * @tc.size      MediumTest
@@ -1710,7 +1710,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0095
      * @tc.name      test8wFileDescriptor0095
      * @tc.desc      Descriptor fd=95 offset=752 size=2528 leaves 1776 readable bytes.
      * @tc.size      MediumTest
@@ -1728,7 +1728,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0096
      * @tc.name      test8wFileDescriptor0096
      * @tc.desc      Descriptor fd=96 offset=760 size=2544 leaves 1784 readable bytes.
      * @tc.size      MediumTest
@@ -1746,7 +1746,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0097
      * @tc.name      test8wFileDescriptor0097
      * @tc.desc      Descriptor fd=97 offset=768 size=2560 leaves 1792 readable bytes.
      * @tc.size      MediumTest
@@ -1764,7 +1764,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0098
      * @tc.name      test8wFileDescriptor0098
      * @tc.desc      Descriptor fd=98 offset=776 size=2576 leaves 1800 readable bytes.
      * @tc.size      MediumTest
@@ -1782,7 +1782,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0099
      * @tc.name      test8wFileDescriptor0099
      * @tc.desc      Descriptor fd=99 offset=784 size=2592 leaves 1808 readable bytes.
      * @tc.size      MediumTest
@@ -1800,7 +1800,7 @@ export default function fileDescriptor8wTest() {
       expect(readable).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_FD_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_FD_0100
      * @tc.name      test8wFileDescriptor0100
      * @tc.desc      Descriptor fd=100 offset=792 size=2608 leaves 1816 readable bytes.
      * @tc.size      MediumTest

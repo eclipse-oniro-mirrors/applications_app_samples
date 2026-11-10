@@ -17,7 +17,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitleSafeParseTailTest() {
   describe('subtitleSafeParseTailTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0001
      * @tc.name      testSafeParseCue0001
      * @tc.desc      Cue 1 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -37,7 +37,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0002
      * @tc.name      testSafeParseCue0002
      * @tc.desc      Cue 2 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -57,7 +57,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0003
      * @tc.name      testSafeParseCue0003
      * @tc.desc      Cue 3 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -77,7 +77,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0004
      * @tc.name      testSafeParseCue0004
      * @tc.desc      Cue 4 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -97,7 +97,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0005
      * @tc.name      testSafeParseCue0005
      * @tc.desc      Cue 5 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -117,7 +117,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0006
      * @tc.name      testSafeParseCue0006
      * @tc.desc      Cue 6 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -137,7 +137,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0007
      * @tc.name      testSafeParseCue0007
      * @tc.desc      Cue 7 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -157,7 +157,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0008
      * @tc.name      testSafeParseCue0008
      * @tc.desc      Cue 8 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -177,7 +177,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0009
      * @tc.name      testSafeParseCue0009
      * @tc.desc      Cue 9 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -197,7 +197,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0010
      * @tc.name      testSafeParseCue0010
      * @tc.desc      Cue 10 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -217,7 +217,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0011
      * @tc.name      testSafeParseCue0011
      * @tc.desc      Cue 11 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -237,7 +237,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0012
      * @tc.name      testSafeParseCue0012
      * @tc.desc      Cue 12 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -257,7 +257,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0013
      * @tc.name      testSafeParseCue0013
      * @tc.desc      Cue 13 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -277,7 +277,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0014
      * @tc.name      testSafeParseCue0014
      * @tc.desc      Cue 14 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -297,7 +297,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0015
      * @tc.name      testSafeParseCue0015
      * @tc.desc      Cue 15 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -317,7 +317,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0016
      * @tc.name      testSafeParseCue0016
      * @tc.desc      Cue 16 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -337,7 +337,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0017
      * @tc.name      testSafeParseCue0017
      * @tc.desc      Cue 17 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -357,7 +357,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0018
      * @tc.name      testSafeParseCue0018
      * @tc.desc      Cue 18 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -377,7 +377,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0019
      * @tc.name      testSafeParseCue0019
      * @tc.desc      Cue 19 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -397,7 +397,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0020
      * @tc.name      testSafeParseCue0020
      * @tc.desc      Cue 20 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -417,7 +417,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0021
      * @tc.name      testSafeParseCue0021
      * @tc.desc      Cue 21 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -437,7 +437,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0022
      * @tc.name      testSafeParseCue0022
      * @tc.desc      Cue 22 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -457,7 +457,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0023
      * @tc.name      testSafeParseCue0023
      * @tc.desc      Cue 23 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -477,7 +477,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0024
      * @tc.name      testSafeParseCue0024
      * @tc.desc      Cue 24 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -497,7 +497,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0025
      * @tc.name      testSafeParseCue0025
      * @tc.desc      Cue 25 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -517,7 +517,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0026
      * @tc.name      testSafeParseCue0026
      * @tc.desc      Cue 26 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -537,7 +537,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0027
      * @tc.name      testSafeParseCue0027
      * @tc.desc      Cue 27 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -557,7 +557,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0028
      * @tc.name      testSafeParseCue0028
      * @tc.desc      Cue 28 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -577,7 +577,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0029
      * @tc.name      testSafeParseCue0029
      * @tc.desc      Cue 29 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -597,7 +597,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0030
      * @tc.name      testSafeParseCue0030
      * @tc.desc      Cue 30 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -617,7 +617,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0031
      * @tc.name      testSafeParseCue0031
      * @tc.desc      Cue 31 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -637,7 +637,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0032
      * @tc.name      testSafeParseCue0032
      * @tc.desc      Cue 32 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -657,7 +657,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0033
      * @tc.name      testSafeParseCue0033
      * @tc.desc      Cue 33 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -677,7 +677,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0034
      * @tc.name      testSafeParseCue0034
      * @tc.desc      Cue 34 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -697,7 +697,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0035
      * @tc.name      testSafeParseCue0035
      * @tc.desc      Cue 35 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -717,7 +717,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0036
      * @tc.name      testSafeParseCue0036
      * @tc.desc      Cue 36 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -737,7 +737,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0037
      * @tc.name      testSafeParseCue0037
      * @tc.desc      Cue 37 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -757,7 +757,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0038
      * @tc.name      testSafeParseCue0038
      * @tc.desc      Cue 38 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -777,7 +777,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0039
      * @tc.name      testSafeParseCue0039
      * @tc.desc      Cue 39 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -797,7 +797,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0040
      * @tc.name      testSafeParseCue0040
      * @tc.desc      Cue 40 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -817,7 +817,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0041
      * @tc.name      testSafeParseCue0041
      * @tc.desc      Cue 41 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -837,7 +837,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0042
      * @tc.name      testSafeParseCue0042
      * @tc.desc      Cue 42 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -857,7 +857,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0043
      * @tc.name      testSafeParseCue0043
      * @tc.desc      Cue 43 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -877,7 +877,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0044
      * @tc.name      testSafeParseCue0044
      * @tc.desc      Cue 44 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -897,7 +897,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0045
      * @tc.name      testSafeParseCue0045
      * @tc.desc      Cue 45 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -917,7 +917,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0046
      * @tc.name      testSafeParseCue0046
      * @tc.desc      Cue 46 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -937,7 +937,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0047
      * @tc.name      testSafeParseCue0047
      * @tc.desc      Cue 47 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -957,7 +957,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0048
      * @tc.name      testSafeParseCue0048
      * @tc.desc      Cue 48 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -977,7 +977,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0049
      * @tc.name      testSafeParseCue0049
      * @tc.desc      Cue 49 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -997,7 +997,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0050
      * @tc.name      testSafeParseCue0050
      * @tc.desc      Cue 50 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1017,7 +1017,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0051
      * @tc.name      testSafeParseCue0051
      * @tc.desc      Cue 51 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1037,7 +1037,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0052
      * @tc.name      testSafeParseCue0052
      * @tc.desc      Cue 52 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1057,7 +1057,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0053
      * @tc.name      testSafeParseCue0053
      * @tc.desc      Cue 53 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1077,7 +1077,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0054
      * @tc.name      testSafeParseCue0054
      * @tc.desc      Cue 54 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1097,7 +1097,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0055
      * @tc.name      testSafeParseCue0055
      * @tc.desc      Cue 55 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1117,7 +1117,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0056
      * @tc.name      testSafeParseCue0056
      * @tc.desc      Cue 56 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1137,7 +1137,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0057
      * @tc.name      testSafeParseCue0057
      * @tc.desc      Cue 57 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1157,7 +1157,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0058
      * @tc.name      testSafeParseCue0058
      * @tc.desc      Cue 58 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1177,7 +1177,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0059
      * @tc.name      testSafeParseCue0059
      * @tc.desc      Cue 59 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1197,7 +1197,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0060
      * @tc.name      testSafeParseCue0060
      * @tc.desc      Cue 60 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1217,7 +1217,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0061
      * @tc.name      testSafeParseCue0061
      * @tc.desc      Cue 61 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1237,7 +1237,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0062
      * @tc.name      testSafeParseCue0062
      * @tc.desc      Cue 62 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1257,7 +1257,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0063
      * @tc.name      testSafeParseCue0063
      * @tc.desc      Cue 63 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1277,7 +1277,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0064
      * @tc.name      testSafeParseCue0064
      * @tc.desc      Cue 64 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1297,7 +1297,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0065
      * @tc.name      testSafeParseCue0065
      * @tc.desc      Cue 65 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1317,7 +1317,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0066
      * @tc.name      testSafeParseCue0066
      * @tc.desc      Cue 66 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1337,7 +1337,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0067
      * @tc.name      testSafeParseCue0067
      * @tc.desc      Cue 67 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1357,7 +1357,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0068
      * @tc.name      testSafeParseCue0068
      * @tc.desc      Cue 68 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1377,7 +1377,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0069
      * @tc.name      testSafeParseCue0069
      * @tc.desc      Cue 69 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1397,7 +1397,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0070
      * @tc.name      testSafeParseCue0070
      * @tc.desc      Cue 70 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1417,7 +1417,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0071
      * @tc.name      testSafeParseCue0071
      * @tc.desc      Cue 71 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1437,7 +1437,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0072
      * @tc.name      testSafeParseCue0072
      * @tc.desc      Cue 72 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1457,7 +1457,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0073
      * @tc.name      testSafeParseCue0073
      * @tc.desc      Cue 73 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1477,7 +1477,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0074
      * @tc.name      testSafeParseCue0074
      * @tc.desc      Cue 74 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1497,7 +1497,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0075
      * @tc.name      testSafeParseCue0075
      * @tc.desc      Cue 75 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1517,7 +1517,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0076
      * @tc.name      testSafeParseCue0076
      * @tc.desc      Cue 76 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1537,7 +1537,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0077
      * @tc.name      testSafeParseCue0077
      * @tc.desc      Cue 77 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1557,7 +1557,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0078
      * @tc.name      testSafeParseCue0078
      * @tc.desc      Cue 78 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1577,7 +1577,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0079
      * @tc.name      testSafeParseCue0079
      * @tc.desc      Cue 79 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1597,7 +1597,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0080
      * @tc.name      testSafeParseCue0080
      * @tc.desc      Cue 80 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1617,7 +1617,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0081
      * @tc.name      testSafeParseCue0081
      * @tc.desc      Cue 81 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1637,7 +1637,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0082
      * @tc.name      testSafeParseCue0082
      * @tc.desc      Cue 82 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1657,7 +1657,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0083
      * @tc.name      testSafeParseCue0083
      * @tc.desc      Cue 83 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1677,7 +1677,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0084
      * @tc.name      testSafeParseCue0084
      * @tc.desc      Cue 84 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1697,7 +1697,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0085
      * @tc.name      testSafeParseCue0085
      * @tc.desc      Cue 85 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1717,7 +1717,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0086
      * @tc.name      testSafeParseCue0086
      * @tc.desc      Cue 86 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1737,7 +1737,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0087
      * @tc.name      testSafeParseCue0087
      * @tc.desc      Cue 87 start/end/duration and text are consistent.
      * @tc.size      MediumTest
@@ -1757,7 +1757,7 @@ export default function subtitleSafeParseTailTest() {
       expect(text.length).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PB_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PB_0088
      * @tc.name      testSafeParseCue0088
      * @tc.desc      Cue 88 start/end/duration and text are consistent.
      * @tc.size      MediumTest

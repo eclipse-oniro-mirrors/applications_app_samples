@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitlePipeline8wTest() {
   describe('subtitlePipeline8wTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0001
      * @tc.name      test8wSubtitlePipeline0001
      * @tc.desc      Subtitle pipeline 0-1000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -36,7 +36,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0002
      * @tc.name      test8wSubtitlePipeline0002
      * @tc.desc      Subtitle pipeline 200-1200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -54,7 +54,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0003
      * @tc.name      test8wSubtitlePipeline0003
      * @tc.desc      Subtitle pipeline 400-1400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -72,7 +72,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0004
      * @tc.name      test8wSubtitlePipeline0004
      * @tc.desc      Subtitle pipeline 600-1600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -90,7 +90,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0005
      * @tc.name      test8wSubtitlePipeline0005
      * @tc.desc      Subtitle pipeline 800-1800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -108,7 +108,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0006
      * @tc.name      test8wSubtitlePipeline0006
      * @tc.desc      Subtitle pipeline 1000-2000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -126,7 +126,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0007
      * @tc.name      test8wSubtitlePipeline0007
      * @tc.desc      Subtitle pipeline 1200-2200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0008
      * @tc.name      test8wSubtitlePipeline0008
      * @tc.desc      Subtitle pipeline 1400-2400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -162,7 +162,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0009
      * @tc.name      test8wSubtitlePipeline0009
      * @tc.desc      Subtitle pipeline 1600-2600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -180,7 +180,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0010
      * @tc.name      test8wSubtitlePipeline0010
      * @tc.desc      Subtitle pipeline 1800-2800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -198,7 +198,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0011
      * @tc.name      test8wSubtitlePipeline0011
      * @tc.desc      Subtitle pipeline 2000-3000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -216,7 +216,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0012
      * @tc.name      test8wSubtitlePipeline0012
      * @tc.desc      Subtitle pipeline 2200-3200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -234,7 +234,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0013
      * @tc.name      test8wSubtitlePipeline0013
      * @tc.desc      Subtitle pipeline 2400-3400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -252,7 +252,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0014
      * @tc.name      test8wSubtitlePipeline0014
      * @tc.desc      Subtitle pipeline 2600-3600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -270,7 +270,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0015
      * @tc.name      test8wSubtitlePipeline0015
      * @tc.desc      Subtitle pipeline 2800-3800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -288,7 +288,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0016
      * @tc.name      test8wSubtitlePipeline0016
      * @tc.desc      Subtitle pipeline 3000-4000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0017
      * @tc.name      test8wSubtitlePipeline0017
      * @tc.desc      Subtitle pipeline 3200-4200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0018
      * @tc.name      test8wSubtitlePipeline0018
      * @tc.desc      Subtitle pipeline 3400-4400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -342,7 +342,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0019
      * @tc.name      test8wSubtitlePipeline0019
      * @tc.desc      Subtitle pipeline 3600-4600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -360,7 +360,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0020
      * @tc.name      test8wSubtitlePipeline0020
      * @tc.desc      Subtitle pipeline 3800-4800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -378,7 +378,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0021
      * @tc.name      test8wSubtitlePipeline0021
      * @tc.desc      Subtitle pipeline 4000-5000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -396,7 +396,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0022
      * @tc.name      test8wSubtitlePipeline0022
      * @tc.desc      Subtitle pipeline 4200-5200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -414,7 +414,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0023
      * @tc.name      test8wSubtitlePipeline0023
      * @tc.desc      Subtitle pipeline 4400-5400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -432,7 +432,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0024
      * @tc.name      test8wSubtitlePipeline0024
      * @tc.desc      Subtitle pipeline 4600-5600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -450,7 +450,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0025
      * @tc.name      test8wSubtitlePipeline0025
      * @tc.desc      Subtitle pipeline 4800-5800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -468,7 +468,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0026
      * @tc.name      test8wSubtitlePipeline0026
      * @tc.desc      Subtitle pipeline 5000-6000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -486,7 +486,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0027
      * @tc.name      test8wSubtitlePipeline0027
      * @tc.desc      Subtitle pipeline 5200-6200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -504,7 +504,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0028
      * @tc.name      test8wSubtitlePipeline0028
      * @tc.desc      Subtitle pipeline 5400-6400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -522,7 +522,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0029
      * @tc.name      test8wSubtitlePipeline0029
      * @tc.desc      Subtitle pipeline 5600-6600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -540,7 +540,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0030
      * @tc.name      test8wSubtitlePipeline0030
      * @tc.desc      Subtitle pipeline 5800-6800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -558,7 +558,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0031
      * @tc.name      test8wSubtitlePipeline0031
      * @tc.desc      Subtitle pipeline 6000-7000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -576,7 +576,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0032
      * @tc.name      test8wSubtitlePipeline0032
      * @tc.desc      Subtitle pipeline 6200-7200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -594,7 +594,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0033
      * @tc.name      test8wSubtitlePipeline0033
      * @tc.desc      Subtitle pipeline 6400-7400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0034
      * @tc.name      test8wSubtitlePipeline0034
      * @tc.desc      Subtitle pipeline 6600-7600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0035
      * @tc.name      test8wSubtitlePipeline0035
      * @tc.desc      Subtitle pipeline 6800-7800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0036
      * @tc.name      test8wSubtitlePipeline0036
      * @tc.desc      Subtitle pipeline 7000-8000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -666,7 +666,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0037
      * @tc.name      test8wSubtitlePipeline0037
      * @tc.desc      Subtitle pipeline 7200-8200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -684,7 +684,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0038
      * @tc.name      test8wSubtitlePipeline0038
      * @tc.desc      Subtitle pipeline 7400-8400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -702,7 +702,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0039
      * @tc.name      test8wSubtitlePipeline0039
      * @tc.desc      Subtitle pipeline 7600-8600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -720,7 +720,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0040
      * @tc.name      test8wSubtitlePipeline0040
      * @tc.desc      Subtitle pipeline 7800-8800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -738,7 +738,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0041
      * @tc.name      test8wSubtitlePipeline0041
      * @tc.desc      Subtitle pipeline 8000-9000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -756,7 +756,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0042
      * @tc.name      test8wSubtitlePipeline0042
      * @tc.desc      Subtitle pipeline 8200-9200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -774,7 +774,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0043
      * @tc.name      test8wSubtitlePipeline0043
      * @tc.desc      Subtitle pipeline 8400-9400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -792,7 +792,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0044
      * @tc.name      test8wSubtitlePipeline0044
      * @tc.desc      Subtitle pipeline 8600-9600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -810,7 +810,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0045
      * @tc.name      test8wSubtitlePipeline0045
      * @tc.desc      Subtitle pipeline 8800-9800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -828,7 +828,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0046
      * @tc.name      test8wSubtitlePipeline0046
      * @tc.desc      Subtitle pipeline 9000-10000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -846,7 +846,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0047
      * @tc.name      test8wSubtitlePipeline0047
      * @tc.desc      Subtitle pipeline 9200-10200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -864,7 +864,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0048
      * @tc.name      test8wSubtitlePipeline0048
      * @tc.desc      Subtitle pipeline 9400-10400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -882,7 +882,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0049
      * @tc.name      test8wSubtitlePipeline0049
      * @tc.desc      Subtitle pipeline 9600-10600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -900,7 +900,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0050
      * @tc.name      test8wSubtitlePipeline0050
      * @tc.desc      Subtitle pipeline 9800-10800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0051
      * @tc.name      test8wSubtitlePipeline0051
      * @tc.desc      Subtitle pipeline 10000-11000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0052
      * @tc.name      test8wSubtitlePipeline0052
      * @tc.desc      Subtitle pipeline 10200-11200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -954,7 +954,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0053
      * @tc.name      test8wSubtitlePipeline0053
      * @tc.desc      Subtitle pipeline 10400-11400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -972,7 +972,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0054
      * @tc.name      test8wSubtitlePipeline0054
      * @tc.desc      Subtitle pipeline 10600-11600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -990,7 +990,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0055
      * @tc.name      test8wSubtitlePipeline0055
      * @tc.desc      Subtitle pipeline 10800-11800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0056
      * @tc.name      test8wSubtitlePipeline0056
      * @tc.desc      Subtitle pipeline 11000-12000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1026,7 +1026,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0057
      * @tc.name      test8wSubtitlePipeline0057
      * @tc.desc      Subtitle pipeline 11200-12200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1044,7 +1044,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0058
      * @tc.name      test8wSubtitlePipeline0058
      * @tc.desc      Subtitle pipeline 11400-12400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1062,7 +1062,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0059
      * @tc.name      test8wSubtitlePipeline0059
      * @tc.desc      Subtitle pipeline 11600-12600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1080,7 +1080,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0060
      * @tc.name      test8wSubtitlePipeline0060
      * @tc.desc      Subtitle pipeline 11800-12800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1098,7 +1098,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0061
      * @tc.name      test8wSubtitlePipeline0061
      * @tc.desc      Subtitle pipeline 12000-13000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1116,7 +1116,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0062
      * @tc.name      test8wSubtitlePipeline0062
      * @tc.desc      Subtitle pipeline 12200-13200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1134,7 +1134,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0063
      * @tc.name      test8wSubtitlePipeline0063
      * @tc.desc      Subtitle pipeline 12400-13400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1152,7 +1152,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0064
      * @tc.name      test8wSubtitlePipeline0064
      * @tc.desc      Subtitle pipeline 12600-13600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1170,7 +1170,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0065
      * @tc.name      test8wSubtitlePipeline0065
      * @tc.desc      Subtitle pipeline 12800-13800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1188,7 +1188,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0066
      * @tc.name      test8wSubtitlePipeline0066
      * @tc.desc      Subtitle pipeline 13000-14000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1206,7 +1206,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0067
      * @tc.name      test8wSubtitlePipeline0067
      * @tc.desc      Subtitle pipeline 13200-14200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0068
      * @tc.name      test8wSubtitlePipeline0068
      * @tc.desc      Subtitle pipeline 13400-14400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0069
      * @tc.name      test8wSubtitlePipeline0069
      * @tc.desc      Subtitle pipeline 13600-14600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1260,7 +1260,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0070
      * @tc.name      test8wSubtitlePipeline0070
      * @tc.desc      Subtitle pipeline 13800-14800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0071
      * @tc.name      test8wSubtitlePipeline0071
      * @tc.desc      Subtitle pipeline 14000-15000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1296,7 +1296,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0072
      * @tc.name      test8wSubtitlePipeline0072
      * @tc.desc      Subtitle pipeline 14200-15200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1314,7 +1314,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0073
      * @tc.name      test8wSubtitlePipeline0073
      * @tc.desc      Subtitle pipeline 14400-15400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1332,7 +1332,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0074
      * @tc.name      test8wSubtitlePipeline0074
      * @tc.desc      Subtitle pipeline 14600-15600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1350,7 +1350,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0075
      * @tc.name      test8wSubtitlePipeline0075
      * @tc.desc      Subtitle pipeline 14800-15800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1368,7 +1368,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0076
      * @tc.name      test8wSubtitlePipeline0076
      * @tc.desc      Subtitle pipeline 15000-16000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1386,7 +1386,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0077
      * @tc.name      test8wSubtitlePipeline0077
      * @tc.desc      Subtitle pipeline 15200-16200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1404,7 +1404,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0078
      * @tc.name      test8wSubtitlePipeline0078
      * @tc.desc      Subtitle pipeline 15400-16400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1422,7 +1422,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0079
      * @tc.name      test8wSubtitlePipeline0079
      * @tc.desc      Subtitle pipeline 15600-16600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1440,7 +1440,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0080
      * @tc.name      test8wSubtitlePipeline0080
      * @tc.desc      Subtitle pipeline 15800-16800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1458,7 +1458,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0081
      * @tc.name      test8wSubtitlePipeline0081
      * @tc.desc      Subtitle pipeline 16000-17000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1476,7 +1476,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0082
      * @tc.name      test8wSubtitlePipeline0082
      * @tc.desc      Subtitle pipeline 16200-17200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1494,7 +1494,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0083
      * @tc.name      test8wSubtitlePipeline0083
      * @tc.desc      Subtitle pipeline 16400-17400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1512,7 +1512,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0084
      * @tc.name      test8wSubtitlePipeline0084
      * @tc.desc      Subtitle pipeline 16600-17600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0085
      * @tc.name      test8wSubtitlePipeline0085
      * @tc.desc      Subtitle pipeline 16800-17800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0086
      * @tc.name      test8wSubtitlePipeline0086
      * @tc.desc      Subtitle pipeline 17000-18000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1566,7 +1566,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0087
      * @tc.name      test8wSubtitlePipeline0087
      * @tc.desc      Subtitle pipeline 17200-18200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1584,7 +1584,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0088
      * @tc.name      test8wSubtitlePipeline0088
      * @tc.desc      Subtitle pipeline 17400-18400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1602,7 +1602,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0089
      * @tc.name      test8wSubtitlePipeline0089
      * @tc.desc      Subtitle pipeline 17600-18600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1620,7 +1620,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0090
      * @tc.name      test8wSubtitlePipeline0090
      * @tc.desc      Subtitle pipeline 17800-18800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1638,7 +1638,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0091
      * @tc.name      test8wSubtitlePipeline0091
      * @tc.desc      Subtitle pipeline 18000-19000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1656,7 +1656,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0092
      * @tc.name      test8wSubtitlePipeline0092
      * @tc.desc      Subtitle pipeline 18200-19200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1674,7 +1674,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0093
      * @tc.name      test8wSubtitlePipeline0093
      * @tc.desc      Subtitle pipeline 18400-19400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1692,7 +1692,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0094
      * @tc.name      test8wSubtitlePipeline0094
      * @tc.desc      Subtitle pipeline 18600-19600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1710,7 +1710,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0095
      * @tc.name      test8wSubtitlePipeline0095
      * @tc.desc      Subtitle pipeline 18800-19800 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1728,7 +1728,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0096
      * @tc.name      test8wSubtitlePipeline0096
      * @tc.desc      Subtitle pipeline 19000-20000 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1746,7 +1746,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0097
      * @tc.name      test8wSubtitlePipeline0097
      * @tc.desc      Subtitle pipeline 19200-20200 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1764,7 +1764,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0098
      * @tc.name      test8wSubtitlePipeline0098
      * @tc.desc      Subtitle pipeline 19400-20400 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1782,7 +1782,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0099
      * @tc.name      test8wSubtitlePipeline0099
      * @tc.desc      Subtitle pipeline 19600-20600 contains 2 500ms slices.
      * @tc.size      MediumTest
@@ -1800,7 +1800,7 @@ export default function subtitlePipeline8wTest() {
       expect(slices).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_PIPE_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_PIPE_0100
      * @tc.name      test8wSubtitlePipeline0100
      * @tc.desc      Subtitle pipeline 19800-20800 contains 2 500ms slices.
      * @tc.size      MediumTest

@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function sliderProgressExpandedTest() {
   describe('sliderProgressExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0001
      * @tc.name      testExpSlider0001
      * @tc.desc      Slider value 0 of 10000 yields 0.0 percent.
      * @tc.size      MediumTest
@@ -36,7 +36,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0002
      * @tc.name      testExpSlider0002
      * @tc.desc      Slider value 100 of 10000 yields 1.0 percent.
      * @tc.size      MediumTest
@@ -54,7 +54,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0003
      * @tc.name      testExpSlider0003
      * @tc.desc      Slider value 200 of 10000 yields 2.0 percent.
      * @tc.size      MediumTest
@@ -72,7 +72,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0004
      * @tc.name      testExpSlider0004
      * @tc.desc      Slider value 300 of 10000 yields 3.0 percent.
      * @tc.size      MediumTest
@@ -90,7 +90,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0005
      * @tc.name      testExpSlider0005
      * @tc.desc      Slider value 400 of 10000 yields 4.0 percent.
      * @tc.size      MediumTest
@@ -108,7 +108,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0006
      * @tc.name      testExpSlider0006
      * @tc.desc      Slider value 500 of 10000 yields 5.0 percent.
      * @tc.size      MediumTest
@@ -126,7 +126,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0007
      * @tc.name      testExpSlider0007
      * @tc.desc      Slider value 600 of 10000 yields 6.0 percent.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0008
      * @tc.name      testExpSlider0008
      * @tc.desc      Slider value 700 of 10000 yields 7.0 percent.
      * @tc.size      MediumTest
@@ -162,7 +162,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0009
      * @tc.name      testExpSlider0009
      * @tc.desc      Slider value 800 of 10000 yields 8.0 percent.
      * @tc.size      MediumTest
@@ -180,7 +180,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0010
      * @tc.name      testExpSlider0010
      * @tc.desc      Slider value 900 of 10000 yields 9.0 percent.
      * @tc.size      MediumTest
@@ -198,7 +198,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0011
      * @tc.name      testExpSlider0011
      * @tc.desc      Slider value 1000 of 10000 yields 10.0 percent.
      * @tc.size      MediumTest
@@ -216,7 +216,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0012
      * @tc.name      testExpSlider0012
      * @tc.desc      Slider value 1100 of 10000 yields 11.0 percent.
      * @tc.size      MediumTest
@@ -234,7 +234,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0013
      * @tc.name      testExpSlider0013
      * @tc.desc      Slider value 1200 of 10000 yields 12.0 percent.
      * @tc.size      MediumTest
@@ -252,7 +252,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0014
      * @tc.name      testExpSlider0014
      * @tc.desc      Slider value 1300 of 10000 yields 13.0 percent.
      * @tc.size      MediumTest
@@ -270,7 +270,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0015
      * @tc.name      testExpSlider0015
      * @tc.desc      Slider value 1400 of 10000 yields 14.0 percent.
      * @tc.size      MediumTest
@@ -288,7 +288,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0016
      * @tc.name      testExpSlider0016
      * @tc.desc      Slider value 1500 of 10000 yields 15.0 percent.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0017
      * @tc.name      testExpSlider0017
      * @tc.desc      Slider value 1600 of 10000 yields 16.0 percent.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0018
      * @tc.name      testExpSlider0018
      * @tc.desc      Slider value 1700 of 10000 yields 17.0 percent.
      * @tc.size      MediumTest
@@ -342,7 +342,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0019
      * @tc.name      testExpSlider0019
      * @tc.desc      Slider value 1800 of 10000 yields 18.0 percent.
      * @tc.size      MediumTest
@@ -360,7 +360,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0020
      * @tc.name      testExpSlider0020
      * @tc.desc      Slider value 1900 of 10000 yields 19.0 percent.
      * @tc.size      MediumTest
@@ -378,7 +378,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0021
      * @tc.name      testExpSlider0021
      * @tc.desc      Slider value 2000 of 10000 yields 20.0 percent.
      * @tc.size      MediumTest
@@ -396,7 +396,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0022
      * @tc.name      testExpSlider0022
      * @tc.desc      Slider value 2100 of 10000 yields 21.0 percent.
      * @tc.size      MediumTest
@@ -414,7 +414,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0023
      * @tc.name      testExpSlider0023
      * @tc.desc      Slider value 2200 of 10000 yields 22.0 percent.
      * @tc.size      MediumTest
@@ -432,7 +432,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0024
      * @tc.name      testExpSlider0024
      * @tc.desc      Slider value 2300 of 10000 yields 23.0 percent.
      * @tc.size      MediumTest
@@ -450,7 +450,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0025
      * @tc.name      testExpSlider0025
      * @tc.desc      Slider value 2400 of 10000 yields 24.0 percent.
      * @tc.size      MediumTest
@@ -468,7 +468,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0026
      * @tc.name      testExpSlider0026
      * @tc.desc      Slider value 2500 of 10000 yields 25.0 percent.
      * @tc.size      MediumTest
@@ -486,7 +486,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0027
      * @tc.name      testExpSlider0027
      * @tc.desc      Slider value 2600 of 10000 yields 26.0 percent.
      * @tc.size      MediumTest
@@ -504,7 +504,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0028
      * @tc.name      testExpSlider0028
      * @tc.desc      Slider value 2700 of 10000 yields 27.0 percent.
      * @tc.size      MediumTest
@@ -522,7 +522,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0029
      * @tc.name      testExpSlider0029
      * @tc.desc      Slider value 2800 of 10000 yields 28.0 percent.
      * @tc.size      MediumTest
@@ -540,7 +540,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0030
      * @tc.name      testExpSlider0030
      * @tc.desc      Slider value 2900 of 10000 yields 29.0 percent.
      * @tc.size      MediumTest
@@ -558,7 +558,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0031
      * @tc.name      testExpSlider0031
      * @tc.desc      Slider value 3000 of 10000 yields 30.0 percent.
      * @tc.size      MediumTest
@@ -576,7 +576,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0032
      * @tc.name      testExpSlider0032
      * @tc.desc      Slider value 3100 of 10000 yields 31.0 percent.
      * @tc.size      MediumTest
@@ -594,7 +594,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0033
      * @tc.name      testExpSlider0033
      * @tc.desc      Slider value 3200 of 10000 yields 32.0 percent.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0034
      * @tc.name      testExpSlider0034
      * @tc.desc      Slider value 3300 of 10000 yields 33.0 percent.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0035
      * @tc.name      testExpSlider0035
      * @tc.desc      Slider value 3400 of 10000 yields 34.0 percent.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0036
      * @tc.name      testExpSlider0036
      * @tc.desc      Slider value 3500 of 10000 yields 35.0 percent.
      * @tc.size      MediumTest
@@ -666,7 +666,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0037
      * @tc.name      testExpSlider0037
      * @tc.desc      Slider value 3600 of 10000 yields 36.0 percent.
      * @tc.size      MediumTest
@@ -684,7 +684,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0038
      * @tc.name      testExpSlider0038
      * @tc.desc      Slider value 3700 of 10000 yields 37.0 percent.
      * @tc.size      MediumTest
@@ -702,7 +702,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0039
      * @tc.name      testExpSlider0039
      * @tc.desc      Slider value 3800 of 10000 yields 38.0 percent.
      * @tc.size      MediumTest
@@ -720,7 +720,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0040
      * @tc.name      testExpSlider0040
      * @tc.desc      Slider value 3900 of 10000 yields 39.0 percent.
      * @tc.size      MediumTest
@@ -738,7 +738,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0041
      * @tc.name      testExpSlider0041
      * @tc.desc      Slider value 4000 of 10000 yields 40.0 percent.
      * @tc.size      MediumTest
@@ -756,7 +756,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0042
      * @tc.name      testExpSlider0042
      * @tc.desc      Slider value 4100 of 10000 yields 41.0 percent.
      * @tc.size      MediumTest
@@ -774,7 +774,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0043
      * @tc.name      testExpSlider0043
      * @tc.desc      Slider value 4200 of 10000 yields 42.0 percent.
      * @tc.size      MediumTest
@@ -792,7 +792,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0044
      * @tc.name      testExpSlider0044
      * @tc.desc      Slider value 4300 of 10000 yields 43.0 percent.
      * @tc.size      MediumTest
@@ -810,7 +810,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0045
      * @tc.name      testExpSlider0045
      * @tc.desc      Slider value 4400 of 10000 yields 44.0 percent.
      * @tc.size      MediumTest
@@ -828,7 +828,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0046
      * @tc.name      testExpSlider0046
      * @tc.desc      Slider value 4500 of 10000 yields 45.0 percent.
      * @tc.size      MediumTest
@@ -846,7 +846,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0047
      * @tc.name      testExpSlider0047
      * @tc.desc      Slider value 4600 of 10000 yields 46.0 percent.
      * @tc.size      MediumTest
@@ -864,7 +864,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0048
      * @tc.name      testExpSlider0048
      * @tc.desc      Slider value 4700 of 10000 yields 47.0 percent.
      * @tc.size      MediumTest
@@ -882,7 +882,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0049
      * @tc.name      testExpSlider0049
      * @tc.desc      Slider value 4800 of 10000 yields 48.0 percent.
      * @tc.size      MediumTest
@@ -900,7 +900,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0050
      * @tc.name      testExpSlider0050
      * @tc.desc      Slider value 4900 of 10000 yields 49.0 percent.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0051
      * @tc.name      testExpSlider0051
      * @tc.desc      Slider value 5000 of 10000 yields 50.0 percent.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0052
      * @tc.name      testExpSlider0052
      * @tc.desc      Slider value 5100 of 10000 yields 51.0 percent.
      * @tc.size      MediumTest
@@ -954,7 +954,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0053
      * @tc.name      testExpSlider0053
      * @tc.desc      Slider value 5200 of 10000 yields 52.0 percent.
      * @tc.size      MediumTest
@@ -972,7 +972,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0054
      * @tc.name      testExpSlider0054
      * @tc.desc      Slider value 5300 of 10000 yields 53.0 percent.
      * @tc.size      MediumTest
@@ -990,7 +990,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0055
      * @tc.name      testExpSlider0055
      * @tc.desc      Slider value 5400 of 10000 yields 54.0 percent.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0056
      * @tc.name      testExpSlider0056
      * @tc.desc      Slider value 5500 of 10000 yields 55.0 percent.
      * @tc.size      MediumTest
@@ -1026,7 +1026,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0057
      * @tc.name      testExpSlider0057
      * @tc.desc      Slider value 5600 of 10000 yields 56.0 percent.
      * @tc.size      MediumTest
@@ -1044,7 +1044,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0058
      * @tc.name      testExpSlider0058
      * @tc.desc      Slider value 5700 of 10000 yields 57.0 percent.
      * @tc.size      MediumTest
@@ -1062,7 +1062,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0059
      * @tc.name      testExpSlider0059
      * @tc.desc      Slider value 5800 of 10000 yields 58.0 percent.
      * @tc.size      MediumTest
@@ -1080,7 +1080,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0060
      * @tc.name      testExpSlider0060
      * @tc.desc      Slider value 5900 of 10000 yields 59.0 percent.
      * @tc.size      MediumTest
@@ -1098,7 +1098,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0061
      * @tc.name      testExpSlider0061
      * @tc.desc      Slider value 6000 of 10000 yields 60.0 percent.
      * @tc.size      MediumTest
@@ -1116,7 +1116,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0062
      * @tc.name      testExpSlider0062
      * @tc.desc      Slider value 6100 of 10000 yields 61.0 percent.
      * @tc.size      MediumTest
@@ -1134,7 +1134,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0063
      * @tc.name      testExpSlider0063
      * @tc.desc      Slider value 6200 of 10000 yields 62.0 percent.
      * @tc.size      MediumTest
@@ -1152,7 +1152,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0064
      * @tc.name      testExpSlider0064
      * @tc.desc      Slider value 6300 of 10000 yields 63.0 percent.
      * @tc.size      MediumTest
@@ -1170,7 +1170,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0065
      * @tc.name      testExpSlider0065
      * @tc.desc      Slider value 6400 of 10000 yields 64.0 percent.
      * @tc.size      MediumTest
@@ -1188,7 +1188,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0066
      * @tc.name      testExpSlider0066
      * @tc.desc      Slider value 6500 of 10000 yields 65.0 percent.
      * @tc.size      MediumTest
@@ -1206,7 +1206,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0067
      * @tc.name      testExpSlider0067
      * @tc.desc      Slider value 6600 of 10000 yields 66.0 percent.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0068
      * @tc.name      testExpSlider0068
      * @tc.desc      Slider value 6700 of 10000 yields 67.0 percent.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0069
      * @tc.name      testExpSlider0069
      * @tc.desc      Slider value 6800 of 10000 yields 68.0 percent.
      * @tc.size      MediumTest
@@ -1260,7 +1260,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0070
      * @tc.name      testExpSlider0070
      * @tc.desc      Slider value 6900 of 10000 yields 69.0 percent.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0071
      * @tc.name      testExpSlider0071
      * @tc.desc      Slider value 7000 of 10000 yields 70.0 percent.
      * @tc.size      MediumTest
@@ -1296,7 +1296,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0072
      * @tc.name      testExpSlider0072
      * @tc.desc      Slider value 7100 of 10000 yields 71.0 percent.
      * @tc.size      MediumTest
@@ -1314,7 +1314,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0073
      * @tc.name      testExpSlider0073
      * @tc.desc      Slider value 7200 of 10000 yields 72.0 percent.
      * @tc.size      MediumTest
@@ -1332,7 +1332,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0074
      * @tc.name      testExpSlider0074
      * @tc.desc      Slider value 7300 of 10000 yields 73.0 percent.
      * @tc.size      MediumTest
@@ -1350,7 +1350,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0075
      * @tc.name      testExpSlider0075
      * @tc.desc      Slider value 7400 of 10000 yields 74.0 percent.
      * @tc.size      MediumTest
@@ -1368,7 +1368,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0076
      * @tc.name      testExpSlider0076
      * @tc.desc      Slider value 7500 of 10000 yields 75.0 percent.
      * @tc.size      MediumTest
@@ -1386,7 +1386,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0077
      * @tc.name      testExpSlider0077
      * @tc.desc      Slider value 7600 of 10000 yields 76.0 percent.
      * @tc.size      MediumTest
@@ -1404,7 +1404,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0078
      * @tc.name      testExpSlider0078
      * @tc.desc      Slider value 7700 of 10000 yields 77.0 percent.
      * @tc.size      MediumTest
@@ -1422,7 +1422,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0079
      * @tc.name      testExpSlider0079
      * @tc.desc      Slider value 7800 of 10000 yields 78.0 percent.
      * @tc.size      MediumTest
@@ -1440,7 +1440,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0080
      * @tc.name      testExpSlider0080
      * @tc.desc      Slider value 7900 of 10000 yields 79.0 percent.
      * @tc.size      MediumTest
@@ -1458,7 +1458,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0081
      * @tc.name      testExpSlider0081
      * @tc.desc      Slider value 8000 of 10000 yields 80.0 percent.
      * @tc.size      MediumTest
@@ -1476,7 +1476,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0082
      * @tc.name      testExpSlider0082
      * @tc.desc      Slider value 8100 of 10000 yields 81.0 percent.
      * @tc.size      MediumTest
@@ -1494,7 +1494,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0083
      * @tc.name      testExpSlider0083
      * @tc.desc      Slider value 8200 of 10000 yields 82.0 percent.
      * @tc.size      MediumTest
@@ -1512,7 +1512,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0084
      * @tc.name      testExpSlider0084
      * @tc.desc      Slider value 8300 of 10000 yields 83.0 percent.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0085
      * @tc.name      testExpSlider0085
      * @tc.desc      Slider value 8400 of 10000 yields 84.0 percent.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0086
      * @tc.name      testExpSlider0086
      * @tc.desc      Slider value 8500 of 10000 yields 85.0 percent.
      * @tc.size      MediumTest
@@ -1566,7 +1566,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0087
      * @tc.name      testExpSlider0087
      * @tc.desc      Slider value 8600 of 10000 yields 86.0 percent.
      * @tc.size      MediumTest
@@ -1584,7 +1584,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0088
      * @tc.name      testExpSlider0088
      * @tc.desc      Slider value 8700 of 10000 yields 87.0 percent.
      * @tc.size      MediumTest
@@ -1602,7 +1602,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0089
      * @tc.name      testExpSlider0089
      * @tc.desc      Slider value 8800 of 10000 yields 88.0 percent.
      * @tc.size      MediumTest
@@ -1620,7 +1620,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0090
      * @tc.name      testExpSlider0090
      * @tc.desc      Slider value 8900 of 10000 yields 89.0 percent.
      * @tc.size      MediumTest
@@ -1638,7 +1638,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0091
      * @tc.name      testExpSlider0091
      * @tc.desc      Slider value 9000 of 10000 yields 90.0 percent.
      * @tc.size      MediumTest
@@ -1656,7 +1656,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0092
      * @tc.name      testExpSlider0092
      * @tc.desc      Slider value 9100 of 10000 yields 91.0 percent.
      * @tc.size      MediumTest
@@ -1674,7 +1674,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0093
      * @tc.name      testExpSlider0093
      * @tc.desc      Slider value 9200 of 10000 yields 92.0 percent.
      * @tc.size      MediumTest
@@ -1692,7 +1692,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0094
      * @tc.name      testExpSlider0094
      * @tc.desc      Slider value 9300 of 10000 yields 93.0 percent.
      * @tc.size      MediumTest
@@ -1710,7 +1710,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0095
      * @tc.name      testExpSlider0095
      * @tc.desc      Slider value 9400 of 10000 yields 94.0 percent.
      * @tc.size      MediumTest
@@ -1728,7 +1728,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0096
      * @tc.name      testExpSlider0096
      * @tc.desc      Slider value 9500 of 10000 yields 95.0 percent.
      * @tc.size      MediumTest
@@ -1746,7 +1746,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0097
      * @tc.name      testExpSlider0097
      * @tc.desc      Slider value 9600 of 10000 yields 96.0 percent.
      * @tc.size      MediumTest
@@ -1764,7 +1764,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0098
      * @tc.name      testExpSlider0098
      * @tc.desc      Slider value 9700 of 10000 yields 97.0 percent.
      * @tc.size      MediumTest
@@ -1782,7 +1782,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0099
      * @tc.name      testExpSlider0099
      * @tc.desc      Slider value 9800 of 10000 yields 98.0 percent.
      * @tc.size      MediumTest
@@ -1800,7 +1800,7 @@ export default function sliderProgressExpandedTest() {
       expect(percent).assertLessOrEqual(100);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SLD_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SLD_0100
      * @tc.name      testExpSlider0100
      * @tc.desc      Slider value 9900 of 10000 yields 99.0 percent.
      * @tc.size      MediumTest

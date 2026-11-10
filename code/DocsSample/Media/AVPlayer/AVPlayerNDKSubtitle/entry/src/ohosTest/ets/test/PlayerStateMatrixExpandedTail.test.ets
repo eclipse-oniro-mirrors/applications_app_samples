@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function PlayerStateMatrixExpandedTailTest() {
   describe('PlayerStateMatrixExpandedTailTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0051
      * @tc.name      testMorePlayerState0051
      * @tc.desc      Player state matrix 50 yields ended.
      * @tc.size      MediumTest
@@ -40,7 +40,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0052
      * @tc.name      testMorePlayerState0052
      * @tc.desc      Player state matrix 51 yields playing.
      * @tc.size      MediumTest
@@ -62,7 +62,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0053
      * @tc.name      testMorePlayerState0053
      * @tc.desc      Player state matrix 52 yields paused.
      * @tc.size      MediumTest
@@ -84,7 +84,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0054
      * @tc.name      testMorePlayerState0054
      * @tc.desc      Player state matrix 53 yields playing.
      * @tc.size      MediumTest
@@ -106,7 +106,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0055
      * @tc.name      testMorePlayerState0055
      * @tc.desc      Player state matrix 54 yields paused.
      * @tc.size      MediumTest
@@ -128,7 +128,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0056
      * @tc.name      testMorePlayerState0056
      * @tc.desc      Player state matrix 55 yields ended.
      * @tc.size      MediumTest
@@ -150,7 +150,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0057
      * @tc.name      testMorePlayerState0057
      * @tc.desc      Player state matrix 56 yields paused.
      * @tc.size      MediumTest
@@ -172,7 +172,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0058
      * @tc.name      testMorePlayerState0058
      * @tc.desc      Player state matrix 57 yields playing.
      * @tc.size      MediumTest
@@ -194,7 +194,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0059
      * @tc.name      testMorePlayerState0059
      * @tc.desc      Player state matrix 58 yields paused.
      * @tc.size      MediumTest
@@ -216,7 +216,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0060
      * @tc.name      testMorePlayerState0060
      * @tc.desc      Player state matrix 59 yields playing.
      * @tc.size      MediumTest
@@ -238,7 +238,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0061
      * @tc.name      testMorePlayerState0061
      * @tc.desc      Player state matrix 60 yields ended.
      * @tc.size      MediumTest
@@ -260,7 +260,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0062
      * @tc.name      testMorePlayerState0062
      * @tc.desc      Player state matrix 61 yields playing.
      * @tc.size      MediumTest
@@ -282,7 +282,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0063
      * @tc.name      testMorePlayerState0063
      * @tc.desc      Player state matrix 62 yields paused.
      * @tc.size      MediumTest
@@ -304,7 +304,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0064
      * @tc.name      testMorePlayerState0064
      * @tc.desc      Player state matrix 63 yields playing.
      * @tc.size      MediumTest
@@ -326,7 +326,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0065
      * @tc.name      testMorePlayerState0065
      * @tc.desc      Player state matrix 64 yields paused.
      * @tc.size      MediumTest
@@ -348,7 +348,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0066
      * @tc.name      testMorePlayerState0066
      * @tc.desc      Player state matrix 65 yields ended.
      * @tc.size      MediumTest
@@ -370,7 +370,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0067
      * @tc.name      testMorePlayerState0067
      * @tc.desc      Player state matrix 66 yields paused.
      * @tc.size      MediumTest
@@ -392,7 +392,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0068
      * @tc.name      testMorePlayerState0068
      * @tc.desc      Player state matrix 67 yields playing.
      * @tc.size      MediumTest
@@ -414,7 +414,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0069
      * @tc.name      testMorePlayerState0069
      * @tc.desc      Player state matrix 68 yields paused.
      * @tc.size      MediumTest
@@ -436,7 +436,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0070
      * @tc.name      testMorePlayerState0070
      * @tc.desc      Player state matrix 69 yields playing.
      * @tc.size      MediumTest
@@ -458,7 +458,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0071
      * @tc.name      testMorePlayerState0071
      * @tc.desc      Player state matrix 70 yields ended.
      * @tc.size      MediumTest
@@ -480,7 +480,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0072
      * @tc.name      testMorePlayerState0072
      * @tc.desc      Player state matrix 71 yields playing.
      * @tc.size      MediumTest
@@ -502,7 +502,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0073
      * @tc.name      testMorePlayerState0073
      * @tc.desc      Player state matrix 72 yields paused.
      * @tc.size      MediumTest
@@ -524,7 +524,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0074
      * @tc.name      testMorePlayerState0074
      * @tc.desc      Player state matrix 73 yields playing.
      * @tc.size      MediumTest
@@ -546,7 +546,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0075
      * @tc.name      testMorePlayerState0075
      * @tc.desc      Player state matrix 74 yields paused.
      * @tc.size      MediumTest
@@ -568,7 +568,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0076
      * @tc.name      testMorePlayerState0076
      * @tc.desc      Player state matrix 75 yields ended.
      * @tc.size      MediumTest
@@ -590,7 +590,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0077
      * @tc.name      testMorePlayerState0077
      * @tc.desc      Player state matrix 76 yields paused.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0078
      * @tc.name      testMorePlayerState0078
      * @tc.desc      Player state matrix 77 yields playing.
      * @tc.size      MediumTest
@@ -634,7 +634,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0079
      * @tc.name      testMorePlayerState0079
      * @tc.desc      Player state matrix 78 yields paused.
      * @tc.size      MediumTest
@@ -656,7 +656,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0080
      * @tc.name      testMorePlayerState0080
      * @tc.desc      Player state matrix 79 yields playing.
      * @tc.size      MediumTest
@@ -678,7 +678,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0081
      * @tc.name      testMorePlayerState0081
      * @tc.desc      Player state matrix 80 yields ended.
      * @tc.size      MediumTest
@@ -700,7 +700,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0082
      * @tc.name      testMorePlayerState0082
      * @tc.desc      Player state matrix 81 yields playing.
      * @tc.size      MediumTest
@@ -722,7 +722,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0083
      * @tc.name      testMorePlayerState0083
      * @tc.desc      Player state matrix 82 yields paused.
      * @tc.size      MediumTest
@@ -744,7 +744,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0084
      * @tc.name      testMorePlayerState0084
      * @tc.desc      Player state matrix 83 yields playing.
      * @tc.size      MediumTest
@@ -766,7 +766,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0085
      * @tc.name      testMorePlayerState0085
      * @tc.desc      Player state matrix 84 yields paused.
      * @tc.size      MediumTest
@@ -788,7 +788,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0086
      * @tc.name      testMorePlayerState0086
      * @tc.desc      Player state matrix 85 yields ended.
      * @tc.size      MediumTest
@@ -810,7 +810,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0087
      * @tc.name      testMorePlayerState0087
      * @tc.desc      Player state matrix 86 yields paused.
      * @tc.size      MediumTest
@@ -832,7 +832,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0088
      * @tc.name      testMorePlayerState0088
      * @tc.desc      Player state matrix 87 yields playing.
      * @tc.size      MediumTest
@@ -854,7 +854,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0089
      * @tc.name      testMorePlayerState0089
      * @tc.desc      Player state matrix 88 yields paused.
      * @tc.size      MediumTest
@@ -876,7 +876,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0090
      * @tc.name      testMorePlayerState0090
      * @tc.desc      Player state matrix 89 yields playing.
      * @tc.size      MediumTest
@@ -898,7 +898,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0091
      * @tc.name      testMorePlayerState0091
      * @tc.desc      Player state matrix 90 yields ended.
      * @tc.size      MediumTest
@@ -920,7 +920,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0092
      * @tc.name      testMorePlayerState0092
      * @tc.desc      Player state matrix 91 yields playing.
      * @tc.size      MediumTest
@@ -942,7 +942,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0093
      * @tc.name      testMorePlayerState0093
      * @tc.desc      Player state matrix 92 yields paused.
      * @tc.size      MediumTest
@@ -964,7 +964,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0094
      * @tc.name      testMorePlayerState0094
      * @tc.desc      Player state matrix 93 yields playing.
      * @tc.size      MediumTest
@@ -986,7 +986,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0095
      * @tc.name      testMorePlayerState0095
      * @tc.desc      Player state matrix 94 yields paused.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0096
      * @tc.name      testMorePlayerState0096
      * @tc.desc      Player state matrix 95 yields ended.
      * @tc.size      MediumTest
@@ -1030,7 +1030,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0097
      * @tc.name      testMorePlayerState0097
      * @tc.desc      Player state matrix 96 yields paused.
      * @tc.size      MediumTest
@@ -1052,7 +1052,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0098
      * @tc.name      testMorePlayerState0098
      * @tc.desc      Player state matrix 97 yields playing.
      * @tc.size      MediumTest
@@ -1074,7 +1074,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0099
      * @tc.name      testMorePlayerState0099
      * @tc.desc      Player state matrix 98 yields paused.
      * @tc.size      MediumTest
@@ -1096,7 +1096,7 @@ export default function PlayerStateMatrixExpandedTailTest() {
       expect(paused || !paused).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_PSM_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_PSM_0100
      * @tc.name      testMorePlayerState0100
      * @tc.desc      Player state matrix 99 yields playing.
      * @tc.size      MediumTest

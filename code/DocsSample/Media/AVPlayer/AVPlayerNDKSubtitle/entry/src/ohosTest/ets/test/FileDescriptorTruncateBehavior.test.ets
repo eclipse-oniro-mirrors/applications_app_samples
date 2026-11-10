@@ -23,7 +23,7 @@ const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 export default function fileDescriptorTruncateBehaviorTest() {
   describe('fileDescriptorTruncateBehaviorTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0001
      * @tc.name      testFinalFdTruncate0001
      * @tc.desc      File truncation from 200 to 100 bytes is observable.
      * @tc.size      MediumTest
@@ -53,7 +53,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0002
      * @tc.name      testFinalFdTruncate0002
      * @tc.desc      File truncation from 204 to 102 bytes is observable.
      * @tc.size      MediumTest
@@ -83,7 +83,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0003
      * @tc.name      testFinalFdTruncate0003
      * @tc.desc      File truncation from 208 to 104 bytes is observable.
      * @tc.size      MediumTest
@@ -113,7 +113,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0004
      * @tc.name      testFinalFdTruncate0004
      * @tc.desc      File truncation from 212 to 106 bytes is observable.
      * @tc.size      MediumTest
@@ -143,7 +143,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0005
      * @tc.name      testFinalFdTruncate0005
      * @tc.desc      File truncation from 216 to 108 bytes is observable.
      * @tc.size      MediumTest
@@ -173,7 +173,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0006
      * @tc.name      testFinalFdTruncate0006
      * @tc.desc      File truncation from 220 to 110 bytes is observable.
      * @tc.size      MediumTest
@@ -203,7 +203,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0007
      * @tc.name      testFinalFdTruncate0007
      * @tc.desc      File truncation from 224 to 112 bytes is observable.
      * @tc.size      MediumTest
@@ -233,7 +233,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0008
      * @tc.name      testFinalFdTruncate0008
      * @tc.desc      File truncation from 228 to 114 bytes is observable.
      * @tc.size      MediumTest
@@ -263,7 +263,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0009
      * @tc.name      testFinalFdTruncate0009
      * @tc.desc      File truncation from 232 to 116 bytes is observable.
      * @tc.size      MediumTest
@@ -293,7 +293,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0010
      * @tc.name      testFinalFdTruncate0010
      * @tc.desc      File truncation from 236 to 118 bytes is observable.
      * @tc.size      MediumTest
@@ -323,7 +323,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0011
      * @tc.name      testFinalFdTruncate0011
      * @tc.desc      File truncation from 240 to 120 bytes is observable.
      * @tc.size      MediumTest
@@ -353,7 +353,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0012
      * @tc.name      testFinalFdTruncate0012
      * @tc.desc      File truncation from 244 to 122 bytes is observable.
      * @tc.size      MediumTest
@@ -383,7 +383,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0013
      * @tc.name      testFinalFdTruncate0013
      * @tc.desc      File truncation from 248 to 124 bytes is observable.
      * @tc.size      MediumTest
@@ -413,7 +413,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0014
      * @tc.name      testFinalFdTruncate0014
      * @tc.desc      File truncation from 252 to 126 bytes is observable.
      * @tc.size      MediumTest
@@ -443,7 +443,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0015
      * @tc.name      testFinalFdTruncate0015
      * @tc.desc      File truncation from 256 to 128 bytes is observable.
      * @tc.size      MediumTest
@@ -473,7 +473,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0016
      * @tc.name      testFinalFdTruncate0016
      * @tc.desc      File truncation from 260 to 130 bytes is observable.
      * @tc.size      MediumTest
@@ -503,7 +503,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0017
      * @tc.name      testFinalFdTruncate0017
      * @tc.desc      File truncation from 264 to 132 bytes is observable.
      * @tc.size      MediumTest
@@ -533,7 +533,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0018
      * @tc.name      testFinalFdTruncate0018
      * @tc.desc      File truncation from 268 to 134 bytes is observable.
      * @tc.size      MediumTest
@@ -563,7 +563,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0019
      * @tc.name      testFinalFdTruncate0019
      * @tc.desc      File truncation from 272 to 136 bytes is observable.
      * @tc.size      MediumTest
@@ -593,7 +593,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_FINAL_FD_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0020
      * @tc.name      testFinalFdTruncate0020
      * @tc.desc      File truncation from 276 to 138 bytes is observable.
      * @tc.size      MediumTest

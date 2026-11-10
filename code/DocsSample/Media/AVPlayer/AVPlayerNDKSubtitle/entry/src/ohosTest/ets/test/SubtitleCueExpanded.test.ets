@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitleCueExpandedTest() {
   describe('subtitleCueExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0001
      * @tc.name      testExpSubtitleCue0001
      * @tc.desc      Cue 0-1000ms has duration 1000ms.
      * @tc.size      MediumTest
@@ -35,7 +35,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0002
      * @tc.name      testExpSubtitleCue0002
      * @tc.desc      Cue 500-1501ms has duration 1001ms.
      * @tc.size      MediumTest
@@ -52,7 +52,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0003
      * @tc.name      testExpSubtitleCue0003
      * @tc.desc      Cue 1000-2002ms has duration 1002ms.
      * @tc.size      MediumTest
@@ -69,7 +69,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0004
      * @tc.name      testExpSubtitleCue0004
      * @tc.desc      Cue 1500-2503ms has duration 1003ms.
      * @tc.size      MediumTest
@@ -86,7 +86,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0005
      * @tc.name      testExpSubtitleCue0005
      * @tc.desc      Cue 2000-3004ms has duration 1004ms.
      * @tc.size      MediumTest
@@ -103,7 +103,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0006
      * @tc.name      testExpSubtitleCue0006
      * @tc.desc      Cue 2500-3505ms has duration 1005ms.
      * @tc.size      MediumTest
@@ -120,7 +120,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0007
      * @tc.name      testExpSubtitleCue0007
      * @tc.desc      Cue 3000-4006ms has duration 1006ms.
      * @tc.size      MediumTest
@@ -137,7 +137,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0008
      * @tc.name      testExpSubtitleCue0008
      * @tc.desc      Cue 3500-4507ms has duration 1007ms.
      * @tc.size      MediumTest
@@ -154,7 +154,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0009
      * @tc.name      testExpSubtitleCue0009
      * @tc.desc      Cue 4000-5008ms has duration 1008ms.
      * @tc.size      MediumTest
@@ -171,7 +171,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0010
      * @tc.name      testExpSubtitleCue0010
      * @tc.desc      Cue 4500-5509ms has duration 1009ms.
      * @tc.size      MediumTest
@@ -188,7 +188,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0011
      * @tc.name      testExpSubtitleCue0011
      * @tc.desc      Cue 5000-6010ms has duration 1010ms.
      * @tc.size      MediumTest
@@ -205,7 +205,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0012
      * @tc.name      testExpSubtitleCue0012
      * @tc.desc      Cue 5500-6511ms has duration 1011ms.
      * @tc.size      MediumTest
@@ -222,7 +222,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0013
      * @tc.name      testExpSubtitleCue0013
      * @tc.desc      Cue 6000-7012ms has duration 1012ms.
      * @tc.size      MediumTest
@@ -239,7 +239,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0014
      * @tc.name      testExpSubtitleCue0014
      * @tc.desc      Cue 6500-7513ms has duration 1013ms.
      * @tc.size      MediumTest
@@ -256,7 +256,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0015
      * @tc.name      testExpSubtitleCue0015
      * @tc.desc      Cue 7000-8014ms has duration 1014ms.
      * @tc.size      MediumTest
@@ -273,7 +273,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0016
      * @tc.name      testExpSubtitleCue0016
      * @tc.desc      Cue 7500-8515ms has duration 1015ms.
      * @tc.size      MediumTest
@@ -290,7 +290,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0017
      * @tc.name      testExpSubtitleCue0017
      * @tc.desc      Cue 8000-9016ms has duration 1016ms.
      * @tc.size      MediumTest
@@ -307,7 +307,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0018
      * @tc.name      testExpSubtitleCue0018
      * @tc.desc      Cue 8500-9517ms has duration 1017ms.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0019
      * @tc.name      testExpSubtitleCue0019
      * @tc.desc      Cue 9000-10018ms has duration 1018ms.
      * @tc.size      MediumTest
@@ -341,7 +341,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0020
      * @tc.name      testExpSubtitleCue0020
      * @tc.desc      Cue 9500-10519ms has duration 1019ms.
      * @tc.size      MediumTest
@@ -358,7 +358,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0021
      * @tc.name      testExpSubtitleCue0021
      * @tc.desc      Cue 10000-11020ms has duration 1020ms.
      * @tc.size      MediumTest
@@ -375,7 +375,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0022
      * @tc.name      testExpSubtitleCue0022
      * @tc.desc      Cue 10500-11521ms has duration 1021ms.
      * @tc.size      MediumTest
@@ -392,7 +392,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0023
      * @tc.name      testExpSubtitleCue0023
      * @tc.desc      Cue 11000-12022ms has duration 1022ms.
      * @tc.size      MediumTest
@@ -409,7 +409,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0024
      * @tc.name      testExpSubtitleCue0024
      * @tc.desc      Cue 11500-12523ms has duration 1023ms.
      * @tc.size      MediumTest
@@ -426,7 +426,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0025
      * @tc.name      testExpSubtitleCue0025
      * @tc.desc      Cue 12000-13024ms has duration 1024ms.
      * @tc.size      MediumTest
@@ -443,7 +443,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0026
      * @tc.name      testExpSubtitleCue0026
      * @tc.desc      Cue 12500-13525ms has duration 1025ms.
      * @tc.size      MediumTest
@@ -460,7 +460,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0027
      * @tc.name      testExpSubtitleCue0027
      * @tc.desc      Cue 13000-14026ms has duration 1026ms.
      * @tc.size      MediumTest
@@ -477,7 +477,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0028
      * @tc.name      testExpSubtitleCue0028
      * @tc.desc      Cue 13500-14527ms has duration 1027ms.
      * @tc.size      MediumTest
@@ -494,7 +494,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0029
      * @tc.name      testExpSubtitleCue0029
      * @tc.desc      Cue 14000-15028ms has duration 1028ms.
      * @tc.size      MediumTest
@@ -511,7 +511,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0030
      * @tc.name      testExpSubtitleCue0030
      * @tc.desc      Cue 14500-15529ms has duration 1029ms.
      * @tc.size      MediumTest
@@ -528,7 +528,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0031
      * @tc.name      testExpSubtitleCue0031
      * @tc.desc      Cue 15000-16030ms has duration 1030ms.
      * @tc.size      MediumTest
@@ -545,7 +545,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0032
      * @tc.name      testExpSubtitleCue0032
      * @tc.desc      Cue 15500-16531ms has duration 1031ms.
      * @tc.size      MediumTest
@@ -562,7 +562,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0033
      * @tc.name      testExpSubtitleCue0033
      * @tc.desc      Cue 16000-17032ms has duration 1032ms.
      * @tc.size      MediumTest
@@ -579,7 +579,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0034
      * @tc.name      testExpSubtitleCue0034
      * @tc.desc      Cue 16500-17533ms has duration 1033ms.
      * @tc.size      MediumTest
@@ -596,7 +596,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0035
      * @tc.name      testExpSubtitleCue0035
      * @tc.desc      Cue 17000-18034ms has duration 1034ms.
      * @tc.size      MediumTest
@@ -613,7 +613,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0036
      * @tc.name      testExpSubtitleCue0036
      * @tc.desc      Cue 17500-18535ms has duration 1035ms.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0037
      * @tc.name      testExpSubtitleCue0037
      * @tc.desc      Cue 18000-19036ms has duration 1036ms.
      * @tc.size      MediumTest
@@ -647,7 +647,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0038
      * @tc.name      testExpSubtitleCue0038
      * @tc.desc      Cue 18500-19537ms has duration 1037ms.
      * @tc.size      MediumTest
@@ -664,7 +664,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0039
      * @tc.name      testExpSubtitleCue0039
      * @tc.desc      Cue 19000-20038ms has duration 1038ms.
      * @tc.size      MediumTest
@@ -681,7 +681,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0040
      * @tc.name      testExpSubtitleCue0040
      * @tc.desc      Cue 19500-20539ms has duration 1039ms.
      * @tc.size      MediumTest
@@ -698,7 +698,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0041
      * @tc.name      testExpSubtitleCue0041
      * @tc.desc      Cue 20000-21040ms has duration 1040ms.
      * @tc.size      MediumTest
@@ -715,7 +715,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0042
      * @tc.name      testExpSubtitleCue0042
      * @tc.desc      Cue 20500-21541ms has duration 1041ms.
      * @tc.size      MediumTest
@@ -732,7 +732,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0043
      * @tc.name      testExpSubtitleCue0043
      * @tc.desc      Cue 21000-22042ms has duration 1042ms.
      * @tc.size      MediumTest
@@ -749,7 +749,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0044
      * @tc.name      testExpSubtitleCue0044
      * @tc.desc      Cue 21500-22543ms has duration 1043ms.
      * @tc.size      MediumTest
@@ -766,7 +766,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0045
      * @tc.name      testExpSubtitleCue0045
      * @tc.desc      Cue 22000-23044ms has duration 1044ms.
      * @tc.size      MediumTest
@@ -783,7 +783,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0046
      * @tc.name      testExpSubtitleCue0046
      * @tc.desc      Cue 22500-23545ms has duration 1045ms.
      * @tc.size      MediumTest
@@ -800,7 +800,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0047
      * @tc.name      testExpSubtitleCue0047
      * @tc.desc      Cue 23000-24046ms has duration 1046ms.
      * @tc.size      MediumTest
@@ -817,7 +817,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0048
      * @tc.name      testExpSubtitleCue0048
      * @tc.desc      Cue 23500-24547ms has duration 1047ms.
      * @tc.size      MediumTest
@@ -834,7 +834,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0049
      * @tc.name      testExpSubtitleCue0049
      * @tc.desc      Cue 24000-25048ms has duration 1048ms.
      * @tc.size      MediumTest
@@ -851,7 +851,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0050
      * @tc.name      testExpSubtitleCue0050
      * @tc.desc      Cue 24500-25549ms has duration 1049ms.
      * @tc.size      MediumTest
@@ -868,7 +868,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0051
      * @tc.name      testExpSubtitleCue0051
      * @tc.desc      Cue 25000-26050ms has duration 1050ms.
      * @tc.size      MediumTest
@@ -885,7 +885,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0052
      * @tc.name      testExpSubtitleCue0052
      * @tc.desc      Cue 25500-26551ms has duration 1051ms.
      * @tc.size      MediumTest
@@ -902,7 +902,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0053
      * @tc.name      testExpSubtitleCue0053
      * @tc.desc      Cue 26000-27052ms has duration 1052ms.
      * @tc.size      MediumTest
@@ -919,7 +919,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0054
      * @tc.name      testExpSubtitleCue0054
      * @tc.desc      Cue 26500-27553ms has duration 1053ms.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0055
      * @tc.name      testExpSubtitleCue0055
      * @tc.desc      Cue 27000-28054ms has duration 1054ms.
      * @tc.size      MediumTest
@@ -953,7 +953,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0056
      * @tc.name      testExpSubtitleCue0056
      * @tc.desc      Cue 27500-28555ms has duration 1055ms.
      * @tc.size      MediumTest
@@ -970,7 +970,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0057
      * @tc.name      testExpSubtitleCue0057
      * @tc.desc      Cue 28000-29056ms has duration 1056ms.
      * @tc.size      MediumTest
@@ -987,7 +987,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0058
      * @tc.name      testExpSubtitleCue0058
      * @tc.desc      Cue 28500-29557ms has duration 1057ms.
      * @tc.size      MediumTest
@@ -1004,7 +1004,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0059
      * @tc.name      testExpSubtitleCue0059
      * @tc.desc      Cue 29000-30058ms has duration 1058ms.
      * @tc.size      MediumTest
@@ -1021,7 +1021,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0060
      * @tc.name      testExpSubtitleCue0060
      * @tc.desc      Cue 29500-30559ms has duration 1059ms.
      * @tc.size      MediumTest
@@ -1038,7 +1038,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0061
      * @tc.name      testExpSubtitleCue0061
      * @tc.desc      Cue 30000-31060ms has duration 1060ms.
      * @tc.size      MediumTest
@@ -1055,7 +1055,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0062
      * @tc.name      testExpSubtitleCue0062
      * @tc.desc      Cue 30500-31561ms has duration 1061ms.
      * @tc.size      MediumTest
@@ -1072,7 +1072,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0063
      * @tc.name      testExpSubtitleCue0063
      * @tc.desc      Cue 31000-32062ms has duration 1062ms.
      * @tc.size      MediumTest
@@ -1089,7 +1089,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0064
      * @tc.name      testExpSubtitleCue0064
      * @tc.desc      Cue 31500-32563ms has duration 1063ms.
      * @tc.size      MediumTest
@@ -1106,7 +1106,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0065
      * @tc.name      testExpSubtitleCue0065
      * @tc.desc      Cue 32000-33064ms has duration 1064ms.
      * @tc.size      MediumTest
@@ -1123,7 +1123,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0066
      * @tc.name      testExpSubtitleCue0066
      * @tc.desc      Cue 32500-33565ms has duration 1065ms.
      * @tc.size      MediumTest
@@ -1140,7 +1140,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0067
      * @tc.name      testExpSubtitleCue0067
      * @tc.desc      Cue 33000-34066ms has duration 1066ms.
      * @tc.size      MediumTest
@@ -1157,7 +1157,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0068
      * @tc.name      testExpSubtitleCue0068
      * @tc.desc      Cue 33500-34567ms has duration 1067ms.
      * @tc.size      MediumTest
@@ -1174,7 +1174,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0069
      * @tc.name      testExpSubtitleCue0069
      * @tc.desc      Cue 34000-35068ms has duration 1068ms.
      * @tc.size      MediumTest
@@ -1191,7 +1191,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0070
      * @tc.name      testExpSubtitleCue0070
      * @tc.desc      Cue 34500-35569ms has duration 1069ms.
      * @tc.size      MediumTest
@@ -1208,7 +1208,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0071
      * @tc.name      testExpSubtitleCue0071
      * @tc.desc      Cue 35000-36070ms has duration 1070ms.
      * @tc.size      MediumTest
@@ -1225,7 +1225,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0072
      * @tc.name      testExpSubtitleCue0072
      * @tc.desc      Cue 35500-36571ms has duration 1071ms.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0073
      * @tc.name      testExpSubtitleCue0073
      * @tc.desc      Cue 36000-37072ms has duration 1072ms.
      * @tc.size      MediumTest
@@ -1259,7 +1259,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0074
      * @tc.name      testExpSubtitleCue0074
      * @tc.desc      Cue 36500-37573ms has duration 1073ms.
      * @tc.size      MediumTest
@@ -1276,7 +1276,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0075
      * @tc.name      testExpSubtitleCue0075
      * @tc.desc      Cue 37000-38074ms has duration 1074ms.
      * @tc.size      MediumTest
@@ -1293,7 +1293,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0076
      * @tc.name      testExpSubtitleCue0076
      * @tc.desc      Cue 37500-38575ms has duration 1075ms.
      * @tc.size      MediumTest
@@ -1310,7 +1310,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0077
      * @tc.name      testExpSubtitleCue0077
      * @tc.desc      Cue 38000-39076ms has duration 1076ms.
      * @tc.size      MediumTest
@@ -1327,7 +1327,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0078
      * @tc.name      testExpSubtitleCue0078
      * @tc.desc      Cue 38500-39577ms has duration 1077ms.
      * @tc.size      MediumTest
@@ -1344,7 +1344,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0079
      * @tc.name      testExpSubtitleCue0079
      * @tc.desc      Cue 39000-40078ms has duration 1078ms.
      * @tc.size      MediumTest
@@ -1361,7 +1361,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0080
      * @tc.name      testExpSubtitleCue0080
      * @tc.desc      Cue 39500-40579ms has duration 1079ms.
      * @tc.size      MediumTest
@@ -1378,7 +1378,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0081
      * @tc.name      testExpSubtitleCue0081
      * @tc.desc      Cue 40000-41080ms has duration 1080ms.
      * @tc.size      MediumTest
@@ -1395,7 +1395,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0082
      * @tc.name      testExpSubtitleCue0082
      * @tc.desc      Cue 40500-41581ms has duration 1081ms.
      * @tc.size      MediumTest
@@ -1412,7 +1412,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0083
      * @tc.name      testExpSubtitleCue0083
      * @tc.desc      Cue 41000-42082ms has duration 1082ms.
      * @tc.size      MediumTest
@@ -1429,7 +1429,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0084
      * @tc.name      testExpSubtitleCue0084
      * @tc.desc      Cue 41500-42583ms has duration 1083ms.
      * @tc.size      MediumTest
@@ -1446,7 +1446,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0085
      * @tc.name      testExpSubtitleCue0085
      * @tc.desc      Cue 42000-43084ms has duration 1084ms.
      * @tc.size      MediumTest
@@ -1463,7 +1463,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0086
      * @tc.name      testExpSubtitleCue0086
      * @tc.desc      Cue 42500-43585ms has duration 1085ms.
      * @tc.size      MediumTest
@@ -1480,7 +1480,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0087
      * @tc.name      testExpSubtitleCue0087
      * @tc.desc      Cue 43000-44086ms has duration 1086ms.
      * @tc.size      MediumTest
@@ -1497,7 +1497,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0088
      * @tc.name      testExpSubtitleCue0088
      * @tc.desc      Cue 43500-44587ms has duration 1087ms.
      * @tc.size      MediumTest
@@ -1514,7 +1514,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0089
      * @tc.name      testExpSubtitleCue0089
      * @tc.desc      Cue 44000-45088ms has duration 1088ms.
      * @tc.size      MediumTest
@@ -1531,7 +1531,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0090
      * @tc.name      testExpSubtitleCue0090
      * @tc.desc      Cue 44500-45589ms has duration 1089ms.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0091
      * @tc.name      testExpSubtitleCue0091
      * @tc.desc      Cue 45000-46090ms has duration 1090ms.
      * @tc.size      MediumTest
@@ -1565,7 +1565,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0092
      * @tc.name      testExpSubtitleCue0092
      * @tc.desc      Cue 45500-46591ms has duration 1091ms.
      * @tc.size      MediumTest
@@ -1582,7 +1582,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0093
      * @tc.name      testExpSubtitleCue0093
      * @tc.desc      Cue 46000-47092ms has duration 1092ms.
      * @tc.size      MediumTest
@@ -1599,7 +1599,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0094
      * @tc.name      testExpSubtitleCue0094
      * @tc.desc      Cue 46500-47593ms has duration 1093ms.
      * @tc.size      MediumTest
@@ -1616,7 +1616,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0095
      * @tc.name      testExpSubtitleCue0095
      * @tc.desc      Cue 47000-48094ms has duration 1094ms.
      * @tc.size      MediumTest
@@ -1633,7 +1633,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0096
      * @tc.name      testExpSubtitleCue0096
      * @tc.desc      Cue 47500-48595ms has duration 1095ms.
      * @tc.size      MediumTest
@@ -1650,7 +1650,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0097
      * @tc.name      testExpSubtitleCue0097
      * @tc.desc      Cue 48000-49096ms has duration 1096ms.
      * @tc.size      MediumTest
@@ -1667,7 +1667,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0098
      * @tc.name      testExpSubtitleCue0098
      * @tc.desc      Cue 48500-49597ms has duration 1097ms.
      * @tc.size      MediumTest
@@ -1684,7 +1684,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0099
      * @tc.name      testExpSubtitleCue0099
      * @tc.desc      Cue 49000-50098ms has duration 1098ms.
      * @tc.size      MediumTest
@@ -1701,7 +1701,7 @@ export default function subtitleCueExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CUE_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CUE_0100
      * @tc.name      testExpSubtitleCue0100
      * @tc.desc      Cue 49500-50599ms has duration 1099ms.
      * @tc.size      MediumTest

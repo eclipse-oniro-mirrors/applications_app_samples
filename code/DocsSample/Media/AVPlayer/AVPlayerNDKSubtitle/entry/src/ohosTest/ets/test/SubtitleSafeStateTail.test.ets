@@ -17,7 +17,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitleSafeStateTailTest() {
   describe('subtitleSafeStateTailTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0001
      * @tc.name      testSafeSeekSpeed0001
      * @tc.desc      Seek -100 clamps to 0; speed index becomes 0.
      * @tc.size      MediumTest
@@ -38,7 +38,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0002
      * @tc.name      testSafeSeekSpeed0002
      * @tc.desc      Seek 37 clamps to 37; speed index becomes 1.
      * @tc.size      MediumTest
@@ -59,7 +59,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0003
      * @tc.name      testSafeSeekSpeed0003
      * @tc.desc      Seek 174 clamps to 174; speed index becomes 2.
      * @tc.size      MediumTest
@@ -80,7 +80,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0004
      * @tc.name      testSafeSeekSpeed0004
      * @tc.desc      Seek 311 clamps to 311; speed index becomes 3.
      * @tc.size      MediumTest
@@ -101,7 +101,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0005
      * @tc.name      testSafeSeekSpeed0005
      * @tc.desc      Seek 448 clamps to 448; speed index becomes 1.
      * @tc.size      MediumTest
@@ -122,7 +122,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0006
      * @tc.name      testSafeSeekSpeed0006
      * @tc.desc      Seek 585 clamps to 585; speed index becomes 2.
      * @tc.size      MediumTest
@@ -143,7 +143,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0007
      * @tc.name      testSafeSeekSpeed0007
      * @tc.desc      Seek 722 clamps to 722; speed index becomes 3.
      * @tc.size      MediumTest
@@ -164,7 +164,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0008
      * @tc.name      testSafeSeekSpeed0008
      * @tc.desc      Seek 859 clamps to 859; speed index becomes 0.
      * @tc.size      MediumTest
@@ -185,7 +185,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0009
      * @tc.name      testSafeSeekSpeed0009
      * @tc.desc      Seek 996 clamps to 996; speed index becomes 2.
      * @tc.size      MediumTest
@@ -206,7 +206,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0010
      * @tc.name      testSafeSeekSpeed0010
      * @tc.desc      Seek 1133 clamps to 1133; speed index becomes 3.
      * @tc.size      MediumTest
@@ -227,7 +227,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0011
      * @tc.name      testSafeSeekSpeed0011
      * @tc.desc      Seek 1270 clamps to 1270; speed index becomes 0.
      * @tc.size      MediumTest
@@ -248,7 +248,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0012
      * @tc.name      testSafeSeekSpeed0012
      * @tc.desc      Seek 1407 clamps to 1407; speed index becomes 1.
      * @tc.size      MediumTest
@@ -269,7 +269,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0013
      * @tc.name      testSafeSeekSpeed0013
      * @tc.desc      Seek 1544 clamps to 1544; speed index becomes 3.
      * @tc.size      MediumTest
@@ -290,7 +290,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0014
      * @tc.name      testSafeSeekSpeed0014
      * @tc.desc      Seek 1681 clamps to 1681; speed index becomes 0.
      * @tc.size      MediumTest
@@ -311,7 +311,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0015
      * @tc.name      testSafeSeekSpeed0015
      * @tc.desc      Seek 1818 clamps to 1818; speed index becomes 1.
      * @tc.size      MediumTest
@@ -332,7 +332,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0016
      * @tc.name      testSafeSeekSpeed0016
      * @tc.desc      Seek 1955 clamps to 1955; speed index becomes 2.
      * @tc.size      MediumTest
@@ -353,7 +353,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0017
      * @tc.name      testSafeSeekSpeed0017
      * @tc.desc      Seek 2092 clamps to 2092; speed index becomes 0.
      * @tc.size      MediumTest
@@ -374,7 +374,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0018
      * @tc.name      testSafeSeekSpeed0018
      * @tc.desc      Seek 2229 clamps to 2229; speed index becomes 1.
      * @tc.size      MediumTest
@@ -395,7 +395,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0019
      * @tc.name      testSafeSeekSpeed0019
      * @tc.desc      Seek 2366 clamps to 2366; speed index becomes 2.
      * @tc.size      MediumTest
@@ -416,7 +416,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0020
      * @tc.name      testSafeSeekSpeed0020
      * @tc.desc      Seek 2503 clamps to 2503; speed index becomes 3.
      * @tc.size      MediumTest
@@ -437,7 +437,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0021
      * @tc.name      testSafeSeekSpeed0021
      * @tc.desc      Seek 2640 clamps to 2640; speed index becomes 1.
      * @tc.size      MediumTest
@@ -458,7 +458,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0022
      * @tc.name      testSafeSeekSpeed0022
      * @tc.desc      Seek 2777 clamps to 2777; speed index becomes 2.
      * @tc.size      MediumTest
@@ -479,7 +479,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0023
      * @tc.name      testSafeSeekSpeed0023
      * @tc.desc      Seek 2914 clamps to 2914; speed index becomes 3.
      * @tc.size      MediumTest
@@ -500,7 +500,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0024
      * @tc.name      testSafeSeekSpeed0024
      * @tc.desc      Seek 3051 clamps to 3051; speed index becomes 0.
      * @tc.size      MediumTest
@@ -521,7 +521,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0025
      * @tc.name      testSafeSeekSpeed0025
      * @tc.desc      Seek 3188 clamps to 3188; speed index becomes 2.
      * @tc.size      MediumTest
@@ -542,7 +542,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0026
      * @tc.name      testSafeSeekSpeed0026
      * @tc.desc      Seek 3325 clamps to 3325; speed index becomes 3.
      * @tc.size      MediumTest
@@ -563,7 +563,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0027
      * @tc.name      testSafeSeekSpeed0027
      * @tc.desc      Seek 3462 clamps to 3462; speed index becomes 0.
      * @tc.size      MediumTest
@@ -584,7 +584,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0028
      * @tc.name      testSafeSeekSpeed0028
      * @tc.desc      Seek 3599 clamps to 3599; speed index becomes 1.
      * @tc.size      MediumTest
@@ -605,7 +605,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0029
      * @tc.name      testSafeSeekSpeed0029
      * @tc.desc      Seek 3736 clamps to 3736; speed index becomes 3.
      * @tc.size      MediumTest
@@ -626,7 +626,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0030
      * @tc.name      testSafeSeekSpeed0030
      * @tc.desc      Seek 3873 clamps to 3873; speed index becomes 0.
      * @tc.size      MediumTest
@@ -647,7 +647,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0031
      * @tc.name      testSafeSeekSpeed0031
      * @tc.desc      Seek 4010 clamps to 4010; speed index becomes 1.
      * @tc.size      MediumTest
@@ -668,7 +668,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0032
      * @tc.name      testSafeSeekSpeed0032
      * @tc.desc      Seek 4147 clamps to 4147; speed index becomes 2.
      * @tc.size      MediumTest
@@ -689,7 +689,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0033
      * @tc.name      testSafeSeekSpeed0033
      * @tc.desc      Seek 4284 clamps to 4284; speed index becomes 0.
      * @tc.size      MediumTest
@@ -710,7 +710,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0034
      * @tc.name      testSafeSeekSpeed0034
      * @tc.desc      Seek 4421 clamps to 4421; speed index becomes 1.
      * @tc.size      MediumTest
@@ -731,7 +731,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0035
      * @tc.name      testSafeSeekSpeed0035
      * @tc.desc      Seek 4558 clamps to 4558; speed index becomes 2.
      * @tc.size      MediumTest
@@ -752,7 +752,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0036
      * @tc.name      testSafeSeekSpeed0036
      * @tc.desc      Seek 4695 clamps to 4695; speed index becomes 3.
      * @tc.size      MediumTest
@@ -773,7 +773,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0037
      * @tc.name      testSafeSeekSpeed0037
      * @tc.desc      Seek 4832 clamps to 4832; speed index becomes 1.
      * @tc.size      MediumTest
@@ -794,7 +794,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0038
      * @tc.name      testSafeSeekSpeed0038
      * @tc.desc      Seek 4969 clamps to 4969; speed index becomes 2.
      * @tc.size      MediumTest
@@ -815,7 +815,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0039
      * @tc.name      testSafeSeekSpeed0039
      * @tc.desc      Seek 5106 clamps to 5106; speed index becomes 3.
      * @tc.size      MediumTest
@@ -836,7 +836,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0040
      * @tc.name      testSafeSeekSpeed0040
      * @tc.desc      Seek 5243 clamps to 5243; speed index becomes 0.
      * @tc.size      MediumTest
@@ -857,7 +857,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0041
      * @tc.name      testSafeSeekSpeed0041
      * @tc.desc      Seek 5380 clamps to 5380; speed index becomes 2.
      * @tc.size      MediumTest
@@ -878,7 +878,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0042
      * @tc.name      testSafeSeekSpeed0042
      * @tc.desc      Seek 5517 clamps to 5517; speed index becomes 3.
      * @tc.size      MediumTest
@@ -899,7 +899,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0043
      * @tc.name      testSafeSeekSpeed0043
      * @tc.desc      Seek 5654 clamps to 5654; speed index becomes 0.
      * @tc.size      MediumTest
@@ -920,7 +920,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0044
      * @tc.name      testSafeSeekSpeed0044
      * @tc.desc      Seek 5791 clamps to 5791; speed index becomes 1.
      * @tc.size      MediumTest
@@ -941,7 +941,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0045
      * @tc.name      testSafeSeekSpeed0045
      * @tc.desc      Seek 5928 clamps to 5928; speed index becomes 3.
      * @tc.size      MediumTest
@@ -962,7 +962,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0046
      * @tc.name      testSafeSeekSpeed0046
      * @tc.desc      Seek 6065 clamps to 6065; speed index becomes 0.
      * @tc.size      MediumTest
@@ -983,7 +983,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0047
      * @tc.name      testSafeSeekSpeed0047
      * @tc.desc      Seek 6202 clamps to 6202; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1004,7 +1004,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0048
      * @tc.name      testSafeSeekSpeed0048
      * @tc.desc      Seek 6339 clamps to 6339; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1025,7 +1025,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0049
      * @tc.name      testSafeSeekSpeed0049
      * @tc.desc      Seek 6476 clamps to 6476; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1046,7 +1046,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0050
      * @tc.name      testSafeSeekSpeed0050
      * @tc.desc      Seek 6613 clamps to 6613; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1067,7 +1067,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0051
      * @tc.name      testSafeSeekSpeed0051
      * @tc.desc      Seek 6750 clamps to 6750; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1088,7 +1088,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0052
      * @tc.name      testSafeSeekSpeed0052
      * @tc.desc      Seek 6887 clamps to 6887; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1109,7 +1109,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0053
      * @tc.name      testSafeSeekSpeed0053
      * @tc.desc      Seek 7024 clamps to 7024; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1130,7 +1130,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0054
      * @tc.name      testSafeSeekSpeed0054
      * @tc.desc      Seek 7161 clamps to 7161; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1151,7 +1151,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0055
      * @tc.name      testSafeSeekSpeed0055
      * @tc.desc      Seek 7298 clamps to 7298; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1172,7 +1172,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0056
      * @tc.name      testSafeSeekSpeed0056
      * @tc.desc      Seek 7435 clamps to 7435; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1193,7 +1193,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0057
      * @tc.name      testSafeSeekSpeed0057
      * @tc.desc      Seek 7572 clamps to 7572; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1214,7 +1214,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0058
      * @tc.name      testSafeSeekSpeed0058
      * @tc.desc      Seek 7709 clamps to 7709; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1235,7 +1235,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0059
      * @tc.name      testSafeSeekSpeed0059
      * @tc.desc      Seek 7846 clamps to 7846; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1256,7 +1256,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0060
      * @tc.name      testSafeSeekSpeed0060
      * @tc.desc      Seek 7983 clamps to 7983; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1277,7 +1277,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0061
      * @tc.name      testSafeSeekSpeed0061
      * @tc.desc      Seek 8120 clamps to 8120; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1298,7 +1298,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0062
      * @tc.name      testSafeSeekSpeed0062
      * @tc.desc      Seek 8257 clamps to 8257; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1319,7 +1319,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0063
      * @tc.name      testSafeSeekSpeed0063
      * @tc.desc      Seek 8394 clamps to 8394; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1340,7 +1340,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0064
      * @tc.name      testSafeSeekSpeed0064
      * @tc.desc      Seek 8531 clamps to 8531; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1361,7 +1361,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0065
      * @tc.name      testSafeSeekSpeed0065
      * @tc.desc      Seek 8668 clamps to 8668; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1382,7 +1382,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0066
      * @tc.name      testSafeSeekSpeed0066
      * @tc.desc      Seek 8805 clamps to 8805; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1403,7 +1403,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0067
      * @tc.name      testSafeSeekSpeed0067
      * @tc.desc      Seek 8942 clamps to 8942; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1424,7 +1424,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0068
      * @tc.name      testSafeSeekSpeed0068
      * @tc.desc      Seek 9079 clamps to 9079; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1445,7 +1445,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0069
      * @tc.name      testSafeSeekSpeed0069
      * @tc.desc      Seek 9216 clamps to 9216; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1466,7 +1466,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0070
      * @tc.name      testSafeSeekSpeed0070
      * @tc.desc      Seek 9353 clamps to 9353; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1487,7 +1487,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0071
      * @tc.name      testSafeSeekSpeed0071
      * @tc.desc      Seek 9490 clamps to 9490; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1508,7 +1508,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0072
      * @tc.name      testSafeSeekSpeed0072
      * @tc.desc      Seek 9627 clamps to 9627; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1529,7 +1529,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0073
      * @tc.name      testSafeSeekSpeed0073
      * @tc.desc      Seek 9764 clamps to 9764; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1550,7 +1550,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0074
      * @tc.name      testSafeSeekSpeed0074
      * @tc.desc      Seek 9901 clamps to 9901; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1571,7 +1571,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0075
      * @tc.name      testSafeSeekSpeed0075
      * @tc.desc      Seek 10038 clamps to 10000; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1592,7 +1592,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0076
      * @tc.name      testSafeSeekSpeed0076
      * @tc.desc      Seek 10175 clamps to 10000; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1613,7 +1613,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0077
      * @tc.name      testSafeSeekSpeed0077
      * @tc.desc      Seek 10312 clamps to 10000; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1634,7 +1634,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0078
      * @tc.name      testSafeSeekSpeed0078
      * @tc.desc      Seek 10449 clamps to 10000; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1655,7 +1655,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0079
      * @tc.name      testSafeSeekSpeed0079
      * @tc.desc      Seek 10586 clamps to 10000; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1676,7 +1676,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0080
      * @tc.name      testSafeSeekSpeed0080
      * @tc.desc      Seek 10723 clamps to 10000; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1697,7 +1697,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0081
      * @tc.name      testSafeSeekSpeed0081
      * @tc.desc      Seek 10860 clamps to 10000; speed index becomes 0.
      * @tc.size      MediumTest
@@ -1718,7 +1718,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0082
      * @tc.name      testSafeSeekSpeed0082
      * @tc.desc      Seek 10997 clamps to 10000; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1739,7 +1739,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0083
      * @tc.name      testSafeSeekSpeed0083
      * @tc.desc      Seek 11134 clamps to 10000; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1760,7 +1760,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0084
      * @tc.name      testSafeSeekSpeed0084
      * @tc.desc      Seek 11271 clamps to 10000; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1781,7 +1781,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0085
      * @tc.name      testSafeSeekSpeed0085
      * @tc.desc      Seek 11408 clamps to 10000; speed index becomes 1.
      * @tc.size      MediumTest
@@ -1802,7 +1802,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0086
      * @tc.name      testSafeSeekSpeed0086
      * @tc.desc      Seek 11545 clamps to 10000; speed index becomes 2.
      * @tc.size      MediumTest
@@ -1823,7 +1823,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0087
      * @tc.name      testSafeSeekSpeed0087
      * @tc.desc      Seek 11682 clamps to 10000; speed index becomes 3.
      * @tc.size      MediumTest
@@ -1844,7 +1844,7 @@ export default function subtitleSafeStateTailTest() {
       expect(clamped >= 0 && clamped <= duration).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_SB_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_SB_0088
      * @tc.name      testSafeSeekSpeed0088
      * @tc.desc      Seek 11819 clamps to 10000; speed index becomes 0.
      * @tc.size      MediumTest

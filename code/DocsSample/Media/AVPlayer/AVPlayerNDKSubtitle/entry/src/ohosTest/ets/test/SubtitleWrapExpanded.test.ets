@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitleWrapExpandedTest() {
   describe('subtitleWrapExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0001
      * @tc.name      testMoreSubtitleWrap0001
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -35,7 +35,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0002
      * @tc.name      testMoreSubtitleWrap0002
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -52,7 +52,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0003
      * @tc.name      testMoreSubtitleWrap0003
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -69,7 +69,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0004
      * @tc.name      testMoreSubtitleWrap0004
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -86,7 +86,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0005
      * @tc.name      testMoreSubtitleWrap0005
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -103,7 +103,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0006
      * @tc.name      testMoreSubtitleWrap0006
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -120,7 +120,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0007
      * @tc.name      testMoreSubtitleWrap0007
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -137,7 +137,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0008
      * @tc.name      testMoreSubtitleWrap0008
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -154,7 +154,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0009
      * @tc.name      testMoreSubtitleWrap0009
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -171,7 +171,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0010
      * @tc.name      testMoreSubtitleWrap0010
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -188,7 +188,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0011
      * @tc.name      testMoreSubtitleWrap0011
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -205,7 +205,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0012
      * @tc.name      testMoreSubtitleWrap0012
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -222,7 +222,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0013
      * @tc.name      testMoreSubtitleWrap0013
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -239,7 +239,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0014
      * @tc.name      testMoreSubtitleWrap0014
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -256,7 +256,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0015
      * @tc.name      testMoreSubtitleWrap0015
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -273,7 +273,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0016
      * @tc.name      testMoreSubtitleWrap0016
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -290,7 +290,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0017
      * @tc.name      testMoreSubtitleWrap0017
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -307,7 +307,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0018
      * @tc.name      testMoreSubtitleWrap0018
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0019
      * @tc.name      testMoreSubtitleWrap0019
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -341,7 +341,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0020
      * @tc.name      testMoreSubtitleWrap0020
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -358,7 +358,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0021
      * @tc.name      testMoreSubtitleWrap0021
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -375,7 +375,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0022
      * @tc.name      testMoreSubtitleWrap0022
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -392,7 +392,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0023
      * @tc.name      testMoreSubtitleWrap0023
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -409,7 +409,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0024
      * @tc.name      testMoreSubtitleWrap0024
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -426,7 +426,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0025
      * @tc.name      testMoreSubtitleWrap0025
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -443,7 +443,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0026
      * @tc.name      testMoreSubtitleWrap0026
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -460,7 +460,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0027
      * @tc.name      testMoreSubtitleWrap0027
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -477,7 +477,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0028
      * @tc.name      testMoreSubtitleWrap0028
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -494,7 +494,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0029
      * @tc.name      testMoreSubtitleWrap0029
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -511,7 +511,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0030
      * @tc.name      testMoreSubtitleWrap0030
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -528,7 +528,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0031
      * @tc.name      testMoreSubtitleWrap0031
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -545,7 +545,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0032
      * @tc.name      testMoreSubtitleWrap0032
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -562,7 +562,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0033
      * @tc.name      testMoreSubtitleWrap0033
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -579,7 +579,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0034
      * @tc.name      testMoreSubtitleWrap0034
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -596,7 +596,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0035
      * @tc.name      testMoreSubtitleWrap0035
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -613,7 +613,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0036
      * @tc.name      testMoreSubtitleWrap0036
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0037
      * @tc.name      testMoreSubtitleWrap0037
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -647,7 +647,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0038
      * @tc.name      testMoreSubtitleWrap0038
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -664,7 +664,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0039
      * @tc.name      testMoreSubtitleWrap0039
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -681,7 +681,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0040
      * @tc.name      testMoreSubtitleWrap0040
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -698,7 +698,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0041
      * @tc.name      testMoreSubtitleWrap0041
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -715,7 +715,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0042
      * @tc.name      testMoreSubtitleWrap0042
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -732,7 +732,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0043
      * @tc.name      testMoreSubtitleWrap0043
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -749,7 +749,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0044
      * @tc.name      testMoreSubtitleWrap0044
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -766,7 +766,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0045
      * @tc.name      testMoreSubtitleWrap0045
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -783,7 +783,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0046
      * @tc.name      testMoreSubtitleWrap0046
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -800,7 +800,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0047
      * @tc.name      testMoreSubtitleWrap0047
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -817,7 +817,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0048
      * @tc.name      testMoreSubtitleWrap0048
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -834,7 +834,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0049
      * @tc.name      testMoreSubtitleWrap0049
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -851,7 +851,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0050
      * @tc.name      testMoreSubtitleWrap0050
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -868,7 +868,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0051
      * @tc.name      testMoreSubtitleWrap0051
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -885,7 +885,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0052
      * @tc.name      testMoreSubtitleWrap0052
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -902,7 +902,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0053
      * @tc.name      testMoreSubtitleWrap0053
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -919,7 +919,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0054
      * @tc.name      testMoreSubtitleWrap0054
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0055
      * @tc.name      testMoreSubtitleWrap0055
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -953,7 +953,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0056
      * @tc.name      testMoreSubtitleWrap0056
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -970,7 +970,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0057
      * @tc.name      testMoreSubtitleWrap0057
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -987,7 +987,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0058
      * @tc.name      testMoreSubtitleWrap0058
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -1004,7 +1004,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0059
      * @tc.name      testMoreSubtitleWrap0059
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -1021,7 +1021,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0060
      * @tc.name      testMoreSubtitleWrap0060
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -1038,7 +1038,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0061
      * @tc.name      testMoreSubtitleWrap0061
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -1055,7 +1055,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0062
      * @tc.name      testMoreSubtitleWrap0062
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -1072,7 +1072,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0063
      * @tc.name      testMoreSubtitleWrap0063
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -1089,7 +1089,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0064
      * @tc.name      testMoreSubtitleWrap0064
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -1106,7 +1106,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0065
      * @tc.name      testMoreSubtitleWrap0065
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -1123,7 +1123,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0066
      * @tc.name      testMoreSubtitleWrap0066
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -1140,7 +1140,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0067
      * @tc.name      testMoreSubtitleWrap0067
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -1157,7 +1157,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0068
      * @tc.name      testMoreSubtitleWrap0068
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -1174,7 +1174,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0069
      * @tc.name      testMoreSubtitleWrap0069
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -1191,7 +1191,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0070
      * @tc.name      testMoreSubtitleWrap0070
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -1208,7 +1208,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0071
      * @tc.name      testMoreSubtitleWrap0071
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -1225,7 +1225,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0072
      * @tc.name      testMoreSubtitleWrap0072
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0073
      * @tc.name      testMoreSubtitleWrap0073
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -1259,7 +1259,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0074
      * @tc.name      testMoreSubtitleWrap0074
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -1276,7 +1276,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0075
      * @tc.name      testMoreSubtitleWrap0075
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -1293,7 +1293,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0076
      * @tc.name      testMoreSubtitleWrap0076
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -1310,7 +1310,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0077
      * @tc.name      testMoreSubtitleWrap0077
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -1327,7 +1327,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0078
      * @tc.name      testMoreSubtitleWrap0078
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -1344,7 +1344,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0079
      * @tc.name      testMoreSubtitleWrap0079
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -1361,7 +1361,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0080
      * @tc.name      testMoreSubtitleWrap0080
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -1378,7 +1378,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0081
      * @tc.name      testMoreSubtitleWrap0081
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -1395,7 +1395,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0082
      * @tc.name      testMoreSubtitleWrap0082
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -1412,7 +1412,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0083
      * @tc.name      testMoreSubtitleWrap0083
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -1429,7 +1429,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0084
      * @tc.name      testMoreSubtitleWrap0084
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -1446,7 +1446,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0085
      * @tc.name      testMoreSubtitleWrap0085
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -1463,7 +1463,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0086
      * @tc.name      testMoreSubtitleWrap0086
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -1480,7 +1480,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0087
      * @tc.name      testMoreSubtitleWrap0087
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -1497,7 +1497,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0088
      * @tc.name      testMoreSubtitleWrap0088
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -1514,7 +1514,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0089
      * @tc.name      testMoreSubtitleWrap0089
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -1531,7 +1531,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0090
      * @tc.name      testMoreSubtitleWrap0090
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0091
      * @tc.name      testMoreSubtitleWrap0091
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -1565,7 +1565,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0092
      * @tc.name      testMoreSubtitleWrap0092
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -1582,7 +1582,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0093
      * @tc.name      testMoreSubtitleWrap0093
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -1599,7 +1599,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0094
      * @tc.name      testMoreSubtitleWrap0094
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest
@@ -1616,7 +1616,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0095
      * @tc.name      testMoreSubtitleWrap0095
      * @tc.desc      37 chars at width 32 need 2 lines.
      * @tc.size      MediumTest
@@ -1633,7 +1633,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0096
      * @tc.name      testMoreSubtitleWrap0096
      * @tc.desc      45 chars at width 40 need 2 lines.
      * @tc.size      MediumTest
@@ -1650,7 +1650,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0097
      * @tc.name      testMoreSubtitleWrap0097
      * @tc.desc      15 chars at width 10 need 2 lines.
      * @tc.size      MediumTest
@@ -1667,7 +1667,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0098
      * @tc.name      testMoreSubtitleWrap0098
      * @tc.desc      21 chars at width 16 need 2 lines.
      * @tc.size      MediumTest
@@ -1684,7 +1684,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0099
      * @tc.name      testMoreSubtitleWrap0099
      * @tc.desc      25 chars at width 20 need 2 lines.
      * @tc.size      MediumTest
@@ -1701,7 +1701,7 @@ export default function subtitleWrapExpandedTest() {
       expect(lines).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_WRP_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_WRP_0100
      * @tc.name      testMoreSubtitleWrap0100
      * @tc.desc      29 chars at width 24 need 2 lines.
      * @tc.size      MediumTest

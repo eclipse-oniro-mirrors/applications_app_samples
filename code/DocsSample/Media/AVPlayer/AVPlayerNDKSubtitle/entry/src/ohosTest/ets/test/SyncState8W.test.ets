@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function syncState8wTest() {
   describe('syncState8wTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0001
      * @tc.name      test8wSyncState0001
      * @tc.desc      Sync delta -49ms selects WAIT.
      * @tc.size      MediumTest
@@ -39,7 +39,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0002
      * @tc.name      test8wSyncState0002
      * @tc.desc      Sync delta -48ms selects WAIT.
      * @tc.size      MediumTest
@@ -60,7 +60,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0003
      * @tc.name      test8wSyncState0003
      * @tc.desc      Sync delta -47ms selects WAIT.
      * @tc.size      MediumTest
@@ -81,7 +81,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0004
      * @tc.name      test8wSyncState0004
      * @tc.desc      Sync delta -46ms selects WAIT.
      * @tc.size      MediumTest
@@ -102,7 +102,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0005
      * @tc.name      test8wSyncState0005
      * @tc.desc      Sync delta -45ms selects WAIT.
      * @tc.size      MediumTest
@@ -123,7 +123,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0006
      * @tc.name      test8wSyncState0006
      * @tc.desc      Sync delta -44ms selects WAIT.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0007
      * @tc.name      test8wSyncState0007
      * @tc.desc      Sync delta -43ms selects WAIT.
      * @tc.size      MediumTest
@@ -165,7 +165,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0008
      * @tc.name      test8wSyncState0008
      * @tc.desc      Sync delta -42ms selects WAIT.
      * @tc.size      MediumTest
@@ -186,7 +186,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0009
      * @tc.name      test8wSyncState0009
      * @tc.desc      Sync delta -41ms selects WAIT.
      * @tc.size      MediumTest
@@ -207,7 +207,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0010
      * @tc.name      test8wSyncState0010
      * @tc.desc      Sync delta -40ms selects WAIT.
      * @tc.size      MediumTest
@@ -228,7 +228,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0011
      * @tc.name      test8wSyncState0011
      * @tc.desc      Sync delta -39ms selects WAIT.
      * @tc.size      MediumTest
@@ -249,7 +249,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0012
      * @tc.name      test8wSyncState0012
      * @tc.desc      Sync delta -38ms selects WAIT.
      * @tc.size      MediumTest
@@ -270,7 +270,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0013
      * @tc.name      test8wSyncState0013
      * @tc.desc      Sync delta -37ms selects WAIT.
      * @tc.size      MediumTest
@@ -291,7 +291,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0014
      * @tc.name      test8wSyncState0014
      * @tc.desc      Sync delta -36ms selects WAIT.
      * @tc.size      MediumTest
@@ -312,7 +312,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0015
      * @tc.name      test8wSyncState0015
      * @tc.desc      Sync delta -35ms selects WAIT.
      * @tc.size      MediumTest
@@ -333,7 +333,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0016
      * @tc.name      test8wSyncState0016
      * @tc.desc      Sync delta -34ms selects WAIT.
      * @tc.size      MediumTest
@@ -354,7 +354,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0017
      * @tc.name      test8wSyncState0017
      * @tc.desc      Sync delta -33ms selects WAIT.
      * @tc.size      MediumTest
@@ -375,7 +375,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0018
      * @tc.name      test8wSyncState0018
      * @tc.desc      Sync delta -32ms selects WAIT.
      * @tc.size      MediumTest
@@ -396,7 +396,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0019
      * @tc.name      test8wSyncState0019
      * @tc.desc      Sync delta -31ms selects WAIT.
      * @tc.size      MediumTest
@@ -417,7 +417,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0020
      * @tc.name      test8wSyncState0020
      * @tc.desc      Sync delta -30ms selects WAIT.
      * @tc.size      MediumTest
@@ -438,7 +438,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0021
      * @tc.name      test8wSyncState0021
      * @tc.desc      Sync delta -29ms selects WAIT.
      * @tc.size      MediumTest
@@ -459,7 +459,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0022
      * @tc.name      test8wSyncState0022
      * @tc.desc      Sync delta -28ms selects WAIT.
      * @tc.size      MediumTest
@@ -480,7 +480,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0023
      * @tc.name      test8wSyncState0023
      * @tc.desc      Sync delta -27ms selects WAIT.
      * @tc.size      MediumTest
@@ -501,7 +501,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0024
      * @tc.name      test8wSyncState0024
      * @tc.desc      Sync delta -26ms selects WAIT.
      * @tc.size      MediumTest
@@ -522,7 +522,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0025
      * @tc.name      test8wSyncState0025
      * @tc.desc      Sync delta -25ms selects WAIT.
      * @tc.size      MediumTest
@@ -543,7 +543,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0026
      * @tc.name      test8wSyncState0026
      * @tc.desc      Sync delta -24ms selects WAIT.
      * @tc.size      MediumTest
@@ -564,7 +564,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0027
      * @tc.name      test8wSyncState0027
      * @tc.desc      Sync delta -23ms selects WAIT.
      * @tc.size      MediumTest
@@ -585,7 +585,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0028
      * @tc.name      test8wSyncState0028
      * @tc.desc      Sync delta -22ms selects WAIT.
      * @tc.size      MediumTest
@@ -606,7 +606,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0029
      * @tc.name      test8wSyncState0029
      * @tc.desc      Sync delta -21ms selects WAIT.
      * @tc.size      MediumTest
@@ -627,7 +627,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0030
      * @tc.name      test8wSyncState0030
      * @tc.desc      Sync delta -20ms selects WAIT.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0031
      * @tc.name      test8wSyncState0031
      * @tc.desc      Sync delta -19ms selects WAIT.
      * @tc.size      MediumTest
@@ -669,7 +669,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0032
      * @tc.name      test8wSyncState0032
      * @tc.desc      Sync delta -18ms selects WAIT.
      * @tc.size      MediumTest
@@ -690,7 +690,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0033
      * @tc.name      test8wSyncState0033
      * @tc.desc      Sync delta -17ms selects WAIT.
      * @tc.size      MediumTest
@@ -711,7 +711,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0034
      * @tc.name      test8wSyncState0034
      * @tc.desc      Sync delta -16ms selects WAIT.
      * @tc.size      MediumTest
@@ -732,7 +732,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0035
      * @tc.name      test8wSyncState0035
      * @tc.desc      Sync delta -15ms selects WAIT.
      * @tc.size      MediumTest
@@ -753,7 +753,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0036
      * @tc.name      test8wSyncState0036
      * @tc.desc      Sync delta -14ms selects WAIT.
      * @tc.size      MediumTest
@@ -774,7 +774,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0037
      * @tc.name      test8wSyncState0037
      * @tc.desc      Sync delta -13ms selects WAIT.
      * @tc.size      MediumTest
@@ -795,7 +795,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0038
      * @tc.name      test8wSyncState0038
      * @tc.desc      Sync delta -12ms selects WAIT.
      * @tc.size      MediumTest
@@ -816,7 +816,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0039
      * @tc.name      test8wSyncState0039
      * @tc.desc      Sync delta -11ms selects WAIT.
      * @tc.size      MediumTest
@@ -837,7 +837,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0040
      * @tc.name      test8wSyncState0040
      * @tc.desc      Sync delta -10ms selects WAIT.
      * @tc.size      MediumTest
@@ -858,7 +858,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0041
      * @tc.name      test8wSyncState0041
      * @tc.desc      Sync delta -9ms selects WAIT.
      * @tc.size      MediumTest
@@ -879,7 +879,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0042
      * @tc.name      test8wSyncState0042
      * @tc.desc      Sync delta -8ms selects WAIT.
      * @tc.size      MediumTest
@@ -900,7 +900,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0043
      * @tc.name      test8wSyncState0043
      * @tc.desc      Sync delta -7ms selects WAIT.
      * @tc.size      MediumTest
@@ -921,7 +921,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0044
      * @tc.name      test8wSyncState0044
      * @tc.desc      Sync delta -6ms selects WAIT.
      * @tc.size      MediumTest
@@ -942,7 +942,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0045
      * @tc.name      test8wSyncState0045
      * @tc.desc      Sync delta -5ms selects WAIT.
      * @tc.size      MediumTest
@@ -963,7 +963,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0046
      * @tc.name      test8wSyncState0046
      * @tc.desc      Sync delta -4ms selects WAIT.
      * @tc.size      MediumTest
@@ -984,7 +984,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0047
      * @tc.name      test8wSyncState0047
      * @tc.desc      Sync delta -3ms selects WAIT.
      * @tc.size      MediumTest
@@ -1005,7 +1005,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0048
      * @tc.name      test8wSyncState0048
      * @tc.desc      Sync delta -2ms selects WAIT.
      * @tc.size      MediumTest
@@ -1026,7 +1026,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0049
      * @tc.name      test8wSyncState0049
      * @tc.desc      Sync delta -1ms selects WAIT.
      * @tc.size      MediumTest
@@ -1047,7 +1047,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0050
      * @tc.name      test8wSyncState0050
      * @tc.desc      Sync delta 0ms selects SHOW.
      * @tc.size      MediumTest
@@ -1068,7 +1068,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0051
      * @tc.name      test8wSyncState0051
      * @tc.desc      Sync delta 1ms selects SHOW.
      * @tc.size      MediumTest
@@ -1089,7 +1089,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0052
      * @tc.name      test8wSyncState0052
      * @tc.desc      Sync delta 2ms selects SHOW.
      * @tc.size      MediumTest
@@ -1110,7 +1110,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0053
      * @tc.name      test8wSyncState0053
      * @tc.desc      Sync delta 3ms selects SHOW.
      * @tc.size      MediumTest
@@ -1131,7 +1131,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0054
      * @tc.name      test8wSyncState0054
      * @tc.desc      Sync delta 4ms selects SHOW.
      * @tc.size      MediumTest
@@ -1152,7 +1152,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0055
      * @tc.name      test8wSyncState0055
      * @tc.desc      Sync delta 5ms selects SHOW.
      * @tc.size      MediumTest
@@ -1173,7 +1173,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0056
      * @tc.name      test8wSyncState0056
      * @tc.desc      Sync delta 6ms selects SHOW.
      * @tc.size      MediumTest
@@ -1194,7 +1194,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0057
      * @tc.name      test8wSyncState0057
      * @tc.desc      Sync delta 7ms selects SHOW.
      * @tc.size      MediumTest
@@ -1215,7 +1215,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0058
      * @tc.name      test8wSyncState0058
      * @tc.desc      Sync delta 8ms selects SHOW.
      * @tc.size      MediumTest
@@ -1236,7 +1236,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0059
      * @tc.name      test8wSyncState0059
      * @tc.desc      Sync delta 9ms selects SHOW.
      * @tc.size      MediumTest
@@ -1257,7 +1257,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0060
      * @tc.name      test8wSyncState0060
      * @tc.desc      Sync delta 10ms selects SHOW.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0061
      * @tc.name      test8wSyncState0061
      * @tc.desc      Sync delta 11ms selects SHOW.
      * @tc.size      MediumTest
@@ -1299,7 +1299,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0062
      * @tc.name      test8wSyncState0062
      * @tc.desc      Sync delta 12ms selects SHOW.
      * @tc.size      MediumTest
@@ -1320,7 +1320,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0063
      * @tc.name      test8wSyncState0063
      * @tc.desc      Sync delta 13ms selects SHOW.
      * @tc.size      MediumTest
@@ -1341,7 +1341,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0064
      * @tc.name      test8wSyncState0064
      * @tc.desc      Sync delta 14ms selects SHOW.
      * @tc.size      MediumTest
@@ -1362,7 +1362,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0065
      * @tc.name      test8wSyncState0065
      * @tc.desc      Sync delta 15ms selects SHOW.
      * @tc.size      MediumTest
@@ -1383,7 +1383,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0066
      * @tc.name      test8wSyncState0066
      * @tc.desc      Sync delta 16ms selects SHOW.
      * @tc.size      MediumTest
@@ -1404,7 +1404,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0067
      * @tc.name      test8wSyncState0067
      * @tc.desc      Sync delta 17ms selects SHOW.
      * @tc.size      MediumTest
@@ -1425,7 +1425,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0068
      * @tc.name      test8wSyncState0068
      * @tc.desc      Sync delta 18ms selects SHOW.
      * @tc.size      MediumTest
@@ -1446,7 +1446,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0069
      * @tc.name      test8wSyncState0069
      * @tc.desc      Sync delta 19ms selects SHOW.
      * @tc.size      MediumTest
@@ -1467,7 +1467,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0070
      * @tc.name      test8wSyncState0070
      * @tc.desc      Sync delta 20ms selects SHOW.
      * @tc.size      MediumTest
@@ -1488,7 +1488,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0071
      * @tc.name      test8wSyncState0071
      * @tc.desc      Sync delta 21ms selects SHOW.
      * @tc.size      MediumTest
@@ -1509,7 +1509,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0072
      * @tc.name      test8wSyncState0072
      * @tc.desc      Sync delta 22ms selects SHOW.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0073
      * @tc.name      test8wSyncState0073
      * @tc.desc      Sync delta 23ms selects SHOW.
      * @tc.size      MediumTest
@@ -1551,7 +1551,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0074
      * @tc.name      test8wSyncState0074
      * @tc.desc      Sync delta 24ms selects SHOW.
      * @tc.size      MediumTest
@@ -1572,7 +1572,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0075
      * @tc.name      test8wSyncState0075
      * @tc.desc      Sync delta 25ms selects SHOW.
      * @tc.size      MediumTest
@@ -1593,7 +1593,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0076
      * @tc.name      test8wSyncState0076
      * @tc.desc      Sync delta 26ms selects SHOW.
      * @tc.size      MediumTest
@@ -1614,7 +1614,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0077
      * @tc.name      test8wSyncState0077
      * @tc.desc      Sync delta 27ms selects SHOW.
      * @tc.size      MediumTest
@@ -1635,7 +1635,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0078
      * @tc.name      test8wSyncState0078
      * @tc.desc      Sync delta 28ms selects SHOW.
      * @tc.size      MediumTest
@@ -1656,7 +1656,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0079
      * @tc.name      test8wSyncState0079
      * @tc.desc      Sync delta 29ms selects SHOW.
      * @tc.size      MediumTest
@@ -1677,7 +1677,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0080
      * @tc.name      test8wSyncState0080
      * @tc.desc      Sync delta 30ms selects SHOW.
      * @tc.size      MediumTest
@@ -1698,7 +1698,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0081
      * @tc.name      test8wSyncState0081
      * @tc.desc      Sync delta 31ms selects SHOW.
      * @tc.size      MediumTest
@@ -1719,7 +1719,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0082
      * @tc.name      test8wSyncState0082
      * @tc.desc      Sync delta 32ms selects SHOW.
      * @tc.size      MediumTest
@@ -1740,7 +1740,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0083
      * @tc.name      test8wSyncState0083
      * @tc.desc      Sync delta 33ms selects SHOW.
      * @tc.size      MediumTest
@@ -1761,7 +1761,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0084
      * @tc.name      test8wSyncState0084
      * @tc.desc      Sync delta 34ms selects SHOW.
      * @tc.size      MediumTest
@@ -1782,7 +1782,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0085
      * @tc.name      test8wSyncState0085
      * @tc.desc      Sync delta 35ms selects SHOW.
      * @tc.size      MediumTest
@@ -1803,7 +1803,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0086
      * @tc.name      test8wSyncState0086
      * @tc.desc      Sync delta 36ms selects SHOW.
      * @tc.size      MediumTest
@@ -1824,7 +1824,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0087
      * @tc.name      test8wSyncState0087
      * @tc.desc      Sync delta 37ms selects SHOW.
      * @tc.size      MediumTest
@@ -1845,7 +1845,7 @@ export default function syncState8wTest() {
       expect(['WAIT', 'SHOW', 'DROP'].indexOf(policy)).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_SYNC_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_8W_SYNC_0088
      * @tc.name      test8wSyncState0088
      * @tc.desc      Sync delta 38ms selects SHOW.
      * @tc.size      MediumTest

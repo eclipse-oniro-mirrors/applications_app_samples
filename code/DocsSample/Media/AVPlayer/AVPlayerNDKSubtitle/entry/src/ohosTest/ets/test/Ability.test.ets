@@ -24,19 +24,19 @@ export default function abilityTest(): void {
   const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
   const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 
-  describe('AVPlayerNDKSubtitleTest', () => {
+  describe('AVPlayerNATIVESubtitleTest', () => {
 
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_0100
-     * @tc.name      testAVPlayerNDKSubtitleStart0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_0100
+     * @tc.name      testAVPlayerNATIVESubtitleStart0001
      * @tc.desc      Start the target ability and verify it starts without exception.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAVPlayerNDKSubtitleStart0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testAVPlayerNATIVESubtitleStart0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-      console.info(TAG, 'testAVPlayerNDKSubtitleStart0001 begin');
+      console.info(TAG, 'testAVPlayerNATIVESubtitleStart0001 begin');
 
       try {
         await abilityDelegator.startAbility({
@@ -44,7 +44,7 @@ export default function abilityTest(): void {
           abilityName: 'EntryAbility'
         });
       } catch (exception) {
-        hilog.error(DOMAIN, TAG, `testAVPlayerNDKSubtitleStart0001 exception = ${JSON.stringify(exception)}`);
+        hilog.error(DOMAIN, TAG, `testAVPlayerNATIVESubtitleStart0001 exception = ${JSON.stringify(exception)}`);
         expect().assertFail();
       }
 
@@ -52,20 +52,20 @@ export default function abilityTest(): void {
       const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
       done();
-      console.info(TAG, 'testAVPlayerNDKSubtitleStart0001 end');
+      console.info(TAG, 'testAVPlayerNATIVESubtitleStart0001 end');
     })
 
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_0200
-     * @tc.name      testAVPlayerNDKSubtitleSlider0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_0200
+     * @tc.name      testAVPlayerNATIVESubtitleSlider0002
      * @tc.desc      Play, pause and drag the progress slider, verify the image component exists.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAVPlayerNDKSubtitleSlider0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testAVPlayerNATIVESubtitleSlider0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNDKSubtitleSlider0002 begin');
+      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleSlider0002 begin');
 
       await driver.delayMs(2000);
       await driver.assertComponentExist(ON.type('Image'));
@@ -87,20 +87,20 @@ export default function abilityTest(): void {
 
       done();
       hilog.info(DOMAIN, TAG, 'Slider_001 end');
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNDKSubtitleSlider0002 end');
+      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleSlider0002 end');
     })
 
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_0300
-     * @tc.name      testAVPlayerNDKSubtitleExit0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_0300
+     * @tc.name      testAVPlayerNATIVESubtitleExit0003
      * @tc.desc      Pause playback before exit and verify the image component exists.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAVPlayerNDKSubtitleExit0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testAVPlayerNATIVESubtitleExit0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNDKSubtitleExit0003 begin');
+      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleExit0003 begin');
 
       await driver.delayMs(8000);
       await driver.assertComponentExist(ON.type('Image'));
@@ -111,7 +111,7 @@ export default function abilityTest(): void {
       await driver.delayMs(2000);
 
       done();
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNDKSubtitleExit0003 end');
+      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleExit0003 end');
     })
   })
 }

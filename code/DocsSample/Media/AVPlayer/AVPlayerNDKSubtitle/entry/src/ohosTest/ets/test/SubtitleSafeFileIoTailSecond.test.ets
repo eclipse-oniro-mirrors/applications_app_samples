@@ -21,7 +21,7 @@ const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 export default function SubtitleSafeFileIoTailSecondTest() {
   describe('SubtitleSafeFileIoTailSecondTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0211
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0211
      * @tc.name      testSafeFileIo0211
      * @tc.desc      Write 730 bytes, truncate to 365, read back.
      * @tc.size      MediumTest
@@ -51,7 +51,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0212
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0212
      * @tc.name      testSafeFileIo0212
      * @tc.desc      Write 733 bytes, truncate to 366, read back.
      * @tc.size      MediumTest
@@ -81,7 +81,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0213
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0213
      * @tc.name      testSafeFileIo0213
      * @tc.desc      Write 736 bytes, truncate to 368, read back.
      * @tc.size      MediumTest
@@ -111,7 +111,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0214
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0214
      * @tc.name      testSafeFileIo0214
      * @tc.desc      Write 739 bytes, truncate to 369, read back.
      * @tc.size      MediumTest
@@ -141,7 +141,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0215
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0215
      * @tc.name      testSafeFileIo0215
      * @tc.desc      Write 742 bytes, truncate to 371, read back.
      * @tc.size      MediumTest
@@ -171,7 +171,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0216
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0216
      * @tc.name      testSafeFileIo0216
      * @tc.desc      Write 745 bytes, truncate to 372, read back.
      * @tc.size      MediumTest
@@ -201,7 +201,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0217
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0217
      * @tc.name      testSafeFileIo0217
      * @tc.desc      Write 748 bytes, truncate to 374, read back.
      * @tc.size      MediumTest
@@ -231,7 +231,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0218
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0218
      * @tc.name      testSafeFileIo0218
      * @tc.desc      Write 751 bytes, truncate to 375, read back.
      * @tc.size      MediumTest
@@ -261,7 +261,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0219
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0219
      * @tc.name      testSafeFileIo0219
      * @tc.desc      Write 754 bytes, truncate to 377, read back.
      * @tc.size      MediumTest
@@ -291,7 +291,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0220
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0220
      * @tc.name      testSafeFileIo0220
      * @tc.desc      Write 757 bytes, truncate to 378, read back.
      * @tc.size      MediumTest
@@ -321,7 +321,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0221
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0221
      * @tc.name      testSafeFileIo0221
      * @tc.desc      Write 760 bytes, truncate to 380, read back.
      * @tc.size      MediumTest
@@ -351,7 +351,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0222
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0222
      * @tc.name      testSafeFileIo0222
      * @tc.desc      Write 763 bytes, truncate to 381, read back.
      * @tc.size      MediumTest
@@ -381,7 +381,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0223
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0223
      * @tc.name      testSafeFileIo0223
      * @tc.desc      Write 766 bytes, truncate to 383, read back.
      * @tc.size      MediumTest
@@ -411,7 +411,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0224
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0224
      * @tc.name      testSafeFileIo0224
      * @tc.desc      Write 769 bytes, truncate to 384, read back.
      * @tc.size      MediumTest
@@ -441,7 +441,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0225
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0225
      * @tc.name      testSafeFileIo0225
      * @tc.desc      Write 772 bytes, truncate to 386, read back.
      * @tc.size      MediumTest
@@ -471,7 +471,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0226
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0226
      * @tc.name      testSafeFileIo0226
      * @tc.desc      Write 775 bytes, truncate to 387, read back.
      * @tc.size      MediumTest
@@ -501,7 +501,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0227
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0227
      * @tc.name      testSafeFileIo0227
      * @tc.desc      Write 778 bytes, truncate to 389, read back.
      * @tc.size      MediumTest
@@ -531,7 +531,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0228
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0228
      * @tc.name      testSafeFileIo0228
      * @tc.desc      Write 781 bytes, truncate to 390, read back.
      * @tc.size      MediumTest
@@ -561,7 +561,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0229
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0229
      * @tc.name      testSafeFileIo0229
      * @tc.desc      Write 784 bytes, truncate to 392, read back.
      * @tc.size      MediumTest
@@ -591,7 +591,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0230
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0230
      * @tc.name      testSafeFileIo0230
      * @tc.desc      Write 787 bytes, truncate to 393, read back.
      * @tc.size      MediumTest
@@ -621,7 +621,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0231
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0231
      * @tc.name      testSafeFileIo0231
      * @tc.desc      Write 790 bytes, truncate to 395, read back.
      * @tc.size      MediumTest
@@ -651,7 +651,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0232
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0232
      * @tc.name      testSafeFileIo0232
      * @tc.desc      Write 793 bytes, truncate to 396, read back.
      * @tc.size      MediumTest
@@ -681,7 +681,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0233
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0233
      * @tc.name      testSafeFileIo0233
      * @tc.desc      Write 796 bytes, truncate to 398, read back.
      * @tc.size      MediumTest
@@ -711,7 +711,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0234
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0234
      * @tc.name      testSafeFileIo0234
      * @tc.desc      Write 799 bytes, truncate to 399, read back.
      * @tc.size      MediumTest
@@ -741,7 +741,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0235
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0235
      * @tc.name      testSafeFileIo0235
      * @tc.desc      Write 802 bytes, truncate to 401, read back.
      * @tc.size      MediumTest
@@ -771,7 +771,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0236
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0236
      * @tc.name      testSafeFileIo0236
      * @tc.desc      Write 805 bytes, truncate to 402, read back.
      * @tc.size      MediumTest
@@ -801,7 +801,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0237
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0237
      * @tc.name      testSafeFileIo0237
      * @tc.desc      Write 808 bytes, truncate to 404, read back.
      * @tc.size      MediumTest
@@ -831,7 +831,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0238
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0238
      * @tc.name      testSafeFileIo0238
      * @tc.desc      Write 811 bytes, truncate to 405, read back.
      * @tc.size      MediumTest
@@ -861,7 +861,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0239
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0239
      * @tc.name      testSafeFileIo0239
      * @tc.desc      Write 814 bytes, truncate to 407, read back.
      * @tc.size      MediumTest
@@ -891,7 +891,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0240
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0240
      * @tc.name      testSafeFileIo0240
      * @tc.desc      Write 817 bytes, truncate to 408, read back.
      * @tc.size      MediumTest
@@ -921,7 +921,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0241
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0241
      * @tc.name      testSafeFileIo0241
      * @tc.desc      Write 820 bytes, truncate to 410, read back.
      * @tc.size      MediumTest
@@ -951,7 +951,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0242
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0242
      * @tc.name      testSafeFileIo0242
      * @tc.desc      Write 823 bytes, truncate to 411, read back.
      * @tc.size      MediumTest
@@ -981,7 +981,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0243
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0243
      * @tc.name      testSafeFileIo0243
      * @tc.desc      Write 826 bytes, truncate to 413, read back.
      * @tc.size      MediumTest
@@ -1011,7 +1011,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0244
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0244
      * @tc.name      testSafeFileIo0244
      * @tc.desc      Write 829 bytes, truncate to 414, read back.
      * @tc.size      MediumTest
@@ -1041,7 +1041,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0245
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0245
      * @tc.name      testSafeFileIo0245
      * @tc.desc      Write 832 bytes, truncate to 416, read back.
      * @tc.size      MediumTest
@@ -1071,7 +1071,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0246
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0246
      * @tc.name      testSafeFileIo0246
      * @tc.desc      Write 835 bytes, truncate to 417, read back.
      * @tc.size      MediumTest
@@ -1101,7 +1101,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0247
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0247
      * @tc.name      testSafeFileIo0247
      * @tc.desc      Write 838 bytes, truncate to 419, read back.
      * @tc.size      MediumTest
@@ -1131,7 +1131,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0248
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0248
      * @tc.name      testSafeFileIo0248
      * @tc.desc      Write 841 bytes, truncate to 420, read back.
      * @tc.size      MediumTest
@@ -1161,7 +1161,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0249
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0249
      * @tc.name      testSafeFileIo0249
      * @tc.desc      Write 844 bytes, truncate to 422, read back.
      * @tc.size      MediumTest
@@ -1191,7 +1191,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0250
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0250
      * @tc.name      testSafeFileIo0250
      * @tc.desc      Write 847 bytes, truncate to 423, read back.
      * @tc.size      MediumTest
@@ -1221,7 +1221,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0251
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0251
      * @tc.name      testSafeFileIo0251
      * @tc.desc      Write 850 bytes, truncate to 425, read back.
      * @tc.size      MediumTest
@@ -1251,7 +1251,7 @@ export default function SubtitleSafeFileIoTailSecondTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0252
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_IO_0252
      * @tc.name      testSafeFileIo0252
      * @tc.desc      Write 853 bytes, truncate to 426, read back.
      * @tc.size      MediumTest

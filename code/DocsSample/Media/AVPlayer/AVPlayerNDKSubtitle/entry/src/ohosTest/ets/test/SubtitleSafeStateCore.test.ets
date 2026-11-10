@@ -17,7 +17,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitleSafeStateCoreTest() {
   describe('subtitleSafeStateCoreTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0001
      * @tc.name      testSafeSyncState0001
      * @tc.desc      Sync delta -50 selects WAIT.
      * @tc.size      MediumTest
@@ -38,7 +38,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0002
      * @tc.name      testSafeSyncState0002
      * @tc.desc      Sync delta -49 selects WAIT.
      * @tc.size      MediumTest
@@ -59,7 +59,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0003
      * @tc.name      testSafeSyncState0003
      * @tc.desc      Sync delta -48 selects WAIT.
      * @tc.size      MediumTest
@@ -80,7 +80,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0004
      * @tc.name      testSafeSyncState0004
      * @tc.desc      Sync delta -47 selects WAIT.
      * @tc.size      MediumTest
@@ -101,7 +101,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0005
      * @tc.name      testSafeSyncState0005
      * @tc.desc      Sync delta -46 selects WAIT.
      * @tc.size      MediumTest
@@ -122,7 +122,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0006
      * @tc.name      testSafeSyncState0006
      * @tc.desc      Sync delta -45 selects WAIT.
      * @tc.size      MediumTest
@@ -143,7 +143,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0007
      * @tc.name      testSafeSyncState0007
      * @tc.desc      Sync delta -44 selects WAIT.
      * @tc.size      MediumTest
@@ -164,7 +164,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0008
      * @tc.name      testSafeSyncState0008
      * @tc.desc      Sync delta -43 selects WAIT.
      * @tc.size      MediumTest
@@ -185,7 +185,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0009
      * @tc.name      testSafeSyncState0009
      * @tc.desc      Sync delta -42 selects WAIT.
      * @tc.size      MediumTest
@@ -206,7 +206,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0010
      * @tc.name      testSafeSyncState0010
      * @tc.desc      Sync delta -41 selects WAIT.
      * @tc.size      MediumTest
@@ -227,7 +227,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0011
      * @tc.name      testSafeSyncState0011
      * @tc.desc      Sync delta -40 selects WAIT.
      * @tc.size      MediumTest
@@ -248,7 +248,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0012
      * @tc.name      testSafeSyncState0012
      * @tc.desc      Sync delta -39 selects WAIT.
      * @tc.size      MediumTest
@@ -269,7 +269,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0013
      * @tc.name      testSafeSyncState0013
      * @tc.desc      Sync delta -38 selects WAIT.
      * @tc.size      MediumTest
@@ -290,7 +290,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0014
      * @tc.name      testSafeSyncState0014
      * @tc.desc      Sync delta -37 selects WAIT.
      * @tc.size      MediumTest
@@ -311,7 +311,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0015
      * @tc.name      testSafeSyncState0015
      * @tc.desc      Sync delta -36 selects WAIT.
      * @tc.size      MediumTest
@@ -332,7 +332,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0016
      * @tc.name      testSafeSyncState0016
      * @tc.desc      Sync delta -35 selects WAIT.
      * @tc.size      MediumTest
@@ -353,7 +353,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0017
      * @tc.name      testSafeSyncState0017
      * @tc.desc      Sync delta -34 selects WAIT.
      * @tc.size      MediumTest
@@ -374,7 +374,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0018
      * @tc.name      testSafeSyncState0018
      * @tc.desc      Sync delta -33 selects WAIT.
      * @tc.size      MediumTest
@@ -395,7 +395,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0019
      * @tc.name      testSafeSyncState0019
      * @tc.desc      Sync delta -32 selects WAIT.
      * @tc.size      MediumTest
@@ -416,7 +416,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0020
      * @tc.name      testSafeSyncState0020
      * @tc.desc      Sync delta -31 selects WAIT.
      * @tc.size      MediumTest
@@ -437,7 +437,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0021
      * @tc.name      testSafeSyncState0021
      * @tc.desc      Sync delta -30 selects WAIT.
      * @tc.size      MediumTest
@@ -458,7 +458,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0022
      * @tc.name      testSafeSyncState0022
      * @tc.desc      Sync delta -29 selects WAIT.
      * @tc.size      MediumTest
@@ -479,7 +479,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0023
      * @tc.name      testSafeSyncState0023
      * @tc.desc      Sync delta -28 selects WAIT.
      * @tc.size      MediumTest
@@ -500,7 +500,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0024
      * @tc.name      testSafeSyncState0024
      * @tc.desc      Sync delta -27 selects WAIT.
      * @tc.size      MediumTest
@@ -521,7 +521,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0025
      * @tc.name      testSafeSyncState0025
      * @tc.desc      Sync delta -26 selects WAIT.
      * @tc.size      MediumTest
@@ -542,7 +542,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0026
      * @tc.name      testSafeSyncState0026
      * @tc.desc      Sync delta -25 selects WAIT.
      * @tc.size      MediumTest
@@ -563,7 +563,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0027
      * @tc.name      testSafeSyncState0027
      * @tc.desc      Sync delta -24 selects WAIT.
      * @tc.size      MediumTest
@@ -584,7 +584,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0028
      * @tc.name      testSafeSyncState0028
      * @tc.desc      Sync delta -23 selects WAIT.
      * @tc.size      MediumTest
@@ -605,7 +605,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0029
      * @tc.name      testSafeSyncState0029
      * @tc.desc      Sync delta -22 selects WAIT.
      * @tc.size      MediumTest
@@ -626,7 +626,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0030
      * @tc.name      testSafeSyncState0030
      * @tc.desc      Sync delta -21 selects WAIT.
      * @tc.size      MediumTest
@@ -647,7 +647,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0031
      * @tc.name      testSafeSyncState0031
      * @tc.desc      Sync delta -20 selects WAIT.
      * @tc.size      MediumTest
@@ -668,7 +668,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0032
      * @tc.name      testSafeSyncState0032
      * @tc.desc      Sync delta -19 selects WAIT.
      * @tc.size      MediumTest
@@ -689,7 +689,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0033
      * @tc.name      testSafeSyncState0033
      * @tc.desc      Sync delta -18 selects WAIT.
      * @tc.size      MediumTest
@@ -710,7 +710,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0034
      * @tc.name      testSafeSyncState0034
      * @tc.desc      Sync delta -17 selects WAIT.
      * @tc.size      MediumTest
@@ -731,7 +731,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0035
      * @tc.name      testSafeSyncState0035
      * @tc.desc      Sync delta -16 selects WAIT.
      * @tc.size      MediumTest
@@ -752,7 +752,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0036
      * @tc.name      testSafeSyncState0036
      * @tc.desc      Sync delta -15 selects WAIT.
      * @tc.size      MediumTest
@@ -773,7 +773,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0037
      * @tc.name      testSafeSyncState0037
      * @tc.desc      Sync delta -14 selects WAIT.
      * @tc.size      MediumTest
@@ -794,7 +794,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0038
      * @tc.name      testSafeSyncState0038
      * @tc.desc      Sync delta -13 selects WAIT.
      * @tc.size      MediumTest
@@ -815,7 +815,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0039
      * @tc.name      testSafeSyncState0039
      * @tc.desc      Sync delta -12 selects WAIT.
      * @tc.size      MediumTest
@@ -836,7 +836,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0040
      * @tc.name      testSafeSyncState0040
      * @tc.desc      Sync delta -11 selects WAIT.
      * @tc.size      MediumTest
@@ -857,7 +857,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0041
      * @tc.name      testSafeSyncState0041
      * @tc.desc      Sync delta -10 selects WAIT.
      * @tc.size      MediumTest
@@ -878,7 +878,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0042
      * @tc.name      testSafeSyncState0042
      * @tc.desc      Sync delta -9 selects WAIT.
      * @tc.size      MediumTest
@@ -899,7 +899,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0043
      * @tc.name      testSafeSyncState0043
      * @tc.desc      Sync delta -8 selects WAIT.
      * @tc.size      MediumTest
@@ -920,7 +920,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0044
      * @tc.name      testSafeSyncState0044
      * @tc.desc      Sync delta -7 selects WAIT.
      * @tc.size      MediumTest
@@ -941,7 +941,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0045
      * @tc.name      testSafeSyncState0045
      * @tc.desc      Sync delta -6 selects WAIT.
      * @tc.size      MediumTest
@@ -962,7 +962,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0046
      * @tc.name      testSafeSyncState0046
      * @tc.desc      Sync delta -5 selects WAIT.
      * @tc.size      MediumTest
@@ -983,7 +983,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0047
      * @tc.name      testSafeSyncState0047
      * @tc.desc      Sync delta -4 selects WAIT.
      * @tc.size      MediumTest
@@ -1004,7 +1004,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0048
      * @tc.name      testSafeSyncState0048
      * @tc.desc      Sync delta -3 selects WAIT.
      * @tc.size      MediumTest
@@ -1025,7 +1025,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0049
      * @tc.name      testSafeSyncState0049
      * @tc.desc      Sync delta -2 selects WAIT.
      * @tc.size      MediumTest
@@ -1046,7 +1046,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0050
      * @tc.name      testSafeSyncState0050
      * @tc.desc      Sync delta -1 selects WAIT.
      * @tc.size      MediumTest
@@ -1067,7 +1067,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0051
      * @tc.name      testSafeSyncState0051
      * @tc.desc      Sync delta 0 selects SHOW.
      * @tc.size      MediumTest
@@ -1088,7 +1088,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0052
      * @tc.name      testSafeSyncState0052
      * @tc.desc      Sync delta 1 selects SHOW.
      * @tc.size      MediumTest
@@ -1109,7 +1109,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0053
      * @tc.name      testSafeSyncState0053
      * @tc.desc      Sync delta 2 selects SHOW.
      * @tc.size      MediumTest
@@ -1130,7 +1130,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0054
      * @tc.name      testSafeSyncState0054
      * @tc.desc      Sync delta 3 selects SHOW.
      * @tc.size      MediumTest
@@ -1151,7 +1151,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0055
      * @tc.name      testSafeSyncState0055
      * @tc.desc      Sync delta 4 selects SHOW.
      * @tc.size      MediumTest
@@ -1172,7 +1172,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0056
      * @tc.name      testSafeSyncState0056
      * @tc.desc      Sync delta 5 selects SHOW.
      * @tc.size      MediumTest
@@ -1193,7 +1193,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0057
      * @tc.name      testSafeSyncState0057
      * @tc.desc      Sync delta 6 selects SHOW.
      * @tc.size      MediumTest
@@ -1214,7 +1214,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0058
      * @tc.name      testSafeSyncState0058
      * @tc.desc      Sync delta 7 selects SHOW.
      * @tc.size      MediumTest
@@ -1235,7 +1235,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0059
      * @tc.name      testSafeSyncState0059
      * @tc.desc      Sync delta 8 selects SHOW.
      * @tc.size      MediumTest
@@ -1256,7 +1256,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0060
      * @tc.name      testSafeSyncState0060
      * @tc.desc      Sync delta 9 selects SHOW.
      * @tc.size      MediumTest
@@ -1277,7 +1277,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0061
      * @tc.name      testSafeSyncState0061
      * @tc.desc      Sync delta 10 selects SHOW.
      * @tc.size      MediumTest
@@ -1298,7 +1298,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0062
      * @tc.name      testSafeSyncState0062
      * @tc.desc      Sync delta 11 selects SHOW.
      * @tc.size      MediumTest
@@ -1319,7 +1319,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0063
      * @tc.name      testSafeSyncState0063
      * @tc.desc      Sync delta 12 selects SHOW.
      * @tc.size      MediumTest
@@ -1340,7 +1340,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0064
      * @tc.name      testSafeSyncState0064
      * @tc.desc      Sync delta 13 selects SHOW.
      * @tc.size      MediumTest
@@ -1361,7 +1361,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0065
      * @tc.name      testSafeSyncState0065
      * @tc.desc      Sync delta 14 selects SHOW.
      * @tc.size      MediumTest
@@ -1382,7 +1382,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0066
      * @tc.name      testSafeSyncState0066
      * @tc.desc      Sync delta 15 selects SHOW.
      * @tc.size      MediumTest
@@ -1403,7 +1403,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0067
      * @tc.name      testSafeSyncState0067
      * @tc.desc      Sync delta 16 selects SHOW.
      * @tc.size      MediumTest
@@ -1424,7 +1424,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0068
      * @tc.name      testSafeSyncState0068
      * @tc.desc      Sync delta 17 selects SHOW.
      * @tc.size      MediumTest
@@ -1445,7 +1445,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0069
      * @tc.name      testSafeSyncState0069
      * @tc.desc      Sync delta 18 selects SHOW.
      * @tc.size      MediumTest
@@ -1466,7 +1466,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0070
      * @tc.name      testSafeSyncState0070
      * @tc.desc      Sync delta 19 selects SHOW.
      * @tc.size      MediumTest
@@ -1487,7 +1487,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0071
      * @tc.name      testSafeSyncState0071
      * @tc.desc      Sync delta 20 selects SHOW.
      * @tc.size      MediumTest
@@ -1508,7 +1508,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0072
      * @tc.name      testSafeSyncState0072
      * @tc.desc      Sync delta 21 selects SHOW.
      * @tc.size      MediumTest
@@ -1529,7 +1529,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0073
      * @tc.name      testSafeSyncState0073
      * @tc.desc      Sync delta 22 selects SHOW.
      * @tc.size      MediumTest
@@ -1550,7 +1550,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0074
      * @tc.name      testSafeSyncState0074
      * @tc.desc      Sync delta 23 selects SHOW.
      * @tc.size      MediumTest
@@ -1571,7 +1571,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0075
      * @tc.name      testSafeSyncState0075
      * @tc.desc      Sync delta 24 selects SHOW.
      * @tc.size      MediumTest
@@ -1592,7 +1592,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0076
      * @tc.name      testSafeSyncState0076
      * @tc.desc      Sync delta 25 selects SHOW.
      * @tc.size      MediumTest
@@ -1613,7 +1613,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0077
      * @tc.name      testSafeSyncState0077
      * @tc.desc      Sync delta 26 selects SHOW.
      * @tc.size      MediumTest
@@ -1634,7 +1634,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0078
      * @tc.name      testSafeSyncState0078
      * @tc.desc      Sync delta 27 selects SHOW.
      * @tc.size      MediumTest
@@ -1655,7 +1655,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0079
      * @tc.name      testSafeSyncState0079
      * @tc.desc      Sync delta 28 selects SHOW.
      * @tc.size      MediumTest
@@ -1676,7 +1676,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0080
      * @tc.name      testSafeSyncState0080
      * @tc.desc      Sync delta 29 selects SHOW.
      * @tc.size      MediumTest
@@ -1697,7 +1697,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0081
      * @tc.name      testSafeSyncState0081
      * @tc.desc      Sync delta 30 selects SHOW.
      * @tc.size      MediumTest
@@ -1718,7 +1718,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0082
      * @tc.name      testSafeSyncState0082
      * @tc.desc      Sync delta 31 selects SHOW.
      * @tc.size      MediumTest
@@ -1739,7 +1739,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0083
      * @tc.name      testSafeSyncState0083
      * @tc.desc      Sync delta 32 selects SHOW.
      * @tc.size      MediumTest
@@ -1760,7 +1760,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0084
      * @tc.name      testSafeSyncState0084
      * @tc.desc      Sync delta 33 selects SHOW.
      * @tc.size      MediumTest
@@ -1781,7 +1781,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0085
      * @tc.name      testSafeSyncState0085
      * @tc.desc      Sync delta 34 selects SHOW.
      * @tc.size      MediumTest
@@ -1802,7 +1802,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0086
      * @tc.name      testSafeSyncState0086
      * @tc.desc      Sync delta 35 selects SHOW.
      * @tc.size      MediumTest
@@ -1823,7 +1823,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0087
      * @tc.name      testSafeSyncState0087
      * @tc.desc      Sync delta 36 selects SHOW.
      * @tc.size      MediumTest
@@ -1844,7 +1844,7 @@ export default function subtitleSafeStateCoreTest() {
       expect(Number.isInteger(delta)).assertTrue();
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_ST_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_ST_0088
      * @tc.name      testSafeSyncState0088
      * @tc.desc      Sync delta 37 selects SHOW.
      * @tc.size      MediumTest

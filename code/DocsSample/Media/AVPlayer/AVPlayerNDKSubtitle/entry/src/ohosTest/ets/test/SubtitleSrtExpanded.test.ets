@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function subtitleSrtExpandedTest() {
   describe('subtitleSrtExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0001
      * @tc.name      testExpSubtitleSrt0001
      * @tc.desc      SRT block 1 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -35,7 +35,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line1 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0002
      * @tc.name      testExpSubtitleSrt0002
      * @tc.desc      SRT block 2 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -52,7 +52,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line2 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0003
      * @tc.name      testExpSubtitleSrt0003
      * @tc.desc      SRT block 3 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -69,7 +69,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line3 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0004
      * @tc.name      testExpSubtitleSrt0004
      * @tc.desc      SRT block 4 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -86,7 +86,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line4 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0005
      * @tc.name      testExpSubtitleSrt0005
      * @tc.desc      SRT block 5 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -103,7 +103,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line5 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0006
      * @tc.name      testExpSubtitleSrt0006
      * @tc.desc      SRT block 6 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -120,7 +120,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line6 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0007
      * @tc.name      testExpSubtitleSrt0007
      * @tc.desc      SRT block 7 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -137,7 +137,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line7 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0008
      * @tc.name      testExpSubtitleSrt0008
      * @tc.desc      SRT block 8 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -154,7 +154,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line8 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0009
      * @tc.name      testExpSubtitleSrt0009
      * @tc.desc      SRT block 9 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -171,7 +171,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line9 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0010
      * @tc.name      testExpSubtitleSrt0010
      * @tc.desc      SRT block 10 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -188,7 +188,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line10 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0011
      * @tc.name      testExpSubtitleSrt0011
      * @tc.desc      SRT block 11 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -205,7 +205,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line11 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0012
      * @tc.name      testExpSubtitleSrt0012
      * @tc.desc      SRT block 12 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -222,7 +222,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line12 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0013
      * @tc.name      testExpSubtitleSrt0013
      * @tc.desc      SRT block 13 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -239,7 +239,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line13 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0014
      * @tc.name      testExpSubtitleSrt0014
      * @tc.desc      SRT block 14 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -256,7 +256,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line14 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0015
      * @tc.name      testExpSubtitleSrt0015
      * @tc.desc      SRT block 15 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -273,7 +273,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line15 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0016
      * @tc.name      testExpSubtitleSrt0016
      * @tc.desc      SRT block 16 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -290,7 +290,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line16 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0017
      * @tc.name      testExpSubtitleSrt0017
      * @tc.desc      SRT block 17 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -307,7 +307,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line17 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0018
      * @tc.name      testExpSubtitleSrt0018
      * @tc.desc      SRT block 18 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line18 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0019
      * @tc.name      testExpSubtitleSrt0019
      * @tc.desc      SRT block 19 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -341,7 +341,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line19 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0020
      * @tc.name      testExpSubtitleSrt0020
      * @tc.desc      SRT block 20 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -358,7 +358,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line20 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0021
      * @tc.name      testExpSubtitleSrt0021
      * @tc.desc      SRT block 21 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -375,7 +375,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line21 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0022
      * @tc.name      testExpSubtitleSrt0022
      * @tc.desc      SRT block 22 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -392,7 +392,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line22 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0023
      * @tc.name      testExpSubtitleSrt0023
      * @tc.desc      SRT block 23 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -409,7 +409,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line23 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0024
      * @tc.name      testExpSubtitleSrt0024
      * @tc.desc      SRT block 24 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -426,7 +426,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line24 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0025
      * @tc.name      testExpSubtitleSrt0025
      * @tc.desc      SRT block 25 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -443,7 +443,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line25 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0026
      * @tc.name      testExpSubtitleSrt0026
      * @tc.desc      SRT block 26 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -460,7 +460,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line26 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0027
      * @tc.name      testExpSubtitleSrt0027
      * @tc.desc      SRT block 27 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -477,7 +477,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line27 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0028
      * @tc.name      testExpSubtitleSrt0028
      * @tc.desc      SRT block 28 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -494,7 +494,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line28 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0029
      * @tc.name      testExpSubtitleSrt0029
      * @tc.desc      SRT block 29 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -511,7 +511,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line29 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0030
      * @tc.name      testExpSubtitleSrt0030
      * @tc.desc      SRT block 30 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -528,7 +528,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line30 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0031
      * @tc.name      testExpSubtitleSrt0031
      * @tc.desc      SRT block 31 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -545,7 +545,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line31 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0032
      * @tc.name      testExpSubtitleSrt0032
      * @tc.desc      SRT block 32 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -562,7 +562,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line32 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0033
      * @tc.name      testExpSubtitleSrt0033
      * @tc.desc      SRT block 33 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -579,7 +579,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line33 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0034
      * @tc.name      testExpSubtitleSrt0034
      * @tc.desc      SRT block 34 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -596,7 +596,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line34 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0035
      * @tc.name      testExpSubtitleSrt0035
      * @tc.desc      SRT block 35 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -613,7 +613,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line35 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0036
      * @tc.name      testExpSubtitleSrt0036
      * @tc.desc      SRT block 36 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line36 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0037
      * @tc.name      testExpSubtitleSrt0037
      * @tc.desc      SRT block 37 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -647,7 +647,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line37 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0038
      * @tc.name      testExpSubtitleSrt0038
      * @tc.desc      SRT block 38 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -664,7 +664,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line38 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0039
      * @tc.name      testExpSubtitleSrt0039
      * @tc.desc      SRT block 39 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -681,7 +681,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line39 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0040
      * @tc.name      testExpSubtitleSrt0040
      * @tc.desc      SRT block 40 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -698,7 +698,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line40 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0041
      * @tc.name      testExpSubtitleSrt0041
      * @tc.desc      SRT block 41 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -715,7 +715,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line41 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0042
      * @tc.name      testExpSubtitleSrt0042
      * @tc.desc      SRT block 42 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -732,7 +732,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line42 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0043
      * @tc.name      testExpSubtitleSrt0043
      * @tc.desc      SRT block 43 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -749,7 +749,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line43 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0044
      * @tc.name      testExpSubtitleSrt0044
      * @tc.desc      SRT block 44 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -766,7 +766,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line44 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0045
      * @tc.name      testExpSubtitleSrt0045
      * @tc.desc      SRT block 45 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -783,7 +783,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line45 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0046
      * @tc.name      testExpSubtitleSrt0046
      * @tc.desc      SRT block 46 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -800,7 +800,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line46 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0047
      * @tc.name      testExpSubtitleSrt0047
      * @tc.desc      SRT block 47 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -817,7 +817,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line47 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0048
      * @tc.name      testExpSubtitleSrt0048
      * @tc.desc      SRT block 48 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -834,7 +834,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line48 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0049
      * @tc.name      testExpSubtitleSrt0049
      * @tc.desc      SRT block 49 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -851,7 +851,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line49 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0050
      * @tc.name      testExpSubtitleSrt0050
      * @tc.desc      SRT block 50 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -868,7 +868,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line50 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0051
      * @tc.name      testExpSubtitleSrt0051
      * @tc.desc      SRT block 51 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -885,7 +885,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line51 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0052
      * @tc.name      testExpSubtitleSrt0052
      * @tc.desc      SRT block 52 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -902,7 +902,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line52 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0053
      * @tc.name      testExpSubtitleSrt0053
      * @tc.desc      SRT block 53 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -919,7 +919,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line53 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0054
      * @tc.name      testExpSubtitleSrt0054
      * @tc.desc      SRT block 54 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line54 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0055
      * @tc.name      testExpSubtitleSrt0055
      * @tc.desc      SRT block 55 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -953,7 +953,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line55 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0056
      * @tc.name      testExpSubtitleSrt0056
      * @tc.desc      SRT block 56 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -970,7 +970,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line56 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0057
      * @tc.name      testExpSubtitleSrt0057
      * @tc.desc      SRT block 57 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -987,7 +987,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line57 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0058
      * @tc.name      testExpSubtitleSrt0058
      * @tc.desc      SRT block 58 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1004,7 +1004,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line58 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0059
      * @tc.name      testExpSubtitleSrt0059
      * @tc.desc      SRT block 59 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1021,7 +1021,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line59 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0060
      * @tc.name      testExpSubtitleSrt0060
      * @tc.desc      SRT block 60 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1038,7 +1038,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line60 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0061
      * @tc.name      testExpSubtitleSrt0061
      * @tc.desc      SRT block 61 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1055,7 +1055,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line61 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0062
      * @tc.name      testExpSubtitleSrt0062
      * @tc.desc      SRT block 62 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1072,7 +1072,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line62 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0063
      * @tc.name      testExpSubtitleSrt0063
      * @tc.desc      SRT block 63 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1089,7 +1089,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line63 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0064
      * @tc.name      testExpSubtitleSrt0064
      * @tc.desc      SRT block 64 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1106,7 +1106,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line64 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0065
      * @tc.name      testExpSubtitleSrt0065
      * @tc.desc      SRT block 65 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1123,7 +1123,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line65 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0066
      * @tc.name      testExpSubtitleSrt0066
      * @tc.desc      SRT block 66 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1140,7 +1140,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line66 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0067
      * @tc.name      testExpSubtitleSrt0067
      * @tc.desc      SRT block 67 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1157,7 +1157,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line67 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0068
      * @tc.name      testExpSubtitleSrt0068
      * @tc.desc      SRT block 68 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1174,7 +1174,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line68 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0069
      * @tc.name      testExpSubtitleSrt0069
      * @tc.desc      SRT block 69 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1191,7 +1191,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line69 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0070
      * @tc.name      testExpSubtitleSrt0070
      * @tc.desc      SRT block 70 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1208,7 +1208,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line70 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0071
      * @tc.name      testExpSubtitleSrt0071
      * @tc.desc      SRT block 71 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1225,7 +1225,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line71 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0072
      * @tc.name      testExpSubtitleSrt0072
      * @tc.desc      SRT block 72 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line72 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0073
      * @tc.name      testExpSubtitleSrt0073
      * @tc.desc      SRT block 73 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1259,7 +1259,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line73 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0074
      * @tc.name      testExpSubtitleSrt0074
      * @tc.desc      SRT block 74 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1276,7 +1276,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line74 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0075
      * @tc.name      testExpSubtitleSrt0075
      * @tc.desc      SRT block 75 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1293,7 +1293,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line75 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0076
      * @tc.name      testExpSubtitleSrt0076
      * @tc.desc      SRT block 76 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1310,7 +1310,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line76 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0077
      * @tc.name      testExpSubtitleSrt0077
      * @tc.desc      SRT block 77 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1327,7 +1327,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line77 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0078
      * @tc.name      testExpSubtitleSrt0078
      * @tc.desc      SRT block 78 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1344,7 +1344,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line78 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0079
      * @tc.name      testExpSubtitleSrt0079
      * @tc.desc      SRT block 79 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1361,7 +1361,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line79 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0080
      * @tc.name      testExpSubtitleSrt0080
      * @tc.desc      SRT block 80 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1378,7 +1378,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line80 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0081
      * @tc.name      testExpSubtitleSrt0081
      * @tc.desc      SRT block 81 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1395,7 +1395,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line81 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0082
      * @tc.name      testExpSubtitleSrt0082
      * @tc.desc      SRT block 82 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1412,7 +1412,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line82 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0083
      * @tc.name      testExpSubtitleSrt0083
      * @tc.desc      SRT block 83 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1429,7 +1429,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line83 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0084
      * @tc.name      testExpSubtitleSrt0084
      * @tc.desc      SRT block 84 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1446,7 +1446,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line84 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0085
      * @tc.name      testExpSubtitleSrt0085
      * @tc.desc      SRT block 85 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1463,7 +1463,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line85 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0086
      * @tc.name      testExpSubtitleSrt0086
      * @tc.desc      SRT block 86 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1480,7 +1480,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line86 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0087
      * @tc.name      testExpSubtitleSrt0087
      * @tc.desc      SRT block 87 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1497,7 +1497,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line87 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0088
      * @tc.name      testExpSubtitleSrt0088
      * @tc.desc      SRT block 88 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1514,7 +1514,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line88 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0089
      * @tc.name      testExpSubtitleSrt0089
      * @tc.desc      SRT block 89 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1531,7 +1531,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line89 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0090
      * @tc.name      testExpSubtitleSrt0090
      * @tc.desc      SRT block 90 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line90 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0091
      * @tc.name      testExpSubtitleSrt0091
      * @tc.desc      SRT block 91 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1565,7 +1565,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line91 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0092
      * @tc.name      testExpSubtitleSrt0092
      * @tc.desc      SRT block 92 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1582,7 +1582,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line92 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0093
      * @tc.name      testExpSubtitleSrt0093
      * @tc.desc      SRT block 93 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1599,7 +1599,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line93 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0094
      * @tc.name      testExpSubtitleSrt0094
      * @tc.desc      SRT block 94 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1616,7 +1616,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line94 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0095
      * @tc.name      testExpSubtitleSrt0095
      * @tc.desc      SRT block 95 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1633,7 +1633,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line95 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0096
      * @tc.name      testExpSubtitleSrt0096
      * @tc.desc      SRT block 96 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1650,7 +1650,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line96 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0097
      * @tc.name      testExpSubtitleSrt0097
      * @tc.desc      SRT block 97 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1667,7 +1667,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line97 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0098
      * @tc.name      testExpSubtitleSrt0098
      * @tc.desc      SRT block 98 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1684,7 +1684,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line98 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0099
      * @tc.name      testExpSubtitleSrt0099
      * @tc.desc      SRT block 99 keeps its index and two text lines.
      * @tc.size      MediumTest
@@ -1701,7 +1701,7 @@ export default function subtitleSrtExpandedTest() {
       expect(lines[1]).assertEqual('line99 b');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SRT_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SRT_0100
      * @tc.name      testExpSubtitleSrt0100
      * @tc.desc      SRT block 100 keeps its index and two text lines.
      * @tc.size      MediumTest

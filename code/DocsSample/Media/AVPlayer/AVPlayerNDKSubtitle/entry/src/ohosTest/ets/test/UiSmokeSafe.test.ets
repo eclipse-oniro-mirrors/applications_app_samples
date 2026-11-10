@@ -29,7 +29,7 @@ export default function uiSmokeSafeTest() {
   });
 
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0001
      * @tc.name      testSafeUiSmoke0001
      * @tc.desc      UI smoke check 1 finds VideoView.
      * @tc.size      MediumTest
@@ -44,7 +44,7 @@ export default function uiSmokeSafeTest() {
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0002
      * @tc.name      testSafeUiSmoke0002
      * @tc.desc      UI smoke check 2 finds Slider.
      * @tc.size      MediumTest
@@ -59,7 +59,7 @@ export default function uiSmokeSafeTest() {
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0003
      * @tc.name      testSafeUiSmoke0003
      * @tc.desc      UI smoke check 3 finds Speed.
      * @tc.size      MediumTest
@@ -74,7 +74,7 @@ export default function uiSmokeSafeTest() {
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0004
      * @tc.name      testSafeUiSmoke0004
      * @tc.desc      UI smoke check 4 finds currentTimeText.
      * @tc.size      MediumTest
@@ -89,7 +89,7 @@ export default function uiSmokeSafeTest() {
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0005
      * @tc.name      testSafeUiSmoke0005
      * @tc.desc      UI smoke check 5 finds durationTimeText.
      * @tc.size      MediumTest
@@ -104,7 +104,7 @@ export default function uiSmokeSafeTest() {
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0006
      * @tc.name      testSafeUiSmoke0006
      * @tc.desc      UI smoke check 6 finds pause.
      * @tc.size      MediumTest
@@ -119,7 +119,7 @@ export default function uiSmokeSafeTest() {
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0007
      * @tc.name      testSafeUiSmoke0007
      * @tc.desc      UI smoke check 7 finds VideoView.
      * @tc.size      MediumTest
@@ -134,7 +134,7 @@ export default function uiSmokeSafeTest() {
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0008
      * @tc.name      testSafeUiSmoke0008
      * @tc.desc      UI smoke check 8 finds Slider.
      * @tc.size      MediumTest

@@ -23,7 +23,7 @@ const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 export default function SubtitleFileBehaviorExpandedTailTest() {
   describe('SubtitleFileBehaviorExpandedTailTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0051
      * @tc.name      testBehaviorSubtitleFile0051
      * @tc.desc      Temporary SRT file 51 round-trips as valid content.
      * @tc.size      MediumTest
@@ -53,7 +53,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0052
      * @tc.name      testBehaviorSubtitleFile0052
      * @tc.desc      Temporary SRT file 52 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -83,7 +83,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0053
      * @tc.name      testBehaviorSubtitleFile0053
      * @tc.desc      Temporary SRT file 53 round-trips as valid content.
      * @tc.size      MediumTest
@@ -113,7 +113,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0054
      * @tc.name      testBehaviorSubtitleFile0054
      * @tc.desc      Temporary SRT file 54 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -143,7 +143,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0055
      * @tc.name      testBehaviorSubtitleFile0055
      * @tc.desc      Temporary SRT file 55 round-trips as valid content.
      * @tc.size      MediumTest
@@ -173,7 +173,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0056
      * @tc.name      testBehaviorSubtitleFile0056
      * @tc.desc      Temporary SRT file 56 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -203,7 +203,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0057
      * @tc.name      testBehaviorSubtitleFile0057
      * @tc.desc      Temporary SRT file 57 round-trips as valid content.
      * @tc.size      MediumTest
@@ -233,7 +233,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0058
      * @tc.name      testBehaviorSubtitleFile0058
      * @tc.desc      Temporary SRT file 58 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -263,7 +263,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0059
      * @tc.name      testBehaviorSubtitleFile0059
      * @tc.desc      Temporary SRT file 59 round-trips as valid content.
      * @tc.size      MediumTest
@@ -293,7 +293,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0060
      * @tc.name      testBehaviorSubtitleFile0060
      * @tc.desc      Temporary SRT file 60 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -323,7 +323,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0061
      * @tc.name      testBehaviorSubtitleFile0061
      * @tc.desc      Temporary SRT file 61 round-trips as valid content.
      * @tc.size      MediumTest
@@ -353,7 +353,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0062
      * @tc.name      testBehaviorSubtitleFile0062
      * @tc.desc      Temporary SRT file 62 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -383,7 +383,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0063
      * @tc.name      testBehaviorSubtitleFile0063
      * @tc.desc      Temporary SRT file 63 round-trips as valid content.
      * @tc.size      MediumTest
@@ -413,7 +413,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0064
      * @tc.name      testBehaviorSubtitleFile0064
      * @tc.desc      Temporary SRT file 64 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -443,7 +443,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0065
      * @tc.name      testBehaviorSubtitleFile0065
      * @tc.desc      Temporary SRT file 65 round-trips as valid content.
      * @tc.size      MediumTest
@@ -473,7 +473,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0066
      * @tc.name      testBehaviorSubtitleFile0066
      * @tc.desc      Temporary SRT file 66 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -503,7 +503,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0067
      * @tc.name      testBehaviorSubtitleFile0067
      * @tc.desc      Temporary SRT file 67 round-trips as valid content.
      * @tc.size      MediumTest
@@ -533,7 +533,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0068
      * @tc.name      testBehaviorSubtitleFile0068
      * @tc.desc      Temporary SRT file 68 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -563,7 +563,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0069
      * @tc.name      testBehaviorSubtitleFile0069
      * @tc.desc      Temporary SRT file 69 round-trips as valid content.
      * @tc.size      MediumTest
@@ -593,7 +593,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0070
      * @tc.name      testBehaviorSubtitleFile0070
      * @tc.desc      Temporary SRT file 70 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -623,7 +623,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0071
      * @tc.name      testBehaviorSubtitleFile0071
      * @tc.desc      Temporary SRT file 71 round-trips as valid content.
      * @tc.size      MediumTest
@@ -653,7 +653,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0072
      * @tc.name      testBehaviorSubtitleFile0072
      * @tc.desc      Temporary SRT file 72 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -683,7 +683,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0073
      * @tc.name      testBehaviorSubtitleFile0073
      * @tc.desc      Temporary SRT file 73 round-trips as valid content.
      * @tc.size      MediumTest
@@ -713,7 +713,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0074
      * @tc.name      testBehaviorSubtitleFile0074
      * @tc.desc      Temporary SRT file 74 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -743,7 +743,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0075
      * @tc.name      testBehaviorSubtitleFile0075
      * @tc.desc      Temporary SRT file 75 round-trips as valid content.
      * @tc.size      MediumTest
@@ -773,7 +773,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0076
      * @tc.name      testBehaviorSubtitleFile0076
      * @tc.desc      Temporary SRT file 76 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -803,7 +803,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0077
      * @tc.name      testBehaviorSubtitleFile0077
      * @tc.desc      Temporary SRT file 77 round-trips as valid content.
      * @tc.size      MediumTest
@@ -833,7 +833,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0078
      * @tc.name      testBehaviorSubtitleFile0078
      * @tc.desc      Temporary SRT file 78 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -863,7 +863,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0079
      * @tc.name      testBehaviorSubtitleFile0079
      * @tc.desc      Temporary SRT file 79 round-trips as valid content.
      * @tc.size      MediumTest
@@ -893,7 +893,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0080
      * @tc.name      testBehaviorSubtitleFile0080
      * @tc.desc      Temporary SRT file 80 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -923,7 +923,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0081
      * @tc.name      testBehaviorSubtitleFile0081
      * @tc.desc      Temporary SRT file 81 round-trips as valid content.
      * @tc.size      MediumTest
@@ -953,7 +953,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0082
      * @tc.name      testBehaviorSubtitleFile0082
      * @tc.desc      Temporary SRT file 82 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -983,7 +983,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0083
      * @tc.name      testBehaviorSubtitleFile0083
      * @tc.desc      Temporary SRT file 83 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1013,7 +1013,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0084
      * @tc.name      testBehaviorSubtitleFile0084
      * @tc.desc      Temporary SRT file 84 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1043,7 +1043,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0085
      * @tc.name      testBehaviorSubtitleFile0085
      * @tc.desc      Temporary SRT file 85 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1073,7 +1073,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0086
      * @tc.name      testBehaviorSubtitleFile0086
      * @tc.desc      Temporary SRT file 86 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1103,7 +1103,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0087
      * @tc.name      testBehaviorSubtitleFile0087
      * @tc.desc      Temporary SRT file 87 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1133,7 +1133,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0088
      * @tc.name      testBehaviorSubtitleFile0088
      * @tc.desc      Temporary SRT file 88 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1163,7 +1163,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0089
      * @tc.name      testBehaviorSubtitleFile0089
      * @tc.desc      Temporary SRT file 89 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1193,7 +1193,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0090
      * @tc.name      testBehaviorSubtitleFile0090
      * @tc.desc      Temporary SRT file 90 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1223,7 +1223,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0091
      * @tc.name      testBehaviorSubtitleFile0091
      * @tc.desc      Temporary SRT file 91 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1253,7 +1253,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0092
      * @tc.name      testBehaviorSubtitleFile0092
      * @tc.desc      Temporary SRT file 92 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1283,7 +1283,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0093
      * @tc.name      testBehaviorSubtitleFile0093
      * @tc.desc      Temporary SRT file 93 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1313,7 +1313,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0094
      * @tc.name      testBehaviorSubtitleFile0094
      * @tc.desc      Temporary SRT file 94 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1343,7 +1343,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0095
      * @tc.name      testBehaviorSubtitleFile0095
      * @tc.desc      Temporary SRT file 95 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1373,7 +1373,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0096
      * @tc.name      testBehaviorSubtitleFile0096
      * @tc.desc      Temporary SRT file 96 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1403,7 +1403,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0097
      * @tc.name      testBehaviorSubtitleFile0097
      * @tc.desc      Temporary SRT file 97 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1433,7 +1433,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0098
      * @tc.name      testBehaviorSubtitleFile0098
      * @tc.desc      Temporary SRT file 98 round-trips as malformed content.
      * @tc.size      MediumTest
@@ -1463,7 +1463,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0099
      * @tc.name      testBehaviorSubtitleFile0099
      * @tc.desc      Temporary SRT file 99 round-trips as valid content.
      * @tc.size      MediumTest
@@ -1493,7 +1493,7 @@ export default function SubtitleFileBehaviorExpandedTailTest() {
       }
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_BEH_FILE_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0100
      * @tc.name      testBehaviorSubtitleFile0100
      * @tc.desc      Temporary SRT file 100 round-trips as malformed content.
      * @tc.size      MediumTest

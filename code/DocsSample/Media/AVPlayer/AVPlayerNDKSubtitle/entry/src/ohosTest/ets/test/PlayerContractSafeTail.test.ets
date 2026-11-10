@@ -17,7 +17,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function playerContractSafeTailTest() {
   describe('playerContractSafeTailTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0001
      * @tc.name      testSafePlayerApi0001
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -34,7 +34,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0002
      * @tc.name      testSafePlayerApi0002
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -51,7 +51,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0003
      * @tc.name      testSafePlayerApi0003
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -68,7 +68,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0004
      * @tc.name      testSafePlayerApi0004
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -85,7 +85,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0005
      * @tc.name      testSafePlayerApi0005
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -102,7 +102,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0006
      * @tc.name      testSafePlayerApi0006
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -119,7 +119,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0007
      * @tc.name      testSafePlayerApi0007
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -136,7 +136,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0008
      * @tc.name      testSafePlayerApi0008
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -153,7 +153,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0009
      * @tc.name      testSafePlayerApi0009
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest
@@ -170,7 +170,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoHeight')).assertEqual(8);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0010
      * @tc.name      testSafePlayerApi0010
      * @tc.desc      Native API name getVideoWidth stays in the public contract.
      * @tc.size      MediumTest
@@ -187,7 +187,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoWidth')).assertEqual(9);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0011
      * @tc.name      testSafePlayerApi0011
      * @tc.desc      Native API name release stays in the public contract.
      * @tc.size      MediumTest
@@ -204,7 +204,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('release')).assertEqual(10);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0012
      * @tc.name      testSafePlayerApi0012
      * @tc.desc      Native API name addSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -221,7 +221,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('addSubtitle')).assertEqual(11);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0013
      * @tc.name      testSafePlayerApi0013
      * @tc.desc      Native API name getSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -238,7 +238,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSubtitle')).assertEqual(12);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0014
      * @tc.name      testSafePlayerApi0014
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -255,7 +255,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0015
      * @tc.name      testSafePlayerApi0015
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -272,7 +272,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0016
      * @tc.name      testSafePlayerApi0016
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -289,7 +289,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0017
      * @tc.name      testSafePlayerApi0017
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0018
      * @tc.name      testSafePlayerApi0018
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -323,7 +323,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0019
      * @tc.name      testSafePlayerApi0019
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -340,7 +340,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0020
      * @tc.name      testSafePlayerApi0020
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -357,7 +357,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0021
      * @tc.name      testSafePlayerApi0021
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -374,7 +374,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0022
      * @tc.name      testSafePlayerApi0022
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest
@@ -391,7 +391,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoHeight')).assertEqual(8);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0023
      * @tc.name      testSafePlayerApi0023
      * @tc.desc      Native API name getVideoWidth stays in the public contract.
      * @tc.size      MediumTest
@@ -408,7 +408,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoWidth')).assertEqual(9);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0024
      * @tc.name      testSafePlayerApi0024
      * @tc.desc      Native API name release stays in the public contract.
      * @tc.size      MediumTest
@@ -425,7 +425,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('release')).assertEqual(10);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0025
      * @tc.name      testSafePlayerApi0025
      * @tc.desc      Native API name addSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -442,7 +442,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('addSubtitle')).assertEqual(11);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0026
      * @tc.name      testSafePlayerApi0026
      * @tc.desc      Native API name getSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -459,7 +459,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSubtitle')).assertEqual(12);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0027
      * @tc.name      testSafePlayerApi0027
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -476,7 +476,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0028
      * @tc.name      testSafePlayerApi0028
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -493,7 +493,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0029
      * @tc.name      testSafePlayerApi0029
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -510,7 +510,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0030
      * @tc.name      testSafePlayerApi0030
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -527,7 +527,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0031
      * @tc.name      testSafePlayerApi0031
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -544,7 +544,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0032
      * @tc.name      testSafePlayerApi0032
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -561,7 +561,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0033
      * @tc.name      testSafePlayerApi0033
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -578,7 +578,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0034
      * @tc.name      testSafePlayerApi0034
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -595,7 +595,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0035
      * @tc.name      testSafePlayerApi0035
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoHeight')).assertEqual(8);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0036
      * @tc.name      testSafePlayerApi0036
      * @tc.desc      Native API name getVideoWidth stays in the public contract.
      * @tc.size      MediumTest
@@ -629,7 +629,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoWidth')).assertEqual(9);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0037
      * @tc.name      testSafePlayerApi0037
      * @tc.desc      Native API name release stays in the public contract.
      * @tc.size      MediumTest
@@ -646,7 +646,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('release')).assertEqual(10);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0038
      * @tc.name      testSafePlayerApi0038
      * @tc.desc      Native API name addSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -663,7 +663,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('addSubtitle')).assertEqual(11);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0039
      * @tc.name      testSafePlayerApi0039
      * @tc.desc      Native API name getSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -680,7 +680,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSubtitle')).assertEqual(12);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0040
      * @tc.name      testSafePlayerApi0040
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -697,7 +697,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0041
      * @tc.name      testSafePlayerApi0041
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -714,7 +714,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0042
      * @tc.name      testSafePlayerApi0042
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -731,7 +731,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0043
      * @tc.name      testSafePlayerApi0043
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -748,7 +748,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0044
      * @tc.name      testSafePlayerApi0044
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -765,7 +765,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0045
      * @tc.name      testSafePlayerApi0045
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -782,7 +782,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0046
      * @tc.name      testSafePlayerApi0046
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -799,7 +799,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0047
      * @tc.name      testSafePlayerApi0047
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -816,7 +816,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0048
      * @tc.name      testSafePlayerApi0048
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest
@@ -833,7 +833,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoHeight')).assertEqual(8);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0049
      * @tc.name      testSafePlayerApi0049
      * @tc.desc      Native API name getVideoWidth stays in the public contract.
      * @tc.size      MediumTest
@@ -850,7 +850,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoWidth')).assertEqual(9);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0050
      * @tc.name      testSafePlayerApi0050
      * @tc.desc      Native API name release stays in the public contract.
      * @tc.size      MediumTest
@@ -867,7 +867,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('release')).assertEqual(10);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0051
      * @tc.name      testSafePlayerApi0051
      * @tc.desc      Native API name addSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -884,7 +884,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('addSubtitle')).assertEqual(11);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0052
      * @tc.name      testSafePlayerApi0052
      * @tc.desc      Native API name getSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -901,7 +901,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSubtitle')).assertEqual(12);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0053
      * @tc.name      testSafePlayerApi0053
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0054
      * @tc.name      testSafePlayerApi0054
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -935,7 +935,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0055
      * @tc.name      testSafePlayerApi0055
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -952,7 +952,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0056
      * @tc.name      testSafePlayerApi0056
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -969,7 +969,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0057
      * @tc.name      testSafePlayerApi0057
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -986,7 +986,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0058
      * @tc.name      testSafePlayerApi0058
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -1003,7 +1003,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0059
      * @tc.name      testSafePlayerApi0059
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -1020,7 +1020,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0060
      * @tc.name      testSafePlayerApi0060
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -1037,7 +1037,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0061
      * @tc.name      testSafePlayerApi0061
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest
@@ -1054,7 +1054,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoHeight')).assertEqual(8);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0062
      * @tc.name      testSafePlayerApi0062
      * @tc.desc      Native API name getVideoWidth stays in the public contract.
      * @tc.size      MediumTest
@@ -1071,7 +1071,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoWidth')).assertEqual(9);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0063
      * @tc.name      testSafePlayerApi0063
      * @tc.desc      Native API name release stays in the public contract.
      * @tc.size      MediumTest
@@ -1088,7 +1088,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('release')).assertEqual(10);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0064
      * @tc.name      testSafePlayerApi0064
      * @tc.desc      Native API name addSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -1105,7 +1105,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('addSubtitle')).assertEqual(11);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0065
      * @tc.name      testSafePlayerApi0065
      * @tc.desc      Native API name getSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -1122,7 +1122,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSubtitle')).assertEqual(12);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0066
      * @tc.name      testSafePlayerApi0066
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -1139,7 +1139,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0067
      * @tc.name      testSafePlayerApi0067
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -1156,7 +1156,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0068
      * @tc.name      testSafePlayerApi0068
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -1173,7 +1173,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0069
      * @tc.name      testSafePlayerApi0069
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -1190,7 +1190,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0070
      * @tc.name      testSafePlayerApi0070
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -1207,7 +1207,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0071
      * @tc.name      testSafePlayerApi0071
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0072
      * @tc.name      testSafePlayerApi0072
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -1241,7 +1241,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0073
      * @tc.name      testSafePlayerApi0073
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -1258,7 +1258,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0074
      * @tc.name      testSafePlayerApi0074
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest
@@ -1275,7 +1275,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoHeight')).assertEqual(8);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0075
      * @tc.name      testSafePlayerApi0075
      * @tc.desc      Native API name getVideoWidth stays in the public contract.
      * @tc.size      MediumTest
@@ -1292,7 +1292,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoWidth')).assertEqual(9);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0076
      * @tc.name      testSafePlayerApi0076
      * @tc.desc      Native API name release stays in the public contract.
      * @tc.size      MediumTest
@@ -1309,7 +1309,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('release')).assertEqual(10);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0077
      * @tc.name      testSafePlayerApi0077
      * @tc.desc      Native API name addSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -1326,7 +1326,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('addSubtitle')).assertEqual(11);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0078
      * @tc.name      testSafePlayerApi0078
      * @tc.desc      Native API name getSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -1343,7 +1343,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSubtitle')).assertEqual(12);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0079
      * @tc.name      testSafePlayerApi0079
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -1360,7 +1360,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0080
      * @tc.name      testSafePlayerApi0080
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -1377,7 +1377,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0081
      * @tc.name      testSafePlayerApi0081
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -1394,7 +1394,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0082
      * @tc.name      testSafePlayerApi0082
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -1411,7 +1411,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0083
      * @tc.name      testSafePlayerApi0083
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -1428,7 +1428,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0084
      * @tc.name      testSafePlayerApi0084
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -1445,7 +1445,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0085
      * @tc.name      testSafePlayerApi0085
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -1462,7 +1462,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0086
      * @tc.name      testSafePlayerApi0086
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -1479,7 +1479,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0087
      * @tc.name      testSafePlayerApi0087
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest
@@ -1496,7 +1496,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoHeight')).assertEqual(8);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0088
      * @tc.name      testSafePlayerApi0088
      * @tc.desc      Native API name getVideoWidth stays in the public contract.
      * @tc.size      MediumTest
@@ -1513,7 +1513,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getVideoWidth')).assertEqual(9);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0089
      * @tc.name      testSafePlayerApi0089
      * @tc.desc      Native API name release stays in the public contract.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('release')).assertEqual(10);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0090
      * @tc.name      testSafePlayerApi0090
      * @tc.desc      Native API name addSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -1547,7 +1547,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('addSubtitle')).assertEqual(11);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0091
      * @tc.name      testSafePlayerApi0091
      * @tc.desc      Native API name getSubtitle stays in the public contract.
      * @tc.size      MediumTest
@@ -1564,7 +1564,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSubtitle')).assertEqual(12);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0092
      * @tc.name      testSafePlayerApi0092
      * @tc.desc      Native API name setup stays in the public contract.
      * @tc.size      MediumTest
@@ -1581,7 +1581,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setup')).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0093
      * @tc.name      testSafePlayerApi0093
      * @tc.desc      Native API name play stays in the public contract.
      * @tc.size      MediumTest
@@ -1598,7 +1598,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('play')).assertEqual(1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0094
      * @tc.name      testSafePlayerApi0094
      * @tc.desc      Native API name setSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -1615,7 +1615,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('setSpeed')).assertEqual(2);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0095
      * @tc.name      testSafePlayerApi0095
      * @tc.desc      Native API name getSpeed stays in the public contract.
      * @tc.size      MediumTest
@@ -1632,7 +1632,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getSpeed')).assertEqual(3);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0096
      * @tc.name      testSafePlayerApi0096
      * @tc.desc      Native API name pause stays in the public contract.
      * @tc.size      MediumTest
@@ -1649,7 +1649,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('pause')).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0097
      * @tc.name      testSafePlayerApi0097
      * @tc.desc      Native API name seek stays in the public contract.
      * @tc.size      MediumTest
@@ -1666,7 +1666,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('seek')).assertEqual(5);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0098
      * @tc.name      testSafePlayerApi0098
      * @tc.desc      Native API name getDuration stays in the public contract.
      * @tc.size      MediumTest
@@ -1683,7 +1683,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getDuration')).assertEqual(6);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0099
      * @tc.name      testSafePlayerApi0099
      * @tc.desc      Native API name getCurrentTime stays in the public contract.
      * @tc.size      MediumTest
@@ -1700,7 +1700,7 @@ export default function playerContractSafeTailTest() {
       expect(names.indexOf('getCurrentTime')).assertEqual(7);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC2_0100
      * @tc.name      testSafePlayerApi0100
      * @tc.desc      Native API name getVideoHeight stays in the public contract.
      * @tc.size      MediumTest

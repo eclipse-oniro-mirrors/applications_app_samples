@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function playbackSpeedExpandedTest() {
   describe('playbackSpeedExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0001
      * @tc.name      testExpPlaybackSpeed0001
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -36,7 +36,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0002
      * @tc.name      testExpPlaybackSpeed0002
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -54,7 +54,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0003
      * @tc.name      testExpPlaybackSpeed0003
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -72,7 +72,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0004
      * @tc.name      testExpPlaybackSpeed0004
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -90,7 +90,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0005
      * @tc.name      testExpPlaybackSpeed0005
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -108,7 +108,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0006
      * @tc.name      testExpPlaybackSpeed0006
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -126,7 +126,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0007
      * @tc.name      testExpPlaybackSpeed0007
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0008
      * @tc.name      testExpPlaybackSpeed0008
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -162,7 +162,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0009
      * @tc.name      testExpPlaybackSpeed0009
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -180,7 +180,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0010
      * @tc.name      testExpPlaybackSpeed0010
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -198,7 +198,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0011
      * @tc.name      testExpPlaybackSpeed0011
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -216,7 +216,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0012
      * @tc.name      testExpPlaybackSpeed0012
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -234,7 +234,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0013
      * @tc.name      testExpPlaybackSpeed0013
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -252,7 +252,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0014
      * @tc.name      testExpPlaybackSpeed0014
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -270,7 +270,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0015
      * @tc.name      testExpPlaybackSpeed0015
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -288,7 +288,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0016
      * @tc.name      testExpPlaybackSpeed0016
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0017
      * @tc.name      testExpPlaybackSpeed0017
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0018
      * @tc.name      testExpPlaybackSpeed0018
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -342,7 +342,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0019
      * @tc.name      testExpPlaybackSpeed0019
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -360,7 +360,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0020
      * @tc.name      testExpPlaybackSpeed0020
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -378,7 +378,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0021
      * @tc.name      testExpPlaybackSpeed0021
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -396,7 +396,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0022
      * @tc.name      testExpPlaybackSpeed0022
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -414,7 +414,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0023
      * @tc.name      testExpPlaybackSpeed0023
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -432,7 +432,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0024
      * @tc.name      testExpPlaybackSpeed0024
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -450,7 +450,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0025
      * @tc.name      testExpPlaybackSpeed0025
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -468,7 +468,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0026
      * @tc.name      testExpPlaybackSpeed0026
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -486,7 +486,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0027
      * @tc.name      testExpPlaybackSpeed0027
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -504,7 +504,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0028
      * @tc.name      testExpPlaybackSpeed0028
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -522,7 +522,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0029
      * @tc.name      testExpPlaybackSpeed0029
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -540,7 +540,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0030
      * @tc.name      testExpPlaybackSpeed0030
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -558,7 +558,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0031
      * @tc.name      testExpPlaybackSpeed0031
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -576,7 +576,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0032
      * @tc.name      testExpPlaybackSpeed0032
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -594,7 +594,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0033
      * @tc.name      testExpPlaybackSpeed0033
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0034
      * @tc.name      testExpPlaybackSpeed0034
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0035
      * @tc.name      testExpPlaybackSpeed0035
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0036
      * @tc.name      testExpPlaybackSpeed0036
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -666,7 +666,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0037
      * @tc.name      testExpPlaybackSpeed0037
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -684,7 +684,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0038
      * @tc.name      testExpPlaybackSpeed0038
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -702,7 +702,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0039
      * @tc.name      testExpPlaybackSpeed0039
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -720,7 +720,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0040
      * @tc.name      testExpPlaybackSpeed0040
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -738,7 +738,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0041
      * @tc.name      testExpPlaybackSpeed0041
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -756,7 +756,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0042
      * @tc.name      testExpPlaybackSpeed0042
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -774,7 +774,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0043
      * @tc.name      testExpPlaybackSpeed0043
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -792,7 +792,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0044
      * @tc.name      testExpPlaybackSpeed0044
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -810,7 +810,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0045
      * @tc.name      testExpPlaybackSpeed0045
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -828,7 +828,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0046
      * @tc.name      testExpPlaybackSpeed0046
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -846,7 +846,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0047
      * @tc.name      testExpPlaybackSpeed0047
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -864,7 +864,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0048
      * @tc.name      testExpPlaybackSpeed0048
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -882,7 +882,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0049
      * @tc.name      testExpPlaybackSpeed0049
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -900,7 +900,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0050
      * @tc.name      testExpPlaybackSpeed0050
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0051
      * @tc.name      testExpPlaybackSpeed0051
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0052
      * @tc.name      testExpPlaybackSpeed0052
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -954,7 +954,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0053
      * @tc.name      testExpPlaybackSpeed0053
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -972,7 +972,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0054
      * @tc.name      testExpPlaybackSpeed0054
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -990,7 +990,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0055
      * @tc.name      testExpPlaybackSpeed0055
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0056
      * @tc.name      testExpPlaybackSpeed0056
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1026,7 +1026,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0057
      * @tc.name      testExpPlaybackSpeed0057
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1044,7 +1044,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0058
      * @tc.name      testExpPlaybackSpeed0058
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1062,7 +1062,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0059
      * @tc.name      testExpPlaybackSpeed0059
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1080,7 +1080,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0060
      * @tc.name      testExpPlaybackSpeed0060
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1098,7 +1098,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0061
      * @tc.name      testExpPlaybackSpeed0061
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1116,7 +1116,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0062
      * @tc.name      testExpPlaybackSpeed0062
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1134,7 +1134,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0063
      * @tc.name      testExpPlaybackSpeed0063
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1152,7 +1152,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0064
      * @tc.name      testExpPlaybackSpeed0064
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1170,7 +1170,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0065
      * @tc.name      testExpPlaybackSpeed0065
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1188,7 +1188,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0066
      * @tc.name      testExpPlaybackSpeed0066
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1206,7 +1206,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0067
      * @tc.name      testExpPlaybackSpeed0067
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0068
      * @tc.name      testExpPlaybackSpeed0068
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0069
      * @tc.name      testExpPlaybackSpeed0069
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1260,7 +1260,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0070
      * @tc.name      testExpPlaybackSpeed0070
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0071
      * @tc.name      testExpPlaybackSpeed0071
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1296,7 +1296,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0072
      * @tc.name      testExpPlaybackSpeed0072
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1314,7 +1314,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0073
      * @tc.name      testExpPlaybackSpeed0073
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1332,7 +1332,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0074
      * @tc.name      testExpPlaybackSpeed0074
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1350,7 +1350,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0075
      * @tc.name      testExpPlaybackSpeed0075
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1368,7 +1368,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0076
      * @tc.name      testExpPlaybackSpeed0076
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1386,7 +1386,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0077
      * @tc.name      testExpPlaybackSpeed0077
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1404,7 +1404,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0078
      * @tc.name      testExpPlaybackSpeed0078
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1422,7 +1422,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0079
      * @tc.name      testExpPlaybackSpeed0079
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1440,7 +1440,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0080
      * @tc.name      testExpPlaybackSpeed0080
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1458,7 +1458,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0081
      * @tc.name      testExpPlaybackSpeed0081
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1476,7 +1476,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0082
      * @tc.name      testExpPlaybackSpeed0082
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1494,7 +1494,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0083
      * @tc.name      testExpPlaybackSpeed0083
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1512,7 +1512,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0084
      * @tc.name      testExpPlaybackSpeed0084
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0085
      * @tc.name      testExpPlaybackSpeed0085
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0086
      * @tc.name      testExpPlaybackSpeed0086
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1566,7 +1566,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0087
      * @tc.name      testExpPlaybackSpeed0087
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1584,7 +1584,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0088
      * @tc.name      testExpPlaybackSpeed0088
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1602,7 +1602,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0089
      * @tc.name      testExpPlaybackSpeed0089
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1620,7 +1620,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0090
      * @tc.name      testExpPlaybackSpeed0090
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1638,7 +1638,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0091
      * @tc.name      testExpPlaybackSpeed0091
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1656,7 +1656,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0092
      * @tc.name      testExpPlaybackSpeed0092
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1674,7 +1674,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0093
      * @tc.name      testExpPlaybackSpeed0093
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1692,7 +1692,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0094
      * @tc.name      testExpPlaybackSpeed0094
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1710,7 +1710,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0095
      * @tc.name      testExpPlaybackSpeed0095
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1728,7 +1728,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0096
      * @tc.name      testExpPlaybackSpeed0096
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest
@@ -1746,7 +1746,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0097
      * @tc.name      testExpPlaybackSpeed0097
      * @tc.desc      Speed index 0 maps to 1.0X.
      * @tc.size      MediumTest
@@ -1764,7 +1764,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0098
      * @tc.name      testExpPlaybackSpeed0098
      * @tc.desc      Speed index 1 maps to 1.25X.
      * @tc.size      MediumTest
@@ -1782,7 +1782,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0099
      * @tc.name      testExpPlaybackSpeed0099
      * @tc.desc      Speed index 2 maps to 1.75X.
      * @tc.size      MediumTest
@@ -1800,7 +1800,7 @@ export default function playbackSpeedExpandedTest() {
       expect(index).assertLargerOrEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SPD_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_SPD_0100
      * @tc.name      testExpPlaybackSpeed0100
      * @tc.desc      Speed index 3 maps to 2.0X.
      * @tc.size      MediumTest

@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function projectConstantsExpandedTest() {
   describe('projectConstantsExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0001
      * @tc.name      testExpProjectConstant0001
      * @tc.desc      Project constants scale correctly at factor 1.
      * @tc.size      MediumTest
@@ -36,7 +36,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0002
      * @tc.name      testExpProjectConstant0002
      * @tc.desc      Project constants scale correctly at factor 2.
      * @tc.size      MediumTest
@@ -54,7 +54,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0003
      * @tc.name      testExpProjectConstant0003
      * @tc.desc      Project constants scale correctly at factor 3.
      * @tc.size      MediumTest
@@ -72,7 +72,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0004
      * @tc.name      testExpProjectConstant0004
      * @tc.desc      Project constants scale correctly at factor 4.
      * @tc.size      MediumTest
@@ -90,7 +90,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0005
      * @tc.name      testExpProjectConstant0005
      * @tc.desc      Project constants scale correctly at factor 5.
      * @tc.size      MediumTest
@@ -108,7 +108,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0006
      * @tc.name      testExpProjectConstant0006
      * @tc.desc      Project constants scale correctly at factor 6.
      * @tc.size      MediumTest
@@ -126,7 +126,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0007
      * @tc.name      testExpProjectConstant0007
      * @tc.desc      Project constants scale correctly at factor 7.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0008
      * @tc.name      testExpProjectConstant0008
      * @tc.desc      Project constants scale correctly at factor 8.
      * @tc.size      MediumTest
@@ -162,7 +162,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0009
      * @tc.name      testExpProjectConstant0009
      * @tc.desc      Project constants scale correctly at factor 9.
      * @tc.size      MediumTest
@@ -180,7 +180,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0010
      * @tc.name      testExpProjectConstant0010
      * @tc.desc      Project constants scale correctly at factor 10.
      * @tc.size      MediumTest
@@ -198,7 +198,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0011
      * @tc.name      testExpProjectConstant0011
      * @tc.desc      Project constants scale correctly at factor 11.
      * @tc.size      MediumTest
@@ -216,7 +216,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0012
      * @tc.name      testExpProjectConstant0012
      * @tc.desc      Project constants scale correctly at factor 12.
      * @tc.size      MediumTest
@@ -234,7 +234,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0013
      * @tc.name      testExpProjectConstant0013
      * @tc.desc      Project constants scale correctly at factor 13.
      * @tc.size      MediumTest
@@ -252,7 +252,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0014
      * @tc.name      testExpProjectConstant0014
      * @tc.desc      Project constants scale correctly at factor 14.
      * @tc.size      MediumTest
@@ -270,7 +270,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0015
      * @tc.name      testExpProjectConstant0015
      * @tc.desc      Project constants scale correctly at factor 15.
      * @tc.size      MediumTest
@@ -288,7 +288,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0016
      * @tc.name      testExpProjectConstant0016
      * @tc.desc      Project constants scale correctly at factor 16.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0017
      * @tc.name      testExpProjectConstant0017
      * @tc.desc      Project constants scale correctly at factor 17.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0018
      * @tc.name      testExpProjectConstant0018
      * @tc.desc      Project constants scale correctly at factor 18.
      * @tc.size      MediumTest
@@ -342,7 +342,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0019
      * @tc.name      testExpProjectConstant0019
      * @tc.desc      Project constants scale correctly at factor 19.
      * @tc.size      MediumTest
@@ -360,7 +360,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0020
      * @tc.name      testExpProjectConstant0020
      * @tc.desc      Project constants scale correctly at factor 20.
      * @tc.size      MediumTest
@@ -378,7 +378,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0021
      * @tc.name      testExpProjectConstant0021
      * @tc.desc      Project constants scale correctly at factor 21.
      * @tc.size      MediumTest
@@ -396,7 +396,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0022
      * @tc.name      testExpProjectConstant0022
      * @tc.desc      Project constants scale correctly at factor 22.
      * @tc.size      MediumTest
@@ -414,7 +414,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0023
      * @tc.name      testExpProjectConstant0023
      * @tc.desc      Project constants scale correctly at factor 23.
      * @tc.size      MediumTest
@@ -432,7 +432,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0024
      * @tc.name      testExpProjectConstant0024
      * @tc.desc      Project constants scale correctly at factor 24.
      * @tc.size      MediumTest
@@ -450,7 +450,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0025
      * @tc.name      testExpProjectConstant0025
      * @tc.desc      Project constants scale correctly at factor 25.
      * @tc.size      MediumTest
@@ -468,7 +468,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0026
      * @tc.name      testExpProjectConstant0026
      * @tc.desc      Project constants scale correctly at factor 26.
      * @tc.size      MediumTest
@@ -486,7 +486,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0027
      * @tc.name      testExpProjectConstant0027
      * @tc.desc      Project constants scale correctly at factor 27.
      * @tc.size      MediumTest
@@ -504,7 +504,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0028
      * @tc.name      testExpProjectConstant0028
      * @tc.desc      Project constants scale correctly at factor 28.
      * @tc.size      MediumTest
@@ -522,7 +522,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0029
      * @tc.name      testExpProjectConstant0029
      * @tc.desc      Project constants scale correctly at factor 29.
      * @tc.size      MediumTest
@@ -540,7 +540,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0030
      * @tc.name      testExpProjectConstant0030
      * @tc.desc      Project constants scale correctly at factor 30.
      * @tc.size      MediumTest
@@ -558,7 +558,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0031
      * @tc.name      testExpProjectConstant0031
      * @tc.desc      Project constants scale correctly at factor 31.
      * @tc.size      MediumTest
@@ -576,7 +576,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0032
      * @tc.name      testExpProjectConstant0032
      * @tc.desc      Project constants scale correctly at factor 32.
      * @tc.size      MediumTest
@@ -594,7 +594,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0033
      * @tc.name      testExpProjectConstant0033
      * @tc.desc      Project constants scale correctly at factor 33.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0034
      * @tc.name      testExpProjectConstant0034
      * @tc.desc      Project constants scale correctly at factor 34.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0035
      * @tc.name      testExpProjectConstant0035
      * @tc.desc      Project constants scale correctly at factor 35.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0036
      * @tc.name      testExpProjectConstant0036
      * @tc.desc      Project constants scale correctly at factor 36.
      * @tc.size      MediumTest
@@ -666,7 +666,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0037
      * @tc.name      testExpProjectConstant0037
      * @tc.desc      Project constants scale correctly at factor 37.
      * @tc.size      MediumTest
@@ -684,7 +684,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0038
      * @tc.name      testExpProjectConstant0038
      * @tc.desc      Project constants scale correctly at factor 38.
      * @tc.size      MediumTest
@@ -702,7 +702,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0039
      * @tc.name      testExpProjectConstant0039
      * @tc.desc      Project constants scale correctly at factor 39.
      * @tc.size      MediumTest
@@ -720,7 +720,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0040
      * @tc.name      testExpProjectConstant0040
      * @tc.desc      Project constants scale correctly at factor 40.
      * @tc.size      MediumTest
@@ -738,7 +738,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0041
      * @tc.name      testExpProjectConstant0041
      * @tc.desc      Project constants scale correctly at factor 41.
      * @tc.size      MediumTest
@@ -756,7 +756,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0042
      * @tc.name      testExpProjectConstant0042
      * @tc.desc      Project constants scale correctly at factor 42.
      * @tc.size      MediumTest
@@ -774,7 +774,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0043
      * @tc.name      testExpProjectConstant0043
      * @tc.desc      Project constants scale correctly at factor 43.
      * @tc.size      MediumTest
@@ -792,7 +792,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0044
      * @tc.name      testExpProjectConstant0044
      * @tc.desc      Project constants scale correctly at factor 44.
      * @tc.size      MediumTest
@@ -810,7 +810,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0045
      * @tc.name      testExpProjectConstant0045
      * @tc.desc      Project constants scale correctly at factor 45.
      * @tc.size      MediumTest
@@ -828,7 +828,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0046
      * @tc.name      testExpProjectConstant0046
      * @tc.desc      Project constants scale correctly at factor 46.
      * @tc.size      MediumTest
@@ -846,7 +846,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0047
      * @tc.name      testExpProjectConstant0047
      * @tc.desc      Project constants scale correctly at factor 47.
      * @tc.size      MediumTest
@@ -864,7 +864,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0048
      * @tc.name      testExpProjectConstant0048
      * @tc.desc      Project constants scale correctly at factor 48.
      * @tc.size      MediumTest
@@ -882,7 +882,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0049
      * @tc.name      testExpProjectConstant0049
      * @tc.desc      Project constants scale correctly at factor 49.
      * @tc.size      MediumTest
@@ -900,7 +900,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0050
      * @tc.name      testExpProjectConstant0050
      * @tc.desc      Project constants scale correctly at factor 50.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0051
      * @tc.name      testExpProjectConstant0051
      * @tc.desc      Project constants scale correctly at factor 51.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0052
      * @tc.name      testExpProjectConstant0052
      * @tc.desc      Project constants scale correctly at factor 52.
      * @tc.size      MediumTest
@@ -954,7 +954,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0053
      * @tc.name      testExpProjectConstant0053
      * @tc.desc      Project constants scale correctly at factor 53.
      * @tc.size      MediumTest
@@ -972,7 +972,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0054
      * @tc.name      testExpProjectConstant0054
      * @tc.desc      Project constants scale correctly at factor 54.
      * @tc.size      MediumTest
@@ -990,7 +990,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0055
      * @tc.name      testExpProjectConstant0055
      * @tc.desc      Project constants scale correctly at factor 55.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0056
      * @tc.name      testExpProjectConstant0056
      * @tc.desc      Project constants scale correctly at factor 56.
      * @tc.size      MediumTest
@@ -1026,7 +1026,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0057
      * @tc.name      testExpProjectConstant0057
      * @tc.desc      Project constants scale correctly at factor 57.
      * @tc.size      MediumTest
@@ -1044,7 +1044,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0058
      * @tc.name      testExpProjectConstant0058
      * @tc.desc      Project constants scale correctly at factor 58.
      * @tc.size      MediumTest
@@ -1062,7 +1062,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0059
      * @tc.name      testExpProjectConstant0059
      * @tc.desc      Project constants scale correctly at factor 59.
      * @tc.size      MediumTest
@@ -1080,7 +1080,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0060
      * @tc.name      testExpProjectConstant0060
      * @tc.desc      Project constants scale correctly at factor 60.
      * @tc.size      MediumTest
@@ -1098,7 +1098,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0061
      * @tc.name      testExpProjectConstant0061
      * @tc.desc      Project constants scale correctly at factor 61.
      * @tc.size      MediumTest
@@ -1116,7 +1116,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0062
      * @tc.name      testExpProjectConstant0062
      * @tc.desc      Project constants scale correctly at factor 62.
      * @tc.size      MediumTest
@@ -1134,7 +1134,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0063
      * @tc.name      testExpProjectConstant0063
      * @tc.desc      Project constants scale correctly at factor 63.
      * @tc.size      MediumTest
@@ -1152,7 +1152,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0064
      * @tc.name      testExpProjectConstant0064
      * @tc.desc      Project constants scale correctly at factor 64.
      * @tc.size      MediumTest
@@ -1170,7 +1170,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0065
      * @tc.name      testExpProjectConstant0065
      * @tc.desc      Project constants scale correctly at factor 65.
      * @tc.size      MediumTest
@@ -1188,7 +1188,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0066
      * @tc.name      testExpProjectConstant0066
      * @tc.desc      Project constants scale correctly at factor 66.
      * @tc.size      MediumTest
@@ -1206,7 +1206,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0067
      * @tc.name      testExpProjectConstant0067
      * @tc.desc      Project constants scale correctly at factor 67.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0068
      * @tc.name      testExpProjectConstant0068
      * @tc.desc      Project constants scale correctly at factor 68.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0069
      * @tc.name      testExpProjectConstant0069
      * @tc.desc      Project constants scale correctly at factor 69.
      * @tc.size      MediumTest
@@ -1260,7 +1260,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0070
      * @tc.name      testExpProjectConstant0070
      * @tc.desc      Project constants scale correctly at factor 70.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0071
      * @tc.name      testExpProjectConstant0071
      * @tc.desc      Project constants scale correctly at factor 71.
      * @tc.size      MediumTest
@@ -1296,7 +1296,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0072
      * @tc.name      testExpProjectConstant0072
      * @tc.desc      Project constants scale correctly at factor 72.
      * @tc.size      MediumTest
@@ -1314,7 +1314,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0073
      * @tc.name      testExpProjectConstant0073
      * @tc.desc      Project constants scale correctly at factor 73.
      * @tc.size      MediumTest
@@ -1332,7 +1332,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0074
      * @tc.name      testExpProjectConstant0074
      * @tc.desc      Project constants scale correctly at factor 74.
      * @tc.size      MediumTest
@@ -1350,7 +1350,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0075
      * @tc.name      testExpProjectConstant0075
      * @tc.desc      Project constants scale correctly at factor 75.
      * @tc.size      MediumTest
@@ -1368,7 +1368,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0076
      * @tc.name      testExpProjectConstant0076
      * @tc.desc      Project constants scale correctly at factor 76.
      * @tc.size      MediumTest
@@ -1386,7 +1386,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0077
      * @tc.name      testExpProjectConstant0077
      * @tc.desc      Project constants scale correctly at factor 77.
      * @tc.size      MediumTest
@@ -1404,7 +1404,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0078
      * @tc.name      testExpProjectConstant0078
      * @tc.desc      Project constants scale correctly at factor 78.
      * @tc.size      MediumTest
@@ -1422,7 +1422,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0079
      * @tc.name      testExpProjectConstant0079
      * @tc.desc      Project constants scale correctly at factor 79.
      * @tc.size      MediumTest
@@ -1440,7 +1440,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0080
      * @tc.name      testExpProjectConstant0080
      * @tc.desc      Project constants scale correctly at factor 80.
      * @tc.size      MediumTest
@@ -1458,7 +1458,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0081
      * @tc.name      testExpProjectConstant0081
      * @tc.desc      Project constants scale correctly at factor 81.
      * @tc.size      MediumTest
@@ -1476,7 +1476,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0082
      * @tc.name      testExpProjectConstant0082
      * @tc.desc      Project constants scale correctly at factor 82.
      * @tc.size      MediumTest
@@ -1494,7 +1494,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0083
      * @tc.name      testExpProjectConstant0083
      * @tc.desc      Project constants scale correctly at factor 83.
      * @tc.size      MediumTest
@@ -1512,7 +1512,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0084
      * @tc.name      testExpProjectConstant0084
      * @tc.desc      Project constants scale correctly at factor 84.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0085
      * @tc.name      testExpProjectConstant0085
      * @tc.desc      Project constants scale correctly at factor 85.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0086
      * @tc.name      testExpProjectConstant0086
      * @tc.desc      Project constants scale correctly at factor 86.
      * @tc.size      MediumTest
@@ -1566,7 +1566,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0087
      * @tc.name      testExpProjectConstant0087
      * @tc.desc      Project constants scale correctly at factor 87.
      * @tc.size      MediumTest
@@ -1584,7 +1584,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0088
      * @tc.name      testExpProjectConstant0088
      * @tc.desc      Project constants scale correctly at factor 88.
      * @tc.size      MediumTest
@@ -1602,7 +1602,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0089
      * @tc.name      testExpProjectConstant0089
      * @tc.desc      Project constants scale correctly at factor 89.
      * @tc.size      MediumTest
@@ -1620,7 +1620,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0090
      * @tc.name      testExpProjectConstant0090
      * @tc.desc      Project constants scale correctly at factor 90.
      * @tc.size      MediumTest
@@ -1638,7 +1638,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0091
      * @tc.name      testExpProjectConstant0091
      * @tc.desc      Project constants scale correctly at factor 91.
      * @tc.size      MediumTest
@@ -1656,7 +1656,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0092
      * @tc.name      testExpProjectConstant0092
      * @tc.desc      Project constants scale correctly at factor 92.
      * @tc.size      MediumTest
@@ -1674,7 +1674,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0093
      * @tc.name      testExpProjectConstant0093
      * @tc.desc      Project constants scale correctly at factor 93.
      * @tc.size      MediumTest
@@ -1692,7 +1692,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0094
      * @tc.name      testExpProjectConstant0094
      * @tc.desc      Project constants scale correctly at factor 94.
      * @tc.size      MediumTest
@@ -1710,7 +1710,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0095
      * @tc.name      testExpProjectConstant0095
      * @tc.desc      Project constants scale correctly at factor 95.
      * @tc.size      MediumTest
@@ -1728,7 +1728,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0096
      * @tc.name      testExpProjectConstant0096
      * @tc.desc      Project constants scale correctly at factor 96.
      * @tc.size      MediumTest
@@ -1746,7 +1746,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0097
      * @tc.name      testExpProjectConstant0097
      * @tc.desc      Project constants scale correctly at factor 97.
      * @tc.size      MediumTest
@@ -1764,7 +1764,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0098
      * @tc.name      testExpProjectConstant0098
      * @tc.desc      Project constants scale correctly at factor 98.
      * @tc.size      MediumTest
@@ -1782,7 +1782,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0099
      * @tc.name      testExpProjectConstant0099
      * @tc.desc      Project constants scale correctly at factor 99.
      * @tc.size      MediumTest
@@ -1800,7 +1800,7 @@ export default function projectConstantsExpandedTest() {
       expect(oneMinute % oneSecond).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_CONST_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_CONST_0100
      * @tc.name      testExpProjectConstant0100
      * @tc.desc      Project constants scale correctly at factor 100.
      * @tc.size      MediumTest

@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function speedCycleExpandedTest() {
   describe('speedCycleExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0001
      * @tc.name      testMoreSpeedCycle0001
      * @tc.desc      Start speed 0 after 0 clicks reaches 0.
      * @tc.size      MediumTest
@@ -36,7 +36,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0002
      * @tc.name      testMoreSpeedCycle0002
      * @tc.desc      Start speed 1 after 0 clicks reaches 1.
      * @tc.size      MediumTest
@@ -54,7 +54,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0003
      * @tc.name      testMoreSpeedCycle0003
      * @tc.desc      Start speed 2 after 0 clicks reaches 2.
      * @tc.size      MediumTest
@@ -72,7 +72,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0004
      * @tc.name      testMoreSpeedCycle0004
      * @tc.desc      Start speed 3 after 0 clicks reaches 3.
      * @tc.size      MediumTest
@@ -90,7 +90,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0005
      * @tc.name      testMoreSpeedCycle0005
      * @tc.desc      Start speed 0 after 1 clicks reaches 1.
      * @tc.size      MediumTest
@@ -108,7 +108,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0006
      * @tc.name      testMoreSpeedCycle0006
      * @tc.desc      Start speed 1 after 1 clicks reaches 2.
      * @tc.size      MediumTest
@@ -126,7 +126,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0007
      * @tc.name      testMoreSpeedCycle0007
      * @tc.desc      Start speed 2 after 1 clicks reaches 3.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0008
      * @tc.name      testMoreSpeedCycle0008
      * @tc.desc      Start speed 3 after 1 clicks reaches 0.
      * @tc.size      MediumTest
@@ -162,7 +162,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0009
      * @tc.name      testMoreSpeedCycle0009
      * @tc.desc      Start speed 0 after 2 clicks reaches 2.
      * @tc.size      MediumTest
@@ -180,7 +180,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0010
      * @tc.name      testMoreSpeedCycle0010
      * @tc.desc      Start speed 1 after 2 clicks reaches 3.
      * @tc.size      MediumTest
@@ -198,7 +198,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0011
      * @tc.name      testMoreSpeedCycle0011
      * @tc.desc      Start speed 2 after 2 clicks reaches 0.
      * @tc.size      MediumTest
@@ -216,7 +216,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0012
      * @tc.name      testMoreSpeedCycle0012
      * @tc.desc      Start speed 3 after 2 clicks reaches 1.
      * @tc.size      MediumTest
@@ -234,7 +234,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0013
      * @tc.name      testMoreSpeedCycle0013
      * @tc.desc      Start speed 0 after 3 clicks reaches 3.
      * @tc.size      MediumTest
@@ -252,7 +252,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0014
      * @tc.name      testMoreSpeedCycle0014
      * @tc.desc      Start speed 1 after 3 clicks reaches 0.
      * @tc.size      MediumTest
@@ -270,7 +270,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0015
      * @tc.name      testMoreSpeedCycle0015
      * @tc.desc      Start speed 2 after 3 clicks reaches 1.
      * @tc.size      MediumTest
@@ -288,7 +288,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0016
      * @tc.name      testMoreSpeedCycle0016
      * @tc.desc      Start speed 3 after 3 clicks reaches 2.
      * @tc.size      MediumTest
@@ -306,7 +306,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0017
      * @tc.name      testMoreSpeedCycle0017
      * @tc.desc      Start speed 0 after 4 clicks reaches 0.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0018
      * @tc.name      testMoreSpeedCycle0018
      * @tc.desc      Start speed 1 after 4 clicks reaches 1.
      * @tc.size      MediumTest
@@ -342,7 +342,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0019
      * @tc.name      testMoreSpeedCycle0019
      * @tc.desc      Start speed 2 after 4 clicks reaches 2.
      * @tc.size      MediumTest
@@ -360,7 +360,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0020
      * @tc.name      testMoreSpeedCycle0020
      * @tc.desc      Start speed 3 after 4 clicks reaches 3.
      * @tc.size      MediumTest
@@ -378,7 +378,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0021
      * @tc.name      testMoreSpeedCycle0021
      * @tc.desc      Start speed 0 after 5 clicks reaches 1.
      * @tc.size      MediumTest
@@ -396,7 +396,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0022
      * @tc.name      testMoreSpeedCycle0022
      * @tc.desc      Start speed 1 after 5 clicks reaches 2.
      * @tc.size      MediumTest
@@ -414,7 +414,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0023
      * @tc.name      testMoreSpeedCycle0023
      * @tc.desc      Start speed 2 after 5 clicks reaches 3.
      * @tc.size      MediumTest
@@ -432,7 +432,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0024
      * @tc.name      testMoreSpeedCycle0024
      * @tc.desc      Start speed 3 after 5 clicks reaches 0.
      * @tc.size      MediumTest
@@ -450,7 +450,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0025
      * @tc.name      testMoreSpeedCycle0025
      * @tc.desc      Start speed 0 after 6 clicks reaches 2.
      * @tc.size      MediumTest
@@ -468,7 +468,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0026
      * @tc.name      testMoreSpeedCycle0026
      * @tc.desc      Start speed 1 after 6 clicks reaches 3.
      * @tc.size      MediumTest
@@ -486,7 +486,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0027
      * @tc.name      testMoreSpeedCycle0027
      * @tc.desc      Start speed 2 after 6 clicks reaches 0.
      * @tc.size      MediumTest
@@ -504,7 +504,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0028
      * @tc.name      testMoreSpeedCycle0028
      * @tc.desc      Start speed 3 after 6 clicks reaches 1.
      * @tc.size      MediumTest
@@ -522,7 +522,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0029
      * @tc.name      testMoreSpeedCycle0029
      * @tc.desc      Start speed 0 after 7 clicks reaches 3.
      * @tc.size      MediumTest
@@ -540,7 +540,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0030
      * @tc.name      testMoreSpeedCycle0030
      * @tc.desc      Start speed 1 after 7 clicks reaches 0.
      * @tc.size      MediumTest
@@ -558,7 +558,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0031
      * @tc.name      testMoreSpeedCycle0031
      * @tc.desc      Start speed 2 after 7 clicks reaches 1.
      * @tc.size      MediumTest
@@ -576,7 +576,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0032
      * @tc.name      testMoreSpeedCycle0032
      * @tc.desc      Start speed 3 after 7 clicks reaches 2.
      * @tc.size      MediumTest
@@ -594,7 +594,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0033
      * @tc.name      testMoreSpeedCycle0033
      * @tc.desc      Start speed 0 after 0 clicks reaches 0.
      * @tc.size      MediumTest
@@ -612,7 +612,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0034
      * @tc.name      testMoreSpeedCycle0034
      * @tc.desc      Start speed 1 after 0 clicks reaches 1.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0035
      * @tc.name      testMoreSpeedCycle0035
      * @tc.desc      Start speed 2 after 0 clicks reaches 2.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0036
      * @tc.name      testMoreSpeedCycle0036
      * @tc.desc      Start speed 3 after 0 clicks reaches 3.
      * @tc.size      MediumTest
@@ -666,7 +666,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0037
      * @tc.name      testMoreSpeedCycle0037
      * @tc.desc      Start speed 0 after 1 clicks reaches 1.
      * @tc.size      MediumTest
@@ -684,7 +684,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0038
      * @tc.name      testMoreSpeedCycle0038
      * @tc.desc      Start speed 1 after 1 clicks reaches 2.
      * @tc.size      MediumTest
@@ -702,7 +702,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0039
      * @tc.name      testMoreSpeedCycle0039
      * @tc.desc      Start speed 2 after 1 clicks reaches 3.
      * @tc.size      MediumTest
@@ -720,7 +720,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0040
      * @tc.name      testMoreSpeedCycle0040
      * @tc.desc      Start speed 3 after 1 clicks reaches 0.
      * @tc.size      MediumTest
@@ -738,7 +738,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0041
      * @tc.name      testMoreSpeedCycle0041
      * @tc.desc      Start speed 0 after 2 clicks reaches 2.
      * @tc.size      MediumTest
@@ -756,7 +756,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0042
      * @tc.name      testMoreSpeedCycle0042
      * @tc.desc      Start speed 1 after 2 clicks reaches 3.
      * @tc.size      MediumTest
@@ -774,7 +774,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0043
      * @tc.name      testMoreSpeedCycle0043
      * @tc.desc      Start speed 2 after 2 clicks reaches 0.
      * @tc.size      MediumTest
@@ -792,7 +792,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0044
      * @tc.name      testMoreSpeedCycle0044
      * @tc.desc      Start speed 3 after 2 clicks reaches 1.
      * @tc.size      MediumTest
@@ -810,7 +810,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0045
      * @tc.name      testMoreSpeedCycle0045
      * @tc.desc      Start speed 0 after 3 clicks reaches 3.
      * @tc.size      MediumTest
@@ -828,7 +828,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0046
      * @tc.name      testMoreSpeedCycle0046
      * @tc.desc      Start speed 1 after 3 clicks reaches 0.
      * @tc.size      MediumTest
@@ -846,7 +846,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0047
      * @tc.name      testMoreSpeedCycle0047
      * @tc.desc      Start speed 2 after 3 clicks reaches 1.
      * @tc.size      MediumTest
@@ -864,7 +864,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0048
      * @tc.name      testMoreSpeedCycle0048
      * @tc.desc      Start speed 3 after 3 clicks reaches 2.
      * @tc.size      MediumTest
@@ -882,7 +882,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0049
      * @tc.name      testMoreSpeedCycle0049
      * @tc.desc      Start speed 0 after 4 clicks reaches 0.
      * @tc.size      MediumTest
@@ -900,7 +900,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0050
      * @tc.name      testMoreSpeedCycle0050
      * @tc.desc      Start speed 1 after 4 clicks reaches 1.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0051
      * @tc.name      testMoreSpeedCycle0051
      * @tc.desc      Start speed 2 after 4 clicks reaches 2.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0052
      * @tc.name      testMoreSpeedCycle0052
      * @tc.desc      Start speed 3 after 4 clicks reaches 3.
      * @tc.size      MediumTest
@@ -954,7 +954,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0053
      * @tc.name      testMoreSpeedCycle0053
      * @tc.desc      Start speed 0 after 5 clicks reaches 1.
      * @tc.size      MediumTest
@@ -972,7 +972,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0054
      * @tc.name      testMoreSpeedCycle0054
      * @tc.desc      Start speed 1 after 5 clicks reaches 2.
      * @tc.size      MediumTest
@@ -990,7 +990,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0055
      * @tc.name      testMoreSpeedCycle0055
      * @tc.desc      Start speed 2 after 5 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0056
      * @tc.name      testMoreSpeedCycle0056
      * @tc.desc      Start speed 3 after 5 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1026,7 +1026,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0057
      * @tc.name      testMoreSpeedCycle0057
      * @tc.desc      Start speed 0 after 6 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1044,7 +1044,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0058
      * @tc.name      testMoreSpeedCycle0058
      * @tc.desc      Start speed 1 after 6 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1062,7 +1062,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0059
      * @tc.name      testMoreSpeedCycle0059
      * @tc.desc      Start speed 2 after 6 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1080,7 +1080,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0060
      * @tc.name      testMoreSpeedCycle0060
      * @tc.desc      Start speed 3 after 6 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1098,7 +1098,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0061
      * @tc.name      testMoreSpeedCycle0061
      * @tc.desc      Start speed 0 after 7 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1116,7 +1116,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0062
      * @tc.name      testMoreSpeedCycle0062
      * @tc.desc      Start speed 1 after 7 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1134,7 +1134,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0063
      * @tc.name      testMoreSpeedCycle0063
      * @tc.desc      Start speed 2 after 7 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1152,7 +1152,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0064
      * @tc.name      testMoreSpeedCycle0064
      * @tc.desc      Start speed 3 after 7 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1170,7 +1170,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0065
      * @tc.name      testMoreSpeedCycle0065
      * @tc.desc      Start speed 0 after 0 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1188,7 +1188,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0066
      * @tc.name      testMoreSpeedCycle0066
      * @tc.desc      Start speed 1 after 0 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1206,7 +1206,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0067
      * @tc.name      testMoreSpeedCycle0067
      * @tc.desc      Start speed 2 after 0 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1224,7 +1224,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0068
      * @tc.name      testMoreSpeedCycle0068
      * @tc.desc      Start speed 3 after 0 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0069
      * @tc.name      testMoreSpeedCycle0069
      * @tc.desc      Start speed 0 after 1 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1260,7 +1260,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0070
      * @tc.name      testMoreSpeedCycle0070
      * @tc.desc      Start speed 1 after 1 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0071
      * @tc.name      testMoreSpeedCycle0071
      * @tc.desc      Start speed 2 after 1 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1296,7 +1296,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0072
      * @tc.name      testMoreSpeedCycle0072
      * @tc.desc      Start speed 3 after 1 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1314,7 +1314,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0073
      * @tc.name      testMoreSpeedCycle0073
      * @tc.desc      Start speed 0 after 2 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1332,7 +1332,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0074
      * @tc.name      testMoreSpeedCycle0074
      * @tc.desc      Start speed 1 after 2 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1350,7 +1350,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0075
      * @tc.name      testMoreSpeedCycle0075
      * @tc.desc      Start speed 2 after 2 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1368,7 +1368,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0076
      * @tc.name      testMoreSpeedCycle0076
      * @tc.desc      Start speed 3 after 2 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1386,7 +1386,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0077
      * @tc.name      testMoreSpeedCycle0077
      * @tc.desc      Start speed 0 after 3 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1404,7 +1404,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0078
      * @tc.name      testMoreSpeedCycle0078
      * @tc.desc      Start speed 1 after 3 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1422,7 +1422,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0079
      * @tc.name      testMoreSpeedCycle0079
      * @tc.desc      Start speed 2 after 3 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1440,7 +1440,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0080
      * @tc.name      testMoreSpeedCycle0080
      * @tc.desc      Start speed 3 after 3 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1458,7 +1458,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0081
      * @tc.name      testMoreSpeedCycle0081
      * @tc.desc      Start speed 0 after 4 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1476,7 +1476,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0082
      * @tc.name      testMoreSpeedCycle0082
      * @tc.desc      Start speed 1 after 4 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1494,7 +1494,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0083
      * @tc.name      testMoreSpeedCycle0083
      * @tc.desc      Start speed 2 after 4 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1512,7 +1512,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0084
      * @tc.name      testMoreSpeedCycle0084
      * @tc.desc      Start speed 3 after 4 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1530,7 +1530,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0085
      * @tc.name      testMoreSpeedCycle0085
      * @tc.desc      Start speed 0 after 5 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0086
      * @tc.name      testMoreSpeedCycle0086
      * @tc.desc      Start speed 1 after 5 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1566,7 +1566,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0087
      * @tc.name      testMoreSpeedCycle0087
      * @tc.desc      Start speed 2 after 5 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1584,7 +1584,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0088
      * @tc.name      testMoreSpeedCycle0088
      * @tc.desc      Start speed 3 after 5 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1602,7 +1602,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0089
      * @tc.name      testMoreSpeedCycle0089
      * @tc.desc      Start speed 0 after 6 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1620,7 +1620,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0090
      * @tc.name      testMoreSpeedCycle0090
      * @tc.desc      Start speed 1 after 6 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1638,7 +1638,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0091
      * @tc.name      testMoreSpeedCycle0091
      * @tc.desc      Start speed 2 after 6 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1656,7 +1656,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0092
      * @tc.name      testMoreSpeedCycle0092
      * @tc.desc      Start speed 3 after 6 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1674,7 +1674,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0093
      * @tc.name      testMoreSpeedCycle0093
      * @tc.desc      Start speed 0 after 7 clicks reaches 3.
      * @tc.size      MediumTest
@@ -1692,7 +1692,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0094
      * @tc.name      testMoreSpeedCycle0094
      * @tc.desc      Start speed 1 after 7 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1710,7 +1710,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0095
      * @tc.name      testMoreSpeedCycle0095
      * @tc.desc      Start speed 2 after 7 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1728,7 +1728,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0096
      * @tc.name      testMoreSpeedCycle0096
      * @tc.desc      Start speed 3 after 7 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1746,7 +1746,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0097
      * @tc.name      testMoreSpeedCycle0097
      * @tc.desc      Start speed 0 after 0 clicks reaches 0.
      * @tc.size      MediumTest
@@ -1764,7 +1764,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0098
      * @tc.name      testMoreSpeedCycle0098
      * @tc.desc      Start speed 1 after 0 clicks reaches 1.
      * @tc.size      MediumTest
@@ -1782,7 +1782,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0099
      * @tc.name      testMoreSpeedCycle0099
      * @tc.desc      Start speed 2 after 0 clicks reaches 2.
      * @tc.size      MediumTest
@@ -1800,7 +1800,7 @@ export default function speedCycleExpandedTest() {
       expect(names.length).assertEqual(4);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SPD_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SPD_0100
      * @tc.name      testMoreSpeedCycle0100
      * @tc.desc      Start speed 3 after 0 clicks reaches 3.
      * @tc.size      MediumTest

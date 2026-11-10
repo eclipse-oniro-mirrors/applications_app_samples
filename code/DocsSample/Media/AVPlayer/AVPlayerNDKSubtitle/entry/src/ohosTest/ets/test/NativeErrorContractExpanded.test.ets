@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function nativeErrorContractExpandedTest() {
   describe('nativeErrorContractExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0001
      * @tc.name      testMoreNativeError0001
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -33,7 +33,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0002
      * @tc.name      testMoreNativeError0002
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -48,7 +48,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0003
      * @tc.name      testMoreNativeError0003
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -63,7 +63,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0004
      * @tc.name      testMoreNativeError0004
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -78,7 +78,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0005
      * @tc.name      testMoreNativeError0005
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -93,7 +93,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0006
      * @tc.name      testMoreNativeError0006
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -108,7 +108,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0007
      * @tc.name      testMoreNativeError0007
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -123,7 +123,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0008
      * @tc.name      testMoreNativeError0008
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -138,7 +138,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0009
      * @tc.name      testMoreNativeError0009
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -153,7 +153,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0010
      * @tc.name      testMoreNativeError0010
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -168,7 +168,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0011
      * @tc.name      testMoreNativeError0011
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -183,7 +183,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0012
      * @tc.name      testMoreNativeError0012
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -198,7 +198,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0013
      * @tc.name      testMoreNativeError0013
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -213,7 +213,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0014
      * @tc.name      testMoreNativeError0014
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -228,7 +228,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0015
      * @tc.name      testMoreNativeError0015
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -243,7 +243,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0016
      * @tc.name      testMoreNativeError0016
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -258,7 +258,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0017
      * @tc.name      testMoreNativeError0017
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -273,7 +273,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0018
      * @tc.name      testMoreNativeError0018
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -288,7 +288,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0019
      * @tc.name      testMoreNativeError0019
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -303,7 +303,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0020
      * @tc.name      testMoreNativeError0020
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -318,7 +318,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0021
      * @tc.name      testMoreNativeError0021
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -333,7 +333,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0022
      * @tc.name      testMoreNativeError0022
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -348,7 +348,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0023
      * @tc.name      testMoreNativeError0023
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -363,7 +363,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0024
      * @tc.name      testMoreNativeError0024
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -378,7 +378,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0025
      * @tc.name      testMoreNativeError0025
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -393,7 +393,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0026
      * @tc.name      testMoreNativeError0026
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -408,7 +408,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0027
      * @tc.name      testMoreNativeError0027
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -423,7 +423,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0028
      * @tc.name      testMoreNativeError0028
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -438,7 +438,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0029
      * @tc.name      testMoreNativeError0029
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -453,7 +453,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0030
      * @tc.name      testMoreNativeError0030
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -468,7 +468,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0031
      * @tc.name      testMoreNativeError0031
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -483,7 +483,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0032
      * @tc.name      testMoreNativeError0032
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -498,7 +498,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0033
      * @tc.name      testMoreNativeError0033
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -513,7 +513,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0034
      * @tc.name      testMoreNativeError0034
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -528,7 +528,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0035
      * @tc.name      testMoreNativeError0035
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -543,7 +543,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0036
      * @tc.name      testMoreNativeError0036
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -558,7 +558,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0037
      * @tc.name      testMoreNativeError0037
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -573,7 +573,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0038
      * @tc.name      testMoreNativeError0038
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -588,7 +588,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0039
      * @tc.name      testMoreNativeError0039
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -603,7 +603,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0040
      * @tc.name      testMoreNativeError0040
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -618,7 +618,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0041
      * @tc.name      testMoreNativeError0041
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -633,7 +633,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0042
      * @tc.name      testMoreNativeError0042
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -648,7 +648,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0043
      * @tc.name      testMoreNativeError0043
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -663,7 +663,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0044
      * @tc.name      testMoreNativeError0044
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -678,7 +678,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0045
      * @tc.name      testMoreNativeError0045
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -693,7 +693,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0046
      * @tc.name      testMoreNativeError0046
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -708,7 +708,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0047
      * @tc.name      testMoreNativeError0047
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -723,7 +723,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0048
      * @tc.name      testMoreNativeError0048
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -738,7 +738,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0049
      * @tc.name      testMoreNativeError0049
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -753,7 +753,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0050
      * @tc.name      testMoreNativeError0050
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -768,7 +768,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0051
      * @tc.name      testMoreNativeError0051
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -783,7 +783,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0052
      * @tc.name      testMoreNativeError0052
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -798,7 +798,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0053
      * @tc.name      testMoreNativeError0053
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -813,7 +813,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0054
      * @tc.name      testMoreNativeError0054
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -828,7 +828,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0055
      * @tc.name      testMoreNativeError0055
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -843,7 +843,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0056
      * @tc.name      testMoreNativeError0056
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -858,7 +858,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0057
      * @tc.name      testMoreNativeError0057
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -873,7 +873,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0058
      * @tc.name      testMoreNativeError0058
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -888,7 +888,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0059
      * @tc.name      testMoreNativeError0059
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -903,7 +903,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0060
      * @tc.name      testMoreNativeError0060
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -918,7 +918,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0061
      * @tc.name      testMoreNativeError0061
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -933,7 +933,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0062
      * @tc.name      testMoreNativeError0062
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -948,7 +948,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0063
      * @tc.name      testMoreNativeError0063
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -963,7 +963,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0064
      * @tc.name      testMoreNativeError0064
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -978,7 +978,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0065
      * @tc.name      testMoreNativeError0065
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -993,7 +993,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0066
      * @tc.name      testMoreNativeError0066
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -1008,7 +1008,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0067
      * @tc.name      testMoreNativeError0067
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -1023,7 +1023,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0068
      * @tc.name      testMoreNativeError0068
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -1038,7 +1038,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0069
      * @tc.name      testMoreNativeError0069
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -1053,7 +1053,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0070
      * @tc.name      testMoreNativeError0070
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -1068,7 +1068,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0071
      * @tc.name      testMoreNativeError0071
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -1083,7 +1083,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0072
      * @tc.name      testMoreNativeError0072
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -1098,7 +1098,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0073
      * @tc.name      testMoreNativeError0073
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -1113,7 +1113,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0074
      * @tc.name      testMoreNativeError0074
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -1128,7 +1128,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0075
      * @tc.name      testMoreNativeError0075
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -1143,7 +1143,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0076
      * @tc.name      testMoreNativeError0076
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -1158,7 +1158,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0077
      * @tc.name      testMoreNativeError0077
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -1173,7 +1173,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0078
      * @tc.name      testMoreNativeError0078
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -1188,7 +1188,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0079
      * @tc.name      testMoreNativeError0079
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -1203,7 +1203,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0080
      * @tc.name      testMoreNativeError0080
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -1218,7 +1218,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0081
      * @tc.name      testMoreNativeError0081
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -1233,7 +1233,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0082
      * @tc.name      testMoreNativeError0082
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -1248,7 +1248,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0083
      * @tc.name      testMoreNativeError0083
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -1263,7 +1263,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0084
      * @tc.name      testMoreNativeError0084
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -1278,7 +1278,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0085
      * @tc.name      testMoreNativeError0085
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -1293,7 +1293,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0086
      * @tc.name      testMoreNativeError0086
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -1308,7 +1308,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0087
      * @tc.name      testMoreNativeError0087
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -1323,7 +1323,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0088
      * @tc.name      testMoreNativeError0088
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -1338,7 +1338,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0089
      * @tc.name      testMoreNativeError0089
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -1353,7 +1353,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0090
      * @tc.name      testMoreNativeError0090
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -1368,7 +1368,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0091
      * @tc.name      testMoreNativeError0091
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -1383,7 +1383,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0092
      * @tc.name      testMoreNativeError0092
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest
@@ -1398,7 +1398,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400102);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0093
      * @tc.name      testMoreNativeError0093
      * @tc.desc      Native return code 5400103 is classified as success=False.
      * @tc.size      MediumTest
@@ -1413,7 +1413,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400103);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0094
      * @tc.name      testMoreNativeError0094
      * @tc.desc      Native return code 5400104 is classified as success=False.
      * @tc.size      MediumTest
@@ -1428,7 +1428,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400104);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0095
      * @tc.name      testMoreNativeError0095
      * @tc.desc      Native return code 5400105 is classified as success=False.
      * @tc.size      MediumTest
@@ -1443,7 +1443,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400105);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0096
      * @tc.name      testMoreNativeError0096
      * @tc.desc      Native return code 5400106 is classified as success=False.
      * @tc.size      MediumTest
@@ -1458,7 +1458,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400106);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0097
      * @tc.name      testMoreNativeError0097
      * @tc.desc      Native return code 0 is classified as success=True.
      * @tc.size      MediumTest
@@ -1473,7 +1473,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0098
      * @tc.name      testMoreNativeError0098
      * @tc.desc      Native return code -1 is classified as success=False.
      * @tc.size      MediumTest
@@ -1488,7 +1488,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0099
      * @tc.name      testMoreNativeError0099
      * @tc.desc      Native return code 5400101 is classified as success=False.
      * @tc.size      MediumTest
@@ -1503,7 +1503,7 @@ export default function nativeErrorContractExpandedTest() {
       expect(code).assertEqual(5400101);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_ERR_0100
      * @tc.name      testMoreNativeError0100
      * @tc.desc      Native return code 5400102 is classified as success=False.
      * @tc.size      MediumTest

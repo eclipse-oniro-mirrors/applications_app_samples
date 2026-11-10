@@ -18,7 +18,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function seekBoundaryExpandedTest() {
   describe('seekBoundaryExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0001
      * @tc.name      testMoreSeekBoundary0001
      * @tc.desc      Seek -50 clamps to 0 within duration 10000.
      * @tc.size      MediumTest
@@ -35,7 +35,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0002
      * @tc.name      testMoreSeekBoundary0002
      * @tc.desc      Seek 87 clamps to 87 within duration 10000.
      * @tc.size      MediumTest
@@ -52,7 +52,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0003
      * @tc.name      testMoreSeekBoundary0003
      * @tc.desc      Seek 224 clamps to 224 within duration 10000.
      * @tc.size      MediumTest
@@ -69,7 +69,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0004
      * @tc.name      testMoreSeekBoundary0004
      * @tc.desc      Seek 361 clamps to 361 within duration 10000.
      * @tc.size      MediumTest
@@ -86,7 +86,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0005
      * @tc.name      testMoreSeekBoundary0005
      * @tc.desc      Seek 498 clamps to 498 within duration 10000.
      * @tc.size      MediumTest
@@ -103,7 +103,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0006
      * @tc.name      testMoreSeekBoundary0006
      * @tc.desc      Seek 635 clamps to 635 within duration 10000.
      * @tc.size      MediumTest
@@ -120,7 +120,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0007
      * @tc.name      testMoreSeekBoundary0007
      * @tc.desc      Seek 772 clamps to 772 within duration 10000.
      * @tc.size      MediumTest
@@ -137,7 +137,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0008
      * @tc.name      testMoreSeekBoundary0008
      * @tc.desc      Seek 909 clamps to 909 within duration 10000.
      * @tc.size      MediumTest
@@ -154,7 +154,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0009
      * @tc.name      testMoreSeekBoundary0009
      * @tc.desc      Seek 1046 clamps to 1046 within duration 10000.
      * @tc.size      MediumTest
@@ -171,7 +171,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0010
      * @tc.name      testMoreSeekBoundary0010
      * @tc.desc      Seek 1183 clamps to 1183 within duration 10000.
      * @tc.size      MediumTest
@@ -188,7 +188,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0011
      * @tc.name      testMoreSeekBoundary0011
      * @tc.desc      Seek 1320 clamps to 1320 within duration 10000.
      * @tc.size      MediumTest
@@ -205,7 +205,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0012
      * @tc.name      testMoreSeekBoundary0012
      * @tc.desc      Seek 1457 clamps to 1457 within duration 10000.
      * @tc.size      MediumTest
@@ -222,7 +222,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0013
      * @tc.name      testMoreSeekBoundary0013
      * @tc.desc      Seek 1594 clamps to 1594 within duration 10000.
      * @tc.size      MediumTest
@@ -239,7 +239,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0014
      * @tc.name      testMoreSeekBoundary0014
      * @tc.desc      Seek 1731 clamps to 1731 within duration 10000.
      * @tc.size      MediumTest
@@ -256,7 +256,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0015
      * @tc.name      testMoreSeekBoundary0015
      * @tc.desc      Seek 1868 clamps to 1868 within duration 10000.
      * @tc.size      MediumTest
@@ -273,7 +273,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0016
      * @tc.name      testMoreSeekBoundary0016
      * @tc.desc      Seek 2005 clamps to 2005 within duration 10000.
      * @tc.size      MediumTest
@@ -290,7 +290,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0017
      * @tc.name      testMoreSeekBoundary0017
      * @tc.desc      Seek 2142 clamps to 2142 within duration 10000.
      * @tc.size      MediumTest
@@ -307,7 +307,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0018
      * @tc.name      testMoreSeekBoundary0018
      * @tc.desc      Seek 2279 clamps to 2279 within duration 10000.
      * @tc.size      MediumTest
@@ -324,7 +324,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0019
      * @tc.name      testMoreSeekBoundary0019
      * @tc.desc      Seek 2416 clamps to 2416 within duration 10000.
      * @tc.size      MediumTest
@@ -341,7 +341,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0020
      * @tc.name      testMoreSeekBoundary0020
      * @tc.desc      Seek 2553 clamps to 2553 within duration 10000.
      * @tc.size      MediumTest
@@ -358,7 +358,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0021
      * @tc.name      testMoreSeekBoundary0021
      * @tc.desc      Seek 2690 clamps to 2690 within duration 10000.
      * @tc.size      MediumTest
@@ -375,7 +375,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0022
      * @tc.name      testMoreSeekBoundary0022
      * @tc.desc      Seek 2827 clamps to 2827 within duration 10000.
      * @tc.size      MediumTest
@@ -392,7 +392,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0023
      * @tc.name      testMoreSeekBoundary0023
      * @tc.desc      Seek 2964 clamps to 2964 within duration 10000.
      * @tc.size      MediumTest
@@ -409,7 +409,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0024
      * @tc.name      testMoreSeekBoundary0024
      * @tc.desc      Seek 3101 clamps to 3101 within duration 10000.
      * @tc.size      MediumTest
@@ -426,7 +426,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0025
      * @tc.name      testMoreSeekBoundary0025
      * @tc.desc      Seek 3238 clamps to 3238 within duration 10000.
      * @tc.size      MediumTest
@@ -443,7 +443,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0026
      * @tc.name      testMoreSeekBoundary0026
      * @tc.desc      Seek 3375 clamps to 3375 within duration 10000.
      * @tc.size      MediumTest
@@ -460,7 +460,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0027
      * @tc.name      testMoreSeekBoundary0027
      * @tc.desc      Seek 3512 clamps to 3512 within duration 10000.
      * @tc.size      MediumTest
@@ -477,7 +477,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0028
      * @tc.name      testMoreSeekBoundary0028
      * @tc.desc      Seek 3649 clamps to 3649 within duration 10000.
      * @tc.size      MediumTest
@@ -494,7 +494,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0029
      * @tc.name      testMoreSeekBoundary0029
      * @tc.desc      Seek 3786 clamps to 3786 within duration 10000.
      * @tc.size      MediumTest
@@ -511,7 +511,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0030
      * @tc.name      testMoreSeekBoundary0030
      * @tc.desc      Seek 3923 clamps to 3923 within duration 10000.
      * @tc.size      MediumTest
@@ -528,7 +528,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0031
      * @tc.name      testMoreSeekBoundary0031
      * @tc.desc      Seek 4060 clamps to 4060 within duration 10000.
      * @tc.size      MediumTest
@@ -545,7 +545,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0032
      * @tc.name      testMoreSeekBoundary0032
      * @tc.desc      Seek 4197 clamps to 4197 within duration 10000.
      * @tc.size      MediumTest
@@ -562,7 +562,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0033
      * @tc.name      testMoreSeekBoundary0033
      * @tc.desc      Seek 4334 clamps to 4334 within duration 10000.
      * @tc.size      MediumTest
@@ -579,7 +579,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0034
      * @tc.name      testMoreSeekBoundary0034
      * @tc.desc      Seek 4471 clamps to 4471 within duration 10000.
      * @tc.size      MediumTest
@@ -596,7 +596,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0035
      * @tc.name      testMoreSeekBoundary0035
      * @tc.desc      Seek 4608 clamps to 4608 within duration 10000.
      * @tc.size      MediumTest
@@ -613,7 +613,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0036
      * @tc.name      testMoreSeekBoundary0036
      * @tc.desc      Seek 4745 clamps to 4745 within duration 10000.
      * @tc.size      MediumTest
@@ -630,7 +630,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0037
      * @tc.name      testMoreSeekBoundary0037
      * @tc.desc      Seek 4882 clamps to 4882 within duration 10000.
      * @tc.size      MediumTest
@@ -647,7 +647,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0038
      * @tc.name      testMoreSeekBoundary0038
      * @tc.desc      Seek 5019 clamps to 5019 within duration 10000.
      * @tc.size      MediumTest
@@ -664,7 +664,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0039
      * @tc.name      testMoreSeekBoundary0039
      * @tc.desc      Seek 5156 clamps to 5156 within duration 10000.
      * @tc.size      MediumTest
@@ -681,7 +681,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0040
      * @tc.name      testMoreSeekBoundary0040
      * @tc.desc      Seek 5293 clamps to 5293 within duration 10000.
      * @tc.size      MediumTest
@@ -698,7 +698,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0041
      * @tc.name      testMoreSeekBoundary0041
      * @tc.desc      Seek 5430 clamps to 5430 within duration 10000.
      * @tc.size      MediumTest
@@ -715,7 +715,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0042
      * @tc.name      testMoreSeekBoundary0042
      * @tc.desc      Seek 5567 clamps to 5567 within duration 10000.
      * @tc.size      MediumTest
@@ -732,7 +732,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0043
      * @tc.name      testMoreSeekBoundary0043
      * @tc.desc      Seek 5704 clamps to 5704 within duration 10000.
      * @tc.size      MediumTest
@@ -749,7 +749,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0044
      * @tc.name      testMoreSeekBoundary0044
      * @tc.desc      Seek 5841 clamps to 5841 within duration 10000.
      * @tc.size      MediumTest
@@ -766,7 +766,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0045
      * @tc.name      testMoreSeekBoundary0045
      * @tc.desc      Seek 5978 clamps to 5978 within duration 10000.
      * @tc.size      MediumTest
@@ -783,7 +783,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0046
      * @tc.name      testMoreSeekBoundary0046
      * @tc.desc      Seek 6115 clamps to 6115 within duration 10000.
      * @tc.size      MediumTest
@@ -800,7 +800,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0047
      * @tc.name      testMoreSeekBoundary0047
      * @tc.desc      Seek 6252 clamps to 6252 within duration 10000.
      * @tc.size      MediumTest
@@ -817,7 +817,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0048
      * @tc.name      testMoreSeekBoundary0048
      * @tc.desc      Seek 6389 clamps to 6389 within duration 10000.
      * @tc.size      MediumTest
@@ -834,7 +834,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0049
      * @tc.name      testMoreSeekBoundary0049
      * @tc.desc      Seek 6526 clamps to 6526 within duration 10000.
      * @tc.size      MediumTest
@@ -851,7 +851,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0050
      * @tc.name      testMoreSeekBoundary0050
      * @tc.desc      Seek 6663 clamps to 6663 within duration 10000.
      * @tc.size      MediumTest
@@ -868,7 +868,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0051
      * @tc.name      testMoreSeekBoundary0051
      * @tc.desc      Seek 6800 clamps to 6800 within duration 10000.
      * @tc.size      MediumTest
@@ -885,7 +885,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0052
      * @tc.name      testMoreSeekBoundary0052
      * @tc.desc      Seek 6937 clamps to 6937 within duration 10000.
      * @tc.size      MediumTest
@@ -902,7 +902,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0053
      * @tc.name      testMoreSeekBoundary0053
      * @tc.desc      Seek 7074 clamps to 7074 within duration 10000.
      * @tc.size      MediumTest
@@ -919,7 +919,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0054
      * @tc.name      testMoreSeekBoundary0054
      * @tc.desc      Seek 7211 clamps to 7211 within duration 10000.
      * @tc.size      MediumTest
@@ -936,7 +936,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0055
      * @tc.name      testMoreSeekBoundary0055
      * @tc.desc      Seek 7348 clamps to 7348 within duration 10000.
      * @tc.size      MediumTest
@@ -953,7 +953,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0056
      * @tc.name      testMoreSeekBoundary0056
      * @tc.desc      Seek 7485 clamps to 7485 within duration 10000.
      * @tc.size      MediumTest
@@ -970,7 +970,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0057
      * @tc.name      testMoreSeekBoundary0057
      * @tc.desc      Seek 7622 clamps to 7622 within duration 10000.
      * @tc.size      MediumTest
@@ -987,7 +987,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0058
      * @tc.name      testMoreSeekBoundary0058
      * @tc.desc      Seek 7759 clamps to 7759 within duration 10000.
      * @tc.size      MediumTest
@@ -1004,7 +1004,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0059
      * @tc.name      testMoreSeekBoundary0059
      * @tc.desc      Seek 7896 clamps to 7896 within duration 10000.
      * @tc.size      MediumTest
@@ -1021,7 +1021,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0060
      * @tc.name      testMoreSeekBoundary0060
      * @tc.desc      Seek 8033 clamps to 8033 within duration 10000.
      * @tc.size      MediumTest
@@ -1038,7 +1038,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0061
      * @tc.name      testMoreSeekBoundary0061
      * @tc.desc      Seek 8170 clamps to 8170 within duration 10000.
      * @tc.size      MediumTest
@@ -1055,7 +1055,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0062
      * @tc.name      testMoreSeekBoundary0062
      * @tc.desc      Seek 8307 clamps to 8307 within duration 10000.
      * @tc.size      MediumTest
@@ -1072,7 +1072,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0063
      * @tc.name      testMoreSeekBoundary0063
      * @tc.desc      Seek 8444 clamps to 8444 within duration 10000.
      * @tc.size      MediumTest
@@ -1089,7 +1089,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0064
      * @tc.name      testMoreSeekBoundary0064
      * @tc.desc      Seek 8581 clamps to 8581 within duration 10000.
      * @tc.size      MediumTest
@@ -1106,7 +1106,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0065
      * @tc.name      testMoreSeekBoundary0065
      * @tc.desc      Seek 8718 clamps to 8718 within duration 10000.
      * @tc.size      MediumTest
@@ -1123,7 +1123,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0066
      * @tc.name      testMoreSeekBoundary0066
      * @tc.desc      Seek 8855 clamps to 8855 within duration 10000.
      * @tc.size      MediumTest
@@ -1140,7 +1140,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0067
      * @tc.name      testMoreSeekBoundary0067
      * @tc.desc      Seek 8992 clamps to 8992 within duration 10000.
      * @tc.size      MediumTest
@@ -1157,7 +1157,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0068
      * @tc.name      testMoreSeekBoundary0068
      * @tc.desc      Seek 9129 clamps to 9129 within duration 10000.
      * @tc.size      MediumTest
@@ -1174,7 +1174,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0069
      * @tc.name      testMoreSeekBoundary0069
      * @tc.desc      Seek 9266 clamps to 9266 within duration 10000.
      * @tc.size      MediumTest
@@ -1191,7 +1191,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0070
      * @tc.name      testMoreSeekBoundary0070
      * @tc.desc      Seek 9403 clamps to 9403 within duration 10000.
      * @tc.size      MediumTest
@@ -1208,7 +1208,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0071
      * @tc.name      testMoreSeekBoundary0071
      * @tc.desc      Seek 9540 clamps to 9540 within duration 10000.
      * @tc.size      MediumTest
@@ -1225,7 +1225,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0072
      * @tc.name      testMoreSeekBoundary0072
      * @tc.desc      Seek 9677 clamps to 9677 within duration 10000.
      * @tc.size      MediumTest
@@ -1242,7 +1242,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0073
      * @tc.name      testMoreSeekBoundary0073
      * @tc.desc      Seek 9814 clamps to 9814 within duration 10000.
      * @tc.size      MediumTest
@@ -1259,7 +1259,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0074
      * @tc.name      testMoreSeekBoundary0074
      * @tc.desc      Seek 9951 clamps to 9951 within duration 10000.
      * @tc.size      MediumTest
@@ -1276,7 +1276,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0075
      * @tc.name      testMoreSeekBoundary0075
      * @tc.desc      Seek 10088 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1293,7 +1293,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0076
      * @tc.name      testMoreSeekBoundary0076
      * @tc.desc      Seek 10225 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1310,7 +1310,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0077
      * @tc.name      testMoreSeekBoundary0077
      * @tc.desc      Seek 10362 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1327,7 +1327,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0078
      * @tc.name      testMoreSeekBoundary0078
      * @tc.desc      Seek 10499 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1344,7 +1344,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0079
      * @tc.name      testMoreSeekBoundary0079
      * @tc.desc      Seek 10636 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1361,7 +1361,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0080
      * @tc.name      testMoreSeekBoundary0080
      * @tc.desc      Seek 10773 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1378,7 +1378,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0081
      * @tc.name      testMoreSeekBoundary0081
      * @tc.desc      Seek 10910 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1395,7 +1395,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0082
      * @tc.name      testMoreSeekBoundary0082
      * @tc.desc      Seek 11047 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1412,7 +1412,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0083
      * @tc.name      testMoreSeekBoundary0083
      * @tc.desc      Seek 11184 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1429,7 +1429,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0084
      * @tc.name      testMoreSeekBoundary0084
      * @tc.desc      Seek 11321 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1446,7 +1446,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0085
      * @tc.name      testMoreSeekBoundary0085
      * @tc.desc      Seek 11458 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1463,7 +1463,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0086
      * @tc.name      testMoreSeekBoundary0086
      * @tc.desc      Seek 11595 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1480,7 +1480,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0087
      * @tc.name      testMoreSeekBoundary0087
      * @tc.desc      Seek 11732 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1497,7 +1497,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0088
      * @tc.name      testMoreSeekBoundary0088
      * @tc.desc      Seek 11869 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1514,7 +1514,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0089
      * @tc.name      testMoreSeekBoundary0089
      * @tc.desc      Seek 12006 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1531,7 +1531,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0090
      * @tc.name      testMoreSeekBoundary0090
      * @tc.desc      Seek 12143 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1548,7 +1548,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0091
      * @tc.name      testMoreSeekBoundary0091
      * @tc.desc      Seek 12280 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1565,7 +1565,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0092
      * @tc.name      testMoreSeekBoundary0092
      * @tc.desc      Seek 12417 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1582,7 +1582,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0093
      * @tc.name      testMoreSeekBoundary0093
      * @tc.desc      Seek 12554 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1599,7 +1599,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0094
      * @tc.name      testMoreSeekBoundary0094
      * @tc.desc      Seek 12691 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1616,7 +1616,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0095
      * @tc.name      testMoreSeekBoundary0095
      * @tc.desc      Seek 12828 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1633,7 +1633,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0096
      * @tc.name      testMoreSeekBoundary0096
      * @tc.desc      Seek 12965 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1650,7 +1650,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0097
      * @tc.name      testMoreSeekBoundary0097
      * @tc.desc      Seek 13102 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1667,7 +1667,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0098
      * @tc.name      testMoreSeekBoundary0098
      * @tc.desc      Seek 13239 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1684,7 +1684,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0099
      * @tc.name      testMoreSeekBoundary0099
      * @tc.desc      Seek 13376 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest
@@ -1701,7 +1701,7 @@ export default function seekBoundaryExpandedTest() {
       expect(duration).assertLarger(0);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_SEEK_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_SEEK_0100
      * @tc.name      testMoreSeekBoundary0100
      * @tc.desc      Seek 13513 clamps to 10000 within duration 10000.
      * @tc.size      MediumTest

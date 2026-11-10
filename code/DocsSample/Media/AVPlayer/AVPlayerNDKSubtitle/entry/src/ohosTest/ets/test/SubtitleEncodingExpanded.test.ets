@@ -19,7 +19,7 @@ import { util } from '@kit.ArkTS';
 export default function subtitleEncodingExpandedTest() {
   describe('subtitleEncodingExpandedTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0001
      * @tc.name      testExpSubtitleEncoding0001
      * @tc.desc      Subtitle with 0 ASCII and 0 CJK chars encodes to 0 bytes.
      * @tc.size      MediumTest
@@ -35,7 +35,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0002
      * @tc.name      testExpSubtitleEncoding0002
      * @tc.desc      Subtitle with 1 ASCII and 1 CJK chars encodes to 4 bytes.
      * @tc.size      MediumTest
@@ -51,7 +51,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0003
      * @tc.name      testExpSubtitleEncoding0003
      * @tc.desc      Subtitle with 2 ASCII and 2 CJK chars encodes to 8 bytes.
      * @tc.size      MediumTest
@@ -67,7 +67,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0004
      * @tc.name      testExpSubtitleEncoding0004
      * @tc.desc      Subtitle with 3 ASCII and 3 CJK chars encodes to 12 bytes.
      * @tc.size      MediumTest
@@ -83,7 +83,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0005
      * @tc.name      testExpSubtitleEncoding0005
      * @tc.desc      Subtitle with 4 ASCII and 4 CJK chars encodes to 16 bytes.
      * @tc.size      MediumTest
@@ -99,7 +99,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0006
      * @tc.name      testExpSubtitleEncoding0006
      * @tc.desc      Subtitle with 5 ASCII and 5 CJK chars encodes to 20 bytes.
      * @tc.size      MediumTest
@@ -115,7 +115,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0007
      * @tc.name      testExpSubtitleEncoding0007
      * @tc.desc      Subtitle with 6 ASCII and 6 CJK chars encodes to 24 bytes.
      * @tc.size      MediumTest
@@ -131,7 +131,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0008
      * @tc.name      testExpSubtitleEncoding0008
      * @tc.desc      Subtitle with 7 ASCII and 7 CJK chars encodes to 28 bytes.
      * @tc.size      MediumTest
@@ -147,7 +147,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0009
      * @tc.name      testExpSubtitleEncoding0009
      * @tc.desc      Subtitle with 8 ASCII and 8 CJK chars encodes to 32 bytes.
      * @tc.size      MediumTest
@@ -163,7 +163,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0010
      * @tc.name      testExpSubtitleEncoding0010
      * @tc.desc      Subtitle with 9 ASCII and 9 CJK chars encodes to 36 bytes.
      * @tc.size      MediumTest
@@ -179,7 +179,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0011
      * @tc.name      testExpSubtitleEncoding0011
      * @tc.desc      Subtitle with 10 ASCII and 0 CJK chars encodes to 10 bytes.
      * @tc.size      MediumTest
@@ -195,7 +195,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0012
      * @tc.name      testExpSubtitleEncoding0012
      * @tc.desc      Subtitle with 11 ASCII and 1 CJK chars encodes to 14 bytes.
      * @tc.size      MediumTest
@@ -211,7 +211,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0013
      * @tc.name      testExpSubtitleEncoding0013
      * @tc.desc      Subtitle with 12 ASCII and 2 CJK chars encodes to 18 bytes.
      * @tc.size      MediumTest
@@ -227,7 +227,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0014
      * @tc.name      testExpSubtitleEncoding0014
      * @tc.desc      Subtitle with 13 ASCII and 3 CJK chars encodes to 22 bytes.
      * @tc.size      MediumTest
@@ -243,7 +243,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0015
      * @tc.name      testExpSubtitleEncoding0015
      * @tc.desc      Subtitle with 14 ASCII and 4 CJK chars encodes to 26 bytes.
      * @tc.size      MediumTest
@@ -259,7 +259,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0016
      * @tc.name      testExpSubtitleEncoding0016
      * @tc.desc      Subtitle with 15 ASCII and 5 CJK chars encodes to 30 bytes.
      * @tc.size      MediumTest
@@ -275,7 +275,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0017
      * @tc.name      testExpSubtitleEncoding0017
      * @tc.desc      Subtitle with 16 ASCII and 6 CJK chars encodes to 34 bytes.
      * @tc.size      MediumTest
@@ -291,7 +291,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0018
      * @tc.name      testExpSubtitleEncoding0018
      * @tc.desc      Subtitle with 17 ASCII and 7 CJK chars encodes to 38 bytes.
      * @tc.size      MediumTest
@@ -307,7 +307,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0019
      * @tc.name      testExpSubtitleEncoding0019
      * @tc.desc      Subtitle with 18 ASCII and 8 CJK chars encodes to 42 bytes.
      * @tc.size      MediumTest
@@ -323,7 +323,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0020
      * @tc.name      testExpSubtitleEncoding0020
      * @tc.desc      Subtitle with 19 ASCII and 9 CJK chars encodes to 46 bytes.
      * @tc.size      MediumTest
@@ -339,7 +339,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0021
      * @tc.name      testExpSubtitleEncoding0021
      * @tc.desc      Subtitle with 0 ASCII and 0 CJK chars encodes to 0 bytes.
      * @tc.size      MediumTest
@@ -355,7 +355,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0022
      * @tc.name      testExpSubtitleEncoding0022
      * @tc.desc      Subtitle with 1 ASCII and 1 CJK chars encodes to 4 bytes.
      * @tc.size      MediumTest
@@ -371,7 +371,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0023
      * @tc.name      testExpSubtitleEncoding0023
      * @tc.desc      Subtitle with 2 ASCII and 2 CJK chars encodes to 8 bytes.
      * @tc.size      MediumTest
@@ -387,7 +387,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0024
      * @tc.name      testExpSubtitleEncoding0024
      * @tc.desc      Subtitle with 3 ASCII and 3 CJK chars encodes to 12 bytes.
      * @tc.size      MediumTest
@@ -403,7 +403,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0025
      * @tc.name      testExpSubtitleEncoding0025
      * @tc.desc      Subtitle with 4 ASCII and 4 CJK chars encodes to 16 bytes.
      * @tc.size      MediumTest
@@ -419,7 +419,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0026
      * @tc.name      testExpSubtitleEncoding0026
      * @tc.desc      Subtitle with 5 ASCII and 5 CJK chars encodes to 20 bytes.
      * @tc.size      MediumTest
@@ -435,7 +435,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0027
      * @tc.name      testExpSubtitleEncoding0027
      * @tc.desc      Subtitle with 6 ASCII and 6 CJK chars encodes to 24 bytes.
      * @tc.size      MediumTest
@@ -451,7 +451,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0028
      * @tc.name      testExpSubtitleEncoding0028
      * @tc.desc      Subtitle with 7 ASCII and 7 CJK chars encodes to 28 bytes.
      * @tc.size      MediumTest
@@ -467,7 +467,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0029
      * @tc.name      testExpSubtitleEncoding0029
      * @tc.desc      Subtitle with 8 ASCII and 8 CJK chars encodes to 32 bytes.
      * @tc.size      MediumTest
@@ -483,7 +483,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0030
      * @tc.name      testExpSubtitleEncoding0030
      * @tc.desc      Subtitle with 9 ASCII and 9 CJK chars encodes to 36 bytes.
      * @tc.size      MediumTest
@@ -499,7 +499,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0031
      * @tc.name      testExpSubtitleEncoding0031
      * @tc.desc      Subtitle with 10 ASCII and 0 CJK chars encodes to 10 bytes.
      * @tc.size      MediumTest
@@ -515,7 +515,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0032
      * @tc.name      testExpSubtitleEncoding0032
      * @tc.desc      Subtitle with 11 ASCII and 1 CJK chars encodes to 14 bytes.
      * @tc.size      MediumTest
@@ -531,7 +531,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0033
      * @tc.name      testExpSubtitleEncoding0033
      * @tc.desc      Subtitle with 12 ASCII and 2 CJK chars encodes to 18 bytes.
      * @tc.size      MediumTest
@@ -547,7 +547,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0034
      * @tc.name      testExpSubtitleEncoding0034
      * @tc.desc      Subtitle with 13 ASCII and 3 CJK chars encodes to 22 bytes.
      * @tc.size      MediumTest
@@ -563,7 +563,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0035
      * @tc.name      testExpSubtitleEncoding0035
      * @tc.desc      Subtitle with 14 ASCII and 4 CJK chars encodes to 26 bytes.
      * @tc.size      MediumTest
@@ -579,7 +579,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0036
      * @tc.name      testExpSubtitleEncoding0036
      * @tc.desc      Subtitle with 15 ASCII and 5 CJK chars encodes to 30 bytes.
      * @tc.size      MediumTest
@@ -595,7 +595,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0037
      * @tc.name      testExpSubtitleEncoding0037
      * @tc.desc      Subtitle with 16 ASCII and 6 CJK chars encodes to 34 bytes.
      * @tc.size      MediumTest
@@ -611,7 +611,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0038
      * @tc.name      testExpSubtitleEncoding0038
      * @tc.desc      Subtitle with 17 ASCII and 7 CJK chars encodes to 38 bytes.
      * @tc.size      MediumTest
@@ -627,7 +627,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0039
      * @tc.name      testExpSubtitleEncoding0039
      * @tc.desc      Subtitle with 18 ASCII and 8 CJK chars encodes to 42 bytes.
      * @tc.size      MediumTest
@@ -643,7 +643,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0040
      * @tc.name      testExpSubtitleEncoding0040
      * @tc.desc      Subtitle with 19 ASCII and 9 CJK chars encodes to 46 bytes.
      * @tc.size      MediumTest
@@ -659,7 +659,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0041
      * @tc.name      testExpSubtitleEncoding0041
      * @tc.desc      Subtitle with 0 ASCII and 0 CJK chars encodes to 0 bytes.
      * @tc.size      MediumTest
@@ -675,7 +675,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0042
      * @tc.name      testExpSubtitleEncoding0042
      * @tc.desc      Subtitle with 1 ASCII and 1 CJK chars encodes to 4 bytes.
      * @tc.size      MediumTest
@@ -691,7 +691,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0043
      * @tc.name      testExpSubtitleEncoding0043
      * @tc.desc      Subtitle with 2 ASCII and 2 CJK chars encodes to 8 bytes.
      * @tc.size      MediumTest
@@ -707,7 +707,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0044
      * @tc.name      testExpSubtitleEncoding0044
      * @tc.desc      Subtitle with 3 ASCII and 3 CJK chars encodes to 12 bytes.
      * @tc.size      MediumTest
@@ -723,7 +723,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0045
      * @tc.name      testExpSubtitleEncoding0045
      * @tc.desc      Subtitle with 4 ASCII and 4 CJK chars encodes to 16 bytes.
      * @tc.size      MediumTest
@@ -739,7 +739,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0046
      * @tc.name      testExpSubtitleEncoding0046
      * @tc.desc      Subtitle with 5 ASCII and 5 CJK chars encodes to 20 bytes.
      * @tc.size      MediumTest
@@ -755,7 +755,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0047
      * @tc.name      testExpSubtitleEncoding0047
      * @tc.desc      Subtitle with 6 ASCII and 6 CJK chars encodes to 24 bytes.
      * @tc.size      MediumTest
@@ -771,7 +771,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0048
      * @tc.name      testExpSubtitleEncoding0048
      * @tc.desc      Subtitle with 7 ASCII and 7 CJK chars encodes to 28 bytes.
      * @tc.size      MediumTest
@@ -787,7 +787,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0049
      * @tc.name      testExpSubtitleEncoding0049
      * @tc.desc      Subtitle with 8 ASCII and 8 CJK chars encodes to 32 bytes.
      * @tc.size      MediumTest
@@ -803,7 +803,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0050
      * @tc.name      testExpSubtitleEncoding0050
      * @tc.desc      Subtitle with 9 ASCII and 9 CJK chars encodes to 36 bytes.
      * @tc.size      MediumTest
@@ -819,7 +819,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0051
      * @tc.name      testExpSubtitleEncoding0051
      * @tc.desc      Subtitle with 10 ASCII and 0 CJK chars encodes to 10 bytes.
      * @tc.size      MediumTest
@@ -835,7 +835,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0052
      * @tc.name      testExpSubtitleEncoding0052
      * @tc.desc      Subtitle with 11 ASCII and 1 CJK chars encodes to 14 bytes.
      * @tc.size      MediumTest
@@ -851,7 +851,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0053
      * @tc.name      testExpSubtitleEncoding0053
      * @tc.desc      Subtitle with 12 ASCII and 2 CJK chars encodes to 18 bytes.
      * @tc.size      MediumTest
@@ -867,7 +867,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0054
      * @tc.name      testExpSubtitleEncoding0054
      * @tc.desc      Subtitle with 13 ASCII and 3 CJK chars encodes to 22 bytes.
      * @tc.size      MediumTest
@@ -883,7 +883,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0055
      * @tc.name      testExpSubtitleEncoding0055
      * @tc.desc      Subtitle with 14 ASCII and 4 CJK chars encodes to 26 bytes.
      * @tc.size      MediumTest
@@ -899,7 +899,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0056
      * @tc.name      testExpSubtitleEncoding0056
      * @tc.desc      Subtitle with 15 ASCII and 5 CJK chars encodes to 30 bytes.
      * @tc.size      MediumTest
@@ -915,7 +915,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0057
      * @tc.name      testExpSubtitleEncoding0057
      * @tc.desc      Subtitle with 16 ASCII and 6 CJK chars encodes to 34 bytes.
      * @tc.size      MediumTest
@@ -931,7 +931,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0058
      * @tc.name      testExpSubtitleEncoding0058
      * @tc.desc      Subtitle with 17 ASCII and 7 CJK chars encodes to 38 bytes.
      * @tc.size      MediumTest
@@ -947,7 +947,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0059
      * @tc.name      testExpSubtitleEncoding0059
      * @tc.desc      Subtitle with 18 ASCII and 8 CJK chars encodes to 42 bytes.
      * @tc.size      MediumTest
@@ -963,7 +963,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0060
      * @tc.name      testExpSubtitleEncoding0060
      * @tc.desc      Subtitle with 19 ASCII and 9 CJK chars encodes to 46 bytes.
      * @tc.size      MediumTest
@@ -979,7 +979,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0061
      * @tc.name      testExpSubtitleEncoding0061
      * @tc.desc      Subtitle with 0 ASCII and 0 CJK chars encodes to 0 bytes.
      * @tc.size      MediumTest
@@ -995,7 +995,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0062
      * @tc.name      testExpSubtitleEncoding0062
      * @tc.desc      Subtitle with 1 ASCII and 1 CJK chars encodes to 4 bytes.
      * @tc.size      MediumTest
@@ -1011,7 +1011,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0063
      * @tc.name      testExpSubtitleEncoding0063
      * @tc.desc      Subtitle with 2 ASCII and 2 CJK chars encodes to 8 bytes.
      * @tc.size      MediumTest
@@ -1027,7 +1027,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0064
      * @tc.name      testExpSubtitleEncoding0064
      * @tc.desc      Subtitle with 3 ASCII and 3 CJK chars encodes to 12 bytes.
      * @tc.size      MediumTest
@@ -1043,7 +1043,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0065
      * @tc.name      testExpSubtitleEncoding0065
      * @tc.desc      Subtitle with 4 ASCII and 4 CJK chars encodes to 16 bytes.
      * @tc.size      MediumTest
@@ -1059,7 +1059,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0066
      * @tc.name      testExpSubtitleEncoding0066
      * @tc.desc      Subtitle with 5 ASCII and 5 CJK chars encodes to 20 bytes.
      * @tc.size      MediumTest
@@ -1075,7 +1075,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0067
      * @tc.name      testExpSubtitleEncoding0067
      * @tc.desc      Subtitle with 6 ASCII and 6 CJK chars encodes to 24 bytes.
      * @tc.size      MediumTest
@@ -1091,7 +1091,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0068
      * @tc.name      testExpSubtitleEncoding0068
      * @tc.desc      Subtitle with 7 ASCII and 7 CJK chars encodes to 28 bytes.
      * @tc.size      MediumTest
@@ -1107,7 +1107,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0069
      * @tc.name      testExpSubtitleEncoding0069
      * @tc.desc      Subtitle with 8 ASCII and 8 CJK chars encodes to 32 bytes.
      * @tc.size      MediumTest
@@ -1123,7 +1123,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0070
      * @tc.name      testExpSubtitleEncoding0070
      * @tc.desc      Subtitle with 9 ASCII and 9 CJK chars encodes to 36 bytes.
      * @tc.size      MediumTest
@@ -1139,7 +1139,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0071
      * @tc.name      testExpSubtitleEncoding0071
      * @tc.desc      Subtitle with 10 ASCII and 0 CJK chars encodes to 10 bytes.
      * @tc.size      MediumTest
@@ -1155,7 +1155,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0072
      * @tc.name      testExpSubtitleEncoding0072
      * @tc.desc      Subtitle with 11 ASCII and 1 CJK chars encodes to 14 bytes.
      * @tc.size      MediumTest
@@ -1171,7 +1171,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0073
      * @tc.name      testExpSubtitleEncoding0073
      * @tc.desc      Subtitle with 12 ASCII and 2 CJK chars encodes to 18 bytes.
      * @tc.size      MediumTest
@@ -1187,7 +1187,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0074
      * @tc.name      testExpSubtitleEncoding0074
      * @tc.desc      Subtitle with 13 ASCII and 3 CJK chars encodes to 22 bytes.
      * @tc.size      MediumTest
@@ -1203,7 +1203,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0075
      * @tc.name      testExpSubtitleEncoding0075
      * @tc.desc      Subtitle with 14 ASCII and 4 CJK chars encodes to 26 bytes.
      * @tc.size      MediumTest
@@ -1219,7 +1219,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0076
      * @tc.name      testExpSubtitleEncoding0076
      * @tc.desc      Subtitle with 15 ASCII and 5 CJK chars encodes to 30 bytes.
      * @tc.size      MediumTest
@@ -1235,7 +1235,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0077
      * @tc.name      testExpSubtitleEncoding0077
      * @tc.desc      Subtitle with 16 ASCII and 6 CJK chars encodes to 34 bytes.
      * @tc.size      MediumTest
@@ -1251,7 +1251,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0078
      * @tc.name      testExpSubtitleEncoding0078
      * @tc.desc      Subtitle with 17 ASCII and 7 CJK chars encodes to 38 bytes.
      * @tc.size      MediumTest
@@ -1267,7 +1267,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0079
      * @tc.name      testExpSubtitleEncoding0079
      * @tc.desc      Subtitle with 18 ASCII and 8 CJK chars encodes to 42 bytes.
      * @tc.size      MediumTest
@@ -1283,7 +1283,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0080
      * @tc.name      testExpSubtitleEncoding0080
      * @tc.desc      Subtitle with 19 ASCII and 9 CJK chars encodes to 46 bytes.
      * @tc.size      MediumTest
@@ -1299,7 +1299,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0081
      * @tc.name      testExpSubtitleEncoding0081
      * @tc.desc      Subtitle with 0 ASCII and 0 CJK chars encodes to 0 bytes.
      * @tc.size      MediumTest
@@ -1315,7 +1315,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0082
      * @tc.name      testExpSubtitleEncoding0082
      * @tc.desc      Subtitle with 1 ASCII and 1 CJK chars encodes to 4 bytes.
      * @tc.size      MediumTest
@@ -1331,7 +1331,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0083
      * @tc.name      testExpSubtitleEncoding0083
      * @tc.desc      Subtitle with 2 ASCII and 2 CJK chars encodes to 8 bytes.
      * @tc.size      MediumTest
@@ -1347,7 +1347,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0084
      * @tc.name      testExpSubtitleEncoding0084
      * @tc.desc      Subtitle with 3 ASCII and 3 CJK chars encodes to 12 bytes.
      * @tc.size      MediumTest
@@ -1363,7 +1363,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0085
      * @tc.name      testExpSubtitleEncoding0085
      * @tc.desc      Subtitle with 4 ASCII and 4 CJK chars encodes to 16 bytes.
      * @tc.size      MediumTest
@@ -1379,7 +1379,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0086
      * @tc.name      testExpSubtitleEncoding0086
      * @tc.desc      Subtitle with 5 ASCII and 5 CJK chars encodes to 20 bytes.
      * @tc.size      MediumTest
@@ -1395,7 +1395,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0087
      * @tc.name      testExpSubtitleEncoding0087
      * @tc.desc      Subtitle with 6 ASCII and 6 CJK chars encodes to 24 bytes.
      * @tc.size      MediumTest
@@ -1411,7 +1411,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0088
      * @tc.name      testExpSubtitleEncoding0088
      * @tc.desc      Subtitle with 7 ASCII and 7 CJK chars encodes to 28 bytes.
      * @tc.size      MediumTest
@@ -1427,7 +1427,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0089
      * @tc.name      testExpSubtitleEncoding0089
      * @tc.desc      Subtitle with 8 ASCII and 8 CJK chars encodes to 32 bytes.
      * @tc.size      MediumTest
@@ -1443,7 +1443,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0090
      * @tc.name      testExpSubtitleEncoding0090
      * @tc.desc      Subtitle with 9 ASCII and 9 CJK chars encodes to 36 bytes.
      * @tc.size      MediumTest
@@ -1459,7 +1459,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0091
      * @tc.name      testExpSubtitleEncoding0091
      * @tc.desc      Subtitle with 10 ASCII and 0 CJK chars encodes to 10 bytes.
      * @tc.size      MediumTest
@@ -1475,7 +1475,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0092
      * @tc.name      testExpSubtitleEncoding0092
      * @tc.desc      Subtitle with 11 ASCII and 1 CJK chars encodes to 14 bytes.
      * @tc.size      MediumTest
@@ -1491,7 +1491,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0093
      * @tc.name      testExpSubtitleEncoding0093
      * @tc.desc      Subtitle with 12 ASCII and 2 CJK chars encodes to 18 bytes.
      * @tc.size      MediumTest
@@ -1507,7 +1507,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0094
      * @tc.name      testExpSubtitleEncoding0094
      * @tc.desc      Subtitle with 13 ASCII and 3 CJK chars encodes to 22 bytes.
      * @tc.size      MediumTest
@@ -1523,7 +1523,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0095
      * @tc.name      testExpSubtitleEncoding0095
      * @tc.desc      Subtitle with 14 ASCII and 4 CJK chars encodes to 26 bytes.
      * @tc.size      MediumTest
@@ -1539,7 +1539,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0096
      * @tc.name      testExpSubtitleEncoding0096
      * @tc.desc      Subtitle with 15 ASCII and 5 CJK chars encodes to 30 bytes.
      * @tc.size      MediumTest
@@ -1555,7 +1555,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0097
      * @tc.name      testExpSubtitleEncoding0097
      * @tc.desc      Subtitle with 16 ASCII and 6 CJK chars encodes to 34 bytes.
      * @tc.size      MediumTest
@@ -1571,7 +1571,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0098
      * @tc.name      testExpSubtitleEncoding0098
      * @tc.desc      Subtitle with 17 ASCII and 7 CJK chars encodes to 38 bytes.
      * @tc.size      MediumTest
@@ -1587,7 +1587,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0099
      * @tc.name      testExpSubtitleEncoding0099
      * @tc.desc      Subtitle with 18 ASCII and 8 CJK chars encodes to 42 bytes.
      * @tc.size      MediumTest
@@ -1603,7 +1603,7 @@ export default function subtitleEncodingExpandedTest() {
       expect(encoded.length).assertLargerOrEqual(text.length);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_ENC_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_ENC_0100
      * @tc.name      testExpSubtitleEncoding0100
      * @tc.desc      Subtitle with 19 ASCII and 9 CJK chars encodes to 46 bytes.
      * @tc.size      MediumTest

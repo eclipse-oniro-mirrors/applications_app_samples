@@ -17,7 +17,7 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function playerContractSafeCoreTest() {
   describe('playerContractSafeCoreTest', () => {
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0001
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0001
      * @tc.name      testSafePlayerState0001
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -32,7 +32,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0002
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0002
      * @tc.name      testSafePlayerState0002
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -47,7 +47,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0003
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0003
      * @tc.name      testSafePlayerState0003
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -62,7 +62,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0004
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0004
      * @tc.name      testSafePlayerState0004
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -77,7 +77,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0005
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0005
      * @tc.name      testSafePlayerState0005
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -92,7 +92,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0006
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0006
      * @tc.name      testSafePlayerState0006
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -107,7 +107,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0007
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0007
      * @tc.name      testSafePlayerState0007
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -122,7 +122,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0008
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0008
      * @tc.name      testSafePlayerState0008
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -137,7 +137,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0009
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0009
      * @tc.name      testSafePlayerState0009
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -152,7 +152,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0010
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0010
      * @tc.name      testSafePlayerState0010
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -167,7 +167,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0011
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0011
      * @tc.name      testSafePlayerState0011
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -182,7 +182,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0012
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0012
      * @tc.name      testSafePlayerState0012
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -197,7 +197,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0013
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0013
      * @tc.name      testSafePlayerState0013
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -212,7 +212,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0014
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0014
      * @tc.name      testSafePlayerState0014
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -227,7 +227,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0015
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0015
      * @tc.name      testSafePlayerState0015
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -242,7 +242,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0016
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0016
      * @tc.name      testSafePlayerState0016
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -257,7 +257,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0017
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0017
      * @tc.name      testSafePlayerState0017
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -272,7 +272,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0018
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0018
      * @tc.name      testSafePlayerState0018
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -287,7 +287,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0019
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0019
      * @tc.name      testSafePlayerState0019
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -302,7 +302,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0020
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0020
      * @tc.name      testSafePlayerState0020
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -317,7 +317,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0021
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0021
      * @tc.name      testSafePlayerState0021
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -332,7 +332,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0022
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0022
      * @tc.name      testSafePlayerState0022
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -347,7 +347,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0023
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0023
      * @tc.name      testSafePlayerState0023
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -362,7 +362,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0024
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0024
      * @tc.name      testSafePlayerState0024
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -377,7 +377,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0025
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0025
      * @tc.name      testSafePlayerState0025
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -392,7 +392,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0026
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0026
      * @tc.name      testSafePlayerState0026
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -407,7 +407,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0027
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0027
      * @tc.name      testSafePlayerState0027
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -422,7 +422,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0028
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0028
      * @tc.name      testSafePlayerState0028
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -437,7 +437,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0029
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0029
      * @tc.name      testSafePlayerState0029
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -452,7 +452,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0030
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0030
      * @tc.name      testSafePlayerState0030
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -467,7 +467,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0031
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0031
      * @tc.name      testSafePlayerState0031
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -482,7 +482,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0032
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0032
      * @tc.name      testSafePlayerState0032
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -497,7 +497,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0033
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0033
      * @tc.name      testSafePlayerState0033
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -512,7 +512,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0034
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0034
      * @tc.name      testSafePlayerState0034
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -527,7 +527,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0035
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0035
      * @tc.name      testSafePlayerState0035
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -542,7 +542,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0036
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0036
      * @tc.name      testSafePlayerState0036
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -557,7 +557,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0037
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0037
      * @tc.name      testSafePlayerState0037
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -572,7 +572,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0038
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0038
      * @tc.name      testSafePlayerState0038
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -587,7 +587,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0039
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0039
      * @tc.name      testSafePlayerState0039
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -602,7 +602,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0040
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0040
      * @tc.name      testSafePlayerState0040
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -617,7 +617,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0041
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0041
      * @tc.name      testSafePlayerState0041
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -632,7 +632,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0042
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0042
      * @tc.name      testSafePlayerState0042
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -647,7 +647,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0043
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0043
      * @tc.name      testSafePlayerState0043
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -662,7 +662,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0044
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0044
      * @tc.name      testSafePlayerState0044
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -677,7 +677,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0045
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0045
      * @tc.name      testSafePlayerState0045
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -692,7 +692,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0046
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0046
      * @tc.name      testSafePlayerState0046
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -707,7 +707,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0047
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0047
      * @tc.name      testSafePlayerState0047
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -722,7 +722,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0048
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0048
      * @tc.name      testSafePlayerState0048
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -737,7 +737,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0049
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0049
      * @tc.name      testSafePlayerState0049
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -752,7 +752,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0050
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0050
      * @tc.name      testSafePlayerState0050
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -767,7 +767,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0051
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0051
      * @tc.name      testSafePlayerState0051
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -782,7 +782,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0052
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0052
      * @tc.name      testSafePlayerState0052
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -797,7 +797,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0053
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0053
      * @tc.name      testSafePlayerState0053
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -812,7 +812,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0054
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0054
      * @tc.name      testSafePlayerState0054
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -827,7 +827,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0055
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0055
      * @tc.name      testSafePlayerState0055
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -842,7 +842,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0056
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0056
      * @tc.name      testSafePlayerState0056
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -857,7 +857,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0057
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0057
      * @tc.name      testSafePlayerState0057
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -872,7 +872,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0058
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0058
      * @tc.name      testSafePlayerState0058
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -887,7 +887,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0059
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0059
      * @tc.name      testSafePlayerState0059
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -902,7 +902,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0060
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0060
      * @tc.name      testSafePlayerState0060
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -917,7 +917,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0061
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0061
      * @tc.name      testSafePlayerState0061
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -932,7 +932,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0062
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0062
      * @tc.name      testSafePlayerState0062
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -947,7 +947,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0063
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0063
      * @tc.name      testSafePlayerState0063
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -962,7 +962,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0064
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0064
      * @tc.name      testSafePlayerState0064
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -977,7 +977,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0065
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0065
      * @tc.name      testSafePlayerState0065
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -992,7 +992,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0066
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0066
      * @tc.name      testSafePlayerState0066
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -1007,7 +1007,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0067
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0067
      * @tc.name      testSafePlayerState0067
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -1022,7 +1022,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0068
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0068
      * @tc.name      testSafePlayerState0068
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -1037,7 +1037,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0069
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0069
      * @tc.name      testSafePlayerState0069
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -1052,7 +1052,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0070
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0070
      * @tc.name      testSafePlayerState0070
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -1067,7 +1067,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0071
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0071
      * @tc.name      testSafePlayerState0071
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -1082,7 +1082,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0072
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0072
      * @tc.name      testSafePlayerState0072
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -1097,7 +1097,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0073
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0073
      * @tc.name      testSafePlayerState0073
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -1112,7 +1112,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0074
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0074
      * @tc.name      testSafePlayerState0074
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -1127,7 +1127,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0075
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0075
      * @tc.name      testSafePlayerState0075
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -1142,7 +1142,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0076
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0076
      * @tc.name      testSafePlayerState0076
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -1157,7 +1157,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0077
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0077
      * @tc.name      testSafePlayerState0077
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -1172,7 +1172,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0078
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0078
      * @tc.name      testSafePlayerState0078
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -1187,7 +1187,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0079
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0079
      * @tc.name      testSafePlayerState0079
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -1202,7 +1202,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0080
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0080
      * @tc.name      testSafePlayerState0080
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -1217,7 +1217,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0081
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0081
      * @tc.name      testSafePlayerState0081
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -1232,7 +1232,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0082
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0082
      * @tc.name      testSafePlayerState0082
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -1247,7 +1247,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0083
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0083
      * @tc.name      testSafePlayerState0083
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -1262,7 +1262,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0084
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0084
      * @tc.name      testSafePlayerState0084
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -1277,7 +1277,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0085
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0085
      * @tc.name      testSafePlayerState0085
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -1292,7 +1292,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0086
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0086
      * @tc.name      testSafePlayerState0086
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -1307,7 +1307,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0087
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0087
      * @tc.name      testSafePlayerState0087
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -1322,7 +1322,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0088
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0088
      * @tc.name      testSafePlayerState0088
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -1337,7 +1337,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0089
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0089
      * @tc.name      testSafePlayerState0089
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -1352,7 +1352,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0090
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0090
      * @tc.name      testSafePlayerState0090
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -1367,7 +1367,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0091
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0091
      * @tc.name      testSafePlayerState0091
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
@@ -1382,7 +1382,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0092
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0092
      * @tc.name      testSafePlayerState0092
      * @tc.desc      Player state initialized keeps token contract.
      * @tc.size      MediumTest
@@ -1397,7 +1397,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0093
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0093
      * @tc.name      testSafePlayerState0093
      * @tc.desc      Player state prepared keeps token contract.
      * @tc.size      MediumTest
@@ -1412,7 +1412,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0094
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0094
      * @tc.name      testSafePlayerState0094
      * @tc.desc      Player state playing keeps token contract.
      * @tc.size      MediumTest
@@ -1427,7 +1427,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0095
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0095
      * @tc.name      testSafePlayerState0095
      * @tc.desc      Player state paused keeps token contract.
      * @tc.size      MediumTest
@@ -1442,7 +1442,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0096
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0096
      * @tc.name      testSafePlayerState0096
      * @tc.desc      Player state completed keeps token contract.
      * @tc.size      MediumTest
@@ -1457,7 +1457,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0097
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0097
      * @tc.name      testSafePlayerState0097
      * @tc.desc      Player state stopped keeps token contract.
      * @tc.size      MediumTest
@@ -1472,7 +1472,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0098
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0098
      * @tc.name      testSafePlayerState0098
      * @tc.desc      Player state released keeps token contract.
      * @tc.size      MediumTest
@@ -1487,7 +1487,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0099
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0099
      * @tc.name      testSafePlayerState0099
      * @tc.desc      Player state error keeps token contract.
      * @tc.size      MediumTest
@@ -1502,7 +1502,7 @@ export default function playerContractSafeCoreTest() {
       expect(state.indexOf(' ')).assertEqual(-1);
     })
     /**
-     * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC1_0100
+     * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_PC1_0100
      * @tc.name      testSafePlayerState0100
      * @tc.desc      Player state idle keeps token contract.
      * @tc.size      MediumTest
