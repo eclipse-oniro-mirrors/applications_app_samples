@@ -42,6 +42,7 @@ struct Index {
     this.session.activate();
   }
 
+  // 首次显示时尝试注册，窗口后续获焦时再次尝试。
   onPageShow(): void {
     this.session.register().catch((error: BusinessError) => { this.logError(error); });
     if (this.windowListenerSet) { return; }
@@ -56,6 +57,7 @@ struct Index {
     }).catch((error: BusinessError) => { this.logError(error); });
   }
 
+  // 页面离开时释放代理输入法会话。
   aboutToDisappear(): void {
     this.session.dispose().catch((error: BusinessError) => { this.logError(error); });
   }
@@ -83,6 +85,7 @@ struct Index {
       .backgroundColor('#FFFFFF')
       .fontColor('#182431')
       .fontSize(20)
+      // 按键不获取焦点，保持编辑框与代理输入法的绑定。
       .focusable(false)
       .onClick(() => {
         this.session.insert(value).catch((error: BusinessError) => { this.logError(error); });
@@ -112,6 +115,7 @@ struct Index {
             .fontWeight(FontWeight.Medium)
             .fontColor('#182431')
             .width('100%')
+          // 注册代理后点击编辑框，框架将触发绑定及键盘显示回调。
           TextInput({ text: this.text, placeholder: $r('app.string.input_placeholder') })
             .height(56)
             .fontSize(18)
