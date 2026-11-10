@@ -369,16 +369,16 @@ class KeyboardOptionFactory {
   public createStandardOptions(): KeyboardOptionItem[] {
     const options: KeyboardOptionItem[] = [];
     options.push(new KeyboardOptionItem('ABC', KeyOperationType.IMEOPERATION_SUSPEND));
-    options.push(new KeyboardOptionItem('中文', KeyOperationType.IMEOPERATION_SHUTDOWN));
-    options.push(new KeyboardOptionItem('符号', KeyOperationType.IMEOPERATION_REBOOT));
+    options.push(new KeyboardOptionItem('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN));
+    options.push(new KeyboardOptionItem('Symbol', KeyOperationType.IMEOPERATION_REBOOT));
     return options;
   }
 
   public createIdentifiedOptions(): IdentifiedKeyboardOption[] {
     const options: IdentifiedKeyboardOption[] = [];
     options.push(new IdentifiedKeyboardOption(0, 'ABC', KeyOperationType.IMEOPERATION_SUSPEND));
-    options.push(new IdentifiedKeyboardOption(1, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN));
-    options.push(new IdentifiedKeyboardOption(2, '符号', KeyOperationType.IMEOPERATION_REBOOT));
+    options.push(new IdentifiedKeyboardOption(1, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN));
+    options.push(new IdentifiedKeyboardOption(2, 'Symbol', KeyOperationType.IMEOPERATION_REBOOT));
     return options;
   }
 
@@ -413,8 +413,8 @@ export default function imeDataSourceValidationTest() {
     it('total_count_should_return_array_length', 0, async () => {
       const ds = new ImeListDataSource();
       ds.push(new KeyboardOptionItem('ABC', KeyOperationType.IMEOPERATION_SUSPEND));
-      ds.push(new KeyboardOptionItem('中文', KeyOperationType.IMEOPERATION_SHUTDOWN));
-      ds.push(new KeyboardOptionItem('符号', KeyOperationType.IMEOPERATION_REBOOT));
+      ds.push(new KeyboardOptionItem('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN));
+      ds.push(new KeyboardOptionItem('Symbol', KeyOperationType.IMEOPERATION_REBOOT));
       expect(ds.totalCount()).assertEqual(3);
     });
 
@@ -442,7 +442,7 @@ export default function imeDataSourceValidationTest() {
     // 适配 BasicDataSource_Edge_Cases：负索引返回 undefined
     it('get_data_with_negative_index_should_return_undefined', 0, async () => {
       const ds = new ImeListDataSource();
-      ds.push(new KeyboardOptionItem('中文', KeyOperationType.IMEOPERATION_SHUTDOWN));
+      ds.push(new KeyboardOptionItem('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN));
       expect(ds.getData(-5)).assertEqual(undefined);
     });
 
@@ -493,10 +493,10 @@ export default function imeDataSourceValidationTest() {
     it('splice_should_remove_element', 0, async () => {
       const ds = new ImeListDataSource();
       ds.push(new KeyboardOptionItem('ABC', KeyOperationType.IMEOPERATION_SUSPEND));
-      ds.push(new KeyboardOptionItem('中文', KeyOperationType.IMEOPERATION_SHUTDOWN));
+      ds.push(new KeyboardOptionItem('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN));
       ds.splice(0);
       expect(ds.totalCount()).assertEqual(1);
-      expect(ds.getData(0)?.name).assertEqual('中文');
+      expect(ds.getData(0)?.name).assertEqual('Chinese');
     });
 
     // 适配 FileDataSource_Operations：clear 清空数组
@@ -520,7 +520,7 @@ export default function imeDataSourceValidationTest() {
       };
       ds.registerDataChangeListener(listener1);
       ds.registerDataChangeListener(listener2);
-      ds.push(new KeyboardOptionItem('符号', KeyOperationType.IMEOPERATION_REBOOT));
+      ds.push(new KeyboardOptionItem('Symbol', KeyOperationType.IMEOPERATION_REBOOT));
       expect(count1).assertEqual(1);
       expect(count2).assertEqual(1);
     });
@@ -528,7 +528,7 @@ export default function imeDataSourceValidationTest() {
     // 适配 Collection_Boundaries：单项数据源
     it('single_item_data_source_should_have_total_count_one', 0, async () => {
       const ds = new ImeListDataSource();
-      ds.push(new KeyboardOptionItem('中文', KeyOperationType.IMEOPERATION_SHUTDOWN));
+      ds.push(new KeyboardOptionItem('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN));
       expect(ds.totalCount()).assertEqual(1);
     });
   });

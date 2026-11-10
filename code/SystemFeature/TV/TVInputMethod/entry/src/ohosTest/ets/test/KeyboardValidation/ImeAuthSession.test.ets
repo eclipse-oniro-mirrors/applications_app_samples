@@ -567,12 +567,12 @@ export default function imeAuthSessionTest() {
       controller.login('accountA');
       const accountA = controller.getAccount('accountA');
       if (accountA !== null) {
-        accountA.recordOperation('中文');
+        accountA.recordOperation('Chinese');
       }
       controller.login('accountB');
       const accountB = controller.getAccount('accountB');
       if (accountB !== null) {
-        accountB.recordOperation('符号');
+        accountB.recordOperation('Symbol');
       }
     });
 
@@ -641,8 +641,8 @@ export default function imeAuthSessionTest() {
 
     it('account_operation_count_should_accumulate', 0, async () => {
       const account = new ImeAccount('A');
-      account.recordOperation('中文');
-      account.recordOperation('符号');
+      account.recordOperation('Chinese');
+      account.recordOperation('Symbol');
       account.recordOperation('ABC');
     });
 
@@ -669,7 +669,7 @@ export default function imeAuthSessionTest() {
       controller.login('accountA');
       const accountA = controller.getAccount('accountA');
       if (accountA !== null) {
-        accountA.recordOperation('中文');
+        accountA.recordOperation('Chinese');
       }
       controller.login('accountB');
       const accountB = controller.getAccount('accountB');
@@ -741,7 +741,7 @@ export default function imeAuthSessionTest() {
     it('account_record_then_get_returns_same', 0, async () => {
       const controller = new LoginController();
       controller.login('A');
-      controller.getAccount('A')?.recordOperation('中文');
+      controller.getAccount('A')?.recordOperation('Chinese');
     });
 
     it('get_account_returns_null_for_empty_id', 0, async () => {

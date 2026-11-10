@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -498,7 +499,7 @@ export default function inputValidationTest() {
     // 验证dialog should处理：确保TV设备在handle keyboard input下功能正常
     it('dialog_should_handle_keyboard_input', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_keyboard_input skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_keyboard_input skipped: input method is not enabled on this device');
         return;
       }
  // 验证键盘输入处理正确，确保物理键盘操作能正确控制对话框
@@ -517,7 +518,7 @@ export default function inputValidationTest() {
     // 验证dialog should处理：确保TV设备在handle remote control input下功能正常
     it('dialog_should_handle_remote_control_input', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_remote_control_input skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_remote_control_input skipped: input method is not enabled on this device');
         return;
       }
  // 验证遥控器输入处理正确，确保TV遥控器操作能正确控制对话框
@@ -538,7 +539,7 @@ export default function inputValidationTest() {
     // 验证dialog should处理：确保TV设备在handle valid key codes下功能正常
     it('dialog_should_handle_valid_key_codes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_valid_key_codes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_valid_key_codes skipped: input method is not enabled on this device');
         return;
       }
  // 验证有效键码被正确处理，确保标准按键操作能触发预期行为
@@ -559,7 +560,7 @@ export default function inputValidationTest() {
     // 验证dialog should处理：确保TV设备在handle invalid key codes下功能正常
     it('dialog_should_handle_invalid_key_codes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_invalid_key_codes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_invalid_key_codes skipped: input method is not enabled on this device');
         return;
       }
  // 验证无效键码被正确过滤，防止异常按键导致系统崩溃
@@ -578,7 +579,7 @@ export default function inputValidationTest() {
     // 记录测试数据：收集每次操作的关键指标，为后续分析提供原始数据
     it('dialog_input_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_input_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_input_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
  // 验证输入记录时间戳按时间顺序排列，确保测试数据的时间有效性
@@ -615,7 +616,7 @@ export default function inputValidationTest() {
     // 验证dialog should处理：确保TV设备在handle all input types下功能正常
     it('dialog_should_handle_all_input_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_all_input_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_all_input_types skipped: input method is not enabled on this device');
         return;
       }
  // 验证所有输入类型都能被正确处理，确保多输入源兼容性
@@ -638,7 +639,7 @@ export default function inputValidationTest() {
     // 验证dialog should稳定：确保TV设备在maintain validation rate下性能不降低
     it('dialog_should_maintain_validation_rate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_validation_rate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_validation_rate skipped: input method is not enabled on this device');
         return;
       }
  // 验证输入验证率保持稳定，确保输入处理逻辑一致性
@@ -658,7 +659,7 @@ export default function inputValidationTest() {
     // 验证dialog should处理：确保TV设备在handle rapid input下功能正常
     it('dialog_should_handle_rapid_input', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_input skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_input skipped: input method is not enabled on this device');
         return;
       }
  // 验证快速连续输入不会导致处理异常，确保高频操作下的系统稳定性
@@ -682,7 +683,7 @@ export default function inputValidationTest() {
     // 验证dialog should处理：确保TV设备在handle boundary input values下功能正常
     it('dialog_should_handle_boundary_input_values', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_boundary_input_values skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_boundary_input_values skipped: input method is not enabled on this device');
         return;
       }
  // 验证边界输入值处理正确，确保极端数值不会导致系统异常
@@ -702,7 +703,7 @@ export default function inputValidationTest() {
     // 综合comprehensive input场景：验证完整操作流程中功能正确
     it('comprehensive_input_validation_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_input_validation_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_input_validation_scenario skipped: input method is not enabled on this device');
         return;
       }
  // 综合输入验证场景测试：验证完整操作流程中输入处理正确

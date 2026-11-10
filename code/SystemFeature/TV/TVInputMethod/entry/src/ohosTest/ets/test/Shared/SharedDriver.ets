@@ -252,26 +252,14 @@ export async function checkFocusState(driver: Driver, expectedFocusedIndex: numb
   return false;
 }
 
-/** 判断电源对话框是否已显示：通过检查对话框特有的选项文本识别
- *  ON.focused(true)与组件数量均无法可靠区分对话框是否显示，文本匹配最稳定
+/** 判断输入法键盘是否已显示：通过键盘根组件 id（keyboardMenu，定义于 TopMenu）识别
+ *  不依赖具体按键文案，避免受系统语言/locale 影响
  */
 export async function isKeyboardVisible(driver: Driver): Promise<boolean> {
   try {
     return await runSerializedUiOperation(async () => {
-      const texts = await driver.findComponents(ON.type('Text')) ?? [];
-      if (texts.length === 0) {
-        return false;
-      }
-      for (const text of texts) {
-        try {
-          const content = await text.getText();
-          if (content === 'ABC' || content === '中文' || content === '符号') {
-            return true;
-          }
-        } catch (e) { // 单个组件获取文本失败不影响其他组件匹配，跳过继续
-        }
-      }
-      return false;
+      const panel = await driver.findComponent(ON.id('keyboardMenu'));
+      return panel !== undefined && panel !== null;
     });
   } catch (error) {
     hilog.error(0x0000, 'testTag', '%{public}s', `isKeyboardVisible error: ${error}`);
@@ -309,8 +297,8 @@ export async function skipIfKeyboardUnavailable(driver: Driver, caseName: string
   return false;
 }
 
-/** 等待对话框渲染完成：以「对话框选项文本出现」这一真实渲染事件为完成条件
- *  事件驱动：循环直到 isKeyboardVisible 返回 true（ABC/中文/符号 文本出现），
+/** 等待键盘渲染完成：以「键盘根组件 keyboardMenu 出现」这一真实渲染事件为完成条件
+ *  事件驱动：循环直到 isKeyboardVisible 返回 true（keyboardMenu 出现），
  *  maxWaitMs 仅作为超时保护；不再以「组件数量>0」作为完成信号，避免误判。
  *  若超时仍未渲染，重新拉起对话框后再次等待同一渲染事件。
  */

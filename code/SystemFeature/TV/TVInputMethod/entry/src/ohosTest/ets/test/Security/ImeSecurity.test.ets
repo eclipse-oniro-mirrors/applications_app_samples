@@ -261,15 +261,15 @@ class SecurityPolicyValidator {
 
   public describeLevel(): string {
     if (this.level === SecurityLevel.LEVEL_NONE) {
-      return '无防护';
+      return 'NoProtection';
     }
     if (this.level === SecurityLevel.LEVEL_BASIC) {
-      return '基础防护';
+      return 'BasicProtection';
     }
     if (this.level === SecurityLevel.LEVEL_STANDARD) {
-      return '标准防护';
+      return 'StandardProtection';
     }
-    return '严格防护';
+    return 'StrictProtection';
   }
 }
 
@@ -300,9 +300,9 @@ class SecurityAuditReporter {
 
   public describeHealth(): string {
     if (this.hasSecurityViolations()) {
-      return '存在安全隐患';
+      return 'SecurityRisk';
     }
-    return '安全';
+    return 'Security';
   }
 }
 
@@ -528,7 +528,7 @@ export default function imeSecurityTest() {
 
     // ===== 信息脱敏 =====
     it('sensitive_name_should_be_masked', 0, async () => {
-      expect(SensitiveInfoMasker.maskName('中文')).assertEqual('中文');
+      expect(SensitiveInfoMasker.maskName('AB')).assertEqual('AB');
       expect(SensitiveInfoMasker.maskName('abcde')).assertEqual('a***e');
     });
 

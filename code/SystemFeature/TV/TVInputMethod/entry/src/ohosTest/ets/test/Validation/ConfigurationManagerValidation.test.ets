@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -235,10 +236,10 @@ export default function configurationManagerValidationTest() {
     it('string_config_setting_should_work_correctly', 0, async () => {
       configManager.resetSystem();
 
-      configManager.setConfig('dialog_title', '电源对话框', ConfigType.STRING);
+      configManager.setConfig('dialog_title', 'PowerDialog', ConfigType.STRING);
 
       expect(configManager.hasConfig('dialog_title')).assertTrue();
-      expect(configManager.getConfigValue('dialog_title')).assertEqual('电源对话框');
+      expect(configManager.getConfigValue('dialog_title')).assertEqual('PowerDialog');
 
       const config = configManager.getConfig('dialog_title');
       expect(config?.type).assertEqual(ConfigType.STRING);
@@ -334,7 +335,7 @@ export default function configurationManagerValidationTest() {
     it('batch_config_setting_should_work_correctly', 0, async () => {
       configManager.resetSystem();
 
-      const config1: ConfigBatchItem = { key: 'dialog_title', value: '电源对话框', type: ConfigType.STRING };
+      const config1: ConfigBatchItem = { key: 'dialog_title', value: 'PowerDialog', type: ConfigType.STRING };
       const config2: ConfigBatchItem = { key: 'dialog_timeout', value: 5000, type: ConfigType.NUMBER };
       const config3: ConfigBatchItem = { key: 'show_animation', value: true, type: ConfigType.BOOLEAN };
       const config4: ConfigBatchItem = { key: 'dialog_opacity', value: 0.9, type: ConfigType.NUMBER };
@@ -343,7 +344,7 @@ export default function configurationManagerValidationTest() {
       configManager.batchSetConfigs(configs);
 
       expect(configManager.getConfigCount()).assertEqual(4);
-      expect(configManager.getConfigValue('dialog_title')).assertEqual('电源对话框');
+      expect(configManager.getConfigValue('dialog_title')).assertEqual('PowerDialog');
       expect(configManager.getConfigValue('dialog_timeout')).assertEqual(5000);
       expect(configManager.getConfigValue('show_animation')).assertTrue();
       expect(configManager.getConfigValue('dialog_opacity')).assertEqual(0.9);
@@ -504,14 +505,14 @@ export default function configurationManagerValidationTest() {
     // 验证配置管理与UI交互关联：确保配置变化与对话框状态一致
     it('config_management_should_correlate_with_ui_interactions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('config_management_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'config_management_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       configManager.resetSystem();
       configManager.setConfig('dialog_visible', true, ConfigType.BOOLEAN);
       configManager.setConfig('focus_index', 1, ConfigType.NUMBER);
-      configManager.setConfig('dialog_title', '电源对话框', ConfigType.STRING);
+      configManager.setConfig('dialog_title', 'PowerDialog', ConfigType.STRING);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       configManager.setConfig('focus_index', 2, ConfigType.NUMBER);
 
@@ -526,7 +527,7 @@ export default function configurationManagerValidationTest() {
     // 综合配置场景测试：验证完整配置操作流程中功能正确
     it('comprehensive_config_scenario_should_demonstrate_full_functionality', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_config_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_config_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -534,7 +535,7 @@ export default function configurationManagerValidationTest() {
 
       const scenarioStart = Date.now();
 
-      const initConfig1: ConfigBatchItem = { key: 'dialog_title', value: '电源对话框', type: ConfigType.STRING };
+      const initConfig1: ConfigBatchItem = { key: 'dialog_title', value: 'PowerDialog', type: ConfigType.STRING };
       const initConfig2: ConfigBatchItem = { key: 'dialog_timeout', value: 30000, type: ConfigType.NUMBER };
       const initConfig3: ConfigBatchItem = { key: 'show_animation', value: true, type: ConfigType.BOOLEAN };
       const initConfig4: ConfigBatchItem = { key: 'dialog_opacity', value: 0.95, type: ConfigType.NUMBER };
@@ -552,7 +553,7 @@ export default function configurationManagerValidationTest() {
 
       expect(configManager.getConfigCount()).assertEqual(6);
 
-      expect(configManager.getConfigValue('dialog_title')).assertEqual('电源对话框');
+      expect(configManager.getConfigValue('dialog_title')).assertEqual('PowerDialog');
       expect(configManager.getConfigValue('dialog_timeout')).assertEqual(30000);
       expect(configManager.getConfigValue('show_animation')).assertTrue();
       expect(configManager.getConfigValue('focus_index')).assertEqual(2);

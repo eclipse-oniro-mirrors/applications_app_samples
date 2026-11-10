@@ -67,7 +67,7 @@ export default function abilityTest() {
       logger.info(TAG, `${BUNDLE}StartAbility_001 begin`);
       let driver: Driver = Driver.create();
       let delegator = abilityDelegatorRegistry.getAbilityDelegator();
-      await delegator.executeShellCommand('aa start -b com.samples.kikainput_tv -a TestAbility').then(result => {
+      await delegator.executeShellCommand('aa start -b com.samples.kikainputtv -a TestAbility').then(result => {
         logger.info(TAG, `${BUNDLE}start ability finished, result = ${JSON.stringify(result)}`);
       }).catch((err: Error) => {
         logger.info(TAG, `${BUNDLE}start ability failed, err = ${JSON.stringify(err)}`);
@@ -285,7 +285,7 @@ export default function abilityTest() {
       let driver: Driver = Driver.create();
       let delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
-      await delegator.executeShellCommand('aa start ability -a EntryAbility -b com.samples.kikainput_tv')
+      await delegator.executeShellCommand('aa start ability -a EntryAbility -b com.samples.kikainputtv')
         .then(result => {
           logger.info(TAG, `${BUNDLE}start ability finished, result = ${JSON.stringify(result)}`);
         })
@@ -315,7 +315,7 @@ export default function abilityTest() {
         return;
       }
 
-      // 输入‘hel'触发预上屏'hello world'
+      // 输入‘hel'TriggerPreview'hello world'
       await driver.assertComponentExist(ON.type('TextInput'));
       let textInput = await driver.findComponent(ON.type('TextInput'));
       await textInput.click();
@@ -353,7 +353,7 @@ export default function abilityTest() {
       logger.info(TAG, `${BUNDLE}PreviewText_003 begin`);
       let driver: Driver = Driver.create();
 
-      // 输入‘abhel'触发预上屏'hello world'
+      // 输入‘abhel'TriggerPreview'hello world'
       await driver.assertComponentExist(ON.type('TextInput'));
       let textInput = await driver.findComponent(ON.type('TextInput'));
       await textInput.click();

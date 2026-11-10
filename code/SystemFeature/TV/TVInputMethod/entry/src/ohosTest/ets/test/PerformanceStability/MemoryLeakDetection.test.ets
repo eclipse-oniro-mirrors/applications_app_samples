@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -50,7 +51,7 @@ export default function memoryLeakDetectionTest() {
     // 打开-关闭后组件数量不异常增长：以真实UI组件数为断言
     it('dialog_component_count_should_stay_bounded_after_open_close', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_component_count_should_stay_bounded_after_open_close skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_component_count_should_stay_bounded_after_open_close skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -69,7 +70,7 @@ export default function memoryLeakDetectionTest() {
     // 导航后组件数量不异常增长：以真实UI组件数为断言
     it('dialog_component_count_should_stay_bounded_after_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_component_count_should_stay_bounded_after_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_component_count_should_stay_bounded_after_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -89,7 +90,7 @@ export default function memoryLeakDetectionTest() {
     // 多次操作后组件数量趋于稳定
     it('dialog_component_count_should_stabilize', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_component_count_should_stabilize skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_component_count_should_stabilize skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -109,7 +110,7 @@ export default function memoryLeakDetectionTest() {
     // 销毁重开后组件数量不残留
     it('dialog_should_release_resources_after_destruction', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_release_resources_after_destruction skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_release_resources_after_destruction skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -128,7 +129,7 @@ export default function memoryLeakDetectionTest() {
     // 多轮导航后组件不累积
     it('dialog_should_not_accumulate_components', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_not_accumulate_components skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_not_accumulate_components skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -149,7 +150,7 @@ export default function memoryLeakDetectionTest() {
     // 重复打开关闭循环后组件数量稳定
     it('dialog_should_handle_repeated_open_close_cycles', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_repeated_open_close_cycles skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_repeated_open_close_cycles skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -170,7 +171,7 @@ export default function memoryLeakDetectionTest() {
     // 焦点切换期间组件数量稳定
     it('dialog_component_count_should_stay_bounded_during_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_component_count_should_stay_bounded_during_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_component_count_should_stay_bounded_during_focus_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -189,7 +190,7 @@ export default function memoryLeakDetectionTest() {
     // 边界场景（长连按）后组件数量稳定
     it('dialog_should_handle_edge_case_component_scenarios', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_edge_case_component_scenarios skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_edge_case_component_scenarios skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -207,7 +208,7 @@ export default function memoryLeakDetectionTest() {
     // 平均组件数量围绕基线稳定
     it('dialog_average_component_count_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_average_component_count_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_average_component_count_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -229,7 +230,7 @@ export default function memoryLeakDetectionTest() {
     // 综合场景：完整操作流程后组件数量稳定
     it('comprehensive_component_stability_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_component_stability_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_component_stability_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

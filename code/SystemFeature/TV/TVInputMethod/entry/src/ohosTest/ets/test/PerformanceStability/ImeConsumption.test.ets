@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -329,24 +330,24 @@ class ImeAnalyzer {
 // 功耗报告生成器：将功耗汇总结果格式化为可读文本
 class ImeReportGenerator {
   public formatSummary(summary: ImeSummary): string {
-    const budgetText = summary.withinBudget ? '未超预算' : '已超预算';
-    return `总功耗=${summary.totalIme}, 平均功耗=${summary.averageIme.toFixed(2)}, 峰值功耗=${summary.peakIme}, 采样数=${summary.sampleCount}, 状态=${budgetText}`;
+    const budgetText = summary.withinBudget ? 'WithinBudget' : 'OverBudget';
+    return `TotalPower=${summary.totalIme}, AveragePower=${summary.averageIme.toFixed(2)}, PeakPower=${summary.peakIme}, Samples=${summary.sampleCount}, Status=${budgetText}`;
   }
 
   public formatLevel(level: ImeLevel): string {
     if (level === ImeLevel.IDLE) {
-      return '空闲';
+      return 'Idle';
     }
     if (level === ImeLevel.LOW) {
-      return '低功耗';
+      return 'LowPower';
     }
     if (level === ImeLevel.MODERATE) {
-      return '中等功耗';
+      return 'MediumPower';
     }
     if (level === ImeLevel.HIGH) {
-      return '高功耗';
+      return 'HighPower';
     }
-    return '峰值功耗';
+    return 'PeakPower';
   }
 
   public formatDistribution(distribution: Map<ImeLevel, number>): string {
@@ -361,7 +362,7 @@ class ImeReportGenerator {
     const moderate = moderateCount === undefined ? 0 : moderateCount;
     const high = highCount === undefined ? 0 : highCount;
     const peak = peakCount === undefined ? 0 : peakCount;
-    result += `空闲=${idle}; 低功耗=${low}; 中等功耗=${moderate}; 高功耗=${high}; 峰值功耗=${peak}`;
+    result += `Idle=${idle}; LowPower=${low}; MediumPower=${moderate}; HighPower=${high}; PeakPower=${peak}`;
     return result;
   }
 }
@@ -447,7 +448,7 @@ export default function imeConsumptionTest() {
     // 验证dialog should具备特性：确保TV设备have low ime consumption during idle满足设计要求
     it('dialog_should_have_low_ime_consumption_during_idle', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_low_ime_consumption_during_idle skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_low_ime_consumption_during_idle skipped: input method is not enabled on this device');
         return;
       }
       const startTime = Date.now();
@@ -466,7 +467,7 @@ export default function imeConsumptionTest() {
     // 验证dialog should具备特性：确保TV设备have optimal ime during navigation满足设计要求
     it('dialog_should_have_optimal_ime_during_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_optimal_ime_during_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_optimal_ime_during_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -491,7 +492,7 @@ export default function imeConsumptionTest() {
 
     it('dialog_should_not_exceed_ime_budget', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_not_exceed_ime_budget skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_not_exceed_ime_budget skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -518,7 +519,7 @@ export default function imeConsumptionTest() {
     // 验证dialog ime状态正确：确保TV设备records timestamps should be chronological符合预期
     it('dialog_ime_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_ime_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_ime_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -558,7 +559,7 @@ export default function imeConsumptionTest() {
     // 验证dialog should具备特性：确保TV设备have efficient ime usage满足设计要求
     it('dialog_should_have_efficient_ime_usage', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_efficient_ime_usage skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_efficient_ime_usage skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -586,7 +587,7 @@ export default function imeConsumptionTest() {
     // 验证dialog should处理能力：确保TV设备在handle ime intensive operations下功能正常
     it('dialog_should_handle_ime_intensive_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_ime_intensive_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_ime_intensive_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -612,7 +613,7 @@ export default function imeConsumptionTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain ime efficiency over time下性能不降低
     it('dialog_should_maintain_ime_efficiency_over_time', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_ime_efficiency_over_time skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_ime_efficiency_over_time skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -639,7 +640,7 @@ export default function imeConsumptionTest() {
 
     it('dialog_should_optimize_ime_during_rapid_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_optimize_ime_during_rapid_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_optimize_ime_during_rapid_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -664,7 +665,7 @@ export default function imeConsumptionTest() {
 
     it('dialog_should_track_ime_by_operation_type', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_track_ime_by_operation_type skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_track_ime_by_operation_type skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -682,7 +683,7 @@ export default function imeConsumptionTest() {
     // 综合comprehensive ime场景测试：验证完整操作流程中功能正确
     it('comprehensive_ime_consumption_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_ime_consumption_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_ime_consumption_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -820,11 +821,11 @@ export default function imeConsumptionTest() {
       const generator = new ImeReportGenerator();
       const summary: ImeSummary = analyzer.summarize();
       const text = generator.formatSummary(summary);
-      expect(text).assertContain('总功耗=250');
-      expect(text).assertContain('未超预算');
-      expect(generator.formatLevel(ImeLevel.IDLE)).assertEqual('空闲');
-      expect(generator.formatLevel(ImeLevel.PEAK)).assertEqual('峰值功耗');
-      expect(generator.formatDistribution(analyzer.getLevelDistribution())).assertContain('低功耗=1');
+      expect(text).assertContain('TotalPower=250');
+      expect(text).assertContain('WithinBudget');
+      expect(generator.formatLevel(ImeLevel.IDLE)).assertEqual('Idle');
+      expect(generator.formatLevel(ImeLevel.PEAK)).assertEqual('PeakPower');
+      expect(generator.formatDistribution(analyzer.getLevelDistribution())).assertContain('LowPower=1');
     });
 
     // 适配 ImeStatistics：验证功耗统计基本指标

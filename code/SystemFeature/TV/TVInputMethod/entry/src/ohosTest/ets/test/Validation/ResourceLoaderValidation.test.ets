@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -255,14 +256,14 @@ export default function resourceLoaderValidationTest() {
     it('string_resource_loading_should_work_correctly', 0, async () => {
       resourceLoader.resetLoader();
 
-      const result = resourceLoader.loadResource('string_suspend', ResourceType.STRING, '屏幕输出', 6);
+      const result = resourceLoader.loadResource('string_suspend', ResourceType.STRING, 'ScreenOutput', 6);
 
       expect(result).assertTrue();
       expect(resourceLoader.hasResource('string_suspend')).assertTrue();
 
       const resource = resourceLoader.getResource('string_suspend');
       expect(resource?.type).assertEqual(ResourceType.STRING);
-      expect(resource?.data).assertEqual('屏幕输出');
+      expect(resource?.data).assertEqual('ScreenOutput');
     });
 
     it('color_resource_loading_should_work_correctly', 0, async () => {
@@ -451,7 +452,7 @@ export default function resourceLoaderValidationTest() {
 
     it('resource_loading_should_correlate_with_ui_interactions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resource_loading_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resource_loading_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -460,7 +461,7 @@ export default function resourceLoaderValidationTest() {
       resourceLoader.loadResource('icon_suspend', ResourceType.IMAGE, 'media://suspend_icon', 1024);
       resourceLoader.loadResource('icon_reboot', ResourceType.IMAGE, 'media://reboot_icon', 1024);
       resourceLoader.loadResource('icon_shutdown', ResourceType.IMAGE, 'media://shutdown_icon', 1024);
-      resourceLoader.loadResource('title_text', ResourceType.STRING, '电源选项', 12);
+      resourceLoader.loadResource('title_text', ResourceType.STRING, 'PowerOption', 12);
       expect(resourceLoader.getCacheSize()).assertEqual(5);
       expect(resourceLoader.getResourcesByType(ResourceType.IMAGE).length).assertEqual(4);
       expect(resourceLoader.getResourcesByType(ResourceType.STRING).length).assertEqual(1);

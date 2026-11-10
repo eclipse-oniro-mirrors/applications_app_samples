@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -878,7 +879,7 @@ export default function dialogStateManagerValidationTest() {
     });
     it('state_management_should_correlate_with_ui_interactions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('state_management_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'state_management_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
         return;
       }
       stateManager.resetState();
@@ -927,7 +928,7 @@ export default function dialogStateManagerValidationTest() {
     }); // 综合comprehensive state场景测试：验证完整操作流程中功能正确
     it('comprehensive_state_scenario_should_demonstrate_full_functionality', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_state_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_state_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

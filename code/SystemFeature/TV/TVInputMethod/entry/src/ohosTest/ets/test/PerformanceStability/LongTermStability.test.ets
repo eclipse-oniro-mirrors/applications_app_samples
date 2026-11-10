@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -49,7 +50,7 @@ export default function longTermStabilityTest() {
     // 采样操作后对话框保持稳定：以真实组件数与可见性为断言
     it('dialog_should_remain_stable_after_sampled_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_remain_stable_after_sampled_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_remain_stable_after_sampled_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -69,7 +70,7 @@ export default function longTermStabilityTest() {
     // 长时导航后对话框仍响应：可见且组件数正常（焦点索引查询在部分TV设备不可靠，改用真实渲染状态）
     it('dialog_should_not_degrade_performance_over_time', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_not_degrade_performance_over_time skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_not_degrade_performance_over_time skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -84,7 +85,7 @@ export default function longTermStabilityTest() {
     // 组件数量在导航后保持稳定：以真实组件数为断言
     it('dialog_component_count_should_remain_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_component_count_should_remain_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_component_count_should_remain_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -102,7 +103,7 @@ export default function longTermStabilityTest() {
     // 导航后对话框状态保持一致：以真实组件数与可见性为断言
     it('dialog_focus_state_should_remain_consistent', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_focus_state_should_remain_consistent skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_focus_state_should_remain_consistent skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -122,7 +123,7 @@ export default function longTermStabilityTest() {
     // 连续操作不崩溃：以对话框可见性为断言
     it('dialog_should_handle_continuous_operation_without_crash', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_continuous_operation_without_crash skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_continuous_operation_without_crash skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -135,7 +136,7 @@ export default function longTermStabilityTest() {
     // 响应保持：导航后对话框持续响应（组件数正常、可见），不再用固定延迟污染的时间测量
     it('dialog_response_should_remain_within_limits', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_response_should_remain_within_limits skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_response_should_remain_within_limits skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -150,7 +151,7 @@ export default function longTermStabilityTest() {
     // 长时间使用后状态保持：以真实组件数与可见性为断言
     it('dialog_should_maintain_state_after_extended_use', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_state_after_extended_use skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_state_after_extended_use skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -169,7 +170,7 @@ export default function longTermStabilityTest() {
     // 混合操作（含关闭重开）后对话框仍可见
     it('dialog_should_handle_mixed_operations_stably', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_mixed_operations_stably skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_mixed_operations_stably skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -191,7 +192,7 @@ export default function longTermStabilityTest() {
     // 长时间运行不累积错误：以对话框可见性为断言
     it('dialog_should_not_accumulate_errors_over_time', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_not_accumulate_errors_over_time skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_not_accumulate_errors_over_time skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -204,7 +205,7 @@ export default function longTermStabilityTest() {
     // 边界条件导航：连续到达左右边界后对话框仍可见、组件数正常
     it('dialog_should_handle_boundary_conditions_stably', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_boundary_conditions_stably skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_boundary_conditions_stably skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -219,7 +220,7 @@ export default function longTermStabilityTest() {
     // 综合长时场景：导航期间对话框持续可见、结束后组件数稳定
     it('comprehensive_long_term_stability_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_long_term_stability_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_long_term_stability_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

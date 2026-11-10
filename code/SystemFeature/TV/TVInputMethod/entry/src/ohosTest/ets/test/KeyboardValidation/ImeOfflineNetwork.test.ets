@@ -514,8 +514,8 @@ export default function imeOfflineNetworkTest() {
     it('offline_operations_should_be_recorded', 0, async () => {
       const model = new NetworkStateModel();
       model.setState(NetworkState.OFFLINE);
-      model.recordOfflineOperation('中文');
-      model.recordOfflineOperation('符号');
+      model.recordOfflineOperation('Chinese');
+      model.recordOfflineOperation('Symbol');
       expect(model.getOfflineOperations().length).assertEqual(2);
     });
 
@@ -557,13 +557,13 @@ export default function imeOfflineNetworkTest() {
 
     it('message_order_should_be_preserved', 0, async () => {
       const model = new NetworkStateModel();
-      model.enqueueMessage('第一条');
-      model.enqueueMessage('第二条');
-      model.enqueueMessage('第三条');
+      model.enqueueMessage('FirstItem');
+      model.enqueueMessage('SecondItem');
+      model.enqueueMessage('ThirdItem');
       const queue = model.getMessageQueue();
-      expect(queue[0]).assertEqual('第一条');
-      expect(queue[1]).assertEqual('第二条');
-      expect(queue[2]).assertEqual('第三条');
+      expect(queue[0]).assertEqual('FirstItem');
+      expect(queue[1]).assertEqual('SecondItem');
+      expect(queue[2]).assertEqual('ThirdItem');
     });
 
     it('retry_should_be_limited_to_max_attempts', 0, async () => {
@@ -610,8 +610,8 @@ export default function imeOfflineNetworkTest() {
       const model = new NetworkStateModel();
       model.setState(NetworkState.OFFLINE);
       model.recordOfflineOperation('ABC');
-      model.recordOfflineOperation('中文');
-      model.recordOfflineOperation('符号');
+      model.recordOfflineOperation('Chinese');
+      model.recordOfflineOperation('Symbol');
       expect(model.getOfflineOperations().length).assertEqual(3);
     });
 
@@ -710,7 +710,7 @@ export default function imeOfflineNetworkTest() {
     it('offline_ops_persist_after_weak', 0, async () => {
       const model = new NetworkStateModel();
       model.setState(NetworkState.OFFLINE);
-      model.recordOfflineOperation('中文');
+      model.recordOfflineOperation('Chinese');
       model.setState(NetworkState.WEAK);
       expect(model.getOfflineOperations().length).assertEqual(1);
     });
@@ -718,8 +718,8 @@ export default function imeOfflineNetworkTest() {
     // 适配 OfflineCacheStore：任务添加与统计
     it('offline_cache_should_add_and_track_tasks', 0, async () => {
       const store = new OfflineCacheStore();
-      store.addTask('中文', OfflineSyncPriority.SYNC_HIGH);
-      store.addTask('符号', OfflineSyncPriority.SYNC_NORMAL);
+      store.addTask('Chinese', OfflineSyncPriority.SYNC_HIGH);
+      store.addTask('Symbol', OfflineSyncPriority.SYNC_NORMAL);
       expect(store.getTaskCount()).assertEqual(2);
       expect(store.getPendingCount()).assertEqual(2);
       expect(store.getSyncedCount()).assertEqual(0);
@@ -728,7 +728,7 @@ export default function imeOfflineNetworkTest() {
     // 适配 OfflineCacheStore：任务同步标记
     it('offline_cache_should_mark_synced', 0, async () => {
       const store = new OfflineCacheStore();
-      store.addTask('中文', OfflineSyncPriority.SYNC_HIGH);
+      store.addTask('Chinese', OfflineSyncPriority.SYNC_HIGH);
       const tasks = store.getTasks();
       expect(store.markSynced(tasks[0].taskId)).assertTrue();
       expect(store.getSyncedCount()).assertEqual(1);
@@ -745,9 +745,9 @@ export default function imeOfflineNetworkTest() {
     // 适配 OfflineCacheStore：按优先级过滤任务
     it('offline_cache_should_filter_by_priority', 0, async () => {
       const store = new OfflineCacheStore();
-      store.addTask('中文', OfflineSyncPriority.SYNC_HIGH);
+      store.addTask('Chinese', OfflineSyncPriority.SYNC_HIGH);
       store.addTask('ABC', OfflineSyncPriority.SYNC_LOW);
-      store.addTask('符号', OfflineSyncPriority.SYNC_HIGH);
+      store.addTask('Symbol', OfflineSyncPriority.SYNC_HIGH);
       const highTasks = store.getTasksByPriority(OfflineSyncPriority.SYNC_HIGH);
       expect(highTasks.length).assertEqual(2);
     });
@@ -870,8 +870,8 @@ export default function imeOfflineNetworkTest() {
     // 适配 OfflineSyncScheduler：按优先级调度同步
     it('sync_scheduler_should_sync_highest_priority', 0, async () => {
       const scheduler = new OfflineSyncScheduler();
-      scheduler.addTask({ taskId: 't1', operationName: '中文', priority: OfflineSyncPriority.SYNC_LOW, retries: 0, synced: false });
-      scheduler.addTask({ taskId: 't2', operationName: '符号', priority: OfflineSyncPriority.SYNC_HIGH, retries: 0, synced: false });
+      scheduler.addTask({ taskId: 't1', operationName: 'Chinese', priority: OfflineSyncPriority.SYNC_LOW, retries: 0, synced: false });
+      scheduler.addTask({ taskId: 't2', operationName: 'Symbol', priority: OfflineSyncPriority.SYNC_HIGH, retries: 0, synced: false });
       expect(scheduler.getPendingCount()).assertEqual(2);
       const next = scheduler.syncNext();
       expect(next === null).assertFalse();

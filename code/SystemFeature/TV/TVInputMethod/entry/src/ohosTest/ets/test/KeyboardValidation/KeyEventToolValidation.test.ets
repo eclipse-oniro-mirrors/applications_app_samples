@@ -491,15 +491,15 @@ export default function keyEventToolValidationTest() {
 
     // 适配 Special_Char_Filenames：特殊字符名称处理
     it('special_characters_should_be_handled', 0, async () => {
-      expect(ImeToolUtil.isEmpty('特殊*()')).assertFalse();
+      expect(ImeToolUtil.isEmpty('special*()')).assertFalse();
       expect(ImeIconUtil.getFocusIcon('icon!@#')).assertEqual('icon!@#_focus');
     });
 
     // 适配 RTL_Language_Compatibility：Unicode 名称处理
     it('unicode_name_should_be_handled', 0, async () => {
-      const unicodeName: string = 'ABC_符号_中文';
+      const unicodeName: string = 'ABC_Symbol_Chinese';
       expect(ImeToolUtil.isEmpty(unicodeName)).assertFalse();
-      expect(ImeToolUtil.endsWith(unicodeName, '中文')).assertTrue();
+      expect(ImeToolUtil.endsWith(unicodeName, 'Chinese')).assertTrue();
     });
   });
 }

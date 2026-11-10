@@ -357,27 +357,27 @@ class PerformanceAnalyzer {
 // 性能报告生成器：将分析结果格式化为可读的文本报告
 class PerformanceReporter {
   public formatResult(result: BenchmarkResult): string {
-    const passText = result.passed ? '通过' : '未通过';
-    return `类别=${result.operationCategory}, 操作数=${result.totalOperations}, 平均=${result.averageDurationMs.toFixed(2)}ms, 峰值=${result.peakDurationMs.toFixed(2)}ms, 结果=${passText}`;
+    const passText = result.passed ? 'Pass' : 'NotPass';
+    return `Category=${result.operationCategory}, Operations=${result.totalOperations}, Average=${result.averageDurationMs.toFixed(2)}ms, Peak=${result.peakDurationMs.toFixed(2)}ms, Result=${passText}`;
   }
 
   public formatGrade(grade: PerformanceGrade): string {
     if (grade === PerformanceGrade.EXCELLENT) {
-      return '优秀';
+      return 'Excellent';
     }
     if (grade === PerformanceGrade.GOOD) {
-      return '良好';
+      return 'Good';
     }
     if (grade === PerformanceGrade.ACCEPTABLE) {
-      return '可接受';
+      return 'Acceptable';
     }
-    return '较差';
+    return 'Poor';
   }
 
   public summarize(analyzer: PerformanceAnalyzer, metricName: string, category: OperationCategory): string {
     const result = analyzer.analyze(metricName, category);
     const grade = analyzer.evaluateGrade(result.averageDurationMs, result.peakDurationMs);
-    return `${this.formatResult(result)}；评级=${this.formatGrade(grade)}`;
+    return `${this.formatResult(result)}；Grade=${this.formatGrade(grade)}`;
   }
 }
 
@@ -412,7 +412,7 @@ export default function performanceStressTest() {
 
     it('dialog_rendering_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_rendering_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_rendering_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
  // 验证对话框渲染性能满足TV设备流畅度要求，确保用户感知不到明显延迟
@@ -431,7 +431,7 @@ export default function performanceStressTest() {
     // 验证focus switching状态：确保TV设备performance should be fast符合预期
     it('focus_switching_performance_should_be_fast', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_switching_performance_should_be_fast skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_switching_performance_should_be_fast skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -451,7 +451,7 @@ export default function performanceStressTest() {
 
     it('high_frequency_navigation_should_not_crash', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('high_frequency_navigation_should_not_crash skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'high_frequency_navigation_should_not_crash skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -470,7 +470,7 @@ export default function performanceStressTest() {
     // 验证long running状态：确保TV设备stability should be maintained符合预期
     it('long_running_stability_should_be_maintained', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('long_running_stability_should_be_maintained skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'long_running_stability_should_be_maintained skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -498,7 +498,7 @@ export default function performanceStressTest() {
 
     it('memory_usage_should_remain_stable_after_multiple_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('memory_usage_should_remain_stable_after_multiple_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'memory_usage_should_remain_stable_after_multiple_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -521,7 +521,7 @@ export default function performanceStressTest() {
 
     it('concurrent_operations_should_not_cause_issues', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_operations_should_not_cause_issues skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_operations_should_not_cause_issues skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -549,12 +549,12 @@ export default function performanceStressTest() {
     // 验证extreme operation状态：确保TV设备conditions should be handled gracefully符合预期
     it('extreme_operation_conditions_should_be_handled_gracefully', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('extreme_operation_conditions_should_be_handled_gracefully skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'extreme_operation_conditions_should_be_handled_gracefully skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
-      // 验证极端快速操作场景下对话框能优雅处理，不会丢失焦点或崩溃
+      // 验证极端Rapid operation场景下对话框能优雅处理，不会丢失焦点或崩溃
       for (let i = 0; i < 10; i++) { // 减少迭代次数避免并发问题
         await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION); // 使用pressAndWait替代triggerKey避免并发
       }
@@ -569,7 +569,7 @@ export default function performanceStressTest() {
     // 验证resource usage状态：确保TV设备efficiency should be optimal符合预期
     it('resource_usage_efficiency_should_be_optimal', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resource_usage_efficiency_should_be_optimal skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resource_usage_efficiency_should_be_optimal skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -587,7 +587,7 @@ export default function performanceStressTest() {
     // 验证recovery performance状态：确保TV设备should be acceptable符合预期
     it('recovery_performance_should_be_acceptable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('recovery_performance_should_be_acceptable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'recovery_performance_should_be_acceptable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver,
@@ -604,7 +604,7 @@ export default function performanceStressTest() {
     // 综合comprehensive performance场景：验证完整操作流程中功能正确
     it('comprehensive_performance_benchmark_should_pass', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_performance_benchmark_should_pass skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_performance_benchmark_should_pass skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

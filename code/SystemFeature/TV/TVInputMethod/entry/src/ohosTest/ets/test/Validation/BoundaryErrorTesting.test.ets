@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -458,7 +459,7 @@ class BoundaryCaseFactory {
     const cases: BoundaryCaseModel[] = [];
     for (let i: number = 0; i < count; i++) {
       const caseId: number = startId + i;
-      const description: string = '数值边界用例' + caseId;
+      const description: string = 'NumericBoundaryCase' + caseId;
       cases.push(new BoundaryCaseModel(caseId, BoundaryCategory.NUMERIC, description, true, ErrorSeverity.MINOR));
     }
     return cases;
@@ -486,7 +487,7 @@ export default function boundaryErrorTestingTest() {
     // 验证无效按键处理：确保TV设备在接收到无效键值时不会崩溃，保持焦点稳定
     it('invalid_key_input_should_be_handled_gracefully', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('invalid_key_input_should_be_handled_gracefully skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'invalid_key_input_should_be_handled_gracefully skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -519,7 +520,7 @@ export default function boundaryErrorTestingTest() {
     // 验证极端导航操作：确保TV设备在大量连续导航操作下不会崩溃
     it('extreme_navigation_operations_should_not_crash', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('extreme_navigation_operations_should_not_crash skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'extreme_navigation_operations_should_not_crash skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -546,7 +547,7 @@ export default function boundaryErrorTestingTest() {
     // 验证内存边界条件：确保TV设备在大量并发操作下组件状态稳定
     it('memory_boundary_conditions_should_be_handled', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('memory_boundary_conditions_should_be_handled skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'memory_boundary_conditions_should_be_handled skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -562,12 +563,12 @@ export default function boundaryErrorTestingTest() {
     // 验证时间边界条件：确保TV设备在极短间隔和长时间等待后功能正常
     it('time_boundary_conditions_should_be_handled', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('time_boundary_conditions_should_be_handled skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'time_boundary_conditions_should_be_handled skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
-      // 极短时间间隔发送操作：验证系统能处理毫秒级快速操作
+      // 极短时间间隔发送操作：验证系统能处理毫秒级Rapid operation
       for (let i = 0; i < 10; i++) {
         await pressAndWait(driver, KEY_RIGHT, 1, 100);
       }
@@ -589,7 +590,7 @@ export default function boundaryErrorTestingTest() {
     // 验证数据边界条件：确保TV设备能正确处理各种极端数据输入
     it('data_boundary_conditions_should_be_handled', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_boundary_conditions_should_be_handled skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_boundary_conditions_should_be_handled skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -623,7 +624,7 @@ export default function boundaryErrorTestingTest() {
     // 验证错误恢复机制：确保TV设备在连续错误后能自动恢复功能
     it('error_recovery_mechanism_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_mechanism_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_mechanism_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -645,7 +646,7 @@ export default function boundaryErrorTestingTest() {
     // 验证并发错误处理：确保TV设备在多个错误同时发生时能正确恢复
     it('concurrent_error_handling_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_error_handling_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_error_handling_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -666,7 +667,7 @@ export default function boundaryErrorTestingTest() {
     // 验证状态一致性边界：确保TV设备在混合操作下焦点状态保持一致
     it('state_consistency_boundary_should_be_maintained', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('state_consistency_boundary_should_be_maintained skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'state_consistency_boundary_should_be_maintained skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -701,7 +702,7 @@ export default function boundaryErrorTestingTest() {
     // 验证综合边界场景：确保TV设备在多种边界条件混合场景下保持健壮
     it('comprehensive_boundary_scenario_should_be_robust', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_boundary_scenario_should_be_robust skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_boundary_scenario_should_be_robust skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

@@ -133,7 +133,7 @@ class LoggerSystem {
     }
   }
 
-  // 生成日志报告：生成格式化的日志统计报告
+  // 生成Log Report：生成格式化的日志统计报告
   public generateLogReport(): string {
     const debugCount = this.getLogsByLevel(LogLevel.DEBUG).length;
     const infoCount = this.getLogsByLevel(LogLevel.INFO).length;
@@ -142,9 +142,9 @@ class LoggerSystem {
     const fatalCount = this.getLogsByLevel(LogLevel.FATAL).length;
 
     return `
-日志报告
+Log Report
 ========
-总日志数量: ${this.getLogCount()}
+TotalLogCount: ${this.getLogCount()}
 DEBUG: ${debugCount}
 INFO: ${infoCount}
 WARN: ${warnCount}
@@ -656,9 +656,9 @@ export default function loggerValidationTest() {
         loggerSystem.error('Tag', `Error ${i}`);
       }
 
-      // 生成日志报告测试
+      // 生成Log Report测试
       const report = loggerSystem.generateLogReport();
-      expect(report.includes('总日志数量: 20')).assertTrue();
+      expect(report.includes('TotalLogCount: 20')).assertTrue();
       expect(report.includes('DEBUG: 5')).assertTrue();
       expect(report.includes('INFO: 10')).assertTrue();
       expect(report.includes('WARN: 3')).assertTrue();
@@ -734,13 +734,13 @@ export default function loggerValidationTest() {
       loggerSystem.clearLogs();
       loggerSystem.setLogLevel(LogLevel.DEBUG);
       loggerSystem.info('Tag', 'Message with !@#$%^&*()');
-      loggerSystem.info('Tag', 'Message with 特殊字符测试');
+      loggerSystem.info('Tag', 'Message with special chars');
       loggerSystem.info('Tag', 'Message with \n\t special whitespace');
       loggerSystem.info('Tag', 'Message with "quotes" and \'apostrophes\'');
 
       expect(loggerSystem.getLogCount()).assertEqual(4);
       expect(loggerSystem.containsMessage('!@#$%^&*()')).assertTrue();
-      expect(loggerSystem.containsMessage('特殊字符测试')).assertTrue();
+      expect(loggerSystem.containsMessage('special chars')).assertTrue();
     });
     it('logging_performance_should_meet_requirements', 0, async () => {
       loggerSystem.clearLogs();
@@ -841,9 +841,9 @@ export default function loggerValidationTest() {
       const scenarioLogs = loggerSystem.getLogsByTimeRange(scenarioStart, scenarioEnd);
       expect(scenarioLogs.length).assertEqual(8);
 
-      // 生成日志报告测试
+      // 生成Log Report测试
       const report = loggerSystem.generateLogReport();
-      expect(report.includes('总日志数量: 8')).assertTrue();
+      expect(report.includes('TotalLogCount: 8')).assertTrue();
     });
   });
 

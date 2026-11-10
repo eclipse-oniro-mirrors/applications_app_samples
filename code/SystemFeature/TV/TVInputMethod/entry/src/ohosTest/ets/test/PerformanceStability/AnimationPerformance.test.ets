@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -475,7 +476,7 @@ export default function animationPerformanceTest() {
     // 验证dialog should具备特性：确保TV设备have smooth open animation满足设计要求
     it('dialog_should_have_smooth_open_animation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_smooth_open_animation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_smooth_open_animation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -495,7 +496,7 @@ export default function animationPerformanceTest() {
     // 验证dialog should具备特性：确保TV设备have smooth focus transition满足设计要求
     it('dialog_should_have_smooth_focus_transition', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_smooth_focus_transition skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_smooth_focus_transition skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -521,7 +522,7 @@ export default function animationPerformanceTest() {
     // 验证dialog should具备特性：确保TV设备have smooth close animation满足设计要求
     it('dialog_should_have_smooth_close_animation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_smooth_close_animation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_smooth_close_animation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -543,7 +544,7 @@ export default function animationPerformanceTest() {
     // 验证dialog animation状态正确：确保TV设备records timestamps should be chronological符合预期
     it('dialog_animation_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_animation_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_animation_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -580,7 +581,7 @@ export default function animationPerformanceTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain high fps during animations下性能不降低
     it('dialog_should_maintain_high_fps_during_animations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_high_fps_during_animations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_high_fps_during_animations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -606,7 +607,7 @@ export default function animationPerformanceTest() {
     // 验证dialog should具备特性：确保TV设备have optimal animation duration满足设计要求
     it('dialog_should_have_optimal_animation_duration', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_optimal_animation_duration skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_optimal_animation_duration skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -628,7 +629,7 @@ export default function animationPerformanceTest() {
     // 验证dialog should处理能力：确保TV设备在handle rapid animation sequences下功能正常
     it('dialog_should_handle_rapid_animation_sequences', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_animation_sequences skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_animation_sequences skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -654,7 +655,7 @@ export default function animationPerformanceTest() {
 
     it('dialog_should_track_animation_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_track_animation_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_track_animation_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -671,7 +672,7 @@ export default function animationPerformanceTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain smoothness during operations下性能不降低
     it('dialog_should_maintain_smoothness_during_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_smoothness_during_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_smoothness_during_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -692,7 +693,7 @@ export default function animationPerformanceTest() {
     // 综合comprehensive animation场景测试：验证完整操作流程中功能正确
     it('comprehensive_animation_performance_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_animation_performance_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_animation_performance_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

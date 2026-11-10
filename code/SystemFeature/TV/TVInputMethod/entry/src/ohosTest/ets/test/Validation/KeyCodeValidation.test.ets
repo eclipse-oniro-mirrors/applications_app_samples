@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -558,7 +559,7 @@ export default function keyCodeValidationTest() {
     }); // 验证actual key触发：确保TV设备press should trigger correct events机制有效
     it('actual_key_press_should_trigger_correct_events', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('actual_key_press_should_trigger_correct_events skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'actual_key_press_should_trigger_correct_events skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -580,7 +581,7 @@ export default function keyCodeValidationTest() {
     }); // 验证consecutive key状态正确：确保TV设备presses should be recorded correctly符合预期
     it('consecutive_key_presses_should_be_recorded_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('consecutive_key_presses_should_be_recorded_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'consecutive_key_presses_should_be_recorded_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -751,7 +752,7 @@ export default function keyCodeValidationTest() {
     }); // 综合comprehensive key场景测试：验证完整操作流程中功能正确
     it('comprehensive_key_scenario_should_demonstrate_full_functionality', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_key_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_key_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

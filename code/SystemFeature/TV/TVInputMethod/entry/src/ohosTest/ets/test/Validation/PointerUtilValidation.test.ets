@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -660,7 +661,7 @@ export default function pointerUtilValidationTest() {
 
     it('pointer_style_change_should_correlate_with_ui_interactions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('pointer_style_change_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'pointer_style_change_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
         return;
       }
  // 验证指针样式变化与UI交互关联，确保焦点变化触发样式切换

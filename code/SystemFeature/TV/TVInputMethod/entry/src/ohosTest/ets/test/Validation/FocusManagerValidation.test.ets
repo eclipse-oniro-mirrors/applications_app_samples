@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -897,7 +898,7 @@ export default function focusManagerValidationTest() {
 
     it('focus_management_should_correlate_with_ui_interactions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_management_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_management_should_correlate_with_ui_interactions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -966,7 +967,7 @@ export default function focusManagerValidationTest() {
     // 综合comprehensive focus场景测试：验证完整操作流程中功能正确
     it('comprehensive_focus_scenario_should_demonstrate_full_functionality', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_focus_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_focus_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -530,7 +531,7 @@ export default function imeInterruptionRecoveryTest() {
 
     it('real_dialog_should_stay_stable_after_interruption', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('real_dialog_should_stay_stable_after_interruption skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'real_dialog_should_stay_stable_after_interruption skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -595,7 +596,7 @@ export default function imeInterruptionRecoveryTest() {
 
     it('real_dialog_focus_should_stay_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('real_dialog_focus_should_stay_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'real_dialog_focus_should_stay_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

@@ -49,7 +49,7 @@ export default function concurrencyControlTest() {
     // 多次按键操作后对话框状态稳定：以真实组件数与可见性为断言
     it('dialog_should_handle_concurrent_key_presses', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_concurrent_key_presses skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_concurrent_key_presses skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -65,7 +65,7 @@ export default function concurrencyControlTest() {
     // 并发操作后状态维持：以真实组件数稳定性为断言
     it('dialog_should_maintain_state_during_concurrent_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_state_during_concurrent_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_state_during_concurrent_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -85,7 +85,7 @@ export default function concurrencyControlTest() {
     // 快速切换后对话框仍可见、组件数正常（焦点索引查询在部分TV设备不可靠，改用真实渲染状态）
     it('dialog_should_handle_rapid_concurrent_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_concurrent_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_concurrent_focus_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -101,7 +101,7 @@ export default function concurrencyControlTest() {
     // 并发状态更新后对话框可见
     it('dialog_should_handle_concurrent_state_updates', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_concurrent_state_updates skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_concurrent_state_updates skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -117,7 +117,7 @@ export default function concurrencyControlTest() {
     // 混合类型操作后对话框可见、组件数正常
     it('concurrent_operations_should_handle_mixed_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_operations_should_handle_mixed_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_operations_should_handle_mixed_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -133,7 +133,7 @@ export default function concurrencyControlTest() {
     // 高频操作性能：20 次串行化操作后对话框未崩溃
     it('concurrent_operations_should_not_break_dialog_after_rapid_ops', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_operations_should_not_break_dialog_after_rapid_ops skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_operations_should_not_break_dialog_after_rapid_ops skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -149,7 +149,7 @@ export default function concurrencyControlTest() {
     // 错误恢复：操作异常后对话框仍可见
     it('concurrent_operations_should_handle_error_recovery', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_operations_should_handle_error_recovery skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_operations_should_handle_error_recovery skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -169,7 +169,7 @@ export default function concurrencyControlTest() {
     // 边界条件：30 次高频操作后对话框可见、组件数正常
     it('concurrent_operations_should_handle_boundary_conditions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_operations_should_handle_boundary_conditions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_operations_should_handle_boundary_conditions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -185,7 +185,7 @@ export default function concurrencyControlTest() {
     // 综合并发场景：完整操作流程后对话框可见、组件数稳定
     it('comprehensive_concurrency_control_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_concurrency_control_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_concurrency_control_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

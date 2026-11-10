@@ -833,7 +833,7 @@ export default function imeAppVersionTest() {
 
     // 适配 VersionInfo：克隆后的元信息应保持相等
     it('version_info_should_clone_equally', 0, async () => {
-      const info = new VersionInfo(new AppVersion(100, '1.0.0'), InstallSource.STORE, false, '首次发布');
+      const info = new VersionInfo(new AppVersion(100, '1.0.0'), InstallSource.STORE, false, 'FirstRelease');
       const copy = info.clone();
       expect(info.equals(copy)).assertTrue();
     });

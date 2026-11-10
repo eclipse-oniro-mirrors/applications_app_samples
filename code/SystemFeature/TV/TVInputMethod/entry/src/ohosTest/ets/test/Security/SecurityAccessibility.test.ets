@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -116,7 +117,7 @@ class AccessibilityTestUtil {
   }
 
   public validateAccessibilityTree(components: string[]): boolean {
-    const requiredComponents = ['屏幕输出', '中文', '符号'];
+    const requiredComponents = ['ScreenOutput', 'Chinese', 'Symbol'];
     return requiredComponents.every(comp => components.some(c => c.includes(comp)));
   }
 
@@ -160,7 +161,7 @@ export default function securityAccessibilityTest() {
 
     it('ime_operations_should_require_proper_permissions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_operations_should_require_proper_permissions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_operations_should_require_proper_permissions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -182,7 +183,7 @@ export default function securityAccessibilityTest() {
 
     it('invalid_permissions_should_be_rejected', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('invalid_permissions_should_be_rejected skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'invalid_permissions_should_be_rejected skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -203,13 +204,13 @@ export default function securityAccessibilityTest() {
 
     it('screen_reader_compatibility_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('screen_reader_compatibility_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'screen_reader_compatibility_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
-      accessibilityUtil.simulateFocusChange('0', '屏幕输出按钮');
-      accessibilityUtil.simulateFocusChange('1', '中文按钮');
-      accessibilityUtil.simulateFocusChange('2', '符号按钮');
+      accessibilityUtil.simulateFocusChange('0', 'ScreenOutputButton');
+      accessibilityUtil.simulateFocusChange('1', 'ChineseButton');
+      accessibilityUtil.simulateFocusChange('2', 'SymbolButton');
       const events = accessibilityUtil.getAccessibilityEvents();
       expect(events.length).assertLargerOrEqual(3);
       const hasFocusEvent = accessibilityUtil.hasAccessibilityEvent('focus');
@@ -220,33 +221,33 @@ export default function securityAccessibilityTest() {
 
     it('text_content_should_be_readable_by_screen_readers', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('text_content_should_be_readable_by_screen_readers skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'text_content_should_be_readable_by_screen_readers skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
-      accessibilityUtil.simulateScreenReaderAnnouncement('屏幕输出', 'text_0');
-      accessibilityUtil.simulateScreenReaderAnnouncement('中文', 'text_1');
-      accessibilityUtil.simulateScreenReaderAnnouncement('符号', 'text_2');
+      accessibilityUtil.simulateScreenReaderAnnouncement('ScreenOutput', 'text_0');
+      accessibilityUtil.simulateScreenReaderAnnouncement('Chinese', 'text_1');
+      accessibilityUtil.simulateScreenReaderAnnouncement('Symbol', 'text_2');
       const screenReaderData = accessibilityUtil.getScreenReaderData();
       expect(screenReaderData.size).assertEqual(3);
-      expect(screenReaderData.get('text_0')).assertEqual('屏幕输出');
-      expect(screenReaderData.get('text_1')).assertEqual('中文');
-      expect(screenReaderData.get('text_2')).assertEqual('符号');
+      expect(screenReaderData.get('text_0')).assertEqual('ScreenOutput');
+      expect(screenReaderData.get('text_1')).assertEqual('Chinese');
+      expect(screenReaderData.get('text_2')).assertEqual('Symbol');
       const hasAnnounceEvent = accessibilityUtil.hasAccessibilityEvent('announce');
       expect(hasAnnounceEvent).assertTrue();
     });
 
     it('focus_navigation_should_work_in_screen_reader_mode', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_should_work_in_screen_reader_mode skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_should_work_in_screen_reader_mode skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityUtil.simulateFocusChange('2', '符号按钮选中状态');
+      accessibilityUtil.simulateFocusChange('2', 'SymbolButtonSelected');
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityUtil.simulateFocusChange('1', '中文按钮选中状态');
+      accessibilityUtil.simulateFocusChange('1', 'ChineseButtonSelected');
 
       // 添加延迟确保焦点状态稳定
       await driver.delayMs(100);
@@ -263,13 +264,13 @@ export default function securityAccessibilityTest() {
 
     it('operation_confirmation_should_provide_screen_reader_feedback', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_confirmation_should_provide_screen_reader_feedback skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_confirmation_should_provide_screen_reader_feedback skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
-      accessibilityUtil.simulateScreenReaderAnnouncement('符号确认提示', 'confirmation_2');
+      accessibilityUtil.simulateScreenReaderAnnouncement('SymbolConfirmHint', 'confirmation_2');
       securityUtil.checkPermission('ohos.permission.REBOOT');
       const imeOpDetails: SecurityEventDetails = {
         type: 'reboot', userConfirmed: true
@@ -283,11 +284,11 @@ export default function securityAccessibilityTest() {
 
     it('high_contrast_mode_compatibility_should_work', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('high_contrast_mode_compatibility_should_work skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'high_contrast_mode_compatibility_should_work skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
-      accessibilityUtil.simulateScreenReaderAnnouncement('高对比度模式兼容性测试', 'contrast_mode');
+      accessibilityUtil.simulateScreenReaderAnnouncement('HighContrastCompatTest', 'contrast_mode');
       const componentCount = await keyboardComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(1);
 
@@ -305,11 +306,11 @@ export default function securityAccessibilityTest() {
 
     it('voice_control_compatibility_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('voice_control_compatibility_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'voice_control_compatibility_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
-      accessibilityUtil.simulateScreenReaderAnnouncement('语音控制兼容性测试', 'voice_control');
+      accessibilityUtil.simulateScreenReaderAnnouncement('VoiceControlCompatTest', 'voice_control');
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
 
       // 添加延迟确保焦点状态稳定
@@ -328,7 +329,7 @@ export default function securityAccessibilityTest() {
 
     it('security_audit_logging_should_be_comprehensive', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('security_audit_logging_should_be_comprehensive skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'security_audit_logging_should_be_comprehensive skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -358,7 +359,7 @@ export default function securityAccessibilityTest() {
 
     it('comprehensive_security_screen_reader_scenario_should_work', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_security_screen_reader_scenario_should_work skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_security_screen_reader_scenario_should_work skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -368,10 +369,10 @@ export default function securityAccessibilityTest() {
       const dialogAccessedDetails: SecurityEventDetails = { method: 'remote' };
       securityUtil.recordSecurityEvent('dialog_accessed', dialogAccessedDetails);
 
-      accessibilityUtil.simulateScreenReaderAnnouncement('对话框打开提示', 'dialog_open');
+      accessibilityUtil.simulateScreenReaderAnnouncement('DialogOpenHint', 'dialog_open');
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityUtil.simulateFocusChange('0', '屏幕输出按钮');
+      accessibilityUtil.simulateFocusChange('0', 'ScreenOutputButton');
 
       securityUtil.checkPermission('__PERM_IME_MGMT__');
       const permissionCheckDetails: SecurityEventDetails = {
@@ -380,7 +381,7 @@ export default function securityAccessibilityTest() {
       securityUtil.recordSecurityEvent('permission_check', permissionCheckDetails);
 
       await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
-      accessibilityUtil.simulateScreenReaderAnnouncement('操作确认提示', 'operation_confirm');
+      accessibilityUtil.simulateScreenReaderAnnouncement('OperationConfirmHint', 'operation_confirm');
 
       const imeOpDetails: SecurityEventDetails = { type: 'suspend' };
       securityUtil.recordSecurityEvent('ime_operation', imeOpDetails);

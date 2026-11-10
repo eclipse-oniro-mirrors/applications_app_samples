@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -286,15 +287,15 @@ class PerformanceGradeEvaluator {
 
   public describeGrade(grade: PerformanceGrade): string {
     if (grade === PerformanceGrade.GRADE_EXCELLENT) {
-      return '优秀';
+      return 'Excellent';
     }
     if (grade === PerformanceGrade.GRADE_GOOD) {
-      return '良好';
+      return 'Good';
     }
     if (grade === PerformanceGrade.GRADE_ACCEPTABLE) {
-      return '可接受';
+      return 'Acceptable';
     }
-    return '较差';
+    return 'Poor';
   }
 }
 
@@ -421,7 +422,7 @@ export default function imePerformanceTest() {
 
     it('focus_switch_should_be_within_time_limit', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_switch_should_be_within_time_limit skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_switch_should_be_within_time_limit skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -436,7 +437,7 @@ export default function imePerformanceTest() {
 
     it('startup_should_be_within_time_limit', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('startup_should_be_within_time_limit skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'startup_should_be_within_time_limit skipped: input method is not enabled on this device');
         return;
       }
       const start = Date.now();
@@ -447,7 +448,7 @@ export default function imePerformanceTest() {
 
     it('dialog_render_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_render_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_render_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -457,7 +458,7 @@ export default function imePerformanceTest() {
 
     it('memory_should_be_stable_after_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('memory_should_be_stable_after_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'memory_should_be_stable_after_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -470,7 +471,7 @@ export default function imePerformanceTest() {
 
     it('repeated_operations_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('repeated_operations_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'repeated_operations_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -485,7 +486,7 @@ export default function imePerformanceTest() {
 
     it('long_running_focus_switch_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('long_running_focus_switch_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'long_running_focus_switch_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -770,10 +771,10 @@ export default function imePerformanceTest() {
     // 适配 PerformanceGradeEvaluator：验证等级文本描述
     it('grade_evaluator_should_describe_grade', 0, async () => {
       const evaluator = new PerformanceGradeEvaluator(50, 100, 200);
-      expect(evaluator.describeGrade(PerformanceGrade.GRADE_EXCELLENT)).assertEqual('优秀');
-      expect(evaluator.describeGrade(PerformanceGrade.GRADE_GOOD)).assertEqual('良好');
-      expect(evaluator.describeGrade(PerformanceGrade.GRADE_ACCEPTABLE)).assertEqual('可接受');
-      expect(evaluator.describeGrade(PerformanceGrade.GRADE_POOR)).assertEqual('较差');
+      expect(evaluator.describeGrade(PerformanceGrade.GRADE_EXCELLENT)).assertEqual('Excellent');
+      expect(evaluator.describeGrade(PerformanceGrade.GRADE_GOOD)).assertEqual('Good');
+      expect(evaluator.describeGrade(PerformanceGrade.GRADE_ACCEPTABLE)).assertEqual('Acceptable');
+      expect(evaluator.describeGrade(PerformanceGrade.GRADE_POOR)).assertEqual('Poor');
     });
 
     // 适配 SampleAggregator：验证样本按名称分组统计

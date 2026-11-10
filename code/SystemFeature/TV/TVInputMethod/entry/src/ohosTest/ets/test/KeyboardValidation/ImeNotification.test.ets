@@ -452,13 +452,13 @@ class NotificationContentValidator {
   public collectViolations(record: NotificationRecord): string[] {
     const violations: string[] = [];
     if (!this.isContentIdValid(record.contentId)) {
-      violations.push('contentId为空');
+      violations.push('contentIdEmpty');
     }
     if (!this.isEventNameValid(record.eventName)) {
-      violations.push('eventName非法');
+      violations.push('eventNameInvalid');
     }
     if (!this.isTimestampValid(record.timestamp)) {
-      violations.push('timestamp非法');
+      violations.push('timestampInvalid');
     }
     return violations;
   }
