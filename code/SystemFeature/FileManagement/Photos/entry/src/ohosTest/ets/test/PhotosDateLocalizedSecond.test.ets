@@ -889,3 +889,836 @@ export default function PhotosDateLocalizedSecondTest(): void {
     })
 
     /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0052
+     * @tc.name      testPhotosDateLocalizedSecond0052
+     * @tc.desc      Formats second localized year 2101.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0052 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2101, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2101') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0052 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0053
+     * @tc.name      testPhotosDateLocalizedSecond0053
+     * @tc.desc      Formats second localized year 2102.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0053 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2102, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2102') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0053 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0054
+     * @tc.name      testPhotosDateLocalizedSecond0054
+     * @tc.desc      Formats second localized year 2103.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0054 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2103, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2103') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0054 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0055
+     * @tc.name      testPhotosDateLocalizedSecond0055
+     * @tc.desc      Formats second localized year 2104.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0055 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2104, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2104') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0055 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0056
+     * @tc.name      testPhotosDateLocalizedSecond0056
+     * @tc.desc      Formats second localized year 2105.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0056 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2105, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2105') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0056 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0057
+     * @tc.name      testPhotosDateLocalizedSecond0057
+     * @tc.desc      Formats second localized year 2106.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0057 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2106, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2106') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0057 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0058
+     * @tc.name      testPhotosDateLocalizedSecond0058
+     * @tc.desc      Formats second localized year 2107.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0058 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2107, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2107') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0058 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0059
+     * @tc.name      testPhotosDateLocalizedSecond0059
+     * @tc.desc      Formats second localized year 2108.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0059 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2108, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2108') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0059 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0060
+     * @tc.name      testPhotosDateLocalizedSecond0060
+     * @tc.desc      Formats second localized year 2109.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0060 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2109, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2109') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0060 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0061
+     * @tc.name      testPhotosDateLocalizedSecond0061
+     * @tc.desc      Formats second localized year 2110.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0061 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2110, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2110') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0061 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0062
+     * @tc.name      testPhotosDateLocalizedSecond0062
+     * @tc.desc      Formats second localized year 2111.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0062 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2111, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2111') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0062 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0063
+     * @tc.name      testPhotosDateLocalizedSecond0063
+     * @tc.desc      Formats second localized year 2112.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0063 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2112, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2112') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0063 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0064
+     * @tc.name      testPhotosDateLocalizedSecond0064
+     * @tc.desc      Formats second localized year 2113.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0064 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2113, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2113') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0064 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0065
+     * @tc.name      testPhotosDateLocalizedSecond0065
+     * @tc.desc      Formats second localized year 2114.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0065 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2114, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2114') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0065 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0066
+     * @tc.name      testPhotosDateLocalizedSecond0066
+     * @tc.desc      Formats second localized year 2115.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0066 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2115, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2115') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0066 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0067
+     * @tc.name      testPhotosDateLocalizedSecond0067
+     * @tc.desc      Formats second localized year 2116.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0067 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2116, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2116') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0067 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0068
+     * @tc.name      testPhotosDateLocalizedSecond0068
+     * @tc.desc      Formats second localized year 2117.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0068 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2117, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2117') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0068 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0069
+     * @tc.name      testPhotosDateLocalizedSecond0069
+     * @tc.desc      Formats second localized year 2118.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0069 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2118, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2118') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0069 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0070
+     * @tc.name      testPhotosDateLocalizedSecond0070
+     * @tc.desc      Formats second localized year 2119.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0070 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2119, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2119') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0070 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0071
+     * @tc.name      testPhotosDateLocalizedSecond0071
+     * @tc.desc      Formats second localized year 2120.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0071 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2120, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2120') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0071 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0072
+     * @tc.name      testPhotosDateLocalizedSecond0072
+     * @tc.desc      Formats second localized year 2121.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0072 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2121, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2121') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0072 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0073
+     * @tc.name      testPhotosDateLocalizedSecond0073
+     * @tc.desc      Formats second localized year 2122.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0073 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2122, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2122') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0073 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0074
+     * @tc.name      testPhotosDateLocalizedSecond0074
+     * @tc.desc      Formats second localized year 2123.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0074 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2123, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2123') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0074 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0075
+     * @tc.name      testPhotosDateLocalizedSecond0075
+     * @tc.desc      Formats second localized year 2124.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0075 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2124, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2124') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0075 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0076
+     * @tc.name      testPhotosDateLocalizedSecond0076
+     * @tc.desc      Formats second localized year 2125.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0076 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2125, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2125') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0076 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0077
+     * @tc.name      testPhotosDateLocalizedSecond0077
+     * @tc.desc      Formats second localized year 2126.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0077 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2126, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2126') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0077 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0078
+     * @tc.name      testPhotosDateLocalizedSecond0078
+     * @tc.desc      Formats second localized year 2127.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0078 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2127, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2127') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0078 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0079
+     * @tc.name      testPhotosDateLocalizedSecond0079
+     * @tc.desc      Formats second localized year 2128.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0079 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2128, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2128') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0079 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0080
+     * @tc.name      testPhotosDateLocalizedSecond0080
+     * @tc.desc      Formats second localized year 2129.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0080 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2129, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2129') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0080 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0081
+     * @tc.name      testPhotosDateLocalizedSecond0081
+     * @tc.desc      Formats second localized year 2130.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0081 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2130, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2130') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0081 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0082
+     * @tc.name      testPhotosDateLocalizedSecond0082
+     * @tc.desc      Formats second localized year 2131.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0082 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2131, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2131') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0082 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0083
+     * @tc.name      testPhotosDateLocalizedSecond0083
+     * @tc.desc      Formats second localized year 2132.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0083 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2132, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2132') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0083 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0084
+     * @tc.name      testPhotosDateLocalizedSecond0084
+     * @tc.desc      Formats second localized year 2133.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0084 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2133, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2133') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0084 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0085
+     * @tc.name      testPhotosDateLocalizedSecond0085
+     * @tc.desc      Formats second localized year 2134.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0085 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2134, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2134') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0085 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0086
+     * @tc.name      testPhotosDateLocalizedSecond0086
+     * @tc.desc      Formats second localized year 2135.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0086 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2135, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2135') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0086 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0087
+     * @tc.name      testPhotosDateLocalizedSecond0087
+     * @tc.desc      Formats second localized year 2136.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0087 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2136, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2136') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0087 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0088
+     * @tc.name      testPhotosDateLocalizedSecond0088
+     * @tc.desc      Formats second localized year 2137.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0088 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2137, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2137') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0088 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0089
+     * @tc.name      testPhotosDateLocalizedSecond0089
+     * @tc.desc      Formats second localized year 2138.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0089 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2138, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2138') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0089 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0090
+     * @tc.name      testPhotosDateLocalizedSecond0090
+     * @tc.desc      Formats second localized year 2139.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0090 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2139, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2139') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0090 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0091
+     * @tc.name      testPhotosDateLocalizedSecond0091
+     * @tc.desc      Formats second localized year 2140.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0091 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2140, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2140') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0091 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0092
+     * @tc.name      testPhotosDateLocalizedSecond0092
+     * @tc.desc      Formats second localized year 2141.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0092 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2141, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2141') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0092 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0093
+     * @tc.name      testPhotosDateLocalizedSecond0093
+     * @tc.desc      Formats second localized year 2142.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0093 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2142, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2142') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0093 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0094
+     * @tc.name      testPhotosDateLocalizedSecond0094
+     * @tc.desc      Formats second localized year 2143.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0094 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2143, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2143') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0094 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0095
+     * @tc.name      testPhotosDateLocalizedSecond0095
+     * @tc.desc      Formats second localized year 2144.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0095 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2144, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2144') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0095 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0096
+     * @tc.name      testPhotosDateLocalizedSecond0096
+     * @tc.desc      Formats second localized year 2145.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0096 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2145, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2145') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0096 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0097
+     * @tc.name      testPhotosDateLocalizedSecond0097
+     * @tc.desc      Formats second localized year 2146.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0097 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2146, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2146') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0097 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0098
+     * @tc.name      testPhotosDateLocalizedSecond0098
+     * @tc.desc      Formats second localized year 2147.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0098 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2147, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2147') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0098 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0099
+     * @tc.name      testPhotosDateLocalizedSecond0099
+     * @tc.desc      Formats second localized year 2148.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0099 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2148, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2148') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0099 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_SECOND_0100
+     * @tc.name      testPhotosDateLocalizedSecond0100
+     * @tc.desc      Formats second localized year 2149.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedSecond0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0100 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2149, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2149') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0100 end');
+    })
+  })
+}
