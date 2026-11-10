@@ -271,10 +271,8 @@ export async function resetToIndex(): Promise<void> {
   const maxAttempts: number = 10;
   while (attempts < maxAttempts && (await existsId('skill_page_title') || await existsId('self_skill_page_title') ||
     await existsId('bundle_skill_page_title') || await existsId('all_skills_page_title') ||
-    await existsId('skill_execution_page_title') || await existsId('plugin_detail_page_title') ||
-    await existsId('skill_compare_page_title') || await existsId('plugin_compare_page_title') ||
-    await existsId('skill_history_page_title') || await existsId('plugin_search_page_title') ||
-    await existsId('skill_batch_page_title') || await existsId('plugin_manager_page_title'))) {
+    await existsId('skill_execution_page_title') || await existsId('skill_compare_page_title') ||
+    await existsId('skill_history_page_title') || await existsId('skill_batch_page_title'))) {
     hilog.info(DOMAIN, TAG, 'resetToIndex: pressing back, attempt %{public}d', attempts + 1);
     await pressBack();
     attempts++;
@@ -325,6 +323,23 @@ export async function countComponentsById(id: string): Promise<number> {
   return components.length;
 }
 
+/**
+ * Waits until the batch execution finishes. The execute button is disabled while the batch runs and
+ * enabled again afterwards, so the check does not depend on any localized text.
+ */
+export async function waitBatchCompleted(timeout: number = TEXT_WAIT_TIMEOUT): Promise<void> {
+  const start: number = Date.now();
+  while (Date.now() - start < timeout) {
+    const button: Component = await waitId('batch_execute_button', COMPONENT_WAIT_TIMEOUT);
+    if (await button.isEnabled()) {
+      hilog.info(DOMAIN, TAG, 'UI step: batch execution finished');
+      return;
+    }
+    await getDriver().waitForIdle(UI_IDLE_TIME, UI_IDLE_TIMEOUT);
+  }
+  throw new Error(`Batch execution did not finish within ${timeout}ms`);
+}
+
 export async function navigateToSkillExecution(): Promise<void> {
   await navigateToSkillManagerHome();
   await clickId('skill_execution_button');
@@ -337,31 +352,14 @@ export async function navigateToSkillCompare(): Promise<void> {
   await waitId('skill_compare_page_title');
 }
 
-export async function navigateToPluginCompare(): Promise<void> {
-  await navigateToPluginManagerHome();
-  await clickId('plugin_compare_nav_button');
-  await waitId('plugin_compare_page_title');
-}
-
 export async function navigateToSkillHistory(): Promise<void> {
   await navigateToSkillManagerHome();
   await clickId('skill_history_button');
   await waitId('skill_history_page_title');
 }
 
-export async function navigateToPluginSearch(): Promise<void> {
-  await navigateToPluginManagerHome();
-  await clickId('plugin_search_nav_button');
-  await waitId('plugin_search_page_title');
-}
-
 export async function navigateToSkillBatch(): Promise<void> {
   await navigateToSkillManagerHome();
   await clickId('skill_batch_button');
   await waitId('skill_batch_page_title');
-}
-
-export async function navigateToPluginManagerHome(): Promise<void> {
-  await clickId('pluginButton');
-  await waitId('plugin_manager_page_title');
 }

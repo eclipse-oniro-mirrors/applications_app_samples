@@ -28,8 +28,8 @@ import {
   selectValue,
   startApp,
   textOfId,
-  waitId,
-  waitIdContains
+  waitBatchCompleted,
+  waitId
 } from '../testkit/SharedDriver';
 
 const BUNDLE_NAME: string = 'com.samples.pluginandskill';
@@ -71,12 +71,12 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_skill_toggle_1');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_record_0');
         const recordCount: number = await countComponentsById('batch_record_0');
         expect(recordCount).assertEqual(1);
         const resultText: string = await textOfId('batch_operation_result');
-        expect(resultText).assertContain('Batch completed');
+        expect(resultText).assertContain('ms');
         expect(resultText.length).assertLarger(0);
       }, done);
     });
@@ -96,7 +96,7 @@ export default function skillBatchExtendedTest(): void {
         await clickId('batch_skill_toggle_1');
         await clickId('batch_skill_toggle_2');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_record_0');
         expect(await existsId('batch_record_0')).assertTrue();
         expect(await existsId('batch_summary_card')).assertTrue();
@@ -118,7 +118,7 @@ export default function skillBatchExtendedTest(): void {
         await navigateToSkillBatch();
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         const totalCount: string = await textOfId('batch_total_count');
         expect(Number(totalCount)).assertEqual(5);
         expect(await existsId('batch_summary_card')).assertTrue();
@@ -143,7 +143,7 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_select_all_toggle');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_total_time');
         expect(await existsId('batch_total_count')).assertTrue();
         expect(await existsId('batch_success_count')).assertTrue();
@@ -166,7 +166,7 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_select_all_toggle');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_failed_count');
         const totalStr: string = await textOfId('batch_total_count');
         const successStr: string = await textOfId('batch_success_count');
@@ -194,7 +194,7 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_select_all_toggle');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_total_time');
         const timeStr: string = await textOfId('batch_total_time');
         const timeVal: number = Number(timeStr.replace('ms', ''));
@@ -220,7 +220,7 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_skill_toggle_0');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_duration_0');
         expect(await existsId('batch_module_0')).assertTrue();
         expect(await existsId('batch_status_0')).assertTrue();
@@ -242,7 +242,7 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_skill_toggle_1');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_record_0');
         const bundleText: string = await textOfId('batch_bundle_0');
         expect(bundleText.length).assertLarger(0);
@@ -267,7 +267,7 @@ export default function skillBatchExtendedTest(): void {
         await clickId('batch_skill_toggle_1');
         await clickId('batch_skill_toggle_2');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_record_2');
         expect(await existsId('batch_record_0')).assertTrue();
         expect(await existsId('batch_record_1')).assertTrue();
@@ -311,7 +311,7 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'entry');
         await clickId('batch_select_all_toggle');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         expect(await existsId('batch_summary_card')).assertTrue();
         await clickId('batch_clear_button');
         const summaryExists: boolean = await existsId('batch_summary_card');
@@ -335,7 +335,7 @@ export default function skillBatchExtendedTest(): void {
         await selectValue(BATCH_MODULE_SELECT, 'nonexistent_module');
         await clickId('batch_skill_toggle_0');
         await clickId('batch_execute_button');
-        await waitIdContains('batch_operation_result', 'Batch completed', 15000);
+        await waitBatchCompleted(15000);
         await scrollToId('batch_failed_count');
         const failedStr: string = await textOfId('batch_failed_count');
         expect(Number(failedStr)).assertLarger(0);

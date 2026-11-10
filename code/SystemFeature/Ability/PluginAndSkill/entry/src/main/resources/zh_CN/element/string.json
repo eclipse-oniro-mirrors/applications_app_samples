@@ -17,76 +17,8 @@
             "value": "请选择功能页面。"
         },
         {
-            "name": "page_title",
-            "value": "本地插件管理"
-        },
-        {
-            "name": "page_description",
-            "value": "安装、卸载和查询自分发插件。"
-        },
-        {
-            "name": "plugin_path_empty",
-            "value": "未选择 HSP 文件。"
-        },
-        {
-            "name": "plugin_bundle_placeholder",
-            "value": "插件包名"
-        },
-        {
-            "name": "select_plugin_button",
-            "value": "选择 HSP 文件"
-        },
-        {
-            "name": "install_button",
-            "value": "安装插件"
-        },
-        {
-            "name": "uninstall_button",
-            "value": "卸载插件"
-        },
-        {
-            "name": "query_button",
-            "value": "查询插件"
-        },
-        {
-            "name": "installed_plugins_title",
-            "value": "已安装插件"
-        },
-        {
-            "name": "no_plugins",
-            "value": "未找到本地插件。"
-        },
-        {
             "name": "operation_ready",
             "value": "就绪"
-        },
-        {
-            "name": "select_success",
-            "value": "HSP 文件已复制到应用沙箱。"
-        },
-        {
-            "name": "install_success",
-            "value": "插件安装成功。"
-        },
-        {
-            "name": "uninstall_success",
-            "value": "插件卸载成功。"
-        },
-        {
-            "name": "query_success",
-            "value": "插件信息已刷新。"
-        },
-        {
-            "name": "path_required",
-            "value": "请选择 HSP 文件。"
-        },
-        {
-            "name": "bundle_required",
-            "value": "请输入插件包名。"
-        },
-        {
-            "name": "modules_label",
-            "value": "模块"
         },
         {
             "name": "plugin_tab_title",
@@ -596,6 +528,26 @@
             "name": "compare_stats_match_rate",
             "value": "匹配率：",
             "description": "对比摘要中的匹配率标签"
+        },
+        {
+            "name": "execution_found_format",
+            "value": "已找到技能 %s，路径：%s",
+            "description": "技能查找结果格式"
+        },
+        {
+            "name": "execution_failed_format",
+            "value": "执行失败（%d）：%s",
+            "description": "执行失败结果格式"
+        },
+        {
+            "name": "batch_completed_format",
+            "value": "批量完成：成功 %d 个，失败 %d 个，耗时 %dms",
+            "description": "批量完成汇总格式"
+        },
+        {
+            "name": "batch_error_format",
+            "value": "批量错误（%d）：%s",
+            "description": "批量错误结果格式"
         }
     ]
 }

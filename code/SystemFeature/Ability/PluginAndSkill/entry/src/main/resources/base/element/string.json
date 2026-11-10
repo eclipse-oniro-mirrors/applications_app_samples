@@ -21,94 +21,9 @@
       "description": "Home page feature description"
     },
     {
-      "name": "page_title",
-      "value": "Local Plugin Management",
-      "description": "Page title"
-    },
-    {
-      "name": "page_description",
-      "value": "Install, uninstall, and query self-distributed plugins.",
-      "description": "Page feature description"
-    },
-    {
-      "name": "plugin_path_empty",
-      "value": "No HSP file selected.",
-      "description": "Empty plugin path hint"
-    },
-    {
-      "name": "plugin_bundle_placeholder",
-      "value": "Plugin bundle name",
-      "description": "Plugin bundle name input placeholder"
-    },
-    {
-      "name": "select_plugin_button",
-      "value": "Select HSP file",
-      "description": "Select plugin button text"
-    },
-    {
-      "name": "install_button",
-      "value": "Install plugin",
-      "description": "Install button text"
-    },
-    {
-      "name": "uninstall_button",
-      "value": "Uninstall plugin",
-      "description": "Uninstall button text"
-    },
-    {
-      "name": "query_button",
-      "value": "Query plugins",
-      "description": "Query button text"
-    },
-    {
-      "name": "installed_plugins_title",
-      "value": "Installed plugins",
-      "description": "Plugin list title"
-    },
-    {
-      "name": "no_plugins",
-      "value": "No local plugins found.",
-      "description": "Empty plugin list hint"
-    },
-    {
       "name": "operation_ready",
       "value": "Ready",
       "description": "Initial operation result"
-    },
-    {
-      "name": "select_success",
-      "value": "HSP file copied to the application sandbox.",
-      "description": "Plugin selection success message"
-    },
-    {
-      "name": "install_success",
-      "value": "Plugin installed successfully.",
-      "description": "Install success message"
-    },
-    {
-      "name": "uninstall_success",
-      "value": "Plugin uninstalled successfully.",
-      "description": "Uninstall success message"
-    },
-    {
-      "name": "query_success",
-      "value": "Plugin information refreshed.",
-      "description": "Query success message"
-    },
-    {
-      "name": "path_required",
-      "value": "Select an HSP file.",
-      "description": "Empty plugin path error"
-    },
-    {
-      "name": "bundle_required",
-      "value": "Enter a plugin bundle name.",
-      "description": "Empty plugin bundle name error"
-    },
-    {
-      "name": "modules_label",
-      "value": "Modules",
-      "description": "Plugin module list label"
     },
     {
       "name": "plugin_tab_title",
@@ -724,6 +639,26 @@
       "name": "compare_stats_match_rate",
       "value": "Match Rate:",
       "description": "Match rate label in compare summary"
+    },
+    {
+      "name": "execution_found_format",
+      "value": "Skill '%s' found at path: %s",
+      "description": "Skill found result format"
+    },
+    {
+      "name": "execution_failed_format",
+      "value": "Execution failed: %d: %s",
+      "description": "Execution failure result format"
+    },
+    {
+      "name": "batch_completed_format",
+      "value": "Batch completed: %d success, %d failed in %dms",
+      "description": "Batch completed summary format"
+    },
+    {
+      "name": "batch_error_format",
+      "value": "Batch error: %d: %s",
+      "description": "Batch error result format"
     }
   ]
 }

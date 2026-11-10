@@ -17,76 +17,8 @@
             "value": "Select a feature page."
         },
         {
-            "name": "page_title",
-            "value": "Local Plugin Management"
-        },
-        {
-            "name": "page_description",
-            "value": "Install, uninstall, and query self-distributed plugins."
-        },
-        {
-            "name": "plugin_path_empty",
-            "value": "No HSP file selected."
-        },
-        {
-            "name": "plugin_bundle_placeholder",
-            "value": "Plugin bundle name"
-        },
-        {
-            "name": "select_plugin_button",
-            "value": "Select HSP file"
-        },
-        {
-            "name": "install_button",
-            "value": "Install plugin"
-        },
-        {
-            "name": "uninstall_button",
-            "value": "Uninstall plugin"
-        },
-        {
-            "name": "query_button",
-            "value": "Query plugins"
-        },
-        {
-            "name": "installed_plugins_title",
-            "value": "Installed plugins"
-        },
-        {
-            "name": "no_plugins",
-            "value": "No local plugins found."
-        },
-        {
             "name": "operation_ready",
             "value": "Ready"
-        },
-        {
-            "name": "select_success",
-            "value": "HSP file copied to the application sandbox."
-        },
-        {
-            "name": "install_success",
-            "value": "Plugin installed successfully."
-        },
-        {
-            "name": "uninstall_success",
-            "value": "Plugin uninstalled successfully."
-        },
-        {
-            "name": "query_success",
-            "value": "Plugin information refreshed."
-        },
-        {
-            "name": "path_required",
-            "value": "Select an HSP file."
-        },
-        {
-            "name": "bundle_required",
-            "value": "Enter a plugin bundle name."
-        },
-        {
-            "name": "modules_label",
-            "value": "Modules"
         },
         {
             "name": "plugin_tab_title",
@@ -596,6 +528,22 @@
             "name": "compare_stats_match_rate",
             "value": "Match Rate:",
             "description": "Match rate label in compare summary"
+        },
+        {
+            "name": "execution_found_format",
+            "value": "Skill '%s' found at path: %s"
+        },
+        {
+            "name": "execution_failed_format",
+            "value": "Execution failed: %d: %s"
+        },
+        {
+            "name": "batch_completed_format",
+            "value": "Batch completed: %d success, %d failed in %dms"
+        },
+        {
+            "name": "batch_error_format",
+            "value": "Batch error: %d: %s"
         }
     ]
 }

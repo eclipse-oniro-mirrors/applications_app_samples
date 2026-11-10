@@ -108,7 +108,8 @@ struct SkillExecutionPage {
       record.endTime = Date.now();
       record.duration = record.endTime - record.startTime;
       record.status = EXECUTION_STATUS_SUCCESS;
-      record.resultMessage = `Skill '${skillInfo.skillName}' found at path: ${skillInfo.skillPath}`;
+      record.resultMessage = getContext(this).resourceManager.getStringSync(
+        $r('app.string.execution_found_format'), skillInfo.skillName, skillInfo.skillPath);
       this.currentResult = getContext(this).resourceManager.getStringSync($r('app.string.execution_success'));
       this.executionStatus = EXECUTION_STATUS_SUCCESS;
     } catch (error) {
@@ -117,7 +118,8 @@ struct SkillExecutionPage {
       record.status = EXECUTION_STATUS_FAILED;
       const bizError: BusinessError = error as BusinessError;
       record.errorMessage = `${bizError.code}: ${bizError.message}`;
-      this.currentResult = `Execution failed: ${bizError.code}: ${bizError.message}`;
+      this.currentResult = getContext(this).resourceManager.getStringSync(
+        $r('app.string.execution_failed_format'), bizError.code, bizError.message);
       this.executionStatus = EXECUTION_STATUS_FAILED;
       Logger.error(`Skill execution failed: ${JSON.stringify(error)}`);
     } finally {

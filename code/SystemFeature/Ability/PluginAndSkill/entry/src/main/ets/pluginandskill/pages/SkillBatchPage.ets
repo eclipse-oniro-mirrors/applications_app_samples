@@ -139,12 +139,14 @@ struct SkillBatchPage {
 
       const batchEndTime: number = Date.now();
       this.totalBatchTime = batchEndTime - batchStartTime;
-      this.operationResult =
-        `Batch completed: ${this.successBatchCount} success, ${this.failedBatchCount} failed in ${this.totalBatchTime}ms`;
+      this.operationResult = getContext(this).resourceManager.getStringSync(
+        $r('app.string.batch_completed_format'),
+        this.successBatchCount, this.failedBatchCount, this.totalBatchTime);
       Logger.info(`Batch operation completed in ${this.totalBatchTime}ms`);
     } catch (error) {
       const bizError: BusinessError = error as BusinessError;
-      this.operationResult = `Batch error: ${bizError.code}: ${bizError.message}`;
+      this.operationResult = getContext(this).resourceManager.getStringSync(
+        $r('app.string.batch_error_format'), bizError.code, bizError.message);
       Logger.error('Batch operation error: ' + JSON.stringify(error));
     } finally {
       this.isOperating = false;
