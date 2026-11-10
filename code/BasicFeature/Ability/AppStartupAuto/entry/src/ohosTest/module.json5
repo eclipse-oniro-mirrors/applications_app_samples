@@ -1,0 +1,19 @@
+{
+  "module": {
+    "name": "entry_test",
+    "type": "feature",
+    "deviceTypes": ["default"],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:test_pages",
+    "abilities": [
+      {
+        "name": "FeatureQaAbility",
+        "srcEntry": "./ets/testability/FeatureQaAbility.ets",
+        "startWindowIcon": "$media:app_icon_startup",
+        "startWindowBackground": "$color:test_window_background",
+        "exported": true
+      }
+    ]
+  }
+}
