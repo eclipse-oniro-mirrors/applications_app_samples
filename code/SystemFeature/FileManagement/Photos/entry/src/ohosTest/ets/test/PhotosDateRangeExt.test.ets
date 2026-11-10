@@ -5845,3 +5845,630 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.name      testPhotosDateSameYearExt0107
      * @tc.desc      Compares extended same-year sample 2005. case 107
      * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0107 begin');
+      expect(DateUtil.isTheSameYear(new Date(2005, 0, 1, 0, 0, 0).getTime(), new Date(2005, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0107 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0108
+     * @tc.name      testPhotosDateSameYearExt0108
+     * @tc.desc      Compares extended same-year sample 2005. case 108
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0108 begin');
+      expect(DateUtil.isTheSameYear(new Date(2005, 11, 31, 23, 59, 59).getTime(), new Date(2006, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0108 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0109
+     * @tc.name      testPhotosDateSameYearExt0109
+     * @tc.desc      Compares extended same-year sample 2006. case 109
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0109 begin');
+      expect(DateUtil.isTheSameYear(new Date(2006, 0, 1, 0, 0, 0).getTime(), new Date(2006, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0109 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0110
+     * @tc.name      testPhotosDateSameYearExt0110
+     * @tc.desc      Compares extended same-year sample 2006. case 110
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0110 begin');
+      expect(DateUtil.isTheSameYear(new Date(2006, 0, 1, 0, 0, 0).getTime(), new Date(2006, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0110 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0111
+     * @tc.name      testPhotosDateSameYearExt0111
+     * @tc.desc      Compares extended same-year sample 2006. case 111
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0111 begin');
+      expect(DateUtil.isTheSameYear(new Date(2006, 11, 31, 23, 59, 59).getTime(), new Date(2007, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0111 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0112
+     * @tc.name      testPhotosDateSameYearExt0112
+     * @tc.desc      Compares extended same-year sample 2007. case 112
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0112 begin');
+      expect(DateUtil.isTheSameYear(new Date(2007, 0, 1, 0, 0, 0).getTime(), new Date(2007, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0112 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0113
+     * @tc.name      testPhotosDateSameYearExt0113
+     * @tc.desc      Compares extended same-year sample 2007. case 113
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0113 begin');
+      expect(DateUtil.isTheSameYear(new Date(2007, 0, 1, 0, 0, 0).getTime(), new Date(2007, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0113 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0114
+     * @tc.name      testPhotosDateSameYearExt0114
+     * @tc.desc      Compares extended same-year sample 2007. case 114
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0114 begin');
+      expect(DateUtil.isTheSameYear(new Date(2007, 11, 31, 23, 59, 59).getTime(), new Date(2008, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0114 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0115
+     * @tc.name      testPhotosDateSameYearExt0115
+     * @tc.desc      Compares extended same-year sample 2008. case 115
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0115 begin');
+      expect(DateUtil.isTheSameYear(new Date(2008, 0, 1, 0, 0, 0).getTime(), new Date(2008, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0115 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0116
+     * @tc.name      testPhotosDateSameYearExt0116
+     * @tc.desc      Compares extended same-year sample 2008. case 116
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0116 begin');
+      expect(DateUtil.isTheSameYear(new Date(2008, 0, 1, 0, 0, 0).getTime(), new Date(2008, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0116 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0117
+     * @tc.name      testPhotosDateSameYearExt0117
+     * @tc.desc      Compares extended same-year sample 2008. case 117
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0117 begin');
+      expect(DateUtil.isTheSameYear(new Date(2008, 11, 31, 23, 59, 59).getTime(), new Date(2009, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0117 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0118
+     * @tc.name      testPhotosDateSameYearExt0118
+     * @tc.desc      Compares extended same-year sample 2009. case 118
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0118 begin');
+      expect(DateUtil.isTheSameYear(new Date(2009, 0, 1, 0, 0, 0).getTime(), new Date(2009, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0118 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0119
+     * @tc.name      testPhotosDateSameYearExt0119
+     * @tc.desc      Compares extended same-year sample 2009. case 119
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0119 begin');
+      expect(DateUtil.isTheSameYear(new Date(2009, 0, 1, 0, 0, 0).getTime(), new Date(2009, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0119 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0120
+     * @tc.name      testPhotosDateSameYearExt0120
+     * @tc.desc      Compares extended same-year sample 2009. case 120
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0120 begin');
+      expect(DateUtil.isTheSameYear(new Date(2009, 11, 31, 23, 59, 59).getTime(), new Date(2010, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0120 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0121
+     * @tc.name      testPhotosDateSameYearExt0121
+     * @tc.desc      Compares extended same-year sample 2010. case 121
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0121 begin');
+      expect(DateUtil.isTheSameYear(new Date(2010, 0, 1, 0, 0, 0).getTime(), new Date(2010, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0121 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0122
+     * @tc.name      testPhotosDateSameYearExt0122
+     * @tc.desc      Compares extended same-year sample 2010. case 122
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0122 begin');
+      expect(DateUtil.isTheSameYear(new Date(2010, 0, 1, 0, 0, 0).getTime(), new Date(2010, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0122 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0123
+     * @tc.name      testPhotosDateSameYearExt0123
+     * @tc.desc      Compares extended same-year sample 2010. case 123
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0123 begin');
+      expect(DateUtil.isTheSameYear(new Date(2010, 11, 31, 23, 59, 59).getTime(), new Date(2011, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0123 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0124
+     * @tc.name      testPhotosDateSameYearExt0124
+     * @tc.desc      Compares extended same-year sample 2011. case 124
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0124 begin');
+      expect(DateUtil.isTheSameYear(new Date(2011, 0, 1, 0, 0, 0).getTime(), new Date(2011, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0124 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0125
+     * @tc.name      testPhotosDateSameYearExt0125
+     * @tc.desc      Compares extended same-year sample 2011. case 125
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0125 begin');
+      expect(DateUtil.isTheSameYear(new Date(2011, 0, 1, 0, 0, 0).getTime(), new Date(2011, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0125 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0126
+     * @tc.name      testPhotosDateSameYearExt0126
+     * @tc.desc      Compares extended same-year sample 2011. case 126
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0126 begin');
+      expect(DateUtil.isTheSameYear(new Date(2011, 11, 31, 23, 59, 59).getTime(), new Date(2012, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0126 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0127
+     * @tc.name      testPhotosDateSameYearExt0127
+     * @tc.desc      Compares extended same-year sample 2012. case 127
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0127 begin');
+      expect(DateUtil.isTheSameYear(new Date(2012, 0, 1, 0, 0, 0).getTime(), new Date(2012, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0127 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0128
+     * @tc.name      testPhotosDateSameYearExt0128
+     * @tc.desc      Compares extended same-year sample 2012. case 128
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0128 begin');
+      expect(DateUtil.isTheSameYear(new Date(2012, 0, 1, 0, 0, 0).getTime(), new Date(2012, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0128 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0129
+     * @tc.name      testPhotosDateSameYearExt0129
+     * @tc.desc      Compares extended same-year sample 2012. case 129
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0129 begin');
+      expect(DateUtil.isTheSameYear(new Date(2012, 11, 31, 23, 59, 59).getTime(), new Date(2013, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0129 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0130
+     * @tc.name      testPhotosDateSameYearExt0130
+     * @tc.desc      Compares extended same-year sample 2013. case 130
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0130 begin');
+      expect(DateUtil.isTheSameYear(new Date(2013, 0, 1, 0, 0, 0).getTime(), new Date(2013, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0130 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0131
+     * @tc.name      testPhotosDateSameYearExt0131
+     * @tc.desc      Compares extended same-year sample 2013. case 131
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0131 begin');
+      expect(DateUtil.isTheSameYear(new Date(2013, 0, 1, 0, 0, 0).getTime(), new Date(2013, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0131 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0132
+     * @tc.name      testPhotosDateSameYearExt0132
+     * @tc.desc      Compares extended same-year sample 2013. case 132
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0132 begin');
+      expect(DateUtil.isTheSameYear(new Date(2013, 11, 31, 23, 59, 59).getTime(), new Date(2014, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0132 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0133
+     * @tc.name      testPhotosDateSameYearExt0133
+     * @tc.desc      Compares extended same-year sample 2014. case 133
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0133 begin');
+      expect(DateUtil.isTheSameYear(new Date(2014, 0, 1, 0, 0, 0).getTime(), new Date(2014, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0133 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0134
+     * @tc.name      testPhotosDateSameYearExt0134
+     * @tc.desc      Compares extended same-year sample 2014. case 134
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0134 begin');
+      expect(DateUtil.isTheSameYear(new Date(2014, 0, 1, 0, 0, 0).getTime(), new Date(2014, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0134 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0135
+     * @tc.name      testPhotosDateSameYearExt0135
+     * @tc.desc      Compares extended same-year sample 2014. case 135
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0135 begin');
+      expect(DateUtil.isTheSameYear(new Date(2014, 11, 31, 23, 59, 59).getTime(), new Date(2015, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0135 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0136
+     * @tc.name      testPhotosDateSameYearExt0136
+     * @tc.desc      Compares extended same-year sample 2015. case 136
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0136 begin');
+      expect(DateUtil.isTheSameYear(new Date(2015, 0, 1, 0, 0, 0).getTime(), new Date(2015, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0136 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0137
+     * @tc.name      testPhotosDateSameYearExt0137
+     * @tc.desc      Compares extended same-year sample 2015. case 137
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0137 begin');
+      expect(DateUtil.isTheSameYear(new Date(2015, 0, 1, 0, 0, 0).getTime(), new Date(2015, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0137 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0138
+     * @tc.name      testPhotosDateSameYearExt0138
+     * @tc.desc      Compares extended same-year sample 2015. case 138
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0138 begin');
+      expect(DateUtil.isTheSameYear(new Date(2015, 11, 31, 23, 59, 59).getTime(), new Date(2016, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0138 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0139
+     * @tc.name      testPhotosDateSameYearExt0139
+     * @tc.desc      Compares extended same-year sample 2016. case 139
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0139 begin');
+      expect(DateUtil.isTheSameYear(new Date(2016, 0, 1, 0, 0, 0).getTime(), new Date(2016, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0139 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0140
+     * @tc.name      testPhotosDateSameYearExt0140
+     * @tc.desc      Compares extended same-year sample 2016. case 140
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0140 begin');
+      expect(DateUtil.isTheSameYear(new Date(2016, 0, 1, 0, 0, 0).getTime(), new Date(2016, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0140 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0141
+     * @tc.name      testPhotosDateSameYearExt0141
+     * @tc.desc      Compares extended same-year sample 2016. case 141
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0141 begin');
+      expect(DateUtil.isTheSameYear(new Date(2016, 11, 31, 23, 59, 59).getTime(), new Date(2017, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0141 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0142
+     * @tc.name      testPhotosDateSameYearExt0142
+     * @tc.desc      Compares extended same-year sample 2017. case 142
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0142 begin');
+      expect(DateUtil.isTheSameYear(new Date(2017, 0, 1, 0, 0, 0).getTime(), new Date(2017, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0142 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0143
+     * @tc.name      testPhotosDateSameYearExt0143
+     * @tc.desc      Compares extended same-year sample 2017. case 143
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0143 begin');
+      expect(DateUtil.isTheSameYear(new Date(2017, 0, 1, 0, 0, 0).getTime(), new Date(2017, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0143 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0144
+     * @tc.name      testPhotosDateSameYearExt0144
+     * @tc.desc      Compares extended same-year sample 2017. case 144
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0144 begin');
+      expect(DateUtil.isTheSameYear(new Date(2017, 11, 31, 23, 59, 59).getTime(), new Date(2018, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0144 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0145
+     * @tc.name      testPhotosDateSameYearExt0145
+     * @tc.desc      Compares extended same-year sample 2018. case 145
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0145 begin');
+      expect(DateUtil.isTheSameYear(new Date(2018, 0, 1, 0, 0, 0).getTime(), new Date(2018, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0145 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0146
+     * @tc.name      testPhotosDateSameYearExt0146
+     * @tc.desc      Compares extended same-year sample 2018. case 146
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0146 begin');
+      expect(DateUtil.isTheSameYear(new Date(2018, 0, 1, 0, 0, 0).getTime(), new Date(2018, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0146 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0147
+     * @tc.name      testPhotosDateSameYearExt0147
+     * @tc.desc      Compares extended same-year sample 2018. case 147
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0147 begin');
+      expect(DateUtil.isTheSameYear(new Date(2018, 11, 31, 23, 59, 59).getTime(), new Date(2019, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0147 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0148
+     * @tc.name      testPhotosDateSameYearExt0148
+     * @tc.desc      Compares extended same-year sample 2019. case 148
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0148 begin');
+      expect(DateUtil.isTheSameYear(new Date(2019, 0, 1, 0, 0, 0).getTime(), new Date(2019, 0, 1, 0, 0, 0).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0148 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0149
+     * @tc.name      testPhotosDateSameYearExt0149
+     * @tc.desc      Compares extended same-year sample 2019. case 149
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0149 begin');
+      expect(DateUtil.isTheSameYear(new Date(2019, 0, 1, 0, 0, 0).getTime(), new Date(2019, 11, 31, 23, 59, 59).getTime())).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0149 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_SAMEYEAR_EXT_0150
+     * @tc.name      testPhotosDateSameYearExt0150
+     * @tc.desc      Compares extended same-year sample 2019. case 150
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateSameYearExt0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0150 begin');
+      expect(DateUtil.isTheSameYear(new Date(2019, 11, 31, 23, 59, 59).getTime(), new Date(2020, 0, 1, 0, 0, 0).getTime())).assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0150 end');
+    })
+
+  })
+}
