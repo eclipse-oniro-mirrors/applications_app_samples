@@ -49,10 +49,10 @@ let storeFormInfo =
       const storage: preferences.Preferences = await preferences.getPreferences(context, DATA_STORAGE_PATH);
       // put form info
       await storage.put(formId, JSON.stringify(formInfo));
-      hilog.info(DOMAIN_NUMBER, TAG, `[EntryFormAbility] storeFormInfo, put form info successfully, formId: ${formId}`);
+      hilog.info(DOMAIN_NUMBER, TAG, `[JsCardFormAbility] storeFormInfo, put form info successfully, formId: ${formId}`);
       await storage.flush();
     } catch (err) {
-      hilog.error(DOMAIN_NUMBER, TAG, `[EntryFormAbility] failed to storeFormInfo,
+      hilog.error(DOMAIN_NUMBER, TAG, `[JsCardFormAbility] failed to storeFormInfo,
       err: ${JSON.stringify(err as BusinessError)}`);
     }
   }
@@ -63,10 +63,10 @@ let deleteFormInfo = async (formId: string, context: common.FormExtensionContext
     const storage: preferences.Preferences = await preferences.getPreferences(context, DATA_STORAGE_PATH);
     // del form info
     await storage.delete(formId);
-    hilog.info(DOMAIN_NUMBER, TAG, `[EntryFormAbility] deleteFormInfo, del form info successfully, formId: ${formId}`);
+    hilog.info(DOMAIN_NUMBER, TAG, `[JsCardFormAbility] deleteFormInfo, del form info successfully, formId: ${formId}`);
     await storage.flush();
   } catch (err) {
-    hilog.error(DOMAIN_NUMBER, TAG, `[EntryFormAbility] failed to deleteFormInfo,
+    hilog.error(DOMAIN_NUMBER, TAG, `[JsCardFormAbility] failed to deleteFormInfo,
       err: ${JSON.stringify(err as BusinessError)}`);
   }
 };
@@ -102,7 +102,7 @@ export default class JsCardFormAbility extends FormExtensionAbility {
   // [StartExclude JSForm_JsCardFormAbility_onAddForm]
   onRemoveForm(formId: string): void {
     // 删除卡片实例数据
-    hilog.info(DOMAIN_NUMBER, TAG, '[EntryFormAbility] onRemoveForm');
+    hilog.info(DOMAIN_NUMBER, TAG, '[JsCardFormAbility] onRemoveForm');
     // 删除之前持久化的卡片实例数据
     deleteFormInfo(formId, this.context);
   }
@@ -111,14 +111,14 @@ export default class JsCardFormAbility extends FormExtensionAbility {
   // [EndExclude JSForm_JsCardFormAbility_onUpdateForm]
   onUpdateForm(formId: string): void {
     // 若卡片支持定时更新/定点更新/卡片使用方主动请求更新功能，则卡片提供方需要重写该方法以支持数据更新
-    hilog.info(DOMAIN_NUMBER, TAG, '[EntryFormAbility] onUpdateForm');
+    hilog.info(DOMAIN_NUMBER, TAG, '[JsCardFormAbility] onUpdateForm');
     let obj: Record<string, string> = {
       'title': 'titleOnUpdate',
       'detail': 'detailOnUpdate'
     };
     let formData: formBindingData.FormBindingData = formBindingData.createFormBindingData(obj);
     formProvider.updateForm(formId, formData).catch((error: BusinessError) => {
-      hilog.error(DOMAIN_NUMBER, TAG, '[EntryFormAbility] updateForm, error:' + JSON.stringify(error));
+      hilog.error(DOMAIN_NUMBER, TAG, '[JsCardFormAbility] updateForm, error:' + JSON.stringify(error));
     });
   }
 
@@ -126,12 +126,16 @@ export default class JsCardFormAbility extends FormExtensionAbility {
   // [StartExclude JSForm_JsCardFormAbility_onUpdateForm]
   onFormEvent(formId: string, message: string): void {
     // 若卡片支持触发事件，则需要重写该方法并实现对事件的触发
-    hilog.info(DOMAIN_NUMBER, TAG, '[EntryFormAbility] onFormEvent');
-    // 获取message事件中传递的detail参数
-    let msg: Record<string, string> = JSON.parse(message);
-    if (msg.detail === 'message detail') {
-      // 执行业务逻辑，由用户自行实现
-      hilog.info(DOMAIN_NUMBER, TAG, 'message info:' + msg.detail);
+    hilog.info(DOMAIN_NUMBER, TAG, '[JsCardFormAbility] onFormEvent');
+    try {
+      // 获取message事件中传递的detail参数
+      let msg: Record<string, string> = JSON.parse(message);
+      if (msg.detail === 'message detail') {
+        // 执行业务逻辑，由用户自行实现
+        hilog.info(DOMAIN_NUMBER, TAG, 'message info:' + msg.detail);
+      }
+    } catch (err) {
+      hilog.error(DOMAIN_NUMBER, TAG, `onFormEvent catch error, code: ${err.code}, message: ${err.message}`);
     }
   }
 
