@@ -161,7 +161,9 @@ See [ohosTest.md](ohosTest.md) for the complete test case table, build instructi
 
 | Permission | Description |
 |---|---|
+| `ohos.permission.kernel.SUPPORT_LOCAL_PLUGIN` | Required to support local plugins. |
 | `ohos.permission.MANAGE_SKILL_PRIVILEGE` | Required to manage skill privileges. |
+| `ohos.permission.READ_WRITE_USER_FILE` | Required to read and write user files. |
 
 **Note:** These permissions are system-granted or require specific signing configurations.
 

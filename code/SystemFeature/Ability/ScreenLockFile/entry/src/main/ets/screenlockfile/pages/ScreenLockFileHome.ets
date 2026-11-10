@@ -145,7 +145,6 @@ export struct ScreenLockFileHome {
 
   private acquire(): void {
     try {
-      // 前置条件检查: 查询密钥状态是否为 KEY_EXIST
       const keyStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       if (keyStatus !== screenLockFileManager.KeyStatus.KEY_EXIST) {
         const keyName: string = this.getKeyStatusName(keyStatus);
@@ -158,7 +157,6 @@ export struct ScreenLockFileHome {
         return;
       }
 
-      // 调用 acquireAccess 申请访问权限
       const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
       const resultText: string = getContext(this).resourceManager.getStringSync(
         $r('app.string.operation_result_format'), 'acquireAccess', this.getAccessStatusName(status));
@@ -175,7 +173,6 @@ export struct ScreenLockFileHome {
 
   private release(): void {
     try {
-      // 前置条件检查: 确认已申请访问权限
       if (this.acquireCount <= this.releaseCount) {
         const tipText: string = getContext(this).resourceManager.getStringSync(
           $r('app.string.release_pairing_failed'), this.acquireCount, this.releaseCount);
@@ -187,7 +184,6 @@ export struct ScreenLockFileHome {
         return;
       }
 
-      // 调用 releaseAccess 释放访问权限
       const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
       const resultText: string = getContext(this).resourceManager.getStringSync(
         $r('app.string.operation_result_format'), 'releaseAccess', this.getReleaseStatusName(status));
@@ -266,7 +262,6 @@ export struct ScreenLockFileHome {
         .borderRadius(CARD_RADIUS)
         .backgroundColor($r('app.color.card_background'))
 
-        // DataType 枚举程序化展示
         Column({ space: ITEM_SPACING }) {
           Text($r('app.string.data_type_enum_title'))
             .fontSize(SUBTITLE_FONT_SIZE)

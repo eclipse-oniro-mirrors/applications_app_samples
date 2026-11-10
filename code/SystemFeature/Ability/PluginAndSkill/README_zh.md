@@ -161,7 +161,9 @@ entry/src/ohosTest/ets/test/
 
 | 权限 | 说明 |
 |---|---|
+| `ohos.permission.kernel.SUPPORT_LOCAL_PLUGIN` | 支持本地插件所需权限。 |
 | `ohos.permission.MANAGE_SKILL_PRIVILEGE` | 管理技能特权所需权限。 |
+| `ohos.permission.READ_WRITE_USER_FILE` | 读写用户文件所需权限。 |
 
 **说明：** 这些权限为系统级权限或需要特定签名配置。
 

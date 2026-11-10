@@ -17,11 +17,27 @@
   "module": {
     "name": "entry_test",
     "type": "feature",
+    "mainElement": "TestAbility",
+    "testRunner": {
+      "name": "OpenHarmonyTestRunner",
+      "srcPath": "ets/testrunner/OpenHarmonyTestRunner"
+    },
     "deviceTypes": [
       "default",
       "tablet"
     ],
     "deliveryWithInstall": true,
-    "installationFree": false
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "TestAbility",
+        "srcEntry": "./ets/testability/TestAbility.ets",
+        "icon": "$media:layered_image",
+        "startWindowIcon": "$media:layered_image",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true
+      }
+    ]
   }
 }
