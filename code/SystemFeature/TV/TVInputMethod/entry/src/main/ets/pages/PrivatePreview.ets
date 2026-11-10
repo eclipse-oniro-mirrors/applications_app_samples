@@ -108,7 +108,7 @@ struct PrivatePreview {
     Column() {
 
       Navigation()
-        .title('中文输入法')
+        .title($r('app.string.chinese_input_method'))
         .hideToolBar(true)
         .align(Alignment.Start)
         .width('100%')
@@ -117,7 +117,7 @@ struct PrivatePreview {
         .titleMode(NavigationTitleMode.Mini)
 
       Column({ space: ConstantNum.NUM_12 }) {
-        Text('输入法管理:')
+        Text($r('app.string.input_method_manage'))
           .width('100%')
           .height(ConstantNum.NUM_56)
           .fontFamily('HarmonyHeiTi-Medium')
@@ -128,7 +128,7 @@ struct PrivatePreview {
 
         Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
           Row() {
-            Text('默认输入法')
+            Text($r('app.string.default_input_method'))
               .fontSize(ConstantNum.NUM_16)
               .lineHeight(ConstantNum.NUM_22)
               .fontWeight(FontWeight.Medium)
@@ -164,13 +164,13 @@ struct PrivatePreview {
           dragBar: false,
           showClose: $r('app.media.ic_public_close'),
           title: {
-            title: '选择输入法'
+            title: $r('app.string.select_input_method')
           }
         });
       }
       .margin({ bottom: ConstantNum.NUM_48 })
 
-      Text('输入测试：')
+      Text($r('app.string.input_test'))
         .width('100%')
         .height(ConstantNum.NUM_56)
         .fontFamily('HarmonyHeiTi-Medium')
@@ -181,7 +181,7 @@ struct PrivatePreview {
 
       TextInput({
         text: this.preViewText,
-        placeholder: '输入文本',
+        placeholder: $r('app.string.input_text_hint'),
         controller: this.controllerPreview
       })
         .placeholderFont({ size: ConstantNum.NUM_16, weight: ConstantNum.NUM_400 })

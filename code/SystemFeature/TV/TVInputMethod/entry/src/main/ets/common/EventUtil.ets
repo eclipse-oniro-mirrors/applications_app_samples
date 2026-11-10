@@ -17,6 +17,9 @@ import { inputEventClient, pointer } from '@kit.InputKit';
 import { window } from '@kit.ArkUI';
 import { image } from '@kit.ImageKit';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
+import Log from '../model/Log';
+
+const TAG: string = 'EventUtil->';
 
 /**
  * 事件相关工具类
@@ -57,7 +60,7 @@ export class EventUtil {
       let eventUp: EventUp = { keyEvent: backKeyUp }
       inputEventClient.injectKeyEvent(eventUp);
     } catch (error) {
-      console.log(`Failed to inject KeyEvent, error: ${JSON.stringify(error, [`code`, `message`])}`);
+      Log.showError(TAG, '%{public}s', `Failed to inject KeyEvent, error: ${JSON.stringify(error, [`code`, `message`])}`);
     }
 
   }
@@ -86,7 +89,7 @@ export class EventUtil {
       AppStorage.setOrCreate('focusItem', keyItem);
       emitter.emit('auto_focus', { data: uniqueId });
     } catch (e) {
-      console.error(e);
+      Log.showError(TAG, '%{public}s', JSON.stringify(e));
     }
   }
 }

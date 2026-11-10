@@ -18,6 +18,9 @@ import { inputStyleConfig, KeyStyle } from '../common/StyleConfiguration';
 import { getKey, keyInfo } from '../model/FocusInfo';
 import { lpx } from './KeyMenu';
 import { emitter } from '@kit.BasicServicesKit';
+import Log from '../model/Log';
+
+const TAG: string = 'ReturnItem->';
 
 //返回组件
 @Component
@@ -80,7 +83,7 @@ export struct ReturnItem {
         this.getUIContext().getFocusController().requestFocus(`${this.keyItem.panel}_${2}_${11}`);
         AppStorage.setOrCreate('UIContext', this.getUIContext());
       } catch (e) {
-        console.log('HmLog--> requestFocus error.', e);
+        Log.showError(TAG, '%{public}s', 'requestFocus error: ' + JSON.stringify(e));
       }
     })
     .onHover((isHover: boolean) => {

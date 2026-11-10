@@ -24,6 +24,7 @@ import {
   PinyinResultMessage,
   MessageType
 } from '../model/PinyinMessage';
+import Log from '../model/Log';
 
 const TAG: string = '[imePinYin worker]';
 
@@ -40,7 +41,7 @@ workerPort.onmessage = (e: MessageEvents) => {
   switch (type) {
     case MessageType.CLOSE: {
       // 关闭线程
-      console.info(`${TAG} workerPort.onmessage close`);
+      Log.showInfo(TAG, '%{public}s', 'workerPort.onmessage close');
       decInfo.destroyPinyin();
       workerPort.close();
       break;
@@ -48,17 +49,17 @@ workerPort.onmessage = (e: MessageEvents) => {
 
     case MessageType.INIT: {
       let initData = data as PinyinInitMessage;
-      console.info(`${TAG} workerPort.onmessage init: ${initData.filePath}`);
+      Log.showInfo(TAG, '%{public}s', `workerPort.onmessage init: ${initData.filePath}`);
       try {
         decInfo.initPinyin(initData.descriptor, initData.filePath);
       } catch (e) {
-        console.error(`${TAG} workerPort.onmessage init error: ${e}`);
+        Log.showError(TAG, '%{public}s', `workerPort.onmessage init error: ${e}`);
       }
       break;
     }
 
     case MessageType.RESET: {
-      console.info(`${TAG} workerPort.onmessage reset}`);
+      Log.showInfo(TAG, '%{public}s', 'workerPort.onmessage reset');
       decInfo.reset();
       updateAppStorage();
       break;
@@ -66,26 +67,26 @@ workerPort.onmessage = (e: MessageEvents) => {
 
     case MessageType.CHOOSE: {
       let choiceData = data as PinyinChooseMessage;
-      console.info(`${TAG} workerPort.onmessage choose candId: ${choiceData.candId}}`);
+      Log.showInfo(TAG, '%{public}s', `workerPort.onmessage choose candId: ${choiceData.candId}`);
       chooseAndUpdate(choiceData.candId);
       break;
     }
 
     case MessageType.KEY: {
       let keyData = data as PinyinKeyMessage;
-      console.info(`${TAG} workerPort.onmessage key char: ${keyData.keyChar}, code: ${keyData.keyCode}`);
+      Log.showInfo(TAG, '%{public}s', `workerPort.onmessage key char: ${keyData.keyChar}, code: ${keyData.keyCode}`);
       onKeyClick(keyData.keyChar, keyData.keyCode);
       break;
     }
 
     default: {
-      console.error(`${TAG} workerPort.onmessage message type error`);
+      Log.showError(TAG, '%{public}s', 'workerPort.onmessage message type error');
     }
   }
 };
 // worker线程发生error的回调
 workerPort.onerror = (e: ErrorEvent) => {
-  console.info(`${TAG} workerPort.onerror ${JSON.stringify(e)}`);
+  Log.showInfo(TAG, '%{public}s', `workerPort.onerror ${JSON.stringify(e)}`);
 };
 
 function onKeyClick(keyChar: string, keyCode: number): boolean {
@@ -129,14 +130,14 @@ function chooseAndUpdate(candId: number) {
     if (candId >= 0 && decInfo.canDoPrediction()) {
       let data = new PinyinResultMessage(resultStr);
       workerPort.postMessage(data);
-      console.info(TAG + 'resultStr: ' + resultStr);
+      Log.showInfo(TAG, '%{public}s', 'resultStr: ' + resultStr);
       decInfo.reset();
       updateAppStorage();
     } else {
-      console.info(TAG + 'resetCandidates ');
+      Log.showInfo(TAG, '%{public}s', 'resetCandidates');
       decInfo.resetCandidates();
     }
   } else {
-    console.info(TAG + 'getComposingStr null ');
+    Log.showInfo(TAG, '%{public}s', 'getComposingStr null');
   }
 }

@@ -31,7 +31,7 @@ export interface keycharacterType {
 }
 
 export interface keyNineChinaType {
-  title: string,
+  title: string | Resource,
   content: string;
 }
 
@@ -798,7 +798,7 @@ export let keycharactersData: keycharacterType[] = [
 // 九键拼音
 export let keyNineChinaData: keyNineChinaType[] = [
   {
-    title: '分词',
+    title: $r('app.string.key_segmentation'),
     content: '1'
   },
   {

@@ -1,6 +1,6 @@
 # KikaInput 输入法测试说明
 
-> 本说明面向 `TVInputMethod`（OpenHarmony TV 端输入法应用，包名 `com.samples.kikainput_tv`）工程，用于说明本工程 ohosTest 自动化测试的设计思路、覆盖维度与充分性依据，并归档手工用例。
+> 本说明面向 `TVInputMethod`（OpenHarmony TV 端输入法应用，包名 `com.samples.kikainputtv`）工程，用于说明本工程 ohosTest 自动化测试的设计思路、覆盖维度与充分性依据，并归档手工用例。
 
 ## 1. 文档目标
 
@@ -159,11 +159,11 @@
 | 测试框架 | Hypium + UiTest（`entry/src/ohosTest`） |
 | 测试模块 | `entry_test` |
 | 测试入口 | `OpenHarmonyTestRunner`（`entry/src/ohosTest/ets/testrunner`） |
-| 被测应用 | `com.samples.kikainput_tv`（`entry` 模块） |
+| 被测应用 | `com.samples.kikainputtv`（`entry` 模块） |
 
 1. 在 DevEco Studio 中打开工程并完成 SDK、签名配置。
 2. 在 `entry/src/ohosTest` 目录上右键选择 `Run 'Tests in entry'` 执行全部自动化用例。
-3. 也可通过 `hdc shell` 调用系统 Ability Assistant 命令行工具执行测试，参数为 `-b com.samples.kikainput_tv -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 60000`。
+3. 也可通过 `hdc shell` 调用系统 Ability Assistant 命令行工具执行测试，参数为 `-b com.samples.kikainputtv -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 60000`。
 
 ## 7. 当前测试目录与职责
 

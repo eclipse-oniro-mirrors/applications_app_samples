@@ -50,39 +50,39 @@
     },
     {
       "name": "ZN_CN",
-      "value": "中"
+      "value": "CN"
     },
     {
       "name": "en",
-      "value": "英"
+      "value": "EN"
     },
     {
       "name": "pinyin_nine",
-      "value": "拼音9键"
+      "value": "Pinyin 9-key"
     },
     {
       "name": "clear_all",
-      "value": "清空"
+      "value": "Clear all"
     },
     {
       "name": "symbol",
-      "value": "符号"
+      "value": "Symbols"
     },
     {
       "name": "symbol_1",
-      "value": "。"
+      "value": "."
     },
     {
       "name": "symbol_2",
-      "value": "，"
+      "value": ","
     },
     {
       "name": "CN_en",
-      "value": "中/英"
+      "value": "CN/EN"
     },
     {
       "name": "text_complete",
-      "value": "完成"
+      "value": "Done"
     },
     {
       "name": "symbol_123",
@@ -90,11 +90,11 @@
     },
     {
       "name": "symbol_3",
-      "value": "！"
+      "value": "!"
     },
     {
       "name": "symbol_4",
-      "value": "？"
+      "value": "?"
     },
     {
       "name": "string_text_space",
@@ -114,7 +114,7 @@
     },
     {
       "name": "turnPage",
-      "value": "翻页"
+      "value": "More"
     },
     {
       "name": "string_text_DeleteX",
@@ -122,7 +122,39 @@
     },
     {
       "name": "string_text_Complete",
-      "value": "完成"
+      "value": "Done"
+    },
+    {
+      "name": "chinese_input_method",
+      "value": "Chinese Input Method"
+    },
+    {
+      "name": "input_method_manage",
+      "value": "Input method management:"
+    },
+    {
+      "name": "default_input_method",
+      "value": "Default input method"
+    },
+    {
+      "name": "select_input_method",
+      "value": "Select input method"
+    },
+    {
+      "name": "input_test",
+      "value": "Input test:"
+    },
+    {
+      "name": "input_text_hint",
+      "value": "Enter text"
+    },
+    {
+      "name": "pinyin_26",
+      "value": "Pinyin 26-key"
+    },
+    {
+      "name": "key_segmentation",
+      "value": "Segment"
     }
   ]
 }

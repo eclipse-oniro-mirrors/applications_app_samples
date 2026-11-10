@@ -268,7 +268,7 @@ export class InputHandler {
     //  主线程中创建Worker对象
     let workerInstance = new worker.ThreadWorker('entry/ets/worker/Worker.ets');
     workerInstance.onmessage = (e: MessageEvents): void => {
-      console.log('onmessage');
+      this.addLog('onmessage');
       let data = e.data as PinyinMessage;
       let type = data.type;
       switch (type) {
@@ -403,7 +403,7 @@ class KeyboardController {
     } else {
       AppStorage.setOrCreate('isLandscape', false);
     }
-    console.log('----- width: ' + dWidth + ' height: ' + dHeight + ' isLandscape: ' + isLandscape);
+    this.inputHandle.addLog('width: ' + dWidth + ' height: ' + dHeight + ' isLandscape: ' + isLandscape);
     if (dWidth === DEVICE_PHONE.width && dHeight === DEVICE_PHONE.height) {
       navigationBarHeight = 0;
       keyHeightRate = KEYBOARD_HEIGHT_RATE_PHONE;
@@ -550,7 +550,7 @@ class KeyboardController {
         let result = this.onKeyUp(keyEvent);
         return result;
       });
-      console.log('HmLog--> keyboardShow.');
+      this.inputHandle.addLog('keyboardShow');
     });
 
     imeAbility.on('keyboardHide', () => {
@@ -563,7 +563,7 @@ class KeyboardController {
           index: 0
         }))
       } catch (e) {
-        console.log('HmLog--> requestFocus error.', e);
+        Log.showError(TAG, '%{public}s', 'requestFocus error: ' + JSON.stringify(e));
       }
       this.menuType = 0;
       AppStorage.setOrCreate('menuType', this.menuType);
@@ -609,7 +609,7 @@ class KeyboardController {
   }
 
   public processFunctionKeys(keyValue: number): boolean {
-    console.log('HmLog--> processFunctionKeys keyValue:' + keyValue);
+    this.inputHandle.addLog('processFunctionKeys keyValue: ' + keyValue);
     switch (keyValue) {
       case KeyValue.KEYCODE_DEL:
         this.inputHandle.deleteForward(1);
@@ -662,7 +662,7 @@ class KeyboardController {
       };
       return focusInfo;
     } catch (e) {
-      console.log('HmLog--> parseFocusInfo error.', e);
+      Log.showError(TAG, '%{public}s', 'parseFocusInfo error: ' + JSON.stringify(e));
       this.parseFocusInfo(focusItem);
     }
     return {
@@ -677,7 +677,7 @@ class KeyboardController {
     let uiContext: UIContext = AppStorage.get('UIContext') as UIContext;
     let focusInfo = this.parseFocusInfo(focusItem) as keyInfo;
     let pinyin = AppStorage.get('pinyin') as string;
-    console.log('HmLog--> moveFocus direction:' + direction + JSON.stringify(focusItem) + JSON.stringify(focusInfo));
+    this.inputHandle.addLog('moveFocus direction: ' + direction + ' ' + JSON.stringify(focusItem) + ' ' + JSON.stringify(focusInfo));
     if (focusInfo.col != FocusCol.COL_3 && focusInfo.index != FocusRow.ROW_11) {
       AppStorage.setOrCreate('LoopIndex', FocusRow.ROW_9);
     }
@@ -693,7 +693,7 @@ class KeyboardController {
         if (this.menuType == MenuType.CHINESE && pinyin.length > 0 && focusInfo.col == FocusCol.COL_1) {
           focusInfo.col--;
           let lengthlist = AppStorage.get('SelectTextLength') as Array<number>
-          console.log('HmLog--> moveFocus lengthlist:' + JSON.stringify(lengthlist));
+          this.inputHandle.addLog('moveFocus lengthlist: ' + JSON.stringify(lengthlist));
           if (lengthlist && lengthlist.length > 0) {
             focusInfo.index = lengthlist[lengthlist.length -1];
           } else {
@@ -765,7 +765,7 @@ class KeyboardController {
               } else {
                 length = lengthlist[0];
               }
-              console.log('HmLog-->moveFocus', JSON.stringify(lengthlist));
+              this.inputHandle.addLog('moveFocus: ' + JSON.stringify(lengthlist));
               let list = lengthlist.slice(0, lengthlist.length - 1);
               AppStorage.setOrCreate('SelectTextLength', list);
               focusInfo.index -= length
@@ -876,7 +876,7 @@ class KeyboardController {
         break;
     }
     // 更新焦点
-    console.log('HmLog-->moveFocus', `panel:${focusInfo.panel},col:${focusInfo.col},index:${focusInfo.index}`);
+    this.inputHandle.addLog(`moveFocus panel:${focusInfo.panel},col:${focusInfo.col},index:${focusInfo.index}`);
     setTimeout(() => {
       try {
         uiContext.getFocusController().requestFocus(getKey({
@@ -887,16 +887,16 @@ class KeyboardController {
       } catch (e) {
         if (direction === 'up' && focusInfo.col === 0 && focusInfo.panel === 'ChineseMenu') {
           let lengthlist = AppStorage.get('SelectTextLength') as Array<number>
-          console.debug('HmLog-->moveFocus', 'lengthlist' + JSON.stringify(lengthlist));
+          this.inputHandle.addLog('moveFocus lengthlist: ' + JSON.stringify(lengthlist));
           lengthlist.pop();
-          console.debug('HmLog-->moveFocus', 'new lengthlist' + JSON.stringify(lengthlist));
+          this.inputHandle.addLog('moveFocus new lengthlist: ' + JSON.stringify(lengthlist));
           uiContext.getFocusController().requestFocus(getKey({
             panel: focusInfo.panel,
             col: focusInfo.col,
             index: lengthlist[lengthlist.length-1]
           }));
         }
-        console.log('HmLog-->moveFocus', e);
+        Log.showError(TAG, '%{public}s', 'moveFocus error: ' + JSON.stringify(e));
       }
     }, 50)
   }
@@ -1027,7 +1027,7 @@ class KeyboardController {
   sendMessageToInput() {
     let focusItem = AppStorage.get('focusItem') as string;
     if (!focusItem) {
-      console.error('focusItem is undefined, using default value.');
+      Log.showError(TAG, '%{public}s', 'focusItem is undefined, using default value.');
       focusItem = 'Key_1_0';
     }
     let keyValue: keySourceListType = { title: '', content: '', upperContent: '' }
@@ -1035,8 +1035,7 @@ class KeyboardController {
     this.focusInfo.panel = focusItem.split('_')[0];
     this.focusInfo.col = parseInt(focusItem.split('_')[1]);
     this.focusInfo.index = parseInt(focusItem.split('_')[2]);
-    console.log('HmLog-->sendMessageToInput',
-      `panel:${this.focusInfo.panel},col:${this.focusInfo.col},index:${this.focusInfo.index}`)
+    this.inputHandle.addLog(`sendMessageToInput panel:${this.focusInfo.panel},col:${this.focusInfo.col},index:${this.focusInfo.index}`);
     //判断为keyMenu键盘
     if (this.focusInfo.panel === Menu.Key) {
       keyValue = this.getKeyValue(this.focusInfo.panel, this.focusInfo.col, this.focusInfo.index);
@@ -1063,7 +1062,7 @@ class KeyboardController {
   }
 
   handleKeyInput(keyValue: keySourceListType) {
-    console.log('HmLog-->handleKeyInput', keyValue.content);
+    this.inputHandle.addLog('handleKeyInput ' + keyValue.content);
     switch (keyValue.content) {
       case FuncKey.SHIFT:
         this.toggleKeyState();
@@ -1092,7 +1091,7 @@ class KeyboardController {
   }
 
   handleSourceInput(sourceValue: sourceListType, panel: string) {
-    console.log('HmLog-->handleSourceInput  ', JSON.stringify(sourceValue), '  panel  ', JSON.stringify(panel));
+    this.inputHandle.addLog('handleSourceInput ' + JSON.stringify(sourceValue) + ' panel ' + JSON.stringify(panel));
     if (panel === Menu.Num) {
       switch (sourceValue.content) {
         case FuncKey.DELETE:
@@ -1150,7 +1149,7 @@ class KeyboardController {
       this.menuType = SymbolKey.ZERO;
     }
     AppStorage.setOrCreate('SymbolID', this.menuType);
-    console.log('_+_+_+_+ HmLog-->switchSymbol', this.menuType);
+    this.inputHandle.addLog('switchSymbol ' + this.menuType);
   }
 
   // 定义切换大小写状态的函数
@@ -1169,7 +1168,7 @@ class KeyboardController {
       } else {
         this.inputHandle.onKeyClick(value.content, 0);
       }
-      console.log(tag, 'this.upper=0', value.content);
+      this.inputHandle.addLog(tag + ' this.upper=0 ' + value.content);
     } else if ((this.keyState === KeyState.LOWER_CASE && value)) {
       this.inputHandle.insertText(value.content);
     } else if (value) {

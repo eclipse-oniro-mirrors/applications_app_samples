@@ -13,9 +13,13 @@
  * limitations under the License.
  */
 
+import Log from '../model/Log';
+
 /**
  * 基础数据源
  */
+const TAG: string = 'BasicDataSource->';
+
 export class BasicDataSource implements IDataSource {
   private listeners: DataChangeListener[] = [];
 
@@ -29,7 +33,7 @@ export class BasicDataSource implements IDataSource {
 
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
-      console.info('add listener');
+      Log.showInfo(TAG, '%{public}s', 'add listener');
       this.listeners.push(listener);
     }
   }
@@ -37,7 +41,7 @@ export class BasicDataSource implements IDataSource {
   unregisterDataChangeListener(listener: DataChangeListener): void {
     const pos = this.listeners.indexOf(listener);
     if (pos >= 0) {
-      console.info('remove listener');
+      Log.showInfo(TAG, '%{public}s', 'remove listener');
       this.listeners.splice(pos, 1);
     }
   }

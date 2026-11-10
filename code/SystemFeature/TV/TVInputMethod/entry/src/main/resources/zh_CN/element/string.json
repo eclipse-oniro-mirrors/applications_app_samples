@@ -57,8 +57,104 @@
       "value": "英"
     },
     {
+      "name": "pinyin_nine",
+      "value": "拼音9键"
+    },
+    {
+      "name": "clear_all",
+      "value": "清空"
+    },
+    {
+      "name": "symbol",
+      "value": "符号"
+    },
+    {
+      "name": "symbol_1",
+      "value": "。"
+    },
+    {
+      "name": "symbol_2",
+      "value": "，"
+    },
+    {
+      "name": "CN_en",
+      "value": "中/英"
+    },
+    {
+      "name": "text_complete",
+      "value": "完成"
+    },
+    {
+      "name": "symbol_123",
+      "value": "123"
+    },
+    {
+      "name": "symbol_3",
+      "value": "！"
+    },
+    {
+      "name": "symbol_4",
+      "value": "？"
+    },
+    {
+      "name": "string_text_space",
+      "value": "空格"
+    },
+    {
+      "name": "string_text_123",
+      "value": "?123"
+    },
+    {
+      "name": "string_text_ABC",
+      "value": "ABC"
+    },
+    {
+      "name": "string_text_inputCN",
+      "value": "系统默认输入法"
+    },
+    {
       "name": "turnPage",
       "value": "翻页"
+    },
+    {
+      "name": "string_text_DeleteX",
+      "value": "X"
+    },
+    {
+      "name": "string_text_Complete",
+      "value": "完成"
+    },
+    {
+      "name": "chinese_input_method",
+      "value": "中文输入法"
+    },
+    {
+      "name": "input_method_manage",
+      "value": "输入法管理："
+    },
+    {
+      "name": "default_input_method",
+      "value": "默认输入法"
+    },
+    {
+      "name": "select_input_method",
+      "value": "选择输入法"
+    },
+    {
+      "name": "input_test",
+      "value": "输入测试："
+    },
+    {
+      "name": "input_text_hint",
+      "value": "输入文本"
+    },
+    {
+      "name": "pinyin_26",
+      "value": "拼音26键"
+    },
+    {
+      "name": "key_segmentation",
+      "value": "分词"
     }
   ]
 }

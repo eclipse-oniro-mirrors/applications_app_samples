@@ -36,7 +36,7 @@ export struct KeySetView {
         .width(this.inputStyle.downMenuWidth)
         .visibility(Visibility.Hidden)
 
-        Text('拼音26键')
+        Text($r('app.string.pinyin_26'))
           .fontColor(this.isNineKey ? $r('app.color.fill_color_1') : $r('app.color.fill_color_0'))
           .fontSize('14fp')
           .margin({ top: '8vp' })

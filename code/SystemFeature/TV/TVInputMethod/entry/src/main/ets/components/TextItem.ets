@@ -17,6 +17,9 @@ import { EventUtil } from '../common/EventUtil';
 import { ConstantNum, KeyStyle } from '../common/StyleConfiguration';
 import { getKey, keyInfo } from '../model/FocusInfo';
 import { emitter } from '@kit.BasicServicesKit';
+import Log from '../model/Log';
+
+const TAG: string = 'TextItem->';
 
 @Component
 export struct TextItem {
@@ -63,12 +66,12 @@ export struct TextItem {
         .onVisibleAreaChange([0.0, 1.0], (isVisible: boolean, currentRatio: number) => {
           if (isVisible && currentRatio >= 0.7) {
             AppStorage.setOrCreate('TextItem_' + `${this.keyItem.index}`, true);
-            console.info('TextItem_' + `${this.keyItem.index}` + true);
+            Log.showInfo(TAG, '%{public}s', `TextItem_${this.keyItem.index} true`);
           }
 
           if (!isVisible && currentRatio <= 0.3) {
             AppStorage.setOrCreate('TextItem_' + `${this.keyItem.index}`, false);
-            console.info('TextItem_' + `${this.keyItem.index}` + false);
+            Log.showInfo(TAG, '%{public}s', `TextItem_${this.keyItem.index} false`);
           }
         })
         .onAppear(() => {

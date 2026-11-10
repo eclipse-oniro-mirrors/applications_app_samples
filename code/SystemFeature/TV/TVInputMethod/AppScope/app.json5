@@ -15,7 +15,7 @@
 
 {
   "app": {
-    "bundleName": "com.samples.kikainput_tv",
+    "bundleName": "com.samples.kikainputtv",
     "vendor": "example",
     "versionCode": 1003000,
     "versionName": "1.3.0",
