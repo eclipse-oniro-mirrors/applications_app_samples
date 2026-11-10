@@ -30,7 +30,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -46,7 +46,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -62,7 +62,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -78,7 +78,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -94,7 +94,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -110,7 +110,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -126,7 +126,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -142,7 +142,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -158,7 +158,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -174,7 +174,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -190,7 +190,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -206,7 +206,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -222,7 +222,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -238,7 +238,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -254,7 +254,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -270,7 +270,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -286,7 +286,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -302,7 +302,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -318,7 +318,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -334,7 +334,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -350,7 +350,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -366,7 +366,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -382,7 +382,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -398,7 +398,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -414,7 +414,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -430,7 +430,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -446,7 +446,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -462,7 +462,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -478,7 +478,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -494,7 +494,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -510,7 +510,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -526,7 +526,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -542,7 +542,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -558,7 +558,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -574,7 +574,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -590,7 +590,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -606,7 +606,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -622,7 +622,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -638,7 +638,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -654,7 +654,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -670,7 +670,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -686,7 +686,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -702,7 +702,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -718,7 +718,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -734,7 +734,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -750,7 +750,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -766,7 +766,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -782,7 +782,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -798,7 +798,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -814,7 +814,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -830,7 +830,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -846,7 +846,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -862,7 +862,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -878,7 +878,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -894,7 +894,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -910,7 +910,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -926,7 +926,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -942,7 +942,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -958,7 +958,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -974,7 +974,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -990,7 +990,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1006,7 +1006,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1022,7 +1022,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1038,7 +1038,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1054,7 +1054,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1070,7 +1070,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1086,7 +1086,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1102,7 +1102,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1118,7 +1118,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1134,7 +1134,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1150,7 +1150,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1166,7 +1166,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1182,7 +1182,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1198,7 +1198,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1214,7 +1214,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1230,7 +1230,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1246,7 +1246,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1262,7 +1262,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1278,7 +1278,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1294,7 +1294,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1310,7 +1310,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1326,7 +1326,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1342,7 +1342,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1358,7 +1358,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1374,7 +1374,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1390,7 +1390,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1406,7 +1406,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1422,7 +1422,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1438,7 +1438,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1454,7 +1454,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1470,7 +1470,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1486,7 +1486,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1502,7 +1502,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1518,7 +1518,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1534,7 +1534,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1550,7 +1550,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1566,7 +1566,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1582,7 +1582,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1598,7 +1598,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
     /**
@@ -1614,7 +1614,7 @@ export default function mediaMetadata8wTest() {
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
       expect(size).assertLarger(0);
-      expect(size % 4).assertEqual(0);
+      expect(size % 2).assertEqual(0);
       expect(Number.isInteger(size)).assertTrue();
     })
   })
