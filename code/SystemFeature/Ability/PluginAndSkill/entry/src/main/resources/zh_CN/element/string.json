@@ -530,6 +530,94 @@
             "description": "对比摘要中的匹配率标签"
         },
         {
+            "name": "skill_flag_all",
+            "value": "全部标志位"
+        },
+        {
+            "name": "skill_flag_default",
+            "value": "默认"
+        },
+        {
+            "name": "skill_flag_description",
+            "value": "+ 描述"
+        },
+        {
+            "name": "skill_flag_src_entries",
+            "value": "+ 源入口"
+        },
+        {
+            "name": "skill_flag_permissions",
+            "value": "+ 权限"
+        },
+        {
+            "name": "skill_flag_request_permissions",
+            "value": "+ 申请权限"
+        },
+        {
+            "name": "compare_field_skill_name",
+            "value": "技能名称"
+        },
+        {
+            "name": "compare_field_bundle_name",
+            "value": "应用包名"
+        },
+        {
+            "name": "compare_field_module_name",
+            "value": "模块名称"
+        },
+        {
+            "name": "compare_field_skill_type",
+            "value": "技能类型"
+        },
+        {
+            "name": "compare_field_skill_path",
+            "value": "技能路径"
+        },
+        {
+            "name": "compare_field_ability_name",
+            "value": "Ability 名称"
+        },
+        {
+            "name": "compare_field_version_code",
+            "value": "版本号"
+        },
+        {
+            "name": "compare_field_version",
+            "value": "版本"
+        },
+        {
+            "name": "compare_field_visibility",
+            "value": "可见性"
+        },
+        {
+            "name": "compare_field_description",
+            "value": "描述"
+        },
+        {
+            "name": "compare_field_source_entries",
+            "value": "源入口"
+        },
+        {
+            "name": "compare_field_permissions",
+            "value": "权限"
+        },
+        {
+            "name": "compare_field_requested_permissions",
+            "value": "申请权限"
+        },
+        {
+            "name": "compare_both_not_found",
+            "value": "未找到这两个技能。"
+        },
+        {
+            "name": "compare_skill_a_not_found",
+            "value": "未找到技能 A（%s），技能 B 已加载。"
+        },
+        {
+            "name": "compare_skill_b_not_found",
+            "value": "未找到技能 B（%s），技能 A 已加载。"
+        },
+        {
             "name": "execution_found_format",
             "value": "已找到技能 %s，路径：%s",
             "description": "技能查找结果格式"

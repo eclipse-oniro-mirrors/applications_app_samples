@@ -63,8 +63,23 @@ export const SKILL_INFO_FLAGS: number = skillManager.SkillInfoFlag.GET_SKILL_INF
   skillManager.SkillInfoFlag.GET_SKILL_INFO_WITH_REQUEST_PERMISSIONS;
 
 // Flag selector options
-export const FLAG_LABELS: string[] =
-  ['All flags', 'Default', '+ Description', '+ SrcEntries', '+ Permissions', '+ RequestPermissions'];
+export const FLAG_LABELS: string[] = [
+  'All flags',
+  'Default',
+  '+ Description',
+  '+ SrcEntries',
+  '+ Permissions',
+  '+ RequestPermissions'
+];
+
+export const FLAG_LABEL_RESOURCES: Resource[] = [
+  $r('app.string.skill_flag_all'),
+  $r('app.string.skill_flag_default'),
+  $r('app.string.skill_flag_description'),
+  $r('app.string.skill_flag_src_entries'),
+  $r('app.string.skill_flag_permissions'),
+  $r('app.string.skill_flag_request_permissions')
+];
 
 export const FLAG_VALUES: number[] = [
   skillManager.SkillInfoFlag.GET_SKILL_INFO_DEFAULT |

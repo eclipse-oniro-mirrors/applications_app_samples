@@ -28,7 +28,7 @@ import {
   DEFAULT_OPTION_INDEX,
   EMPTY_OPTION_INDEX,
   EMPTY_VALUE,
-  FLAG_LABELS,
+  FLAG_LABEL_RESOURCES,
   FLAG_VALUES,
   ITEM_SPACING,
   LABEL_WIDTH,
@@ -162,13 +162,13 @@ struct BundleSkillQueryPage {
           .id('skill_bundle_selector_label')
           .fontSize(BODY_FONT_SIZE)
         Select([
-          { value: 'Not set (empty value)' },
+          { value: $r('app.string.skill_empty_option') },
           { value: BUNDLE_NAME_ARRAY[0] },
           { value: BUNDLE_NAME_ARRAY[1] },
         ])
           .id('skill_bundle_select')
           .selected(this.bundleName.length > 0 ? BUNDLE_NAME_ARRAY.indexOf(this.bundleName) : EMPTY_OPTION_INDEX)
-          .value(this.bundleName.length > 0 ? this.bundleName : 'Not set (empty value)')
+          .value(this.bundleName.length > 0 ? this.bundleName : $r('app.string.skill_empty_option'))
           .width('100%')
           .enabled(!this.isOperating)
           .onSelect((index: number): void => {
@@ -178,13 +178,13 @@ struct BundleSkillQueryPage {
           .id('skill_module_selector_label')
           .fontSize(BODY_FONT_SIZE)
         Select([
-          { value: 'Not set (empty value)' },
+          { value: $r('app.string.skill_empty_option') },
           { value: MODULE_NAME_ARRAY[0] },
           { value: MODULE_NAME_ARRAY[1] },
         ])
           .id('skill_module_select')
           .selected(this.moduleName.length > 0 ? MODULE_NAME_ARRAY.indexOf(this.moduleName) : EMPTY_OPTION_INDEX)
-          .value(this.moduleName.length > 0 ? this.moduleName : 'Not set (empty value)')
+          .value(this.moduleName.length > 0 ? this.moduleName : $r('app.string.skill_empty_option'))
           .width('100%')
           .enabled(!this.isOperating)
           .onSelect((index: number): void => {
@@ -194,7 +194,7 @@ struct BundleSkillQueryPage {
           .id('skill_name_selector_label')
           .fontSize(BODY_FONT_SIZE)
         Select([
-          { value: 'Not set (empty value)' },
+          { value: $r('app.string.skill_empty_option') },
           { value: SKILL_ARRAY[0] },
           { value: SKILL_ARRAY[1] },
           { value: SKILL_ARRAY[2] },
@@ -203,7 +203,7 @@ struct BundleSkillQueryPage {
         ])
           .id('skill_name_select')
           .selected(this.skillName.length > 0 ? SKILL_ARRAY.indexOf(this.skillName) : EMPTY_OPTION_INDEX)
-          .value(this.skillName.length > 0 ? this.skillName : 'Not set (empty value)')
+          .value(this.skillName.length > 0 ? this.skillName : $r('app.string.skill_empty_option'))
           .width('100%')
           .enabled(!this.isOperating)
           .onSelect((index: number): void => {
@@ -214,16 +214,16 @@ struct BundleSkillQueryPage {
           .id('skill_flag_selector_label')
           .fontSize(BODY_FONT_SIZE)
         Select([
-          { value: FLAG_LABELS[0] },
-          { value: FLAG_LABELS[1] },
-          { value: FLAG_LABELS[2] },
-          { value: FLAG_LABELS[3] },
-          { value: FLAG_LABELS[4] },
-          { value: FLAG_LABELS[5] },
+          { value: FLAG_LABEL_RESOURCES[0] },
+          { value: FLAG_LABEL_RESOURCES[1] },
+          { value: FLAG_LABEL_RESOURCES[2] },
+          { value: FLAG_LABEL_RESOURCES[3] },
+          { value: FLAG_LABEL_RESOURCES[4] },
+          { value: FLAG_LABEL_RESOURCES[5] },
         ])
           .id('skill_flag_select')
           .selected(this.flagIndex)
-          .value(FLAG_LABELS[this.flagIndex])
+          .value(FLAG_LABEL_RESOURCES[this.flagIndex])
           .width('100%')
           .enabled(!this.isOperating)
           .onSelect((index: number): void => {

@@ -530,6 +530,94 @@
             "description": "Match rate label in compare summary"
         },
         {
+            "name": "skill_flag_all",
+            "value": "All flags"
+        },
+        {
+            "name": "skill_flag_default",
+            "value": "Default"
+        },
+        {
+            "name": "skill_flag_description",
+            "value": "+ Description"
+        },
+        {
+            "name": "skill_flag_src_entries",
+            "value": "+ SrcEntries"
+        },
+        {
+            "name": "skill_flag_permissions",
+            "value": "+ Permissions"
+        },
+        {
+            "name": "skill_flag_request_permissions",
+            "value": "+ RequestPermissions"
+        },
+        {
+            "name": "compare_field_skill_name",
+            "value": "Skill Name"
+        },
+        {
+            "name": "compare_field_bundle_name",
+            "value": "Bundle Name"
+        },
+        {
+            "name": "compare_field_module_name",
+            "value": "Module Name"
+        },
+        {
+            "name": "compare_field_skill_type",
+            "value": "Skill Type"
+        },
+        {
+            "name": "compare_field_skill_path",
+            "value": "Skill Path"
+        },
+        {
+            "name": "compare_field_ability_name",
+            "value": "Ability Name"
+        },
+        {
+            "name": "compare_field_version_code",
+            "value": "Version Code"
+        },
+        {
+            "name": "compare_field_version",
+            "value": "Version"
+        },
+        {
+            "name": "compare_field_visibility",
+            "value": "Visibility"
+        },
+        {
+            "name": "compare_field_description",
+            "value": "Description"
+        },
+        {
+            "name": "compare_field_source_entries",
+            "value": "Source Entries"
+        },
+        {
+            "name": "compare_field_permissions",
+            "value": "Permissions"
+        },
+        {
+            "name": "compare_field_requested_permissions",
+            "value": "Requested Permissions"
+        },
+        {
+            "name": "compare_both_not_found",
+            "value": "Both skills could not be found."
+        },
+        {
+            "name": "compare_skill_a_not_found",
+            "value": "Skill A (%s) not found. Skill B loaded."
+        },
+        {
+            "name": "compare_skill_b_not_found",
+            "value": "Skill B (%s) not found. Skill A loaded."
+        },
+        {
             "name": "execution_found_format",
             "value": "Skill '%s' found at path: %s"
         },

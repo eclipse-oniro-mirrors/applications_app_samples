@@ -641,6 +641,116 @@
       "description": "Match rate label in compare summary"
     },
     {
+      "name": "skill_flag_all",
+      "value": "All flags",
+      "description": "All skill query flags option"
+    },
+    {
+      "name": "skill_flag_default",
+      "value": "Default",
+      "description": "Default skill query flag option"
+    },
+    {
+      "name": "skill_flag_description",
+      "value": "+ Description",
+      "description": "Skill description query flag option"
+    },
+    {
+      "name": "skill_flag_src_entries",
+      "value": "+ SrcEntries",
+      "description": "Skill source entries query flag option"
+    },
+    {
+      "name": "skill_flag_permissions",
+      "value": "+ Permissions",
+      "description": "Skill permissions query flag option"
+    },
+    {
+      "name": "skill_flag_request_permissions",
+      "value": "+ RequestPermissions",
+      "description": "Skill requested permissions query flag option"
+    },
+    {
+      "name": "compare_field_skill_name",
+      "value": "Skill Name",
+      "description": "Skill name comparison field label"
+    },
+    {
+      "name": "compare_field_bundle_name",
+      "value": "Bundle Name",
+      "description": "Bundle name comparison field label"
+    },
+    {
+      "name": "compare_field_module_name",
+      "value": "Module Name",
+      "description": "Module name comparison field label"
+    },
+    {
+      "name": "compare_field_skill_type",
+      "value": "Skill Type",
+      "description": "Skill type comparison field label"
+    },
+    {
+      "name": "compare_field_skill_path",
+      "value": "Skill Path",
+      "description": "Skill path comparison field label"
+    },
+    {
+      "name": "compare_field_ability_name",
+      "value": "Ability Name",
+      "description": "Ability name comparison field label"
+    },
+    {
+      "name": "compare_field_version_code",
+      "value": "Version Code",
+      "description": "Version code comparison field label"
+    },
+    {
+      "name": "compare_field_version",
+      "value": "Version",
+      "description": "Version comparison field label"
+    },
+    {
+      "name": "compare_field_visibility",
+      "value": "Visibility",
+      "description": "Visibility comparison field label"
+    },
+    {
+      "name": "compare_field_description",
+      "value": "Description",
+      "description": "Description comparison field label"
+    },
+    {
+      "name": "compare_field_source_entries",
+      "value": "Source Entries",
+      "description": "Source entries comparison field label"
+    },
+    {
+      "name": "compare_field_permissions",
+      "value": "Permissions",
+      "description": "Permissions comparison field label"
+    },
+    {
+      "name": "compare_field_requested_permissions",
+      "value": "Requested Permissions",
+      "description": "Requested permissions comparison field label"
+    },
+    {
+      "name": "compare_both_not_found",
+      "value": "Both skills could not be found.",
+      "description": "Both compared skills were not found"
+    },
+    {
+      "name": "compare_skill_a_not_found",
+      "value": "Skill A (%s) not found. Skill B loaded.",
+      "description": "Skill A was not found while skill B loaded"
+    },
+    {
+      "name": "compare_skill_b_not_found",
+      "value": "Skill B (%s) not found. Skill A loaded.",
+      "description": "Skill B was not found while skill A loaded"
+    },
+    {
       "name": "execution_found_format",
       "value": "Skill '%s' found at path: %s",
       "description": "Skill found result format"

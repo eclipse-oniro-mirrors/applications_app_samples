@@ -281,7 +281,8 @@ export class TestDataGenerator {
       }
     }
 
-    const flagCases: GeneratedTestCase[] = this.generateAllFlagCombinations(DEFAULT_BUNDLE_NAME, DEFAULT_MODULE_NAME, DEFAULT_SKILL_NAME);
+    const flagCases: GeneratedTestCase[] = this.generateAllFlagCombinations(DEFAULT_BUNDLE_NAME,
+      DEFAULT_MODULE_NAME, DEFAULT_SKILL_NAME);
     for (let i: number = 0; i < flagCases.length; i++) {
       allCases.push(flagCases[i]);
     }

@@ -32,7 +32,7 @@ import {
 } from '../../util/Constant';
 
 interface SkillCompareResult {
-  field: string;
+  field: Resource;
   valueA: string;
   valueB: string;
   isSame: boolean;
@@ -96,7 +96,7 @@ struct SkillComparePage {
     const infoB: skillManager.SkillInfo = this.skillInfoB;
 
     const nameCompare: SkillCompareResult = {
-      field: 'Skill Name',
+      field: $r('app.string.compare_field_skill_name'),
       valueA: infoA.skillName,
       valueB: infoB.skillName,
       isSame: infoA.skillName === infoB.skillName
@@ -104,7 +104,7 @@ struct SkillComparePage {
     this.compareResults.push(nameCompare);
 
     const bundleCompare: SkillCompareResult = {
-      field: 'Bundle Name',
+      field: $r('app.string.compare_field_bundle_name'),
       valueA: infoA.bundleName,
       valueB: infoB.bundleName,
       isSame: infoA.bundleName === infoB.bundleName
@@ -112,7 +112,7 @@ struct SkillComparePage {
     this.compareResults.push(bundleCompare);
 
     const moduleCompare: SkillCompareResult = {
-      field: 'Module Name',
+      field: $r('app.string.compare_field_module_name'),
       valueA: infoA.moduleName,
       valueB: infoB.moduleName,
       isSame: infoA.moduleName === infoB.moduleName
@@ -120,7 +120,7 @@ struct SkillComparePage {
     this.compareResults.push(moduleCompare);
 
     const typeCompare: SkillCompareResult = {
-      field: 'Skill Type',
+      field: $r('app.string.compare_field_skill_type'),
       valueA: `${infoA.skillType}`,
       valueB: `${infoB.skillType}`,
       isSame: infoA.skillType === infoB.skillType
@@ -128,7 +128,7 @@ struct SkillComparePage {
     this.compareResults.push(typeCompare);
 
     const pathCompare: SkillCompareResult = {
-      field: 'Skill Path',
+      field: $r('app.string.compare_field_skill_path'),
       valueA: infoA.skillPath,
       valueB: infoB.skillPath,
       isSame: infoA.skillPath === infoB.skillPath
@@ -136,7 +136,7 @@ struct SkillComparePage {
     this.compareResults.push(pathCompare);
 
     const abilityCompare: SkillCompareResult = {
-      field: 'Ability Name',
+      field: $r('app.string.compare_field_ability_name'),
       valueA: infoA.abilityName,
       valueB: infoB.abilityName,
       isSame: infoA.abilityName === infoB.abilityName
@@ -144,7 +144,7 @@ struct SkillComparePage {
     this.compareResults.push(abilityCompare);
 
     const versionCodeCompare: SkillCompareResult = {
-      field: 'Version Code',
+      field: $r('app.string.compare_field_version_code'),
       valueA: `${infoA.versionCode}`,
       valueB: `${infoB.versionCode}`,
       isSame: infoA.versionCode === infoB.versionCode
@@ -152,7 +152,7 @@ struct SkillComparePage {
     this.compareResults.push(versionCodeCompare);
 
     const versionCompare: SkillCompareResult = {
-      field: 'Version',
+      field: $r('app.string.compare_field_version'),
       valueA: this.formatOptional(infoA.version),
       valueB: this.formatOptional(infoB.version),
       isSame: infoA.version === infoB.version
@@ -160,7 +160,7 @@ struct SkillComparePage {
     this.compareResults.push(versionCompare);
 
     const visibilityCompare: SkillCompareResult = {
-      field: 'Visibility',
+      field: $r('app.string.compare_field_visibility'),
       valueA: this.formatOptional(infoA.visibility),
       valueB: this.formatOptional(infoB.visibility),
       isSame: infoA.visibility === infoB.visibility
@@ -168,7 +168,7 @@ struct SkillComparePage {
     this.compareResults.push(visibilityCompare);
 
     const descCompare: SkillCompareResult = {
-      field: 'Description',
+      field: $r('app.string.compare_field_description'),
       valueA: this.formatOptional(infoA.description),
       valueB: this.formatOptional(infoB.description),
       isSame: infoA.description === infoB.description
@@ -176,7 +176,7 @@ struct SkillComparePage {
     this.compareResults.push(descCompare);
 
     const srcEntriesCompare: SkillCompareResult = {
-      field: 'Source Entries',
+      field: $r('app.string.compare_field_source_entries'),
       valueA: this.formatList(infoA.srcEntries),
       valueB: this.formatList(infoB.srcEntries),
       isSame: this.formatList(infoA.srcEntries) === this.formatList(infoB.srcEntries)
@@ -184,7 +184,7 @@ struct SkillComparePage {
     this.compareResults.push(srcEntriesCompare);
 
     const permissionsCompare: SkillCompareResult = {
-      field: 'Permissions',
+      field: $r('app.string.compare_field_permissions'),
       valueA: this.formatList(infoA.permissions),
       valueB: this.formatList(infoB.permissions),
       isSame: this.formatList(infoA.permissions) === this.formatList(infoB.permissions)
@@ -192,7 +192,7 @@ struct SkillComparePage {
     this.compareResults.push(permissionsCompare);
 
     const reqPermCompare: SkillCompareResult = {
-      field: 'Requested Permissions',
+      field: $r('app.string.compare_field_requested_permissions'),
       valueA: this.formatList(infoA.requestPermissions),
       valueB: this.formatList(infoB.requestPermissions),
       isSame: this.formatList(infoA.requestPermissions) === this.formatList(infoB.requestPermissions)
@@ -228,12 +228,14 @@ struct SkillComparePage {
       this.skillInfoB = await this.querySkillInfo(this.moduleB, this.skillB);
 
       if (this.skillInfoA === undefined && this.skillInfoB === undefined) {
-        this.operationResult = 'Both skills could not be found.';
+        this.operationResult = $r('app.string.compare_both_not_found');
       } else if (this.skillInfoA === undefined) {
-        this.operationResult = `Skill A (${this.skillA}) not found. Skill B loaded.`;
+        this.operationResult = getContext(this).resourceManager.getStringSync(
+          $r('app.string.compare_skill_a_not_found'), this.skillA);
         this.compareResults = [];
       } else if (this.skillInfoB === undefined) {
-        this.operationResult = `Skill B (${this.skillB}) not found. Skill A loaded.`;
+        this.operationResult = getContext(this).resourceManager.getStringSync(
+          $r('app.string.compare_skill_b_not_found'), this.skillB);
         this.compareResults = [];
       } else {
         this.buildCompareResults();
@@ -436,8 +438,7 @@ struct SkillComparePage {
           // Compare detail rows
           ForEach(this.compareResults, (result: SkillCompareResult, index: number) => {
             this.compareRow(result, index);
-          }, (result: SkillCompareResult, index: number) =>
-          `${result.field}_${index}`)
+          }, (result: SkillCompareResult, index: number) => `compare_field_${index}`)
         }
       }
       .width('100%')

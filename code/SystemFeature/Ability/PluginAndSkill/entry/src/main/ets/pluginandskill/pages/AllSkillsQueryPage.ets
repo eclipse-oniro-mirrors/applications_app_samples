@@ -28,7 +28,7 @@ import {
   CARD_RADIUS,
   LABEL_WIDTH,
   EMPTY_VALUE,
-  FLAG_LABELS,
+  FLAG_LABEL_RESOURCES,
   FLAG_VALUES,
   DEFAULT_FLAG_INDEX
 } from '../../util/Constant';
@@ -104,16 +104,16 @@ struct AllSkillsQueryPage {
           .id('skill_flag_selector_label')
           .fontSize(BODY_FONT_SIZE)
         Select([
-          { value: FLAG_LABELS[0] },
-          { value: FLAG_LABELS[1] },
-          { value: FLAG_LABELS[2] },
-          { value: FLAG_LABELS[3] },
-          { value: FLAG_LABELS[4] },
-          { value: FLAG_LABELS[5] },
+          { value: FLAG_LABEL_RESOURCES[0] },
+          { value: FLAG_LABEL_RESOURCES[1] },
+          { value: FLAG_LABEL_RESOURCES[2] },
+          { value: FLAG_LABEL_RESOURCES[3] },
+          { value: FLAG_LABEL_RESOURCES[4] },
+          { value: FLAG_LABEL_RESOURCES[5] },
         ])
           .id('skill_flag_select')
           .selected(this.flagIndex)
-          .value(FLAG_LABELS[this.flagIndex])
+          .value(FLAG_LABEL_RESOURCES[this.flagIndex])
           .width('100%')
           .enabled(!this.isOperating)
           .onSelect((index: number): void => {
