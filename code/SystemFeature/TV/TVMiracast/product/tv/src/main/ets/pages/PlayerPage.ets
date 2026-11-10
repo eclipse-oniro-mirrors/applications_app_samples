@@ -26,7 +26,7 @@ import MiracastPlayerServiceClient from '../serviceextability/MiracastPlayerServ
 import { KeyCode } from '@kit.InputKit';
 
 const TAG = 'PlayerPage';
-// Render layer type: use the numeric surface rendering value of XComponentType instead of a platform enum literal
+// Render layer type: use the numeric layer rendering value of XComponentType instead of a platform enum literal
 const PLAYER_RENDER_TYPE: XComponentType = 0;
 type DisconnectCallback = (deviceId: string) => void;
 
@@ -169,7 +169,7 @@ struct PlayerPage {
         return;
       }
       isFinished = true;
-      // Mark that reconnect is needed after leaving the projection page, so Index does not reuse a stale client and cause races.
+      // Mark reconnect needed after leaving the page so Index does not reuse a stale client and cause races.
       globalThis.playerNeedReconnect = true;
       try {
         if (this.connectId >= 0) {

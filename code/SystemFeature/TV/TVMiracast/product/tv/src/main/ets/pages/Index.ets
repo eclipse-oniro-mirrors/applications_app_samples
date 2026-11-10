@@ -155,7 +155,7 @@ struct Index {
       this.connectService();
       return;
     }
-    // After leaving the projection page the client may still exist while discovery was stopped; start discovery again here.
+    // After leaving the page the client may still exist while discovery stopped; restart discovery here.
     this.client.startMiracastService((errCode: number, returnValue: number) => {
       Log.info(TAG, `onPageShow startMiracastService callback errcode:${errCode}, returnValue:${returnValue}`);
     });

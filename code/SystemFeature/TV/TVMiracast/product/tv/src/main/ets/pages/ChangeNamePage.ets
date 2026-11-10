@@ -209,7 +209,7 @@ struct ChangeNamePage {
     .justifyContent(FlexAlign.Start)
     .width('100%')
     .height('100%')
-    // The text input consumes DPAD Down first, only Up bubbles here; do not limit to KeyType.Down, otherwise the down key cannot move focus to Save
+    // Text input consumes DPAD Down first; only Up bubbles here, so do not restrict to KeyType.Down.
     .onKeyEvent((e: KeyEvent) => {
       if (e.keyCode === KeyCode.KEYCODE_DPAD_DOWN) {
         focusControl.requestFocus('save');

@@ -162,7 +162,7 @@ export default class TvAbility extends UIAbility {
   // Get the height of the system status bar and navigation bar
   async getWindowAvoidArea(context: common.UIAbilityContext): Promise<window.AvoidArea> {
     const mainWindow = await window.getLastWindow(context);
-    const avoidAreaType = window.AvoidAreaType.TYPE_SYSTEM; // System default area, including status bar and navigation bar
+    const avoidAreaType = window.AvoidAreaType.TYPE_SYSTEM; // System default area: status bar, navigation bar
     const avoidArea = mainWindow.getWindowAvoidArea(avoidAreaType);
     return avoidArea;
   }
