@@ -14,7 +14,7 @@
  */
 
 import { window } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@ohos.base';
 
 @Entry
 @Component

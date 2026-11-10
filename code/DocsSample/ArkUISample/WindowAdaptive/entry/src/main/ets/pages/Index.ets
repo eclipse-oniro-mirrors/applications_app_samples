@@ -14,7 +14,7 @@
  */
 
 import { window } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@ohos.base';
 
 /**
  * 断点：与系统推荐阈值一致，4个阈值分隔出xs/sm/md/lg/xl五档。
