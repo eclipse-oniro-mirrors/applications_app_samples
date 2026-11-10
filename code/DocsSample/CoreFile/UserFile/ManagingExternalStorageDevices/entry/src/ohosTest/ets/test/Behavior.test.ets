@@ -14,39 +14,10 @@
  */
 
 import { describe, expect, it, Level, Size, TestType, beforeAll } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { ON, Component } from '@kit.TestKit';
+import { UIAbility } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-
-const DOMAIN: number = 0xF811;
-const TAG: string = '[Sample_ManagingExternalStorageDevices]';
-const DELEGATOR: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const BUNDLE_NAME: string = abilityDelegatorRegistry.getArguments().bundleName;
-const driver: Driver = Driver.create();
-
-async function launchEntry(): Promise<void> {
-  const want: Want = { bundleName: BUNDLE_NAME, abilityName: 'EntryAbility' };
-  await DELEGATOR.startAbility(want);
-  await driver.delayMs(800);
-}
-
-async function click(id: string): Promise<void> {
-  const component: Component = await driver.waitForComponent(ON.id(id), 3000);
-  if (!component) {
-    expect().assertFail();
-    return;
-  }
-  await component.click();
-  await driver.delayMs(600);
-}
-
-async function readStatus(): Promise<string> {
-  const status: Component = await driver.waitForComponent(ON.id('statusText'), 3000);
-  if (!status) {
-    return '';
-  }
-  return await status.getText();
-}
+import { DOMAIN, TAG, DELEGATOR, driver, launchEntry, click, readStatus } from './BehaviorRuntime';
 
 export default function managingExternalStorageBehaviorTest(): void {
   describe('ManagingExternalStorageBehaviorTest', () => {

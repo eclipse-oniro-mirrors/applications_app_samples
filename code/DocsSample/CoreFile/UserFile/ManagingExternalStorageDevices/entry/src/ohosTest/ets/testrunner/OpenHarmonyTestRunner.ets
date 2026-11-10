@@ -79,7 +79,7 @@ async function doOnRun(context: common.Context, moduleName: string) {
   const bundleName = abilityDelegatorArguments.bundleName;
   const testAbilityName: string = 'TestAbility';
   const parameters = abilityDelegatorArguments.parameters;
-  const isDebug = parameters['-D'] == 'true';
+  const isDebug = parameters['-D'] === 'true';
   let lMonitor: abilityDelegatorRegistry.AbilityMonitor = {
     abilityName: testAbilityName,
     onAbilityCreate: onAbilityCreateCallback,

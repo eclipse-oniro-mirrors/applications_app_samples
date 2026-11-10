@@ -24,7 +24,6 @@ let subscriber: commonEventManager.CommonEventSubscriber;
 @Component
 struct Index {
   @State message: string = '';
-  private isListening: boolean = false;
 
   build() {
     Column() {
@@ -135,9 +134,9 @@ struct Index {
       }
       // [EndExclude subscribe_events_3]
       if (data.event === 'usual.event.data.VOLUME_MOUNTED' && data.parameters !== undefined) {
-        const volumeId: string = data.parameters.id as string;
-        const volumeState: string = data.parameters.volumeState as string;
-        const volumePath: string = data.parameters.path as string;
+        const volumeId: string = (data.parameters.id as string) ?? '';
+        const volumeState: string = (data.parameters.volumeState as string) ?? '';
+        const volumePath: string = (data.parameters.path as string) ?? '';
         Logger.info(`Volume mounted: id=${volumeId}, state=${volumeState}, path=${volumePath}`);
         this.message = 'Successfully obtained volume device information';
       }

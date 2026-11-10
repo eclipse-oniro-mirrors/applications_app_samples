@@ -26,7 +26,7 @@ export const driver: Driver = Driver.create();
 
 export async function launchEntry(): Promise<void> {
   const want: Want = { bundleName: BUNDLE_NAME, abilityName: 'EntryAbility' };
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt: number = 0; attempt < 3; attempt++) {
     try {
       await DELEGATOR.startAbility(want);
       await driver.delayMs(500);
@@ -72,7 +72,7 @@ export async function readStatus(): Promise<string> {
 }
 
 export async function clickSequence(sequence: string): Promise<void> {
-  for (let i = 0; i < sequence.length; i++) {
+  for (let i: number = 0; i < sequence.length; i++) {
     await click(sequence.charAt(i) === 'S' ? 'subscribeButton' : 'receiveButton');
   }
 }

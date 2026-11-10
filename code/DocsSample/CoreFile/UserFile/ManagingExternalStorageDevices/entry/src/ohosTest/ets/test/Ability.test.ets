@@ -14,7 +14,7 @@
  */
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
 
@@ -25,7 +25,7 @@ const DELAY_TIME_1S = 1000;
 const DELEGATOR: abilityDelegatorRegistry.AbilityDelegator =
   abilityDelegatorRegistry.getAbilityDelegator();
 const BUNDLENAME: string = abilityDelegatorRegistry.getArguments().bundleName;
-const driver = Driver.create();
+const driver: Driver = Driver.create();
 
 async function launchEntryAbility(): Promise<void> {
   const want: Want = {
@@ -70,8 +70,8 @@ export default function ManagingExternalStorageDevicesTest(): void {
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageButtons0001 begin');
         await driver.delayMs(DELAY_TIME_1S);
-        const subscribeButton = await driver.findComponent(ON.text('SubscribeBroadcastEvents'));
-        const receiveButton = await driver.findComponent(ON.text('ReceiveBroadcastNotifications'));
+        const subscribeButton: Component = await driver.findComponent(ON.text('SubscribeBroadcastEvents'));
+        const receiveButton: Component = await driver.findComponent(ON.text('ReceiveBroadcastNotifications'));
         expect(await subscribeButton.getText()).assertEqual('SubscribeBroadcastEvents');
         done();
         hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageButtons0001 end');
@@ -90,11 +90,11 @@ export default function ManagingExternalStorageDevicesTest(): void {
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageSubscribe0001 begin');
         await driver.delayMs(DELAY_TIME_1S);
-        const subscribeButton = await driver.findComponent(ON.text('SubscribeBroadcastEvents'));
+        const subscribeButton: Component = await driver.findComponent(ON.text('SubscribeBroadcastEvents'));
         expect(subscribeButton !== null).assertTrue();
         await subscribeButton?.click();
         await driver.delayMs(DELAY_TIME_1S);
-        const statusText = await driver.findComponent(ON.text('Subscription succeeded'));
+        const statusText: Component = await driver.findComponent(ON.text('Subscription succeeded'));
         done();
         hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageSubscribe0001 end');
       });
@@ -112,11 +112,11 @@ export default function ManagingExternalStorageDevicesTest(): void {
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageReceive0001 begin');
         await driver.delayMs(DELAY_TIME_1S);
-        const receiveButton = await driver.findComponent(ON.text('ReceiveBroadcastNotifications'));
+        const receiveButton: Component = await driver.findComponent(ON.text('ReceiveBroadcastNotifications'));
         expect(await receiveButton.getText()).assertEqual('ReceiveBroadcastNotifications');
         await receiveButton?.click();
         await driver.delayMs(DELAY_TIME_1S);
-        const listeningText = await driver.findComponent(ON.text('Listening for volume events'));
+        const listeningText: Component = await driver.findComponent(ON.text('Listening for volume events'));
         done();
         hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageReceive0001 end');
       });
