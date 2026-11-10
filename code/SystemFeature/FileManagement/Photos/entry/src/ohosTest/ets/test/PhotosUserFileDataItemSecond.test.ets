@@ -3909,3 +3909,417 @@ export default function PhotosUserFileDataItemSecondTest(): void {
      * @tc.name      testPhotosUserFileDataItemSecond0182
      * @tc.desc      Builds second media hash sample 82.
      * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0182 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_81', 682);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/second/81';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/811 90 true');
+      expect(item.getHashCode() === '682').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0182 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0183
+     * @tc.name      testPhotosUserFileDataItemSecond0183
+     * @tc.desc      Builds second media hash sample 83.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0183 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_82', 683);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/second/82';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/820 180 false');
+      expect(item.getHashCode() === '683').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0183 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0184
+     * @tc.name      testPhotosUserFileDataItemSecond0184
+     * @tc.desc      Builds second media hash sample 84.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0184 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_83', 684);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/second/83';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/831 270 true');
+      expect(item.getHashCode() === '684').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0184 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0185
+     * @tc.name      testPhotosUserFileDataItemSecond0185
+     * @tc.desc      Builds second media hash sample 85.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0185 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_84', 685);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/second/84';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/840 0 false');
+      expect(item.getHashCode() === '685').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0185 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0186
+     * @tc.name      testPhotosUserFileDataItemSecond0186
+     * @tc.desc      Builds second media hash sample 86.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0186 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_85', 686);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/second/85';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/851 90 true');
+      expect(item.getHashCode() === '686').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0186 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0187
+     * @tc.name      testPhotosUserFileDataItemSecond0187
+     * @tc.desc      Builds second media hash sample 87.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0187 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_86', 687);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/second/86';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/860 180 false');
+      expect(item.getHashCode() === '687').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0187 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0188
+     * @tc.name      testPhotosUserFileDataItemSecond0188
+     * @tc.desc      Builds second media hash sample 88.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0188 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_87', 688);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/second/87';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/871 270 true');
+      expect(item.getHashCode() === '688').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0188 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0189
+     * @tc.name      testPhotosUserFileDataItemSecond0189
+     * @tc.desc      Builds second media hash sample 89.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0189 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_88', 689);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/second/88';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/880 0 false');
+      expect(item.getHashCode() === '689').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0189 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0190
+     * @tc.name      testPhotosUserFileDataItemSecond0190
+     * @tc.desc      Builds second media hash sample 90.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0190 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_89', 690);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/second/89';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/891 90 true');
+      expect(item.getHashCode() === '690').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0190 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0191
+     * @tc.name      testPhotosUserFileDataItemSecond0191
+     * @tc.desc      Builds second media hash sample 91.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0191 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_90', 691);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/second/90';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/900 180 false');
+      expect(item.getHashCode() === '691').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0191 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0192
+     * @tc.name      testPhotosUserFileDataItemSecond0192
+     * @tc.desc      Builds second media hash sample 92.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0192 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_91', 692);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/second/91';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/911 270 true');
+      expect(item.getHashCode() === '692').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0192 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0193
+     * @tc.name      testPhotosUserFileDataItemSecond0193
+     * @tc.desc      Builds second media hash sample 93.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0193 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_92', 693);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/second/92';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/920 0 false');
+      expect(item.getHashCode() === '693').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0193 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0194
+     * @tc.name      testPhotosUserFileDataItemSecond0194
+     * @tc.desc      Builds second media hash sample 94.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0194 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_93', 694);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/second/93';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/931 90 true');
+      expect(item.getHashCode() === '694').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0194 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0195
+     * @tc.name      testPhotosUserFileDataItemSecond0195
+     * @tc.desc      Builds second media hash sample 95.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0195 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_94', 695);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/second/94';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/940 180 false');
+      expect(item.getHashCode() === '695').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0195 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0196
+     * @tc.name      testPhotosUserFileDataItemSecond0196
+     * @tc.desc      Builds second media hash sample 96.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0196 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_95', 696);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/second/95';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/951 270 true');
+      expect(item.getHashCode() === '696').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0196 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0197
+     * @tc.name      testPhotosUserFileDataItemSecond0197
+     * @tc.desc      Builds second media hash sample 97.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0197 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_96', 697);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/second/96';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/960 0 false');
+      expect(item.getHashCode() === '697').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0197 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0198
+     * @tc.name      testPhotosUserFileDataItemSecond0198
+     * @tc.desc      Builds second media hash sample 98.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0198 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_97', 698);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/second/97';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/971 90 true');
+      expect(item.getHashCode() === '698').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0198 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0199
+     * @tc.name      testPhotosUserFileDataItemSecond0199
+     * @tc.desc      Builds second media hash sample 99.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0199 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_98', 699);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/second/98';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/second/980 180 false');
+      expect(item.getHashCode() === '699').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0199 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_SECOND_0200
+     * @tc.name      testPhotosUserFileDataItemSecond0200
+     * @tc.desc      Builds second media hash sample 100.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemSecond0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0200 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'second_device_99', 700);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/second/99';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/second/991 270 true');
+      expect(item.getHashCode() === '700').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemSecond0200 end');
+    })
+  })
+}
