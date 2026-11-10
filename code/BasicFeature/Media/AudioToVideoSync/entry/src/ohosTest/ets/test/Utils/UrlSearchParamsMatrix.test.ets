@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { url } from '@kit.ArkTS';
 import { paceTurn } from '../Shared/TestPace';
@@ -30,7 +31,7 @@ export default function urlSearchParamsMatrixTest() {
      * @tc.name      testUrlParams0001
      * @tc.desc      Verify the first value of a repeated parameter is returned by get
      */
-    it('testUrlParams0001', 0, () => {
+    it('testUrlParams0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(params().get('a')).assertEqual('1');
       expect(params().get('b')).assertEqual('3');
     })
@@ -40,7 +41,7 @@ export default function urlSearchParamsMatrixTest() {
      * @tc.name      testUrlParams0002
      * @tc.desc      Verify getAll returns every value of a repeated parameter in order
      */
-    it('testUrlParams0002', 0, () => {
+    it('testUrlParams0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const all: string[] = params().getAll('a');
       expect(all.length).assertEqual(2);
       expect(all[0]).assertEqual('1');
@@ -53,7 +54,7 @@ export default function urlSearchParamsMatrixTest() {
      * @tc.name      testUrlParams0003
      * @tc.desc      Verify has distinguishes present and absent keys
      */
-    it('testUrlParams0003', 0, () => {
+    it('testUrlParams0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const query: url.URLSearchParams = params();
       expect(query.has('a')).assertTrue();
       expect(query.has('b')).assertTrue();
@@ -65,7 +66,7 @@ export default function urlSearchParamsMatrixTest() {
      * @tc.name      testUrlParams0004
      * @tc.desc      Verify append adds a new key without disturbing existing values
      */
-    it('testUrlParams0004', 0, () => {
+    it('testUrlParams0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const query: url.URLSearchParams = params();
       query.append('c', '4');
       expect(query.has('c')).assertTrue();
@@ -78,7 +79,7 @@ export default function urlSearchParamsMatrixTest() {
      * @tc.name      testUrlParams0005
      * @tc.desc      Verify set replaces every value of a repeated key with one value
      */
-    it('testUrlParams0005', 0, () => {
+    it('testUrlParams0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const query: url.URLSearchParams = params();
       query.set('a', '9');
       expect(query.get('a')).assertEqual('9');
@@ -91,7 +92,7 @@ export default function urlSearchParamsMatrixTest() {
      * @tc.name      testUrlParams0006
      * @tc.desc      Verify delete removes the key and all of its values
      */
-    it('testUrlParams0006', 0, () => {
+    it('testUrlParams0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const query: url.URLSearchParams = params();
       query.delete('a');
       expect(query.has('a')).assertFalse();
@@ -104,7 +105,7 @@ export default function urlSearchParamsMatrixTest() {
      * @tc.name      testUrlParams0007
      * @tc.desc      Verify string serialization reflects appended and removed entries
      */
-    it('testUrlParams0007', 0, () => {
+    it('testUrlParams0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const query: url.URLSearchParams = params();
       query.delete('b');
       query.append('c', '4');

@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { HashMap, HashSet, ArrayList, Stack } from '@kit.ArkTS';
 import { paceTurn } from '../Shared/TestPace';
@@ -26,7 +27,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0001
      * @tc.desc      Verify HashMap stores, retrieves and reports a key after set
      */
-    it('testCollection0001', 0, () => {
+    it('testCollection0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const map: HashMap<string, number> = new HashMap<string, number>();
       expect(map.length).assertEqual(0);
       map.set('fps', 30);
@@ -40,7 +41,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0002
      * @tc.desc      Verify setting the same key twice keeps one entry and updates the value
      */
-    it('testCollection0002', 0, () => {
+    it('testCollection0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const map: HashMap<string, number> = new HashMap<string, number>();
       map.set('speed', 1);
       map.set('speed', 2);
@@ -53,7 +54,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0003
      * @tc.desc      Verify removing a key returns its value and shrinks the map
      */
-    it('testCollection0003', 0, () => {
+    it('testCollection0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const map: HashMap<string, number> = new HashMap<string, number>();
       map.set('a', 1);
       map.set('b', 2);
@@ -68,7 +69,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0004
      * @tc.desc      Verify clearing a HashMap empties every entry
      */
-    it('testCollection0004', 0, () => {
+    it('testCollection0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const map: HashMap<string, number> = new HashMap<string, number>();
       for (let i = 0; i < 10; i++) {
         map.set(`k${i}`, i);
@@ -84,7 +85,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0005
      * @tc.desc      Verify one hundred distinct keys are all retained with their values
      */
-    it('testCollection0005', 0, () => {
+    it('testCollection0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const map: HashMap<string, number> = new HashMap<string, number>();
       for (let i = 0; i < 100; i++) {
         map.set(`key_${i}`, i * 2);
@@ -100,7 +101,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0006
      * @tc.desc      Verify adding a duplicate to a HashSet returns false and keeps one entry
      */
-    it('testCollection0006', 0, () => {
+    it('testCollection0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const set: HashSet<number> = new HashSet<number>();
       expect(set.add(1)).assertTrue();
       set.add(1);
@@ -115,7 +116,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0007
      * @tc.desc      Verify removing an existing value returns true and drops the entry
      */
-    it('testCollection0007', 0, () => {
+    it('testCollection0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const set: HashSet<string> = new HashSet<string>();
       set.add('media');
       expect(set.remove('media')).assertTrue();
@@ -128,7 +129,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0008
      * @tc.desc      Verify fifty distinct values produce fifty set entries
      */
-    it('testCollection0008', 0, () => {
+    it('testCollection0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const set: HashSet<number> = new HashSet<number>();
       for (let i = 0; i < 50; i++) {
         set.add(i);
@@ -144,7 +145,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0009
      * @tc.desc      Verify ArrayList append, index lookup, membership and removal
      */
-    it('testCollection0009', 0, () => {
+    it('testCollection0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const list: ArrayList<string> = new ArrayList<string>();
       expect(list.add('a')).assertTrue();
       expect(list.add('b')).assertTrue();
@@ -162,7 +163,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0010
      * @tc.desc      Verify removeByIndex returns the removed element and shifts the list
      */
-    it('testCollection0010', 0, () => {
+    it('testCollection0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const list: ArrayList<number> = new ArrayList<number>();
       list.add(10);
       list.add(20);
@@ -178,7 +179,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0011
      * @tc.desc      Verify Stack push and pop follow last-in first-out order
      */
-    it('testCollection0011', 0, () => {
+    it('testCollection0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const stack: Stack<number> = new Stack<number>();
       stack.push(1);
       stack.push(2);
@@ -195,7 +196,7 @@ export default function collectionMatrixTest() {
      * @tc.name      testCollection0012
      * @tc.desc      Verify Stack peek returns the top element without removing it
      */
-    it('testCollection0012', 0, () => {
+    it('testCollection0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const stack: Stack<string> = new Stack<string>();
       stack.push('bottom');
       stack.push('top');

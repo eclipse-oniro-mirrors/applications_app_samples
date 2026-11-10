@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { display } from '@kit.ArkUI';
@@ -68,7 +69,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0001', 0, () => {
+    it('testDisplayMetric0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(target.width).assertLarger(0);
       expect(target.height).assertLarger(0);
@@ -86,7 +87,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0002', 0, () => {
+    it('testDisplayMetric0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: display.Display = defaultDisplay();
       const second: display.Display = defaultDisplay();
       expect(Number.isInteger(first.id)).assertTrue();
@@ -103,7 +104,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0003', 0, () => {
+    it('testDisplayMetric0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(target.name.length).assertLarger(0);
       expect(target.name.trim().length).assertLarger(0);
@@ -119,7 +120,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0004', 0, () => {
+    it('testDisplayMetric0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(typeof target.alive).assertEqual('boolean');
       expect(target.alive).assertTrue();
@@ -142,7 +143,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0005', 0, () => {
+    it('testDisplayMetric0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.densityPixels, 'densityPixels');
       expect(target.densityPixels).assertLargerOrEqual(MIN_DENSITY);
@@ -158,7 +159,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0006', 0, () => {
+    it('testDisplayMetric0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.scaledDensity, 'scaledDensity');
       expect(target.scaledDensity).assertLargerOrEqual(MIN_DENSITY);
@@ -174,7 +175,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0007', 0, () => {
+    it('testDisplayMetric0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(target.densityDPI).assertLarger(0);
       expect(Number.isInteger(target.densityDPI)).assertTrue();
@@ -192,7 +193,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0008', 0, () => {
+    it('testDisplayMetric0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.xDPI, 'xDPI');
       assertFiniteNumber(target.yDPI, 'yDPI');
@@ -210,7 +211,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0009', 0, () => {
+    it('testDisplayMetric0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.refreshRate, 'refreshRate');
       expect(target.refreshRate).assertLargerOrEqual(MIN_REFRESH_RATE);
@@ -229,7 +230,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0010', 0, () => {
+    it('testDisplayMetric0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(isValidRotation(target.rotation)).assertTrue();
       expect(target.rotation % ROTATION_STEP).assertEqual(0);
@@ -245,7 +246,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0011', 0, () => {
+    it('testDisplayMetric0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(isValidOrientation(target.orientation)).assertTrue();
       expect(Number.isInteger(target.orientation)).assertTrue();
@@ -261,7 +262,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0012', 0, () => {
+    it('testDisplayMetric0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(isValidOrientation(target.orientation)).assertTrue();
       expect(isValidRotation(target.rotation)).assertTrue();
@@ -282,7 +283,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0013', 0, () => {
+    it('testDisplayMetric0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const area: number = target.width * target.height;
       const rebuilt: number = target.height * target.width;
@@ -302,7 +303,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0014', 0, () => {
+    it('testDisplayMetric0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: display.Display = defaultDisplay();
       for (let i = 0; i < 50; i++) {
         const current: display.Display = defaultDisplay();
@@ -321,7 +322,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0015', 0, () => {
+    it('testDisplayMetric0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const widthVp: number = target.width / target.densityPixels;
       const heightVp: number = target.height / target.densityPixels;
@@ -341,7 +342,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0016', 0, () => {
+    it('testDisplayMetric0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const widthVp: number = target.width / target.densityPixels;
       const heightVp: number = target.height / target.densityPixels;
@@ -359,7 +360,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0017', 0, () => {
+    it('testDisplayMetric0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const portrait: boolean = isPortraitOrientation(target.orientation);
       const longSide: number = Math.max(target.width, target.height);
@@ -384,7 +385,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0018', 0, () => {
+    it('testDisplayMetric0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const ratio: number = target.height / target.width;
       assertFiniteNumber(ratio, 'aspect-ratio');
@@ -402,7 +403,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0019', 0, () => {
+    it('testDisplayMetric0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const width: number = target.width;
       const height: number = target.height;
@@ -424,7 +425,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0020', 0, () => {
+    it('testDisplayMetric0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const diagonal: number = Math.sqrt(target.width * target.width + target.height * target.height);
       assertFiniteNumber(diagonal, 'diagonal');
@@ -442,7 +443,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0021', 0, () => {
+    it('testDisplayMetric0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const viewportHeight: number = target.width * 9 / 16;
       expect(viewportHeight).assertLarger(0);
@@ -459,7 +460,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0022', 0, () => {
+    it('testDisplayMetric0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const densityFromDpi: number = target.densityDPI / BASE_DPI;
       expect(densityFromDpi).assertClose(target.densityPixels, 0.05);
@@ -475,7 +476,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0023', 0, () => {
+    it('testDisplayMetric0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const interval: number = Math.round(1000 / target.refreshRate);
       expect(interval).assertLargerOrEqual(1);
@@ -492,7 +493,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0024', 0, () => {
+    it('testDisplayMetric0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: display.Display = defaultDisplay();
       const second: display.Display = defaultDisplay();
       expect(typeof first.availableWidth).assertEqual('number');
@@ -511,7 +512,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0025', 0, () => {
+    it('testDisplayMetric0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const byDpi: number = target.densityDPI / BASE_DPI;
       const byPixels: number = target.densityPixels;
@@ -531,7 +532,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0026', 0, () => {
+    it('testDisplayMetric0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       expect(target.state === display.DisplayState.STATE_UNKNOWN).assertFalse();
       expect(target.state).assertLargerOrEqual(display.DisplayState.STATE_OFF);
@@ -547,7 +548,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0027', 0, () => {
+    it('testDisplayMetric0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const widthVp: number = target.width / target.scaledDensity;
       expect(Number.isFinite(widthVp)).assertTrue();
@@ -564,7 +565,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0028', 0, () => {
+    it('testDisplayMetric0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const base: display.Display = defaultDisplay();
       for (let i = 0; i < 30; i++) {
         const current: display.Display = defaultDisplay();
@@ -583,7 +584,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0029', 0, () => {
+    it('testDisplayMetric0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: display.Display = defaultDisplay();
       const second: display.Display = defaultDisplay();
       expect(second.name).assertEqual(first.name);
@@ -602,7 +603,7 @@ export default function displayMetricContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayMetric0030', 0, () => {
+    it('testDisplayMetric0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = defaultDisplay();
       const widthVpRounded: number = Math.round(target.width / target.densityPixels);
       expect(widthVpRounded).assertLarger(0);

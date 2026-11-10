@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { display } from '@kit.ArkUI';
 import { paceTurn } from '../Shared/TestPace';
@@ -32,7 +33,7 @@ export default function displayRefreshMatrixTest() {
      * @tc.name      testDisplayRefresh0001
      * @tc.desc      Verify the refresh rate is a finite positive value inside the hardware band
      */
-    it('testDisplayRefresh0001', 0, () => {
+    it('testDisplayRefresh0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = screen();
       expect(Number.isFinite(target.refreshRate)).assertTrue();
       expect(target.refreshRate).assertLarger(0);
@@ -44,7 +45,7 @@ export default function displayRefreshMatrixTest() {
      * @tc.name      testDisplayRefresh0002
      * @tc.desc      Verify the frame interval is the reciprocal of the refresh rate
      */
-    it('testDisplayRefresh0002', 0, () => {
+    it('testDisplayRefresh0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = screen();
       const interval: number = 1000 / target.refreshRate;
       expect(interval).assertLarger(0);
@@ -58,7 +59,7 @@ export default function displayRefreshMatrixTest() {
      * @tc.name      testDisplayRefresh0003
      * @tc.desc      Verify the rounded frame interval never falls below one millisecond
      */
-    it('testDisplayRefresh0003', 0, () => {
+    it('testDisplayRefresh0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = screen();
       const rounded: number = Math.round(1000 / target.refreshRate);
       expect(rounded).assertLargerOrEqual(1);
@@ -71,7 +72,7 @@ export default function displayRefreshMatrixTest() {
      * @tc.name      testDisplayRefresh0004
      * @tc.desc      Verify the refresh rate is stable across repeated reads
      */
-    it('testDisplayRefresh0004', 0, () => {
+    it('testDisplayRefresh0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: display.Display = screen();
       for (let i = 0; i < 50; i++) {
         expect(screen().refreshRate).assertEqual(first.refreshRate);
@@ -83,7 +84,7 @@ export default function displayRefreshMatrixTest() {
      * @tc.name      testDisplayRefresh0005
      * @tc.desc      Verify a higher refresh rate yields a shorter frame interval when both are sampled
      */
-    it('testDisplayRefresh0005', 0, () => {
+    it('testDisplayRefresh0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = screen();
       const fast: number = target.refreshRate * 2;
       const slow: number = target.refreshRate;
@@ -96,7 +97,7 @@ export default function displayRefreshMatrixTest() {
      * @tc.name      testDisplayRefresh0006
      * @tc.desc      Verify the frame budget can represent a full second across integer refresh rates
      */
-    it('testDisplayRefresh0006', 0, () => {
+    it('testDisplayRefresh0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const rates: number[] = [30, 60, 90, 120];
       for (let i = 0; i < rates.length; i++) {
         const interval: number = 1000 / rates[i];
@@ -110,7 +111,7 @@ export default function displayRefreshMatrixTest() {
      * @tc.name      testDisplayRefresh0007
      * @tc.desc      Verify the display refresh rate is not below the common 30 Hz floor
      */
-    it('testDisplayRefresh0007', 0, () => {
+    it('testDisplayRefresh0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const target: display.Display = screen();
       expect(target.refreshRate).assertLargerOrEqual(30);
       expect(1000 / target.refreshRate).assertLessOrEqual(1000 / 30 + 1e-9);

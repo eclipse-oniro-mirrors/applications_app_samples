@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { paceTurn } from '../Shared/TestPace';
 import { CommonConstants } from '../../../../main/ets/common/CommonConstants';
@@ -33,7 +34,7 @@ export default function compatibilityMatrixTest() {
      * @tc.name      testCompatibility0001
      * @tc.desc      Verify every width and density pair keeps the viewport ratio and vp round trip
      */
-    it('testCompatibility0001', 0, () => {
+    it('testCompatibility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTHS.length; i++) {
         for (let j = 0; j < DENSITIES.length; j++) {
           const widthVp: number = WIDTHS[i] / DENSITIES[j];
@@ -49,7 +50,7 @@ export default function compatibilityMatrixTest() {
      * @tc.name      testCompatibility0002
      * @tc.desc      Verify the viewport height is strictly increasing across the width ladder
      */
-    it('testCompatibility0002', 0, () => {
+    it('testCompatibility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       let previous: number = -1;
       for (let i = 0; i < WIDTHS.length; i++) {
         const height: number = heightOf(WIDTHS[i]);
@@ -64,7 +65,7 @@ export default function compatibilityMatrixTest() {
      * @tc.name      testCompatibility0003
      * @tc.desc      Verify doubling the width at each density doubles the derived height
      */
-    it('testCompatibility0003', 0, () => {
+    it('testCompatibility0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const bases: number[] = [320, 360, 480, 720];
       for (let i = 0; i < bases.length; i++) {
         expect(heightOf(bases[i] * 2)).assertClose(heightOf(bases[i]) * 2, 1e-9);
