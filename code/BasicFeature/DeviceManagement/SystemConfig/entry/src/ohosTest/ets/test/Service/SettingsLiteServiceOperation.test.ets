@@ -1,0 +1,250 @@
+import { describe, it, expect } from '@ohos/hypium';
+import { common, Want } from '@kit.AbilityKit';
+import {
+  SettingsLiteService,
+  SettingsItemModel,
+  SettingsOperationStatus,
+  ClickResult
+} from 'library';
+
+class RecordingAbilityContext {
+  capturedWant: Want | null = null;
+  callCount: number = 0;
+
+  startAbility(want: Want): Promise<void> {
+    this.capturedWant = want;
+    this.callCount += 1;
+    return Promise.resolve();
+  }
+
+  asUIAbilityContext(): common.UIAbilityContext {
+    return this as Object as common.UIAbilityContext;
+  }
+}
+
+class StartAbilityTestError extends Error {
+  readonly code: number;
+
+  constructor(code: number, message: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
+class ThrowingAbilityContext {
+  private readonly testError: StartAbilityTestError;
+
+  constructor(testError: StartAbilityTestError) {
+    this.testError = testError;
+  }
+
+  startAbility(_want: Want): Promise<void> {
+    throw this.testError;
+  }
+
+  asUIAbilityContext(): common.UIAbilityContext {
+    return this as Object as common.UIAbilityContext;
+  }
+}
+
+function assertIdle(model: SettingsItemModel): void {
+  expect(model.operationStatus).assertEqual(SettingsOperationStatus.IDLE);
+  expect(model.operationCount).assertEqual(0);
+  expect(model.errorMessage).assertEqual('');
+}
+
+/**
+ * SettingsLiteService 核心公开操作测试。
+ */
+export default function settingsLiteServiceOperationTest(): void {
+  describe('SettingsLiteServiceOperationTest', () => {
+    /**
+     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0100
+     * @tc.name: testSettingsLiteServiceOperation0001
+     * @tc.desc: Verify PIN settings Want and successful service state.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testSettingsLiteServiceOperation0001', 0, () => {
+      const service: SettingsLiteService = new SettingsLiteService();
+      const context: RecordingAbilityContext = new RecordingAbilityContext();
+      service.initialize();
+      const opened: boolean = service.openPinSettingPage(context.asUIAbilityContext());
+      const captured: Want | null = context.capturedWant;
+      const wantAction: string = captured === null ? '' : (captured.action ?? '');
+      const wantUri: string = captured === null ? '' : (captured.uri ?? '');
+      expect(opened).assertTrue();
+      expect(context.callCount).assertEqual(1);
+      expect(wantAction).assertEqual('action.settings.security');
+      expect(wantUri).assertEqual('systemui://security/pin');
+      expect(service.getPinModel().operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
+      expect(service.getPinModel().operationCount).assertEqual(1);
+      expect(service.getPinModel().description).assertEqual('PIN 设置页面已打开');
+      expect(service.getNfcModel().operationStatus).assertEqual(SettingsOperationStatus.IDLE);
+      service.destroy();
+    });
+
+    /**
+     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0200
+     * @tc.name: testSettingsLiteServiceOperation0002
+     * @tc.desc: Verify NFC settings Want and successful service state.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testSettingsLiteServiceOperation0002', 0, () => {
+      const service: SettingsLiteService = new SettingsLiteService();
+      const context: RecordingAbilityContext = new RecordingAbilityContext();
+      service.initialize();
+      const opened: boolean = service.openNfcSettingsPage(context.asUIAbilityContext());
+      const captured: Want | null = context.capturedWant;
+      const wantAction: string = captured === null ? '' : (captured.action ?? '');
+      const wantUri: string = captured === null ? '' : (captured.uri ?? '');
+      expect(opened).assertTrue();
+      expect(context.callCount).assertEqual(1);
+      expect(wantAction).assertEqual('action.settings.nfc');
+      expect(wantUri).assertEqual('systemui://settings/nfc');
+      expect(service.getNfcModel().operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
+      expect(service.getNfcModel().operationCount).assertEqual(1);
+      expect(service.getNfcModel().description).assertEqual('NFC 设置页面已打开');
+      expect(service.getPinModel().operationStatus).assertEqual(SettingsOperationStatus.IDLE);
+      service.destroy();
+    });
+
+    /**
+     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0300
+     * @tc.name: testSettingsLiteServiceOperation0003
+     * @tc.desc: Verify double-click settings Want and successful service state.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testSettingsLiteServiceOperation0003', 0, () => {
+      const service: SettingsLiteService = new SettingsLiteService();
+      const context: RecordingAbilityContext = new RecordingAbilityContext();
+      service.initialize();
+      const opened: boolean = service.openDoubleClickSettingsPage(context.asUIAbilityContext());
+      const captured: Want | null = context.capturedWant;
+      const wantAction: string = captured === null ? '' : (captured.action ?? '');
+      const wantUri: string = captured === null ? '' : (captured.uri ?? '');
+      expect(opened).assertTrue();
+      expect(context.callCount).assertEqual(1);
+      expect(wantAction).assertEqual('action.settings.gesture');
+      expect(wantUri).assertEqual('systemui://settings/gesture');
+      expect(service.getDoubleClickModel().operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
+      expect(service.getDoubleClickModel().operationCount).assertEqual(1);
+      expect(service.getDoubleClickModel().description).assertEqual('双击设置页面已打开');
+      expect(service.getNfcModel().operationStatus).assertEqual(SettingsOperationStatus.IDLE);
+      service.destroy();
+    });
+
+    /**
+     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0400
+     * @tc.name: testSettingsLiteServiceOperation0004
+     * @tc.desc: Verify PIN synchronous failure details and model isolation.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testSettingsLiteServiceOperation0004', 0, () => {
+      const service: SettingsLiteService = new SettingsLiteService();
+      const context: ThrowingAbilityContext = new ThrowingAbilityContext(
+        new StartAbilityTestError(401, 'PIN start failed'));
+      service.initialize();
+      const opened: boolean = service.openPinSettingPage(context.asUIAbilityContext());
+      const model: SettingsItemModel = service.getPinModel();
+      expect(opened).assertFalse();
+      expect(model.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
+      expect(model.errorCode).assertEqual(401);
+      expect(model.errorMessage).assertEqual('PIN start failed');
+      expect(model.operationCount).assertEqual(1);
+      assertIdle(service.getNfcModel());
+      assertIdle(service.getDoubleClickModel());
+      service.destroy();
+    });
+
+    /**
+     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0500
+     * @tc.name: testSettingsLiteServiceOperation0005
+     * @tc.desc: Verify NFC synchronous failure details and model isolation.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testSettingsLiteServiceOperation0005', 0, () => {
+      const service: SettingsLiteService = new SettingsLiteService();
+      const context: ThrowingAbilityContext = new ThrowingAbilityContext(
+        new StartAbilityTestError(402, 'NFC start failed'));
+      service.initialize();
+      const opened: boolean = service.openNfcSettingsPage(context.asUIAbilityContext());
+      const model: SettingsItemModel = service.getNfcModel();
+      expect(opened).assertFalse();
+      expect(model.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
+      expect(model.errorCode).assertEqual(402);
+      expect(model.errorMessage).assertEqual('NFC start failed');
+      expect(model.operationCount).assertEqual(1);
+      assertIdle(service.getPinModel());
+      assertIdle(service.getDoubleClickModel());
+      service.destroy();
+    });
+
+    /**
+     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0600
+     * @tc.name: testSettingsLiteServiceOperation0006
+     * @tc.desc: Verify double-click synchronous failure details and model isolation.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testSettingsLiteServiceOperation0006', 0, () => {
+      const service: SettingsLiteService = new SettingsLiteService();
+      const context: ThrowingAbilityContext = new ThrowingAbilityContext(
+        new StartAbilityTestError(403, 'Gesture start failed'));
+      service.initialize();
+      const opened: boolean = service.openDoubleClickSettingsPage(context.asUIAbilityContext());
+      const model: SettingsItemModel = service.getDoubleClickModel();
+      expect(opened).assertFalse();
+      expect(model.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
+      expect(model.errorCode).assertEqual(403);
+      expect(model.errorMessage).assertEqual('Gesture start failed');
+      expect(model.operationCount).assertEqual(1);
+      assertIdle(service.getPinModel());
+      assertIdle(service.getNfcModel());
+      service.destroy();
+    });
+
+    /**
+     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0700
+     * @tc.name: testSettingsLiteServiceOperation0007
+     * @tc.desc: Verify double-click query callback and successful model result.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testSettingsLiteServiceOperation0007', 0, () => {
+      const service: SettingsLiteService = new SettingsLiteService();
+      const context: RecordingAbilityContext = new RecordingAbilityContext();
+      let callbackCount: number = 0;
+      let callbackError: Object | null = new Error('Callback not invoked');
+      let callbackResult: ClickResult = ClickResult.ERROR;
+      let callbackErrorCode: number = -1;
+      service.initialize();
+      service.isDoubleClickAppForSelf(context.asUIAbilityContext(), (err: Object | null, cb): void => {
+        callbackCount += 1;
+        callbackError = err;
+        callbackResult = cb.result;
+        callbackErrorCode = cb.errorCode;
+      });
+      const model: SettingsItemModel = service.getDoubleClickModel();
+      expect(callbackCount).assertEqual(1);
+      expect(callbackError === null).assertTrue();
+      expect(callbackResult).assertEqual(ClickResult.NOT_SELF);
+      expect(callbackErrorCode).assertEqual(0);
+      expect(model.operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
+      expect(model.clickResult).assertEqual(ClickResult.NOT_SELF);
+      expect(model.operationCount).assertEqual(1);
+      service.destroy();
+    });
+  });
+}
