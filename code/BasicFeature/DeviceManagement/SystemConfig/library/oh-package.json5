@@ -1,0 +1,9 @@
+{
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "library",
+  "description": "SystemConfig library module",
+  "version": "1.0.0",
+  "main": "Index.ets",
+  "dependencies": {}
+}
