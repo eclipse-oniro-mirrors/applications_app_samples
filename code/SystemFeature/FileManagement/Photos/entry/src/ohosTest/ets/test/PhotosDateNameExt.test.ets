@@ -1549,3 +1549,176 @@ export default function PhotosDateNameExtTest(): void {
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
       HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0090 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0091
+     * @tc.name      testPhotosDateNameExt0091
+     * @tc.desc      Generates timestamp image name sample 11.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0091 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0091 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0092
+     * @tc.name      testPhotosDateNameExt0092
+     * @tc.desc      Generates timestamp image name sample 12.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0092 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0092 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0093
+     * @tc.name      testPhotosDateNameExt0093
+     * @tc.desc      Generates timestamp image name sample 13.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0093 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0093 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0094
+     * @tc.name      testPhotosDateNameExt0094
+     * @tc.desc      Generates timestamp image name sample 14.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0094 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0094 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0095
+     * @tc.name      testPhotosDateNameExt0095
+     * @tc.desc      Generates timestamp image name sample 15.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0095 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0095 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0096
+     * @tc.name      testPhotosDateNameExt0096
+     * @tc.desc      Generates timestamp image name sample 16.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0096 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0096 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0097
+     * @tc.name      testPhotosDateNameExt0097
+     * @tc.desc      Generates timestamp image name sample 17.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0097 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0097 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0098
+     * @tc.name      testPhotosDateNameExt0098
+     * @tc.desc      Generates timestamp image name sample 18.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0098 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0098 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0099
+     * @tc.name      testPhotosDateNameExt0099
+     * @tc.desc      Generates timestamp image name sample 19.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0099 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0099 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_EXT_0100
+     * @tc.name      testPhotosDateNameExt0100
+     * @tc.desc      Generates timestamp image name sample 20.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameExt0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0100 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(12)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0100 end');
+    })
+  })
+}
