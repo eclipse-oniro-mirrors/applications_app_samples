@@ -303,3 +303,320 @@ export default function PhotosUiTest(): void {
       const newName = `phtest_${Date.now()}`;
       await text.inputText(newName);
       await driver.delayMs(800);
+      const yesText = await appText('yes');
+      const btnOK: Component = await waitForComponent(driver, ON.text(yesText));
+      await btnOK.click();
+      await driver.delayMs(2500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await enterAllPhotos(driver);
+      await openFirstGridItem(driver);
+      await ensureBrowserBar(driver, await appText('action_info'), '5');
+      const btnInfo: Component = await waitForComponent(driver, ON.id('5'), 6, '0004-info');
+      await btnInfo.click();
+      await driver.delayMs(2000);
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'check text:' + newName);
+      await driver.assertComponentExist(ON.text(newName));
+      await driver.pressBack();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'Rename end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_UI_0500
+     * @tc.name      testPhotosFavorite0005
+     * @tc.desc      Favoriting a photo makes it appear in the favorites album.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosFavorite0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'Favorite begin');
+      const driver = Driver.create();
+      await goHome(driver);
+      await enterAllPhotos(driver);
+      await openFirstGridItem(driver);
+      const favorText = await appText('action_not_favorite');
+      const btnFavor: Component = await waitForComponent(driver, ON.text(favorText), 10);
+      await btnFavor.click();
+      await driver.delayMs(2000);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await driver.swipe(100, 1000, 100, 200);
+      await driver.delayMs(2000);
+      const favorAlbumText = await appText('album_favor');
+      const favorAlbum: Component = await waitForComponent(driver, ON.text(favorAlbumText));
+      await favorAlbum.click();
+      await driver.delayMs(2000);
+      const items = await driver.findComponents(ON.type('GridItem'));
+      expect(items.length).assertLarger(0);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'Favorite end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_UI_0600
+     * @tc.name      testPhotosUnfavorite0006
+     * @tc.desc      Unfavoriting a photo removes it from the favorites album.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUnfavorite0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'Unfavorite begin');
+      await seedTestImages(1);
+      const driver = Driver.create();
+      await goHome(driver);
+      await enterAllPhotos(driver);
+      await openFirstGridItem(driver);
+      await ensureBrowserBar(driver, await appText('action_not_favorite'), '14');
+      const btnFavor: Component = await waitForComponent(driver, ON.id('14'), 6, '0006-favor-btn');
+      await btnFavor.click();
+      await driver.delayMs(2000);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      const favorAlbumText = await appText('album_favor');
+      const favorAlbum: Component = await waitForComponent(driver, ON.text(favorAlbumText), 8, '0006-favor-album-card');
+      await favorAlbum.click();
+      await driver.delayMs(2000);
+      const items = await driver.findComponents(ON.type('GridItem'));
+      expect(items.length).assertLarger(0);
+      const favCount = items.length;
+      await openFirstGridItem(driver);
+      await ensureBrowserBar(driver, await appText('action_favorite'), '13');
+      const btnUnfavor: Component = await waitForComponent(driver, ON.id('13'), 6, '0006-unfavor-btn');
+      await btnUnfavor.click();
+      await driver.delayMs(2500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await goHome(driver);
+      const favorAlbumAfter: Component = await waitForComponent(driver, ON.text(favorAlbumText), 8,
+        '0006-favor-album-again');
+      await favorAlbumAfter.click();
+      await driver.delayMs(2000);
+      let afterCount = favCount;
+      for (let i = 0; i < 10; i++) {
+        const now = await driver.findComponents(ON.type('GridItem'));
+        afterCount = now.length;
+        if (afterCount < favCount) {
+          break;
+        }
+        await driver.delayMs(1000);
+      }
+      expect(afterCount).assertLess(favCount);
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'Unfavorite end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_UI_0700
+     * @tc.name      testPhotosCreateAlbum0007
+     * @tc.desc      Creating a user album and adding a photo puts the album into the media library.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosCreateAlbum0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'CreateAlbum begin');
+      const driver = Driver.create();
+      await goHome(driver);
+      await driver.assertComponentExist(ON.id('28'));
+      const btnNew: Component = await driver.findComponent(ON.id('28'));
+      await btnNew.click();
+      await driver.delayMs(1000);
+      const albumName = `ualbum_${Date.now()}`;
+      const text = await waitForComponent(driver, ON.type('TextInput'), 8, '0007-name-input');
+      await text.clearText();
+      await text.inputText(albumName);
+      await driver.delayMs(800);
+      const yesText = await appText('yes');
+      const btnConfirm: Component = await waitForComponent(driver, ON.text(yesText), 8, '0007-confirm');
+      await btnConfirm.click();
+      await driver.delayMs(2500);
+      const selectText = await appText('album_all');
+      if (!(await componentExists(driver, ON.text(selectText), 2))) {
+        let joined = '';
+        const texts: Array<Component> = await driver.findComponents(ON.type('Text'));
+        for (let i = 0; i < texts.length; i++) {
+          joined += `[${await texts[i].getText()}]`;
+        }
+        throw new Error(`NO_SELECT_PAGE=${joined}`);
+      }
+      const gridItems = await driver.findComponents(ON.type('GridItem'));
+      if (gridItems.length > 1) {
+        await gridItems[1].click();
+      } else if (gridItems.length === 1) {
+        await gridItems[0].click();
+      }
+      await driver.delayMs(1500);
+      const btnOK: Component = await waitForComponent(driver, ON.id('1'), 8, '0007-ok');
+      await btnOK.click();
+      await driver.delayMs(3000);
+      const appContext2 = await getAppContext();
+      const helper2 = photoAccessHelper.getPhotoAccessHelper(appContext2);
+      let found = false;
+      let names = '';
+      for (let attempt = 0; attempt < 3 && !found; attempt++) {
+        await driver.delayMs(2000);
+        const userAlbums = await helper2.getAlbums(photoAccessHelper.AlbumType.USER,
+          photoAccessHelper.AlbumSubtype.USER_GENERIC);
+        const albumObjects = await userAlbums.getAllObjects();
+        for (let i = 0; i < albumObjects.length; i++) {
+          names += `[${albumObjects[i].albumName}]`;
+          if (albumObjects[i].albumName === albumName) {
+            found = true;
+          }
+        }
+      }
+      if (!found) {
+        throw new Error(`ALBUM_NAMES=${names}`);
+      }
+      expect(found).assertTrue();
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'CreateAlbum end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_UI_0800
+     * @tc.name      testPhotosDeleteAlbum0008
+     * @tc.desc      Long pressing the user album and confirming delete removes it from the library.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDeleteAlbum0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteAlbum begin');
+      const driver = Driver.create();
+      await goHome(driver);
+      const textNodes = await driver.findComponents(ON.type('Text'));
+      let albumCard: Component | null = null;
+      let albumCardText = '';
+      for (let i = 0; i < textNodes.length; i++) {
+        const t: string = await textNodes[i].getText();
+        if (t.startsWith('ualbum_')) {
+          albumCard = textNodes[i];
+          albumCardText = t;
+          break;
+        }
+      }
+      expect(albumCard !== null).assertTrue();
+      if (albumCard === null) {
+        return;
+      }
+      await albumCard.longClick();
+      await driver.delayMs(1500);
+      const deleteText = await appText('action_delete');
+      const btnDelete: Component = await waitForComponent(driver, ON.text(deleteText));
+      await btnDelete.click();
+      await driver.delayMs(1500);
+      await driver.assertComponentExist(ON.id('deleteConfirm'));
+      const btnDeleteConfirm: Component = await driver.findComponent(ON.id('deleteConfirm'));
+      await btnDeleteConfirm.click();
+      await driver.delayMs(2500);
+      const appContext2 = await getAppContext();
+      const helper2 = photoAccessHelper.getPhotoAccessHelper(appContext2);
+      const userAlbums = await helper2.getAlbums(photoAccessHelper.AlbumType.USER,
+        photoAccessHelper.AlbumSubtype.USER_GENERIC);
+      const albumObjects = await userAlbums.getAllObjects();
+      let stillThere = false;
+      for (let i = 0; i < albumObjects.length; i++) {
+        if (albumObjects[i].albumName === albumCardText) {
+          stillThere = true;
+        }
+      }
+      expect(stillThere).assertFalse();
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteAlbum end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_UI_0900
+     * @tc.name      testPhotosDeleteToTrash0009
+     * @tc.desc      Deleting a photo moves it into the recently deleted album.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDeleteToTrash0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteToTrash begin');
+      await seedTestImages(1);
+      const driver = Driver.create();
+      await goHome(driver);
+      await enterAllPhotos(driver);
+      await openFirstGridItem(driver);
+      await ensureBrowserBar(driver, await appText('action_delete'), '7');
+      const deleteText = await appText('action_delete');
+      const btnDelete: Component = await waitForComponent(driver, ON.text(deleteText));
+      await btnDelete.click();
+      await driver.delayMs(1500);
+      await driver.assertComponentExist(ON.id('deleteConfirm'));
+      const btnDeleteConfirm: Component = await driver.findComponent(ON.id('deleteConfirm'));
+      await btnDeleteConfirm.click();
+      await driver.delayMs(2500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await driver.pressBack();
+      await driver.delayMs(1500);
+      await driver.swipe(100, 1000, 100, 200);
+      await driver.delayMs(2000);
+      const recycleText = await appText('album_recycle');
+      const recycleAlbum: Component = await waitForComponent(driver, ON.text(recycleText));
+      await recycleAlbum.click();
+      await driver.delayMs(2000);
+      const items = await driver.findComponents(ON.type('GridItem'));
+      expect(items.length).assertLarger(0);
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteToTrash end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_UI_1000
+     * @tc.name      testPhotosRecover0010
+     * @tc.desc      Recovering a trashed photo shrinks the recently deleted album by one.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosRecover0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'Recover begin');
+      const driver = Driver.create();
+      await goHome(driver);
+      const recycleText = await appText('album_recycle');
+      const recycleAlbum: Component = await waitForComponent(driver, ON.text(recycleText));
+      await recycleAlbum.click();
+      await driver.delayMs(2000);
+      const recycleItems = await driver.findComponents(ON.type('GridItem'));
+      const beforeRecover = recycleItems.length;
+      expect(beforeRecover > 0).assertTrue();
+      await openFirstGridItem(driver);
+      await ensureBrowserBar(driver, await appText('action_recover'));
+      const recoverText = await appText('action_recover');
+      const btnRecover: Component = await waitForComponent(driver, ON.text(recoverText));
+      await btnRecover.click();
+      await driver.delayMs(2500);
+      await goHome(driver);
+      const recycleAlbumAfter: Component = await waitForComponent(driver, ON.text(recycleText), 8,
+        '0010-recycle-again');
+      await recycleAlbumAfter.click();
+      await driver.delayMs(2000);
+      let afterRecover = beforeRecover;
+      for (let i = 0; i < 25; i++) {
+        const now = await driver.findComponents(ON.type('GridItem'));
+        afterRecover = now.length;
+        if (afterRecover < beforeRecover) {
+          break;
+        }
+        await driver.delayMs(1000);
+      }
+      expect(afterRecover).assertEqual(beforeRecover - 1);
+      HiLog.info(DOMAIN, TAG, BUNDLE + 'Recover end');
+    })
+  })
+}
