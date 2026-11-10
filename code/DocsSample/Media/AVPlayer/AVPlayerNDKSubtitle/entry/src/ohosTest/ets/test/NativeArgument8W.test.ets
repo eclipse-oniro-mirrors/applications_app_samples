@@ -12,11 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import {beforeEach, describe, it, expect} from '@ohos/hypium';
 
 
 export default function nativeArgument8wTest() {
   describe('nativeArgument8wTest', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve: () => void) => {
+        setTimeout(() => {
+          resolve();
+        }, 10);
+      });
+    });
+
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_8W_ARG_0001
      * @tc.name      test8wNativeArgument0001

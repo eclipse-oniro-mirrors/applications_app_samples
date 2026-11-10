@@ -12,10 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import {beforeEach, describe, it, expect} from '@ohos/hypium';
 
 export default function playerContractSafeTailTest() {
   describe('playerContractSafeTailTest', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve: () => void) => {
+        setTimeout(() => {
+          resolve();
+        }, 10);
+      });
+    });
+
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_PC2_0001
      * @tc.name      testSafePlayerApi0001
