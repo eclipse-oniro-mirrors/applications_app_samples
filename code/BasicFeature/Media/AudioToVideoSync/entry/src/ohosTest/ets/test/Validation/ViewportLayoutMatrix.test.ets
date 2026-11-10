@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { display } from '@kit.ArkUI';
@@ -104,7 +105,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0001', 0, () => {
+    it('testViewportLayout0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.DEFAULT_WIDTH).assertLarger(0);
       expect(CommonConstants.DEFAULT_HEIGHT).assertLarger(0);
       expect(CommonConstants.DEFAULT_HEIGHT * TARGET_DENOMINATOR)
@@ -120,7 +121,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0002', 0, () => {
+    it('testViewportLayout0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const widthToHeight: number = CommonConstants.DEFAULT_WIDTH / CommonConstants.DEFAULT_HEIGHT;
       const heightToWidth: number = CommonConstants.DEFAULT_HEIGHT / CommonConstants.DEFAULT_WIDTH;
       expect(widthToHeight * heightToWidth).assertClose(1, 1e-12);
@@ -136,7 +137,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0003', 0, () => {
+    it('testViewportLayout0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const height: number = viewportHeight(CommonConstants.DEFAULT_WIDTH);
       expect(height).assertClose(CommonConstants.DEFAULT_HEIGHT, 1e-9);
       expect(height).assertEqual(CommonConstants.DEFAULT_HEIGHT);
@@ -152,7 +153,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0004', 0, () => {
+    it('testViewportLayout0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         const sample: WidthSample = WIDTH_SAMPLES[i];
         const height: number = viewportHeight(sample.width);
@@ -170,7 +171,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0005', 0, () => {
+    it('testViewportLayout0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       let previousHeight: number = -1;
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         const current: number = viewportHeight(WIDTH_SAMPLES[i].width);
@@ -187,7 +188,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0006', 0, () => {
+    it('testViewportLayout0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const bases: number[] = [320, 360, 720, 1080, 1920];
       for (let i = 0; i < bases.length; i++) {
         const single: number = viewportHeight(bases[i]);
@@ -204,7 +205,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0007', 0, () => {
+    it('testViewportLayout0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         const sample: WidthSample = WIDTH_SAMPLES[i];
         const text: string = heightWithUnit(sample.width);
@@ -224,7 +225,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0008', 0, () => {
+    it('testViewportLayout0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const text: string = heightWithUnit(1920);
       expect(text).assertEqual('1080px');
       expect(text.indexOf(CommonConstants.PX)).assertEqual(text.length - PX_LENGTH);
@@ -240,7 +241,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0009', 0, () => {
+    it('testViewportLayout0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(viewportHeight(0)).assertEqual(0);
       expect(heightWithUnit(0)).assertEqual(`0${CommonConstants.PX}`);
       expect(numericPartOf(heightWithUnit(0))).assertEqual(0);
@@ -255,7 +256,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0010', 0, () => {
+    it('testViewportLayout0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const height: number = viewportHeight(1);
       expect(height).assertLarger(0);
       expect(height).assertLess(1);
@@ -271,7 +272,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0011', 0, () => {
+    it('testViewportLayout0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const fractions: number[] = [0.5, 1.5, 2.25, 10.75, 359.5, 719.25, 1079.99];
       for (let i = 0; i < fractions.length; i++) {
         const width: number = fractions[i];
@@ -289,7 +290,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0012', 0, () => {
+    it('testViewportLayout0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const height: number = viewportHeight(SIXTEEN_BIT_LIMIT);
       assertFiniteNumber(height, 'sixteen-bit-limit');
       expect(height).assertLarger(0);
@@ -305,7 +306,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0013', 0, () => {
+    it('testViewportLayout0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const height: number = viewportHeight(deviceDisplay.width);
       assertFiniteNumber(height, 'device-height');
@@ -322,7 +323,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0014', 0, () => {
+    it('testViewportLayout0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       expect(deviceDisplay.width).assertLarger(0);
       expect(deviceDisplay.height).assertLarger(0);
@@ -340,7 +341,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0015', 0, () => {
+    it('testViewportLayout0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const expectedByDisplay: number = deviceDisplay.height * TARGET_RATIO *
         (deviceDisplay.width / deviceDisplay.height);
@@ -357,7 +358,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0016', 0, () => {
+    it('testViewportLayout0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.PX.length).assertLarger(0);
       expect(CommonConstants.PX).assertEqual(CommonConstants.PX.toLowerCase());
       expect(CommonConstants.PX).assertEqual('px');
@@ -373,7 +374,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0017', 0, () => {
+    it('testViewportLayout0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.FULL_SIZE).assertEqual('100%');
       expect(CommonConstants.FULL_SIZE.endsWith('%')).assertTrue();
       const numeric: number = Number(CommonConstants.FULL_SIZE.substring(0, CommonConstants.FULL_SIZE.length - 1));
@@ -390,7 +391,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0018', 0, () => {
+    it('testViewportLayout0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.DEFAULT_VALUE).assertEqual(0);
       expect(Number.isInteger(CommonConstants.DEFAULT_VALUE)).assertTrue();
       expect(CommonConstants.DEFAULT_VALUE).assertLargerOrEqual(0);
@@ -406,7 +407,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0019', 0, () => {
+    it('testViewportLayout0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.DURATION).assertLarger(0);
       expect(Number.isInteger(CommonConstants.DURATION)).assertTrue();
       expect(CommonConstants.DURATION).assertLargerOrEqual(1000);
@@ -422,7 +423,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0020', 0, () => {
+    it('testViewportLayout0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       expect(CommonConstants.BOTTOM).assertLargerOrEqual(0);
       expect(Number.isInteger(CommonConstants.BOTTOM)).assertTrue();
@@ -438,7 +439,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0021', 0, () => {
+    it('testViewportLayout0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.INDEX_TAG.length).assertLarger(0);
       expect(CommonConstants.INDEX_TAG).assertEqual(CommonConstants.INDEX_TAG.toUpperCase());
       expect(CommonConstants.INDEX_TAG).assertEqual('INDEX');
@@ -454,7 +455,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0022', 0, () => {
+    it('testViewportLayout0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.DEFAULT_WIDTH).assertLarger(CommonConstants.DEFAULT_HEIGHT);
       expect(CommonConstants.DEFAULT_WIDTH === CommonConstants.DEFAULT_HEIGHT).assertFalse();
       expect(CommonConstants.DEFAULT_WIDTH - CommonConstants.DEFAULT_HEIGHT).assertEqual(840);
@@ -470,7 +471,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0023', 0, () => {
+    it('testViewportLayout0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(Number.isInteger(CommonConstants.DEFAULT_WIDTH)).assertTrue();
       expect(Number.isInteger(CommonConstants.DEFAULT_HEIGHT)).assertTrue();
       expect(Number.isSafeInteger(CommonConstants.DEFAULT_WIDTH)).assertTrue();
@@ -487,7 +488,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0024', 0, () => {
+    it('testViewportLayout0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(CommonConstants.DEFAULT_WIDTH % TARGET_DENOMINATOR).assertEqual(0);
       expect(CommonConstants.DEFAULT_HEIGHT % TARGET_NUMERATOR).assertEqual(0);
       expect(CommonConstants.DEFAULT_WIDTH / TARGET_DENOMINATOR)
@@ -504,7 +505,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0025', 0, () => {
+    it('testViewportLayout0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < SCALE_SAMPLES.length; i++) {
         const scale: number = SCALE_SAMPLES[i].scale;
         const width: number = CommonConstants.DEFAULT_WIDTH * scale;
@@ -523,7 +524,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0026', 0, () => {
+    it('testViewportLayout0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < SCALE_SAMPLES.length; i++) {
         const density: number = SCALE_SAMPLES[i].scale;
         const widthInVp: number = CommonConstants.DEFAULT_WIDTH / density;
@@ -541,7 +542,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0027', 0, () => {
+    it('testViewportLayout0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const text: string = heightWithUnit(deviceDisplay.width);
       const parsed: number = numericPartOf(text);
@@ -558,7 +559,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0028', 0, () => {
+    it('testViewportLayout0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const height: number = viewportHeight(deviceDisplay.width);
       expect(height).assertLess(deviceDisplay.width);
@@ -574,7 +575,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0029', 0, () => {
+    it('testViewportLayout0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const heights: number[] = [];
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         heights.push(viewportHeight(WIDTH_SAMPLES[i].width));
@@ -597,7 +598,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0030', 0, () => {
+    it('testViewportLayout0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const texts: string[] = [];
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         texts.push(heightWithUnit(WIDTH_SAMPLES[i].width));
@@ -620,7 +621,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0031', 0, () => {
+    it('testViewportLayout0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const oddWidth: number = 1921;
       const exact: number = viewportHeight(oddWidth);
       const floored: number = Math.floor(oddWidth * TARGET_RATIO);
@@ -637,7 +638,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0032', 0, () => {
+    it('testViewportLayout0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       expect(deviceDisplay.densityPixels).assertLarger(0);
       const widthVp: number = deviceDisplay.width / deviceDisplay.densityPixels;
@@ -658,7 +659,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0033', 0, () => {
+    it('testViewportLayout0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const widthVp: number = deviceDisplay.width / deviceDisplay.densityPixels;
       const heightFromVp: number = viewportHeight(widthVp) * deviceDisplay.densityPixels;
@@ -675,7 +676,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0034', 0, () => {
+    it('testViewportLayout0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const step: number = 10;
       const base: number = 700;
       let previous: number = viewportHeight(base);
@@ -694,7 +695,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0035', 0, () => {
+    it('testViewportLayout0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const pairs: number[][] = [[320, 480], [360, 540], [720, 1080], [1280, 1920]];
       for (let i = 0; i < pairs.length; i++) {
         const low: number = viewportHeight(pairs[i][0]);
@@ -712,7 +713,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0036', 0, () => {
+    it('testViewportLayout0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         const text: string = heightWithUnit(WIDTH_SAMPLES[i].width);
         expect(text.toLowerCase().indexOf('e')).assertEqual(-1);
@@ -729,7 +730,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0037', 0, () => {
+    it('testViewportLayout0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const width: number = 1234;
       const first: number = viewportHeight(width);
       const firstText: string = heightWithUnit(width);
@@ -748,7 +749,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0038', 0, () => {
+    it('testViewportLayout0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const ideal: number = deviceDisplay.width * 9 / 16;
       const actual: number = viewportHeight(deviceDisplay.width);
@@ -764,7 +765,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0039', 0, () => {
+    it('testViewportLayout0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         const width: number = WIDTH_SAMPLES[i].width;
         const height: number = viewportHeight(width);
@@ -782,7 +783,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0040', 0, () => {
+    it('testViewportLayout0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         const sample: WidthSample = WIDTH_SAMPLES[i];
         const text: string = heightWithUnit(sample.width);
@@ -804,7 +805,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0041', 0, () => {
+    it('testViewportLayout0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const density: number = deviceDisplay.densityPixels;
       const widthPx: number = deviceDisplay.width;
@@ -821,7 +822,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0042', 0, () => {
+    it('testViewportLayout0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       expect(deviceDisplay.width).assertLarger(0);
       expect(Number.isInteger(deviceDisplay.width)).assertTrue();
@@ -837,7 +838,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0043', 0, () => {
+    it('testViewportLayout0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const heights: number[] = [];
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {
         const width: number = WIDTH_SAMPLES[i].width;
@@ -855,7 +856,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0044', 0, () => {
+    it('testViewportLayout0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const deviceDisplay: display.Display = display.getDefaultDisplaySync();
       const baseHeight: number = viewportHeight(deviceDisplay.width);
       const doubledWidthHeight: number = viewportHeight(deviceDisplay.width * 2);
@@ -872,7 +873,7 @@ export default function viewportLayoutMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testViewportLayout0045', 0, () => {
+    it('testViewportLayout0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const forward: number[] = [];
       const backward: number[] = [];
       for (let i = 0; i < WIDTH_SAMPLES.length; i++) {

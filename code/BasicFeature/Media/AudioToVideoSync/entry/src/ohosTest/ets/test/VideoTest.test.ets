@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { display } from '@kit.ArkUI';
@@ -43,7 +44,7 @@ export default function Video01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testVideo01Chapter0001', 0, async () => {
+    it('testVideo01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideo01Chapter0001 start');
       const defaultDisplay: display.Display = display.getDefaultDisplaySync();
       console.info(`${TAG}: display ${defaultDisplay.width}x${defaultDisplay.height}, ` +
@@ -62,7 +63,7 @@ export default function Video01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testVideo01Chapter0002', 0, async () => {
+    it('testVideo01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideo01Chapter0002 start');
       const defaultDisplay: display.Display = display.getDefaultDisplaySync();
       const heightPx: string = (defaultDisplay.width * CommonConstants.DEFAULT_HEIGHT /
@@ -84,7 +85,7 @@ export default function Video01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testVideo01Chapter0003', 0, async () => {
+    it('testVideo01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideo01Chapter0003 start');
       const defaultDisplay: display.Display = display.getDefaultDisplaySync();
       expect(defaultDisplay.refreshRate).assertLarger(0);
@@ -102,7 +103,7 @@ export default function Video01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testVideo01Chapter0004', 0, async () => {
+    it('testVideo01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideo01Chapter0004 start');
       const defaultDisplay: display.Display = display.getDefaultDisplaySync();
       expect(defaultDisplay.densityPixels).assertLarger(0);
@@ -121,7 +122,7 @@ export default function Video01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testVideo01Chapter0005', 0, async () => {
+    it('testVideo01Chapter0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideo01Chapter0005 start');
       const defaultDisplay: display.Display = display.getDefaultDisplaySync();
       const heightByConstant: number = defaultDisplay.width * CommonConstants.DEFAULT_HEIGHT /

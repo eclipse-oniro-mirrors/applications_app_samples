@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, it, expect } from '@ohos/hypium'
 
@@ -37,7 +38,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_001', 0, () => {
+    it('TC_Video_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_001 begin`);
 
       const result = 2 + 2;
@@ -54,7 +55,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_002', 0, () => {
+    it('TC_Video_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_002 begin`);
 
       const supportedFormats = ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv'];
@@ -75,7 +76,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_003', 0, () => {
+    it('TC_Video_003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_003 begin`);
 
       const supportedResolutions = ['1920x1080', '1280x720', '3840x2160'];
@@ -96,7 +97,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_004', 0, () => {
+    it('TC_Video_004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_004 begin`);
 
       const standardFrameRates = [24, 25, 30, 60, 120];
@@ -118,7 +119,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_005', 0, () => {
+    it('TC_Video_005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_005 begin`);
 
       const minBitrate = 1; // 1 Mbps
@@ -140,7 +141,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_006', 0, () => {
+    it('TC_Video_006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_006 begin`);
 
       const supportedRatios = ['16:9', '4:3', '21:9', '1:1'];
@@ -162,7 +163,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_007', 0, () => {
+    it('TC_Video_007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_007 begin`);
 
       const supportedCodecs = ['H264', 'H265', 'VP9', 'AV1', 'MPEG4'];
@@ -183,7 +184,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_008', 0, () => {
+    it('TC_Video_008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_008 begin`);
 
       const videoDuration = 120; // 2 minutes
@@ -205,7 +206,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_009', 0, () => {
+    it('TC_Video_009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_009 begin`);
 
       const supportedColorDepths = [8, 16, 24, 32, 48];
@@ -228,7 +229,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_010', 0, () => {
+    it('TC_Video_010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_010 begin`);
 
       const bufferSizeKB = 8192; // 8 MB in KB
@@ -250,7 +251,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_011', 0, () => {
+    it('TC_Video_011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_011 begin`);
 
       const supportedQualityLevels = ['360p', '480p', '720p', '1080p', '4K'];
@@ -272,7 +273,7 @@ export default function VideoTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Video_012', 0, () => {
+    it('TC_Video_012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Video_012 begin`);
 
       const videoTimestamp = 15000; // 15 seconds
