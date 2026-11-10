@@ -53,7 +53,7 @@ export class TraceUtil {
       // Emit the matching system level trace finish mark.
       hiTraceMeter.finishTrace(name, taskId);
     } catch (error) {
-      // Swallow trace failures and surface them only through the log channel.
+      // Report trace failures only through the log channel.
       Logger.warn(TAG, 'hiTraceMeter.finishTrace failed for ' + name);
     }
     // Mirror the section end into the log channel.
@@ -97,7 +97,7 @@ export class TraceUtil {
       // Emit the numeric counter into the trace timeline using the two-argument overload.
       hiTraceMeter.traceByValue(name, value);
     } catch (error) {
-      // Swallow trace failures and surface them only through the log channel.
+      // Report trace failures only through the log channel.
       Logger.warn(TAG, 'hiTraceMeter.traceByValue failed for ' + name);
     }
     // Mirror the value into the log channel so it is visible without a profiler attached.

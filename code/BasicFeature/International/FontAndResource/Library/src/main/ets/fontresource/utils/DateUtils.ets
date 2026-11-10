@@ -16,13 +16,13 @@
 // Pure date and time helpers built on the standard Date object, safe for any thread.
 export class DateUtils {
   // Number of milliseconds in one second, used for second based conversions.
-  static readonly MS_PER_SECOND: number = 1000;
+  public static readonly MS_PER_SECOND: number = 1000;
   // Number of milliseconds in one minute.
-  static readonly MS_PER_MINUTE: number = 60 * 1000;
+  public static readonly MS_PER_MINUTE: number = 60 * 1000;
   // Number of milliseconds in one hour.
-  static readonly MS_PER_HOUR: number = 60 * 60 * 1000;
+  public static readonly MS_PER_HOUR: number = 60 * 60 * 1000;
   // Number of milliseconds in one day.
-  static readonly MS_PER_DAY: number = 24 * 60 * 60 * 1000;
+  public static readonly MS_PER_DAY: number = 24 * 60 * 60 * 1000;
 
   // Pads a single-digit number with one leading zero.
   private static pad(value: number): string {

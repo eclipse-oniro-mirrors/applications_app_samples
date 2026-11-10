@@ -20,7 +20,7 @@ import { sendableResourceManager } from '@kit.LocalizationKit';
 @Sendable
 export class ResourceCarrier {
   // The sendable resource object that survives the thread hop.
-  sendable: sendableResourceManager.SendableResource;
+  public sendable: sendableResourceManager.SendableResource;
 
   // Builds the carrier around one sendable resource.
   constructor(sendable: sendableResourceManager.SendableResource) {
@@ -71,17 +71,17 @@ export interface WorkerResponse {
 @ObservedV2
 export class ResourceEntry {
   // The stable key used as the list item key.
-  key: string;
+  public key: string;
   // The localized display name of the resource entry.
-  name: ResourceStr;
+  public name: ResourceStr;
   // The category bucket such as "string", "color", "float" or "media".
-  category: string;
+  public category: string;
   // The underlying resource object of the entry.
-  resource: Resource;
+  public resource: Resource;
   // The conversion status: "idle", "converted" or "failed".
-  @Trace status: string;
+  @Trace public status: string;
   // The short result detail shown under the entry after conversion.
-  @Trace detail: string;
+  @Trace public detail: string;
 
   // Builds one resource list row in the idle state.
   constructor(key: string, name: ResourceStr, category: string, resource: Resource) {
@@ -103,11 +103,11 @@ export class ResourceEntry {
 // The outcome of one full round trip executed on a chosen concurrency path.
 export class RoundTripResult {
   // The concurrency path used, either "taskpool" or "worker".
-  path: string;
+  public path: string;
   // The conversion summary produced by the round trip.
-  summary: ResourceSummary;
+  public summary: ResourceSummary;
   // Whether the round trip succeeded.
-  success: boolean;
+  public success: boolean;
 
   // Builds one round trip outcome record.
   constructor(path: string, summary: ResourceSummary, success: boolean) {

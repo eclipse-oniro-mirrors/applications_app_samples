@@ -244,7 +244,7 @@ async function requireComponent(idValue: string): Promise<Component> {
   const direct: Component | null = await findAnywhere(idValue);
   // Throw with the id when the component is missing.
   if (direct === null) {
-    // Surface the missing id in the case failure.
+    // Include the missing id in the case failure.
     throw new Error('component not found: ' + idValue);
   }
   // Return the resolved component.

@@ -16,15 +16,15 @@
 // One UI log entry displayed inside the on-screen log panel.
 export class LogEntry {
   // The monotonically increasing sequence number used as the list key.
-  id: number;
+  public id: number;
   // The "HH:mm:ss" wall clock text captured when the entry was created.
-  time: string;
+  public time: string;
   // The module tag such as "Install" or "Convert" that produced the entry.
-  tag: string;
+  public tag: string;
   // The log message body.
-  text: string;
+  public text: string;
   // The level bucket ("info", "warn" or "error") used for coloring.
-  level: string;
+  public level: string;
 
   // Builds one on-screen log entry.
   constructor(id: number, time: string, tag: string, text: string, level: string) {

@@ -46,7 +46,7 @@ export default function numericRoundMatrixTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_MX_ROUND_0100
      * @tc.name      testRoundPlaces0000
-     * @tc.desc      Verify round with 0 decimal places across representative values.
+     * @tc.desc      Verify round with 0 decimal digits across representative values.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -99,7 +99,7 @@ export default function numericRoundMatrixTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_MX_ROUND_0200
      * @tc.name      testRoundPlaces0001
-     * @tc.desc      Verify round with 1 decimal places across representative values.
+     * @tc.desc      Verify round with 1 decimal digits across representative values.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -152,7 +152,7 @@ export default function numericRoundMatrixTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_MX_ROUND_0300
      * @tc.name      testRoundPlaces0002
-     * @tc.desc      Verify round with 2 decimal places across representative values.
+     * @tc.desc      Verify round with 2 decimal digits across representative values.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0
@@ -205,7 +205,7 @@ export default function numericRoundMatrixTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_MX_ROUND_0400
      * @tc.name      testRoundPlaces0003
-     * @tc.desc      Verify round with 3 decimal places across representative values.
+     * @tc.desc      Verify round with 3 decimal digits across representative values.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -258,7 +258,7 @@ export default function numericRoundMatrixTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_MX_ROUND_0500
      * @tc.name      testRoundPlaces0004
-     * @tc.desc      Verify round with 4 decimal places across representative values.
+     * @tc.desc      Verify round with 4 decimal digits across representative values.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1

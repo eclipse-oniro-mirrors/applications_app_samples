@@ -248,16 +248,16 @@ export default function numberUtilsAdvancedTest() {
       // The hilog tag of this case, identical to the it name and the @tc.name value.
       const TAG: string = 'testRoundHalfUpLadder0005';
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
-      // Rounding to zero places behaves like Math.round.
+      // Rounding to zero decimal digits behaves like Math.round.
       logCase(TAG, 'round(1.4, 0)');
       expect(NumberUtils.round(1.4, 0)).assertEqual(1);
-      // Rounding to zero places moves the half value upwards.
+      // Rounding to zero decimal digits moves the half value upwards.
       logCase(TAG, 'round(1.5, 0)');
       expect(NumberUtils.round(1.5, 0)).assertEqual(2);
-      // Rounding to zero places moves 2.5 upwards as well.
+      // Rounding to zero decimal digits moves 2.5 upwards as well.
       logCase(TAG, 'round(2.5, 0)');
       expect(NumberUtils.round(2.5, 0)).assertEqual(3);
-      // Rounding to zero places keeps an exact integer untouched.
+      // Rounding to zero decimal digits keeps an exact integer untouched.
       logCase(TAG, 'round(42, 0)');
       expect(NumberUtils.round(42, 0)).assertEqual(42);
       // One decimal place truncates the trailing digits downwards.
@@ -266,22 +266,22 @@ export default function numberUtilsAdvancedTest() {
       // One decimal place lifts the second digit upwards.
       logCase(TAG, 'round(1.256, 1)');
       expect(NumberUtils.round(1.256, 1)).assertEqual(1.3);
-      // Two decimal places keep a two digit fraction untouched.
+      // Two decimal digits keep a two digit fraction untouched.
       logCase(TAG, 'round(1.005, 2)');
       expect(NumberUtils.round(1.005, 2)).assertEqual(1.01);
-      // Two decimal places round the third digit downwards.
+      // Two decimal digits round the third digit downwards.
       logCase(TAG, 'round(3.14159, 2)');
       expect(NumberUtils.round(3.14159, 2)).assertEqual(3.14);
-      // Three decimal places keep the leading fraction digits.
+      // Three decimal digits keep the leading fraction digits.
       logCase(TAG, 'round(2.71828, 3)');
       expect(NumberUtils.round(2.71828, 3)).assertEqual(2.718);
-      // Four decimal places push the fourth digit upwards.
+      // Four decimal digits push the fourth digit upwards.
       logCase(TAG, 'round(0.00005, 4)');
       expect(NumberUtils.round(0.00005, 4)).assertEqual(0.0001);
-      // Five decimal places preserve five leading fraction digits.
+      // Five decimal digits preserve five leading fraction digits.
       logCase(TAG, 'round(0.123456, 5)');
       expect(NumberUtils.round(0.123456, 5)).assertEqual(0.12346);
-      // Six decimal places shrink a value that is already rounded.
+      // Six decimal digits shrink a value that is already rounded.
       logCase(TAG, 'round(0.5, 6)');
       expect(NumberUtils.round(0.5, 6)).assertEqual(0.5);
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
@@ -317,13 +317,13 @@ export default function numberUtilsAdvancedTest() {
       // One decimal place rounds a negative value away from zero.
       logCase(TAG, 'round(-1.256, 1)');
       expect(NumberUtils.round(-1.256, 1)).assertEqual(-1.3);
-      // Two decimal places keep the negative sign and trim the tail.
+      // Two decimal digits keep the negative sign and trim the tail.
       logCase(TAG, 'round(-3.14159, 2)');
       expect(NumberUtils.round(-3.14159, 2)).assertEqual(-3.14);
-      // Three decimal places keep three fraction digits on a negative value.
+      // Three decimal digits keep three fraction digits on a negative value.
       logCase(TAG, 'round(-2.71828, 3)');
       expect(NumberUtils.round(-2.71828, 3)).assertEqual(-2.718);
-      // Four decimal places keep a tiny negative half on the zero side of the boundary.
+      // Four decimal digits keep a tiny negative half on the zero side of the boundary.
       logCase(TAG, 'round(-0.00005, 4)');
       expect(NumberUtils.round(-0.00005, 4)).assertEqual(0);
       // Negative zero input stays at zero.
@@ -922,10 +922,10 @@ export default function numberUtilsAdvancedTest() {
       // One decimal place keeps the truncated fraction.
       logCase(TAG, 'percentText(0.123, 1)');
       expect(NumberUtils.percentText(0.123, 1)).assertEqual('12.3%');
-      // Two decimal places keep two fraction digits after the scaling.
+      // Two decimal digits keep two fraction digits after the scaling.
       logCase(TAG, 'percentText(0.1234, 2)');
       expect(NumberUtils.percentText(0.1234, 2)).assertEqual('12.34%');
-      // Three decimal places keep three fraction digits after the scaling.
+      // Three decimal digits keep three fraction digits after the scaling.
       logCase(TAG, 'percentText(0.98765, 3)');
       expect(NumberUtils.percentText(0.98765, 3)).assertEqual('98.765%');
       // A ratio above one renders above one hundred percent.
@@ -934,7 +934,7 @@ export default function numberUtilsAdvancedTest() {
       // A ratio above two renders above two hundred percent.
       logCase(TAG, 'percentText(2.25, 1)');
       expect(NumberUtils.percentText(2.25, 1)).assertEqual('225%');
-      // A tiny ratio collapses onto zero percent at zero places.
+      // A tiny ratio collapses onto zero percent at zero decimal digits.
       logCase(TAG, 'percentText(0.001, 0)');
       expect(NumberUtils.percentText(0.001, 0)).assertEqual('0%');
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
@@ -970,7 +970,7 @@ export default function numberUtilsAdvancedTest() {
       // A ratio slightly above one hundred percent rounds down.
       logCase(TAG, 'percentText(1.004, 1)');
       expect(NumberUtils.percentText(1.004, 1)).assertEqual('100.4%');
-      // A ratio with five fraction digits truncates at two places.
+      // A ratio with five fraction digits truncates at two decimal digits.
       logCase(TAG, 'percentText(0.456789, 2)');
       expect(NumberUtils.percentText(0.456789, 2)).assertEqual('45.68%');
       // A ratio with an exact third renders three fraction digits.

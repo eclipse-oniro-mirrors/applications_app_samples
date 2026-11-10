@@ -42,10 +42,10 @@ export class NumberUtils {
     return value;
   }
 
-  // Rounds the value to the requested number of decimal places.
-  static round(value: number, places: number): number {
+  // Rounds the value to the requested number of decimal digits.
+  static round(value: number, decimalDigits: number): number {
     // Compute the power-of-ten factor once.
-    const factor: number = Math.pow(10, places);
+    const factor: number = Math.pow(10, decimalDigits);
     // Nudge the value by one machine epsilon so binary drift cannot push a decimal half
     // such as 1.005 below the rounding boundary before the shift.
     return Math.round((value + Number.EPSILON) * factor) / factor;
@@ -141,10 +141,10 @@ export class NumberUtils {
     return degrees * Math.PI / 180;
   }
 
-  // Formats the value as a percentage text with the requested decimal places.
-  static percentText(ratio: number, places: number): string {
+  // Formats the value as a percentage text with the requested decimal digits.
+  static percentText(ratio: number, decimalDigits: number): string {
     // Multiply the ratio by one hundred before rounding.
-    return NumberUtils.round(ratio * 100, places).toString() + '%';
+    return NumberUtils.round(ratio * 100, decimalDigits).toString() + '%';
   }
 
   // Returns a random integer in the inclusive [min, max] range.

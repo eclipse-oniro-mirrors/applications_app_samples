@@ -172,7 +172,7 @@ export default function numberUtilsTest() {
       // Log the case start line.
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
 
-      // Round a pi based fraction to two decimal places.
+      // Round a pi based fraction to two decimal digits.
       const twoPlaces: number = NumberUtils.round(3.14159, 2);
       // Log the two decimal rounding result.
       logCase(TAG, 'round(3.14159, 2): ' + twoPlaces);
@@ -181,7 +181,7 @@ export default function numberUtilsTest() {
       // Hard float assertion: the two decimal result sits within 1e-9 of 3.14.
       expect(Math.abs(twoPlaces - 3.14) < 1e-9).assertTrue();
 
-      // Round the same fraction to four decimal places.
+      // Round the same fraction to four decimal digits.
       const fourPlaces: number = NumberUtils.round(3.14159, 4);
       // Log the four decimal rounding result.
       logCase(TAG, 'round(3.14159, 4): ' + fourPlaces);
@@ -494,7 +494,7 @@ export default function numberUtilsTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_LT_NUM_1000
      * @tc.name      testNumPercent0001
-     * @tc.desc      Verify percentText scales the ratio by one hundred, honours the decimal places and appends the percent sign.
+     * @tc.desc      Verify percentText scales the ratio by one hundred, honours the decimal digits and appends the percent sign.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -505,7 +505,7 @@ export default function numberUtilsTest() {
       // Log the case start line.
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
 
-      // The matrix ratio renders with two decimal places.
+      // The matrix ratio renders with two decimal digits.
       const matrixText: string = NumberUtils.percentText(0.1234, 2);
       // Log the matrix ratio text.
       logCase(TAG, 'percentText(0.1234, 2): ' + matrixText);
@@ -526,7 +526,7 @@ export default function numberUtilsTest() {
       // Expect the full ratio to render as 100%.
       expect(fullText).assertEqual('100%');
 
-      // A half ratio without decimal places renders as 50%.
+      // A half ratio without decimal digits renders as 50%.
       const halfText: string = NumberUtils.percentText(0.5, 0);
       // Log the half ratio text.
       logCase(TAG, 'percentText(0.5, 0): ' + halfText);

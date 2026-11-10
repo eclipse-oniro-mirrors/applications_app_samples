@@ -372,7 +372,7 @@ export default function numericFormatSweepTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_SW_FMT_0800
      * @tc.name      testFormatSweepPercent0001
-     * @tc.desc      Verify percentText formats ratios with two decimal places.
+     * @tc.desc      Verify percentText formats ratios with two decimal digits.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1

@@ -117,7 +117,7 @@ export default function logTypesTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_LT_LOG_0200
      * @tc.name      testAppendLog0001
-     * @tc.desc      Verify appendLog places the fresh entry on top of the result and keeps the older entries in their original order below it.
+     * @tc.desc      Verify appendLog inserts the fresh entry on top of the result and keeps the older entries in their original order below it.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0

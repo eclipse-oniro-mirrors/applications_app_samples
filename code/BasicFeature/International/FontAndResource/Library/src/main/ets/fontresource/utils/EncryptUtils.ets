@@ -45,7 +45,7 @@ export class EncryptUtils {
     return helper.encodeToStringSync(bytes);
   }
 
-  // Returns true when the text is strict RFC 4648 Base64: length multiple of four, valid alphabet and padding only in the tail.
+  // Checks RFC 4648 Base64: four-character groups, valid alphabet and trailing padding.
   private static isStrictBase64(text: string): boolean {
     // The Base64 length must be a multiple of four.
     if (text.length % 4 !== 0) {

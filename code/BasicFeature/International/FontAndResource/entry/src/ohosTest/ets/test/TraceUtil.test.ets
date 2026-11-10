@@ -409,7 +409,7 @@ export default function traceUtilTest() {
       }
       // Log the observed failure message.
       logCase(TAG, 'rejected=' + rejected.toString() + ', message=' + failureMessage);
-      // The failing body must surface to the caller instead of being swallowed.
+      // The failure must reach the caller instead of being swallowed.
       expect(rejected).assertTrue();
       // The forwarded message keeps the text of the original error.
       expect(failureMessage.indexOf('trace section failure probe')).assertEqual(0);

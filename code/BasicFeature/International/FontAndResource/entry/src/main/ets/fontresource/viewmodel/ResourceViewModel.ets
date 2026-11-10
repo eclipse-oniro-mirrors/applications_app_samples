@@ -62,19 +62,19 @@ function createDefaultEntries(): ResourceEntry[] {
 @ObservedV2
 export class ResourceViewModel {
   // The resource rows rendered in the list card.
-  @Trace entries: ResourceEntry[] = createDefaultEntries();
+  @Trace public entries: ResourceEntry[] = createDefaultEntries();
   // The latest round trip outcome rendered in the result card.
-  @Trace roundTrip: RoundTripResult | null = null;
+  @Trace public roundTrip: RoundTripResult | null = null;
   // The concurrency path that produced the latest outcome.
-  @Trace activePath: string = 'taskpool';
+  @Trace public activePath: string = 'taskpool';
   // The on-screen log entries with the newest entry first.
-  @Trace logs: LogEntry[] = [];
+  @Trace public logs: LogEntry[] = [];
   // The restored string resource rendered as text in the render card.
-  @Trace renderedResource: Resource | null = null;
+  @Trace public renderedResource: Resource | null = null;
   // The restored media resource rendered as an image in the render card.
-  @Trace mediaResource: Resource | null = null;
+  @Trace public mediaResource: Resource | null = null;
   // Whether a conversion is currently running, used to disable buttons.
-  @Trace busy: boolean = false;
+  @Trace public busy: boolean = false;
 
   // The monotonically increasing sequence used as the log entry id.
   private logSeq: number = 0;

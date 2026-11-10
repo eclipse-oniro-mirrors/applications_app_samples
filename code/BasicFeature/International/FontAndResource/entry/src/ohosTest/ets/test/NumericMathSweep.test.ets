@@ -170,7 +170,7 @@ export default function numericMathSweepTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_SW_MATH_0300
      * @tc.name      testMathSweepPercent0001
-     * @tc.desc      Verify percentText formats ratios at zero through four decimal places.
+     * @tc.desc      Verify percentText formats ratios at zero through four decimal digits.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1

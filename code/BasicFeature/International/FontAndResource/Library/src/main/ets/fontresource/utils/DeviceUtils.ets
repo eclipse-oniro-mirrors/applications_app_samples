@@ -18,7 +18,7 @@ import { deviceInfo } from '@kit.BasicServicesKit';
 
 // Read-only device and OS information helpers built on @ohos.deviceInfo.
 export class DeviceUtils {
-  // Returns the marketing name of the device model, for example "HUAWEI Mate 60 Pro".
+  // Returns the marketing name of the device model.
   static marketName(): string {
     // Read the product marketing name reported by the system.
     return deviceInfo.marketName;

@@ -71,5 +71,5 @@ export { FontManagerService } from './src/main/ets/fontresource/feature/FontMana
 export { FontPreviewService } from './src/main/ets/fontresource/feature/FontPreviewService';
 // Export the resource conversion service so tests can verify summary assembly.
 export { ResourceConvertService } from './src/main/ets/fontresource/feature/ResourceConvertService';
-// Export the worker conversion client so tests can verify its public surface.
+// Export the worker conversion client for public API tests.
 export { ResourceWorkerClient } from './src/main/ets/fontresource/feature/ResourceWorkerClient';

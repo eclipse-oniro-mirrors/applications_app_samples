@@ -38,17 +38,17 @@ const TAG: string = 'FontVM';
 @ObservedV2
 export class FontViewModel {
   // The capability self-check rows rendered at the top of the page.
-  @Trace checks: CapabilityCheck[] = [];
+  @Trace public checks: CapabilityCheck[] = [];
   // The font asset currently bound to the page, including its sandbox state.
-  @Trace asset: FontAsset = createDefaultFontAsset();
+  @Trace public asset: FontAsset = createDefaultFontAsset();
   // The operation history with the newest record first.
-  @Trace operations: FontOperation[] = [];
+  @Trace public operations: FontOperation[] = [];
   // The on-screen log entries with the newest entry first.
-  @Trace logs: LogEntry[] = [];
+  @Trace public logs: LogEntry[] = [];
   // Whether the preview text is rendered with the custom font.
-  @Trace previewEnabled: boolean = false;
+  @Trace public previewEnabled: boolean = false;
   // Whether an async operation is currently running, used to disable buttons.
-  @Trace busy: boolean = false;
+  @Trace public busy: boolean = false;
 
   // The ability context captured during binding, null until bind() runs.
   private context: common.Context | null = null;

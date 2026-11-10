@@ -46,7 +46,7 @@ export default function numericRoundSweepTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_SW_ROUND_0100
      * @tc.name      testRoundSweepPlaces0000
-     * @tc.desc      Verify round at 0 decimal places across a representative value sweep.
+     * @tc.desc      Verify round at 0 decimal digits across a representative value sweep.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -120,7 +120,7 @@ export default function numericRoundSweepTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_SW_ROUND_0200
      * @tc.name      testRoundSweepPlaces0001
-     * @tc.desc      Verify round at 1 decimal places across a representative value sweep.
+     * @tc.desc      Verify round at 1 decimal digits across a representative value sweep.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -194,7 +194,7 @@ export default function numericRoundSweepTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_SW_ROUND_0300
      * @tc.name      testRoundSweepPlaces0002
-     * @tc.desc      Verify round at 2 decimal places across a representative value sweep.
+     * @tc.desc      Verify round at 2 decimal digits across a representative value sweep.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0
@@ -268,7 +268,7 @@ export default function numericRoundSweepTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_SW_ROUND_0400
      * @tc.name      testRoundSweepPlaces0003
-     * @tc.desc      Verify round at 3 decimal places across a representative value sweep.
+     * @tc.desc      Verify round at 3 decimal digits across a representative value sweep.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -342,7 +342,7 @@ export default function numericRoundSweepTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_SW_ROUND_0500
      * @tc.name      testRoundSweepPlaces0004
-     * @tc.desc      Verify round at 4 decimal places across a representative value sweep.
+     * @tc.desc      Verify round at 4 decimal digits across a representative value sweep.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1

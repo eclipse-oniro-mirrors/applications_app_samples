@@ -16,13 +16,13 @@
 // Font asset model describing one bundled font and its sandbox installation state.
 export class FontAsset {
   // The display family name used when registering the font with the UI.
-  familyName: string;
+  public familyName: string;
   // The raw file path inside the bundle resources, for example "fonts/DroidSerif-Regular.ttf".
-  rawFileName: string;
+  public rawFileName: string;
   // The absolute sandbox path of the copied font, empty until it has been prepared.
-  sandboxPath: string;
+  public sandboxPath: string;
   // Whether the font file already exists in the sandbox and can be installed.
-  ready: boolean;
+  public ready: boolean;
 
   // Builds a fully populated font asset instance.
   constructor(familyName: string, rawFileName: string, sandboxPath: string, ready: boolean) {
@@ -46,11 +46,11 @@ export function createDefaultFontAsset(): FontAsset {
 // One capability self-check row shown on the font page.
 export class CapabilityCheck {
   // The localized name of the capability being checked.
-  name: ResourceStr;
+  public name: ResourceStr;
   // Whether the capability is supported on the current device.
-  supported: boolean;
+  public supported: boolean;
   // The localized detail text explaining the check outcome.
-  detail: ResourceStr;
+  public detail: ResourceStr;
 
   // Builds one capability check row.
   constructor(name: ResourceStr, supported: boolean, detail: ResourceStr) {
@@ -66,15 +66,15 @@ export class CapabilityCheck {
 // A structured explanation for one font error code.
 export class ErrorExplain {
   // The numeric error code being explained.
-  code: number;
+  public code: number;
   // The localized short title of the error.
-  title: ResourceStr;
+  public title: ResourceStr;
   // The localized reason describing why the error happened.
-  reason: ResourceStr;
+  public reason: ResourceStr;
   // The localized suggestion telling the user how to fix it.
-  suggestion: ResourceStr;
+  public suggestion: ResourceStr;
   // The severity bucket ("error", "warning" or "info") used for coloring.
-  severity: string;
+  public severity: string;
 
   // Builds one error explanation entry.
   constructor(code: number, title: ResourceStr, reason: ResourceStr, suggestion: ResourceStr,
@@ -95,17 +95,17 @@ export class ErrorExplain {
 // One completed font operation record shown in the operation history.
 export class FontOperation {
   // The action name such as "Install" or "Uninstall".
-  action: string;
+  public action: string;
   // The target file path or family name the action was applied to.
-  target: string;
+  public target: string;
   // The numeric result code returned by the font API.
-  code: number;
+  public code: number;
   // The short human readable outcome message, localized when a code explains it.
-  message: ResourceStr;
+  public message: ResourceStr;
   // The raw error message from the platform when available, otherwise empty.
-  rawMessage: string;
+  public rawMessage: string;
   // The epoch millisecond timestamp when the operation started.
-  timestamp: number;
+  public timestamp: number;
 
   // Builds one operation history record.
   constructor(action: string, target: string, code: number, message: ResourceStr, rawMessage: string,
