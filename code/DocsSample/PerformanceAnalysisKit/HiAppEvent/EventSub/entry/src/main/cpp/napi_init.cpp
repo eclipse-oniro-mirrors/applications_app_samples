@@ -1375,7 +1375,6 @@ static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
 // [Start PssLeakEvent_RemoveWatcher]
 // [Start AppKillEvent_RemoveWatcher]
 // [Start MainThreadJankEvent_RemoveWatcher]
-// [Start resourceleak_events_RemoveWatcher_3]
 static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 {
     // 使观察者停止监听事件
@@ -1385,9 +1384,6 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [StartExclude APP_Hicollie_RemoveWatcher]
     // [StartExclude AppEvent_C++_RemoveWatcher]
     // [StartExclude MainThreadJankEvent_RemoveWatcher]
-    // 移除观察者以停止监听事件
-    OH_HiAppEvent_RemoveWatcher(systemEventWatcher);
-    // [StartExclude resourceleak_events_RemoveWatcher_3]
     OH_HiAppEvent_RemoveWatcher(eventWatcherT);
     OH_HiAppEvent_RemoveWatcher(eventWatcherR);
     // [EndExclude AppEvent_C++_RemoveWatcher]
@@ -1414,7 +1410,6 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AsanEvent_RemoveWatcher]
     // [EndExclude PssLeakEvent_RemoveWatcher]
     // [EndExclude APP_Hicollie_RemoveWatcher]
-    // [EndExclude resourceleak_events_RemoveWatcher_3]
     return {};
 }
 // [End MainThreadJankEvent_RemoveWatcher]
@@ -1424,7 +1419,6 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 // [End APP_Hicollie_RemoveWatcher]
 // [End AppEvent_C++_RemoveWatcher]
 // [End EventSub_RemoveWatcher_All]
-// [End resourceleak_events_RemoveWatcher_3]
 
 // [Start FreezeEvent_RemoveWatcher]
 static napi_value RemoveWatcherFreeze(napi_env env, napi_callback_info info)
@@ -1453,7 +1447,6 @@ static napi_value RemoveWatcherCrash(napi_env env, napi_callback_info info)
 // [Start PssLeakEvent_DestroyWatcher]
 // [Start AppKillEvent_DestroyWatcher]
 // [Start MainThreadJankEvent_DestroyWatcher]
-// [Start resourceleak_events_DestroyWatcher_4]
 static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
 {
     // 销毁创建的观察者，并置eventWatcher为nullptr。
@@ -1463,10 +1456,6 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // [StartExclude APP_Hicollie_DestroyWatcher]
     // [StartExclude AppEvent_C++_DestroyWatcher]
     // [StartExclude MainThreadJankEvent_DestroyWatcher]
-    // 销毁创建的观察者，并置systemEventWatcher为nullptr。
-    OH_HiAppEvent_DestroyWatcher(systemEventWatcher);
-    systemEventWatcher = nullptr;
-    // [StartExclude resourceleak_events_DestroyWatcher_4]
     OH_HiAppEvent_DestroyWatcher(eventWatcherT);
     OH_HiAppEvent_DestroyWatcher(eventWatcherR);
     eventWatcherT = nullptr;
@@ -1503,7 +1492,6 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AppEvent_C++_DestroyWatcher]
     // [EndExclude AsanEvent_DestroyWatcher]
     // [EndExclude PssLeakEvent_DestroyWatcher]
-    // [EndExclude resourceleak_events_DestroyWatcher_4]
     return {};
 }
 // [End MainThreadJankEvent_DestroyWatcher]
@@ -1513,7 +1501,6 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
 // [End APP_Hicollie_DestroyWatcher]
 // [End AppEvent_C++_DestroyWatcher]
 // [End EventSub_DestroyWatcher_All]
-// [End resourceleak_events_DestroyWatcher_4]
 
 // [Start FreezeEvent_DestroyWatcher]
 static napi_value DestroyWatcherFreeze(napi_env env, napi_callback_info info)

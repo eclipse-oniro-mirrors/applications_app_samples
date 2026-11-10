@@ -27,20 +27,12 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [Start AppFreezeWarning_ArkTS_Header]
 // [Start resourceleak_events_arkts_1]
 // [Start address_sanitizer_events_arkts_1]
-// [Start resourceleak_events_2]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End AppKillEvent_ArkTS_Header]
 // [End AppFreezeWarning_ArkTS_Header]
 // [End AppHicollie_ArkTS_Header]
 // [End AppEvent_Crash_Click_ArkTS_Header]
-// [StartExclude Crash_Click_ArkTS_Header]
-// [StartExclude MainThreadJank_ArkTS_Header]
 // [StartExclude External_Log_ArkTS_Header]
-import { deviceInfo, BusinessError } from '@kit.BasicServicesKit';
-// [EndExclude Crash_Click_ArkTS_Header]
-// [EndExclude MainThreadJank_ArkTS_Header]
-// [StartExclude External_Log_ArkTS_Header]
-// [StartExclude resourceleak_events_2]
 // [End PssLeakEvent_ArkTS_Header]
 // [End address_sanitizer_events_arkts_1]
 // [StartExclude MainThreadJank_ArkTS_Header]
@@ -244,7 +236,6 @@ export default class EntryAbility extends UIAbility {
 
     // [Start address_sanitizer_events_arkts_2]
     if (deviceInfo.sdkApiVersion >= 24) {
-      // [EndExclude resourceleak_events_2]
       let crashEventPolicy : hiAppEvent.EventPolicy = {
         "appCrashPolicy": { // 崩溃事件配置策略
           "pageSwitchLogEnable": true, // 从API version 24开始，支持使能页面切换日志
@@ -258,7 +249,6 @@ export default class EntryAbility extends UIAbility {
       }).catch((err: BusinessError) => {
         hilog.error(0x0000, 'testTag', `HiAppEvent code: ${err.code}, message: ${err.message}`);
       });
-      //[End resourceleak_events_2]
     }
     // [End Crash_ArkTS_Add_Event]
     // [Start FreezeEvent_ArkTS_Add_Event]
