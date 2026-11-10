@@ -13,28 +13,14 @@
  * limitations under the License.
  */
 
-import hiSysEvent from '@ohos.hiSysEvent';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Log } from './Log';
 
 const TAG = 'hisysEventUtil';
 
 export function hiSysEventDataQueryTimedOut(interfaceName: string): number {
   let timeOutId = setTimeout((): void => {
-    let params: Object = {
-      FAULT_ID: 'DATA_QUERY_OVERTIME',
-      MSG: interfaceName + ' Querying 1s data timed out.'
-    };
-    let info: hiSysEvent.SysEventInfo = {
-      domain: 'PHOTOS_APP',
-      name: 'PHOTOS_FAULT',
-      eventType: hiSysEvent.EventType.FAULT,
-      params: params
-    };
-    hiSysEvent.write(info, (err: Error): void => {
-      if (err != null) {
-        Log.error(TAG, 'fail to return hiSysEvent');
-      }
-    });
+    hilog.error(0xF001, TAG, interfaceName + ' Querying 1s data timed out.');
   },1000);
   return timeOutId;
 }

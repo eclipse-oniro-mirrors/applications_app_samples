@@ -49,12 +49,12 @@ export class MediaConstants {
   static readonly ALBUM_TYPE_SYSTEM = photoAccessHelper.AlbumType.SYSTEM;
   // album subtype
   static readonly ALBUM_SUBTYPE_ALL = photoAccessHelper.AlbumSubtype.ANY
-  static readonly ALBUM_SUBTYPE_CAMERA = photoAccessHelper.AlbumSubtype.CAMERA;
-  static readonly ALBUM_SUBTYPE_VIDEO = photoAccessHelper.AlbumSubtype.VIDEO;
-  static readonly ALBUM_SUBTYPE_RECYCLE = photoAccessHelper.AlbumSubtype.TRASH;
+  static readonly ALBUM_SUBTYPE_CAMERA = 1027;
+  static readonly ALBUM_SUBTYPE_VIDEO = 1029;
+  static readonly ALBUM_SUBTYPE_RECYCLE = 1026;
   static readonly ALBUM_SUBTYPE_FAVOR = photoAccessHelper.AlbumSubtype.FAVORITE;
-  static readonly ALBUM_SUBTYPE_SNAPSHOT = photoAccessHelper.AlbumSubtype.SCREENSHOT;
-  static readonly ALBUM_SUBTYPE_HIDDEN = photoAccessHelper.AlbumSubtype.HIDDEN;
+  static readonly ALBUM_SUBTYPE_SNAPSHOT = 1030;
+  static readonly ALBUM_SUBTYPE_HIDDEN = 1032;
   static readonly ALBUM_SUBTYPE_USER_GENERIC = photoAccessHelper.AlbumSubtype.USER_GENERIC;
   static readonly ALBUM_SUBTYPE_REMOTE = -1;
   // album id
@@ -144,7 +144,7 @@ export class MediaConstants {
   photoAccessHelper.PhotoKeys.FAVORITE,
   photoAccessHelper.PhotoKeys.TITLE,
   photoAccessHelper.PhotoKeys.POSITION,
-  photoAccessHelper.PhotoKeys.DATE_TRASHED,
-  photoAccessHelper.PhotoKeys.HIDDEN]
+  'date_trashed',
+  'hidden']
   static readonly ALBUM_ASSET_FETCH_COLUMNS = [photoAccessHelper.AlbumKeys.URI, photoAccessHelper.AlbumKeys.ALBUM_NAME]
 }
