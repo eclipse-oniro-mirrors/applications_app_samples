@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Bluetooth BaseProfile sample entry module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Bluetooth BaseProfile sample application"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "BluetoothBaseProfile"
+    }
+  ]
+}

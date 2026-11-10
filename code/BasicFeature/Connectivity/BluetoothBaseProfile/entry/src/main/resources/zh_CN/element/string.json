@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "蓝牙基础Profile示例入口模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "蓝牙基础Profile示例应用"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "蓝牙BaseProfile"
+    }
+  ]
+}
