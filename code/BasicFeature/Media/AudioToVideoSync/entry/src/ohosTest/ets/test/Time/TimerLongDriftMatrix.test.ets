@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { systemDateTime } from '@kit.BasicServicesKit';
 import { delay, paceTurn } from '../Shared/TestPace';
@@ -26,7 +27,7 @@ export default function timerLongDriftMatrixTest() {
      * @tc.name      testTimerLongDrift0001
      * @tc.desc      Verify ten fifty-millisecond delays keep both clocks within tolerance
      */
-    it('testTimerLongDrift0001', 0, async () => {
+    it('testTimerLongDrift0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const upBefore: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const wallBefore: number = Date.now();
       for (let i = 0; i < 10; i++) {
@@ -44,7 +45,7 @@ export default function timerLongDriftMatrixTest() {
      * @tc.name      testTimerLongDrift0002
      * @tc.desc      Verify one hundred tiny delays complete inside the aggregate budget
      */
-    it('testTimerLongDrift0002', 0, async () => {
+    it('testTimerLongDrift0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const start: number = Date.now();
       for (let i = 0; i < 100; i++) {
         await delay(1);
@@ -59,7 +60,7 @@ export default function timerLongDriftMatrixTest() {
      * @tc.name      testTimerLongDrift0003
      * @tc.desc      Verify the uptime clock never moves backwards over fifty sampled reads
      */
-    it('testTimerLongDrift0003', 0, () => {
+    it('testTimerLongDrift0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       let previous: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       for (let i = 0; i < 50; i++) {
         const current: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);

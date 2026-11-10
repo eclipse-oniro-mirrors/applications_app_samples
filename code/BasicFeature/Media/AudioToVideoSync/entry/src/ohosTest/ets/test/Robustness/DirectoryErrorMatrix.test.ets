@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -74,7 +75,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDirectoryError0001', 0, () => {
+    it('testDirectoryError0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = directoryFor('exists');
       try {
         fileIo.mkdirSync(dir);
@@ -95,7 +96,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDirectoryError0002', 0, () => {
+    it('testDirectoryError0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = directoryFor('missing');
       expect(codeOf(() => {
         fileIo.rmdirSync(dir);
@@ -111,7 +112,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDirectoryError0003', 0, () => {
+    it('testDirectoryError0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = directoryFor('open_as_file');
       try {
         fileIo.mkdirSync(dir);
@@ -136,7 +137,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDirectoryError0004', 0, () => {
+    it('testDirectoryError0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = directoryFor('unlink_dir');
       try {
         fileIo.mkdirSync(dir);
@@ -158,7 +159,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDirectoryError0005', 0, () => {
+    it('testDirectoryError0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const file: string = pathInFiles(uniqueName('avs_derr_list', '.txt'));
       try {
         writeTextFile(file, 'not-a-directory');
@@ -182,7 +183,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDirectoryError0006', 0, () => {
+    it('testDirectoryError0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = directoryFor('copy_source');
       const target: string = pathInFiles(uniqueName('avs_derr_copy', '.txt'));
       try {
@@ -207,7 +208,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDirectoryError0007', 0, () => {
+    it('testDirectoryError0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = directoryFor('control');
       const file: string = pathInFiles(uniqueName('avs_derr_control', '.txt'));
       try {

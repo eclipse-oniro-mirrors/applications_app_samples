@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { paceTurn } from '../Shared/TestPace';
@@ -40,7 +41,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.name      testFileLoop0001
      * @tc.desc      Verify fifty write and read cycles keep the exact payload and size
      */
-    it('testFileLoop0001', 0, () => {
+    it('testFileLoop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('rw');
       const payload: string = repeatPayload(256, 'loop');
       try {
@@ -59,7 +60,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.name      testFileLoop0002
      * @tc.desc      Verify fifty create and delete cycles leave no entry behind
      */
-    it('testFileLoop0002', 0, () => {
+    it('testFileLoop0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < LOOPS; i++) {
         const path: string = targetFor(`create_${i}`);
         writeTextFile(path, `${i}`);
@@ -74,7 +75,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.name      testFileLoop0003
      * @tc.desc      Verify fifty append operations grow the file by one byte each time
      */
-    it('testFileLoop0003', 0, () => {
+    it('testFileLoop0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append');
       try {
         writeTextFile(path, '');
@@ -94,7 +95,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.name      testFileLoop0004
      * @tc.desc      Verify fifty truncate cycles always end at the requested size
      */
-    it('testFileLoop0004', 0, () => {
+    it('testFileLoop0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('truncate');
       try {
         writeTextFile(path, repeatPayload(1024, 't'));
@@ -113,7 +114,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.name      testFileLoop0005
      * @tc.desc      Verify fifty independent paths keep distinct content without cross talk
      */
-    it('testFileLoop0005', 0, () => {
+    it('testFileLoop0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const paths: string[] = [];
       try {
         for (let i = 0; i < LOOPS; i++) {

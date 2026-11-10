@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { media } from '@kit.MediaKit';
 import { paceTurn } from '../Shared/TestPace';
@@ -40,7 +41,7 @@ export default function mediaErrorMatrixTest() {
      * @tc.name      testMediaError0001
      * @tc.desc      Verify a play attempt on an idle player leaves it idle
      */
-    it('testMediaError0001', 0, async () => {
+    it('testMediaError0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await idlePlayer();
       try {
         await settle(player.play());
@@ -55,7 +56,7 @@ export default function mediaErrorMatrixTest() {
      * @tc.name      testMediaError0002
      * @tc.desc      Verify a pause attempt on an idle player leaves it idle
      */
-    it('testMediaError0002', 0, async () => {
+    it('testMediaError0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await idlePlayer();
       try {
         await settle(player.pause());
@@ -70,7 +71,7 @@ export default function mediaErrorMatrixTest() {
      * @tc.name      testMediaError0003
      * @tc.desc      Verify a stop attempt on an idle player leaves it idle
      */
-    it('testMediaError0003', 0, async () => {
+    it('testMediaError0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await idlePlayer();
       try {
         await settle(player.stop());
@@ -85,7 +86,7 @@ export default function mediaErrorMatrixTest() {
      * @tc.name      testMediaError0005
      * @tc.desc      Verify a seek attempt on an idle player leaves it idle
      */
-    it('testMediaError0005', 0, async () => {
+    it('testMediaError0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await idlePlayer();
       try {
         await settle(player.seek(100, media.SeekMode.SEEK_PREV_SYNC));
@@ -100,7 +101,7 @@ export default function mediaErrorMatrixTest() {
      * @tc.name      testMediaError0006
      * @tc.desc      Verify reset after release keeps the terminal released state
      */
-    it('testMediaError0006', 0, async () => {
+    it('testMediaError0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await idlePlayer();
       await player.release();
       await settle(player.reset());
@@ -112,7 +113,7 @@ export default function mediaErrorMatrixTest() {
      * @tc.name      testMediaError0007
      * @tc.desc      Verify play after release keeps the terminal released state
      */
-    it('testMediaError0007', 0, async () => {
+    it('testMediaError0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await idlePlayer();
       await player.release();
       await settle(player.play());
@@ -124,7 +125,7 @@ export default function mediaErrorMatrixTest() {
      * @tc.name      testMediaError0008
      * @tc.desc      Verify two idle players are independent and both reject playback without changing state
      */
-    it('testMediaError0008', 0, async () => {
+    it('testMediaError0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first: media.AVPlayer = await idlePlayer();
       const second: media.AVPlayer = await idlePlayer();
       try {

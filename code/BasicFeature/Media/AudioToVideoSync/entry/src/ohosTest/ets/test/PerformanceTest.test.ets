@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { media } from '@kit.MediaKit';
@@ -44,7 +45,7 @@ export default function Performance01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPerformance01Chapter0001', 0, async () => {
+    it('testPerformance01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0001 start');
       const start: number = Date.now();
       const player: media.AVPlayer = await media.createAVPlayer();
@@ -65,7 +66,7 @@ export default function Performance01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPerformance01Chapter0002', 0, async () => {
+    it('testPerformance01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0002 start');
       const queryCount: number = 100;
       const start: number = Date.now();
@@ -89,7 +90,7 @@ export default function Performance01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPerformance01Chapter0003', 0, async () => {
+    it('testPerformance01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0003 start');
       const volumeManager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const start: number = Date.now();
@@ -109,7 +110,7 @@ export default function Performance01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPerformance01Chapter0004', 0, async () => {
+    it('testPerformance01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0004 start');
       const defaultDisplay: display.Display = display.getDefaultDisplaySync();
       const loopCount: number = 10000;

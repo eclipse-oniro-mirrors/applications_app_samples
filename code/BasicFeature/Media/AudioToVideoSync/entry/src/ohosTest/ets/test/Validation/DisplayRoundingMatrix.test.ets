@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { display } from '@kit.ArkUI';
@@ -48,7 +49,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0001', 0, () => {
+    it('testDisplayRounding0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTHS.length; i++) {
         const height: number = heightOf(WIDTHS[i]);
         expect(Math.floor(height)).assertLessOrEqual(height);
@@ -65,7 +66,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0002', 0, () => {
+    it('testDisplayRounding0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTHS.length; i++) {
         const height: number = heightOf(WIDTHS[i]);
         const rounded: number = Math.round(height);
@@ -82,7 +83,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0003', 0, () => {
+    it('testDisplayRounding0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const integerWidths: number[] = [320, 640, 960, 1280, 1920];
       for (let i = 0; i < integerWidths.length; i++) {
         const height: number = heightOf(integerWidths[i]);
@@ -101,7 +102,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0004', 0, () => {
+    it('testDisplayRounding0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const fractionalWidths: number[] = [321, 361, 721, 1081, 1921];
       for (let i = 0; i < fractionalWidths.length; i++) {
         const height: number = heightOf(fractionalWidths[i]);
@@ -120,7 +121,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0005', 0, () => {
+    it('testDisplayRounding0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTHS.length; i++) {
         const height: number = heightOf(WIDTHS[i]);
         const fraction: number = height - Math.floor(height);
@@ -140,7 +141,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0006', 0, () => {
+    it('testDisplayRounding0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTHS.length; i++) {
         const exact: number = WIDTHS[i] * RATIO;
         const rounded: number = Math.round(heightOf(WIDTHS[i]));
@@ -156,7 +157,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0007', 0, () => {
+    it('testDisplayRounding0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTHS.length; i++) {
         expect(heightOf(WIDTHS[i])).assertClose(WIDTHS[i] * 9 / 16, 1e-9);
       }
@@ -170,7 +171,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0008', 0, () => {
+    it('testDisplayRounding0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const screen: display.Display = display.getDefaultDisplaySync();
       for (let i = 0; i < DENSITIES.length; i++) {
         const widthVp: number = screen.width / DENSITIES[i];
@@ -188,7 +189,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0009', 0, () => {
+    it('testDisplayRounding0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const screen: display.Display = display.getDefaultDisplaySync();
       const height: number = heightOf(screen.width);
       expect(Math.round(height)).assertLargerOrEqual(Math.floor(height));
@@ -204,7 +205,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0010', 0, () => {
+    it('testDisplayRounding0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       let previous: number = heightOf(320);
       for (let width = 321; width <= 340; width++) {
         const current: number = heightOf(width);
@@ -221,7 +222,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0011', 0, () => {
+    it('testDisplayRounding0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const percent: number = Number(CommonConstants.FULL_SIZE.substring(0, CommonConstants.FULL_SIZE.length - 1));
       expect(percent).assertEqual(100);
       const screen: display.Display = display.getDefaultDisplaySync();
@@ -237,7 +238,7 @@ export default function displayRoundingMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayRounding0012', 0, () => {
+    it('testDisplayRounding0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < WIDTHS.length; i++) {
         const first: number = Math.round(heightOf(WIDTHS[i]));
         for (let repeat = 0; repeat < 20; repeat++) {

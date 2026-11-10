@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
@@ -54,7 +55,7 @@ export default function audioLoopMatrixTest() {
      * @tc.name      testAudioLoop0001
      * @tc.desc      Verify thirty create and release cycles all end released
      */
-    it('testAudioLoop0001', 0, async () => {
+    it('testAudioLoop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < CREATE_ROUNDS; i++) {
         const renderer: audio.AudioRenderer = await createFor();
         await renderer.release();
@@ -67,7 +68,7 @@ export default function audioLoopMatrixTest() {
      * @tc.name      testAudioLoop0002
      * @tc.desc      Verify twenty start and stop cycles keep the running and stopped states
      */
-    it('testAudioLoop0002', 0, async () => {
+    it('testAudioLoop0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor();
       try {
         for (let i = 0; i < START_ROUNDS; i++) {
@@ -87,7 +88,7 @@ export default function audioLoopMatrixTest() {
      * @tc.name      testAudioLoop0003
      * @tc.desc      Verify ten pause and resume cycles keep the paused and running states
      */
-    it('testAudioLoop0003', 0, async () => {
+    it('testAudioLoop0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor();
       try {
         await renderer.start();
@@ -107,7 +108,7 @@ export default function audioLoopMatrixTest() {
      * @tc.name      testAudioLoop0004
      * @tc.desc      Verify repeated create and release leaves no renderer running
      */
-    it('testAudioLoop0004', 0, async () => {
+    it('testAudioLoop0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 10; i++) {
         const renderer: audio.AudioRenderer = await createFor();
         await renderer.start();

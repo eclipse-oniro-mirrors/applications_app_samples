@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { paceTurn } from '../Shared/TestPace';
@@ -45,7 +46,7 @@ export default function pathInputMatrixTest() {
      * @tc.name      testPathInput0001
      * @tc.desc      Verify opening an empty path fails instead of creating an entry
      */
-    it('testPathInput0001', 0, () => {
+    it('testPathInput0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const failed: boolean = throws(() => {
         fileIo.openSync('', fileIo.OpenMode.READ_ONLY);
       });
@@ -57,7 +58,7 @@ export default function pathInputMatrixTest() {
      * @tc.name      testPathInput0002
      * @tc.desc      Verify an over-long file name fails and leaves no entry behind
      */
-    it('testPathInput0002', 0, () => {
+    it('testPathInput0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const longName: string = repeatPayload(300, 'n') + '.txt';
       const path: string = pathInFiles(longName);
       const failed: boolean = throws(() => {
@@ -73,7 +74,7 @@ export default function pathInputMatrixTest() {
      * @tc.name      testPathInput0003
      * @tc.desc      Verify a file name with spaces works end to end
      */
-    it('testPathInput0003', 0, () => {
+    it('testPathInput0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const name: string = uniqueName('avs path space', '.txt');
       const path: string = pathInFiles(name);
       try {
@@ -90,7 +91,7 @@ export default function pathInputMatrixTest() {
      * @tc.name      testPathInput0004
      * @tc.desc      Verify a CJK file name works end to end
      */
-    it('testPathInput0004', 0, () => {
+    it('testPathInput0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const name: string = uniqueName('音画文件', '.txt');
       const path: string = pathInFiles(name);
       try {
@@ -107,7 +108,7 @@ export default function pathInputMatrixTest() {
      * @tc.name      testPathInput0005
      * @tc.desc      Verify a path containing a current-directory segment resolves correctly
      */
-    it('testPathInput0005', 0, () => {
+    it('testPathInput0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const name: string = uniqueName('avs_dot_path', '.txt');
       const path: string = `${appContext().filesDir}/./${name}`;
       try {
@@ -125,7 +126,7 @@ export default function pathInputMatrixTest() {
      * @tc.name      testPathInput0006
      * @tc.desc      Verify a name containing several consecutive dots is still addressable
      */
-    it('testPathInput0006', 0, () => {
+    it('testPathInput0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const name: string = uniqueName('avs...dots', '.txt');
       const path: string = pathInFiles(name);
       try {

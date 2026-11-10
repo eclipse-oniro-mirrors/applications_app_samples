@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -72,7 +73,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0001', 0, () => {
+    it('testFileError0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_err_stat', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.statSync(missing);
@@ -89,7 +90,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0002', 0, () => {
+    it('testFileError0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_err_unlink', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.unlinkSync(missing);
@@ -106,7 +107,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0003', 0, () => {
+    it('testFileError0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_err_open', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.openSync(missing, fileIo.OpenMode.READ_ONLY);
@@ -123,7 +124,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0004', 0, () => {
+    it('testFileError0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = `${appContext().filesDir}/${uniqueName('avs_err_mkdir', '')}`;
       try {
         fileIo.mkdirSync(dir);
@@ -145,7 +146,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0005', 0, () => {
+    it('testFileError0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = `${appContext().filesDir}/${uniqueName('avs_err_rmdir', '')}`;
       const code: number = errorCodeOf(() => {
         fileIo.rmdirSync(dir);
@@ -162,7 +163,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0006', 0, () => {
+    it('testFileError0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_err_truncate', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.truncateSync(missing, 1);
@@ -179,7 +180,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0007', 0, () => {
+    it('testFileError0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_err_message', '.txt'));
       const message: string = errorMessageOf(() => {
         fileIo.statSync(missing);
@@ -197,7 +198,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0008', 0, () => {
+    it('testFileError0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_err_access', '.txt'));
       let accessible: boolean = true;
       try {
@@ -217,7 +218,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0009', 0, () => {
+    it('testFileError0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = pathInFiles(uniqueName('avs_err_existing', '.txt'));
       try {
         writeTextFile(path, 'existing');
@@ -239,7 +240,7 @@ export default function fileErrorMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileError0010', 0, () => {
+    it('testFileError0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_err_stable', '.txt'));
       for (let i = 0; i < 5; i++) {
         const code: number = errorCodeOf(() => {
