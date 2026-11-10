@@ -49,7 +49,7 @@ export struct FindAnimateView {
     if (this.scanModel.scanLastTime > 0) {
       let animationTimes =
         Math.floor(this.scanModel.scanLastTime * 1000 / CommonConstants.ANIMATION_DURATION) + 1;
-      Logger.debug(TAG, '当前动画剩余时间' + this.scanModel.scanLastTime + 's，剩余次数' + animationTimes);
+      Logger.debug(TAG, 'Animation remaining time: ' + this.scanModel.scanLastTime + 's, remaining times: ' + animationTimes);
       animateTo({
         duration: CommonConstants.ANIMATION_DURATION,
         curve: Curve.EaseIn,

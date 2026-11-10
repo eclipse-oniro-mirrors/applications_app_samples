@@ -30,7 +30,7 @@ export default class VirtualDevice implements InfDevice {
     this.randomFlag = randomFlag;
     this.device = device;
     this.imageResource = getImageFromDevice(device);
-    Logger.debug(TAG, '查询到资源地址:' + this.imageResource);
+    Logger.debug(TAG, 'Resource path found: ' + this.imageResource);
   }
 
   /**

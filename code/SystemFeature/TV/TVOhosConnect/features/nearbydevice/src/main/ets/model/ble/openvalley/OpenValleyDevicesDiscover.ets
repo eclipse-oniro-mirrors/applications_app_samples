@@ -45,7 +45,7 @@ export default class OpenValleyDevicesDiscover implements InfDevicesDiscover {
   }
 
   public async onScan(result: ble.ScanResult): Promise<boolean> {
-    Logger.debug(TAG, '触发OpenValleyDevicesDiscover.onScan()');
+    Logger.debug(TAG, 'Trigger OpenValleyDevicesDiscover.onScan()');
     //只判断蓝牙名
     if (result.deviceName.startsWith('ccBle-')) {
       if (this.callback) {

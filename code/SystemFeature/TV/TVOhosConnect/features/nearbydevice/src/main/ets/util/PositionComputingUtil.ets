@@ -82,13 +82,13 @@ export default class PositionComputerUtil {
       const point = TrigonometricFunctionUtil.computePoint(angle, length);
       point.setAngle(angle);
       Logger.debug(TAG,
-        `尝试放置point：angle=${angle},length=${length},x=${point.x},y=${point.y}，placeTime=${placeTime}`);
+        `Try to place point: angle=${angle}, length=${length}, x=${point.x}, y=${point.y}, placeTime=${placeTime}`);
       if (this.isLegalPoint(point, params)) {
         arr.push(point);
       }
       placeTime++;
     }
-    Logger.debug(TAG, `放置结束，arr.length=${arr.length}}`);
+    Logger.debug(TAG, `Placement finished, arr.length=${arr.length}}`);
     return arr;
   }
 

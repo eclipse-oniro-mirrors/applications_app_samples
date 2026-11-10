@@ -89,7 +89,7 @@ export default class OpenValleyDevicesConnector implements InfDevicesConnector, 
         this.connectedClient.on('BLECharacteristicChange', this.onCharacteristicChange);
         this.connectedClient.connect();
         this.connectIntervalId = setTimeout(() => {
-          Logger.debug(TAG, '连接超时');
+          Logger.debug(TAG, 'Connection timeout');
           if (this.connectRejectFun) {
             this.connectRejectFun();
           }

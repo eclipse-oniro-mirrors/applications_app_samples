@@ -36,7 +36,7 @@ export default class SceneModel {
 
   // 创建用户首选项实例preference
   public async getPreferencesFromStorage() {
-    Logger.info(TAG, '初始化');
+    Logger.info(TAG, 'Initialize');
     try {
       preference = await dataPreferences.getPreferences(context, 'SceneData');
     } catch (err) {

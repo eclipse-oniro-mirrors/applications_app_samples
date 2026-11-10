@@ -78,7 +78,7 @@ export default class BleScanner {
     }
     for (let i = 0; i < data.length; i++) {
       const result: ble.ScanResult = data[i];
-      Logger.debug(TAG, '发现ble设备:' + JSON.stringify(result));
+      Logger.debug(TAG, 'Found BLE device: ' + JSON.stringify(result));
       this.handleResult(result);
     }
   }

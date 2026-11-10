@@ -86,7 +86,7 @@ export struct CoapDevicesScanPage {
   //点击已连接设备，进入详情
   onClickFromSheet() {
     let productId = DevicesManager.getInstance().getConnectingDevice()?.getProductID();
-    Logger.warn(TAG, '===>连接的设备点击进入详情页 onClickFromSheet: connectingDevice: ' +
+    Logger.warn(TAG, '===>Connected device clicked to open detail page onClickFromSheet: connectingDevice: ' +
       JSON.stringify(this.devicesModel.connectingDevice));
     let deviceName = this.devicesModel.connectingDevice?.name;
     Logger.warn(TAG, `===> deviceName: ${deviceName}, productID: ${productId}`);

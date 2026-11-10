@@ -118,18 +118,18 @@ export default class TunnelScanManager {
       const result: boolean = await this.waterDetector.startConnect();
       if (result) {
         this.hasInitWaterDetector = true;
-        Logger.debug(TAG, '浸水传感器可用');
+        Logger.debug(TAG, 'Water immersion sensor available');
         this.addWaterDetectorDevice();
         const state: boolean = await this.waterDetector.queryState();
-        Logger.debug(TAG, '当前浸水器状态：' + state);
+        Logger.debug(TAG, 'Current water immersion sensor state: ' + state);
         this.waterDetectorState = state;
         this.onWaterDetectorStateChange(state);
         this.waterDetector.registerStateChange((state: boolean) => {
-          Logger.debug(TAG, '浸水器状态改变：' + state);
+          Logger.debug(TAG, 'Water immersion sensor state changed: ' + state);
           this.onWaterDetectorStateChange(state);
         });
       } else {
-        Logger.debug(TAG, '浸水传感器当前不可用');
+        Logger.debug(TAG, 'Water immersion sensor unavailable');
       }
     }
   }
@@ -158,7 +158,7 @@ export default class TunnelScanManager {
       const openValleyDevice: OpenValleyDevice = device as OpenValleyDevice;
       //发现指定控制器，就停止扫描
       if (openValleyDevice.getDeviceName() == TEST_DEVICE_NAME && !this.connectingDevice) {
-        Logger.debug(TAG, '发现指定控制器，准备连接');
+        Logger.debug(TAG, 'Target controller found, ready to connect');
         this.connectingDevice = device;
         this.controller.discover.stopScan();
         this.startConnect(device);
@@ -173,7 +173,7 @@ export default class TunnelScanManager {
   public async startConnect(device: InfDevice) {
     const result = await this.controller.connector.connect(device);
     if (result) {
-      Logger.debug(TAG, '设备连接成功');
+      Logger.debug(TAG, 'Device connected successfully');
       const connector: OpenValleyDevicesConnector = this.controller.connector as OpenValleyDevicesConnector;
       connector.registerDevFindCallback((device) => {
         this.onDevFind(device);
@@ -242,7 +242,7 @@ export default class TunnelScanManager {
 
   public invokeAction(onOrOff: boolean, isFirstSet: boolean = false) {
     if (this.currentInvokeState != onOrOff || isFirstSet) {
-      Logger.debug(TAG, '在鸿控制器执行动作：' + onOrOff);
+      Logger.debug(TAG, 'Execute action on ZaHong controller: ' + onOrOff);
       const arr: TunnelDevice[] = this.getAllControllerDevice();
       this.execute(arr, onOrOff);
       this.currentInvokeState = onOrOff;

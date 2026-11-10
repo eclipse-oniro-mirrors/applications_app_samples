@@ -59,10 +59,10 @@ export struct SmartTunnel {
         .height($r('app.string.btn_height'))
         .margin({ bottom: $r('app.string.btn_margin_bottom') })
         .onClick(() => {
-          Logger.debug(TAG, '执行场景');
+          Logger.debug(TAG, 'Execute scene');
           if (this.isButtonAvailable()) {
             const invoke: boolean = !this.model.isSetFinish;
-            Logger.debug(TAG, `执行场景invoke:${invoke}`);
+            Logger.debug(TAG, `Execute scene invoke:${invoke}`);
             TunnelScanManager.getInstance().invokeOrStopScene(invoke);
           }
         });

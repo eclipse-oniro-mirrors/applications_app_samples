@@ -111,7 +111,7 @@ export struct TunnelDeviceAnimation {
         result == DragResult.DRAG_FAILED || result == DragResult.DRAG_CANCELED || result == DragResult.DROP_DISABLED;
       if (!isFailed) {
         //嵌入成功
-        Logger.debug(TAG, '当前元素嵌入成功' + JSON.stringify(this.item));
+        Logger.debug(TAG, 'Current element embedded successfully' + JSON.stringify(this.item));
       }
       //取消拖拽状态
       this.item.isDragging = false;

@@ -284,7 +284,7 @@ export struct DeviceDetailDialog {
                 Logger.warn(TAG, `===>currnt checked value is: ${value}`);
                 let restartControl = new RestartControl(0);
                 let option = this.getControlOption(restartControl.getServiceId(), restartControl.getDataJson());
-                Logger.warn(TAG, `===>重启deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
+                Logger.warn(TAG, `===>reboot deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -305,7 +305,7 @@ export struct DeviceDetailDialog {
                 Logger.warn(TAG, `===>currnt checked value is: ${value}`);
                 let switchControl = new SwitchControl(0);
                 let option = this.getControlOption(switchControl.getServiceId(), switchControl.getDataJson());
-                Logger.warn(TAG, `===>休眠deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
+                Logger.warn(TAG, `===>hibernate deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -326,7 +326,7 @@ export struct DeviceDetailDialog {
                 //发送亮屏命令
                 let switchControl = new SwitchControl(1);
                 let option = this.getControlOption(switchControl.getServiceId(), switchControl.getDataJson());
-                Logger.warn(TAG, `===>亮屏deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
+                Logger.warn(TAG, `===>screenOn deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -347,7 +347,7 @@ export struct DeviceDetailDialog {
                 //发送熄屏命令
                 let switchControl = new SwitchControl(0);
                 let option = this.getControlOption(switchControl.getServiceId(), switchControl.getDataJson());
-                Logger.warn(TAG, `===>熄屏deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
+                Logger.warn(TAG, `===>screenOff deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -433,7 +433,7 @@ export struct DeviceDetailDialog {
         Logger.debug(TAG, '===>deviceSwitch DeviceDetailDialog controlDevice success!');
       })
       .catch(() => {
-        Logger.warn(TAG, `===>deviceSwitch: 指令发送失败，请检查设备连接状态`);
+        Logger.warn(TAG, `===>deviceSwitch: failed to send command, please check device connection`);
         promptAction.showToast({
           message: $r('app.string.cmd_send_failed'),
           duration: 2000,

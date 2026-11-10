@@ -167,10 +167,10 @@ export struct WifiDeviceDetailDialog {
               selectedValue: this.selectedValue,
               onChange: (value: string) => {
                 //发送重启命令
-                Logger.warn(TAG, `===>currnt checked value is重启: ${value}`);
+                Logger.warn(TAG, `===>current checked value is reboot: ${value}`);
                 let restartControl = new RestartControl(0);
                 let option = this.getControlOption(restartControl.getServiceId(), restartControl.getDataJson());
-                Logger.warn(TAG, `===>重启deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
+                Logger.warn(TAG, `===>reboot deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -189,10 +189,10 @@ export struct WifiDeviceDetailDialog {
               selectedValue: this.selectedValue,
               onChange: (value: string) => {
                 //发送休眠命令
-                Logger.warn(TAG, `===>currnt checked value is休眠: ${value}`);
+                Logger.warn(TAG, `===>current checked value is hibernate: ${value}`);
                 let switchControl = new SwitchControl(0);
                 let option = this.getControlOption(switchControl.getServiceId(), switchControl.getDataJson());
-                Logger.warn(TAG, `===>休眠deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
+                Logger.warn(TAG, `===>hibernate deviceRadio option: this.getControlOption: ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -210,12 +210,12 @@ export struct WifiDeviceDetailDialog {
               value: 'ScreenOn',
               selectedValue: this.selectedValue,
               onChange: (value: string) => {
-                Logger.warn(TAG, `===>currnt checked value is亮屏: ${value}`);
+                Logger.warn(TAG, `===>current checked value is screenOn: ${value}`);
                 //发送亮屏命令
                 let switchControl = new SwitchControl(1);
                 let option = this.getControlOption(switchControl.getServiceId(), switchControl.getDataJson());
                 Logger.warn(TAG,
-                  `===>亮屏deviceRadio getDataJson:  switchControl.getDataJson(): ${JSON.stringify(option)}`);
+                  `===>screenOn deviceRadio getDataJson: switchControl.getDataJson(): ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -233,12 +233,12 @@ export struct WifiDeviceDetailDialog {
               value: 'ScreenOff',
               selectedValue: this.selectedValue,
               onChange: (value: string) => {
-                Logger.warn(TAG, `===>currnt checked value is熄屏: ${value}`);
+                Logger.warn(TAG, `===>current checked value is screenOff: ${value}`);
                 //发送熄屏命令
                 let switchControl = new SwitchControl(0);
                 let option = this.getControlOption(switchControl.getServiceId(), switchControl.getDataJson());
                 Logger.warn(TAG,
-                  `===>熄屏deviceRadio getDataJson:  switchControl.getDataJson(): ${JSON.stringify(option)}`);
+                  `===>screenOff deviceRadio getDataJson: switchControl.getDataJson(): ${JSON.stringify(option)}`);
                 if (option == undefined) {
                   return;
                 }
@@ -324,7 +324,7 @@ export struct WifiDeviceDetailDialog {
         Logger.debug(TAG, '===>deviceSwitch DeviceDetailDialog controlDevice success!');
       })
       .catch(() => {
-        Logger.warn(TAG, `===>deviceSwitch: 指令发送失败，请检查设备连接状态`);
+        Logger.warn(TAG, `===>deviceSwitch: failed to send command, please check device connection`);
         promptAction.showToast({
           message: $r('app.string.cmd_send_failed'),
           duration: 2000,

@@ -111,7 +111,7 @@ export default class BleDevicesConnector implements InfDevicesConnector {
       this.connectedClient!.setCharacteristicChangeNotification(notifyCharacter, true, (err: BusinessError) => {
         //订阅失败
         if (err) {
-          Logger.debug(TAG, 'setCharacteristicChangeNotification(),订阅失败');
+          Logger.debug(TAG, 'setCharacteristicChangeNotification() failed to subscribe');
         }
       });
       this.connectedClient!.on('BLECharacteristicChange', (characteristicChangeReq: ble.BLECharacteristic) => {

@@ -264,7 +264,7 @@ export struct CoapDevicesListView {
     .width(CommonConstants.FULL_WIDTH_PERCENT)
     .onClick(() => {
       // 点击连接
-      Logger.info(TAG, `===>onClick, 连接设备`);
+      Logger.info(TAG, `===>onClick, connect device`);
       this.connectDevice(item.index);
     });
   }

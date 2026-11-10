@@ -60,7 +60,7 @@ export struct DeviceAnimation {
           .height(DragSceneConstants.DEVICE_ITEM_IC_SIZE)
           .draggable(false)
           .onError((err) => {
-            Logger.debug(TAG, '缩略图加载异常:' + JSON.stringify(err));
+            Logger.debug(TAG, 'Failed to load thumbnail: ' + JSON.stringify(err));
           });
       };
 
