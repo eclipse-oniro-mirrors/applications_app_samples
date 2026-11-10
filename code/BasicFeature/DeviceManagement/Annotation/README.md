@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This sample uses [annotation in Basic Services Kit](https://gitcode.com/shicheny_01/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-annotation.md) to demonstrate `@Available` version checks and `@SuppressWarnings` warning suppression.
+This sample uses [annotation in Basic Services Kit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-annotation.md) to demonstrate `@Available` version checks and `@SuppressWarnings` warning suppression.
 
 The ArkTS Stage sample runs as a normal application on an emulator or a local device without special hardware. Local mode reads the system API version, while mock mode uses API 21 to demonstrate compatibility fallback deterministically.
 
@@ -49,8 +49,7 @@ Annotation
 8. [AnnotationState.test.ets](entry/src/ohosTest/ets/test/AnnotationState.test.ets) verifies state machine transitions across environment switches.
 9. [MockEnvironment.test.ets](entry/src/ohosTest/ets/test/MockEnvironment.test.ets) provides dedicated testing for mock environment behaviors.
 10. [Robustness.test.ets](entry/src/ohosTest/ets/test/Robustness.test.ets) validates fault tolerance and high-frequency call stability.
-11. [AnnotationPerformanceDeep.test.ets](entry/src/ohosTest/ets/test/AnnotationPerformanceDeep.test.ets) provides deep performance testing including memory leak detection, CPU/memory pressure, response time percentiles, GC impact, sustained load, concurrent access, resource cleanup, peak load handling, and performance stability over time.
-12. [ohosTest.md](ohosTest.md) archives runtime test scenarios and lists warning diagnostic scenarios that require verification through independent compilation fixtures.
+11. [ohosTest.md](ohosTest.md) archives runtime test scenarios and lists warning diagnostic scenarios that require verification through independent compilation fixtures.
 
 ## Permissions
 
@@ -71,7 +70,7 @@ No other samples or third-party runtime dependencies are required.
 
 ## Testing
 
-The project includes 324 automated test cases across 30 test suites:
+The project includes 363 automated test cases across 30 test suites:
 
 - **AnnotationApi.test.ets**: 15 API functional tests
 - **Ability.test.ets**: 8 UI interaction tests
@@ -80,7 +79,6 @@ The project includes 324 automated test cases across 30 test suites:
 - **AnnotationState.test.ets**: 22 state machine tests
 - **MockEnvironment.test.ets**: 22 mock environment tests
 - **Robustness.test.ets**: 20 fault tolerance and stability tests
-- **AnnotationPerformanceDeep.test.ets**: 10 deep performance tests
 - **AnnotationServiceEdgeCases.test.ets**: 12 edge case tests
 - **AnnotationException.test.ets**: 9 exception handling tests
 - **AnnotationDeep.test.ets**: 9 deep functionality tests
@@ -105,16 +103,7 @@ The project includes 324 automated test cases across 30 test suites:
 - **AnnotationRuleEngine.test.ets**: 10 rule engine tests
 - **AnnotationRegression.test.ets**: 12 regression tests
 
-### AppFreeze Prevention
-
-All performance test cases have been optimized to prevent THREAD_BLOCK_6S errors:
-
-- **Total operations reduced**: 83,500 → 3,100 (⬇️ 96.3%)
-- **Main thread blocking time**: >6s → <1s
-- **Iteration counts**: All reduced to safe ranges (≤200)
-- **Delay times**: Reduced from 500ms to 100ms in UI tests
-
-See [ohosTest.md](ohosTest.md) for detailed test case documentation and AppFreeze fix records.
+See [ohosTest.md](ohosTest.md) for detailed test case documentation.
 
 ## Download
 

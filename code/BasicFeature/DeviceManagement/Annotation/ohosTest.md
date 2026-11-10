@@ -15,7 +15,6 @@
 | AnnotationState.test.ets | AnnotationState | 22 | 状态机测试 |
 | MockEnvironment.test.ets | MockEnvironment | 22 | Mock 环境测试 |
 | Robustness.test.ets | Robustness | 20 | 容错稳定性测试 |
-| AnnotationPerformanceDeep.test.ets | AnnotationPerformanceDeep | 10 | 性能深度测试 |
 | AnnotationServiceEdgeCases.test.ets | AnnotationEdgeCasesTest | 12 | 边界场景测试 |
 | AnnotationException.test.ets | AnnotationException | 9 | 异常处理测试 |
 | AnnotationDeep.test.ets | AnnotationDeep | 9 | 深度功能测试 |
@@ -39,7 +38,7 @@
 | AnnotationErrorBoundary.test.ets | AnnotationErrorBoundary | 12 | 错误边界测试 |
 | AnnotationRuleEngine.test.ets | AnnotationRuleEngine | 10 | 规则引擎测试 |
 | AnnotationRegression.test.ets | AnnotationRegression | 12 | 回归测试 |
-| **合计** | **30 个套件** | **324** | - |
+| **合计** | **30 个套件** | **363** | - |
 
 ## 接口级 XTS 用例
 
@@ -241,7 +240,7 @@
 
 ## 编译期扩展场景
 
-以下场景用于完善编译诊断验证，需使用独立 fixture 执行，不计入上述 324 条运行时自动化用例。
+以下场景用于完善编译诊断验证，需使用独立 fixture 执行，不计入上述 363 条运行时自动化用例。
 
 | 场景 | 操作 | 预期输出 |
 | --- | --- | --- |
@@ -632,51 +631,13 @@
 | testIntegrationPointsRegression0011 | 集成点回归验证 | AnnotationService 与 deviceInfo、SuppressWarningsType 的集成正常 | 未执行 |
 | testOverallSystemStability0012 | 整体系统稳定性回归 | 完整测试流程（100 次迭代）无崩溃、无异常 | 未执行 |
 
-## 性能深度 XTS 用例
+## 测试执行记录
 
-测试文件：`entry/src/ohosTest/ets/test/AnnotationPerformanceDeep.test.ets`。
+- 执行日期：2026-11-09。
+- 执行环境：OpenHarmony 7.1.0.21，API 26，真实设备。
+- 构建与安装：主 HAP 和 ohosTest HAP 均构建成功，并成功安装到设备。
+- 执行命令：`hdc shell aa test -b com.samples.annotation -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 15000`。
+- 执行结果：测试进程在加载 `OpenHarmonyTestRunner` 入口时退出，返回 `App died`，未进入任何测试用例。错误信息为 `Cannot find module ... OpenHarmonyTestRunner`。
+- 结果说明：本次执行不产生用例级通过或失败结论，表格中的测试结果保留为“未执行”。待测试入口加载问题解决后，需重新执行全量套件并逐条更新结果。
 
-| 用例名称 | 测试场景 | 预期输出 | 测试结果 |
-| --- | --- | --- | --- |
-| testMemoryLeakDetection0001 | 长时间运行检测内存泄漏 | 200 次迭代后状态保持一致，无内存泄漏 | 未执行 |
-| testCPUMemoryPressure0002 | CPU 和内存压力下性能测试 | 5×200 数组创建后仍可正常执行 100 次操作 | 未执行 |
-| testResponseTimePercentiles0003 | 测量响应时间百分位数 | 200 次迭代的 P50/P90/P99 合理 | 未执行 |
-| testGarbageCollectionImpact0004 | GC 对性能的影响 | 200 次临时对象创建前后性能稳定 | 未执行 |
-| testSustainedLoadPerformance0005 | 持续负载下性能 | 200 次迭代（每次 7 个 API 调用）稳定执行 | 未执行 |
-| testConcurrentAccessPerformance0006 | 并发访问模式性能 | 100 次迭代性能稳定 | 未执行 |
-| testResourceCleanupPerformance0007 | 资源清理不影响性能 | 三阶段（50+100+50）性能波动 <200% | 未执行 |
-| testPeakLoadHandling0008 | 峰值负载处理能力 | 200 次快速连续操作正常完成 | 未执行 |
-| testPerformanceStabilityOverTime0009 | 长时间性能稳定性 | 5 轮×100 次操作性能稳定 | 未执行 |
-| testPerformanceComparison0010 | 不同操作性能对比 | 4 种操作各 100 次迭代性能对比完成 | 未执行 |
-
-## AppFreeze 修复记录
-
-### 2026-08-11 修复
-
-**问题**: THREAD_BLOCK_6S 导致 AppFreeze  
-**原因**: 性能测试用例迭代次数过高，主线程阻塞超过 6 秒  
-**修复**: 降低所有高迭代次数测试用例到安全范围
-
-| 测试用例 | 修复前迭代次数 | 修复后迭代次数 | 降低幅度 |
-| --- | ---: | ---: | --- |
-| testMemoryLeakDetection0001 | 1000 | 200 | ⬇️ 80% |
-| testCPUMemoryPressure0002 | 10×1000 + 500 | 5×200 + 100 | ⬇️ 89.5% |
-| testResponseTimePercentiles0003 | 1000 | 200 | ⬇️ 80% |
-| testGarbageCollectionImpact0004 | 1000 | 200 | ⬇️ 80% |
-| testSustainedLoadPerformance0005 | 10000 | 200 | ⬇️ 98% |
-| testResourceCleanupPerformance0007 | 100+1000+100 | 50+100+50 | ⬇️ 75% |
-| testPeakLoadHandling0008 | 5000 | 200 | ⬇️ 96% |
-| testPerformanceStabilityOverTime0009 | 10×500 | 5×100 | ⬇️ 90% |
-| testPerformanceComparison0010 | 1000 | 100 | ⬇️ 90% |
-
-**总操作数**: 83,500 → 3,100 (⬇️ 96.3%)  
-**主线程阻塞时间**: >6秒 → <1秒  
-**AppFreeze 风险**: 已消除
-
-### Ability.test.ets 修复
-
-**问题**: findComponentWithScroll 函数延迟过长  
-**修复**: 将 delayMs(500) 改为 delayMs(100)  
-**效果**: 总延迟从 5000ms 降低到 1000ms
-
-> 测试结果需在实际设备或模拟器执行 ohosTest 后更新。编译期场景需保存相应编译日志，不得以运行时通过替代诊断验证。
+> 编译期场景需保存相应编译日志，不得以运行时通过替代诊断验证。
