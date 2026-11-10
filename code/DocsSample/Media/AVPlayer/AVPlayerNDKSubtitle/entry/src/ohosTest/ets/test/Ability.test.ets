@@ -14,7 +14,7 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import {beforeEach, describe, expect, it, Level, Size, TestType} from '@ohos/hypium';
+import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 
 export default function abilityTest(): void {
@@ -25,21 +25,6 @@ export default function abilityTest(): void {
   const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 
   describe('AVPlayerNDKSubtitleTest', () => {
-
-    beforeEach(async () => {
-
-      await new Promise<void>((resolve: () => void) => {
-
-        setTimeout(() => {
-
-          resolve();
-
-        }, 10);
-
-      });
-
-    });
-
 
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_0100

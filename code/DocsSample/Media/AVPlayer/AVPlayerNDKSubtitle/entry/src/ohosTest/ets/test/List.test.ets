@@ -14,10 +14,51 @@
  */
 
 import abilityTest from './Ability.test';
+
+import subtitleTimeExpandedTest from './SubtitleTimeExpanded.test';
+import subtitleCueExpandedTest from './SubtitleCueExpanded.test';
+import subtitleSrtExpandedTest from './SubtitleSrtExpanded.test';
+import subtitleEncodingExpandedTest from './SubtitleEncodingExpanded.test';
 import timeConvertExpandedTest from './TimeConvertExpanded.test';
+import playbackSpeedExpandedTest from './PlaybackSpeedExpanded.test';
+import sliderProgressExpandedTest from './SliderProgressExpanded.test';
+import nativeApiContractExpandedTest from './NativeApiContractExpanded.test';
+import nativeFdContractExpandedTest from './NativeFdContractExpanded.test';
+import nativeSeekContractExpandedTest from './NativeSeekContractExpanded.test';
+import playerControlStateExpandedTest from './PlayerControlStateExpanded.test';
+import subtitleDisplayExpandedTest from './SubtitleDisplayExpanded.test';
+import mediaFileContractExpandedTest from './MediaFileContractExpanded.test';
+import projectConstantsExpandedTest from './ProjectConstantsExpanded.test';
+
+import subtitleRobustnessExpandedTest from './SubtitleRobustnessExpanded.test';
+import subtitleOverlapExpandedTest from './SubtitleOverlapExpanded.test';
+import subtitleWrapExpandedTest from './SubtitleWrapExpanded.test';
+import seekBoundaryExpandedTest from './SeekBoundaryExpanded.test';
+import speedCycleExpandedTest from './SpeedCycleExpanded.test';
+import PlayerStateMatrixExpandedCoreTest from './PlayerStateMatrixExpandedCore.test';
+import PlayerStateMatrixExpandedTailTest from './PlayerStateMatrixExpandedTail.test';
 import nativeErrorContractExpandedTest from './NativeErrorContractExpanded.test';
+import mediaMetadataExpandedTest from './MediaMetadataExpanded.test';
+import playbackLimitsExpandedTest from './PlaybackLimitsExpanded.test';
+
+
+import subtitleCueTimelineExpandedTest from './SubtitleCueTimelineExpanded.test';
+
+import SubtitleFileBehaviorExpandedCoreTest from './SubtitleFileBehaviorExpandedCore.test';
+import SubtitleFileBehaviorExpandedTailTest from './SubtitleFileBehaviorExpandedTail.test';
 import mediaResourceBehaviorExpandedTest from './MediaResourceBehaviorExpanded.test';
+
+
+import fileDescriptorTruncateBehaviorTest from './FileDescriptorTruncateBehavior.test';
+
+import subtitlePipeline8wTest from './SubtitlePipeline8W.test';
+import playerTimeline8wTest from './PlayerTimeline8W.test';
+import nativeArgument8wTest from './NativeArgument8W.test';
 import mediaMetadata8wTest from './MediaMetadata8W.test';
+import fileDescriptor8wTest from './FileDescriptor8W.test';
+import syncState8wTest from './SyncState8W.test';
+import resourceIntegrity8wTest from './ResourceIntegrity8W.test';
+
 import subtitleSafeParseCoreTest from './SubtitleSafeParseCore.test';
 import subtitleSafeParseTailTest from './SubtitleSafeParseTail.test';
 import subtitleSafeStateCoreTest from './SubtitleSafeStateCore.test';
@@ -25,18 +66,53 @@ import subtitleSafeStateTailTest from './SubtitleSafeStateTail.test';
 import subtitleSafeBoundaryCoreTest from './SubtitleSafeBoundaryCore.test';
 import subtitleSafeBoundaryTailTest from './SubtitleSafeBoundaryTail.test';
 import SubtitleSafeFileIoCoreFirstTest from './SubtitleSafeFileIoCoreFirst.test';
+import SubtitleSafeFileIoCoreSecondTest from './SubtitleSafeFileIoCoreSecond.test';
 import SubtitleSafeFileIoMiddleFirstTest from './SubtitleSafeFileIoMiddleFirst.test';
+import SubtitleSafeFileIoMiddleSecondTest from './SubtitleSafeFileIoMiddleSecond.test';
 import SubtitleSafeFileIoTailFirstTest from './SubtitleSafeFileIoTailFirst.test';
+import SubtitleSafeFileIoTailSecondTest from './SubtitleSafeFileIoTailSecond.test';
 import playerContractSafeCoreTest from './PlayerContractSafeCore.test';
 import playerContractSafeTailTest from './PlayerContractSafeTail.test';
 import uiSmokeSafeTest from './UiSmokeSafe.test';
 
 export default function testsuite() {
   abilityTest();
+  subtitleTimeExpandedTest();
+  subtitleCueExpandedTest();
+  subtitleSrtExpandedTest();
+  subtitleEncodingExpandedTest();
   timeConvertExpandedTest();
+  playbackSpeedExpandedTest();
+  sliderProgressExpandedTest();
+  nativeApiContractExpandedTest();
+  nativeFdContractExpandedTest();
+  nativeSeekContractExpandedTest();
+  playerControlStateExpandedTest();
+  subtitleDisplayExpandedTest();
+  mediaFileContractExpandedTest();
+  projectConstantsExpandedTest();
+  subtitleRobustnessExpandedTest();
+  subtitleOverlapExpandedTest();
+  subtitleWrapExpandedTest();
+  seekBoundaryExpandedTest();
+  speedCycleExpandedTest();
+  PlayerStateMatrixExpandedCoreTest();
+  PlayerStateMatrixExpandedTailTest();
   nativeErrorContractExpandedTest();
+  mediaMetadataExpandedTest();
+  playbackLimitsExpandedTest();
+  subtitleCueTimelineExpandedTest();
+  SubtitleFileBehaviorExpandedCoreTest();
+  SubtitleFileBehaviorExpandedTailTest();
   mediaResourceBehaviorExpandedTest();
+  fileDescriptorTruncateBehaviorTest();
+  subtitlePipeline8wTest();
+  playerTimeline8wTest();
+  nativeArgument8wTest();
   mediaMetadata8wTest();
+  fileDescriptor8wTest();
+  syncState8wTest();
+  resourceIntegrity8wTest();
   subtitleSafeParseCoreTest();
   subtitleSafeParseTailTest();
   subtitleSafeStateCoreTest();
@@ -44,8 +120,11 @@ export default function testsuite() {
   subtitleSafeBoundaryCoreTest();
   subtitleSafeBoundaryTailTest();
   SubtitleSafeFileIoCoreFirstTest();
+  SubtitleSafeFileIoCoreSecondTest();
   SubtitleSafeFileIoMiddleFirstTest();
+  SubtitleSafeFileIoMiddleSecondTest();
   SubtitleSafeFileIoTailFirstTest();
+  SubtitleSafeFileIoTailSecondTest();
   playerContractSafeCoreTest();
   playerContractSafeTailTest();
   uiSmokeSafeTest();

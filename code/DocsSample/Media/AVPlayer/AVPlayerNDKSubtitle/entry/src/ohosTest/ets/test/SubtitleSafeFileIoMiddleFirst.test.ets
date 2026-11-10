@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {beforeEach, describe, it, expect} from '@ohos/hypium';
+import { describe, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
@@ -20,14 +20,6 @@ const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 export default function SubtitleSafeFileIoMiddleFirstTest() {
   describe('SubtitleSafeFileIoMiddleFirstTest', () => {
-    beforeEach(async () => {
-      await new Promise<void>((resolve: () => void) => {
-        setTimeout(() => {
-          resolve();
-        }, 10);
-      });
-    });
-
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_IO_0085
      * @tc.name      testSafeFileIo0085

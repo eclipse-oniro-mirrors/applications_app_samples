@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {beforeEach, describe, beforeAll, it, expect} from '@ohos/hypium';
+import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { Component, Driver, ON } from '@kit.TestKit';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
@@ -23,14 +23,6 @@ const bundleName = AbilityDelegatorRegistry.getArguments().bundleName;
 
 export default function uiSmokeSafeTest() {
   describe('uiSmokeSafeTest', () => {
-    beforeEach(async () => {
-      await new Promise<void>((resolve: () => void) => {
-        setTimeout(() => {
-          resolve();
-        }, 10);
-      });
-    });
-
   beforeAll(async () => {
     await abilityDelegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
     await driver.delayMs(2000);
@@ -114,14 +106,14 @@ export default function uiSmokeSafeTest() {
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_SAFE_UI_0006
      * @tc.name      testSafeUiSmoke0006
-     * @tc.desc      UI smoke check 6 finds VideoView.
+     * @tc.desc      UI smoke check 6 finds pause.
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
     it('testSafeUiSmoke0006', 0, async () => {
       await driver.delayMs(300);
-      const component: Component | null = await driver.findComponent(ON.id('VideoView'));
+      const component: Component | null = await driver.findComponent(ON.id('pause'));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');

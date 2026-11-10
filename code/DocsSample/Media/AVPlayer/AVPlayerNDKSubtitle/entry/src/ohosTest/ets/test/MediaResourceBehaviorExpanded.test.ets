@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {beforeEach, describe, beforeAll, it, expect} from '@ohos/hypium';
+import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { application, common } from '@kit.AbilityKit';
 
@@ -58,14 +58,6 @@ function subtitleBytes(): Uint8Array {
 
 export default function mediaResourceBehaviorExpandedTest() {
   describe('mediaResourceBehaviorExpandedTest', () => {
-    beforeEach(async () => {
-      await new Promise<void>((resolve: () => void) => {
-        setTimeout(() => {
-          resolve();
-        }, 10);
-      });
-    });
-
   beforeAll(async () => {
     if (moduleContext === null) {
       moduleContext = await application.createModuleContext(

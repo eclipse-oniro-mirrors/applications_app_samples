@@ -12,19 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {beforeEach, describe, it, expect} from '@ohos/hypium';
+import { describe, it, expect } from '@ohos/hypium';
 
 
 export default function nativeSeekContractExpandedTest() {
   describe('nativeSeekContractExpandedTest', () => {
-    beforeEach(async () => {
-      await new Promise<void>((resolve: () => void) => {
-        setTimeout(() => {
-          resolve();
-        }, 10);
-      });
-    });
-
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_EXP_SEEK_0001
      * @tc.name      testExpSeekMode0001
