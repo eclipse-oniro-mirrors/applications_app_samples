@@ -113,7 +113,7 @@ export class SchemaMigration {
       AppLogger.error(SCOPE, `migrate failed: ${detail}`);
       return result;
     } finally {
-      hiTraceMeter.finishTrace(DB_MIGRATE_TRACE_NAME, DB_MIGRATE_TRACE_TASK_ID); // Close the span on every path, including early returns and errors.
+      hiTraceMeter.finishTrace(DB_MIGRATE_TRACE_NAME, DB_MIGRATE_TRACE_TASK_ID);
     }
   }
 

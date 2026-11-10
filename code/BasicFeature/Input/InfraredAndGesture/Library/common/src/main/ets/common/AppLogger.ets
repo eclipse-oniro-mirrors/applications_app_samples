@@ -31,21 +31,21 @@ export enum LogLevel {
 export class AppLogger {
   /** Writes a debug level line, typically for verbose diagnostics. */
   static debug(scope: string, message: string): void {
-    hilog.debug(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{public}s', scope, message);
+    hilog.debug(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{private}s', scope, message);
   }
 
   /** Writes an info level line for normal flow milestones. */
   static info(scope: string, message: string): void {
-    hilog.info(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{public}s', scope, message);
+    hilog.info(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{private}s', scope, message);
   }
 
   /** Writes a warn level line for recoverable or unexpected situations. */
   static warn(scope: string, message: string): void {
-    hilog.warn(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{public}s', scope, message);
+    hilog.warn(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{private}s', scope, message);
   }
 
   /** Writes an error level line for failures that affect user visible results. */
   static error(scope: string, message: string): void {
-    hilog.error(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{public}s', scope, message);
+    hilog.error(AppConstants.LOG_DOMAIN, AppConstants.LOG_TAG, '%{public}s: %{private}s', scope, message);
   }
 }

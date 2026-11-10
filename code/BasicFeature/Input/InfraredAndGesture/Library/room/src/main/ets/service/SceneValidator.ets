@@ -120,7 +120,7 @@ export class SceneValidator {
       AppLogger.info(SCOPE, `validate done: sceneId=${sceneId}, valid=${validation.valid}`);
       return validation;
     } finally {
-      hiTraceMeter.finishTrace(SCENE_VALIDATE_TRACE_NAME, SCENE_VALIDATE_TRACE_TASK_ID); // Close the span on every path, including early returns.
+      hiTraceMeter.finishTrace(SCENE_VALIDATE_TRACE_NAME, SCENE_VALIDATE_TRACE_TASK_ID);
     }
   }
 

@@ -65,9 +65,9 @@ export const KEY_SEMANTICS: KeySemantic[] = [
 /** Display summary of one room with device/scene counts for the home list. */
 @ObservedV2
 export class RoomSummary {
-  @Trace room: Room = new Room();
-  @Trace deviceCount: number = 0;
-  @Trace sceneCount: number = 0;
+  @Trace public room: Room = new Room();
+  @Trace public deviceCount: number = 0;
+  @Trace public sceneCount: number = 0;
 }
 
 /**
@@ -75,16 +75,16 @@ export class RoomSummary {
  */
 @ObservedV2
 export class OrchestrationViewModel {
-  @Trace rooms: RoomSummary[] = [];
-  @Trace roomId: string = '';
-  @Trace devices: Device[] = [];
-  @Trace scenes: Scene[] = [];
-  @Trace keys: RoomKey[] = [];
-  @Trace templates: RemoteTemplate[] = [];
-  @Trace brands: IrBrandEntry[] = [];
-  @Trace codes: IrCode[] = [];
-  @Trace selectedDeviceId: string = '';
-  @Trace statusText: string = '';
+  @Trace public rooms: RoomSummary[] = [];
+  @Trace public roomId: string = '';
+  @Trace public devices: Device[] = [];
+  @Trace public scenes: Scene[] = [];
+  @Trace public keys: RoomKey[] = [];
+  @Trace public templates: RemoteTemplate[] = [];
+  @Trace public brands: IrBrandEntry[] = [];
+  @Trace public codes: IrCode[] = [];
+  @Trace public selectedDeviceId: string = '';
+  @Trace public statusText: string = '';
 
   /** Load all rooms with their device/scene counts and refresh the home list. */
   async loadRooms(): Promise<void> {

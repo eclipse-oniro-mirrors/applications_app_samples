@@ -197,7 +197,7 @@ export class IrSendQueue {
       this.busy = false;
       this.currentTicketId = '';
       this.cancelRequested = false;
-      hiTraceMeter.finishTrace(SEND_TASK_TRACE_NAME, SEND_TASK_TRACE_TASK_ID); // Close the span on every path, including cancellation and failure.
+      hiTraceMeter.finishTrace(SEND_TASK_TRACE_NAME, SEND_TASK_TRACE_TASK_ID);
       AppLogger.info(SCOPE, `run finished: ticketId=${ticketId}`);
     }
   }

@@ -119,17 +119,17 @@ export class DateUtils {
    */
   public static isSameDay(firstMillis: number, secondMillis: number): boolean {
     // Either timestamp invalid means they cannot be compared, warn and return false.
-    if (!Number.isFinite(firstMillis) || !Number.isFinite(secondMillis)
-      || firstMillis < 0 || secondMillis < 0) {
+    if (!Number.isFinite(firstMillis) || !Number.isFinite(secondMillis) ||
+      firstMillis < 0 || secondMillis < 0) {
       AppLogger.warn('DateUtils', `isSameDay called with invalid input: ${firstMillis}, ${secondMillis}`);
       return false;
     }
     const first: Date = new Date(firstMillis);
     const second: Date = new Date(secondMillis);
     // Same day requires equal year, month and day-of-month components.
-    return first.getFullYear() === second.getFullYear()
-      && first.getMonth() === second.getMonth()
-      && first.getDate() === second.getDate();
+    return first.getFullYear() === second.getFullYear() &&
+      first.getMonth() === second.getMonth() &&
+      first.getDate() === second.getDate();
   }
 
   /**

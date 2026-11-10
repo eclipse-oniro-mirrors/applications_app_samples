@@ -76,7 +76,7 @@ export class IrTransmitter {
       result.message = TransmitErrorMapper.toUserText(code);
       AppLogger.error(SCOPE, `transmit call failed: frequencyHz=${frequency}, resultCode=${code}, bizErrorCode=${bizError.code}, durationMs=${result.durationMs}`);
     } finally {
-      hiTraceMeter.finishTrace(TRANSMIT_TRACE_NAME, TRANSMIT_TRACE_TASK_ID); // Close the span on both the success and failure paths.
+      hiTraceMeter.finishTrace(TRANSMIT_TRACE_NAME, TRANSMIT_TRACE_TASK_ID);
     }
     return result;
   }

@@ -43,31 +43,31 @@ export enum IrProtocol {
  */
 export class IrCode {
   /** Unique identifier built as brandId-deviceType-model-keySemantic. */
-  id: string = '';
+  public id: string = '';
   /** Protocol used to compile the payload into waveform frames. */
-  protocol: IrProtocol = IrProtocol.RAW;
+  public protocol: IrProtocol = IrProtocol.RAW;
   /** Carrier frequency in hertz; 38000 (38 kHz) when the entry omits it. */
-  frequencyHz: number = DEFAULT_CARRIER_FREQUENCY_HZ;
+  public frequencyHz: number = DEFAULT_CARRIER_FREQUENCY_HZ;
   /**
    * Protocol payload text. For NEC/SONY/RC5 a comma separated pair such as
    * "0x08,0xF7": NEC address+command, SONY data+bitCount, RC5 address+command.
    * For RAW an alternating mark/space pulse sequence in microseconds.
    */
-  payload: string = '';
+  public payload: string = '';
   /** How many times the compiled frames are repeated in one send. */
-  repeatCount: number = DEFAULT_REPEAT_COUNT;
+  public repeatCount: number = DEFAULT_REPEAT_COUNT;
   /** Source name of the code, e.g. the bundled library name. */
-  source: string = '';
+  public source: string = '';
   /** License text of the code for legal attribution. */
-  license: string = '';
+  public license: string = '';
   /** Device brand display name. */
-  brand: string = '';
+  public brand: string = '';
   /** Device model name. */
-  model: string = '';
+  public model: string = '';
   /** Semantic key name such as power or volume_up. */
-  keySemantic: string = '';
+  public keySemantic: string = '';
   /** Optional integrity checksum from the library file. */
-  checksum: string = '';
+  public checksum: string = '';
 }
 
 /**
@@ -77,11 +77,11 @@ export class IrCode {
  */
 export class IrFrame {
   /** Zero-based frame index inside one compile result. */
-  index: number = 0;
+  public index: number = 0;
   /** Pulse sequence in microseconds; every value must be greater than 0. */
-  pattern: number[] = [];
+  public pattern: number[] = [];
   /** Total waveform duration in microseconds, the sum of all pattern values. */
-  durationUs: number = 0;
+  public durationUs: number = 0;
 }
 
 /** Error codes reported by IrCodeCompiler when compilation fails. */
@@ -101,13 +101,13 @@ export enum IrCompileError {
 /** Outcome of compiling one IrCode: frames on success, error details otherwise. */
 export class IrCompileResult {
   /** True when frames were produced. */
-  ok: boolean = false;
+  public ok: boolean = false;
   /** Compiled waveform frames, empty when compilation failed. */
-  frames: IrFrame[] = [];
+  public frames: IrFrame[] = [];
   /** Machine readable error code, NONE on success. */
-  error: IrCompileError = IrCompileError.NONE;
+  public error: IrCompileError = IrCompileError.NONE;
   /** Human readable failure detail, empty on success. */
-  message: string = '';
+  public message: string = '';
 }
 
 /**
@@ -116,17 +116,17 @@ export class IrCompileResult {
  */
 export class IrCapability {
   /** Whether the device exposes an infrared emitter. */
-  hasEmitter: boolean = false;
+  public hasEmitter: boolean = false;
   /** Lowest supported carrier frequency in hertz, 0 when unknown. */
-  minFrequencyHz: number = 0;
+  public minFrequencyHz: number = 0;
   /** Highest supported carrier frequency in hertz, 0 when unknown. */
-  maxFrequencyHz: number = 0;
+  public maxFrequencyHz: number = 0;
   /** Whether the default 38 kHz carrier lies inside the supported range. */
-  supportsDefaultFrequency: boolean = false;
+  public supportsDefaultFrequency: boolean = false;
   /** True means sending is disabled and the UI should be read-only. */
-  readOnly: boolean = true;
+  public readOnly: boolean = true;
   /** Explanation when the device cannot emit infrared. */
-  reason: string = '';
+  public reason: string = '';
 }
 
 /** Normalized result codes of one transmit attempt. */
@@ -148,11 +148,11 @@ export enum TransmitResultCode {
 /** Result of one transmit attempt with duration for UI feedback. */
 export class TransmitResult {
   /** Normalized result code. */
-  code: TransmitResultCode = TransmitResultCode.UNKNOWN;
+  public code: TransmitResultCode = TransmitResultCode.UNKNOWN;
   /** Wall time spent on the attempt in milliseconds. */
-  durationMs: number = 0;
+  public durationMs: number = 0;
   /** User readable message provided by TransmitErrorMapper. */
-  message: string = '';
+  public message: string = '';
 }
 
 /** Lifecycle state of one step inside a send job. */
@@ -170,21 +170,21 @@ export enum SendState {
 /** Progress snapshot pushed to listeners while a send job runs. */
 export class SendProgress {
   /** Ticket of the running job. */
-  ticketId: string = '';
+  public ticketId: string = '';
   /** Scene run the job belongs to, empty for manual tests. */
-  sceneRunId: string = '';
+  public sceneRunId: string = '';
   /** Zero-based index of the current step. */
-  stepIndex: number = 0;
+  public stepIndex: number = 0;
   /** Total number of steps in the job. */
-  totalSteps: number = 0;
+  public totalSteps: number = 0;
   /** Target device of the current step. */
-  deviceId: string = '';
+  public deviceId: string = '';
   /** Target key of the current step. */
-  keyId: string = '';
+  public keyId: string = '';
   /** Current lifecycle state of the step. */
-  state: SendState = SendState.PENDING;
+  public state: SendState = SendState.PENDING;
   /** Result code of the last transmit attempt of the step. */
-  resultCode: TransmitResultCode = TransmitResultCode.UNKNOWN;
+  public resultCode: TransmitResultCode = TransmitResultCode.UNKNOWN;
 }
 
 /** Origin of a send job. */
@@ -202,81 +202,81 @@ export enum SendSource {
  */
 export class SendFrame {
   /** Carrier frequency in hertz for this frame. */
-  frequencyHz: number = DEFAULT_CARRIER_FREQUENCY_HZ;
+  public frequencyHz: number = DEFAULT_CARRIER_FREQUENCY_HZ;
   /** Pulse sequence in microseconds; every value must be greater than 0. */
-  pattern: number[] = [];
+  public pattern: number[] = [];
 }
 
 /** One step of a send job: all frames of one device key. */
 export class SendStep {
   /** Zero-based step index. */
-  index: number = 0;
+  public index: number = 0;
   /** Target device identifier. */
-  deviceId: string = '';
+  public deviceId: string = '';
   /** Target key identifier. */
-  keyId: string = '';
+  public keyId: string = '';
   /** Frames sent one after another with a fixed inter-frame interval. */
-  frames: SendFrame[] = [];
+  public frames: SendFrame[] = [];
   /** Delay in milliseconds before the next step starts. */
-  delayMs: number = DEFAULT_STEP_DELAY_MS;
+  public delayMs: number = DEFAULT_STEP_DELAY_MS;
 }
 
 /** A complete send request accepted by IrSendQueue. */
 export class SendJob {
   /** Ticket assigned by the queue when the job is accepted. */
-  ticketId: string = '';
+  public ticketId: string = '';
   /** Scene run the job belongs to, empty for manual tests. */
-  sceneRunId: string = '';
+  public sceneRunId: string = '';
   /** Whether the job comes from a manual test or a scene run. */
-  source: SendSource = SendSource.MANUAL;
+  public source: SendSource = SendSource.MANUAL;
   /** Steps executed serially. */
-  steps: SendStep[] = [];
+  public steps: SendStep[] = [];
 }
 
 /** Reply of IrSendQueue.enqueue: acceptance plus ticket or rejection reason. */
 export class SendTicket {
   /** Whether the queue accepted the job. */
-  accepted: boolean = false;
+  public accepted: boolean = false;
   /** Ticket identifier, only meaningful when accepted. */
-  ticketId: string = '';
+  public ticketId: string = '';
   /** Rejection reason such as BUSY, empty when accepted. */
-  reason: string = '';
+  public reason: string = '';
 }
 
 /** One brand section of the bundled IR library index. */
 export class IrBrandEntry {
   /** Stable brand identifier used by code files. */
-  brandId: string = '';
+  public brandId: string = '';
   /** Brand display name. */
-  brandName: string = '';
+  public brandName: string = '';
   /** Device types covered by this brand, e.g. tv or stb. */
-  deviceTypes: string[] = [];
+  public deviceTypes: string[] = [];
   /** Known model names of this brand. */
-  models: string[] = [];
+  public models: string[] = [];
   /** Source name of the brand data. */
-  source: string = '';
+  public source: string = '';
   /** License text of the brand data. */
-  license: string = '';
+  public license: string = '';
   /** Library file name relative to the ir-library directory. */
-  file: string = '';
+  public file: string = '';
 }
 
 /** Root object of the bundled IR library index file. */
 export class IrLibraryIndex {
   /** Index format version. */
-  version: string = '';
+  public version: string = '';
   /** Brand entries in index order. */
-  brands: IrBrandEntry[] = [];
+  public brands: IrBrandEntry[] = [];
 }
 
 /** One code resolved from the library together with its brand metadata. */
 export class IrLibraryCode {
   /** Brand identifier the code belongs to. */
-  brandId: string = '';
+  public brandId: string = '';
   /** Model name the code targets. */
-  model: string = '';
+  public model: string = '';
   /** Device type the code targets. */
-  deviceType: string = '';
+  public deviceType: string = '';
   /** Parsed code ready for compilation. */
-  code: IrCode = new IrCode();
+  public code: IrCode = new IrCode();
 }

@@ -161,7 +161,7 @@ export class IrCodeCompiler {
       }
       return IrCodeCompiler.ok(frames);
     } finally {
-      hiTraceMeter.finishTrace(RAW_TRACE_NAME, RAW_TRACE_TASK_ID); // Close the span on every path, including early returns.
+      hiTraceMeter.finishTrace(RAW_TRACE_NAME, RAW_TRACE_TASK_ID);
     }
   }
 
@@ -194,7 +194,7 @@ export class IrCodeCompiler {
 
       return IrCodeCompiler.ok([IrCodeCompiler.buildFrame(0, pattern)]);
     } finally {
-      hiTraceMeter.finishTrace(NEC_TRACE_NAME, NEC_TRACE_TASK_ID); // Close the span on every path, including early returns.
+      hiTraceMeter.finishTrace(NEC_TRACE_NAME, NEC_TRACE_TASK_ID);
     }
   }
 
@@ -228,7 +228,7 @@ export class IrCodeCompiler {
       }
       return IrCodeCompiler.ok([IrCodeCompiler.buildFrame(0, pattern)]);
     } finally {
-      hiTraceMeter.finishTrace(SONY_TRACE_NAME, SONY_TRACE_TASK_ID); // Close the span on every path, including early returns.
+      hiTraceMeter.finishTrace(SONY_TRACE_NAME, SONY_TRACE_TASK_ID);
     }
   }
 
@@ -286,7 +286,7 @@ export class IrCodeCompiler {
       }
       return IrCodeCompiler.ok([IrCodeCompiler.buildFrame(0, pattern)]);
     } finally {
-      hiTraceMeter.finishTrace(RC5_TRACE_NAME, RC5_TRACE_TASK_ID); // Close the span on every path, including early returns.
+      hiTraceMeter.finishTrace(RC5_TRACE_NAME, RC5_TRACE_TASK_ID);
     }
   }
 

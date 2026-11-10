@@ -118,7 +118,7 @@ export class AppDatabase {
       AppLogger.error(SCOPE, `db init failed: ${detail}`);
       throw new Error(detail);
     } finally {
-      hiTraceMeter.finishTrace(DB_INIT_TRACE_NAME, DB_INIT_TRACE_TASK_ID); // Close the span on every path, including failure.
+      hiTraceMeter.finishTrace(DB_INIT_TRACE_NAME, DB_INIT_TRACE_TASK_ID);
     }
   }
 

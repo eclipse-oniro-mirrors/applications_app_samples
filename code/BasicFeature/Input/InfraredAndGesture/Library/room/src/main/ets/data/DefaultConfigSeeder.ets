@@ -124,7 +124,7 @@ export class DefaultConfigSeeder {
         `seed success: steps=${steps.length}, codes=${codes.length}, expectedStates=${states.length}`);
       return true;
     } finally {
-      hiTraceMeter.finishTrace(CONFIG_SEED_TRACE_NAME, CONFIG_SEED_TRACE_TASK_ID); // Close the span on every path, including rollback and errors.
+      hiTraceMeter.finishTrace(CONFIG_SEED_TRACE_NAME, CONFIG_SEED_TRACE_TASK_ID);
     }
   }
 

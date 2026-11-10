@@ -47,7 +47,7 @@ export class IrCapabilityProbe {
         return IrCapabilityProbe.cached;
       }
 
-      const ranges: Array<infraredEmitter.InfraredFrequency> = infraredEmitter.getInfraredFrequencies();
+      const ranges: infraredEmitter.InfraredFrequency[] = infraredEmitter.getInfraredFrequencies();
       // Aggregate all supported ranges into one min/max frequency envelope.
       let minHz: number = 0;
       let maxHz: number = 0;
@@ -95,7 +95,7 @@ export class IrCapabilityProbe {
       IrCapabilityProbe.cached = IrCapabilityProbe.safeDefault(`Infrared capability probe failed: ${detail}`);
       return IrCapabilityProbe.cached;
     } finally {
-      hiTraceMeter.finishTrace(PROBE_TRACE_NAME, PROBE_TRACE_TASK_ID); // Close the span on every path, including early returns and errors.
+      hiTraceMeter.finishTrace(PROBE_TRACE_NAME, PROBE_TRACE_TASK_ID);
     }
   }
 

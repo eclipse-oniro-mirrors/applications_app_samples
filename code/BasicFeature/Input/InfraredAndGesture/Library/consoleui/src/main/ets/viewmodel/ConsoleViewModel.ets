@@ -78,47 +78,47 @@ const LOG_ID_RUN_SEGMENT: string = '-log-';
  */
 class JobStepMeta {
   /** Index of the matching StepProgressView row in the UI list. */
-  viewIndex: number = 0;
+  public viewIndex: number = 0;
   /** Target device of the queued step. */
-  deviceId: string = '';
+  public deviceId: string = '';
   /** Target key of the queued step. */
-  keyId: string = '';
+  public keyId: string = '';
   /** Key semantic used to update the expected state after a successful send. */
-  semantic: KeySemantic = KeySemantic.POWER_ON;
+  public semantic: KeySemantic = KeySemantic.POWER_ON;
   /** Resolved carrier frequency in Hz applied to the compiled frames. */
-  frequencyHz: number = 0;
+  public frequencyHz: number = 0;
   /** Short summary of the compiled pattern, stored in send-log rows. */
-  patternSummary: string = 'frames=0,len=0'; // Matches the format produced by patternSummary().
+  public patternSummary: string = 'frames=0,len=0'; // Matches the format produced by patternSummary().
   /** Total IR duration of the compiled frames, stored in send-log rows. */
-  durationMs: number = 0;
+  public durationMs: number = 0;
 }
 
 /** UI-facing view model rendered by DeviceCard for a single device. */
 @ObservedV2
 export class DeviceView {
   /** The device entity loaded from the database. */
-  @Trace device: Device = new Device();
+  @Trace public device: Device = new Device();
   /** Current expected power state used by the correct flow. */
-  @Trace expected: DeviceExpectedState = new DeviceExpectedState();
+  @Trace public expected: DeviceExpectedState = new DeviceExpectedState();
   /** Keys registered on the device, used to pick the primary key. */
-  @Trace keys: RoomKey[] = [];
+  @Trace public keys: RoomKey[] = [];
   /** Primary key id used by the manual resend action. */
-  @Trace primaryKeyId: string = '';
+  @Trace public primaryKeyId: string = '';
 }
 
 /** UI-facing progress state for a single scene step row in RunProgressPanel. */
 @ObservedV2
 export class StepProgressView {
   /** Display index of the step, numbered from zero over visible steps. */
-  @Trace index: number = 0;
+  @Trace public index: number = 0;
   /** Resolved device name shown on the row. */
-  @Trace deviceName: string = '';
+  @Trace public deviceName: string = '';
   /** Resolved key label shown on the row. */
-  @Trace keyLabel: string = '';
+  @Trace public keyLabel: string = '';
   /** Current send state of the step. */
-  @Trace state: SendState = SendState.PENDING;
+  @Trace public state: SendState = SendState.PENDING;
   /** Failure or result message shown under a failed row. */
-  @Trace message: string = '';
+  @Trace public message: string = '';
 }
 
 /**
@@ -129,29 +129,29 @@ export class StepProgressView {
 @ObservedV2
 export class ConsoleViewModel {
   /** Room currently selected in the console. */
-  @Trace roomId: string = '';
+  @Trace public roomId: string = '';
   /** Display name of the selected room. */
-  @Trace roomName: string = '';
+  @Trace public roomName: string = '';
   /** Device views rendered as DeviceCard list items. */
-  @Trace devices: DeviceView[] = [];
+  @Trace public devices: DeviceView[] = [];
   /** Scenes available in the selected room, rendered by SceneBar. */
-  @Trace scenes: Scene[] = [];
+  @Trace public scenes: Scene[] = [];
   /** Step rows rendered by RunProgressPanel for the latest run. */
-  @Trace steps: StepProgressView[] = [];
+  @Trace public steps: StepProgressView[] = [];
   /** True while a scene run or retry is executing. */
-  @Trace running: boolean = false;
+  @Trace public running: boolean = false;
   /** True when the console is opened from the read-only entry. */
-  @Trace readOnly: boolean = true;
+  @Trace public readOnly: boolean = true;
   /** Current toast text shown by SendResultToast. */
-  @Trace toastText: string = '';
+  @Trace public toastText: string = '';
   /** Visibility flag of SendResultToast. */
-  @Trace toastVisible: boolean = false;
+  @Trace public toastVisible: boolean = false;
   /** Identifier of the latest scene run, used to match retry requests. */
-  @Trace lastRunId: string = '';
+  @Trace public lastRunId: string = '';
   /** Indexes of steps that failed in the latest run. */
-  @Trace failedIndexes: number[] = [];
+  @Trace public failedIndexes: number[] = [];
   /** Human-readable summary of the latest run, e.g. "2/3 steps sent". */
-  @Trace lastRunSummary: string = '';
+  @Trace public lastRunSummary: string = '';
 
   private queue: IrSendQueue = IrSendQueue.getInstance();
   private lastJob: SendJob | undefined = undefined;

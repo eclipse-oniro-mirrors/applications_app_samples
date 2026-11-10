@@ -41,18 +41,18 @@ const ARRAY_FIELDS: string[] = [
 
 /** Container of all rows exported or imported by one configuration package. */
 export class ConfigPackageData {
-  formatVersion: number = 0;
-  exportedAt: number = 0;
-  sourceMode: string = '';
-  rooms: Room[] = [];
-  devices: Device[] = [];
-  keys: RoomKey[] = [];
-  irCodes: IrCode[] = [];
-  remoteTemplates: RemoteTemplate[] = [];
-  scenes: Scene[] = [];
-  sceneSteps: SceneStep[] = [];
-  expectedStates: DeviceExpectedState[] = [];
-  checksum: string = '';
+  public formatVersion: number = 0;
+  public exportedAt: number = 0;
+  public sourceMode: string = '';
+  public rooms: Room[] = [];
+  public devices: Device[] = [];
+  public keys: RoomKey[] = [];
+  public irCodes: IrCode[] = [];
+  public remoteTemplates: RemoteTemplate[] = [];
+  public scenes: Scene[] = [];
+  public sceneSteps: SceneStep[] = [];
+  public expectedStates: DeviceExpectedState[] = [];
+  public checksum: string = '';
 }
 
 /**

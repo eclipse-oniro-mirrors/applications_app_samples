@@ -171,7 +171,7 @@ export class ConfigPackageService {
       result.message = detail;
       AppLogger.error(SCOPE, `export failed: ${detail}`);
     } finally {
-      hiTraceMeter.finishTrace(CONFIG_EXPORT_TRACE_NAME, CONFIG_EXPORT_TRACE_TASK_ID); // Close the span on every path, including failure.
+      hiTraceMeter.finishTrace(CONFIG_EXPORT_TRACE_NAME, CONFIG_EXPORT_TRACE_TASK_ID);
     }
     return result;
   }
@@ -189,7 +189,7 @@ export class ConfigPackageService {
     try {
       return await ConfigPackageService.importInner(report, filePath);
     } finally {
-      hiTraceMeter.finishTrace(CONFIG_IMPORT_TRACE_NAME, CONFIG_IMPORT_TRACE_TASK_ID); // Close the span on every path, including aborted imports.
+      hiTraceMeter.finishTrace(CONFIG_IMPORT_TRACE_NAME, CONFIG_IMPORT_TRACE_TASK_ID);
     }
   }
 
