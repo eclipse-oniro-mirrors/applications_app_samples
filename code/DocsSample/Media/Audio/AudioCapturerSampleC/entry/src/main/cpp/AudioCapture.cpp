@@ -72,6 +72,7 @@ const char* PlaybackCaptureStateToText(int32_t state)
 std::mutex g_ultraFastMutex;
 OH_AudioCapturer* g_ultraFastCapturer = nullptr;
 std::atomic<uint64_t> g_ultraFastReadBytes{0};
+std::atomic<OH_AudioStream_FastStatus> g_ultraFastStatus{AUDIOSTREAM_FASTSTATUS_NORMAL};
 // [End UltraFastGlobalState]
 
 const char* FastStatusToText(OH_AudioStream_FastStatus status)
@@ -513,6 +514,14 @@ void MyOnUltraFastReadData(
 }
 // [End OnUltraFastReadData]
 
+// [Start OnUltraFastStatusChange]
+void MyOnUltraFastStatusChange(OH_AudioCapturer* capturer, void* userData, OH_AudioStream_FastStatus status)
+{
+    // 通过状态变化回调记录录制流当前的实际运行状态
+    g_ultraFastStatus.store(status);
+}
+// [End OnUltraFastStatusChange]
+
 // [Start QueryUltraFastSupport]
 napi_value QueryUltraFastSupport(napi_env env, napi_callback_info info)
 {
@@ -571,9 +580,9 @@ napi_value CreateUltraFastCapturer(napi_env env, napi_callback_info info)
     OH_AudioStreamBuilder_SetChannelCount(builder, channelCount);
     OH_AudioStreamBuilder_SetChannelLayout(builder, CH_LAYOUT_STEREO);
     // [Start frameSize_UltraFast_Capture]
-    // 超低时延模式回调数据长度为2.5ms：48000Hz下帧长须精确为120帧，否则建流失败。
+    // 设置超低时延模式要求的回调数据帧长。
     // [End frameSize_UltraFast_Capture]
-    const int ultraFastFrameSizeInCallback = 120; // 2.5ms@48kHz，超低时延模式要求精确帧长
+    const int ultraFastFrameSizeInCallback = 120; // 超低时延模式要求的回调帧长
     OH_AudioStreamBuilder_SetFrameSizeInCallback(builder, ultraFastFrameSizeInCallback);
     OH_AudioStreamBuilder_SetSampleFormat(builder, AUDIOSTREAM_SAMPLE_S16LE);
     OH_AudioStreamBuilder_SetEncodingType(builder, AUDIOSTREAM_ENCODING_TYPE_RAW);
@@ -583,6 +592,9 @@ napi_value CreateUltraFastCapturer(napi_env env, napi_callback_info info)
     OH_AudioCapturer_OnReadDataCallback readDataCb = MyOnUltraFastReadData;
     OH_AudioStreamBuilder_SetCapturerReadDataCallback(builder, readDataCb, nullptr);
     // [End SetCapturerReadDataCallback_UltraFast]
+    // [Start SetCapturerFastStatusChangeCallback_UltraFast]
+    OH_AudioStreamBuilder_SetCapturerFastStatusChangeCallback(builder, MyOnUltraFastStatusChange, nullptr);
+    // [End SetCapturerFastStatusChangeCallback_UltraFast]
     OH_AudioCapturer_OnInterruptCallback interruptCb = MyOnInterruptEvent_NewAPI;
     OH_AudioStreamBuilder_SetCapturerInterruptCallback(builder, interruptCb, nullptr);
     OH_AudioCapturer_OnErrorCallback errorCb = MyOnError_NewAPI;
@@ -635,6 +647,7 @@ napi_value GetUltraFastStatus(napi_env env, napi_callback_info info)
     }
 
     ss << "当前工作状态: " << FastStatusToText(fastStatus) << "\n";
+    ss << "最近状态变化回调: " << FastStatusToText(g_ultraFastStatus.load()) << "\n";
     ss << "已读入数据: " << g_ultraFastReadBytes.load() << " 字节";
     return CreateStringResult(env, ss.str());
 }
