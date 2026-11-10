@@ -1,0 +1,7 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "查看本应用的开机自启状态" },
+    { "name": "EntryAbility_desc", "value": "查询设备支持情况和应用自启状态" },
+    { "name": "EntryAbility_label", "value": "开机自启" }
+  ]
+}
