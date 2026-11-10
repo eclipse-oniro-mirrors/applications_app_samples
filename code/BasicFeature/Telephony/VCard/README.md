@@ -123,7 +123,7 @@ entry/src/ohosTest/ets/test/
 ## 约束与限制
 
 - 本示例仅支持标准系统上运行，支持设备：phone，tablet。
-- 本示例要求 API 23 及以上（`@ohos.telephony.vcard` 自 API 23 起公开）。targetSdkVersion 为 26.0.0，compatibleSdkVersion 为 6.1.1(24)。
+- 本示例使用 `@ohos.telephony.vcard`（自 API 23 起公开），targetSdkVersion 与 compatibleSdkVersion 均为 26.0.0。
 - 本示例需要使用 DevEco Studio 5.0 及以上版本编译运行。
 - 真实读写联系人需要 `READ_CONTACTS` 与 `WRITE_CONTACTS` 对应的 ACL 高权限签名，否则导入导出会返回 201。
 - 设备需要具备 SystemCapability.Telephony.CoreService 能力，设置页会展示能力自检结果。
