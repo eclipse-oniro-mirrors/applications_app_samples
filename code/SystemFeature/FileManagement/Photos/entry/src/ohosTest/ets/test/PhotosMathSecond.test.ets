@@ -1476,3 +1476,149 @@ export default function PhotosMathSecondTest(): void {
       expect(MathUtils.clamp(20, 240, 40)).assertEqual(40);
       HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0091 end');
     })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0092
+     * @tc.name      testPhotosMathSecond0092
+     * @tc.desc      Clamps second reversed range sample 42.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0092 begin');
+      expect(MathUtils.clamp(261, 241, 41)).assertEqual(41);
+      expect(MathUtils.clamp(41.5, 241, 41)).assertEqual(41);
+      expect(MathUtils.clamp(21, 241, 41)).assertEqual(41);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0092 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0093
+     * @tc.name      testPhotosMathSecond0093
+     * @tc.desc      Clamps second reversed range sample 43.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0093 begin');
+      expect(MathUtils.clamp(262, 242, 42)).assertEqual(42);
+      expect(MathUtils.clamp(42.5, 242, 42)).assertEqual(42);
+      expect(MathUtils.clamp(22, 242, 42)).assertEqual(42);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0093 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0094
+     * @tc.name      testPhotosMathSecond0094
+     * @tc.desc      Clamps second reversed range sample 44.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0094 begin');
+      expect(MathUtils.clamp(263, 243, 43)).assertEqual(43);
+      expect(MathUtils.clamp(43.5, 243, 43)).assertEqual(43);
+      expect(MathUtils.clamp(23, 243, 43)).assertEqual(43);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0094 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0095
+     * @tc.name      testPhotosMathSecond0095
+     * @tc.desc      Clamps second reversed range sample 45.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0095 begin');
+      expect(MathUtils.clamp(264, 244, 44)).assertEqual(44);
+      expect(MathUtils.clamp(44.5, 244, 44)).assertEqual(44);
+      expect(MathUtils.clamp(24, 244, 44)).assertEqual(44);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0095 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0096
+     * @tc.name      testPhotosMathSecond0096
+     * @tc.desc      Clamps second reversed range sample 46.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0096 begin');
+      expect(MathUtils.clamp(265, 245, 45)).assertEqual(45);
+      expect(MathUtils.clamp(45.5, 245, 45)).assertEqual(45);
+      expect(MathUtils.clamp(25, 245, 45)).assertEqual(45);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0096 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0097
+     * @tc.name      testPhotosMathSecond0097
+     * @tc.desc      Clamps second reversed range sample 47.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0097 begin');
+      expect(MathUtils.clamp(266, 246, 46)).assertEqual(46);
+      expect(MathUtils.clamp(46.5, 246, 46)).assertEqual(46);
+      expect(MathUtils.clamp(26, 246, 46)).assertEqual(46);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0097 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0098
+     * @tc.name      testPhotosMathSecond0098
+     * @tc.desc      Clamps second reversed range sample 48.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0098 begin');
+      expect(MathUtils.clamp(267, 247, 47)).assertEqual(47);
+      expect(MathUtils.clamp(47.5, 247, 47)).assertEqual(47);
+      expect(MathUtils.clamp(27, 247, 47)).assertEqual(47);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0098 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0099
+     * @tc.name      testPhotosMathSecond0099
+     * @tc.desc      Clamps second reversed range sample 49.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0099 begin');
+      expect(MathUtils.clamp(268, 248, 48)).assertEqual(48);
+      expect(MathUtils.clamp(48.5, 248, 48)).assertEqual(48);
+      expect(MathUtils.clamp(28, 248, 48)).assertEqual(48);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0099 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_SECOND_0100
+     * @tc.name      testPhotosMathSecond0100
+     * @tc.desc      Clamps second reversed range sample 50.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathSecond0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0100 begin');
+      expect(MathUtils.clamp(269, 249, 49)).assertEqual(49);
+      expect(MathUtils.clamp(49.5, 249, 49)).assertEqual(49);
+      expect(MathUtils.clamp(29, 249, 49)).assertEqual(49);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathSecond0100 end');
+    })
+  })
+}
