@@ -28,7 +28,7 @@ export class PermissionPanelSizeUtils {
     return PermissionPanelSizeUtils.ins;
   }
 
-  // 弹窗页面的缩放比例
+  // Scale ratio of the dialog page
   getZoomRatio(): number {
     if (this.getScreenSize().width > this.getScreenSize().height) {
       return this.getRealSize().width / this.getScreenSize().width;
@@ -37,7 +37,7 @@ export class PermissionPanelSizeUtils {
     }
   }
 
-  // 屏幕的尺寸
+  // Screen size
   getScreenSize(): Size {
     return {
       width: display.getDefaultDisplaySync().width,
@@ -45,7 +45,7 @@ export class PermissionPanelSizeUtils {
     }
   }
 
-  // 实际显示的尺寸大小
+  // Actual displayed size
   getRealSize(): Size {
     if (this.getScreenSize().width > this.getScreenSize().height) {
       return this.calculatedSize(690, 590, 1920, 1080);
@@ -54,23 +54,23 @@ export class PermissionPanelSizeUtils {
     }
   }
 
-  // 竖屏下面板的的实际尺寸
+  // Actual panel size in portrait mode
   private calculatedSize(uxPanelWidth: number, uxPanelHeight: number,
     uxScreenWidth: number, uxScreenHeight: number): Size {
-    // 设计图的长宽比
+    // Aspect ratio of the design draft
     let originalProportion = uxPanelWidth / uxPanelHeight;
     Log.info(TAG, `PortraitScreen originalProportion = ${originalProportion}`);
 
-    // 设计图的总宽度与设计图弹窗的宽度比例
+    // Ratio of the design draft width to the dialog width
     let screenToUx = uxScreenWidth / uxPanelWidth;
     Log.info(TAG, `PortraitScreen screenToUx = ${originalProportion}`);
 
-    // 当前屏幕的长宽
+    // Current screen width and height
     let screenWidth = this.getScreenSize().width;
     let screenHeight = this.getScreenSize().height;
     Log.info(TAG, `PortraitScreen screenWidth = ${screenWidth},  screenHeight = ${screenHeight}`);
 
-    // 实际的尺寸
+    // Actual size
     let actualWidth = screenWidth / screenToUx;
     let actualHeight = actualWidth / originalProportion;
     Log.info(TAG, `PortraitScreen actualWidth = ${actualWidth},  actualHeight = ${actualHeight}`);

@@ -148,7 +148,7 @@ export default class MiracastPlayerServiceImpl extends MiracastPlayerServiceStub
     }
   }
 
-  // 设备标识脱敏：日志中只保留前 4 位，避免泄露完整设备 ID
+  // Mask device ID in logs: keep only the first 4 characters to avoid exposing the full ID
   private maskDeviceId(deviceId: string): string {
     if (!deviceId || deviceId.length <= 4) {
       return '****';
@@ -157,7 +157,7 @@ export default class MiracastPlayerServiceImpl extends MiracastPlayerServiceStub
   }
 
   mute(deviceId: string, callback: InterfaceCallback): void {
-    // TODO 这里暂时不调用，需要底层实现
+    // TODO Not called for now, requires lower-layer implementation
     Log.info(TAG, 'mute');
     if (!this.checkCaller()) {
       Log.error(TAG, 'caller invalid.');
@@ -183,7 +183,7 @@ export default class MiracastPlayerServiceImpl extends MiracastPlayerServiceStub
 
   unMute(deviceId: string, callback: InterfaceCallback): void {
     Log.info(TAG, 'unMute');
-    // TODO 这里暂时不调用，需要底层实现
+    // TODO Not called for now, requires lower-layer implementation
     if (!this.checkCaller()) {
       Log.error(TAG, 'caller invalid.');
       callback(0, -1);
@@ -228,7 +228,7 @@ export default class MiracastPlayerServiceImpl extends MiracastPlayerServiceStub
 
   private startPlayerPage(device: Cast.CastRemoteDevice) {
     let want: Want = {
-      bundleName: 'com.ohos.miracastplayer',
+      bundleName: 'com.samples.miracast',
       abilityName: 'TvAbility',
       parameters: {
         'startPlayer': true,

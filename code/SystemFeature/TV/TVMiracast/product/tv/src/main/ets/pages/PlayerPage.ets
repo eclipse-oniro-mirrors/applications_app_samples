@@ -26,7 +26,7 @@ import MiracastPlayerServiceClient from '../serviceextability/MiracastPlayerServ
 import { KeyCode } from '@kit.InputKit';
 
 const TAG = 'PlayerPage';
-// 渲染层类型：取 XComponentType 中图层渲染对应的数值，避免使用平台枚举字面量
+// Render layer type: use the numeric surface rendering value of XComponentType instead of a platform enum literal
 const PLAYER_RENDER_TYPE: XComponentType = 0;
 type DisconnectCallback = (deviceId: string) => void;
 
@@ -52,7 +52,7 @@ class MyListener extends DeviceConnectListener {
 }
 
 /**
- * 多路数据实体类
+ * Entity class for multi-stream data
  */
 @Observed
 class PlayerItem {
@@ -94,7 +94,7 @@ struct PlayerPage {
   @State currentIndex: number = 0;
   @State isFullScreen: boolean = false;
 
-  // 设备标识脱敏：日志中只保留前 4 位，避免泄露完整设备 ID
+  // Mask device ID in logs: keep only the first 4 characters to avoid exposing the full ID
   private maskDeviceId(deviceId: string): string {
     if (!deviceId || deviceId.length <= 4) {
       return '****';
@@ -119,7 +119,7 @@ struct PlayerPage {
 
     let event: emitter.InnerEvent = { eventId: 1001 };
     emitter.on(event, (eventData: emitter.EventData) => {
-      // 这里多路的入口，一但有设备加入就会触发
+      // Entry for multi-stream mode, triggered when a device joins
       if (eventData && eventData.data) {
         Log.info(TAG, `event 1001 data.device: ${JSON.stringify(eventData.data.device)}`);
         let deviceId: string = eventData.data.device;
@@ -169,7 +169,7 @@ struct PlayerPage {
         return;
       }
       isFinished = true;
-      // 退出投屏页后标记需要重连，避免 Index 直接复用旧 client 造成状态竞争。
+      // Mark that reconnect is needed after leaving the projection page, so Index does not reuse a stale client and cause races.
       globalThis.playerNeedReconnect = true;
       try {
         if (this.connectId >= 0) {
@@ -192,7 +192,7 @@ struct PlayerPage {
         Log.info(TAG, `stopMiracastService callback errcode:${errCode}, returnValue:${returnValueVar}`);
         finalize();
       });
-      // 避免异常回调导致页面卡住
+      // Prevent the page from hanging on exception callbacks
       setTimeout(() => {
         finalize();
       }, 1200);
@@ -200,7 +200,7 @@ struct PlayerPage {
   }
 
   /**
-   * 处理键盘事件，移动焦点
+   * Handle key events and move focus
    */
   private handleKeyEvent(event: KeyEvent) {
     if (event.type !== KeyType.Down) {
@@ -221,7 +221,7 @@ struct PlayerPage {
 
     let nextIndex = this.currentIndex;
 
-    // 全屏模式
+    // Full-screen mode
     if (this.isFullScreen) {
       switch (event.keyCode) {
         case KeyCode.KEYCODE_DPAD_LEFT:
@@ -238,7 +238,7 @@ struct PlayerPage {
         this.updatePlayerLayout();
       }
     } else {
-      // 等分模式
+      // Equal-split mode
       let columns = 1;
       if (count === 2) {
         columns = 2;
@@ -278,7 +278,7 @@ struct PlayerPage {
   }
 
   /**
-   * 刷新焦点状态并控制音频
+   * Refresh focus state and control audio
    */
   private refreshFocusAndAudio() {
     if (this.playerList.length === 0) {
@@ -286,7 +286,7 @@ struct PlayerPage {
       return;
     }
 
-    // 1. 越界修正
+    // 1. Fix out-of-range index
     if (this.currentIndex >= this.playerList.length) {
       this.currentIndex = this.playerList.length - 1;
     }
@@ -294,18 +294,18 @@ struct PlayerPage {
       this.currentIndex = 0;
     }
 
-    // 2. 更新 UI 状态
+    // 2. Update UI state
     this.playerList.forEach((item, index) => {
       item.isFocused = (index === this.currentIndex);
     });
 
-    // 3. 更新音频状态
+    // 3. Update audio state
     this.updateAudioOutput();
   }
 
   /**
-   * 音频互斥控制
-   * 遍历所有设备，只有当前焦点的设备开启声音，其余静音
+   * Mutually exclusive audio control
+   * Iterate all devices: only the focused device is unmuted, the others are muted
    */
   private updateAudioOutput() {
     if (!this.client || !this.serviceIsConnected) {
@@ -336,7 +336,7 @@ struct PlayerPage {
   }
 
   /**
-   * 添加一路播放
+   * Add one playback stream
    */
   private addPlayer(deviceId: string): void {
     if (!deviceId) {
@@ -357,19 +357,19 @@ struct PlayerPage {
 
     this.playerList.push(newItem);
 
-    // 如果是第一个设备，默认选中
+    // Select by default if this is the first device
     if (this.playerList.length === 1) {
       this.currentIndex = 0;
     }
 
-    // 立即更新布局
+    // Update layout immediately
     this.updatePlayerLayout();
-    // 刷新焦点和音频
+    // Refresh focus and audio
     this.refreshFocusAndAudio();
   }
 
   /**
-   * 移除一路播放
+   * Remove one playback stream
    */
   private removePlayer(deviceId: string): void {
     const index = this.playerList.findIndex(item => item.deviceId === deviceId);
@@ -391,8 +391,8 @@ struct PlayerPage {
   }
 
   /**
-   * 核心布局更新方法
-   * 分全屏模式和等分模式
+   * Core layout update method
+   * Handles both full-screen mode and equal-split mode
    */
   private updatePlayerLayout(): void {
     const count = this.playerList.length;
@@ -400,7 +400,7 @@ struct PlayerPage {
     this.playerList.forEach((item, idx) => {
       item.index = idx;
       if (this.isFullScreen) {
-        // 全屏模式
+        // Full-screen mode
         if (idx === this.currentIndex) {
           item.layoutWidth = '100%';
           item.layoutHeight = '100%';
@@ -409,31 +409,31 @@ struct PlayerPage {
         } else {
           item.layoutWidth = '0%';
           item.layoutHeight = '0%';
-          item.layoutX = '50%'; // 从中心消失效果较好
+          item.layoutX = '50%'; // Better visual effect when disappearing from the center
           item.layoutY = '50%';
         }
       } else {
-        // 等分模式最大支持9路
+        // Equal-split mode supports up to 9 streams
         if (count === 1) {
-          // 1路：全屏
+          // 1 stream: full screen
           item.layoutWidth = '100%';
           item.layoutHeight = '100%';
           item.layoutX = 0;
           item.layoutY = 0;
         } else if (count === 2) {
-          // 2路：左右分屏，垂直居中
+          // 2 streams: side by side, vertically centered
           item.layoutWidth = '50%';
           item.layoutHeight = '50%';
           item.layoutX = (idx === 0) ? 0 : '50%';
           item.layoutY = '25%';
         } else if (count <= 4) {
-          // 3-4路：四宫格
+          // 3-4 streams: 2x2 grid
           item.layoutWidth = '50%';
           item.layoutHeight = '50%';
           item.layoutX = (idx % 2 === 0) ? 0 : '50%';
           item.layoutY = (Math.floor(idx / 2) === 0) ? 0 : '50%';
         } else {
-          // 9宫格
+          // 3x3 grid
           item.layoutWidth = '33.33%';
           item.layoutHeight = '33.33%';
           let col = idx % 3;
@@ -494,7 +494,7 @@ struct PlayerPage {
         const idx = this.playerList.findIndex(p => p.deviceId === deviceId);
         if (idx !== -1) {
           this.playerList[idx].isSurfaceSet = true;
-          // TODO 目前拿不到音频播放好的回调，只能给个1秒经验值
+          // TODO No audio readiness callback yet, use a 1-second empirical delay
           setTimeout(() => {
             Log.info(TAG, `tryStartPlayer: delay executed, syncing audio for device:${this.maskDeviceId(deviceId)}`);
             this.updateAudioOutput();
@@ -533,7 +533,7 @@ struct PlayerPage {
   private connectService() {
     Log.info(TAG, 'connectService');
     let want: Want = {
-      bundleName: 'com.ohos.miracastplayer',
+      bundleName: 'com.samples.miracast',
       abilityName: 'ServiceExtTvAbility'
     };
 

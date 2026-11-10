@@ -2,7 +2,8 @@
   "string": [
     {
       "name": "page_show",
-      "value": "page from package"
+      "value": "page from package",
+      "description": "库提供的页面入口"
     }
   ]
 }

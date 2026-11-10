@@ -15,7 +15,7 @@
 
 import { window } from '@kit.ArkUI';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
-import * as PermissionChoosePage from '../components/PermissionChoosePage'; // 导入命名路由页面
+import * as PermissionChoosePage from '../components/PermissionChoosePage'; // Import the named route page
 import { PermissionPanelSizeUtils, PermissionType, Log } from 'library';
 
 const TAG = 'PermissionWindowManager';
@@ -32,7 +32,7 @@ export class PermissionWindowManager {
   }
 
   /**
-   * 创建窗口
+   * Create the window
    * @param context
    * @param callback
    */
@@ -57,7 +57,7 @@ export class PermissionWindowManager {
   }
 
   /**
-   * 移动窗口位置
+   * Move the window position
    */
   private moveWindowTo() {
     this.windowClass?.moveWindowTo(
@@ -76,7 +76,7 @@ export class PermissionWindowManager {
   }
 
   /**
-   * 设置窗口大小
+   * Set the window size
    */
   private resize() {
     this.windowClass?.resize(PermissionPanelSizeUtils.getIns().getRealSize().width,
@@ -92,7 +92,7 @@ export class PermissionWindowManager {
   }
 
   /**
-   * 为悬浮窗加载对应的目标页面
+   * Load the target page for the floating window
    * @param callback
    */
   private setUIContent(deviceName: string, callback: (x: PermissionType) => void) {
@@ -107,7 +107,7 @@ export class PermissionWindowManager {
           return;
         }
         Log.info(TAG, 'Succeeded in loading the content.');
-        // 3.显示悬浮窗。
+        // 3. Show the floating window.
         (this.windowClass as window.Window).show((err: BusinessError) => {
           let errCode: number = err.code;
           if (errCode) {
@@ -126,7 +126,7 @@ export class PermissionWindowManager {
   }
 
   /**
-   * 注册监听回调
+   * Register listener callbacks
    * @param callback
    */
   private registerEmitter(callback: (x: PermissionType) => void) {
@@ -143,7 +143,7 @@ export class PermissionWindowManager {
   }
 
   /**
-   * 销毁窗口
+   * Destroy the window
    */
   private destroyWindow() {
     if (this.windowClass) {

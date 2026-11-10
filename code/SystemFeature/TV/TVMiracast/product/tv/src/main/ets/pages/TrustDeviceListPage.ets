@@ -99,7 +99,7 @@ struct TrustDeviceListPage {
             .width('320lpx')
             .height('280lpx');
 
-          Text('查看可信设备列表')
+          Text($r('app.string.view_trusted_device_list'))
             .fontSize('36lpx')
             .fontWeight(500)
             .opacity(0.4)
@@ -210,7 +210,7 @@ struct DeleteDialog {
         .fontColor($r('app.color.white'))
         .fontSize(`40lpx`);
 
-      Text('是否移除该信任设备？')
+      Text($r('app.string.remove_trusted_device_confirm'))
         .fontWeight(500)
         .width('100%')
         .margin({ top: `48lpx` })
@@ -219,7 +219,7 @@ struct DeleteDialog {
         .fontSize(`28lpx`);
 
       Row() {
-        Button('取消')
+        Button($r('app.string.cancel'))
           .width(`248lpx`)
           .height(`72lpx`)
           .fontSize(`36lpx`)
@@ -248,7 +248,7 @@ struct DeleteDialog {
             this.controller.close();
           });
 
-        Button('确认')
+        Button($r('app.string.confirm'))
           .width(`248lpx`)
           .height(`72lpx`)
           .fontSize(`36lpx`)

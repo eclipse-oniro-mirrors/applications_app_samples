@@ -1215,7 +1215,7 @@ declare module '@ohos.cast' {
        */
       UICAST = 9,
       /**
-       * 等待对端响应状态
+       * Waiting for the peer response
        */
       AUTHING = 10,
       /**

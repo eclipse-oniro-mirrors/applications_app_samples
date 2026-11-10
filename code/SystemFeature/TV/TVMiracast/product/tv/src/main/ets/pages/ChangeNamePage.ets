@@ -57,7 +57,7 @@ struct ChangeNamePage {
   private validateDeviceName(name: string): boolean {
     if (!name || name.trim().length === 0) {
       promptAction.showToast({
-        message: '投屏设备名称不能为空！',
+        message: $r('app.string.device_name_empty_toast'),
         duration: 2000
       });
       return false;
@@ -65,7 +65,7 @@ struct ChangeNamePage {
 
     if (/\s/.test(name)) {
       promptAction.showToast({
-        message: '投屏设备名称不能包含空格符！',
+        message: $r('app.string.device_name_space_toast'),
         duration: 2000
       });
       return false;
@@ -124,14 +124,14 @@ struct ChangeNamePage {
 
   build() {
     Column() {
-      Text('投屏设备名称')
+      Text($r('app.string.screen_projection_device_name'))
         .fontColor('#e6ffffff')
         .fontSize(`64lpx`)
         .fontWeight(500)
         .margin({ top: `102lpx`, bottom: `61.99lpx` });
 
       Row() {
-        Text('设备名称')
+        Text($r('app.string.device_name'))
           .fontColor(this.inputFocus ? '#db000000' : '#dbffffff')
           .opacity(0.86)
           .fontSize(`36lpx`)
@@ -171,7 +171,7 @@ struct ChangeNamePage {
         this.inputFocus = false;
       });
 
-      Button('保存')
+      Button($r('app.string.save'))
         .width(`248lpx`)
         .height(`72lpx`)
         .fontSize(`36lpx`)
@@ -209,7 +209,7 @@ struct ChangeNamePage {
     .justifyContent(FlexAlign.Start)
     .width('100%')
     .height('100%')
-    // 输入框会先吃掉 DPAD 的 Down，仅 Up 能冒泡到此处；故不能限制为 KeyType.Down，否则下键无法切到「保存」
+    // The text input consumes DPAD Down first, only Up bubbles here; do not limit to KeyType.Down, otherwise the down key cannot move focus to Save
     .onKeyEvent((e: KeyEvent) => {
       if (e.keyCode === KeyCode.KEYCODE_DPAD_DOWN) {
         focusControl.requestFocus('save');

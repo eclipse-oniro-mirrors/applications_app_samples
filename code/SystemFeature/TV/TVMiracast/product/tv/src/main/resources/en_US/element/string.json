@@ -2,79 +2,113 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "module description",
+      "description": "Module description"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
-    },
-    {
-      "name": "EntryAbility_label",
-      "value": "quick screen projection"
+      "value": "description",
+      "description": "Entry ability description"
     },
     {
       "name": "wireless_projection_screen",
-      "value": "wireless projection screen"
+      "value": "wireless projection screen",
+      "description": "Wireless projection entry title"
     },
     {
       "name": "waiting_for_conning",
-      "value": "waiting for connecting"
+      "value": "waiting for connecting",
+      "description": "Waiting for connection prompt"
     },
     {
       "name": "screen_projection_device_name",
-      "value": "screen projection device name"
+      "value": "screen projection device name",
+      "description": "Screen projection device name title"
     },
     {
       "name": "trusted_device_list",
-      "value": "trusted device list"
-    },
-    {
-      "name": "confirm_modification",
-      "value": "confirm modification"
+      "value": "trusted device list",
+      "description": "Trusted device list title"
     },
     {
       "name": "quick_screen_projection",
-      "value": "quick screen projection"
+      "value": "quick screen projection",
+      "description": "Quick screen projection entry title"
     },
     {
       "name": "miracast_screen_casting",
-      "value": "miracast screen casting"
+      "value": "miracast screen casting",
+      "description": "Miracast screen casting entry title"
     },
     {
       "name": "projection_Settings",
-      "value": "projection Settings"
+      "value": "projection Settings",
+      "description": "Projection settings entry title"
     },
     {
       "name": "tip",
-      "value": "tip"
+      "value": "tip",
+      "description": "Dialog title"
     },
     {
       "name": "first_connect",
-      "value": "Does the device trust the display screen for the first time and continue to connect?"
+      "value": "Does the device trust the display screen for the first time and continue to connect?",
+      "description": "First connection trust prompt"
     },
     {
       "name": "permanent_trust",
-      "value": "permanent trust"
+      "value": "permanent trust",
+      "description": "Permanent trust button"
     },
     {
       "name": "only_for_this_time",
-      "value": "only for this time"
+      "value": "only for this time",
+      "description": "Only this time button"
     },
     {
       "name": "cancel",
-      "value": "cancel"
+      "value": "cancel",
+      "description": "Cancel button"
     },
     {
-      "name": "PlayerAbility_desc",
-      "value": "description"
+      "name": "support_name_modification",
+      "value": "Supports device name modification",
+      "description": "Device name modification hint"
     },
     {
-      "name": "PlayerAbility_label",
-      "value": "label"
+      "name": "device_name",
+      "value": "Device name",
+      "description": "Device name input label"
     },
     {
-      "name": "trun_on_switch",
-      "value": "Please turn on the screen mirroring switch in Settings -> More Connections"
+      "name": "save",
+      "value": "Save",
+      "description": "Save button"
+    },
+    {
+      "name": "device_name_empty_toast",
+      "value": "Device name cannot be empty!",
+      "description": "Empty device name toast"
+    },
+    {
+      "name": "device_name_space_toast",
+      "value": "Device name cannot contain spaces!",
+      "description": "Device name containing spaces toast"
+    },
+    {
+      "name": "view_trusted_device_list",
+      "value": "View trusted device list",
+      "description": "Empty trusted device list hint"
+    },
+    {
+      "name": "remove_trusted_device_confirm",
+      "value": "Remove this trusted device?",
+      "description": "Remove trusted device confirmation"
+    },
+    {
+      "name": "confirm",
+      "value": "Confirm",
+      "description": "Confirm button"
     }
   ]
 }

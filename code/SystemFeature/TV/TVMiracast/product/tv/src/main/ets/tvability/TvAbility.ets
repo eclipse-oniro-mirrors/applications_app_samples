@@ -95,26 +95,26 @@ export default class TvAbility extends UIAbility {
       Log.info(TAG, `playerShow = ${playerShow}`);
       if (!playerShow) {
         if (!this.safePushPlayerPage()) {
-          // 无 UI 上下文时延后到前台再处理，避免崩溃
+          // Defer handling until foreground when there is no UI context, to avoid a crash
           this.pendingWant = want;
           return;
         }
       }
       this.onPostPlayerData(want);
     } else {
-      // 检查路由栈状态，避免页面重复堆叠
+      // Check the router stack state to avoid duplicate pages
       const length = this.safeGetRouterLength();
       const playerShow: boolean = Boolean(globalThis.playerShow);
       Log.info(TAG, `onNewWant: current router stack length = ${length}`);
 
       if (length > 1 && !playerShow) {
-        // 如果路由栈有多个页面（说明有页面堆叠），清空栈并重新加载Index
+        // If the router stack has multiple pages, clear it and reload Index
         Log.info(TAG, `router stack has multiple pages, clearing and reload Index`);
         this.safeResetToIndex();
       } else {
         Log.info(TAG, `keep current page, playerShow=${playerShow}`);
       }
-      // 如果只有一个页面，不做任何操作，应用会自动回到前台显示当前页面
+      // With only one page, do nothing; the app returns to the foreground with the current page
     }
   }
 
@@ -127,7 +127,7 @@ export default class TvAbility extends UIAbility {
       eventId: 1001
     }
     Log.info(TAG, `send emitter. event = ${JSON.stringify(event)}`);
-    // 加延迟，等待page启动
+    // Add a delay to wait for the page to start
     setTimeout(() => {
       let eventData: emitter.EventData = {
         data: {
@@ -145,7 +145,7 @@ export default class TvAbility extends UIAbility {
     // Main window is created, set main page for this ability
     Log.info(TAG, `---- onWindowStageCreate ---- windowStage = ${JSON.stringify(windowStage)}`);
 
-    // 全屏
+    // Full screen
     window.getLastWindow(this.context).then(win => {
       win.setWindowLayoutFullScreen(true);
       win.setWindowSystemBarEnable([]);
@@ -159,10 +159,10 @@ export default class TvAbility extends UIAbility {
     });
   }
 
-  // 获取系统状态栏和导航栏高度
+  // Get the height of the system status bar and navigation bar
   async getWindowAvoidArea(context: common.UIAbilityContext): Promise<window.AvoidArea> {
     const mainWindow = await window.getLastWindow(context);
-    const avoidAreaType = window.AvoidAreaType.TYPE_SYSTEM; // 系统默认区域，包括状态栏，导航栏
+    const avoidAreaType = window.AvoidAreaType.TYPE_SYSTEM; // System default area, including status bar and navigation bar
     const avoidArea = mainWindow.getWindowAvoidArea(avoidAreaType);
     return avoidArea;
   }

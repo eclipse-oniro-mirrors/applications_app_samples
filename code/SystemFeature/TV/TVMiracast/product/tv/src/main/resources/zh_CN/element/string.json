@@ -2,79 +2,113 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "模块描述"
+      "value": "模块描述",
+      "description": "模块描述"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
-    },
-    {
-      "name": "EntryAbility_label",
-      "value": "快速投屏"
+      "value": "投屏入口能力",
+      "description": "入口能力描述"
     },
     {
       "name": "wireless_projection_screen",
-      "value": "无线显示"
+      "value": "无线投屏",
+      "description": "无线投屏入口标题"
     },
     {
       "name": "waiting_for_conning",
-      "value": "等待连接中..."
+      "value": "等待连接中...",
+      "description": "等待连接提示"
     },
     {
       "name": "screen_projection_device_name",
-      "value": "投屏设备名称"
+      "value": "投屏设备名称",
+      "description": "投屏设备名称标题"
     },
     {
       "name": "trusted_device_list",
-      "value": "可信设备列表"
-    },
-    {
-      "name": "confirm_modification",
-      "value": "确认修改"
+      "value": "可信设备列表",
+      "description": "可信设备列表标题"
     },
     {
       "name": "quick_screen_projection",
-      "value": "快速投屏"
+      "value": "快速投屏",
+      "description": "快速投屏入口标题"
     },
     {
       "name": "miracast_screen_casting",
-      "value": "Miracast投屏"
+      "value": "Miracast投屏",
+      "description": "Miracast投屏入口标题"
     },
     {
       "name": "projection_Settings",
-      "value": "投屏设置"
+      "value": "投屏设置",
+      "description": "投屏设置入口标题"
     },
     {
       "name": "tip",
-      "value": "提示"
+      "value": "提示",
+      "description": "弹窗标题"
     },
     {
       "name": "first_connect",
-      "value": "设备初次连接显示屏，是否信任该设备并继续连接？"
+      "value": "设备初次连接显示屏，是否信任该设备并继续连接？",
+      "description": "首次连接信任提示"
     },
     {
       "name": "permanent_trust",
-      "value": "永久信任"
+      "value": "永久信任",
+      "description": "永久信任按钮"
     },
     {
       "name": "only_for_this_time",
-      "value": "仅限本次"
+      "value": "仅限本次",
+      "description": "仅限本次按钮"
     },
     {
       "name": "cancel",
-      "value": "取消"
+      "value": "取消",
+      "description": "取消按钮"
     },
     {
-      "name": "PlayerAbility_desc",
-      "value": "description"
+      "name": "support_name_modification",
+      "value": "支持投屏名称修改",
+      "description": "支持名称修改提示"
     },
     {
-      "name": "PlayerAbility_label",
-      "value": "label"
+      "name": "device_name",
+      "value": "设备名称",
+      "description": "设备名称输入项"
     },
     {
-      "name": "trun_on_switch",
-      "value": "请在设置->更多连接中打开投屏开关"
+      "name": "save",
+      "value": "保存",
+      "description": "保存按钮"
+    },
+    {
+      "name": "device_name_empty_toast",
+      "value": "投屏设备名称不能为空！",
+      "description": "设备名称为空提示"
+    },
+    {
+      "name": "device_name_space_toast",
+      "value": "投屏设备名称不能包含空格符！",
+      "description": "设备名称包含空格提示"
+    },
+    {
+      "name": "view_trusted_device_list",
+      "value": "查看可信设备列表",
+      "description": "可信设备列表空态提示"
+    },
+    {
+      "name": "remove_trusted_device_confirm",
+      "value": "是否移除该信任设备？",
+      "description": "移除可信设备确认提示"
+    },
+    {
+      "name": "confirm",
+      "value": "确认",
+      "description": "确认按钮"
     }
   ]
 }

@@ -70,15 +70,15 @@ class ResourceKeys {
 class StringCatalog {
   private entries: Map<string, LocalizedString> = new Map<string, LocalizedString>();
   public constructor() {
-    this.add(ResourceKeys.QUICK_SCREEN_PROJECTION, '快捷投屏', 'Quick Screen Projection');
-    this.add(ResourceKeys.MIRACAST_SCREEN_CASTING, '无线投屏', 'Miracast Screen Casting');
-    this.add(ResourceKeys.PROJECTION_SETTINGS, '投屏设置', 'Projection Settings');
-    this.add(ResourceKeys.PERMANENT_TRUST, '永久信任', 'Permanent Trust');
-    this.add(ResourceKeys.ONLY_FOR_THIS_TIME, '仅本次', 'Only For This Time');
-    this.add(ResourceKeys.CANCEL, '取消', 'Cancel');
-    this.add(ResourceKeys.TIP, '提示', 'Tip');
-    this.add(ResourceKeys.TRUSTED_DEVICE_LIST, '受信任设备列表', 'Trusted Device List');
-    this.add(ResourceKeys.WAITING_FOR_CONNING, '正在连接', 'Waiting For Connecting');
+    this.add(ResourceKeys.QUICK_SCREEN_PROJECTION, '\u5feb\u6377\u6295\u5c4f', 'Quick Screen Projection');
+    this.add(ResourceKeys.MIRACAST_SCREEN_CASTING, '\u65e0\u7ebf\u6295\u5c4f', 'Miracast Screen Casting');
+    this.add(ResourceKeys.PROJECTION_SETTINGS, '\u6295\u5c4f\u8bbe\u7f6e', 'Projection Settings');
+    this.add(ResourceKeys.PERMANENT_TRUST, '\u6c38\u4e45\u4fe1\u4efb', 'Permanent Trust');
+    this.add(ResourceKeys.ONLY_FOR_THIS_TIME, '\u4ec5\u672c\u6b21', 'Only For This Time');
+    this.add(ResourceKeys.CANCEL, '\u53d6\u6d88', 'Cancel');
+    this.add(ResourceKeys.TIP, '\u63d0\u793a', 'Tip');
+    this.add(ResourceKeys.TRUSTED_DEVICE_LIST, '\u53d7\u4fe1\u4efb\u8bbe\u5907\u5217\u8868', 'Trusted Device List');
+    this.add(ResourceKeys.WAITING_FOR_CONNING, '\u6b63\u5728\u8fde\u63a5', 'Waiting For Connecting');
   }
   public add(key: string, zh: string, en: string): boolean {
     if (key.length === 0 || this.entries.has(key)) { return false; }
@@ -318,37 +318,37 @@ export default function localizationTestingSuite(): void {
     });
     it('home_titles_are_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.QUICK_SCREEN_PROJECTION, Language.ZH_CN)).assertEqual('快捷投屏');
+      expect(catalog.get(ResourceKeys.QUICK_SCREEN_PROJECTION, Language.ZH_CN)).assertEqual('\u5feb\u6377\u6295\u5c4f');
       expect(catalog.get(ResourceKeys.QUICK_SCREEN_PROJECTION, Language.EN_US))
         .assertEqual('Quick Screen Projection');
-      expect(catalog.get(ResourceKeys.MIRACAST_SCREEN_CASTING, Language.ZH_CN)).assertEqual('无线投屏');
+      expect(catalog.get(ResourceKeys.MIRACAST_SCREEN_CASTING, Language.ZH_CN)).assertEqual('\u65e0\u7ebf\u6295\u5c4f');
       expect(catalog.get(ResourceKeys.MIRACAST_SCREEN_CASTING, Language.EN_US))
         .assertEqual('Miracast Screen Casting');
     });
     it('projection_settings_string_is_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.PROJECTION_SETTINGS, Language.ZH_CN)).assertEqual('投屏设置');
+      expect(catalog.get(ResourceKeys.PROJECTION_SETTINGS, Language.ZH_CN)).assertEqual('\u6295\u5c4f\u8bbe\u7f6e');
       expect(catalog.get(ResourceKeys.PROJECTION_SETTINGS, Language.EN_US)).assertEqual('Projection Settings');
       expect(catalog.getZhLength(ResourceKeys.PROJECTION_SETTINGS))
         .assertLess(catalog.getEnLength(ResourceKeys.PROJECTION_SETTINGS));
     });
     it('permission_button_strings_are_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.PERMANENT_TRUST, Language.ZH_CN)).assertEqual('永久信任');
-      expect(catalog.get(ResourceKeys.ONLY_FOR_THIS_TIME, Language.ZH_CN)).assertEqual('仅本次');
+      expect(catalog.get(ResourceKeys.PERMANENT_TRUST, Language.ZH_CN)).assertEqual('\u6c38\u4e45\u4fe1\u4efb');
+      expect(catalog.get(ResourceKeys.ONLY_FOR_THIS_TIME, Language.ZH_CN)).assertEqual('\u4ec5\u672c\u6b21');
       expect(catalog.get(ResourceKeys.CANCEL, Language.EN_US)).assertEqual('Cancel');
       expect(catalog.get(ResourceKeys.PERMANENT_TRUST, Language.EN_US)).assertEqual('Permanent Trust');
     });
     it('tip_and_waiting_strings_are_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.TIP, Language.ZH_CN)).assertEqual('提示');
-      expect(catalog.get(ResourceKeys.WAITING_FOR_CONNING, Language.ZH_CN)).assertEqual('正在连接');
+      expect(catalog.get(ResourceKeys.TIP, Language.ZH_CN)).assertEqual('\u63d0\u793a');
+      expect(catalog.get(ResourceKeys.WAITING_FOR_CONNING, Language.ZH_CN)).assertEqual('\u6b63\u5728\u8fde\u63a5');
       expect(catalog.get(ResourceKeys.WAITING_FOR_CONNING, Language.EN_US))
         .assertEqual('Waiting For Connecting');
     });
     it('trusted_device_list_strings_are_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.TRUSTED_DEVICE_LIST, Language.ZH_CN)).assertEqual('受信任设备列表');
+      expect(catalog.get(ResourceKeys.TRUSTED_DEVICE_LIST, Language.ZH_CN)).assertEqual('\u53d7\u4fe1\u4efb\u8bbe\u5907\u5217\u8868');
       expect(catalog.get(ResourceKeys.TRUSTED_DEVICE_LIST, Language.EN_US)).assertEqual('Trusted Device List');
     });
     it('unknown_key_falls_back_to_key_text', 0, async () => {
@@ -365,10 +365,10 @@ export default function localizationTestingSuite(): void {
     });
     it('catalog_add_accepts_new_key', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.add('extra_label', '额外标签', 'Extra Label')).assertTrue();
+      expect(catalog.add('extra_label', '\u989d\u5916\u6807\u7b7e', 'Extra Label')).assertTrue();
       expect(catalog.getKeyCount()).assertEqual(10);
       expect(catalog.get('extra_label', Language.EN_US)).assertEqual('Extra Label');
-      expect(catalog.get('extra_label', Language.ZH_CN)).assertEqual('额外标签');
+      expect(catalog.get('extra_label', Language.ZH_CN)).assertEqual('\u989d\u5916\u6807\u7b7e');
     });
     it('catalog_reports_no_issues_for_seed_data', 0, async () => {
       const catalog = new StringCatalog();
@@ -377,7 +377,7 @@ export default function localizationTestingSuite(): void {
     });
     it('catalog_detects_missing_translation', 0, async () => {
       const catalog = new StringCatalog();
-      catalog.add('broken_key', '有中文', '');
+      catalog.add('broken_key', '\u6709\u4e2d\u6587', '');
       const issues: CatalogIssue[] = catalog.findIssues();
       expect(issues.length).assertEqual(1);
       expect(issues[0].key).assertEqual('broken_key');
@@ -400,10 +400,10 @@ export default function localizationTestingSuite(): void {
     });
     it('estimator_measures_cjk_and_ascii_width', 0, async () => {
       const estimator = new TextWidthEstimator();
-      expect(estimator.unitsOf('取消')).assertEqual(4);
+      expect(estimator.unitsOf('\u53d6\u6d88')).assertEqual(4);
       expect(estimator.unitsOf('Cancel')).assertEqual(6);
       expect(estimator.isAscii('Cancel')).assertTrue();
-      expect(estimator.isAscii('取消')).assertFalse();
+      expect(estimator.isAscii('\u53d6\u6d88')).assertFalse();
     });
     it('estimator_detects_overflow_limits', 0, async () => {
       const estimator = new TextWidthEstimator();
@@ -414,10 +414,10 @@ export default function localizationTestingSuite(): void {
     });
     it('estimator_computes_cjk_ratio', 0, async () => {
       const estimator = new TextWidthEstimator();
-      expect(estimator.cjkRatio('取消')).assertEqual(1);
+      expect(estimator.cjkRatio('\u53d6\u6d88')).assertEqual(1);
       expect(estimator.cjkRatio('Cancel')).assertEqual(0);
       expect(estimator.cjkRatio('')).assertEqual(0);
-      expect(estimator.cjkRatio('投屏TV')).assertEqual(0.5);
+      expect(estimator.cjkRatio('\u6295\u5c4fTV')).assertEqual(0.5);
     });
     it('locale_formatter_normalizes_separators', 0, async () => {
       const formatter = new LocaleFormatter();

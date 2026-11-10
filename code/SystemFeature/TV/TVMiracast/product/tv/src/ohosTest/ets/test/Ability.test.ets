@@ -19,7 +19,7 @@ import { ConfigData, Log, MIRACAST_SETTINGS_KEY, PermissionType, TrustDeviceInfo
 const TAG: string = 'AbilitySuite';
 
 // 应用包名与 Ability 名称：与工程 module.json5 配置保持一致
-const BUNDLE_NAME: string = 'com.ohos.miracastplayer';
+const BUNDLE_NAME: string = 'com.samples.miracast';
 
 const UI_ABILITY_NAME: string = 'TvAbility';
 
@@ -594,9 +594,9 @@ export default function abilitySuite(): void {
     // ===== 包名与 Ability 名称 =====
     it('bundle_name_matches_application_package', 0, async () => {
       const identity = new BundleIdentity();
-      expect(identity.getBundleName()).assertEqual('com.ohos.miracastplayer');
+      expect(identity.getBundleName()).assertEqual('com.samples.miracast');
       expect(identity.isSameBundle(BUNDLE_NAME)).assertTrue();
-      expect(identity.isSameBundle('com.ohos.other')).assertFalse();
+      expect(identity.isSameBundle('com.samples.other')).assertFalse();
     });
 
     it('ui_ability_name_matches_tv_ability', 0, async () => {
@@ -615,7 +615,7 @@ export default function abilitySuite(): void {
     it('bundle_component_name_is_joined_with_slash', 0, async () => {
       const identity = new BundleIdentity();
       const component = identity.buildComponentName(UI_ABILITY_NAME);
-      expect(component).assertEqual('com.ohos.miracastplayer/TvAbility');
+      expect(component).assertEqual('com.samples.miracast/TvAbility');
       expect(component).assertContain('/');
     });
 

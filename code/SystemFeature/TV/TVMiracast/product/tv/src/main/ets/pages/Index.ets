@@ -99,7 +99,7 @@ struct Index {
     this.isConnecting = true;
     Log.info(TAG, 'connectService');
     let want: Want = {
-      bundleName: 'com.ohos.miracastplayer',
+      bundleName: 'com.samples.miracast',
       abilityName: 'ServiceExtTvAbility'
     };
     let options: common.ConnectOptions = {
@@ -145,7 +145,7 @@ struct Index {
       }
       this.client = null;
       this.isConnecting = false;
-      // 等待 stopMiracastService teardown 稳定后再重连，避免 stop/start 竞争。
+      // Wait for stopMiracastService teardown to settle before reconnecting to avoid stop/start races.
       setTimeout(() => {
         this.connectService();
       }, 400);
@@ -155,7 +155,7 @@ struct Index {
       this.connectService();
       return;
     }
-    // 后退退出投屏页后，client 可能仍在但发现服务已被停止，这里主动拉起一次发现。
+    // After leaving the projection page the client may still exist while discovery was stopped; start discovery again here.
     this.client.startMiracastService((errCode: number, returnValue: number) => {
       Log.info(TAG, `onPageShow startMiracastService callback errcode:${errCode}, returnValue:${returnValue}`);
     });

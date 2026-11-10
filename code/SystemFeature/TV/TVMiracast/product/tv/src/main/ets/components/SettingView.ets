@@ -16,13 +16,13 @@ import { KeyCode } from '@kit.InputKit';
 
 const TAB_FOCUS_DELAY = 50;
 
-// 投屏设置
+// Projection settings
 @Component
 export struct SettingView {
   @State nameFocus: boolean = false;
   @State listFocus: boolean = false;
   @State focusedIndex: number = -1;
-  // 处理子组件高亮状态变化
+  // Handle highlight state changes of child components
   handleActiveChange = (index: number, active: boolean) => {
     if (active) {
       this.focusedIndex = index;
@@ -61,7 +61,7 @@ export struct SettingView {
           .width('320lpx')
           .height('280lpx');
 
-        Text('支持投屏名称修改')
+        Text($r('app.string.support_name_modification'))
           .opacity(0.4)
           .fontSize('36lpx')
           .fontWeight(500)
@@ -143,7 +143,7 @@ struct NarItem {
         if (event.type === KeyType.Down) {
           if (event.keyCode === KeyCode.KEYCODE_DPAD_UP || event.keyCode === KeyCode.KEYCODE_DPAD_LEFT) {
             this.stopTabFocus = true;
-            // 请求焦点到投屏设置
+            // Request focus for the projection settings item
             focusControl.requestFocus('projection_Settings');
             this.timerId = setTimeout(() => {
               this.stopTabFocus = false;

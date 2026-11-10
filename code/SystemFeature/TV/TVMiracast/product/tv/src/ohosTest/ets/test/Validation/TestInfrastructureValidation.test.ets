@@ -110,7 +110,7 @@ export default function testInfrastructureSuite(): void {
     });
 
     it('bundle_and_ability_names_should_be_stable', 0, async () => {
-      expect(BUNDLE_NAME).assertEqual('com.ohos.miracastplayer');
+      expect(BUNDLE_NAME).assertEqual('com.samples.miracast');
       expect(UI_ABILITY_NAME).assertEqual('TvAbility');
       expect(SERVICE_ABILITY_NAME).assertEqual('ServiceExtTvAbility');
     });

@@ -16,7 +16,7 @@ import { Log, ConfigData, MIRACAST_SETTINGS_KEY } from 'library';
 import { settings } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
 
-// 投屏界面显示
+// Screen projection view
 const TAG = 'ProjectionScreenView';
 const ON = '1';
 

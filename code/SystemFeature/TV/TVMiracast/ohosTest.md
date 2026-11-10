@@ -10,7 +10,7 @@
 
 ### 2.1 分层设计
 
-测试基于 Hypium + UiTest 框架（入口 `List.test.ets`，运行器 `OpenHarmonyTestRunner`，测试承载页 `TestAbility`，被测包名 `com.ohos.miracastplayer`，测试模块 `-m entry_test`），按以下层次拆分：
+测试基于 Hypium + UiTest 框架（入口 `List.test.ets`，运行器 `OpenHarmonyTestRunner`，测试承载页 `TestAbility`，被测包名 `com.samples.miracast`，测试模块 `-m entry_test`），按以下层次拆分：
 
 - 共享驱动层：以 `Shared/MiracastDriver.ets` 为核心，提供串行化 UI 操作队列（`runSerializedUiOperation`、`serializedDelay`、`triggerSerializedKey`）、页面探针（`isIndexPageVisible`、`isPlayerPageVisible`、`isPermissionDialogVisible`）、等待能力（`waitForPageStable`、`waitForPlayerPage`、`waitForPermissionDialog`、`waitForComponentById`、`waitForServiceConnected`）、组件与文本读取（`miracastComponentCount`、`findComponentsByType`、`countComponentsById`、`readTextById`、`getDeviceIdList`）、焦点检查（`checkFocusState`、`getCurrentFocusIndex`）、遥控与触控模拟（`pressAndWait`、`simulateTouch`、`longClickComponent`、`swipeOnScreen`、`safeBack`）、布局判定（`getScreenSize`、`isFullScreenMode`、`getPlayerTileCount`）以及键码、超时、延迟、容差常量
 - 领域层：围绕投屏会话、设备发现、鉴权授权、镜像画面布局、IDL 调用、状态机、错误与恢复、功耗与性能模型等纯逻辑展开确定性单元测试，系统能力通过文件内本地 Mock 模型隔离
@@ -218,7 +218,7 @@ TV 形态下，用户可能连续按键、快速切换焦点、反复进出页�
 ```bash
 hdc install -r product/tv/build/default/outputs/default/tv-default-signed.hap
 hdc install -r product/tv/build/default/outputs/ohosTest/tv-ohosTest-signed.hap
-hdc shell 命令行测试 -b com.ohos.miracastplayer -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 20000
+hdc shell 命令行测试 -b com.samples.miracast -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 20000
 ```
 
 > 测试入口为 `product/tv/src/ohosTest/ets/test/List.test.ets`，按 Ability、Miracast、MiracastValidation、Integration、Interaction、LifecycleState、PerformanceStability、Security、Validation 顺序执行。
