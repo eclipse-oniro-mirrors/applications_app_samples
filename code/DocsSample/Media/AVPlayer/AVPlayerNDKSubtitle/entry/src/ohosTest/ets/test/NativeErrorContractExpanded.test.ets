@@ -31,7 +31,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0002
@@ -47,7 +46,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0003
@@ -63,7 +61,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0004
@@ -79,7 +76,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0005
@@ -95,7 +91,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0006
@@ -111,7 +106,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0007
@@ -127,7 +121,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0008
@@ -143,7 +136,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0009
@@ -159,7 +151,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0010
@@ -175,7 +166,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0011
@@ -191,7 +181,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0012
@@ -207,7 +196,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0013
@@ -223,7 +211,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0014
@@ -239,7 +226,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0015
@@ -255,7 +241,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0016
@@ -271,7 +256,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0017
@@ -287,7 +271,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0018
@@ -303,7 +286,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0019
@@ -319,7 +301,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0020
@@ -335,7 +316,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0021
@@ -351,7 +331,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0022
@@ -367,7 +346,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0023
@@ -383,7 +361,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0024
@@ -399,7 +376,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0025
@@ -415,7 +391,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0026
@@ -431,7 +406,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0027
@@ -447,7 +421,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0028
@@ -463,7 +436,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0029
@@ -479,7 +451,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0030
@@ -495,7 +466,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0031
@@ -511,7 +481,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0032
@@ -527,7 +496,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0033
@@ -543,7 +511,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0034
@@ -559,7 +526,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0035
@@ -575,7 +541,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0036
@@ -591,7 +556,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0037
@@ -607,7 +571,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0038
@@ -623,7 +586,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0039
@@ -639,7 +601,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0040
@@ -655,7 +616,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0041
@@ -671,7 +631,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0042
@@ -687,7 +646,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0043
@@ -703,7 +661,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0044
@@ -719,7 +676,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0045
@@ -735,7 +691,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0046
@@ -751,7 +706,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0047
@@ -767,7 +721,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0048
@@ -783,7 +736,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0049
@@ -799,7 +751,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0050
@@ -815,7 +766,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0051
@@ -831,7 +781,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0052
@@ -847,7 +796,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0053
@@ -863,7 +811,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0054
@@ -879,7 +826,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0055
@@ -895,7 +841,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0056
@@ -911,7 +856,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0057
@@ -927,7 +871,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0058
@@ -943,7 +886,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0059
@@ -959,7 +901,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0060
@@ -975,7 +916,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0061
@@ -991,7 +931,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0062
@@ -1007,7 +946,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0063
@@ -1023,7 +961,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0064
@@ -1039,7 +976,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0065
@@ -1055,7 +991,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0066
@@ -1071,7 +1006,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0067
@@ -1087,7 +1021,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0068
@@ -1103,7 +1036,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0069
@@ -1119,7 +1051,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0070
@@ -1135,7 +1066,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0071
@@ -1151,7 +1081,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0072
@@ -1167,7 +1096,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0073
@@ -1183,7 +1111,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0074
@@ -1199,7 +1126,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0075
@@ -1215,7 +1141,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0076
@@ -1231,7 +1156,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0077
@@ -1247,7 +1171,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0078
@@ -1263,7 +1186,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0079
@@ -1279,7 +1201,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0080
@@ -1295,7 +1216,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0081
@@ -1311,7 +1231,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0082
@@ -1327,7 +1246,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0083
@@ -1343,7 +1261,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0084
@@ -1359,7 +1276,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0085
@@ -1375,7 +1291,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0086
@@ -1391,7 +1306,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0087
@@ -1407,7 +1321,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0088
@@ -1423,7 +1336,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0089
@@ -1439,7 +1351,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0090
@@ -1455,7 +1366,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0091
@@ -1471,7 +1381,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0092
@@ -1487,7 +1396,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0093
@@ -1503,7 +1411,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400103);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0094
@@ -1519,7 +1426,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400104);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0095
@@ -1535,7 +1441,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400105);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0096
@@ -1551,7 +1456,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400106);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0097
@@ -1567,7 +1471,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(true);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(0);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0098
@@ -1583,7 +1486,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(-1);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0099
@@ -1599,7 +1501,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400101);
-      expect(code <= 0).assertTrue();
     })
     /**
      * @tc.number    SUB_AVPLAYER_NDK_SUBTITLE_MORE_ERR_0100
@@ -1615,7 +1516,6 @@ export default function nativeErrorContractExpandedTest() {
       expect(success).assertEqual(false);
       expect(Number.isInteger(code)).assertTrue();
       expect(code).assertEqual(5400102);
-      expect(code <= 0).assertTrue();
     })
   })
 }

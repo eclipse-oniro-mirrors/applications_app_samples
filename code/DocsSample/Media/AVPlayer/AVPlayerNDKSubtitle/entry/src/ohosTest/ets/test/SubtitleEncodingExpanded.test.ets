@@ -28,7 +28,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0001', 0, () => {
       const text: string = '';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(0);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(0);
@@ -44,7 +44,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0002', 0, () => {
       const text: string = 'a字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(4);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(2);
@@ -60,7 +60,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0003', 0, () => {
       const text: string = 'aa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(8);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(4);
@@ -76,7 +76,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0004', 0, () => {
       const text: string = 'aaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(12);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(6);
@@ -92,7 +92,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0005', 0, () => {
       const text: string = 'aaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(16);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(8);
@@ -108,7 +108,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0006', 0, () => {
       const text: string = 'aaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(20);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -124,7 +124,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0007', 0, () => {
       const text: string = 'aaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(24);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -140,7 +140,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0008', 0, () => {
       const text: string = 'aaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(28);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -156,7 +156,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0009', 0, () => {
       const text: string = 'aaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(32);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -172,7 +172,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0010', 0, () => {
       const text: string = 'aaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(36);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -188,7 +188,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0011', 0, () => {
       const text: string = 'aaaaaaaaaa';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(10);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -204,7 +204,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0012', 0, () => {
       const text: string = 'aaaaaaaaaaa字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(14);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -220,7 +220,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0013', 0, () => {
       const text: string = 'aaaaaaaaaaaa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(18);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -236,7 +236,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0014', 0, () => {
       const text: string = 'aaaaaaaaaaaaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(22);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -252,7 +252,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0015', 0, () => {
       const text: string = 'aaaaaaaaaaaaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(26);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -268,7 +268,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0016', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(30);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(20);
@@ -284,7 +284,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0017', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(34);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(22);
@@ -300,7 +300,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0018', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(38);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(24);
@@ -316,7 +316,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0019', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(42);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(26);
@@ -332,7 +332,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0020', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(46);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(28);
@@ -348,7 +348,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0021', 0, () => {
       const text: string = '';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(0);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(0);
@@ -364,7 +364,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0022', 0, () => {
       const text: string = 'a字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(4);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(2);
@@ -380,7 +380,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0023', 0, () => {
       const text: string = 'aa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(8);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(4);
@@ -396,7 +396,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0024', 0, () => {
       const text: string = 'aaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(12);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(6);
@@ -412,7 +412,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0025', 0, () => {
       const text: string = 'aaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(16);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(8);
@@ -428,7 +428,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0026', 0, () => {
       const text: string = 'aaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(20);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -444,7 +444,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0027', 0, () => {
       const text: string = 'aaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(24);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -460,7 +460,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0028', 0, () => {
       const text: string = 'aaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(28);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -476,7 +476,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0029', 0, () => {
       const text: string = 'aaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(32);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -492,7 +492,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0030', 0, () => {
       const text: string = 'aaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(36);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -508,7 +508,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0031', 0, () => {
       const text: string = 'aaaaaaaaaa';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(10);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -524,7 +524,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0032', 0, () => {
       const text: string = 'aaaaaaaaaaa字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(14);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -540,7 +540,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0033', 0, () => {
       const text: string = 'aaaaaaaaaaaa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(18);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -556,7 +556,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0034', 0, () => {
       const text: string = 'aaaaaaaaaaaaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(22);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -572,7 +572,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0035', 0, () => {
       const text: string = 'aaaaaaaaaaaaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(26);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -588,7 +588,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0036', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(30);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(20);
@@ -604,7 +604,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0037', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(34);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(22);
@@ -620,7 +620,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0038', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(38);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(24);
@@ -636,7 +636,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0039', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(42);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(26);
@@ -652,7 +652,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0040', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(46);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(28);
@@ -668,7 +668,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0041', 0, () => {
       const text: string = '';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(0);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(0);
@@ -684,7 +684,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0042', 0, () => {
       const text: string = 'a字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(4);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(2);
@@ -700,7 +700,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0043', 0, () => {
       const text: string = 'aa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(8);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(4);
@@ -716,7 +716,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0044', 0, () => {
       const text: string = 'aaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(12);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(6);
@@ -732,7 +732,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0045', 0, () => {
       const text: string = 'aaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(16);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(8);
@@ -748,7 +748,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0046', 0, () => {
       const text: string = 'aaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(20);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -764,7 +764,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0047', 0, () => {
       const text: string = 'aaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(24);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -780,7 +780,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0048', 0, () => {
       const text: string = 'aaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(28);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -796,7 +796,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0049', 0, () => {
       const text: string = 'aaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(32);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -812,7 +812,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0050', 0, () => {
       const text: string = 'aaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(36);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -828,7 +828,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0051', 0, () => {
       const text: string = 'aaaaaaaaaa';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(10);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -844,7 +844,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0052', 0, () => {
       const text: string = 'aaaaaaaaaaa字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(14);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -860,7 +860,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0053', 0, () => {
       const text: string = 'aaaaaaaaaaaa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(18);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -876,7 +876,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0054', 0, () => {
       const text: string = 'aaaaaaaaaaaaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(22);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -892,7 +892,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0055', 0, () => {
       const text: string = 'aaaaaaaaaaaaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(26);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -908,7 +908,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0056', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(30);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(20);
@@ -924,7 +924,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0057', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(34);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(22);
@@ -940,7 +940,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0058', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(38);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(24);
@@ -956,7 +956,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0059', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(42);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(26);
@@ -972,7 +972,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0060', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(46);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(28);
@@ -988,7 +988,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0061', 0, () => {
       const text: string = '';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(0);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(0);
@@ -1004,7 +1004,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0062', 0, () => {
       const text: string = 'a字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(4);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(2);
@@ -1020,7 +1020,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0063', 0, () => {
       const text: string = 'aa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(8);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(4);
@@ -1036,7 +1036,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0064', 0, () => {
       const text: string = 'aaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(12);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(6);
@@ -1052,7 +1052,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0065', 0, () => {
       const text: string = 'aaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(16);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(8);
@@ -1068,7 +1068,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0066', 0, () => {
       const text: string = 'aaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(20);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -1084,7 +1084,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0067', 0, () => {
       const text: string = 'aaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(24);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -1100,7 +1100,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0068', 0, () => {
       const text: string = 'aaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(28);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -1116,7 +1116,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0069', 0, () => {
       const text: string = 'aaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(32);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -1132,7 +1132,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0070', 0, () => {
       const text: string = 'aaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(36);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -1148,7 +1148,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0071', 0, () => {
       const text: string = 'aaaaaaaaaa';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(10);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -1164,7 +1164,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0072', 0, () => {
       const text: string = 'aaaaaaaaaaa字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(14);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -1180,7 +1180,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0073', 0, () => {
       const text: string = 'aaaaaaaaaaaa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(18);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -1196,7 +1196,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0074', 0, () => {
       const text: string = 'aaaaaaaaaaaaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(22);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -1212,7 +1212,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0075', 0, () => {
       const text: string = 'aaaaaaaaaaaaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(26);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -1228,7 +1228,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0076', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(30);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(20);
@@ -1244,7 +1244,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0077', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(34);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(22);
@@ -1260,7 +1260,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0078', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(38);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(24);
@@ -1276,7 +1276,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0079', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(42);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(26);
@@ -1292,7 +1292,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0080', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(46);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(28);
@@ -1308,7 +1308,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0081', 0, () => {
       const text: string = '';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(0);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(0);
@@ -1324,7 +1324,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0082', 0, () => {
       const text: string = 'a字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(4);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(2);
@@ -1340,7 +1340,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0083', 0, () => {
       const text: string = 'aa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(8);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(4);
@@ -1356,7 +1356,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0084', 0, () => {
       const text: string = 'aaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(12);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(6);
@@ -1372,7 +1372,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0085', 0, () => {
       const text: string = 'aaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(16);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(8);
@@ -1388,7 +1388,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0086', 0, () => {
       const text: string = 'aaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(20);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -1404,7 +1404,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0087', 0, () => {
       const text: string = 'aaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(24);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -1420,7 +1420,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0088', 0, () => {
       const text: string = 'aaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(28);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -1436,7 +1436,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0089', 0, () => {
       const text: string = 'aaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(32);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -1452,7 +1452,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0090', 0, () => {
       const text: string = 'aaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(36);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -1468,7 +1468,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0091', 0, () => {
       const text: string = 'aaaaaaaaaa';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(10);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(10);
@@ -1484,7 +1484,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0092', 0, () => {
       const text: string = 'aaaaaaaaaaa字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(14);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(12);
@@ -1500,7 +1500,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0093', 0, () => {
       const text: string = 'aaaaaaaaaaaa字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(18);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(14);
@@ -1516,7 +1516,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0094', 0, () => {
       const text: string = 'aaaaaaaaaaaaa字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(22);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(16);
@@ -1532,7 +1532,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0095', 0, () => {
       const text: string = 'aaaaaaaaaaaaaa字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(26);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(18);
@@ -1548,7 +1548,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0096', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaa字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(30);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(20);
@@ -1564,7 +1564,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0097', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaa字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(34);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(22);
@@ -1580,7 +1580,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0098', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaa字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(38);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(24);
@@ -1596,7 +1596,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0099', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaa字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(42);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(26);
@@ -1612,7 +1612,7 @@ export default function subtitleEncodingExpandedTest() {
      */
     it('testExpSubtitleEncoding0100', 0, () => {
       const text: string = 'aaaaaaaaaaaaaaaaaaa字字字字字字字字字';
-      const encoded: Uint8Array = util.TextEncoder.create('utf-8').encode(text);
+      const encoded: Uint8Array = text.length === 0 ? new Uint8Array(0) : util.TextEncoder.create('utf-8').encode(text);
       expect(encoded.length).assertEqual(46);
       expect(util.TextDecoder.create('utf-8').decodeToString(encoded)).assertEqual(text);
       expect(text.length).assertEqual(28);

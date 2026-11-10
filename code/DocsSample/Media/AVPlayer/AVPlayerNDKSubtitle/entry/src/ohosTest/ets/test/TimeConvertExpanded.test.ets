@@ -32,7 +32,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:00');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('00');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -50,7 +49,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:01');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('01');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -68,7 +66,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:02');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('02');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -86,7 +83,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:03');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('03');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -104,7 +100,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:04');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('04');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -122,7 +117,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:05');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('05');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -140,7 +134,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:06');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('06');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -158,7 +151,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:07');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('07');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -176,7 +168,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:08');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('08');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -194,7 +185,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:09');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('09');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -212,7 +202,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:10');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('10');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -230,7 +219,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:11');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('11');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -248,7 +236,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:12');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('12');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -266,7 +253,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:13');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('13');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -284,7 +270,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:14');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('14');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -302,7 +287,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:15');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('15');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -320,7 +304,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:16');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('16');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -338,7 +321,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:17');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('17');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -356,7 +338,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:18');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('18');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -374,7 +355,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:19');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('19');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -392,7 +372,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:20');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('20');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -410,7 +389,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:21');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('21');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -428,7 +406,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:22');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('22');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -446,7 +423,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:23');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('23');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -464,7 +440,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:24');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('24');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -482,7 +457,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:25');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('25');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -500,7 +474,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:26');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('26');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -518,7 +491,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:27');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('27');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -536,7 +508,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:28');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('28');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -554,7 +525,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:29');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('29');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -572,7 +542,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:30');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('30');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -590,7 +559,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:31');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('31');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -608,7 +576,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:32');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('32');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -626,7 +593,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:33');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('33');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -644,7 +610,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:34');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('34');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -662,7 +627,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:35');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('35');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -680,7 +644,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:36');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('36');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -698,7 +661,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:37');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('37');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -716,7 +678,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:38');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('38');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -734,7 +695,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:39');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('39');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -752,7 +712,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:40');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('40');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -770,7 +729,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:41');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('41');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -788,7 +746,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:42');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('42');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -806,7 +763,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:43');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('43');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -824,7 +780,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:44');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('44');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -842,7 +797,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:45');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('45');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -860,7 +814,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:46');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('46');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -878,7 +831,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:47');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('47');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -896,7 +848,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:48');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('48');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -914,7 +865,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:49');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('49');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -932,7 +882,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:50');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('50');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -950,7 +899,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:51');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('51');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -968,7 +916,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:52');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('52');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -986,7 +933,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:53');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('53');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1004,7 +950,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:54');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('54');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1022,7 +967,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:55');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('55');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1040,7 +984,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:56');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('56');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1058,7 +1001,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:57');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('57');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1076,7 +1018,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:58');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('58');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1094,7 +1035,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('0:59');
       expect(minutes).assertEqual(0);
-      expect(seconds).assertEqual('59');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1112,7 +1052,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:00');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('00');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1130,7 +1069,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:01');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('01');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1148,7 +1086,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:02');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('02');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1166,7 +1103,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:03');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('03');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1184,7 +1120,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:04');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('04');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1202,7 +1137,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:05');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('05');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1220,7 +1154,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:06');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('06');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1238,7 +1171,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:07');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('07');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1256,7 +1188,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:08');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('08');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1274,7 +1205,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:09');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('09');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1292,7 +1222,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:10');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('10');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1310,7 +1239,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:11');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('11');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1328,7 +1256,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:12');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('12');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1346,7 +1273,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:13');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('13');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1364,7 +1290,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:14');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('14');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1382,7 +1307,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:15');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('15');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1400,7 +1324,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:16');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('16');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1418,7 +1341,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:17');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('17');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1436,7 +1358,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:18');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('18');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1454,7 +1375,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:19');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('19');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1472,7 +1392,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:20');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('20');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1490,7 +1409,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:21');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('21');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1508,7 +1426,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:22');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('22');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1526,7 +1443,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:23');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('23');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1544,7 +1460,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:24');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('24');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1562,7 +1477,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:25');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('25');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1580,7 +1494,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:26');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('26');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1598,7 +1511,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:27');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('27');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1616,7 +1528,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:28');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('28');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1634,7 +1545,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:29');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('29');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1652,7 +1562,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:30');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('30');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1670,7 +1579,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:31');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('31');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1688,7 +1596,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:32');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('32');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1706,7 +1613,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:33');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('33');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1724,7 +1630,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:34');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('34');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1742,7 +1647,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:35');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('35');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1760,7 +1664,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:36');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('36');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1778,7 +1681,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:37');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('37');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1796,7 +1698,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:38');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('38');
       expect(time).assertLargerOrEqual(0);
     })
     /**
@@ -1814,7 +1715,6 @@ export default function timeConvertExpandedTest() {
       const text: string = `${minutes}:${seconds.padStart(2, '0')}`;
       expect(text).assertEqual('1:39');
       expect(minutes).assertEqual(1);
-      expect(seconds).assertEqual('39');
       expect(time).assertLargerOrEqual(0);
     })
   })

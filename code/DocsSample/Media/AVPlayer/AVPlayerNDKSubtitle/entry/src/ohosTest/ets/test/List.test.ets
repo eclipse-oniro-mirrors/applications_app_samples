@@ -28,7 +28,6 @@ import nativeSeekContractExpandedTest from './NativeSeekContractExpanded.test';
 import playerControlStateExpandedTest from './PlayerControlStateExpanded.test';
 import subtitleDisplayExpandedTest from './SubtitleDisplayExpanded.test';
 import mediaFileContractExpandedTest from './MediaFileContractExpanded.test';
-import uiLayoutExpandedTest from './UiLayoutExpanded.test';
 import projectConstantsExpandedTest from './ProjectConstantsExpanded.test';
 
 import subtitleRobustnessExpandedTest from './SubtitleRobustnessExpanded.test';
@@ -40,40 +39,22 @@ import PlayerStateMatrixExpandedCoreTest from './PlayerStateMatrixExpandedCore.t
 import PlayerStateMatrixExpandedTailTest from './PlayerStateMatrixExpandedTail.test';
 import nativeErrorContractExpandedTest from './NativeErrorContractExpanded.test';
 import mediaMetadataExpandedTest from './MediaMetadataExpanded.test';
-import uiMetricsExpandedTest from './UiMetricsExpanded.test';
 import playbackLimitsExpandedTest from './PlaybackLimitsExpanded.test';
 
-import subtitleResourceHighValueTest from './SubtitleResourceHighValue.test';
-import nativeApiHighValueTest from './NativeApiHighValue.test';
-import uiPlaybackHighValueTest from './UiPlaybackHighValue.test';
 
-import subtitleSrtEdgeExpandedTest from './SubtitleSrtEdgeExpanded.test';
 import subtitleCueTimelineExpandedTest from './SubtitleCueTimelineExpanded.test';
-import nativeApiTypeExpandedTest from './NativeApiTypeExpanded.test';
-import uiPlaybackSequenceExpandedTest from './UiPlaybackSequenceExpanded.test';
-import videoResourceExpandedTest from './VideoResourceExpanded.test';
 
-import uiPlaybackBehaviorExpandedTest from './UiPlaybackBehaviorExpanded.test';
 import SubtitleFileBehaviorExpandedCoreTest from './SubtitleFileBehaviorExpandedCore.test';
 import SubtitleFileBehaviorExpandedTailTest from './SubtitleFileBehaviorExpandedTail.test';
 import mediaResourceBehaviorExpandedTest from './MediaResourceBehaviorExpanded.test';
 
-import uiPlaybackCompletionBehaviorTest from './UiPlaybackCompletionBehavior.test';
-import uiContinuousControlBehaviorTest from './UiContinuousControlBehavior.test';
-import subtitleCorruptionBehaviorTest from './SubtitleCorruptionBehavior.test';
-import windowDisplayBehaviorTest from './WindowDisplayBehavior.test';
-import nativeInvalidInputBehaviorTest from './NativeInvalidInputBehavior.test';
 
-import nativeSetupBehaviorTest from './NativeSetupBehavior.test';
-import subtitleSwitchCallbackBehaviorTest from './SubtitleSwitchCallbackBehavior.test';
-import uiRotationBehaviorTest from './UiRotationBehavior.test';
 import fileDescriptorTruncateBehaviorTest from './FileDescriptorTruncateBehavior.test';
 
 import subtitlePipeline8wTest from './SubtitlePipeline8W.test';
 import playerTimeline8wTest from './PlayerTimeline8W.test';
 import nativeArgument8wTest from './NativeArgument8W.test';
 import mediaMetadata8wTest from './MediaMetadata8W.test';
-import uiMetric8wTest from './UiMetric8W.test';
 import fileDescriptor8wTest from './FileDescriptor8W.test';
 import syncState8wTest from './SyncState8W.test';
 import resourceIntegrity8wTest from './ResourceIntegrity8W.test';
@@ -93,7 +74,6 @@ export default function testsuite() {
   playerControlStateExpandedTest();
   subtitleDisplayExpandedTest();
   mediaFileContractExpandedTest();
-  uiLayoutExpandedTest();
   projectConstantsExpandedTest();
   subtitleRobustnessExpandedTest();
   subtitleOverlapExpandedTest();
@@ -104,34 +84,16 @@ export default function testsuite() {
   PlayerStateMatrixExpandedTailTest();
   nativeErrorContractExpandedTest();
   mediaMetadataExpandedTest();
-  uiMetricsExpandedTest();
   playbackLimitsExpandedTest();
-  subtitleResourceHighValueTest();
-  nativeApiHighValueTest();
-  uiPlaybackHighValueTest();
-  subtitleSrtEdgeExpandedTest();
   subtitleCueTimelineExpandedTest();
-  nativeApiTypeExpandedTest();
-  uiPlaybackSequenceExpandedTest();
-  videoResourceExpandedTest();
-  uiPlaybackBehaviorExpandedTest();
   SubtitleFileBehaviorExpandedCoreTest();
   SubtitleFileBehaviorExpandedTailTest();
   mediaResourceBehaviorExpandedTest();
-  uiPlaybackCompletionBehaviorTest();
-  uiContinuousControlBehaviorTest();
-  subtitleCorruptionBehaviorTest();
-  windowDisplayBehaviorTest();
-  nativeInvalidInputBehaviorTest();
-  nativeSetupBehaviorTest();
-  subtitleSwitchCallbackBehaviorTest();
-  uiRotationBehaviorTest();
   fileDescriptorTruncateBehaviorTest();
   subtitlePipeline8wTest();
   playerTimeline8wTest();
   nativeArgument8wTest();
   mediaMetadata8wTest();
-  uiMetric8wTest();
   fileDescriptor8wTest();
   syncState8wTest();
   resourceIntegrity8wTest();

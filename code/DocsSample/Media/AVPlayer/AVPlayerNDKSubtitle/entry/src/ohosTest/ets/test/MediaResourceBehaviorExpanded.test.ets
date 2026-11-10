@@ -61,7 +61,7 @@ export default function mediaResourceBehaviorExpandedTest() {
   beforeAll(async () => {
     if (moduleContext === null) {
       moduleContext = await application.createModuleContext(
-        abilityDelegatorRegistry.getAbilityDelegator().getAppContext(), 'entry');
+        abilityDelegatorRegistry.getAbilityDelegator().getAppContext().getApplicationContext(), 'entry');
     }
   });
 
