@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { systemDateTime } from '@kit.BasicServicesKit';
@@ -42,7 +43,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0001', 0, () => {
+    it('testDateSnapshot0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const wall: number = systemDateTime.getTime(false);
       const dateNow: number = Date.now();
       expect(wall).assertLarger(0);
@@ -58,7 +59,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0002', 0, () => {
+    it('testDateSnapshot0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const millis: number = systemDateTime.getTime(false);
       const nanos: number = systemDateTime.getTime(true);
       expect(nanos).assertLarger(0);
@@ -73,7 +74,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0003', 0, async () => {
+    it('testDateSnapshot0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const current: Date = await systemDateTime.getDate();
       expect(current.getFullYear()).assertLargerOrEqual(2000);
       expect(current.getFullYear()).assertLessOrEqual(2100);
@@ -91,7 +92,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0004', 0, async () => {
+    it('testDateSnapshot0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const wall: Date = new Date(systemDateTime.getTime(false));
       const snapshot: Date = await systemDateTime.getDate();
       expect(snapshot.getFullYear()).assertEqual(wall.getFullYear());
@@ -107,7 +108,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0005', 0, async () => {
+    it('testDateSnapshot0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const snapshot: Date = await systemDateTime.getDate();
       const millis: number = snapshot.getTime();
       const restored: Date = new Date(millis);
@@ -126,7 +127,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0006', 0, async () => {
+    it('testDateSnapshot0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const syncZone: string = systemDateTime.getTimezoneSync();
       const asyncZone: string = await systemDateTime.getTimezone();
       expect(syncZone.length).assertLarger(0);
@@ -142,7 +143,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0007', 0, () => {
+    it('testDateSnapshot0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const startup: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const active: number = systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, false);
       expect(startup).assertLarger(0);
@@ -158,7 +159,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0008', 0, async () => {
+    it('testDateSnapshot0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       let previous: number = (await systemDateTime.getDate()).getTime();
       for (let i = 0; i < 5; i++) {
         const current: number = (await systemDateTime.getDate()).getTime();
@@ -176,7 +177,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0009', 0, async () => {
+    it('testDateSnapshot0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const snapshot: Date = await systemDateTime.getDate();
       expect(snapshot.getHours()).assertLargerOrEqual(0);
       expect(snapshot.getHours()).assertLessOrEqual(23);
@@ -196,7 +197,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDateSnapshot0010', 0, () => {
+    it('testDateSnapshot0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < 20; i++) {
         const wall: number = systemDateTime.getTime(false);
         const uptime: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);

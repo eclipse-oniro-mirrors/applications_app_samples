@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { systemDateTime } from '@kit.BasicServicesKit';
 import { delay, paceTurn } from '../Shared/TestPace';
@@ -28,7 +29,7 @@ export default function timerDriftMatrixTest() {
      * @tc.name      testTimerDrift0001
      * @tc.desc      Verify the uptime and wall clocks measure the same five short intervals within tolerance
      */
-    it('testTimerDrift0001', 0, async () => {
+    it('testTimerDrift0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 5; i++) {
         const upBefore: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
         const wallBefore: number = Date.now();
@@ -48,7 +49,7 @@ export default function timerDriftMatrixTest() {
      * @tc.name      testTimerDrift0002
      * @tc.desc      Verify twenty tiny delays complete without a cumulative drift beyond budget
      */
-    it('testTimerDrift0002', 0, async () => {
+    it('testTimerDrift0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const upBefore: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const wallBefore: number = Date.now();
       for (let i = 0; i < 20; i++) {
@@ -67,7 +68,7 @@ export default function timerDriftMatrixTest() {
      * @tc.name      testTimerDrift0003
      * @tc.desc      Verify the nanosecond and millisecond wall clocks stay consistent after a delay
      */
-    it('testTimerDrift0003', 0, async () => {
+    it('testTimerDrift0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await delay(20);
       const millis: number = systemDateTime.getTime(false);
       const nanos: number = systemDateTime.getTime(true);
@@ -80,7 +81,7 @@ export default function timerDriftMatrixTest() {
      * @tc.name      testTimerDrift0004
      * @tc.desc      Verify a 100 ms delay is observed by both clocks within the same tolerance
      */
-    it('testTimerDrift0004', 0, async () => {
+    it('testTimerDrift0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const upBefore: number = systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, false);
       const wallBefore: number = Date.now();
       await delay(100);

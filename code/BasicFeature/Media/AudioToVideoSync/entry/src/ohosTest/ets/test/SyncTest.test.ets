@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { systemDateTime } from '@kit.BasicServicesKit';
@@ -47,7 +48,7 @@ export default function Sync01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSync01Chapter0001', 0, async () => {
+    it('testSync01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0001 start');
       const firstTick: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const secondTick: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
@@ -65,7 +66,7 @@ export default function Sync01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSync01Chapter0002', 0, async () => {
+    it('testSync01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0002 start');
       const uptimeStart: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const wallStart: number = Date.now();
@@ -90,7 +91,7 @@ export default function Sync01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSync01Chapter0003', 0, async () => {
+    it('testSync01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0003 start');
       const start: number = Date.now();
       await new Promise<void>((resolve) => {
@@ -113,7 +114,7 @@ export default function Sync01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSync01Chapter0004', 0, async () => {
+    it('testSync01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0004 start');
       const tasks: Promise<void>[] = [];
       for (let i = 0; i < 3; i++) {

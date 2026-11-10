@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, it, expect } from '@ohos/hypium'
 
@@ -37,7 +38,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_001', 0, () => {
+    it('TC_Sync_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_001 begin`);
 
       const audioTimestamp = 54321; // 1:30:15.321 PM
@@ -59,7 +60,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_002', 0, () => {
+    it('TC_Sync_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_002 begin`);
 
       const audioLatency = 100; // milliseconds
@@ -84,7 +85,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_003', 0, () => {
+    it('TC_Sync_003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_003 begin`);
 
       const audioBufferSize = 8192; // 8 MB in KB
@@ -109,7 +110,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_004', 0, () => {
+    it('TC_Sync_004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_004 begin`);
 
       const audioDuration = 180.5; // 3 minutes
@@ -133,7 +134,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_005', 0, () => {
+    it('TC_Sync_005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_005 begin`);
 
       const audioSampleRate = 48000; // 48 KHz sample rate
@@ -154,7 +155,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_006', 0, () => {
+    it('TC_Sync_006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_006 begin`);
 
       const seekTime = 30000; // 30 seconds
@@ -174,7 +175,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_007', 0, () => {
+    it('TC_Sync_007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_007 begin`);
 
       const audioBufferSize = 8192; // 8 MB in KB
@@ -197,7 +198,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_008', 0, () => {
+    it('TC_Sync_008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_008 begin`);
 
       const audioDuration = 180.5; // 3 minutes
@@ -220,7 +221,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_009', 0, () => {
+    it('TC_Sync_009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_009 begin`);
 
       const audioStartTime = 1000; // 10:00.00 PM
@@ -244,7 +245,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_010', 0, () => {
+    it('TC_Sync_010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_010 begin`);
 
       const audioStopTime = 6000; // 6:00.00 PM
@@ -268,7 +269,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_011', 0, () => {
+    it('TC_Sync_011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_011 begin`);
 
       const audioVolume = 75; // 75%
@@ -292,7 +293,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_012', 0, () => {
+    it('TC_Sync_012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_012 begin`);
 
       const videoFPS = 30; // 30 FPS
@@ -314,7 +315,7 @@ export default function SyncTest() {
      * @tc.type: Function
      * @tc.level: Level 3
      */
-    it('TC_Sync_013', 0, () => {
+    it('TC_Sync_013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info(`${TAG}: TC_Sync_013 begin`);
 
       const audioTimecode = '00:01:30:15'; // HH:MM:SS format

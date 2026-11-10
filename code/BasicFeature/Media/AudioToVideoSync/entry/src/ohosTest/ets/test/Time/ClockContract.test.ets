@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { systemDateTime } from '@kit.BasicServicesKit';
@@ -62,7 +63,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0001', 0, () => {
+    it('testClockContract0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const millis: number = systemDateTime.getTime(false);
       assertFiniteNumber(millis, 'wall-millis');
       expect(millis).assertLarger(0);
@@ -80,7 +81,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0002', 0, () => {
+    it('testClockContract0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const millis: number = systemDateTime.getTime(false);
       const nanos: number = systemDateTime.getTime(true);
       expect(nanos).assertLarger(0);
@@ -98,7 +99,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0003', 0, () => {
+    it('testClockContract0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const systemMillis: number = systemDateTime.getTime(false);
       const dateMillis: number = Date.now();
       expect(dateMillis).assertLarger(0);
@@ -114,7 +115,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0004', 0, () => {
+    it('testClockContract0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const second: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       expect(first).assertLarger(0);
@@ -131,7 +132,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0005', 0, () => {
+    it('testClockContract0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: number = systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, false);
       const second: number = systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, false);
       expect(first).assertLarger(0);
@@ -147,7 +148,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0006', 0, () => {
+    it('testClockContract0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const uptime: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const wall: number = systemDateTime.getTime(false);
       expect(uptime).assertLarger(0);
@@ -163,7 +164,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0007', 0, async () => {
+    it('testClockContract0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const current: Date = await systemDateTime.getDate();
       expect(current instanceof Date).assertTrue();
       expect(current.getFullYear()).assertLargerOrEqual(MIN_REASONABLE_YEAR);
@@ -188,7 +189,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0008', 0, async () => {
+    it('testClockContract0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const asyncZone: string = await systemDateTime.getTimezone();
       const syncZone: string = systemDateTime.getTimezoneSync();
       expect(syncZone.length).assertLarger(0);
@@ -205,7 +206,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0009', 0, async () => {
+    it('testClockContract0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < TIMER_CASES.length; i++) {
         const sample: TimerCase = TIMER_CASES[i];
         const start: number = Date.now();
@@ -224,7 +225,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0010', 0, async () => {
+    it('testClockContract0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const start: number = Date.now();
       for (let i = 0; i < 10; i++) {
         await delay(0);
@@ -243,7 +244,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0011', 0, async () => {
+    it('testClockContract0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const stamps: number[] = [];
       const start: number = Date.now();
       await delay(10);
@@ -267,7 +268,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0012', 0, async () => {
+    it('testClockContract0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const tasks: Promise<void>[] = [];
       const start: number = Date.now();
       for (let i = 0; i < 4; i++) {
@@ -288,7 +289,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0013', 0, async () => {
+    it('testClockContract0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const before: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       await delay(60);
       const after: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
@@ -305,7 +306,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0014', 0, () => {
+    it('testClockContract0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       let previous: number = systemDateTime.getTime(false);
       for (let i = 0; i < 100; i++) {
         const current: number = systemDateTime.getTime(false);
@@ -323,7 +324,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0015', 0, () => {
+    it('testClockContract0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const startup: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const active: number = systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, false);
       expect(startup).assertLarger(0);
@@ -339,7 +340,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0016', 0, async () => {
+    it('testClockContract0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const current: Date = await systemDateTime.getDate();
       const millis: number = current.getTime();
       expect(millis).assertLarger(0);
@@ -357,7 +358,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0017', 0, () => {
+    it('testClockContract0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const first: string = systemDateTime.getTimezoneSync();
       const second: string = systemDateTime.getTimezoneSync();
       expect(first).assertEqual(second);
@@ -374,7 +375,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0018', 0, async () => {
+    it('testClockContract0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const delays: number[] = [5, 10, 20, 40];
       let previous: number = 0;
       for (let i = 0; i < delays.length; i++) {
@@ -395,7 +396,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0019', 0, async () => {
+    it('testClockContract0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const firstStart: number = Date.now();
       await delay(30);
       const firstElapsed: number = Date.now() - firstStart;
@@ -416,7 +417,7 @@ export default function clockContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testClockContract0020', 0, () => {
+    it('testClockContract0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < 50; i++) {
         const wall: number = systemDateTime.getTime(false);
         const uptime: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);

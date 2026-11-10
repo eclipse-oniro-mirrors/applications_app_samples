@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { delay, paceTurn } from '../Shared/TestPace';
@@ -65,7 +66,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0001', 0, async () => {
+    it('testTimerAccuracy0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(0);
       expect(elapsed).assertLargerOrEqual(0);
       expect(elapsed).assertLess(500);
@@ -79,7 +80,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0002', 0, async () => {
+    it('testTimerAccuracy0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(1);
       expect(elapsed).assertLargerOrEqual(0);
       expect(elapsed).assertLess(500);
@@ -93,7 +94,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0003', 0, async () => {
+    it('testTimerAccuracy0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(2);
       expect(elapsed).assertLargerOrEqual(1);
       expect(elapsed).assertLess(500);
@@ -107,7 +108,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0004', 0, async () => {
+    it('testTimerAccuracy0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(4);
       expect(elapsed).assertLargerOrEqual(3);
       expect(elapsed).assertLess(600);
@@ -121,7 +122,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0005', 0, async () => {
+    it('testTimerAccuracy0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(8);
       expect(elapsed).assertLargerOrEqual(6);
       expect(elapsed).assertLess(700);
@@ -135,7 +136,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0006', 0, async () => {
+    it('testTimerAccuracy0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(16);
       expect(elapsed).assertLargerOrEqual(12);
       expect(elapsed).assertLess(800);
@@ -149,7 +150,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0007', 0, async () => {
+    it('testTimerAccuracy0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(32);
       expect(elapsed).assertLargerOrEqual(26);
       expect(elapsed).assertLess(1000);
@@ -163,7 +164,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0008', 0, async () => {
+    it('testTimerAccuracy0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(64);
       expect(elapsed).assertLargerOrEqual(54);
       expect(elapsed).assertLess(1200);
@@ -177,7 +178,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0009', 0, async () => {
+    it('testTimerAccuracy0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(128);
       expect(elapsed).assertLargerOrEqual(112);
       expect(elapsed).assertLess(1500);
@@ -191,7 +192,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0010', 0, async () => {
+    it('testTimerAccuracy0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const elapsed: number = await measure(256);
       expect(elapsed).assertLargerOrEqual(230);
       expect(elapsed).assertLess(2000);
@@ -205,7 +206,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0011', 0, async () => {
+    it('testTimerAccuracy0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < SAMPLES.length; i++) {
         const sample: TimerSample = SAMPLES[i];
         const elapsed: number = await measure(sample.delayMs);
@@ -223,7 +224,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0012', 0, async () => {
+    it('testTimerAccuracy0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const schedule: number[] = [4, 8, 16, 32, 64];
       let previous: number = 0;
       for (let i = 0; i < schedule.length; i++) {
@@ -242,7 +243,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0013', 0, async () => {
+    it('testTimerAccuracy0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const tasks: Promise<void>[] = [];
       const start: number = Date.now();
       for (let i = 0; i < 5; i++) {
@@ -263,7 +264,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0014', 0, async () => {
+    it('testTimerAccuracy0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const order: number[] = [];
       await delay(5);
       order.push(1);
@@ -285,7 +286,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0015', 0, async () => {
+    it('testTimerAccuracy0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first: number = await measure(32);
       const second: number = await measure(32);
       expect(first).assertLargerOrEqual(26);
@@ -301,7 +302,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0016', 0, async () => {
+    it('testTimerAccuracy0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const schedule: number[] = [0, 1, 2, 4, 8];
       for (let i = 0; i < schedule.length; i++) {
         const elapsed: number = await measure(schedule[i]);
@@ -317,7 +318,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0017', 0, async () => {
+    it('testTimerAccuracy0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const start: number = Date.now();
       for (let i = 0; i < 20; i++) {
         await delay(0);
@@ -335,7 +336,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0018', 0, async () => {
+    it('testTimerAccuracy0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const shortElapsed: number = await measure(4);
       const longElapsed: number = await measure(128);
       expect(longElapsed).assertLarger(shortElapsed);
@@ -351,7 +352,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0019', 0, async () => {
+    it('testTimerAccuracy0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const start: number = Date.now();
       await Promise.all([delay(64), delay(64), delay(64)]);
       const elapsed: number = Date.now() - start;
@@ -367,7 +368,7 @@ export default function timerAccuracyMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testTimerAccuracy0020', 0, async () => {
+    it('testTimerAccuracy0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       let completed: number = 0;
       await delay(8);
       completed++;
