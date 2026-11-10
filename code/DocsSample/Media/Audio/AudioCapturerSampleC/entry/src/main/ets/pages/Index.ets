@@ -212,7 +212,7 @@ struct AudioCaptureDemo {
               }
             })
 
-          Button('查询超低时延录制支持')
+          Button($r('app.string.query_ultra_fast_recording_support'))
             .width('90%')
             .height(48)
             .margin({ bottom: 12 })
@@ -227,7 +227,7 @@ struct AudioCaptureDemo {
               }
             })
 
-          Button('创建超低时延录制流')
+          Button($r('app.string.create_ultra_fast_recording_stream'))
             .width('90%')
             .height(48)
             .margin({ bottom: 12 })
@@ -242,7 +242,7 @@ struct AudioCaptureDemo {
               }
             })
 
-          Button('查询超低时延流状态')
+          Button($r('app.string.query_ultra_fast_stream_status'))
             .width('90%')
             .height(48)
             .margin({ bottom: 12 })
@@ -257,7 +257,7 @@ struct AudioCaptureDemo {
               }
             })
 
-          Button('停止超低时延录制流')
+          Button($r('app.string.stop_ultra_fast_recording_stream'))
             .width('90%')
             .height(48)
             .margin({ bottom: 12 })
