@@ -806,7 +806,7 @@ class CameraService {
         console.error(`photoAssetAvailable error: ${err.code}.`);
         return;
       }
-      console.info(`photoOutPutCallBack photoAssetAvailable`);
+      console.info(`photoOutputCallBack photoAssetAvailable`);
       // 开发者可通过photoAsset调用媒体库相关接口，自定义处理图片。
       // 处理方式一：调用媒体库落盘接口保存一阶段图，二阶段图就绪后媒体库会主动帮应用替换落盘图片。
       let accessHelper: photoAccessHelper.PhotoAccessHelper =
@@ -894,7 +894,7 @@ class CameraService {
       // [Start photoOutput_error]
       // 监听拍照异常。
       photoOutput.on('error', (data: BusinessError): void => {
-        Logger.info(TAG, `photoOutPut data: ${JSON.stringify(data)}`);
+        Logger.info(TAG, `photoOutput data: ${JSON.stringify(data)}`);
       });
       // [End photoOutput_error]
       if (this.context != undefined) {
@@ -1760,7 +1760,7 @@ class CameraService {
           console.error(`photoAssetAvailable error: ${err.code}.`);
           return;
         }
-        console.info(`photoOutPutCallBack photoAssetAvailable`);
+        console.info(`photoOutputCallBack photoAssetAvailable`);
         // 开发者可通过photoAsset调用媒体库相关接口，自定义处理图片。
         // 调用媒体库落盘接口保存一阶段图，二阶段图就绪后媒体库会主动帮应用替换落盘图片。
         let accessHelper: photoAccessHelper.PhotoAccessHelper =
