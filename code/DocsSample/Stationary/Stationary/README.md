@@ -37,7 +37,20 @@ entry/src/
  └── ohosTest
      └── ets
          └── test
-             └── Ability.test.ets        // 自动化测试代码
+             ├── List.test.ets                       // 测试套件注册入口
+             ├── StationaryUiSupport.ets             // 页面驱动与断言辅助
+             ├── StationaryManifest.test.ets         // 安装后模块声明契约
+             ├── StationaryApiContract.test.ets      // 接口与枚举契约
+             ├── StationaryApiRobust.test.ets        // 运行时错误语义
+             ├── StationaryApiInterleave.test.ets    // 订阅/取消交错矩阵
+             ├── StationaryUiMatrix.test.ets         // 单动作与文案映射
+             ├── StationaryUiSequenceMatrix.test.ets // 有序序列矩阵
+             ├── StationaryUiRepeat.test.ets         // 重复与交替点击
+             ├── StationaryUiLabel.test.ets          // 按钮与状态文案
+             ├── StationaryPerf.test.ets             // 响应耗时与渲染稳定性
+             ├── StationaryLifecycle.test.ets        // 重复拉起恢复
+             ├── StationaryAbilityContract.test.ets  // Ability/备份扩展契约
+             └── StationaryAppContext.test.ets       // 包信息与窗口上下文
 ```
 
 ### 相关权限
@@ -52,9 +65,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行，支持设备：Phone;
 
-2.本示例为Stage模型，支持API10版本SDK，SDK版本号(API Version 10)。
+2.本示例为Stage模型，最低支持API10版本SDK，SDK版本号(API Version 10)；当前已升级至API26版本SDK，SDK版本号(API Version 26)。
 
-3.本示例需要使用DevEco Studio 版本号(4.0 Release)版本才可编译运行。
+3.本示例需要使用DevEco Studio 版本号(4.0 Release)及以上版本才可编译运行。
 
 4.设备需要支持加速度传感器；目前只提供了算法框架，如需具体能力，则算法需要开发者实现。
 

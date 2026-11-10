@@ -7,8 +7,8 @@
 本文档说明 `Stationary` 自动化测试的分层结构、用例组织、覆盖重点与质量门禁，用于代码评审、测试审计与后续扩展。
 
 - 测试代码位于 `entry/src/ohosTest/ets/test/`。
-- `List.test.ets` 注册 **9 个套件、132 条用例**。
-- 测试代码共 **2,469 行**（有效代码行 **1,017 行**），断言 **155** 条（assertEqual 36 / assertTrue 119 / assertFalse 0）。
+- `List.test.ets` 注册 **12 个套件、177 条用例**。
+- 测试代码共 **3,755 行**（有效代码行 **1,785 行**），断言 **250** 条（assertEqual 71 / assertTrue 174 / assertFalse 5）。
 
 ## 2. 测试设计原则
 
@@ -96,37 +96,43 @@
 
 | 指标 | 当前值 |
 |---|---:|
-| 注册套件 | 9 |
-| 用例总数 | 132 |
-| 测试文件 | 11（含 `List.test.ets` 与 `StationaryUiSupport.ets`） |
-| 测试代码行数 | 2,469 |
-| 有效代码行数 | 1,017 |
-| 断言总数 | 155（assertEqual 36 / assertTrue 119 / assertFalse 0） |
+| 注册套件 | 12 |
+| 用例总数 | 177 |
+| 测试文件 | 14（含 `List.test.ets` 与 `StationaryUiSupport.ets`） |
+| 测试代码行数 | 3,755 |
+| 有效代码行数 | 1,785 |
+| 断言总数 | 250（assertEqual 71 / assertTrue 174 / assertFalse 5） |
 | 超过 120 字符的行 | 0 |
 
 ### 5.3 运行与限制
 
 - 运行前需唤醒并解锁设备；锁屏会导致应用无法前台运行、控件查找失败。
 - 设备是否支持静止感知不影响本套件通过：API 用例接受 `201/801`，UI 用例按 `stationarySupported()` 自适应断言。
+- 窗口相关用例通过前台 `UIAbility` 的 `UIAbilityContext` 调 `window.getLastWindow`，取不到窗口或窗口尺寸为 0 时断言失败（不静默跳过）；需保证测试期间应用处于前台。
 - UiTest 每进程仅允许一个驱动；UI 套件共享单例并在 `beforeAll` 拉起应用。
 - 真实静止/相对静止状态的识别精度与时延不在自动化断言范围，需人工验证。
 
 ## 6. 当前测试目录与职责
 
-`List.test.ets` 注册 9 个套件：
+`List.test.ets` 注册 12 个套件：
 
 | 分组 | 套件 | 用例数 | 职责 |
 |---|---|---:|---|
-| 启动 | `Ability`（AppTest） | 4 | 拉起 EntryAbility 并点击三个按钮校验文案 |
+| 安装声明 | `StationaryManifest` | 5 | 入口 Ability 唯一且导出、备份扩展唯一且不导出、只声明 default 设备类型、模块归属运行包 |
 | API 契约 | `StationaryApiContract` | 9 | 函数暴露性、两个枚举取值/唯一性、类型字面量与响应结构 |
-| API 健壮 | `StationaryApiRobust` | 11 | 订阅/一次性获取/取消只允许成功或 201/801，非法异常计 0；报告周期取值 |
-| API 交错 | `StationaryApiInterleave` | 14 | on/off 三连 8 种组合 + once 与 on/off 混排 |
-| UI 单动作 | `StationaryUiMatrix` | 10 | 控件存在、三按钮文案映射、幂等、整轮操作 |
+| API 健壮 | `StationaryApiRobust` | 17 | 订阅/一次性获取/取消只允许成功或 201/801；省略回调、报告周期上下界、relativeStill 重复查询、重复取消、同一回调重复注册 |
+| API 交错 | `StationaryApiInterleave` | 20 | still on/off 三连 8 种组合 + once 混排 + relativeStill 全事件与省略回调 |
+| UI 单动作 | `StationaryUiMatrix` | 14 | 控件存在、三按钮文案映射、幂等、整轮操作、三按钮纵向堆叠等宽居中、标题位于按钮上方、按钮宽度约 30%、标题高度约 20% |
 | UI 序列 | `StationaryUiSequenceMatrix` | 63 | 全量有序对（9）+ 全量有序三元组（27）+ 四连回起点（27） |
 | UI 重复 | `StationaryUiRepeat` | 10 | 单按钮重复 3/8 次、两按钮交替 5 轮 |
 | UI 文案 | `StationaryUiLabel` | 5 | 按钮文案非空且互异、精确定义、状态文本持续可见 |
-| 重启恢复 | `StationaryLifecycle` | 6 | 重启 3 次、动作后重启、重启后动作 |
-| **合计** | **9** | **132** | |
+| 性能稳定 | `StationaryPerf` | 5 | 三个动作点击到文案落定的耗时（宽松上界 3s、最慢≤最快×10）、20 次点击不漂移、控件反复可查询、连点后回到空闲文案 |
+| 重启恢复 | `StationaryLifecycle` | 9 | 重启 3 次、动作后重启、重启后动作、重启后序列与文案可读 |
+| Ability 契约 | `StationaryAbilityContract` | 9 | EntryAbility 位于前台与上下文一致；EntryBackupAbility 的 onBackup/onRestore 正常/边界/连跑/多实例 |
+| 运行上下文 | `StationaryAppContext` | 11 | 包名与版本、entry 模块唯一性、EntryAbility 与 deviceTypes、备份扩展注册、Ability 归属、前台 Ability、窗口尺寸、缓存目录 |
+| **合计** | **12** | **177** | |
+
+> 原 `Ability`（AppTest）套件已删除：它用旧式 `it(name, 0, done)` 写法、硬编码期望文案（设备不支持 stationary 时必然失败），且与 `StationaryUiMatrix` 的控件存在/文案映射用例重复；同名的旧版 `abilityTest.test.ets` 也已一并删除，避免 `AppTest` 被注册两次。
 
 ## 7. 结论
 
@@ -165,4 +171,4 @@
 - UI 用例在支持设备上断言精确文案，在设备不支持时断言文案确实保持操作前的值，避免“无条件通过”。
 - 序列矩阵断言“最后一次动作的文案”，不是重复单动作的弱断言。
 - 无恒真/空壳用例；不复制主实现常量做自证。
-- UI/Ability 用例依赖设备解锁；锁屏会导致 `GetCurrentTopAbility`/控件为空，属环境前置条件而非用例逻辑。
+- UI 用例依赖设备解锁；锁屏会导致控件查找失败，属环境前置条件而非用例逻辑。状态文本读不到时 `readShowText` 会直接失败并打印顶层 Ability 名称。

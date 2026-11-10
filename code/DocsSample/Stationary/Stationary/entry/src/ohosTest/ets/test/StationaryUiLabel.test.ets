@@ -20,7 +20,7 @@ import {
   BUTTON_LABELS,
   getDriver,
   startApp,
-  clickButton,
+  clickAndExpect,
   labelOf
 } from './StationaryUiSupport';
 
@@ -93,9 +93,9 @@ export default function StationaryUiLabelTest() {
      */
     it('testStationaryLabel0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const driver: Driver = getDriver();
-      expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
-      expect(await clickButton(driver, 'button1')).assertTrue();
-      expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
+      expect(await driver.waitForComponent(ON.id(SHOW_ID), 4000) !== null).assertTrue();
+      expect(await clickAndExpect(driver, 0)).assertTrue();
+      expect(await driver.waitForComponent(ON.id(SHOW_ID), 4000) !== null).assertTrue();
       expect((await labelOf(driver, SHOW_ID)).length > 0).assertTrue();
     });
 
@@ -109,9 +109,9 @@ export default function StationaryUiLabelTest() {
      */
     it('testStationaryLabel0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const driver: Driver = getDriver();
-      for (const id of BUTTON_IDS) {
-        expect(await clickButton(driver, id)).assertTrue();
-        expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
+      for (let i = 0; i < BUTTON_IDS.length; i++) {
+        expect(await clickAndExpect(driver, i)).assertTrue();
+        expect(await driver.waitForComponent(ON.id(SHOW_ID), 4000) !== null).assertTrue();
       }
       expect((await labelOf(driver, SHOW_ID)).length > 0).assertTrue();
     });

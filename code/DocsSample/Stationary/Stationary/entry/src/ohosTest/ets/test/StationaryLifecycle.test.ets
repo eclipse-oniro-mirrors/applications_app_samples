@@ -20,7 +20,9 @@ import {
   BUTTON_IDS,
   getDriver,
   entryWant,
-  clickAndExpect
+  clickAndExpect,
+  clickAndExpectLast,
+  readShowText
 } from './StationaryUiSupport';
 
 async function relaunch(driver: Driver): Promise<boolean> {
@@ -141,6 +143,55 @@ export default function StationaryLifecycleTest() {
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       expect(await clickAndExpect(driver, 1)).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_LIFE_0700
+     * @tc.name testStationaryLife0007
+     * @tc.desc Verify a two-action sequence still ends on the last action after a relaunch
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryLife0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const driver: Driver = getDriver();
+      expect(await relaunch(driver)).assertTrue();
+      expect(await clickAndExpectLast(driver, ['button1', 'button2'])).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_LIFE_0800
+     * @tc.name testStationaryLife0008
+     * @tc.desc Verify the status text stays readable across three consecutive relaunches
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryLife0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const driver: Driver = getDriver();
+      for (let round = 0; round < 3; round++) {
+        expect(await relaunch(driver)).assertTrue();
+        expect((await readShowText(driver)).length > 0).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_LIFE_0900
+     * @tc.name testStationaryLife0009
+     * @tc.desc Verify actions keep working after a relaunch that follows every action
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryLife0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const driver: Driver = getDriver();
+      for (let index = 0; index < BUTTON_IDS.length; index++) {
+        expect(await clickAndExpect(driver, index)).assertTrue();
+        expect(await relaunch(driver)).assertTrue();
+      }
+      for (const id of BUTTON_IDS) {
+        expect(await driver.findComponent(ON.id(id)) !== null).assertTrue();
+      }
     });
   });
 }

@@ -55,6 +55,19 @@ function offStill(): CallOutcome {
   return run(() => stationary.off('still', stationary.ActivityEvent.ENTER, callback));
 }
 
+function onRelative(event: stationary.ActivityEvent): CallOutcome {
+  return run(() => stationary.on('relativeStill', event, 1000000000, callback));
+}
+
+function offRelative(event: stationary.ActivityEvent, withCallback: boolean): CallOutcome {
+  return withCallback ? run(() => stationary.off('relativeStill', event, callback)) :
+    run(() => stationary.off('relativeStill', event));
+}
+
+function onceRelative(): CallOutcome {
+  return run(() => stationary.once('relativeStill', callback));
+}
+
 function onceStill(): CallOutcome {
   return run(() => stationary.once('still', callback));
 }
@@ -273,6 +286,85 @@ export default function StationaryApiInterleaveTest() {
       check(onStill());
       check(onceStill());
       check(offStill());
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_INTERLEAVE_1500
+     * @tc.name testInterleaveRelative0015
+     * @tc.desc Verify relativeStill ENTER on/off yields a valid outcome each step
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testInterleaveRelative0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      check(onRelative(stationary.ActivityEvent.ENTER));
+      check(offRelative(stationary.ActivityEvent.ENTER, true));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_INTERLEAVE_1600
+     * @tc.name testInterleaveRelative0016
+     * @tc.desc Verify relativeStill EXIT on/off yields a valid outcome each step
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testInterleaveRelative0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      check(onRelative(stationary.ActivityEvent.EXIT));
+      check(offRelative(stationary.ActivityEvent.EXIT, true));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_INTERLEAVE_1700
+     * @tc.name testInterleaveRelative0017
+     * @tc.desc Verify relativeStill ENTER_EXIT on/off yields a valid outcome each step
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testInterleaveRelative0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      check(onRelative(stationary.ActivityEvent.ENTER_EXIT));
+      check(offRelative(stationary.ActivityEvent.ENTER_EXIT, true));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_INTERLEAVE_1800
+     * @tc.name testInterleaveRelative0018
+     * @tc.desc Verify relativeStill one-shot query yields one valid outcome
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testInterleaveRelative0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      check(onceRelative());
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_INTERLEAVE_1900
+     * @tc.name testInterleaveRelative0019
+     * @tc.desc Verify relativeStill on then once then off yields a valid outcome each step
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testInterleaveRelative0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      check(onRelative(stationary.ActivityEvent.ENTER_EXIT));
+      check(onceRelative());
+      check(offRelative(stationary.ActivityEvent.ENTER_EXIT, true));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_INTERLEAVE_2000
+     * @tc.name testInterleaveRelative0020
+     * @tc.desc Verify cancelling relativeStill without a callback yields one valid outcome
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testInterleaveRelative0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      check(offRelative(stationary.ActivityEvent.ENTER, false));
+      check(offRelative(stationary.ActivityEvent.EXIT, false));
+      check(offRelative(stationary.ActivityEvent.ENTER_EXIT, false));
     });
   });
 }

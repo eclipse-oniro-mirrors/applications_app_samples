@@ -13,7 +13,11 @@
  * limitations under the License.
  */
 import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
-import { Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Driver, ON, Component, Rect } from '@kit.TestKit';
+import { window } from '@kit.ArkUI';
+import { UIAbility } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   SHOW_ID,
   BUTTON_IDS,
@@ -21,8 +25,7 @@ import {
   startApp,
   clickAndExpect,
   clickAndExpectLast,
-  repeatClick,
-  readShowText
+  repeatClick
 } from './StationaryUiSupport';
 
 /**
@@ -33,6 +36,9 @@ import {
  * 设备与模拟器上都能稳定验证控件存在、点击映射、重复点击幂等以及
  * “最后一次动作生效”的语义。
  */
+const DOMAIN: number = 0xF812;
+const TAG: string = 'Sample_Stationary';
+
 export default function StationaryUiMatrixTest() {
   describe('StationaryUiMatrixTest', () => {
     beforeAll(async () => {
@@ -183,8 +189,137 @@ export default function StationaryUiMatrixTest() {
       const driver: Driver = getDriver();
       for (let i = 0; i < BUTTON_IDS.length; i++) {
         expect(await clickAndExpect(driver, i)).assertTrue();
-        expect((await readShowText(driver)).length > 0).assertTrue();
       }
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_UI_1100
+     * @tc.name testStationaryUi0011
+     * @tc.desc Verify the three action buttons are stacked, equally wide and centered
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryUi0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const driver: Driver = getDriver();
+      const first: Component | null = await driver.waitForComponent(ON.id(BUTTON_IDS[0]), 4000);
+      expect(first !== null).assertTrue();
+      if (first === null) {
+        return;
+      }
+      const base: Rect = await first.getBounds();
+      const baseWidth: number = base.right - base.left;
+      hilog.info(DOMAIN, TAG, 'base rect l=%{public}d t=%{public}d r=%{public}d b=%{public}d',
+        base.left, base.top, base.right, base.bottom);
+      let previousBottom: number = base.top;
+      for (const id of BUTTON_IDS) {
+        const current: Component | null = await driver.waitForComponent(ON.id(id), 4000);
+        expect(current !== null).assertTrue();
+        if (current === null) {
+          continue;
+        }
+        const rect: Rect = await current.getBounds();
+        const width: number = rect.right - rect.left;
+        const widthDelta: number = Math.abs(width - baseWidth);
+        hilog.info(DOMAIN, TAG, '%{public}s: l=%{public}d t=%{public}d w=%{public}d, dW=%{public}d',
+          id, rect.left, rect.top, width, widthDelta);
+        expect(width > 0).assertTrue();
+        expect(widthDelta <= Math.max(4, Math.round(baseWidth * 0.05))).assertTrue();
+        expect(rect.left <= base.left && base.right <= rect.right).assertTrue();
+        expect(rect.top >= previousBottom).assertTrue();
+        previousBottom = rect.top;
+      }
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_UI_1200
+     * @tc.name testStationaryUi0012
+     * @tc.desc Verify the status text sits above every action button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryUi0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const driver: Driver = getDriver();
+      const show: Component | null = await driver.waitForComponent(ON.id(SHOW_ID), 4000);
+      expect(show !== null).assertTrue();
+      if (show === null) {
+        return;
+      }
+      const showRect: Rect = await show.getBounds();
+      expect(showRect.bottom > showRect.top).assertTrue();
+      for (const id of BUTTON_IDS) {
+        const button: Component | null = await driver.waitForComponent(ON.id(id), 4000);
+        expect(button !== null).assertTrue();
+        if (button !== null) {
+          const rect: Rect = await button.getBounds();
+          expect(rect.top >= showRect.bottom).assertTrue();
+        }
+      }
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_UI_1300
+     * @tc.name testStationaryUi0013
+     * @tc.desc Verify each action button takes about thirty percent of the window width
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryUi0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const driver: Driver = getDriver();
+      const button: Component | null = await driver.waitForComponent(ON.id(BUTTON_IDS[0]), 4000);
+      expect(button !== null).assertTrue();
+      if (button === null) {
+        return;
+      }
+      let windowWidth: number = 0;
+      try {
+        const top: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
+        const main: window.Window = await window.getLastWindow(top.context);
+        windowWidth = main.getWindowProperties().windowRect.width;
+      } catch (err) {
+        hilog.error(DOMAIN, TAG, 'getLastWindow failed: %{public}s', (err as BusinessError).message);
+      }
+      expect(windowWidth > 0).assertTrue();
+      if (windowWidth <= 0) {
+        return;
+      }
+      const rect: Rect = await button.getBounds();
+      const ratio: number = (rect.right - rect.left) / windowWidth;
+      expect(ratio > 0.25 && ratio < 0.35).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_UI_1400
+     * @tc.name testStationaryUi0014
+     * @tc.desc Verify the status text block takes about twenty percent of the window height
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryUi0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const driver: Driver = getDriver();
+      const show: Component | null = await driver.waitForComponent(ON.id(SHOW_ID), 4000);
+      expect(show !== null).assertTrue();
+      if (show === null) {
+        return;
+      }
+      let windowHeight: number = 0;
+      try {
+        const top: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
+        const main: window.Window = await window.getLastWindow(top.context);
+        windowHeight = main.getWindowProperties().windowRect.height;
+      } catch (err) {
+        hilog.error(DOMAIN, TAG, 'getLastWindow failed: %{public}s', (err as BusinessError).message);
+      }
+      expect(windowHeight > 0).assertTrue();
+      if (windowHeight <= 0) {
+        return;
+      }
+      const rect: Rect = await show.getBounds();
+      const ratio: number = (rect.bottom - rect.top) / windowHeight;
+      expect(ratio > 0.15 && ratio < 0.25).assertTrue();
     });
   });
 }

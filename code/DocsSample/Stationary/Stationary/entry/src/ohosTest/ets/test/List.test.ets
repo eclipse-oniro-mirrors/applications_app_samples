@@ -15,6 +15,7 @@
 
 import abilityTest from './Ability.test';
 import abilityTest from './abilityTest.test';
+import stationaryManifestTest from './StationaryManifest.test';
 import stationaryApiContractTest from './StationaryApiContract.test';
 import stationaryApiRobustTest from './StationaryApiRobust.test';
 import stationaryApiInterleaveTest from './StationaryApiInterleave.test';
@@ -22,10 +23,14 @@ import stationaryUiMatrixTest from './StationaryUiMatrix.test';
 import stationaryUiSequenceMatrixTest from './StationaryUiSequenceMatrix.test';
 import stationaryUiRepeatTest from './StationaryUiRepeat.test';
 import stationaryUiLabelTest from './StationaryUiLabel.test';
+import stationaryPerfTest from './StationaryPerf.test';
 import stationaryLifecycleTest from './StationaryLifecycle.test';
+import stationaryAbilityContractTest from './StationaryAbilityContract.test';
+import stationaryAppContextTest from './StationaryAppContext.test';
 
 export default function testsuite() {
   abilityTest();
+  stationaryManifestTest();
   stationaryApiContractTest();
   stationaryApiRobustTest();
   stationaryApiInterleaveTest();
@@ -33,5 +38,8 @@ export default function testsuite() {
   stationaryUiSequenceMatrixTest();
   stationaryUiRepeatTest();
   stationaryUiLabelTest();
+  stationaryPerfTest();
   stationaryLifecycleTest();
+  stationaryAbilityContractTest();
+  stationaryAppContextTest();
 }

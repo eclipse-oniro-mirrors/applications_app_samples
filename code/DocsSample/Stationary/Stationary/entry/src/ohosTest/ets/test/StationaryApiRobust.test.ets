@@ -228,5 +228,104 @@ export default function StationaryApiRobustTest() {
       expect(invalidError).assertEqual(0);
       expect(valid).assertEqual(5);
     });
+
+    /**
+     * @tc.number SUB_STATIONARY_ROBUST_1200
+     * @tc.name testStationaryRobust0012
+     * @tc.desc Verify cancelling still without a callback yields one valid outcome per event
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryRobust0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.ENTER)));
+      expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.EXIT)));
+      expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.ENTER_EXIT)));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_ROBUST_1300
+     * @tc.name testStationaryRobust0013
+     * @tc.desc Verify the lowest documented reporting period is accepted for subscribe
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryRobust0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      expectSingleValidOutcome(run(() =>
+        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
+      expectSingleValidOutcome(run(() =>
+        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_ROBUST_1400
+     * @tc.name testStationaryRobust0014
+     * @tc.desc Verify the highest documented reporting period is accepted for subscribe
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryRobust0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      expectSingleValidOutcome(run(() =>
+        stationary.on('still', stationary.ActivityEvent.ENTER, 3000000000, callback)));
+      expectSingleValidOutcome(run(() =>
+        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_ROBUST_1600
+     * @tc.name testStationaryRobust0016
+     * @tc.desc Verify a second unsubscribe after one subscribe stays a documented outcome
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryRobust0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      expectSingleValidOutcome(run(() =>
+        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
+      expectSingleValidOutcome(run(() =>
+        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+      expectSingleValidOutcome(run(() =>
+        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_ROBUST_1700
+     * @tc.name testStationaryRobust0017
+     * @tc.desc Verify registering the same callback twice then cancelling keeps documented outcomes
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryRobust0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const second: CallOutcome = run(() =>
+        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback));
+      const third: CallOutcome = run(() =>
+        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback));
+      const cancelOne: CallOutcome = run(() =>
+        stationary.off('still', stationary.ActivityEvent.ENTER, callback));
+      const cancelRest: CallOutcome = run(() => stationary.off('still', stationary.ActivityEvent.ENTER));
+      expectSingleValidOutcome(second);
+      expectSingleValidOutcome(third);
+      expectSingleValidOutcome(cancelOne);
+      expectSingleValidOutcome(cancelRest);
+      expect(second.success).assertEqual(third.success);
+      expect(second.allowedError).assertEqual(third.allowedError);
+    });
+
+    /**
+     * @tc.number SUB_STATIONARY_ROBUST_1500
+     * @tc.name testStationaryRobust0015
+     * @tc.desc Verify a one-shot query repeated for relativeStill never yields an undocumented error
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testStationaryRobust0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      for (let i = 0; i < 5; i++) {
+        expectSingleValidOutcome(run(() => stationary.once('relativeStill', callback)));
+      }
+    });
   });
 }
