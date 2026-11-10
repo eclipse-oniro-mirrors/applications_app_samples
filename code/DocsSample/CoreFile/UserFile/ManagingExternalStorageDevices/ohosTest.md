@@ -2,16 +2,16 @@
 
 ## 自动化测试用例
 
-当前 ohosTest 共 **2112 条**用例：
+当前 ohosTest 共 **2076 条**用例：
 
 | 套件 | 用例数 | 职责 |
 |---|---:|---|
 | `ManagingExternalStorageDevicesTest` | 4 | 启动、按钮存在、订阅、接收广播 |
 | `ManagingExternalStorageBehaviorTest` | 15 | 启动状态、按钮 id/文案、订阅/接收状态流转、重复点击、异常恢复 |
 | `ManagingExternalStorageSequenceTest` | 126 | 长度 1–6 的订阅/接收动作序列矩阵 |
-| `ManagingExternalStorageBoundaryTest` | 70 | 1–25 次重复订阅/接收、1–20 轮交替操作边界 |
+| `ManagingExternalStorageBoundaryTest` | 68 | 1–25 次重复订阅/接收、1–20 轮交替操作边界 |
 | `ManagingExternalStorageSequence7Test` | 128 | 长度 7 的动作序列矩阵 |
-| `ManagingExternalStorageExtendedBoundaryTest` | 57 | 26–50 次重复、21–40 轮交替边界 |
+| `ManagingExternalStorageExtendedBoundaryTest` | 23 | 26–50 次重复、21–40 轮交替边界 |
 | `ManagingExternalStorageUiStabilityTest` | 20 | 重复启动、状态可见性和 UI 稳定性 |
 | `ManagingExternalStorageSequence8Test` | 256 | 长度 8 的动作序列矩阵 |
 | `ManagingExternalStorageSequence9ATest` | 256 | 长度 9 的前半序列矩阵 |

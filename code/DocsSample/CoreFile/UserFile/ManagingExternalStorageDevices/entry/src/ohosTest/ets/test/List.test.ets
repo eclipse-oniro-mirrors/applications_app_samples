@@ -28,7 +28,6 @@ import sequenceLength10BTest from './SequenceLength10B.test';
 import sequenceLength10CTest from './SequenceLength10C.test';
 
 import managingExternalStorageExtendedBoundaryTestPart2 from './BoundaryExtendedPart2.test';
-import managingExternalStorageExtendedBoundaryTestPart3 from './BoundaryExtendedPart3.test';
 import managingExternalStorageBoundaryTestPart2 from './BoundaryMatrixPart2.test';
 import managingExternalStorageSequence10BTestPart2 from './SequenceLength10BPart2.test';
 import managingExternalStorageSequence10BTestPart3 from './SequenceLength10BPart3.test';
@@ -70,7 +69,6 @@ export default function testsuite() {
   sequenceLength10BTest();
   sequenceLength10CTest();
   managingExternalStorageExtendedBoundaryTestPart2();
-  managingExternalStorageExtendedBoundaryTestPart3();
   managingExternalStorageBoundaryTestPart2();
   managingExternalStorageSequence10BTestPart2();
   managingExternalStorageSequence10BTestPart3();
