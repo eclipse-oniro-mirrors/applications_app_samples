@@ -3037,3 +3037,388 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0178 begin');
+      expect(DateUtil.nameByDate(true, '') === null).assertTrue();
+      expect(DateUtil.nameByDate(true) === null).assertTrue();
+      const fallback: string = DateUtil.nameByDate(false, 'ignored');
+      expect(fallback.startsWith('IMG_')).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0178 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0179
+     * @tc.name      testPhotosDateNameBoundary0179
+     * @tc.desc      Handles boundary empty naming sample 19.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0179 begin');
+      expect(DateUtil.nameByDate(true, '') === null).assertTrue();
+      expect(DateUtil.nameByDate(true) === null).assertTrue();
+      const fallback: string = DateUtil.nameByDate(false, 'ignored');
+      expect(fallback.startsWith('IMG_')).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0179 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0180
+     * @tc.name      testPhotosDateNameBoundary0180
+     * @tc.desc      Handles boundary empty naming sample 20.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0180 begin');
+      expect(DateUtil.nameByDate(true, '') === null).assertTrue();
+      expect(DateUtil.nameByDate(true) === null).assertTrue();
+      const fallback: string = DateUtil.nameByDate(false, 'ignored');
+      expect(fallback.startsWith('IMG_')).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0180 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0181
+     * @tc.name      testPhotosDateNameBoundary0181
+     * @tc.desc      Generates boundary timestamp name sample 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0181 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0181 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0182
+     * @tc.name      testPhotosDateNameBoundary0182
+     * @tc.desc      Generates boundary timestamp name sample 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0182 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0182 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0183
+     * @tc.name      testPhotosDateNameBoundary0183
+     * @tc.desc      Generates boundary timestamp name sample 3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0183 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0183 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0184
+     * @tc.name      testPhotosDateNameBoundary0184
+     * @tc.desc      Generates boundary timestamp name sample 4.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0184 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0184 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0185
+     * @tc.name      testPhotosDateNameBoundary0185
+     * @tc.desc      Generates boundary timestamp name sample 5.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0185 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0185 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0186
+     * @tc.name      testPhotosDateNameBoundary0186
+     * @tc.desc      Generates boundary timestamp name sample 6.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0186 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0186 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0187
+     * @tc.name      testPhotosDateNameBoundary0187
+     * @tc.desc      Generates boundary timestamp name sample 7.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0187 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0187 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0188
+     * @tc.name      testPhotosDateNameBoundary0188
+     * @tc.desc      Generates boundary timestamp name sample 8.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0188 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0188 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0189
+     * @tc.name      testPhotosDateNameBoundary0189
+     * @tc.desc      Generates boundary timestamp name sample 9.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0189 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0189 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0190
+     * @tc.name      testPhotosDateNameBoundary0190
+     * @tc.desc      Generates boundary timestamp name sample 10.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0190 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0190 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0191
+     * @tc.name      testPhotosDateNameBoundary0191
+     * @tc.desc      Generates boundary timestamp name sample 11.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0191 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0191 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0192
+     * @tc.name      testPhotosDateNameBoundary0192
+     * @tc.desc      Generates boundary timestamp name sample 12.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0192 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0192 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0193
+     * @tc.name      testPhotosDateNameBoundary0193
+     * @tc.desc      Generates boundary timestamp name sample 13.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0193 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0193 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0194
+     * @tc.name      testPhotosDateNameBoundary0194
+     * @tc.desc      Generates boundary timestamp name sample 14.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0194 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0194 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0195
+     * @tc.name      testPhotosDateNameBoundary0195
+     * @tc.desc      Generates boundary timestamp name sample 15.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0195 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0195 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0196
+     * @tc.name      testPhotosDateNameBoundary0196
+     * @tc.desc      Generates boundary timestamp name sample 16.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0196 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0196 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0197
+     * @tc.name      testPhotosDateNameBoundary0197
+     * @tc.desc      Generates boundary timestamp name sample 17.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0197 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0197 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0198
+     * @tc.name      testPhotosDateNameBoundary0198
+     * @tc.desc      Generates boundary timestamp name sample 18.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0198 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0198 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0199
+     * @tc.name      testPhotosDateNameBoundary0199
+     * @tc.desc      Generates boundary timestamp name sample 19.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0199 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0199 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_NAME_BOUNDARY_0200
+     * @tc.name      testPhotosDateNameBoundary0200
+     * @tc.desc      Generates boundary timestamp name sample 20.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateNameBoundary0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0200 begin');
+      const result: string = DateUtil.nameByDate(false, 'ignored');
+      expect(result.startsWith('IMG_')).assertTrue();
+      expect(result.length).assertEqual(19);
+      expect(result.charAt(3)).assertEqual('_');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0200 end');
+    })
+  })
+}
