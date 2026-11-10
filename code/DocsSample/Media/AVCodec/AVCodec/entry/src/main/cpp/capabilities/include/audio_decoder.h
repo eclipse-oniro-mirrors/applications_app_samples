@@ -50,7 +50,9 @@ public:
 
 private:
     int32_t SetCallback(CodecUserData *codecUserData);
+    int32_t SetDecryptionConfig();
     int32_t Configure(const SampleInfo &sampleInfo);
+    void SetAVBuffer(OH_AVBuffer *buffer);
 
     bool isAVBufferMode_ = false;
     // 由 OH_AudioCodec_CreateByMime 创建并由 Release() 销毁的音频解码器句柄。
