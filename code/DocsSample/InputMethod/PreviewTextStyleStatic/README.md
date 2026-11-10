@@ -17,7 +17,15 @@
 ### 使用说明
 
 1. 使用支持 ArkTS 1.2 和 SDK 26.1.0 的开发工具打开本工程，按本地设备配置签名。
-2. 安装后在系统设置中选择本示例输入法，回到应用并点击编辑区完成绑定。
+2. 安装后通过HDC执行以下命令，启用并切换到本示例输入法，再回到应用点击编辑区完成绑定。
+
+   ```shell
+   hdc shell ime -e com.samples.previewstylestatic -f
+   hdc shell ime -s com.samples.previewstylestatic
+   hdc shell ime -g
+   ```
+
+   `-f`用于完整体验模式，运行设备需支持该模式。
 3. 在输入法页面点击“发送预上屏”，观察真实回调更新的文字和红色波浪线。
 4. 点击“结束预上屏”，文字保留，下划线清除；离开页面时自动解绑并取消订阅。
 
@@ -28,7 +36,7 @@
 ```text
 PreviewTextStyleStatic/
 ├── AppScope/                         应用名称资源与包配置
-├── entry/src/main/ets/components/    自绘编辑器与样式接收
+├── entry/src/main/ets/components/    自绘编辑框与样式接收
 ├── entry/src/main/ets/keyboard/      输入法扩展、键盘界面与发送端
 ├── entry/src/main/ets/pages/         应用入口与编辑页面
 ├── entry/src/main/resources/         文案、颜色与页面资源
@@ -42,6 +50,7 @@ PreviewTextStyleStatic/
 
 | 内容 | 文件 | 标记 |
 | --- | --- | --- |
+| 获取输入连接 | `entry/src/main/ets/keyboard/PreviewInputMethod.ets` | `preview_style_sta_input_start` |
 | 处理预上屏及结束回调 | `entry/src/main/ets/components/PreviewEditor.ets` | `preview_style_sta_receive` |
 | 订阅和取消订阅 | 同上 | `preview_style_sta_subscribe` |
 | 异步发送 | `entry/src/main/ets/keyboard/PreviewSender.ets` | `preview_style_sta_send` |
@@ -54,7 +63,7 @@ PreviewTextStyleStatic/
 
 - [PreviewSender.ets](https://gitcode.com/openharmony/applications_app_samples/blob/OpenHarmony_feature_sta_20260331/code/DocsSample/InputMethod/PreviewTextStyleStatic/entry/src/main/ets/keyboard/PreviewSender.ets) 从输入法连接取得 `InputClient`，发送带样式的预上屏文本并结束预上屏。
 - [PreviewEditor.ets](https://gitcode.com/openharmony/applications_app_samples/blob/OpenHarmony_feature_sta_20260331/code/DocsSample/InputMethod/PreviewTextStyleStatic/entry/src/main/ets/components/PreviewEditor.ets) 订阅编辑回调，按范围绘制预上屏文字与下划线，解绑时取消订阅。
-- [KeyboardPanel.ets](https://gitcode.com/openharmony/applications_app_samples/blob/OpenHarmony_feature_sta_20260331/code/DocsSample/InputMethod/PreviewTextStyleStatic/entry/src/main/ets/keyboard/KeyboardPanel.ets) 提供发送与结束按钮，实际结果由编辑器回调显示。
+- [KeyboardPanel.ets](https://gitcode.com/openharmony/applications_app_samples/blob/OpenHarmony_feature_sta_20260331/code/DocsSample/InputMethod/PreviewTextStyleStatic/entry/src/main/ets/keyboard/KeyboardPanel.ets) 提供发送与结束按钮，实际结果由编辑框回调显示。
 
 ### 相关权限
 

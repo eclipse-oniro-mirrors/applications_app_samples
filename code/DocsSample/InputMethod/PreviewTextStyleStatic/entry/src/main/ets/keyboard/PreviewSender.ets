@@ -51,7 +51,7 @@ export class PreviewSender {
       underlineStyle: inputMethodEngine.UnderlineStyle.WAVY,
       underlineColor: 0xFF0000
     };
-    // underlineColor 设为 undefined 使用编辑器主题色；显式传入 0 表示黑色。
+    // 省略underlineColor使用编辑框主题色；显式传入0表示黑色。
     try {
       await client.setPreviewTextWithStyle(this.previewText, range, style);
       this.status($r('app.string.preview_displayed'));
