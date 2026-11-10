@@ -2377,3 +2377,1048 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      */
     it('testPhotosDateLocalizedBoundary0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0139 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2058, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2058') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0139 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0140
+     * @tc.name      testPhotosDateLocalizedBoundary0140
+     * @tc.desc      Formats localized boundary year 2059.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0140 begin');
+      const result: string = DateUtil.getLocalizedYearString(new Date(2059, 0, 1, 0, 0, 0).getTime());
+      expect(result.indexOf('2059') >= 0).assertTrue();
+      expect(result.length >= 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0140 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0141
+     * @tc.name      testPhotosDateLocalizedBoundary0141
+     * @tc.desc      Formats localized boundary year-month 1960.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0141 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1960, 0, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1960') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0141 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0142
+     * @tc.name      testPhotosDateLocalizedBoundary0142
+     * @tc.desc      Formats localized boundary year-month 1961.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0142 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1961, 1, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1961') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0142 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0143
+     * @tc.name      testPhotosDateLocalizedBoundary0143
+     * @tc.desc      Formats localized boundary year-month 1962.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0143 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1962, 2, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1962') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0143 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0144
+     * @tc.name      testPhotosDateLocalizedBoundary0144
+     * @tc.desc      Formats localized boundary year-month 1963.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0144 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1963, 3, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1963') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0144 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0145
+     * @tc.name      testPhotosDateLocalizedBoundary0145
+     * @tc.desc      Formats localized boundary year-month 1964.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0145 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1964, 4, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1964') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0145 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0146
+     * @tc.name      testPhotosDateLocalizedBoundary0146
+     * @tc.desc      Formats localized boundary year-month 1965.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0146 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1965, 5, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1965') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0146 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0147
+     * @tc.name      testPhotosDateLocalizedBoundary0147
+     * @tc.desc      Formats localized boundary year-month 1966.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0147 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1966, 6, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1966') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0147 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0148
+     * @tc.name      testPhotosDateLocalizedBoundary0148
+     * @tc.desc      Formats localized boundary year-month 1967.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0148 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1967, 7, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1967') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0148 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0149
+     * @tc.name      testPhotosDateLocalizedBoundary0149
+     * @tc.desc      Formats localized boundary year-month 1968.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0149 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1968, 8, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1968') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0149 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0150
+     * @tc.name      testPhotosDateLocalizedBoundary0150
+     * @tc.desc      Formats localized boundary year-month 1969.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0150 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1969, 9, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1969') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0150 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0151
+     * @tc.name      testPhotosDateLocalizedBoundary0151
+     * @tc.desc      Formats localized boundary year-month 1970.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0151 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1970, 10, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1970') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0151 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0152
+     * @tc.name      testPhotosDateLocalizedBoundary0152
+     * @tc.desc      Formats localized boundary year-month 1971.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0152 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1971, 11, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1971') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0152 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0153
+     * @tc.name      testPhotosDateLocalizedBoundary0153
+     * @tc.desc      Formats localized boundary year-month 1972.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0153 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1972, 0, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1972') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0153 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0154
+     * @tc.name      testPhotosDateLocalizedBoundary0154
+     * @tc.desc      Formats localized boundary year-month 1973.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0154 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1973, 1, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1973') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0154 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0155
+     * @tc.name      testPhotosDateLocalizedBoundary0155
+     * @tc.desc      Formats localized boundary year-month 1974.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0155 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1974, 2, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1974') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0155 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0156
+     * @tc.name      testPhotosDateLocalizedBoundary0156
+     * @tc.desc      Formats localized boundary year-month 1975.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0156 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1975, 3, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1975') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0156 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0157
+     * @tc.name      testPhotosDateLocalizedBoundary0157
+     * @tc.desc      Formats localized boundary year-month 1976.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0157 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1976, 4, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1976') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0157 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0158
+     * @tc.name      testPhotosDateLocalizedBoundary0158
+     * @tc.desc      Formats localized boundary year-month 1977.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0158 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1977, 5, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1977') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0158 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0159
+     * @tc.name      testPhotosDateLocalizedBoundary0159
+     * @tc.desc      Formats localized boundary year-month 1978.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0159 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1978, 6, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1978') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0159 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0160
+     * @tc.name      testPhotosDateLocalizedBoundary0160
+     * @tc.desc      Formats localized boundary year-month 1979.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0160 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1979, 7, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1979') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0160 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0161
+     * @tc.name      testPhotosDateLocalizedBoundary0161
+     * @tc.desc      Formats localized boundary year-month 1980.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0161 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1980, 8, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1980') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0161 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0162
+     * @tc.name      testPhotosDateLocalizedBoundary0162
+     * @tc.desc      Formats localized boundary year-month 1981.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0162 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1981, 9, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1981') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0162 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0163
+     * @tc.name      testPhotosDateLocalizedBoundary0163
+     * @tc.desc      Formats localized boundary year-month 1982.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0163 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1982, 10, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1982') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0163 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0164
+     * @tc.name      testPhotosDateLocalizedBoundary0164
+     * @tc.desc      Formats localized boundary year-month 1983.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0164 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1983, 11, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1983') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0164 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0165
+     * @tc.name      testPhotosDateLocalizedBoundary0165
+     * @tc.desc      Formats localized boundary year-month 1984.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0165 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1984, 0, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1984') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0165 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0166
+     * @tc.name      testPhotosDateLocalizedBoundary0166
+     * @tc.desc      Formats localized boundary year-month 1985.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0166 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1985, 1, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1985') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0166 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0167
+     * @tc.name      testPhotosDateLocalizedBoundary0167
+     * @tc.desc      Formats localized boundary year-month 1986.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0167 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1986, 2, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1986') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0167 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0168
+     * @tc.name      testPhotosDateLocalizedBoundary0168
+     * @tc.desc      Formats localized boundary year-month 1987.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0168 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1987, 3, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1987') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0168 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0169
+     * @tc.name      testPhotosDateLocalizedBoundary0169
+     * @tc.desc      Formats localized boundary year-month 1988.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0169 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1988, 4, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1988') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0169 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0170
+     * @tc.name      testPhotosDateLocalizedBoundary0170
+     * @tc.desc      Formats localized boundary year-month 1989.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0170 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1989, 5, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1989') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0170 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0171
+     * @tc.name      testPhotosDateLocalizedBoundary0171
+     * @tc.desc      Formats localized boundary year-month 1990.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0171 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1990, 6, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1990') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0171 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0172
+     * @tc.name      testPhotosDateLocalizedBoundary0172
+     * @tc.desc      Formats localized boundary year-month 1991.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0172 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1991, 7, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1991') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0172 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0173
+     * @tc.name      testPhotosDateLocalizedBoundary0173
+     * @tc.desc      Formats localized boundary year-month 1992.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0173 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1992, 8, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1992') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0173 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0174
+     * @tc.name      testPhotosDateLocalizedBoundary0174
+     * @tc.desc      Formats localized boundary year-month 1993.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0174 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1993, 9, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1993') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0174 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0175
+     * @tc.name      testPhotosDateLocalizedBoundary0175
+     * @tc.desc      Formats localized boundary year-month 1994.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0175 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1994, 10, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1994') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0175 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0176
+     * @tc.name      testPhotosDateLocalizedBoundary0176
+     * @tc.desc      Formats localized boundary year-month 1995.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0176 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1995, 11, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1995') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0176 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0177
+     * @tc.name      testPhotosDateLocalizedBoundary0177
+     * @tc.desc      Formats localized boundary year-month 1996.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0177 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1996, 0, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1996') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0177 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0178
+     * @tc.name      testPhotosDateLocalizedBoundary0178
+     * @tc.desc      Formats localized boundary year-month 1997.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0178 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1997, 1, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1997') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0178 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0179
+     * @tc.name      testPhotosDateLocalizedBoundary0179
+     * @tc.desc      Formats localized boundary year-month 1998.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0179 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1998, 2, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1998') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0179 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0180
+     * @tc.name      testPhotosDateLocalizedBoundary0180
+     * @tc.desc      Formats localized boundary year-month 1999.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0180 begin');
+      const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1999, 3, 15, 12, 0, 0).getTime());
+      expect(result.indexOf('1999') >= 0).assertTrue();
+      expect(result.length > 4).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0180 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0181
+     * @tc.name      testPhotosDateLocalizedBoundary0181
+     * @tc.desc      Formats localized boundary time sample 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0181 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 0, 1, 0, 0, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0181 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0182
+     * @tc.name      testPhotosDateLocalizedBoundary0182
+     * @tc.desc      Formats localized boundary time sample 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0182 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 1, 2, 6, 15, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0182 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0183
+     * @tc.name      testPhotosDateLocalizedBoundary0183
+     * @tc.desc      Formats localized boundary time sample 3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0183 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 2, 3, 12, 30, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0183 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0184
+     * @tc.name      testPhotosDateLocalizedBoundary0184
+     * @tc.desc      Formats localized boundary time sample 4.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0184 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 3, 4, 18, 45, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0184 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0185
+     * @tc.name      testPhotosDateLocalizedBoundary0185
+     * @tc.desc      Formats localized boundary time sample 5.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0185 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 4, 5, 23, 0, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0185 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0186
+     * @tc.name      testPhotosDateLocalizedBoundary0186
+     * @tc.desc      Formats localized boundary time sample 6.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0186 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 5, 6, 0, 15, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0186 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0187
+     * @tc.name      testPhotosDateLocalizedBoundary0187
+     * @tc.desc      Formats localized boundary time sample 7.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0187 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 6, 7, 6, 30, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0187 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0188
+     * @tc.name      testPhotosDateLocalizedBoundary0188
+     * @tc.desc      Formats localized boundary time sample 8.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0188 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 7, 8, 12, 45, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0188 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0189
+     * @tc.name      testPhotosDateLocalizedBoundary0189
+     * @tc.desc      Formats localized boundary time sample 9.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0189 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 8, 9, 18, 0, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0189 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0190
+     * @tc.name      testPhotosDateLocalizedBoundary0190
+     * @tc.desc      Formats localized boundary time sample 10.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0190 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 9, 10, 23, 15, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0190 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0191
+     * @tc.name      testPhotosDateLocalizedBoundary0191
+     * @tc.desc      Formats localized boundary time sample 11.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0191 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 10, 11, 0, 30, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0191 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0192
+     * @tc.name      testPhotosDateLocalizedBoundary0192
+     * @tc.desc      Formats localized boundary time sample 12.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0192 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 11, 12, 6, 45, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0192 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0193
+     * @tc.name      testPhotosDateLocalizedBoundary0193
+     * @tc.desc      Formats localized boundary time sample 13.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0193 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 0, 13, 12, 0, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0193 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0194
+     * @tc.name      testPhotosDateLocalizedBoundary0194
+     * @tc.desc      Formats localized boundary time sample 14.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0194 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 1, 14, 18, 15, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0194 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0195
+     * @tc.name      testPhotosDateLocalizedBoundary0195
+     * @tc.desc      Formats localized boundary time sample 15.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0195 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 2, 15, 23, 30, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0195 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0196
+     * @tc.name      testPhotosDateLocalizedBoundary0196
+     * @tc.desc      Formats localized boundary time sample 16.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0196 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 3, 16, 0, 45, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0196 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0197
+     * @tc.name      testPhotosDateLocalizedBoundary0197
+     * @tc.desc      Formats localized boundary time sample 17.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0197 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 4, 17, 6, 0, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0197 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0198
+     * @tc.name      testPhotosDateLocalizedBoundary0198
+     * @tc.desc      Formats localized boundary time sample 18.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0198 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 5, 18, 12, 15, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0198 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0199
+     * @tc.name      testPhotosDateLocalizedBoundary0199
+     * @tc.desc      Formats localized boundary time sample 19.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0199 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 6, 19, 18, 30, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0199 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_LOCALIZED_BOUNDARY_0200
+     * @tc.name      testPhotosDateLocalizedBoundary0200
+     * @tc.desc      Formats localized boundary time sample 20.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateLocalizedBoundary0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0200 begin');
+      const result: string = DateUtil.getLocalizedTime(new Date(2024, 7, 20, 23, 45, 0).getTime());
+      expect(result.length >= 4).assertTrue();
+      expect(result.indexOf(':') >= 0).assertTrue();
+      expect(result === '').assertFalse();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0200 end');
+    })
+  })
+}
