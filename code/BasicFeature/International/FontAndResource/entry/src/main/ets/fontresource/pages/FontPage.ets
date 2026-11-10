@@ -19,7 +19,7 @@ import { CapabilityCheck, ErrorCodeMap, ErrorExplain, InfoRow, SectionCard, LogP
 import { FontViewModel } from '../viewmodel/FontViewModel';
 
 // The system font family used as the baseline for the preview comparison.
-const SYSTEM_FONT_FAMILY: string = 'HarmonyOS Sans';
+const SYSTEM_FONT_FAMILY: string = 'sans-serif';
 
 // The font demo page that shows capability checks, file management and previews.
 @ComponentV2

@@ -253,9 +253,9 @@ export default function encodingSweepTest() {
       // Vector 3: md5("hello") matches the published digest vector.
       logCase(TAG, "md5(\"hello\")");
       expect(await EncryptUtils.md5("hello")).assertEqual("5d41402abc4b2a76b9719d911017c592");
-      // Vector 4: md5("Hello, World!") matches the published digest vector.
-      logCase(TAG, "md5(\"Hello, World!\")");
-      expect(await EncryptUtils.md5("Hello, World!")).assertEqual("65a8e27d8879283831b664bd8b7f0ad4");
+      // Vector 4: md5("Hello World") matches the published digest vector.
+      logCase(TAG, "md5(\"Hello World\")");
+      expect(await EncryptUtils.md5("Hello World")).assertEqual("b10a8db164e0754105b7a99be72e3fe5");
       // Vector 5: md5("中文字符串") matches the published digest vector.
       logCase(TAG, "md5(\"中文字符串\")");
       expect(await EncryptUtils.md5("中文字符串")).assertEqual("353c198568f0cd08eb215d21f45938a3");
@@ -282,9 +282,9 @@ export default function encodingSweepTest() {
       // Vector 1: sha1("") matches the published digest vector.
       logCase(TAG, "sha1(\"\")");
       expect(await EncryptUtils.sha1("")).assertEqual("da39a3ee5e6b4b0d3255bfef95601890afd80709");
-      // Vector 2: sha1("abc") matches the published digest vector.
-      logCase(TAG, "sha1(\"abc\")");
-      expect(await EncryptUtils.sha1("abc")).assertEqual("a9993e364706816aba3e25717850c26c9cd0d89d");
+      // Vector 2: sha1("message digest") matches the published digest vector.
+      logCase(TAG, "sha1(\"message digest\")");
+      expect(await EncryptUtils.sha1("message digest")).assertEqual("c12252ceda8be8994d5fa0290a47231c1d16aae3");
       // Vector 3: sha1("hello") matches the published digest vector.
       logCase(TAG, "sha1(\"hello\")");
       expect(await EncryptUtils.sha1("hello")).assertEqual("aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d");
@@ -329,9 +329,9 @@ export default function encodingSweepTest() {
       // Vector 5: sha256("中文字符串") matches the published digest vector.
       logCase(TAG, "sha256(\"中文字符串\")");
       expect(await EncryptUtils.sha256("中文字符串")).assertEqual("58fbba2e845c8fe79d3aa34afb576b61096b23b781a7e3abb7ecacc4db04183a");
-      // Vector 6: sha256("0123456789") matches the published digest vector.
-      logCase(TAG, "sha256(\"0123456789\")");
-      expect(await EncryptUtils.sha256("0123456789")).assertEqual("84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882");
+      // Vector 6: sha256("1234567890") matches the published digest vector.
+      logCase(TAG, "sha256(\"1234567890\")");
+      expect(await EncryptUtils.sha256("1234567890")).assertEqual("c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646");
       // Vector 7: sha256("The quick brown fox jumps over the lazy dog") matches the published digest vector.
       logCase(TAG, "sha256(\"The quick brown fox jumps over the lazy dog\")");
       expect(await EncryptUtils.sha256("The quick brown fox jumps over the lazy dog")).assertEqual("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592");

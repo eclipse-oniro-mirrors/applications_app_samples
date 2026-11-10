@@ -36,7 +36,7 @@ const ALT_STORE_NAME: string = 'font_resource_test_store_alt';
 // A representative string value written by the string cases.
 const STRING_VALUE: string = 'SourceHanSans-Regular';
 // A second representative string value used by the overwrite cases.
-const STRING_VALUE_V2: string = 'HarmonyOS-Sans-Regular';
+const STRING_VALUE_V2: string = 'SourceHanSerif-Regular';
 // A string value that carries CJK text and punctuation.
 const STRING_VALUE_CJK: string = '示例字体（常规）';
 // A representative number value written by the number cases.

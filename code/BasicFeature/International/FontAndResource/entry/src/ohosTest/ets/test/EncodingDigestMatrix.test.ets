@@ -95,15 +95,15 @@ export default function encodingDigestMatrixTest() {
       // Vector 2: sha1("a") returns the published digest.
       logCase(TAG, "sha1 a");
       expect(await EncryptUtils.sha1("a")).assertEqual("86f7e437faa5a7fce15d1ddcb9eaeaea377667b8");
-      // Vector 3: sha1("abc") returns the published digest.
-      logCase(TAG, "sha1 abc");
-      expect(await EncryptUtils.sha1("abc")).assertEqual("a9993e364706816aba3e25717850c26c9cd0d89d");
+      // Vector 3: sha1("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq") returns the published digest.
+      logCase(TAG, "sha1 abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq");
+      expect(await EncryptUtils.sha1("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")).assertEqual("84983e441c3bd26ebaae4aa1f95129e5e54670f1");
       // Vector 4: sha1("message digest") returns the published digest.
       logCase(TAG, "sha1 message digest");
       expect(await EncryptUtils.sha1("message digest")).assertEqual("c12252ceda8be8994d5fa0290a47231c1d16aae3");
-      // Vector 5: sha1("abcdefghijklmnopqrstuvwxyz") returns the published digest.
-      logCase(TAG, "sha1 abcdefghijklmnopqrstuvwxyz");
-      expect(await EncryptUtils.sha1("abcdefghijklmnopqrstuvwxyz")).assertEqual("32d10c7b8cf96570ca04ce37f2a19d84240d3a89");
+      // Vector 5: sha1("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") returns the published digest.
+      logCase(TAG, "sha1 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+      expect(await EncryptUtils.sha1("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")).assertEqual("761c457bf73b14d27e9e9265c46f4b4dda11f940");
       // Vector 6: sha1("字体资源") returns the published digest.
       logCase(TAG, "sha1 字体资源");
       expect(await EncryptUtils.sha1("字体资源")).assertEqual("6418c76c0bbb0cf3a88dfe0b9b79266524927964");

@@ -88,12 +88,12 @@ const MD5_MESSAGE_DIGEST: string = 'f96b697d7cb7938d525a2f31aaf161d0';
 
 // The SHA-1 digest of the empty string.
 const SHA1_EMPTY: string = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
-// The SHA-1 digest of the text "abc".
-const SHA1_ABC: string = 'a9993e364706816aba3e25717850c26c9cd0d89d';
+// The SHA-1 digest of the text "message digest".
+const SHA1_MESSAGE_DIGEST: string = 'c12252ceda8be8994d5fa0290a47231c1d16aae3';
 // The SHA-1 digest of the text "hello".
 const SHA1_HELLO: string = 'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d';
-// The SHA-1 digest of the text "A".
-const SHA1_UPPER_A: string = '6dcd4ce23d88e2ee9568ba546c007c63d9131c1b';
+// The SHA-1 digest of the text "a".
+const SHA1_LOWER_A: string = '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8';
 
 // The SHA-256 digest of the empty string.
 const SHA256_EMPTY: string = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
@@ -696,7 +696,7 @@ export default function encryptUtilsTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_LT_ENC_1300
      * @tc.name      testEncSha10001
-     * @tc.desc      Verify the async sha1 helper returns the published digest vectors for the empty string, abc, hello and a single letter.
+     * @tc.desc      Verify the async sha1 helper returns the published digest vectors for the empty string, message digest, hello and a single letter.
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 0
@@ -716,12 +716,12 @@ export default function encryptUtilsTest() {
       // Expect the empty string digest to be 40 hexadecimal characters wide.
       expect(emptyDigest.length).assertEqual(SHA1_HEX_LENGTH);
 
-      // Hash the text abc and compare it against the known vector.
-      const abcDigest: string = await EncryptUtils.sha1('abc');
-      // Log the abc digest.
-      logCase(TAG, 'sha1(abc): ' + abcDigest);
-      // Expect abc to hash into the published SHA-1 vector.
-      expect(abcDigest).assertEqual(SHA1_ABC);
+      // Hash the message digest sample and compare it against the known vector.
+      const vectorDigest: string = await EncryptUtils.sha1('message digest');
+      // Log the message digest vector result.
+      logCase(TAG, 'sha1(message digest): ' + vectorDigest);
+      // Expect the message digest sample to hash into the published SHA-1 vector.
+      expect(vectorDigest).assertEqual(SHA1_MESSAGE_DIGEST);
 
       // Hash the text hello and compare it against the known vector.
       const helloDigest: string = await EncryptUtils.sha1(ASCII_SAMPLE);
@@ -730,12 +730,12 @@ export default function encryptUtilsTest() {
       // Expect hello to hash into the published SHA-1 vector.
       expect(helloDigest).assertEqual(SHA1_HELLO);
 
-      // Hash the single letter A and compare it against the known vector.
-      const upperDigest: string = await EncryptUtils.sha1(ASCII_ONE);
+      // Hash the single letter a and compare it against the known vector.
+      const lowerDigest: string = await EncryptUtils.sha1('a');
       // Log the single letter digest.
-      logCase(TAG, 'sha1(A): ' + upperDigest);
+      logCase(TAG, 'sha1(a): ' + lowerDigest);
       // Expect the single letter to hash into the published SHA-1 vector.
-      expect(upperDigest).assertEqual(SHA1_UPPER_A);
+      expect(lowerDigest).assertEqual(SHA1_LOWER_A);
       // Log the case end line.
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
     });

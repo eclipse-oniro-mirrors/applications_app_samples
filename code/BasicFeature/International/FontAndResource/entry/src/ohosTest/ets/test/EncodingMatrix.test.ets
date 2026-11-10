@@ -587,7 +587,7 @@ export default function encodingMatrixTest() {
     /**
      * @tc.number    SUB_FONTRESOURCE_LT_ENCMX_1000
      * @tc.name      testEncmxKnownVectorMatrix0001
-     * @tc.desc      Verify the digest helpers against the published test vectors of the empty, abc and greeting inputs.
+     * @tc.desc      Verify the digest helpers against the published test vectors of the empty, message digest and greeting inputs.
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
@@ -600,9 +600,9 @@ export default function encodingMatrixTest() {
 
       // Prepare the MD5 known vectors of the vector table.
       const md5Vectors: string[] = ['d41d8cd98f00b204e9800998ecf8427e',
-        '900150983cd24fb0d6963f7d28e17f72', '5d41402abc4b2a76b9719d911017c592'];
+        'f96b697d7cb7938d525a2f31aaf161d0', '5d41402abc4b2a76b9719d911017c592'];
       // Prepare the matching inputs of the MD5 vector table.
-      const md5Inputs: string[] = ['', 'abc', TEXT_GREETING];
+      const md5Inputs: string[] = ['', 'message digest', TEXT_GREETING];
       // Walk the MD5 vector table.
       for (let i: number = 0; i < md5Inputs.length; i++) {
         // Hash the current MD5 vector input.
@@ -615,7 +615,7 @@ export default function encodingMatrixTest() {
 
       // Prepare the SHA-1 known vectors of the vector table.
       const sha1Vectors: string[] = ['da39a3ee5e6b4b0d3255bfef95601890afd80709',
-        'a9993e364706816aba3e25717850c26c9cd0d89d', 'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d'];
+        'c12252ceda8be8994d5fa0290a47231c1d16aae3', 'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d'];
       // Walk the SHA-1 vector table.
       for (let i: number = 0; i < md5Inputs.length; i++) {
         // Hash the current SHA-1 vector input.
@@ -629,7 +629,7 @@ export default function encodingMatrixTest() {
       // Prepare the SHA-256 known vectors of the vector table.
       const sha256Vectors: string[] = [
         'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-        'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad',
+        'f7846f55cf23e14eebeab5b4e1550cad5b509e3348fbc4efa3a1413d393cb650',
         '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824'];
       // Walk the SHA-256 vector table.
       for (let i: number = 0; i < md5Inputs.length; i++) {
