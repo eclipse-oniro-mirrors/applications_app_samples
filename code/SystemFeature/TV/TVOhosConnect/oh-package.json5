@@ -21,7 +21,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@hadss/hmrouter": "1.2.4"
+    "@hadss/hmrouter": "1.1.0-beta.0"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.15"

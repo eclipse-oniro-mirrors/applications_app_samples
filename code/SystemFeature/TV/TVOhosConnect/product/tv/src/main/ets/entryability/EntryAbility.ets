@@ -50,12 +50,17 @@ export default class EntryAbility extends UIAbility {
     }
     // 日志必须在 init 之前开启，否则初始化阶段的日志会丢失
     HMRouterMgr.openLog('DEBUG');
-    this.routerInit = HMRouterMgr.init({
-      context: this.context
-    }).then(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'HMRouter init success');
-    }).catch((error: BusinessError) => {
-      hilog.error(0x0000, 'testTag', 'HMRouter init failed: %{public}s', JSON.stringify(error) ?? '');
+    this.routerInit = new Promise<void>((resolve: () => void) => {
+      try {
+        HMRouterMgr.init({
+          context: this.context
+        });
+        hilog.info(0x0000, 'testTag', '%{public}s', 'HMRouter init success');
+      } catch (error) {
+        hilog.error(0x0000, 'testTag', 'HMRouter init failed: %{public}s',
+          JSON.stringify(error as BusinessError) ?? '');
+      }
+      resolve();
     });
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     DeviceManagerFactory.createDeviceManager();

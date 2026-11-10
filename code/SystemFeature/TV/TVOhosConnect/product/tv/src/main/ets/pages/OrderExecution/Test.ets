@@ -20,7 +20,7 @@ import { abilityAccessCtrl } from '@kit.AbilityKit';
 import { prompt, router } from '@kit.ArkUI';
 import { preferences as dataPreferences } from '@kit.ArkData';
 import { emitter } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'OrderExecution';
 
@@ -225,7 +225,7 @@ export function start() {
   setInterval2 = setInterval(() => {
     if (avtimes05 > average1 && openadvstatus == false) {
       prompt.showToast({
-        message: '接近患者',
+        message: StringRes.get($r('app.string.near_patient')),
         duration: 1000
       });
       openadv();
@@ -242,7 +242,7 @@ export function start() {
       closeadvstatus = false;
     } else if (closeadvstatus == false && avtimes05 < average2) {
       prompt.showToast({
-        message: '远离患者',
+        message: StringRes.get($r('app.string.away_patient')),
         duration: 1000
       });
       closeadv();
@@ -321,13 +321,13 @@ struct Index {
             start();
             router.back();
           });
-        Button('记录3m数据并计算')
+        Button($r('app.string.record_3m_and_calc'))
           .margin(20)
           .onClick(() => {
             open = true;
             setTimeout(() => {
               prompt.showToast({
-                message: '计算开始',
+                message: StringRes.get($r('app.string.calc_start')),
                 duration: 2000
               });
               open = false;
@@ -339,13 +339,13 @@ struct Index {
               });
             }, 10000);
           });
-        Button('记录8m数据并计算')
+        Button($r('app.string.record_8m_and_calc'))
           .margin(20)
           .onClick(() => {
             open1 = true;
             setTimeout(() => {
               prompt.showToast({
-                message: '计算开始',
+                message: StringRes.get($r('app.string.calc_start')),
                 duration: 2000
               });
               open1 = false;

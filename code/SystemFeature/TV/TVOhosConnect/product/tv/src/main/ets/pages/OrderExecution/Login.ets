@@ -22,7 +22,7 @@ import {
   registrationMonitoring,
   unRegistrationMonitoring
 } from '@ohos/nearbydevice/src/main/ets/pages/DeviceDetailPage';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'Login';
 
@@ -107,9 +107,9 @@ export default struct Login {
         }
         .focusable(true);
 
-        Text('点击进入人脸识别').fontSize(8).fontColor(Color.Gray).margin({ top: 10, bottom: 15 });
-        Text('肝胆外科一病区').fontSize(20).fontColor($r('app.color.nurse_blue')).margin({ top: 10 });
-        Text('设备编号：001').fontSize(14).fontColor($r('app.color.nurse_blue')).margin({ top: 5, bottom: 30 });
+        Text($r('app.string.face_recognition_tip')).fontSize(8).fontColor(Color.Gray).margin({ top: 10, bottom: 15 });
+        Text($r('app.string.login_department')).fontSize(20).fontColor($r('app.color.nurse_blue')).margin({ top: 10 });
+        Text(StringRes.get($r('app.string.device_number_prefix')) + '001').fontSize(14).fontColor($r('app.color.nurse_blue')).margin({ top: 5, bottom: 30 });
         //账号
         Row() {
           Row() {
@@ -125,7 +125,7 @@ export default struct Login {
             topLeft: 22
           });
 
-          TextInput({ text: 'hdc', placeholder: '工号', controller: this.controller })
+          TextInput({ text: 'hdc', placeholder: $r('app.string.employee_id'), controller: this.controller })
             .key('gonghao')
             .placeholderColor(Color.Gray)
             .placeholderFont({ size: 16, weight: 400 })
@@ -187,7 +187,7 @@ export default struct Login {
             topLeft: 20
           });
 
-          TextInput({ text: '123456', placeholder: '密码' })
+          TextInput({ text: '123456', placeholder: $r('app.string.password') })
             .key('passWard')
             .placeholderColor(Color.Gray)
             .placeholderFont({ size: 16, weight: 400 })
@@ -252,7 +252,7 @@ export default struct Login {
             topLeft: 20
           });
 
-          TextInput({ text: this.ip, placeholder: '服务器' })
+          TextInput({ text: this.ip, placeholder: $r('app.string.server') })
             .key('fuwuqi')
             .placeholderColor(Color.Gray)
             .placeholderFont({ size: 16, weight: 400 })
@@ -297,7 +297,7 @@ export default struct Login {
           });
         });
 
-        Text('登录')
+        Text($r('app.string.login'))
           .key('login')
           .focusable(true)
           .fontSize(16)
@@ -348,7 +348,7 @@ export default struct Login {
       .zIndex(2);
 
       Row() {
-        Text('点击开启操作系统的设置')
+        Text($r('app.string.open_system_settings_tip'))
           .fontSize(12)
           .fontColor($r('app.color.nurse_blue'))
           .lineHeight(20)

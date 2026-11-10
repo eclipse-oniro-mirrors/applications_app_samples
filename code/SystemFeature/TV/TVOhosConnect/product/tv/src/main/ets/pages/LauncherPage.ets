@@ -38,7 +38,7 @@ struct LauncherPage {
   onConfirm() {
     if (!this.isOn) {
       promptAction.showToast({
-        message: '请阅读并同意用户协议与隐私声明',
+        message: $r('app.string.privacy_agreement_toast'),
         duration: 2000
       });
     } else {
@@ -117,15 +117,15 @@ struct LauncherPage {
               this.isOn = isOn;
             });
           Row() {
-            Text('阅读并同意').fontSize($r('app.string.launcher_privacy_text_size'));
-            Text('通用互联用户协议')
+            Text($r('app.string.read_and_agree')).fontSize($r('app.string.launcher_privacy_text_size'));
+            Text($r('app.string.user_agreement'))
               .fontColor('#0A59F7')
               .fontSize($r('app.string.launcher_privacy_text_size'))
               .onClick(() => {
                 router.pushUrl({ url: 'pages/login/UserAgreementPage' });
               });
-            Text('内容及关于').fontSize($r('app.string.launcher_privacy_text_size'));
-            Text('设备管理服务与隐私的声明')
+            Text($r('app.string.content_and_about')).fontSize($r('app.string.launcher_privacy_text_size'));
+            Text($r('app.string.privacy_statement'))
               .fontColor('#0A59F7')
               .fontSize($r('app.string.launcher_privacy_text_size')).onClick(() => {
               router.pushUrl({ url: 'pages/login/UserPrivacyPage' });

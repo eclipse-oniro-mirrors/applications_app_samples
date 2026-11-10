@@ -51,7 +51,6 @@ TVOhosConnect
 │   |---devicelibrary/src/main/ets      // 设备库列表、详情与搜索
 │   |---scenelibrary/src/main/ets       // 场景库、场景创建与编辑
 │   |---mine/src/main/ets               // 个人中心、登录态、设备库/场景库同步、关于
-│   |---camera/src/main/ets             // 生产设备页面（模板扩展）
 ├── signature                           // 签名材料
 └── build-profile.json5                 // 工程级构建配置
 ```

@@ -88,7 +88,7 @@ export default struct PatientList {
       }.backgroundColor('#6fa7ff').width('100%').height(50).justifyContent(FlexAlign.Center);
 
       Row() {
-        Text('患者列表')
+        Text($r('app.string.patient_list_title'))
           .height(40)
           .border({
             width: 0.5,
@@ -104,7 +104,7 @@ export default struct PatientList {
           .fontColor(this.currentIndex === 0 ? $r('app.color.nurse_blue') : Color.White)
           .backgroundColor(this.currentIndex === 0 ? Color.White : '')
           .padding({ left: 10, right: 10 });
-        Text('我的患者')
+        Text($r('app.string.my_patients'))
           .height(40)
           .border({
             width: 0.5,

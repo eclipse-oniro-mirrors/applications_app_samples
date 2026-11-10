@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'Drug';
 
@@ -34,55 +34,55 @@ class P {
 export struct Drug {
   @State currentIndex: number = 0;
   @Consume('pageInfos') pageInfos: NavPathStack;
-  private name = '张晓彤';
+  private name = StringRes.get($r('app.string.patient_zhang_xiaotong'));
   private arrList: P[] = [
     {
       id: '88342333',
-      text: '10%葡萄碳酸钙注射液',
+      text: StringRes.get($r('app.string.demo_drug_calcium_10')),
       amount: '20ml',
       time: '2024-05-09 9:00',
-      bedname: '12床',
+      bedname: StringRes.get($r('app.string.demo_bed_12')),
       patientname: this.name,
-      sex: '女',
-      age: '32岁',
+      sex: StringRes.get($r('app.string.gender_female')),
+      age: StringRes.get($r('app.string.demo_age_32')),
       frequency: 'q8h',
-      type: '静滴'
+      type: StringRes.get($r('app.string.infusion_type'))
     },
     {
       id: '88342332',
-      text: '复方二氧醋酸异丙胺注射液',
+      text: StringRes.get($r('app.string.demo_drug_diisopropylamine_oxide')),
       amount: '20ml',
       time: '2024-05-09 9:00',
-      bedname: '12床',
+      bedname: StringRes.get($r('app.string.demo_bed_12')),
       patientname: this.name,
-      sex: '女',
-      age: '32岁',
+      sex: StringRes.get($r('app.string.gender_female')),
+      age: StringRes.get($r('app.string.demo_age_32')),
       frequency: 'q8h',
-      type: '静滴'
+      type: StringRes.get($r('app.string.infusion_type'))
     },
     {
       id: '88342335',
-      text: '复方甘草酸干注射液',
+      text: StringRes.get($r('app.string.demo_drug_glycyrrhizin_2')),
       amount: '20ml',
       time: '2024-05-09 9:00',
-      bedname: '12床',
+      bedname: StringRes.get($r('app.string.demo_bed_12')),
       patientname: this.name,
-      sex: '女',
-      age: '32岁',
+      sex: StringRes.get($r('app.string.gender_female')),
+      age: StringRes.get($r('app.string.demo_age_32')),
       frequency: 'q8h',
-      type: '静滴'
+      type: StringRes.get($r('app.string.infusion_type'))
     },
     {
       id: '88342334',
-      text: '硫普罗宁注射液',
+      text: StringRes.get($r('app.string.demo_drug_tiopronin')),
       amount: '20ml',
       time: '2024-05-09 9:00',
-      bedname: '12床',
+      bedname: StringRes.get($r('app.string.demo_bed_12')),
       patientname: this.name,
-      sex: '女',
-      age: '32岁',
+      sex: StringRes.get($r('app.string.gender_female')),
+      age: StringRes.get($r('app.string.demo_age_32')),
       frequency: 'q8h',
-      type: '静滴'
+      type: StringRes.get($r('app.string.infusion_type'))
     },
   ];
 
@@ -135,9 +135,9 @@ export struct Drug {
                     }.width('100%').margin({ top: 4, bottom: 4 });
 
                     Row() {
-                      Text('频次：' + item.frequency).fontSize(8).fontColor(Color.Gray).margin({ right: 10 });
+                      Text(StringRes.get($r('app.string.frequency_prefix')) + item.frequency).fontSize(8).fontColor(Color.Gray).margin({ right: 10 });
                       Text(item.type).fontSize(8).fontColor(Color.Gray).margin({ right: 40 });
-                      Text('收药时间：' + item.time).fontSize(8).fontColor(Color.Gray);
+                      Text(StringRes.get($r('app.string.receive_time_prefix')) + item.time).fontSize(8).fontColor(Color.Gray);
                     }.width('100%');
                   }
                   .width('96%')

@@ -19,7 +19,7 @@ import { http } from '@kit.NetworkKit';
 import { Drug, DrugData, DrugObject } from '../../viewmodel/OrderExecution/MediacalData';
 import Net from '../../viewmodel/OrderExecution/NetConfig';
 import { emitter } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'MedicalAdvice';
 
@@ -111,7 +111,7 @@ struct test {
           .width('70%')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis });
-        if (this.status == '已执行') {
+        if (this.status == StringRes.get($r('app.string.order_status_executed'))) {
           Text(this.status).fontSize(14).fontColor(Color.Blue).lineHeight(14);
         } else {
           Text(this.status).fontSize(14).fontColor(Color.Gray).lineHeight(14);
@@ -126,7 +126,7 @@ struct test {
         .textAlign(TextAlign.Start);
     }
     .onClick(() => {
-      if (this.status == '未执行') {
+      if (this.status == StringRes.get($r('app.string.order_status_waiting'))) {
         router.pushUrl({
           url: 'pages/OrderExecution/Drug'
         });
@@ -196,7 +196,7 @@ export struct MedicalAdvice {
           .onClick(() => {
             router.back();
           });
-        Text('医嘱执行')
+        Text($r('app.string.order_execution_title'))
           .height(22)
           .fontColor('#fff')
           .fontSize(20);
@@ -229,7 +229,7 @@ export struct MedicalAdvice {
         Column() {
           Row() {
             Text(name.bedName).fontSize(30).fontColor(Color.Orange);
-            Text('床').fontSize(16).fontColor(Color.Gray).margin({ right: 10, bottom: 3 });
+            Text($r('app.string.bed_suffix')).fontSize(16).fontColor(Color.Gray).margin({ right: 10, bottom: 3 });
             Text(name.patientName).fontSize(30).fontColor($r('app.color.nurse_blue')).margin({ right: 10 });
             Text(name.illnessStatus).fontSize(16).fontColor(Color.Gray).margin({ bottom: 3 });
           }.margin({ top: 15, bottom: 10 }).alignItems(VerticalAlign.Bottom);

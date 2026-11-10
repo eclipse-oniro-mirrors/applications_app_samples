@@ -85,10 +85,6 @@
       "srcPath": "./features/mine"
     },
     {
-      "name": "camera",
-      "srcPath": "./features/camera"
-    },
-    {
       "name": "common",
       "srcPath": "./common"
     },

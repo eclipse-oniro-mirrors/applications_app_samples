@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { StringRes } from '@ohos/common';
+
 export interface DrugData {
   field1: string;
   field8: string;
@@ -50,9 +52,9 @@ export class Drug {
 
     //0：未执行     1：已执行
     if (field20 === '0') {
-      this.field20 = '未执行';
+      this.field20 = StringRes.get($r('app.string.order_status_waiting'));
     } else if (field20 === '1') {
-      this.field20 = '已执行';
+      this.field20 = StringRes.get($r('app.string.order_status_executed'));
     }
   }
 

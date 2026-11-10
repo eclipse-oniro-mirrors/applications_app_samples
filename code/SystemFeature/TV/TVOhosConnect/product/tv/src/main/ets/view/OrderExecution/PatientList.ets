@@ -15,7 +15,7 @@
 
 import { MedicalAdvice } from './MedicalAdvice';
 import { Drug } from './Drug';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'PatientList';
 
@@ -31,15 +31,15 @@ export default struct PatientList {
   @Provide('pageInfos') pageInfos: NavPathStack = new NavPathStack();
   private name = '';
   private arrList: Pe[] = [
-    { id: '1', name: '张晓彤', status: '病危' },
-    { id: '2', name: '赵月', status: '病危' },
-    { id: '3', name: '孙晓娜', status: '病重' },
-    { id: '4', name: '李倩', status: '病危' },
-    { id: '5', name: '成小君', status: '病重' },
-    { id: '6', name: '焦俊', status: '病重' },
-    { id: '7', name: '田甜', status: '病重' },
-    { id: '8', name: '刘嘉轩', status: '病重' },
-    { id: '9', name: '孙启松', status: '病重' },
+    { id: '1', name: StringRes.get($r('app.string.patient_zhang_xiaotong')), status: StringRes.get($r('app.string.patient_status_critical')) },
+    { id: '2', name: StringRes.get($r('app.string.patient_zhao_yue')), status: StringRes.get($r('app.string.patient_status_critical')) },
+    { id: '3', name: StringRes.get($r('app.string.patient_sun_xiaona')), status: StringRes.get($r('app.string.patient_status_severe')) },
+    { id: '4', name: StringRes.get($r('app.string.patient_li_qian')), status: StringRes.get($r('app.string.patient_status_critical')) },
+    { id: '5', name: StringRes.get($r('app.string.patient_cheng_xiaojun')), status: StringRes.get($r('app.string.patient_status_severe')) },
+    { id: '6', name: StringRes.get($r('app.string.patient_jiao_jun')), status: StringRes.get($r('app.string.patient_status_severe')) },
+    { id: '7', name: StringRes.get($r('app.string.patient_tian_tian')), status: StringRes.get($r('app.string.patient_status_severe')) },
+    { id: '8', name: StringRes.get($r('app.string.patient_liu_jiaxuan')), status: StringRes.get($r('app.string.patient_status_severe')) },
+    { id: '9', name: StringRes.get($r('app.string.patient_sun_qisong')), status: StringRes.get($r('app.string.patient_status_severe')) },
   ];
 
   @Builder
@@ -58,7 +58,7 @@ export default struct PatientList {
         }.backgroundColor('#6fa7ff').width('100%').height(30).justifyContent(FlexAlign.Center);
 
         Row() {
-          Text('患者列表')
+          Text($r('app.string.patient_list_title'))
             .height(22)
             .border({
               width: 0.5,
@@ -74,7 +74,7 @@ export default struct PatientList {
             .fontColor(this.currentIndex === 0 ? $r('app.color.nurse_blue') : Color.White)
             .backgroundColor(this.currentIndex === 0 ? Color.White : '')
             .padding({ left: 10, right: 10 });
-          Text('我的患者')
+          Text($r('app.string.my_patients'))
             .height(22)
             .border({
               width: 0.5,

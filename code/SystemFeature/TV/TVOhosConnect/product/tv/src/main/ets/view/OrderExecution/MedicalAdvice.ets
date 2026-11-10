@@ -14,7 +14,7 @@
  */
 
 import { promptAction } from '@kit.ArkUI';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'MedicalAdvice';
 
@@ -53,68 +53,68 @@ class P1 {
 export struct MedicalAdvice {
   @State currentIndex: number = 0;
   @Consume('pageInfos') pageInfos: NavPathStack;
-  private name: string = '张晓彤';
+  private name: string = StringRes.get($r('app.string.patient_zhang_xiaotong'));
   private swiperController: SwiperController = new SwiperController();
   private data: MyDataSource = new MyDataSource([]);
   private arrList: P1[] = [
     {
       id: '1',
-      text: '测血糖',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_test_blood_glucose')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '9:00'
     },
     {
       id: '2',
-      text: '多烯磷脂酰胆碱注射液',
-      status: '已执行',
+      text: StringRes.get($r('app.string.demo_drug_multi_enzyme')),
+      status: StringRes.get($r('app.string.order_status_executed')),
       time: '11:00'
     },
     {
       id: '3',
-      text: '葡萄糖酸钙注射液',
-      status: '未配液',
+      text: StringRes.get($r('app.string.demo_drug_calcium_gluconate')),
+      status: StringRes.get($r('app.string.order_status_to_dispense')),
       time: '10:45'
     },
     {
       id: '4',
-      text: '硫普罗宁注射液',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_drug_tiopronin')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '10:30'
     },
     {
       id: '4',
-      text: '异甘草酸镁注射液',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_drug_magnesium_isoglycyrrhizinate')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '10:30'
     },
     {
       id: '4',
-      text: '测血压',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_test_blood_pressure')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '10:15'
     },
     {
       id: '4',
-      text: '复方甘草酸苷注射液',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_drug_glycyrrhizin')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '10:15'
     },
     {
       id: '4',
-      text: '复方二氯醋酸二异丙胺注射液',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_drug_diisopropylamine')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '10:15'
     },
     {
       id: '4',
-      text: '测体温',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_test_temperature')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '07:45'
     },
     {
       id: '4',
-      text: '测血糖',
-      status: '未执行',
+      text: StringRes.get($r('app.string.demo_test_blood_glucose')),
+      status: StringRes.get($r('app.string.order_status_waiting')),
       time: '07:30'
     },
   ];
@@ -136,7 +136,7 @@ export struct MedicalAdvice {
             .onClick(() => {
               this.pageInfos.clear();
             });
-          Text('医嘱执行')
+          Text($r('app.string.order_execution_title'))
             .height(22)
             .fontColor('#fff')
             .fontSize(12);
@@ -169,14 +169,14 @@ export struct MedicalAdvice {
           Column() {
             Row() {
               Text('12').fontSize(20).fontColor(Color.Orange);
-              Text('床').fontSize(10).fontColor(Color.Gray).margin({ right: 10, bottom: 3 });
+              Text($r('app.string.bed_suffix')).fontSize(10).fontColor(Color.Gray).margin({ right: 10, bottom: 3 });
               Text(this.name).fontSize(16).fontColor($r('app.color.nurse_blue')).margin({ right: 10 });
-              Text('病重').fontSize(10).fontColor(Color.Gray).margin({ bottom: 3 });
+              Text($r('app.string.patient_status_severe')).fontSize(10).fontColor(Color.Gray).margin({ bottom: 3 });
             }.margin({ top: 15, bottom: 10 }).alignItems(VerticalAlign.Bottom);
 
             Row() {
-              Text('女').fontSize(10).fontColor(Color.Gray).margin({ right: 10 });
-              Text('76岁').fontSize(10).fontColor(Color.Gray);
+              Text($r('app.string.gender_female')).fontSize(10).fontColor(Color.Gray).margin({ right: 10 });
+              Text($r('app.string.age_76')).fontSize(10).fontColor(Color.Gray);
             };
           }
           .width('84%')
@@ -208,7 +208,7 @@ export struct MedicalAdvice {
 
         // TAB
         Row() {
-          Text('注射药品类医嘱')
+          Text($r('app.string.medical_order_injection'))
             .height(22)
             .border({
               width: { bottom: 2 },
@@ -217,7 +217,7 @@ export struct MedicalAdvice {
             .fontSize(10)
             .fontColor(this.currentIndex === 0 ? $r('app.color.nurse_blue') : Color.Gray)
             .margin({ right: 10 });
-          Text('护理类医嘱')
+          Text($r('app.string.medical_order_nursing'))
             .height(22)
             .border({
               width: { bottom: 2 },
@@ -255,34 +255,34 @@ export struct MedicalAdvice {
                       .textAlign(TextAlign.Start);
                   }
                   .onClick(() => {
-                    if (item.status == '未配液') {
+                    if (item.status == StringRes.get($r('app.string.order_status_to_dispense'))) {
                       this.pageInfos.pushPath({ name: 'Drug' }); //将name指定的NavDestination页面信息入栈
-                    } else if (item.status == '未执行') {
+                    } else if (item.status == StringRes.get($r('app.string.order_status_waiting'))) {
                       promptAction.showDialog({
-                        title: '计划' + item.time,
+                        title: StringRes.get($r('app.string.plan_prefix')) + item.time,
                         message: item.text,
                         buttons: [
                           {
-                            text: '执行',
+                            text: StringRes.get($r('app.string.action_execute')),
                             color: '#000000',
                           }
                         ],
                       })
                         .then(data => {
                           promptAction.showDialog({
-                            title: '确定执行',
+                            title: StringRes.get($r('app.string.dialog_confirm_execution')),
                             buttons: [
                               {
-                                text: '取消',
+                                text: StringRes.get($r('app.string.cancel')),
                                 color: '#000000',
                               },
                               {
-                                text: '确认',
+                                text: StringRes.get($r('app.string.confirm')),
                                 color: '#000000',
                               }
                             ],
                           }).then(data => {
-                            item.status = '已执行';
+                            item.status = StringRes.get($r('app.string.order_status_executed'));
                             Logger.info(TAG, 'showActionMenu success, click button: ' + data.index);
                           });
                         });

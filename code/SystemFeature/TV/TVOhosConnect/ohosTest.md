@@ -6,7 +6,7 @@
 
 本文档用于说明 `TVOhosConnect` 自动化测试的设计思路、覆盖维度、充分性依据与后续扩展方向。文档聚焦"为什么这样设计测试"和"当前测试为何具备较强覆盖能力"，用于辅助代码评审、测试审计和后续扩展。
 
-当前测试代码位于 `product/tv/src/ohosTest/ets/test/`，由 `List.test.ets` 聚合注册 **84 个套件**，另有 `Ability.test.ets` 作为独立套件通过命令行指定执行，合计 **85 个套件、1793 个用例**。
+当前测试代码位于 `product/tv/src/ohosTest/ets/test/`，由 `List.test.ets` 聚合注册 **83 个套件**；`HomePageUiTest`（真机 UI 驱动）与 `Ability.test.ets` 作为独立套件通过命令行指定执行，合计 **85 个套件、1793 个用例**。
 
 ## 2. 测试设计原则
 
@@ -26,7 +26,7 @@
 
 测试中大量复用以下设计资产：
 
-- 集中式套件注册：`List.test.ets` 统一导入并调用 84 个套件工厂函数，命令行通过 `-s class <套件名>` 即可按需选择执行
+- 集中式套件注册：`List.test.ets` 统一导入并调用 83 个逻辑类套件工厂函数，命令行通过 `-s class <套件名>` 即可按需选择执行；`HomePageUiTest` 因需拉起应用 UI，不注册在列表中，单独执行
 - 统一驱动能力：各套件复用 `Shared/DeviceTestKit.ets` 的设备存储、连接状态机、重试策略、令牌桶与指标统计，避免重复实现
 - 统一业务依赖：各套件统一导入 `@ohos/common` 的 `ControlCmd`（`analysisPayload`、`buildQueryStateRequest`）、`TypeEnum`、`TableConfig`、`GenericValues`、`InfConstants`、`EventConstants`、`Device` 实体，以及 `@ohos/connect_cloud`、`@ohos/connect_ble`、`@ohos/connect_wifi`、`@ohos/nearbydevice` 的常量与工具
 - 真机 UI 驱动复用：`HomePageUiTest` 中封装 `findText`（200ms 轮询、默认 8s 超时）、`ensureHome`（处理初次启动隐私页）、`clickClickable`（按组件 bounds 中点点击）、`pressBackToHome`，后续真机套件可直接复用同一写法
@@ -192,7 +192,7 @@ TV 形态下用户可能连续导航、反复进出页面，因此需要覆盖�
 
 ## 6. 当前测试目录与职责
 
-测试代码位于 `product/tv/src/ohosTest/ets/test/`，由 `List.test.ets` 统一注册 84 个套件，`Ability.test.ets` 作为独立套件通过 `-s class Ability` 执行，按测试意图分组如下：
+测试代码位于 `product/tv/src/ohosTest/ets/test/`，由 `List.test.ets` 统一注册 83 个逻辑类套件；`HomePageUiTest`（真机 UI）与 `Ability.test.ets` 作为独立套件通过 `-s class` 单独执行，按测试意图分组如下：
 
 | 分组 | 套件数 | 用例数 | 代表套件与职责 |
 |---|---|---|---|
@@ -209,7 +209,7 @@ TV 形态下用户可能连续导航、反复进出页面，因此需要覆盖�
 | 安全与合规 `Security` | 3 | 57 | `DeviceSecurity`（19）、`SecurityAccessibility`（19）、`SecurityValidation`（19）：设备安全、安全可达性与契约校验 |
 | 真机场景 `Feature` | 3 | 83 | `NearbyDeviceTest`（42）：附近设备页签、BLE/局域网文案、物模型解析；`MinePageTest`（34）：个人中心页入口文案、本地化与 JSON 解析；`HomePageUiTest`（7）：真机首页、附近设备页、个人中心页可达性 |
 | 纯函数单测 `Unit` | 1 | 344 | `ArrayBufferUtilTest`：十六进制合法性、解析、格式化与 ArrayBuffer 往返边界 |
-| 合计 | 85 | 1793 | 12 个分组，84 个由 `List.test.ets` 注册，`Ability` 单独执行 |
+| 合计 | 85 | 1793 | 12 个分组，83 个由 `List.test.ets` 注册，`HomePageUiTest`、`Ability` 单独执行 |
 
 ## 7. 运行方式
 
@@ -226,12 +226,23 @@ TV 形态下用户可能连续导航、反复进出页面，因此需要覆盖�
 ### 7.3 命令行
 
 ```bash
-# 运行 tv 模块的设备测试
+# 运行 tv 模块的设备测试（逻辑类套件，不包含 UI 驱动套件）
 hvigorw test -p module=tv -p product=default
 
 # 真机执行单个套件
 hdc shell "<测试命令> -b <应用Bundle名> -m tv_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class HomePageUiTest -s timeout 60000"
 ```
+
+> 注意：`HomePageUiTest` 会拉起应用并驱动 UiTest，必须与逻辑类套件分开执行（单独一次 `aa test`），否则应用侧 UI/BLE 主线程任务会干扰后续逻辑用例，出现 `THREAD_BLOCK_6S` 卡死。
+>
+> 真机/模拟器执行 UI 套件前请保持屏幕常亮，并开启 UiTest 测试模式：
+>
+> ```bash
+> hdc shell param set persist.ace.testmode.enabled 1
+> hdc shell power-shell wakeup
+> hdc shell power-shell setmode 602
+> hdc shell power-shell timeout -o 3600000
+> ```
 
 批量执行使用工程根目录脚本：
 

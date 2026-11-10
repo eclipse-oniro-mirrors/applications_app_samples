@@ -14,7 +14,7 @@
  */
 
 import { router } from '@kit.ArkUI';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'Login';
 
@@ -51,8 +51,8 @@ export default struct Login {
           .stroke($r('app.color.nurse_blue'))
           .position({ x: 0 });
         Image($r('app.media.login_face')).width(40).margin({ top: 20 });
-        Text('肝胆外科一病区').fontSize(10).fontColor($r('app.color.nurse_blue')).margin({ top: 20 });
-        Text('设备编号：001').fontSize(8).fontColor($r('app.color.nurse_blue')).margin({ top: 15, bottom: 30 });
+        Text($r('app.string.login_department')).fontSize(10).fontColor($r('app.color.nurse_blue')).margin({ top: 20 });
+        Text(StringRes.get($r('app.string.device_number_prefix')) + '001').fontSize(8).fontColor($r('app.color.nurse_blue')).margin({ top: 15, bottom: 30 });
         //账号
         Row() {
           Row() {
@@ -68,7 +68,7 @@ export default struct Login {
             topLeft: 15
           });
 
-          TextInput({ text: this.userName, placeholder: '工号', controller: this.controller })
+          TextInput({ text: this.userName, placeholder: $r('app.string.employee_id'), controller: this.controller })
             .placeholderColor(Color.Gray)
             .placeholderFont({ size: 10, weight: 400 })
             .caretColor(Color.Blue)
@@ -113,7 +113,7 @@ export default struct Login {
             topLeft: 15
           });
 
-          TextInput({ placeholder: '密码' })
+          TextInput({ placeholder: $r('app.string.password') })
             .placeholderColor(Color.Gray)
             .placeholderFont({ size: 10, weight: 400 })
             .width(160)
@@ -152,7 +152,7 @@ export default struct Login {
           });
       }.margin({ top: 61 }).width('88%').height('62%');
 
-      Text('点击开启操作系统的设置')
+      Text($r('app.string.open_system_settings_tip'))
         .fontSize(8)
         .fontColor($r('app.color.nurse_blue'))
         .lineHeight(16)

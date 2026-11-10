@@ -17,7 +17,7 @@ import { router } from '@kit.ArkUI';
 import { name } from './PatientList';
 import { drugsList } from './MedicalAdvice';
 import { Drug as DrugData } from '../../viewmodel/OrderExecution/MediacalData';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'Drug';
 
@@ -42,7 +42,7 @@ export struct Drug {
           .onClick(() => {
             router.back();
           });
-        Text('药品配液')
+        Text($r('app.string.drug_preparation'))
           .height(22)
           .fontSize(20);
       }
@@ -85,9 +85,9 @@ export struct Drug {
 
                   Divider().strokeWidth(1).color('#999').margin({ top: 5 });
                   Row() {
-                    Text('频次：' + item.field9).fontSize(16).fontColor(Color.Gray).margin({ right: 10 });
+                    Text(StringRes.get($r('app.string.frequency_prefix')) + item.field9).fontSize(16).fontColor(Color.Gray).margin({ right: 10 });
                     Text(item.field8).fontSize(16).fontColor(Color.Gray).margin({ right: 20 });
-                    Text('收药时间：' + item.field10).fontSize(16).fontColor(Color.Gray);
+                    Text(StringRes.get($r('app.string.receive_time_prefix')) + item.field10).fontSize(16).fontColor(Color.Gray);
                   }.width('100%').padding(10);
                 }.width('92%')
                 .margin({ top: 15, left: 15 })
@@ -111,7 +111,7 @@ export struct Drug {
       };
 
       Row() {
-        Button('完成配液并复核', { type: ButtonType.Normal, stateEffect: true })
+        Button($r('app.string.complete_preparation_and_review'), { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor(0xeaf3ff)
           .fontColor($r('app.color.nurse_blue'))
@@ -120,7 +120,7 @@ export struct Drug {
           .onClick(() => {
             router.back();
           });
-        Button('完成配液', { type: ButtonType.Normal, stateEffect: true })
+        Button($r('app.string.complete_preparation'), { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor($r('app.color.nurse_blue'))
           .width(150)

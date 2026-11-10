@@ -199,6 +199,258 @@
     {
       "name": "press_again_to_exit",
       "value": "再按一次退出应用"
+    },
+    {
+      "name": "order_status_waiting",
+      "value": "未执行"
+    },
+    {
+      "name": "order_status_executed",
+      "value": "已执行"
+    },
+    {
+      "name": "order_status_to_dispense",
+      "value": "未配液"
+    },
+    {
+      "name": "order_execution_title",
+      "value": "医嘱执行"
+    },
+    {
+      "name": "medical_order_injection",
+      "value": "注射药品类医嘱"
+    },
+    {
+      "name": "medical_order_nursing",
+      "value": "护理类医嘱"
+    },
+    {
+      "name": "patient_status_critical",
+      "value": "病危"
+    },
+    {
+      "name": "patient_status_severe",
+      "value": "病重"
+    },
+    {
+      "name": "gender_female",
+      "value": "女"
+    },
+    {
+      "name": "age_76",
+      "value": "76岁"
+    },
+    {
+      "name": "bed_suffix",
+      "value": "床"
+    },
+    {
+      "name": "plan_prefix",
+      "value": "计划"
+    },
+    {
+      "name": "action_execute",
+      "value": "执行"
+    },
+    {
+      "name": "dialog_confirm_execution",
+      "value": "确定执行"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "confirm",
+      "value": "确认"
+    },
+    {
+      "name": "frequency_prefix",
+      "value": "频次："
+    },
+    {
+      "name": "receive_time_prefix",
+      "value": "收药时间："
+    },
+    {
+      "name": "drug_preparation",
+      "value": "药品配液"
+    },
+    {
+      "name": "complete_preparation_and_review",
+      "value": "完成配液并复核"
+    },
+    {
+      "name": "complete_preparation",
+      "value": "完成配液"
+    },
+    {
+      "name": "patient_list_title",
+      "value": "患者列表"
+    },
+    {
+      "name": "my_patients",
+      "value": "我的患者"
+    },
+    {
+      "name": "demo_test_blood_glucose",
+      "value": "测血糖"
+    },
+    {
+      "name": "demo_test_blood_pressure",
+      "value": "测血压"
+    },
+    {
+      "name": "demo_test_temperature",
+      "value": "测体温"
+    },
+    {
+      "name": "demo_drug_multi_enzyme",
+      "value": "多烯磷脂酰胆碱注射液"
+    },
+    {
+      "name": "demo_drug_calcium_gluconate",
+      "value": "葡萄糖酸钙注射液"
+    },
+    {
+      "name": "demo_drug_tiopronin",
+      "value": "硫普罗宁注射液"
+    },
+    {
+      "name": "demo_drug_magnesium_isoglycyrrhizinate",
+      "value": "异甘草酸镁注射液"
+    },
+    {
+      "name": "demo_drug_glycyrrhizin",
+      "value": "复方甘草酸苷注射液"
+    },
+    {
+      "name": "demo_drug_diisopropylamine",
+      "value": "复方二氯醋酸二异丙胺注射液"
+    },
+    {
+      "name": "demo_drug_calcium_10",
+      "value": "10%葡萄碳酸钙注射液"
+    },
+    {
+      "name": "demo_drug_diisopropylamine_oxide",
+      "value": "复方二氧醋酸异丙胺注射液"
+    },
+    {
+      "name": "demo_drug_glycyrrhizin_2",
+      "value": "复方甘草酸干注射液"
+    },
+    {
+      "name": "demo_bed_12",
+      "value": "12床"
+    },
+    {
+      "name": "demo_age_32",
+      "value": "32岁"
+    },
+    {
+      "name": "infusion_type",
+      "value": "静滴"
+    },
+    {
+      "name": "patient_zhang_xiaotong",
+      "value": "张晓彤"
+    },
+    {
+      "name": "patient_zhao_yue",
+      "value": "赵月"
+    },
+    {
+      "name": "patient_sun_xiaona",
+      "value": "孙晓娜"
+    },
+    {
+      "name": "patient_li_qian",
+      "value": "李倩"
+    },
+    {
+      "name": "patient_cheng_xiaojun",
+      "value": "成小君"
+    },
+    {
+      "name": "patient_jiao_jun",
+      "value": "焦俊"
+    },
+    {
+      "name": "patient_tian_tian",
+      "value": "田甜"
+    },
+    {
+      "name": "patient_liu_jiaxuan",
+      "value": "刘嘉轩"
+    },
+    {
+      "name": "patient_sun_qisong",
+      "value": "孙启松"
+    },
+    {
+      "name": "login_department",
+      "value": "肝胆外科一病区"
+    },
+    {
+      "name": "device_number_prefix",
+      "value": "设备编号："
+    },
+    {
+      "name": "employee_id",
+      "value": "工号"
+    },
+    {
+      "name": "server",
+      "value": "服务器"
+    },
+    {
+      "name": "face_recognition_tip",
+      "value": "点击进入人脸识别"
+    },
+    {
+      "name": "open_system_settings_tip",
+      "value": "点击开启操作系统的设置"
+    },
+    {
+      "name": "privacy_agreement_toast",
+      "value": "请阅读并同意用户协议与隐私声明"
+    },
+    {
+      "name": "read_and_agree",
+      "value": "阅读并同意"
+    },
+    {
+      "name": "user_agreement",
+      "value": "通用互联用户协议"
+    },
+    {
+      "name": "content_and_about",
+      "value": "内容及关于"
+    },
+    {
+      "name": "privacy_statement",
+      "value": "设备管理服务与隐私的声明"
+    },
+    {
+      "name": "near_patient",
+      "value": "接近患者"
+    },
+    {
+      "name": "away_patient",
+      "value": "远离患者"
+    },
+    {
+      "name": "record_3m_and_calc",
+      "value": "记录3m数据并计算"
+    },
+    {
+      "name": "record_8m_and_calc",
+      "value": "记录8m数据并计算"
+    },
+    {
+      "name": "calc_start",
+      "value": "计算开始"
     }
   ]
 }
