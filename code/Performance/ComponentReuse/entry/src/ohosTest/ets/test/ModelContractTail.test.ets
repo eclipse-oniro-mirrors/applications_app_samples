@@ -1931,6 +1931,277 @@ export default function modelContractTailTest() {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0248 end');
     })
 
- 
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0249
+     * @tc.name      testModelContract0249
+     * @tc.desc      Verify modelContract behavior for matrix index 248.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0249', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0249 begin');
+      const index: number = 248;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0249 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0250
+     * @tc.name      testModelContract0250
+     * @tc.desc      Verify modelContract behavior for matrix index 249.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0250', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0250 begin');
+      const index: number = 249;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0250 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0251
+     * @tc.name      testModelContract0251
+     * @tc.desc      Verify modelContract behavior for matrix index 250.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0251 begin');
+      const index: number = 250;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0251 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0252
+     * @tc.name      testModelContract0252
+     * @tc.desc      Verify modelContract behavior for matrix index 251.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0252', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0252 begin');
+      const index: number = 251;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0252 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0253
+     * @tc.name      testModelContract0253
+     * @tc.desc      Verify modelContract behavior for matrix index 252.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0253', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0253 begin');
+      const index: number = 252;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0253 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0254
+     * @tc.name      testModelContract0254
+     * @tc.desc      Verify modelContract behavior for matrix index 253.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0254', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0254 begin');
+      const index: number = 253;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0254 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0255
+     * @tc.name      testModelContract0255
+     * @tc.desc      Verify modelContract behavior for matrix index 254.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0255', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0255 begin');
+      const index: number = 254;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0255 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_MODEL_0256
+     * @tc.name      testModelContract0256
+     * @tc.desc      Verify modelContract behavior for matrix index 255.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testModelContract0256', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0256 begin');
+      const index: number = 255;
+      const id: string = 'model_id_' + index;
+      const text: string = 'model_text_' + index;
+      const friend: FriendMoment = new FriendMoment(id, 'user_' + index, 'avatar_' + index,
+        text, 'image_' + index, new ShareModel(index, index + 1, index + 2));
+      expect(friend.id).assertEqual(id);
+      expect(friend.userName).assertEqual('user_' + index);
+      expect(friend.avatar).assertEqual('avatar_' + index);
+      expect(friend.text).assertEqual(text);
+      expect(friend.image).assertEqual('image_' + index);
+      expect(friend.share.heart).assertEqual(index);
+      expect(friend.share.star).assertEqual(index + 1);
+      expect(friend.share.message).assertEqual(index + 2);
+      const color: ColorModel = new ColorModel(id, text, Color.Green);
+      expect(color.id).assertEqual(id);
+      expect(color.text).assertEqual(text);
+      expect(color.color).assertEqual(Color.Green);
+      const second: FriendMoment = new FriendMoment(id + '_second', 'user_second', 'avatar_second',
+        'text_second', 'image_second', new ShareModel(1, 2, 3));
+      expect(second.id).assertEqual(id + '_second');
+      expect(friend.id).assertEqual(id);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testModelContract0256 end');
+    })
+
   })
 }
