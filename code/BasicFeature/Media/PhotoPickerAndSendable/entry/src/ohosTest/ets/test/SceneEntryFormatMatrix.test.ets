@@ -122,7 +122,7 @@ export default function sceneEntryFormatMatrixTest() {
      * @tc.number    SUB_PHOTOPICKER_SEFMAT_0500
      * @tc.name      testSceneFormat0005
      * @tc.desc      Verify bytes renders exact megabyte multiples with two
-     *               decimal places.
+     *               decimal digits.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
