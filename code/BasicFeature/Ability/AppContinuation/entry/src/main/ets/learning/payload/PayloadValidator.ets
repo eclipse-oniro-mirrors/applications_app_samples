@@ -32,13 +32,13 @@ export enum CheckKind {
 
 /** 一条字段规则。 */
 export class FieldRule {
-  ruleId: string = '';
-  field: string = '';
-  kind: CheckKind = CheckKind.REQUIRED;
+  public ruleId: string = '';
+  public field: string = '';
+  public kind: CheckKind = CheckKind.REQUIRED;
   /** 参数：正则文本、数值下限/上限、长度上限或枚举取值串。 */
-  param: string = '';
-  level: ValidationLevel = ValidationLevel.ERROR;
-  message: string = '';
+  public param: string = '';
+  public level: ValidationLevel = ValidationLevel.ERROR;
+  public message: string = '';
 
   constructor(ruleId: string = '', field: string = '', kind: CheckKind = CheckKind.REQUIRED,
     param: string = '', level: ValidationLevel = ValidationLevel.ERROR, message: string = '') {
@@ -50,7 +50,7 @@ export class FieldRule {
     this.message = message;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.ruleId} ${this.field} ${this.kind as string}(${this.param}) ${levelLabel(this.level)}`;
   }
 }
@@ -123,9 +123,9 @@ export const FIELD_RULES: FieldRule[] = [
 
 /** 跨字段规则。 */
 export class CrossRule {
-  ruleId: string = '';
-  description: string = '';
-  level: ValidationLevel = ValidationLevel.ERROR;
+  public ruleId: string = '';
+  public description: string = '';
+  public level: ValidationLevel = ValidationLevel.ERROR;
 
   constructor(ruleId: string = '', description: string = '',
     level: ValidationLevel = ValidationLevel.ERROR) {
@@ -134,7 +134,7 @@ export class CrossRule {
     this.level = level;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.ruleId} ${levelLabel(this.level)}：${this.description}`;
   }
 }
@@ -154,10 +154,10 @@ export const CROSS_RULES: CrossRule[] = [
 
 /** 单条违规。 */
 export class Violation {
-  ruleId: string = '';
-  field: string = '';
-  level: ValidationLevel = ValidationLevel.ERROR;
-  message: string = '';
+  public ruleId: string = '';
+  public field: string = '';
+  public level: ValidationLevel = ValidationLevel.ERROR;
+  public message: string = '';
 
   constructor(ruleId: string = '', field: string = '', level: ValidationLevel = ValidationLevel.ERROR,
     message: string = '') {
@@ -167,7 +167,7 @@ export class Violation {
     this.message = message;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.ruleId} ${levelLabel(this.level)}｜${this.field}｜${this.message}`;
   }
 }
@@ -240,38 +240,38 @@ export function checkCross(data: PayloadData, now: number): Violation[] {
 
 /** 校验结果。 */
 export class ValidationResult {
-  violations: Violation[] = [];
+  public violations: Violation[] = [];
 
   /** 是否存在阻断级问题。 */
-  hasError(): boolean {
+  public hasError(): boolean {
     return this.violations.some((item: Violation): boolean =>
       item.level === ValidationLevel.ERROR);
   }
 
   /** 是否只有告警。 */
-  warnOnly(): boolean {
+  public warnOnly(): boolean {
     return !this.hasError() && this.violations.length > 0;
   }
 
   /** 是否完全通过。 */
-  clean(): boolean {
+  public clean(): boolean {
     return this.violations.length === 0;
   }
 
   /** 错误条数。 */
-  errors(): number {
+  public errors(): number {
     return this.violations.filter((item: Violation): boolean =>
       item.level === ValidationLevel.ERROR).length;
   }
 
   /** 告警条数。 */
-  warnings(): number {
+  public warnings(): number {
     return this.violations.filter((item: Violation): boolean =>
       item.level === ValidationLevel.WARN).length;
   }
 
   /** 违规规则编号，去重。 */
-  ruleIds(): string[] {
+  public ruleIds(): string[] {
     const ids: string[] = [];
     this.violations.forEach((item: Violation): void => {
       if (ids.indexOf(item.ruleId) < 0) {
@@ -282,7 +282,7 @@ export class ValidationResult {
   }
 
   /** 一句话结论。 */
-  headline(): string {
+  public headline(): string {
     if (this.clean()) {
       return '校验通过';
     }
@@ -293,7 +293,7 @@ export class ValidationResult {
   }
 
   /** 逐行文本。 */
-  text(): string {
+  public text(): string {
     const lines: string[] = [this.headline()];
     this.violations.forEach((item: Violation): void => {
       lines.push(item.text());
@@ -325,10 +325,10 @@ export function validateFields(data: PayloadData): ValidationResult {
 
 /** 规则表自检。 */
 export class ValidatorAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return this.ok ? '校验规则表自洽' : this.findings.join('；');
   }
 }

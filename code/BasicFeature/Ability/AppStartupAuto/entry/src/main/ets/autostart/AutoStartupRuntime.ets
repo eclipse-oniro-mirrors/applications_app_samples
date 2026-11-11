@@ -4,10 +4,10 @@ import { systemDateTime } from '@kit.BasicServicesKit';
 import { HistoryStorage } from './AutoStartupHistory';
 
 export class NativeStatusSnapshot {
-  requestId: number = 0;
-  startedAt: number = 0;
-  finishedAt: number = 0;
-  pending: boolean = false;
+  public requestId: number = 0;
+  public startedAt: number = 0;
+  public finishedAt: number = 0;
+  public pending: boolean = false;
   public joins: number = 0;
   clone(): NativeStatusSnapshot {
     const copy = new NativeStatusSnapshot();

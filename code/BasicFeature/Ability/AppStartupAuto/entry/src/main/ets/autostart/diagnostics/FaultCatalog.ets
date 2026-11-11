@@ -91,18 +91,18 @@ export function layerLabel(layer: CheckLayer): string {
 
 /** 一条故障场景。 */
 export class FaultEntry {
-  faultId: string = '';
-  symptom: string = '';
-  trigger: string = '';
-  layer: CheckLayer = CheckLayer.CAPABILITY;
-  owner: FaultOwner = FaultOwner.APP;
-  severity: FaultSeverity = FaultSeverity.MINOR;
+  public faultId: string = '';
+  public symptom: string = '';
+  public trigger: string = '';
+  public layer: CheckLayer = CheckLayer.CAPABILITY;
+  public owner: FaultOwner = FaultOwner.APP;
+  public severity: FaultSeverity = FaultSeverity.MINOR;
   /** 判定依据：出现什么就算命中。 */
-  detection: string = '';
+  public detection: string = '';
   /** 处置动作。 */
-  action: string = '';
+  public action: string = '';
   /** 是否可通过重试自愈。 */
-  recoverable: boolean = false;
+  public recoverable: boolean = false;
 
   constructor(faultId: string = '', symptom: string = '', trigger: string = '',
     layer: CheckLayer = CheckLayer.CAPABILITY, owner: FaultOwner = FaultOwner.APP,
@@ -261,10 +261,10 @@ export function recoverableFaults(): FaultEntry[] {
 
 /** 结论行。 */
 export class FaultSummary {
-  total: number = 0;
-  blockers: number = 0;
-  majors: number = 0;
-  recoverable: number = 0;
+  public total: number = 0;
+  public blockers: number = 0;
+  public majors: number = 0;
+  public recoverable: number = 0;
 
   /** 一句话摘要。 */
   text(): string {
@@ -292,10 +292,10 @@ export function summarizeFaults(): FaultSummary {
 
 /** 处置计划中的一步。 */
 export class FaultAction {
-  seq: number = 0;
-  faultId: string = '';
-  action: string = '';
-  owner: FaultOwner = FaultOwner.APP;
+  public seq: number = 0;
+  public faultId: string = '';
+  public action: string = '';
+  public owner: FaultOwner = FaultOwner.APP;
 
   constructor(seq: number = 0, faultId: string = '', action: string = '',
     owner: FaultOwner = FaultOwner.APP) {
@@ -332,7 +332,7 @@ export function planActions(faultIdsHit: string[]): FaultAction[] {
 
 /** 目录自检。 */
 export class FaultAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
   summary(): string {

@@ -58,13 +58,13 @@ export function needsUserAction(readiness: Readiness): boolean {
 
 /** 判定输入。 */
 export class RuleContext {
-  apiLevel: number = 0;
-  device: DeviceClass = DeviceClass.UNKNOWN;
-  permissionGranted: boolean = false;
-  payloadChars: number = 0;
-  sessionActive: boolean = false;
-  supportsMission: boolean = false;
-  launchReason: string = '';
+  public apiLevel: number = 0;
+  public device: DeviceClass = DeviceClass.UNKNOWN;
+  public permissionGranted: boolean = false;
+  public payloadChars: number = 0;
+  public sessionActive: boolean = false;
+  public supportsMission: boolean = false;
+  public launchReason: string = '';
 
   constructor(apiLevel: number = 0, device: DeviceClass = DeviceClass.UNKNOWN,
     permissionGranted: boolean = false) {
@@ -73,7 +73,7 @@ export class RuleContext {
     this.permissionGranted = permissionGranted;
   }
 
-  key(): string {
+  public key(): string {
     return `${this.apiLevel}|${this.device as string}|${this.permissionGranted ? 1 : 0}|` +
       `${this.payloadChars}|${this.sessionActive ? 1 : 0}|${this.supportsMission ? 1 : 0}`;
   }
@@ -81,15 +81,15 @@ export class RuleContext {
 
 /** 单条准入规则。 */
 export class ReadinessRule {
-  ruleId: string = '';
-  minApi: number = 0;
-  maxApi: number = 999;
-  devices: DeviceClass[] = [];
-  requiresPermission: boolean = false;
+  public ruleId: string = '';
+  public minApi: number = 0;
+  public maxApi: number = 999;
+  public devices: DeviceClass[] = [];
+  public requiresPermission: boolean = false;
   /** 允许的最大载荷字符数；0 表示不限制。 */
-  maxPayload: number = 0;
-  readiness: Readiness = Readiness.UNKNOWN;
-  hint: string = '';
+  public maxPayload: number = 0;
+  public readiness: Readiness = Readiness.UNKNOWN;
+  public hint: string = '';
 
   constructor(ruleId: string = '', minApi: number = 0, maxApi: number = 999,
     devices: DeviceClass[] = [], requiresPermission: boolean = false, maxPayload: number = 0,
@@ -105,7 +105,7 @@ export class ReadinessRule {
   }
 
   /** 除权限与体积之外的条件是否满足。 */
-  matches(context: RuleContext): boolean {
+  public matches(context: RuleContext): boolean {
     if (context.apiLevel < this.minApi || context.apiLevel > this.maxApi) {
       return false;
     }
@@ -115,7 +115,7 @@ export class ReadinessRule {
     return true;
   }
 
-  text(): string {
+  public text(): string {
     const deviceText: string = this.devices.length === 0 ? '全部形态' :
       this.devices.map((device: DeviceClass): string => device as string).join('/');
     return `${this.ruleId}：API ${this.minApi}~${this.maxApi}，${deviceText} -> ` +
@@ -163,21 +163,21 @@ export const READINESS_RULES: ReadinessRule[] = [
 
 /** 判定结果。 */
 export class ReadinessResult {
-  readiness: Readiness = Readiness.UNKNOWN;
-  rule: ReadinessRule | undefined = undefined;
+  public readiness: Readiness = Readiness.UNKNOWN;
+  public rule: ReadinessRule | undefined = undefined;
   /** 是否因权限不足导致降级。 */
-  downgradedByPermission: boolean = false;
+  public downgradedByPermission: boolean = false;
   /** 是否因载荷过大导致降级。 */
-  downgradedByPayload: boolean = false;
+  public downgradedByPayload: boolean = false;
 
   /** 结论文本。 */
-  text(): string {
+  public text(): string {
     const ruleId: string = this.rule === undefined ? '未命中规则' : this.rule.ruleId;
     return `${readinessLabel(this.readiness)}（${ruleId}）`;
   }
 
   /** 提示文本。 */
-  hint(): string {
+  public hint(): string {
     if (this.rule === undefined) {
       return '请补充准入规则';
     }
@@ -232,10 +232,10 @@ export function readinessRuleLines(): string[] {
 
 /** 规则表自检。 */
 export class ReadinessAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return this.ok ? '准入规则表自洽' : this.findings.join('；');
   }
 }

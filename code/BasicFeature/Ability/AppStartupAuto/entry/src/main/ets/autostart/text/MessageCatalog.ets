@@ -27,13 +27,13 @@ export enum MessageKey {
 
 /** 单条文案。 */
 export class MessageEntry {
-  key: MessageKey = MessageKey.APP_TITLE;
+  public key: MessageKey = MessageKey.APP_TITLE;
   /** 默认文案。 */
-  text: string = '';
+  public text: string = '';
   /** 允许的最大长度，超出会被截断并记录。 */
-  maxLength: number = 64;
+  public maxLength: number = 64;
   /** 是否为面向用户的正式文案（false 表示内部提示）。 */
-  userFacing: boolean = true;
+  public userFacing: boolean = true;
 
   constructor(key: MessageKey = MessageKey.APP_TITLE, text: string = '',
     maxLength: number = 64, userFacing: boolean = true) {
@@ -82,10 +82,10 @@ export const MESSAGES: MessageEntry[] = [
 
 /** 模板文案：用 {name} 占位。 */
 export class TemplateEntry {
-  key: string = '';
-  template: string = '';
+  public key: string = '';
+  public template: string = '';
   /** 占位符名称列表，按出现顺序。 */
-  placeholders: string[] = [];
+  public placeholders: string[] = [];
 
   constructor(key: string = '', template: string = '') {
     this.key = key;
@@ -188,7 +188,7 @@ export function valuesOf(pairs: string[][]): Map<string, string> {
 
 /** 文案自检：键唯一、非空、模板占位符可闭合。 */
 export class MessageAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
   summary(): string {

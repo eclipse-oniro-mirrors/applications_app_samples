@@ -7,11 +7,11 @@ export default class FeatureQaAbility extends UIAbility {
   private allowed: boolean = false;
   private stage: window.WindowStage | undefined = undefined;
 
-  onCreate(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
+  public onCreate(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
     this.selectPage(want);
   }
 
-  onNewWant(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
+  public onNewWant(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
     this.selectPage(want);
     const stage = this.stage;
     if (stage !== undefined) {
@@ -26,12 +26,12 @@ export default class FeatureQaAbility extends UIAbility {
     this.scenario = typeof scenario === 'string' ? scenario : 'empty';
   }
 
-  onWindowStageCreate(stage: window.WindowStage): void {
+  public onWindowStageCreate(stage: window.WindowStage): void {
     this.stage = stage;
     this.loadPage(stage);
   }
 
-  onWindowStageDestroy(): void {
+  public onWindowStageDestroy(): void {
     this.stage = undefined;
   }
 

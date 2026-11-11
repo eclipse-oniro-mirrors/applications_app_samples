@@ -31,8 +31,8 @@ export const VALUE_SEPARATOR: string = '=';
 
 /** 需要转义的字符及其替换。 */
 export class EscapeRule {
-  raw: string = '';
-  encoded: string = '';
+  public raw: string = '';
+  public encoded: string = '';
 
   constructor(raw: string = '', encoded: string = '') {
     this.raw = raw;
@@ -52,14 +52,14 @@ export const ESCAPE_RULES: EscapeRule[] = [
 
 /** 单字段定义。 */
 export class PayloadField {
-  name: string = '';
-  label: string = '';
-  kind: PayloadKind = PayloadKind.TEXT;
-  required: boolean = false;
-  since: number = 1;
-  maxLength: number = 0;
-  fallback: string = '';
-  enumValues: string[] = [];
+  public name: string = '';
+  public label: string = '';
+  public kind: PayloadKind = PayloadKind.TEXT;
+  public required: boolean = false;
+  public since: number = 1;
+  public maxLength: number = 0;
+  public fallback: string = '';
+  public enumValues: string[] = [];
 
   constructor(name: string = '', label: string = '', kind: PayloadKind = PayloadKind.TEXT,
     required: boolean = false, since: number = 1, maxLength: number = 0,
@@ -75,7 +75,7 @@ export class PayloadField {
   }
 
   /** 取值是否合法。空串在非必填字段上合法。 */
-  accepts(value: string): boolean {
+  public accepts(value: string): boolean {
     if (value.length === 0) {
       return !this.required;
     }
@@ -95,7 +95,7 @@ export class PayloadField {
   }
 
   /** 归一化：非法时返回兜底值，超长时截断。 */
-  coerce(value: string): string {
+  public coerce(value: string): string {
     if (this.maxLength > 0 && value.length > this.maxLength) {
       return value.slice(0, this.maxLength);
     }
@@ -103,12 +103,12 @@ export class PayloadField {
   }
 
   /** 该字段在指定版本是否存在。 */
-  existsIn(version: number): boolean {
+  public existsIn(version: number): boolean {
     return version >= this.since;
   }
 
   /** 说明文本。 */
-  describe(): string {
+  public describe(): string {
     return `${this.name}(${this.label}) v${this.since} ${this.required ? '必填' : '选填'}`;
   }
 }
@@ -167,9 +167,9 @@ export function unescapeValue(value: string): string {
 
 /** 版本迁移说明。 */
 export class PayloadMigration {
-  from: number = 0;
-  to: number = 0;
-  description: string = '';
+  public from: number = 0;
+  public to: number = 0;
+  public description: string = '';
 
   constructor(from: number = 0, to: number = 0, description: string = '') {
     this.from = from;
@@ -178,7 +178,7 @@ export class PayloadMigration {
   }
 
   /** 迁移文本。 */
-  text(): string {
+  public text(): string {
     return `v${this.from} -> v${this.to}：${this.description}`;
   }
 }
@@ -208,10 +208,10 @@ export function migrationChain(version: number): PayloadMigration[] {
 
 /** 字段目录自检结论。 */
 export class PayloadAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return this.ok ? '载荷字段目录自洽' : this.findings.join('；');
   }
 }

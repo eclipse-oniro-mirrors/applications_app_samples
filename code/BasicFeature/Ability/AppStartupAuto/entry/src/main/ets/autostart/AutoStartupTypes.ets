@@ -35,17 +35,17 @@ export enum QueryOutcome {
 }
 
 export class QuerySnapshot {
-  phase: QueryPhase = QueryPhase.IDLE;
-  support: SupportState = SupportState.UNKNOWN;
-  value: boolean | null = null;
-  sampleTime: number = 0;
-  lastValue: boolean | null = null;
-  lastSampleTime: number = 0;
-  errorCode: string = '';
-  errorMessage: string = '';
-  pending: boolean = false;
-  supportResult: string = '待调用';
-  statusResult: string = '待调用';
+  public phase: QueryPhase = QueryPhase.IDLE;
+  public support: SupportState = SupportState.UNKNOWN;
+  public value: boolean | null = null;
+  public sampleTime: number = 0;
+  public lastValue: boolean | null = null;
+  public lastSampleTime: number = 0;
+  public errorCode: string = '';
+  public errorMessage: string = '';
+  public pending: boolean = false;
+  public supportResult: string = '待调用';
+  public statusResult: string = '待调用';
 
   clone(): QuerySnapshot {
     const copy = new QuerySnapshot();
@@ -65,15 +65,15 @@ export class QuerySnapshot {
 }
 
 export class QueryRecord {
-  id: number = 0;
-  timestamp: number = 0;
-  source: RefreshSource = RefreshSource.INITIAL;
-  result: string = '';
-  supportResult: string = '待调用';
-  statusResult: string = '待调用';
-  errorCode: string = '';
-  errorMessage: string = '';
-  durationMillis: number = 0;
+  public id: number = 0;
+  public timestamp: number = 0;
+  public source: RefreshSource = RefreshSource.INITIAL;
+  public result: string = '';
+  public supportResult: string = '待调用';
+  public statusResult: string = '待调用';
+  public errorCode: string = '';
+  public errorMessage: string = '';
+  public durationMillis: number = 0;
   public outcome: QueryOutcome = QueryOutcome.UNKNOWN;
 
   clone(): QueryRecord {

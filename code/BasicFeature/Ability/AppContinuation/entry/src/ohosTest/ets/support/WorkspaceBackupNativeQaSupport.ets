@@ -11,20 +11,20 @@ let workspaceNativeSerial: number = 0;
 
 /** Only the acknowledgement is injected; all successful operations delegate to the production SDK adapter. */
 export class NativeSceneAcknowledgementFault implements SceneStorePort {
-  puts: number = 0;
-  flushes: number = 0;
-  afterFlushFailures: number = 0;
-  rejectPut: number = -1;
+  public puts: number = 0;
+  public flushes: number = 0;
+  public afterFlushFailures: number = 0;
+  public rejectPut: number = -1;
   private adapter: PreferencesSceneStore;
   constructor(adapter: PreferencesSceneStore) { this.adapter = adapter; }
-  getSync(key: string, fallback: string): Object { return this.adapter.getSync(key, fallback); }
-  putSync(key: string, value: string): void {
+  public getSync(key: string, fallback: string): Object { return this.adapter.getSync(key, fallback); }
+  public putSync(key: string, value: string): void {
     this.puts++;
     if (this.puts === this.rejectPut) { throw new Error('QA injected failure before compensation put'); }
     this.adapter.putSync(key, value);
   }
-  deleteSync(key: string): void { this.adapter.deleteSync(key); }
-  flushSync(): void {
+  public deleteSync(key: string): void { this.adapter.deleteSync(key); }
+  public flushSync(): void {
     this.flushes++;
     this.adapter.flushSync();
     if (this.afterFlushFailures > 0) {
@@ -35,17 +35,17 @@ export class NativeSceneAcknowledgementFault implements SceneStorePort {
 }
 
 class NativeWorkspaceDependencies implements LearningDependencies {
-  readonly clock: ManualLearningClock = new ManualLearningClock();
-  readonly native: FakeContinueNative = new FakeContinueNative();
-  readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
+  public readonly clock: ManualLearningClock = new ManualLearningClock();
+  public readonly native: FakeContinueNative = new FakeContinueNative();
+  public readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
   private store: PlatformLearningStore;
   constructor(store: PlatformLearningStore) { this.store = store; }
-  openStore(): LearningStore { return this.store; }
+  public openStore(): LearningStore { return this.store; }
 }
 
 export class WorkspaceBackupNativeQaFixture {
-  readonly context: common.ApplicationContext;
-  readonly sceneNamespace: string;
+  public readonly context: common.ApplicationContext;
+  public readonly sceneNamespace: string;
   public readonly textNamespace: string;
   private workbenches: SceneWorkbench[] = [];
   private controllers: LearningController[] = [];
@@ -60,15 +60,15 @@ export class WorkspaceBackupNativeQaFixture {
     this.textNamespace = `${base}_text`;
   }
 
-  adapter(): PreferencesSceneStore { return new PreferencesSceneStore(this.context, this.sceneNamespace); }
+  public adapter(): PreferencesSceneStore { return new PreferencesSceneStore(this.context, this.sceneNamespace); }
 
-  workbench(port: SceneStorePort = this.adapter()): SceneWorkbench {
+  public workbench(port: SceneStorePort = this.adapter()): SceneWorkbench {
     const work: SceneWorkbench = new SceneWorkbench(port);
     this.workbenches.push(work);
     return work;
   }
 
-  controller(port: SceneStorePort = this.adapter()): LearningController {
+  public controller(port: SceneStorePort = this.adapter()): LearningController {
     const dependencies: NativeWorkspaceDependencies = new NativeWorkspaceDependencies(
       new PlatformLearningStore(this.context, this.textNamespace));
     this.dependencies.push(dependencies);
@@ -77,7 +77,7 @@ export class WorkspaceBackupNativeQaFixture {
     return controller;
   }
 
-  dispose(): void {
+  public dispose(): void {
     this.controllers.forEach((controller: LearningController): void => { controller.dispose(); });
     this.workbenches.forEach((work: SceneWorkbench): void => { work.dispose(); });
     this.dependencies.forEach((dependencies: NativeWorkspaceDependencies): void => { dependencies.clock.clearAll(); });
@@ -86,34 +86,34 @@ export class WorkspaceBackupNativeQaFixture {
     this.dependencies = [];
   }
 
-  async invalidate(): Promise<void> {
+  public async invalidate(): Promise<void> {
     this.dispose();
     await preferences.removePreferencesFromCache(this.context, this.sceneNamespace);
     await preferences.removePreferencesFromCache(this.context, this.textNamespace);
   }
 
-  async reopen(): Promise<SceneWorkbench> { await this.invalidate(); return this.workbench(); }
+  public async reopen(): Promise<SceneWorkbench> { await this.invalidate(); return this.workbench(); }
 
-  async reopenController(): Promise<LearningController> { await this.invalidate(); return this.controller(); }
+  public async reopenController(): Promise<LearningController> { await this.invalidate(); return this.controller(); }
 
-  raw(): string {
+  public raw(): string {
     const store: preferences.Preferences = preferences.getPreferencesSync(this.context, { name: this.sceneNamespace });
     const raw: preferences.ValueType = store.getSync(SCENE_STORE_KEY, '');
     if (typeof raw !== 'string') { throw new Error('QA scene key is not a string'); }
     return raw;
   }
 
-  workspace(): SceneWorkspace {
+  public workspace(): SceneWorkspace {
     const workspace: SceneWorkspace | undefined = decodeWorkspace(this.raw());
     if (workspace === undefined) { throw new Error('QA scene root did not decode'); }
     return workspace;
   }
 
-  allText(): string {
+  public allText(): string {
     return JSON.stringify(preferences.getPreferencesSync(this.context, { name: this.textNamespace }).getAllSync());
   }
 
-  async seed(value: preferences.ValueType): Promise<void> {
+  public async seed(value: preferences.ValueType): Promise<void> {
     await this.invalidate();
     const store: preferences.Preferences = preferences.getPreferencesSync(this.context, { name: this.sceneNamespace });
     store.putSync(SCENE_STORE_KEY, value);
@@ -121,7 +121,7 @@ export class WorkspaceBackupNativeQaFixture {
     await preferences.removePreferencesFromCache(this.context, this.sceneNamespace);
   }
 
-  populate(work: SceneWorkbench, label: string): string {
+  public populate(work: SceneWorkbench, label: string): string {
     if (!work.open('note') || !work.editNote(label, `${label}😀\n真实正文`, 0, 2) || !work.saveNote()) {
       throw new Error('Failed to persist the QA note');
     }
@@ -135,7 +135,7 @@ export class WorkspaceBackupNativeQaFixture {
     return work.backupSnapshot().raw;
   }
 
-  async close(): Promise<void> {
+  public async close(): Promise<void> {
     this.dispose();
     try {
       await preferences.deletePreferences(this.context, this.sceneNamespace);

@@ -64,18 +64,18 @@ export function backoffLabel(backoff: Backoff): string {
 
 /** 重试规则。 */
 export class RetryRule {
-  ruleId: string = '';
-  reason: RetryReason = RetryReason.UNKNOWN;
-  backoff: Backoff = Backoff.NONE;
+  public ruleId: string = '';
+  public reason: RetryReason = RetryReason.UNKNOWN;
+  public backoff: Backoff = Backoff.NONE;
   /** 首次延迟（毫秒）。 */
-  baseDelayMs: number = 0;
+  public baseDelayMs: number = 0;
   /** 最大尝试次数，含首次。 */
-  maxAttempts: number = 1;
+  public maxAttempts: number = 1;
   /** 延迟上限（毫秒）。 */
-  capMs: number = 0;
+  public capMs: number = 0;
   /** 是否需要用户先操作再重试。 */
-  requiresAction: boolean = false;
-  description: string = '';
+  public requiresAction: boolean = false;
+  public description: string = '';
 
   constructor(ruleId: string = '', reason: RetryReason = RetryReason.UNKNOWN,
     backoff: Backoff = Backoff.NONE, baseDelayMs: number = 0, maxAttempts: number = 1,
@@ -91,11 +91,11 @@ export class RetryRule {
   }
 
   /** 是否允许重试。 */
-  retryable(): boolean {
+  public retryable(): boolean {
     return this.backoff !== Backoff.NONE && this.maxAttempts > 1;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.ruleId} ${reasonLabel(this.reason)}｜${backoffLabel(this.backoff)}｜` +
       `最多 ${this.maxAttempts} 次｜${this.baseDelayMs} ms 起`;
   }
@@ -209,10 +209,10 @@ export function totalWait(rule: RetryRule): number {
 
 /** 单次尝试记录。 */
 export class AttemptRecord {
-  attempt: number = 0;
-  reason: RetryReason = RetryReason.UNKNOWN;
-  waitedMs: number = 0;
-  succeeded: boolean = false;
+  public attempt: number = 0;
+  public reason: RetryReason = RetryReason.UNKNOWN;
+  public waitedMs: number = 0;
+  public succeeded: boolean = false;
 
   constructor(attempt: number = 0, reason: RetryReason = RetryReason.UNKNOWN,
     waitedMs: number = 0, succeeded: boolean = false) {
@@ -222,7 +222,7 @@ export class AttemptRecord {
     this.succeeded = succeeded;
   }
 
-  text(): string {
+  public text(): string {
     return `第 ${this.attempt} 次｜${reasonLabel(this.reason)}｜等待 ${this.waitedMs} ms｜` +
       `${this.succeeded ? '成功' : '失败'}`;
   }
@@ -230,43 +230,43 @@ export class AttemptRecord {
 
 /** 重试轨迹。 */
 export class RetryTrace {
-  records: AttemptRecord[] = [];
-  rule: RetryRule = new RetryRule();
+  public records: AttemptRecord[] = [];
+  public rule: RetryRule = new RetryRule();
 
   /** 总尝试次数。 */
-  attempts(): number {
+  public attempts(): number {
     return this.records.length;
   }
 
   /** 总等待。 */
-  waited(): number {
+  public waited(): number {
     return this.records.reduce((sum: number, item: AttemptRecord): number =>
       sum + Math.max(0, item.waitedMs), 0);
   }
 
   /** 是否最终成功。 */
-  succeeded(): boolean {
+  public succeeded(): boolean {
     return this.records.length > 0 && this.records[this.records.length - 1].succeeded;
   }
 
   /** 是否已用尽次数。 */
-  exhausted(): boolean {
+  public exhausted(): boolean {
     return !this.succeeded() && this.attempts() >= this.rule.maxAttempts;
   }
 
   /** 追加一次尝试。 */
-  push(reason: RetryReason, waitedMs: number, succeeded: boolean): void {
+  public push(reason: RetryReason, waitedMs: number, succeeded: boolean): void {
     this.records.push(new AttemptRecord(this.records.length + 1, reason, waitedMs, succeeded));
   }
 
   /** 摘要文本。 */
-  text(): string {
+  public text(): string {
     const state: string = this.succeeded() ? '已成功' : (this.exhausted() ? '次数用尽' : '仍可重试');
     return `${this.rule.ruleId}｜${state}｜尝试 ${this.attempts()} 次｜累计等待 ${this.waited()} ms`;
   }
 
   /** 逐行文本。 */
-  lines(): string[] {
+  public lines(): string[] {
     return this.records.map((item: AttemptRecord): string => item.text());
   }
 }
@@ -292,10 +292,10 @@ export function simulate(rule: RetryRule, failUntil: number): RetryTrace {
 
 /** 规则自检。 */
 export class RetryAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return this.ok ? '重试规则表自洽' : this.findings.join('；');
   }
 }

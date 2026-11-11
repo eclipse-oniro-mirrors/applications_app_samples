@@ -3,17 +3,18 @@ import { AutoStartupApi, QueryClock, SystemQueryClock, systemAutoStartupApi, ela
 import { RevisitSession, RevisitStage, RevisitTracker, REVISIT_TIMEOUT_MS } from './revisit/RevisitTracker';
 import { StartupTelemetry, SystemStartupTelemetry, safeBegin, safeEnd, safeEvent } from './Telemetry';
 import { HistoryFilter, HistoryScope, scopedHistory } from './history/HistoryView';
-import { QueryOutcome, QueryPhase, QueryRecord, QueryRecordSink, QuerySnapshot, RefreshSource, SupportState } from './AutoStartupTypes';
+import { QueryOutcome, QueryPhase, QueryRecord, QueryRecordSink, QuerySnapshot, RefreshSource,
+  SupportState } from './AutoStartupTypes';
 import {
   boundedMessage, compareLatestRecords, exportRedacted, filterHistory, filterHistoryAdvanced,
   HistoryComparison, HistoryLoadResult, HistoryStorage, HistorySummary, parseHistory, serializeHistory, summarizeHistory
 } from './AutoStartupHistory';
 
 class QueryAttempt {
-  id: number;
-  source: RefreshSource;
-  startedAt: number;
-  terminal: boolean = false;
+  public id: number;
+  public source: RefreshSource;
+  public startedAt: number;
+  public terminal: boolean = false;
   public revisitId: string = '';
 
   constructor(id: number, source: RefreshSource, startedAt: number) {

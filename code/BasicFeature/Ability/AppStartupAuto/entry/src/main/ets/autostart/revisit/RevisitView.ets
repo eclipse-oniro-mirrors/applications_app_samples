@@ -3,7 +3,8 @@ import { RevisitSession } from './RevisitTracker';
 import { dateTimeText } from '../tools/DiagnosticTools';
 
 function sample(record: QueryRecord | undefined): string {
-  return record === undefined ? '无' : `query #${record.id}｜${record.source}｜${record.outcome}｜${record.result}｜${dateTimeText(record.timestamp)}`;
+  return record === undefined ? '无' :
+    `query #${record.id}｜${record.source}｜${record.outcome}｜${record.result}｜${dateTimeText(record.timestamp)}`;
 }
 
 /** Local terminal facts, never inferred system-setting visits or boot-start evidence. */

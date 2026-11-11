@@ -189,13 +189,17 @@ struct HistoryPage {
             Text('结果').fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
             Flex({ wrap: FlexWrap.Wrap }) {
               ForEach(OUTCOME_OPTIONS, (option: OutcomeOption) => {
-                this.chip(option.label, this.filter.outcome === option.value, (): void => { this.chooseOutcome(option.value); })
+                this.chip(option.label, this.filter.outcome === option.value, (): void => {
+                  this.chooseOutcome(option.value);
+                })
               }, (option: OutcomeOption) => `outcome-${option.value}`)
             }.width('100%')
             Text('来源').fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
             Flex({ wrap: FlexWrap.Wrap }) {
               ForEach(SOURCE_OPTIONS, (option: SourceOption) => {
-                this.chip(option.label, this.filter.source === option.value, (): void => { this.chooseSource(option.value); })
+                this.chip(option.label, this.filter.source === option.value, (): void => {
+                  this.chooseSource(option.value);
+                })
               }, (option: SourceOption) => `source-${option.value}`)
             }.width('100%')
             Text('时间').fontSize(14).fontColor($r('app.color.text_primary')).width('100%')

@@ -34,12 +34,12 @@ export enum CapabilityVerdict {
 
 /** 查询条件。调用方必须显式给出，避免隐式读取全局状态。 */
 export class CapabilityQuery {
-  apiLevel: number = 0;
-  deviceForm: DeviceForm = DeviceForm.UNKNOWN;
-  flavor: SystemFlavor = SystemFlavor.UNKNOWN;
-  permissionGranted: boolean = false;
+  public apiLevel: number = 0;
+  public deviceForm: DeviceForm = DeviceForm.UNKNOWN;
+  public flavor: SystemFlavor = SystemFlavor.UNKNOWN;
+  public permissionGranted: boolean = false;
   /** 系统设置中是否暴露"应用启动管理"入口。 */
-  settingsEntryAvailable: boolean = false;
+  public settingsEntryAvailable: boolean = false;
 
   constructor(apiLevel: number = 0, deviceForm: DeviceForm = DeviceForm.UNKNOWN,
     flavor: SystemFlavor = SystemFlavor.UNKNOWN, permissionGranted: boolean = false,
@@ -64,18 +64,18 @@ export class CapabilityQuery {
 
 /** 一条能力判定规则。规则按 minApi 升序匹配，命中即返回。 */
 export class CapabilityRule {
-  ruleId: string = '';
-  minApi: number = 0;
-  maxApi: number = 999;
-  forms: DeviceForm[] = [];
-  flavors: SystemFlavor[] = [];
-  verdict: CapabilityVerdict = CapabilityVerdict.UNKNOWN;
+  public ruleId: string = '';
+  public minApi: number = 0;
+  public maxApi: number = 999;
+  public forms: DeviceForm[] = [];
+  public flavors: SystemFlavor[] = [];
+  public verdict: CapabilityVerdict = CapabilityVerdict.UNKNOWN;
   /** 稳定的排查建议，面向开发者。 */
-  developerHint: string = '';
+  public developerHint: string = '';
   /** 面向用户的解释，不含内部错误码。 */
-  userHint: string = '';
+  public userHint: string = '';
   /** 是否要求权限；false 表示判定与权限无关。 */
-  requiresPermission: boolean = false;
+  public requiresPermission: boolean = false;
 
   constructor(ruleId: string = '', minApi: number = 0, maxApi: number = 999,
     forms: DeviceForm[] = [], flavors: SystemFlavor[] = [],
@@ -203,11 +203,11 @@ export const CAPABILITY_RULES: CapabilityRule[] = [
 
 /** 判定结果。带命中的规则，便于诊断页展示依据。 */
 export class CapabilityEvaluation {
-  query: CapabilityQuery = new CapabilityQuery();
-  verdict: CapabilityVerdict = CapabilityVerdict.UNKNOWN;
-  rule: CapabilityRule | undefined = undefined;
+  public query: CapabilityQuery = new CapabilityQuery();
+  public verdict: CapabilityVerdict = CapabilityVerdict.UNKNOWN;
+  public rule: CapabilityRule | undefined = undefined;
   /** 结论是否因权限不足而降级。 */
-  downgradedByPermission: boolean = false;
+  public downgradedByPermission: boolean = false;
   /** 结论是否因系统入口缺失而降级。 */
   public downgradedByEntry: boolean = false;
 

@@ -2,16 +2,20 @@ import { common } from '@kit.AbilityKit';
 import { relationalStore } from '@kit.ArkData';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { QueryOutcome, QueryRecord, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
-import { ARCHIVE_SCHEMA, ArchiveFailure, StartupArchiveRepository } from '../../../main/ets/autostart/archive/StartupArchive';
-import { ARCHIVE_CREATE_SQL, ARCHIVE_STATE_TABLE, StartupArchiveRdbStorage } from '../../../main/ets/autostart/archive/StartupArchiveRdbStorage';
+import {
+  ARCHIVE_SCHEMA, ArchiveFailure, StartupArchiveRepository
+} from '../../../main/ets/autostart/archive/StartupArchive';
+import {
+  ARCHIVE_CREATE_SQL, ARCHIVE_STATE_TABLE, StartupArchiveRdbStorage
+} from '../../../main/ets/autostart/archive/StartupArchiveRdbStorage';
 
 // SQL observations are not a second archive model. All business documents use production exports.
 export class ArchiveNativeSqlImage {
-  count: number = 0;
-  version: number = 0;
-  revision: number = -1;
-  operation: string = '';
-  payload: string = '';
+  public count: number = 0;
+  public version: number = 0;
+  public revision: number = -1;
+  public operation: string = '';
+  public payload: string = '';
 }
 
 let archiveDatabaseSequence: number = 0;
@@ -40,8 +44,8 @@ export async function archiveNativeFailure(action: () => Promise<void>): Promise
 }
 
 export class ArchiveNativeQaFixture {
-  readonly context: common.ApplicationContext;
-  readonly name: string;
+  public readonly context: common.ApplicationContext;
+  public readonly name: string;
   public time: number = 1800000000000;
   private storages: StartupArchiveRdbStorage[] = [];
   private repositories: StartupArchiveRepository[] = [];

@@ -366,8 +366,14 @@ export default function continuationVersioning(): void {
 
     scenario('testContinuationVersioning0012', (): void => {
       const seed = JSON.stringify({
-        version: 2, transferId: 'seed', page: 'text', text: '上限文档',
-        selectionStart: 0, selectionEnd: 4, documentId: 'doc-limit', revision: 1000000000
+        version: 2,
+        transferId: 'seed',
+        page: 'text',
+        text: '上限文档',
+        selectionStart: 0,
+        selectionEnd: 4,
+        documentId: 'doc-limit',
+        revision: 1000000000
       });
       withLearning((fixture: LearningFixture): void => {
         expect(fixture.controller.snapshot().revision).assertEqual(1000000000);

@@ -7,7 +7,7 @@ export interface SceneBackupClipboardPort {
 }
 
 export class NativeSceneBackupClipboard implements SceneBackupClipboardPort {
-  writeLocalText(text: string): Promise<void> {
+  public writeLocalText(text: string): Promise<void> {
     const data = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
     const property = data.getProperty();
     // SDK default is CROSSDEVICE: sensitive workspace backups must explicitly restrict this copy.
@@ -27,8 +27,8 @@ export enum SceneBackupCopyCode {
 }
 
 export class SceneBackupCopyResult {
-  code: SceneBackupCopyCode;
-  copied: boolean;
+  public code: SceneBackupCopyCode;
+  public copied: boolean;
   public message: string;
   constructor(code: SceneBackupCopyCode, message: string, copied: boolean = false) {
     this.code = code; this.message = message; this.copied = copied;
@@ -42,7 +42,7 @@ export class SceneBackupClipboard {
   private generation: number = 0;
   constructor(port: SceneBackupClipboardPort = new NativeSceneBackupClipboard()) { this.port = port; }
 
-  async copy(raw: string): Promise<SceneBackupCopyResult> {
+  public async copy(raw: string): Promise<SceneBackupCopyResult> {
     if (this.disposed) { return new SceneBackupCopyResult(SceneBackupCopyCode.BLOCKED, '复制入口已释放；未访问剪贴板。'); }
     if (this.pending) { return new SceneBackupCopyResult(SceneBackupCopyCode.BUSY, '正在等待上次复制完成，请勿重复点击。'); }
     if (readSceneBackup(raw).workspace === undefined) {
@@ -67,5 +67,5 @@ export class SceneBackupClipboard {
     }
   }
 
-  dispose(): void { this.disposed = true; this.generation++; this.pending = false; }
+  public dispose(): void { this.disposed = true; this.generation++; this.pending = false; }
 }

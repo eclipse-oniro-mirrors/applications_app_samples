@@ -7,7 +7,7 @@ import { DAY_MS } from '../../../main/ets/autostart/archive/ArchiveIndex';
 import { defaultRetentionPolicy } from '../../../main/ets/autostart/archive/RetentionPolicy';
 
 export class ArchiveQaSignal {
-  readonly promise: Promise<void>;
+  public readonly promise: Promise<void>;
   private complete: (() => void) | undefined = undefined;
   constructor() {
     this.promise = new Promise<void>((resolve): void => { this.complete = resolve; });
@@ -20,11 +20,11 @@ export class ArchiveQaSignal {
 }
 
 export class ArchiveQaMemory implements ArchiveStorage {
-  document: ArchiveDocument = new ArchiveDocument();
-  writes: number = 0;
-  failLoad: boolean = false;
-  failNext: boolean = false;
-  hold: ArchiveQaSignal | undefined = undefined;
+  public document: ArchiveDocument = new ArchiveDocument();
+  public writes: number = 0;
+  public failLoad: boolean = false;
+  public failNext: boolean = false;
+  public hold: ArchiveQaSignal | undefined = undefined;
   async load(): Promise<ArchiveDocument> {
     if (this.failLoad) { throw new ArchiveFailure('QA_READ'); }
     return this.document.clone();
@@ -42,9 +42,9 @@ export class ArchiveQaMemory implements ArchiveStorage {
 }
 
 export class ArchiveQaClipboard implements ArchiveClipboardPort {
-  texts: string[] = [];
-  fail: boolean = false;
-  hold: ArchiveQaSignal | undefined = undefined;
+  public texts: string[] = [];
+  public fail: boolean = false;
+  public hold: ArchiveQaSignal | undefined = undefined;
   async writeText(text: string): Promise<void> {
     this.texts.push(text);
     const hold = this.hold;
@@ -55,11 +55,11 @@ export class ArchiveQaClipboard implements ArchiveClipboardPort {
 }
 
 export class ArchiveUiQaFixture {
-  readonly now: number = new Date(2026, 10, 6, 12).getTime();
-  readonly storage: ArchiveQaMemory = new ArchiveQaMemory();
-  readonly clipboard: ArchiveQaClipboard = new ArchiveQaClipboard();
-  readonly repository: StartupArchiveRepository = new StartupArchiveRepository((): number => this.now);
-  liveRecords: QueryRecord[] = [];
+  public readonly now: number = new Date(2026, 10, 6, 12).getTime();
+  public readonly storage: ArchiveQaMemory = new ArchiveQaMemory();
+  public readonly clipboard: ArchiveQaClipboard = new ArchiveQaClipboard();
+  public readonly repository: StartupArchiveRepository = new StartupArchiveRepository((): number => this.now);
+  public liveRecords: QueryRecord[] = [];
   public gate: ArchiveQaSignal | undefined = undefined;
 
   async initialize(scenario: string): Promise<void> {
@@ -152,7 +152,8 @@ export async function launchArchiveUiQa(scenario: string): Promise<Driver> {
   });
   const driver = Driver.create();
   if (driver === undefined || driver === null) {
-    throw new Error('UiTest Driver.create() returned null; native IPC initialization failed. Check deferred Runner imports and device UiTest logs.');
+    throw new Error('UiTest Driver.create() returned null; native IPC initialization failed. ' +
+      'Check deferred Runner imports and device UiTest logs.');
   }
   const ready = await driver.waitForComponent(ON.id('archive-qa-ready'), 3000);
   if (ready === undefined || ready === null) { throw new Error('Archive QA page not ready'); }

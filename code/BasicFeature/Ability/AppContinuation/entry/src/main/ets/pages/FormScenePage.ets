@@ -50,7 +50,8 @@ struct FormScenePage {
             Button(`${index + 1}. ${label}`, { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(13)
               .fontColor(this.view.formStep === index ? '#FFFFFF' : LEARNING_BLUE)
               .backgroundColor(this.view.formStep === index ? LEARNING_BLUE : '#EEF4FF').borderRadius(10)
-              .enabled(this.view.editable).onClick((): void => { getLearningController()?.sceneWorkbench.gotoFormStep(index); })
+              .enabled(this.view.editable)
+              .onClick((): void => { getLearningController()?.sceneWorkbench.gotoFormStep(index); })
           }, (label: string) => label)
         }.width('100%')
         Column({ space: 12 }) {
@@ -72,8 +73,13 @@ struct FormScenePage {
               .fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).enabled(this.view.editable)
               .onChange((value: string): void => this.edit('note', value))
             Row({ space: 8 }) {
-              Checkbox({ name: 'verified' }).width(44).height(44).padding(10).select(this.view.formAgreed).enabled(this.view.editable)
-                .onChange((value: boolean): void => { if (this.view.editable) { getLearningController()?.sceneWorkbench.setFormAgreed(value); } })
+              Checkbox({ name: 'verified' }).width(44).height(44).padding(10).select(this.view.formAgreed)
+                .enabled(this.view.editable)
+                .onChange((value: boolean): void => {
+                  if (this.view.editable) {
+                    getLearningController()?.sceneWorkbench.setFormAgreed(value);
+                  }
+                })
               Text('确认以上信息无误').fontSize(14).fontColor(LEARNING_INK)
             }.width('100%')
           }
@@ -99,8 +105,10 @@ struct FormScenePage {
         Button('校验并确认完成', { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
           .onClick((): void => { getLearningController()?.sceneWorkbench.confirmForm(); })
-        Text(this.view.formConfirmed ? '已确认完成（仅本地示例，不发送服务器）' : '尚未确认完成').fontSize(13).fontColor(LEARNING_INK).width('100%')
-        Text(this.view.error.length > 0 ? this.view.error : this.view.notice).fontSize(14).fontColor(LEARNING_INK).width('100%')
+        Text(this.view.formConfirmed ? '已确认完成（仅本地示例，不发送服务器）' : '尚未确认完成')
+          .fontSize(13).fontColor(LEARNING_INK).width('100%')
+        Text(this.view.error.length > 0 ? this.view.error : this.view.notice)
+          .fontSize(14).fontColor(LEARNING_INK).width('100%')
       }.width('100%').padding(20).alignItems(HorizontalAlign.Start)
     }.width('100%').height('100%').backgroundColor(LEARNING_BG).align(Alignment.TopStart)
   }

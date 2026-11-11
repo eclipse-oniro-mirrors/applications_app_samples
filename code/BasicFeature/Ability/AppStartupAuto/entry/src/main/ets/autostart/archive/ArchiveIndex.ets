@@ -167,17 +167,17 @@ export function archiveSourceLabel(source: string): string {
  * 会写进 note，保证"这条记录原本是谁"仍可追溯。note 也承载归档时的说明。
  */
 export class ArchiveEntry {
-  id: number = 0;
-  timestamp: number = 0;
-  source: string = RefreshSource.INITIAL;
-  outcome: string = QueryOutcome.UNKNOWN;
-  result: string = '';
-  supportResult: string = '待调用';
-  statusResult: string = '待调用';
-  errorCode: string = '';
-  errorMessage: string = '';
-  durationMillis: number = 0;
-  note: string = '';
+  public id: number = 0;
+  public timestamp: number = 0;
+  public source: string = RefreshSource.INITIAL;
+  public outcome: string = QueryOutcome.UNKNOWN;
+  public result: string = '';
+  public supportResult: string = '待调用';
+  public statusResult: string = '待调用';
+  public errorCode: string = '';
+  public errorMessage: string = '';
+  public durationMillis: number = 0;
+  public note: string = '';
 
   constructor(id: number = 0, timestamp: number = 0) {
     this.id = id;
@@ -264,8 +264,8 @@ export function archiveEntriesOf(records: QueryRecord[]): ArchiveEntry[] {
 
 /** 带计数的分布项，供页面直接渲染，避免动态键。 */
 export class CountEntry {
-  label: string = '';
-  count: number = 0;
+  public label: string = '';
+  public count: number = 0;
 
   constructor(label: string = '', count: number = 0) {
     this.label = label;
@@ -310,23 +310,23 @@ export function sortedDistribution(labels: string[], counts: number[]): CountEnt
  * add() 不依赖调用顺序，但"最近有效样本"按时间戳比较，重复时间用序号破平。
  */
 export class ArchiveDay {
-  dayKey: string = '';
-  startMillis: number = 0;
-  endMillis: number = 0;
-  total: number = 0;
-  success: number = 0;
-  failure: number = 0;
-  unsupported: number = 0;
-  timeout: number = 0;
-  unknown: number = 0;
+  public dayKey: string = '';
+  public startMillis: number = 0;
+  public endMillis: number = 0;
+  public total: number = 0;
+  public success: number = 0;
+  public failure: number = 0;
+  public unsupported: number = 0;
+  public timeout: number = 0;
+  public unknown: number = 0;
   /** 与 ARCHIVE_SOURCES 下标对齐。 */
-  sourceCounts: number[] = [];
-  samples: ArchiveEntry[] = [];
-  sampleLimit: number = 0;
-  latestValidId: number = -1;
-  latestValidAt: number = 0;
-  firstAt: number = 0;
-  lastAt: number = 0;
+  public sourceCounts: number[] = [];
+  public samples: ArchiveEntry[] = [];
+  public sampleLimit: number = 0;
+  public latestValidId: number = -1;
+  public latestValidAt: number = 0;
+  public firstAt: number = 0;
+  public lastAt: number = 0;
 
   constructor(dayKey: string = '', sampleLimit: number = 0) {
     this.dayKey = dayKey;
@@ -441,12 +441,12 @@ export class ArchiveDay {
 
 /** 某日详情查询结果。found=false 时 samples 必为空，且 notice 说明原因。 */
 export class ArchiveDayDetail {
-  dayKey: string = '';
-  found: boolean = false;
-  total: number = 0;
-  samples: ArchiveEntry[] = [];
-  truncated: number = 0;
-  notice: string = '';
+  public dayKey: string = '';
+  public found: boolean = false;
+  public total: number = 0;
+  public samples: ArchiveEntry[] = [];
+  public truncated: number = 0;
+  public notice: string = '';
 
   constructor(dayKey: string = '') {
     this.dayKey = dayKey;
@@ -463,10 +463,10 @@ export class ArchiveDayDetail {
 
 /** 索引边界。所有值在构建时会被夹到合法区间，不信任调用方传入 0 或负数。 */
 export class IndexBounds {
-  maxDays: number = INDEX_MAX_DAYS;
-  samplesPerDay: number = INDEX_SAMPLES_PER_DAY;
-  recentValid: number = INDEX_RECENT_VALID;
-  trendPoints: number = INDEX_TREND_POINTS;
+  public maxDays: number = INDEX_MAX_DAYS;
+  public samplesPerDay: number = INDEX_SAMPLES_PER_DAY;
+  public recentValid: number = INDEX_RECENT_VALID;
+  public trendPoints: number = INDEX_TREND_POINTS;
 
   constructor(maxDays: number = INDEX_MAX_DAYS, samplesPerDay: number = INDEX_SAMPLES_PER_DAY,
     recentValid: number = INDEX_RECENT_VALID, trendPoints: number = INDEX_TREND_POINTS) {
@@ -504,27 +504,27 @@ function clampInt(value: number, min: number, max: number): number {
  * total，索引只描述"真正进入窗口的部分"。
  */
 export class ArchiveIndex {
-  bounds: IndexBounds = new IndexBounds();
-  offsetMinutes: number = 0;
-  builtAt: number = 0;
-  days: ArchiveDay[] = [];
-  total: number = 0;
-  success: number = 0;
-  failure: number = 0;
-  unsupported: number = 0;
-  timeout: number = 0;
-  unknown: number = 0;
+  public bounds: IndexBounds = new IndexBounds();
+  public offsetMinutes: number = 0;
+  public builtAt: number = 0;
+  public days: ArchiveDay[] = [];
+  public total: number = 0;
+  public success: number = 0;
+  public failure: number = 0;
+  public unsupported: number = 0;
+  public timeout: number = 0;
+  public unknown: number = 0;
   /** 与 ARCHIVE_SOURCES 下标对齐。 */
-  sourceCounts: number[] = [];
+  public sourceCounts: number[] = [];
   /** 与 ARCHIVE_OUTCOMES 下标对齐。 */
-  outcomeCounts: number[] = [];
-  recentValid: ArchiveEntry[] = [];
-  newestAt: number = 0;
-  oldestAt: number = 0;
-  rejectedEntries: number = 0;
-  droppedEntries: number = 0;
-  droppedDays: number = 0;
-  notices: string[] = [];
+  public outcomeCounts: number[] = [];
+  public recentValid: ArchiveEntry[] = [];
+  public newestAt: number = 0;
+  public oldestAt: number = 0;
+  public rejectedEntries: number = 0;
+  public droppedEntries: number = 0;
+  public droppedDays: number = 0;
+  public notices: string[] = [];
 
   constructor() {
     this.sourceCounts = new Array<number>(ARCHIVE_SOURCES.length).fill(0);
@@ -775,11 +775,11 @@ export function trendDirectionLabel(direction: TrendDirection): string {
 
 /** 趋势中的一天。 */
 export class TrendPoint {
-  dayKey: string = '';
-  total: number = 0;
-  valid: number = 0;
-  successRate: number = 0;
-  failure: number = 0;
+  public dayKey: string = '';
+  public total: number = 0;
+  public valid: number = 0;
+  public successRate: number = 0;
+  public failure: number = 0;
 
   constructor(dayKey: string = '', total: number = 0, valid: number = 0,
     successRate: number = 0, failure: number = 0) {
@@ -793,10 +793,10 @@ export class TrendPoint {
 
 /** 跨日趋势。points 按日期升序，最多 bounds.trendPoints 天。 */
 export class ArchiveTrend {
-  points: TrendPoint[] = [];
-  direction: TrendDirection = TrendDirection.UNKNOWN;
+  public points: TrendPoint[] = [];
+  public direction: TrendDirection = TrendDirection.UNKNOWN;
   /** 后半段与前半段的平均成功率差值（百分点）。 */
-  deltaRate: number = 0;
+  public deltaRate: number = 0;
   public sampleDays: number = 0;
 
   text(): string {

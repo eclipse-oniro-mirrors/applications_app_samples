@@ -28,19 +28,19 @@ export enum ReminderVerdict {
 /** 提醒配置。 */
 export class ReminderConfig {
   /** 两次提醒的最小间隔（毫秒）。 */
-  minIntervalMs: number = 10 * 60 * 1000;
+  public minIntervalMs: number = 10 * 60 * 1000;
   /** 每日最多提醒次数。 */
-  dailyLimit: number = 3;
+  public dailyLimit: number = 3;
   /** 总提醒次数上限。 */
-  totalLimit: number = 6;
+  public totalLimit: number = 6;
   /** 是否启用静默时段。 */
-  quietHoursEnabled: boolean = true;
+  public quietHoursEnabled: boolean = true;
   /** 静默开始小时（含）。 */
-  quietStartHour: number = 22;
+  public quietStartHour: number = 22;
   /** 静默结束小时（不含）。 */
-  quietEndHour: number = 8;
+  public quietEndHour: number = 8;
   /** 只有在明确"未开启"时才提醒。 */
-  requireConfirmedOff: boolean = true;
+  public requireConfirmedOff: boolean = true;
 
   text(): string {
     return `间隔 ${Math.round(this.minIntervalMs / 60000)} 分钟｜每日 ${this.dailyLimit} 次｜` +
@@ -54,17 +54,17 @@ export const DEFAULT_REMINDER: ReminderConfig = new ReminderConfig();
 /** 提醒输入。 */
 export class ReminderInput {
   /** 当前时刻。 */
-  now: number = 0;
+  public now: number = 0;
   /** 最近一次提醒时间；0 表示从未提醒。 */
-  lastRemindedAt: number = 0;
+  public lastRemindedAt: number = 0;
   /** 今天已提醒次数。 */
-  todayCount: number = 0;
+  public todayCount: number = 0;
   /** 累计提醒次数。 */
-  totalCount: number = 0;
+  public totalCount: number = 0;
   /** 最新一条查询记录。 */
-  latest: QueryRecord | undefined = undefined;
+  public latest: QueryRecord | undefined = undefined;
   /** 用户是否主动关闭了提醒。 */
-  userSilenced: boolean = false;
+  public userSilenced: boolean = false;
 
   text(): string {
     return `今日 ${this.todayCount} 次｜累计 ${this.totalCount} 次`;
@@ -73,11 +73,11 @@ export class ReminderInput {
 
 /** 提醒判定结果。 */
 export class ReminderDecision {
-  verdict: ReminderVerdict = ReminderVerdict.NOT_NEEDED;
-  channel: ReminderChannel = ReminderChannel.NONE;
+  public verdict: ReminderVerdict = ReminderVerdict.NOT_NEEDED;
+  public channel: ReminderChannel = ReminderChannel.NONE;
   /** 距离下次可提醒的剩余毫秒；-1 表示不受间隔限制。 */
-  waitMillis: number = -1;
-  message: string = '';
+  public waitMillis: number = -1;
+  public message: string = '';
 
   shouldShow(): boolean {
     return this.verdict === ReminderVerdict.SHOULD_REMIND;
@@ -201,7 +201,7 @@ export function resetDaily(input: ReminderInput): ReminderInput {
 
 /** 配置自检。 */
 export class ReminderAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
   summary(): string {

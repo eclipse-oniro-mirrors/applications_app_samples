@@ -1,8 +1,12 @@
 import { relationalStore } from '@kit.ArkData';
 import { AutoStartupService } from '../../../main/ets/autostart/AutoStartupService';
 import { RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
-import { ArchiveDocument, ArchiveStorage, StartupArchiveRepository, decodeArchive } from '../../../main/ets/autostart/archive/StartupArchive';
-import { ARCHIVE_STATE_TABLE, StartupArchiveRdbStorage } from '../../../main/ets/autostart/archive/StartupArchiveRdbStorage';
+import {
+  ArchiveDocument, ArchiveStorage, StartupArchiveRepository, decodeArchive
+} from '../../../main/ets/autostart/archive/StartupArchive';
+import {
+  ARCHIVE_STATE_TABLE, StartupArchiveRdbStorage
+} from '../../../main/ets/autostart/archive/StartupArchiveRdbStorage';
 import { ArchiveNativeQaFixture, ArchiveNativeSqlImage, withArchiveNativeQa } from './ArchiveNativeQaSupport';
 import { ControlledAutoStartupApi, ManualQueryClock, TestBusinessError, flushMicrotasks } from './TestSupport';
 
@@ -10,8 +14,8 @@ import { ControlledAutoStartupApi, ManualQueryClock, TestBusinessError, flushMic
 export class ServiceArchiveRdbGate implements ArchiveStorage {
   private delegate: StartupArchiveRdbStorage;
   private releases: (() => void)[] = [];
-  hold: boolean = false;
-  entered: number = 0;
+  public hold: boolean = false;
+  public entered: number = 0;
   constructor(delegate: StartupArchiveRdbStorage) { this.delegate = delegate; }
   identity(): string { return this.delegate.identity(); }
   load(): Promise<ArchiveDocument> { return this.delegate.load(); }
@@ -29,10 +33,10 @@ export class ServiceArchiveRdbGate implements ArchiveStorage {
 
 /** Real service, real repository and real dedicated database; only autoStartup APIs/time are controlled. */
 export class ServiceArchiveIntegrationFixture {
-  readonly native: ArchiveNativeQaFixture;
-  readonly clock: ManualQueryClock = new ManualQueryClock();
-  readonly api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
-  repository: StartupArchiveRepository;
+  public readonly native: ArchiveNativeQaFixture;
+  public readonly clock: ManualQueryClock = new ManualQueryClock();
+  public readonly api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
+  public repository: StartupArchiveRepository;
   public service: AutoStartupService;
   private gates: ServiceArchiveRdbGate[] = [];
 
@@ -85,7 +89,9 @@ export class ServiceArchiveIntegrationFixture {
   }
 
   async freshRepository(): Promise<void> {
-    if (this.repository.snapshot().pending > 0) { throw new Error('Refusing to discard unacknowledged integration evidence'); }
+    if (this.repository.snapshot().pending > 0) {
+      throw new Error('Refusing to discard unacknowledged integration evidence');
+    }
     await this.repository.whenIdle(); await this.repository.close();
     this.native.time = this.clock.now(); this.repository = await this.native.reopen();
     this.service.attachRecordSink(this.repository);

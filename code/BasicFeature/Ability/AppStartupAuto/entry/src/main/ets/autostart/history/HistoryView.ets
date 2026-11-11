@@ -10,8 +10,8 @@ import { outcomeLabel, sourceLabel, dateTimeText } from '../tools/DiagnosticTool
 
 /** 结果筛选项：空串表示不限。 */
 export class OutcomeOption {
-  value: string = '';
-  label: string = '';
+  public value: string = '';
+  public label: string = '';
 
   constructor(value: string = '', label: string = '') {
     this.value = value;
@@ -30,8 +30,8 @@ export const OUTCOME_OPTIONS: OutcomeOption[] = [
 
 /** 来源筛选项：空串表示不限。 */
 export class SourceOption {
-  value: string = '';
-  label: string = '';
+  public value: string = '';
+  public label: string = '';
 
   constructor(value: string = '', label: string = '') {
     this.value = value;
@@ -56,8 +56,8 @@ export enum RangePreset {
 }
 
 export class RangeOption {
-  preset: RangePreset = RangePreset.ALL;
-  label: string = '';
+  public preset: RangePreset = RangePreset.ALL;
+  public label: string = '';
 
   constructor(preset: RangePreset = RangePreset.ALL, label: string = '') {
     this.preset = preset;
@@ -74,8 +74,8 @@ export const RANGE_OPTIONS: RangeOption[] = [
 
 /** 时间范围。 */
 export class TimeRange {
-  from: number = 0;
-  to: number = 0;
+  public from: number = 0;
+  public to: number = 0;
 
   constructor(from: number = 0, to: number = 0) {
     this.from = from;
@@ -107,9 +107,9 @@ export function rangeOf(preset: RangePreset, now: number): TimeRange {
 
 /** 过滤条件组合。 */
 export class HistoryFilter {
-  outcome: string = '';
-  source: string = '';
-  preset: RangePreset = RangePreset.ALL;
+  public outcome: string = '';
+  public source: string = '';
+  public preset: RangePreset = RangePreset.ALL;
 
   constructor(outcome: string = '', source: string = '', preset: RangePreset = RangePreset.ALL) {
     this.outcome = outcome;
@@ -201,13 +201,13 @@ export function validRange(range: TimeRange): boolean {
 
 /** One immutable-in-use scope for list, counts, latest, comparison and redacted export. */
 export class HistoryScope {
-  records: QueryRecord[] = [];
-  summary: HistorySummary = new HistorySummary();
-  latestValid: QueryRecord | undefined = undefined;
-  comparison: HistoryComparison = new HistoryComparison();
-  comparisonText: string[] = [];
-  exportText: string = '';
-  generatedAt: number = 0;
+  public records: QueryRecord[] = [];
+  public summary: HistorySummary = new HistorySummary();
+  public latestValid: QueryRecord | undefined = undefined;
+  public comparison: HistoryComparison = new HistoryComparison();
+  public comparisonText: string[] = [];
+  public exportText: string = '';
+  public generatedAt: number = 0;
 }
 
 export function scopedHistory(records: QueryRecord[], filter: HistoryFilter, now: number,
@@ -221,7 +221,8 @@ export function scopedHistory(records: QueryRecord[], filter: HistoryFilter, now
   const valid = scope.records.find((row: QueryRecord): boolean => row.outcome === QueryOutcome.SUCCESS);
   scope.latestValid = valid === undefined ? undefined : valid.clone();
   const after = afterId > 0 ? scope.records.find((row: QueryRecord): boolean => row.id === afterId) : scope.records[0];
-  const before = beforeId > 0 ? scope.records.find((row: QueryRecord): boolean => row.id === beforeId) : scope.records[1];
+  const before = beforeId > 0 ?
+    scope.records.find((row: QueryRecord): boolean => row.id === beforeId) : scope.records[1];
   if (beforeId > 0 && before === undefined || afterId > 0 && after === undefined) {
     scope.comparisonText = ['选定记录已不在当前范围，请重选（不会引用范围外记录）'];
   } else if (before !== undefined && after !== undefined &&
@@ -251,7 +252,7 @@ export function detailLines(record: QueryRecord | undefined): string[] {
 
 /** 按天分组计数，用于快速判断哪几天有采样。 */
 export class DayCount {
-  date: string = '';
+  public date: string = '';
   public count: number = 0;
 
   constructor(date: string = '', count: number = 0) {

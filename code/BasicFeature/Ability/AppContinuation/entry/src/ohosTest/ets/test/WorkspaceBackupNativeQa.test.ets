@@ -4,7 +4,9 @@ import { LearningController } from '../../../main/ets/learning/LearningControlle
 import { SceneWorkbench } from '../../../main/ets/learning/scene/SceneWorkbench';
 import { SCENE_STORE_KEY, SCENE_WORKSPACE_LIMIT, SceneWorkspace, emptyWorkspace,
   encodeWorkspace, stageScene } from '../../../main/ets/learning/scene/SceneModel';
-import { SceneBackupCode, SceneBackupExport, SceneBackupPreview } from '../../../main/ets/learning/scene/SceneWorkspaceBackupModel';
+import {
+  SceneBackupCode, SceneBackupExport, SceneBackupPreview
+} from '../../../main/ets/learning/scene/SceneWorkspaceBackupModel';
 import { NativeSceneAcknowledgementFault, WorkspaceBackupNativeQaFixture,
   nativeSceneBackup, withWorkspaceBackupNativeQa } from '../support/WorkspaceBackupNativeQaSupport';
 
@@ -144,8 +146,10 @@ export default function workspaceBackupNativeQaTests(): void {
         expect(reopened.document('note').documentId).assertEqual(identity);
         expect(reopened.document('note').revision).assertEqual(3);
         expect(reopened.document('note').state.note.body).assertEqual('备份正文');
-        expect(reopened.historyDocuments('note').map((document): number => document.revision).join(',')).assertEqual('1');
-        expect(reopened.historyDocuments('note').some((document): boolean => document.state.note.body === '本机后来正文')).assertFalse();
+        expect(reopened.historyDocuments('note').map((document): number => document.revision).join(','))
+          .assertEqual('1');
+        expect(reopened.historyDocuments('note').some((document): boolean =>
+          document.state.note.body === '本机后来正文')).assertFalse();
       });
     });
 
@@ -162,7 +166,8 @@ export default function workspaceBackupNativeQaTests(): void {
         const work: SceneWorkbench = f.workbench();
         f.populate(work, '恢复前完整内容');
         const incoming: SceneWorkspace = stageScene(emptyWorkspace(), work.document('note'), 'note');
-        const nativeStore: preferences.Preferences = preferences.getPreferencesSync(f.context, { name: f.sceneNamespace });
+        const nativeStore: preferences.Preferences = preferences.getPreferencesSync(
+          f.context, { name: f.sceneNamespace });
         nativeStore.putSync('qa-unrelated-key', '不属于场景root');
         nativeStore.flushSync();
         const preview: SceneBackupPreview = work.previewBackup(encodeWorkspace(incoming));
@@ -217,13 +222,15 @@ export default function workspaceBackupNativeQaTests(): void {
     it('testWorkspaceBackupNativeQa0008', 0, async (): Promise<void> => {
       const incoming: string = await nativeSceneBackup('空库恢复候选');
       await withWorkspaceBackupNativeQa(async (f: WorkspaceBackupNativeQaFixture): Promise<void> => {
-        const nativeStore: preferences.Preferences = preferences.getPreferencesSync(f.context, { name: f.sceneNamespace });
+        const nativeStore: preferences.Preferences = preferences.getPreferencesSync(
+          f.context, { name: f.sceneNamespace });
         nativeStore.putSync('qa-existing-key', '空场景库中的其它数据');
         nativeStore.flushSync();
         const fault: NativeSceneAcknowledgementFault = new NativeSceneAcknowledgementFault(f.adapter());
         const work: SceneWorkbench = f.workbench(fault);
         fault.afterFlushFailures = 1;
-        expect(work.restoreBackup(work.previewBackup(incoming).token, true).code).assertEqual(SceneBackupCode.WRITE_FAILED);
+        expect(work.restoreBackup(work.previewBackup(incoming).token, true).code)
+          .assertEqual(SceneBackupCode.WRITE_FAILED);
         await f.invalidate();
         const cold: preferences.Preferences = preferences.getPreferencesSync(f.context, { name: f.sceneNamespace });
         expect(cold.hasSync(SCENE_STORE_KEY)).assertFalse();

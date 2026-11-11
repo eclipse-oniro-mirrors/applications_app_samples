@@ -1,6 +1,14 @@
 import { describe, expect, it } from '@ohos/hypium';
 import { SceneWorkbench } from '../../../main/ets/learning/scene/SceneWorkbench';
-import { SceneWorkspace, decodeScene, decodeWorkspace, emptyWorkspace, encodeScene, encodeWorkspace, findScene } from '../../../main/ets/learning/scene/SceneModel';
+import {
+  SceneWorkspace,
+  decodeScene,
+  decodeWorkspace,
+  emptyWorkspace,
+  encodeScene,
+  encodeWorkspace,
+  findScene
+} from '../../../main/ets/learning/scene/SceneModel';
 import { WaveSceneStore, fillWaveForm, waveNote, waveReading } from '../support/ContinuationWaveOneFixtures';
 
 interface ArchiveWire {
@@ -27,13 +35,21 @@ export default function continuationArchiveWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationArchiveWaveOne0001', 0, (): void => {
-      const document = waveNote('legacy-note', 4, '保存🌱'); document.state.note.body = '临时正文'; document.state.note.selectionEnd = 2;
-      const legacy = encodeScene(document).replace(/,"savedTitle":"[^"]*"/, '').replace(/,"savedSelectionStart":\d+/, '').replace(/,"savedSelectionEnd":\d+/, '');
+      const document = waveNote('legacy-note', 4, '保存🌱');
+      document.state.note.body = '临时正文';
+      document.state.note.selectionEnd = 2;
+      const legacy = encodeScene(document)
+        .replace(/,"savedTitle":"[^"]*"/, '')
+        .replace(/,"savedSelectionStart":\d+/, '')
+        .replace(/,"savedSelectionEnd":\d+/, '');
       const store = new WaveSceneStore(wire([legacy])); const work = new SceneWorkbench(store); work.discardNote();
       expect(work.snapshot().noteBody).assertEqual('保存🌱'); expect(work.snapshot().noteSelectionStart).assertEqual(4);
       expect(work.snapshot().noteSelectionEnd).assertEqual(4); expect(work.snapshot().noteDirty).assertFalse();
       expect(work.saveNote()).assertTrue(); const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
-      expect(reopened.snapshot().revision).assertEqual(5); expect(reopened.snapshot().noteTitle).assertEqual('保存标题'); work.dispose(); reopened.dispose();
+      expect(reopened.snapshot().revision).assertEqual(5);
+      expect(reopened.snapshot().noteTitle).assertEqual('保存标题');
+      work.dispose();
+      reopened.dispose();
     });
 
     /**
@@ -47,10 +63,16 @@ export default function continuationArchiveWaveOne(): void {
     it('testContinuationArchiveWaveOne0002', 0, (): void => {
       const bad = waveNote('saved-selection', 2, '😀保存'); bad.state.note.body = '合法当前'; bad.state.note.selectionEnd = 2;
       bad.state.note.savedSelectionStart = 1; bad.state.note.savedSelectionEnd = 2;
-      const raw = wire([encodeScene(bad)]); const store = new WaveSceneStore(raw); const work = new SceneWorkbench(store);
-      expect(decodeScene(encodeScene(bad)).value === undefined).assertTrue(); expect(work.snapshot().storageFrozen).assertTrue();
+      const raw = wire([encodeScene(bad)]);
+      const store = new WaveSceneStore(raw);
+      const work = new SceneWorkbench(store);
+      expect(decodeScene(encodeScene(bad)).value === undefined).assertTrue();
+      expect(work.snapshot().storageFrozen).assertTrue();
       work.editNote('内存救援', '保留内容', 0, 2); expect(work.saveNote()).assertFalse();
-      expect(work.snapshot().noteBody).assertEqual('保留内容'); expect(store.putCalls).assertEqual(0); expect(store.stored()).assertEqual(raw); work.dispose();
+      expect(work.snapshot().noteBody).assertEqual('保留内容');
+      expect(store.putCalls).assertEqual(0);
+      expect(store.stored()).assertEqual(raw);
+      work.dispose();
     });
 
     /**
@@ -62,12 +84,19 @@ export default function continuationArchiveWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationArchiveWaveOne0003', 0, (): void => {
-      const source = new SceneWorkbench(new WaveSceneStore()); fillWaveForm(source); const document = source.document('form'); document.revision = 3;
+      const source = new SceneWorkbench(new WaveSceneStore());
+      fillWaveForm(source);
+      const document = source.document('form');
+      document.revision = 3;
       const legacy = encodeScene(document).replace(/,"savedStep":\d+/, '').replace(/,"confirmed":false/, '');
       const store = new WaveSceneStore(wire([legacy], [], 'form')); const work = new SceneWorkbench(store);
-      expect(work.document('form').state.form.savedStep).assertEqual(2); expect(work.snapshot().formConfirmed).assertFalse();
-      expect(work.previousFormStep()).assertTrue(); work.saveForm(); const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
-      expect(reopened.snapshot().formStep).assertEqual(1); expect(reopened.document('form').state.form.savedStep).assertEqual(1);
+      expect(work.document('form').state.form.savedStep).assertEqual(2);
+      expect(work.snapshot().formConfirmed).assertFalse();
+      expect(work.previousFormStep()).assertTrue();
+      work.saveForm();
+      const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
+      expect(reopened.snapshot().formStep).assertEqual(1);
+      expect(reopened.document('form').state.form.savedStep).assertEqual(1);
       expect(reopened.snapshot().formName).assertEqual('接续用户'); expect(reopened.snapshot().revision).assertEqual(4);
       source.dispose(); work.dispose(); reopened.dispose();
     });
@@ -99,9 +128,14 @@ export default function continuationArchiveWaveOne(): void {
     it('testContinuationArchiveWaveOne0005', 0, (): void => {
       const raw = wire([], [encodeScene(waveReading('orphan-reading', 1, 1, 2))], 'text');
       const store = new WaveSceneStore(raw); const work = new SceneWorkbench(store); work.gotoParagraph(2, 0);
-      expect(work.saveReading()).assertFalse(); expect(work.historyDocuments().length).assertEqual(0); expect(store.stored()).assertEqual(raw);
-      const cleanStore = new WaveSceneStore(encodeWorkspace(emptyWorkspace())); const clean = new SceneWorkbench(cleanStore);
-      expect(clean.saveReading()).assertTrue(); expect(clean.snapshot().storageFrozen).assertFalse(); expect(clean.document('reading').revision).assertEqual(1);
+      expect(work.saveReading()).assertFalse();
+      expect(work.historyDocuments().length).assertEqual(0);
+      expect(store.stored()).assertEqual(raw);
+      const cleanStore = new WaveSceneStore(encodeWorkspace(emptyWorkspace()));
+      const clean = new SceneWorkbench(cleanStore);
+      expect(clean.saveReading()).assertTrue();
+      expect(clean.snapshot().storageFrozen).assertFalse();
+      expect(clean.document('reading').revision).assertEqual(1);
       work.dispose(); clean.dispose();
     });
 
@@ -115,12 +149,20 @@ export default function continuationArchiveWaveOne(): void {
      */
     it('testContinuationArchiveWaveOne0006', 0, (): void => {
       const note = waveNote('note-head', 4); const reading = waveReading('read-head', 3, 2, 1);
-      const valid = wire([encodeScene(note), encodeScene(reading)], [encodeScene(waveNote('note-head', 1)), encodeScene(waveReading('read-head', 2))]);
+      const valid = wire(
+        [encodeScene(note), encodeScene(reading)],
+        [encodeScene(waveNote('note-head', 1)), encodeScene(waveReading('read-head', 2))]
+      );
       const accepted = decodeWorkspace(valid) as SceneWorkspace;
       expect(accepted.history.length).assertEqual(2); expect(findScene(accepted, 'reading')?.revision).assertEqual(3);
-      const wrong = wire([encodeScene(note), encodeScene(reading)], [encodeScene(waveNote('foreign-note', 1)), encodeScene(waveReading('read-head', 2))]);
+      const wrong = wire(
+        [encodeScene(note), encodeScene(reading)],
+        [encodeScene(waveNote('foreign-note', 1)), encodeScene(waveReading('read-head', 2))]
+      );
       const store = new WaveSceneStore(wrong); const work = new SceneWorkbench(store);
-      expect(work.snapshot().storageFrozen).assertTrue(); expect(work.saveNote()).assertFalse(); expect(store.stored()).assertEqual(wrong);
+      expect(work.snapshot().storageFrozen).assertTrue();
+      expect(work.saveNote()).assertFalse();
+      expect(store.stored()).assertEqual(wrong);
       work.dispose();
     });
 
@@ -136,7 +178,8 @@ export default function continuationArchiveWaveOne(): void {
       const head = encodeScene(waveNote('ordered-note', 3));
       const same = wire([head], [encodeScene(waveNote('ordered-note', 3, '伪同号'))]);
       const future = wire([head], [encodeScene(waveNote('ordered-note', 4, '伪未来'))]);
-      expect(decodeWorkspace(same) === undefined).assertTrue(); expect(decodeWorkspace(future) === undefined).assertTrue();
+      expect(decodeWorkspace(same) === undefined).assertTrue();
+      expect(decodeWorkspace(future) === undefined).assertTrue();
       const store = new WaveSceneStore(future); const work = new SceneWorkbench(store);
       expect(work.historyDocuments().length).assertEqual(0); expect(work.restoreHistory(0)).assertFalse();
       expect(store.putCalls).assertEqual(0); expect(work.snapshot().storageFrozen).assertTrue(); work.dispose();
@@ -152,10 +195,14 @@ export default function continuationArchiveWaveOne(): void {
      */
     it('testContinuationArchiveWaveOne0008', 0, (): void => {
       const rows: string[] = [];
-      for (let revision: number = 1; revision <= 5; revision++) { rows.push(encodeScene(waveNote('quota-note', revision, `正文${revision}`))); }
+      for (let revision: number = 1; revision <= 5; revision++) {
+        rows.push(encodeScene(waveNote('quota-note', revision, `正文${revision}`)));
+      }
       const head = encodeScene(waveNote('quota-note', 7, '当前正文'));
       const valid = wire([head], rows); const store = new WaveSceneStore(valid); const work = new SceneWorkbench(store);
-      expect(work.restoreHistory(0)).assertTrue(); expect(work.snapshot().noteBody).assertEqual('正文1'); expect(work.snapshot().revision).assertEqual(8);
+      expect(work.restoreHistory(0)).assertTrue();
+      expect(work.snapshot().noteBody).assertEqual('正文1');
+      expect(work.snapshot().revision).assertEqual(8);
       rows.push(encodeScene(waveNote('quota-note', 6, '第六历史')));
       expect(decodeWorkspace(wire([head], rows)) === undefined).assertTrue();
       expect(work.historyDocuments()[4].state.note.body).assertEqual('当前正文'); work.dispose();
@@ -174,9 +221,14 @@ export default function continuationArchiveWaveOne(): void {
       const good = encodeScene(source.document('form'));
       const badStep = good.replace('"savedStep":2', '"savedStep":-1');
       const badConfirmed = good.replace('"confirmed":true', '"confirmed":"true"');
-      expect(decodeScene(badStep).value === undefined).assertTrue(); expect(decodeScene(badConfirmed).value === undefined).assertTrue();
-      const raw = wire([badStep], [], 'form'); const store = new WaveSceneStore(raw); const work = new SceneWorkbench(store);
-      expect(work.snapshot().storageFrozen).assertTrue(); expect(work.saveForm()).assertFalse(); expect(store.stored()).assertEqual(raw);
+      expect(decodeScene(badStep).value === undefined).assertTrue();
+      expect(decodeScene(badConfirmed).value === undefined).assertTrue();
+      const raw = wire([badStep], [], 'form');
+      const store = new WaveSceneStore(raw);
+      const work = new SceneWorkbench(store);
+      expect(work.snapshot().storageFrozen).assertTrue();
+      expect(work.saveForm()).assertFalse();
+      expect(store.stored()).assertEqual(raw);
       source.dispose(); work.dispose();
     });
 

@@ -124,18 +124,27 @@ export struct StartupArchivePanel {
       })
     Flex({ wrap: FlexWrap.Wrap }) {
       this.filterButton('全部来源', 'archive-source-all', this.query.source === '', (): void => this.chooseSource(''))
-      this.filterButton('手动', 'archive-source-manual', this.query.source === RefreshSource.MANUAL, (): void => this.chooseSource(RefreshSource.MANUAL))
-      this.filterButton('设置后', 'archive-source-settings', this.query.source === RefreshSource.SETTINGS, (): void => this.chooseSource(RefreshSource.SETTINGS))
-      this.filterButton('首次', 'archive-source-initial', this.query.source === RefreshSource.INITIAL, (): void => this.chooseSource(RefreshSource.INITIAL))
-      this.filterButton('前台', 'archive-source-foreground', this.query.source === RefreshSource.FOREGROUND, (): void => this.chooseSource(RefreshSource.FOREGROUND))
+      this.filterButton('手动', 'archive-source-manual', this.query.source === RefreshSource.MANUAL,
+        (): void => this.chooseSource(RefreshSource.MANUAL))
+      this.filterButton('设置后', 'archive-source-settings', this.query.source === RefreshSource.SETTINGS,
+        (): void => this.chooseSource(RefreshSource.SETTINGS))
+      this.filterButton('首次', 'archive-source-initial', this.query.source === RefreshSource.INITIAL,
+        (): void => this.chooseSource(RefreshSource.INITIAL))
+      this.filterButton('前台', 'archive-source-foreground', this.query.source === RefreshSource.FOREGROUND,
+        (): void => this.chooseSource(RefreshSource.FOREGROUND))
     }.width('100%')
     Flex({ wrap: FlexWrap.Wrap }) {
       this.filterButton('全部结果', 'archive-outcome-all', this.query.outcome === '', (): void => this.chooseOutcome(''))
-      this.filterButton('成功', 'archive-outcome-success', this.query.outcome === QueryOutcome.SUCCESS, (): void => this.chooseOutcome(QueryOutcome.SUCCESS))
-      this.filterButton('失败', 'archive-outcome-failure', this.query.outcome === QueryOutcome.FAILURE, (): void => this.chooseOutcome(QueryOutcome.FAILURE))
-      this.filterButton('不支持', 'archive-outcome-unsupported', this.query.outcome === QueryOutcome.UNSUPPORTED, (): void => this.chooseOutcome(QueryOutcome.UNSUPPORTED))
-      this.filterButton('超时', 'archive-outcome-timeout', this.query.outcome === QueryOutcome.TIMEOUT, (): void => this.chooseOutcome(QueryOutcome.TIMEOUT))
-      this.filterButton('未知', 'archive-outcome-unknown', this.query.outcome === QueryOutcome.UNKNOWN, (): void => this.chooseOutcome(QueryOutcome.UNKNOWN))
+      this.filterButton('成功', 'archive-outcome-success', this.query.outcome === QueryOutcome.SUCCESS,
+        (): void => this.chooseOutcome(QueryOutcome.SUCCESS))
+      this.filterButton('失败', 'archive-outcome-failure', this.query.outcome === QueryOutcome.FAILURE,
+        (): void => this.chooseOutcome(QueryOutcome.FAILURE))
+      this.filterButton('不支持', 'archive-outcome-unsupported', this.query.outcome === QueryOutcome.UNSUPPORTED,
+        (): void => this.chooseOutcome(QueryOutcome.UNSUPPORTED))
+      this.filterButton('超时', 'archive-outcome-timeout', this.query.outcome === QueryOutcome.TIMEOUT,
+        (): void => this.chooseOutcome(QueryOutcome.TIMEOUT))
+      this.filterButton('未知', 'archive-outcome-unknown', this.query.outcome === QueryOutcome.UNKNOWN,
+        (): void => this.chooseOutcome(QueryOutcome.UNKNOWN))
     }.width('100%')
   }
 
@@ -149,7 +158,8 @@ export struct StartupArchivePanel {
         Text('已保存证据不随live最近20条裁剪；不保存原始错误说明，不证明实际开机拉起。')
           .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
       }
-      Text(`状态 ${this.state.stage}｜自动 ${this.state.automatic ? '启用' : '关闭'}｜待保存 ${this.state.pending}｜${this.state.paused ? '暂停' : '可处理'}`)
+      Text(`状态 ${this.state.stage}｜自动 ${this.state.automatic ? '启用' : '关闭'}｜` +
+        `待保存 ${this.state.pending}｜${this.state.paused ? '暂停' : '可处理'}`)
         .id('archive-status').fontSize(12).width('100%')
       Text(`已保存 ${this.state.rows.length} 条｜当前范围 ${this.viewState.matchedTotal} 条｜${this.state.bytes}/1048576 字节`)
         .id('archive-count').fontSize(12).width('100%')
@@ -160,18 +170,30 @@ export struct StartupArchivePanel {
           .fontSize(12).width('100%')
       }
       Column({ space: 8 }) {
-        Button('保存当前范围到归档').id('archive-save').fontColor(Color.White).backgroundColor($r('app.color.accent_color')).width('100%').constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.state.canWrite && !this.working && this.liveRecords.length > 0)
+        Button('保存当前范围到归档').id('archive-save').fontColor(Color.White)
+          .backgroundColor($r('app.color.accent_color')).width('100%')
+          .constraintSize({ minHeight: 44 }).fontSize(14)
+          .enabled(this.state.canWrite && !this.working && this.liveRecords.length > 0)
           .onClick((): void => this.run(this.repository.save(this.liveRecords)))
-        Button(this.state.automatic ? '停用自动归档' : '启用自动归档').id('archive-auto').fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft')).width('100%').constraintSize({ minHeight: 44 }).fontSize(14)
+        Button(this.state.automatic ? '停用自动归档' : '启用自动归档').id('archive-auto')
+          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
+          .width('100%').constraintSize({ minHeight: 44 }).fontSize(14)
           .enabled(this.state.canWrite && !this.working).onClick((): void => this.ask('auto'))
         if (this.confirmation === 'auto') {
-          Button('确认自动归档设置').id('archive-auto-confirm').constraintSize({ minHeight: 44 }).fontSize(14).enabled(!this.working)
+          Button('确认自动归档设置').id('archive-auto-confirm').constraintSize({ minHeight: 44 }).fontSize(14)
+            .enabled(!this.working)
             .onClick((): void => this.confirmAutomatic())
-          Button('取消').id('archive-cancel').constraintSize({ minHeight: 44 }).fontSize(14).onClick((): void => { this.confirmation = ''; this.actionNotice = '已取消，归档未改变'; })
+          Button('取消').id('archive-cancel').constraintSize({ minHeight: 44 }).fontSize(14)
+            .onClick((): void => {
+              this.confirmation = '';
+              this.actionNotice = '已取消，归档未改变';
+            })
         }
       }.width('100%')
       Row({ space: 6 }) {
-        Button('重试读取/保存').id('archive-retry').layoutWeight(1).fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft')).constraintSize({ minHeight: 44 }).fontSize(14).enabled(!this.working)
+        Button('重试读取/保存').id('archive-retry').layoutWeight(1)
+          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
+          .constraintSize({ minHeight: 44 }).fontSize(14).enabled(!this.working)
           .onClick((): void => {
             if (this.state.stage === ArchiveStage.BLOCKED || this.state.stage === ArchiveStage.DETACHED) {
               const generation = this.generation;
@@ -180,13 +202,21 @@ export struct StartupArchivePanel {
               });
             } else { this.run(this.repository.retryPending()); }
           })
-        Button('复制脱敏归档').id('archive-copy').layoutWeight(1).fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft')).constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.state.canWrite && !this.working && this.viewState.matchedTotal > 0)
+        Button('复制脱敏归档').id('archive-copy').layoutWeight(1)
+          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
+          .constraintSize({ minHeight: 44 }).fontSize(14)
+          .enabled(this.state.canWrite && !this.working && this.viewState.matchedTotal > 0)
           .onClick((): void => this.run(this.repository.copy(this.query, this.clipboard)))
       }.width('100%')
       Row({ space: 6 }) {
-        Button('清理预览').id('archive-clean-preview').layoutWeight(1).fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft')).constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.state.canWrite && !this.working)
+        Button('清理预览').id('archive-clean-preview').layoutWeight(1)
+          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
+          .constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.state.canWrite && !this.working)
           .onClick((): void => this.ask('clean'))
-        Button('清空归档').id('archive-clear').layoutWeight(1).fontColor($r('app.color.error_color')).backgroundColor($r('app.color.error_soft')).constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.state.canWrite && !this.working && this.state.rows.length > 0)
+        Button('清空归档').id('archive-clear').layoutWeight(1)
+          .fontColor($r('app.color.error_color')).backgroundColor($r('app.color.error_soft'))
+          .constraintSize({ minHeight: 44 }).fontSize(14)
+          .enabled(this.state.canWrite && !this.working && this.state.rows.length > 0)
           .onClick((): void => this.ask('clear'))
       }
       if (this.confirmation === 'clean') {
@@ -198,7 +228,11 @@ export struct StartupArchivePanel {
           .onClick((): void => this.run(this.repository.clear(this.confirmationRevision)))
       }
       if (this.confirmation.length > 0 && this.confirmation !== 'auto') {
-        Button('取消').id('archive-cancel').constraintSize({ minHeight: 44 }).fontSize(14).onClick((): void => { this.confirmation = ''; this.actionNotice = '已取消，归档未改变'; })
+        Button('取消').id('archive-cancel').constraintSize({ minHeight: 44 }).fontSize(14)
+          .onClick((): void => {
+            this.confirmation = '';
+            this.actionNotice = '已取消，归档未改变';
+          })
       }
       this.filters()
       Text(this.viewState.summary).id('archive-summary').fontSize(12).width('100%')
@@ -207,14 +241,20 @@ export struct StartupArchivePanel {
       }
       ForEach(this.viewState.rows, (row: ArchivedQuery) => {
         Button(`#${row.archiveId}｜原查询 #${row.record.id}｜${describeRecord(row.viewRecord())}`)
-          .id(`archive-row-${row.archiveId}`).constraintSize({ minHeight: 44 }).fontSize(14).fontColor($r('app.color.text_primary')).backgroundColor($r('app.color.muted_background')).width('100%')
+          .id(`archive-row-${row.archiveId}`).constraintSize({ minHeight: 44 }).fontSize(14)
+          .fontColor($r('app.color.text_primary')).backgroundColor($r('app.color.muted_background')).width('100%')
           .onClick((): void => { this.selectedId = row.archiveId; this.refresh(); })
       }, (row: ArchivedQuery): string => String(row.archiveId))
       Row({ space: 10 }) {
         Button('上一页').id('archive-prev').constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.viewState.page > 0)
-          .onClick((): void => { this.query.page = this.viewState.page - 1; this.query = this.query.clone(); this.refresh(); })
+          .onClick((): void => {
+            this.query.page = this.viewState.page - 1;
+            this.query = this.query.clone();
+            this.refresh();
+          })
         Text(`${this.viewState.page + 1}/${this.viewState.pageCount}`).id('archive-page')
-        Button('下一页').id('archive-next').constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.viewState.page + 1 < this.viewState.pageCount)
+        Button('下一页').id('archive-next').constraintSize({ minHeight: 44 }).fontSize(14)
+          .enabled(this.viewState.page + 1 < this.viewState.pageCount)
           .onClick((): void => {
             this.query.page = this.viewState.page + 1;
             this.query = this.query.clone();

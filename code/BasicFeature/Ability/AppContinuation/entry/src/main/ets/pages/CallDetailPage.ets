@@ -126,7 +126,11 @@ struct CallDetailPage {
           LearningCard({ title: this.record.title }) {
             LearningLine({ label: '结果', value: this.record.result })
             LearningLine({ label: '阶段 / 级别', value: `${this.record.stage} · ${learningLevel(this.record.level)}` })
-            LearningLine({ label: '开始 / 结束', value: `${this.record.startedAt}\n${this.record.endedAt.length > 0 ? this.record.endedAt : '进行中'}` })
+            LearningLine({
+              label: '开始 / 结束',
+              value: `${this.record.startedAt}\n` +
+                `${this.record.endedAt.length > 0 ? this.record.endedAt : '进行中'}`
+            })
             LearningLine({ label: '耗时', value: `${this.record.durationMillis} ms` })
           }
           LearningCard({ title: '返回结果' }) {

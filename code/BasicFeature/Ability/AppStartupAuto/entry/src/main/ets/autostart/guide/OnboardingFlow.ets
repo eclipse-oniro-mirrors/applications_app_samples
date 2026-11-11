@@ -60,16 +60,16 @@ export function settled(status: StepStatus): boolean {
 
 /** 一步定义。 */
 export class OnboardingStep {
-  stepId: string = '';
-  title: string = '';
-  detail: string = '';
-  group: OnboardingGroup = OnboardingGroup.INTRO;
+  public stepId: string = '';
+  public title: string = '';
+  public detail: string = '';
+  public group: OnboardingGroup = OnboardingGroup.INTRO;
   /** 依赖的前置步骤编号。 */
-  dependsOn: string[] = [];
+  public dependsOn: string[] = [];
   /** 是否允许跳过。 */
-  skippable: boolean = false;
+  public skippable: boolean = false;
   /** 预计耗时（秒）。 */
-  seconds: number = 0;
+  public seconds: number = 0;
 
   constructor(stepId: string = '', title: string = '', detail: string = '',
     group: OnboardingGroup = OnboardingGroup.INTRO, dependsOn: string[] = [],
@@ -166,8 +166,8 @@ export function totalSeconds(): number {
 
 /** 单步状态记录。 */
 export class StepRecord {
-  stepId: string = '';
-  status: StepStatus = StepStatus.PENDING;
+  public stepId: string = '';
+  public status: StepStatus = StepStatus.PENDING;
 
   constructor(stepId: string = '', status: StepStatus = StepStatus.PENDING) {
     this.stepId = stepId;
@@ -177,7 +177,7 @@ export class StepRecord {
 
 /** 流程。 */
 export class OnboardingFlow {
-  records: StepRecord[] = [];
+  public records: StepRecord[] = [];
 
   constructor() {
     ONBOARDING_STEPS.forEach((step: OnboardingStep): void => {
@@ -297,7 +297,7 @@ export function groupProgressLines(flow: OnboardingFlow): string[] {
 
 /** 流程自检。 */
 export class OnboardingAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
   summary(): string {

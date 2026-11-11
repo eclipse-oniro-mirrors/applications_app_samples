@@ -85,7 +85,9 @@ struct DiagnosticPage {
         .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
       Text(`错误码 ${result.errorCode || '无'}；耗时 ${result.elapsedMillis} ms`)
         .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
-      if (result.errorMessage.length > 0) { Text(result.errorMessage).fontSize(14).fontColor($r('app.color.error_color')) }
+      if (result.errorMessage.length > 0) {
+        Text(result.errorMessage).fontSize(14).fontColor($r('app.color.error_color'))
+      }
     }.width('100%').padding(16).alignItems(HorizontalAlign.Start)
       .backgroundColor($r('app.color.card_background')).borderRadius(16)
   }

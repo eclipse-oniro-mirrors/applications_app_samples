@@ -18,65 +18,65 @@ export enum SceneBackupCode {
 }
 
 export class SceneBackupIssue {
-  path: string;
-  code: SceneBackupCode;
-  message: string;
+  public path: string;
+  public code: SceneBackupCode;
+  public message: string;
   constructor(path: string, code: SceneBackupCode, message: string) {
     this.path = path; this.code = code; this.message = message;
   }
 }
 
 export class SceneBackupExport {
-  ok: boolean = false;
-  raw: string = '';
-  epoch: number = -1;
-  chars: number = 0;
-  documentCount: number = 0;
-  historyCount: number = 0;
-  containsDirty: boolean = false;
-  frozen: boolean = false;
-  message: string = '';
+  public ok: boolean = false;
+  public raw: string = '';
+  public epoch: number = -1;
+  public chars: number = 0;
+  public documentCount: number = 0;
+  public historyCount: number = 0;
+  public containsDirty: boolean = false;
+  public frozen: boolean = false;
+  public message: string = '';
 }
 
 export class SceneBackupSceneSummary {
-  kind: string = '';
-  selected: boolean = true;
-  identity: string = '';
-  localRevision: number = 0;
-  incomingRevision: number = 0;
-  restoreRevision: number = 0;
-  localHistoryCount: number = 0;
-  incomingHistoryCount: number = 0;
-  restoredHistoryCount: number = 0;
-  willClear: boolean = false;
-  incomingHasDraft: boolean = false;
-  changedFields: string[] = [];
+  public kind: string = '';
+  public selected: boolean = true;
+  public identity: string = '';
+  public localRevision: number = 0;
+  public incomingRevision: number = 0;
+  public restoreRevision: number = 0;
+  public localHistoryCount: number = 0;
+  public incomingHistoryCount: number = 0;
+  public restoredHistoryCount: number = 0;
+  public willClear: boolean = false;
+  public incomingHasDraft: boolean = false;
+  public changedFields: string[] = [];
 }
 
 /** This public view deliberately excludes document ids, text, names, phone numbers and addresses. */
 export class SceneBackupPreview {
-  ok: boolean = false;
-  code: SceneBackupCode = SceneBackupCode.INVALID;
-  token: string = '';
-  epoch: number = -1;
-  changed: boolean = false;
-  requiresDirtyConfirmation: boolean = false;
-  selectedKinds: string[] = [];
-  retainedKinds: string[] = [];
-  dirtyKinds: string[] = [];
-  preservedDirtyKinds: string[] = [];
-  willClearKinds: string[] = [];
-  active: string = 'note';
-  scenes: SceneBackupSceneSummary[] = [];
-  issues: SceneBackupIssue[] = [];
-  message: string = '备份格式或业务状态无效。';
+  public ok: boolean = false;
+  public code: SceneBackupCode = SceneBackupCode.INVALID;
+  public token: string = '';
+  public epoch: number = -1;
+  public changed: boolean = false;
+  public requiresDirtyConfirmation: boolean = false;
+  public selectedKinds: string[] = [];
+  public retainedKinds: string[] = [];
+  public dirtyKinds: string[] = [];
+  public preservedDirtyKinds: string[] = [];
+  public willClearKinds: string[] = [];
+  public active: string = 'note';
+  public scenes: SceneBackupSceneSummary[] = [];
+  public issues: SceneBackupIssue[] = [];
+  public message: string = '备份格式或业务状态无效。';
 }
 
 export class SceneBackupRestoreResult {
-  ok: boolean;
-  changed: boolean;
-  code: SceneBackupCode;
-  message: string;
+  public ok: boolean;
+  public changed: boolean;
+  public code: SceneBackupCode;
+  public message: string;
   constructor(code: SceneBackupCode, message: string, changed: boolean = false) {
     this.code = code; this.message = message; this.changed = changed;
     this.ok = code === SceneBackupCode.RESTORED || code === SceneBackupCode.UNCHANGED;
@@ -84,20 +84,20 @@ export class SceneBackupRestoreResult {
 }
 
 export class SceneBackupRead {
-  workspace: SceneWorkspace | undefined = undefined;
-  issue: SceneBackupIssue | undefined = undefined;
+  public workspace: SceneWorkspace | undefined = undefined;
+  public issue: SceneBackupIssue | undefined = undefined;
 }
 
 /** Internal plan is held by the workbench; callers receive only a copied SceneBackupPreview. */
 export class SceneBackupPlan {
-  workspace: SceneWorkspace | undefined = undefined;
-  memory: SceneWorkspace | undefined = undefined;
-  preview: SceneBackupPreview = new SceneBackupPreview();
+  public workspace: SceneWorkspace | undefined = undefined;
+  public memory: SceneWorkspace | undefined = undefined;
+  public preview: SceneBackupPreview = new SceneBackupPreview();
 }
 
 export class SceneBackupScope {
-  ok: boolean = false;
-  kinds: string[] = [];
+  public ok: boolean = false;
+  public kinds: string[] = [];
   public message: string = '';
 }
 
@@ -164,7 +164,8 @@ function comparableDocument(document: SceneDocument): string {
 export function sameBackupWorkspace(left: SceneWorkspace, right: SceneWorkspace): boolean {
   const a: ComparableWorkspace = { active: left.active,
     documents: left.documents.slice().sort((first: SceneDocument, second: SceneDocument): number =>
-      first.state.kind.localeCompare(second.state.kind)).map((document: SceneDocument): string => comparableDocument(document)),
+      first.state.kind.localeCompare(second.state.kind))
+      .map((document: SceneDocument): string => comparableDocument(document)),
     history: left.history.map((document: SceneDocument): string => comparableDocument(document)) };
   const b: ComparableWorkspace = { active: right.active,
     documents: right.documents.slice().sort((first: SceneDocument, second: SceneDocument): number =>
@@ -179,22 +180,31 @@ export function sceneBackupChangedFields(local: SceneState, incoming: SceneState
   if (incoming.kind === 'note') {
     if (local.note.title !== incoming.note.title) { fields.push('标题'); }
     if (local.note.body !== incoming.note.body) { fields.push('正文'); }
-    if (local.note.selectionStart !== incoming.note.selectionStart || local.note.selectionEnd !== incoming.note.selectionEnd) { fields.push('选区'); }
+    if (local.note.selectionStart !== incoming.note.selectionStart ||
+      local.note.selectionEnd !== incoming.note.selectionEnd) {
+      fields.push('选区');
+    }
     if (local.note.savedBody !== incoming.note.savedBody || local.note.savedTitle !== incoming.note.savedTitle ||
       local.note.savedSelectionStart !== incoming.note.savedSelectionStart ||
       local.note.savedSelectionEnd !== incoming.note.savedSelectionEnd) {
       fields.push('保存基线');
     }
   } else if (incoming.kind === 'reading') {
-    if (local.reading.chapter !== incoming.reading.chapter || local.reading.anchor !== incoming.reading.anchor) { fields.push('章节与段落'); }
+    if (local.reading.chapter !== incoming.reading.chapter || local.reading.anchor !== incoming.reading.anchor) {
+      fields.push('章节与段落');
+    }
     if (JSON.stringify(local.reading.bookmarks) !== JSON.stringify(incoming.reading.bookmarks)) { fields.push('书签'); }
   } else if (incoming.kind === 'form') {
     if (local.form.name !== incoming.form.name) { fields.push('姓名'); }
     if (local.form.phone !== incoming.form.phone) { fields.push('手机号'); }
     if (local.form.address !== incoming.form.address) { fields.push('地址'); }
     if (local.form.note !== incoming.form.note) { fields.push('备注'); }
-    if (local.form.step !== incoming.form.step || local.form.savedStep !== incoming.form.savedStep) { fields.push('步骤'); }
-    if (local.form.agreed !== incoming.form.agreed || local.form.confirmed !== incoming.form.confirmed) { fields.push('确认状态'); }
+    if (local.form.step !== incoming.form.step || local.form.savedStep !== incoming.form.savedStep) {
+      fields.push('步骤');
+    }
+    if (local.form.agreed !== incoming.form.agreed || local.form.confirmed !== incoming.form.confirmed) {
+      fields.push('确认状态');
+    }
   }
   return fields;
 }
@@ -281,7 +291,8 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
     summary.restoreRevision = supplied.revision;
     summary.restoredHistoryCount = historyCount(next, kind);
     summary.incomingHasDraft = kind === 'note' && noteHasBackupDraft(supplied.state);
-    summary.changedFields = sceneBackupChangedFields(local === undefined ? emptyScene(kind) : local.state, supplied.state);
+    summary.changedFields = sceneBackupChangedFields(
+      local === undefined ? emptyScene(kind) : local.state, supplied.state);
     preview.scenes.push(summary);
   }
   if (preview.issues.length > 0) {
@@ -329,7 +340,8 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
 /** A human-readable, value-free summary. Raw import/export strings are never interpolated here. */
 export function sceneBackupPreviewText(preview: SceneBackupPreview): string {
   if (!preview.ok) {
-    return [preview.message].concat(preview.issues.map((issue: SceneBackupIssue): string => `${issue.path}：${issue.message}`)).join('\n');
+    return [preview.message]
+      .concat(preview.issues.map((issue: SceneBackupIssue): string => `${issue.path}：${issue.message}`)).join('\n');
   }
   const lines: string[] = [preview.message, '范围：只处理所选场景及其历史；不包含原文本学习区。'];
   lines.push(`本次恢复：${preview.selectedKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
@@ -339,7 +351,8 @@ export function sceneBackupPreviewText(preview: SceneBackupPreview): string {
   preview.scenes.forEach((scene: SceneBackupSceneSummary): void => {
     if (!scene.selected) { lines.push(`${sceneLabel(scene.kind)}：未选，保留本机身份、保存基线与历史，不导入该场景。`); return; }
     lines.push(`${sceneLabel(scene.kind)}：${scene.identity}；r${scene.localRevision} → r${scene.restoreRevision}`);
-    lines.push(`变化项目：${scene.changedFields.length > 0 ? scene.changedFields.join('、') : '业务字段无变化'}；历史 ${scene.localHistoryCount} → ${scene.restoredHistoryCount} 条`);
+    lines.push(`变化项目：${scene.changedFields.length > 0 ? scene.changedFields.join('、') : '业务字段无变化'}；` +
+      `历史 ${scene.localHistoryCount} → ${scene.restoredHistoryCount} 条`);
     if (scene.willClear) { lines.push('此场景未在备份中提供，确认后将清空本机对应场景。'); }
     if (scene.incomingHasDraft) { lines.push('笔记保留未保存内容与保存基线，恢复后需继续保存或放弃。'); }
   });
@@ -347,7 +360,8 @@ export function sceneBackupPreviewText(preview: SceneBackupPreview): string {
     lines.push(`将替换未保存业务状态：${preview.dirtyKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
   }
   if (preview.preservedDirtyKinds.length > 0) {
-    lines.push(`未选的未保存草稿仅留在内存，不随本次写盘：${preview.preservedDirtyKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
+    lines.push('未选的未保存草稿仅留在内存，不随本次写盘：' +
+      `${preview.preservedDirtyKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
   }
   lines.push(`仅所选场景的历史按备份替换；未选历史保留，当前业务上下文为${sceneLabel(preview.active)}。`);
   return lines.join('\n');

@@ -2,9 +2,9 @@ import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 
 export default class OpenHarmonyTestRunner implements TestRunner {
-  onPrepare(): void {}
+  public onPrepare(): void {}
 
-  async onRun(): Promise<void> {
+  public async onRun(): Promise<void> {
     const delegator = abilityDelegatorRegistry.getAbilityDelegator();
     const args = abilityDelegatorRegistry.getArguments();
     // Register the delegator before importing suites that load the native UiTest exporter.

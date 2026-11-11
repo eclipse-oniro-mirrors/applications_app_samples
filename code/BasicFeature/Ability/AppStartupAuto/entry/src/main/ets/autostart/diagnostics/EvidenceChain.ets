@@ -39,11 +39,11 @@ export function kindLabel(kind: EvidenceKind): string {
 
 /** 一条证据定义。 */
 export class Evidence {
-  evidenceId: string = '';
-  kind: EvidenceKind = EvidenceKind.CAPABILITY_RULE;
-  label: string = '';
+  public evidenceId: string = '';
+  public kind: EvidenceKind = EvidenceKind.CAPABILITY_RULE;
+  public label: string = '';
   /** 权重，用于计算置信度。 */
-  weight: number = 10;
+  public weight: number = 10;
 
   constructor(evidenceId: string = '', kind: EvidenceKind = EvidenceKind.CAPABILITY_RULE,
     label: string = '', weight: number = 10) {
@@ -127,11 +127,11 @@ export function conclusionLabel(conclusion: Conclusion): string {
 
 /** 一条链规则：某结论必须与可选证据。 */
 export class ChainRule {
-  ruleId: string = '';
-  conclusion: Conclusion = Conclusion.SUPPORTED;
-  required: string[] = [];
-  optional: string[] = [];
-  description: string = '';
+  public ruleId: string = '';
+  public conclusion: Conclusion = Conclusion.SUPPORTED;
+  public required: string[] = [];
+  public optional: string[] = [];
+  public description: string = '';
 
   constructor(ruleId: string = '', conclusion: Conclusion = Conclusion.SUPPORTED,
     required: string[] = [], optional: string[] = [], description: string = '') {
@@ -200,14 +200,14 @@ export function chainsOf(conclusion: Conclusion): ChainRule[] {
 
 /** 单条链的评估结果。 */
 export class ChainResult {
-  ruleId: string = '';
-  conclusion: Conclusion = Conclusion.UNKNOWN;
+  public ruleId: string = '';
+  public conclusion: Conclusion = Conclusion.UNKNOWN;
   /** 缺失的必需证据。 */
-  missing: string[] = [];
+  public missing: string[] = [];
   /** 命中的可选证据。 */
-  optionalHits: string[] = [];
+  public optionalHits: string[] = [];
   /** 置信度 0~100。 */
-  confidence: number = 0;
+  public confidence: number = 0;
 
   /** 链是否成立。 */
   established(): boolean {
@@ -275,7 +275,7 @@ export function feasibleCounts(provided: string[]): number[] {
 
 /** 证据链自检。 */
 export class ChainAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
   summary(): string {

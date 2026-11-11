@@ -295,8 +295,10 @@ export default function sceneModelMatrixTest(): void {
       const good: string = encodeScene(noteDocument(1));
       expect(decodeScene(good.replace('appcontinuation.scene', 'other.scene')).value === undefined).assertTrue();
       expect(decodeScene(good.replace('"version":1', '"version":2')).value === undefined).assertTrue();
-      expect(decodeScene(good.replace('"transferId":"tr-1"', '"transferId":"bad id!"')).value === undefined).assertTrue();
-      expect(decodeScene(good.replace('"revision":1', `"revision":${REVISION_LIMIT + 1}`)).value === undefined).assertTrue();
+      expect(decodeScene(good.replace('"transferId":"tr-1"', '"transferId":"bad id!"')).value === undefined)
+        .assertTrue();
+      expect(decodeScene(good.replace('"revision":1', `"revision":${REVISION_LIMIT + 1}`)).value === undefined)
+        .assertTrue();
       expect(decodeScene(good.replace('"documentId":"doc-1"', '"documentId":""')).value === undefined).assertTrue();
     });
 

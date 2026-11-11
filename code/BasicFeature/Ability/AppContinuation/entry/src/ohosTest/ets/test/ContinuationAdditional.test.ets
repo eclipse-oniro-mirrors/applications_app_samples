@@ -2,7 +2,9 @@
 import { describe, expect } from '@ohos/hypium';
 import { AbilityConstant, Want, wantConstant } from '@kit.AbilityKit';
 import { ContinueObservation } from '../../../main/ets/learning/ContinueClient';
-import { EnvironmentItem, LearningSnapshot, OperationRecord, TEXT_PAYLOAD_KEY } from '../../../main/ets/learning/LearningTypes';
+import {
+  EnvironmentItem, LearningSnapshot, OperationRecord, TEXT_PAYLOAD_KEY
+} from '../../../main/ets/learning/LearningTypes';
 import { scenario } from '../support/BoundedCase';
 import {
   ClientFixture, flushPermissionMicrotasks, inboundWant, LearningFixture, payloadBag,
@@ -11,7 +13,8 @@ import {
 import { checkedClient, checkedLearning, ObservedLearningFixture } from '../support/AdditionalFixtures';
 
 function latest(fixture: LearningFixture, operation: string): OperationRecord {
-  const found = fixture.controller.snapshot().records.find((row: OperationRecord): boolean => row.operation === operation);
+  const found = fixture.controller.snapshot().records.find((row: OperationRecord): boolean =>
+    row.operation === operation);
   if (found === undefined) { throw new Error(`Missing operation ${operation}`); }
   return found;
 }
@@ -41,7 +44,8 @@ function assertEditor(fixture: LearningFixture, text: string = '原文🌱', sta
 }
 
 function restoreCount(fixture: LearningFixture): number {
-  return fixture.controller.snapshot().records.filter((row: OperationRecord): boolean => row.operation === 'RESTORE').length;
+  return fixture.controller.snapshot().records.filter((row: OperationRecord): boolean =>
+    row.operation === 'RESTORE').length;
 }
 
 export default function continuationAdditional(): void {

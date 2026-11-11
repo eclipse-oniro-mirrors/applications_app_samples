@@ -70,7 +70,8 @@ struct GuidancePage {
             Button('取消本轮回访').height(44).fontSize(14).onClick(() => autoStartupService.cancelRevisit())
           }
           Button(this.showDetails ? '收起回访详情 −' : '回访详情 +', { type: ButtonType.Normal })
-            .height(44).fontSize(14).fontColor($r('app.color.accent_color')).backgroundColor(Color.Transparent).padding(0)
+            .height(44).fontSize(14).fontColor($r('app.color.accent_color'))
+            .backgroundColor(Color.Transparent).padding(0)
             .onClick(() => { this.showDetails = !this.showDetails; })
           if (this.showDetails) {
             Text(`阶段：${this.session.stage}`).fontSize(12).fontColor($r('app.color.text_secondary'))

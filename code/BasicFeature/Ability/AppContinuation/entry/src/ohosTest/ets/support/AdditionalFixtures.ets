@@ -38,9 +38,9 @@ export function checkedClient(body: (fixture: ClientFixture) => void): void {
 
 /** Observe controller state at the synchronous persistence boundary without changing production ports. */
 export class ObservedLearningStore extends MemoryLearningStore {
-  beforeFlush: (() => void) | undefined = undefined;
+  public beforeFlush: (() => void) | undefined = undefined;
 
-  flushSync(): void {
+  public flushSync(): void {
     const inspect = this.beforeFlush;
     if (inspect !== undefined) {
       inspect();
@@ -50,10 +50,10 @@ export class ObservedLearningStore extends MemoryLearningStore {
 }
 
 export class ObservedLearningFixture implements LearningDependencies {
-  readonly clock: ManualLearningClock = new ManualLearningClock();
-  readonly native: FakeContinueNative = new FakeContinueNative();
-  readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
-  readonly store: ObservedLearningStore;
+  public readonly clock: ManualLearningClock = new ManualLearningClock();
+  public readonly native: FakeContinueNative = new FakeContinueNative();
+  public readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
+  public readonly store: ObservedLearningStore;
   public readonly controller: LearningController;
 
   constructor(seed: Object | undefined = undefined) {
@@ -61,11 +61,11 @@ export class ObservedLearningFixture implements LearningDependencies {
     this.controller = new LearningController(undefined, this);
   }
 
-  openStore(): LearningStore {
+  public openStore(): LearningStore {
     return this.store;
   }
 
-  release(): void {
+  public release(): void {
     try {
       this.controller.dispose();
       expect(this.clock.pendingCount()).assertEqual(0);

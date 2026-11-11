@@ -106,7 +106,8 @@ struct Index {
     const params = this.getUIContext().getRouter().getParams() as IndexParams | undefined;
     if (params !== undefined && typeof params.tab === 'number' &&
       params.tab >= 0 && params.tab <= 2 && Number.isInteger(params.tab)) {
-      const hasReturnRequest = typeof params.returnRequest === 'string' && params.returnRequest !== this.lastReturnRequest;
+      const hasReturnRequest = typeof params.returnRequest === 'string' &&
+        params.returnRequest !== this.lastReturnRequest;
       if (!this.paramsRead || params.tab !== this.lastParamTab || hasReturnRequest) {
         this.activeTab = params.tab;
       }
@@ -432,7 +433,11 @@ struct Index {
               if (editing && this.selectionNeedsFocus) { this.scheduleSelection(); }
             })
             .onAppear(() => this.scheduleSelection());
-          LearningLine({ label: '长度 / 选择区', value: `${this.snapshot.text.length} / ${MAX_TEXT_LENGTH}  ·  [${this.snapshot.selectionStart}, ${this.snapshot.selectionEnd})` })
+          LearningLine({
+            label: '长度 / 选择区',
+            value: `${this.snapshot.text.length} / ${MAX_TEXT_LENGTH}  ·  ` +
+              `[${this.snapshot.selectionStart}, ${this.snapshot.selectionEnd})`
+          })
           LearningLine({ label: '保存状态', value: this.snapshot.savedTextStatus })
           LearningAction({ label: '保存本机', actionEnabled: this.snapshot.canEdit, onTap: () => this.invoke('save') })
           LearningAction({ label: this.textActionsExpanded ? '收起更多操作' : '更多文本操作', secondary: true,
@@ -486,8 +491,12 @@ struct Index {
             if (this.snapshot.latestRecord.errorCode.length > 0) {
               LearningLine({ label: '错误码', value: this.snapshot.latestRecord.errorCode })
             }
-            LearningAction({ label: '查看详情', secondary: true,
-              onTap: () => this.open('pages/CallDetailPage', this.snapshot.latestRecord === undefined ? '' : this.snapshot.latestRecord.id) })
+            LearningAction({
+              label: '查看详情',
+              secondary: true,
+              onTap: () => this.open('pages/CallDetailPage',
+                this.snapshot.latestRecord === undefined ? '' : this.snapshot.latestRecord.id)
+            })
           } else {
             Text('暂无结果').fontSize(14).fontColor(LEARNING_MUTED).width('100%');
           }

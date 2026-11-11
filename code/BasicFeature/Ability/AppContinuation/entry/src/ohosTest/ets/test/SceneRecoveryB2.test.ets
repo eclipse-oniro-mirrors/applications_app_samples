@@ -1,24 +1,26 @@
 import { describe, expect, it } from '@ohos/hypium';
 import { SceneStorePort, SceneWorkbench } from '../../../main/ets/learning/scene/SceneWorkbench';
-import { SceneDocument, decodeScene, emptyWorkspace, encodeWorkspace, stageScene, REVISION_LIMIT } from '../../../main/ets/learning/scene/SceneModel';
+import {
+  SceneDocument, decodeScene, emptyWorkspace, encodeWorkspace, stageScene, REVISION_LIMIT
+} from '../../../main/ets/learning/scene/SceneModel';
 
 /** Controlled cache/disk boundary only; all scene behavior uses production SceneWorkbench. */
 class RecoveryStore implements SceneStorePort {
-  cache: string;
-  disk: string;
-  puts: number = 0;
-  deletes: number = 0;
-  failFlush: boolean = false;
-  failRead: boolean = false;
-  nonString: boolean = false;
+  public cache: string;
+  public disk: string;
+  public puts: number = 0;
+  public deletes: number = 0;
+  public failFlush: boolean = false;
+  public failRead: boolean = false;
+  public nonString: boolean = false;
   constructor(raw: string = '') { this.cache = raw; this.disk = raw; }
-  getSync(key: string, fallback: string): Object {
+  public getSync(key: string, fallback: string): Object {
     if (this.failRead) { throw new Error('controlled read failure'); }
     return this.nonString ? 42 : this.cache;
   }
-  putSync(key: string, value: string): void { this.puts++; this.cache = value; }
-  deleteSync(key: string): void { this.deletes++; this.cache = ''; }
-  flushSync(): void {
+  public putSync(key: string, value: string): void { this.puts++; this.cache = value; }
+  public deleteSync(key: string): void { this.deletes++; this.cache = ''; }
+  public flushSync(): void {
     if (this.failFlush) { this.failFlush = false; throw new Error('controlled flush failure'); }
     this.disk = this.cache;
   }
@@ -113,7 +115,9 @@ export default function sceneRecoveryB2Test(): void {
       const store = new RecoveryStore(); store.failRead = true; const work = new SceneWorkbench(store);
       work.gotoParagraph(1, 1); const payload = decodeScene(work.payloadOf('reading')).value as SceneDocument;
       const saved = work.saveReading();
-      expect(work.snapshot().storageFrozen).assertTrue(); expect(saved).assertFalse(); expect(store.puts).assertEqual(0);
+      expect(work.snapshot().storageFrozen).assertTrue();
+      expect(saved).assertFalse();
+      expect(store.puts).assertEqual(0);
       expect(payload.state.reading.chapter).assertEqual(1); expect(payload.state.reading.anchor).assertEqual(1);
       expect(work.snapshot().readingDirty).assertTrue();
       work.dispose();
@@ -134,7 +138,8 @@ export default function sceneRecoveryB2Test(): void {
       const reopened = new SceneWorkbench(new RecoveryStore(store.disk));
       expect(failed).assertFalse(); expect(afterFailure).assertEqual(''); expect(deletes).assertEqual(1);
       expect(retried).assertTrue(); expect(reopened.snapshot().revision).assertEqual(1);
-      expect(reopened.snapshot().historyCount).assertEqual(0); expect(reopened.snapshot().noteSavedBody).assertEqual('正文');
+      expect(reopened.snapshot().historyCount).assertEqual(0);
+      expect(reopened.snapshot().noteSavedBody).assertEqual('正文');
       work.dispose();
     });
 
@@ -152,7 +157,8 @@ export default function sceneRecoveryB2Test(): void {
       work.setFormField('name', '旧姓名'); work.saveForm(); const reset = work.resetWorkspace();
       const reopened = new SceneWorkbench(new RecoveryStore(store.disk));
       expect(reset).assertTrue(); expect(reopened.snapshot().active).assertEqual('note');
-      expect(reopened.document('note').documentId !== oldId).assertTrue(); expect(reopened.snapshot().noteBody).assertEqual('');
+      expect(reopened.document('note').documentId !== oldId).assertTrue();
+      expect(reopened.snapshot().noteBody).assertEqual('');
       expect(reopened.document('form').state.form.name).assertEqual(''); expect(reopened.hasDirtyWork()).assertFalse();
       expect(reopened.historyDocuments().length).assertEqual(0);
       work.dispose();
@@ -170,7 +176,9 @@ export default function sceneRecoveryB2Test(): void {
       const store = new RecoveryStore(); const work = new SceneWorkbench(store);
       work.editNote('旧题', '已保存', 0, 1); work.saveNote(); const before = store.disk;
       work.editNote('新题', '未保存', 1, 2); store.failFlush = true; const reset = work.resetWorkspace();
-      expect(reset).assertFalse(); expect(store.disk).assertEqual(before); expect(work.snapshot().noteBody).assertEqual('未保存');
+      expect(reset).assertFalse();
+      expect(store.disk).assertEqual(before);
+      expect(work.snapshot().noteBody).assertEqual('未保存');
       expect(work.snapshot().revision).assertEqual(1); expect(work.snapshot().noteDirty).assertTrue();
       expect(work.snapshot().storageFrozen).assertFalse();
       work.dispose();
@@ -187,10 +195,13 @@ export default function sceneRecoveryB2Test(): void {
     it('testSceneRecoveryBatchTwo0009', 0, (): void => {
       const store = new RecoveryStore(); const work = new SceneWorkbench(store);
       work.editNote('隔离笔记', '未落盘正文', 0, 2); work.setFormField('name', '未落盘姓名');
-      work.gotoParagraph(1, 2); const saved = work.saveReading(); const reopened = new SceneWorkbench(new RecoveryStore(store.disk));
+      work.gotoParagraph(1, 2);
+      const saved = work.saveReading();
+      const reopened = new SceneWorkbench(new RecoveryStore(store.disk));
       expect(saved).assertTrue(); expect(work.document('note').state.note.body).assertEqual('未落盘正文');
       expect(work.document('form').state.form.name).assertEqual('未落盘姓名'); expect(work.hasDirtyWork()).assertTrue();
-      expect(reopened.document('note').state.note.body).assertEqual(''); expect(reopened.document('form').state.form.name).assertEqual('');
+      expect(reopened.document('note').state.note.body).assertEqual('');
+      expect(reopened.document('form').state.form.name).assertEqual('');
       expect(reopened.document('reading').state.reading.anchor).assertEqual(2); expect(work.open('form')).assertFalse();
       work.dispose();
     });
@@ -208,10 +219,13 @@ export default function sceneRecoveryB2Test(): void {
       work.editNote('本机', '不能覆盖', 0, 2); work.setFormField('address', '待保存地址');
       const source = new SceneWorkbench(new RecoveryStore()); source.gotoParagraph(2, 1);
       const incoming = source.document('reading'); incoming.revision = 4;
-      const accepted = work.commitIncoming(incoming, true); const reopened = new SceneWorkbench(new RecoveryStore(store.disk));
+      const accepted = work.commitIncoming(incoming, true);
+      const reopened = new SceneWorkbench(new RecoveryStore(store.disk));
       expect(accepted).assertTrue(); expect(work.document('reading').revision).assertEqual(5);
-      expect(work.document('note').state.note.body).assertEqual('不能覆盖'); expect(work.document('form').state.form.address).assertEqual('待保存地址');
-      expect(reopened.document('reading').state.reading.chapter).assertEqual(2); expect(reopened.document('form').state.form.address).assertEqual('');
+      expect(work.document('note').state.note.body).assertEqual('不能覆盖');
+      expect(work.document('form').state.form.address).assertEqual('待保存地址');
+      expect(reopened.document('reading').state.reading.chapter).assertEqual(2);
+      expect(reopened.document('form').state.form.address).assertEqual('');
       expect(work.hasDirtyWork()).assertTrue();
       work.dispose();
     });
@@ -229,9 +243,13 @@ export default function sceneRecoveryB2Test(): void {
       work.editNote('第一版', '甲正文', 0, 1); work.saveNote(); work.editNote('第二版', '乙正文', 1, 2); work.saveNote();
       work.gotoParagraph(1, 1); work.setFormField('note', '临时备注'); const restored = work.restoreHistory(0);
       const reopened = new SceneWorkbench(new RecoveryStore(store.disk));
-      expect(restored).assertTrue(); expect(work.snapshot().revision).assertEqual(3); expect(work.snapshot().noteBody).assertEqual('甲正文');
-      expect(work.document('reading').state.reading.anchor).assertEqual(1); expect(work.document('form').state.form.note).assertEqual('临时备注');
-      expect(reopened.document('reading').state.reading.chapter).assertEqual(0); expect(reopened.document('form').state.form.note).assertEqual('');
+      expect(restored).assertTrue();
+      expect(work.snapshot().revision).assertEqual(3);
+      expect(work.snapshot().noteBody).assertEqual('甲正文');
+      expect(work.document('reading').state.reading.anchor).assertEqual(1);
+      expect(work.document('form').state.form.note).assertEqual('临时备注');
+      expect(reopened.document('reading').state.reading.chapter).assertEqual(0);
+      expect(reopened.document('form').state.form.note).assertEqual('');
       expect(work.historyDocuments()[1].state.note.body).assertEqual('乙正文');
       work.dispose();
     });
@@ -248,9 +266,12 @@ export default function sceneRecoveryB2Test(): void {
       const seed = new SceneWorkbench(new RecoveryStore()); const incoming = seed.document('note');
       incoming.revision = REVISION_LIMIT; const root = stageScene(emptyWorkspace(), incoming, 'note');
       const store = new RecoveryStore(encodeWorkspace(root)); const work = new SceneWorkbench(store);
-      work.editNote('上限草稿', '保留编辑', 0, 2); const saved = work.saveNote(); const accepted = work.commitIncoming(incoming, true);
+      work.editNote('上限草稿', '保留编辑', 0, 2);
+      const saved = work.saveNote();
+      const accepted = work.commitIncoming(incoming, true);
       expect(saved).assertFalse(); expect(accepted).assertFalse(); expect(store.puts).assertEqual(0);
-      expect(work.snapshot().revision).assertEqual(REVISION_LIMIT); expect(work.snapshot().noteTitle).assertEqual('上限草稿');
+      expect(work.snapshot().revision).assertEqual(REVISION_LIMIT);
+      expect(work.snapshot().noteTitle).assertEqual('上限草稿');
       expect(work.snapshot().noteDirty).assertTrue(); expect(work.historyDocuments().length).assertEqual(0);
       work.dispose();
     });

@@ -22,19 +22,19 @@ export enum RetryAdvice {
 }
 
 export class ErrorEntry {
-  code: string = '';
+  public code: string = '';
   /** 通用名称，用于日志。 */
-  name: string = '';
+  public name: string = '';
   /** 面向用户的一句话。 */
-  message: string = '';
-  owner: ErrorOwner = ErrorOwner.APP;
-  retry: RetryAdvice = RetryAdvice.NO_RETRY;
+  public message: string = '';
+  public owner: ErrorOwner = ErrorOwner.APP;
+  public retry: RetryAdvice = RetryAdvice.NO_RETRY;
   /** 是否属于"能力不支持"，与"调用失败"分开统计。 */
-  unsupported: boolean = false;
+  public unsupported: boolean = false;
   /** 是否应引导去系统设置。 */
-  settingsGuidance: boolean = false;
+  public settingsGuidance: boolean = false;
   /** 排查建议，面向开发者。 */
-  hint: string = '';
+  public hint: string = '';
 
   constructor(code: string = '', name: string = '', message: string = '',
     owner: ErrorOwner = ErrorOwner.APP, retry: RetryAdvice = RetryAdvice.NO_RETRY,
@@ -168,10 +168,10 @@ export function groupByOwner(codes: string[]): Map<ErrorOwner, string[]> {
 
 /** 统计一段记录里"不支持""失败""超时"各多少，避免混为一谈。 */
 export class ErrorTally {
-  unsupported: number = 0;
-  failed: number = 0;
-  timeout: number = 0;
-  succeeded: number = 0;
+  public unsupported: number = 0;
+  public failed: number = 0;
+  public timeout: number = 0;
+  public succeeded: number = 0;
   public unknown: number = 0;
 
   total(): number {

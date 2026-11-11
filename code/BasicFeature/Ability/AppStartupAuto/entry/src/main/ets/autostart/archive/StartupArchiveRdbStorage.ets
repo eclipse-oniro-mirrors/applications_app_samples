@@ -1,6 +1,7 @@
 import { common } from '@kit.AbilityKit';
 import { relationalStore } from '@kit.ArkData';
-import { ArchiveDocument, ArchiveFailure, ArchiveStorage, ARCHIVE_SCHEMA, decodeArchive, encodeArchive } from './StartupArchive';
+import { ArchiveDocument, ArchiveFailure, ArchiveStorage, ARCHIVE_SCHEMA,
+  decodeArchive, encodeArchive } from './StartupArchive';
 
 export const ARCHIVE_DATABASE_NAME: string = 'startup_query_archive_v1.db';
 export const ARCHIVE_STATE_TABLE: string = 'startup_archive_state';
@@ -101,7 +102,8 @@ export class StartupArchiveRdbStorage implements ArchiveStorage {
 
   private async readCurrent(): Promise<ArchiveDocument> {
     if (this.closed) { throw new ArchiveFailure('CLOSED'); }
-    const rows = await this.store.querySql('SELECT revision, operation, payload FROM startup_archive_state WHERE singleton = 1');
+    const rows = await this.store.querySql(
+      'SELECT revision, operation, payload FROM startup_archive_state WHERE singleton = 1');
     try {
       if (rows.rowCount === 0) { return new ArchiveDocument(); }
       if (rows.rowCount !== 1 || !rows.goToFirstRow()) { throw new ArchiveFailure('INVALID'); }

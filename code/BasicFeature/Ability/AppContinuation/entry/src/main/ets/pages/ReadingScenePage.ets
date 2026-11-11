@@ -22,7 +22,9 @@ struct ReadingScenePage {
   }
   private positionRendered(): void {
     const target = this.binding.target();
-    if (target === undefined || target.document.state.kind !== 'reading' || target.request === this.receiptRequest) { return; }
+    if (target === undefined || target.document.state.kind !== 'reading' || target.request === this.receiptRequest) {
+      return;
+    }
     if (this.view.readingChapter !== target.document.state.reading.chapter ||
       this.view.readingAnchor !== target.document.state.reading.anchor || this.view.readingParagraph.length === 0) {
       return;
@@ -51,14 +53,16 @@ struct ReadingScenePage {
         Text(this.view.text()).fontSize(14).fontColor(LEARNING_MUTED).width('100%')
         SceneContinuationStatus()
         Column({ space: 12 }) {
-          Text(this.view.readingChapterTitle).fontSize(18).fontWeight(FontWeight.Medium).fontColor(LEARNING_INK).width('100%')
+          Text(this.view.readingChapterTitle).fontSize(18).fontWeight(FontWeight.Medium)
+            .fontColor(LEARNING_INK).width('100%')
           Text(this.view.readingParagraph).fontSize(15).lineHeight(27).fontColor(LEARNING_INK).width('100%')
             .onAreaChange((_old, area): void => {
               if (Number(area.width) > 0 && Number(area.height) > 0) {
                 this.positionRendered();
               }
             })
-          Text(`第 ${this.view.readingAnchor + 1}/${this.view.readingParagraphCount} 段`).fontSize(12).fontColor(LEARNING_MUTED).width('100%')
+          Text(`第 ${this.view.readingAnchor + 1}/${this.view.readingParagraphCount} 段`)
+            .fontSize(12).fontColor(LEARNING_MUTED).width('100%')
         }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
         Row({ space: 10 }) {
           Button('上一段', { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
@@ -73,22 +77,26 @@ struct ReadingScenePage {
         Button('加书签', { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
           .onClick((): void => { getLearningController()?.sceneWorkbench.addBookmark(); })
-        Text(this.view.error.length > 0 ? this.view.error : this.view.notice).fontSize(14).fontColor(LEARNING_INK).width('100%')
+        Text(this.view.error.length > 0 ? this.view.error : this.view.notice)
+          .fontSize(14).fontColor(LEARNING_INK).width('100%')
         Button(this.chaptersExpanded ? '收起目录' : '章节目录', { type: ButtonType.Normal })
           .width('100%').height(44).fontSize(14).fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10)
           .onClick((): void => { this.chaptersExpanded = !this.chaptersExpanded; })
         if (this.chaptersExpanded) {
           ForEach(READING_CHAPTERS, (chapter: ReadingChapter, index: number) => {
-            Button(chapter.title, { type: ButtonType.Normal }).width('100%').constraintSize({ minHeight: 44 }).fontSize(14)
+            Button(chapter.title, { type: ButtonType.Normal }).width('100%')
+              .constraintSize({ minHeight: 44 }).fontSize(14)
               .fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10).enabled(this.view.editable)
               .onClick((): void => this.jump(index, 0))
           }, (chapter: ReadingChapter) => chapter.title)
         }
-        Text(`书签（${this.view.bookmarks.length}）`).fontSize(16).fontWeight(FontWeight.Medium).fontColor(LEARNING_INK).width('100%')
+        Text(`书签（${this.view.bookmarks.length}）`).fontSize(16).fontWeight(FontWeight.Medium)
+          .fontColor(LEARNING_INK).width('100%')
         ForEach(this.view.bookmarks, (bookmark: ReadingBookmark, index: number) => {
           Row({ space: 10 }) {
             Button(`第${bookmark.chapter + 1}章 第${bookmark.anchor + 1}段`, { type: ButtonType.Normal })
-              .layoutWeight(1).height(44).fontSize(14).fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10)
+              .layoutWeight(1).height(44).fontSize(14).fontColor(LEARNING_BLUE)
+              .backgroundColor('#FFFFFF').borderRadius(10)
               .enabled(this.view.editable).onClick((): void => this.jump(bookmark.chapter, bookmark.anchor))
             Button('删除', { type: ButtonType.Normal }).height(44).fontSize(14)
               .fontColor('#B42318').backgroundColor('#FEF3F2').borderRadius(10).enabled(this.view.editable)

@@ -12,24 +12,24 @@ import {
 
 /** 解码后的载荷。 */
 export class PayloadData {
-  doc: string = '';
-  rev: number = 0;
-  title: string = '';
-  body: string = '';
-  cs: number = 0;
-  ce: number = 0;
-  dev: string = '';
-  at: number = 0;
-  app: string = '';
-  ck: string = 'none';
-  sig: string = '';
+  public doc: string = '';
+  public rev: number = 0;
+  public title: string = '';
+  public body: string = '';
+  public cs: number = 0;
+  public ce: number = 0;
+  public dev: string = '';
+  public at: number = 0;
+  public app: string = '';
+  public ck: string = 'none';
+  public sig: string = '';
 
   constructor(doc: string = '', rev: number = 0) {
     this.doc = doc;
     this.rev = rev;
   }
 
-  clone(): PayloadData {
+  public clone(): PayloadData {
     const copy: PayloadData = new PayloadData(this.doc, this.rev);
     copy.title = this.title;
     copy.body = this.body;
@@ -44,17 +44,17 @@ export class PayloadData {
   }
 
   /** 选区是否合法：终点不小于起点，且不越界。 */
-  selectionValid(): boolean {
+  public selectionValid(): boolean {
     return this.cs >= 0 && this.ce >= this.cs && this.ce <= this.body.length;
   }
 
   /** 正文是否为空。 */
-  bodyEmpty(): boolean {
+  public bodyEmpty(): boolean {
     return this.body.trim().length === 0;
   }
 
   /** 一段可读摘要。 */
-  summary(): string {
+  public summary(): string {
     const bodyText: string = this.bodyEmpty() ? '（空正文）' : `${this.body.length} 字`;
     return `${this.title}｜rev ${this.rev}｜${bodyText}｜选区 ${this.cs}-${this.ce}`;
   }
@@ -62,35 +62,35 @@ export class PayloadData {
 
 /** 解码问题。 */
 export class DecodeIssue {
-  field: string = '';
-  reason: string = '';
+  public field: string = '';
+  public reason: string = '';
 
   constructor(field: string = '', reason: string = '') {
     this.field = field;
     this.reason = reason;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.field}：${this.reason}`;
   }
 }
 
 /** 解码结果。 */
 export class DecodeResult {
-  data: PayloadData | undefined = undefined;
+  public data: PayloadData | undefined = undefined;
   /** 原始版本；无法识别为 -1。 */
-  version: number = -1;
+  public version: number = -1;
   /** 是否需要迁移。 */
-  migrated: boolean = false;
-  issues: DecodeIssue[] = [];
-  rawLength: number = 0;
+  public migrated: boolean = false;
+  public issues: DecodeIssue[] = [];
+  public rawLength: number = 0;
 
-  ok(): boolean {
+  public ok(): boolean {
     return this.data !== undefined;
   }
 
   /** 只有告警、没有整体失败。 */
-  warnOnly(): boolean {
+  public warnOnly(): boolean {
     return this.data !== undefined && this.issues.length > 0;
   }
 }
@@ -277,13 +277,13 @@ export function decodePayload(raw: string): DecodeResult {
 
 /** 截断结果。 */
 export class FitResult {
-  content: string = '';
+  public content: string = '';
   /** 是否发生了截断。 */
-  truncated: boolean = false;
+  public truncated: boolean = false;
   /** 被截掉的字符数。 */
-  droppedChars: number = 0;
+  public droppedChars: number = 0;
 
-  caption(): string {
+  public caption(): string {
     return this.truncated ? `正文截断 ${this.droppedChars} 字` : '未截断';
   }
 }
@@ -312,9 +312,9 @@ export function fitWithinLimit(data: PayloadData, limit: number = PAYLOAD_LIMIT)
 
 /** 字段差异。 */
 export class FieldDelta {
-  field: string = '';
-  before: string = '';
-  after: string = '';
+  public field: string = '';
+  public before: string = '';
+  public after: string = '';
 
   constructor(field: string = '', before: string = '', after: string = '') {
     this.field = field;
@@ -322,33 +322,33 @@ export class FieldDelta {
     this.after = after;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.field}: ${this.before} -> ${this.after}`;
   }
 }
 
 /** 载荷差异。 */
 export class PayloadDiff {
-  deltas: FieldDelta[] = [];
+  public deltas: FieldDelta[] = [];
 
   /** 是否有变化。 */
-  changed(): boolean {
+  public changed(): boolean {
     return this.deltas.length > 0;
   }
 
   /** 变化字段名。 */
-  fields(): string[] {
+  public fields(): string[] {
     return this.deltas.map((delta: FieldDelta): string => delta.field);
   }
 
   /** 是否只改了光标位置。 */
-  cursorOnly(): boolean {
+  public cursorOnly(): boolean {
     return this.deltas.length > 0 && this.deltas.every((delta: FieldDelta): boolean =>
       delta.field === 'cs' || delta.field === 'ce');
   }
 
   /** 摘要文本。 */
-  summary(): string {
+  public summary(): string {
     if (!this.changed()) {
       return '无字段变化';
     }
@@ -374,12 +374,12 @@ export function diffPayloads(left: PayloadData, right: PayloadData): PayloadDiff
 
 /** 体积估算结论。 */
 export class SizeReport {
-  chars: number = 0;
-  bytes: number = 0;
+  public chars: number = 0;
+  public bytes: number = 0;
   public limit: number = PAYLOAD_LIMIT;
 
   /** 占用比例，百分比一位小数。 */
-  ratio(): number {
+  public ratio(): number {
     if (this.limit <= 0) {
       return 0;
     }
@@ -387,11 +387,11 @@ export class SizeReport {
   }
 
   /** 是否接近上限。 */
-  nearLimit(): boolean {
+  public nearLimit(): boolean {
     return this.ratio() >= 80;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.chars} / ${this.limit} 字符（${this.ratio()}%，${this.bytes} 字节）`;
   }
 }

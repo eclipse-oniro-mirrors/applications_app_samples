@@ -1,4 +1,5 @@
-import { AutoStartupApi, NativeStatusSnapshot, QueryClock, SystemQueryClock, systemAutoStartupApi, elapsedNow } from '../AutoStartupRuntime';
+import { AutoStartupApi, NativeStatusSnapshot, QueryClock, SystemQueryClock,
+  systemAutoStartupApi, elapsedNow } from '../AutoStartupRuntime';
 import { AutoStartupProbePort, CapabilityDiagnostic } from './CapabilityProbe';
 
 /** The two independent entries call exactly the two public query APIs. */

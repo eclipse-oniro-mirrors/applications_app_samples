@@ -8,7 +8,7 @@ export class ScenePageSession {
   private subscriptions: (() => void)[] = [];
   private boundRequest: number = -1;
   constructor(kind: string) { this.kind = kind; }
-  bind(controller: LearningController | undefined, changed: () => void): void {
+  public bind(controller: LearningController | undefined, changed: () => void): void {
     this.detach();
     this.controller = controller;
     if (controller === undefined) { changed(); return; }
@@ -19,20 +19,20 @@ export class ScenePageSession {
     this.subscriptions.push(controller.subscribe((): void => { changed(); }));
     changed();
   }
-  detach(): void {
+  public detach(): void {
     this.subscriptions.forEach((unsubscribe: () => void): void => { unsubscribe(); });
     this.subscriptions = [];
   }
-  hide(): void {
+  public hide(): void {
     this.detach();
     if (this.boundRequest >= 0) { this.controller?.leaveBusinessPage(this.boundRequest); }
     this.boundRequest = -1;
   }
-  snapshot(): SceneSnapshot {
+  public snapshot(): SceneSnapshot {
     return this.controller === undefined ? new SceneSnapshot() : this.controller.sceneSnapshot(this.kind);
   }
-  target(): ScenePositionTarget | undefined { return this.controller?.positionTarget(); }
-  receipt(target: ScenePositionTarget, first: number, second: number, ok: boolean): void {
+  public target(): ScenePositionTarget | undefined { return this.controller?.positionTarget(); }
+  public receipt(target: ScenePositionTarget, first: number, second: number, ok: boolean): void {
     this.controller?.reportScenePosition(target.request, this.kind, target.document.documentId,
       target.document.revision, first, second, ok);
   }

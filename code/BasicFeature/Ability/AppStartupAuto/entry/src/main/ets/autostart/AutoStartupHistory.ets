@@ -7,16 +7,16 @@ export interface HistoryStorage {
 }
 
 export class HistoryLoadResult {
-  records: QueryRecord[] = [];
-  notice: string = '';
-  expired: number = 0;
-  recovered: boolean = false;
+  public records: QueryRecord[] = [];
+  public notice: string = '';
+  public expired: number = 0;
+  public recovered: boolean = false;
 }
 
 class StoredHistory {
-  schema: number = HISTORY_SCHEMA;
-  savedAt: number = 0;
-  records: QueryRecord[] = [];
+  public schema: number = HISTORY_SCHEMA;
+  public savedAt: number = 0;
+  public records: QueryRecord[] = [];
 }
 
 export const HISTORY_SCHEMA: number = 1;
@@ -232,7 +232,8 @@ export function exportRedacted(records: QueryRecord[], now: number): string {
     `记录数：${records.length}`];
   records.forEach((record: QueryRecord): void => {
     lines.push(`#${record.id} | ${new Date(record.timestamp).toISOString()} | ${record.source} | ` +
-      `${outcomeLabel(record.outcome as string)} | ${maskText(record.result)} | 支持 ${maskText(record.supportResult)} | ` +
+      `${outcomeLabel(record.outcome as string)} | ${maskText(record.result)} | ` +
+      `支持 ${maskText(record.supportResult)} | ` +
       `状态 ${maskText(record.statusResult)} | 错误码 ${maskText(record.errorCode)} | ${record.durationMillis} ms`);
     if (record.errorMessage.length > 0) {
       lines.push(`  说明：${maskText(record.errorMessage)}`);
@@ -242,16 +243,16 @@ export function exportRedacted(records: QueryRecord[], now: number): string {
 }
 
 export class HistorySummary {
-  total: number = 0;
-  success: number = 0;
-  failure: number = 0;
-  unsupported: number = 0;
-  timeout: number = 0;
-  unknown: number = 0;
-  latestValidId: number = -1;
-  newestAt: number = 0;
-  oldestAt: number = 0;
-  expiringSoon: number = 0;
+  public total: number = 0;
+  public success: number = 0;
+  public failure: number = 0;
+  public unsupported: number = 0;
+  public timeout: number = 0;
+  public unknown: number = 0;
+  public latestValidId: number = -1;
+  public newestAt: number = 0;
+  public oldestAt: number = 0;
+  public expiringSoon: number = 0;
 }
 
 /** Counts are derived from persisted outcomes, not from localized labels. */
@@ -294,13 +295,13 @@ export function summarizeHistory(records: QueryRecord[], now: number): HistorySu
 }
 
 export class HistoryComparison {
-  beforeId: number = -1;
-  afterId: number = -1;
-  beforeResult: string = '';
-  afterResult: string = '';
-  changed: boolean = false;
-  beforeAt: number = 0;
-  afterAt: number = 0;
+  public beforeId: number = -1;
+  public afterId: number = -1;
+  public beforeResult: string = '';
+  public afterResult: string = '';
+  public changed: boolean = false;
+  public beforeAt: number = 0;
+  public afterAt: number = 0;
   public deltaMillis: number = 0;
 }
 

@@ -68,11 +68,11 @@ export function isDeleteReason(reason: CleanupReason): boolean {
 /** 保留策略。 */
 export class RetentionPolicy {
   /** 归档最多保留的条数（按时间从新到旧）。 */
-  maxEntries: number = 500;
+  public maxEntries: number = 500;
   /** 记录最多保留的天数；失败样本在此之上再加 failureBonusDays。 */
-  maxDays: number = 90;
+  public maxDays: number = 90;
   /** 失败样本的额外保留天数，默认 1 天，便于排查偶发失败。 */
-  failureBonusDays: number = 1;
+  public failureBonusDays: number = 1;
 
   constructor(maxEntries: number = 500, maxDays: number = 90, failureBonusDays: number = 1) {
     this.maxEntries = maxEntries;
@@ -152,15 +152,15 @@ export function describePolicy(policy: RetentionPolicy): string[] {
 
 /** 一条记录的清理决策。 */
 export class CleanupDecision {
-  entryId: number = 0;
-  keep: boolean = true;
-  reason: CleanupReason = CleanupReason.KEPT_RECENT;
+  public entryId: number = 0;
+  public keep: boolean = true;
+  public reason: CleanupReason = CleanupReason.KEPT_RECENT;
   /** 年龄（完整天数）；时间未知时为 -1。 */
-  ageDays: number = -1;
+  public ageDays: number = -1;
   /** 该结论适用的保留天数；时间未知时为 0。 */
-  retentionDays: number = 0;
+  public retentionDays: number = 0;
   /** 具体解释，供预览逐条展示。 */
-  detail: string = '';
+  public detail: string = '';
 
   constructor(entryId: number = 0, keep: boolean = true,
     reason: CleanupReason = CleanupReason.KEPT_RECENT) {
@@ -183,24 +183,24 @@ export class CleanupDecision {
  * 最后。preview 只描述"如果现在执行会怎样"，不持有原始记录，也不修改数据。
  */
 export class CleanupPreview {
-  policy: RetentionPolicy = new RetentionPolicy();
-  now: number = 0;
-  decisions: CleanupDecision[] = [];
-  keepCount: number = 0;
-  deleteCount: number = 0;
+  public policy: RetentionPolicy = new RetentionPolicy();
+  public now: number = 0;
+  public decisions: CleanupDecision[] = [];
+  public keepCount: number = 0;
+  public deleteCount: number = 0;
   /** 因天数规则删除的条数。 */
-  agedCount: number = 0;
+  public agedCount: number = 0;
   /** 因条数上限删除的条数。 */
-  countCutCount: number = 0;
+  public countCutCount: number = 0;
   /** 被保护的最近有效样本序号；没有则为 -1。 */
-  protectedId: number = -1;
+  public protectedId: number = -1;
   /** 该样本本应被删除、但被豁免。 */
-  protectedRescued: boolean = false;
+  public protectedRescued: boolean = false;
   /** 入参为空。 */
-  emptyInput: boolean = false;
+  public emptyInput: boolean = false;
   /** 时间未知、被保留的条数。 */
-  unknownTimeCount: number = 0;
-  notes: string[] = [];
+  public unknownTimeCount: number = 0;
+  public notes: string[] = [];
 
   /** 是否有记录会被删除。 */
   hasDeletions(): boolean {
@@ -251,8 +251,8 @@ export class CleanupPreview {
 
 /** 策略是否可执行：不依赖外部状态，仅检查参数是否自洽。 */
 export class RetentionAudit {
-  ok: boolean = false;
-  findings: string[] = [];
+  public ok: boolean = false;
+  public findings: string[] = [];
 
   report(): string {
     return this.ok ? '保留策略自洽' : this.findings.join('；');
@@ -468,13 +468,13 @@ export function previewCleanup(entries: ArchiveEntry[], now: number,
 
 /** 一次清理的执行结果。 */
 export class RetentionResult {
-  preview: CleanupPreview = new CleanupPreview();
-  kept: ArchiveEntry[] = [];
-  removed: ArchiveEntry[] = [];
+  public preview: CleanupPreview = new CleanupPreview();
+  public kept: ArchiveEntry[] = [];
+  public removed: ArchiveEntry[] = [];
   /** 预览里要删、执行时已不存在的序号。 */
-  missingIds: number[] = [];
+  public missingIds: number[] = [];
   /** 预览之后才出现、因而被保留的序号。 */
-  unseenIds: number[] = [];
+  public unseenIds: number[] = [];
   public executed: boolean = false;
 
   /** 实际删除条数。 */

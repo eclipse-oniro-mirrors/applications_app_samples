@@ -1,8 +1,16 @@
 // 待集中验证：本批仅静态编写，未执行host、语法检查、构建或设备测试。
 import { describe, expect, it } from '@ohos/hypium';
 import { SceneWorkbench } from '../../../main/ets/learning/scene/SceneWorkbench';
-import { SCENE_WORKSPACE_LIMIT, SceneWorkspace, decodeWorkspace, encodeWorkspace, findScene } from '../../../main/ets/learning/scene/SceneModel';
-import { SceneBackupCode, readSceneBackup, sceneBackupPreviewText } from '../../../main/ets/learning/scene/SceneWorkspaceBackupModel';
+import {
+  SCENE_WORKSPACE_LIMIT,
+  SceneWorkspace,
+  decodeWorkspace,
+  encodeWorkspace,
+  findScene
+} from '../../../main/ets/learning/scene/SceneModel';
+import {
+  SceneBackupCode, readSceneBackup, sceneBackupPreviewText
+} from '../../../main/ets/learning/scene/SceneWorkspaceBackupModel';
 import { BackupStore, backupRaw, backupRoot } from '../support/SceneBackupFixtures';
 import { waveNote } from '../support/ContinuationWaveOneFixtures';
 
@@ -17,10 +25,16 @@ export default function sceneBackupPlanningCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupPlan0001', 0, (): void => {
-      const store = new BackupStore(backupRaw()); const work = new SceneWorkbench(store);
-      work.editNote('未保存标题', 'A😀未保存正文', 1, 3); work.gotoParagraph(2, 1); work.addBookmark(); work.setFormField('address', '未保存新地址');
-      const exported = work.backupSnapshot(); const root = readSceneBackup(exported.raw).workspace as SceneWorkspace;
-      expect(exported.ok).assertTrue(); expect(exported.containsDirty).assertTrue();
+      const store = new BackupStore(backupRaw());
+      const work = new SceneWorkbench(store);
+      work.editNote('未保存标题', 'A😀未保存正文', 1, 3);
+      work.gotoParagraph(2, 1);
+      work.addBookmark();
+      work.setFormField('address', '未保存新地址');
+      const exported = work.backupSnapshot();
+      const root = readSceneBackup(exported.raw).workspace as SceneWorkspace;
+      expect(exported.ok).assertTrue();
+      expect(exported.containsDirty).assertTrue();
       expect(findScene(root, 'note')?.state.note.body).assertEqual('A😀未保存正文');
       expect(findScene(root, 'note')?.state.note.savedBody).assertEqual('备份笔记正文');
       expect(findScene(root, 'reading')?.state.reading.bookmarks[0].chapter).assertEqual(2);
@@ -37,11 +51,19 @@ export default function sceneBackupPlanningCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupPlan0002', 0, (): void => {
-      const store = new BackupStore('{损坏原档'); const work = new SceneWorkbench(store); work.editNote('救援', '内存仍可保留', 0, 3);
-      const exported = work.backupSnapshot(); const root = readSceneBackup(exported.raw).workspace as SceneWorkspace;
-      expect(exported.ok).assertTrue(); expect(exported.frozen).assertTrue(); expect(exported.message.indexOf('救援') >= 0).assertTrue();
-      expect(findScene(root, 'note')?.state.note.body).assertEqual('内存仍可保留'); expect(work.saveNote()).assertFalse();
-      expect(store.stored()).assertEqual('{损坏原档'); expect(store.putCalls).assertEqual(0); work.dispose();
+      const store = new BackupStore('{损坏原档');
+      const work = new SceneWorkbench(store);
+      work.editNote('救援', '内存仍可保留', 0, 3);
+      const exported = work.backupSnapshot();
+      const root = readSceneBackup(exported.raw).workspace as SceneWorkspace;
+      expect(exported.ok).assertTrue();
+      expect(exported.frozen).assertTrue();
+      expect(exported.message.indexOf('救援') >= 0).assertTrue();
+      expect(findScene(root, 'note')?.state.note.body).assertEqual('内存仍可保留');
+      expect(work.saveNote()).assertFalse();
+      expect(store.stored()).assertEqual('{损坏原档');
+      expect(store.putCalls).assertEqual(0);
+      work.dispose();
     });
 
     /**
@@ -53,9 +75,14 @@ export default function sceneBackupPlanningCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupPlan0003', 0, (): void => {
-      const work = new SceneWorkbench(new BackupStore()); const incoming = backupRoot('机密正文暗号');
-      const preview = work.previewBackup(encodeWorkspace(incoming)); const text = sceneBackupPreviewText(preview); const json = JSON.stringify(preview);
-      expect(preview.ok).assertTrue(); expect(text.indexOf('正文') >= 0).assertTrue(); expect(text.indexOf('姓名') >= 0).assertTrue();
+      const work = new SceneWorkbench(new BackupStore());
+      const incoming = backupRoot('机密正文暗号');
+      const preview = work.previewBackup(encodeWorkspace(incoming));
+      const text = sceneBackupPreviewText(preview);
+      const json = JSON.stringify(preview);
+      expect(preview.ok).assertTrue();
+      expect(text.indexOf('正文') >= 0).assertTrue();
+      expect(text.indexOf('姓名') >= 0).assertTrue();
       expect(json.indexOf('机密正文暗号')).assertEqual(-1); expect(text.indexOf('13800138000')).assertEqual(-1);
       expect(json.indexOf('备份地址')).assertEqual(-1); expect(json.indexOf('backup-note')).assertEqual(-1);
       expect(work.snapshot().noteBody).assertEqual(''); work.dispose();
@@ -70,10 +97,15 @@ export default function sceneBackupPlanningCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupPlan0004', 0, (): void => {
-      const store = new BackupStore(backupRaw('本机正文', 5)); const work = new SceneWorkbench(store); work.setFormField('note', '本机临时备注');
-      const source = backupRoot('备份旧正文', 2); const before = encodeWorkspace(source); const preview = work.previewBackup(before);
+      const store = new BackupStore(backupRaw('本机正文', 5));
+      const work = new SceneWorkbench(store);
+      work.setFormField('note', '本机临时备注');
+      const source = backupRoot('备份旧正文', 2);
+      const before = encodeWorkspace(source);
+      const preview = work.previewBackup(before);
       expect(preview.scenes[0].restoreRevision).assertEqual(6); expect(preview.requiresDirtyConfirmation).assertTrue();
-      expect(work.document('note').state.note.body).assertEqual('本机正文'); expect(work.document('form').state.form.note).assertEqual('本机临时备注');
+      expect(work.document('note').state.note.body).assertEqual('本机正文');
+      expect(work.document('form').state.form.note).assertEqual('本机临时备注');
       expect(encodeWorkspace(source)).assertEqual(before); expect(store.putCalls).assertEqual(0); work.dispose();
     });
 
@@ -86,11 +118,16 @@ export default function sceneBackupPlanningCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupPlan0005', 0, (): void => {
-      const store = new BackupStore(); const work = new SceneWorkbench(store); const old = work.previewBackup(backupRaw());
+      const store = new BackupStore();
+      const work = new SceneWorkbench(store);
+      const old = work.previewBackup(backupRaw());
       const invalid = work.previewBackup('{"private-body-secret":'); const stale = work.restoreBackup(old.token, true);
       expect(invalid.code).assertEqual(SceneBackupCode.INVALID); expect(invalid.token).assertEqual('');
       expect(sceneBackupPreviewText(invalid).indexOf('private-body-secret')).assertEqual(-1);
-      expect(stale.code).assertEqual(SceneBackupCode.STALE); expect(store.putCalls).assertEqual(0); expect(work.snapshot().noteBody).assertEqual(''); work.dispose();
+      expect(stale.code).assertEqual(SceneBackupCode.STALE);
+      expect(store.putCalls).assertEqual(0);
+      expect(work.snapshot().noteBody).assertEqual('');
+      work.dispose();
     });
 
     /**
@@ -105,9 +142,13 @@ export default function sceneBackupPlanningCases(): void {
       const store = new BackupStore(); const work = new SceneWorkbench(store); const raw = backupRaw();
       const edge = raw + ' '.repeat(SCENE_WORKSPACE_LIMIT - raw.length); const accepted = work.previewBackup(edge);
       const rejected = work.previewBackup(edge + ' ');
-      expect(accepted.ok).assertTrue(); expect(rejected.ok).assertFalse(); expect(rejected.issues[0].message.indexOf('不会截断') >= 0).assertTrue();
+      expect(accepted.ok).assertTrue();
+      expect(rejected.ok).assertFalse();
+      expect(rejected.issues[0].message.indexOf('不会截断') >= 0).assertTrue();
       expect(work.restoreBackup(accepted.token, true).code).assertEqual(SceneBackupCode.STALE);
-      expect(store.flushCalls).assertEqual(0); expect(work.document('reading').state.reading.chapter).assertEqual(0); work.dispose();
+      expect(store.flushCalls).assertEqual(0);
+      expect(work.document('reading').state.reading.chapter).assertEqual(0);
+      work.dispose();
     });
 
     /**
@@ -119,11 +160,18 @@ export default function sceneBackupPlanningCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupPlan0007', 0, (): void => {
-      const store = new BackupStore(backupRaw('本机仍在')); const work = new SceneWorkbench(store); const root = backupRoot();
-      const note = findScene(root, 'note'); if (note === undefined) { throw new Error('fixture note missing'); }
+      const store = new BackupStore(backupRaw('本机仍在'));
+      const work = new SceneWorkbench(store);
+      const root = backupRoot();
+      const note = findScene(root, 'note');
+      if (note === undefined) {
+        throw new Error('fixture note missing');
+      }
       note.state.note.savedBody = '😀'; note.state.note.savedSelectionStart = 1; note.state.note.savedSelectionEnd = 2;
       const preview = work.previewBackup(encodeWorkspace(root));
-      expect(preview.ok).assertFalse(); expect(preview.token).assertEqual(''); expect(work.snapshot().noteBody).assertEqual('本机仍在');
+      expect(preview.ok).assertFalse();
+      expect(preview.token).assertEqual('');
+      expect(work.snapshot().noteBody).assertEqual('本机仍在');
       expect(store.putCalls).assertEqual(0); expect(work.previewBackup(backupRaw()).ok).assertTrue(); work.dispose();
     });
 
@@ -153,12 +201,22 @@ export default function sceneBackupPlanningCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupPlan0009', 0, (): void => {
-      const store = new BackupStore(backupRaw()); const work = new SceneWorkbench(store); const first = work.backupSnapshot();
+      const store = new BackupStore(backupRaw());
+      const work = new SceneWorkbench(store);
+      const first = work.backupSnapshot();
       const detached = readSceneBackup(first.raw).workspace as SceneWorkspace; const note = findScene(detached, 'note');
-      if (note === undefined) { throw new Error('fixture note missing'); } note.state.note.savedBody = '外部改写'; detached.history.push(waveNote('backup-note', 1));
+      if (note === undefined) {
+        throw new Error('fixture note missing');
+      }
+      note.state.note.savedBody = '外部改写';
+      detached.history.push(waveNote('backup-note', 1));
       const second = readSceneBackup(work.backupSnapshot().raw).workspace as SceneWorkspace;
-      expect(findScene(second, 'note')?.state.note.savedBody).assertEqual('备份笔记正文'); expect(second.history.length).assertEqual(0);
-      expect(work.hasDirtyWork()).assertFalse(); expect(work.isBackupCurrent(first.epoch)).assertTrue(); expect(store.putCalls).assertEqual(0); work.dispose();
+      expect(findScene(second, 'note')?.state.note.savedBody).assertEqual('备份笔记正文');
+      expect(second.history.length).assertEqual(0);
+      expect(work.hasDirtyWork()).assertFalse();
+      expect(work.isBackupCurrent(first.epoch)).assertTrue();
+      expect(store.putCalls).assertEqual(0);
+      work.dispose();
     });
   });
 }

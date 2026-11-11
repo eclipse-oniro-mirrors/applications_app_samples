@@ -1,6 +1,8 @@
 import { describe, expect, it } from '@ohos/hypium';
 import { AbilityConstant } from '@kit.AbilityKit';
-import { SCENE_PAYLOAD_KEY, SceneDocument, SceneWorkspace, decodeScene, emptyWorkspace, encodeWorkspace, stageScene } from '../../../main/ets/learning/scene/SceneModel';
+import {
+  SCENE_PAYLOAD_KEY, SceneDocument, SceneWorkspace, decodeScene, emptyWorkspace, encodeWorkspace, stageScene
+} from '../../../main/ets/learning/scene/SceneModel';
 import { SceneWorkbench } from '../../../main/ets/learning/scene/SceneWorkbench';
 import { ScenePageSession } from '../../../main/ets/learning/scene/ScenePageSession';
 import { WaveSceneFixture, WaveSceneStore, waveNote, waveReading } from '../support/ContinuationWaveOneFixtures';
@@ -28,7 +30,9 @@ export default function continuationHistoryScopeWaveTwo(): void {
       const lines = work.historyLines('note'); const documents = work.historyDocuments('note');
       expect(lines.length).assertEqual(1); expect(lines[0]).assertEqual('note r1｜history-note');
       expect(documents[0].state.note.body).assertEqual('笔记旧正文'); expect(work.historyDocuments().length).assertEqual(2);
-      expect(work.historyDocuments()[0].state.reading.chapter).assertEqual(0); expect(store.putCalls).assertEqual(0); work.dispose();
+      expect(work.historyDocuments()[0].state.reading.chapter).assertEqual(0);
+      expect(store.putCalls).assertEqual(0);
+      work.dispose();
     });
 
     /**
@@ -50,7 +54,8 @@ export default function continuationHistoryScopeWaveTwo(): void {
         const outgoing = decodeScene(parameters[SCENE_PAYLOAD_KEY]).value as SceneDocument;
         expect(outgoing.state.note.body).assertEqual('笔记旧正文'); expect(outgoing.documentId).assertEqual('history-note');
         const reopened = new SceneWorkbench(new WaveSceneStore(f.store.stored()));
-        expect(reopened.document('reading').state.reading.chapter).assertEqual(2); expect(reopened.historyDocuments('note')[1].state.note.body).assertEqual('笔记新正文');
+        expect(reopened.document('reading').state.reading.chapter).assertEqual(2);
+        expect(reopened.historyDocuments('note')[1].state.note.body).assertEqual('笔记新正文');
         reopened.dispose();
       } finally { page.detach(); f.release(); }
     });

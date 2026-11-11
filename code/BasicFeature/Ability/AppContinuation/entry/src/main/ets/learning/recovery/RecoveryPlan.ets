@@ -32,14 +32,14 @@ export enum RecoveryAction {
 
 /** 一条恢复规则。 */
 export class RecoveryRule {
-  code: string = '';
-  failure: RecoveryCase = RecoveryCase.NONE;
-  action: RecoveryAction = RecoveryAction.NONE;
+  public code: string = '';
+  public failure: RecoveryCase = RecoveryCase.NONE;
+  public action: RecoveryAction = RecoveryAction.NONE;
   /** 该动作是否可能丢失数据。 */
-  lossy: boolean = false;
+  public lossy: boolean = false;
   /** 是否必须先读回磁盘。 */
-  mustReread: boolean = false;
-  userText: string = '';
+  public mustReread: boolean = false;
+  public userText: string = '';
 
   constructor(code: string = '', failure: RecoveryCase = RecoveryCase.NONE,
     action: RecoveryAction = RecoveryAction.NONE, lossy: boolean = false,
@@ -52,8 +52,9 @@ export class RecoveryRule {
     this.userText = userText;
   }
 
-  describe(): string {
-    return `${this.code}｜${this.failure as string} → ${this.action as string}｜${this.lossy ? '可能丢数据' : '不丢数据'}${this.mustReread ? '｜需先读回' : ''}`;
+  public describe(): string {
+    return `${this.code}｜${this.failure as string} → ${this.action as string}｜` +
+      `${this.lossy ? '可能丢数据' : '不丢数据'}${this.mustReread ? '｜需先读回' : ''}`;
   }
 }
 
@@ -94,27 +95,27 @@ function rulesOf(failure: RecoveryCase): RecoveryRule[] {
 
 /** 一次恢复决策的输入。 */
 export class RecoveryInput {
-  failure: RecoveryCase = RecoveryCase.NONE;
+  public failure: RecoveryCase = RecoveryCase.NONE;
   /** 本机是否有可回滚缓存。 */
-  hasLocalCache: boolean = false;
+  public hasLocalCache: boolean = false;
   /** 对端修订号是否高于本地。 */
-  remoteNewer: boolean = false;
+  public remoteNewer: boolean = false;
   /** 本机是否也有未保存改动。 */
-  localDirty: boolean = false;
+  public localDirty: boolean = false;
   /** 读回磁盘是否成功。 */
-  rereadOk: boolean = true;
+  public rereadOk: boolean = true;
   /** 是否已重试过。 */
-  retried: boolean = false;
+  public retried: boolean = false;
   /** 回执修订号是否高于本地。 */
-  receiptHigher: boolean = false;
+  public receiptHigher: boolean = false;
 }
 
 /** 决策结果。 */
 export class RecoveryDecision {
-  code: string = '';
-  action: RecoveryAction = RecoveryAction.NONE;
-  lossy: boolean = false;
-  mustReread: boolean = false;
+  public code: string = '';
+  public action: RecoveryAction = RecoveryAction.NONE;
+  public lossy: boolean = false;
+  public mustReread: boolean = false;
   public userText: string = '';
 
   constructor(code: string = '', action: RecoveryAction = RecoveryAction.NONE,
@@ -127,11 +128,11 @@ export class RecoveryDecision {
   }
 
   /** 是否有可执行的下一步。 */
-  actionable(): boolean {
+  public actionable(): boolean {
     return this.action !== RecoveryAction.NONE;
   }
 
-  describe(): string {
+  public describe(): string {
     return this.actionable() ? `${this.code}｜${this.action as string}｜${this.userText}` :
       `${this.code}｜无需处置`;
   }

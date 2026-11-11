@@ -41,14 +41,14 @@ export enum RequestPolicy {
 
 /** 一次申请的上下文。 */
 export class PermissionContext {
-  apiLevel: number = 0;
+  public apiLevel: number = 0;
   /** 已申请次数。 */
-  askedTimes: number = 0;
-  state: PermissionState = PermissionState.UNKNOWN;
+  public askedTimes: number = 0;
+  public state: PermissionState = PermissionState.UNKNOWN;
   /** 本会话内是否已经弹过窗。 */
-  askedThisSession: boolean = false;
+  public askedThisSession: boolean = false;
   /** 系统是否会弹出权限对话框。 */
-  systemDialogAvailable: boolean = true;
+  public systemDialogAvailable: boolean = true;
 
   constructor(apiLevel: number = 0, askedTimes: number = 0,
     state: PermissionState = PermissionState.UNKNOWN) {
@@ -68,18 +68,18 @@ export class PermissionContext {
 
 /** 申请结论。 */
 export class PermissionDecision {
-  policy: RequestPolicy = RequestPolicy.NO_REQUEST;
-  state: PermissionState = PermissionState.UNKNOWN;
+  public policy: RequestPolicy = RequestPolicy.NO_REQUEST;
+  public state: PermissionState = PermissionState.UNKNOWN;
   /** 是否可以立即发起申请。 */
-  canAsk: boolean = false;
+  public canAsk: boolean = false;
   /** 是否应改为引导去系统设置。 */
-  needsSettings: boolean = false;
+  public needsSettings: boolean = false;
   /** 面向用户的说明。 */
-  message: string = '';
+  public message: string = '';
   /** 面向开发者的排查建议。 */
-  hint: string = '';
+  public hint: string = '';
   /** 命中的规则编号，便于诊断。 */
-  ruleId: string = '';
+  public ruleId: string = '';
 
   text(): string {
     return `${permissionLabel(this.state)}｜${this.policy as string}｜${this.message}`;
@@ -88,13 +88,13 @@ export class PermissionDecision {
 
 /** 一条申请规则。 */
 export class PermissionRule {
-  ruleId: string = '';
-  minApi: number = 0;
-  maxApi: number = 999;
-  maxAsks: number = 2;
-  policy: RequestPolicy = RequestPolicy.ASK_IN_APP;
-  message: string = '';
-  hint: string = '';
+  public ruleId: string = '';
+  public minApi: number = 0;
+  public maxApi: number = 999;
+  public maxAsks: number = 2;
+  public policy: RequestPolicy = RequestPolicy.ASK_IN_APP;
+  public message: string = '';
+  public hint: string = '';
 
   constructor(ruleId: string = '', minApi: number = 0, maxApi: number = 999,
     maxAsks: number = 2, policy: RequestPolicy = RequestPolicy.ASK_IN_APP,
@@ -226,7 +226,7 @@ export function afterDontAskAgain(context: PermissionContext): PermissionContext
 
 /** 规则表自检：编号唯一、区间连续、说明非空。 */
 export class PermissionAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
   summary(): string {

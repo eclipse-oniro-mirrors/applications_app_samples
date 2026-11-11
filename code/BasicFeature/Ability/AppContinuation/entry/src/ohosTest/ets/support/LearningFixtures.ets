@@ -18,7 +18,7 @@ interface ScheduledCall {
 }
 
 export class FixturePlatformError extends Error implements BusinessError {
-  code: number;
+  public code: number;
 
   constructor(code: number, message: string) {
     super(message);
@@ -36,21 +36,21 @@ export class ManualLearningClock implements LearningClock {
   private serial: number = 0;
   private calls: ScheduledCall[] = [];
 
-  now(): number {
+  public now(): number {
     return this.time;
   }
 
-  setTimeout(body: () => void, delayMillis: number): number {
+  public setTimeout(body: () => void, delayMillis: number): number {
     const call: ScheduledCall = { id: ++this.serial, due: this.time + Math.max(0, delayMillis), body: body };
     this.calls.push(call);
     return call.id;
   }
 
-  clearTimeout(id: number): void {
+  public clearTimeout(id: number): void {
     this.calls = this.calls.filter((call: ScheduledCall) => call.id !== id);
   }
 
-  advance(millis: number): void {
+  public advance(millis: number): void {
     if (!Number.isFinite(millis) || millis < 0) {
       throw new Error('Invalid manual-clock advance.');
     }
@@ -72,11 +72,11 @@ export class ManualLearningClock implements LearningClock {
     this.time = target;
   }
 
-  pendingCount(): number {
+  public pendingCount(): number {
     return this.calls.length;
   }
 
-  clearAll(): void {
+  public clearAll(): void {
     this.calls = [];
   }
 }
@@ -89,18 +89,18 @@ export function resultInfo(state: number = 0, text: string = ''): continueManage
 }
 
 export class FakeContinueNative implements ContinueNativePort {
-  onCallbacks: ContinueNativeCallback[] = [];
-  offCallbacks: ContinueNativeCallback[] = [];
-  onFailure: FixturePlatformError | undefined = undefined;
-  offFailure: FixturePlatformError | undefined = undefined;
-  onImmediate: boolean = false;
-  offImmediate: boolean = false;
-  immediateOnError: BusinessError | undefined = undefined;
-  immediateOffError: BusinessError | undefined = undefined;
-  immediateOnInfo: continueManager.ContinueResultInfo = resultInfo();
-  immediateOffInfo: continueManager.ContinueResultInfo = resultInfo();
+  public onCallbacks: ContinueNativeCallback[] = [];
+  public offCallbacks: ContinueNativeCallback[] = [];
+  public onFailure: FixturePlatformError | undefined = undefined;
+  public offFailure: FixturePlatformError | undefined = undefined;
+  public onImmediate: boolean = false;
+  public offImmediate: boolean = false;
+  public immediateOnError: BusinessError | undefined = undefined;
+  public immediateOffError: BusinessError | undefined = undefined;
+  public immediateOnInfo: continueManager.ContinueResultInfo = resultInfo();
+  public immediateOffInfo: continueManager.ContinueResultInfo = resultInfo();
 
-  on(callback: ContinueNativeCallback): void {
+  public on(callback: ContinueNativeCallback): void {
     this.onCallbacks.push(callback);
     if (this.onImmediate) {
       callback(this.immediateOnError, this.immediateOnInfo);
@@ -110,7 +110,7 @@ export class FakeContinueNative implements ContinueNativePort {
     }
   }
 
-  off(callback: ContinueNativeCallback): void {
+  public off(callback: ContinueNativeCallback): void {
     this.offCallbacks.push(callback);
     if (this.offImmediate) {
       callback(this.immediateOffError, this.immediateOffInfo);
@@ -120,7 +120,7 @@ export class FakeContinueNative implements ContinueNativePort {
     }
   }
 
-  deliverOn(index: number, error: BusinessError | undefined | null = undefined,
+  public deliverOn(index: number, error: BusinessError | undefined | null = undefined,
     info: continueManager.ContinueResultInfo | undefined | null = resultInfo()): void {
     const callback = this.onCallbacks[index];
     if (callback === undefined) {
@@ -129,7 +129,7 @@ export class FakeContinueNative implements ContinueNativePort {
     callback(error, info);
   }
 
-  deliverOff(index: number, error: BusinessError | undefined | null = undefined,
+  public deliverOff(index: number, error: BusinessError | undefined | null = undefined,
     info: continueManager.ContinueResultInfo | undefined | null = resultInfo()): void {
     const callback = this.offCallbacks[index];
     if (callback === undefined) {
@@ -141,14 +141,14 @@ export class FakeContinueNative implements ContinueNativePort {
 
 export class MemoryLearningStore implements LearningStore {
   private values: Map<string, Object> = new Map<string, Object>();
-  getCalls: number = 0;
-  putCalls: number = 0;
-  deleteCalls: number = 0;
-  flushCalls: number = 0;
-  failRead: boolean = false;
-  failPutCalls: number[] = [];
-  failDeleteCalls: number[] = [];
-  failFlushCalls: number[] = [];
+  public getCalls: number = 0;
+  public putCalls: number = 0;
+  public deleteCalls: number = 0;
+  public flushCalls: number = 0;
+  public failRead: boolean = false;
+  public failPutCalls: number[] = [];
+  public failDeleteCalls: number[] = [];
+  public failFlushCalls: number[] = [];
 
   constructor(seed: Object | undefined = undefined) {
     if (seed !== undefined) {
@@ -156,7 +156,7 @@ export class MemoryLearningStore implements LearningStore {
     }
   }
 
-  getSync(key: string, defaultValue: string): Object {
+  public getSync(key: string, defaultValue: string): Object {
     this.getCalls++;
     if (this.failRead) {
       throw platformError(15500000, 'fixture read failure');
@@ -165,7 +165,7 @@ export class MemoryLearningStore implements LearningStore {
     return value === undefined ? defaultValue : value;
   }
 
-  putSync(key: string, value: string): void {
+  public putSync(key: string, value: string): void {
     this.putCalls++;
     if (this.failPutCalls.indexOf(this.putCalls) >= 0) {
       throw platformError(15500000, 'fixture put failure');
@@ -173,7 +173,7 @@ export class MemoryLearningStore implements LearningStore {
     this.values.set(key, value);
   }
 
-  deleteSync(key: string): void {
+  public deleteSync(key: string): void {
     this.deleteCalls++;
     if (this.failDeleteCalls.indexOf(this.deleteCalls) >= 0) {
       throw platformError(15500000, 'fixture delete failure');
@@ -181,20 +181,20 @@ export class MemoryLearningStore implements LearningStore {
     this.values.delete(key);
   }
 
-  flushSync(): void {
+  public flushSync(): void {
     this.flushCalls++;
     if (this.failFlushCalls.indexOf(this.flushCalls) >= 0) {
       throw platformError(15500000, 'fixture flush failure');
     }
   }
 
-  stored(): Object | undefined {
+  public stored(): Object | undefined {
     return this.values.get(STORE_KEY);
   }
 }
 
 export class PermissionReply {
-  readonly promise: Promise<number[]>;
+  public readonly promise: Promise<number[]>;
   private fulfill: ((values: number[]) => void) | undefined = undefined;
   private fail: ((error: BusinessError) => void) | undefined = undefined;
 
@@ -205,14 +205,14 @@ export class PermissionReply {
     });
   }
 
-  resolve(values: number[]): void {
+  public resolve(values: number[]): void {
     const fulfill = this.fulfill;
     if (fulfill !== undefined) {
       fulfill(values);
     }
   }
 
-  reject(error: BusinessError): void {
+  public reject(error: BusinessError): void {
     const fail = this.fail;
     if (fail !== undefined) {
       fail(error);
@@ -221,18 +221,18 @@ export class PermissionReply {
 }
 
 export class FakeLearningEnvironment implements LearningEnvironmentPort {
-  publicInfo: PublicEnvironment = { apiVersion: 26, deviceType: 'fixture-board', osFullName: 'fixture-os' };
-  mission: boolean = true;
-  permission: number = 0;
-  readFailure: boolean = false;
-  missionFailure: boolean = false;
-  permissionFailure: boolean = false;
-  requestFailure: boolean = false;
-  readCalls: number = 0;
-  requestCalls: number = 0;
-  reply: PermissionReply = new PermissionReply();
+  public publicInfo: PublicEnvironment = { apiVersion: 26, deviceType: 'fixture-board', osFullName: 'fixture-os' };
+  public mission: boolean = true;
+  public permission: number = 0;
+  public readFailure: boolean = false;
+  public missionFailure: boolean = false;
+  public permissionFailure: boolean = false;
+  public requestFailure: boolean = false;
+  public readCalls: number = 0;
+  public requestCalls: number = 0;
+  public reply: PermissionReply = new PermissionReply();
 
-  readPublic(): PublicEnvironment {
+  public readPublic(): PublicEnvironment {
     this.readCalls++;
     if (this.readFailure) {
       throw platformError();
@@ -240,21 +240,21 @@ export class FakeLearningEnvironment implements LearningEnvironmentPort {
     return this.publicInfo;
   }
 
-  supportsMission(): boolean {
+  public supportsMission(): boolean {
     if (this.missionFailure) {
       throw platformError();
     }
     return this.mission;
   }
 
-  checkPermission(): number {
+  public checkPermission(): number {
     if (this.permissionFailure) {
       throw platformError();
     }
     return this.permission;
   }
 
-  requestPermission(): Promise<number[]> {
+  public requestPermission(): Promise<number[]> {
     this.requestCalls++;
     if (this.requestFailure) {
       throw platformError();
@@ -264,11 +264,11 @@ export class FakeLearningEnvironment implements LearningEnvironmentPort {
 }
 
 export class LearningFixture implements LearningDependencies {
-  readonly clock: ManualLearningClock = new ManualLearningClock();
-  readonly native: FakeContinueNative = new FakeContinueNative();
-  readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
-  readonly store: MemoryLearningStore;
-  readonly controller: LearningController;
+  public readonly clock: ManualLearningClock = new ManualLearningClock();
+  public readonly native: FakeContinueNative = new FakeContinueNative();
+  public readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
+  public readonly store: MemoryLearningStore;
+  public readonly controller: LearningController;
   private readonly failOpen: boolean;
 
   constructor(seed: Object | undefined = undefined, failOpen: boolean = false, failRead: boolean = false) {
@@ -278,25 +278,25 @@ export class LearningFixture implements LearningDependencies {
     this.controller = new LearningController(undefined, this);
   }
 
-  openStore(): LearningStore {
+  public openStore(): LearningStore {
     if (this.failOpen) {
       throw platformError(15500000, 'fixture open failure');
     }
     return this.store;
   }
 
-  release(): void {
+  public release(): void {
     this.controller.dispose();
     this.clock.clearAll();
   }
 }
 
 export class ClientFixture {
-  readonly clock: ManualLearningClock = new ManualLearningClock();
-  readonly native: FakeContinueNative = new FakeContinueNative();
+  public readonly clock: ManualLearningClock = new ManualLearningClock();
+  public readonly native: FakeContinueNative = new FakeContinueNative();
   public readonly client: ContinueClient = new ContinueClient(this.native, this.clock);
 
-  release(): void {
+  public release(): void {
     this.client.dispose();
     this.clock.clearAll();
   }

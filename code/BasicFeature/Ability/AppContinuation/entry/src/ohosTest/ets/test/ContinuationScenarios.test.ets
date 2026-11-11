@@ -311,7 +311,9 @@ export default function continuationScenarios(): void {
           let onEvents: number = 0;
           const offEvents: ContinueObservation[] = [];
           fixture.client.register((_event: ContinueObservation) => { onEvents++; });
-          expect(fixture.client.unregister((event: ContinueObservation) => { offEvents.push(event); }).accepted).assertTrue();
+          expect(fixture.client.unregister((event: ContinueObservation) => {
+            offEvents.push(event);
+          }).accepted).assertTrue();
           expect(fixture.client.state().listening).assertFalse();
           fixture.native.deliverOn(0);
           expect(onEvents).assertEqual(0);
@@ -346,7 +348,9 @@ export default function continuationScenarios(): void {
             fixture.native.deliverOn(1);
             expect(onEvents).assertEqual(1);
           }
-          expect(fixture.client.unregister((event: ContinueObservation) => { offEvents.push(event); }).accepted).assertTrue();
+          expect(fixture.client.unregister((event: ContinueObservation) => {
+            offEvents.push(event);
+          }).accepted).assertTrue();
           expect(fixture.native.offCallbacks.length).assertEqual(2);
           fixture.native.deliverOff(0);
           expect(offEvents.length).assertEqual(1);
@@ -385,7 +389,9 @@ export default function continuationScenarios(): void {
               fixture.native.deliverOn(1);
               expect(onEvents).assertEqual(1);
             }
-            expect(fixture.client.unregister((event: ContinueObservation) => { offEvents.push(event); }).accepted).assertTrue();
+            expect(fixture.client.unregister((event: ContinueObservation) => {
+              offEvents.push(event);
+            }).accepted).assertTrue();
             fixture.native.deliverOff(0);
             expect(fixture.client.state().offPending).assertTrue();
             expect(offEvents.length).assertEqual(1);

@@ -6,53 +6,57 @@ import { LearningDependencies, LearningStore } from '../../../main/ets/learning/
 import { TEXT_PAYLOAD_KEY } from '../../../main/ets/learning/LearningTypes';
 import { ScenePageSession } from '../../../main/ets/learning/scene/ScenePageSession';
 import { SceneStorePort, SceneWorkbench } from '../../../main/ets/learning/scene/SceneWorkbench';
-import { decodeScene, decodeWorkspace, encodeScene, SCENE_PAYLOAD_KEY, SCENE_STORE_KEY, SceneDocument } from '../../../main/ets/learning/scene/SceneModel';
-import { FakeContinueNative, FakeLearningEnvironment, ManualLearningClock, resultInfo } from '../support/LearningFixtures';
+import {
+  decodeScene, decodeWorkspace, encodeScene, SCENE_PAYLOAD_KEY, SCENE_STORE_KEY, SceneDocument
+} from '../../../main/ets/learning/scene/SceneModel';
+import {
+  FakeContinueNative, FakeLearningEnvironment, ManualLearningClock, resultInfo
+} from '../support/LearningFixtures';
 import { scenario } from '../support/BoundedCase';
 
 class SceneTestStore implements LearningStore, SceneStorePort {
   private cache: Map<string, string> = new Map<string, string>();
   private disk: Map<string, string> = new Map<string, string>();
-  putCalls: number = 0;
-  flushCalls: number = 0;
-  deleteCalls: number = 0;
-  failPut: number[] = [];
-  failFlush: number[] = [];
-  failDelete: boolean = false;
+  public putCalls: number = 0;
+  public flushCalls: number = 0;
+  public deleteCalls: number = 0;
+  public failPut: number[] = [];
+  public failFlush: number[] = [];
+  public failDelete: boolean = false;
   constructor(raw: string = '') {
     if (raw.length > 0) { this.cache.set(SCENE_STORE_KEY, raw); this.disk.set(SCENE_STORE_KEY, raw); }
   }
-  getSync(key: string, fallback: string): Object { return this.cache.get(key) ?? fallback; }
-  putSync(key: string, value: string): void {
+  public getSync(key: string, fallback: string): Object { return this.cache.get(key) ?? fallback; }
+  public putSync(key: string, value: string): void {
     this.putCalls++;
     this.cache.set(key, value);
     if (this.failPut.indexOf(this.putCalls) >= 0) { throw new Error('controlled put failure after cache mutation'); }
   }
-  deleteSync(key: string): void {
+  public deleteSync(key: string): void {
     this.deleteCalls++;
     if (this.failDelete) { throw new Error('controlled compensation failure'); }
     this.cache.delete(key);
   }
-  flushSync(): void {
+  public flushSync(): void {
     this.flushCalls++;
     if (this.failFlush.indexOf(this.flushCalls) >= 0) { throw new Error('controlled flush failure'); }
     this.disk = new Map<string, string>(this.cache);
   }
-  stored(): string { return this.disk.get(SCENE_STORE_KEY) ?? ''; }
+  public stored(): string { return this.disk.get(SCENE_STORE_KEY) ?? ''; }
 }
 
 class SceneControllerFixture implements LearningDependencies {
-  readonly clock: ManualLearningClock = new ManualLearningClock();
-  readonly native: FakeContinueNative = new FakeContinueNative();
-  readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
-  readonly store: SceneTestStore;
-  readonly controller: LearningController;
+  public readonly clock: ManualLearningClock = new ManualLearningClock();
+  public readonly native: FakeContinueNative = new FakeContinueNative();
+  public readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
+  public readonly store: SceneTestStore;
+  public readonly controller: LearningController;
   constructor(raw: string = '') {
     this.store = new SceneTestStore(raw);
     this.controller = new LearningController(undefined, this);
   }
-  openStore(): LearningStore { return this.store; }
-  release(): void { this.controller.dispose(); this.clock.clearAll(); }
+  public openStore(): LearningStore { return this.store; }
+  public release(): void { this.controller.dispose(); this.clock.clearAll(); }
 }
 
 function inbound(raw: string): Want {
@@ -67,7 +71,8 @@ function targetOf(f: SceneControllerFixture): ScenePositionTarget {
 function receipt(f: SceneControllerFixture, target: ScenePositionTarget, ok: boolean = true): void {
   const state = target.document.state;
   f.controller.reportScenePosition(target.request, state.kind, target.document.documentId, target.document.revision,
-    state.kind === 'note' ? state.note.selectionStart : state.kind === 'reading' ? state.reading.chapter : state.form.step,
+    state.kind === 'note' ? state.note.selectionStart :
+      state.kind === 'reading' ? state.reading.chapter : state.form.step,
     state.kind === 'note' ? state.note.selectionEnd : state.kind === 'reading' ? state.reading.anchor : 0, ok);
 }
 function outgoing(f: SceneControllerFixture): string {
@@ -129,7 +134,8 @@ export default function continuationScenes(): void {
       work.open('note'); work.editNote('原题', 'A🌱BC', 1, 3); work.saveNote();
       work.editNote('改题', '别的内容', 0, 4); work.discardNote();
       expect(work.snapshot().noteTitle).assertEqual('原题'); expect(work.snapshot().noteBody).assertEqual('A🌱BC');
-      expect(work.snapshot().noteSelectionStart).assertEqual(1); expect(work.snapshot().noteSelectionEnd).assertEqual(3);
+      expect(work.snapshot().noteSelectionStart).assertEqual(1);
+      expect(work.snapshot().noteSelectionEnd).assertEqual(3);
       expect(work.hasDirtyWork()).assertFalse(); expect(work.open('reading')).assertTrue(); work.dispose();
     });
 
@@ -165,7 +171,8 @@ export default function continuationScenes(): void {
     scenario('testContinuationScenes0004', (): void => {
       const store = new SceneTestStore(); const work = new SceneWorkbench(store); work.open('form');
       expect(work.setFormField('name', '小明')).assertTrue();
-      expect(work.setFormField('name', 'x'.repeat(41))).assertFalse(); expect(work.snapshot().formName).assertEqual('小明');
+      expect(work.setFormField('name', 'x'.repeat(41))).assertFalse();
+      expect(work.snapshot().formName).assertEqual('小明');
       expect(work.setFormField('address', '\uD800')).assertFalse();
       expect(work.gotoFormStep(2)).assertFalse(); expect(work.saveForm()).assertTrue();
       expect(work.snapshot().formDirty).assertFalse(); expect(work.confirmForm()).assertFalse();
@@ -173,7 +180,9 @@ export default function continuationScenes(): void {
       expect(reopened.snapshot().formName).assertEqual('小明'); expect(reopened.snapshot().formPhone).assertEqual('');
       reopened.setFormField('phone', '13800000000'); expect(reopened.nextFormStep()).assertTrue();
       reopened.setFormField('address', '受控测试地址'); expect(reopened.nextFormStep()).assertTrue();
-      reopened.setFormAgreed(true); expect(reopened.confirmForm()).assertTrue(); expect(reopened.snapshot().formConfirmed).assertTrue();
+      reopened.setFormAgreed(true);
+      expect(reopened.confirmForm()).assertTrue();
+      expect(reopened.snapshot().formConfirmed).assertTrue();
       work.dispose(); reopened.dispose();
     });
 
@@ -193,25 +202,41 @@ export default function continuationScenes(): void {
         try {
           expect(source.controller.openScene(kind)).assertTrue();
           const work = source.controller.sceneWorkbench;
-          if (kind === 'note') { work.editNote('未保存标题', 'A🌱BC', 1, 3); }
-          else if (kind === 'reading') { work.gotoParagraph(1, 2); work.addBookmark(); }
-          else { work.setFormField('name', '受控姓名'); work.setFormField('phone', '13800000000'); work.nextFormStep(); work.setFormField('address', '半填'); }
+          if (kind === 'note') {
+            work.editNote('未保存标题', 'A🌱BC', 1, 3);
+          } else if (kind === 'reading') {
+            work.gotoParagraph(1, 2);
+            work.addBookmark();
+          } else {
+            work.setFormField('name', '受控姓名');
+            work.setFormField('phone', '13800000000');
+            work.nextFormStep();
+            work.setFormField('address', '半填');
+          }
           const raw = outgoing(source); const first = decodeScene(raw).value as SceneDocument;
           target.controller.handleLaunch(inbound(raw), 10); target.controller.markWindowReady();
           target.native.deliverOn(0, undefined, resultInfo(0));
           expect(target.controller.snapshot().committed).assertFalse(); expect(target.store.putCalls).assertEqual(0);
           expect(target.native.onCallbacks.length).assertEqual(1);
           receipt(target, targetOf(target));
-          expect(target.controller.snapshot().committed).assertTrue(); expect(target.controller.snapshot().canEdit).assertTrue();
+          expect(target.controller.snapshot().committed).assertTrue();
+          expect(target.controller.snapshot().canEdit).assertTrue();
           const restored = target.controller.sceneWorkbench.document(kind);
           expect(JSON.stringify(restored.state)).assertEqual(JSON.stringify(first.state));
           if (kind === 'note') {
             expect(target.controller.sceneWorkbench.snapshot().noteDirty).assertTrue();
-            target.controller.sceneWorkbench.editNote('继续编辑', '目标端继续操作', 0, 3); target.controller.sceneWorkbench.saveNote();
-          } else if (kind === 'reading') { target.controller.sceneWorkbench.previousParagraph(); target.controller.sceneWorkbench.saveReading(); }
-          else { target.controller.sceneWorkbench.setFormField('address', '目标端继续填写'); target.controller.sceneWorkbench.saveForm(); }
+            target.controller.sceneWorkbench.editNote('继续编辑', '目标端继续操作', 0, 3);
+            target.controller.sceneWorkbench.saveNote();
+          } else if (kind === 'reading') {
+            target.controller.sceneWorkbench.previousParagraph();
+            target.controller.sceneWorkbench.saveReading();
+          } else {
+            target.controller.sceneWorkbench.setFormField('address', '目标端继续填写');
+            target.controller.sceneWorkbench.saveForm();
+          }
           const next = decodeScene(outgoing(target)).value as SceneDocument;
-          expect(next.transferId !== first.transferId).assertTrue(); expect(next.documentId).assertEqual(first.documentId);
+          expect(next.transferId !== first.transferId).assertTrue();
+          expect(next.documentId).assertEqual(first.documentId);
           expect(next.revision > first.revision).assertTrue();
           const reopened = new SceneControllerFixture(target.store.stored());
           expect(JSON.stringify(reopened.controller.sceneWorkbench.document(kind).state))
@@ -236,7 +261,8 @@ export default function continuationScenes(): void {
         source.controller.openScene('reading'); source.controller.sceneWorkbench.gotoParagraph(2, 1);
         target.controller.handleLaunch(inbound(outgoing(source)), 3); target.controller.markWindowReady();
         const old = targetOf(target); receipt(target, old, false);
-        expect(target.controller.snapshot().targetPage).assertEqual('pages/ProcessPage'); expect(target.store.putCalls).assertEqual(0);
+        expect(target.controller.snapshot().targetPage).assertEqual('pages/ProcessPage');
+        expect(target.store.putCalls).assertEqual(0);
         target.controller.retryBusinessPosition(); const retried = targetOf(target);
         expect(retried.request !== old.request).assertTrue(); receipt(target, old);
         expect(target.store.putCalls).assertEqual(0);
@@ -263,13 +289,18 @@ export default function continuationScenes(): void {
         target.controller.openScene('note'); target.controller.sceneWorkbench.editNote('本机', '本机草稿', 1, 3);
         const before = target.controller.sceneWorkbench.document('note');
         target.controller.handleLaunch(inbound(outgoing(source)), 10); target.controller.acceptConflict();
-        expect(target.controller.snapshot().conflictAccepted).assertTrue(); expect(target.store.putCalls).assertEqual(0);
-        receipt(target, targetOf(target)); target.controller.markWindowReady(); expect(target.store.putCalls).assertEqual(0);
+        expect(target.controller.snapshot().conflictAccepted).assertTrue();
+        expect(target.store.putCalls).assertEqual(0);
+        receipt(target, targetOf(target));
+        target.controller.markWindowReady();
+        expect(target.store.putCalls).assertEqual(0);
         target.store.failFlush = [1]; target.native.deliverOn(0);
-        expect(target.controller.snapshot().committed).assertFalse(); expect(target.controller.snapshot().sessionActive).assertFalse();
+        expect(target.controller.snapshot().committed).assertFalse();
+        expect(target.controller.snapshot().sessionActive).assertFalse();
         expect(JSON.stringify(target.controller.sceneWorkbench.document('note')))
           .assertEqual(JSON.stringify(before));
-        expect(target.controller.sceneWorkbench.snapshot().noteDirty).assertTrue(); expect(target.store.stored()).assertEqual('');
+        expect(target.controller.sceneWorkbench.snapshot().noteDirty).assertTrue();
+        expect(target.store.stored()).assertEqual('');
       } finally { source.release(); target.release(); }
     });
 
@@ -289,11 +320,14 @@ export default function continuationScenes(): void {
         page.bind(f.controller, (): void => { changes++; }); page.detach(); const afterDetach = changes;
         f.controller.sceneWorkbench.setFormField('name', '隐私姓名'); expect(changes).assertEqual(afterDetach);
         page.bind(f.controller, (): void => { changes++; }); expect(page.snapshot().formName).assertEqual('隐私姓名');
-        const afterBind = changes; f.controller.sceneWorkbench.setFormField('address', '隐私地址'); expect(changes).assertEqual(afterBind + 1);
+        const afterBind = changes;
+        f.controller.sceneWorkbench.setFormField('address', '隐私地址');
+        expect(changes).assertEqual(afterBind + 1);
         const source = new SceneControllerFixture();
         try {
           source.controller.openScene('form'); source.controller.sceneWorkbench.setFormField('phone', '13812345678');
-          f.controller.handleLaunch({} as Want, 10); f.native.deliverOn(0, undefined, resultInfo(0, '13812345678 隐私地址'));
+          f.controller.handleLaunch({} as Want, 10);
+          f.native.deliverOn(0, undefined, resultInfo(0, '13812345678 隐私地址'));
           f.controller.handleLaunch(inbound(outgoing(source)), 3);
           const summary = JSON.stringify(f.controller.snapshot().records);
           expect(summary.indexOf('13812345678')).assertEqual(-1); expect(summary.indexOf('隐私地址')).assertEqual(-1);
@@ -316,11 +350,15 @@ export default function continuationScenes(): void {
     scenario('testContinuationScenes0009', (): void => {
       const source = new SceneControllerFixture(); const target = new SceneControllerFixture();
       try {
-        source.controller.openScene('reading'); const raw = outgoing(source); const parameters: Record<string, Object> = {};
+        source.controller.openScene('reading');
+        const raw = outgoing(source);
+        const parameters: Record<string, Object> = {};
         parameters[TEXT_PAYLOAD_KEY] = raw;
-        target.controller.handleLaunch({ parameters: parameters } as Want, 3); expect(target.store.putCalls).assertEqual(0);
+        target.controller.handleLaunch({ parameters: parameters } as Want, 3);
+        expect(target.store.putCalls).assertEqual(0);
         parameters[SCENE_PAYLOAD_KEY] = raw;
-        target.controller.handleLaunch({ parameters: parameters } as Want, 3); expect(target.controller.snapshot().sessionActive).assertFalse();
+        target.controller.handleLaunch({ parameters: parameters } as Want, 3);
+        expect(target.controller.snapshot().sessionActive).assertFalse();
         expect(target.store.putCalls).assertEqual(0);
         const broken = new SceneWorkbench(new SceneTestStore('{bad'));
         expect(broken.snapshot().storageFrozen).assertTrue(); expect(broken.saveNote()).assertFalse(); broken.dispose();

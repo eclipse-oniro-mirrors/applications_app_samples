@@ -4,10 +4,10 @@ export enum GuidanceKind {
   SYSTEM_SETTINGS = 'systemSettings', IN_APP = 'inApp', MANUAL_ONLY = 'manualOnly'
 }
 export class GuidanceStep {
-  order: number = 0;
-  label: string = '';
-  detail: string = '';
-  required: boolean = true;
+  public order: number = 0;
+  public label: string = '';
+  public detail: string = '';
+  public required: boolean = true;
 
   constructor(order: number = 0, label: string = '', detail: string = '', required: boolean = true) {
     this.order = order;
@@ -17,14 +17,14 @@ export class GuidanceStep {
   }
 }
 export class GuidanceEntry {
-  entryId: string = '';
-  kind: GuidanceKind = GuidanceKind.MANUAL_ONLY;
-  minApi: number = 0;
-  maxApi: number = 999;
-  forms: DeviceForm[] = [];
-  flavors: SystemFlavor[] = [];
-  title: string = '';
-  summary: string = '';
+  public entryId: string = '';
+  public kind: GuidanceKind = GuidanceKind.MANUAL_ONLY;
+  public minApi: number = 0;
+  public maxApi: number = 999;
+  public forms: DeviceForm[] = [];
+  public flavors: SystemFlavor[] = [];
+  public title: string = '';
+  public summary: string = '';
   public steps: GuidanceStep[] = [];
 
   constructor(entryId: string = '', kind: GuidanceKind = GuidanceKind.MANUAL_ONLY,

@@ -96,7 +96,10 @@ struct ProcessPage {
       return;
     }
     try {
-      this.getUIContext().getRouter().pushUrl({ url: 'pages/CallDetailPage', params: { id: this.snapshot.sessionRecordId } },
+      this.getUIContext().getRouter().pushUrl({
+        url: 'pages/CallDetailPage',
+        params: { id: this.snapshot.sessionRecordId }
+      },
         (error: BusinessError) => {
           if (error) {
             this.message = `未打开本轮诊断：${learningError(error)}`;

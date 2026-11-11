@@ -47,17 +47,17 @@ const DAY: number = 86400000;
 
 /** 保留规则。 */
 export class RetentionRule {
-  ruleId: string = '';
-  tier: RetentionTier = RetentionTier.RECENT;
+  public ruleId: string = '';
+  public tier: RetentionTier = RetentionTier.RECENT;
   /** 该档位覆盖的最大年龄（毫秒）；0 表示不限。 */
-  maxAgeMs: number = 0;
+  public maxAgeMs: number = 0;
   /** 该档位允许保留的最大条数；0 表示不限。 */
-  maxCount: number = 0;
+  public maxCount: number = 0;
   /** 是否参与导出。 */
-  exportable: boolean = true;
+  public exportable: boolean = true;
   /** 是否保留完整错误信息。 */
-  keepDetail: boolean = true;
-  description: string = '';
+  public keepDetail: boolean = true;
+  public description: string = '';
 
   constructor(ruleId: string = '', tier: RetentionTier = RetentionTier.RECENT,
     maxAgeMs: number = 0, maxCount: number = 0, exportable: boolean = true,
@@ -178,9 +178,9 @@ export function limitAt(ageMs: number): number {
 
 /** 一条待归档记录的最小信息。 */
 export class ArchiveRecord {
-  id: number = 0;
-  timestamp: number = 0;
-  outcome: string = 'unknown';
+  public id: number = 0;
+  public timestamp: number = 0;
+  public outcome: string = 'unknown';
 
   constructor(id: number = 0, timestamp: number = 0, outcome: string = 'unknown') {
     this.id = id;
@@ -196,10 +196,10 @@ export class ArchiveRecord {
 
 /** 归档分桶结果。 */
 export class ArchivePlan {
-  recent: ArchiveRecord[] = [];
-  weekly: ArchiveRecord[] = [];
-  archive: ArchiveRecord[] = [];
-  expired: ArchiveRecord[] = [];
+  public recent: ArchiveRecord[] = [];
+  public weekly: ArchiveRecord[] = [];
+  public archive: ArchiveRecord[] = [];
+  public expired: ArchiveRecord[] = [];
 
   /** 保留的总条数。 */
   kept(): number {
@@ -257,10 +257,10 @@ export function planArchive(records: ArchiveRecord[], now: number): ArchivePlan 
 
 /** 压缩判定的输入。 */
 export class CompactionInput {
-  tier: RetentionTier = RetentionTier.RECENT;
-  count: number = 0;
+  public tier: RetentionTier = RetentionTier.RECENT;
+  public count: number = 0;
   /** 估算每条占用字符数。 */
-  averageChars: number = 0;
+  public averageChars: number = 0;
 }
 
 /** 压缩结论。 */
@@ -307,8 +307,8 @@ export function decideCompaction(input: CompactionInput): Compaction {
 
 /** 一次归档执行的结论。 */
 export class CompactionReport {
-  plan: ArchivePlan = new ArchivePlan();
-  decisions: string[] = [];
+  public plan: ArchivePlan = new ArchivePlan();
+  public decisions: string[] = [];
 
   /** 需要用户确认的条数。 */
   needConfirm(): number {
@@ -353,7 +353,7 @@ export function buildCompaction(records: ArchiveRecord[], now: number): Compacti
 
 /** 策略自检。 */
 export class RetentionAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
   summary(): string {

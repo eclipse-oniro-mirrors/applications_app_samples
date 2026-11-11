@@ -29,29 +29,29 @@ export enum RevisitStage {
 
 /** 一次回访的完整事实。 */
 export class RevisitSession {
-  sessionId: string = '';
-  createdAt: number = 0;
-  expectedQueryId: number = 0;
-  lastQueryId: number = 0;
-  stage: RevisitStage = RevisitStage.IDLE;
+  public sessionId: string = '';
+  public createdAt: number = 0;
+  public expectedQueryId: number = 0;
+  public lastQueryId: number = 0;
+  public stage: RevisitStage = RevisitStage.IDLE;
   /** 离开时间。 */
-  leftAt: number = 0;
+  public leftAt: number = 0;
   /** 返回时间。 */
-  returnedAt: number = 0;
+  public returnedAt: number = 0;
   /** 重新查询完成时间。 */
-  recheckedAt: number = 0;
+  public recheckedAt: number = 0;
   /** 离开前样本。 */
-  before: QueryRecord | undefined = undefined;
+  public before: QueryRecord | undefined = undefined;
   /** 返回后样本。 */
-  after: QueryRecord | undefined = undefined;
+  public after: QueryRecord | undefined = undefined;
   /** Bounded retry facts; old schema-1 snapshots may omit this field. */
-  attempts: QueryRecord[] = [];
+  public attempts: QueryRecord[] = [];
   /** 引导文案版本，便于判断"用户看的是哪一版指引"。 */
-  guidanceRevision: number = 1;
+  public guidanceRevision: number = 1;
   /** 是否由用户主动取消。 */
-  cancelled: boolean = false;
+  public cancelled: boolean = false;
   /** 结论：改变 / 未改变 / 无法判断。 */
-  conclusion: string = '尚未判断';
+  public conclusion: string = '尚未判断';
 
   clone(): RevisitSession {
     const copy: RevisitSession = new RevisitSession();
@@ -75,14 +75,14 @@ export class RevisitSession {
 
 /** 前后对比结果。 */
 export class RevisitComparison {
-  comparable: boolean = false;
-  changed: boolean = false;
-  beforeValue: string = '';
-  afterValue: string = '';
+  public comparable: boolean = false;
+  public changed: boolean = false;
+  public beforeValue: string = '';
+  public afterValue: string = '';
   /** 无法比较时的原因。 */
-  reason: string = '';
+  public reason: string = '';
   /** 间隔毫秒；任一侧缺失时为 0。 */
-  elapsed: number = 0;
+  public elapsed: number = 0;
 
   summary(): string {
     if (!this.comparable) {
@@ -147,9 +147,9 @@ export function compareSamples(before: QueryRecord | undefined,
 }
 
 class RevisitArchive {
-  schema: number = 1;
-  session: RevisitSession = new RevisitSession();
-  sessions?: RevisitSession[];
+  public schema: number = 1;
+  public session: RevisitSession = new RevisitSession();
+  public sessions?: RevisitSession[];
   public serial?: number;
 }
 
@@ -370,7 +370,8 @@ export class RevisitTracker {
     if (raw.length > 256000) { throw new Error('Invalid revisit size'); }
     const stored = JSON.parse(raw) as RevisitArchive;
     if (stored === null || typeof stored !== 'object' || stored.schema !== 1 ||
-      (stored.sessions !== undefined && (!Array.isArray(stored.sessions) || stored.sessions.length > REVISIT_ARCHIVE_LIMIT)) ||
+      (stored.sessions !== undefined && (!Array.isArray(stored.sessions) ||
+        stored.sessions.length > REVISIT_ARCHIVE_LIMIT)) ||
       (stored.serial !== undefined && (!Number.isSafeInteger(stored.serial) || stored.serial < 0 ||
         stored.serial >= Number.MAX_SAFE_INTEGER))) {
       throw new Error('Invalid revisit archive');
@@ -431,7 +432,8 @@ export class RevisitTracker {
       (copy.stage === RevisitStage.RETURNED && copy.returnedAt < copy.leftAt)) {
       throw new Error('Invalid revisit samples');
     }
-    if (item.attempts !== undefined && (!Array.isArray(item.attempts) || item.attempts.length > REVISIT_ATTEMPT_LIMIT)) {
+    if (item.attempts !== undefined &&
+      (!Array.isArray(item.attempts) || item.attempts.length > REVISIT_ATTEMPT_LIMIT)) {
       throw new Error('Invalid revisit attempts');
     }
     const attempts: QueryRecord[] = item.attempts === undefined ? [] : item.attempts;
@@ -446,7 +448,9 @@ export class RevisitTracker {
     if (copy.after !== undefined && (copy.after.source !== RefreshSource.SETTINGS ||
       copy.after.timestamp < copy.returnedAt || copy.after.timestamp > now ||
       (copy.before !== undefined && copy.after.id === copy.before.id))) { throw new Error('Invalid revisit after'); }
-    if (copy.before !== undefined && copy.before.timestamp > copy.createdAt) { throw new Error('Invalid revisit before'); }
+    if (copy.before !== undefined && copy.before.timestamp > copy.createdAt) {
+      throw new Error('Invalid revisit before');
+    }
     if (copy.leftAt > 0 && copy.leftAt < copy.createdAt) { throw new Error('Invalid revisit departure'); }
     if ((copy.stage === RevisitStage.RETURNED || copy.stage === RevisitStage.RECHECKED) &&
       (copy.leftAt === 0 || copy.returnedAt < copy.leftAt)) { throw new Error('Invalid revisit return'); }

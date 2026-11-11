@@ -90,10 +90,30 @@ export interface SceneWorkspace {
 }
 
 export function emptyScene(kind: string = 'text'): SceneState {
-  return { kind: kind,
-    note: { title: '', body: '', savedBody: '', savedTitle: '', savedSelectionStart: 0, savedSelectionEnd: 0, selectionStart: 0, selectionEnd: 0 },
+  return {
+    kind: kind,
+    note: {
+      title: '',
+      body: '',
+      savedBody: '',
+      savedTitle: '',
+      savedSelectionStart: 0,
+      savedSelectionEnd: 0,
+      selectionStart: 0,
+      selectionEnd: 0
+    },
     reading: { bookId: 'continuation-handbook-1', chapter: 0, anchor: 0, bookmarks: [] },
-    form: { step: 0, name: '', phone: '', address: '', note: '', agreed: false, savedStep: 0, confirmed: false } };
+    form: {
+      step: 0,
+      name: '',
+      phone: '',
+      address: '',
+      note: '',
+      agreed: false,
+      savedStep: 0,
+      confirmed: false
+    }
+  };
 }
 
 export function copyScene(state: SceneState): SceneState {
@@ -143,7 +163,7 @@ interface SceneAdapter {
 }
 
 class NoteAdapter implements SceneAdapter {
-  read(raw: Object): SceneState | undefined {
+  public read(raw: Object): SceneState | undefined {
     const bag = objectBag(raw);
     if (bag === undefined || !boundedText(bag['title'], 80) || !boundedText(bag['body'], 4096) ||
       !boundedText(bag['savedBody'], 4096) || typeof bag['selectionStart'] !== 'number' ||
@@ -160,18 +180,24 @@ class NoteAdapter implements SceneAdapter {
     if (typeof savedStart !== 'number' || typeof savedEnd !== 'number' ||
       !selectionBoundary(savedBody, savedStart as number) || !selectionBoundary(savedBody, savedEnd as number) ||
       (savedStart as number) > (savedEnd as number)) { return undefined; }
-    state.note = { title: bag['title'] as string, body: body, savedBody: savedBody,
+    state.note = {
+      title: bag['title'] as string,
+      body: body,
+      savedBody: savedBody,
       savedTitle: bag['savedTitle'] === undefined ? bag['title'] as string : bag['savedTitle'] as string,
-      savedSelectionStart: savedStart as number, savedSelectionEnd: savedEnd as number,
-      selectionStart: start, selectionEnd: end };
+      savedSelectionStart: savedStart as number,
+      savedSelectionEnd: savedEnd as number,
+      selectionStart: start,
+      selectionEnd: end
+    };
     return state;
   }
 
-  data(state: SceneState): Object { return state.note; }
+  public data(state: SceneState): Object { return state.note; }
 }
 
 class ReadingAdapter implements SceneAdapter {
-  read(raw: Object): SceneState | undefined {
+  public read(raw: Object): SceneState | undefined {
     const bag = objectBag(raw);
     if (bag === undefined || bag['bookId'] !== 'continuation-handbook-1' ||
       typeof bag['chapter'] !== 'number' || typeof bag['anchor'] !== 'number' ||
@@ -195,7 +221,7 @@ class ReadingAdapter implements SceneAdapter {
     return state;
   }
 
-  data(state: SceneState): Object { return state.reading; }
+  public data(state: SceneState): Object { return state.reading; }
 }
 
 /** 表单步骤标签。 */
@@ -234,7 +260,7 @@ export function formIssues(form: FormDraft): string[] {
 }
 
 class FormAdapter implements SceneAdapter {
-  read(raw: Object): SceneState | undefined {
+  public read(raw: Object): SceneState | undefined {
     const bag = objectBag(raw);
     if (bag === undefined || typeof bag['step'] !== 'number' || !validFormStep(bag['step'] as number) ||
       !boundedText(bag['name'], 40) || !boundedText(bag['phone'], 20) ||
@@ -244,15 +270,21 @@ class FormAdapter implements SceneAdapter {
     if (bag['savedStep'] !== undefined && (typeof bag['savedStep'] !== 'number' ||
       !validFormStep(bag['savedStep'] as number))) { return undefined; }
     if (bag['confirmed'] !== undefined && typeof bag['confirmed'] !== 'boolean') { return undefined; }
-    state.form = { step: bag['step'] as number, name: bag['name'] as string,
-      phone: bag['phone'] as string, address: bag['address'] as string, note: bag['note'] as string,
-      agreed: bag['agreed'] as boolean, savedStep: bag['savedStep'] === undefined ? bag['step'] as number :
-        bag['savedStep'] as number, confirmed: bag['confirmed'] === true };
+    state.form = {
+      step: bag['step'] as number,
+      name: bag['name'] as string,
+      phone: bag['phone'] as string,
+      address: bag['address'] as string,
+      note: bag['note'] as string,
+      agreed: bag['agreed'] as boolean,
+      savedStep: bag['savedStep'] === undefined ? bag['step'] as number : bag['savedStep'] as number,
+      confirmed: bag['confirmed'] === true
+    };
     if (state.form.confirmed && formIssues(state.form).length > 0) { return undefined; }
     return state;
   }
 
-  data(state: SceneState): Object { return state.form; }
+  public data(state: SceneState): Object { return state.form; }
 }
 
 function adapter(kind: string): SceneAdapter | undefined {
@@ -270,9 +302,15 @@ export function sceneLabel(kind: string): string {
 export function encodeScene(document: SceneDocument): string {
   const selected = adapter(document.state.kind);
   if (selected === undefined) { throw new Error('Unsupported scene'); }
-  return JSON.stringify({ protocol: 'appcontinuation.scene', version: 1, transferId: document.transferId,
-    documentId: document.documentId, revision: document.revision, scene: document.state.kind,
-    state: selected.data(document.state) });
+  return JSON.stringify({
+    protocol: 'appcontinuation.scene',
+    version: 1,
+    transferId: document.transferId,
+    documentId: document.documentId,
+    revision: document.revision,
+    scene: document.state.kind,
+    state: selected.data(document.state)
+  });
 }
 
 export function decodeScene(raw: Object | undefined): SceneRead {
@@ -285,7 +323,8 @@ export function decodeScene(raw: Object | undefined): SceneRead {
     typeof bag['transferId'] !== 'string' || !/^[A-Za-z0-9_-]{1,96}$/.test(bag['transferId'] as string) ||
     typeof bag['documentId'] !== 'string' || !/^[A-Za-z0-9_-]{1,64}$/.test(bag['documentId'] as string) ||
     typeof bag['revision'] !== 'number' || !Number.isInteger(bag['revision'] as number) ||
-    (bag['revision'] as number) < 0 || (bag['revision'] as number) > REVISION_LIMIT || typeof bag['scene'] !== 'string') {
+    (bag['revision'] as number) < 0 || (bag['revision'] as number) > REVISION_LIMIT ||
+    typeof bag['scene'] !== 'string') {
     rejected.reason = '业务协议版本、场景、身份或修订号无效。'; return rejected;
   }
   const selected = adapter(bag['scene'] as string);

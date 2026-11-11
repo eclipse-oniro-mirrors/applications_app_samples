@@ -25,48 +25,49 @@ export class PreferencesSceneStore implements SceneStorePort {
     if (!/^[A-Za-z0-9_-]{1,80}$/.test(namespace)) { throw new Error('Invalid scene Preferences namespace'); }
     this.store = preferences.getPreferencesSync(context, { name: namespace });
   }
-  getSync(key: string, defaultValue: string): Object { return this.store.getSync(key, defaultValue); }
-  putSync(key: string, value: string): void { this.store.putSync(key, value); }
-  deleteSync(key: string): void { this.store.deleteSync(key); }
-  flushSync(): void { this.store.flushSync(); }
+  public getSync(key: string, defaultValue: string): Object { return this.store.getSync(key, defaultValue); }
+  public putSync(key: string, value: string): void { this.store.putSync(key, value); }
+  public deleteSync(key: string): void { this.store.deleteSync(key); }
+  public flushSync(): void { this.store.flushSync(); }
 }
 
 export class SceneSnapshot {
-  ready: boolean = false;
-  editable: boolean = true;
-  storageFrozen: boolean = false;
-  active: string = 'note';
-  noteTitle: string = '';
-  noteBody: string = '';
-  noteSavedBody: string = '';
-  noteSelectionStart: number = 0;
-  noteSelectionEnd: number = 0;
-  noteDirty: boolean = false;
-  readingChapter: number = 0;
-  readingAnchor: number = 0;
-  readingChapterTitle: string = '';
-  readingParagraph: string = '';
-  readingParagraphCount: number = 0;
-  readingDirty: boolean = false;
-  bookmarks: ReadingBookmark[] = [];
-  formStep: number = 0;
-  formStepLabel: string = '';
-  formName: string = '';
-  formPhone: string = '';
-  formAddress: string = '';
-  formNote: string = '';
-  formAgreed: boolean = false;
-  formConfirmed: boolean = false;
-  formIssues: string[] = [];
-  formStepIssues: string[] = [];
-  formDirty: boolean = false;
-  documentId: string = '';
-  revision: number = 0;
-  historyCount: number = 0;
-  notice: string = '';
+  public ready: boolean = false;
+  public editable: boolean = true;
+  public storageFrozen: boolean = false;
+  public active: string = 'note';
+  public noteTitle: string = '';
+  public noteBody: string = '';
+  public noteSavedBody: string = '';
+  public noteSelectionStart: number = 0;
+  public noteSelectionEnd: number = 0;
+  public noteDirty: boolean = false;
+  public readingChapter: number = 0;
+  public readingAnchor: number = 0;
+  public readingChapterTitle: string = '';
+  public readingParagraph: string = '';
+  public readingParagraphCount: number = 0;
+  public readingDirty: boolean = false;
+  public bookmarks: ReadingBookmark[] = [];
+  public formStep: number = 0;
+  public formStepLabel: string = '';
+  public formName: string = '';
+  public formPhone: string = '';
+  public formAddress: string = '';
+  public formNote: string = '';
+  public formAgreed: boolean = false;
+  public formConfirmed: boolean = false;
+  public formIssues: string[] = [];
+  public formStepIssues: string[] = [];
+  public formDirty: boolean = false;
+  public documentId: string = '';
+  public revision: number = 0;
+  public historyCount: number = 0;
+  public notice: string = '';
   public error: string = '';
-  text(): string {
-    return this.active === 'reading' ? `阅读 r${this.revision}｜第 ${this.readingChapter + 1} 章 第 ${this.readingAnchor + 1} 段` :
+  public text(): string {
+    return this.active === 'reading' ?
+      `阅读 r${this.revision}｜第 ${this.readingChapter + 1} 章 第 ${this.readingAnchor + 1} 段` :
       this.active === 'form' ? `表单 r${this.revision}｜${this.formStepLabel}｜${this.formDirty ? '未保存' : '已保留草稿'}` :
         `笔记 r${this.revision}｜${this.noteDirty ? '有未保存修改' : '已保存'}`;
   }
@@ -103,8 +104,10 @@ export class SceneWorkbench {
     this.store = store;
     try {
       const raw = store.getSync(SCENE_STORE_KEY, '');
-      if (typeof raw !== 'string') { this.frozen = true; this.error = '场景存档类型无效，已冻结写入'; }
-      else if (raw.length > 0) {
+      if (typeof raw !== 'string') {
+        this.frozen = true;
+        this.error = '场景存档类型无效，已冻结写入';
+      } else if (raw.length > 0) {
         this.durableRaw = raw;
         const decoded = decodeWorkspace(raw);
         if (decoded === undefined) {
@@ -120,7 +123,7 @@ export class SceneWorkbench {
     if (this.workspace.active === 'text') { this.workspace.active = 'note'; }
   }
 
-  subscribe(listener: () => void): () => void {
+  public subscribe(listener: () => void): () => void {
     if (!this.disposed) { this.listeners.add(listener); }
     return (): void => { this.listeners.delete(listener); };
   }
@@ -131,8 +134,8 @@ export class SceneWorkbench {
     if (this.disposed) { return; }
     this.listeners.forEach((listener: () => void): void => { try { listener(); } catch (error) {} });
   }
-  setLocked(value: boolean): void { this.locked = value; this.publish(); }
-  dispose(): void {
+  public setLocked(value: boolean): void { this.locked = value; this.publish(); }
+  public dispose(): void {
     this.disposed = true; this.listeners.clear(); this.locked = true;
     this.backupEpoch++; this.pendingBackup = undefined;
   }
@@ -144,11 +147,13 @@ export class SceneWorkbench {
   private ensureDocument(kind: string): SceneDocument {
     const existing = findScene(this.workspace, kind);
     if (existing !== undefined) { return existing; }
-    const value: SceneDocument = { transferId: 'local', documentId: this.fresh(`doc-${kind}`), revision: 0, state: emptyScene(kind) };
+    const value: SceneDocument = {
+      transferId: 'local', documentId: this.fresh(`doc-${kind}`), revision: 0, state: emptyScene(kind)
+    };
     this.workspace.documents.push(value);
     return value;
   }
-  document(kind: string = ''): SceneDocument {
+  public document(kind: string = ''): SceneDocument {
     return cloneDocument(this.ensureDocument(kind.length > 0 ? kind : this.workspace.active));
   }
   private isDirty(kind: string): boolean {
@@ -162,7 +167,9 @@ export class SceneWorkbench {
     return saved === undefined ? JSON.stringify(current.state) !== JSON.stringify(emptyScene(kind)) :
       JSON.stringify(current.state) !== JSON.stringify(saved.state);
   }
-  hasDirtyWork(): boolean { return ['note', 'reading', 'form'].some((kind: string): boolean => this.isDirty(kind)); }
+  public hasDirtyWork(): boolean {
+    return ['note', 'reading', 'form'].some((kind: string): boolean => this.isDirty(kind));
+  }
 
   /** Validate the entire staged root before touching the cache; compensate any put/flush failure. */
   private write(next: SceneWorkspace): boolean {
@@ -197,7 +204,8 @@ export class SceneWorkbench {
   private persistDocument(document: SceneDocument): boolean {
     const next = stageScene(this.durable, document, document.state.kind);
     if (!this.write(next)) { this.publish(); return false; }
-    const retained = this.workspace.documents.filter((item: SceneDocument): boolean => item.state.kind !== document.state.kind);
+    const retained = this.workspace.documents
+      .filter((item: SceneDocument): boolean => item.state.kind !== document.state.kind);
     this.workspace = cloneWorkspace(next);
     retained.forEach((item: SceneDocument): void => {
       this.workspace.documents = this.workspace.documents
@@ -224,7 +232,7 @@ export class SceneWorkbench {
     return this.persistDocument(next);
   }
 
-  snapshot(preview?: SceneDocument): SceneSnapshot {
+  public snapshot(preview?: SceneDocument): SceneSnapshot {
     const document = preview === undefined ? this.document() : cloneDocument(preview);
     const value = new SceneSnapshot();
     value.ready = true; value.editable = this.editable(); value.storageFrozen = this.frozen;
@@ -241,16 +249,19 @@ export class SceneWorkbench {
     value.readingChapter = reading.chapter; value.readingAnchor = reading.anchor; value.bookmarks = reading.bookmarks;
     value.readingChapterTitle = READING_CHAPTERS[reading.chapter].title;
     value.readingParagraph = READING_CHAPTERS[reading.chapter].paragraphs[reading.anchor];
-    value.readingParagraphCount = READING_CHAPTERS[reading.chapter].paragraphs.length; value.readingDirty = this.isDirty('reading');
+    value.readingParagraphCount = READING_CHAPTERS[reading.chapter].paragraphs.length;
+    value.readingDirty = this.isDirty('reading');
     const form = document.state.form;
     value.formStep = form.step; value.formStepLabel = FORM_STEPS[form.step]; value.formName = form.name;
     value.formPhone = form.phone; value.formAddress = form.address; value.formNote = form.note;
     value.formAgreed = form.agreed; value.formConfirmed = form.confirmed;
-    value.formIssues = formIssues(form); value.formStepIssues = stepIssues(form, form.step); value.formDirty = this.isDirty('form');
+    value.formIssues = formIssues(form);
+    value.formStepIssues = stepIssues(form, form.step);
+    value.formDirty = this.isDirty('form');
     value.notice = this.notice; value.error = this.error;
     return value;
   }
-  open(kind: string, preserveBackupDrafts: boolean = false): boolean {
+  public open(kind: string, preserveBackupDrafts: boolean = false): boolean {
     if (!this.editable()) { return false; }
     if (['note', 'reading', 'form'].indexOf(kind) < 0) { return this.reject('未知场景'); }
     if (kind !== this.workspace.active && this.hasDirtyWork() && !(preserveBackupDrafts && this.backupResumeAllowed)) {
@@ -258,45 +269,54 @@ export class SceneWorkbench {
     }
     this.workspace.active = kind; this.error = ''; this.publish(); return true;
   }
-  editNote(title: string, body: string, start: number, end: number): boolean {
+  public editNote(title: string, body: string, start: number, end: number): boolean {
     if (!this.editable()) { return false; }
     if (title.length > 80 || body.length > 4096 || !validUnicode(title) || !validUnicode(body) ||
-      !selectionBoundary(body, start) || !selectionBoundary(body, end) || start > end) { return this.reject('标题、正文或选区无效'); }
+      !selectionBoundary(body, start) || !selectionBoundary(body, end) || start > end) {
+      return this.reject('标题、正文或选区无效');
+    }
     const note = this.ensureDocument('note').state.note;
     note.title = title; note.body = body; note.selectionStart = start; note.selectionEnd = end;
     this.error = ''; this.publish(); return true;
   }
-  saveNote(): boolean { return this.save('note', true); }
-  discardNote(): void {
+  public saveNote(): boolean { return this.save('note', true); }
+  public discardNote(): void {
     if (!this.editable()) { return; }
     const note = this.ensureDocument('note').state.note;
     note.title = note.savedTitle; note.body = note.savedBody;
     note.selectionStart = note.savedSelectionStart; note.selectionEnd = note.savedSelectionEnd;
     this.error = ''; this.publish();
   }
-  gotoParagraph(chapter: number, anchor: number): boolean {
+  public gotoParagraph(chapter: number, anchor: number): boolean {
     if (!this.editable()) { return false; }
     if (!validReadingPosition(chapter, anchor)) { return this.reject('章节或段落不存在'); }
     const reading = this.ensureDocument('reading').state.reading;
     reading.chapter = chapter; reading.anchor = anchor; this.error = ''; this.publish(); return true;
   }
-  nextParagraph(): boolean { const reading = this.document('reading').state.reading; return this.gotoParagraph(reading.chapter, reading.anchor + 1); }
-  previousParagraph(): boolean { const reading = this.document('reading').state.reading; return this.gotoParagraph(reading.chapter, reading.anchor - 1); }
-  addBookmark(): boolean {
+  public nextParagraph(): boolean {
+    const reading = this.document('reading').state.reading;
+    return this.gotoParagraph(reading.chapter, reading.anchor + 1);
+  }
+  public previousParagraph(): boolean {
+    const reading = this.document('reading').state.reading;
+    return this.gotoParagraph(reading.chapter, reading.anchor - 1);
+  }
+  public addBookmark(): boolean {
     if (!this.editable()) { return false; }
     const reading = this.ensureDocument('reading').state.reading;
     if (reading.bookmarks.length >= 20 || reading.bookmarks.some((item: ReadingBookmark): boolean =>
       item.chapter === reading.chapter && item.anchor === reading.anchor)) { return this.reject('书签重复或已达上限'); }
-    reading.bookmarks.push({ chapter: reading.chapter, anchor: reading.anchor }); this.error = ''; this.publish(); return true;
+    reading.bookmarks.push({ chapter: reading.chapter, anchor: reading.anchor });
+    this.error = ''; this.publish(); return true;
   }
-  removeBookmark(index: number): boolean {
+  public removeBookmark(index: number): boolean {
     if (!this.editable()) { return false; }
     const bookmarks = this.ensureDocument('reading').state.reading.bookmarks;
     if (!Number.isInteger(index) || index < 0 || index >= bookmarks.length) { return this.reject('书签不存在'); }
     bookmarks.splice(index, 1); this.error = ''; this.publish(); return true;
   }
-  saveReading(): boolean { return this.save('reading'); }
-  setFormField(field: string, value: string): boolean {
+  public saveReading(): boolean { return this.save('reading'); }
+  public setFormField(field: string, value: string): boolean {
     if (!this.editable()) { return false; }
     const limits: Map<string, number> = new Map<string, number>();
     limits.set('name', 40);
@@ -317,7 +337,7 @@ export class SceneWorkbench {
     }
     form.confirmed = false; this.error = ''; this.publish(); return true;
   }
-  gotoFormStep(step: number): boolean {
+  public gotoFormStep(step: number): boolean {
     if (!this.editable()) { return false; }
     if (!validFormStep(step)) { return this.reject('步骤不存在'); }
     const form = this.ensureDocument('form').state.form;
@@ -327,27 +347,27 @@ export class SceneWorkbench {
     }
     form.step = step; this.error = ''; this.publish(); return true;
   }
-  nextFormStep(): boolean { return this.gotoFormStep(this.document('form').state.form.step + 1); }
-  previousFormStep(): boolean { return this.gotoFormStep(this.document('form').state.form.step - 1); }
-  setFormAgreed(value: boolean): boolean {
+  public nextFormStep(): boolean { return this.gotoFormStep(this.document('form').state.form.step + 1); }
+  public previousFormStep(): boolean { return this.gotoFormStep(this.document('form').state.form.step - 1); }
+  public setFormAgreed(value: boolean): boolean {
     if (!this.editable()) { return false; }
     const form = this.ensureDocument('form').state.form; form.agreed = value; form.confirmed = false;
     this.error = ''; this.publish(); return true;
   }
   /** Draft schema permits partial values; completion is a separate whole-form validation. */
-  saveForm(): boolean { return this.save('form'); }
-  confirmForm(): boolean {
+  public saveForm(): boolean { return this.save('form'); }
+  public confirmForm(): boolean {
     if (formIssues(this.document('form').state.form).length > 0) { return this.reject('整表校验尚未通过，不能确认完成'); }
     return this.save('form', false, true);
   }
-  payloadOf(kind: string = ''): string {
+  public payloadOf(kind: string = ''): string {
     const document = this.document(kind);
     document.transferId = this.fresh('transfer');
     const raw = encodeScene(document);
     if (decodeScene(raw).value === undefined) { throw new Error('Scene payload rejected by production schema'); }
     return raw;
   }
-  conflictReason(incoming: SceneDocument): string {
+  public conflictReason(incoming: SceneDocument): string {
     const local = this.document(incoming.state.kind);
     if (this.hasDirtyWork()) { return '本机有未保存业务状态；请选择接续版本或保留本机。'; }
     if (local.documentId === incoming.documentId && incoming.revision <= local.revision &&
@@ -355,7 +375,7 @@ export class SceneWorkbench {
     return '';
   }
   /** Called only by LearningController after its candidate/quick/window/business-position gates. */
-  commitIncoming(incoming: SceneDocument, accepted: boolean): boolean {
+  public commitIncoming(incoming: SceneDocument, accepted: boolean): boolean {
     if (this.disposed || this.backupBusy) { return false; }
     const next = cloneDocument(incoming);
     const local = this.document(incoming.state.kind);
@@ -366,25 +386,28 @@ export class SceneWorkbench {
     }
     return this.persistDocument(next);
   }
-  historyLines(kind: string = ''): string[] {
-    return this.historyDocuments(kind).map((item: SceneDocument): string => `${item.state.kind} r${item.revision}｜${item.documentId}`);
+  public historyLines(kind: string = ''): string[] {
+    return this.historyDocuments(kind)
+      .map((item: SceneDocument): string => `${item.state.kind} r${item.revision}｜${item.documentId}`);
   }
-  historyDocuments(kind: string = ''): SceneDocument[] {
+  public historyDocuments(kind: string = ''): SceneDocument[] {
     return this.workspace.history
       .filter((item: SceneDocument): boolean => kind.length === 0 || item.state.kind === kind)
       .map((item: SceneDocument): SceneDocument => cloneDocument(item));
   }
-  restoreHistory(index: number, kind: string = ''): boolean {
+  public restoreHistory(index: number, kind: string = ''): boolean {
     if (!this.editable()) { return false; }
     const history = this.historyDocuments(kind);
     if (!Number.isInteger(index) || index < 0 || index >= history.length) { return this.reject('历史不存在'); }
     const next = history[index];
     const current = this.document(next.state.kind);
-    if (current.documentId !== next.documentId || current.revision >= REVISION_LIMIT) { return this.reject('历史身份不匹配或修订已达上限'); }
+    if (current.documentId !== next.documentId || current.revision >= REVISION_LIMIT) {
+      return this.reject('历史身份不匹配或修订已达上限');
+    }
     next.revision = current.revision + 1; next.transferId = 'local'; return this.persistDocument(next);
   }
   /** Export a coherent copy of current editing state; never save or normalize a user's draft. */
-  backupSnapshot(): SceneBackupExport {
+  public backupSnapshot(): SceneBackupExport {
     const exported = new SceneBackupExport();
     if (!this.editable()) { exported.message = '当前业务正在恢复或已释放，暂不能生成备份。'; return exported; }
     try {
@@ -402,12 +425,12 @@ export class SceneWorkbench {
     return exported;
   }
 
-  isBackupCurrent(epoch: number): boolean { return this.editable() && epoch === this.backupEpoch; }
-  canResumeBackupDrafts(): boolean { return this.editable() && this.backupResumeAllowed; }
-  cancelBackupPreview(): void { this.pendingBackup = undefined; }
+  public isBackupCurrent(epoch: number): boolean { return this.editable() && epoch === this.backupEpoch; }
+  public canResumeBackupDrafts(): boolean { return this.editable() && this.backupResumeAllowed; }
+  public cancelBackupPreview(): void { this.pendingBackup = undefined; }
 
   /** Pure preview: any previous token is invalidated, including when the new input is invalid. */
-  previewBackup(raw: string, scope?: string[]): SceneBackupPreview {
+  public previewBackup(raw: string, scope?: string[]): SceneBackupPreview {
     this.pendingBackup = undefined;
     const rejected = new SceneBackupPreview();
     if (!this.editable()) {
@@ -435,7 +458,7 @@ export class SceneWorkbench {
   }
 
   /** A single compensated scene-root transaction. The legacy text Preferences is not touched. */
-  restoreBackup(token: string, confirmDirty: boolean, scope?: string[]): SceneBackupRestoreResult {
+  public restoreBackup(token: string, confirmDirty: boolean, scope?: string[]): SceneBackupRestoreResult {
     if (!this.editable()) { return new SceneBackupRestoreResult(SceneBackupCode.BLOCKED, '当前业务正在恢复或已释放，不能执行本地恢复。'); }
     if (this.frozen) { return new SceneBackupRestoreResult(SceneBackupCode.FROZEN, '场景存储已冻结；当前编辑保留，未继续写入。'); }
     const selected = normalizeSceneBackupScope(scope);
@@ -444,7 +467,8 @@ export class SceneWorkbench {
       return new SceneBackupRestoreResult(SceneBackupCode.INVALID, selected.message);
     }
     const plan = this.pendingBackup;
-    if (plan === undefined || plan.workspace === undefined || plan.memory === undefined || plan.preview.token !== token || plan.preview.epoch !== this.backupEpoch) {
+    if (plan === undefined || plan.workspace === undefined || plan.memory === undefined ||
+      plan.preview.token !== token || plan.preview.epoch !== this.backupEpoch) {
       return new SceneBackupRestoreResult(SceneBackupCode.STALE, '恢复预览已过期，请重新校验并预览。');
     }
     if (selected.kinds.join(',') !== plan.preview.selectedKinds.join(',')) {
@@ -478,7 +502,7 @@ export class SceneWorkbench {
     return new SceneBackupRestoreResult(SceneBackupCode.RESTORED, this.notice, true);
   }
 
-  resetWorkspace(): boolean {
+  public resetWorkspace(): boolean {
     if (!this.editable()) { return false; }
     const next = emptyWorkspace();
     if (!this.write(next)) { this.publish(); return false; }

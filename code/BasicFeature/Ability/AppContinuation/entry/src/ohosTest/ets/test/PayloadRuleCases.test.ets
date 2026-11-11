@@ -8,7 +8,9 @@ import {
   PAYLOAD_FIELDS, PAYLOAD_VERSION, auditPayloadSchema, escapeValue, fieldNames, fieldOf, fieldsAt,
   migrationChain, unescapeValue, PayloadKind
 } from '../../../main/ets/learning/payload/PayloadSchema';
-import { PayloadData, decodePayload, encodePayload, sealPayload, sizeOf, utf8Length } from '../../../main/ets/learning/payload/PayloadCodec';
+import {
+  PayloadData, decodePayload, encodePayload, sealPayload, sizeOf, utf8Length
+} from '../../../main/ets/learning/payload/PayloadCodec';
 import {
   DeviceClass, READINESS_RULES, Readiness, RuleContext, auditReadinessRules, canStart,
   deviceClassOf, evaluateReadiness, isUnsupportedReadiness, needsUserAction, readinessLabel,

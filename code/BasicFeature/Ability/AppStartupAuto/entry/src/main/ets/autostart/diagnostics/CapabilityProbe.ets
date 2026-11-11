@@ -1,5 +1,7 @@
 /** Independent real-API diagnostics. No inferred permission, enable/disable or settings-jump API. */
-import { CapabilityEvaluation, CapabilityQuery, DeviceForm, SystemFlavor, evaluateCapability } from '../rules/CapabilityMatrix';
+import {
+  CapabilityEvaluation, CapabilityQuery, DeviceForm, SystemFlavor, evaluateCapability
+} from '../rules/CapabilityMatrix';
 import { describeError } from '../rules/ErrorCatalog';
 import { QueryClock, SystemQueryClock, elapsedNow } from '../AutoStartupRuntime';
 import { StartupTelemetry, SystemStartupTelemetry, safeBegin, safeEnd } from '../Telemetry';
@@ -13,13 +15,13 @@ export enum ProbeStage {
   FAILED = 'failed', TIMEOUT = 'timeout'
 }
 export class ProbeResult {
-  stage: ProbeStage = ProbeStage.IDLE;
-  value: boolean | null = null;
-  errorCode: string = '';
-  errorMessage: string = '';
-  elapsedMillis: number = 0;
-  conclusion: string = '尚未执行';
-  unsupportedEvidence: boolean = false;
+  public stage: ProbeStage = ProbeStage.IDLE;
+  public value: boolean | null = null;
+  public errorCode: string = '';
+  public errorMessage: string = '';
+  public elapsedMillis: number = 0;
+  public conclusion: string = '尚未执行';
+  public unsupportedEvidence: boolean = false;
   clone(): ProbeResult {
     const copy = new ProbeResult();
     copy.stage = this.stage; copy.value = this.value; copy.errorCode = this.errorCode;
@@ -29,13 +31,13 @@ export class ProbeResult {
   }
 }
 export class DiagnosticReport {
-  query: CapabilityQuery = new CapabilityQuery();
+  public query: CapabilityQuery = new CapabilityQuery();
   /** Legacy rule-model evaluation is for controlled tests only, never runtime evidence. */
-  evaluation: CapabilityEvaluation = new CapabilityEvaluation();
-  ability: ProbeResult = new ProbeResult();
-  status: ProbeResult = new ProbeResult();
-  consistent: boolean = false;
-  headline: string = '尚未诊断';
+  public evaluation: CapabilityEvaluation = new CapabilityEvaluation();
+  public ability: ProbeResult = new ProbeResult();
+  public status: ProbeResult = new ProbeResult();
+  public consistent: boolean = false;
+  public headline: string = '尚未诊断';
   public advice: string = '';
   clone(): DiagnosticReport {
     const copy = new DiagnosticReport();
@@ -150,10 +152,12 @@ export class CapabilityDiagnostic {
         if (generation === this.generation) { this.assign(ability, result); }
         resolve(result.clone());
       };
-      this.cancelWait = (): void => finish(buildResult(ProbeStage.FAILED, null, 'CANCELLED', '页面已离开', this.clock() - started));
+      this.cancelWait = (): void => finish(buildResult(
+        ProbeStage.FAILED, null, 'CANCELLED', '页面已离开', this.clock() - started));
       this.timer = this.timers.setTimeout((): void => {
         // Timeout ends the visible wait, NOT the underlying non-cancellable native call.
-        finish(buildResult(ProbeStage.TIMEOUT, null, 'TIMEOUT', '系统响应超时；仍占用单飞位置至原生调用结束', this.clock() - started));
+        finish(buildResult(
+          ProbeStage.TIMEOUT, null, 'TIMEOUT', '系统响应超时；仍占用单飞位置至原生调用结束', this.clock() - started));
       }, this.timeoutMillis);
       let request: Promise<boolean>;
       try {
@@ -180,8 +184,10 @@ export class CapabilityDiagnostic {
   }
   private failure(error: Object, elapsed: number): ProbeResult {
     const candidate = error as Record<string, Object>;
-    const code = candidate === null || candidate === undefined || candidate['code'] === undefined ? 'UNKNOWN' : String(candidate['code']);
-    const message = candidate === null || candidate === undefined || candidate['message'] === undefined ? '未提供错误信息' : String(candidate['message']);
+    const code = candidate === null || candidate === undefined || candidate['code'] === undefined ?
+      'UNKNOWN' : String(candidate['code']);
+    const message = candidate === null || candidate === undefined || candidate['message'] === undefined ?
+      '未提供错误信息' : String(candidate['message']);
     return buildResult(isUnsupportedError(code) ? ProbeStage.UNSUPPORTED : ProbeStage.FAILED,
       null, code, message, elapsed);
   }

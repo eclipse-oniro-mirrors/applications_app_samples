@@ -9,24 +9,24 @@ import { FakeContinueNative, FakeLearningEnvironment, ManualLearningClock } from
 import { WaveSceneFixture, WaveSceneStore } from './ContinuationWaveOneFixtures';
 
 export class BackupQaClipboard implements SceneBackupClipboardPort {
-  texts: string[] = [];
-  fail: boolean = false;
-  hold: boolean = false;
+  public texts: string[] = [];
+  public fail: boolean = false;
+  public hold: boolean = false;
   private acknowledge: (() => void) | undefined = undefined;
-  async writeLocalText(text: string): Promise<void> {
+  public async writeLocalText(text: string): Promise<void> {
     this.texts.push(text);
     if (this.hold) { await new Promise<void>((resolve): void => { this.acknowledge = resolve; }); }
     if (this.fail) { throw new Error('qa-private-clipboard-error ' + text); }
   }
-  release(): void {
+  public release(): void {
     const acknowledge = this.acknowledge; this.acknowledge = undefined;
     if (acknowledge !== undefined) { acknowledge(); }
   }
 }
 
 export class WorkspaceQaStore extends WaveSceneStore {
-  failNextFlush: boolean = false;
-  flushSync(): void {
+  public failNextFlush: boolean = false;
+  public flushSync(): void {
     if (this.failNextFlush) {
       this.failNextFlush = false;
       throw new Error('QA scene flush failed before effect');
@@ -36,14 +36,14 @@ export class WorkspaceQaStore extends WaveSceneStore {
 }
 
 export class WorkspaceBackupUiQaFixture implements LearningDependencies {
-  readonly clock: ManualLearningClock = new ManualLearningClock();
-  readonly native: FakeContinueNative = new FakeContinueNative();
-  readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
-  readonly store: WorkspaceQaStore;
-  readonly clipboard: BackupQaClipboard = new BackupQaClipboard();
-  readonly controller: LearningController;
-  readonly incomingRaw: string;
-  readonly baseline: string;
+  public readonly clock: ManualLearningClock = new ManualLearningClock();
+  public readonly native: FakeContinueNative = new FakeContinueNative();
+  public readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
+  public readonly store: WorkspaceQaStore;
+  public readonly clipboard: BackupQaClipboard = new BackupQaClipboard();
+  public readonly controller: LearningController;
+  public readonly incomingRaw: string;
+  public readonly baseline: string;
   public readonly baselineFlushes: number;
 
   constructor(scenario: string) {
@@ -87,8 +87,8 @@ export class WorkspaceBackupUiQaFixture implements LearningDependencies {
     if (scenario === 'writeFailure') { this.store.failNextFlush = true; }
   }
 
-  openStore(): LearningStore { return this.store; }
-  release(): void { this.controller.dispose(); this.clipboard.release(); this.clock.clearAll(); }
+  public openStore(): LearningStore { return this.store; }
+  public release(): void { this.controller.dispose(); this.clipboard.release(); this.clock.clearAll(); }
 }
 
 let activeFixture: WorkspaceBackupUiQaFixture | undefined = undefined;
@@ -134,7 +134,9 @@ function requireBackupInputValue(observed: string, expected: string, phase: stri
   while (difference < commonLength && observed.charCodeAt(difference) === expected.charCodeAt(difference)) {
     difference++;
   }
-  throw new Error(`Backup input mismatch ${phase}: requested=${expected.length}, observed=${observed.length}, firstDifference=${difference}, expectedUnit=${expected.charCodeAt(difference)}, observedUnit=${observed.charCodeAt(difference)}`);
+  throw new Error(`Backup input mismatch ${phase}: requested=${expected.length}, observed=${observed.length}, ` +
+    `firstDifference=${difference}, expectedUnit=${expected.charCodeAt(difference)}, ` +
+    `observedUnit=${observed.charCodeAt(difference)}`);
 }
 async function readBackupInput(driver: Driver, session: WorkspaceBackupUiQaFixture): Promise<string> {
   requireBackupInputSession(session);
@@ -155,7 +157,8 @@ async function requireBackupInputHost(driver: Driver, session: WorkspaceBackupUi
   const root = await driver.findComponent(ON.id('backup-qa-scroll'));
   const marker = await driver.findComponent(ON.id('backup-qa-ready'));
   requireBackupInputSession(session);
-  console.info(`[AC_QA_HOST] ${phase} ability=FeatureQaAbility root=${root !== undefined && root !== null} readyVisible=${marker !== undefined && marker !== null}`);
+  console.info(`[AC_QA_HOST] ${phase} ability=FeatureQaAbility root=${root !== undefined && root !== null} ` +
+    `readyVisible=${marker !== undefined && marker !== null}`);
   if (root === undefined || root === null) { throw new Error(`Backup QA root disappeared: ${phase}`); }
 }
 async function backupInputKeys(driver: Driver, session: WorkspaceBackupUiQaFixture, key: number): Promise<void> {
@@ -210,7 +213,10 @@ export async function backupQaDialog(driver: Driver, label: string,
   const restoring: boolean = title === '恢复本地业务工作区？' && label === '确认';
   if (restoring) {
     // Synchronous observation before any extra await: native click delivery is not callback completion.
-    console.info(`[AC_QA_CONFIRM] clickReturned noteLength=${session.controller.sceneSnapshot('note').noteBody.length} storedSame=${session.store.stored() === session.baseline} flushDelta=${session.store.flushCalls - session.baselineFlushes}`);
+    console.info(`[AC_QA_CONFIRM] clickReturned ` +
+      `noteLength=${session.controller.sceneSnapshot('note').noteBody.length} ` +
+      `storedSame=${session.store.stored() === session.baseline} ` +
+      `flushDelta=${session.store.flushCalls - session.baselineFlushes}`);
   }
   const deadline: number = Date.now() + 3000;
   while (true) {
@@ -226,13 +232,17 @@ export async function backupQaDialog(driver: Driver, label: string,
   if (!await driver.waitForIdle(100, 2000)) { throw new Error(`Backup dialog close did not settle: ${title}`); }
   requireBackupInputSession(session);
   if (restoring) {
-    console.info(`[AC_QA_CONFIRM] dialogClosed noteLength=${session.controller.sceneSnapshot('note').noteBody.length} storedSame=${session.store.stored() === session.baseline} flushDelta=${session.store.flushCalls - session.baselineFlushes}`);
+    console.info(`[AC_QA_CONFIRM] dialogClosed ` +
+      `noteLength=${session.controller.sceneSnapshot('note').noteBody.length} ` +
+      `storedSame=${session.store.stored() === session.baseline} ` +
+      `flushDelta=${session.store.flushCalls - session.baselineFlushes}`);
   }
 }
 export async function launchWorkspaceBackupUiQa(scenario: string): Promise<Driver> {
   const driver = Driver.create();
   if (driver === undefined || driver === null) {
-    throw new Error('UiTest Driver.create() returned null; native IPC initialization failed. Check deferred Runner imports and device UiTest logs.');
+    throw new Error('UiTest Driver.create() returned null; native IPC initialization failed. ' +
+      'Check deferred Runner imports and device UiTest logs.');
   }
   // Normal test-display wake only; never change the board's power policy or screen-off timeout.
   await driver.wakeUpDisplay();

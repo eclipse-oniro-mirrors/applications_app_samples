@@ -92,21 +92,25 @@ struct NoteScenePage {
         Column({ space: 12 }) {
           TextInput({ text: this.view.noteTitle, placeholder: '标题（最多80字）' }).maxLength(80)
             .height(48).fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).enabled(this.view.editable)
-            .onChange((value: string): void => this.edit(value, this.view.noteBody, this.view.noteSelectionStart, this.view.noteSelectionEnd))
+            .onChange((value: string): void => {
+              this.edit(value, this.view.noteBody, this.view.noteSelectionStart, this.view.noteSelectionEnd);
+            })
           TextArea({ text: this.view.noteBody, placeholder: '写下想继续编辑的内容', controller: this.editor })
             .height(220).fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).maxLength(4096)
             .enabled(this.view.editable)
             .onChange((value: string): void => this.edit(this.view.noteTitle, value, value.length, value.length))
             .onTextSelectionChange((start: number, end: number): void => this.selectionChanged(start, end))
             .onAppear((): void => this.restoreSelection())
-          Text(`选区 [${this.view.noteSelectionStart}, ${this.view.noteSelectionEnd})`).fontSize(12).fontColor(LEARNING_MUTED).width('100%')
+          Text(`选区 [${this.view.noteSelectionStart}, ${this.view.noteSelectionEnd})`)
+            .fontSize(12).fontColor(LEARNING_MUTED).width('100%')
         }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
         Button('保存笔记').width('100%').height(48).fontSize(15).backgroundColor(LEARNING_BLUE).borderRadius(10)
           .enabled(this.view.editable).onClick((): void => { getLearningController()?.sceneWorkbench.saveNote(); })
         Button('放弃修改', { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
           .onClick((): void => { getLearningController()?.sceneWorkbench.discardNote(); this.restoreSelection(); })
-        Text(this.view.error.length > 0 ? this.view.error : this.view.notice).fontSize(14).fontColor(LEARNING_INK).width('100%')
+        Text(this.view.error.length > 0 ? this.view.error : this.view.notice)
+          .fontSize(14).fontColor(LEARNING_INK).width('100%')
         Button(this.historyExpanded ? '收起历史版本' : `历史版本（${this.history.length}）`, { type: ButtonType.Normal })
           .width('100%').height(44).fontSize(14).fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10)
           .onClick((): void => { this.historyExpanded = !this.historyExpanded; })
@@ -115,7 +119,10 @@ struct NoteScenePage {
           ForEach(this.history, (line: string, index: number) => {
             Button(line, { type: ButtonType.Normal }).width('100%').constraintSize({ minHeight: 44 }).fontSize(12)
               .fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10).enabled(this.view.editable)
-              .onClick((): void => { getLearningController()?.sceneWorkbench.restoreHistory(index, 'note'); this.restoreSelection(); })
+              .onClick((): void => {
+                getLearningController()?.sceneWorkbench.restoreHistory(index, 'note');
+                this.restoreSelection();
+              })
           }, (line: string, index: number) => `${index}:${line}`)
         }
       }.width('100%').padding(20).alignItems(HorizontalAlign.Start)
