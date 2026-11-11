@@ -15,6 +15,68 @@
 
 import abilityTest from './Ability.test';
 
-export default function testsuite() {
+import avRecorderDateTimeCoreTest from './AVRecorderDateTimeCore.test';
+import avRecorderTimerCoreTest from './AVRecorderTimerCore.test';
+import avRecorderResolutionCoreTest from './AVRecorderResolutionCore.test';
+import avRecorderStateGuardCoreTest from './AVRecorderStateGuardCore.test';
+import avRecorderConfigCoreTest from './AVRecorderConfigCore.test';
+import avRecorderFileNamingCoreTest from './AVRecorderFileNamingCore.test';
+
+import avRecorderStateMatrixTest from './AVRecorderStateMatrix.test';
+import avRecorderConfigMatrixTest from './AVRecorderConfigMatrix.test';
+import avRecorderCameraContractTest from './AVRecorderCameraContract.test';
+import avRecorderPageContractTest from './AVRecorderPageContract.test';
+import avRecorderTimerEdgeTest from './AVRecorderTimerEdge.test';
+import avRecorderFileNamingEdgeTest from './AVRecorderFileNamingEdge.test';
+import avRecorderServiceContractTest from './AVRecorderServiceContract.test';
+import avRecorderUiSettingsContractTest from './AVRecorderUiSettingsContract.test';
+
+import avRecorderServiceNoopTest from './AVRecorderServiceNoop.test';
+import avRecorderFileUtilIntegrationTest from './AVRecorderFileUtilIntegration.test';
+import avRecorderCameraSelectionTest from './AVRecorderCameraSelection.test';
+import avRecorderUiFlowCoreTest from './AVRecorderUiFlowCore.test';
+
+import avRecorderCameraNDKSelectionTest from './AVRecorderCameraNDKSelection.test';
+import avRecorderPageStateCoreTest from './AVRecorderPageStateCore.test';
+import avRecorderFileNamingMatrixTest from './AVRecorderFileNamingMatrix.test';
+import avRecorderTimeBoundaryTest from './AVRecorderTimeBoundary.test';
+import avRecorderNdkPageContractTest from './AVRecorderNdkPageContract.test';
+
+import avRecorderFileUtilFilesTest from './AVRecorderFileUtilFiles.test';
+import avRecorderDurationStateCoreTest from './AVRecorderDurationStateCore.test';
+import avRecorderTimeNamingEdgeTest from './AVRecorderTimeNamingEdge.test';
+
+import avRecorderSettingsUiTest from './AVRecorderSettingsUi.test';
+import avRecorderNdkUiTest from './AVRecorderNdkUi.test';
+
+export default function testsuite(): void {
   abilityTest();
+  avRecorderDateTimeCoreTest();
+  avRecorderTimerCoreTest();
+  avRecorderResolutionCoreTest();
+  avRecorderStateGuardCoreTest();
+  avRecorderConfigCoreTest();
+  avRecorderFileNamingCoreTest();
+  avRecorderStateMatrixTest();
+  avRecorderConfigMatrixTest();
+  avRecorderCameraContractTest();
+  avRecorderPageContractTest();
+  avRecorderTimerEdgeTest();
+  avRecorderFileNamingEdgeTest();
+  avRecorderServiceContractTest();
+  avRecorderUiSettingsContractTest();
+  avRecorderServiceNoopTest();
+  avRecorderFileUtilIntegrationTest();
+  avRecorderCameraSelectionTest();
+  avRecorderUiFlowCoreTest();
+  avRecorderCameraNDKSelectionTest();
+  avRecorderPageStateCoreTest();
+  avRecorderFileNamingMatrixTest();
+  avRecorderTimeBoundaryTest();
+  avRecorderNdkPageContractTest();
+  avRecorderFileUtilFilesTest();
+  avRecorderDurationStateCoreTest();
+  avRecorderTimeNamingEdgeTest();
+  avRecorderSettingsUiTest();
+  avRecorderNdkUiTest();
 }
