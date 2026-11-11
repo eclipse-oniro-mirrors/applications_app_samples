@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 /** 本学习运行时的独立 SDK 调用边界。 */
 import { continueManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -33,50 +49,50 @@ export type ContinueObserver = (event: ContinueObservation) => void;
 /** 脱敏平台消息，供操作详情展示。 */
 export function redactPlatformText(text: string): string {
   return text.slice(0, 512)
-    .replace(/(?:https?|file|content|datashare):\/\/[^\s,;]+/gi, '[地址已隐藏]')
-    .replace(/[A-Za-z]:[\\/][^\s,;]+/g, '[路径已隐藏]')
-    .replace(/(?:\/[^\s/]+){2,}/g, '[路径已隐藏]')
-    .replace(/\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi, '[标识已隐藏]')
-    .replace(/\b(?:[0-9a-f]{2}[:-]){5}[0-9a-f]{2}\b/gi, '[硬件地址已隐藏]')
-    .replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g, '[网络地址已隐藏]')
-    .replace(/\b(?:[0-9a-f]{0,4}:){2,}[0-9a-f:]{0,32}\b/gi, '[网络地址已隐藏]')
-    .replace(/\b[0-9a-f]{16,}\b/gi, '[长标识已隐藏]')
-    .replace(/\b\d{10,}\b/g, '[长数字已隐藏]')
-    .replace(/(?:text|payload|body|content|deviceId|deviceName|networkId)\s*[:=]\s*[^,;\n]+/gi, '[敏感字段已隐藏]')
-    .replace(/[“”"'][^“”"']*[“”"']/g, '[引号内容已隐藏]')
+    .replace(/(?:https?|file|content|datashare):\/\/[^\s,;]+/gi, localize('ac_continueclient_001'))
+    .replace(/[A-Za-z]:[\\/][^\s,;]+/g, localize('ac_continueclient_002'))
+    .replace(/(?:\/[^\s/]+){2,}/g, localize('ac_continueclient_002'))
+    .replace(/\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi, localize('ac_continueclient_004'))
+    .replace(/\b(?:[0-9a-f]{2}[:-]){5}[0-9a-f]{2}\b/gi, localize('ac_continueclient_005'))
+    .replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g, localize('ac_continueclient_006'))
+    .replace(/\b(?:[0-9a-f]{0,4}:){2,}[0-9a-f:]{0,32}\b/gi, localize('ac_continueclient_006'))
+    .replace(/\b[0-9a-f]{16,}\b/gi, localize('ac_continueclient_008'))
+    .replace(/\b\d{10,}\b/g, localize('ac_continueclient_009'))
+    .replace(/(?:text|payload|body|content|deviceId|deviceName|networkId)\s*[:=]\s*[^,;\n]+/gi, localize('ac_continueclient_010'))
+    .replace(/[“”"'][^“”"']*[“”"']/g, localize('ac_continueclient_011'))
     .replace(/[\r\n\t]+/g, ' ');
 }
 
 export function safeErrorMessage(error: Object | undefined | null): string {
   if (error === undefined || error === null || typeof error !== 'object') {
-    return '平台未提供可读错误消息。';
+    return localize('ac_continueclient_012');
   }
   const bag = error as Record<string, Object>;
   const message = bag['message'];
   return typeof message === 'string' && (message as string).length > 0 ?
-    `已脱敏：${redactPlatformText(message as string)}` : '平台未提供可读错误消息。';
+    localize('ac_continueclient_013', [redactPlatformText(message as string)]) : localize('ac_continueclient_012');
 }
 
 export function safeErrorCode(error: Object | undefined | null): string {
   if (error === undefined || error === null || typeof error !== 'object') {
-    return '未知';
+    return localize('ac_continueclient_015');
   }
   const bag = error as Record<string, Object>;
   const code = bag['code'];
-  return typeof code === 'number' && Number.isFinite(code as number) ? `${code}` : '未知';
+  return typeof code === 'number' && Number.isFinite(code as number) ? `${code}` : localize('ac_continueclient_015');
 }
 
 function observation(phase: string, err: BusinessError | undefined | null,
   info: continueManager.ContinueResultInfo | undefined | null): ContinueObservation {
-  let raw: string = '缺失或非数字';
-  let detail: string = err === undefined || err === null ? '平台未提供结果说明。' : safeErrorMessage(err);
+  let raw: string = localize('ac_continueclient_017');
+  let detail: string = err === undefined || err === null ? localize('ac_continueclient_018') : safeErrorMessage(err);
   if (info !== undefined && info !== null) {
     const value: number = info.resultState as number;
     if (typeof value === 'number' && Number.isFinite(value)) {
       raw = `${value}`;
     }
     if (typeof info.resultInfo === 'string' && info.resultInfo.length > 0) {
-      const resultDetail: string = `结果说明（已脱敏）：${redactPlatformText(info.resultInfo)}`;
+      const resultDetail: string = localize('ac_continueclient_019', [redactPlatformText(info.resultInfo)]);
       detail = err === undefined || err === null ? resultDetail : `${detail}；${resultDetail}`;
     }
   }
@@ -127,7 +143,7 @@ export class ContinueClient {
   register(observer: ContinueObserver): ContinueCall {
     if (this.released || this.listening || this.offPending) {
       const blocked: ContinueCall = {
-        accepted: false, errorCode: '', detail: '正在监听、等待注销回调或运行时已释放；未重复调用 on。'
+        accepted: false, errorCode: '', detail: localize('ac_continueclient_020')
       };
       return blocked;
     }
@@ -149,7 +165,7 @@ export class ContinueClient {
           }
         });
       const result: ContinueCall = {
-        accepted: true, errorCode: '', detail: 'on 同步调用已返回，等待 prepareContinue 事件。'
+        accepted: true, errorCode: '', detail: localize('ac_continueclient_021')
       };
       return result;
     } catch (error) {
@@ -160,7 +176,7 @@ export class ContinueClient {
       }
       const failed: ContinueCall = {
         accepted: false, errorCode: safeErrorCode(error as Object),
-        detail: 'on 同步抛出异常，可重新注册或尝试注销。',
+        detail: localize('ac_continueclient_022'),
         rawMessage: safeErrorMessage(error as Object)
       };
       return failed;
@@ -174,12 +190,12 @@ export class ContinueClient {
     this.generation++;
     if (this.offPending) {
       const pending: ContinueCall = {
-        accepted: false, errorCode: '', detail: '正在等待注销回调，最多等待 8 秒。'
+        accepted: false, errorCode: '', detail: localize('ac_continueclient_023')
       };
       return pending;
     }
     if (!this.nativeDirty) {
-      const empty: ContinueCall = { accepted: false, errorCode: '', detail: '没有需要清理的本运行时 native 注册槽。' };
+      const empty: ContinueCall = { accepted: false, errorCode: '', detail: localize('ac_continueclient_024') };
       return empty;
     }
     const attempt: number = ++this.offAttempt;
@@ -199,8 +215,8 @@ export class ContinueClient {
           phase: 'OFF_OBSERVATION',
           kind: 'UNCONFIRMED',
           errorCode: '',
-          rawState: '尚未收到',
-          detail: '注销等待已超时（8 秒），可重新注册或重试注销。'
+          rawState: localize('ac_continueclient_025'),
+          detail: localize('ac_continueclient_026')
         };
         observer(timeout);
       }
@@ -227,14 +243,14 @@ export class ContinueClient {
           }
         });
       const result: ContinueCall = {
-        accepted: true, errorCode: '', detail: 'off 同步调用已返回，等待独立注销完成回调。'
+        accepted: true, errorCode: '', detail: localize('ac_continueclient_027')
       };
       return result;
     } catch (error) {
       if (attempt !== this.offAttempt || !this.offPending) {
         const completed: ContinueCall = {
           accepted: false, errorCode: safeErrorCode(error as Object),
-          detail: 'off 完成通知后又发生同步异常；当前保留完成通知的状态。',
+          detail: localize('ac_continueclient_028'),
           rawMessage: safeErrorMessage(error as Object)
         };
         return completed;
@@ -246,7 +262,7 @@ export class ContinueClient {
       this.offPending = false;
       const failed: ContinueCall = {
         accepted: false, errorCode: safeErrorCode(error as Object),
-        detail: 'off 同步抛出异常；本地监听已停用，可重新注册或重试注销。',
+        detail: localize('ac_continueclient_029'),
         rawMessage: safeErrorMessage(error as Object)
       };
       return failed;

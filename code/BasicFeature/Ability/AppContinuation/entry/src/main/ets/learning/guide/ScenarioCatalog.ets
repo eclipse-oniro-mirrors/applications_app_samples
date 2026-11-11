@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 接续场景目录。
  *
@@ -21,15 +37,15 @@ export enum PayloadShape {
 export function shapeLabel(shape: PayloadShape): string {
   switch (shape) {
     case PayloadShape.NOTE:
-      return '便签';
+      return localize('ac_scenariocatalog_001');
     case PayloadShape.READING:
-      return '阅读进度';
+      return localize('ac_readingscenepage_002');
     case PayloadShape.FORM:
-      return '表单草稿';
+      return localize('ac_formscenepage_002');
     case PayloadShape.CHECKLIST:
-      return '清单';
+      return localize('ac_scenariocatalog_004');
     default:
-      return '媒体进度';
+      return localize('ac_scenariocatalog_005');
   }
 }
 
@@ -44,11 +60,11 @@ export enum ScenarioRisk {
 export function riskLabel(risk: ScenarioRisk): string {
   switch (risk) {
     case ScenarioRisk.LOW:
-      return '低';
+      return localize('ac_scenariocatalog_006');
     case ScenarioRisk.MEDIUM:
-      return '中';
+      return localize('ac_scenariocatalog_007');
     default:
-      return '高';
+      return localize('ac_scenariocatalog_008');
   }
 }
 
@@ -104,7 +120,7 @@ export class ScenarioEntry {
   /** 单行文本。 */
   public text(): string {
     return `${this.scenarioId}｜${this.title}｜${this.from as string}->${this.to as string}｜` +
-      `${shapeLabel(this.shape)}｜风险${riskLabel(this.risk)}`;
+      localize('ac_scenariocatalog_009', [shapeLabel(this.shape), riskLabel(this.risk)]);
   }
 
   /** 步骤文本。 */
@@ -115,80 +131,88 @@ export class ScenarioEntry {
 }
 
 /** 场景目录。 */
-export const SCENARIO_CATALOG: ScenarioEntry[] = [
-  new ScenarioEntry('SN-01', '手机便签接续到平板继续编辑', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号', '已授予接续权限'],
-    ['在手机打开便签', '触发接续', '在平板确认接收'], '光标位置与正文一致', ScenarioRisk.LOW),
-  new ScenarioEntry('SN-02', '平板便签回到手机继续编辑', PayloadShape.NOTE,
-    DeviceClass.TABLET, DeviceClass.PHONE, ['同一账号'],
-    ['在平板打开便签', '触发接续', '在手机确认接收'], '选区范围保持一致', ScenarioRisk.LOW),
-  new ScenarioEntry('SN-03', '手机阅读进度接续到平板', PayloadShape.READING,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号', '阅读内容已缓存'],
-    ['打开阅读页', '翻到指定页', '触发接续'], '页码与滚动位置一致', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-04', '平板阅读进度接续到手机', PayloadShape.READING,
-    DeviceClass.TABLET, DeviceClass.PHONE, ['同一账号'],
-    ['打开阅读页', '触发接续'], '恢复到同一段落', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-05', '手机表单草稿接续到平板填写', PayloadShape.FORM,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号', '表单未提交'],
-    ['填写部分字段', '触发接续', '在平板继续填写'], '已填字段不丢失', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-06', '平板表单草稿接续到手机填写', PayloadShape.FORM,
-    DeviceClass.TABLET, DeviceClass.PHONE, ['同一账号'],
-    ['填写部分字段', '触发接续'], '字段顺序与校验状态一致', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-07', '手机清单接续到平板勾选', PayloadShape.CHECKLIST,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号'],
-    ['勾选部分项', '触发接续'], '勾选状态逐项一致', ScenarioRisk.LOW),
-  new ScenarioEntry('SN-08', '平板清单接续到手机勾选', PayloadShape.CHECKLIST,
-    DeviceClass.TABLET, DeviceClass.PHONE, ['同一账号'],
-    ['勾选部分项', '触发接续'], '新增项不重复', ScenarioRisk.LOW),
-  new ScenarioEntry('SN-09', '手机媒体进度接续到平板播放', PayloadShape.MEDIA,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号', '媒体可访问'],
-    ['播放到指定位置', '触发接续'], '播放位置误差在 1 秒内', ScenarioRisk.HIGH),
-  new ScenarioEntry('SN-10', '平板媒体进度接续到手机播放', PayloadShape.MEDIA,
-    DeviceClass.TABLET, DeviceClass.PHONE, ['同一账号'],
-    ['播放到指定位置', '触发接续'], '播放位置与音轨一致', ScenarioRisk.HIGH),
-  new ScenarioEntry('SN-11', '手机接续到 PC 继续编辑', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.PC, ['同一账号', 'PC 已安装同款应用'],
-    ['在手机编辑', '触发接续', '在 PC 确认'], '正文与选区一致', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-12', 'PC 接续到手机继续编辑', PayloadShape.NOTE,
-    DeviceClass.PC, DeviceClass.PHONE, ['同一账号'],
-    ['在 PC 编辑', '触发接续'], '正文一致且不覆盖本机更新内容', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-13', '手机接续到 TV 展示', PayloadShape.MEDIA,
-    DeviceClass.PHONE, DeviceClass.TV, ['同一账号', 'TV 已登录'],
-    ['打开媒体', '触发接续'], 'TV 上从同一位置开始播放', ScenarioRisk.HIGH),
-  new ScenarioEntry('SN-14', 'TV 接续到手机继续播放', PayloadShape.MEDIA,
-    DeviceClass.TV, DeviceClass.PHONE, ['同一账号'],
-    ['在 TV 播放', '触发接续'], '手机从同一位置继续', ScenarioRisk.HIGH),
-  new ScenarioEntry('SN-15', '手机接续到穿戴查看摘要', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.WEARABLE, ['同一账号', '穿戴已配对'],
-    ['在手机打开便签', '触发接续'], '穿戴展示截断后的摘要', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-16', '穿戴不支持发起接续', PayloadShape.NOTE,
-    DeviceClass.WEARABLE, DeviceClass.PHONE, ['同一账号'],
-    ['在穿戴尝试触发接续'], '按不支持处理并提示在手机上操作', ScenarioRisk.LOW),
-  new ScenarioEntry('SN-17', '两台手机之间接续', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.PHONE, ['同一账号', '两台设备均已授权'],
-    ['在 A 编辑', '触发接续', '在 B 确认'], 'B 上内容与 A 一致', ScenarioRisk.LOW),
-  new ScenarioEntry('SN-18', '两端同时编辑触发冲突', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号', '两端都有未提交改动'],
-    ['两端各自编辑', '触发接续'], '出现冲突确认，不静默覆盖', ScenarioRisk.HIGH),
-  new ScenarioEntry('SN-19', '接续过程中设备离线', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号'],
-    ['触发接续', '断开网络'], '失败可重试，界面不丢失本机内容', ScenarioRisk.HIGH),
-  new ScenarioEntry('SN-20', '载荷超过上限时的截断接续', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号', '正文超过载荷上限'],
-    ['在手机输入超长正文', '触发接续'], '接收端拿到截断后的正文并给出提示', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-21', '接收端应用版本过低', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.PHONE, ['两端版本不一致'],
-    ['从高版本接续到低版本'], '低版本按兼容字段降级处理', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-22', '取消接续后状态可恢复', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号'],
-    ['触发接续', '在接收端取消'], '发起端回到空闲态且可再次发起', ScenarioRisk.LOW),
-  new ScenarioEntry('SN-23', '重复触发接续只保留一次', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号'],
-    ['连续触发两次接续'], '只处理一次，第二次被拒绝并提示', ScenarioRisk.MEDIUM),
-  new ScenarioEntry('SN-24', '接续完成后回到前台刷新结果', PayloadShape.NOTE,
-    DeviceClass.PHONE, DeviceClass.TABLET, ['同一账号'],
-    ['完成一次接续', '切后台再回前台'], '结果与时间线一致', ScenarioRisk.LOW)
+function createSCENARIO_CATALOG(): ScenarioEntry[] {
+  return [
+  new ScenarioEntry('SN-01', localize('ac_scenariocatalog_010'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_012')],
+    [localize('ac_scenariocatalog_013'), localize('ac_scenariocatalog_014'), localize('ac_scenariocatalog_015')], localize('ac_scenariocatalog_016'), ScenarioRisk.LOW),
+  new ScenarioEntry('SN-02', localize('ac_scenariocatalog_017'), PayloadShape.NOTE,
+    DeviceClass.TABLET, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_019'), localize('ac_scenariocatalog_014'), localize('ac_scenariocatalog_021')], localize('ac_scenariocatalog_022'), ScenarioRisk.LOW),
+  new ScenarioEntry('SN-03', localize('ac_scenariocatalog_023'), PayloadShape.READING,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_025')],
+    [localize('ac_scenariocatalog_026'), localize('ac_scenariocatalog_027'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_029'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-04', localize('ac_scenariocatalog_030'), PayloadShape.READING,
+    DeviceClass.TABLET, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_026'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_034'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-05', localize('ac_scenariocatalog_035'), PayloadShape.FORM,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_037')],
+    [localize('ac_scenariocatalog_038'), localize('ac_scenariocatalog_014'), localize('ac_scenariocatalog_040')], localize('ac_scenariocatalog_041'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-06', localize('ac_scenariocatalog_042'), PayloadShape.FORM,
+    DeviceClass.TABLET, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_038'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_046'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-07', localize('ac_scenariocatalog_047'), PayloadShape.CHECKLIST,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_049'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_051'), ScenarioRisk.LOW),
+  new ScenarioEntry('SN-08', localize('ac_scenariocatalog_052'), PayloadShape.CHECKLIST,
+    DeviceClass.TABLET, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_049'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_056'), ScenarioRisk.LOW),
+  new ScenarioEntry('SN-09', localize('ac_scenariocatalog_057'), PayloadShape.MEDIA,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_059')],
+    [localize('ac_scenariocatalog_060'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_062'), ScenarioRisk.HIGH),
+  new ScenarioEntry('SN-10', localize('ac_scenariocatalog_063'), PayloadShape.MEDIA,
+    DeviceClass.TABLET, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_060'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_067'), ScenarioRisk.HIGH),
+  new ScenarioEntry('SN-11', localize('ac_scenariocatalog_068'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.PC, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_070')],
+    [localize('ac_scenariocatalog_071'), localize('ac_scenariocatalog_014'), localize('ac_scenariocatalog_073')], localize('ac_scenariocatalog_074'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-12', localize('ac_scenariocatalog_075'), PayloadShape.NOTE,
+    DeviceClass.PC, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_077'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_079'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-13', localize('ac_scenariocatalog_080'), PayloadShape.MEDIA,
+    DeviceClass.PHONE, DeviceClass.TV, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_082')],
+    [localize('ac_scenariocatalog_083'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_085'), ScenarioRisk.HIGH),
+  new ScenarioEntry('SN-14', localize('ac_scenariocatalog_086'), PayloadShape.MEDIA,
+    DeviceClass.TV, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_088'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_090'), ScenarioRisk.HIGH),
+  new ScenarioEntry('SN-15', localize('ac_scenariocatalog_091'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.WEARABLE, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_093')],
+    [localize('ac_scenariocatalog_013'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_096'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-16', localize('ac_scenariocatalog_097'), PayloadShape.NOTE,
+    DeviceClass.WEARABLE, DeviceClass.PHONE, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_099')], localize('ac_scenariocatalog_100'), ScenarioRisk.LOW),
+  new ScenarioEntry('SN-17', localize('ac_scenariocatalog_101'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.PHONE, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_103')],
+    [localize('ac_scenariocatalog_104'), localize('ac_scenariocatalog_014'), localize('ac_scenariocatalog_106')], localize('ac_scenariocatalog_107'), ScenarioRisk.LOW),
+  new ScenarioEntry('SN-18', localize('ac_scenariocatalog_108'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_110')],
+    [localize('ac_scenariocatalog_111'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_113'), ScenarioRisk.HIGH),
+  new ScenarioEntry('SN-19', localize('ac_scenariocatalog_114'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_014'), localize('ac_scenariocatalog_117')], localize('ac_scenariocatalog_118'), ScenarioRisk.HIGH),
+  new ScenarioEntry('SN-20', localize('ac_scenariocatalog_119'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_121')],
+    [localize('ac_scenariocatalog_122'), localize('ac_scenariocatalog_014')], localize('ac_scenariocatalog_124'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-21', localize('ac_scenariocatalog_125'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.PHONE, [localize('ac_scenariocatalog_126')],
+    [localize('ac_scenariocatalog_127')], localize('ac_scenariocatalog_128'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-22', localize('ac_scenariocatalog_129'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_014'), localize('ac_scenariocatalog_132')], localize('ac_scenariocatalog_133'), ScenarioRisk.LOW),
+  new ScenarioEntry('SN-23', localize('ac_scenariocatalog_134'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_136')], localize('ac_scenariocatalog_137'), ScenarioRisk.MEDIUM),
+  new ScenarioEntry('SN-24', localize('ac_scenariocatalog_138'), PayloadShape.NOTE,
+    DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011')],
+    [localize('ac_scenariocatalog_140'), localize('ac_scenariocatalog_141')], localize('ac_scenariocatalog_142'), ScenarioRisk.LOW)
 ];
+}
+
+export const SCENARIO_CATALOG: ScenarioEntry[] = createSCENARIO_CATALOG();
+registerLocaleCatalog((): void => {
+  SCENARIO_CATALOG.splice(0, SCENARIO_CATALOG.length);
+  createSCENARIO_CATALOG().forEach((item: ScenarioEntry): void => { SCENARIO_CATALOG.push(item); });
+});
 
 /** 编号列表。 */
 export function scenarioIds(): string[] {
@@ -252,8 +276,8 @@ export class ScenarioSummary {
   public steps: number = 0;
 
   public text(): string {
-    return `共 ${this.total} 个场景、${this.steps} 个步骤：高 ${this.high}、中 ${this.medium}、` +
-      `低 ${this.low}`;
+    return localize('ac_scenariocatalog_143', [this.total, this.steps, this.high, this.medium]) +
+      localize('ac_scenariocatalog_144', [this.low]);
   }
 
   /** 高风险占比。 */
@@ -282,7 +306,7 @@ export class ScenarioAudit {
   public findings: string[] = [];
 
   public summary(): string {
-    return this.ok ? '场景目录自洽' : this.findings.join('；');
+    return this.ok ? localize('ac_scenariocatalog_145') : this.findings.join('；');
   }
 }
 
@@ -292,24 +316,24 @@ export function auditScenarios(): ScenarioAudit {
   const seen: string[] = [];
   SCENARIO_CATALOG.forEach((item: ScenarioEntry, index: number): void => {
     if (seen.indexOf(item.scenarioId) >= 0) {
-      audit.findings.push(`编号重复：${item.scenarioId}`);
+      audit.findings.push(localize('ac_scenariocatalog_146', [item.scenarioId]));
     }
     seen.push(item.scenarioId);
     const expected: string = `SN-${(index + 1).toString().padStart(2, '0')}`;
     if (item.scenarioId !== expected) {
-      audit.findings.push(`编号不连续：期望 ${expected}，实际 ${item.scenarioId}`);
+      audit.findings.push(localize('ac_scenariocatalog_147', [expected, item.scenarioId]));
     }
     if (item.steps.length === 0) {
-      audit.findings.push(`缺少步骤：${item.scenarioId}`);
+      audit.findings.push(localize('ac_scenariocatalog_148', [item.scenarioId]));
     }
     if (item.success.length === 0) {
-      audit.findings.push(`缺少成功判据：${item.scenarioId}`);
+      audit.findings.push(localize('ac_scenariocatalog_149', [item.scenarioId]));
     }
     if (item.requires.length === 0) {
-      audit.findings.push(`缺少前置条件：${item.scenarioId}`);
+      audit.findings.push(localize('ac_scenariocatalog_150', [item.scenarioId]));
     }
     if (item.from === DeviceClass.UNKNOWN || item.to === DeviceClass.UNKNOWN) {
-      audit.findings.push(`设备类型未确定：${item.scenarioId}`);
+      audit.findings.push(localize('ac_scenariocatalog_151', [item.scenarioId]));
     }
   });
   audit.ok = audit.findings.length === 0;
@@ -337,7 +361,7 @@ export function shapeCoverageLines(): string[] {
   const shapes: PayloadShape[] = [PayloadShape.NOTE, PayloadShape.READING, PayloadShape.FORM,
     PayloadShape.CHECKLIST, PayloadShape.MEDIA];
   return shapes.map((shape: PayloadShape): string =>
-    `${shapeLabel(shape)}：${scenariosOfShape(shape).length} 个场景`);
+    localize('ac_scenariocatalog_152', [shapeLabel(shape), scenariosOfShape(shape).length]));
 }
 
 /** 设备覆盖行。 */
@@ -345,5 +369,5 @@ export function deviceCoverageLines(): string[] {
   const devices: DeviceClass[] = [DeviceClass.PHONE, DeviceClass.TABLET, DeviceClass.PC,
     DeviceClass.TV, DeviceClass.WEARABLE];
   return devices.map((device: DeviceClass): string =>
-    `${device as string}：发起 ${scenariosFrom(device).length}，接收 ${scenariosTo(device).length}`);
+    localize('ac_scenariocatalog_153', [device as string, scenariosFrom(device).length, scenariosTo(device).length]));
 }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 接续冲突判定与合并策略。
  *
@@ -23,19 +39,19 @@ export enum ConflictKind {
 export function conflictLabel(kind: ConflictKind): string {
   switch (kind) {
     case ConflictKind.NONE:
-      return '无冲突';
+      return localize('ac_conflictpolicy_001');
     case ConflictKind.REMOTE_NEWER:
-      return '对端更新';
+      return localize('ac_conflictpolicy_002');
     case ConflictKind.LOCAL_NEWER:
-      return '本机更新';
+      return localize('ac_conflictpolicy_003');
     case ConflictKind.BOTH_CHANGED:
-      return '两端都改过';
+      return localize('ac_conflictpolicy_004');
     case ConflictKind.REMOTE_ONLY:
-      return '仅对端有内容';
+      return localize('ac_conflictpolicy_005');
     case ConflictKind.LOCAL_ONLY:
-      return '仅本机有内容';
+      return localize('ac_conflictpolicy_006');
     default:
-      return '无法判断';
+      return localize('ac_conflictpolicy_007');
   }
 }
 
@@ -54,19 +70,19 @@ export enum Resolution {
 export function resolutionLabel(resolution: Resolution): string {
   switch (resolution) {
     case Resolution.KEEP_LOCAL:
-      return '保留本机';
+      return localize('ac_conflictpolicy_008');
     case Resolution.KEEP_REMOTE:
-      return '采用对端';
+      return localize('ac_conflictpolicy_009');
     case Resolution.MERGE_PREFER_LOCAL:
-      return '合并并偏向本机';
+      return localize('ac_conflictpolicy_010');
     case Resolution.MERGE_PREFER_REMOTE:
-      return '合并并偏向对端';
+      return localize('ac_conflictpolicy_011');
     case Resolution.APPEND_REMOTE:
-      return '追加对端内容';
+      return localize('ac_conflictpolicy_012');
     case Resolution.ASK_USER:
-      return '询问用户';
+      return localize('ac_conflictpolicy_013');
     default:
-      return '丢弃对端';
+      return localize('ac_conflictpolicy_014');
   }
 }
 
@@ -161,8 +177,8 @@ export class ConflictRule {
   }
 
   public text(): string {
-    return `${this.ruleId} ${conflictLabel(this.kind)}｜本地${this.localDirty ? '脏' : '净'}` +
-      `｜远端${this.remoteDirty ? '脏' : '净'} -> ${resolutionLabel(this.resolution)}`;
+    return localize('ac_conflictpolicy_015', [this.ruleId, conflictLabel(this.kind), this.localDirty ? localize('ac_conflictpolicy_016') : localize('ac_conflictpolicy_017')]) +
+      localize('ac_conflictpolicy_018', [this.remoteDirty ? localize('ac_conflictpolicy_016') : localize('ac_conflictpolicy_017'), resolutionLabel(this.resolution)]);
   }
 }
 
@@ -171,64 +187,72 @@ export class ConflictRule {
  *
  * 顺序即优先级：先命中先返回。脏标记组合比版本号更可信，因此排在前面。
  */
-export const CONFLICT_RULES: ConflictRule[] = [
+function createCONFLICT_RULES(): ConflictRule[] {
+  return [
   new ConflictRule('CF-01', ConflictKind.NONE, false, false, Resolution.KEEP_LOCAL,
-    '两端一致，保持本机内容不变'),
+    localize('ac_conflictpolicy_021')),
   new ConflictRule('CF-02', ConflictKind.NONE, true, false, Resolution.KEEP_LOCAL,
-    '本机有未提交改动，对端无变化，保留本机'),
+    localize('ac_conflictpolicy_022')),
   new ConflictRule('CF-03', ConflictKind.NONE, false, true, Resolution.KEEP_REMOTE,
-    '对端带来新内容，采用对端'),
+    localize('ac_conflictpolicy_023')),
   new ConflictRule('CF-04', ConflictKind.NONE, true, true, Resolution.ASK_USER,
-    '两端都标记改动但内容一致，交给用户确认'),
+    localize('ac_conflictpolicy_024')),
   new ConflictRule('CF-05', ConflictKind.REMOTE_ONLY, false, false, Resolution.KEEP_REMOTE,
-    '本机为空，直接采用对端'),
+    localize('ac_conflictpolicy_025')),
   new ConflictRule('CF-06', ConflictKind.REMOTE_ONLY, true, false, Resolution.KEEP_REMOTE,
-    '本机被清空但对端有内容，采用对端'),
+    localize('ac_conflictpolicy_026')),
   new ConflictRule('CF-07', ConflictKind.REMOTE_ONLY, false, true, Resolution.KEEP_REMOTE,
-    '本机为空且对端有新内容，采用对端'),
+    localize('ac_conflictpolicy_027')),
   new ConflictRule('CF-08', ConflictKind.REMOTE_ONLY, true, true, Resolution.MERGE_PREFER_REMOTE,
-    '两端都有改动且本机为空，合并并偏向对端'),
+    localize('ac_conflictpolicy_028')),
   new ConflictRule('CF-09', ConflictKind.LOCAL_ONLY, false, false, Resolution.KEEP_LOCAL,
-    '对端为空，保留本机'),
+    localize('ac_conflictpolicy_029')),
   new ConflictRule('CF-10', ConflictKind.LOCAL_ONLY, true, false, Resolution.KEEP_LOCAL,
-    '对端为空且本机有改动，保留本机'),
+    localize('ac_conflictpolicy_030')),
   new ConflictRule('CF-11', ConflictKind.LOCAL_ONLY, false, true, Resolution.MERGE_PREFER_LOCAL,
-    '对端送来空载荷，合并并偏向本机'),
+    localize('ac_conflictpolicy_031')),
   new ConflictRule('CF-12', ConflictKind.LOCAL_ONLY, true, true, Resolution.MERGE_PREFER_LOCAL,
-    '两端都标记改动但对端为空，合并并偏向本机'),
+    localize('ac_conflictpolicy_032')),
   new ConflictRule('CF-13', ConflictKind.REMOTE_NEWER, false, false, Resolution.KEEP_REMOTE,
-    '对端修订号更高且本机无改动，采用对端'),
+    localize('ac_conflictpolicy_033')),
   new ConflictRule('CF-14', ConflictKind.REMOTE_NEWER, true, false, Resolution.MERGE_PREFER_LOCAL,
-    '对端修订号更高但本机有未提交改动，合并并偏向本机'),
+    localize('ac_conflictpolicy_034')),
   new ConflictRule('CF-15', ConflictKind.REMOTE_NEWER, false, true, Resolution.KEEP_REMOTE,
-    '对端修订号更高且确实是新改动，采用对端'),
+    localize('ac_conflictpolicy_035')),
   new ConflictRule('CF-16', ConflictKind.REMOTE_NEWER, true, true, Resolution.ASK_USER,
-    '两端都有改动且对端修订号更高，交给用户确认'),
+    localize('ac_conflictpolicy_036')),
   new ConflictRule('CF-17', ConflictKind.LOCAL_NEWER, false, false, Resolution.KEEP_LOCAL,
-    '本机修订号更高，保留本机'),
+    localize('ac_conflictpolicy_037')),
   new ConflictRule('CF-18', ConflictKind.LOCAL_NEWER, true, false, Resolution.KEEP_LOCAL,
-    '本机修订号更高且有改动，保留本机'),
+    localize('ac_conflictpolicy_038')),
   new ConflictRule('CF-19', ConflictKind.LOCAL_NEWER, false, true, Resolution.MERGE_PREFER_REMOTE,
-    '本机修订号更高但对端带来新改动，合并并偏向对端'),
+    localize('ac_conflictpolicy_039')),
   new ConflictRule('CF-20', ConflictKind.LOCAL_NEWER, true, true, Resolution.ASK_USER,
-    '两端都改过且本机修订号更高，交给用户确认'),
+    localize('ac_conflictpolicy_040')),
   new ConflictRule('CF-21', ConflictKind.BOTH_CHANGED, false, false, Resolution.ASK_USER,
-    '内容不同但都没有改动标记，交给用户确认'),
+    localize('ac_conflictpolicy_041')),
   new ConflictRule('CF-22', ConflictKind.BOTH_CHANGED, true, false, Resolution.MERGE_PREFER_LOCAL,
-    '仅本机改动，合并并偏向本机'),
+    localize('ac_conflictpolicy_042')),
   new ConflictRule('CF-23', ConflictKind.BOTH_CHANGED, false, true, Resolution.MERGE_PREFER_REMOTE,
-    '仅对端改动，合并并偏向对端'),
+    localize('ac_conflictpolicy_043')),
   new ConflictRule('CF-24', ConflictKind.BOTH_CHANGED, true, true, Resolution.ASK_USER,
-    '两端都改过，必须确认'),
+    localize('ac_conflictpolicy_044')),
   new ConflictRule('CF-25', ConflictKind.UNKNOWN, true, true, Resolution.ASK_USER,
-    '文档标识不一致且两端都改过，交给用户确认'),
+    localize('ac_conflictpolicy_045')),
   new ConflictRule('CF-26', ConflictKind.UNKNOWN, false, true, Resolution.DISCARD_REMOTE,
-    '文档标识不一致，丢弃对端以免覆盖本机'),
+    localize('ac_conflictpolicy_046')),
   new ConflictRule('CF-27', ConflictKind.UNKNOWN, true, false, Resolution.KEEP_LOCAL,
-    '文档标识不一致但本机有改动，保留本机'),
+    localize('ac_conflictpolicy_047')),
   new ConflictRule('CF-28', ConflictKind.UNKNOWN, false, false, Resolution.ASK_USER,
-    '文档标识不一致，交给用户确认')
+    localize('ac_conflictpolicy_048'))
 ];
+}
+
+export const CONFLICT_RULES: ConflictRule[] = createCONFLICT_RULES();
+registerLocaleCatalog((): void => {
+  CONFLICT_RULES.splice(0, CONFLICT_RULES.length);
+  createCONFLICT_RULES().forEach((item: ConflictRule): void => { CONFLICT_RULES.push(item); });
+});
 
 /** 决策结果。 */
 export class ConflictDecision {
@@ -243,7 +267,7 @@ export class ConflictDecision {
 
   /** 一句话说明。 */
   public text(): string {
-    const ruleId: string = this.rule === undefined ? '未命中规则' : this.rule.ruleId;
+    const ruleId: string = this.rule === undefined ? localize('ac_conflictpolicy_049') : this.rule.ruleId;
     return `${conflictLabel(this.kind)} -> ${resolutionLabel(this.resolution)}（${ruleId}）`;
   }
 
@@ -277,7 +301,7 @@ export class MergeResult {
   public notes: string[] = [];
 
   public summary(): string {
-    return `${resolutionLabel(this.resolution)}｜${this.notes.length} 条说明`;
+    return localize('ac_conflictpolicy_050', [resolutionLabel(this.resolution), this.notes.length]);
   }
 }
 
@@ -310,20 +334,20 @@ export function applyResolution(input: ConflictInput, decision: ConflictDecision
   switch (decision.resolution) {
     case Resolution.KEEP_LOCAL:
       result.data = input.local.clone();
-      result.notes.push('保留本机内容');
+      result.notes.push(localize('ac_conflictpolicy_051'));
       break;
     case Resolution.KEEP_REMOTE:
       result.data = input.remote.clone();
-      result.notes.push('采用对端内容');
+      result.notes.push(localize('ac_conflictpolicy_052'));
       break;
     case Resolution.DISCARD_REMOTE:
       result.data = input.local.clone();
-      result.notes.push('对端内容已丢弃');
+      result.notes.push(localize('ac_conflictpolicy_053'));
       break;
     case Resolution.APPEND_REMOTE:
       result.data = input.local.clone();
       result.data.body = `${input.local.body}\n${input.remote.body}`;
-      result.notes.push('对端内容追加在末尾');
+      result.notes.push(localize('ac_conflictpolicy_054'));
       break;
     case Resolution.MERGE_PREFER_LOCAL:
     case Resolution.MERGE_PREFER_REMOTE: {
@@ -333,13 +357,13 @@ export function applyResolution(input: ConflictInput, decision: ConflictDecision
       result.data.body = merged.join('\n');
       result.data.rev = Math.max(input.local.rev, input.remote.rev);
       result.data.ck = decision.kind as string;
-      result.notes.push(`合并去重后 ${merged.length} 行`);
-      result.notes.push(preferLocal ? '本机在前' : '对端在前');
+      result.notes.push(localize('ac_conflictpolicy_055', [merged.length]));
+      result.notes.push(preferLocal ? localize('ac_conflictpolicy_056') : localize('ac_conflictpolicy_057'));
       break;
     }
     default:
       result.data = input.local.clone();
-      result.notes.push('等待用户选择，暂保留本机');
+      result.notes.push(localize('ac_conflictpolicy_058'));
       break;
   }
   return result;
@@ -351,7 +375,7 @@ export class ConflictAudit {
   public findings: string[] = [];
 
   public summary(): string {
-    return this.ok ? '冲突规则表自洽' : this.findings.join('；');
+    return this.ok ? localize('ac_conflictpolicy_059') : this.findings.join('；');
   }
 }
 
@@ -361,11 +385,11 @@ export function auditConflictRules(): ConflictAudit {
   const seen: string[] = [];
   CONFLICT_RULES.forEach((rule: ConflictRule): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(`规则编号重复：${rule.ruleId}`);
+      audit.findings.push(localize('ac_conflictpolicy_060', [rule.ruleId]));
     }
     seen.push(rule.ruleId);
     if (rule.reason.length === 0) {
-      audit.findings.push(`缺少说明：${rule.ruleId}`);
+      audit.findings.push(localize('ac_conflictpolicy_061', [rule.ruleId]));
     }
   });
   const kinds: ConflictKind[] = [ConflictKind.NONE, ConflictKind.REMOTE_ONLY,
@@ -377,7 +401,7 @@ export function auditConflictRules(): ConflictAudit {
         const hit: ConflictRule | undefined = CONFLICT_RULES.find((rule: ConflictRule): boolean =>
           rule.matches(kind, localDirty, remoteDirty));
         if (hit === undefined) {
-          audit.findings.push(`缺少组合：${conflictLabel(kind)}/${localDirty}/${remoteDirty}`);
+          audit.findings.push(localize('ac_conflictpolicy_062', [conflictLabel(kind), localDirty, remoteDirty]));
         }
       });
     });

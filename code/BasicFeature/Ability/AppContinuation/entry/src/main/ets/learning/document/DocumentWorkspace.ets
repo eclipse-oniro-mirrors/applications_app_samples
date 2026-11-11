@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, legacyLabel, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 多文档接续工作区。
  *
@@ -10,11 +26,11 @@
  * 写成一张规则表，工作区只做增删切换，隔离校验单独可测。
  */
 
-/** 可接续对象的类别。 */
+/** 可接续对象的类别。取值是稳定标识，不参与显示，显示经 legacyLabel 映射。 */
 export enum DocKind {
-  NOTE = '笔记',
-  FORM = '表单',
-  READING = '阅读进度'
+  NOTE = 'note',
+  FORM = 'form',
+  READING = 'reading'
 }
 
 /** 一个可接续槽位。 */
@@ -46,8 +62,8 @@ export class DocumentSlot {
 
   /** 供页面一行展示。 */
   public describe(): string {
-    const state: string = this.archived ? '已归档' : '进行中';
-    return `${this.title}（${this.kind as string}）｜修订 ${this.revision}｜${state}`;
+    const state: string = this.archived ? localize('ac_documentworkspace_004') : localize('ac_calldetailpage_012');
+    return localize('ac_documentworkspace_006', [this.title, legacyLabel(this.kind as string), this.revision, state]);
   }
 }
 
@@ -75,8 +91,8 @@ export class DocRule {
   }
 
   public describe(): string {
-    return `${this.code} ${this.kind as string}｜${this.keepDraft ? '保留草稿' : '不保留'}｜` +
-      `${this.allowMultiple ? '允许多份' : '仅一份'}｜${this.restorable ? '可恢复' : '不可恢复'}`;
+    return `${this.code} ${legacyLabel(this.kind as string)}｜${this.keepDraft ? localize('ac_documentworkspace_007') : localize('ac_documentworkspace_008')}｜` +
+      `${this.allowMultiple ? localize('ac_documentworkspace_009') : localize('ac_documentworkspace_010')}｜${this.restorable ? localize('ac_documentworkspace_011') : localize('ac_documentworkspace_012')}`;
   }
 }
 
@@ -87,20 +103,28 @@ export class DocRule {
  * 所以离开必须保留草稿，且同类对象允许多份（不同表单实例互不干扰）。
  * 阅读进度允许覆盖，因为它本来就只表达"读到哪了"。
  */
-export const DOC_RULES: DocRule[] = [
-  new DocRule('DC-01', DocKind.NOTE, true, true, true, '笔记切换保留未保存正文'),
-  new DocRule('DC-02', DocKind.NOTE, true, true, true, '笔记归档后可从归档区恢复'),
-  new DocRule('DC-03', DocKind.NOTE, true, true, false, '正文超过上限的笔记只读，不接受接续写入'),
-  new DocRule('DC-04', DocKind.NOTE, false, true, true, '已保存且无改动的笔记不占草稿槽'),
-  new DocRule('DC-05', DocKind.FORM, true, true, true, '表单离开必须保留半填字段'),
-  new DocRule('DC-06', DocKind.FORM, true, true, false, '已确认提交的表单不再接受编辑'),
-  new DocRule('DC-07', DocKind.FORM, true, true, true, '表单归档为只读快照，仍可查看'),
-  new DocRule('DC-08', DocKind.FORM, true, false, false, '同一表单实例只允许一个活动槽位，避免重复提交'),
-  new DocRule('DC-09', DocKind.READING, false, true, true, '阅读进度允许被新进度覆盖'),
-  new DocRule('DC-10', DocKind.READING, false, true, true, '阅读进度不产生草稿，不占用半填额度'),
-  new DocRule('DC-11', DocKind.READING, false, true, false, '已读完的对象不再记录进度'),
-  new DocRule('DC-12', DocKind.NOTE, true, true, true, '不同来源应用的槽位互不覆盖，按 ownerApp 隔离')
+function createDOC_RULES(): DocRule[] {
+  return [
+  new DocRule('DC-01', DocKind.NOTE, true, true, true, localize('ac_documentworkspace_013')),
+  new DocRule('DC-02', DocKind.NOTE, true, true, true, localize('ac_documentworkspace_014')),
+  new DocRule('DC-03', DocKind.NOTE, true, true, false, localize('ac_documentworkspace_015')),
+  new DocRule('DC-04', DocKind.NOTE, false, true, true, localize('ac_documentworkspace_016')),
+  new DocRule('DC-05', DocKind.FORM, true, true, true, localize('ac_documentworkspace_017')),
+  new DocRule('DC-06', DocKind.FORM, true, true, false, localize('ac_documentworkspace_018')),
+  new DocRule('DC-07', DocKind.FORM, true, true, true, localize('ac_documentworkspace_019')),
+  new DocRule('DC-08', DocKind.FORM, true, false, false, localize('ac_documentworkspace_020')),
+  new DocRule('DC-09', DocKind.READING, false, true, true, localize('ac_documentworkspace_021')),
+  new DocRule('DC-10', DocKind.READING, false, true, true, localize('ac_documentworkspace_022')),
+  new DocRule('DC-11', DocKind.READING, false, true, false, localize('ac_documentworkspace_023')),
+  new DocRule('DC-12', DocKind.NOTE, true, true, true, localize('ac_documentworkspace_024'))
 ];
+}
+
+export const DOC_RULES: DocRule[] = createDOC_RULES();
+registerLocaleCatalog((): void => {
+  DOC_RULES.splice(0, DOC_RULES.length);
+  createDOC_RULES().forEach((item: DocRule): void => { DOC_RULES.push(item); });
+});
 
 function ruleOf(kind: DocKind): DocRule | undefined {
   return DOC_RULES.find((rule: DocRule): boolean => rule.kind === kind);
@@ -120,9 +144,9 @@ export class WorkspaceAudit {
 
   public summary(): string {
     if (!this.ok()) {
-      return `工作区有 ${this.findings.length} 处问题`;
+      return localize('ac_documentworkspace_025', [this.findings.length]);
     }
-    return `工作区正常：${this.active} 个进行中，${this.archived} 个已归档`;
+    return localize('ac_documentworkspace_026', [this.active, this.archived]);
   }
 }
 
@@ -264,15 +288,15 @@ export class DocumentWorkspace {
     const seen: string[] = [];
     this.slots.forEach((slot: DocumentSlot): void => {
       if (slot.id.length === 0) {
-        audit.findings.push('存在没有标识的槽位');
+        audit.findings.push(localize('ac_documentworkspace_027'));
       }
       if (seen.indexOf(slot.id) >= 0) {
-        audit.findings.push(`槽位标识重复：${slot.id}`);
+        audit.findings.push(localize('ac_documentworkspace_028', [slot.id]));
       } else {
         seen.push(slot.id);
       }
       if (slot.archived && !this.keepsDraftForArchived(slot.kind)) {
-        audit.findings.push(`${slot.title} 归档后不可恢复，但仍留在归档区`);
+        audit.findings.push(localize('ac_documentworkspace_029', [slot.title]));
       }
     });
     DOC_RULES.forEach((rule: DocRule): void => {
@@ -282,7 +306,7 @@ export class DocumentWorkspace {
       const count: number = this.slots.filter((slot: DocumentSlot): boolean =>
         slot.kind === rule.kind && !slot.archived).length;
       if (count > 1) {
-        audit.findings.push(`${rule.kind as string} 只允许一份，实际 ${count} 份（${rule.code}）`);
+        audit.findings.push(localize('ac_documentworkspace_030', [legacyLabel(rule.kind as string), count, rule.code]));
       }
     });
     return audit;
@@ -304,13 +328,13 @@ export function checkIsolation(slot: DocumentSlot, payloadKind: DocKind, payload
   payloadRevision: number): string[] {
   const reasons: string[] = [];
   if (slot.kind !== payloadKind) {
-    reasons.push(`类别不一致：槽位 ${slot.kind as string}，载荷 ${payloadKind as string}`);
+    reasons.push(localize('ac_documentworkspace_031', [legacyLabel(slot.kind as string), legacyLabel(payloadKind as string)]));
   }
   if (slot.ownerApp.length > 0 && payloadApp.length > 0 && slot.ownerApp !== payloadApp) {
-    reasons.push(`来源应用不一致：槽位 ${slot.ownerApp}，载荷 ${payloadApp}`);
+    reasons.push(localize('ac_documentworkspace_032', [slot.ownerApp, payloadApp]));
   }
   if (payloadRevision < slot.revision) {
-    reasons.push(`修订号回退：槽位 ${slot.revision}，载荷 ${payloadRevision}`);
+    reasons.push(localize('ac_documentworkspace_033', [slot.revision, payloadRevision]));
   }
   return reasons;
 }
@@ -338,7 +362,7 @@ export function workspaceLines(workspace: DocumentWorkspace): string[] {
   lines.push(audit.summary());
   const active: DocumentSlot[] = workspace.activeSlots();
   if (active.length === 0) {
-    lines.push('没有进行中的可接续对象');
+    lines.push(localize('ac_documentworkspace_034'));
   } else {
     active.forEach((slot: DocumentSlot): void => {
       lines.push(slot.describe());
@@ -346,10 +370,10 @@ export function workspaceLines(workspace: DocumentWorkspace): string[] {
   }
   const archived: DocumentSlot[] = workspace.archivedSlots();
   if (archived.length > 0) {
-    lines.push(`归档 ${archived.length} 项：${archived.map((slot: DocumentSlot): string => slot.title).join('、')}`);
+    lines.push(localize('ac_documentworkspace_035', [archived.length, archived.map((slot: DocumentSlot): string => slot.title).join('、')]));
   }
   audit.findings.forEach((finding: string): void => {
-    lines.push(`问题：${finding}`);
+    lines.push(localize('ac_documentworkspace_036', [finding]));
   });
   return lines;
 }

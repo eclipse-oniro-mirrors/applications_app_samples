@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 /** Shared value objects for the API learning UI and its Ability-scoped controller. */
 import { SceneState, emptyScene } from './scene/SceneModel';
 export interface EnvironmentItem {
@@ -82,21 +98,21 @@ export interface LearningSnapshot {
 
 export type LearningListener = (snapshot: LearningSnapshot) => void;
 
-export const OFF_CONTRACT_NOTE: string = '本机 SDK API 26 将 off 第三参数定义为注销结果回调。本示例使用独立完成回调更新注销状态。';
+export function offContractNote(): string { return localize('ac_types_off_contract'); }
 export const TEXT_PAYLOAD_KEY: string = 'com.example.appcontinuation.learning.text.v1';
 export const MAX_TEXT_LENGTH: number = 4096;
 
 export function emptyLearningSnapshot(): LearningSnapshot {
   return {
-    launchReason: '等待 Ability 初始化',
+    launchReason: localize('ac_types_launch_wait'),
     launchReasonCode: -1,
-    listenerState: '未注册',
-    sessionState: '尚未收到系统接续事件',
+    listenerState: localize('ac_types_listener_none'),
+    sessionState: localize('ac_types_session_none'),
     sessionActive: false,
     quickStartRequired: false,
-    quickResult: '本轮不需要',
-    dataState: '尚未到达',
-    windowState: '未就绪',
+    quickResult: localize('ac_types_quick_unneeded'),
+    dataState: localize('ac_types_data_pending'),
+    windowState: localize('ac_types_window_pending'),
     committed: false,
     sessionRecordId: '',
     canRegister: false,
@@ -113,17 +129,17 @@ export function emptyLearningSnapshot(): LearningSnapshot {
     conflictKind: '',
     conflictSummary: '',
     scene: emptyScene(),
-    businessPositionState: '尚未定位业务内容',
+    businessPositionState: localize('ac_types_position_pending'),
     positionRequest: 0,
     targetPage: 'pages/ProcessPage',
-    savedTextStatus: '尚未保存',
+    savedTextStatus: localize('ac_types_save_none'),
     restoredSummary: '',
     latestRecord: undefined,
     records: [],
     events: [],
     environment: [],
-    environmentCheckedAt: '尚未检查',
-    nativeOffNote: OFF_CONTRACT_NOTE,
-    notice: '等待 Ability 初始化运行时。'
+    environmentCheckedAt: localize('ac_types_environment_none'),
+    nativeOffNote: offContractNote(),
+    notice: localize('ac_types_runtime_wait')
   };
 }

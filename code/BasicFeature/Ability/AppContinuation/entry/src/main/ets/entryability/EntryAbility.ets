@@ -1,13 +1,29 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /** Platform entry for the API learning application. No SDK probe runs on normal startup. */
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { bindLocaleStrings, clearLocaleStrings } from '../common/LocaleStrings';
 import { LearningController } from '../learning/LearningController';
 import { clearLearningController, publishLearningController } from '../learning/LearningContext';
 import { clearSceneWorkbench, publishSceneWorkbench } from '../learning/scene/SceneContext';
 
-const DOMAIN: number = 0x1A20;
-const TAG: string = 'ContinueLearning';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AppContinuation]';
 
 export default class EntryAbility extends UIAbility {
   private controller: LearningController | undefined = undefined;
@@ -29,6 +45,7 @@ export default class EntryAbility extends UIAbility {
   private ensureController(): LearningController {
     let controller = this.controller;
     if (controller === undefined) {
+      bindLocaleStrings(this.context.resourceManager);
       controller = new LearningController(this.context);
       this.controller = controller;
       publishLearningController(controller);
@@ -66,7 +83,8 @@ export default class EntryAbility extends UIAbility {
     this.stage = windowStage;
     const controller = this.ensureController();
     const reason = controller.snapshot().launchReasonCode;
-    this.loadPage(windowStage, reason === 10 || reason === 3 ? controller.snapshot().targetPage : 'pages/Index');
+    this.loadPage(windowStage, reason === AbilityConstant.LaunchReason.PREPARE_CONTINUATION ||
+      reason === AbilityConstant.LaunchReason.CONTINUATION ? controller.snapshot().targetPage : 'pages/Index');
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
     } catch (error) {
@@ -98,7 +116,7 @@ export default class EntryAbility extends UIAbility {
           return;
         }
         if (error !== undefined && error.code !== 0) {
-          controller.reportPageFailure(`页面加载失败：${page}；平台错误码 ${error.code}。`);
+          controller.reportPageFailure(`Page load failed: ${page}; platform error code ${error.code}.`);
           if (page !== 'pages/Index') {
             this.loadPage(stage, 'pages/Index');
           }
@@ -110,7 +128,7 @@ export default class EntryAbility extends UIAbility {
       if (generation !== this.windowGeneration || controller !== this.controller) {
         return;
       }
-      controller.reportPageFailure(`加载 ${page} 时同步异常；未把窗口标记为就绪。`);
+      controller.reportPageFailure(`Synchronous page load exception: ${page}; window was not marked ready.`);
       if (page !== 'pages/Index') {
         this.loadPage(stage, 'pages/Index');
       }
@@ -134,5 +152,6 @@ export default class EntryAbility extends UIAbility {
     this.controller = undefined;
     clearLearningController();
     clearSceneWorkbench();
+    clearLocaleStrings();
   }
 }

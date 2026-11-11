@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 /** Presentational pieces for the API learning pages. No platform continuation calls live here. */
 import { promptAction, UIContext } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
@@ -16,12 +32,12 @@ export function learningError(error: BusinessError): string {
 
 export function learningLevel(level: string): string {
   if (level === 'ERROR') {
-    return '失败 · ERROR';
+    return localize('ac_learningui_001');
   }
   if (level === 'WARN') {
-    return '警告 · WARN';
+    return localize('ac_learningui_002');
   }
-  return '信息 · INFO';
+  return localize('ac_learningui_003');
 }
 
 export function learningLevelColor(level: string): string {
@@ -39,12 +55,12 @@ export function copyLearningText(text: string, feedback: (message: string) => vo
   try {
     const data = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
     pasteboard.getSystemPasteboard().setData(data).then(() => {
-      feedback('已复制到剪贴板。');
+      feedback(localize('ac_learningui_004'));
     }).catch((error: BusinessError) => {
-      feedback(`复制失败：${learningError(error)}`);
+      feedback(localize('ac_learningui_005', [learningError(error)]));
     });
   } catch (error) {
-    feedback(`剪贴板不可用：${learningError(error as BusinessError)}`);
+    feedback(localize('ac_learningui_006', [learningError(error as BusinessError)]));
   }
 }
 
@@ -56,20 +72,20 @@ export function confirmLearningAction(context: UIContext, title: string, message
       title: title,
       message: message,
       buttons: [
-        { text: '取消', color: LEARNING_MUTED },
-        { text: '确认', color: LEARNING_BLUE }
+        { text: localize('ac_learningui_007'), color: LEARNING_MUTED },
+        { text: localize('ac_learningui_008'), color: LEARNING_BLUE }
       ]
     }).then((answer: promptAction.ShowDialogSuccessResponse) => {
       if (answer.index === 1) {
         action();
       } else {
-        feedback('已取消。');
+        feedback(localize('ac_learningui_009'));
       }
     }).catch((error: BusinessError) => {
-      feedback(`确认操作失败：${learningError(error)}`);
+      feedback(localize('ac_learningui_010', [learningError(error)]));
     });
   } catch (error) {
-    feedback(`确认框显示失败：${learningError(error as BusinessError)}`);
+    feedback(localize('ac_learningui_011', [learningError(error as BusinessError)]));
   }
 }
 
@@ -87,18 +103,18 @@ export function openLearningTab(context: UIContext, tab: number, feedback: (mess
       navigation.back({ url: 'pages/Index', params: params });
     } else {
       navigation.replaceUrl({ url: 'pages/Index', params: params }).catch((error: BusinessError) => {
-        feedback(`未打开主页面：${learningError(error)}`);
+        feedback(localize('ac_learningui_012', [learningError(error)]));
       });
     }
   } catch (error) {
-    feedback(`导航不可用：${learningError(error as BusinessError)}`);
+    feedback(localize('ac_learningui_013', [learningError(error as BusinessError)]));
   }
 }
 
 /** Deliberately excludes text and device identifiers. Environment is shown separately. */
 export function rawLearningRecord(record: OperationRecord): string {
   return [
-    '平台返回字段（已脱敏）',
+    localize('ac_learningui_014'),
     `operationId=${record.id}`,
     `operation=${record.operation}`,
     `stage=${record.stage}`,
@@ -171,7 +187,7 @@ export struct LearningDisclosure {
       Button({ type: ButtonType.Normal }) {
         Row({ space: 12 }) {
           Text(this.title).fontSize(16).fontWeight(FontWeight.Medium).fontColor(LEARNING_INK).layoutWeight(1)
-          Text(this.expanded ? '收起' : '展开').fontSize(14).fontColor(LEARNING_BLUE)
+          Text(this.expanded ? localize('ac_learningui_015') : localize('ac_learningui_016')).fontSize(14).fontColor(LEARNING_BLUE)
         }.width('100%')
       }.width('100%').constraintSize({ minHeight: 44 }).backgroundColor('#FFFFFF')
         .onClick((): void => { this.expanded = !this.expanded; })
@@ -187,12 +203,12 @@ export struct LearningDisclosure {
 @Component
 export struct LearningNotice {
   @Prop message: string = '';
-  @Prop title: string = '提示';
+  @Prop title: string = localize('ac_learningui_017');
 
   build() {
     if (this.message.length > 0) {
       Column({ space: 5 }) {
-        if (this.title.length > 0 && this.title !== '提示') {
+        if (this.title.length > 0 && this.title !== localize('ac_learningui_017')) {
           Text(this.title).fontSize(13).fontWeight(FontWeight.Bold).fontColor(LEARNING_BLUE).width('100%');
         }
         Text(this.message).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
@@ -215,7 +231,7 @@ export struct LearningLine {
   build() {
     Column({ space: 3 }) {
       Text(this.label).fontSize(12).fontColor(LEARNING_MUTED).width('100%');
-      Text(this.value.length > 0 ? this.value : '（无 / 未提供）')
+      Text(this.value.length > 0 ? this.value : localize('ac_learningui_019'))
         .fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%')
         .copyOption(CopyOptions.LocalDevice);
     }
@@ -256,7 +272,7 @@ export struct LearningFacts {
     Column({ space: 6 }) {
       Text(this.title).fontSize(14).fontWeight(FontWeight.Bold).fontColor(LEARNING_TEAL).width('100%');
       if (this.lines.length === 0) {
-        Text('暂无已记录信息。').fontSize(14).fontColor(LEARNING_MUTED).width('100%');
+        Text($r('app.string.ac_learningui_020')).fontSize(14).fontColor(LEARNING_MUTED).width('100%');
       } else {
         ForEach(this.lines, (line: string) => {
           Text(`• ${line}`).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
@@ -275,7 +291,7 @@ export struct LearningEnvironment {
   build() {
     Column({ space: 12 }) {
       if (this.items.length === 0) {
-        Text('尚未检查环境。')
+        Text($r('app.string.ac_learningui_021'))
           .fontSize(14).lineHeight(22).fontColor(LEARNING_MUTED).width('100%');
       } else {
         ForEach(this.items, (item: EnvironmentItem) => {
@@ -303,7 +319,7 @@ export struct LearningEvents {
   build() {
     Column({ space: 12 }) {
       if (this.events.length === 0) {
-        Text('暂无事件。')
+        Text($r('app.string.ac_learningui_022'))
           .fontSize(14).lineHeight(22).fontColor(LEARNING_MUTED).width('100%');
       } else {
         ForEach(this.events.slice(-40).reverse(), (event: DiagnosticEvent) => {
@@ -338,7 +354,7 @@ export struct LearningRecord {
       Text(this.record.result).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
       Text(`${this.record.startedAt} · ${this.record.stage}`)
         .fontSize(12).lineHeight(19).fontColor(LEARNING_MUTED).width('100%');
-      LearningAction({ label: '查看详情', secondary: true, onTap: () => this.onOpen() })
+      LearningAction({ label: localize('ac_learningui_023'), secondary: true, onTap: () => this.onOpen() })
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')

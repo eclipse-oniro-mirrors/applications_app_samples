@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, legacyLabel } from '../../common/LocaleStrings';
 /**
  * 可中断的表单业务。
  *
@@ -11,20 +27,20 @@
  * 而不是把界面状态整体粘贴回来。
  */
 
-/** 字段填写状态。 */
+/** 字段填写状态。取值是稳定标识，显示经 legacyLabel 映射。 */
 export enum FieldState {
-  EMPTY = '未填写',
-  FILLED = '已填写',
-  INVALID = '不合规',
-  CONFIRMED = '已确认'
+  EMPTY = 'empty',
+  FILLED = 'filled',
+  INVALID = 'invalid',
+  CONFIRMED = 'confirmed'
 }
 
-/** 表单阶段。 */
+/** 表单阶段。取值是稳定标识，显示经 legacyLabel 映射。 */
 export enum FormStage {
-  EDITING = '编辑中',
-  REVIEWING = '待确认',
-  CONFIRMED = '已确认',
-  ARCHIVED = '已归档'
+  EDITING = 'editing',
+  REVIEWING = 'reviewing',
+  CONFIRMED = 'confirmed',
+  ARCHIVED = 'archived'
 }
 
 /** 一个字段。 */
@@ -65,8 +81,8 @@ export class FormField {
   }
 
   public describe(): string {
-    return `${this.label}${this.required ? '(必填)' : ''}＝` +
-      `${this.value.length === 0 ? '空' : this.value}｜${this.state as string}`;
+    return `${this.label}${this.required ? localize('ac_formsession_009') : ''}＝` +
+      `${this.value.length === 0 ? localize('ac_formsession_010') : this.value}｜${legacyLabel(this.state as string)}`;
   }
 }
 
@@ -133,8 +149,8 @@ export class BranchRule {
   }
 
   public describe(): string {
-    return `${this.code}｜${this.fieldKey}=${this.triggerValue} 时显示 ${this.revealsFields.join('/')}` +
-      `${this.requireRow ? '，且需至少一行明细' : ''}`;
+    return localize('ac_formsession_011', [this.code, this.fieldKey, this.triggerValue, this.revealsFields.join('/')]) +
+      `${this.requireRow ? localize('ac_formsession_012') : ''}`;
   }
 }
 
@@ -408,10 +424,10 @@ export function formSummary(session: FormSession): string {
   const stage: FormStage = session.currentStage();
   const blocking: number = session.blockingFields().length;
   if (stage === FormStage.ARCHIVED) {
-    return '已归档：只读快照，不可再编辑';
+    return localize('ac_formsession_018');
   }
   if (blocking > 0) {
-    return `${stage as string}｜还有 ${blocking} 个必填项未完成｜进度 ${session.progressPercent()}%`;
+    return localize('ac_formsession_019', [legacyLabel(stage as string), blocking, session.progressPercent()]);
   }
-  return `${stage as string}｜进度 ${session.progressPercent()}%｜${session.canSubmit() ? '可提交' : '待补明细'}`;
+  return localize('ac_formsession_020', [legacyLabel(stage as string), session.progressPercent(), session.canSubmit() ? localize('ac_formsession_021') : localize('ac_formsession_022')]);
 }

@@ -1,5 +1,25 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
+import {
+  CommitPlan, decodePayload, hasPayload, MAX_REVISION, readContinuation,
+  SceneLearningStoreAdapter, selectionBoundary, TextPayload, validUnicode
+} from './LearningPayload';
 /** 独立、Ability-scoped 的单文本接续学习运行时。 */
-import { AbilityConstant, common, Want, wantConstant } from '@kit.AbilityKit';
+import { AbilityConstant, common, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { LearningDependencies, LearningStore, platformLearningDependencies } from './LearningPorts';
 import {
@@ -10,7 +30,7 @@ import {
   ContinueClient, ContinueObservation, redactPlatformText, safeErrorCode, safeErrorMessage
 } from './ContinueClient';
 import { decodeScene, emptyScene, encodeScene, SCENE_PAYLOAD_KEY, SceneDocument } from './scene/SceneModel';
-import { PreferencesSceneStore, SceneSnapshot, SceneStorePort, SceneWorkbench } from './scene/SceneWorkbench';
+import { PreferencesSceneStore, SceneSnapshot, SceneWorkbench } from './scene/SceneWorkbench';
 import {
   SceneBackupCode, SceneBackupExport, SceneBackupPreview, SceneBackupRestoreResult
 } from './scene/SceneWorkspaceBackupModel';
@@ -22,218 +42,6 @@ const PROBE_LIMIT_MS: number = 15000;
 const MAX_RECORDS: number = 40;
 const MAX_EVENTS: number = 120;
 const MAX_RECORD_EVENTS: number = 24;
-const MAX_JSON_LENGTH: number = 26000;
-const MAX_REVISION: number = 1000000000;
-
-interface CommitPlan {
-  payload: TextPayload;
-  documentId: string;
-  revision: number;
-}
-
-interface TextPayload {
-  version: number;
-  transferId: string;
-  page: string;
-  text: string;
-  selectionStart: number;
-  selectionEnd: number;
-  documentId: string;
-  revision: number;
-  scene?: SceneDocument;
-}
-
-/** Concrete adapter avoids ArkTS structural class typing and retains existing injected store fixtures. */
-class SceneLearningStoreAdapter implements SceneStorePort {
-  private readonly store: LearningStore | undefined;
-  constructor(store: LearningStore | undefined) { this.store = store; }
-  getSync(key: string, fallback: string): Object {
-    if (this.store === undefined) { throw new Error('Store unavailable'); }
-    return this.store.getSync(key, fallback);
-  }
-  putSync(key: string, value: string): void {
-    if (this.store === undefined) { throw new Error('Store unavailable'); }
-    this.store.putSync(key, value);
-  }
-  deleteSync(key: string): void {
-    if (this.store === undefined) { throw new Error('Store unavailable'); }
-    this.store.deleteSync(key);
-  }
-  flushSync(): void {
-    if (this.store === undefined) { throw new Error('Store unavailable'); }
-    this.store.flushSync();
-  }
-}
-
-export interface ScenePositionTarget {
-  request: number;
-  document: SceneDocument;
-}
-
-interface PayloadRead {
-  value: TextPayload | undefined;
-  reason: string;
-}
-
-interface WriteOutcome {
-  ok: boolean;
-  code: string;
-  detail: string;
-}
-
-interface RestoreSession {
-  generation: number;
-  recordId: string;
-  quickRequired: boolean;
-  quickSeen: boolean;
-  quickOk: boolean;
-  candidate: TextPayload | undefined;
-  active: boolean;
-  waitingPhase: string;
-  positionOk: boolean;
-}
-
-function copyRecord(value: OperationRecord): OperationRecord {
-  return JSON.parse(JSON.stringify(value)) as OperationRecord;
-}
-
-function copyEnvironment(values: EnvironmentItem[]): EnvironmentItem[] {
-  return JSON.parse(JSON.stringify(values)) as EnvironmentItem[];
-}
-
-function validUnicode(text: string): boolean {
-  for (let i: number = 0; i < text.length; i++) {
-    const code: number = text.charCodeAt(i);
-    if (code >= 0xD800 && code <= 0xDBFF) {
-      if (i + 1 >= text.length) {
-        return false;
-      }
-      const next: number = text.charCodeAt(++i);
-      if (next < 0xDC00 || next > 0xDFFF) {
-        return false;
-      }
-    } else if (code >= 0xDC00 && code <= 0xDFFF) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function selectionBoundary(text: string, offset: number): boolean {
-  if (!Number.isInteger(offset) || offset < 0 || offset > text.length) {
-    return false;
-  }
-  if (offset > 0 && offset < text.length) {
-    const code: number = text.charCodeAt(offset);
-    const previous: number = text.charCodeAt(offset - 1);
-    if (code >= 0xDC00 && code <= 0xDFFF && previous >= 0xD800 && previous <= 0xDBFF) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function decodePayload(raw: Object | undefined): PayloadRead {
-  const rejected: PayloadRead = { value: undefined, reason: '接续载荷缺失或 JSON 字符串类型错误。' };
-  if (typeof raw !== 'string') {
-    return rejected;
-  }
-  const serialized: string = raw as string;
-  if (serialized.length === 0 || serialized.length > MAX_JSON_LENGTH) {
-    rejected.reason = '载荷序列化长度超出应用策略边界。';
-    return rejected;
-  }
-  let parsed: Object | null = null;
-  try {
-    parsed = JSON.parse(serialized) as Object;
-  } catch (error) {
-    rejected.reason = '载荷 JSON 解析失败。';
-    return rejected;
-  }
-  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
-    rejected.reason = '载荷根节点必须为对象。';
-    return rejected;
-  }
-  const bag = parsed as Record<string, Object>;
-  const version = bag['version'];
-  const tag = bag['transferId'];
-  const page = bag['page'];
-  const text = bag['text'];
-  const start = bag['selectionStart'];
-  const end = bag['selectionEnd'];
-  if ((version !== 1 && version !== 2) || page !== 'text' || typeof tag !== 'string' ||
-    !/^[A-Za-z0-9_-]{1,96}$/.test(tag as string)) {
-    rejected.reason = '载荷版本、页面或接续标签不受支持。';
-    return rejected;
-  }
-  if (typeof text !== 'string' || (text as string).length > MAX_TEXT_LENGTH || !validUnicode(text as string)) {
-    rejected.reason = '正文必须不超过 4096 个 UTF-16 单元且具有合法代理对。';
-    return rejected;
-  }
-  if (typeof start !== 'number' || typeof end !== 'number' ||
-    !selectionBoundary(text as string, start as number) || !selectionBoundary(text as string, end as number) ||
-    (start as number) > (end as number)) {
-    rejected.reason = '选区须为正文内有序整数边界，并保持代理对完整。';
-    return rejected;
-  }
-  const value: TextPayload = {
-    version: version as number,
-    transferId: tag as string,
-    page: 'text',
-    text: text as string,
-    selectionStart: start as number,
-    selectionEnd: end as number,
-    documentId: '',
-    revision: 0
-  };
-  if (version === 2) {
-    const documentId = bag['documentId'];
-    const revision = bag['revision'];
-    if (typeof documentId !== 'string' || !/^[A-Za-z0-9_-]{1,64}$/.test(documentId as string) ||
-      typeof revision !== 'number' || !Number.isInteger(revision as number) ||
-      (revision as number) < 0 || (revision as number) > 1000000000) {
-      rejected.reason = 'v2 载荷缺少合法的文档标识或修订号。';
-      return rejected;
-    }
-    value.documentId = documentId as string;
-    value.revision = revision as number;
-  }
-  const accepted: PayloadRead = { value: value, reason: '' };
-  return accepted;
-}
-
-function hasPayload(value: Object | undefined): boolean {
-  if (value === undefined) {
-    return false;
-  }
-  return typeof value === 'string' && (value as string).length > 0;
-}
-
-function readContinuation(want: Want): PayloadRead {
-  const parameters = want.parameters;
-  if (parameters === undefined) { return decodePayload(undefined); }
-  if (hasPayload(parameters[SCENE_PAYLOAD_KEY]) && hasPayload(parameters[TEXT_PAYLOAD_KEY])) {
-    return { value: undefined, reason: '同一 Want 同时携带文本与业务命名空间，拒绝歧义候选。' };
-  }
-  if (!hasPayload(parameters[SCENE_PAYLOAD_KEY])) { return decodePayload(parameters[TEXT_PAYLOAD_KEY]); }
-  const read = decodeScene(parameters[SCENE_PAYLOAD_KEY]);
-  if (read.value === undefined) { return { value: undefined, reason: read.reason }; }
-  const scene = read.value;
-  return {
-    value: {
-      version: 2,
-      transferId: scene.transferId,
-      page: scene.state.kind,
-      text: '',
-      selectionStart: 0,
-      selectionEnd: 0,
-      documentId: scene.documentId,
-      revision: scene.revision,
-      scene: scene
-    },
-    reason: ''
-  };
-}
 
 export class LearningController {
   private readonly dependencies: LearningDependencies;
@@ -337,15 +145,15 @@ export class LearningController {
     this.value.canEdit = !this.disposed && !active;
     this.value.canStop = !this.disposed && (active || this.probeRecordId.length > 0);
     if (slot.offPending) {
-      this.value.listenerState = '正在注销，最多等待 8 秒';
+      this.value.listenerState = localize('ac_learningcontroller_010');
     } else if (slot.listening) {
-      this.value.listenerState = '已注册；等待真实系统事件';
+      this.value.listenerState = localize('ac_learningcontroller_011');
     } else if (slot.offObservationExpired) {
-      this.value.listenerState = '注销等待超时，可重新注册或注销';
+      this.value.listenerState = localize('ac_learningcontroller_012');
     } else if (slot.nativeDirty) {
-      this.value.listenerState = '监听未启用，可重新注册或注销';
+      this.value.listenerState = localize('ac_learningcontroller_013');
     } else {
-      this.value.listenerState = '未注册';
+      this.value.listenerState = localize('ac_types_listener_none');
     }
     if (this.value.records.length > 0) {
       this.value.latestRecord = this.value.records[0];
@@ -362,8 +170,8 @@ export class LearningController {
       operation: operation,
       purpose: purpose,
       title: title,
-      result: '进行中',
-      stage: '开始',
+      result: localize('ac_calldetailpage_012'),
+      stage: localize('ac_learningcontroller_016'),
       level: 'INFO',
       startedAt: this.nowText(),
       endedAt: '',
@@ -382,7 +190,7 @@ export class LearningController {
     this.started.set(id, timestamp);
     this.value.records.unshift(record);
     this.trimRecords();
-    this.event(record, '开始', 'INFO', title);
+    this.event(record, localize('ac_learningcontroller_016'), 'INFO', title);
     return record;
   }
 
@@ -443,7 +251,7 @@ export class LearningController {
 
   private readableMessage(message: string): string {
     if (this.activeBusiness !== 'text' || (this.session !== undefined && this.session.candidate !== undefined &&
-      this.session.candidate.scene !== undefined)) { return message.length === 0 ? '' : '[业务场景平台消息已隐藏]'; }
+      this.session.candidate.scene !== undefined)) { return message.length === 0 ? '' : localize('ac_learningcontroller_018'); }
     let safe: string = message;
     const texts: string[] = [this.value.text];
     if (this.session !== undefined && this.session.candidate !== undefined) {
@@ -451,10 +259,10 @@ export class LearningController {
     }
     texts.forEach((text: string): void => {
       if (text.length > 0) {
-        safe = safe.split(text).join('[正文已隐藏]');
+        safe = safe.split(text).join(localize('ac_learningcontroller_019'));
         text.split('\n').forEach((line: string): void => {
           if (line.length >= 4) {
-            safe = safe.split(line).join('[正文片段已隐藏]');
+            safe = safe.split(line).join(localize('ac_learningcontroller_020'));
           }
         });
       }
@@ -464,12 +272,12 @@ export class LearningController {
 
   private describeError(record: OperationRecord): void {
     if (record.errorCode === '16300501') {
-      record.explanation.push('16300501：相关系统服务（System Ability）工作异常；请排查权限、互信、网络与系统服务状态。');
+      record.explanation.push(localize('ac_learningcontroller_021'));
     } else if (record.errorCode.length > 0) {
-      record.explanation.push(`平台错误码 ${record.errorCode}；请结合当前事件阶段与环境信息排查。`);
+      record.explanation.push(localize('ac_learningcontroller_022', [record.errorCode]));
     }
-    record.limits.push('平台消息已脱敏，可在详情查看。');
-    record.nextSteps.push('核对本次事件阶段、公开环境和系统接续入口。');
+    record.limits.push(localize('ac_learningcontroller_023'));
+    record.nextSteps.push(localize('ac_learningcontroller_024'));
   }
 
   private finish(record: OperationRecord, result: string, level: string, stage: string): void {
@@ -490,22 +298,22 @@ export class LearningController {
   diagnosticSummary(id?: string): string {
     const record = id === undefined ? this.value.latestRecord : this.findRecord(id);
     if (record === undefined) {
-      return '接续接口学习：尚无操作记录。';
+      return localize('ac_learningcontroller_025');
     }
     const lines: string[] = [
-      '接续接口学习 · 脱敏诊断', `操作：${record.operation}｜${record.title}`,
-      `结果：${record.result}`, `阶段：${record.stage}；级别：${record.level}`,
-      `开始：${record.startedAt}；结束：${record.endedAt.length > 0 ? record.endedAt : '尚未结束'}`,
-      `耗时：${record.durationMillis} ms`, `平台错误码：${record.errorCode.length > 0 ? record.errorCode : '无'}`,
-      `原始数字状态：${record.rawResultState.length > 0 ? record.rawResultState : '未提供'}`,
-      `事实：${record.facts.join('；')}`, `解释：${record.explanation.join('；')}`,
-      `限制：${record.limits.join('；')}`, `建议：${record.nextSteps.join('；')}`,
-      '本次事件：'
+      localize('ac_learningcontroller_026'), localize('ac_learningcontroller_027', [record.operation, record.title]),
+      localize('ac_learningcontroller_028', [record.result]), localize('ac_learningcontroller_029', [record.stage, record.level]),
+      localize('ac_learningcontroller_030', [record.startedAt, record.endedAt.length > 0 ? record.endedAt : localize('ac_learningcontroller_031')]),
+      localize('ac_learningcontroller_032', [record.durationMillis]), localize('ac_learningcontroller_033', [record.errorCode.length > 0 ? record.errorCode : localize('ac_learningcontroller_034')]),
+      localize('ac_learningcontroller_035', [record.rawResultState.length > 0 ? record.rawResultState : localize('ac_learningcontroller_036')]),
+      localize('ac_learningcontroller_037', [record.facts.join('；')]), localize('ac_learningcontroller_038', [record.explanation.join('；')]),
+      localize('ac_learningcontroller_039', [record.limits.join('；')]), localize('ac_learningcontroller_040', [record.nextSteps.join('；')]),
+      localize('ac_learningcontroller_041')
     ];
     record.events.forEach((event: DiagnosticEvent): void => {
       lines.push(`${event.time} [${event.level}] ${event.phase}`);
     });
-    lines.push('环境采样时间：操作开始时；相关检查项：对端在线、互信与系统接续入口。');
+    lines.push(localize('ac_learningcontroller_042'));
     return lines.join('\n');
   }
 
@@ -513,39 +321,39 @@ export class LearningController {
     if (this.disposed) {
       return;
     }
-    const record = this.startRecord('ENVIRONMENT', '检查本机公开环境', '读取本机公共信息和本应用权限。');
+    const record = this.startRecord('ENVIRONMENT', localize('ac_learningcontroller_043'), localize('ac_learningcontroller_044'));
     const items: EnvironmentItem[] = [];
     try {
       const publicInfo = this.dependencies.environment.readPublic();
       const api: EnvironmentItem = {
         key: 'api',
-        label: '设备系统 API',
+        label: localize('ac_learningcontroller_045'),
         value: `${publicInfo.apiVersion}`,
-        status: '已读取',
-        detail: '设备系统 API 属性读数；接续接口自 API 18 提供。'
+        status: localize('ac_learningcontroller_046'),
+        detail: localize('ac_learningcontroller_047')
       };
       const type: EnvironmentItem = {
         key: 'type',
-        label: '设备类型',
+        label: localize('ac_learningcontroller_048'),
         value: publicInfo.deviceType,
-        status: '已读取',
-        detail: '公开的设备类型。'
+        status: localize('ac_learningcontroller_046'),
+        detail: localize('ac_learningcontroller_050')
       };
       const os: EnvironmentItem = {
         key: 'os',
-        label: '设备系统版本',
+        label: localize('ac_learningcontroller_051'),
         value: publicInfo.osFullName,
-        status: '已读取',
-        detail: '公开的系统版本字符串。'
+        status: localize('ac_learningcontroller_046'),
+        detail: localize('ac_learningcontroller_053')
       };
       items.push(api, type, os);
     } catch (error) {
       const unavailable: EnvironmentItem = {
         key: 'public',
-        label: '公共系统信息',
-        value: '未知',
-        status: '读取失败',
-        detail: `公共信息读取失败，平台错误码 ${safeErrorCode(error as Object)}。`
+        label: localize('ac_learningcontroller_054'),
+        value: localize('ac_continueclient_015'),
+        status: localize('ac_learningcontroller_056'),
+        detail: localize('ac_learningcontroller_057', [safeErrorCode(error as Object)])
       };
       items.push(unavailable);
     }
@@ -553,19 +361,19 @@ export class LearningController {
       const capable: boolean = this.dependencies.environment.supportsMission();
       const mission: EnvironmentItem = {
         key: 'syscap',
-        label: 'Mission 系统能力',
-        value: capable ? '声明支持' : '未声明支持',
-        status: capable ? '已检查' : '受限',
-        detail: 'canIUse 查询本机 Mission 系统能力声明。'
+        label: localize('ac_learningcontroller_058'),
+        value: capable ? localize('ac_learningcontroller_059') : localize('ac_learningcontroller_060'),
+        status: capable ? localize('ac_learningcontroller_061') : localize('ac_learningcontroller_062'),
+        detail: localize('ac_learningcontroller_063')
       };
       items.push(mission);
     } catch (error) {
       const mission: EnvironmentItem = {
         key: 'syscap',
-        label: 'Mission 系统能力',
-        value: '未知',
-        status: '无法确认',
-        detail: '公共能力查询失败。'
+        label: localize('ac_learningcontroller_058'),
+        value: localize('ac_continueclient_015'),
+        status: localize('ac_learningcontroller_066'),
+        detail: localize('ac_learningcontroller_067')
       };
       items.push(mission);
     }
@@ -573,37 +381,37 @@ export class LearningController {
       const granted: number = this.dependencies.environment.checkPermission();
       const permission: EnvironmentItem = {
         key: 'permission',
-        label: '分布式数据同步权限',
-        value: granted === 0 ? '已授权' : '未授权',
-        status: '已检查',
-        detail: '检查本应用分布式数据同步权限的授权状态。'
+        label: localize('ac_learningcontroller_068'),
+        value: granted === 0 ? localize('ac_learningcontroller_069') : localize('ac_learningcontroller_070'),
+        status: localize('ac_learningcontroller_061'),
+        detail: localize('ac_learningcontroller_072')
       };
       items.push(permission);
     } catch (error) {
       const permission: EnvironmentItem = {
         key: 'permission',
-        label: '分布式数据同步权限',
-        value: '未知',
-        status: '无法确认',
-        detail: '请按需由用户主动申请。'
+        label: localize('ac_learningcontroller_068'),
+        value: localize('ac_continueclient_015'),
+        status: localize('ac_learningcontroller_066'),
+        detail: localize('ac_learningcontroller_076')
       };
       items.push(permission);
     }
     const peer: EnvironmentItem = {
       key: 'peer',
-      label: '对端在线 / 互信 / 系统接续入口',
-      value: '未知',
-      status: '未验证',
-      detail: '请通过系统接续入口检查对端在线与互信状态。'
+      label: localize('ac_learningcontroller_077'),
+      value: localize('ac_continueclient_015'),
+      status: localize('ac_learningcontroller_079'),
+      detail: localize('ac_learningcontroller_080')
     };
     items.push(peer);
     this.value.environment = items;
     this.value.environmentCheckedAt = this.nowText();
     record.environment = copyEnvironment(items);
-    record.facts.push('读取本机公共属性、Mission 能力声明和本应用授权状态。');
-    record.limits.push('相关条件：对端在线、网络、账号/互信与系统接续入口。');
-    record.nextSteps.push('打开系统接续入口，检查对端与互信状态后发起接续。');
-    this.finish(record, '本机环境检查完成', 'INFO', '环境快照');
+    record.facts.push(localize('ac_learningcontroller_081'));
+    record.limits.push(localize('ac_learningcontroller_082'));
+    record.nextSteps.push(localize('ac_learningcontroller_083'));
+    this.finish(record, localize('ac_learningcontroller_084'), 'INFO', localize('ac_learningcontroller_085'));
     this.publish();
   }
 
@@ -612,13 +420,13 @@ export class LearningController {
       return;
     }
     if (this.permissionRecordId.length > 0) {
-      this.value.notice = '权限申请进行中，请等待结果。';
+      this.value.notice = localize('ac_learningcontroller_086');
       this.publish();
       return;
     }
-    const record = this.startRecord('PERMISSION', '用户主动申请权限', '响应用户点击，申请分布式数据同步权限。');
+    const record = this.startRecord('PERMISSION', localize('ac_learningcontroller_087'), localize('ac_learningcontroller_088'));
     this.permissionRecordId = record.id;
-    record.facts.push('用户点击了权限申请。');
+    record.facts.push(localize('ac_learningcontroller_089'));
     try {
       this.dependencies.environment.requestPermission().then((result: number[]): void => {
         if (this.disposed || this.permissionRecordId !== record.id) {
@@ -626,10 +434,10 @@ export class LearningController {
         }
         this.permissionRecordId = '';
         const granted: boolean = result.length > 0 && result[0] === 0;
-        record.facts.push(`权限接口异步返回；授权结果数字 ${result.length > 0 ? result[0] : '缺失'}。`);
-        record.limits.push('后续检查项：对端互信、系统接续入口与接续结果。');
-        this.finish(record, granted ? '权限已授权' : '权限未获授权或结果缺失', granted ? 'INFO' : 'WARN', '权限异步结果');
-        this.value.notice = granted ? '权限已授权，可重新检查环境并在系统入口发起接续。' : '权限未获授权，请按系统说明在设置中处理。';
+        record.facts.push(localize('ac_learningcontroller_090', [result.length > 0 ? result[0] : localize('ac_learningcontroller_091')]));
+        record.limits.push(localize('ac_learningcontroller_092'));
+        this.finish(record, granted ? localize('ac_learningcontroller_093') : localize('ac_learningcontroller_094'), granted ? 'INFO' : 'WARN', localize('ac_learningcontroller_095'));
+        this.value.notice = granted ? localize('ac_learningcontroller_096') : localize('ac_learningcontroller_097');
         this.publish();
       }).catch((error: BusinessError): void => {
         if (this.disposed || this.permissionRecordId !== record.id) {
@@ -639,16 +447,16 @@ export class LearningController {
         record.errorCode = safeErrorCode(error);
         record.rawMessage = this.readableMessage(safeErrorMessage(error));
         this.describeError(record);
-        this.finish(record, '权限申请异步失败', 'ERROR', '权限异步错误');
+        this.finish(record, localize('ac_learningcontroller_098'), 'ERROR', localize('ac_learningcontroller_099'));
         this.publish();
       });
-      this.event(record, '权限同步调用', 'INFO', '已提交申请，等待用户与平台异步结果。');
+      this.event(record, localize('ac_learningcontroller_100'), 'INFO', localize('ac_learningcontroller_101'));
     } catch (error) {
       this.permissionRecordId = '';
       record.errorCode = safeErrorCode(error as Object);
       record.rawMessage = this.readableMessage(safeErrorMessage(error as Object));
       this.describeError(record);
-      this.finish(record, '权限申请同步抛出异常', 'ERROR', '权限同步异常');
+      this.finish(record, localize('ac_learningcontroller_102'), 'ERROR', localize('ac_learningcontroller_103'));
     }
     this.publish();
   }
@@ -658,14 +466,14 @@ export class LearningController {
       return;
     }
     if (!this.snapshot().canRegister) {
-      this.value.notice = '正在监听、注销或接续，请先完成当前操作。';
+      this.value.notice = localize('ac_learningcontroller_104');
       this.publish();
       return;
     }
-    const record = this.startRecord('ON', '手动注册 prepareContinue 观察', '注册监听，观察系统 prepareContinue 事件。');
+    const record = this.startRecord('ON', localize('ac_learningcontroller_105'), localize('ac_learningcontroller_106'));
     this.probeRecordId = record.id;
-    record.facts.push('手动注册后等待 prepareContinue 事件；接续由系统入口发起。');
-    record.limits.push('观察期为 15 秒，记录收到的系统事件。');
+    record.facts.push(localize('ac_learningcontroller_107'));
+    record.limits.push(localize('ac_learningcontroller_108'));
     this.bindListener(`probe:${record.id}`, record);
     if (this.client.state().listening && this.probeRecordId === record.id) {
       this.probeTimer = this.dependencies.clock.setTimeout((): void => {
@@ -674,9 +482,9 @@ export class LearningController {
           return;
         }
         this.probeRecordId = '';
-        this.finish(record, '未收到系统事件（应用 15 秒观察策略）', 'WARN', '观察期结束');
-        record.explanation.push('观察期内未收到平台结果。');
-        this.value.notice = '15 秒观察期内未收到系统事件；已结束本地等待并申请注销。';
+        this.finish(record, localize('ac_learningcontroller_109'), 'WARN', localize('ac_learningcontroller_110'));
+        record.explanation.push(localize('ac_learningcontroller_111'));
+        this.value.notice = localize('ac_learningcontroller_112');
         this.beginOff();
         this.publish();
       }, PROBE_LIMIT_MS);
@@ -692,18 +500,18 @@ export class LearningController {
       }
       this.handleQuickObservation(owner, record, event);
     });
-    this.callEvent(record, 'ON 同步调用', call.accepted ? 'INFO' : 'ERROR', call.detail);
+    this.callEvent(record, localize('ac_learningcontroller_113'), call.accepted ? 'INFO' : 'ERROR', call.detail);
     if (!call.accepted && record.endedAt.length === 0) {
       record.errorCode = call.errorCode;
-      record.rawMessage = call.rawMessage === undefined ? '本地槽策略阻止调用，无平台异常消息。' :
+      record.rawMessage = call.rawMessage === undefined ? localize('ac_learningcontroller_114') :
         this.readableMessage(call.rawMessage);
       this.describeError(record);
       if (owner.indexOf('probe:') === 0) {
         this.probeRecordId = '';
-        this.finish(record, '未建立可用监听', 'ERROR', 'ON 同步失败');
-        this.value.notice = '注册失败，可再次点击注册监听。';
+        this.finish(record, localize('ac_learningcontroller_115'), 'ERROR', localize('ac_learningcontroller_116'));
+        this.value.notice = localize('ac_learningcontroller_117');
       } else {
-        this.failSession('快速结果监听建立失败，本轮恢复已结束。', 'ON 同步失败');
+        this.failSession(localize('ac_learningcontroller_118'), localize('ac_learningcontroller_116'));
       }
     }
   }
@@ -725,19 +533,19 @@ export class LearningController {
       record.rawMessage = this.readableMessage(event.detail);
       this.describeError(record);
     }
-    this.event(record, 'ON 异步通知', event.kind === 'SUCCESS' ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR',
-      `收到真实通知，原始数字状态 ${event.rawState}；详细说明见已脱敏结果字段。`);
+    this.event(record, localize('ac_learningcontroller_120'), event.kind === 'SUCCESS' ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR',
+      localize('ac_learningcontroller_121', [event.rawState]));
     if (owner.indexOf('probe:') === 0) {
       if (this.probeRecordId !== record.id) {
         return;
       }
       this.clearProbeTimer();
       this.probeRecordId = '';
-      record.facts.push('本次通知归属手动探针观察。');
-      this.finish(record, event.kind === 'SUCCESS' ? '收到成功状态通知' :
-        event.kind === 'UNKNOWN' ? '收到未知状态，请查看原始数字状态' : '收到平台失败或异步错误通知',
-        event.kind === 'SUCCESS' ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR', '探针通知完成');
-      this.value.notice = '探针已收到系统事件，可在操作详情查看结果。';
+      record.facts.push(localize('ac_learningcontroller_122'));
+      this.finish(record, event.kind === 'SUCCESS' ? localize('ac_learningcontroller_123') :
+        event.kind === 'UNKNOWN' ? localize('ac_learningcontroller_124') : localize('ac_learningcontroller_125'),
+        event.kind === 'SUCCESS' ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR', localize('ac_learningcontroller_126'));
+      this.value.notice = localize('ac_learningcontroller_127');
       this.beginOff();
       this.publish();
       return;
@@ -748,12 +556,12 @@ export class LearningController {
     }
     session.quickSeen = true;
     session.quickOk = event.kind === 'SUCCESS';
-    this.value.quickResult = event.kind === 'SUCCESS' ? '成功（原始状态 0）' :
-      event.kind === 'UNKNOWN' ? `未知（原始状态 ${event.rawState}）` :
-      event.kind === 'ERROR' ? `异步错误（错误码 ${event.errorCode}）` : `失败（原始状态 ${event.rawState}）`;
+    this.value.quickResult = event.kind === 'SUCCESS' ? localize('ac_learningcontroller_128') :
+      event.kind === 'UNKNOWN' ? localize('ac_learningcontroller_129', [event.rawState]) :
+      event.kind === 'ERROR' ? localize('ac_learningcontroller_130', [event.errorCode]) : localize('ac_learningcontroller_131', [event.rawState]);
     if (!session.quickOk) {
-      this.failSession(event.kind === 'UNKNOWN' ? '系统快速通知状态未知，本轮文本提交已停止。' :
-        event.kind === 'ERROR' ? '获取快速结果发生异步错误；未提交文本。' : '系统报告快速启动失败；未提交文本。', '快速结果');
+      this.failSession(event.kind === 'UNKNOWN' ? localize('ac_learningcontroller_132') :
+        event.kind === 'ERROR' ? localize('ac_learningcontroller_133') : localize('ac_learningcontroller_134'), localize('ac_learningcontroller_135'));
     } else {
       this.advanceSession();
     }
@@ -765,14 +573,14 @@ export class LearningController {
       return;
     }
     if (this.session !== undefined && this.session.active) {
-      this.value.notice = '接续进行中；如需结束，请点击停止本地等待并确认。';
+      this.value.notice = localize('ac_learningcontroller_136');
       this.publish();
       return;
     }
     if (this.probeRecordId.length > 0) {
       const record = this.findRecord(this.probeRecordId);
       if (record !== undefined) {
-        this.finish(record, '用户结束本地探针观察', 'WARN', '用户注销');
+        this.finish(record, localize('ac_learningcontroller_137'), 'WARN', localize('ac_learningcontroller_138'));
       }
       this.probeRecordId = '';
     }
@@ -785,16 +593,16 @@ export class LearningController {
     const slot = this.client.state();
     this.listenerOwner = '';
     if (slot.offPending) {
-      this.value.notice = '正在等待注销回调，最多等待 8 秒。';
+      this.value.notice = localize('ac_continueclient_023');
       return;
     }
     if (!slot.nativeDirty) {
       return;
     }
-    const record = this.startRecord('OFF', '注销独立监听槽', '立刻停用本地 sink，并通过独立回调观察平台注销完成。');
+    const record = this.startRecord('OFF', localize('ac_learningcontroller_140'), localize('ac_learningcontroller_141'));
     this.offRecordId = record.id;
-    record.facts.push('第三参数为独立的注销完成回调。');
-    record.limits.push('注销结果由独立完成回调返回。');
+    record.facts.push(localize('ac_learningcontroller_142'));
+    record.limits.push(localize('ac_learningcontroller_143'));
     const call = this.client.unregister((event: ContinueObservation): void => {
       if (this.disposed || this.offRecordId !== record.id) {
         return;
@@ -807,35 +615,35 @@ export class LearningController {
         this.describeError(record);
       }
       if (event.phase === 'OFF_OBSERVATION') {
-        this.finish(record, '注销等待超时（8 秒）', 'WARN', 'OFF 未确认');
-        record.facts.push('未收到注销完成回调；已结束本次等待，恢复操作入口。');
-        record.nextSteps.push('可重新注册或重试注销。');
+        this.finish(record, localize('ac_learningcontroller_144'), 'WARN', localize('ac_learningcontroller_145'));
+        record.facts.push(localize('ac_learningcontroller_146'));
+        record.nextSteps.push(localize('ac_learningcontroller_147'));
         this.value.notice = event.detail;
       } else {
         const success: boolean = event.kind === 'SUCCESS';
-        this.finish(record, success ? '平台已明确确认注销成功' : event.kind === 'UNKNOWN' ?
-          '注销回调状态未知' : '注销失败或异步错误',
-          success ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR', 'OFF 异步完成');
-        record.facts.push(`独立完成回调原始数字状态 ${event.rawState}。`);
+        this.finish(record, success ? localize('ac_learningcontroller_148') : event.kind === 'UNKNOWN' ?
+          localize('ac_learningcontroller_149') : localize('ac_learningcontroller_150'),
+          success ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR', localize('ac_learningcontroller_151'));
+        record.facts.push(localize('ac_learningcontroller_152', [event.rawState]));
         if (!success) {
-          record.nextSteps.push('可重新注册或重试注销。');
+          record.nextSteps.push(localize('ac_learningcontroller_147'));
         }
-        this.value.notice = success ? '注销成功，可重新注册。' : '注销结果异常，可重新注册或重试注销。';
+        this.value.notice = success ? localize('ac_learningcontroller_154') : localize('ac_learningcontroller_155');
       }
       this.offRecordId = '';
       this.tryBindWaitingSession();
       this.publish();
     });
-    this.callEvent(record, 'OFF 同步调用', call.accepted ? 'INFO' : 'ERROR', call.detail);
+    this.callEvent(record, localize('ac_learningcontroller_156'), call.accepted ? 'INFO' : 'ERROR', call.detail);
     if (!call.accepted && record.endedAt.length === 0) {
       record.errorCode = call.errorCode;
-      record.rawMessage = call.rawMessage === undefined ? '本地槽策略阻止调用，无平台异常消息。' :
+      record.rawMessage = call.rawMessage === undefined ? localize('ac_learningcontroller_114') :
         this.readableMessage(call.rawMessage);
       this.describeError(record);
       this.offRecordId = '';
-      record.nextSteps.push('可重新注册或重试注销。');
-      this.value.notice = '注销失败，可重新注册或重试注销。';
-      this.finish(record, '注销同步失败或被槽策略阻止', 'ERROR', 'OFF 同步失败');
+      record.nextSteps.push(localize('ac_learningcontroller_147'));
+      this.value.notice = localize('ac_learningcontroller_159');
+      this.finish(record, localize('ac_learningcontroller_160'), 'ERROR', localize('ac_learningcontroller_161'));
       this.tryBindWaitingSession();
     }
   }
@@ -845,7 +653,7 @@ export class LearningController {
       return;
     }
     if (text.length > MAX_TEXT_LENGTH || !validUnicode(text)) {
-      this.value.notice = '编辑校验失败：正文最多 4096 个 UTF-16 单元，代理对须保持完整。';
+      this.value.notice = localize('ac_learningcontroller_162');
       this.publish();
       return;
     }
@@ -853,7 +661,7 @@ export class LearningController {
     this.value.selectionStart = text.length;
     this.value.selectionEnd = text.length;
     this.dirty = true;
-    this.value.savedTextStatus = '本地有未保存编辑';
+    this.value.savedTextStatus = localize('ac_learningcontroller_163');
     this.publish();
   }
 
@@ -862,19 +670,20 @@ export class LearningController {
       return;
     }
     if (!selectionBoundary(this.value.text, start) || !selectionBoundary(this.value.text, end) || start > end) {
-      this.value.notice = '选区校验失败：请使用正文内有序整数边界，并保持代理对完整。';
+      this.value.notice = localize('ac_learningcontroller_164');
       this.publish();
       return;
     }
     this.value.selectionStart = start;
     this.value.selectionEnd = end;
     this.dirty = true;
-    this.value.savedTextStatus = '本地有未保存编辑';
+    this.value.savedTextStatus = localize('ac_learningcontroller_163');
     this.publish();
   }
 
   fillExample(): void {
-    this.updateText('春日的早晨，阳光洒在窗边。\n这是一段用于文本接续的示例内容。🌱');
+    // Sample text is user-visible content resolved in the current Ability language.
+    this.updateText(localize('ac_learningcontroller_166'));
   }
 
   private localPayload(): TextPayload {
@@ -903,13 +712,13 @@ export class LearningController {
     if (this.disposed || !this.value.canEdit) {
       return;
     }
-    const record = this.startRecord('SAVE', '保存当前文本', '写入本学习运行时独立的 Preferences。');
+    const record = this.startRecord('SAVE', localize('ac_learningcontroller_167'), localize('ac_learningcontroller_168'));
     if (this.localRevision >= MAX_REVISION) {
       record.errorCode = 'REVISION_LIMIT';
-      record.facts.push('修订号已达上限，拒绝继续递增，未写入存储。');
-      this.value.savedTextStatus = '修订号已达上限；未写入';
-      this.value.notice = '文档修订号达到上限，请新建文档后再保存。';
-      this.finish(record, '修订号上限阻止保存', 'ERROR', '修订边界');
+      record.facts.push(localize('ac_learningcontroller_169'));
+      this.value.savedTextStatus = localize('ac_learningcontroller_170');
+      this.value.notice = localize('ac_learningcontroller_171');
+      this.finish(record, localize('ac_learningcontroller_172'), 'ERROR', localize('ac_learningcontroller_173'));
       this.publish();
       return;
     }
@@ -929,14 +738,14 @@ export class LearningController {
       this.value.documentId = documentId;
       this.value.revision = revision;
       this.dirty = false;
-      record.facts.push(`文档修订号 ${revision}；文档标识已建立。`);
-      this.value.savedTextStatus = '已持久化到独立 Preferences';
-      this.value.notice = '当前文本与选区已保存。';
+      record.facts.push(localize('ac_learningcontroller_174', [revision]));
+      this.value.savedTextStatus = localize('ac_learningcontroller_175');
+      this.value.notice = localize('ac_learningcontroller_176');
     } else {
-      this.value.savedTextStatus = '保存失败；当前编辑仍保留';
+      this.value.savedTextStatus = localize('ac_learningcontroller_177');
       this.value.notice = outcome.detail;
     }
-    this.finish(record, outcome.ok ? '文本保存成功' : '文本保存失败', outcome.ok ? 'INFO' : 'ERROR', '持久化');
+    this.finish(record, outcome.ok ? localize('ac_learningcontroller_178') : localize('ac_learningcontroller_179'), outcome.ok ? 'INFO' : 'ERROR', localize('ac_learningcontroller_180'));
     this.publish();
   }
 
@@ -945,7 +754,7 @@ export class LearningController {
     if (this.disposed || !this.value.canEdit) {
       return;
     }
-    const record = this.startRecord('NEW', '另存为新文档', '保留当前内容与选区，建立独立修订历史。');
+    const record = this.startRecord('NEW', localize('ac_learningcontroller_181'), localize('ac_learningcontroller_182'));
     const payload = this.localPayload();
     payload.version = 2;
     payload.documentId = `doc-${this.dependencies.clock.now()}-${++this.documentSerial}`;
@@ -963,10 +772,10 @@ export class LearningController {
       this.value.documentId = payload.documentId;
       this.value.revision = 1;
       this.dirty = false;
-      this.value.savedTextStatus = '已另存为新文档 r1';
+      this.value.savedTextStatus = localize('ac_learningcontroller_183');
     }
-    this.value.notice = outcome.ok ? '新文档已保存；正文和选区保持不变。' : outcome.detail;
-    this.finish(record, outcome.ok ? '新文档保存成功' : '新建失败；旧身份保留', outcome.ok ? 'INFO' : 'ERROR', '持久化');
+    this.value.notice = outcome.ok ? localize('ac_learningcontroller_184') : outcome.detail;
+    this.finish(record, outcome.ok ? localize('ac_learningcontroller_185') : localize('ac_learningcontroller_186'), outcome.ok ? 'INFO' : 'ERROR', localize('ac_learningcontroller_180'));
     this.publish();
   }
 
@@ -974,14 +783,14 @@ export class LearningController {
     if (this.disposed || !this.value.canEdit) {
       return;
     }
-    const record = this.startRecord('SAVE', '清空并保存文本', '先持久化空文本，成功后才替换页面正文。');
+    const record = this.startRecord('SAVE', localize('ac_learningcontroller_188'), localize('ac_learningcontroller_189'));
     const hasDocument: boolean = this.documentId.length > 0;
     if (hasDocument && this.localRevision >= MAX_REVISION) {
       record.errorCode = 'REVISION_LIMIT';
-      record.facts.push('修订号已达上限，拒绝清空写入。');
-      this.value.savedTextStatus = '修订号已达上限；未清空';
-      this.value.notice = '文档修订号达到上限，请新建文档后再清空。';
-      this.finish(record, '修订号上限阻止清空', 'ERROR', '修订边界');
+      record.facts.push(localize('ac_learningcontroller_190'));
+      this.value.savedTextStatus = localize('ac_learningcontroller_191');
+      this.value.notice = localize('ac_learningcontroller_192');
+      this.finish(record, localize('ac_learningcontroller_193'), 'ERROR', localize('ac_learningcontroller_173'));
       this.publish();
       return;
     }
@@ -1003,10 +812,10 @@ export class LearningController {
       this.value.selectionStart = 0;
       this.value.selectionEnd = 0;
       this.dirty = false;
-      this.value.savedTextStatus = '空文本已持久化';
+      this.value.savedTextStatus = localize('ac_learningcontroller_195');
     }
-    this.finish(record, outcome.ok ? '已清空并保存' : '清空失败；保留原文', outcome.ok ? 'INFO' : 'ERROR', '持久化');
-    this.value.notice = outcome.ok ? '文本与选区已清空并保存。' : outcome.detail;
+    this.finish(record, outcome.ok ? localize('ac_learningcontroller_196') : localize('ac_learningcontroller_197'), outcome.ok ? 'INFO' : 'ERROR', localize('ac_learningcontroller_180'));
+    this.value.notice = outcome.ok ? localize('ac_learningcontroller_199') : outcome.detail;
     this.publish();
   }
 
@@ -1015,17 +824,17 @@ export class LearningController {
       this.store = this.dependencies.openStore();
       const raw = this.store.getSync(STORE_KEY, '');
       if (typeof raw !== 'string') {
-        this.value.savedTextStatus = '独立存储类型无效；未恢复正文';
+        this.value.savedTextStatus = localize('ac_learningcontroller_200');
         return;
       }
       if (raw.length === 0) {
-        this.value.savedTextStatus = '独立存储尚无文本';
+        this.value.savedTextStatus = localize('ac_learningcontroller_201');
         return;
       }
       this.durableDocument = raw;
       const decoded = decodePayload(raw);
       if (decoded.value === undefined) {
-        this.value.savedTextStatus = '独立存储内容无效；未恢复正文';
+        this.value.savedTextStatus = localize('ac_learningcontroller_202');
         return;
       }
       this.value.text = decoded.value.text;
@@ -1036,10 +845,10 @@ export class LearningController {
       this.value.documentId = this.documentId;
       this.value.revision = this.localRevision;
       this.dirty = false;
-      this.value.savedTextStatus = '已读取本学习运行时的独立文本';
+      this.value.savedTextStatus = localize('ac_learningcontroller_203');
     } catch (error) {
       this.store = undefined;
-      this.value.savedTextStatus = `独立 Preferences 不可用（错误码 ${safeErrorCode(error as Object)}）`;
+      this.value.savedTextStatus = localize('ac_learningcontroller_204', [safeErrorCode(error as Object)]);
     }
   }
 
@@ -1048,8 +857,8 @@ export class LearningController {
     if (store === undefined || this.storageUncertain) {
       const unavailable: WriteOutcome = {
         ok: false, code: '', detail: this.storageUncertain ?
-          '存储回滚未能确认；停止后续写入以保护原文。请结束本 Ability 后重新检查存储。' :
-          '独立 Preferences 不可用；当前原文已保留。'
+          localize('ac_learningcontroller_205') :
+          localize('ac_learningcontroller_206')
       };
       return unavailable;
     }
@@ -1059,7 +868,7 @@ export class LearningController {
       store.putSync(STORE_KEY, serialized);
       store.flushSync();
       this.durableDocument = serialized;
-      const ok: WriteOutcome = { ok: true, code: '', detail: '独立 Preferences 写入并同步 flush 返回成功。' };
+      const ok: WriteOutcome = { ok: true, code: '', detail: localize('ac_learningcontroller_207') };
       return ok;
     } catch (error) {
       let rolledBack: boolean = false;
@@ -1076,8 +885,8 @@ export class LearningController {
       }
       const failed: WriteOutcome = {
         ok: false, code: safeErrorCode(error as Object), detail: rolledBack ?
-          '持久化失败，已回滚存储；页面原文与选区已保留。' :
-          '持久化失败且回滚未能确认；页面原文仍保留，后续写入已停止，磁盘状态未知。'
+          localize('ac_learningcontroller_208') :
+          localize('ac_learningcontroller_209')
       };
       return failed;
     }
@@ -1088,8 +897,8 @@ export class LearningController {
       return;
     }
     this.value.launchReasonCode = numericReason;
-    this.value.launchReason = numericReason === 10 ? '系统 PREPARE_CONTINUATION（10）' :
-      numericReason === 3 ? '系统 CONTINUATION（3）' : `普通启动 / 其他原因（${numericReason}）`;
+    this.value.launchReason = numericReason === 10 ? localize('ac_learningcontroller_210') :
+      numericReason === 3 ? localize('ac_learningcontroller_211') : localize('ac_learningcontroller_212', [numericReason]);
     if (numericReason !== 10 && numericReason !== 3) {
       this.value.notice = '';
       this.publish();
@@ -1099,7 +908,7 @@ export class LearningController {
       if (this.session !== undefined && this.session.active) {
         const record = this.findRecord(this.session.recordId);
         if (record !== undefined) {
-          this.event(record, '重复启动信号', 'WARN', '当前接续轮次进行中，重复 PREPARE 已忽略。');
+          this.event(record, localize('ac_learningcontroller_213'), 'WARN', localize('ac_learningcontroller_214'));
         }
         this.publish();
         return;
@@ -1122,12 +931,12 @@ export class LearningController {
       if (decoded.value !== undefined) {
         this.rememberTag(decoded.value.transferId);
       }
-      this.value.notice = '上一快速轮次已关闭，迟到数据已忽略；请通过新的系统 PREPARE 事件启动接续，或重新进入应用。';
+      this.value.notice = localize('ac_learningcontroller_215');
       this.publish();
       return;
     }
     if (decoded.value !== undefined && this.completedTags.indexOf(decoded.value.transferId) >= 0) {
-      this.value.notice = '已忽略结束轮次的重复接续标签。';
+      this.value.notice = localize('ac_learningcontroller_216');
       this.publish();
       return;
     }
@@ -1144,17 +953,17 @@ export class LearningController {
     if (this.probeRecordId.length > 0) {
       const probe = this.findRecord(this.probeRecordId);
       if (probe !== undefined) {
-        this.finish(probe, '真实系统接续到达；结束手动观察并隔离旧监听', 'WARN', '让位真实接续');
+        this.finish(probe, localize('ac_learningcontroller_217'), 'WARN', localize('ac_learningcontroller_218'));
       }
       this.probeRecordId = '';
       this.clearProbeTimer();
       this.beginOff();
     }
-    const record = this.startRecord('RESTORE', quickRequired ? '系统快速接续恢复' : '系统普通接续恢复',
-      '根据系统 launchReason 建轮；有效候选先持久化，再一次提交正文与选区。');
-    record.facts.push(quickRequired ? '系统启动原因 PREPARE_CONTINUATION（10）。' : '系统启动原因 CONTINUATION（3）。');
-    record.limits.push('各阶段应用等待上限：15 秒。',
-      '通知按本地监听代次归属，业务候选按接续标签去重。');
+    const record = this.startRecord('RESTORE', quickRequired ? localize('ac_learningcontroller_219') : localize('ac_learningcontroller_220'),
+      localize('ac_learningcontroller_221'));
+    record.facts.push(quickRequired ? localize('ac_learningcontroller_222') : localize('ac_learningcontroller_223'));
+    record.limits.push(localize('ac_learningcontroller_224'),
+      localize('ac_learningcontroller_225'));
     const session: RestoreSession = {
       generation: ++this.sessionGeneration,
       recordId: record.id,
@@ -1170,15 +979,15 @@ export class LearningController {
     this.sceneWorkbench.setLocked(true);
     this.value.targetPage = 'pages/ProcessPage';
     this.value.positionRequest = ++this.positionSerial;
-    this.value.businessPositionState = '等待业务候选；窗口容器与业务定位分别确认';
+    this.value.businessPositionState = localize('ac_learningcontroller_226');
     this.value.sessionRecordId = record.id;
     this.value.quickStartRequired = quickRequired;
-    this.value.quickResult = quickRequired ? '等待真实系统快速结果' : '普通 CONTINUATION：等待业务数据与页面';
-    this.value.dataState = '等待有效业务载荷';
+    this.value.quickResult = quickRequired ? localize('ac_learningcontroller_227') : localize('ac_learningcontroller_228');
+    this.value.dataState = localize('ac_learningcontroller_229');
     this.value.committed = false;
     this.value.restoredSummary = '';
-    this.value.sessionState = quickRequired ? '快速接续：独立等待结果 / 数据 / 页面' : '普通接续：等待数据与页面';
-    this.value.notice = '接续处理中。';
+    this.value.sessionState = quickRequired ? localize('ac_learningcontroller_230') : localize('ac_learningcontroller_231');
+    this.value.notice = localize('ac_learningcontroller_232');
   }
 
   private tryBindWaitingSession(): void {
@@ -1196,11 +1005,11 @@ export class LearningController {
       return;
     }
     if (slot.offPending || slot.listening) {
-      this.value.quickResult = '等待上一轮监听操作结束';
-      this.event(record, '等待监听槽', 'WARN', '上一轮监听操作进行中，结束后注册本轮监听。');
+      this.value.quickResult = localize('ac_learningcontroller_233');
+      this.event(record, localize('ac_learningcontroller_234'), 'WARN', localize('ac_learningcontroller_235'));
       return;
     }
-    this.value.quickResult = '等待真实系统快速结果';
+    this.value.quickResult = localize('ac_learningcontroller_227');
     this.bindListener(owner, record);
   }
 
@@ -1214,22 +1023,22 @@ export class LearningController {
       return;
     }
     if (decoded.value === undefined) {
-      this.value.dataState = '载荷校验失败';
+      this.value.dataState = localize('ac_learningcontroller_237');
       record.facts.push(decoded.reason);
-      this.failSession(decoded.reason, '候选校验失败');
+      this.failSession(decoded.reason, localize('ac_learningcontroller_238'));
       return;
     }
     const candidate = decoded.value;
     if (this.completedTags.indexOf(candidate.transferId) >= 0) {
-      this.failSession('已结束轮次的重复接续标签已拒收。', '重复标签');
+      this.failSession(localize('ac_learningcontroller_239'), localize('ac_learningcontroller_240'));
       return;
     }
     if (session.candidate !== undefined) {
       if (JSON.stringify(session.candidate) === JSON.stringify(candidate)) {
-        this.event(record, '重复数据', 'INFO', '已忽略重复候选，继续当前阶段等待。');
+        this.event(record, localize('ac_learningcontroller_241'), 'INFO', localize('ac_learningcontroller_242'));
         return;
       }
-      this.failSession('同轮收到冲突的业务候选；已拒收候选并保留原文。', '候选冲突');
+      this.failSession(localize('ac_learningcontroller_243'), localize('ac_learningcontroller_244'));
       return;
     }
     session.candidate = candidate;
@@ -1242,17 +1051,17 @@ export class LearningController {
       const reason = this.sceneWorkbench.conflictReason(candidate.scene);
       this.value.targetPage = this.scenePage(candidate.scene.state.kind);
       this.value.positionRequest = ++this.positionSerial;
-      this.value.businessPositionState = '业务候选待定位：需实际选区/段落/步骤回执';
+      this.value.businessPositionState = localize('ac_learningcontroller_245');
       if (this.dirty || reason.length > 0) {
-        this.enterConflict(candidate, 'document', this.dirty ? '原文本有未保存内容；切换业务前需明确选择。' : reason);
+        this.enterConflict(candidate, 'document', this.dirty ? localize('ac_learningcontroller_246') : reason);
       } else {
-        this.value.dataState = '业务候选完整校验通过；等待系统信号及实际定位';
+        this.value.dataState = localize('ac_learningcontroller_247');
       }
-      this.event(record, '业务候选校验', 'INFO', `业务类型 ${candidate.scene.state.kind}；身份与状态已完整校验。`);
+      this.event(record, localize('ac_learningcontroller_248'), 'INFO', localize('ac_learningcontroller_249', [candidate.scene.state.kind]));
       return;
     }
     if (this.sceneWorkbench.hasDirtyWork()) {
-      this.enterConflict(candidate, 'document', '本机业务页有未保存状态；切回原文本前需明确选择。');
+      this.enterConflict(candidate, 'document', localize('ac_learningcontroller_250'));
       return;
     }
     const sameDocument: boolean = candidate.documentId.length === 0 || this.documentId.length === 0 ||
@@ -1262,30 +1071,30 @@ export class LearningController {
       candidate.selectionEnd !== this.value.selectionEnd;
     if (this.dirty && (!sameDocument || divergent)) {
       this.enterConflict(candidate, !sameDocument ? 'document' : 'revision',
-        `本机存在未保存编辑；接续 r${candidate.revision}、本机 r${this.localRevision}。` +
-        '无论对端修订更高或使用旧 v1，均须明确选择；尚未覆盖。');
-      this.event(record, '文档切换冲突', 'WARN', this.value.conflictSummary);
+        localize('ac_learningcontroller_251', [candidate.revision, this.localRevision]) +
+        localize('ac_learningcontroller_252'));
+      this.event(record, localize('ac_index_044'), 'WARN', this.value.conflictSummary);
       return;
     }
     if (sameDocument && candidate.documentId.length > 0 && candidate.revision <= this.localRevision && divergent) {
       this.enterConflict(candidate, 'revision',
-        `接续版本 r${candidate.revision}，本机 r${this.localRevision}；` +
-        '同一文档修订较旧或同号不同内容，未覆盖本机正文。');
-      this.event(record, '版本冲突', 'WARN', this.value.conflictSummary);
+        localize('ac_learningcontroller_254', [candidate.revision, this.localRevision]) +
+        localize('ac_learningcontroller_255'));
+      this.event(record, localize('ac_index_045'), 'WARN', this.value.conflictSummary);
       return;
     }
     if (!sameDocument) {
-      this.event(record, '文档切换', 'INFO',
-        `接续文档 ${candidate.documentId} 将替换本机文档 ${this.documentId}；修订号按接续值重置。`);
+      this.event(record, localize('ac_learningcontroller_257'), 'INFO',
+        localize('ac_learningcontroller_258', [candidate.documentId, this.documentId]));
     }
     // 数据可能晚于通知到达；已识别正文后再次消除旧详情中的同文本。
     this.value.records.forEach((item: OperationRecord): void => {
       item.rawMessage = this.readableMessage(item.rawMessage);
       item.resultInfo = this.readableMessage(item.resultInfo);
     });
-    this.value.dataState = '完整候选已校验；尚未提交';
-    record.facts.push(`正文/选区/版本/页面完整校验通过；正文长度 ${candidate.text.length} 个 UTF-16 单元。`);
-    this.event(record, '候选校验', 'INFO', '完整候选校验通过，等待其余信号。');
+    this.value.dataState = localize('ac_learningcontroller_259');
+    record.facts.push(localize('ac_learningcontroller_260', [candidate.text.length]));
+    this.event(record, localize('ac_learningcontroller_261'), 'INFO', localize('ac_learningcontroller_262'));
   }
 
   private enterConflict(candidate: TextPayload, kind: string, summary: string): void {
@@ -1295,9 +1104,9 @@ export class LearningController {
     this.value.conflictAccepted = false;
     this.value.conflictKind = kind;
     this.value.conflictSummary = summary;
-    this.value.dataState = '候选校验通过，等待冲突选择';
-    this.value.notice = '检测到' + (kind === 'document' ? '文档切换冲突' : '版本冲突') +
-      '，请选择接受接续内容或保留本机版本。';
+    this.value.dataState = localize('ac_learningcontroller_263');
+    this.value.notice = localize('ac_learningcontroller_264') + (kind === 'document' ? localize('ac_index_044') : localize('ac_index_045')) +
+      localize('ac_learningcontroller_267');
   }
 
   private advanceSession(): void {
@@ -1307,24 +1116,24 @@ export class LearningController {
     }
     let phase: string = '';
     if (session.quickRequired && !session.quickSeen) {
-      phase = '快速结果';
+      phase = localize('ac_learningcontroller_135');
     } else if (session.candidate === undefined) {
-      phase = '业务数据';
-    } else if (this.value.windowState !== '页面已就绪') {
-      phase = '页面窗口';
+      phase = localize('ac_processpage_017');
+    } else if (this.value.windowState !== localize('ac_learningcontroller_270')) {
+      phase = localize('ac_learningcontroller_271');
     } else if (session.candidate.scene !== undefined && !session.positionOk) {
-      phase = '业务定位';
+      phase = localize('ac_learningcontroller_272');
     }
     const record = this.findRecord(session.recordId);
     if (record === undefined) {
       return;
     }
     if (phase.length > 0) {
-      this.value.sessionState = `等待${phase}（应用本阶段 15 秒策略）`;
+      this.value.sessionState = localize('ac_learningcontroller_273', [phase]);
       if (session.waitingPhase !== phase) {
         this.clearSessionTimer();
         session.waitingPhase = phase;
-        this.event(record, `等待${phase}`, 'INFO', '本阶段应用等待上限 15 秒，到期结束本地等待。');
+        this.event(record, localize('ac_learningcontroller_274', [phase]), 'INFO', localize('ac_learningcontroller_275'));
         const generation: number = session.generation;
         this.sessionTimer = this.dependencies.clock.setTimeout((): void => {
           this.sessionTimer = -1;
@@ -1333,10 +1142,10 @@ export class LearningController {
             current.waitingPhase !== phase) {
             return;
           }
-          const missing: string = phase === '快速结果' ? '未收到可用的系统快速结果通知' :
-            phase === '业务数据' ? '未收到完整有效的业务载荷' : phase === '业务定位' ? '未收到实际业务选区/段落/步骤定位回执' :
-              '未收到显式页面加载成功信号';
-          this.failSession(`${missing}；本阶段 15 秒等待已到期，本地恢复已结束。`, `${phase}超时`);
+          const missing: string = phase === localize('ac_learningcontroller_135') ? localize('ac_learningcontroller_277') :
+            phase === localize('ac_processpage_017') ? localize('ac_learningcontroller_279') : phase === localize('ac_learningcontroller_272') ? localize('ac_learningcontroller_281') :
+              localize('ac_learningcontroller_282');
+          this.failSession(localize('ac_learningcontroller_283', [missing]), localize('ac_learningcontroller_284', [phase]));
           this.publish();
         }, PHASE_LIMIT_MS);
       }
@@ -1349,21 +1158,21 @@ export class LearningController {
     if (this.value.conflictPending) {
       this.clearSessionTimer();
       if (!this.conflictAccepted) {
-        this.value.sessionState = '版本冲突：等待用户选择';
+        this.value.sessionState = localize('ac_learningcontroller_285');
         return;
       }
       const accepted = this.acceptedConflictCandidate();
       if (accepted === undefined) {
-        this.failSession('冲突接受后的修订号将超过上限，未写入存储。', '修订上限');
+        this.failSession(localize('ac_learningcontroller_286'), localize('ac_learningcontroller_287'));
         return;
       }
-      this.event(record, '冲突提交', 'INFO',
-        `快速结果与页面均已就绪，按 r${accepted.revision} 持久化用户选择的接续版本。`);
+      this.event(record, localize('ac_learningcontroller_288'), 'INFO',
+        localize('ac_learningcontroller_289', [accepted.revision]));
       this.commitCandidate(record, session, accepted);
       return;
     }
     this.clearSessionTimer();
-    this.event(record, '持久化', 'INFO', '所有必要信号就绪；先持久化候选，成功前保持页面原文。');
+    this.event(record, localize('ac_learningcontroller_180'), 'INFO', localize('ac_learningcontroller_291'));
     this.commitCandidate(record, session, candidate);
   }
 
@@ -1420,7 +1229,7 @@ export class LearningController {
   private commitCandidate(record: OperationRecord, session: RestoreSession, candidate: TextPayload): boolean {
     if (candidate.scene !== undefined) {
       if (!this.sceneWorkbench.commitIncoming(candidate.scene, this.conflictAccepted)) {
-        this.failSession(this.sceneWorkbench.snapshot().error, '场景持久化失败');
+        this.failSession(this.sceneWorkbench.snapshot().error, localize('ac_learningcontroller_292'));
         return false;
       }
       this.activeBusiness = candidate.scene.state.kind;
@@ -1429,30 +1238,30 @@ export class LearningController {
       this.value.documentId = restored.documentId;
       this.value.revision = restored.revision;
       this.value.committed = true;
-      this.value.dataState = '业务状态已原子持久化并提交';
-      this.value.sessionState = '本轮已提交（业务定位回执与所有系统信号齐备）';
-      this.value.restoredSummary = `${this.activeBusiness} r${restored.revision}；实际定位已确认；未传输文件。`;
-      this.value.notice = '业务状态恢复完成，可继续操作并再次从系统入口接续。';
+      this.value.dataState = localize('ac_learningcontroller_293');
+      this.value.sessionState = localize('ac_learningcontroller_294');
+      this.value.restoredSummary = localize('ac_learningcontroller_295', [this.activeBusiness, restored.revision]);
+      this.value.notice = localize('ac_learningcontroller_296');
       this.commitConflictTag();
       session.active = false;
       this.sceneWorkbench.setLocked(false);
       this.terminalAwaitingData = false;
       this.rememberTag(candidate.transferId);
-      this.finish(record, '业务场景恢复成功', 'INFO', '已提交');
+      this.finish(record, localize('ac_learningcontroller_297'), 'INFO', localize('ac_learningcontroller_298'));
       if (session.quickRequired) { this.beginOff(); }
       return true;
     }
     const plan = this.planCommit(candidate);
     if (plan === undefined) {
-      this.failSession('候选修订号超过上限，未写入存储，原文保留。', '修订上限');
+      this.failSession(localize('ac_learningcontroller_299'), localize('ac_learningcontroller_287'));
       return false;
     }
     const outcome = this.persist(plan.payload);
     record.errorCode = outcome.code;
     record.facts.push(outcome.detail);
     if (!outcome.ok) {
-      this.value.savedTextStatus = '恢复持久化失败；原文保留';
-      this.failSession(outcome.detail, '持久化失败');
+      this.value.savedTextStatus = localize('ac_learningcontroller_301');
+      this.failSession(outcome.detail, localize('ac_learningcontroller_302'));
       return false;
     }
     // 持久化成功后一次性提交文档标识、修订号、正文和选区，避免部分更新。
@@ -1472,20 +1281,20 @@ export class LearningController {
     this.value.conflictSummary = '';
     this.conflictCandidate = undefined;
     this.conflictAccepted = false;
-    this.value.savedTextStatus = '接续文本已持久化';
-    this.value.dataState = '业务数据已提交';
+    this.value.savedTextStatus = localize('ac_learningcontroller_303');
+    this.value.dataState = localize('ac_learningcontroller_304');
     this.value.committed = true;
-    this.value.restoredSummary = `已恢复文本及选区；文档 ${plan.documentId.length > 0 ? plan.documentId : '旧版无标识'} ` +
-      `r${plan.revision}；正文 ${plan.payload.text.length} 个 UTF-16 单元，选区 ` +
+    this.value.restoredSummary = localize('ac_learningcontroller_305', [plan.documentId.length > 0 ? plan.documentId : localize('ac_learningcontroller_306')]) +
+      localize('ac_learningcontroller_307', [plan.revision, plan.payload.text.length]) +
       `${plan.payload.selectionStart}–${plan.payload.selectionEnd}。`;
-    this.value.sessionState = '本轮已提交（本地业务恢复成功）';
-    this.value.notice = '文本与选区恢复完成，数据已保存。';
+    this.value.sessionState = localize('ac_learningcontroller_308');
+    this.value.notice = localize('ac_learningcontroller_309');
     session.active = false;
     this.sceneWorkbench.setLocked(false);
     this.terminalAwaitingData = false;
     this.rememberTag(plan.payload.transferId);
-    record.facts.push('页面已显式加载，所有本轮必要信号齐备，持久化成功后一次提交。');
-    this.finish(record, '本地业务恢复成功', 'INFO', '已提交');
+    record.facts.push(localize('ac_learningcontroller_310'));
+    this.finish(record, localize('ac_learningcontroller_311'), 'INFO', localize('ac_learningcontroller_298'));
     if (session.quickRequired) {
       this.beginOff();
     }
@@ -1502,11 +1311,11 @@ export class LearningController {
     }
     this.conflictAccepted = true;
     this.value.conflictAccepted = true;
-    this.value.sessionState = '已确认接受；等待快速结果与页面就绪';
-    this.value.notice = '已记录冲突选择；所有必要信号就绪后才会写入存储。';
+    this.value.sessionState = localize('ac_learningcontroller_313');
+    this.value.notice = localize('ac_learningcontroller_314');
     const record = this.findRecord(session.recordId);
     if (record !== undefined) {
-      this.event(record, '冲突选择', 'INFO', '用户接受接续版本；提交仍需快速结果与页面就绪。');
+      this.event(record, localize('ac_learningcontroller_315'), 'INFO', localize('ac_learningcontroller_316'));
     }
     this.advanceSession();
     // 同步持久化可能已提交或失败结束会话；最后通知必须携带最终门禁状态。
@@ -1529,15 +1338,15 @@ export class LearningController {
     this.conflictAccepted = false;
     this.value.targetPage = 'pages/ProcessPage';
     this.value.positionRequest = ++this.positionSerial;
-    this.value.sessionState = '已保留本机版本';
-    this.value.notice = '已保留本机正文；接续版本未写入。';
-    this.value.savedTextStatus = '本机版本保留';
+    this.value.sessionState = localize('ac_learningcontroller_317');
+    this.value.notice = localize('ac_learningcontroller_318');
+    this.value.savedTextStatus = localize('ac_learningcontroller_319');
     this.commitConflictTag();
     session.active = false;
     this.sceneWorkbench.setLocked(false);
     this.terminalAwaitingData = false;
     if (record !== undefined) {
-      this.finish(record, '用户选择保留本机版本', 'WARN', '版本冲突');
+      this.finish(record, localize('ac_learningcontroller_320'), 'WARN', localize('ac_index_045'));
     }
     if (session.quickRequired) {
       this.beginOff();
@@ -1579,15 +1388,15 @@ export class LearningController {
     this.terminalAwaitingData = session.quickRequired && candidate === undefined;
     this.value.targetPage = 'pages/ProcessPage';
     this.value.positionRequest = ++this.positionSerial;
-    this.value.sessionState = `本地恢复结束：${stage}`;
+    this.value.sessionState = localize('ac_learningcontroller_322', [stage]);
     this.value.committed = false;
     this.value.notice = message;
     const record = this.findRecord(session.recordId);
     if (record !== undefined) {
       record.explanation.push(message);
-      record.limits.push('本轮本地等待已结束，当前原文保留。');
-      record.nextSteps.push('保留当前原文；解决对应结果、数据、页面或存储问题后，从新的真实系统流程重试。');
-      this.finish(record, message, stage.indexOf('用户') >= 0 ? 'WARN' : 'ERROR', stage);
+      record.limits.push(localize('ac_learningcontroller_323'));
+      record.nextSteps.push(localize('ac_learningcontroller_324'));
+      this.finish(record, message, stage.indexOf(localize('ac_learningcontroller_325')) >= 0 ? 'WARN' : 'ERROR', stage);
     }
     if (session.quickRequired) {
       this.beginOff();
@@ -1614,7 +1423,7 @@ export class LearningController {
 
   sceneBackupSnapshot(): SceneBackupExport {
     if (!this.localBackupAvailable()) {
-      const blocked = new SceneBackupExport(); blocked.message = '系统接续在途或运行时已释放，暂不能生成本地备份。';
+      const blocked = new SceneBackupExport(); blocked.message = localize('ac_learningcontroller_326');
       return blocked;
     }
     return this.sceneWorkbench.backupSnapshot();
@@ -1624,7 +1433,7 @@ export class LearningController {
     if (!this.localBackupAvailable()) {
       this.sceneWorkbench.cancelBackupPreview();
       const blocked = new SceneBackupPreview(); blocked.code = SceneBackupCode.BLOCKED;
-      blocked.message = '系统接续在途或运行时已释放，暂不能预览本地恢复。';
+      blocked.message = localize('ac_learningcontroller_327');
       return blocked;
     }
     return this.sceneWorkbench.previewBackup(raw, scope);
@@ -1638,7 +1447,7 @@ export class LearningController {
   restoreSceneBackup(token: string, confirmDirty: boolean, scope?: string[]): SceneBackupRestoreResult {
     if (!this.localBackupAvailable()) {
       this.sceneWorkbench.cancelBackupPreview();
-      return new SceneBackupRestoreResult(SceneBackupCode.BLOCKED, '系统接续在途或运行时已释放，未执行本地恢复。');
+      return new SceneBackupRestoreResult(SceneBackupCode.BLOCKED, localize('ac_learningcontroller_328'));
     }
     const result = this.sceneWorkbench.restoreBackup(token, confirmDirty, scope);
     if (result.ok && result.changed && this.activeBusiness !== 'text') {
@@ -1654,11 +1463,11 @@ export class LearningController {
 
   async copySceneBackup(exported: SceneBackupExport): Promise<SceneBackupCopyResult> {
     if (!exported.ok || !this.isSceneBackupCurrent(exported.epoch)) {
-      return new SceneBackupCopyResult(SceneBackupCopyCode.BLOCKED, '备份已过期或当前不能复制，请重新生成业务备份。');
+      return new SceneBackupCopyResult(SceneBackupCopyCode.BLOCKED, localize('ac_learningcontroller_329'));
     }
     const result = await this.backupClipboard.copy(exported.raw);
     if (result.copied && !this.disposed && !this.isSceneBackupCurrent(exported.epoch)) {
-      result.message = '已复制生成时的业务备份；当前工作区已有变化，如需最新副本请重新生成。';
+      result.message = localize('ac_learningcontroller_330');
     }
     return result;
   }
@@ -1721,7 +1530,7 @@ export class LearningController {
       kind === 'reading' ? first === state.reading.chapter && second === state.reading.anchor :
         first === state.form.step;
     session.positionOk = ok && matches;
-    this.value.businessPositionState = session.positionOk ? '业务定位已获实际页面回执' : '业务定位失败，候选未提交；可重试定位或停止';
+    this.value.businessPositionState = session.positionOk ? localize('ac_learningcontroller_331') : localize('ac_learningcontroller_332');
     if (session.positionOk) {
       this.advanceSession();
     } else {
@@ -1738,7 +1547,7 @@ export class LearningController {
     session.positionOk = false;
     this.value.positionRequest = ++this.positionSerial;
     this.value.targetPage = 'pages/ProcessPage';
-    this.value.businessPositionState = '业务页已离开；候选未提交，可重试定位或取消';
+    this.value.businessPositionState = localize('ac_learningcontroller_333');
     this.advanceSession();
     this.publish();
   }
@@ -1753,7 +1562,7 @@ export class LearningController {
     session.waitingPhase = '';
     this.value.positionRequest = ++this.positionSerial;
     this.value.targetPage = this.scenePage(session.candidate.scene.state.kind);
-    this.value.businessPositionState = '重新等待实际业务页定位回执';
+    this.value.businessPositionState = localize('ac_learningcontroller_334');
     this.advanceSession();
     this.publish();
   }
@@ -1763,9 +1572,9 @@ export class LearningController {
       return AbilityConstant.OnContinueResult.REJECT;
     }
     if (this.activeBusiness !== 'text') {
-      const record = this.startRecord('CONTINUE', '源端提供活动业务状态', '发送真实笔记、阅读或表单草稿；不声称迁移文件。');
+      const record = this.startRecord('CONTINUE', localize('ac_learningcontroller_335'), localize('ac_learningcontroller_336'));
       if (this.session !== undefined && this.session.active) {
-        this.finish(record, '恢复在途，拒绝发起新接续', 'WARN', '源端门控'); this.publish();
+        this.finish(record, localize('ac_learningcontroller_337'), 'WARN', localize('ac_learningcontroller_338')); this.publish();
         return AbilityConstant.OnContinueResult.REJECT;
       }
       try {
@@ -1773,21 +1582,21 @@ export class LearningController {
         wantParam[SCENE_PAYLOAD_KEY] = raw;
         wantParam[TEXT_PAYLOAD_KEY] = '';
         wantParam[wantConstant.Params.SUPPORT_CONTINUE_PAGE_STACK_KEY] = false;
-        record.facts.push(`活动业务 ${this.activeBusiness}；独立schema校验通过；序列化长度 ${raw.length}。`);
-        this.finish(record, '已提供活动业务载荷', 'INFO', '源端参数完成'); this.publish();
+        record.facts.push(localize('ac_learningcontroller_339', [this.activeBusiness, raw.length]));
+        this.finish(record, localize('ac_learningcontroller_340'), 'INFO', localize('ac_learningcontroller_341')); this.publish();
         return AbilityConstant.OnContinueResult.AGREE;
       } catch (error) {
-        this.finish(record, '业务序列化或参数写入失败，拒绝接续', 'ERROR', '源端校验'); this.publish();
+        this.finish(record, localize('ac_learningcontroller_342'), 'ERROR', localize('ac_learningcontroller_343')); this.publish();
         return AbilityConstant.OnContinueResult.REJECT;
       }
     }
-    const record = this.startRecord('CONTINUE', '源端提供独立文本载荷', '向系统 Want 写入新版本文本载荷与显式页面恢复策略。');
+    const record = this.startRecord('CONTINUE', localize('ac_learningcontroller_344'), localize('ac_learningcontroller_345'));
     if ((this.session !== undefined && this.session.active) || !validUnicode(this.value.text) ||
       this.value.text.length > MAX_TEXT_LENGTH ||
       !selectionBoundary(this.value.text, this.value.selectionStart) ||
       !selectionBoundary(this.value.text, this.value.selectionEnd) ||
       this.value.selectionStart > this.value.selectionEnd) {
-      this.finish(record, '拒绝：本地恢复在途或正文/选区不合法', 'ERROR', '源端校验');
+      this.finish(record, localize('ac_learningcontroller_346'), 'ERROR', localize('ac_learningcontroller_343'));
       this.publish();
       return AbilityConstant.OnContinueResult.REJECT;
     }
@@ -1797,16 +1606,16 @@ export class LearningController {
       wantParam[TEXT_PAYLOAD_KEY] = JSON.stringify(payload);
       wantParam[SCENE_PAYLOAD_KEY] = '';
       wantParam[wantConstant.Params.SUPPORT_CONTINUE_PAGE_STACK_KEY] = false;
-      record.facts.push(`已写入版本化独立文本载荷；正文长度 ${payload.text.length} 个 UTF-16 单元。`,
-        'SUPPORT_CONTINUE_PAGE_STACK_KEY=false；目标端由入口显式加载固定页面。');
-      record.limits.push('源端返回 AGREE；后续进度由目标端记录。');
-      this.finish(record, '已提供参数并同意系统接续', 'INFO', '源端参数完成');
+      record.facts.push(localize('ac_learningcontroller_348', [payload.text.length]),
+        localize('ac_learningcontroller_349'));
+      record.limits.push(localize('ac_learningcontroller_350'));
+      this.finish(record, localize('ac_learningcontroller_351'), 'INFO', localize('ac_learningcontroller_341'));
       this.publish();
       return AbilityConstant.OnContinueResult.AGREE;
     } catch (error) {
       record.errorCode = safeErrorCode(error as Object);
-      record.rawMessage = '源端参数写入错误消息已脱敏。';
-      this.finish(record, '参数写入失败；拒绝接续', 'ERROR', '源端同步错误');
+      record.rawMessage = localize('ac_learningcontroller_353');
+      this.finish(record, localize('ac_learningcontroller_354'), 'ERROR', localize('ac_learningcontroller_355'));
       this.publish();
       return AbilityConstant.OnContinueResult.REJECT;
     }
@@ -1816,12 +1625,12 @@ export class LearningController {
     if (this.disposed) {
       return;
     }
-    this.value.windowState = '页面已就绪';
+    this.value.windowState = localize('ac_learningcontroller_270');
     const session = this.session;
     if (session !== undefined && session.active) {
       const record = this.findRecord(session.recordId);
       if (record !== undefined) {
-        this.event(record, '页面就绪', 'INFO', '显式页面加载完成信号已收到。');
+        this.event(record, localize('ac_learningcontroller_357'), 'INFO', localize('ac_learningcontroller_358'));
       }
       this.advanceSession();
     }
@@ -1832,13 +1641,13 @@ export class LearningController {
     if (this.disposed) {
       return;
     }
-    this.value.windowState = '页面未就绪 / 已离开';
+    this.value.windowState = localize('ac_learningcontroller_359');
     const session = this.session;
     if (session !== undefined && session.active && session.candidate !== undefined &&
       session.candidate.scene !== undefined) {
       session.positionOk = false;
       this.value.positionRequest = ++this.positionSerial;
-      this.value.businessPositionState = '新窗口代次，等待新的实际定位回执';
+      this.value.businessPositionState = localize('ac_learningcontroller_360');
     }
     this.advanceSession();
     this.publish();
@@ -1849,9 +1658,9 @@ export class LearningController {
       return;
     }
     // 页面加载错误使用固定诊断文案。
-    this.value.windowState = '显式页面加载失败';
-    this.failSession('页面加载失败，原文已保留。', '页面加载失败');
-    this.value.notice = '页面加载失败，请返回重试。';
+    this.value.windowState = localize('ac_learningcontroller_361');
+    this.failSession(localize('ac_learningcontroller_362'), localize('ac_learningcontroller_363'));
+    this.value.notice = localize('ac_learningcontroller_364');
     this.publish();
   }
 
@@ -1861,20 +1670,20 @@ export class LearningController {
     }
     const active: boolean = this.session !== undefined && this.session.active;
     if (active) {
-      this.failSession('用户已停止本地等待，当前原文保留。', '用户停止');
+      this.failSession(localize('ac_learningcontroller_365'), localize('ac_learningcontroller_366'));
     }
     if (this.probeRecordId.length > 0) {
       const record = this.findRecord(this.probeRecordId);
       if (record !== undefined) {
-        this.finish(record, '用户已停止本地观察', 'WARN', '用户停止');
+        this.finish(record, localize('ac_learningcontroller_367'), 'WARN', localize('ac_learningcontroller_366'));
       }
       this.probeRecordId = '';
       this.clearProbeTimer();
       this.beginOff();
     }
     this.value.notice = this.client.state().offPending ?
-      '本地等待已停止，正在注销监听，最多等待 8 秒。' :
-      '本地等待已停止，可重新注册或注销。';
+      localize('ac_learningcontroller_369') :
+      localize('ac_learningcontroller_370');
     this.publish();
   }
 
@@ -1897,8 +1706,8 @@ export class LearningController {
       record.events = [];
     });
     this.value.notice = retained.length > 0 ?
-      '已清除已完成记录与事件，保留在途操作记录以接收后续回调。' :
-      '已清除记录与事件。';
+      localize('ac_learningcontroller_371') :
+      localize('ac_learningcontroller_372');
     this.publish();
   }
 
