@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
 import { BusinessSnapshot, BusinessStore, RecycledNote, businessStore, localDateKey } from '../business/BusinessStore';
 import { RecycleBatchAction, RecycleBatchPreview, RecycleBatchRow } from '../business/RecycleBatch';
 import {
@@ -5,7 +21,7 @@ import {
 } from '../business/NoteRecyclePolicy';
 import { BG, CARD, TEXT, MUTED, ACCENT, DANGER, LINE } from './Ui';
 
-/** Actual recycle surface; the same component accepts an isolated real store in native UI tests. */
+/** Actual recycle view; the same component accepts an isolated real store in native UI tests. */
 @Component
 export struct NoteRecyclePanel {
   store: BusinessStore = businessStore;
@@ -89,11 +105,11 @@ export struct NoteRecyclePanel {
     if (!preview.eligible || preview.token.length === 0) { return; }
     const restoring: boolean = preview.action === RecycleBatchAction.RESTORE;
     this.getUIContext().showAlertDialog({
-      title: restoring ? '确认批量恢复' : '确认永久删除',
-      message: restoring ? `恢复${preview.selectedCount}项便签？条目变化时不会执行。` :
-        `永久删除${preview.selectedCount}项便签及历史，无法恢复。条目变化时不会执行。`,
-      primaryButton: { value: '取消', action: () => this.cancelBatch() },
-      secondaryButton: { value: restoring ? '批量恢复' : '永久删除所选项',
+      title: restoring ? uiText("shortcut_text_0478") : uiText("shortcut_text_0481"),
+      message: restoring ? uiText("shortcut_text_0278", [String(preview.selectedCount)]) :
+        uiText("shortcut_text_0698", [String(preview.selectedCount)]),
+      primaryButton: { value: uiText("shortcut_text_0452"), action: () => this.cancelBatch() },
+      secondaryButton: { value: restoring ? uiText("shortcut_text_0425") : uiText("shortcut_text_0701"),
         fontColor: restoring ? ACCENT : DANGER,
         action: () => { void this.applyBatch(preview.token); } }
     });
@@ -113,25 +129,25 @@ export struct NoteRecyclePanel {
   private batchControls() {
     Column({ space: 8 }) {
       Row({ space: 8 }) {
-        Text(`已选${this.selectedIds.length}项`)
+        Text(uiText("shortcut_text_0684", [String(this.selectedIds.length)]))
           .id('note-trash-selection-summary').fontSize(14).fontColor(TEXT).layoutWeight(1)
-        Button('清选', { type: ButtonType.Normal }).id('note-trash-clear-selection')
+        Button(uiText("shortcut_text_0442"), { type: ButtonType.Normal }).id('note-trash-clear-selection')
           .height(44).fontSize(14).fontColor(ACCENT).backgroundColor(Color.Transparent)
           .enabled(!this.view.busy).onClick(() => this.clearSelection())
       }.width('100%')
       Row({ space: 8 }) {
-        Button('选全部未过期', { type: ButtonType.Normal }).id('note-trash-select-all-restorable')
+        Button(uiText("shortcut_text_0631"), { type: ButtonType.Normal }).id('note-trash-select-all-restorable')
           .height(44).layoutWeight(1).fontSize(14).fontColor(ACCENT).backgroundColor(BG)
           .enabled(this.writable()).onClick(() => this.selectAll(true))
-        Button('选全部回收项', { type: ButtonType.Normal }).id('note-trash-select-all')
+        Button(uiText("shortcut_text_0630"), { type: ButtonType.Normal }).id('note-trash-select-all')
           .height(44).layoutWeight(1).fontSize(14).fontColor(ACCENT).backgroundColor(BG)
           .enabled(this.writable()).onClick(() => this.selectAll(false))
       }.width('100%')
       Row({ space: 12 }) {
-        Button('批量恢复预览', { type: ButtonType.Normal }).id('note-trash-batch-restore').height(44).fontSize(14)
+        Button(uiText("shortcut_text_0426"), { type: ButtonType.Normal }).id('note-trash-batch-restore').height(44).fontSize(14)
           .layoutWeight(1).enabled(this.writable() && this.selectedIds.length > 0)
           .onClick(() => this.previewSelection(RecycleBatchAction.RESTORE))
-        Button('批量永久删预览', { type: ButtonType.Normal }).id('note-trash-batch-purge').height(44).fontSize(14)
+        Button(uiText("shortcut_text_0428"), { type: ButtonType.Normal }).id('note-trash-batch-purge').height(44).fontSize(14)
           .layoutWeight(1).fontColor(DANGER).enabled(this.writable() && this.selectedIds.length > 0)
           .onClick(() => this.previewSelection(RecycleBatchAction.PURGE))
       }.width('100%')
@@ -141,33 +157,33 @@ export struct NoteRecyclePanel {
   @Builder
   private batchReview() {
     Column({ space: 6 }) {
-      Text(`${this.batchPreview.action === RecycleBatchAction.RESTORE ? '恢复' : '永久删除'}预览：` +
-        `${this.batchPreview.selectedCount}项`)
+      Text(uiText("shortcut_text_0032", [String(this.batchPreview.action === RecycleBatchAction.RESTORE ? uiText("shortcut_text_0275") : uiText("shortcut_text_0696"))]) +
+        uiText("shortcut_text_0031", [String(this.batchPreview.selectedCount)]))
         .fontSize(15).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
-      Text(`可恢复名额 ${this.batchPreview.availableSlots}`)
+      Text(uiText("shortcut_text_0357", [String(this.batchPreview.availableSlots)]))
         .fontSize(12).fontColor(MUTED).width('100%')
       if (this.batchPreview.eligible) {
-        Text(`完成后活动${this.batchPreview.resultingActiveCount}项，` +
-          `回收${this.batchPreview.resultingTrashCount}项，历史${this.batchPreview.resultingHistoryCount}条`)
+        Text(uiText("shortcut_text_0567", [String(this.batchPreview.resultingActiveCount)]) +
+          uiText("shortcut_text_0296", [String(this.batchPreview.resultingTrashCount), String(this.batchPreview.resultingHistoryCount)]))
           .fontSize(12).fontColor(ACCENT).width('100%')
       } else {
-        Text(`整体不可执行：${this.batchPreview.errors.join('；')}`)
+        Text(uiText("shortcut_text_0737", [String(this.batchPreview.errors.join('；'))]))
           .id('note-trash-batch-errors').fontSize(14).fontColor(DANGER).width('100%')
       }
       Scroll() {
         Column({ space: 4 }) {
           ForEach(this.batchPreview.rows, (row: RecycleBatchRow) => {
             Text(`${row.title.length > 0 ? row.title : row.trashId}：` +
-              `${row.eligible ? `可处理，历史${row.historyCount}条` : row.reason}`)
+              `${row.eligible ? uiText("shortcut_text_0354", [String(row.historyCount)]) : row.reason}`)
               .id(`note-trash-batch-row-${row.trashId}`).fontSize(12)
               .fontColor(row.eligible ? TEXT : DANGER).width('100%')
           }, (row: RecycleBatchRow, index: number) => `${index}-${row.trashId}`)
         }.width('100%')
       }.layoutWeight(1).width('100%')
       Row({ space: 12 }) {
-        Button('取消预览', { type: ButtonType.Normal }).id('note-trash-batch-cancel').height(44).fontSize(14)
+        Button(uiText("shortcut_text_0455"), { type: ButtonType.Normal }).id('note-trash-batch-cancel').height(44).fontSize(14)
           .layoutWeight(1).enabled(!this.view.busy).onClick(() => this.cancelBatch())
-        Button('确认批量操作', { type: ButtonType.Normal }).id('note-trash-batch-confirm').height(44).fontSize(14)
+        Button(uiText("shortcut_text_0477"), { type: ButtonType.Normal }).id('note-trash-batch-confirm').height(44).fontSize(14)
           .layoutWeight(1).enabled(this.writable() && this.batchPreview.eligible)
           .onClick(() => this.confirmBatch())
       }.width('100%')
@@ -177,20 +193,20 @@ export struct NoteRecyclePanel {
   private confirmPurge(entry: RecycledNote): void {
     const trashId: string = entry.trashId;
     this.getUIContext().showAlertDialog({
-      title: '永久删除便签',
-      message: `永久删除“${entry.note.title}”及其历史？此操作无法恢复。`,
-      primaryButton: { value: '取消', action: () => {} },
-      secondaryButton: { value: '永久删除', fontColor: DANGER,
+      title: uiText("shortcut_text_0699"),
+      message: uiText("shortcut_text_0697", [String(entry.note.title)]),
+      primaryButton: { value: uiText("shortcut_text_0452"), action: () => {} },
+      secondaryButton: { value: uiText("shortcut_text_0696"), fontColor: DANGER,
         action: () => { void this.store.purgeTrashedNote(trashId); } }
     });
   }
 
   private confirmCleanup(): void {
     this.getUIContext().showAlertDialog({
-      title: '清理过期便签',
-      message: '永久删除操作时已过期的便签及历史，无法恢复；未过期便签保留。',
-      primaryButton: { value: '取消', action: () => {} },
-      secondaryButton: { value: '清理过期项', fontColor: DANGER,
+      title: uiText("shortcut_text_0440"),
+      message: uiText("shortcut_text_0700"),
+      primaryButton: { value: uiText("shortcut_text_0452"), action: () => {} },
+      secondaryButton: { value: uiText("shortcut_text_0441"), fontColor: DANGER,
         action: () => { void this.store.purgeExpiredNotes(); } }
     });
   }
@@ -205,22 +221,22 @@ export struct NoteRecyclePanel {
           .enabled(this.writable()).onChange((selected: boolean) => this.toggleSelection(entry.trashId, selected))
       }
       Text(entry.note.title).fontSize(17).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
-      Text(entry.note.body.length > 0 ? entry.note.body : '（无正文）')
+      Text(entry.note.body.length > 0 ? entry.note.body : uiText("shortcut_text_0008"))
         .fontSize(14).fontColor(MUTED).maxLines(3).width('100%')
         .textOverflow({ overflow: TextOverflow.Ellipsis }).copyOption(CopyOptions.InApp)
-      Text(`移入时间 ${localDateKey(entry.deletedAt)} · 保留历史 ${entry.history.length} 条`)
+      Text(uiText("shortcut_text_0648", [String(localDateKey(entry.deletedAt)), String(entry.history.length)]))
         .fontSize(12).fontColor(MUTED).width('100%')
-      Text(isTrashExpired(entry.deletedAt, this.view.observedAt) ? '已过期，不能恢复' :
-        `剩余约${trashDaysRemaining(entry.deletedAt, this.view.observedAt)}天`)
+      Text(isTrashExpired(entry.deletedAt, this.view.observedAt) ? uiText("shortcut_text_0655") :
+        uiText("shortcut_text_0512", [String(trashDaysRemaining(entry.deletedAt, this.view.observedAt))]))
         .fontSize(12).fontColor(isTrashExpired(entry.deletedAt, this.view.observedAt) ? DANGER : ACCENT).width('100%')
       Row({ space: 12 }) {
-        Button('恢复', { type: ButtonType.Normal })
+        Button(uiText("shortcut_text_0275"), { type: ButtonType.Normal })
           .id(`trash-restore-${entry.trashId}`).layoutWeight(1).height(44)
           .enabled(this.writable() && this.view.notes.length < MAX_ACTIVE_NOTES &&
             !isTrashExpired(entry.deletedAt, this.view.observedAt))
           .fontColor(ACCENT).backgroundColor($r('app.color.accent_soft'))
           .onClick(() => { void this.store.restoreTrashedNote(entry.trashId); })
-        Button('永久删除', { type: ButtonType.Normal })
+        Button(uiText("shortcut_text_0696"), { type: ButtonType.Normal })
           .id(`trash-purge-${entry.trashId}`).layoutWeight(1).height(44)
           .enabled(this.writable()).fontColor(DANGER).backgroundColor($r('app.color.danger_soft'))
           .onClick(() => this.confirmPurge(entry))
@@ -233,28 +249,28 @@ export struct NoteRecyclePanel {
   build() {
     Column({ space: 12 }) {
       Row() {
-        Text('便签回收站').fontSize(24).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
-        Button('关闭', { type: ButtonType.Normal }).id('note-trash-close').height(44).fontSize(14)
+        Text(uiText("shortcut_text_0085")).fontSize(24).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
+        Button(uiText("shortcut_text_0253"), { type: ButtonType.Normal }).id('note-trash-close').height(44).fontSize(14)
           .fontColor(ACCENT).backgroundColor(Color.Transparent).onClick(() => this.closePanel())
       }.width('100%')
-      Text(`回收站 ${this.view.recycledNotes.length} / ${MAX_RECYCLED_NOTES} · 已过期 ${this.view.expiredTrashCount}`)
+      Text(uiText("shortcut_text_0299", [String(this.view.recycledNotes.length), String(MAX_RECYCLED_NOTES), String(this.view.expiredTrashCount)]))
         .id('note-trash-summary').fontSize(14).fontColor(TEXT).width('100%')
       if (this.batchPreview.token.length === 0) {
-        Text('移入后30天内可恢复')
+        Text(uiText("shortcut_text_0645"))
           .fontSize(12).fontColor(MUTED).width('100%')
       }
       if (this.view.busy) {
-        Text('处理中…').id('note-trash-busy').fontSize(14).fontColor(ACCENT).width('100%')
+        Text(uiText("shortcut_text_0167")).id('note-trash-busy').fontSize(14).fontColor(ACCENT).width('100%')
       }
       if (this.view.error.length > 0 || this.view.message.length > 0) {
         Text(this.view.error.length > 0 ? this.view.error : this.view.message)
           .id('note-trash-status').fontSize(14).fontColor(this.view.error.length > 0 ? DANGER : ACCENT).width('100%')
       }
       if (this.view.notes.length >= MAX_ACTIVE_NOTES) {
-        Text('活动便签已满，释放名额后可恢复').id('note-trash-capacity').fontSize(14).fontColor(DANGER).width('100%')
+        Text(uiText("shortcut_text_0310")).id('note-trash-capacity').fontSize(14).fontColor(DANGER).width('100%')
       }
       if (this.view.storageRecoveryRequired || !this.view.ready) {
-        Button(this.view.storageRecoveryRequired ? '重新读取核对' : '重新读取')
+        Button(this.view.storageRecoveryRequired ? uiText("shortcut_text_0778") : uiText("shortcut_text_0777"))
           .id('note-trash-reload').height(44).fontSize(14).enabled(!this.view.busy && !this.view.loading)
           .onClick(() => {
             if (this.view.storageRecoveryRequired) {
@@ -266,12 +282,12 @@ export struct NoteRecyclePanel {
       }
       if (this.batchPreview.token.length === 0) {
         Row({ space: 8 }) {
-          Button('刷新列表', { type: ButtonType.Normal }).id('note-trash-refresh').height(44).fontSize(14)
+          Button(uiText("shortcut_text_0535"), { type: ButtonType.Normal }).id('note-trash-refresh').height(44).fontSize(14)
             .fontSize(14).enabled(!this.view.busy).fontColor(ACCENT).onClick(() => this.changed())
-          Button('清理过期项', { type: ButtonType.Normal }).id('note-trash-cleanup').height(44).fontSize(14)
+          Button(uiText("shortcut_text_0441"), { type: ButtonType.Normal }).id('note-trash-cleanup').height(44).fontSize(14)
             .fontSize(14).enabled(this.writable() && this.view.expiredTrashCount > 0)
             .fontColor(DANGER).onClick(() => this.confirmCleanup())
-          Button(this.multiSelect ? '退出多选' : '多选', { type: ButtonType.Normal })
+          Button(this.multiSelect ? uiText("shortcut_text_0565") : uiText("shortcut_text_0230"), { type: ButtonType.Normal })
             .id('note-trash-multiselect').height(44).fontSize(14)
             .fontSize(14).enabled(this.writable()).onClick(() => {
               this.clearSelection(); this.multiSelect = !this.multiSelect;
@@ -282,7 +298,7 @@ export struct NoteRecyclePanel {
       if (this.batchPreview.token.length > 0) {
         this.batchReview()
       } else if (this.view.recycledNotes.length === 0) {
-        Text('回收站为空').id('note-trash-empty').fontSize(16).fontColor(MUTED)
+        Text(uiText("shortcut_text_0304")).id('note-trash-empty').fontSize(16).fontColor(MUTED)
           .width('100%').padding({ top: 32, bottom: 32 })
       } else {
         List({ space: 12 }) {

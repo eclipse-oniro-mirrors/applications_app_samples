@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { businessLabel } from '../i18n/BusinessLabels';
+import { uiText } from '../i18n/Strings';
 import { BG, CARD, TEXT, MUTED, ACCENT, OK, PageHeader, StatusBanner, EmptyState } from '../components/Ui';
 import { BusinessSnapshot, TodoDateSummary, TodoItem, businessStore, localDateKey } from '../business/BusinessStore';
 import { PageKey } from '../model/ShortcutModels';
@@ -66,11 +83,11 @@ struct TodoPage {
 
   private confirmReset(): void {
     this.getUIContext().showAlertDialog({
-      title: '恢复当日样例',
-      message: `恢复 ${localDateKey()} 的3条待办？`,
-      primaryButton: { value: '取消', action: () => {} },
+      title: uiText("shortcut_text_0279"),
+      message: uiText("shortcut_text_0276", [String(localDateKey())]),
+      primaryButton: { value: uiText("shortcut_text_0452"), action: () => {} },
       secondaryButton: {
-        value: '恢复',
+        value: uiText("shortcut_text_0275"),
         action: () => {
           void businessStore.resetToday();
         }
@@ -123,20 +140,20 @@ struct TodoPage {
       .width('100%')
       if (this.editingTodoId === item.id) {
         Row({ space: 8 }) {
-          Button('保存', { type: ButtonType.Normal })
+          Button(uiText("shortcut_text_0042"), { type: ButtonType.Normal })
             .layoutWeight(1).height(44).fontSize(14).fontColor('#FFFFFF').backgroundColor(ACCENT)
             .enabled(!this.view.busy).onClick(() => this.saveEdit())
-          Button('取消', { type: ButtonType.Normal })
+          Button(uiText("shortcut_text_0452"), { type: ButtonType.Normal })
             .layoutWeight(1).height(44).fontSize(14).fontColor(MUTED).backgroundColor(BG)
             .onClick(() => { this.editingTodoId = ''; this.editingTitle = ''; })
         }
         .width('100%')
       } else {
         Row({ space: 8 }) {
-          Text(item.done ? '已完成' : '待完成').fontSize(14).fontColor(item.done ? OK : MUTED).layoutWeight(1)
-          Button('编辑', { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
+          Text(item.done ? uiText("shortcut_text_0679") : uiText("shortcut_text_0206")).fontSize(14).fontColor(item.done ? OK : MUTED).layoutWeight(1)
+          Button(uiText("shortcut_text_0076"), { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
             .backgroundColor(Color.Transparent).height(44).onClick(() => this.startEdit(item))
-          Button('删除', { type: ButtonType.Normal }).fontSize(14).fontColor('#C23F4A')
+          Button(uiText("shortcut_text_0494"), { type: ButtonType.Normal }).fontSize(14).fontColor('#C23F4A')
             .backgroundColor(Color.Transparent).height(44)
             .onClick(() => { void businessStore.deleteTodo(item.id); })
         }
@@ -158,7 +175,7 @@ struct TodoPage {
           .borderRadius(9)
           .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired)
           .onClick(() => { businessStore.shiftTodoDate(-1); })
-        Button('今天', { type: ButtonType.Normal })
+        Button(uiText("shortcut_text_0337"), { type: ButtonType.Normal })
           .layoutWeight(1).height(44).fontSize(14)
           .fontColor(this.view.todoFollowToday ? '#FFFFFF' : ACCENT)
           .backgroundColor(this.view.todoFollowToday ? ACCENT : CARD)
@@ -194,7 +211,7 @@ struct TodoPage {
       .scrollBar(BarState.Off)
       .width('100%')
       if (!this.view.todoFollowToday) {
-        Text('修改将保存在所选日期')
+        Text(uiText("shortcut_text_0624"))
           .fontSize(12).fontColor(MUTED).width('100%')
       }
     }
@@ -207,7 +224,7 @@ struct TodoPage {
   build() {
     Column() {
       PageHeader({
-        title: this.view.todoFollowToday ? '今日待办' : '待办 · 历史',
+        title: this.view.todoFollowToday ? uiText("shortcut_text_0334") : uiText("shortcut_text_0191"),
         onBack: () => {
           void appNavigation.back();
         }
@@ -218,13 +235,13 @@ struct TodoPage {
           Row() {
             Column({ space: 6 }) {
               Text(this.view.todoDate).fontSize(16).fontColor(TEXT).width('100%')
-              Text(`已完成 ${this.completedCount()} / ${this.view.todos.length}`)
+              Text(uiText("shortcut_text_0680", [String(this.completedCount()), String(this.view.todos.length)]))
                 .fontSize(14)
                 .fontColor(MUTED)
                 .width('100%')
             }
             .layoutWeight(1)
-            Button('刷新')
+            Button(uiText("shortcut_text_0533"))
               .height(44)
               .fontSize(14)
               .fontColor(ACCENT)
@@ -236,19 +253,19 @@ struct TodoPage {
           }
           .width('100%')
           StatusBanner({
-            message: this.view.loading ? '读取中…' : (this.view.busy ? '保存中…' :
+            message: this.view.loading ? uiText("shortcut_text_0225") : (this.view.busy ? uiText("shortcut_text_0055") :
               (this.view.error.length > 0 ? this.view.error : this.view.message)),
             error: !this.view.loading && !this.view.busy && this.view.error.length > 0
           })
           if (this.view.storageRecoveryRequired) {
-            Button('重新读取核对').id('todo-storage-recovery').height(44).fontSize(14).enabled(!this.view.busy)
+            Button(uiText("shortcut_text_0778")).id('todo-storage-recovery').height(44).fontSize(14).enabled(!this.view.busy)
               .onClick(() => { void businessStore.recoverStorage(); })
           }
           Row({ space: 8 }) {
-            TextInput({ text: this.newTodoTitle, placeholder: '新增待办（最多 60 字）' })
+            TextInput({ text: this.newTodoTitle, placeholder: uiText("shortcut_text_0623") })
               .fontSize(14).height(44).layoutWeight(1).backgroundColor(CARD)
               .onChange((value: string) => { this.newTodoTitle = value; })
-            Button('添加', { type: ButtonType.Normal }).height(44).fontSize(14)
+            Button(uiText("shortcut_text_0548"), { type: ButtonType.Normal }).height(44).fontSize(14)
               .fontColor('#FFFFFF').backgroundColor(ACCENT)
               .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired &&
                 this.newTodoTitle.trim().length > 0)
@@ -261,7 +278,7 @@ struct TodoPage {
           .width('100%')
           Row({ space: 8 }) {
             ForEach(['全部', '未完成', '已完成'], (filter: string) => {
-              Button(filter, { type: ButtonType.Normal })
+              Button(businessLabel(filter), { type: ButtonType.Normal })
                 .layoutWeight(1).height(44).fontSize(14)
                 .fontColor(this.view.todoFilter === filter ? '#FFFFFF' : ACCENT)
                 .backgroundColor(this.view.todoFilter === filter ? ACCENT : CARD)
@@ -271,13 +288,13 @@ struct TodoPage {
           }
           .width('100%')
           if (this.view.visibleTodos.length === 0 && !this.view.loading) {
-            EmptyState({ title: this.view.todoFilter === '全部' ? '暂无待办' : '没有匹配的待办' })
+            EmptyState({ title: this.view.todoFilter === '全部' ? uiText("shortcut_text_0720") : uiText("shortcut_text_0392") })
           } else {
             ForEach(this.view.visibleTodos, (item: TodoItem) => {
               this.todoCard(item)
             }, (item: TodoItem) => `${item.id}-${item.done}-${this.view.busy}`)
           }
-          Button('恢复当日样例', { type: ButtonType.Normal })
+          Button(uiText("shortcut_text_0279"), { type: ButtonType.Normal })
             .width('100%')
             .height(44)
             .fontSize(15)

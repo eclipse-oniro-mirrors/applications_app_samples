@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
 import { BG, CARD, TEXT, MUTED, ACCENT } from '../components/Ui';
 import { router } from '@kit.ArkUI';
 import {
@@ -17,7 +33,7 @@ import {
   PRESET_CHAINS
 } from '../business/FilterChain';
 import {
-  IntentRequest, IntentSource, auditIntent, parseUri, resolveIntent, ruleLines as intentRuleLines,
+  EntryRequest, EntrySource, auditEntry, parseUri, resolveEntry, ruleLines as entryRuleLines,
   sourceLines
 } from '../business/LaunchIntent';
 import {
@@ -81,7 +97,7 @@ struct RuleCenterPage {
   @State private searchLinesState: string[] = [];
   @State private collectionLinesState: string[] = [];
   @State private filterLinesState: string[] = [];
-  @State private intentLinesState: string[] = [];
+  @State private entryLinesState: string[] = [];
 
   aboutToAppear(): void {
     this.rebuild();
@@ -130,26 +146,26 @@ struct RuleCenterPage {
     clean.baselineRevision = 3;
     clean.localRevision = 4;
     clean.remoteRevision = 3;
-    save.push(`只有本机前进：${saveAdvice(decideSave(clean))}`);
+    save.push(uiText("shortcut_text_0756", [String(saveAdvice(decideSave(clean)))]));
     const branch: SaveInput = new SaveInput();
     branch.baselineRevision = 3;
     branch.localRevision = 5;
     branch.remoteRevision = 6;
-    save.push(`双方都改：${saveAdvice(decideSave(branch))}`);
+    save.push(uiText("shortcut_text_0538", [String(saveAdvice(decideSave(branch)))]));
     const stale: SaveInput = new SaveInput();
     stale.baselineRevision = 3;
     stale.localRevision = 3;
     stale.remoteRevision = 5;
-    save.push(`对端更新：${saveAdvice(decideSave(stale))}`);
-    save.push(`保存规则 ${saveLines().length} 条`);
+    save.push(uiText("shortcut_text_0227", [String(saveAdvice(decideSave(stale)))]));
+    save.push(uiText("shortcut_text_0048", [String(saveLines().length)]));
     this.noteSaveLinesState = save;
 
     const bin: TrashBin = new TrashBin();
     bin.trash('note-1', '学习记录', 3, now - 86400000, '手动删除');
     bin.trash('note-2', '旧草稿', 1, now - 40 * 86400000, '覆盖');
     const trash: string[] = trashLines(bin, now);
-    trash.push(`可恢复：${bin.restore('note-1', now) ? '已恢复' : '不可恢复'}`);
-    trash.push(`过期恢复：${bin.restore('note-2', now) ? '已恢复' : '已过期，不允许恢复'}`);
+    trash.push(uiText("shortcut_text_0355", [String(bin.restore('note-1', now) ? uiText("shortcut_text_0657") : uiText("shortcut_text_0132"))]));
+    trash.push(uiText("shortcut_text_0259", [String(bin.restore('note-2', now) ? uiText("shortcut_text_0657") : uiText("shortcut_text_0656"))]));
     this.trashLinesState = trash;
 
     const todos: TodoDue[] = [];
@@ -161,11 +177,11 @@ struct RuleCenterPage {
     const undated: TodoDue = new TodoDue(0, Priority.LOW);
     todos.push(undated);
     const due: string[] = [dueSummary(todos, now)];
-    due.push(`逾期天数：${overdueDays(overdue, now)}`);
-    due.push(`高价优先排序权重：${Priority.HIGH as string}`);
+    due.push(uiText("shortcut_text_0708", [String(overdueDays(overdue, now))]));
+    due.push(uiText("shortcut_text_0245", [String(Priority.HIGH as string)]));
     const next: number = nextOccurrence(overdue, now);
-    due.push(next <= 0 ? '重复任务下次未定' : `重复任务下次：${next}`);
-    due.push(`到期规则 ${dueLines().length} 条`);
+    due.push(next <= 0 ? uiText("shortcut_text_0767") : uiText("shortcut_text_0766", [String(next)]));
+    due.push(uiText("shortcut_text_0213", [String(dueLines().length)]));
     this.dueBucketLinesState = due;
 
     const docs: IndexedDoc[] = [];
@@ -180,12 +196,12 @@ struct RuleCenterPage {
     const index: TagIndex = new TagIndex();
     index.build(docs);
     const tag: string[] = [];
-    tag.push(`标签索引 ${index.size()} 个，首个 ${index.topTags()[0]}`);
-    tag.push(`检索“工作”命中 ${tagSearch(docs, '工作').length} 条`);
+    tag.push(uiText("shortcut_text_0105", [String(index.size()), String(index.topTags()[0])]));
+    tag.push(uiText("shortcut_text_0318", [String(tagSearch(docs, '工作').length)]));
     tagSearchLines(tagSearch(docs, '待办')).forEach((line: string): void => {
       tag.push(line);
     });
-    tag.push(`标签检索规则 ${tagLines().length} 条`);
+    tag.push(uiText("shortcut_text_0100", [String(tagLines().length)]));
     this.tagSearchLinesState = tag;
   }
 
@@ -195,10 +211,10 @@ struct RuleCenterPage {
     const request: RouteRequest = new RouteRequest('sc.note.new', 0);
     request.put('focus', 'true');
     request.loggedIn = true;
-    routes.push(`示例入口：${request.text()}`);
-    routes.push(`解析结果：${resolveRoute(request).text()}`);
-    routes.push(`便签页入口：${routesOfPage(RoutePage.NOTE).join(',')}`);
-    routes.push(`未知路由落到：${routesOfPage(RoutePage.HOME).join(',') || '首页'}`);
+    routes.push(uiText("shortcut_text_0515", [String(request.text())]));
+    routes.push(uiText("shortcut_text_0332", [String(resolveRoute(request).text())]));
+    routes.push(uiText("shortcut_text_0088", [String(routesOfPage(RoutePage.NOTE).join(','))]));
+    routes.push(uiText("shortcut_text_0588", [String(routesOfPage(RoutePage.HOME).join(',') || uiText("shortcut_text_0529"))]));
     this.routeLinesState = routes;
 
     const todos: string[] = todoRuleLines();
@@ -214,8 +230,8 @@ struct RuleCenterPage {
     search(docs, '便签 note', Date.now(), 5).forEach((hit): void => {
       lines.push(hit.text());
     });
-    lines.push(`高亮示例：${highlight('便签 note 检索示例', uniqueTokens('便签 note'))}`);
-    lines.push(`空查询命中：${search(docs, '', Date.now(), 5).length} 条`);
+    lines.push(uiText("shortcut_text_0246", [String(highlight('便签 note 检索示例', uniqueTokens('便签 note')))]));
+    lines.push(uiText("shortcut_text_0364", [String(search(docs, '', Date.now(), 5).length)]));
     this.searchLinesState = lines;
 
     const now: number = 1700000000000;
@@ -228,24 +244,24 @@ struct RuleCenterPage {
     plan.lines().forEach((line: string): void => {
       collectionLines.push(line);
     });
-    collectionLines.push(`建议取消置顶：${pinQuota(items, 1).length} 条`);
+    collectionLines.push(uiText("shortcut_text_0322", [String(pinQuota(items, 1).length)]));
     collectionLines.push(auditCollectionRules().summary());
-    collectionLines.push(`置顶动作 ${plan.countOf(CollectionAction.PIN)} 条`);
+    collectionLines.push(uiText("shortcut_text_0760", [String(plan.countOf(CollectionAction.PIN))]));
     this.collectionLinesState = collectionLines;
 
     const targets: FilterTarget[] = sampleTargets();
     const filterLines: string[] = [];
     chainNames().forEach((name: string): void => {
-      filterLines.push(`${name}：${PRESET_CHAINS.length} 条预设`);
+      filterLines.push(uiText("shortcut_text_0019", [String(name), String(PRESET_CHAINS.length)]));
     });
     chainLines().forEach((line: string): void => {
       filterLines.push(line);
     });
     chainCounts(targets).forEach((count: number, index: number): void => {
-      filterLines.push(`${PRESET_CHAINS[index].name} 命中 ${count} 条`);
+      filterLines.push(uiText("shortcut_text_0015", [String(PRESET_CHAINS[index].name), String(count)]));
     });
     const merged: FilterChain = mergeChains(PRESET_CHAINS[1], PRESET_CHAINS[4]);
-    filterLines.push(`合并链：${merged.name}｜${merged.size()} 个节点`);
+    filterLines.push(uiText("shortcut_text_0266", [String(merged.name), String(merged.size())]));
     filterLines.push(auditChains().summary());
     this.filterLinesState = filterLines;
 
@@ -253,20 +269,20 @@ struct RuleCenterPage {
     sourceLines().forEach((line: string): void => {
       launchLines.push(line);
     });
-    intentRuleLines().forEach((line: string): void => {
+    entryRuleLines().forEach((line: string): void => {
       launchLines.push(line);
     });
     const parsed = parseUri('app://detail?noteId=note-1');
-    parsed.source = IntentSource.DEEPLINK;
+    parsed.source = EntrySource.DEEPLINK;
     parsed.loggedIn = true;
-    const intentPlan = resolveIntent(parsed);
-    launchLines.push(`解析示例：${parsed.text()}`);
-    launchLines.push(`结果：${intentPlan.text()}`);
-    const missing = new IntentRequest(IntentSource.SHORTCUT, 'shortcut://detail');
-    launchLines.push(`缺参数：${resolveIntent(missing).text()}`);
-    launchLines.push(`未知来源：${resolveIntent(new IntentRequest(IntentSource.UNKNOWN, 'x://y')).text()}`);
-    launchLines.push(auditIntent().summary());
-    this.intentLinesState = launchLines;
+    const entryPlan = resolveEntry(parsed);
+    launchLines.push(uiText("shortcut_text_0333", [String(parsed.text())]));
+    launchLines.push(uiText("shortcut_text_0327", [String(entryPlan.text())]));
+    const missing = new EntryRequest(EntrySource.SHORTCUT, 'shortcut://detail');
+    launchLines.push(uiText("shortcut_text_0467", [String(resolveEntry(missing).text())]));
+    launchLines.push(uiText("shortcut_text_0585", [String(resolveEntry(new EntryRequest(EntrySource.UNKNOWN, 'x://y')).text())]));
+    launchLines.push(auditEntry().summary());
+    this.entryLinesState = launchLines;
     this.rebuildNoteRules(Date.now());
   }
 
@@ -276,7 +292,7 @@ struct RuleCenterPage {
       Button({ type: ButtonType.Normal }) {
         Row({ space: 12 }) {
           Text(title).fontSize(17).fontWeight(FontWeight.Medium).fontColor(TEXT).layoutWeight(1)
-          Text(this.expandedTitles.includes(title) ? '收起' : '查看').fontSize(14).fontColor(ACCENT)
+          Text(this.expandedTitles.includes(title) ? uiText("shortcut_text_0525") : uiText("shortcut_text_0147")).fontSize(14).fontColor(ACCENT)
         }.width('100%')
       }.width('100%').height(44).padding(0).backgroundColor(Color.Transparent)
         .onClick(() => {
@@ -300,22 +316,22 @@ struct RuleCenterPage {
     Scroll() {
       Column({ space: 14 }) {
         Row({ space: 12 }) {
-          Button('‹ 返回', { type: ButtonType.Normal }).height(44)
+          Button(uiText("shortcut_text_0006"), { type: ButtonType.Normal }).height(44)
             .fontSize(14).fontColor(ACCENT).backgroundColor(Color.Transparent)
             .padding({ left: 0, right: 8 }).onClick(() => router.back())
-          Text('规则中心').fontSize(26).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
+          Text(uiText("shortcut_text_0257")).fontSize(26).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
         }.width('100%')
 
-        this.card('快捷入口路由', this.routeLinesState)
-        this.card('待办规则', this.todoLinesState)
-        this.card('本地检索', this.searchLinesState)
-        this.card('收藏治理', this.collectionLinesState)
-        this.card('筛选链', this.filterLinesState)
-        this.card('入口意图', this.intentLinesState)
-      this.card('笔记保存基线', this.noteSaveLinesState)
-      this.card('回收站', this.trashLinesState)
-      this.card('待办到期与重复', this.dueBucketLinesState)
-      this.card('标签与检索', this.tagSearchLinesState)
+        this.card(uiText("shortcut_text_0370"), this.routeLinesState)
+        this.card(uiText("shortcut_text_0193"), this.todoLinesState)
+        this.card(uiText("shortcut_text_0065"), this.searchLinesState)
+        this.card(uiText("shortcut_text_0522"), this.collectionLinesState)
+        this.card(uiText("shortcut_text_0492"), this.filterLinesState)
+        this.card(uiText("shortcut_text_0490"), this.entryLinesState)
+      this.card(uiText("shortcut_text_0070"), this.noteSaveLinesState)
+      this.card(uiText("shortcut_text_0298"), this.trashLinesState)
+      this.card(uiText("shortcut_text_0192"), this.dueBucketLinesState)
+      this.card(uiText("shortcut_text_0110"), this.tagSearchLinesState)
       }
       .width('100%')
       .padding({ left: 20, right: 20, top: 20, bottom: 28 })

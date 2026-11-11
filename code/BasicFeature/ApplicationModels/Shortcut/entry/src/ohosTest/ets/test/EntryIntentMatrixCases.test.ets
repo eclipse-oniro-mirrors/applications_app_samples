@@ -1,11 +1,26 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { describe, expect, it } from '@ohos/hypium';
 import {
   ParamKind, ROUTE_TABLE, RouteEntry, RoutePage, RouteParam, RouteRequest, auditRoutes, pageOf,
   resolveRoute, routeIds, routeLines, routeOf, routesOfPage
 } from '../../../main/ets/business/EntryRoute';
 import {
-  INTENT_RULES, IntentPlan, IntentRequest, IntentRule, IntentSource, auditIntent, parseUri,
-  resolveIntent, ruleIds, ruleLines, ruleOf, rulesOf, sourceCounts, sourceLabel, sourceLines
+  ENTRY_RULES, EntryPlan, EntryRequest, EntryRule, EntrySource, auditEntry, parseUri,
+  resolveEntry, ruleIds, ruleLines, ruleOf, rulesOf, sourceCounts, sourceLabel, sourceLines
 } from '../../../main/ets/business/LaunchIntent';
 
 function requestOf(routeId: string, at: number): RouteRequest {
@@ -20,11 +35,11 @@ function routeEntryOf(routeId: string): RouteEntry {
   return found;
 }
 
-function intentOf(source: IntentSource, uri: string): IntentRequest {
-  return new IntentRequest(source, uri);
+function entryOf(source: EntrySource, uri: string): EntryRequest {
+  return new EntryRequest(source, uri);
 }
 
-export default function entryIntentMatrixCasesTest(): void {
+export default function entryMatrixCasesTest(): void {
   describe('RouteParamCases', (): void => {
     /**
      * @tc.number    SUB_SHORTCUT_ROUTEPARAMCASES_0100
@@ -543,7 +558,7 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testResolveRouteCases0010', 0, (): void => {
-      const request: RouteRequest = requestOf('sc.activity', 0);
+      const request: RouteRequest = requestOf('sc.calls', 0);
       request.put('a', '1');
       request.put('b', '2');
       const result = resolveRoute(request);
@@ -755,21 +770,21 @@ export default function entryIntentMatrixCasesTest(): void {
     });
   });
 
-  describe('IntentRuleCases', (): void => {
+  describe('EntryRuleCases', (): void => {
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0100
-     * @tc.name      testIntentRuleCases0001
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0100
+     * @tc.name      testEntryRuleCases0001
      * @tc.desc      Verify source labels are distinct
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
 
-    it('testIntentRuleCases0001', 0, (): void => {
+    it('testEntryRuleCases0001', 0, (): void => {
       const labels: string[] = [
-        sourceLabel(IntentSource.SHORTCUT), sourceLabel(IntentSource.DEEPLINK),
-        sourceLabel(IntentSource.NOTIFICATION), sourceLabel(IntentSource.WIDGET),
-        sourceLabel(IntentSource.RESUME), sourceLabel(IntentSource.UNKNOWN)
+        sourceLabel(EntrySource.SHORTCUT), sourceLabel(EntrySource.DEEPLINK),
+        sourceLabel(EntrySource.NOTIFICATION), sourceLabel(EntrySource.WIDGET),
+        sourceLabel(EntrySource.RESUME), sourceLabel(EntrySource.UNKNOWN)
       ];
       expect(labels[0]).assertEqual('桌面快捷方式');
       expect(labels[1]).assertEqual('深链');
@@ -780,16 +795,16 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0200
-     * @tc.name      testIntentRuleCases0002
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0200
+     * @tc.name      testEntryRuleCases0002
      * @tc.desc      Verify empty prefix matches every uri
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentRuleCases0002', 0, (): void => {
-      const fallback: IntentRule | undefined = ruleOf('IN-18');
+    it('testEntryRuleCases0002', 0, (): void => {
+      const fallback: EntryRule | undefined = ruleOf('IN-18');
       expect(fallback?.prefix).assertEqual('');
       expect(fallback?.matchesUri('')).assertTrue();
       expect(fallback?.matchesUri('shortcut://whatever')).assertTrue();
@@ -797,16 +812,16 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0300
-     * @tc.name      testIntentRuleCases0003
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0300
+     * @tc.name      testEntryRuleCases0003
      * @tc.desc      Verify prefix match is anchored
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentRuleCases0003', 0, (): void => {
-      const rule: IntentRule | undefined = ruleOf('IN-01');
+    it('testEntryRuleCases0003', 0, (): void => {
+      const rule: EntryRule | undefined = ruleOf('IN-01');
       expect(rule?.matchesUri('shortcut://note/new')).assertTrue();
       expect(rule?.matchesUri('shortcut://note/new?focus=true')).assertTrue();
       expect(rule?.matchesUri('xshortcut://note/new')).assertFalse();
@@ -814,15 +829,15 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0400
-     * @tc.name      testIntentRuleCases0004
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0400
+     * @tc.name      testEntryRuleCases0004
      * @tc.desc      Verify rule text shows priority
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
 
-    it('testIntentRuleCases0004', 0, (): void => {
+    it('testEntryRuleCases0004', 0, (): void => {
       expect(ruleOf('IN-01')?.text()).assertEqual(
         'IN-01 桌面快捷方式｜shortcut://note/new -> sc.note.new｜优先级 90');
       expect(ruleOf('IN-18')?.text()).assertEqual(
@@ -832,15 +847,15 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0500
-     * @tc.name      testIntentRuleCases0005
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0500
+     * @tc.name      testEntryRuleCases0005
      * @tc.desc      Verify rule ids are sequential
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
 
-    it('testIntentRuleCases0005', 0, (): void => {
+    it('testEntryRuleCases0005', 0, (): void => {
       const ids: string[] = ruleIds();
       expect(ids.length).assertEqual(20);
       expect(ids[0]).assertEqual('IN-01');
@@ -850,103 +865,103 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0600
-     * @tc.name      testIntentRuleCases0006
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0600
+     * @tc.name      testEntryRuleCases0006
      * @tc.desc      Verify rule of miss returns undefined
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentRuleCases0006', 0, (): void => {
+    it('testEntryRuleCases0006', 0, (): void => {
       expect(ruleOf('IN-20')?.routeId).assertEqual('sc.rule.center');
       expect(ruleOf('IN-99') === undefined).assertTrue();
       expect(ruleOf('') === undefined).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0700
-     * @tc.name      testIntentRuleCases0007
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0700
+     * @tc.name      testEntryRuleCases0007
      * @tc.desc      Verify shortcut source has five rules
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentRuleCases0007', 0, (): void => {
-      const shortcut: IntentRule[] = rulesOf(IntentSource.SHORTCUT);
+    it('testEntryRuleCases0007', 0, (): void => {
+      const shortcut: EntryRule[] = rulesOf(EntrySource.SHORTCUT);
       expect(shortcut.length).assertEqual(5);
-      expect(shortcut.every((rule: IntentRule): boolean =>
-        rule.source === IntentSource.SHORTCUT)).assertTrue();
-      expect(shortcut.some((rule: IntentRule): boolean => rule.ruleId === 'IN-18')).assertTrue();
+      expect(shortcut.every((rule: EntryRule): boolean =>
+        rule.source === EntrySource.SHORTCUT)).assertTrue();
+      expect(shortcut.some((rule: EntryRule): boolean => rule.ruleId === 'IN-18')).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0800
-     * @tc.name      testIntentRuleCases0008
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0800
+     * @tc.name      testEntryRuleCases0008
      * @tc.desc      Verify deeplink source has six rules
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentRuleCases0008', 0, (): void => {
-      const deeplink: IntentRule[] = rulesOf(IntentSource.DEEPLINK);
+    it('testEntryRuleCases0008', 0, (): void => {
+      const deeplink: EntryRule[] = rulesOf(EntrySource.DEEPLINK);
       expect(deeplink.length).assertEqual(6);
-      expect(deeplink.filter((rule: IntentRule): boolean =>
+      expect(deeplink.filter((rule: EntryRule): boolean =>
         rule.priority === 80).length).assertEqual(5);
-      expect(deeplink.some((rule: IntentRule): boolean => rule.ruleId === 'IN-19')).assertTrue();
+      expect(deeplink.some((rule: EntryRule): boolean => rule.ruleId === 'IN-19')).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_0900
-     * @tc.name      testIntentRuleCases0009
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_0900
+     * @tc.name      testEntryRuleCases0009
      * @tc.desc      Verify other sources have expected counts
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentRuleCases0009', 0, (): void => {
-      expect(rulesOf(IntentSource.NOTIFICATION).length).assertEqual(3);
-      expect(rulesOf(IntentSource.WIDGET).length).assertEqual(3);
-      expect(rulesOf(IntentSource.RESUME).length).assertEqual(2);
-      expect(rulesOf(IntentSource.UNKNOWN).length).assertEqual(1);
+    it('testEntryRuleCases0009', 0, (): void => {
+      expect(rulesOf(EntrySource.NOTIFICATION).length).assertEqual(3);
+      expect(rulesOf(EntrySource.WIDGET).length).assertEqual(3);
+      expect(rulesOf(EntrySource.RESUME).length).assertEqual(2);
+      expect(rulesOf(EntrySource.UNKNOWN).length).assertEqual(1);
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_1000
-     * @tc.name      testIntentRuleCases0010
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_1000
+     * @tc.name      testEntryRuleCases0010
      * @tc.desc      Verify rule lines match rule table
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
 
-    it('testIntentRuleCases0010', 0, (): void => {
+    it('testEntryRuleCases0010', 0, (): void => {
       const lines: string[] = ruleLines();
-      expect(lines.length).assertEqual(INTENT_RULES.length);
+      expect(lines.length).assertEqual(ENTRY_RULES.length);
       expect(lines.every((line: string): boolean => line.indexOf('优先级') > 0)).assertTrue();
       expect(lines[0].indexOf('IN-01') === 0).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTRULECASES_1100
-     * @tc.name      testIntentRuleCases0011
+     * @tc.number    SUB_SHORTCUT_ENTRYRULECASES_1100
+     * @tc.name      testEntryRuleCases0011
      * @tc.desc      Verify source counts are ordered
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentRuleCases0011', 0, (): void => {
+    it('testEntryRuleCases0011', 0, (): void => {
       const counts: number[] = sourceCounts();
       expect(counts.length).assertEqual(6);
       expect(counts[0]).assertEqual(5);
       expect(counts[1]).assertEqual(6);
       expect(counts[5]).assertEqual(1);
       expect(counts.reduce((sum: number, item: number): number => sum + item, 0))
-        .assertEqual(INTENT_RULES.length);
+        .assertEqual(ENTRY_RULES.length);
     });
   });
 
@@ -961,10 +976,10 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testParseUriCases0001', 0, (): void => {
-      const request: IntentRequest = parseUri('shortcut://note/new');
+      const request: EntryRequest = parseUri('shortcut://note/new');
       expect(request.uri).assertEqual('shortcut://note/new');
       expect(request.keys.length).assertEqual(0);
-      expect(request.source).assertEqual(IntentSource.UNKNOWN);
+      expect(request.source).assertEqual(EntrySource.UNKNOWN);
     });
 
     /**
@@ -977,7 +992,7 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testParseUriCases0002', 0, (): void => {
-      const request: IntentRequest = parseUri('app://todo?date=today&filter=all');
+      const request: EntryRequest = parseUri('app://todo?date=today&filter=all');
       expect(request.uri).assertEqual('app://todo');
       expect(request.keys.length).assertEqual(2);
       expect(request.get('date')).assertEqual('today');
@@ -994,7 +1009,7 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testParseUriCases0003', 0, (): void => {
-      const request: IntentRequest = parseUri('app://todo?a=1&&b=2&');
+      const request: EntryRequest = parseUri('app://todo?a=1&&b=2&');
       expect(request.keys.length).assertEqual(2);
       expect(request.get('a')).assertEqual('1');
       expect(request.get('b')).assertEqual('2');
@@ -1010,7 +1025,7 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testParseUriCases0004', 0, (): void => {
-      const request: IntentRequest = parseUri('app://todo?novalue&=bare&ok=1');
+      const request: EntryRequest = parseUri('app://todo?novalue&=bare&ok=1');
       expect(request.keys.length).assertEqual(1);
       expect(request.keys[0]).assertEqual('ok');
       expect(request.get('novalue')).assertEqual('');
@@ -1026,7 +1041,7 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testParseUriCases0005', 0, (): void => {
-      const request: IntentRequest = parseUri('app://note?tag=%E4%BE%BF%E7%AD%BE');
+      const request: EntryRequest = parseUri('app://note?tag=%E4%BE%BF%E7%AD%BE');
       expect(request.get('tag')).assertEqual('便签');
       expect(request.get('tag').length).assertEqual(2);
       expect(request.keys.length).assertEqual(1);
@@ -1043,7 +1058,7 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testParseUriCases0006', 0, (): void => {
-      const request: IntentRequest = parseUri('app://note?expr=a=b=c');
+      const request: EntryRequest = parseUri('app://note?expr=a=b=c');
       expect(request.get('expr')).assertEqual('a=b=c');
       expect(request.keys.length).assertEqual(1);
       expect(request.get('expr').split('=').length).assertEqual(3);
@@ -1059,27 +1074,27 @@ export default function entryIntentMatrixCasesTest(): void {
      */
 
     it('testParseUriCases0007', 0, (): void => {
-      const request: IntentRequest = intentOf(IntentSource.SHORTCUT, 'shortcut://note/new');
+      const request: EntryRequest = entryOf(EntrySource.SHORTCUT, 'shortcut://note/new');
       request.put('focus', 'true');
       expect(request.text()).assertEqual('shortcut:shortcut://note/new?focus=true');
       expect(request.get('missing')).assertEqual('');
-      expect(intentOf(IntentSource.RESUME, 'resume://note').text()).assertEqual(
+      expect(entryOf(EntrySource.RESUME, 'resume://note').text()).assertEqual(
         'resume:resume://note?');
     });
   });
 
-  describe('ResolveIntentCases', (): void => {
+  describe('ResolveEntryCases', (): void => {
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0100
-     * @tc.name      testResolveIntentCases0001
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0100
+     * @tc.name      testResolveEntryCases0001
      * @tc.desc      Verify shortcut uri hits exact rule
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0001', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.SHORTCUT, 'shortcut://note/new'));
+    it('testResolveEntryCases0001', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.SHORTCUT, 'shortcut://note/new'));
       expect(plan.routeId).assertEqual('sc.note.new');
       expect(plan.matchedRuleId).assertEqual('IN-01');
       expect(plan.fallback).assertFalse();
@@ -1087,16 +1102,16 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0200
-     * @tc.name      testResolveIntentCases0002
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0200
+     * @tc.name      testResolveEntryCases0002
      * @tc.desc      Verify unknown shortcut falls back to rule center
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0002', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.SHORTCUT, 'shortcut://other'));
+    it('testResolveEntryCases0002', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.SHORTCUT, 'shortcut://other'));
       expect(plan.routeId).assertEqual('sc.rule.center');
       expect(plan.matchedRuleId).assertEqual('IN-18');
       expect(plan.fallback).assertTrue();
@@ -1104,48 +1119,48 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0300
-     * @tc.name      testResolveIntentCases0003
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0300
+     * @tc.name      testResolveEntryCases0003
      * @tc.desc      Verify deeplink hits todo rule
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0003', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.DEEPLINK, 'app://todo'));
+    it('testResolveEntryCases0003', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://todo'));
       expect(plan.routeId).assertEqual('sc.todo.today');
       expect(plan.matchedRuleId).assertEqual('IN-06');
       expect(plan.fallback).assertFalse();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0400
-     * @tc.name      testResolveIntentCases0004
-     * @tc.desc      Verify unknown deeplink falls back to activity
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0400
+     * @tc.name      testResolveEntryCases0004
+     * @tc.desc      Verify unknown deeplink falls back to call log
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0004', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.DEEPLINK, 'app://nothing'));
-      expect(plan.routeId).assertEqual('sc.activity');
+    it('testResolveEntryCases0004', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://nothing'));
+      expect(plan.routeId).assertEqual('sc.calls');
       expect(plan.matchedRuleId).assertEqual('IN-19');
       expect(plan.fallback).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0500
-     * @tc.name      testResolveIntentCases0005
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0500
+     * @tc.name      testResolveEntryCases0005
      * @tc.desc      Verify unknown source uses last resort
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0005', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.UNKNOWN, 'anything://at/all'));
+    it('testResolveEntryCases0005', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.UNKNOWN, 'anything://at/all'));
       expect(plan.routeId).assertEqual('sc.rule.center');
       expect(plan.matchedRuleId).assertEqual('IN-20');
       expect(plan.fallback).assertTrue();
@@ -1153,32 +1168,32 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0600
-     * @tc.name      testResolveIntentCases0006
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0600
+     * @tc.name      testResolveEntryCases0006
      * @tc.desc      Verify widget uri hits note rule
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0006', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.WIDGET, 'widget://note'));
+    it('testResolveEntryCases0006', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.WIDGET, 'widget://note'));
       expect(plan.routeId).assertEqual('sc.note.new');
       expect(plan.matchedRuleId).assertEqual('IN-13');
       expect(plan.fallback).assertFalse();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0700
-     * @tc.name      testResolveIntentCases0007
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0700
+     * @tc.name      testResolveEntryCases0007
      * @tc.desc      Verify resume without draft is blocked
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0007', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.RESUME, 'resume://note'));
+    it('testResolveEntryCases0007', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.RESUME, 'resume://note'));
       expect(plan.routeId).assertEqual('sc.note.resume');
       expect(plan.missing.length).assertEqual(1);
       expect(plan.missing[0]).assertEqual('draftId');
@@ -1186,36 +1201,36 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0800
-     * @tc.name      testResolveIntentCases0008
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0800
+     * @tc.name      testResolveEntryCases0008
      * @tc.desc      Verify resume with draft passes
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0008', 0, (): void => {
-      const request: IntentRequest = intentOf(IntentSource.RESUME, 'resume://note');
+    it('testResolveEntryCases0008', 0, (): void => {
+      const request: EntryRequest = entryOf(EntrySource.RESUME, 'resume://note');
       request.put('draftId', 'd-9');
-      const plan = resolveIntent(request);
+      const plan = resolveEntry(request);
       expect(plan.ok()).assertTrue();
       expect(plan.issues.length).assertEqual(0);
       expect(plan.matchedRuleId).assertEqual('IN-16');
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_0900
-     * @tc.name      testResolveIntentCases0009
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_0900
+     * @tc.name      testResolveEntryCases0009
      * @tc.desc      Verify notification without todo is blocked
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0009', 0, (): void => {
-      const request: IntentRequest = intentOf(IntentSource.NOTIFICATION, 'notify://todo');
+    it('testResolveEntryCases0009', 0, (): void => {
+      const request: EntryRequest = entryOf(EntrySource.NOTIFICATION, 'notify://todo');
       request.loggedIn = true;
-      const plan = resolveIntent(request);
+      const plan = resolveEntry(request);
       expect(plan.missing[0]).assertEqual('todoId');
       expect(plan.issues.some((issue: string): boolean =>
         issue.indexOf('缺少参数：todoId') >= 0)).assertTrue();
@@ -1223,108 +1238,108 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1000
-     * @tc.name      testResolveIntentCases0010
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1000
+     * @tc.name      testResolveEntryCases0010
      * @tc.desc      Verify notification requires login
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0010', 0, (): void => {
-      const request: IntentRequest = intentOf(IntentSource.NOTIFICATION, 'notify://todo');
+    it('testResolveEntryCases0010', 0, (): void => {
+      const request: EntryRequest = entryOf(EntrySource.NOTIFICATION, 'notify://todo');
       request.put('todoId', 't-1');
-      const plan = resolveIntent(request);
+      const plan = resolveEntry(request);
       expect(plan.issues.indexOf('需要登录后才能进入') >= 0).assertTrue();
       expect(plan.missing.length).assertEqual(0);
       expect(plan.ok()).assertFalse();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1100
-     * @tc.name      testResolveIntentCases0011
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1100
+     * @tc.name      testResolveEntryCases0011
      * @tc.desc      Verify notification with login and todo passes
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0011', 0, (): void => {
-      const request: IntentRequest = intentOf(IntentSource.NOTIFICATION, 'notify://todo');
+    it('testResolveEntryCases0011', 0, (): void => {
+      const request: EntryRequest = entryOf(EntrySource.NOTIFICATION, 'notify://todo');
       request.loggedIn = true;
       request.put('todoId', 't-1');
-      const plan = resolveIntent(request);
+      const plan = resolveEntry(request);
       expect(plan.ok()).assertTrue();
       expect(plan.routeId).assertEqual('sc.todo.detail');
       expect(plan.issues.length).assertEqual(0);
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1200
-     * @tc.name      testResolveIntentCases0012
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1200
+     * @tc.name      testResolveEntryCases0012
      * @tc.desc      Verify extra keys are reported for parameterless rule
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0012', 0, (): void => {
-      const request: IntentRequest = intentOf(IntentSource.WIDGET, 'widget://note');
+    it('testResolveEntryCases0012', 0, (): void => {
+      const request: EntryRequest = entryOf(EntrySource.WIDGET, 'widget://note');
       request.put('unexpected', '1');
-      const plan = resolveIntent(request);
+      const plan = resolveEntry(request);
       expect(plan.issues.length).assertEqual(1);
       expect(plan.issues[0]).assertEqual('忽略多余参数：unexpected');
       expect(plan.ok()).assertFalse();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1300
-     * @tc.name      testResolveIntentCases0013
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1300
+     * @tc.name      testResolveEntryCases0013
      * @tc.desc      Verify extra keys are tolerated when rule has required keys
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0013', 0, (): void => {
-      const request: IntentRequest = intentOf(IntentSource.SHORTCUT, 'shortcut://detail');
+    it('testResolveEntryCases0013', 0, (): void => {
+      const request: EntryRequest = entryOf(EntrySource.SHORTCUT, 'shortcut://detail');
       request.loggedIn = true;
       request.put('noteId', 'n-1');
       request.put('extra', '2');
-      const plan = resolveIntent(request);
+      const plan = resolveEntry(request);
       expect(plan.issues.length).assertEqual(0);
       expect(plan.ok()).assertTrue();
       expect(plan.matchedRuleId).assertEqual('IN-04');
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1400
-     * @tc.name      testResolveIntentCases0014
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1400
+     * @tc.name      testResolveEntryCases0014
      * @tc.desc      Verify fallback flag uses priority threshold
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0014', 0, (): void => {
+    it('testResolveEntryCases0014', 0, (): void => {
       expect(ruleOf('IN-01')?.priority).assertEqual(90);
       expect(ruleOf('IN-19')?.priority).assertEqual(10);
       expect(ruleOf('IN-20')?.priority).assertEqual(0);
-      expect(resolveIntent(intentOf(IntentSource.DEEPLINK, 'app://rule')).fallback)
+      expect(resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://rule')).fallback)
         .assertFalse();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1500
-     * @tc.name      testResolveIntentCases0015
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1500
+     * @tc.name      testResolveEntryCases0015
      * @tc.desc      Verify plan text explains ready state
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
 
-    it('testResolveIntentCases0015', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.SHORTCUT, 'shortcut://note/new'));
+    it('testResolveEntryCases0015', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.SHORTCUT, 'shortcut://note/new'));
       expect(plan.text()).assertEqual('sc.note.new｜可进入｜规则 IN-01｜精确');
       expect(plan.text().indexOf('需处理')).assertEqual(-1);
       expect(plan.ok()).assertTrue();
@@ -1332,16 +1347,16 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1600
-     * @tc.name      testResolveIntentCases0016
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1600
+     * @tc.name      testResolveEntryCases0016
      * @tc.desc      Verify plan text explains pending state
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
 
-    it('testResolveIntentCases0016', 0, (): void => {
-      const plan = resolveIntent(intentOf(IntentSource.RESUME, 'resume://note'));
+    it('testResolveEntryCases0016', 0, (): void => {
+      const plan = resolveEntry(entryOf(EntrySource.RESUME, 'resume://note'));
       expect(plan.text()).assertEqual('sc.note.resume｜需处理｜规则 IN-16｜精确');
       expect(plan.text().indexOf('可进入')).assertEqual(-1);
       expect(plan.ok()).assertFalse();
@@ -1349,16 +1364,16 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1700
-     * @tc.name      testResolveIntentCases0017
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1700
+     * @tc.name      testResolveEntryCases0017
      * @tc.desc      Verify plan text explains unresolved state
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
 
-    it('testResolveIntentCases0017', 0, (): void => {
-      const plan = new IntentPlan();
+    it('testResolveEntryCases0017', 0, (): void => {
+      const plan = new EntryPlan();
       plan.issues.push('手工构造');
       expect(plan.text()).assertEqual('未解析：手工构造');
       expect(plan.ok()).assertFalse();
@@ -1367,16 +1382,16 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1800
-     * @tc.name      testResolveIntentCases0018
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1800
+     * @tc.name      testResolveEntryCases0018
      * @tc.desc      Verify plan ok requires all three facts
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0018', 0, (): void => {
-      const plan = new IntentPlan();
+    it('testResolveEntryCases0018', 0, (): void => {
+      const plan = new EntryPlan();
       expect(plan.ok()).assertFalse();
       plan.routeId = 'sc.detail';
       expect(plan.ok()).assertTrue();
@@ -1388,86 +1403,86 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_RESOLVEINTENTCASES_1900
-     * @tc.name      testResolveIntentCases0019
+     * @tc.number    SUB_SHORTCUT_RESOLVEENTRYCASES_1900
+     * @tc.name      testResolveEntryCases0019
      * @tc.desc      Verify matched rule is stable for repeated parse
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testResolveIntentCases0019', 0, (): void => {
-      const first = resolveIntent(intentOf(IntentSource.DEEPLINK, 'app://activity'));
-      const second = resolveIntent(intentOf(IntentSource.DEEPLINK, 'app://activity'));
+    it('testResolveEntryCases0019', 0, (): void => {
+      const first = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://calls'));
+      const second = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://calls'));
       expect(first.matchedRuleId).assertEqual(second.matchedRuleId);
       expect(first.routeId).assertEqual(second.routeId);
       expect(first.matchedRuleId).assertEqual('IN-08');
     });
   });
 
-  describe('IntentAuditCases', (): void => {
+  describe('EntryAuditCases', (): void => {
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTAUDITCASES_0100
-     * @tc.name      testIntentAuditCases0001
+     * @tc.number    SUB_SHORTCUT_ENTRYAUDITCASES_0100
+     * @tc.name      testEntryAuditCases0001
      * @tc.desc      Verify launch table is self consistent
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
 
-    it('testIntentAuditCases0001', 0, (): void => {
-      const audit = auditIntent();
+    it('testEntryAuditCases0001', 0, (): void => {
+      const audit = auditEntry();
       expect(audit.ok).assertTrue();
       expect(audit.findings.length).assertEqual(0);
       expect(audit.summary()).assertEqual('入口规则表自洽');
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTAUDITCASES_0200
-     * @tc.name      testIntentAuditCases0002
+     * @tc.number    SUB_SHORTCUT_ENTRYAUDITCASES_0200
+     * @tc.name      testEntryAuditCases0002
      * @tc.desc      Verify every rule has route and description
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentAuditCases0002', 0, (): void => {
-      expect(INTENT_RULES.every((rule: IntentRule): boolean =>
+    it('testEntryAuditCases0002', 0, (): void => {
+      expect(ENTRY_RULES.every((rule: EntryRule): boolean =>
         rule.routeId.length > 0)).assertTrue();
-      expect(INTENT_RULES.every((rule: IntentRule): boolean =>
+      expect(ENTRY_RULES.every((rule: EntryRule): boolean =>
         rule.description.length > 0)).assertTrue();
-      expect(INTENT_RULES.every((rule: IntentRule): boolean =>
+      expect(ENTRY_RULES.every((rule: EntryRule): boolean =>
         rule.priority >= 0)).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTAUDITCASES_0300
-     * @tc.name      testIntentAuditCases0003
+     * @tc.number    SUB_SHORTCUT_ENTRYAUDITCASES_0300
+     * @tc.name      testEntryAuditCases0003
      * @tc.desc      Verify fallback rules carry no required keys
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentAuditCases0003', 0, (): void => {
-      const offenders: IntentRule[] = INTENT_RULES.filter((rule: IntentRule): boolean =>
+    it('testEntryAuditCases0003', 0, (): void => {
+      const offenders: EntryRule[] = ENTRY_RULES.filter((rule: EntryRule): boolean =>
         rule.requiredKeys.length > 0 && rule.priority <= 10);
       expect(offenders.length).assertEqual(0);
-      expect(INTENT_RULES.filter((rule: IntentRule): boolean =>
+      expect(ENTRY_RULES.filter((rule: EntryRule): boolean =>
         rule.requiredKeys.length > 0).length).assertEqual(5);
-      expect(INTENT_RULES.length).assertEqual(20);
+      expect(ENTRY_RULES.length).assertEqual(20);
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTAUDITCASES_0400
-     * @tc.name      testIntentAuditCases0004
+     * @tc.number    SUB_SHORTCUT_ENTRYAUDITCASES_0400
+     * @tc.name      testEntryAuditCases0004
      * @tc.desc      Verify every source has at least one rule
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentAuditCases0004', 0, (): void => {
+    it('testEntryAuditCases0004', 0, (): void => {
       const counts: number[] = sourceCounts();
       expect(counts.every((count: number): boolean => count > 0)).assertTrue();
       expect(counts.length).assertEqual(6);
@@ -1475,15 +1490,15 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTAUDITCASES_0500
-     * @tc.name      testIntentAuditCases0005
+     * @tc.number    SUB_SHORTCUT_ENTRYAUDITCASES_0500
+     * @tc.name      testEntryAuditCases0005
      * @tc.desc      Verify source lines match counts
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
 
-    it('testIntentAuditCases0005', 0, (): void => {
+    it('testEntryAuditCases0005', 0, (): void => {
       const lines: string[] = sourceLines();
       expect(lines.length).assertEqual(6);
       expect(lines.every((line: string): boolean => line.indexOf('条规则') > 0)).assertTrue();
@@ -1492,23 +1507,23 @@ export default function entryIntentMatrixCasesTest(): void {
     });
 
     /**
-     * @tc.number    SUB_SHORTCUT_INTENTAUDITCASES_0600
-     * @tc.name      testIntentAuditCases0006
+     * @tc.number    SUB_SHORTCUT_ENTRYAUDITCASES_0600
+     * @tc.name      testEntryAuditCases0006
      * @tc.desc      Verify rule targets exist in route table
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
-    it('testIntentAuditCases0006', 0, (): void => {
+    it('testEntryAuditCases0006', 0, (): void => {
       const routeIdsInTable: string[] = routeIds();
-      const dangling: string[] = INTENT_RULES
-        .filter((rule: IntentRule): boolean => routeIdsInTable.indexOf(rule.routeId) < 0)
-        .map((rule: IntentRule): string => rule.ruleId);
+      const dangling: string[] = ENTRY_RULES
+        .filter((rule: EntryRule): boolean => routeIdsInTable.indexOf(rule.routeId) < 0)
+        .map((rule: EntryRule): string => rule.ruleId);
       expect(dangling.length).assertEqual(0);
-      expect(INTENT_RULES.length).assertEqual(ruleIds().length);
+      expect(ENTRY_RULES.length).assertEqual(ruleIds().length);
       expect(routeIdsInTable.length > 0).assertTrue();
-      expect(routeIdsInTable.indexOf(INTENT_RULES[0].routeId) >= 0).assertTrue();
+      expect(routeIdsInTable.indexOf(ENTRY_RULES[0].routeId) >= 0).assertTrue();
     });
   });
 }

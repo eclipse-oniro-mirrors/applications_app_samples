@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
 import { shortcutManager } from '@kit.AbilityKit';
 import { router } from '@kit.ArkUI';
 import { ACCENT, BG, CARD, EmptyState, FieldRow, MUTED, PageHeader, StatusBanner, TEXT } from '../components/Ui';
@@ -49,16 +65,16 @@ struct ShortcutDetailPage {
 
   build() {
     Column() {
-      PageHeader({ title: '快捷方式详情', onBack: (): void => { appNavigation.back(); } })
+      PageHeader({ title: uiText("shortcut_text_0368"), onBack: (): void => { appNavigation.back(); } })
       Scroll() {
         Column({ space: 16 }) {
           StatusBanner({ message: this.view.queryError || this.view.supportError, error: true })
           if (this.item !== undefined) {
             this.detailContent(this.item)
           } else {
-            EmptyState({ title: '入口不存在', detail: '刷新列表后重新查看' })
+            EmptyState({ title: uiText("shortcut_text_0487"), detail: uiText("shortcut_text_0536") })
           }
-          Button(this.view.querying ? '正在查询' : '重新查询').width('100%').height(46)
+          Button(this.view.querying ? uiText("shortcut_text_0744") : uiText("shortcut_text_0774")).width('100%').height(46)
             .fontColor(ACCENT).backgroundColor($r('app.color.accent_soft'))
             .enabled(this.view.supported && !this.view.busy)
             .onClick(() => { shortcutService.refresh(); })
@@ -71,14 +87,14 @@ struct ShortcutDetailPage {
   private detailContent(item: ShortcutItem) {
     Column({ space: 14 }) {
       Text(item.title).fontSize(24).fontWeight(FontWeight.Bold).fontColor(TEXT).width('100%')
-      Text(item.visible ? '已显示' : '已隐藏').fontSize(14).fontColor(ACCENT).width('100%')
+      Text(item.visible ? uiText("shortcut_text_0683") : uiText("shortcut_text_0686")).fontSize(14).fontColor(ACCENT).width('100%')
       StatusBanner({ message: item.error || item.status, error: item.error.length > 0 })
       Row({ space: 12 }) {
-        Button(item.visible ? '隐藏入口' : '显示入口').height(44).layoutWeight(1)
+        Button(item.visible ? uiText("shortcut_text_0692") : uiText("shortcut_text_0605")).height(44).layoutWeight(1)
           .fontColor(ACCENT).backgroundColor($r('app.color.accent_soft'))
           .enabled(this.view.supported && !this.view.busy && this.view.queryError.length === 0)
           .onClick(() => { shortcutService.setVisible(item.id, !item.visible); })
-        Button('打开功能').height(44).layoutWeight(1).backgroundColor(ACCENT)
+        Button(uiText("shortcut_text_0184")).height(44).layoutWeight(1).backgroundColor(ACCENT)
           .fontColor($r('app.color.on_accent')).enabled(featureForId(item.id) !== undefined)
           .onClick(() => this.openFeature())
       }.width('100%')
@@ -86,46 +102,46 @@ struct ShortcutDetailPage {
 
     Button({ type: ButtonType.Normal }) {
       Row() {
-        Text('入口信息').fontSize(15).fontColor(TEXT).layoutWeight(1)
-        Text(this.detailsExpanded ? '收起' : '查看详情').fontSize(14).fontColor(ACCENT)
+        Text(uiText("shortcut_text_0489")).fontSize(15).fontColor(TEXT).layoutWeight(1)
+        Text(this.detailsExpanded ? uiText("shortcut_text_0525") : uiText("shortcut_text_0149")).fontSize(14).fontColor(ACCENT)
       }.width('100%')
     }.height(52).width('100%').padding({ left: 16, right: 16 }).backgroundColor(CARD).borderRadius(16)
       .onClick(() => { this.detailsExpanded = !this.detailsExpanded; })
 
     if (this.detailsExpanded) {
     Column() {
-      Text('基本信息').fontSize(18).fontWeight(FontWeight.Bold).fontColor(TEXT).width('100%')
+      Text(uiText("shortcut_text_0311")).fontSize(18).fontWeight(FontWeight.Bold).fontColor(TEXT).width('100%')
       FieldRow({ label: 'ID', value: item.id })
-      FieldRow({ label: '包名', value: item.raw.bundleName })
-      FieldRow({ label: '模块', value: item.raw.moduleName || '未返回' })
-      FieldRow({ label: '宿主 Ability', value: item.raw.hostAbility || '未返回' })
-      FieldRow({ label: '来源', value: `${sourceText(item.raw.sourceType)} (${item.raw.sourceType})` })
-      FieldRow({ label: '应用分身索引', value: `${item.raw.appIndex}` })
-      FieldRow({ label: 'visible', value: item.visibleExplicit ? `${item.raw.visible}` : '缺省 · 显示' })
+      FieldRow({ label: uiText("shortcut_text_0041"), value: item.raw.bundleName })
+      FieldRow({ label: uiText("shortcut_text_0404"), value: item.raw.moduleName || uiText("shortcut_text_0575") })
+      FieldRow({ label: uiText("shortcut_text_0542"), value: item.raw.hostAbility || uiText("shortcut_text_0575") })
+      FieldRow({ label: uiText("shortcut_text_0371"), value: `${sourceText(item.raw.sourceType)} (${item.raw.sourceType})` })
+      FieldRow({ label: uiText("shortcut_text_0693"), value: `${item.raw.appIndex}` })
+      FieldRow({ label: 'visible', value: item.visibleExplicit ? `${item.raw.visible}` : uiText("shortcut_text_0474") })
       if (item.raw.label !== undefined) {
-        FieldRow({ label: '标签原值', value: item.raw.label })
+        FieldRow({ label: uiText("shortcut_text_0111"), value: item.raw.label })
       }
       if (item.raw.labelId !== undefined) {
-        FieldRow({ label: '标签资源 ID', value: `${item.raw.labelId}` })
+        FieldRow({ label: uiText("shortcut_text_0114"), value: `${item.raw.labelId}` })
       }
       if (item.raw.icon !== undefined) {
-        FieldRow({ label: '图标', value: item.raw.icon })
+        FieldRow({ label: uiText("shortcut_text_0560"), value: item.raw.icon })
       }
       if (item.raw.iconId !== undefined) {
-        FieldRow({ label: '图标资源 ID', value: `${item.raw.iconId}` })
+        FieldRow({ label: uiText("shortcut_text_0561"), value: `${item.raw.iconId}` })
       }
     }.width('100%').padding(16).backgroundColor(CARD).borderRadius(16)
 
     ForEach(item.raw.wants || [], (want: shortcutManager.ShortcutWant, index: number) => {
       Column() {
-        Text(`目标 ${index + 1}`).fontSize(18).fontWeight(FontWeight.Bold).fontColor(TEXT).width('100%')
-        FieldRow({ label: '目标包', value: want.targetBundle })
-        FieldRow({ label: '目标模块', value: want.targetModule || '未返回' })
-        FieldRow({ label: '目标 Ability', value: want.targetAbility })
-        Text('参数').fontSize(15).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
+        Text(uiText("shortcut_text_0406", [String(index + 1)])).fontSize(18).fontWeight(FontWeight.Bold).fontColor(TEXT).width('100%')
+        FieldRow({ label: uiText("shortcut_text_0410"), value: want.targetBundle })
+        FieldRow({ label: uiText("shortcut_text_0411"), value: want.targetModule || uiText("shortcut_text_0575") })
+        FieldRow({ label: uiText("shortcut_text_0407"), value: want.targetAbility })
+        Text(uiText("shortcut_text_0138")).fontSize(15).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
           .margin({ top: 10 })
         if (want.parameters === undefined || want.parameters.length === 0) {
-          Text('暂无参数').fontSize(14).fontColor(MUTED).width('100%').margin({ top: 10 })
+          Text(uiText("shortcut_text_0719")).fontSize(14).fontColor(MUTED).width('100%').margin({ top: 10 })
         }
         ForEach(want.parameters || [], (parameter: shortcutManager.ParameterItem) => {
           FieldRow({ label: parameter.key, value: parameter.value })

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
+import { logWarning } from './Logger';
 import { common, shortcutManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { CallRecord, clockText, ShortcutItem, ShortcutView } from '../model/ShortcutModels';
@@ -120,15 +137,15 @@ export class ShortcutService {
 
   checkSupport(): void {
     const api: string = 'isShortcutSupported';
-    if (!this.available(api, '当前设备', false)) {
+    if (!this.available(api, uiText("shortcut_text_0208"), false)) {
       return;
     }
     const generation: number = this.generation;
     this.checking = true;
-    this.view.support = '检测中';
+    this.view.support = uiText("shortcut_text_0317");
     this.view.supportError = '';
     this.syncBusy();
-    this.addRecord(api, '当前设备', '调用', '检测快捷方式支持情况');
+    this.addRecord(api, uiText("shortcut_text_0208"), uiText("shortcut_text_0216"), uiText("shortcut_text_0315"));
     this.notify();
     try {
       if (!this.isCurrent(generation)) {
@@ -139,15 +156,15 @@ export class ShortcutService {
         return;
       }
       this.view.supported = supported;
-      this.view.support = supported ? '支持' : '不支持';
-      this.addRecord(api, '当前设备', '成功', `返回 ${supported}`);
+      this.view.support = supported ? uiText("shortcut_text_0749") : uiText("shortcut_text_0133");
+      this.addRecord(api, uiText("shortcut_text_0208"), uiText("shortcut_text_0161"), uiText("shortcut_text_0233", [String(supported)]));
     } catch (error) {
       if (this.isCurrent(generation)) {
         const message: string = this.errorText(error as BusinessError);
         this.view.supported = false;
-        this.view.support = '检测失败';
+        this.view.support = uiText("shortcut_text_0316");
         this.view.supportError = message;
-        this.addRecord(api, '当前设备', '失败', message);
+        this.addRecord(api, uiText("shortcut_text_0208"), uiText("shortcut_text_0513"), message);
       }
     } finally {
       this.checking = false;
@@ -158,10 +175,10 @@ export class ShortcutService {
   }
 
   async refresh(): Promise<void> {
-    if (!this.available('getAllShortcutInfoForSelf', '本应用', true)) {
+    if (!this.available('getAllShortcutInfoForSelf', uiText("shortcut_text_0068"), true)) {
       return;
     }
-    await this.query(this.generation, '刷新快捷方式');
+    await this.query(this.generation, uiText("shortcut_text_0534"));
   }
 
   async setVisible(id: string, visible: boolean): Promise<void> {
@@ -171,7 +188,7 @@ export class ShortcutService {
     const generation: number = this.generation;
     this.setting = true;
     this.writingId = id;
-    this.view.batchMessage = '正在设置';
+    this.view.batchMessage = uiText("shortcut_text_0748");
     this.syncBusy();
     try {
       const result: WriteResult = await this.applyVisibility(generation, id, visible);
@@ -184,42 +201,42 @@ export class ShortcutService {
   }
 
   async restoreAll(): Promise<void> {
-    if (!this.available('setShortcutVisibleForSelf', '全部快捷方式', true)) {
+    if (!this.available('setShortcutVisibleForSelf', uiText("shortcut_text_0463"), true)) {
       return;
     }
     const ids: string[] = this.view.items.filter((item: ShortcutItem) => item.visible === false)
       .map((item: ShortcutItem) => item.id);
     if (ids.length === 0) {
-      this.view.batchMessage = '全部入口已显示';
-      this.addRecord('恢复全部', '本应用', '未执行', '全部入口已显示');
+      this.view.batchMessage = uiText("shortcut_text_0464");
+      this.addRecord(uiText("shortcut_text_0281"), uiText("shortcut_text_0068"), uiText("shortcut_text_0589"), uiText("shortcut_text_0464"));
       this.notify();
       return;
     }
     const generation: number = this.generation;
     this.setting = true;
     let completed: number = 0;
-    this.addRecord('恢复全部', '本应用', '开始', `逐条恢复 ${ids.length} 项`);
+    this.addRecord(uiText("shortcut_text_0281"), uiText("shortcut_text_0068"), uiText("shortcut_text_0352"), uiText("shortcut_text_0783", [String(ids.length)]));
     try {
       for (const id of ids) {
         if (!this.isCurrent(generation)) {
           return;
         }
         this.writingId = id;
-        this.view.batchMessage = `正在恢复 ${completed + 1}/${ids.length}`;
+        this.view.batchMessage = uiText("shortcut_text_0747", [String(completed + 1), String(ids.length)]);
         this.syncBusy();
         const result: WriteResult = await this.applyVisibility(generation, id, true);
         if (!this.isCurrent(generation)) {
           return;
         }
         if (result !== WriteResult.CONFIRMED) {
-          this.view.batchMessage = `已恢复 ${completed}/${ids.length}，${this.resultText(result)}，已停止`;
-          this.addRecord('恢复全部', id, '已停止', this.view.batchMessage);
+          this.view.batchMessage = uiText("shortcut_text_0659", [String(completed), String(ids.length), String(this.resultText(result))]);
+          this.addRecord(uiText("shortcut_text_0281"), id, uiText("shortcut_text_0677"), this.view.batchMessage);
           return;
         }
         completed++;
       }
-      this.view.batchMessage = `已恢复 ${completed} 项`;
-      this.addRecord('恢复全部', '本应用', '成功', this.view.batchMessage);
+      this.view.batchMessage = uiText("shortcut_text_0658", [String(completed)]);
+      this.addRecord(uiText("shortcut_text_0281"), uiText("shortcut_text_0068"), uiText("shortcut_text_0161"), this.view.batchMessage);
     } finally {
       this.finishSetting();
     }
@@ -241,7 +258,7 @@ export class ShortcutService {
       this.view.batchError = '';
     } catch (_) {
       if (this.isCurrent(generation)) {
-        this.view.batchError = '批次存档读取失败；不会覆盖或重放，请重试读取';
+        this.view.batchError = uiText("shortcut_text_0417");
       }
     } finally {
       if (this.isCurrent(generation)) {
@@ -264,11 +281,11 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, '批次预览前核对', this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText("shortcut_text_0422"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       const next: BatchJournal = copyJournal(this.journal);
       const plan: BatchPlan = new BatchPlan();
       if (next.sequence >= Number.MAX_SAFE_INTEGER) {
-        this.view.batchMessage = '批次编号已达上限，未执行';
+        this.view.batchMessage = uiText("shortcut_text_0416");
         return;
       }
       next.sequence += 1;
@@ -276,7 +293,7 @@ export class ShortcutService {
       plan.createdAt = Date.now();
       for (const id of ids) {
         const item: ShortcutItem | undefined = this.view.items.find((entry: ShortcutItem) => entry.id === id);
-        if (item === undefined) { this.view.batchMessage = '所选入口已变化，请重新选择'; return; }
+        if (item === undefined) { this.view.batchMessage = uiText("shortcut_text_0544"); return; }
         const row: BatchItem = new BatchItem();
         row.id = id;
         row.target = target;
@@ -290,7 +307,7 @@ export class ShortcutService {
       next.batches = next.batches.slice(0, 5);
       if (!await this.persistJournal(next, generation)) { return; }
       this.makePreview(plan, 'apply');
-      this.view.batchMessage = '请核对预览后确认；原值未知的项不能精确补偿';
+      this.view.batchMessage = uiText("shortcut_text_0443");
     } finally {
       this.finishSetting();
     }
@@ -304,7 +321,7 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, '批次未知结果核对', this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText("shortcut_text_0421"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       const next: BatchJournal = copyJournal(this.journal);
       const plan: BatchPlan | undefined = next.batches.find((entry: BatchPlan) => entry.batchId === batchId);
       if (plan === undefined) { return; }
@@ -330,7 +347,7 @@ export class ShortcutService {
       }
       plan.interrupted = false;
       await this.persistJournal(next, generation);
-      if (this.isCurrent(generation)) { this.view.batchMessage = '核对完成；仅已确认失败项可重试，未知项仍不重放'; }
+      if (this.isCurrent(generation)) { this.view.batchMessage = uiText("shortcut_text_0267"); }
     } finally {
       this.finishSetting();
     }
@@ -351,7 +368,7 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, '重试/补偿预览前核对', this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText("shortcut_text_0771"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       const next: BatchJournal = copyJournal(this.journal);
       const plan: BatchPlan | undefined = next.batches.find((entry: BatchPlan) => entry.batchId === batchId);
       if (plan === undefined) { return; }
@@ -369,8 +386,8 @@ export class ShortcutService {
       }
       this.makePreview(plan, mode);
       this.view.batchMessage = mode === 'restore' ?
-        '补偿不是系统原子回滚；原值未知不执行，外部改动须明确选择覆盖' :
-        '仅重试已核对失败项；已确认、未知及未执行项均不会重写';
+        uiText("shortcut_text_0126") :
+        uiText("shortcut_text_0340");
     } finally {
       this.finishSetting();
     }
@@ -391,22 +408,22 @@ export class ShortcutService {
       entry.target = mode === 'restore' ? row.originalVisible : row.target;
       if (this.uncompletedWrites.includes(row.id)) {
         entry.eligible = false;
-        entry.reason = '旧设置请求仍在途，不重复写入；稍后核对';
+        entry.reason = uiText("shortcut_text_0349");
       } else if (mode !== 'apply' && row.retryBlocked) {
         entry.eligible = false;
-        entry.reason = '权限/能力/无效ID错误已封闭重试，请修正条件后创建新预览';
+        entry.reason = uiText("shortcut_text_0466");
       } else if (mode === 'restore' && (!row.originalKnown || row.attempt === 0)) {
         entry.eligible = false;
-        entry.reason = row.originalKnown ? '原批次未执行，不补偿' : '原始visible未知，不能精确恢复';
+        entry.reason = row.originalKnown ? uiText("shortcut_text_0713") : uiText("shortcut_text_0715");
       } else if (mode !== 'apply' && !entry.currentKnown) {
         entry.eligible = false;
-        entry.reason = '当前visible未知，先核对，不重放';
+        entry.reason = uiText("shortcut_text_0211");
       } else if (mode === 'restore' && entry.currentVisible === entry.target) {
         entry.eligible = false;
-        entry.reason = '当前已是原态，无需写入';
+        entry.reason = uiText("shortcut_text_0210");
       } else {
         entry.externalChange = mode === 'restore' && (!row.lastKnown || row.lastVisible !== entry.currentVisible);
-        entry.reason = entry.externalChange ? '发现外部改动：需选择覆盖或保留' : '可执行';
+        entry.reason = entry.externalChange ? uiText("shortcut_text_0231") : uiText("shortcut_text_0361");
       }
       preview.items.push(entry);
     }
@@ -424,12 +441,12 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, '确认后重新核对', this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText("shortcut_text_0475"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       for (const entry of preview.items) {
         const item: ShortcutItem | undefined = this.view.items.find((row: ShortcutItem) => row.id === entry.id);
         const known: boolean = item !== undefined && item.visibleExplicit;
         if (known !== entry.currentKnown || (known && item !== undefined && item.visible !== entry.currentVisible)) {
-          this.view.batchMessage = '确认后状态变化，未执行；请重新预览';
+          this.view.batchMessage = uiText("shortcut_text_0476");
           return;
         }
       }
@@ -473,7 +490,7 @@ export class ShortcutService {
         completedPlan.interrupted = false;
         if (!await this.persistJournal(completed, generation)) { return; }
       }
-      this.view.batchMessage = '批次结束；逐项结果见下方，未知不代表失败，补偿不保证原子性';
+      this.view.batchMessage = uiText("shortcut_text_0419");
     } finally {
       this.finishBatchSpan(span);
       this.finishSetting();
@@ -490,15 +507,22 @@ export class ShortcutService {
   }
 
   private batchAvailable(): boolean {
-    return this.view.batchReady && !this.view.batchLoading && this.available('显隐批次', '本应用', true);
+    return this.view.batchReady && !this.view.batchLoading && this.available(uiText("shortcut_text_0606"), uiText("shortcut_text_0068"), true);
   }
 
   private beginBatchSpan(stage: string): BatchSpan | undefined {
-    try { return this.telemetry.begin(stage); } catch (_) { return undefined; }
+    try { return this.telemetry.begin(stage); } catch (_) {
+      logWarning('Batch telemetry begin failed; operation remains authoritative');
+      return undefined;
+    }
   }
 
   private finishBatchSpan(span: BatchSpan | undefined): void {
-    if (span !== undefined) { try { this.telemetry.finish(span); } catch (_) {} }
+    if (span !== undefined) {
+      try { this.telemetry.finish(span); } catch (_) {
+        logWarning('Batch telemetry finish failed; operation remains authoritative');
+      }
+    }
   }
 
   private async persistJournal(next: BatchJournal, generation: number): Promise<boolean> {
@@ -514,7 +538,7 @@ export class ShortcutService {
       if (this.isCurrent(generation)) {
         this.view.batchReady = false;
         this.view.batchPreview = undefined;
-        this.view.batchError = '批次存档写入失败，已停止；先重新读取/核对，禁止盲目重试';
+        this.view.batchError = uiText("shortcut_text_0418");
         this.notify();
       }
       return false;
@@ -531,11 +555,11 @@ export class ShortcutService {
     this.notify();
   }
 
-  recordNavigation(target: string, message: string, status: string = '成功'): void {
+  recordNavigation(target: string, message: string, status: string = uiText("shortcut_text_0161")): void {
     if (this.disposed) {
       return;
     }
-    this.addRecord('页面跳转', target, status, message);
+    this.addRecord(uiText("shortcut_text_0642"), target, status, message);
     this.notify();
   }
 
@@ -569,17 +593,17 @@ export class ShortcutService {
       return false;
     }
     if (this.checking || this.querying || this.setting) {
-      this.addRecord(api, target, '未执行', '操作中，请稍后');
+      this.addRecord(api, target, uiText("shortcut_text_0589"), uiText("shortcut_text_0142"));
       this.notify();
       return false;
     }
     if (api === 'setShortcutVisibleForSelf' && this.uncompletedWrites.length > 0) {
-      this.addRecord(api, target, '未执行', '旧设置请求仍在途，先核对，不重复写入');
+      this.addRecord(api, target, uiText("shortcut_text_0589"), uiText("shortcut_text_0350"));
       this.notify();
       return false;
     }
     if (requireSupport && !this.view.supported) {
-      this.addRecord(api, target, '未执行', this.view.support === '不支持' ? '设备不支持' : '请先检测支持情况');
+      this.addRecord(api, target, uiText("shortcut_text_0589"), this.view.support === uiText("shortcut_text_0133") ? uiText("shortcut_text_0499") : uiText("shortcut_text_0449"));
       this.notify();
       return false;
     }
@@ -594,7 +618,7 @@ export class ShortcutService {
     this.querying = true;
     this.view.queryError = '';
     this.syncBusy();
-    this.addRecord(api, '本应用', '调用', reason);
+    this.addRecord(api, uiText("shortcut_text_0068"), uiText("shortcut_text_0216"), reason);
     this.notify();
     try {
       if (!this.isCurrent(generation)) {
@@ -607,18 +631,18 @@ export class ShortcutService {
       const items: ShortcutItem[] = [];
       for (const info of infos) {
         const item: ShortcutItem = new ShortcutItem(this.copyInfo(info), this.resolveTitle(info));
-        item.status = item.visibleExplicit ? '已读取' : '默认显示';
+        item.status = item.visibleExplicit ? uiText("shortcut_text_0651") : uiText("shortcut_text_0405");
         items.push(item);
       }
       this.view.items = items;
       this.view.lastQuery = clockText(Date.now());
-      this.addRecord(api, '本应用', '成功', `返回 ${items.length} 项`);
+      this.addRecord(api, uiText("shortcut_text_0068"), uiText("shortcut_text_0161"), uiText("shortcut_text_0234", [String(items.length)]));
       return true;
     } catch (error) {
       if (this.isCurrent(generation)) {
         const message: string = this.errorText(error as BusinessError);
         this.view.queryError = message;
-        this.addRecord(api, '本应用', '失败', message);
+        this.addRecord(api, uiText("shortcut_text_0068"), uiText("shortcut_text_0513"), message);
       }
       return false;
     } finally {
@@ -635,8 +659,8 @@ export class ShortcutService {
       return WriteResult.STALE;
     }
     const api: string = 'setShortcutVisibleForSelf';
-    this.updateItem(id, '设置中', '');
-    this.addRecord(api, id, '调用', `visible=${visible}`);
+    this.updateItem(id, uiText("shortcut_text_0504"), '');
+    this.addRecord(api, id, uiText("shortcut_text_0216"), `visible=${visible}`);
     this.notify();
     if (!this.isCurrent(generation)) {
       return WriteResult.STALE;
@@ -658,8 +682,8 @@ export class ShortcutService {
         return WriteResult.STALE;
       }
       const message: string = this.errorText(error as BusinessError);
-      this.updateItem(id, '设置失败', message);
-      this.addRecord(api, id, '失败', message);
+      this.updateItem(id, uiText("shortcut_text_0503"), message);
+      this.addRecord(api, id, uiText("shortcut_text_0513"), message);
       if (!verifyRejected) { return WriteResult.FAILED; }
       const code: number = (error as BusinessError).code;
       this.terminalWrite = code === 201 || code === 202 || code === 801 || code === 17700070;
@@ -668,33 +692,33 @@ export class ShortcutService {
     if (!this.isCurrent(generation)) {
       return WriteResult.STALE;
     }
-    if (!rejected) { this.addRecord(api, id, '成功', `接口完成，visible=${visible}`); }
-    this.updateItem(id, '待核对', '');
-    const queried: boolean = await this.query(generation, `设置后回读：${id}`, verifyRejected ? this.batchTimeoutMs : 0);
+    if (!rejected) { this.addRecord(api, id, uiText("shortcut_text_0161"), uiText("shortcut_text_0324", [String(visible)])); }
+    this.updateItem(id, uiText("shortcut_text_0205"), '');
+    const queried: boolean = await this.query(generation, uiText("shortcut_text_0502", [String(id)]), verifyRejected ? this.batchTimeoutMs : 0);
     if (!this.isCurrent(generation)) {
       return WriteResult.STALE;
     }
     if (!queried) {
-      const message: string = `回读失败：${this.view.queryError}`;
-      this.updateItem(id, '待核对', message);
-      this.addRecord('可见性核对', id, '待核对', message);
+      const message: string = uiText("shortcut_text_0291", [String(this.view.queryError)]);
+      this.updateItem(id, uiText("shortcut_text_0205"), message);
+      this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0205"), message);
       return WriteResult.PENDING;
     }
     const item: ShortcutItem | undefined = this.view.items.find((entry: ShortcutItem) => entry.id === id);
     if (item === undefined || !item.visibleExplicit) {
-      const message: string = item === undefined ? '回读未返回该快捷方式' : '回读未返回 visible';
-      this.updateItem(id, '待核对', message);
-      this.addRecord('可见性核对', id, '待核对', message);
+      const message: string = item === undefined ? uiText("shortcut_text_0293") : uiText("shortcut_text_0292");
+      this.updateItem(id, uiText("shortcut_text_0205"), message);
+      this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0205"), message);
       return WriteResult.PENDING;
     }
     if (item.visible !== visible) {
-      const message: string = `期望 visible=${visible}，回读 visible=${item.visible}`;
-      this.updateItem(id, '回读不一致', message);
-      this.addRecord('可见性核对', id, '回读不一致', message);
+      const message: string = uiText("shortcut_text_0430", [String(visible), String(item.visible)]);
+      this.updateItem(id, uiText("shortcut_text_0290"), message);
+      this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0290"), message);
       return verifyRejected && this.uncompletedWrites.includes(id) ? WriteResult.PENDING : WriteResult.MISMATCH;
     }
-    this.updateItem(id, '回读一致', '');
-    this.addRecord('可见性核对', id, '回读一致', `visible=${visible}`);
+    this.updateItem(id, uiText("shortcut_text_0294"), '');
+    this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0294"), `visible=${visible}`);
     return WriteResult.CONFIRMED;
   }
 
@@ -709,11 +733,11 @@ export class ShortcutService {
 
   private resultText(result: WriteResult): string {
     switch (result) {
-      case WriteResult.CONFIRMED: return '回读一致';
-      case WriteResult.MISMATCH: return '回读不一致';
-      case WriteResult.PENDING: return '已提交，待核对';
-      case WriteResult.FAILED: return '设置失败';
-      default: return '操作已结束';
+      case WriteResult.CONFIRMED: return uiText("shortcut_text_0294");
+      case WriteResult.MISMATCH: return uiText("shortcut_text_0290");
+      case WriteResult.PENDING: return uiText("shortcut_text_0676");
+      case WriteResult.FAILED: return uiText("shortcut_text_0503");
+      default: return uiText("shortcut_text_0141");
     }
   }
 
@@ -737,14 +761,14 @@ export class ShortcutService {
       try {
         resourceContext = context.createModuleContext(info.moduleName);
       } catch (error) {
-        this.addRecord('createModuleContext', info.id, '失败', this.errorText(error as BusinessError));
+        this.addRecord('createModuleContext', info.id, uiText("shortcut_text_0513"), this.errorText(error as BusinessError));
       }
     }
     if (info.labelId !== undefined && info.labelId > 0) {
       try {
         return resourceContext.resourceManager.getStringSync(info.labelId);
       } catch (error) {
-        this.addRecord('resourceManager.getStringSync', info.id, '失败', this.errorText(error as BusinessError));
+        this.addRecord('resourceManager.getStringSync', info.id, uiText("shortcut_text_0513"), this.errorText(error as BusinessError));
       }
     }
     let resourceName: string = '';
@@ -764,7 +788,7 @@ export class ShortcutService {
         }
         return resourceContext.resourceManager.getStringByNameSync(resourceName);
       } catch (error) {
-        this.addRecord(api, info.id, '失败', this.errorText(error as BusinessError));
+        this.addRecord(api, info.id, uiText("shortcut_text_0513"), this.errorText(error as BusinessError));
       }
       return info.id;
     }
@@ -838,9 +862,9 @@ export class ShortcutService {
 
   private errorText(error: BusinessError): string {
     if (error === undefined || error === null) {
-      return 'code=未提供；无错误详情';
+      return "code=not provided; no error details";
     }
-    const code: string = error.code === undefined ? '未提供' : `${error.code}`;
+    const code: string = error.code === undefined ? 'not provided' : `${error.code}`;
     const message: string = error.message === undefined || error.message.length === 0 ? `${error}` : error.message;
     return `code=${code}；${message}`;
   }
@@ -857,7 +881,8 @@ export class ShortcutService {
       }
       try {
         listener.callback();
-      } catch (error) {
+      } catch (_) {
+        logWarning('Shortcut listener failed; remaining listeners will still be notified');
       }
     }
   }

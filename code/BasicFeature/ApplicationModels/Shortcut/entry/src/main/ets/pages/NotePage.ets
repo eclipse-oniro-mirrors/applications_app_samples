@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
+import { logWarning } from '../services/Logger';
 import {
   BG, CARD, TEXT, MUTED, ACCENT, DANGER, OK, LINE, PageHeader, StatusBanner, EmptyState
 } from '../components/Ui';
@@ -66,12 +83,12 @@ struct NotePage {
 
   private draftStatus(): string {
     if (this.view.busy) {
-      return '保存中…';
+      return uiText("shortcut_text_0055");
     }
     if (this.view.draftDirty) {
-      return '有未保存修改';
+      return uiText("shortcut_text_0703");
     }
-    return this.view.draftKept ? '草稿已保留' : '新便签';
+    return this.view.draftKept ? uiText("shortcut_text_0143") : uiText("shortcut_text_0618");
   }
 
   private editing(): boolean {
@@ -95,9 +112,9 @@ struct NotePage {
 
   private actionLabel(action: string): string {
     switch (action) {
-      case 'create': return '创建';
-      case 'restore': return '恢复前';
-      default: return '编辑';
+      case 'create': return uiText("shortcut_text_0170");
+      case 'restore': return uiText("shortcut_text_0280");
+      default: return uiText("shortcut_text_0076");
     }
   }
 
@@ -105,15 +122,15 @@ struct NotePage {
   private historyPanel() {
     Column({ space: 12 }) {
       Row() {
-        Text('版本历史').fontSize(24).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
-        Button('关闭', { type: ButtonType.Normal }).height(44).fontSize(14).fontColor(ACCENT)
+        Text(uiText("shortcut_text_0038")).fontSize(24).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
+        Button(uiText("shortcut_text_0253"), { type: ButtonType.Normal }).height(44).fontSize(14).fontColor(ACCENT)
           .backgroundColor(Color.Transparent).onClick(() => { this.historyOpen = false; })
       }
       .width('100%')
-      Text('全部便签共保留最近100次修订')
+      Text(uiText("shortcut_text_0462"))
         .fontSize(14).fontColor(MUTED).width('100%')
       if (this.revisions.length === 0) {
-        EmptyState({ title: '暂无历史版本' })
+        EmptyState({ title: uiText("shortcut_text_0723") })
       } else {
         List({ space: 10 }) {
           ForEach(this.revisions, (revision: NoteRevision) => {
@@ -123,16 +140,16 @@ struct NotePage {
                   Text(`${this.actionLabel(revision.action)} · ${localDateKey(revision.savedAt)} ` +
                     `${clockText(revision.savedAt)}`)
                     .fontSize(12).fontColor(MUTED).layoutWeight(1)
-                  Button('对比', { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
+                  Button(uiText("shortcut_text_0226"), { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
                     .backgroundColor($r('app.color.accent_soft')).height(44)
                     .margin({ right: 6 })
                     .onClick(() => this.compareRevision(revision))
-                  Button('恢复', { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
+                  Button(uiText("shortcut_text_0275"), { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
                     .backgroundColor($r('app.color.accent_soft')).height(44)
                     .onClick(() => this.restoreRevision(revision))
                 }
                 .width('100%')
-                Text(revision.title.length > 0 ? revision.title : '（无标题）')
+                Text(revision.title.length > 0 ? revision.title : uiText("shortcut_text_0007"))
                   .fontSize(15).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
                 if (revision.body.length > 0) {
                   Text(revision.body).fontSize(14).fontColor(MUTED).maxLines(2)
@@ -172,12 +189,12 @@ struct NotePage {
   private comparePanel() {
     Column({ space: 10 }) {
       Row() {
-        Text('版本对比').fontSize(24).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
-        Button('关闭', { type: ButtonType.Normal }).height(44).fontSize(14).fontColor(ACCENT)
+        Text(uiText("shortcut_text_0037")).fontSize(24).fontWeight(FontWeight.Bold).fontColor(TEXT).layoutWeight(1)
+        Button(uiText("shortcut_text_0253"), { type: ButtonType.Normal }).height(44).fontSize(14).fontColor(ACCENT)
           .backgroundColor(Color.Transparent).onClick(() => this.closeCompare())
       }
       .width('100%')
-      Text(`改动：${this.compareSummary}`).fontSize(14).fontColor(MUTED).width('100%')
+      Text(uiText("shortcut_text_0243", [String(this.compareSummary)])).fontSize(14).fontColor(MUTED).width('100%')
       Text(this.compareDetail).fontSize(12).fontColor(MUTED).width('100%')
       Scroll() {
         Column({ space: 4 }) {
@@ -208,10 +225,10 @@ struct NotePage {
       return;
     }
     this.getUIContext().showAlertDialog({
-      title: '移入回收站',
-      message: `将“${note.title}”及现有历史移入回收站？正文30天内可恢复。`,
-      primaryButton: { value: '取消', action: () => {} },
-      secondaryButton: { value: '移入回收站', fontColor: DANGER,
+      title: uiText("shortcut_text_0646"),
+      message: uiText("shortcut_text_0323", [String(note.title)]),
+      primaryButton: { value: uiText("shortcut_text_0452"), action: () => {} },
+      secondaryButton: { value: uiText("shortcut_text_0646"), fontColor: DANGER,
         action: () => { void businessStore.deleteNote(note.id); } }
     });
   }
@@ -219,12 +236,12 @@ struct NotePage {
   private async chooseTrashEditing(note: NoteItem): Promise<void> {
     try {
       const answer = await promptAction.showDialog({
-        title: '处理编辑内容',
-        message: `移入回收站前，要保留“${note.title}”的修改吗？`,
+        title: uiText("shortcut_text_0162"),
+        message: uiText("shortcut_text_0647", [String(note.title)]),
         buttons: [
-          { text: '保留修改并移入', color: '#315CF5' },
-          { text: '放弃修改并移入', color: '#C23F4A' },
-          { text: '取消', color: '#667085' }
+          { text: uiText("shortcut_text_0061"), color: '#315CF5' },
+          { text: uiText("shortcut_text_0237"), color: '#C23F4A' },
+          { text: uiText("shortcut_text_0452"), color: '#667085' }
         ]
       });
       if (answer.index === 0) {
@@ -232,7 +249,10 @@ struct NotePage {
       } else if (answer.index === 1) {
         await businessStore.moveNoteToTrash(note.id, TrashEditDecision.DISCARD_CHANGES);
       }
-    } catch (_) {}
+    } catch (_) {
+      // Dialog dismissal is non-destructive: keep the note and editing buffer unchanged.
+      logWarning('Move-to-trash dialog canceled or unavailable; no action taken');
+    }
   }
 
   @Builder
@@ -242,11 +262,11 @@ struct NotePage {
 
   private confirmClear(): void {
     this.getUIContext().showAlertDialog({
-      title: '清空草稿',
-      message: '清空当前标题和内容？',
-      primaryButton: { value: '取消', action: () => {} },
+      title: uiText("shortcut_text_0436"),
+      message: uiText("shortcut_text_0437"),
+      primaryButton: { value: uiText("shortcut_text_0452"), action: () => {} },
       secondaryButton: {
-        value: '清空',
+        value: uiText("shortcut_text_0435"),
         fontColor: DANGER,
         action: () => {
           void businessStore.discardDraft();
@@ -259,12 +279,12 @@ struct NotePage {
   private editor() {
     Column({ space: 12 }) {
       Row() {
-        Text(this.editing() ? '编辑便签' : this.draftStatus()).fontSize(15).fontWeight(FontWeight.Medium)
+        Text(this.editing() ? uiText("shortcut_text_0077") : this.draftStatus()).fontSize(15).fontWeight(FontWeight.Medium)
           .fontColor(this.editing() ? ACCENT : MUTED).layoutWeight(1)
         Text(`${this.view.draftBody.length} / 4000`).fontSize(12).fontColor(MUTED)
       }
       .width('100%')
-      TextInput({ text: this.view.draftTitle, placeholder: '标题' })
+      TextInput({ text: this.view.draftTitle, placeholder: uiText("shortcut_text_0120") })
         .maxLength(60)
         .height(44)
         .fontSize(17)
@@ -273,7 +293,7 @@ struct NotePage {
         .borderRadius(10)
         .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired)
         .onChange((value: string) => businessStore.setDraftTitle(value))
-      TextArea({ text: this.view.draftBody, placeholder: '写点什么…' })
+      TextArea({ text: this.view.draftBody, placeholder: uiText("shortcut_text_0616") })
         .maxLength(4000)
         .height(180)
         .fontSize(15)
@@ -282,7 +302,7 @@ struct NotePage {
         .borderRadius(10)
         .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired)
         .onChange((value: string) => businessStore.setDraftBody(value))
-      Button(this.view.busy ? '保存中…' : (this.editing() ? '保存修改' : '保存便签'))
+      Button(this.view.busy ? uiText("shortcut_text_0055") : (this.editing() ? uiText("shortcut_text_0054") : uiText("shortcut_text_0046")))
         .width('100%')
         .height(44)
         .fontSize(15)
@@ -295,11 +315,11 @@ struct NotePage {
           void businessStore.saveNote();
         })
       if (this.editing()) {
-        Button('取消编辑', { type: ButtonType.Normal })
+        Button(uiText("shortcut_text_0453"), { type: ButtonType.Normal })
           .width('100%').height(44).fontSize(14).fontColor(MUTED).backgroundColor(BG)
           .borderRadius(10).enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired)
           .onClick(() => businessStore.cancelEdit())
-        Button('保留编辑草稿', { type: ButtonType.Normal })
+        Button(uiText("shortcut_text_0057"), { type: ButtonType.Normal })
           .width('100%').height(44).fontSize(14).fontColor(ACCENT).backgroundColor(BG)
           .borderRadius(10)
           .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired && this.view.draftDirty &&
@@ -308,11 +328,11 @@ struct NotePage {
             void businessStore.keepEditDraft();
           })
         if (this.view.editDraftPersisted) {
-          Text('编辑草稿已保留').fontSize(12).fontColor(MUTED).width('100%')
+          Text(uiText("shortcut_text_0078")).fontSize(12).fontColor(MUTED).width('100%')
         }
       }
       Row({ space: 12 }) {
-        Button('保留草稿', { type: ButtonType.Normal })
+        Button(uiText("shortcut_text_0058"), { type: ButtonType.Normal })
           .layoutWeight(1)
           .height(44)
           .fontSize(14)
@@ -324,7 +344,7 @@ struct NotePage {
           .onClick(() => {
             void businessStore.keepDraft();
           })
-        Button('清空', { type: ButtonType.Normal })
+        Button(uiText("shortcut_text_0435"), { type: ButtonType.Normal })
           .layoutWeight(1)
           .height(44)
           .fontSize(14)
@@ -353,14 +373,14 @@ struct NotePage {
       Text(`${localDateKey(note.createdAt)} ${clockText(note.createdAt)}`)
         .fontSize(12).fontColor(MUTED).width('100%')
       Row({ space: 8 }) {
-        Button('编辑', { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
+        Button(uiText("shortcut_text_0076"), { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
           .backgroundColor(BG).height(44).layoutWeight(1).padding({ left: 4, right: 4 })
           .enabled(!this.view.busy && !this.view.storageRecoveryRequired)
           .onClick(() => businessStore.beginEditNote(note.id))
-        Button('历史', { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
+        Button(uiText("shortcut_text_0378"), { type: ButtonType.Normal }).fontSize(14).fontColor(ACCENT)
           .backgroundColor(BG).height(44).layoutWeight(1).padding({ left: 4, right: 4 })
           .enabled(!this.view.busy && !this.view.storageRecoveryRequired).onClick(() => this.openHistory(note))
-        Button('移入回收站', { type: ButtonType.Normal }).fontSize(14).fontColor(DANGER)
+        Button(uiText("shortcut_text_0646"), { type: ButtonType.Normal }).fontSize(14).fontColor(DANGER)
           .backgroundColor(BG).height(44).layoutWeight(1).padding({ left: 4, right: 4 })
           .enabled(!this.view.busy && !this.view.storageRecoveryRequired)
           .onClick(() => this.confirmDelete(note))
@@ -376,7 +396,7 @@ struct NotePage {
   build() {
     Column() {
       PageHeader({
-        title: this.editing() ? '编辑便签' : '新建便签',
+        title: this.editing() ? uiText("shortcut_text_0077") : uiText("shortcut_text_0619"),
         onBack: () => {
           void appNavigation.back();
         }
@@ -384,31 +404,31 @@ struct NotePage {
       Scroll() {
         Column({ space: 16 }) {
           StatusBanner({
-            message: this.view.loading ? '读取中…' :
+            message: this.view.loading ? uiText("shortcut_text_0225") :
               (this.view.error.length > 0 ? this.view.error : this.view.message),
             error: !this.view.loading && this.view.error.length > 0
           })
           if (!this.view.ready && !this.view.loading) {
-            Button('重新读取').height(44).fontSize(14).onClick(() => businessStore.retry())
+            Button(uiText("shortcut_text_0777")).height(44).fontSize(14).onClick(() => businessStore.retry())
           }
           if (this.view.storageRecoveryRequired) {
-            Button('重新读取核对').id('note-storage-recovery').height(44).fontSize(14).enabled(!this.view.busy)
+            Button(uiText("shortcut_text_0778")).id('note-storage-recovery').height(44).fontSize(14).enabled(!this.view.busy)
               .onClick(() => { void businessStore.recoverStorage(); })
           }
           this.editor()
           Row() {
-            Text('已保存').fontSize(18).fontWeight(FontWeight.Medium).fontColor(TEXT).layoutWeight(1)
+            Text(uiText("shortcut_text_0649")).fontSize(18).fontWeight(FontWeight.Medium).fontColor(TEXT).layoutWeight(1)
             Text(`${this.view.notes.length} / 50`).fontSize(14).fontColor(MUTED)
-            Button(`回收站（${this.view.recycledNotes.length}）`, { type: ButtonType.Normal })
+            Button(uiText("shortcut_text_0301", [String(this.view.recycledNotes.length)]), { type: ButtonType.Normal })
               .id('note-trash-open').height(44).fontSize(14).fontColor(ACCENT).backgroundColor(Color.Transparent)
               .onClick(() => { this.recycleOpen = true; })
           }
           .width('100%')
-          TextInput({ text: this.view.noteQuery, placeholder: '搜索标题或内容' })
+          TextInput({ text: this.view.noteQuery, placeholder: uiText("shortcut_text_0541") })
             .fontSize(14).height(44).backgroundColor(CARD).borderRadius(10)
             .onChange((value: string) => businessStore.setNoteQuery(value))
           if (this.view.visibleNotes.length === 0) {
-            EmptyState({ title: this.view.noteQuery.length > 0 ? '没有匹配的便签' : '暂无便签' })
+            EmptyState({ title: this.view.noteQuery.length > 0 ? uiText("shortcut_text_0391") : uiText("shortcut_text_0718") })
           } else {
             ForEach(this.view.visibleNotes, (note: NoteItem) => {
               this.noteCard(note)

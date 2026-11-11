@@ -1,5 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { systemDateTime } from '@kit.BasicServicesKit';
-import { hiAppEvent, hiTraceMeter, hilog } from '@kit.PerformanceAnalysisKit';
+import { hiAppEvent, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { logInfo, logWarning } from './Logger';
 
 export class BatchSpan {
   public id: number = 0;
@@ -19,12 +35,12 @@ export class PlatformBatchTelemetry implements BatchTelemetry {
     const span: BatchSpan = new BatchSpan();
     span.id = ++this.sequence;
     span.stage = stage;
-    try { span.startedAt = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false); } catch (_) {}
+    try { span.startedAt = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false); } catch (_) { logWarning('Optional batch telemetry is unavailable'); }
     try {
       hiTraceMeter.startAsyncTrace(hiTraceMeter.HiTraceOutputLevel.INFO, `ShortcutBatch_${stage}`,
         span.id, 'ShortcutBatch');
       span.traceStarted = true;
-    } catch (_) {}
+    } catch (_) { logWarning('Optional batch telemetry is unavailable'); }
     return span;
   }
   finish(span: BatchSpan): void {
@@ -33,19 +49,16 @@ export class PlatformBatchTelemetry implements BatchTelemetry {
       if (span.startedAt >= 0) {
         elapsed = Math.max(0, systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false) - span.startedAt);
       }
-    } catch (_) {}
+    } catch (_) { logWarning('Optional batch telemetry is unavailable'); }
     try {
       if (span.traceStarted) {
         hiTraceMeter.finishAsyncTrace(hiTraceMeter.HiTraceOutputLevel.INFO, `ShortcutBatch_${span.stage}`, span.id);
       }
-    } catch (_) {}
-    try {
-      hilog.info(0x1B60, 'ShortcutBatch', 'id=%{public}d stage=%{public}s elapsedMs=%{public}d',
-        span.id, span.stage, elapsed);
-    } catch (_) {}
+    } catch (_) { logWarning('Optional batch telemetry is unavailable'); }
+    logInfo(`batch id=${span.id} stage=${span.stage} elapsedMs=${elapsed}`);
     try {
       void hiAppEvent.write({ domain: 'SHORTCUT_BATCH', name: 'STAGE_END', eventType: hiAppEvent.EventType.BEHAVIOR,
-        params: { correlation: span.id, stage: span.stage, elapsed_ms: elapsed } }).catch(() => {});
-    } catch (_) {}
+        params: { correlation: span.id, stage: span.stage, elapsed_ms: elapsed } }).catch(() => { logWarning('Batch event write failed'); });
+    } catch (_) { logWarning('Optional batch telemetry is unavailable'); }
   }
 }

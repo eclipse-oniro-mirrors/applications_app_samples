@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
+import { logWarning } from '../services/Logger';
 import { Want } from '@kit.AbilityKit';
 import { promptAction, router } from '@kit.ArkUI';
 import { BusinessEntryContext, BusinessSnapshot, NavigationBusiness, businessStore } from '../business/BusinessStore';
@@ -37,12 +54,12 @@ class PlatformRouter implements NavigationRouter {
 class PlatformDialog implements NavigationDialog {
   async choose(editing: boolean): Promise<number> {
     const answer = await promptAction.showDialog({
-      title: editing ? '保存当前便签修改？' : '保留当前便签草稿？',
-      message: '保存/保留或放弃后离开；失败会留在当前页面。',
+      title: editing ? uiText("shortcut_text_0047") : uiText("shortcut_text_0059"),
+      message: uiText("shortcut_text_0044"),
       buttons: [
-        { text: '保存/保留并离开', color: '#315CF5' },
-        { text: '放弃修改', color: '#C23F4A' },
-        { text: '继续编辑', color: '#667085' }
+        { text: uiText("shortcut_text_0043"), color: '#315CF5' },
+        { text: uiText("shortcut_text_0236"), color: '#C23F4A' },
+        { text: uiText("shortcut_text_0314"), color: '#667085' }
       ]
     });
     return answer.index;
@@ -118,7 +135,7 @@ export class AppNavigation {
     if (!this.alive) { return; }
     const request: LaunchRequest = parseLaunchRequest(want, cold);
     if (request.error.length > 0) {
-      this.safeRecord('启动参数', 'invalid-parameters', '失败');
+      this.safeRecord(uiText("shortcut_text_0432"), 'invalid-parameters', uiText("shortcut_text_0513"));
       return;
     }
     // Coalesce delivery while in flight, not forever: a later desktop click reapplies its filter.
@@ -128,11 +145,11 @@ export class AppNavigation {
   }
 
   async open(page: PageKey): Promise<void> {
-    await this.navigate(new LaunchRequest(page, '应用内'));
+    await this.navigate(new LaunchRequest(page, uiText("shortcut_text_0694")));
   }
 
   async openDetail(id: string): Promise<void> {
-    await this.navigate(new LaunchRequest(PageKey.DETAIL, '应用内', '', '', id));
+    await this.navigate(new LaunchRequest(PageKey.DETAIL, uiText("shortcut_text_0694"), '', '', id));
   }
 
   async back(): Promise<void> {
@@ -181,7 +198,7 @@ export class AppNavigation {
       } else {
         return false;
       }
-      if (!success) { this.safeToast('处理失败，请重试或继续编辑'); }
+      if (!success) { this.safeToast(uiText("shortcut_text_0165")); }
       return success;
     } catch (_) {
       return false;
@@ -204,7 +221,7 @@ export class AppNavigation {
         // 旧会话的迟到对话框不得清掉重新初始化后的待跳转请求，也不得写入新会话日志。
         if (!this.isCurrent(generation)) { return; }
         this.pending = undefined;
-        this.safeRecord(request.page, request.source, '取消');
+        this.safeRecord(request.page, request.source, uiText("shortcut_text_0452"));
         return;
       }
       if (!this.isCurrent(generation)) { return; }
@@ -228,7 +245,7 @@ export class AppNavigation {
           this.revisit = undefined;
         }
       }
-      if (this.isCurrent(generation)) { this.safeRecord(request.page, request.source, '成功'); }
+      if (this.isCurrent(generation)) { this.safeRecord(request.page, request.source, uiText("shortcut_text_0161")); }
     } catch (_) {
       if (this.isCurrent(generation)) {
         if (checkpoint !== undefined) { this.business.restoreEntryContext(checkpoint); }
@@ -258,21 +275,25 @@ export class AppNavigation {
       case PageKey.TODO: return 'pages/TodoPage';
       case PageKey.COLLECTION: return 'pages/CollectionPage';
       case PageKey.DETAIL: return 'pages/ShortcutDetailPage';
-      case PageKey.ACTIVITY: return 'pages/ActivityPage';
+      case PageKey.CALL_LOG: return 'pages/ActivityPage';
       default: return 'pages/Index';
     }
   }
 
   private isCurrent(generation: number): boolean { return this.alive && generation === this.generation; }
   private safeRecord(target: string, source: string, status: string): void {
-    try { this.record(target, source, status); } catch (_) {}
+    try { this.record(target, source, status); } catch (_) {
+      logWarning('Navigation record callback failed');
+    }
   }
   private safeToast(message: string): void {
-    try { this.dialogs.toast(message); } catch (_) {}
+    try { this.dialogs.toast(message); } catch (_) {
+      logWarning('Navigation feedback is unavailable');
+    }
   }
   private reportError(): void {
-    this.safeRecord(this.current, 'router-failed', '失败');
-    this.safeToast('页面打开失败，请重试');
+    this.safeRecord(this.current, 'router-failed', uiText("shortcut_text_0513"));
+    this.safeToast(uiText("shortcut_text_0641"));
   }
 }
 

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { businessLabel } from '../i18n/BusinessLabels';
+import { uiText } from '../i18n/Strings';
 import { BG, CARD, TEXT, MUTED, ACCENT, LINE, PageHeader, EmptyState, FieldRow } from '../components/Ui';
 import { BusinessSnapshot, CollectionItem, businessStore } from '../business/BusinessStore';
 import { PageKey } from '../model/ShortcutModels';
@@ -70,19 +87,19 @@ struct CollectionPage {
         .fontWeight(FontWeight.Bold)
         .fontColor(TEXT)
         .width('100%')
-      Text(this.selected.category).fontSize(14).fontColor(MUTED).width('100%')
-      Button(this.view.favoriteIds.indexOf(this.selected.id) >= 0 ? '取消收藏' : '收藏',
+      Text(businessLabel(this.selected.category)).fontSize(14).fontColor(MUTED).width('100%')
+      Button(this.view.favoriteIds.indexOf(this.selected.id) >= 0 ? uiText("shortcut_text_0454") : uiText("shortcut_text_0516"),
         { type: ButtonType.Normal })
         .width('100%').height(44).fontSize(14).fontColor(ACCENT)
         .backgroundColor($r('app.color.accent_soft'))
         .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired)
         .onClick(() => { void businessStore.toggleFavorite(this.selected.id); })
       Scroll() {
-        FieldRow({ label: '内容', value: this.selected.content })
+        FieldRow({ label: uiText("shortcut_text_0413"), value: this.selected.content })
       }
       .width('100%')
       .layoutWeight(1)
-      Button('关闭')
+      Button(uiText("shortcut_text_0253"))
         .width('100%')
         .height(44)
         .fontSize(16)
@@ -104,7 +121,7 @@ struct CollectionPage {
       Row({ space: 12 }) {
         Column({ space: 8 }) {
           Text(item.title).fontSize(18).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
-          Text(item.category).fontSize(14).fontColor(MUTED).width('100%')
+          Text(businessLabel(item.category)).fontSize(14).fontColor(MUTED).width('100%')
         }
         .layoutWeight(1)
         Button(this.view.favoriteIds.indexOf(item.id) >= 0 ? '★' : '☆', { type: ButtonType.Normal })
@@ -114,7 +131,7 @@ struct CollectionPage {
           .height(44).width(44)
           .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired)
           .onClick(() => { void businessStore.toggleFavorite(item.id); })
-        Text('查看').fontSize(14).fontColor(ACCENT)
+        Text(uiText("shortcut_text_0147")).fontSize(14).fontColor(ACCENT)
       }
       .width('100%')
       Text(item.content)
@@ -130,14 +147,14 @@ struct CollectionPage {
     .border({ width: 1, color: LINE })
     .borderRadius(16)
     .onClick(() => this.openDetail(item))
-    .accessibilityText(`${item.title}，查看详情`)
+    .accessibilityText(uiText("shortcut_text_0016", [String(item.title)]))
   }
 
   build() {
     Column() {
       PageHeader({
-        title: '收藏资料',
-        subtitle: `${this.view.collections.length} 份资料`,
+        title: uiText("shortcut_text_0523"),
+        subtitle: uiText("shortcut_text_0011", [String(this.view.collections.length)]),
         onBack: () => {
           void appNavigation.back();
         }
@@ -146,10 +163,10 @@ struct CollectionPage {
         Column({ space: 16 }) {
           if (this.view.storageRecoveryRequired) {
             Text(this.view.error).fontSize(14).fontColor(ACCENT).width('100%')
-            Button('重新读取核对').id('collection-storage-recovery').height(44).fontSize(14).enabled(!this.view.busy)
+            Button(uiText("shortcut_text_0778")).id('collection-storage-recovery').height(44).fontSize(14).enabled(!this.view.busy)
               .onClick(() => { void businessStore.recoverStorage(); })
           }
-          TextInput({ text: this.view.collectionQuery, placeholder: '搜索标题或内容' })
+          TextInput({ text: this.view.collectionQuery, placeholder: uiText("shortcut_text_0541") })
             .fontSize(14)
             .height(44)
             .backgroundColor(CARD)
@@ -157,7 +174,7 @@ struct CollectionPage {
             .onChange((value: string) => businessStore.setCollectionQuery(value))
           Row({ space: 8 }) {
             ForEach(['全部', '效率', '工作', '阅读'], (category: string) => {
-              Button(category, { type: ButtonType.Normal })
+              Button(businessLabel(category), { type: ButtonType.Normal })
                 .fontSize(14)
                 .height(44)
                 .layoutWeight(1)
@@ -168,7 +185,7 @@ struct CollectionPage {
             }, (category: string) => category)
           }
           .width('100%')
-          Button(this.view.favoritesOnly ? '只看收藏：开' : '只看收藏：关', { type: ButtonType.Normal })
+          Button(this.view.favoritesOnly ? uiText("shortcut_text_0754") : uiText("shortcut_text_0753"), { type: ButtonType.Normal })
             .width('100%')
             .height(44)
             .fontSize(14)
@@ -177,7 +194,7 @@ struct CollectionPage {
             .borderRadius(9)
             .onClick(() => businessStore.setFavoritesOnly(!this.view.favoritesOnly))
           if (this.view.visibleCollections.length === 0) {
-            EmptyState({ title: '没有匹配的资料' })
+            EmptyState({ title: uiText("shortcut_text_0393") })
           } else {
             ForEach(this.view.visibleCollections, (item: CollectionItem) => {
               this.collectionCard(item)

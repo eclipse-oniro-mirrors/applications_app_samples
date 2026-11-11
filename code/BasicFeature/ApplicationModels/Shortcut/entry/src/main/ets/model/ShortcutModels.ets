@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText, resourceText } from '../i18n/Strings';
 import { shortcutManager } from '@kit.AbilityKit';
 import { BatchPlan, BatchPreview } from '../services/VisibilityBatch';
 
@@ -7,14 +23,18 @@ export enum PageKey {
   TODO = 'todo',
   COLLECTION = 'collection',
   DETAIL = 'detail',
-  ACTIVITY = 'activity'
+  CALL_LOG = 'calls'
 }
 
 export class FeatureInfo {
   public id: string;
   public page: PageKey;
-  public title: string;
-  public description: string;
+  private titleValue: string = '';
+  get title(): string { return resourceText(this.titleValue); }
+  set title(value: string) { this.titleValue = value; }
+  private descriptionValue: string = '';
+  get description(): string { return resourceText(this.descriptionValue); }
+  set description(value: string) { this.descriptionValue = value; }
   public icon: Resource;
 
   constructor(id: string, page: PageKey, title: string, description: string, icon: Resource) {
@@ -27,9 +47,9 @@ export class FeatureInfo {
 }
 
 export const FEATURES: FeatureInfo[] = [
-  new FeatureInfo('sc.note.new', PageKey.NOTE, '新建便签', '随手记录想法', $r('app.media.shortcut_note')),
-  new FeatureInfo('sc.todo.today', PageKey.TODO, '今日待办', '处理今天的任务', $r('app.media.shortcut_todo')),
-  new FeatureInfo('sc.collection.saved', PageKey.COLLECTION, '收藏资料', '查看常用资料', $r('app.media.shortcut_collection'))
+  new FeatureInfo('sc.note.new', PageKey.NOTE, "@string/shortcut_text_0619", "@string/shortcut_text_0543", $r('app.media.shortcut_note')),
+  new FeatureInfo('sc.todo.today', PageKey.TODO, "@string/shortcut_text_0334", "@string/shortcut_text_0164", $r('app.media.shortcut_todo')),
+  new FeatureInfo('sc.collection.saved', PageKey.COLLECTION, "@string/shortcut_text_0523", "@string/shortcut_text_0148", $r('app.media.shortcut_collection'))
 ];
 
 export function featureForId(id: string): FeatureInfo | undefined {
@@ -86,7 +106,7 @@ export class CallRecord {
 }
 
 export class ShortcutView {
-  public support: string = '尚未检测';
+  public support: string = uiText("shortcut_text_0498");
   public supportError: string = '';
   public supported: boolean = false;
   public checking: boolean = false;
@@ -107,9 +127,9 @@ export class ShortcutView {
 
 export function sourceText(value: number): string {
   switch (value) {
-    case 0: return '自定义';
-    case 1: return '静态';
-    case 2: return '动态';
-    default: return `来源 ${value}`;
+    case 0: return uiText("shortcut_text_0790");
+    case 1: return uiText("shortcut_text_0347");
+    case 2: return uiText("shortcut_text_0219");
+    default: return uiText("shortcut_text_0372", [String(value)]);
   }
 }

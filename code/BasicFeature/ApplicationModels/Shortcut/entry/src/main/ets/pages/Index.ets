@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
+import { logWarning } from '../services/Logger';
 import { router } from '@kit.ArkUI';
 import {
   ACCENT, BG, CARD, DANGER, EmptyState, LINE, MUTED, OK, PageHeader, StatusBanner, TEXT
@@ -67,18 +84,18 @@ struct Index {
   private confirmBatch(preview: BatchPreview): void {
     const external: boolean = preview.items.some((item: BatchPreviewItem) => item.externalChange && item.eligible);
     this.getUIContext().showAlertDialog({
-      title: preview.mode === 'restore' ? '恢复入口设置' : '确认批量设置',
-      message: external ? '部分入口已在外部更改。保留改动并处理其它入口，或覆盖改动后恢复？操作逐项执行，可能部分成功。' :
-        (preview.mode === 'restore' ? '按预览恢复已知的原设置，可能部分成功。状态变化时请重新预览。' :
-          '按预览逐个更新显示状态，可能部分成功。状态变化时请重新预览。'),
+      title: preview.mode === 'restore' ? uiText("shortcut_text_0282") : uiText("shortcut_text_0479"),
+      message: external ? uiText("shortcut_text_0137") :
+        (preview.mode === 'restore' ? uiText("shortcut_text_0035") :
+          uiText("shortcut_text_0036")),
       primaryButton: {
-        value: external ? '保留改动，处理其它' : '取消',
+        value: external ? uiText("shortcut_text_0060") : uiText("shortcut_text_0452"),
         action: () => {
           if (external) { void shortcutService.executeBatchPreview(preview.token, false); }
         }
       },
       secondaryButton: {
-        value: external ? '覆盖改动并恢复' : '确认执行',
+        value: external ? uiText("shortcut_text_0242") : uiText("shortcut_text_0482"),
         action: () => { void shortcutService.executeBatchPreview(preview.token, external); }
       }
     });
@@ -87,31 +104,31 @@ struct Index {
   @Builder
   private batchPanel() {
     Column({ space: 10 }) {
-      Text('选择要调整的入口').fontSize(15).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
+      Text(uiText("shortcut_text_0634")).fontSize(15).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
       ForEach(this.view.items, (item: ShortcutItem) => {
         Row({ space: 8 }) {
           Checkbox({ name: `batch-${item.id}` }).width(24).height(24).margin(10)
             .responseRegion({ x: -10, y: -10, width: 44, height: 44 })
             .selectedColor(ACCENT).select(this.selectedBatchIds.includes(item.id))
             .enabled(!this.view.busy).onChange((selected: boolean) => this.selectBatchItem(item.id, selected))
-          Text(`${item.title} · ${item.visibleExplicit ? (item.visible ? '显示' : '隐藏') : '状态未知'}`)
+          Text(`${item.title} · ${item.visibleExplicit ? (item.visible ? uiText("shortcut_text_0603") : uiText("shortcut_text_0691")) : uiText("shortcut_text_0786")}`)
             .fontSize(15).fontColor(TEXT).layoutWeight(1)
         }.width('100%')
       }, (item: ShortcutItem) => `batch-select-${item.id}`)
       Row({ space: 8 }) {
-        Button(this.batchTarget ? '目标：显示' : '目标：隐藏').height(44).fontSize(14).fontColor(ACCENT)
+        Button(this.batchTarget ? uiText("shortcut_text_0408") : uiText("shortcut_text_0409")).height(44).fontSize(14).fontColor(ACCENT)
           .backgroundColor($r('app.color.accent_soft')).layoutWeight(1)
           .enabled(!this.view.busy).onClick(() => {
             this.batchTarget = !this.batchTarget;
             shortcutService.cancelBatchPreview();
           })
-        Button('生成预览').height(44).fontSize(14).fontColor($r('app.color.on_accent'))
+        Button(uiText("shortcut_text_0511")).height(44).fontSize(14).fontColor($r('app.color.on_accent'))
           .backgroundColor(ACCENT).layoutWeight(1)
           .enabled(this.view.batchReady && this.view.supported && !this.view.busy && this.selectedBatchIds.length > 0)
           .onClick(() => { void shortcutService.previewBatch(this.selectedBatchIds, this.batchTarget); })
       }.width('100%')
       if (!this.view.batchReady) {
-        Button(this.view.batchLoading ? '读取批次中' : '重新读取批次').height(44).fontSize(14)
+        Button(this.view.batchLoading ? uiText("shortcut_text_0222") : uiText("shortcut_text_0779")).height(44).fontSize(14)
           .enabled(!this.view.batchLoading && !this.view.busy)
           .onClick(() => { void shortcutService.loadBatches(); })
       }
@@ -120,8 +137,8 @@ struct Index {
       }
       Button({ type: ButtonType.Normal }) {
         Row() {
-          Text(`批次历史（${this.view.batches.length}）`).fontSize(15).fontColor(TEXT).layoutWeight(1)
-          Text(this.historyExpanded ? '收起' : '展开').fontSize(14).fontColor(ACCENT)
+          Text(uiText("shortcut_text_0420", [String(this.view.batches.length)])).fontSize(15).fontColor(TEXT).layoutWeight(1)
+          Text(this.historyExpanded ? uiText("shortcut_text_0525") : uiText("shortcut_text_0727")).fontSize(14).fontColor(ACCENT)
         }.width('100%')
       }.id('batch-history-toggle').height(44).width('100%').backgroundColor(BG)
         .onClick(() => { this.historyExpanded = !this.historyExpanded; })
@@ -129,7 +146,7 @@ struct Index {
         ForEach(this.view.batches, (plan: BatchPlan) => {
           this.batchHistory(plan)
         }, (plan: BatchPlan) => plan.batchId)
-        if (this.view.batches.length === 0) { Text('暂无批次记录').fontSize(14).fontColor(MUTED) }
+        if (this.view.batches.length === 0) { Text(uiText("shortcut_text_0724")).fontSize(14).fontColor(MUTED) }
       }
     }.width('100%').padding(16).backgroundColor(CARD).borderRadius(16)
   }
@@ -137,19 +154,19 @@ struct Index {
   @Builder
   private previewPanel(preview: BatchPreview) {
     Column({ space: 8 }) {
-      Text(preview.mode === 'restore' ? '恢复设置预览' :
-        (preview.mode === 'retry' ? '重试预览' : '批量设置预览'))
+      Text(preview.mode === 'restore' ? uiText("shortcut_text_0286") :
+        (preview.mode === 'retry' ? uiText("shortcut_text_0773") : uiText("shortcut_text_0427")))
         .fontSize(16).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
       ForEach(preview.items, (item: BatchPreviewItem) => {
         Text(`${featureForId(item.id)?.title || item.id}：` +
-          `${item.currentKnown ? (item.currentVisible ? '显示' : '隐藏') : '未知'} → ` +
-          `${item.target ? '显示' : '隐藏'}；${item.reason}`)
+          `${item.currentKnown ? (item.currentVisible ? uiText("shortcut_text_0603") : uiText("shortcut_text_0691")) : uiText("shortcut_text_0582")} → ` +
+          `${item.target ? uiText("shortcut_text_0603") : uiText("shortcut_text_0691")}；${item.reason}`)
           .fontSize(12).fontColor(item.eligible ? TEXT : MUTED).width('100%')
       }, (item: BatchPreviewItem) => item.id)
-      Button('确认设置').height(44).fontSize(14).enabled(!this.view.busy &&
+      Button(uiText("shortcut_text_0480")).height(44).fontSize(14).enabled(!this.view.busy &&
         preview.items.some((item: BatchPreviewItem) => item.eligible))
         .onClick(() => this.confirmBatch(preview))
-      Button('取消预览').height(44).fontSize(14).enabled(!this.view.busy)
+      Button(uiText("shortcut_text_0455")).height(44).fontSize(14).enabled(!this.view.busy)
         .onClick(() => shortcutService.cancelBatchPreview())
     }.width('100%').padding(12).backgroundColor(BG).borderRadius(10)
   }
@@ -157,28 +174,28 @@ struct Index {
   @Builder
   private batchHistory(plan: BatchPlan) {
     Column({ space: 8 }) {
-      Text(`${plan.batchId}${plan.interrupted ? ' · 未完成' : ''}`)
+      Text(`${plan.batchId}${plan.interrupted ? uiText("shortcut_text_0003") : ''}`)
         .fontSize(14).fontColor(TEXT).width('100%')
       ForEach(plan.items, (row: BatchItem) => {
         Column({ space: 4 }) {
           Text(`${featureForId(row.id)?.title || row.id} · ` +
-            `${row.originalKnown ? (row.originalVisible ? '显示' : '隐藏') : '原设置未知'} → ` +
-            `${row.target ? '显示' : '隐藏'}`)
+            `${row.originalKnown ? (row.originalVisible ? uiText("shortcut_text_0603") : uiText("shortcut_text_0691")) : uiText("shortcut_text_0714")} → ` +
+            `${row.target ? uiText("shortcut_text_0603") : uiText("shortcut_text_0691")}`)
             .fontSize(14).fontColor(TEXT).width('100%')
-          Text(`设置：${batchResultText(row.result)} · ${row.attempt}次；` +
-            `恢复：${batchResultText(row.restoreResult)} · ${row.restoreAttempt}次` +
-            `${row.retryBlocked ? ' · 权限或入口不可用' : ''}`)
+          Text(uiText("shortcut_text_0501", [String(batchResultText(row.result)), String(row.attempt)]) +
+            uiText("shortcut_text_0277", [String(batchResultText(row.restoreResult)), String(row.restoreAttempt)]) +
+            `${row.retryBlocked ? uiText("shortcut_text_0002") : ''}`)
             .fontSize(12).fontColor(MUTED).width('100%')
         }.width('100%')
       }, (row: BatchItem) => row.id)
       Row({ space: 6 }) {
-        Button('核对状态').height(44).fontSize(14).fontColor(ACCENT).backgroundColor(BG).layoutWeight(1)
+        Button(uiText("shortcut_text_0268")).height(44).fontSize(14).fontColor(ACCENT).backgroundColor(BG).layoutWeight(1)
           .enabled(this.view.batchReady && !this.view.busy)
           .onClick(() => { void shortcutService.reconcileBatch(plan.batchId); })
-        Button('重试失败项').height(44).fontSize(14).fontColor(ACCENT).backgroundColor(BG).layoutWeight(1)
+        Button(uiText("shortcut_text_0772")).height(44).fontSize(14).fontColor(ACCENT).backgroundColor(BG).layoutWeight(1)
           .enabled(this.view.batchReady && !this.view.busy)
           .onClick(() => { void shortcutService.previewBatchRetry(plan.batchId); })
-        Button('恢复设置').height(44).fontSize(14).fontColor(ACCENT).backgroundColor(BG).layoutWeight(1)
+        Button(uiText("shortcut_text_0285")).height(44).fontSize(14).fontColor(ACCENT).backgroundColor(BG).layoutWeight(1)
           .enabled(this.view.batchReady && !this.view.busy)
           .onClick(() => { void shortcutService.previewBatchRestore(plan.batchId); })
       }.width('100%')
@@ -193,34 +210,36 @@ struct Index {
         if (this.view.checking || this.view.querying) { LoadingProgress().width(24).height(24).color(ACCENT) }
       }.width('100%')
       if (this.view.lastQuery.length > 0) {
-        Text(`${this.view.items.length} 个入口 · 显示 ${this.shownCount()} 个 · ${this.view.lastQuery} 更新`)
+        Text(uiText("shortcut_text_0014", [String(this.view.items.length), String(this.shownCount()), String(this.view.lastQuery)]))
           .fontSize(12).fontColor(MUTED).width('100%')
       }
       Row({ space: 12 }) {
-        Button('重新检测').id('check_support').height(44).fontSize(15).layoutWeight(1)
+        Button(uiText("shortcut_text_0782")).id('check_support').height(44).fontSize(15).layoutWeight(1)
           .fontColor(ACCENT).backgroundColor($r('app.color.accent_soft')).enabled(!this.view.busy)
           .onClick(() => { shortcutService.checkSupport(); })
-        Button(this.view.querying ? '刷新中' : '刷新列表').id('refresh_shortcuts')
+        Button(this.view.querying ? uiText("shortcut_text_0537") : uiText("shortcut_text_0535")).id('refresh_shortcuts')
           .height(44).fontSize(15).layoutWeight(1).backgroundColor(ACCENT)
           .fontColor($r('app.color.on_accent'))
           .enabled(this.view.supported && !this.view.busy)
           .onClick(() => { shortcutService.refresh(); })
       }.width('100%')
-      Button('规则中心').id('open_rule_center').height(44).fontSize(15).width('100%')
+      Button(uiText("shortcut_text_0257")).id('open_rule_center').height(44).fontSize(15).width('100%')
         .fontColor(ACCENT).backgroundColor(BG)
-        .onClick(() => { router.pushUrl({ url: 'pages/RuleCenterPage' }).catch(() => {}); })
+        .onClick(() => { router.pushUrl({ url: 'pages/RuleCenterPage' }).catch(() => {
+            logWarning('Opening the rule center failed');
+          }); })
     }.width('100%').padding(16).backgroundColor(CARD).borderRadius(16)
   }
 
   build() {
     Column() {
       PageHeader({
-        title: '快捷方式', actionLabel: '调用记录',
-        onAction: (): void => { appNavigation.open(PageKey.ACTIVITY); }
+        title: uiText("shortcut_text_0365"), actionLabel: uiText("shortcut_text_0217"),
+        onAction: (): void => { appNavigation.open(PageKey.CALL_LOG); }
       })
       Scroll() {
         Column({ space: 16 }) {
-          Text('常用功能').fontSize(18).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
+          Text(uiText("shortcut_text_0151")).fontSize(18).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
           Row({ space: 12 }) {
             ForEach(FEATURES, (feature: FeatureInfo) => {
               Button({ type: ButtonType.Normal }) {
@@ -237,18 +256,18 @@ struct Index {
           StatusBanner({ message: this.view.batchError, error: true })
           StatusBanner({ message: this.view.batchMessage })
 
-          Text('快捷入口管理').fontSize(18).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
+          Text(uiText("shortcut_text_0369")).fontSize(18).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
           Button({ type: ButtonType.Normal }) {
             Row() {
-              Text('桌面快捷入口').fontSize(15).fontColor(TEXT).layoutWeight(1)
-              Text(this.shortcutsExpanded ? '收起' : `${this.view.items.length} 个入口  ›`).fontSize(14).fontColor(ACCENT)
+              Text(uiText("shortcut_text_0788")).fontSize(15).fontColor(TEXT).layoutWeight(1)
+              Text(this.shortcutsExpanded ? uiText("shortcut_text_0525") : uiText("shortcut_text_0013", [String(this.view.items.length)])).fontSize(14).fontColor(ACCENT)
             }.width('100%')
           }.id('home-shortcuts-toggle').height(52).width('100%').padding({ left: 16, right: 16 })
             .backgroundColor(CARD).borderRadius(16).onClick(() => { this.shortcutsExpanded = !this.shortcutsExpanded; })
           if (this.shortcutsExpanded) {
             Row() {
-              Text(`显示 ${this.shownCount()} / ${this.view.items.length}`).fontSize(14).fontColor(MUTED).layoutWeight(1)
-              Button('全部显示').id('restore_all').fontSize(14).height(44)
+              Text(uiText("shortcut_text_0604", [String(this.shownCount()), String(this.view.items.length)])).fontSize(14).fontColor(MUTED).layoutWeight(1)
+              Button(uiText("shortcut_text_0465")).id('restore_all').fontSize(14).height(44)
                 .fontColor(ACCENT).backgroundColor(Color.Transparent)
                 .enabled(this.view.supported && !this.view.busy && this.view.queryError.length === 0 &&
                   this.view.items.some((item: ShortcutItem) => !item.visible))
@@ -258,15 +277,15 @@ struct Index {
               this.shortcutCard(item)
             }, (item: ShortcutItem) => `${item.id}|${item.visible}|${item.status}|${item.error}|${this.view.busy}`)
             if (this.view.items.length === 0) {
-              EmptyState({ title: this.view.querying ? '正在读取快捷入口' :
-                (this.view.queryError.length > 0 ? '读取失败' : '暂无快捷入口') })
+              EmptyState({ title: this.view.querying ? uiText("shortcut_text_0746") :
+                (this.view.queryError.length > 0 ? uiText("shortcut_text_0223") : uiText("shortcut_text_0722")) })
             }
           }
 
           Button({ type: ButtonType.Normal }) {
             Row() {
-              Text('批量管理').fontSize(15).fontColor(TEXT).layoutWeight(1)
-              Text(this.batchExpanded ? '收起' : '展开  ›').fontSize(14).fontColor(ACCENT)
+              Text(uiText("shortcut_text_0424")).fontSize(15).fontColor(TEXT).layoutWeight(1)
+              Text(this.batchExpanded ? uiText("shortcut_text_0525") : uiText("shortcut_text_0728")).fontSize(14).fontColor(ACCENT)
             }.width('100%')
           }.id('home-batch-toggle').height(52).width('100%').padding({ left: 16, right: 16 })
             .backgroundColor(CARD).borderRadius(16).onClick(() => { this.batchExpanded = !this.batchExpanded; })
@@ -274,8 +293,8 @@ struct Index {
 
           Button({ type: ButtonType.Normal }) {
             Row() {
-              Text('设备与更多').fontSize(15).fontColor(TEXT).layoutWeight(1)
-              Text(this.deviceExpanded ? '收起' : '展开  ›').fontSize(14).fontColor(ACCENT)
+              Text(uiText("shortcut_text_0500")).fontSize(15).fontColor(TEXT).layoutWeight(1)
+              Text(this.deviceExpanded ? uiText("shortcut_text_0525") : uiText("shortcut_text_0728")).fontSize(14).fontColor(ACCENT)
             }.width('100%')
           }.id('home-device-toggle').height(52).width('100%').padding({ left: 16, right: 16 })
             .backgroundColor(CARD).borderRadius(16).onClick(() => { this.deviceExpanded = !this.deviceExpanded; })
@@ -298,14 +317,14 @@ struct Index {
         }.alignItems(HorizontalAlign.Start).layoutWeight(1)
         Toggle({ type: ToggleType.Switch, isOn: item.visible }).id(`visibility_${item.id}`)
           .selectedColor(ACCENT).height(44)
-          .accessibilityText(`${item.title}显示开关`)
+          .accessibilityText(uiText("shortcut_text_0030", [String(item.title)]))
           .enabled(this.view.supported && !this.view.busy && this.view.queryError.length === 0)
           .onChange((visible: boolean) => {
             if (visible !== item.visible) { shortcutService.setVisible(item.id, visible); }
           })
       }.width('100%')
       Row() {
-        Text(item.visible ? '已显示' : '已隐藏').fontSize(14).fontColor(item.visible ? OK : MUTED)
+        Text(item.visible ? uiText("shortcut_text_0683") : uiText("shortcut_text_0686")).fontSize(14).fontColor(item.visible ? OK : MUTED)
         Text(item.id).fontSize(12).fontColor(MUTED).layoutWeight(1).textAlign(TextAlign.End)
       }.width('100%')
       if (item.status.length > 0 && item.status !== item.error) {
@@ -316,10 +335,10 @@ struct Index {
       }
       Divider().color(LINE)
       Row({ space: 12 }) {
-        Button('查看详情').height(44).layoutWeight(1).fontSize(14)
+        Button(uiText("shortcut_text_0149")).height(44).layoutWeight(1).fontSize(14)
           .fontColor(ACCENT).backgroundColor($r('app.color.accent_soft'))
           .onClick(() => { appNavigation.openDetail(item.id); })
-        Button('打开功能').height(44).layoutWeight(1).fontSize(14).backgroundColor(ACCENT)
+        Button(uiText("shortcut_text_0184")).height(44).layoutWeight(1).fontSize(14).backgroundColor(ACCENT)
           .fontColor($r('app.color.on_accent')).enabled(featureForId(item.id) !== undefined)
           .onClick(() => { this.openItem(item.id); })
       }.width('100%')

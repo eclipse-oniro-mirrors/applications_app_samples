@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../i18n/Strings';
 import { ACCENT, BG, CARD, DANGER, EmptyState, MUTED, OK, PageHeader, StatusBanner, TEXT } from '../components/Ui';
 import { CallRecord, PageKey, ShortcutView } from '../model/ShortcutModels';
 import { appNavigation } from '../navigation/AppNavigation';
@@ -20,50 +36,50 @@ struct ActivityPage {
     this.active = true;
     this.subscription = shortcutService.subscribe(() => this.update());
     this.update();
-    appNavigation.activate(PageKey.ACTIVITY, () => this.update());
+    appNavigation.activate(PageKey.CALL_LOG, () => this.update());
   }
 
   private deactivate(): void {
     if (!this.active) { return; }
     this.active = false;
     shortcutService.unsubscribe(this.subscription);
-    appNavigation.deactivate(PageKey.ACTIVITY);
+    appNavigation.deactivate(PageKey.CALL_LOG);
   }
 
   private update(): void { this.view = shortcutService.snapshot(); }
 
   build() {
     Column() {
-      PageHeader({ title: '调用记录',
+      PageHeader({ title: uiText("shortcut_text_0217"),
         onBack: (): void => { appNavigation.back(); } })
       Scroll() {
         Column({ space: 14 }) {
           Row({ space: 12 }) {
-            Button('重新检测').height(44).fontSize(14).layoutWeight(1)
+            Button(uiText("shortcut_text_0782")).height(44).fontSize(14).layoutWeight(1)
               .fontColor(ACCENT).backgroundColor($r('app.color.accent_soft')).enabled(!this.view.busy)
               .onClick(() => { shortcutService.checkSupport(); })
-            Button('重新查询').height(44).fontSize(14).layoutWeight(1)
+            Button(uiText("shortcut_text_0774")).height(44).fontSize(14).layoutWeight(1)
               .fontColor(ACCENT).backgroundColor($r('app.color.accent_soft'))
               .enabled(this.view.supported && !this.view.busy)
               .onClick(() => { shortcutService.refresh(); })
           }.width('100%')
           StatusBanner({ message: this.view.supportError || this.view.queryError, error: true })
           Row() {
-            Text(`最近 ${this.view.records.length} 条`).fontSize(14).fontColor(MUTED).layoutWeight(1)
-            Button('清空记录').fontSize(14).fontColor(MUTED).height(44).backgroundColor(Color.Transparent)
+            Text(uiText("shortcut_text_0791", [String(this.view.records.length)])).fontSize(14).fontColor(MUTED).layoutWeight(1)
+            Button(uiText("shortcut_text_0438")).fontSize(14).fontColor(MUTED).height(44).backgroundColor(Color.Transparent)
               .enabled(!this.view.busy && this.view.records.length > 0)
               .onClick(() => { shortcutService.clearRecords(); })
           }.width('100%')
           if (this.view.records.length === 0) {
-            EmptyState({ title: '暂无调用记录' })
+            EmptyState({ title: uiText("shortcut_text_0721") })
           }
           ForEach(this.view.records, (record: CallRecord) => {
             Column({ space: 10 }) {
               Row({ space: 8 }) {
                 Text(record.time).fontSize(12).fontColor(MUTED).layoutWeight(1)
                 Text(record.status).fontSize(13).fontWeight(FontWeight.Medium)
-                  .fontColor(record.status === '失败' ? DANGER :
-                    (record.status === '成功' || record.status === '回读一致' ? OK : ACCENT))
+                  .fontColor(record.status === uiText("shortcut_text_0513") ? DANGER :
+                    (record.status === uiText("shortcut_text_0161") || record.status === uiText("shortcut_text_0294") ? OK : ACCENT))
               }.width('100%')
               Text(record.api).fontSize(15).fontWeight(FontWeight.Medium).fontColor(TEXT).width('100%')
               if (record.target.length > 0) {
