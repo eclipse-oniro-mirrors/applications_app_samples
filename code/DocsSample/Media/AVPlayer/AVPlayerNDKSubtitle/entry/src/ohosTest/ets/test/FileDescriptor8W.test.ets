@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function fileDescriptor8wTest() {
@@ -25,7 +25,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0001', 0, () => {
+    it('test8wFileDescriptor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 1;
       const offset: number = 0;
       const size: number = 1024;
@@ -43,7 +43,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0002', 0, () => {
+    it('test8wFileDescriptor0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 2;
       const offset: number = 8;
       const size: number = 1040;
@@ -61,7 +61,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0003', 0, () => {
+    it('test8wFileDescriptor0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 3;
       const offset: number = 16;
       const size: number = 1056;
@@ -79,7 +79,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0004', 0, () => {
+    it('test8wFileDescriptor0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 4;
       const offset: number = 24;
       const size: number = 1072;
@@ -97,7 +97,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0005', 0, () => {
+    it('test8wFileDescriptor0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 5;
       const offset: number = 32;
       const size: number = 1088;
@@ -115,7 +115,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0006', 0, () => {
+    it('test8wFileDescriptor0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 6;
       const offset: number = 40;
       const size: number = 1104;
@@ -133,7 +133,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0007', 0, () => {
+    it('test8wFileDescriptor0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 7;
       const offset: number = 48;
       const size: number = 1120;
@@ -151,7 +151,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0008', 0, () => {
+    it('test8wFileDescriptor0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 8;
       const offset: number = 56;
       const size: number = 1136;
@@ -169,7 +169,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0009', 0, () => {
+    it('test8wFileDescriptor0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 9;
       const offset: number = 64;
       const size: number = 1152;
@@ -187,7 +187,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0010', 0, () => {
+    it('test8wFileDescriptor0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 10;
       const offset: number = 72;
       const size: number = 1168;
@@ -205,7 +205,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0011', 0, () => {
+    it('test8wFileDescriptor0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 11;
       const offset: number = 80;
       const size: number = 1184;
@@ -223,7 +223,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0012', 0, () => {
+    it('test8wFileDescriptor0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 12;
       const offset: number = 88;
       const size: number = 1200;
@@ -241,7 +241,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0013', 0, () => {
+    it('test8wFileDescriptor0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 13;
       const offset: number = 96;
       const size: number = 1216;
@@ -259,7 +259,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0014', 0, () => {
+    it('test8wFileDescriptor0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 14;
       const offset: number = 104;
       const size: number = 1232;
@@ -277,7 +277,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0015', 0, () => {
+    it('test8wFileDescriptor0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 15;
       const offset: number = 112;
       const size: number = 1248;
@@ -295,7 +295,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0016', 0, () => {
+    it('test8wFileDescriptor0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 16;
       const offset: number = 120;
       const size: number = 1264;
@@ -313,7 +313,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0017', 0, () => {
+    it('test8wFileDescriptor0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 17;
       const offset: number = 128;
       const size: number = 1280;
@@ -331,7 +331,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0018', 0, () => {
+    it('test8wFileDescriptor0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 18;
       const offset: number = 136;
       const size: number = 1296;
@@ -349,7 +349,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0019', 0, () => {
+    it('test8wFileDescriptor0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 19;
       const offset: number = 144;
       const size: number = 1312;
@@ -367,7 +367,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0020', 0, () => {
+    it('test8wFileDescriptor0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 20;
       const offset: number = 152;
       const size: number = 1328;
@@ -385,7 +385,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0021', 0, () => {
+    it('test8wFileDescriptor0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 21;
       const offset: number = 160;
       const size: number = 1344;
@@ -403,7 +403,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0022', 0, () => {
+    it('test8wFileDescriptor0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 22;
       const offset: number = 168;
       const size: number = 1360;
@@ -421,7 +421,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0023', 0, () => {
+    it('test8wFileDescriptor0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 23;
       const offset: number = 176;
       const size: number = 1376;
@@ -439,7 +439,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0024', 0, () => {
+    it('test8wFileDescriptor0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 24;
       const offset: number = 184;
       const size: number = 1392;
@@ -457,7 +457,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0025', 0, () => {
+    it('test8wFileDescriptor0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 25;
       const offset: number = 192;
       const size: number = 1408;
@@ -475,7 +475,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0026', 0, () => {
+    it('test8wFileDescriptor0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 26;
       const offset: number = 200;
       const size: number = 1424;
@@ -493,7 +493,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0027', 0, () => {
+    it('test8wFileDescriptor0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 27;
       const offset: number = 208;
       const size: number = 1440;
@@ -511,7 +511,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0028', 0, () => {
+    it('test8wFileDescriptor0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 28;
       const offset: number = 216;
       const size: number = 1456;
@@ -529,7 +529,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0029', 0, () => {
+    it('test8wFileDescriptor0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 29;
       const offset: number = 224;
       const size: number = 1472;
@@ -547,7 +547,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0030', 0, () => {
+    it('test8wFileDescriptor0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 30;
       const offset: number = 232;
       const size: number = 1488;
@@ -565,7 +565,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0031', 0, () => {
+    it('test8wFileDescriptor0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 31;
       const offset: number = 240;
       const size: number = 1504;
@@ -583,7 +583,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0032', 0, () => {
+    it('test8wFileDescriptor0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 32;
       const offset: number = 248;
       const size: number = 1520;
@@ -601,7 +601,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0033', 0, () => {
+    it('test8wFileDescriptor0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 33;
       const offset: number = 256;
       const size: number = 1536;
@@ -619,7 +619,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0034', 0, () => {
+    it('test8wFileDescriptor0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 34;
       const offset: number = 264;
       const size: number = 1552;
@@ -637,7 +637,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0035', 0, () => {
+    it('test8wFileDescriptor0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 35;
       const offset: number = 272;
       const size: number = 1568;
@@ -655,7 +655,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0036', 0, () => {
+    it('test8wFileDescriptor0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 36;
       const offset: number = 280;
       const size: number = 1584;
@@ -673,7 +673,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0037', 0, () => {
+    it('test8wFileDescriptor0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 37;
       const offset: number = 288;
       const size: number = 1600;
@@ -691,7 +691,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0038', 0, () => {
+    it('test8wFileDescriptor0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 38;
       const offset: number = 296;
       const size: number = 1616;
@@ -709,7 +709,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0039', 0, () => {
+    it('test8wFileDescriptor0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 39;
       const offset: number = 304;
       const size: number = 1632;
@@ -727,7 +727,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0040', 0, () => {
+    it('test8wFileDescriptor0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 40;
       const offset: number = 312;
       const size: number = 1648;
@@ -745,7 +745,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0041', 0, () => {
+    it('test8wFileDescriptor0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 41;
       const offset: number = 320;
       const size: number = 1664;
@@ -763,7 +763,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0042', 0, () => {
+    it('test8wFileDescriptor0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 42;
       const offset: number = 328;
       const size: number = 1680;
@@ -781,7 +781,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0043', 0, () => {
+    it('test8wFileDescriptor0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 43;
       const offset: number = 336;
       const size: number = 1696;
@@ -799,7 +799,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0044', 0, () => {
+    it('test8wFileDescriptor0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 44;
       const offset: number = 344;
       const size: number = 1712;
@@ -817,7 +817,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0045', 0, () => {
+    it('test8wFileDescriptor0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 45;
       const offset: number = 352;
       const size: number = 1728;
@@ -835,7 +835,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0046', 0, () => {
+    it('test8wFileDescriptor0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 46;
       const offset: number = 360;
       const size: number = 1744;
@@ -853,7 +853,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0047', 0, () => {
+    it('test8wFileDescriptor0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 47;
       const offset: number = 368;
       const size: number = 1760;
@@ -871,7 +871,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0048', 0, () => {
+    it('test8wFileDescriptor0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 48;
       const offset: number = 376;
       const size: number = 1776;
@@ -889,7 +889,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0049', 0, () => {
+    it('test8wFileDescriptor0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 49;
       const offset: number = 384;
       const size: number = 1792;
@@ -907,7 +907,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0050', 0, () => {
+    it('test8wFileDescriptor0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 50;
       const offset: number = 392;
       const size: number = 1808;
@@ -925,7 +925,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0051', 0, () => {
+    it('test8wFileDescriptor0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 51;
       const offset: number = 400;
       const size: number = 1824;
@@ -943,7 +943,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0052', 0, () => {
+    it('test8wFileDescriptor0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 52;
       const offset: number = 408;
       const size: number = 1840;
@@ -961,7 +961,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0053', 0, () => {
+    it('test8wFileDescriptor0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 53;
       const offset: number = 416;
       const size: number = 1856;
@@ -979,7 +979,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0054', 0, () => {
+    it('test8wFileDescriptor0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 54;
       const offset: number = 424;
       const size: number = 1872;
@@ -997,7 +997,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0055', 0, () => {
+    it('test8wFileDescriptor0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 55;
       const offset: number = 432;
       const size: number = 1888;
@@ -1015,7 +1015,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0056', 0, () => {
+    it('test8wFileDescriptor0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 56;
       const offset: number = 440;
       const size: number = 1904;
@@ -1033,7 +1033,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0057', 0, () => {
+    it('test8wFileDescriptor0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 57;
       const offset: number = 448;
       const size: number = 1920;
@@ -1051,7 +1051,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0058', 0, () => {
+    it('test8wFileDescriptor0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 58;
       const offset: number = 456;
       const size: number = 1936;
@@ -1069,7 +1069,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0059', 0, () => {
+    it('test8wFileDescriptor0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 59;
       const offset: number = 464;
       const size: number = 1952;
@@ -1087,7 +1087,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0060', 0, () => {
+    it('test8wFileDescriptor0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 60;
       const offset: number = 472;
       const size: number = 1968;
@@ -1105,7 +1105,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0061', 0, () => {
+    it('test8wFileDescriptor0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 61;
       const offset: number = 480;
       const size: number = 1984;
@@ -1123,7 +1123,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0062', 0, () => {
+    it('test8wFileDescriptor0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 62;
       const offset: number = 488;
       const size: number = 2000;
@@ -1141,7 +1141,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0063', 0, () => {
+    it('test8wFileDescriptor0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 63;
       const offset: number = 496;
       const size: number = 2016;
@@ -1159,7 +1159,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0064', 0, () => {
+    it('test8wFileDescriptor0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 64;
       const offset: number = 504;
       const size: number = 2032;
@@ -1177,7 +1177,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0065', 0, () => {
+    it('test8wFileDescriptor0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 65;
       const offset: number = 512;
       const size: number = 2048;
@@ -1195,7 +1195,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0066', 0, () => {
+    it('test8wFileDescriptor0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 66;
       const offset: number = 520;
       const size: number = 2064;
@@ -1213,7 +1213,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0067', 0, () => {
+    it('test8wFileDescriptor0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 67;
       const offset: number = 528;
       const size: number = 2080;
@@ -1231,7 +1231,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0068', 0, () => {
+    it('test8wFileDescriptor0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 68;
       const offset: number = 536;
       const size: number = 2096;
@@ -1249,7 +1249,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0069', 0, () => {
+    it('test8wFileDescriptor0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 69;
       const offset: number = 544;
       const size: number = 2112;
@@ -1267,7 +1267,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0070', 0, () => {
+    it('test8wFileDescriptor0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 70;
       const offset: number = 552;
       const size: number = 2128;
@@ -1285,7 +1285,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0071', 0, () => {
+    it('test8wFileDescriptor0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 71;
       const offset: number = 560;
       const size: number = 2144;
@@ -1303,7 +1303,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0072', 0, () => {
+    it('test8wFileDescriptor0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 72;
       const offset: number = 568;
       const size: number = 2160;
@@ -1321,7 +1321,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0073', 0, () => {
+    it('test8wFileDescriptor0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 73;
       const offset: number = 576;
       const size: number = 2176;
@@ -1339,7 +1339,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0074', 0, () => {
+    it('test8wFileDescriptor0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 74;
       const offset: number = 584;
       const size: number = 2192;
@@ -1357,7 +1357,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0075', 0, () => {
+    it('test8wFileDescriptor0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 75;
       const offset: number = 592;
       const size: number = 2208;
@@ -1375,7 +1375,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0076', 0, () => {
+    it('test8wFileDescriptor0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 76;
       const offset: number = 600;
       const size: number = 2224;
@@ -1393,7 +1393,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0077', 0, () => {
+    it('test8wFileDescriptor0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 77;
       const offset: number = 608;
       const size: number = 2240;
@@ -1411,7 +1411,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0078', 0, () => {
+    it('test8wFileDescriptor0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 78;
       const offset: number = 616;
       const size: number = 2256;
@@ -1429,7 +1429,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0079', 0, () => {
+    it('test8wFileDescriptor0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 79;
       const offset: number = 624;
       const size: number = 2272;
@@ -1447,7 +1447,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0080', 0, () => {
+    it('test8wFileDescriptor0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 80;
       const offset: number = 632;
       const size: number = 2288;
@@ -1465,7 +1465,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0081', 0, () => {
+    it('test8wFileDescriptor0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 81;
       const offset: number = 640;
       const size: number = 2304;
@@ -1483,7 +1483,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0082', 0, () => {
+    it('test8wFileDescriptor0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 82;
       const offset: number = 648;
       const size: number = 2320;
@@ -1501,7 +1501,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0083', 0, () => {
+    it('test8wFileDescriptor0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 83;
       const offset: number = 656;
       const size: number = 2336;
@@ -1519,7 +1519,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0084', 0, () => {
+    it('test8wFileDescriptor0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 84;
       const offset: number = 664;
       const size: number = 2352;
@@ -1537,7 +1537,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0085', 0, () => {
+    it('test8wFileDescriptor0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 85;
       const offset: number = 672;
       const size: number = 2368;
@@ -1555,7 +1555,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0086', 0, () => {
+    it('test8wFileDescriptor0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 86;
       const offset: number = 680;
       const size: number = 2384;
@@ -1573,7 +1573,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0087', 0, () => {
+    it('test8wFileDescriptor0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 87;
       const offset: number = 688;
       const size: number = 2400;
@@ -1591,7 +1591,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0088', 0, () => {
+    it('test8wFileDescriptor0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 88;
       const offset: number = 696;
       const size: number = 2416;
@@ -1609,7 +1609,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0089', 0, () => {
+    it('test8wFileDescriptor0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 89;
       const offset: number = 704;
       const size: number = 2432;
@@ -1627,7 +1627,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0090', 0, () => {
+    it('test8wFileDescriptor0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 90;
       const offset: number = 712;
       const size: number = 2448;
@@ -1645,7 +1645,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0091', 0, () => {
+    it('test8wFileDescriptor0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 91;
       const offset: number = 720;
       const size: number = 2464;
@@ -1663,7 +1663,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0092', 0, () => {
+    it('test8wFileDescriptor0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 92;
       const offset: number = 728;
       const size: number = 2480;
@@ -1681,7 +1681,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0093', 0, () => {
+    it('test8wFileDescriptor0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 93;
       const offset: number = 736;
       const size: number = 2496;
@@ -1699,7 +1699,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0094', 0, () => {
+    it('test8wFileDescriptor0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 94;
       const offset: number = 744;
       const size: number = 2512;
@@ -1717,7 +1717,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0095', 0, () => {
+    it('test8wFileDescriptor0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 95;
       const offset: number = 752;
       const size: number = 2528;
@@ -1735,7 +1735,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0096', 0, () => {
+    it('test8wFileDescriptor0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 96;
       const offset: number = 760;
       const size: number = 2544;
@@ -1753,7 +1753,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0097', 0, () => {
+    it('test8wFileDescriptor0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 97;
       const offset: number = 768;
       const size: number = 2560;
@@ -1771,7 +1771,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0098', 0, () => {
+    it('test8wFileDescriptor0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 98;
       const offset: number = 776;
       const size: number = 2576;
@@ -1789,7 +1789,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0099', 0, () => {
+    it('test8wFileDescriptor0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 99;
       const offset: number = 784;
       const size: number = 2592;
@@ -1807,7 +1807,7 @@ export default function fileDescriptor8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wFileDescriptor0100', 0, () => {
+    it('test8wFileDescriptor0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 100;
       const offset: number = 792;
       const size: number = 2608;

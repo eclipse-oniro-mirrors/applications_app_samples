@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function nativeSeekContractExpandedTest() {
@@ -25,7 +25,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0001', 0, () => {
+    it('testExpSeekMode0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 0;
@@ -42,7 +42,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0002', 0, () => {
+    it('testExpSeekMode0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 250;
@@ -59,7 +59,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0003', 0, () => {
+    it('testExpSeekMode0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 500;
@@ -76,7 +76,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0004', 0, () => {
+    it('testExpSeekMode0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 750;
@@ -93,7 +93,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0005', 0, () => {
+    it('testExpSeekMode0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 1000;
@@ -110,7 +110,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0006', 0, () => {
+    it('testExpSeekMode0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 1250;
@@ -127,7 +127,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0007', 0, () => {
+    it('testExpSeekMode0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 1500;
@@ -144,7 +144,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0008', 0, () => {
+    it('testExpSeekMode0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 1750;
@@ -161,7 +161,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0009', 0, () => {
+    it('testExpSeekMode0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 2000;
@@ -178,7 +178,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0010', 0, () => {
+    it('testExpSeekMode0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 2250;
@@ -195,7 +195,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0011', 0, () => {
+    it('testExpSeekMode0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 2500;
@@ -212,7 +212,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0012', 0, () => {
+    it('testExpSeekMode0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 2750;
@@ -229,7 +229,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0013', 0, () => {
+    it('testExpSeekMode0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 3000;
@@ -246,7 +246,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0014', 0, () => {
+    it('testExpSeekMode0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 3250;
@@ -263,7 +263,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0015', 0, () => {
+    it('testExpSeekMode0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 3500;
@@ -280,7 +280,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0016', 0, () => {
+    it('testExpSeekMode0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 3750;
@@ -297,7 +297,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0017', 0, () => {
+    it('testExpSeekMode0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 4000;
@@ -314,7 +314,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0018', 0, () => {
+    it('testExpSeekMode0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 4250;
@@ -331,7 +331,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0019', 0, () => {
+    it('testExpSeekMode0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 4500;
@@ -348,7 +348,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0020', 0, () => {
+    it('testExpSeekMode0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 4750;
@@ -365,7 +365,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0021', 0, () => {
+    it('testExpSeekMode0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 5000;
@@ -382,7 +382,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0022', 0, () => {
+    it('testExpSeekMode0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 5250;
@@ -399,7 +399,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0023', 0, () => {
+    it('testExpSeekMode0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 5500;
@@ -416,7 +416,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0024', 0, () => {
+    it('testExpSeekMode0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 5750;
@@ -433,7 +433,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0025', 0, () => {
+    it('testExpSeekMode0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 6000;
@@ -450,7 +450,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0026', 0, () => {
+    it('testExpSeekMode0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 6250;
@@ -467,7 +467,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0027', 0, () => {
+    it('testExpSeekMode0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 6500;
@@ -484,7 +484,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0028', 0, () => {
+    it('testExpSeekMode0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 6750;
@@ -501,7 +501,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0029', 0, () => {
+    it('testExpSeekMode0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 7000;
@@ -518,7 +518,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0030', 0, () => {
+    it('testExpSeekMode0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 7250;
@@ -535,7 +535,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0031', 0, () => {
+    it('testExpSeekMode0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 7500;
@@ -552,7 +552,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0032', 0, () => {
+    it('testExpSeekMode0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 7750;
@@ -569,7 +569,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0033', 0, () => {
+    it('testExpSeekMode0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 8000;
@@ -586,7 +586,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0034', 0, () => {
+    it('testExpSeekMode0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 8250;
@@ -603,7 +603,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0035', 0, () => {
+    it('testExpSeekMode0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 8500;
@@ -620,7 +620,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0036', 0, () => {
+    it('testExpSeekMode0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 8750;
@@ -637,7 +637,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0037', 0, () => {
+    it('testExpSeekMode0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 9000;
@@ -654,7 +654,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0038', 0, () => {
+    it('testExpSeekMode0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 9250;
@@ -671,7 +671,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0039', 0, () => {
+    it('testExpSeekMode0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 9500;
@@ -688,7 +688,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0040', 0, () => {
+    it('testExpSeekMode0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 9750;
@@ -705,7 +705,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0041', 0, () => {
+    it('testExpSeekMode0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 10000;
@@ -722,7 +722,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0042', 0, () => {
+    it('testExpSeekMode0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 10250;
@@ -739,7 +739,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0043', 0, () => {
+    it('testExpSeekMode0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 10500;
@@ -756,7 +756,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0044', 0, () => {
+    it('testExpSeekMode0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 10750;
@@ -773,7 +773,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0045', 0, () => {
+    it('testExpSeekMode0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 11000;
@@ -790,7 +790,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0046', 0, () => {
+    it('testExpSeekMode0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 11250;
@@ -807,7 +807,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0047', 0, () => {
+    it('testExpSeekMode0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 11500;
@@ -824,7 +824,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0048', 0, () => {
+    it('testExpSeekMode0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 11750;
@@ -841,7 +841,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0049', 0, () => {
+    it('testExpSeekMode0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 12000;
@@ -858,7 +858,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0050', 0, () => {
+    it('testExpSeekMode0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 12250;
@@ -875,7 +875,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0051', 0, () => {
+    it('testExpSeekMode0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 12500;
@@ -892,7 +892,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0052', 0, () => {
+    it('testExpSeekMode0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 12750;
@@ -909,7 +909,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0053', 0, () => {
+    it('testExpSeekMode0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 13000;
@@ -926,7 +926,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0054', 0, () => {
+    it('testExpSeekMode0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 13250;
@@ -943,7 +943,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0055', 0, () => {
+    it('testExpSeekMode0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 13500;
@@ -960,7 +960,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0056', 0, () => {
+    it('testExpSeekMode0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 13750;
@@ -977,7 +977,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0057', 0, () => {
+    it('testExpSeekMode0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 14000;
@@ -994,7 +994,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0058', 0, () => {
+    it('testExpSeekMode0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 14250;
@@ -1011,7 +1011,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0059', 0, () => {
+    it('testExpSeekMode0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 14500;
@@ -1028,7 +1028,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0060', 0, () => {
+    it('testExpSeekMode0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 14750;
@@ -1045,7 +1045,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0061', 0, () => {
+    it('testExpSeekMode0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 15000;
@@ -1062,7 +1062,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0062', 0, () => {
+    it('testExpSeekMode0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 15250;
@@ -1079,7 +1079,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0063', 0, () => {
+    it('testExpSeekMode0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 15500;
@@ -1096,7 +1096,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0064', 0, () => {
+    it('testExpSeekMode0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 15750;
@@ -1113,7 +1113,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0065', 0, () => {
+    it('testExpSeekMode0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 16000;
@@ -1130,7 +1130,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0066', 0, () => {
+    it('testExpSeekMode0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 16250;
@@ -1147,7 +1147,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0067', 0, () => {
+    it('testExpSeekMode0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 16500;
@@ -1164,7 +1164,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0068', 0, () => {
+    it('testExpSeekMode0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 16750;
@@ -1181,7 +1181,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0069', 0, () => {
+    it('testExpSeekMode0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 17000;
@@ -1198,7 +1198,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0070', 0, () => {
+    it('testExpSeekMode0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 17250;
@@ -1215,7 +1215,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0071', 0, () => {
+    it('testExpSeekMode0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 17500;
@@ -1232,7 +1232,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0072', 0, () => {
+    it('testExpSeekMode0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 17750;
@@ -1249,7 +1249,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0073', 0, () => {
+    it('testExpSeekMode0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 18000;
@@ -1266,7 +1266,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0074', 0, () => {
+    it('testExpSeekMode0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 18250;
@@ -1283,7 +1283,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0075', 0, () => {
+    it('testExpSeekMode0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 18500;
@@ -1300,7 +1300,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0076', 0, () => {
+    it('testExpSeekMode0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 18750;
@@ -1317,7 +1317,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0077', 0, () => {
+    it('testExpSeekMode0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 19000;
@@ -1334,7 +1334,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0078', 0, () => {
+    it('testExpSeekMode0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 19250;
@@ -1351,7 +1351,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0079', 0, () => {
+    it('testExpSeekMode0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 19500;
@@ -1368,7 +1368,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0080', 0, () => {
+    it('testExpSeekMode0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 19750;
@@ -1385,7 +1385,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0081', 0, () => {
+    it('testExpSeekMode0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 20000;
@@ -1402,7 +1402,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0082', 0, () => {
+    it('testExpSeekMode0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 20250;
@@ -1419,7 +1419,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0083', 0, () => {
+    it('testExpSeekMode0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 20500;
@@ -1436,7 +1436,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0084', 0, () => {
+    it('testExpSeekMode0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 20750;
@@ -1453,7 +1453,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0085', 0, () => {
+    it('testExpSeekMode0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 21000;
@@ -1470,7 +1470,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0086', 0, () => {
+    it('testExpSeekMode0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 21250;
@@ -1487,7 +1487,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0087', 0, () => {
+    it('testExpSeekMode0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 21500;
@@ -1504,7 +1504,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0088', 0, () => {
+    it('testExpSeekMode0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 21750;
@@ -1521,7 +1521,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0089', 0, () => {
+    it('testExpSeekMode0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 22000;
@@ -1538,7 +1538,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0090', 0, () => {
+    it('testExpSeekMode0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 22250;
@@ -1555,7 +1555,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0091', 0, () => {
+    it('testExpSeekMode0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 22500;
@@ -1572,7 +1572,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0092', 0, () => {
+    it('testExpSeekMode0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 22750;
@@ -1589,7 +1589,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0093', 0, () => {
+    it('testExpSeekMode0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 23000;
@@ -1606,7 +1606,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0094', 0, () => {
+    it('testExpSeekMode0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 23250;
@@ -1623,7 +1623,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0095', 0, () => {
+    it('testExpSeekMode0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 23500;
@@ -1640,7 +1640,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0096', 0, () => {
+    it('testExpSeekMode0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 23750;
@@ -1657,7 +1657,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0097', 0, () => {
+    it('testExpSeekMode0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 24000;
@@ -1674,7 +1674,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0098', 0, () => {
+    it('testExpSeekMode0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 1;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 24250;
@@ -1691,7 +1691,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0099', 0, () => {
+    it('testExpSeekMode0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 2;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 24500;
@@ -1708,7 +1708,7 @@ export default function nativeSeekContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSeekMode0100', 0, () => {
+    it('testExpSeekMode0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const mode: number = 0;
       const names: string[] = ['AV_SEEK_NEXT_SYNC', 'AV_SEEK_PREVIOUS_SYNC', 'AV_SEEK_CLOSEST'];
       const value: number = 24750;

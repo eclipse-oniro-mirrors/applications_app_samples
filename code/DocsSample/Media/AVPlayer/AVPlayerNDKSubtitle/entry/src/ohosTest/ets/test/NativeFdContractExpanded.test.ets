@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function nativeFdContractExpandedTest() {
@@ -25,7 +25,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0001', 0, () => {
+    it('testExpNativeFd0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 3;
       const offset: number = 0;
       const size: number = 1024;
@@ -42,7 +42,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0002', 0, () => {
+    it('testExpNativeFd0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 4;
       const offset: number = 16;
       const size: number = 1056;
@@ -59,7 +59,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0003', 0, () => {
+    it('testExpNativeFd0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 5;
       const offset: number = 32;
       const size: number = 1088;
@@ -76,7 +76,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0004', 0, () => {
+    it('testExpNativeFd0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 6;
       const offset: number = 48;
       const size: number = 1120;
@@ -93,7 +93,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0005', 0, () => {
+    it('testExpNativeFd0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 7;
       const offset: number = 64;
       const size: number = 1152;
@@ -110,7 +110,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0006', 0, () => {
+    it('testExpNativeFd0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 8;
       const offset: number = 80;
       const size: number = 1184;
@@ -127,7 +127,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0007', 0, () => {
+    it('testExpNativeFd0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 9;
       const offset: number = 96;
       const size: number = 1216;
@@ -144,7 +144,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0008', 0, () => {
+    it('testExpNativeFd0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 10;
       const offset: number = 112;
       const size: number = 1248;
@@ -161,7 +161,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0009', 0, () => {
+    it('testExpNativeFd0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 11;
       const offset: number = 128;
       const size: number = 1280;
@@ -178,7 +178,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0010', 0, () => {
+    it('testExpNativeFd0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 12;
       const offset: number = 144;
       const size: number = 1312;
@@ -195,7 +195,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0011', 0, () => {
+    it('testExpNativeFd0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 13;
       const offset: number = 160;
       const size: number = 1344;
@@ -212,7 +212,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0012', 0, () => {
+    it('testExpNativeFd0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 14;
       const offset: number = 176;
       const size: number = 1376;
@@ -229,7 +229,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0013', 0, () => {
+    it('testExpNativeFd0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 15;
       const offset: number = 192;
       const size: number = 1408;
@@ -246,7 +246,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0014', 0, () => {
+    it('testExpNativeFd0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 16;
       const offset: number = 208;
       const size: number = 1440;
@@ -263,7 +263,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0015', 0, () => {
+    it('testExpNativeFd0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 17;
       const offset: number = 224;
       const size: number = 1472;
@@ -280,7 +280,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0016', 0, () => {
+    it('testExpNativeFd0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 18;
       const offset: number = 240;
       const size: number = 1504;
@@ -297,7 +297,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0017', 0, () => {
+    it('testExpNativeFd0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 19;
       const offset: number = 256;
       const size: number = 1536;
@@ -314,7 +314,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0018', 0, () => {
+    it('testExpNativeFd0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 20;
       const offset: number = 272;
       const size: number = 1568;
@@ -331,7 +331,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0019', 0, () => {
+    it('testExpNativeFd0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 21;
       const offset: number = 288;
       const size: number = 1600;
@@ -348,7 +348,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0020', 0, () => {
+    it('testExpNativeFd0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 22;
       const offset: number = 304;
       const size: number = 1632;
@@ -365,7 +365,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0021', 0, () => {
+    it('testExpNativeFd0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 23;
       const offset: number = 320;
       const size: number = 1664;
@@ -382,7 +382,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0022', 0, () => {
+    it('testExpNativeFd0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 24;
       const offset: number = 336;
       const size: number = 1696;
@@ -399,7 +399,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0023', 0, () => {
+    it('testExpNativeFd0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 25;
       const offset: number = 352;
       const size: number = 1728;
@@ -416,7 +416,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0024', 0, () => {
+    it('testExpNativeFd0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 26;
       const offset: number = 368;
       const size: number = 1760;
@@ -433,7 +433,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0025', 0, () => {
+    it('testExpNativeFd0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 27;
       const offset: number = 384;
       const size: number = 1792;
@@ -450,7 +450,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0026', 0, () => {
+    it('testExpNativeFd0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 28;
       const offset: number = 400;
       const size: number = 1824;
@@ -467,7 +467,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0027', 0, () => {
+    it('testExpNativeFd0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 29;
       const offset: number = 416;
       const size: number = 1856;
@@ -484,7 +484,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0028', 0, () => {
+    it('testExpNativeFd0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 30;
       const offset: number = 432;
       const size: number = 1888;
@@ -501,7 +501,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0029', 0, () => {
+    it('testExpNativeFd0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 31;
       const offset: number = 448;
       const size: number = 1920;
@@ -518,7 +518,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0030', 0, () => {
+    it('testExpNativeFd0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 32;
       const offset: number = 464;
       const size: number = 1952;
@@ -535,7 +535,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0031', 0, () => {
+    it('testExpNativeFd0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 33;
       const offset: number = 480;
       const size: number = 1984;
@@ -552,7 +552,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0032', 0, () => {
+    it('testExpNativeFd0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 34;
       const offset: number = 496;
       const size: number = 2016;
@@ -569,7 +569,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0033', 0, () => {
+    it('testExpNativeFd0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 35;
       const offset: number = 512;
       const size: number = 2048;
@@ -586,7 +586,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0034', 0, () => {
+    it('testExpNativeFd0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 36;
       const offset: number = 528;
       const size: number = 2080;
@@ -603,7 +603,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0035', 0, () => {
+    it('testExpNativeFd0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 37;
       const offset: number = 544;
       const size: number = 2112;
@@ -620,7 +620,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0036', 0, () => {
+    it('testExpNativeFd0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 38;
       const offset: number = 560;
       const size: number = 2144;
@@ -637,7 +637,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0037', 0, () => {
+    it('testExpNativeFd0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 39;
       const offset: number = 576;
       const size: number = 2176;
@@ -654,7 +654,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0038', 0, () => {
+    it('testExpNativeFd0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 40;
       const offset: number = 592;
       const size: number = 2208;
@@ -671,7 +671,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0039', 0, () => {
+    it('testExpNativeFd0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 41;
       const offset: number = 608;
       const size: number = 2240;
@@ -688,7 +688,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0040', 0, () => {
+    it('testExpNativeFd0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 42;
       const offset: number = 624;
       const size: number = 2272;
@@ -705,7 +705,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0041', 0, () => {
+    it('testExpNativeFd0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 43;
       const offset: number = 640;
       const size: number = 2304;
@@ -722,7 +722,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0042', 0, () => {
+    it('testExpNativeFd0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 44;
       const offset: number = 656;
       const size: number = 2336;
@@ -739,7 +739,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0043', 0, () => {
+    it('testExpNativeFd0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 45;
       const offset: number = 672;
       const size: number = 2368;
@@ -756,7 +756,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0044', 0, () => {
+    it('testExpNativeFd0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 46;
       const offset: number = 688;
       const size: number = 2400;
@@ -773,7 +773,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0045', 0, () => {
+    it('testExpNativeFd0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 47;
       const offset: number = 704;
       const size: number = 2432;
@@ -790,7 +790,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0046', 0, () => {
+    it('testExpNativeFd0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 48;
       const offset: number = 720;
       const size: number = 2464;
@@ -807,7 +807,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0047', 0, () => {
+    it('testExpNativeFd0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 49;
       const offset: number = 736;
       const size: number = 2496;
@@ -824,7 +824,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0048', 0, () => {
+    it('testExpNativeFd0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 50;
       const offset: number = 752;
       const size: number = 2528;
@@ -841,7 +841,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0049', 0, () => {
+    it('testExpNativeFd0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 51;
       const offset: number = 768;
       const size: number = 2560;
@@ -858,7 +858,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0050', 0, () => {
+    it('testExpNativeFd0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 52;
       const offset: number = 784;
       const size: number = 2592;
@@ -875,7 +875,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0051', 0, () => {
+    it('testExpNativeFd0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 53;
       const offset: number = 800;
       const size: number = 2624;
@@ -892,7 +892,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0052', 0, () => {
+    it('testExpNativeFd0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 54;
       const offset: number = 816;
       const size: number = 2656;
@@ -909,7 +909,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0053', 0, () => {
+    it('testExpNativeFd0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 55;
       const offset: number = 832;
       const size: number = 2688;
@@ -926,7 +926,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0054', 0, () => {
+    it('testExpNativeFd0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 56;
       const offset: number = 848;
       const size: number = 2720;
@@ -943,7 +943,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0055', 0, () => {
+    it('testExpNativeFd0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 57;
       const offset: number = 864;
       const size: number = 2752;
@@ -960,7 +960,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0056', 0, () => {
+    it('testExpNativeFd0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 58;
       const offset: number = 880;
       const size: number = 2784;
@@ -977,7 +977,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0057', 0, () => {
+    it('testExpNativeFd0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 59;
       const offset: number = 896;
       const size: number = 2816;
@@ -994,7 +994,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0058', 0, () => {
+    it('testExpNativeFd0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 60;
       const offset: number = 912;
       const size: number = 2848;
@@ -1011,7 +1011,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0059', 0, () => {
+    it('testExpNativeFd0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 61;
       const offset: number = 928;
       const size: number = 2880;
@@ -1028,7 +1028,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0060', 0, () => {
+    it('testExpNativeFd0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 62;
       const offset: number = 944;
       const size: number = 2912;
@@ -1045,7 +1045,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0061', 0, () => {
+    it('testExpNativeFd0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 63;
       const offset: number = 960;
       const size: number = 2944;
@@ -1062,7 +1062,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0062', 0, () => {
+    it('testExpNativeFd0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 64;
       const offset: number = 976;
       const size: number = 2976;
@@ -1079,7 +1079,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0063', 0, () => {
+    it('testExpNativeFd0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 65;
       const offset: number = 992;
       const size: number = 3008;
@@ -1096,7 +1096,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0064', 0, () => {
+    it('testExpNativeFd0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 66;
       const offset: number = 1008;
       const size: number = 3040;
@@ -1113,7 +1113,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0065', 0, () => {
+    it('testExpNativeFd0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 67;
       const offset: number = 1024;
       const size: number = 3072;
@@ -1130,7 +1130,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0066', 0, () => {
+    it('testExpNativeFd0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 68;
       const offset: number = 1040;
       const size: number = 3104;
@@ -1147,7 +1147,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0067', 0, () => {
+    it('testExpNativeFd0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 69;
       const offset: number = 1056;
       const size: number = 3136;
@@ -1164,7 +1164,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0068', 0, () => {
+    it('testExpNativeFd0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 70;
       const offset: number = 1072;
       const size: number = 3168;
@@ -1181,7 +1181,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0069', 0, () => {
+    it('testExpNativeFd0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 71;
       const offset: number = 1088;
       const size: number = 3200;
@@ -1198,7 +1198,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0070', 0, () => {
+    it('testExpNativeFd0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 72;
       const offset: number = 1104;
       const size: number = 3232;
@@ -1215,7 +1215,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0071', 0, () => {
+    it('testExpNativeFd0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 73;
       const offset: number = 1120;
       const size: number = 3264;
@@ -1232,7 +1232,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0072', 0, () => {
+    it('testExpNativeFd0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 74;
       const offset: number = 1136;
       const size: number = 3296;
@@ -1249,7 +1249,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0073', 0, () => {
+    it('testExpNativeFd0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 75;
       const offset: number = 1152;
       const size: number = 3328;
@@ -1266,7 +1266,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0074', 0, () => {
+    it('testExpNativeFd0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 76;
       const offset: number = 1168;
       const size: number = 3360;
@@ -1283,7 +1283,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0075', 0, () => {
+    it('testExpNativeFd0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 77;
       const offset: number = 1184;
       const size: number = 3392;
@@ -1300,7 +1300,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0076', 0, () => {
+    it('testExpNativeFd0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 78;
       const offset: number = 1200;
       const size: number = 3424;
@@ -1317,7 +1317,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0077', 0, () => {
+    it('testExpNativeFd0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 79;
       const offset: number = 1216;
       const size: number = 3456;
@@ -1334,7 +1334,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0078', 0, () => {
+    it('testExpNativeFd0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 80;
       const offset: number = 1232;
       const size: number = 3488;
@@ -1351,7 +1351,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0079', 0, () => {
+    it('testExpNativeFd0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 81;
       const offset: number = 1248;
       const size: number = 3520;
@@ -1368,7 +1368,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0080', 0, () => {
+    it('testExpNativeFd0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 82;
       const offset: number = 1264;
       const size: number = 3552;
@@ -1385,7 +1385,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0081', 0, () => {
+    it('testExpNativeFd0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 83;
       const offset: number = 1280;
       const size: number = 3584;
@@ -1402,7 +1402,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0082', 0, () => {
+    it('testExpNativeFd0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 84;
       const offset: number = 1296;
       const size: number = 3616;
@@ -1419,7 +1419,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0083', 0, () => {
+    it('testExpNativeFd0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 85;
       const offset: number = 1312;
       const size: number = 3648;
@@ -1436,7 +1436,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0084', 0, () => {
+    it('testExpNativeFd0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 86;
       const offset: number = 1328;
       const size: number = 3680;
@@ -1453,7 +1453,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0085', 0, () => {
+    it('testExpNativeFd0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 87;
       const offset: number = 1344;
       const size: number = 3712;
@@ -1470,7 +1470,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0086', 0, () => {
+    it('testExpNativeFd0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 88;
       const offset: number = 1360;
       const size: number = 3744;
@@ -1487,7 +1487,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0087', 0, () => {
+    it('testExpNativeFd0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 89;
       const offset: number = 1376;
       const size: number = 3776;
@@ -1504,7 +1504,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0088', 0, () => {
+    it('testExpNativeFd0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 90;
       const offset: number = 1392;
       const size: number = 3808;
@@ -1521,7 +1521,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0089', 0, () => {
+    it('testExpNativeFd0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 91;
       const offset: number = 1408;
       const size: number = 3840;
@@ -1538,7 +1538,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0090', 0, () => {
+    it('testExpNativeFd0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 92;
       const offset: number = 1424;
       const size: number = 3872;
@@ -1555,7 +1555,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0091', 0, () => {
+    it('testExpNativeFd0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 93;
       const offset: number = 1440;
       const size: number = 3904;
@@ -1572,7 +1572,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0092', 0, () => {
+    it('testExpNativeFd0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 94;
       const offset: number = 1456;
       const size: number = 3936;
@@ -1589,7 +1589,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0093', 0, () => {
+    it('testExpNativeFd0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 95;
       const offset: number = 1472;
       const size: number = 3968;
@@ -1606,7 +1606,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0094', 0, () => {
+    it('testExpNativeFd0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 96;
       const offset: number = 1488;
       const size: number = 4000;
@@ -1623,7 +1623,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0095', 0, () => {
+    it('testExpNativeFd0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 97;
       const offset: number = 1504;
       const size: number = 4032;
@@ -1640,7 +1640,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0096', 0, () => {
+    it('testExpNativeFd0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 98;
       const offset: number = 1520;
       const size: number = 4064;
@@ -1657,7 +1657,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0097', 0, () => {
+    it('testExpNativeFd0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 99;
       const offset: number = 1536;
       const size: number = 4096;
@@ -1674,7 +1674,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0098', 0, () => {
+    it('testExpNativeFd0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 100;
       const offset: number = 1552;
       const size: number = 4128;
@@ -1691,7 +1691,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0099', 0, () => {
+    it('testExpNativeFd0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 101;
       const offset: number = 1568;
       const size: number = 4160;
@@ -1708,7 +1708,7 @@ export default function nativeFdContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeFd0100', 0, () => {
+    it('testExpNativeFd0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const fd: number = 102;
       const offset: number = 1584;
       const size: number = 4192;

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function mediaMetadataExpandedTest() {
@@ -25,7 +25,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0001', 0, () => {
+    it('testMoreMediaMetadata0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -42,7 +42,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0002', 0, () => {
+    it('testMoreMediaMetadata0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -59,7 +59,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0003', 0, () => {
+    it('testMoreMediaMetadata0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -76,7 +76,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0004', 0, () => {
+    it('testMoreMediaMetadata0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -93,7 +93,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0005', 0, () => {
+    it('testMoreMediaMetadata0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -110,7 +110,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0006', 0, () => {
+    it('testMoreMediaMetadata0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -127,7 +127,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0007', 0, () => {
+    it('testMoreMediaMetadata0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -144,7 +144,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0008', 0, () => {
+    it('testMoreMediaMetadata0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -161,7 +161,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0009', 0, () => {
+    it('testMoreMediaMetadata0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -178,7 +178,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0010', 0, () => {
+    it('testMoreMediaMetadata0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -195,7 +195,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0011', 0, () => {
+    it('testMoreMediaMetadata0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -212,7 +212,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0012', 0, () => {
+    it('testMoreMediaMetadata0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -229,7 +229,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0013', 0, () => {
+    it('testMoreMediaMetadata0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -246,7 +246,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0014', 0, () => {
+    it('testMoreMediaMetadata0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -263,7 +263,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0015', 0, () => {
+    it('testMoreMediaMetadata0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -280,7 +280,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0016', 0, () => {
+    it('testMoreMediaMetadata0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -297,7 +297,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0017', 0, () => {
+    it('testMoreMediaMetadata0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -314,7 +314,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0018', 0, () => {
+    it('testMoreMediaMetadata0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -331,7 +331,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0019', 0, () => {
+    it('testMoreMediaMetadata0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -348,7 +348,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0020', 0, () => {
+    it('testMoreMediaMetadata0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -365,7 +365,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0021', 0, () => {
+    it('testMoreMediaMetadata0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -382,7 +382,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0022', 0, () => {
+    it('testMoreMediaMetadata0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -399,7 +399,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0023', 0, () => {
+    it('testMoreMediaMetadata0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -416,7 +416,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0024', 0, () => {
+    it('testMoreMediaMetadata0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -433,7 +433,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0025', 0, () => {
+    it('testMoreMediaMetadata0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -450,7 +450,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0026', 0, () => {
+    it('testMoreMediaMetadata0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -467,7 +467,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0027', 0, () => {
+    it('testMoreMediaMetadata0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -484,7 +484,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0028', 0, () => {
+    it('testMoreMediaMetadata0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -501,7 +501,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0029', 0, () => {
+    it('testMoreMediaMetadata0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -518,7 +518,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0030', 0, () => {
+    it('testMoreMediaMetadata0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -535,7 +535,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0031', 0, () => {
+    it('testMoreMediaMetadata0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -552,7 +552,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0032', 0, () => {
+    it('testMoreMediaMetadata0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -569,7 +569,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0033', 0, () => {
+    it('testMoreMediaMetadata0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -586,7 +586,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0034', 0, () => {
+    it('testMoreMediaMetadata0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -603,7 +603,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0035', 0, () => {
+    it('testMoreMediaMetadata0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -620,7 +620,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0036', 0, () => {
+    it('testMoreMediaMetadata0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -637,7 +637,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0037', 0, () => {
+    it('testMoreMediaMetadata0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -654,7 +654,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0038', 0, () => {
+    it('testMoreMediaMetadata0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -671,7 +671,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0039', 0, () => {
+    it('testMoreMediaMetadata0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -688,7 +688,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0040', 0, () => {
+    it('testMoreMediaMetadata0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -705,7 +705,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0041', 0, () => {
+    it('testMoreMediaMetadata0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -722,7 +722,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0042', 0, () => {
+    it('testMoreMediaMetadata0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -739,7 +739,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0043', 0, () => {
+    it('testMoreMediaMetadata0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -756,7 +756,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0044', 0, () => {
+    it('testMoreMediaMetadata0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -773,7 +773,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0045', 0, () => {
+    it('testMoreMediaMetadata0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -790,7 +790,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0046', 0, () => {
+    it('testMoreMediaMetadata0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -807,7 +807,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0047', 0, () => {
+    it('testMoreMediaMetadata0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -824,7 +824,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0048', 0, () => {
+    it('testMoreMediaMetadata0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -841,7 +841,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0049', 0, () => {
+    it('testMoreMediaMetadata0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -858,7 +858,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0050', 0, () => {
+    it('testMoreMediaMetadata0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -875,7 +875,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0051', 0, () => {
+    it('testMoreMediaMetadata0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -892,7 +892,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0052', 0, () => {
+    it('testMoreMediaMetadata0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -909,7 +909,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0053', 0, () => {
+    it('testMoreMediaMetadata0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -926,7 +926,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0054', 0, () => {
+    it('testMoreMediaMetadata0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -943,7 +943,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0055', 0, () => {
+    it('testMoreMediaMetadata0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -960,7 +960,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0056', 0, () => {
+    it('testMoreMediaMetadata0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -977,7 +977,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0057', 0, () => {
+    it('testMoreMediaMetadata0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -994,7 +994,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0058', 0, () => {
+    it('testMoreMediaMetadata0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1011,7 +1011,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0059', 0, () => {
+    it('testMoreMediaMetadata0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1028,7 +1028,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0060', 0, () => {
+    it('testMoreMediaMetadata0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1045,7 +1045,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0061', 0, () => {
+    it('testMoreMediaMetadata0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1062,7 +1062,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0062', 0, () => {
+    it('testMoreMediaMetadata0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1079,7 +1079,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0063', 0, () => {
+    it('testMoreMediaMetadata0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1096,7 +1096,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0064', 0, () => {
+    it('testMoreMediaMetadata0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1113,7 +1113,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0065', 0, () => {
+    it('testMoreMediaMetadata0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1130,7 +1130,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0066', 0, () => {
+    it('testMoreMediaMetadata0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1147,7 +1147,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0067', 0, () => {
+    it('testMoreMediaMetadata0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1164,7 +1164,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0068', 0, () => {
+    it('testMoreMediaMetadata0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1181,7 +1181,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0069', 0, () => {
+    it('testMoreMediaMetadata0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1198,7 +1198,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0070', 0, () => {
+    it('testMoreMediaMetadata0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1215,7 +1215,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0071', 0, () => {
+    it('testMoreMediaMetadata0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1232,7 +1232,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0072', 0, () => {
+    it('testMoreMediaMetadata0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1249,7 +1249,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0073', 0, () => {
+    it('testMoreMediaMetadata0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1266,7 +1266,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0074', 0, () => {
+    it('testMoreMediaMetadata0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1283,7 +1283,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0075', 0, () => {
+    it('testMoreMediaMetadata0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1300,7 +1300,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0076', 0, () => {
+    it('testMoreMediaMetadata0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1317,7 +1317,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0077', 0, () => {
+    it('testMoreMediaMetadata0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1334,7 +1334,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0078', 0, () => {
+    it('testMoreMediaMetadata0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1351,7 +1351,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0079', 0, () => {
+    it('testMoreMediaMetadata0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1368,7 +1368,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0080', 0, () => {
+    it('testMoreMediaMetadata0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1385,7 +1385,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0081', 0, () => {
+    it('testMoreMediaMetadata0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1402,7 +1402,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0082', 0, () => {
+    it('testMoreMediaMetadata0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1419,7 +1419,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0083', 0, () => {
+    it('testMoreMediaMetadata0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1436,7 +1436,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0084', 0, () => {
+    it('testMoreMediaMetadata0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1453,7 +1453,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0085', 0, () => {
+    it('testMoreMediaMetadata0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1470,7 +1470,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0086', 0, () => {
+    it('testMoreMediaMetadata0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1487,7 +1487,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0087', 0, () => {
+    it('testMoreMediaMetadata0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1504,7 +1504,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0088', 0, () => {
+    it('testMoreMediaMetadata0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1521,7 +1521,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0089', 0, () => {
+    it('testMoreMediaMetadata0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1538,7 +1538,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0090', 0, () => {
+    it('testMoreMediaMetadata0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1555,7 +1555,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0091', 0, () => {
+    it('testMoreMediaMetadata0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1572,7 +1572,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0092', 0, () => {
+    it('testMoreMediaMetadata0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1589,7 +1589,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0093', 0, () => {
+    it('testMoreMediaMetadata0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1606,7 +1606,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0094', 0, () => {
+    it('testMoreMediaMetadata0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1623,7 +1623,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0095', 0, () => {
+    it('testMoreMediaMetadata0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1640,7 +1640,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0096', 0, () => {
+    it('testMoreMediaMetadata0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1657,7 +1657,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0097', 0, () => {
+    it('testMoreMediaMetadata0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';
@@ -1674,7 +1674,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0098', 0, () => {
+    it('testMoreMediaMetadata0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1691,7 +1691,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0099', 0, () => {
+    it('testMoreMediaMetadata0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       const kind: string = 'video';
@@ -1708,7 +1708,7 @@ export default function mediaMetadataExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreMediaMetadata0100', 0, () => {
+    it('testMoreMediaMetadata0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       const kind: string = 'subtitle';

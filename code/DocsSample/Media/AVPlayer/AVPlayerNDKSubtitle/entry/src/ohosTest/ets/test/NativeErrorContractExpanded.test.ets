@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function nativeErrorContractExpandedTest() {
@@ -25,7 +25,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0001', 0, () => {
+    it('testMoreNativeError0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -40,7 +40,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0002', 0, () => {
+    it('testMoreNativeError0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -55,7 +55,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0003', 0, () => {
+    it('testMoreNativeError0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -70,7 +70,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0004', 0, () => {
+    it('testMoreNativeError0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -85,7 +85,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0005', 0, () => {
+    it('testMoreNativeError0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -100,7 +100,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0006', 0, () => {
+    it('testMoreNativeError0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -115,7 +115,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0007', 0, () => {
+    it('testMoreNativeError0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -130,7 +130,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0008', 0, () => {
+    it('testMoreNativeError0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -145,7 +145,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0009', 0, () => {
+    it('testMoreNativeError0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -160,7 +160,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0010', 0, () => {
+    it('testMoreNativeError0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -175,7 +175,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0011', 0, () => {
+    it('testMoreNativeError0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -190,7 +190,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0012', 0, () => {
+    it('testMoreNativeError0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -205,7 +205,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0013', 0, () => {
+    it('testMoreNativeError0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -220,7 +220,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0014', 0, () => {
+    it('testMoreNativeError0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -235,7 +235,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0015', 0, () => {
+    it('testMoreNativeError0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -250,7 +250,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0016', 0, () => {
+    it('testMoreNativeError0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -265,7 +265,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0017', 0, () => {
+    it('testMoreNativeError0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -280,7 +280,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0018', 0, () => {
+    it('testMoreNativeError0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -295,7 +295,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0019', 0, () => {
+    it('testMoreNativeError0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -310,7 +310,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0020', 0, () => {
+    it('testMoreNativeError0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -325,7 +325,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0021', 0, () => {
+    it('testMoreNativeError0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -340,7 +340,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0022', 0, () => {
+    it('testMoreNativeError0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -355,7 +355,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0023', 0, () => {
+    it('testMoreNativeError0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -370,7 +370,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0024', 0, () => {
+    it('testMoreNativeError0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -385,7 +385,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0025', 0, () => {
+    it('testMoreNativeError0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -400,7 +400,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0026', 0, () => {
+    it('testMoreNativeError0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -415,7 +415,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0027', 0, () => {
+    it('testMoreNativeError0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -430,7 +430,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0028', 0, () => {
+    it('testMoreNativeError0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -445,7 +445,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0029', 0, () => {
+    it('testMoreNativeError0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -460,7 +460,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0030', 0, () => {
+    it('testMoreNativeError0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -475,7 +475,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0031', 0, () => {
+    it('testMoreNativeError0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -490,7 +490,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0032', 0, () => {
+    it('testMoreNativeError0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -505,7 +505,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0033', 0, () => {
+    it('testMoreNativeError0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -520,7 +520,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0034', 0, () => {
+    it('testMoreNativeError0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -535,7 +535,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0035', 0, () => {
+    it('testMoreNativeError0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -550,7 +550,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0036', 0, () => {
+    it('testMoreNativeError0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -565,7 +565,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0037', 0, () => {
+    it('testMoreNativeError0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -580,7 +580,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0038', 0, () => {
+    it('testMoreNativeError0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -595,7 +595,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0039', 0, () => {
+    it('testMoreNativeError0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -610,7 +610,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0040', 0, () => {
+    it('testMoreNativeError0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -625,7 +625,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0041', 0, () => {
+    it('testMoreNativeError0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -640,7 +640,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0042', 0, () => {
+    it('testMoreNativeError0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -655,7 +655,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0043', 0, () => {
+    it('testMoreNativeError0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -670,7 +670,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0044', 0, () => {
+    it('testMoreNativeError0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -685,7 +685,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0045', 0, () => {
+    it('testMoreNativeError0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -700,7 +700,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0046', 0, () => {
+    it('testMoreNativeError0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -715,7 +715,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0047', 0, () => {
+    it('testMoreNativeError0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -730,7 +730,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0048', 0, () => {
+    it('testMoreNativeError0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -745,7 +745,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0049', 0, () => {
+    it('testMoreNativeError0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -760,7 +760,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0050', 0, () => {
+    it('testMoreNativeError0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -775,7 +775,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0051', 0, () => {
+    it('testMoreNativeError0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -790,7 +790,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0052', 0, () => {
+    it('testMoreNativeError0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -805,7 +805,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0053', 0, () => {
+    it('testMoreNativeError0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -820,7 +820,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0054', 0, () => {
+    it('testMoreNativeError0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -835,7 +835,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0055', 0, () => {
+    it('testMoreNativeError0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -850,7 +850,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0056', 0, () => {
+    it('testMoreNativeError0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -865,7 +865,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0057', 0, () => {
+    it('testMoreNativeError0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -880,7 +880,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0058', 0, () => {
+    it('testMoreNativeError0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -895,7 +895,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0059', 0, () => {
+    it('testMoreNativeError0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -910,7 +910,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0060', 0, () => {
+    it('testMoreNativeError0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -925,7 +925,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0061', 0, () => {
+    it('testMoreNativeError0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -940,7 +940,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0062', 0, () => {
+    it('testMoreNativeError0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -955,7 +955,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0063', 0, () => {
+    it('testMoreNativeError0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -970,7 +970,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0064', 0, () => {
+    it('testMoreNativeError0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -985,7 +985,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0065', 0, () => {
+    it('testMoreNativeError0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -1000,7 +1000,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0066', 0, () => {
+    it('testMoreNativeError0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1015,7 +1015,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0067', 0, () => {
+    it('testMoreNativeError0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1030,7 +1030,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0068', 0, () => {
+    it('testMoreNativeError0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1045,7 +1045,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0069', 0, () => {
+    it('testMoreNativeError0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1060,7 +1060,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0070', 0, () => {
+    it('testMoreNativeError0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1075,7 +1075,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0071', 0, () => {
+    it('testMoreNativeError0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1090,7 +1090,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0072', 0, () => {
+    it('testMoreNativeError0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1105,7 +1105,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0073', 0, () => {
+    it('testMoreNativeError0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -1120,7 +1120,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0074', 0, () => {
+    it('testMoreNativeError0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1135,7 +1135,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0075', 0, () => {
+    it('testMoreNativeError0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1150,7 +1150,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0076', 0, () => {
+    it('testMoreNativeError0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1165,7 +1165,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0077', 0, () => {
+    it('testMoreNativeError0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1180,7 +1180,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0078', 0, () => {
+    it('testMoreNativeError0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1195,7 +1195,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0079', 0, () => {
+    it('testMoreNativeError0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1210,7 +1210,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0080', 0, () => {
+    it('testMoreNativeError0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1225,7 +1225,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0081', 0, () => {
+    it('testMoreNativeError0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -1240,7 +1240,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0082', 0, () => {
+    it('testMoreNativeError0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1255,7 +1255,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0083', 0, () => {
+    it('testMoreNativeError0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1270,7 +1270,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0084', 0, () => {
+    it('testMoreNativeError0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1285,7 +1285,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0085', 0, () => {
+    it('testMoreNativeError0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1300,7 +1300,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0086', 0, () => {
+    it('testMoreNativeError0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1315,7 +1315,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0087', 0, () => {
+    it('testMoreNativeError0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1330,7 +1330,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0088', 0, () => {
+    it('testMoreNativeError0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1345,7 +1345,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0089', 0, () => {
+    it('testMoreNativeError0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -1360,7 +1360,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0090', 0, () => {
+    it('testMoreNativeError0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1375,7 +1375,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0091', 0, () => {
+    it('testMoreNativeError0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1390,7 +1390,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0092', 0, () => {
+    it('testMoreNativeError0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1405,7 +1405,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0093', 0, () => {
+    it('testMoreNativeError0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400103;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1420,7 +1420,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0094', 0, () => {
+    it('testMoreNativeError0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400104;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1435,7 +1435,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0095', 0, () => {
+    it('testMoreNativeError0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400105;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1450,7 +1450,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0096', 0, () => {
+    it('testMoreNativeError0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400106;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1465,7 +1465,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0097', 0, () => {
+    it('testMoreNativeError0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 0;
       const success: boolean = code === 0;
       expect(success).assertEqual(true);
@@ -1480,7 +1480,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0098', 0, () => {
+    it('testMoreNativeError0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = -1;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1495,7 +1495,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0099', 0, () => {
+    it('testMoreNativeError0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400101;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);
@@ -1510,7 +1510,7 @@ export default function nativeErrorContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreNativeError0100', 0, () => {
+    it('testMoreNativeError0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const code: number = 5400102;
       const success: boolean = code === 0;
       expect(success).assertEqual(false);

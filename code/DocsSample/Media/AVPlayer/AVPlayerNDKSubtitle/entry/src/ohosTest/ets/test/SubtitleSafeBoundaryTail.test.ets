@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function subtitleSafeBoundaryTailTest() {
   describe('subtitleSafeBoundaryTailTest', () => {
@@ -24,7 +24,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0001', 0, () => {
+    it('testSafeBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -41,7 +41,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0002', 0, () => {
+    it('testSafeBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -58,7 +58,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0003', 0, () => {
+    it('testSafeBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -75,7 +75,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0004', 0, () => {
+    it('testSafeBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -92,7 +92,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0005', 0, () => {
+    it('testSafeBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -109,7 +109,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0006', 0, () => {
+    it('testSafeBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -126,7 +126,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0007', 0, () => {
+    it('testSafeBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -143,7 +143,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0008', 0, () => {
+    it('testSafeBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -160,7 +160,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0009', 0, () => {
+    it('testSafeBoundary0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -177,7 +177,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0010', 0, () => {
+    it('testSafeBoundary0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -194,7 +194,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0011', 0, () => {
+    it('testSafeBoundary0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -211,7 +211,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0012', 0, () => {
+    it('testSafeBoundary0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -228,7 +228,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0013', 0, () => {
+    it('testSafeBoundary0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -245,7 +245,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0014', 0, () => {
+    it('testSafeBoundary0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -262,7 +262,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0015', 0, () => {
+    it('testSafeBoundary0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -279,7 +279,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0016', 0, () => {
+    it('testSafeBoundary0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -296,7 +296,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0017', 0, () => {
+    it('testSafeBoundary0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -313,7 +313,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0018', 0, () => {
+    it('testSafeBoundary0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -330,7 +330,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0019', 0, () => {
+    it('testSafeBoundary0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -347,7 +347,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0020', 0, () => {
+    it('testSafeBoundary0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -364,7 +364,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0021', 0, () => {
+    it('testSafeBoundary0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -381,7 +381,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0022', 0, () => {
+    it('testSafeBoundary0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -398,7 +398,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0023', 0, () => {
+    it('testSafeBoundary0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -415,7 +415,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0024', 0, () => {
+    it('testSafeBoundary0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -432,7 +432,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0025', 0, () => {
+    it('testSafeBoundary0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -449,7 +449,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0026', 0, () => {
+    it('testSafeBoundary0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -466,7 +466,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0027', 0, () => {
+    it('testSafeBoundary0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -483,7 +483,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0028', 0, () => {
+    it('testSafeBoundary0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -500,7 +500,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0029', 0, () => {
+    it('testSafeBoundary0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -517,7 +517,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0030', 0, () => {
+    it('testSafeBoundary0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -534,7 +534,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0031', 0, () => {
+    it('testSafeBoundary0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -551,7 +551,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0032', 0, () => {
+    it('testSafeBoundary0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -568,7 +568,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0033', 0, () => {
+    it('testSafeBoundary0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -585,7 +585,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0034', 0, () => {
+    it('testSafeBoundary0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -602,7 +602,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0035', 0, () => {
+    it('testSafeBoundary0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -619,7 +619,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0036', 0, () => {
+    it('testSafeBoundary0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -636,7 +636,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0037', 0, () => {
+    it('testSafeBoundary0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -653,7 +653,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0038', 0, () => {
+    it('testSafeBoundary0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -670,7 +670,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0039', 0, () => {
+    it('testSafeBoundary0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -687,7 +687,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0040', 0, () => {
+    it('testSafeBoundary0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -704,7 +704,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0041', 0, () => {
+    it('testSafeBoundary0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -721,7 +721,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0042', 0, () => {
+    it('testSafeBoundary0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -738,7 +738,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0043', 0, () => {
+    it('testSafeBoundary0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -755,7 +755,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0044', 0, () => {
+    it('testSafeBoundary0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -772,7 +772,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0045', 0, () => {
+    it('testSafeBoundary0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -789,7 +789,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0046', 0, () => {
+    it('testSafeBoundary0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -806,7 +806,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0047', 0, () => {
+    it('testSafeBoundary0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -823,7 +823,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0048', 0, () => {
+    it('testSafeBoundary0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -840,7 +840,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0049', 0, () => {
+    it('testSafeBoundary0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -857,7 +857,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0050', 0, () => {
+    it('testSafeBoundary0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -874,7 +874,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0051', 0, () => {
+    it('testSafeBoundary0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -891,7 +891,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0052', 0, () => {
+    it('testSafeBoundary0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -908,7 +908,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0053', 0, () => {
+    it('testSafeBoundary0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -925,7 +925,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0054', 0, () => {
+    it('testSafeBoundary0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -942,7 +942,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0055', 0, () => {
+    it('testSafeBoundary0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -959,7 +959,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0056', 0, () => {
+    it('testSafeBoundary0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -976,7 +976,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0057', 0, () => {
+    it('testSafeBoundary0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -993,7 +993,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0058', 0, () => {
+    it('testSafeBoundary0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1010,7 +1010,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0059', 0, () => {
+    it('testSafeBoundary0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1027,7 +1027,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0060', 0, () => {
+    it('testSafeBoundary0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1044,7 +1044,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0061', 0, () => {
+    it('testSafeBoundary0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1061,7 +1061,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0062', 0, () => {
+    it('testSafeBoundary0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1078,7 +1078,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0063', 0, () => {
+    it('testSafeBoundary0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1095,7 +1095,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0064', 0, () => {
+    it('testSafeBoundary0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1112,7 +1112,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0065', 0, () => {
+    it('testSafeBoundary0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1129,7 +1129,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0066', 0, () => {
+    it('testSafeBoundary0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1146,7 +1146,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0067', 0, () => {
+    it('testSafeBoundary0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1163,7 +1163,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0068', 0, () => {
+    it('testSafeBoundary0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1180,7 +1180,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0069', 0, () => {
+    it('testSafeBoundary0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1197,7 +1197,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0070', 0, () => {
+    it('testSafeBoundary0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1214,7 +1214,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0071', 0, () => {
+    it('testSafeBoundary0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1231,7 +1231,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0072', 0, () => {
+    it('testSafeBoundary0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1248,7 +1248,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0073', 0, () => {
+    it('testSafeBoundary0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1265,7 +1265,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0074', 0, () => {
+    it('testSafeBoundary0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1282,7 +1282,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0075', 0, () => {
+    it('testSafeBoundary0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1299,7 +1299,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0076', 0, () => {
+    it('testSafeBoundary0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1316,7 +1316,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0077', 0, () => {
+    it('testSafeBoundary0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1333,7 +1333,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0078', 0, () => {
+    it('testSafeBoundary0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1350,7 +1350,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0079', 0, () => {
+    it('testSafeBoundary0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1367,7 +1367,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0080', 0, () => {
+    it('testSafeBoundary0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1384,7 +1384,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0081', 0, () => {
+    it('testSafeBoundary0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1401,7 +1401,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0082', 0, () => {
+    it('testSafeBoundary0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1418,7 +1418,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0083', 0, () => {
+    it('testSafeBoundary0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1435,7 +1435,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0084', 0, () => {
+    it('testSafeBoundary0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1452,7 +1452,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0085', 0, () => {
+    it('testSafeBoundary0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 8192;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1469,7 +1469,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0086', 0, () => {
+    it('testSafeBoundary0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1486,7 +1486,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0087', 0, () => {
+    it('testSafeBoundary0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1503,7 +1503,7 @@ export default function subtitleSafeBoundaryTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeBoundary0088', 0, () => {
+    it('testSafeBoundary0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;

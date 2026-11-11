@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function playbackSpeedExpandedTest() {
@@ -25,7 +25,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0001', 0, () => {
+    it('testExpPlaybackSpeed0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -43,7 +43,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0002', 0, () => {
+    it('testExpPlaybackSpeed0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -61,7 +61,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0003', 0, () => {
+    it('testExpPlaybackSpeed0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -79,7 +79,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0004', 0, () => {
+    it('testExpPlaybackSpeed0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -97,7 +97,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0005', 0, () => {
+    it('testExpPlaybackSpeed0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -115,7 +115,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0006', 0, () => {
+    it('testExpPlaybackSpeed0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -133,7 +133,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0007', 0, () => {
+    it('testExpPlaybackSpeed0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -151,7 +151,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0008', 0, () => {
+    it('testExpPlaybackSpeed0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -169,7 +169,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0009', 0, () => {
+    it('testExpPlaybackSpeed0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -187,7 +187,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0010', 0, () => {
+    it('testExpPlaybackSpeed0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -205,7 +205,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0011', 0, () => {
+    it('testExpPlaybackSpeed0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -223,7 +223,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0012', 0, () => {
+    it('testExpPlaybackSpeed0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -241,7 +241,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0013', 0, () => {
+    it('testExpPlaybackSpeed0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -259,7 +259,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0014', 0, () => {
+    it('testExpPlaybackSpeed0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -277,7 +277,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0015', 0, () => {
+    it('testExpPlaybackSpeed0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -295,7 +295,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0016', 0, () => {
+    it('testExpPlaybackSpeed0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -313,7 +313,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0017', 0, () => {
+    it('testExpPlaybackSpeed0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -331,7 +331,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0018', 0, () => {
+    it('testExpPlaybackSpeed0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -349,7 +349,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0019', 0, () => {
+    it('testExpPlaybackSpeed0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -367,7 +367,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0020', 0, () => {
+    it('testExpPlaybackSpeed0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -385,7 +385,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0021', 0, () => {
+    it('testExpPlaybackSpeed0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -403,7 +403,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0022', 0, () => {
+    it('testExpPlaybackSpeed0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -421,7 +421,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0023', 0, () => {
+    it('testExpPlaybackSpeed0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -439,7 +439,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0024', 0, () => {
+    it('testExpPlaybackSpeed0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -457,7 +457,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0025', 0, () => {
+    it('testExpPlaybackSpeed0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -475,7 +475,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0026', 0, () => {
+    it('testExpPlaybackSpeed0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -493,7 +493,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0027', 0, () => {
+    it('testExpPlaybackSpeed0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -511,7 +511,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0028', 0, () => {
+    it('testExpPlaybackSpeed0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -529,7 +529,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0029', 0, () => {
+    it('testExpPlaybackSpeed0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -547,7 +547,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0030', 0, () => {
+    it('testExpPlaybackSpeed0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -565,7 +565,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0031', 0, () => {
+    it('testExpPlaybackSpeed0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -583,7 +583,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0032', 0, () => {
+    it('testExpPlaybackSpeed0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -601,7 +601,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0033', 0, () => {
+    it('testExpPlaybackSpeed0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -619,7 +619,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0034', 0, () => {
+    it('testExpPlaybackSpeed0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -637,7 +637,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0035', 0, () => {
+    it('testExpPlaybackSpeed0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -655,7 +655,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0036', 0, () => {
+    it('testExpPlaybackSpeed0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -673,7 +673,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0037', 0, () => {
+    it('testExpPlaybackSpeed0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -691,7 +691,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0038', 0, () => {
+    it('testExpPlaybackSpeed0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -709,7 +709,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0039', 0, () => {
+    it('testExpPlaybackSpeed0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -727,7 +727,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0040', 0, () => {
+    it('testExpPlaybackSpeed0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -745,7 +745,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0041', 0, () => {
+    it('testExpPlaybackSpeed0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -763,7 +763,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0042', 0, () => {
+    it('testExpPlaybackSpeed0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -781,7 +781,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0043', 0, () => {
+    it('testExpPlaybackSpeed0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -799,7 +799,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0044', 0, () => {
+    it('testExpPlaybackSpeed0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -817,7 +817,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0045', 0, () => {
+    it('testExpPlaybackSpeed0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -835,7 +835,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0046', 0, () => {
+    it('testExpPlaybackSpeed0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -853,7 +853,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0047', 0, () => {
+    it('testExpPlaybackSpeed0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -871,7 +871,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0048', 0, () => {
+    it('testExpPlaybackSpeed0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -889,7 +889,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0049', 0, () => {
+    it('testExpPlaybackSpeed0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -907,7 +907,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0050', 0, () => {
+    it('testExpPlaybackSpeed0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -925,7 +925,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0051', 0, () => {
+    it('testExpPlaybackSpeed0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -943,7 +943,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0052', 0, () => {
+    it('testExpPlaybackSpeed0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -961,7 +961,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0053', 0, () => {
+    it('testExpPlaybackSpeed0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -979,7 +979,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0054', 0, () => {
+    it('testExpPlaybackSpeed0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -997,7 +997,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0055', 0, () => {
+    it('testExpPlaybackSpeed0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1015,7 +1015,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0056', 0, () => {
+    it('testExpPlaybackSpeed0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1033,7 +1033,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0057', 0, () => {
+    it('testExpPlaybackSpeed0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1051,7 +1051,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0058', 0, () => {
+    it('testExpPlaybackSpeed0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1069,7 +1069,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0059', 0, () => {
+    it('testExpPlaybackSpeed0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1087,7 +1087,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0060', 0, () => {
+    it('testExpPlaybackSpeed0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1105,7 +1105,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0061', 0, () => {
+    it('testExpPlaybackSpeed0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1123,7 +1123,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0062', 0, () => {
+    it('testExpPlaybackSpeed0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1141,7 +1141,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0063', 0, () => {
+    it('testExpPlaybackSpeed0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1159,7 +1159,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0064', 0, () => {
+    it('testExpPlaybackSpeed0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1177,7 +1177,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0065', 0, () => {
+    it('testExpPlaybackSpeed0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1195,7 +1195,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0066', 0, () => {
+    it('testExpPlaybackSpeed0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1213,7 +1213,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0067', 0, () => {
+    it('testExpPlaybackSpeed0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1231,7 +1231,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0068', 0, () => {
+    it('testExpPlaybackSpeed0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1249,7 +1249,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0069', 0, () => {
+    it('testExpPlaybackSpeed0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1267,7 +1267,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0070', 0, () => {
+    it('testExpPlaybackSpeed0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1285,7 +1285,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0071', 0, () => {
+    it('testExpPlaybackSpeed0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1303,7 +1303,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0072', 0, () => {
+    it('testExpPlaybackSpeed0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1321,7 +1321,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0073', 0, () => {
+    it('testExpPlaybackSpeed0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1339,7 +1339,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0074', 0, () => {
+    it('testExpPlaybackSpeed0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1357,7 +1357,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0075', 0, () => {
+    it('testExpPlaybackSpeed0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1375,7 +1375,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0076', 0, () => {
+    it('testExpPlaybackSpeed0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1393,7 +1393,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0077', 0, () => {
+    it('testExpPlaybackSpeed0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1411,7 +1411,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0078', 0, () => {
+    it('testExpPlaybackSpeed0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1429,7 +1429,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0079', 0, () => {
+    it('testExpPlaybackSpeed0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1447,7 +1447,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0080', 0, () => {
+    it('testExpPlaybackSpeed0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1465,7 +1465,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0081', 0, () => {
+    it('testExpPlaybackSpeed0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1483,7 +1483,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0082', 0, () => {
+    it('testExpPlaybackSpeed0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1501,7 +1501,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0083', 0, () => {
+    it('testExpPlaybackSpeed0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1519,7 +1519,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0084', 0, () => {
+    it('testExpPlaybackSpeed0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1537,7 +1537,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0085', 0, () => {
+    it('testExpPlaybackSpeed0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1555,7 +1555,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0086', 0, () => {
+    it('testExpPlaybackSpeed0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1573,7 +1573,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0087', 0, () => {
+    it('testExpPlaybackSpeed0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1591,7 +1591,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0088', 0, () => {
+    it('testExpPlaybackSpeed0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1609,7 +1609,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0089', 0, () => {
+    it('testExpPlaybackSpeed0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1627,7 +1627,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0090', 0, () => {
+    it('testExpPlaybackSpeed0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1645,7 +1645,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0091', 0, () => {
+    it('testExpPlaybackSpeed0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1663,7 +1663,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0092', 0, () => {
+    it('testExpPlaybackSpeed0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1681,7 +1681,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0093', 0, () => {
+    it('testExpPlaybackSpeed0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1699,7 +1699,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0094', 0, () => {
+    it('testExpPlaybackSpeed0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1717,7 +1717,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0095', 0, () => {
+    it('testExpPlaybackSpeed0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1735,7 +1735,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0096', 0, () => {
+    it('testExpPlaybackSpeed0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1753,7 +1753,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0097', 0, () => {
+    it('testExpPlaybackSpeed0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 0;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1771,7 +1771,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0098', 0, () => {
+    it('testExpPlaybackSpeed0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 1;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1789,7 +1789,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0099', 0, () => {
+    it('testExpPlaybackSpeed0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 2;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',
@@ -1807,7 +1807,7 @@ export default function playbackSpeedExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlaybackSpeed0100', 0, () => {
+    it('testExpPlaybackSpeed0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: number = 3;
       const names: string[] = ['1.0X', '1.25X', '1.75X', '2.0X'];
       const enumNames: string[] = ['SPEED_FORWARD_1_00_X', 'SPEED_FORWARD_1_25_X',

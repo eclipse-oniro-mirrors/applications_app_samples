@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitleTimeExpandedTest() {
@@ -25,7 +25,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0001', 0, () => {
+    it('testExpSubtitleTime0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 500;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -45,7 +45,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0002', 0, () => {
+    it('testExpSubtitleTime0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 1734;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -65,7 +65,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0003', 0, () => {
+    it('testExpSubtitleTime0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 2968;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -85,7 +85,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0004', 0, () => {
+    it('testExpSubtitleTime0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 4202;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -105,7 +105,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0005', 0, () => {
+    it('testExpSubtitleTime0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 5436;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -125,7 +125,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0006', 0, () => {
+    it('testExpSubtitleTime0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 6670;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -145,7 +145,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0007', 0, () => {
+    it('testExpSubtitleTime0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 7904;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -165,7 +165,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0008', 0, () => {
+    it('testExpSubtitleTime0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 9138;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -185,7 +185,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0009', 0, () => {
+    it('testExpSubtitleTime0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 10372;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -205,7 +205,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0010', 0, () => {
+    it('testExpSubtitleTime0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 11606;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -225,7 +225,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0011', 0, () => {
+    it('testExpSubtitleTime0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 12840;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -245,7 +245,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0012', 0, () => {
+    it('testExpSubtitleTime0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 14074;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -265,7 +265,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0013', 0, () => {
+    it('testExpSubtitleTime0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 15308;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -285,7 +285,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0014', 0, () => {
+    it('testExpSubtitleTime0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 16542;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -305,7 +305,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0015', 0, () => {
+    it('testExpSubtitleTime0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 17776;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -325,7 +325,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0016', 0, () => {
+    it('testExpSubtitleTime0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 19010;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -345,7 +345,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0017', 0, () => {
+    it('testExpSubtitleTime0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 20244;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -365,7 +365,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0018', 0, () => {
+    it('testExpSubtitleTime0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 21478;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -385,7 +385,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0019', 0, () => {
+    it('testExpSubtitleTime0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 22712;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -405,7 +405,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0020', 0, () => {
+    it('testExpSubtitleTime0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 23946;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -425,7 +425,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0021', 0, () => {
+    it('testExpSubtitleTime0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 25180;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -445,7 +445,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0022', 0, () => {
+    it('testExpSubtitleTime0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 26414;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -465,7 +465,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0023', 0, () => {
+    it('testExpSubtitleTime0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 27648;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -485,7 +485,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0024', 0, () => {
+    it('testExpSubtitleTime0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 28882;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -505,7 +505,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0025', 0, () => {
+    it('testExpSubtitleTime0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 30116;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -525,7 +525,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0026', 0, () => {
+    it('testExpSubtitleTime0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 31350;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -545,7 +545,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0027', 0, () => {
+    it('testExpSubtitleTime0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 32584;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -565,7 +565,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0028', 0, () => {
+    it('testExpSubtitleTime0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 33818;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -585,7 +585,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0029', 0, () => {
+    it('testExpSubtitleTime0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 35052;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -605,7 +605,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0030', 0, () => {
+    it('testExpSubtitleTime0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 36286;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -625,7 +625,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0031', 0, () => {
+    it('testExpSubtitleTime0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 37520;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -645,7 +645,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0032', 0, () => {
+    it('testExpSubtitleTime0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 38754;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -665,7 +665,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0033', 0, () => {
+    it('testExpSubtitleTime0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 39988;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -685,7 +685,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0034', 0, () => {
+    it('testExpSubtitleTime0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 41222;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -705,7 +705,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0035', 0, () => {
+    it('testExpSubtitleTime0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 42456;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -725,7 +725,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0036', 0, () => {
+    it('testExpSubtitleTime0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 43690;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -745,7 +745,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0037', 0, () => {
+    it('testExpSubtitleTime0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 44924;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -765,7 +765,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0038', 0, () => {
+    it('testExpSubtitleTime0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 46158;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -785,7 +785,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0039', 0, () => {
+    it('testExpSubtitleTime0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 47392;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -805,7 +805,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0040', 0, () => {
+    it('testExpSubtitleTime0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 48626;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -825,7 +825,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0041', 0, () => {
+    it('testExpSubtitleTime0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 49860;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -845,7 +845,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0042', 0, () => {
+    it('testExpSubtitleTime0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 51094;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -865,7 +865,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0043', 0, () => {
+    it('testExpSubtitleTime0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 52328;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -885,7 +885,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0044', 0, () => {
+    it('testExpSubtitleTime0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 53562;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -905,7 +905,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0045', 0, () => {
+    it('testExpSubtitleTime0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 54796;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -925,7 +925,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0046', 0, () => {
+    it('testExpSubtitleTime0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 56030;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -945,7 +945,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0047', 0, () => {
+    it('testExpSubtitleTime0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 57264;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -965,7 +965,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0048', 0, () => {
+    it('testExpSubtitleTime0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 58498;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -985,7 +985,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0049', 0, () => {
+    it('testExpSubtitleTime0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 59732;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1005,7 +1005,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0050', 0, () => {
+    it('testExpSubtitleTime0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 60966;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1025,7 +1025,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0051', 0, () => {
+    it('testExpSubtitleTime0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 62200;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1045,7 +1045,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0052', 0, () => {
+    it('testExpSubtitleTime0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 63434;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1065,7 +1065,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0053', 0, () => {
+    it('testExpSubtitleTime0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 64668;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1085,7 +1085,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0054', 0, () => {
+    it('testExpSubtitleTime0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 65902;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1105,7 +1105,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0055', 0, () => {
+    it('testExpSubtitleTime0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 67136;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1125,7 +1125,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0056', 0, () => {
+    it('testExpSubtitleTime0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 68370;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1145,7 +1145,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0057', 0, () => {
+    it('testExpSubtitleTime0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 69604;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1165,7 +1165,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0058', 0, () => {
+    it('testExpSubtitleTime0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 70838;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1185,7 +1185,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0059', 0, () => {
+    it('testExpSubtitleTime0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 72072;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1205,7 +1205,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0060', 0, () => {
+    it('testExpSubtitleTime0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 73306;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1225,7 +1225,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0061', 0, () => {
+    it('testExpSubtitleTime0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 74540;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1245,7 +1245,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0062', 0, () => {
+    it('testExpSubtitleTime0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 75774;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1265,7 +1265,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0063', 0, () => {
+    it('testExpSubtitleTime0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 77008;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1285,7 +1285,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0064', 0, () => {
+    it('testExpSubtitleTime0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 78242;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1305,7 +1305,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0065', 0, () => {
+    it('testExpSubtitleTime0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 79476;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1325,7 +1325,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0066', 0, () => {
+    it('testExpSubtitleTime0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 80710;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1345,7 +1345,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0067', 0, () => {
+    it('testExpSubtitleTime0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 81944;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1365,7 +1365,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0068', 0, () => {
+    it('testExpSubtitleTime0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 83178;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1385,7 +1385,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0069', 0, () => {
+    it('testExpSubtitleTime0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 84412;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1405,7 +1405,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0070', 0, () => {
+    it('testExpSubtitleTime0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 85646;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1425,7 +1425,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0071', 0, () => {
+    it('testExpSubtitleTime0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 86880;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1445,7 +1445,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0072', 0, () => {
+    it('testExpSubtitleTime0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 88114;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1465,7 +1465,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0073', 0, () => {
+    it('testExpSubtitleTime0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 89348;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1485,7 +1485,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0074', 0, () => {
+    it('testExpSubtitleTime0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 90582;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1505,7 +1505,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0075', 0, () => {
+    it('testExpSubtitleTime0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 91816;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1525,7 +1525,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0076', 0, () => {
+    it('testExpSubtitleTime0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 93050;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1545,7 +1545,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0077', 0, () => {
+    it('testExpSubtitleTime0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 94284;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1565,7 +1565,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0078', 0, () => {
+    it('testExpSubtitleTime0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 95518;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1585,7 +1585,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0079', 0, () => {
+    it('testExpSubtitleTime0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 96752;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1605,7 +1605,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0080', 0, () => {
+    it('testExpSubtitleTime0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 97986;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1625,7 +1625,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0081', 0, () => {
+    it('testExpSubtitleTime0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 99220;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1645,7 +1645,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0082', 0, () => {
+    it('testExpSubtitleTime0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 100454;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1665,7 +1665,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0083', 0, () => {
+    it('testExpSubtitleTime0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 101688;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1685,7 +1685,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0084', 0, () => {
+    it('testExpSubtitleTime0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 102922;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1705,7 +1705,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0085', 0, () => {
+    it('testExpSubtitleTime0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 104156;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1725,7 +1725,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0086', 0, () => {
+    it('testExpSubtitleTime0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 105390;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1745,7 +1745,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0087', 0, () => {
+    it('testExpSubtitleTime0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 106624;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1765,7 +1765,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0088', 0, () => {
+    it('testExpSubtitleTime0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 107858;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1785,7 +1785,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0089', 0, () => {
+    it('testExpSubtitleTime0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 109092;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1805,7 +1805,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0090', 0, () => {
+    it('testExpSubtitleTime0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 110326;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1825,7 +1825,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0091', 0, () => {
+    it('testExpSubtitleTime0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 111560;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1845,7 +1845,7 @@ export default function subtitleTimeExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleTime0092', 0, () => {
+    it('testExpSubtitleTime0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 112794;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);

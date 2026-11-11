@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function playbackLimitsExpandedTest() {
@@ -25,7 +25,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0001', 0, () => {
+    it('testMorePlaybackLimit0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 0;
       const position: number = duration * percent / 100;
@@ -42,7 +42,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0002', 0, () => {
+    it('testMorePlaybackLimit0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 1;
       const position: number = duration * percent / 100;
@@ -59,7 +59,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0003', 0, () => {
+    it('testMorePlaybackLimit0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 2;
       const position: number = duration * percent / 100;
@@ -76,7 +76,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0004', 0, () => {
+    it('testMorePlaybackLimit0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 3;
       const position: number = duration * percent / 100;
@@ -93,7 +93,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0005', 0, () => {
+    it('testMorePlaybackLimit0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 4;
       const position: number = duration * percent / 100;
@@ -110,7 +110,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0006', 0, () => {
+    it('testMorePlaybackLimit0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 5;
       const position: number = duration * percent / 100;
@@ -127,7 +127,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0007', 0, () => {
+    it('testMorePlaybackLimit0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 6;
       const position: number = duration * percent / 100;
@@ -144,7 +144,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0008', 0, () => {
+    it('testMorePlaybackLimit0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 7;
       const position: number = duration * percent / 100;
@@ -161,7 +161,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0009', 0, () => {
+    it('testMorePlaybackLimit0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 8;
       const position: number = duration * percent / 100;
@@ -178,7 +178,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0010', 0, () => {
+    it('testMorePlaybackLimit0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 9;
       const position: number = duration * percent / 100;
@@ -195,7 +195,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0011', 0, () => {
+    it('testMorePlaybackLimit0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 10;
       const position: number = duration * percent / 100;
@@ -212,7 +212,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0012', 0, () => {
+    it('testMorePlaybackLimit0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 11;
       const position: number = duration * percent / 100;
@@ -229,7 +229,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0013', 0, () => {
+    it('testMorePlaybackLimit0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 12;
       const position: number = duration * percent / 100;
@@ -246,7 +246,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0014', 0, () => {
+    it('testMorePlaybackLimit0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 13;
       const position: number = duration * percent / 100;
@@ -263,7 +263,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0015', 0, () => {
+    it('testMorePlaybackLimit0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 14;
       const position: number = duration * percent / 100;
@@ -280,7 +280,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0016', 0, () => {
+    it('testMorePlaybackLimit0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 15;
       const position: number = duration * percent / 100;
@@ -297,7 +297,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0017', 0, () => {
+    it('testMorePlaybackLimit0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 16;
       const position: number = duration * percent / 100;
@@ -314,7 +314,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0018', 0, () => {
+    it('testMorePlaybackLimit0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 17;
       const position: number = duration * percent / 100;
@@ -331,7 +331,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0019', 0, () => {
+    it('testMorePlaybackLimit0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 18;
       const position: number = duration * percent / 100;
@@ -348,7 +348,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0020', 0, () => {
+    it('testMorePlaybackLimit0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 19;
       const position: number = duration * percent / 100;
@@ -365,7 +365,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0021', 0, () => {
+    it('testMorePlaybackLimit0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 20;
       const position: number = duration * percent / 100;
@@ -382,7 +382,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0022', 0, () => {
+    it('testMorePlaybackLimit0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 21;
       const position: number = duration * percent / 100;
@@ -399,7 +399,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0023', 0, () => {
+    it('testMorePlaybackLimit0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 22;
       const position: number = duration * percent / 100;
@@ -416,7 +416,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0024', 0, () => {
+    it('testMorePlaybackLimit0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 23;
       const position: number = duration * percent / 100;
@@ -433,7 +433,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0025', 0, () => {
+    it('testMorePlaybackLimit0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 24;
       const position: number = duration * percent / 100;
@@ -450,7 +450,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0026', 0, () => {
+    it('testMorePlaybackLimit0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 25;
       const position: number = duration * percent / 100;
@@ -467,7 +467,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0027', 0, () => {
+    it('testMorePlaybackLimit0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 26;
       const position: number = duration * percent / 100;
@@ -484,7 +484,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0028', 0, () => {
+    it('testMorePlaybackLimit0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 27;
       const position: number = duration * percent / 100;
@@ -501,7 +501,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0029', 0, () => {
+    it('testMorePlaybackLimit0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 28;
       const position: number = duration * percent / 100;
@@ -518,7 +518,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0030', 0, () => {
+    it('testMorePlaybackLimit0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 29;
       const position: number = duration * percent / 100;
@@ -535,7 +535,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0031', 0, () => {
+    it('testMorePlaybackLimit0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 30;
       const position: number = duration * percent / 100;
@@ -552,7 +552,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0032', 0, () => {
+    it('testMorePlaybackLimit0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 31;
       const position: number = duration * percent / 100;
@@ -569,7 +569,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0033', 0, () => {
+    it('testMorePlaybackLimit0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 32;
       const position: number = duration * percent / 100;
@@ -586,7 +586,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0034', 0, () => {
+    it('testMorePlaybackLimit0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 33;
       const position: number = duration * percent / 100;
@@ -603,7 +603,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0035', 0, () => {
+    it('testMorePlaybackLimit0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 34;
       const position: number = duration * percent / 100;
@@ -620,7 +620,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0036', 0, () => {
+    it('testMorePlaybackLimit0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 35;
       const position: number = duration * percent / 100;
@@ -637,7 +637,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0037', 0, () => {
+    it('testMorePlaybackLimit0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 36;
       const position: number = duration * percent / 100;
@@ -654,7 +654,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0038', 0, () => {
+    it('testMorePlaybackLimit0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 37;
       const position: number = duration * percent / 100;
@@ -671,7 +671,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0039', 0, () => {
+    it('testMorePlaybackLimit0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 38;
       const position: number = duration * percent / 100;
@@ -688,7 +688,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0040', 0, () => {
+    it('testMorePlaybackLimit0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 39;
       const position: number = duration * percent / 100;
@@ -705,7 +705,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0041', 0, () => {
+    it('testMorePlaybackLimit0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 40;
       const position: number = duration * percent / 100;
@@ -722,7 +722,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0042', 0, () => {
+    it('testMorePlaybackLimit0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 41;
       const position: number = duration * percent / 100;
@@ -739,7 +739,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0043', 0, () => {
+    it('testMorePlaybackLimit0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 42;
       const position: number = duration * percent / 100;
@@ -756,7 +756,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0044', 0, () => {
+    it('testMorePlaybackLimit0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 43;
       const position: number = duration * percent / 100;
@@ -773,7 +773,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0045', 0, () => {
+    it('testMorePlaybackLimit0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 44;
       const position: number = duration * percent / 100;
@@ -790,7 +790,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0046', 0, () => {
+    it('testMorePlaybackLimit0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 45;
       const position: number = duration * percent / 100;
@@ -807,7 +807,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0047', 0, () => {
+    it('testMorePlaybackLimit0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 46;
       const position: number = duration * percent / 100;
@@ -824,7 +824,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0048', 0, () => {
+    it('testMorePlaybackLimit0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 47;
       const position: number = duration * percent / 100;
@@ -841,7 +841,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0049', 0, () => {
+    it('testMorePlaybackLimit0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 48;
       const position: number = duration * percent / 100;
@@ -858,7 +858,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0050', 0, () => {
+    it('testMorePlaybackLimit0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 49;
       const position: number = duration * percent / 100;
@@ -875,7 +875,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0051', 0, () => {
+    it('testMorePlaybackLimit0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 50;
       const position: number = duration * percent / 100;
@@ -892,7 +892,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0052', 0, () => {
+    it('testMorePlaybackLimit0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 51;
       const position: number = duration * percent / 100;
@@ -909,7 +909,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0053', 0, () => {
+    it('testMorePlaybackLimit0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 52;
       const position: number = duration * percent / 100;
@@ -926,7 +926,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0054', 0, () => {
+    it('testMorePlaybackLimit0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 53;
       const position: number = duration * percent / 100;
@@ -943,7 +943,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0055', 0, () => {
+    it('testMorePlaybackLimit0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 54;
       const position: number = duration * percent / 100;
@@ -960,7 +960,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0056', 0, () => {
+    it('testMorePlaybackLimit0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 55;
       const position: number = duration * percent / 100;
@@ -977,7 +977,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0057', 0, () => {
+    it('testMorePlaybackLimit0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 56;
       const position: number = duration * percent / 100;
@@ -994,7 +994,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0058', 0, () => {
+    it('testMorePlaybackLimit0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 57;
       const position: number = duration * percent / 100;
@@ -1011,7 +1011,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0059', 0, () => {
+    it('testMorePlaybackLimit0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 58;
       const position: number = duration * percent / 100;
@@ -1028,7 +1028,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0060', 0, () => {
+    it('testMorePlaybackLimit0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 59;
       const position: number = duration * percent / 100;
@@ -1045,7 +1045,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0061', 0, () => {
+    it('testMorePlaybackLimit0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 60;
       const position: number = duration * percent / 100;
@@ -1062,7 +1062,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0062', 0, () => {
+    it('testMorePlaybackLimit0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 61;
       const position: number = duration * percent / 100;
@@ -1079,7 +1079,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0063', 0, () => {
+    it('testMorePlaybackLimit0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 62;
       const position: number = duration * percent / 100;
@@ -1096,7 +1096,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0064', 0, () => {
+    it('testMorePlaybackLimit0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 63;
       const position: number = duration * percent / 100;
@@ -1113,7 +1113,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0065', 0, () => {
+    it('testMorePlaybackLimit0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 64;
       const position: number = duration * percent / 100;
@@ -1130,7 +1130,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0066', 0, () => {
+    it('testMorePlaybackLimit0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 65;
       const position: number = duration * percent / 100;
@@ -1147,7 +1147,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0067', 0, () => {
+    it('testMorePlaybackLimit0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 66;
       const position: number = duration * percent / 100;
@@ -1164,7 +1164,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0068', 0, () => {
+    it('testMorePlaybackLimit0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 67;
       const position: number = duration * percent / 100;
@@ -1181,7 +1181,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0069', 0, () => {
+    it('testMorePlaybackLimit0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 68;
       const position: number = duration * percent / 100;
@@ -1198,7 +1198,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0070', 0, () => {
+    it('testMorePlaybackLimit0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 69;
       const position: number = duration * percent / 100;
@@ -1215,7 +1215,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0071', 0, () => {
+    it('testMorePlaybackLimit0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 70;
       const position: number = duration * percent / 100;
@@ -1232,7 +1232,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0072', 0, () => {
+    it('testMorePlaybackLimit0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 71;
       const position: number = duration * percent / 100;
@@ -1249,7 +1249,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0073', 0, () => {
+    it('testMorePlaybackLimit0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 72;
       const position: number = duration * percent / 100;
@@ -1266,7 +1266,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0074', 0, () => {
+    it('testMorePlaybackLimit0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 73;
       const position: number = duration * percent / 100;
@@ -1283,7 +1283,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0075', 0, () => {
+    it('testMorePlaybackLimit0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 74;
       const position: number = duration * percent / 100;
@@ -1300,7 +1300,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0076', 0, () => {
+    it('testMorePlaybackLimit0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 75;
       const position: number = duration * percent / 100;
@@ -1317,7 +1317,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0077', 0, () => {
+    it('testMorePlaybackLimit0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 76;
       const position: number = duration * percent / 100;
@@ -1334,7 +1334,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0078', 0, () => {
+    it('testMorePlaybackLimit0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 77;
       const position: number = duration * percent / 100;
@@ -1351,7 +1351,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0079', 0, () => {
+    it('testMorePlaybackLimit0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 78;
       const position: number = duration * percent / 100;
@@ -1368,7 +1368,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0080', 0, () => {
+    it('testMorePlaybackLimit0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 79;
       const position: number = duration * percent / 100;
@@ -1385,7 +1385,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0081', 0, () => {
+    it('testMorePlaybackLimit0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 80;
       const position: number = duration * percent / 100;
@@ -1402,7 +1402,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0082', 0, () => {
+    it('testMorePlaybackLimit0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 81;
       const position: number = duration * percent / 100;
@@ -1419,7 +1419,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0083', 0, () => {
+    it('testMorePlaybackLimit0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 82;
       const position: number = duration * percent / 100;
@@ -1436,7 +1436,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0084', 0, () => {
+    it('testMorePlaybackLimit0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 83;
       const position: number = duration * percent / 100;
@@ -1453,7 +1453,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0085', 0, () => {
+    it('testMorePlaybackLimit0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 84;
       const position: number = duration * percent / 100;
@@ -1470,7 +1470,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0086', 0, () => {
+    it('testMorePlaybackLimit0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 85;
       const position: number = duration * percent / 100;
@@ -1487,7 +1487,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0087', 0, () => {
+    it('testMorePlaybackLimit0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 86;
       const position: number = duration * percent / 100;
@@ -1504,7 +1504,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0088', 0, () => {
+    it('testMorePlaybackLimit0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 87;
       const position: number = duration * percent / 100;
@@ -1521,7 +1521,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0089', 0, () => {
+    it('testMorePlaybackLimit0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 88;
       const position: number = duration * percent / 100;
@@ -1538,7 +1538,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0090', 0, () => {
+    it('testMorePlaybackLimit0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 89;
       const position: number = duration * percent / 100;
@@ -1555,7 +1555,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0091', 0, () => {
+    it('testMorePlaybackLimit0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 90;
       const position: number = duration * percent / 100;
@@ -1572,7 +1572,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0092', 0, () => {
+    it('testMorePlaybackLimit0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 91;
       const position: number = duration * percent / 100;
@@ -1589,7 +1589,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0093', 0, () => {
+    it('testMorePlaybackLimit0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 92;
       const position: number = duration * percent / 100;
@@ -1606,7 +1606,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0094', 0, () => {
+    it('testMorePlaybackLimit0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 93;
       const position: number = duration * percent / 100;
@@ -1623,7 +1623,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0095', 0, () => {
+    it('testMorePlaybackLimit0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 94;
       const position: number = duration * percent / 100;
@@ -1640,7 +1640,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0096', 0, () => {
+    it('testMorePlaybackLimit0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 1000;
       const percent: number = 95;
       const position: number = duration * percent / 100;
@@ -1657,7 +1657,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0097', 0, () => {
+    it('testMorePlaybackLimit0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 5000;
       const percent: number = 96;
       const position: number = duration * percent / 100;
@@ -1674,7 +1674,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0098', 0, () => {
+    it('testMorePlaybackLimit0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const percent: number = 97;
       const position: number = duration * percent / 100;
@@ -1691,7 +1691,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0099', 0, () => {
+    it('testMorePlaybackLimit0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const percent: number = 98;
       const position: number = duration * percent / 100;
@@ -1708,7 +1708,7 @@ export default function playbackLimitsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlaybackLimit0100', 0, () => {
+    it('testMorePlaybackLimit0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 3600000;
       const percent: number = 99;
       const position: number = duration * percent / 100;

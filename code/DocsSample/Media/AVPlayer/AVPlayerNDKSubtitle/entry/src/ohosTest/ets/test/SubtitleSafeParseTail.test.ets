@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function subtitleSafeParseTailTest() {
   describe('subtitleSafeParseTailTest', () => {
@@ -24,7 +24,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0001', 0, () => {
+    it('testSafeParseCue0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '1';
       const start: number = 0;
       const end: number = 1000;
@@ -44,7 +44,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0002', 0, () => {
+    it('testSafeParseCue0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '2';
       const start: number = 250;
       const end: number = 1350;
@@ -64,7 +64,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0003', 0, () => {
+    it('testSafeParseCue0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '3';
       const start: number = 500;
       const end: number = 1700;
@@ -84,7 +84,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0004', 0, () => {
+    it('testSafeParseCue0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '4';
       const start: number = 750;
       const end: number = 2050;
@@ -104,7 +104,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0005', 0, () => {
+    it('testSafeParseCue0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '5';
       const start: number = 1000;
       const end: number = 2400;
@@ -124,7 +124,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0006', 0, () => {
+    it('testSafeParseCue0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '6';
       const start: number = 1250;
       const end: number = 2250;
@@ -144,7 +144,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0007', 0, () => {
+    it('testSafeParseCue0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '7';
       const start: number = 1500;
       const end: number = 2600;
@@ -164,7 +164,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0008', 0, () => {
+    it('testSafeParseCue0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '8';
       const start: number = 1750;
       const end: number = 2950;
@@ -184,7 +184,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0009', 0, () => {
+    it('testSafeParseCue0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '9';
       const start: number = 2000;
       const end: number = 3300;
@@ -204,7 +204,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0010', 0, () => {
+    it('testSafeParseCue0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '10';
       const start: number = 2250;
       const end: number = 3650;
@@ -224,7 +224,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0011', 0, () => {
+    it('testSafeParseCue0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '11';
       const start: number = 2500;
       const end: number = 3500;
@@ -244,7 +244,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0012', 0, () => {
+    it('testSafeParseCue0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '12';
       const start: number = 2750;
       const end: number = 3850;
@@ -264,7 +264,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0013', 0, () => {
+    it('testSafeParseCue0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '13';
       const start: number = 3000;
       const end: number = 4200;
@@ -284,7 +284,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0014', 0, () => {
+    it('testSafeParseCue0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '14';
       const start: number = 3250;
       const end: number = 4550;
@@ -304,7 +304,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0015', 0, () => {
+    it('testSafeParseCue0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '15';
       const start: number = 3500;
       const end: number = 4900;
@@ -324,7 +324,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0016', 0, () => {
+    it('testSafeParseCue0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '16';
       const start: number = 3750;
       const end: number = 4750;
@@ -344,7 +344,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0017', 0, () => {
+    it('testSafeParseCue0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '17';
       const start: number = 4000;
       const end: number = 5100;
@@ -364,7 +364,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0018', 0, () => {
+    it('testSafeParseCue0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '18';
       const start: number = 4250;
       const end: number = 5450;
@@ -384,7 +384,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0019', 0, () => {
+    it('testSafeParseCue0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '19';
       const start: number = 4500;
       const end: number = 5800;
@@ -404,7 +404,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0020', 0, () => {
+    it('testSafeParseCue0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '20';
       const start: number = 4750;
       const end: number = 6150;
@@ -424,7 +424,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0021', 0, () => {
+    it('testSafeParseCue0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '21';
       const start: number = 5000;
       const end: number = 6000;
@@ -444,7 +444,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0022', 0, () => {
+    it('testSafeParseCue0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '22';
       const start: number = 5250;
       const end: number = 6350;
@@ -464,7 +464,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0023', 0, () => {
+    it('testSafeParseCue0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '23';
       const start: number = 5500;
       const end: number = 6700;
@@ -484,7 +484,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0024', 0, () => {
+    it('testSafeParseCue0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '24';
       const start: number = 5750;
       const end: number = 7050;
@@ -504,7 +504,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0025', 0, () => {
+    it('testSafeParseCue0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '25';
       const start: number = 6000;
       const end: number = 7400;
@@ -524,7 +524,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0026', 0, () => {
+    it('testSafeParseCue0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '26';
       const start: number = 6250;
       const end: number = 7250;
@@ -544,7 +544,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0027', 0, () => {
+    it('testSafeParseCue0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '27';
       const start: number = 6500;
       const end: number = 7600;
@@ -564,7 +564,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0028', 0, () => {
+    it('testSafeParseCue0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '28';
       const start: number = 6750;
       const end: number = 7950;
@@ -584,7 +584,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0029', 0, () => {
+    it('testSafeParseCue0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '29';
       const start: number = 7000;
       const end: number = 8300;
@@ -604,7 +604,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0030', 0, () => {
+    it('testSafeParseCue0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '30';
       const start: number = 7250;
       const end: number = 8650;
@@ -624,7 +624,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0031', 0, () => {
+    it('testSafeParseCue0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '31';
       const start: number = 7500;
       const end: number = 8500;
@@ -644,7 +644,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0032', 0, () => {
+    it('testSafeParseCue0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '32';
       const start: number = 7750;
       const end: number = 8850;
@@ -664,7 +664,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0033', 0, () => {
+    it('testSafeParseCue0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '33';
       const start: number = 8000;
       const end: number = 9200;
@@ -684,7 +684,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0034', 0, () => {
+    it('testSafeParseCue0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '34';
       const start: number = 8250;
       const end: number = 9550;
@@ -704,7 +704,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0035', 0, () => {
+    it('testSafeParseCue0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '35';
       const start: number = 8500;
       const end: number = 9900;
@@ -724,7 +724,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0036', 0, () => {
+    it('testSafeParseCue0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '36';
       const start: number = 8750;
       const end: number = 9750;
@@ -744,7 +744,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0037', 0, () => {
+    it('testSafeParseCue0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '37';
       const start: number = 9000;
       const end: number = 10100;
@@ -764,7 +764,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0038', 0, () => {
+    it('testSafeParseCue0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '38';
       const start: number = 9250;
       const end: number = 10450;
@@ -784,7 +784,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0039', 0, () => {
+    it('testSafeParseCue0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '39';
       const start: number = 9500;
       const end: number = 10800;
@@ -804,7 +804,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0040', 0, () => {
+    it('testSafeParseCue0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '40';
       const start: number = 9750;
       const end: number = 11150;
@@ -824,7 +824,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0041', 0, () => {
+    it('testSafeParseCue0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '41';
       const start: number = 10000;
       const end: number = 11000;
@@ -844,7 +844,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0042', 0, () => {
+    it('testSafeParseCue0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '42';
       const start: number = 10250;
       const end: number = 11350;
@@ -864,7 +864,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0043', 0, () => {
+    it('testSafeParseCue0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '43';
       const start: number = 10500;
       const end: number = 11700;
@@ -884,7 +884,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0044', 0, () => {
+    it('testSafeParseCue0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '44';
       const start: number = 10750;
       const end: number = 12050;
@@ -904,7 +904,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0045', 0, () => {
+    it('testSafeParseCue0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '45';
       const start: number = 11000;
       const end: number = 12400;
@@ -924,7 +924,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0046', 0, () => {
+    it('testSafeParseCue0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '46';
       const start: number = 11250;
       const end: number = 12250;
@@ -944,7 +944,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0047', 0, () => {
+    it('testSafeParseCue0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '47';
       const start: number = 11500;
       const end: number = 12600;
@@ -964,7 +964,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0048', 0, () => {
+    it('testSafeParseCue0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '48';
       const start: number = 11750;
       const end: number = 12950;
@@ -984,7 +984,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0049', 0, () => {
+    it('testSafeParseCue0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '49';
       const start: number = 12000;
       const end: number = 13300;
@@ -1004,7 +1004,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0050', 0, () => {
+    it('testSafeParseCue0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '50';
       const start: number = 12250;
       const end: number = 13650;
@@ -1024,7 +1024,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0051', 0, () => {
+    it('testSafeParseCue0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '51';
       const start: number = 12500;
       const end: number = 13500;
@@ -1044,7 +1044,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0052', 0, () => {
+    it('testSafeParseCue0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '52';
       const start: number = 12750;
       const end: number = 13850;
@@ -1064,7 +1064,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0053', 0, () => {
+    it('testSafeParseCue0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '53';
       const start: number = 13000;
       const end: number = 14200;
@@ -1084,7 +1084,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0054', 0, () => {
+    it('testSafeParseCue0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '54';
       const start: number = 13250;
       const end: number = 14550;
@@ -1104,7 +1104,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0055', 0, () => {
+    it('testSafeParseCue0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '55';
       const start: number = 13500;
       const end: number = 14900;
@@ -1124,7 +1124,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0056', 0, () => {
+    it('testSafeParseCue0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '56';
       const start: number = 13750;
       const end: number = 14750;
@@ -1144,7 +1144,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0057', 0, () => {
+    it('testSafeParseCue0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '57';
       const start: number = 14000;
       const end: number = 15100;
@@ -1164,7 +1164,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0058', 0, () => {
+    it('testSafeParseCue0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '58';
       const start: number = 14250;
       const end: number = 15450;
@@ -1184,7 +1184,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0059', 0, () => {
+    it('testSafeParseCue0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '59';
       const start: number = 14500;
       const end: number = 15800;
@@ -1204,7 +1204,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0060', 0, () => {
+    it('testSafeParseCue0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '60';
       const start: number = 14750;
       const end: number = 16150;
@@ -1224,7 +1224,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0061', 0, () => {
+    it('testSafeParseCue0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '61';
       const start: number = 15000;
       const end: number = 16000;
@@ -1244,7 +1244,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0062', 0, () => {
+    it('testSafeParseCue0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '62';
       const start: number = 15250;
       const end: number = 16350;
@@ -1264,7 +1264,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0063', 0, () => {
+    it('testSafeParseCue0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '63';
       const start: number = 15500;
       const end: number = 16700;
@@ -1284,7 +1284,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0064', 0, () => {
+    it('testSafeParseCue0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '64';
       const start: number = 15750;
       const end: number = 17050;
@@ -1304,7 +1304,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0065', 0, () => {
+    it('testSafeParseCue0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '65';
       const start: number = 16000;
       const end: number = 17400;
@@ -1324,7 +1324,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0066', 0, () => {
+    it('testSafeParseCue0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '66';
       const start: number = 16250;
       const end: number = 17250;
@@ -1344,7 +1344,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0067', 0, () => {
+    it('testSafeParseCue0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '67';
       const start: number = 16500;
       const end: number = 17600;
@@ -1364,7 +1364,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0068', 0, () => {
+    it('testSafeParseCue0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '68';
       const start: number = 16750;
       const end: number = 17950;
@@ -1384,7 +1384,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0069', 0, () => {
+    it('testSafeParseCue0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '69';
       const start: number = 17000;
       const end: number = 18300;
@@ -1404,7 +1404,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0070', 0, () => {
+    it('testSafeParseCue0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '70';
       const start: number = 17250;
       const end: number = 18650;
@@ -1424,7 +1424,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0071', 0, () => {
+    it('testSafeParseCue0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '71';
       const start: number = 17500;
       const end: number = 18500;
@@ -1444,7 +1444,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0072', 0, () => {
+    it('testSafeParseCue0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '72';
       const start: number = 17750;
       const end: number = 18850;
@@ -1464,7 +1464,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0073', 0, () => {
+    it('testSafeParseCue0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '73';
       const start: number = 18000;
       const end: number = 19200;
@@ -1484,7 +1484,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0074', 0, () => {
+    it('testSafeParseCue0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '74';
       const start: number = 18250;
       const end: number = 19550;
@@ -1504,7 +1504,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0075', 0, () => {
+    it('testSafeParseCue0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '75';
       const start: number = 18500;
       const end: number = 19900;
@@ -1524,7 +1524,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0076', 0, () => {
+    it('testSafeParseCue0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '76';
       const start: number = 18750;
       const end: number = 19750;
@@ -1544,7 +1544,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0077', 0, () => {
+    it('testSafeParseCue0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '77';
       const start: number = 19000;
       const end: number = 20100;
@@ -1564,7 +1564,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0078', 0, () => {
+    it('testSafeParseCue0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '78';
       const start: number = 19250;
       const end: number = 20450;
@@ -1584,7 +1584,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0079', 0, () => {
+    it('testSafeParseCue0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '79';
       const start: number = 19500;
       const end: number = 20800;
@@ -1604,7 +1604,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0080', 0, () => {
+    it('testSafeParseCue0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '80';
       const start: number = 19750;
       const end: number = 21150;
@@ -1624,7 +1624,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0081', 0, () => {
+    it('testSafeParseCue0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '81';
       const start: number = 20000;
       const end: number = 21000;
@@ -1644,7 +1644,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0082', 0, () => {
+    it('testSafeParseCue0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '82';
       const start: number = 20250;
       const end: number = 21350;
@@ -1664,7 +1664,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0083', 0, () => {
+    it('testSafeParseCue0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '83';
       const start: number = 20500;
       const end: number = 21700;
@@ -1684,7 +1684,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0084', 0, () => {
+    it('testSafeParseCue0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '84';
       const start: number = 20750;
       const end: number = 22050;
@@ -1704,7 +1704,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0085', 0, () => {
+    it('testSafeParseCue0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '85';
       const start: number = 21000;
       const end: number = 22400;
@@ -1724,7 +1724,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0086', 0, () => {
+    it('testSafeParseCue0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '86';
       const start: number = 21250;
       const end: number = 22250;
@@ -1744,7 +1744,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0087', 0, () => {
+    it('testSafeParseCue0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '87';
       const start: number = 21500;
       const end: number = 22600;
@@ -1764,7 +1764,7 @@ export default function subtitleSafeParseTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseCue0088', 0, () => {
+    it('testSafeParseCue0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '88';
       const start: number = 21750;
       const end: number = 22950;

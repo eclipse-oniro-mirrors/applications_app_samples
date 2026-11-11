@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function nativeArgument8wTest() {
@@ -25,7 +25,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0001', 0, () => {
+    it('test8wNativeArgument0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -42,7 +42,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0002', 0, () => {
+    it('test8wNativeArgument0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -59,7 +59,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0003', 0, () => {
+    it('test8wNativeArgument0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -76,7 +76,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0004', 0, () => {
+    it('test8wNativeArgument0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -93,7 +93,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0005', 0, () => {
+    it('test8wNativeArgument0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -110,7 +110,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0006', 0, () => {
+    it('test8wNativeArgument0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -127,7 +127,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0007', 0, () => {
+    it('test8wNativeArgument0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -144,7 +144,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0008', 0, () => {
+    it('test8wNativeArgument0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -161,7 +161,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0009', 0, () => {
+    it('test8wNativeArgument0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -178,7 +178,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0010', 0, () => {
+    it('test8wNativeArgument0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -195,7 +195,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0011', 0, () => {
+    it('test8wNativeArgument0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -212,7 +212,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0012', 0, () => {
+    it('test8wNativeArgument0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -229,7 +229,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0013', 0, () => {
+    it('test8wNativeArgument0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -246,7 +246,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0014', 0, () => {
+    it('test8wNativeArgument0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -263,7 +263,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0015', 0, () => {
+    it('test8wNativeArgument0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -280,7 +280,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0016', 0, () => {
+    it('test8wNativeArgument0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -297,7 +297,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0017', 0, () => {
+    it('test8wNativeArgument0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -314,7 +314,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0018', 0, () => {
+    it('test8wNativeArgument0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -331,7 +331,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0019', 0, () => {
+    it('test8wNativeArgument0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -348,7 +348,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0020', 0, () => {
+    it('test8wNativeArgument0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -365,7 +365,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0021', 0, () => {
+    it('test8wNativeArgument0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -382,7 +382,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0022', 0, () => {
+    it('test8wNativeArgument0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -399,7 +399,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0023', 0, () => {
+    it('test8wNativeArgument0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -416,7 +416,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0024', 0, () => {
+    it('test8wNativeArgument0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -433,7 +433,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0025', 0, () => {
+    it('test8wNativeArgument0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -450,7 +450,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0026', 0, () => {
+    it('test8wNativeArgument0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -467,7 +467,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0027', 0, () => {
+    it('test8wNativeArgument0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -484,7 +484,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0028', 0, () => {
+    it('test8wNativeArgument0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -501,7 +501,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0029', 0, () => {
+    it('test8wNativeArgument0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -518,7 +518,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0030', 0, () => {
+    it('test8wNativeArgument0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -535,7 +535,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0031', 0, () => {
+    it('test8wNativeArgument0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -552,7 +552,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0032', 0, () => {
+    it('test8wNativeArgument0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -569,7 +569,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0033', 0, () => {
+    it('test8wNativeArgument0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -586,7 +586,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0034', 0, () => {
+    it('test8wNativeArgument0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -603,7 +603,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0035', 0, () => {
+    it('test8wNativeArgument0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -620,7 +620,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0036', 0, () => {
+    it('test8wNativeArgument0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -637,7 +637,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0037', 0, () => {
+    it('test8wNativeArgument0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -654,7 +654,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0038', 0, () => {
+    it('test8wNativeArgument0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -671,7 +671,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0039', 0, () => {
+    it('test8wNativeArgument0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -688,7 +688,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0040', 0, () => {
+    it('test8wNativeArgument0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -705,7 +705,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0041', 0, () => {
+    it('test8wNativeArgument0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -722,7 +722,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0042', 0, () => {
+    it('test8wNativeArgument0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -739,7 +739,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0043', 0, () => {
+    it('test8wNativeArgument0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -756,7 +756,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0044', 0, () => {
+    it('test8wNativeArgument0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -773,7 +773,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0045', 0, () => {
+    it('test8wNativeArgument0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -790,7 +790,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0046', 0, () => {
+    it('test8wNativeArgument0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -807,7 +807,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0047', 0, () => {
+    it('test8wNativeArgument0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -824,7 +824,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0048', 0, () => {
+    it('test8wNativeArgument0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -841,7 +841,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0049', 0, () => {
+    it('test8wNativeArgument0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -858,7 +858,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0050', 0, () => {
+    it('test8wNativeArgument0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -875,7 +875,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0051', 0, () => {
+    it('test8wNativeArgument0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -892,7 +892,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0052', 0, () => {
+    it('test8wNativeArgument0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -909,7 +909,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0053', 0, () => {
+    it('test8wNativeArgument0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -926,7 +926,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0054', 0, () => {
+    it('test8wNativeArgument0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -943,7 +943,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0055', 0, () => {
+    it('test8wNativeArgument0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -960,7 +960,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0056', 0, () => {
+    it('test8wNativeArgument0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -977,7 +977,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0057', 0, () => {
+    it('test8wNativeArgument0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -994,7 +994,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0058', 0, () => {
+    it('test8wNativeArgument0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1011,7 +1011,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0059', 0, () => {
+    it('test8wNativeArgument0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1028,7 +1028,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0060', 0, () => {
+    it('test8wNativeArgument0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1045,7 +1045,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0061', 0, () => {
+    it('test8wNativeArgument0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1062,7 +1062,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0062', 0, () => {
+    it('test8wNativeArgument0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1079,7 +1079,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0063', 0, () => {
+    it('test8wNativeArgument0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1096,7 +1096,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0064', 0, () => {
+    it('test8wNativeArgument0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1113,7 +1113,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0065', 0, () => {
+    it('test8wNativeArgument0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1130,7 +1130,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0066', 0, () => {
+    it('test8wNativeArgument0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1147,7 +1147,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0067', 0, () => {
+    it('test8wNativeArgument0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1164,7 +1164,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0068', 0, () => {
+    it('test8wNativeArgument0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1181,7 +1181,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0069', 0, () => {
+    it('test8wNativeArgument0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1198,7 +1198,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0070', 0, () => {
+    it('test8wNativeArgument0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1215,7 +1215,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0071', 0, () => {
+    it('test8wNativeArgument0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1232,7 +1232,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0072', 0, () => {
+    it('test8wNativeArgument0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1249,7 +1249,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0073', 0, () => {
+    it('test8wNativeArgument0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1266,7 +1266,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0074', 0, () => {
+    it('test8wNativeArgument0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1283,7 +1283,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0075', 0, () => {
+    it('test8wNativeArgument0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1300,7 +1300,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0076', 0, () => {
+    it('test8wNativeArgument0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1317,7 +1317,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0077', 0, () => {
+    it('test8wNativeArgument0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1334,7 +1334,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0078', 0, () => {
+    it('test8wNativeArgument0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1351,7 +1351,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0079', 0, () => {
+    it('test8wNativeArgument0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1368,7 +1368,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0080', 0, () => {
+    it('test8wNativeArgument0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1385,7 +1385,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0081', 0, () => {
+    it('test8wNativeArgument0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1402,7 +1402,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0082', 0, () => {
+    it('test8wNativeArgument0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1419,7 +1419,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0083', 0, () => {
+    it('test8wNativeArgument0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1436,7 +1436,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0084', 0, () => {
+    it('test8wNativeArgument0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1453,7 +1453,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0085', 0, () => {
+    it('test8wNativeArgument0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1470,7 +1470,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0086', 0, () => {
+    it('test8wNativeArgument0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1487,7 +1487,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0087', 0, () => {
+    it('test8wNativeArgument0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1504,7 +1504,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0088', 0, () => {
+    it('test8wNativeArgument0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1521,7 +1521,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0089', 0, () => {
+    it('test8wNativeArgument0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1538,7 +1538,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0090', 0, () => {
+    it('test8wNativeArgument0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1555,7 +1555,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0091', 0, () => {
+    it('test8wNativeArgument0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1572,7 +1572,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0092', 0, () => {
+    it('test8wNativeArgument0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1589,7 +1589,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0093', 0, () => {
+    it('test8wNativeArgument0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1606,7 +1606,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0094', 0, () => {
+    it('test8wNativeArgument0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1623,7 +1623,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0095', 0, () => {
+    it('test8wNativeArgument0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1640,7 +1640,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0096', 0, () => {
+    it('test8wNativeArgument0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1657,7 +1657,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0097', 0, () => {
+    it('test8wNativeArgument0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1674,7 +1674,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0098', 0, () => {
+    it('test8wNativeArgument0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1691,7 +1691,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0099', 0, () => {
+    it('test8wNativeArgument0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1708,7 +1708,7 @@ export default function nativeArgument8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wNativeArgument0100', 0, () => {
+    it('test8wNativeArgument0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function syncState8wTest() {
@@ -25,7 +25,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0001', 0, () => {
+    it('test8wSyncState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -49;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -46,7 +46,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0002', 0, () => {
+    it('test8wSyncState0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -48;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -67,7 +67,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0003', 0, () => {
+    it('test8wSyncState0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -47;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -88,7 +88,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0004', 0, () => {
+    it('test8wSyncState0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -46;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -109,7 +109,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0005', 0, () => {
+    it('test8wSyncState0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -45;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -130,7 +130,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0006', 0, () => {
+    it('test8wSyncState0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -44;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -151,7 +151,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0007', 0, () => {
+    it('test8wSyncState0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -43;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -172,7 +172,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0008', 0, () => {
+    it('test8wSyncState0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -42;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -193,7 +193,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0009', 0, () => {
+    it('test8wSyncState0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -41;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -214,7 +214,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0010', 0, () => {
+    it('test8wSyncState0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -40;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -235,7 +235,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0011', 0, () => {
+    it('test8wSyncState0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -39;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -256,7 +256,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0012', 0, () => {
+    it('test8wSyncState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -38;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -277,7 +277,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0013', 0, () => {
+    it('test8wSyncState0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -37;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -298,7 +298,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0014', 0, () => {
+    it('test8wSyncState0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -36;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -319,7 +319,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0015', 0, () => {
+    it('test8wSyncState0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -35;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -340,7 +340,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0016', 0, () => {
+    it('test8wSyncState0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -34;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -361,7 +361,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0017', 0, () => {
+    it('test8wSyncState0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -33;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -382,7 +382,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0018', 0, () => {
+    it('test8wSyncState0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -32;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -403,7 +403,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0019', 0, () => {
+    it('test8wSyncState0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -31;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -424,7 +424,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0020', 0, () => {
+    it('test8wSyncState0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -30;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -445,7 +445,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0021', 0, () => {
+    it('test8wSyncState0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -29;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -466,7 +466,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0022', 0, () => {
+    it('test8wSyncState0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -28;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -487,7 +487,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0023', 0, () => {
+    it('test8wSyncState0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -27;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -508,7 +508,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0024', 0, () => {
+    it('test8wSyncState0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -26;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -529,7 +529,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0025', 0, () => {
+    it('test8wSyncState0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -25;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -550,7 +550,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0026', 0, () => {
+    it('test8wSyncState0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -24;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -571,7 +571,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0027', 0, () => {
+    it('test8wSyncState0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -23;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -592,7 +592,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0028', 0, () => {
+    it('test8wSyncState0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -22;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -613,7 +613,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0029', 0, () => {
+    it('test8wSyncState0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -21;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -634,7 +634,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0030', 0, () => {
+    it('test8wSyncState0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -20;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -655,7 +655,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0031', 0, () => {
+    it('test8wSyncState0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -19;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -676,7 +676,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0032', 0, () => {
+    it('test8wSyncState0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -18;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -697,7 +697,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0033', 0, () => {
+    it('test8wSyncState0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -17;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -718,7 +718,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0034', 0, () => {
+    it('test8wSyncState0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -16;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -739,7 +739,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0035', 0, () => {
+    it('test8wSyncState0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -15;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -760,7 +760,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0036', 0, () => {
+    it('test8wSyncState0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -14;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -781,7 +781,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0037', 0, () => {
+    it('test8wSyncState0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -13;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -802,7 +802,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0038', 0, () => {
+    it('test8wSyncState0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -12;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -823,7 +823,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0039', 0, () => {
+    it('test8wSyncState0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -11;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -844,7 +844,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0040', 0, () => {
+    it('test8wSyncState0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -10;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -865,7 +865,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0041', 0, () => {
+    it('test8wSyncState0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -9;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -886,7 +886,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0042', 0, () => {
+    it('test8wSyncState0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -8;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -907,7 +907,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0043', 0, () => {
+    it('test8wSyncState0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -7;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -928,7 +928,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0044', 0, () => {
+    it('test8wSyncState0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -6;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -949,7 +949,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0045', 0, () => {
+    it('test8wSyncState0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -5;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -970,7 +970,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0046', 0, () => {
+    it('test8wSyncState0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -4;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -991,7 +991,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0047', 0, () => {
+    it('test8wSyncState0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -3;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1012,7 +1012,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0048', 0, () => {
+    it('test8wSyncState0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -2;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1033,7 +1033,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0049', 0, () => {
+    it('test8wSyncState0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -1;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1054,7 +1054,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0050', 0, () => {
+    it('test8wSyncState0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 0;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1075,7 +1075,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0051', 0, () => {
+    it('test8wSyncState0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 1;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1096,7 +1096,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0052', 0, () => {
+    it('test8wSyncState0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 2;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1117,7 +1117,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0053', 0, () => {
+    it('test8wSyncState0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 3;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1138,7 +1138,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0054', 0, () => {
+    it('test8wSyncState0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 4;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1159,7 +1159,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0055', 0, () => {
+    it('test8wSyncState0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 5;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1180,7 +1180,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0056', 0, () => {
+    it('test8wSyncState0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 6;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1201,7 +1201,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0057', 0, () => {
+    it('test8wSyncState0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 7;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1222,7 +1222,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0058', 0, () => {
+    it('test8wSyncState0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 8;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1243,7 +1243,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0059', 0, () => {
+    it('test8wSyncState0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 9;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1264,7 +1264,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0060', 0, () => {
+    it('test8wSyncState0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 10;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1285,7 +1285,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0061', 0, () => {
+    it('test8wSyncState0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 11;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1306,7 +1306,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0062', 0, () => {
+    it('test8wSyncState0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 12;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1327,7 +1327,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0063', 0, () => {
+    it('test8wSyncState0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 13;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1348,7 +1348,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0064', 0, () => {
+    it('test8wSyncState0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 14;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1369,7 +1369,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0065', 0, () => {
+    it('test8wSyncState0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 15;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1390,7 +1390,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0066', 0, () => {
+    it('test8wSyncState0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 16;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1411,7 +1411,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0067', 0, () => {
+    it('test8wSyncState0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 17;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1432,7 +1432,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0068', 0, () => {
+    it('test8wSyncState0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 18;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1453,7 +1453,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0069', 0, () => {
+    it('test8wSyncState0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 19;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1474,7 +1474,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0070', 0, () => {
+    it('test8wSyncState0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 20;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1495,7 +1495,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0071', 0, () => {
+    it('test8wSyncState0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 21;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1516,7 +1516,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0072', 0, () => {
+    it('test8wSyncState0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 22;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1537,7 +1537,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0073', 0, () => {
+    it('test8wSyncState0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 23;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1558,7 +1558,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0074', 0, () => {
+    it('test8wSyncState0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 24;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1579,7 +1579,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0075', 0, () => {
+    it('test8wSyncState0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 25;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1600,7 +1600,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0076', 0, () => {
+    it('test8wSyncState0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 26;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1621,7 +1621,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0077', 0, () => {
+    it('test8wSyncState0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 27;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1642,7 +1642,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0078', 0, () => {
+    it('test8wSyncState0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 28;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1663,7 +1663,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0079', 0, () => {
+    it('test8wSyncState0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 29;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1684,7 +1684,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0080', 0, () => {
+    it('test8wSyncState0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 30;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1705,7 +1705,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0081', 0, () => {
+    it('test8wSyncState0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 31;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1726,7 +1726,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0082', 0, () => {
+    it('test8wSyncState0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 32;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1747,7 +1747,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0083', 0, () => {
+    it('test8wSyncState0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 33;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1768,7 +1768,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0084', 0, () => {
+    it('test8wSyncState0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 34;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1789,7 +1789,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0085', 0, () => {
+    it('test8wSyncState0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 35;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1810,7 +1810,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0086', 0, () => {
+    it('test8wSyncState0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 36;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1831,7 +1831,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0087', 0, () => {
+    it('test8wSyncState0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 37;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1852,7 +1852,7 @@ export default function syncState8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSyncState0088', 0, () => {
+    it('test8wSyncState0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 38;
       let policy: string = 'SHOW';
       if (delta < 0) {

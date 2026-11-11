@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitleCueExpandedTest() {
@@ -25,7 +25,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0001', 0, () => {
+    it('testExpSubtitleCue0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const end: number = 1000;
       const duration: number = end - start;
@@ -42,7 +42,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0002', 0, () => {
+    it('testExpSubtitleCue0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 500;
       const end: number = 1501;
       const duration: number = end - start;
@@ -59,7 +59,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0003', 0, () => {
+    it('testExpSubtitleCue0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1000;
       const end: number = 2002;
       const duration: number = end - start;
@@ -76,7 +76,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0004', 0, () => {
+    it('testExpSubtitleCue0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1500;
       const end: number = 2503;
       const duration: number = end - start;
@@ -93,7 +93,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0005', 0, () => {
+    it('testExpSubtitleCue0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2000;
       const end: number = 3004;
       const duration: number = end - start;
@@ -110,7 +110,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0006', 0, () => {
+    it('testExpSubtitleCue0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2500;
       const end: number = 3505;
       const duration: number = end - start;
@@ -127,7 +127,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0007', 0, () => {
+    it('testExpSubtitleCue0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3000;
       const end: number = 4006;
       const duration: number = end - start;
@@ -144,7 +144,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0008', 0, () => {
+    it('testExpSubtitleCue0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3500;
       const end: number = 4507;
       const duration: number = end - start;
@@ -161,7 +161,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0009', 0, () => {
+    it('testExpSubtitleCue0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4000;
       const end: number = 5008;
       const duration: number = end - start;
@@ -178,7 +178,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0010', 0, () => {
+    it('testExpSubtitleCue0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4500;
       const end: number = 5509;
       const duration: number = end - start;
@@ -195,7 +195,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0011', 0, () => {
+    it('testExpSubtitleCue0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5000;
       const end: number = 6010;
       const duration: number = end - start;
@@ -212,7 +212,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0012', 0, () => {
+    it('testExpSubtitleCue0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5500;
       const end: number = 6511;
       const duration: number = end - start;
@@ -229,7 +229,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0013', 0, () => {
+    it('testExpSubtitleCue0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6000;
       const end: number = 7012;
       const duration: number = end - start;
@@ -246,7 +246,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0014', 0, () => {
+    it('testExpSubtitleCue0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6500;
       const end: number = 7513;
       const duration: number = end - start;
@@ -263,7 +263,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0015', 0, () => {
+    it('testExpSubtitleCue0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7000;
       const end: number = 8014;
       const duration: number = end - start;
@@ -280,7 +280,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0016', 0, () => {
+    it('testExpSubtitleCue0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7500;
       const end: number = 8515;
       const duration: number = end - start;
@@ -297,7 +297,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0017', 0, () => {
+    it('testExpSubtitleCue0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8000;
       const end: number = 9016;
       const duration: number = end - start;
@@ -314,7 +314,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0018', 0, () => {
+    it('testExpSubtitleCue0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8500;
       const end: number = 9517;
       const duration: number = end - start;
@@ -331,7 +331,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0019', 0, () => {
+    it('testExpSubtitleCue0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9000;
       const end: number = 10018;
       const duration: number = end - start;
@@ -348,7 +348,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0020', 0, () => {
+    it('testExpSubtitleCue0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9500;
       const end: number = 10519;
       const duration: number = end - start;
@@ -365,7 +365,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0021', 0, () => {
+    it('testExpSubtitleCue0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 10000;
       const end: number = 11020;
       const duration: number = end - start;
@@ -382,7 +382,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0022', 0, () => {
+    it('testExpSubtitleCue0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 10500;
       const end: number = 11521;
       const duration: number = end - start;
@@ -399,7 +399,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0023', 0, () => {
+    it('testExpSubtitleCue0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 11000;
       const end: number = 12022;
       const duration: number = end - start;
@@ -416,7 +416,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0024', 0, () => {
+    it('testExpSubtitleCue0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 11500;
       const end: number = 12523;
       const duration: number = end - start;
@@ -433,7 +433,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0025', 0, () => {
+    it('testExpSubtitleCue0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 12000;
       const end: number = 13024;
       const duration: number = end - start;
@@ -450,7 +450,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0026', 0, () => {
+    it('testExpSubtitleCue0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 12500;
       const end: number = 13525;
       const duration: number = end - start;
@@ -467,7 +467,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0027', 0, () => {
+    it('testExpSubtitleCue0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 13000;
       const end: number = 14026;
       const duration: number = end - start;
@@ -484,7 +484,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0028', 0, () => {
+    it('testExpSubtitleCue0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 13500;
       const end: number = 14527;
       const duration: number = end - start;
@@ -501,7 +501,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0029', 0, () => {
+    it('testExpSubtitleCue0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 14000;
       const end: number = 15028;
       const duration: number = end - start;
@@ -518,7 +518,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0030', 0, () => {
+    it('testExpSubtitleCue0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 14500;
       const end: number = 15529;
       const duration: number = end - start;
@@ -535,7 +535,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0031', 0, () => {
+    it('testExpSubtitleCue0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 15000;
       const end: number = 16030;
       const duration: number = end - start;
@@ -552,7 +552,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0032', 0, () => {
+    it('testExpSubtitleCue0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 15500;
       const end: number = 16531;
       const duration: number = end - start;
@@ -569,7 +569,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0033', 0, () => {
+    it('testExpSubtitleCue0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 16000;
       const end: number = 17032;
       const duration: number = end - start;
@@ -586,7 +586,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0034', 0, () => {
+    it('testExpSubtitleCue0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 16500;
       const end: number = 17533;
       const duration: number = end - start;
@@ -603,7 +603,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0035', 0, () => {
+    it('testExpSubtitleCue0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 17000;
       const end: number = 18034;
       const duration: number = end - start;
@@ -620,7 +620,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0036', 0, () => {
+    it('testExpSubtitleCue0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 17500;
       const end: number = 18535;
       const duration: number = end - start;
@@ -637,7 +637,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0037', 0, () => {
+    it('testExpSubtitleCue0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 18000;
       const end: number = 19036;
       const duration: number = end - start;
@@ -654,7 +654,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0038', 0, () => {
+    it('testExpSubtitleCue0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 18500;
       const end: number = 19537;
       const duration: number = end - start;
@@ -671,7 +671,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0039', 0, () => {
+    it('testExpSubtitleCue0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 19000;
       const end: number = 20038;
       const duration: number = end - start;
@@ -688,7 +688,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0040', 0, () => {
+    it('testExpSubtitleCue0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 19500;
       const end: number = 20539;
       const duration: number = end - start;
@@ -705,7 +705,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0041', 0, () => {
+    it('testExpSubtitleCue0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 20000;
       const end: number = 21040;
       const duration: number = end - start;
@@ -722,7 +722,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0042', 0, () => {
+    it('testExpSubtitleCue0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 20500;
       const end: number = 21541;
       const duration: number = end - start;
@@ -739,7 +739,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0043', 0, () => {
+    it('testExpSubtitleCue0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 21000;
       const end: number = 22042;
       const duration: number = end - start;
@@ -756,7 +756,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0044', 0, () => {
+    it('testExpSubtitleCue0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 21500;
       const end: number = 22543;
       const duration: number = end - start;
@@ -773,7 +773,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0045', 0, () => {
+    it('testExpSubtitleCue0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 22000;
       const end: number = 23044;
       const duration: number = end - start;
@@ -790,7 +790,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0046', 0, () => {
+    it('testExpSubtitleCue0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 22500;
       const end: number = 23545;
       const duration: number = end - start;
@@ -807,7 +807,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0047', 0, () => {
+    it('testExpSubtitleCue0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 23000;
       const end: number = 24046;
       const duration: number = end - start;
@@ -824,7 +824,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0048', 0, () => {
+    it('testExpSubtitleCue0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 23500;
       const end: number = 24547;
       const duration: number = end - start;
@@ -841,7 +841,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0049', 0, () => {
+    it('testExpSubtitleCue0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 24000;
       const end: number = 25048;
       const duration: number = end - start;
@@ -858,7 +858,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0050', 0, () => {
+    it('testExpSubtitleCue0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 24500;
       const end: number = 25549;
       const duration: number = end - start;
@@ -875,7 +875,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0051', 0, () => {
+    it('testExpSubtitleCue0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 25000;
       const end: number = 26050;
       const duration: number = end - start;
@@ -892,7 +892,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0052', 0, () => {
+    it('testExpSubtitleCue0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 25500;
       const end: number = 26551;
       const duration: number = end - start;
@@ -909,7 +909,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0053', 0, () => {
+    it('testExpSubtitleCue0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 26000;
       const end: number = 27052;
       const duration: number = end - start;
@@ -926,7 +926,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0054', 0, () => {
+    it('testExpSubtitleCue0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 26500;
       const end: number = 27553;
       const duration: number = end - start;
@@ -943,7 +943,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0055', 0, () => {
+    it('testExpSubtitleCue0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 27000;
       const end: number = 28054;
       const duration: number = end - start;
@@ -960,7 +960,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0056', 0, () => {
+    it('testExpSubtitleCue0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 27500;
       const end: number = 28555;
       const duration: number = end - start;
@@ -977,7 +977,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0057', 0, () => {
+    it('testExpSubtitleCue0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 28000;
       const end: number = 29056;
       const duration: number = end - start;
@@ -994,7 +994,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0058', 0, () => {
+    it('testExpSubtitleCue0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 28500;
       const end: number = 29557;
       const duration: number = end - start;
@@ -1011,7 +1011,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0059', 0, () => {
+    it('testExpSubtitleCue0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 29000;
       const end: number = 30058;
       const duration: number = end - start;
@@ -1028,7 +1028,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0060', 0, () => {
+    it('testExpSubtitleCue0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 29500;
       const end: number = 30559;
       const duration: number = end - start;
@@ -1045,7 +1045,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0061', 0, () => {
+    it('testExpSubtitleCue0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 30000;
       const end: number = 31060;
       const duration: number = end - start;
@@ -1062,7 +1062,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0062', 0, () => {
+    it('testExpSubtitleCue0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 30500;
       const end: number = 31561;
       const duration: number = end - start;
@@ -1079,7 +1079,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0063', 0, () => {
+    it('testExpSubtitleCue0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 31000;
       const end: number = 32062;
       const duration: number = end - start;
@@ -1096,7 +1096,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0064', 0, () => {
+    it('testExpSubtitleCue0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 31500;
       const end: number = 32563;
       const duration: number = end - start;
@@ -1113,7 +1113,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0065', 0, () => {
+    it('testExpSubtitleCue0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 32000;
       const end: number = 33064;
       const duration: number = end - start;
@@ -1130,7 +1130,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0066', 0, () => {
+    it('testExpSubtitleCue0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 32500;
       const end: number = 33565;
       const duration: number = end - start;
@@ -1147,7 +1147,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0067', 0, () => {
+    it('testExpSubtitleCue0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 33000;
       const end: number = 34066;
       const duration: number = end - start;
@@ -1164,7 +1164,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0068', 0, () => {
+    it('testExpSubtitleCue0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 33500;
       const end: number = 34567;
       const duration: number = end - start;
@@ -1181,7 +1181,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0069', 0, () => {
+    it('testExpSubtitleCue0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 34000;
       const end: number = 35068;
       const duration: number = end - start;
@@ -1198,7 +1198,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0070', 0, () => {
+    it('testExpSubtitleCue0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 34500;
       const end: number = 35569;
       const duration: number = end - start;
@@ -1215,7 +1215,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0071', 0, () => {
+    it('testExpSubtitleCue0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 35000;
       const end: number = 36070;
       const duration: number = end - start;
@@ -1232,7 +1232,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0072', 0, () => {
+    it('testExpSubtitleCue0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 35500;
       const end: number = 36571;
       const duration: number = end - start;
@@ -1249,7 +1249,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0073', 0, () => {
+    it('testExpSubtitleCue0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 36000;
       const end: number = 37072;
       const duration: number = end - start;
@@ -1266,7 +1266,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0074', 0, () => {
+    it('testExpSubtitleCue0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 36500;
       const end: number = 37573;
       const duration: number = end - start;
@@ -1283,7 +1283,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0075', 0, () => {
+    it('testExpSubtitleCue0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 37000;
       const end: number = 38074;
       const duration: number = end - start;
@@ -1300,7 +1300,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0076', 0, () => {
+    it('testExpSubtitleCue0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 37500;
       const end: number = 38575;
       const duration: number = end - start;
@@ -1317,7 +1317,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0077', 0, () => {
+    it('testExpSubtitleCue0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 38000;
       const end: number = 39076;
       const duration: number = end - start;
@@ -1334,7 +1334,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0078', 0, () => {
+    it('testExpSubtitleCue0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 38500;
       const end: number = 39577;
       const duration: number = end - start;
@@ -1351,7 +1351,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0079', 0, () => {
+    it('testExpSubtitleCue0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 39000;
       const end: number = 40078;
       const duration: number = end - start;
@@ -1368,7 +1368,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0080', 0, () => {
+    it('testExpSubtitleCue0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 39500;
       const end: number = 40579;
       const duration: number = end - start;
@@ -1385,7 +1385,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0081', 0, () => {
+    it('testExpSubtitleCue0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 40000;
       const end: number = 41080;
       const duration: number = end - start;
@@ -1402,7 +1402,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0082', 0, () => {
+    it('testExpSubtitleCue0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 40500;
       const end: number = 41581;
       const duration: number = end - start;
@@ -1419,7 +1419,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0083', 0, () => {
+    it('testExpSubtitleCue0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 41000;
       const end: number = 42082;
       const duration: number = end - start;
@@ -1436,7 +1436,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0084', 0, () => {
+    it('testExpSubtitleCue0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 41500;
       const end: number = 42583;
       const duration: number = end - start;
@@ -1453,7 +1453,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0085', 0, () => {
+    it('testExpSubtitleCue0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 42000;
       const end: number = 43084;
       const duration: number = end - start;
@@ -1470,7 +1470,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0086', 0, () => {
+    it('testExpSubtitleCue0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 42500;
       const end: number = 43585;
       const duration: number = end - start;
@@ -1487,7 +1487,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0087', 0, () => {
+    it('testExpSubtitleCue0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 43000;
       const end: number = 44086;
       const duration: number = end - start;
@@ -1504,7 +1504,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0088', 0, () => {
+    it('testExpSubtitleCue0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 43500;
       const end: number = 44587;
       const duration: number = end - start;
@@ -1521,7 +1521,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0089', 0, () => {
+    it('testExpSubtitleCue0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 44000;
       const end: number = 45088;
       const duration: number = end - start;
@@ -1538,7 +1538,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0090', 0, () => {
+    it('testExpSubtitleCue0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 44500;
       const end: number = 45589;
       const duration: number = end - start;
@@ -1555,7 +1555,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0091', 0, () => {
+    it('testExpSubtitleCue0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 45000;
       const end: number = 46090;
       const duration: number = end - start;
@@ -1572,7 +1572,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0092', 0, () => {
+    it('testExpSubtitleCue0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 45500;
       const end: number = 46591;
       const duration: number = end - start;
@@ -1589,7 +1589,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0093', 0, () => {
+    it('testExpSubtitleCue0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 46000;
       const end: number = 47092;
       const duration: number = end - start;
@@ -1606,7 +1606,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0094', 0, () => {
+    it('testExpSubtitleCue0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 46500;
       const end: number = 47593;
       const duration: number = end - start;
@@ -1623,7 +1623,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0095', 0, () => {
+    it('testExpSubtitleCue0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 47000;
       const end: number = 48094;
       const duration: number = end - start;
@@ -1640,7 +1640,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0096', 0, () => {
+    it('testExpSubtitleCue0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 47500;
       const end: number = 48595;
       const duration: number = end - start;
@@ -1657,7 +1657,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0097', 0, () => {
+    it('testExpSubtitleCue0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 48000;
       const end: number = 49096;
       const duration: number = end - start;
@@ -1674,7 +1674,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0098', 0, () => {
+    it('testExpSubtitleCue0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 48500;
       const end: number = 49597;
       const duration: number = end - start;
@@ -1691,7 +1691,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0099', 0, () => {
+    it('testExpSubtitleCue0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 49000;
       const end: number = 50098;
       const duration: number = end - start;
@@ -1708,7 +1708,7 @@ export default function subtitleCueExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleCue0100', 0, () => {
+    it('testExpSubtitleCue0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 49500;
       const end: number = 50599;
       const duration: number = end - start;

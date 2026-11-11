@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function subtitleSafeStateTailTest() {
   describe('subtitleSafeStateTailTest', () => {
@@ -24,7 +24,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0001', 0, () => {
+    it('testSafeSeekSpeed0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = -100;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -45,7 +45,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0002', 0, () => {
+    it('testSafeSeekSpeed0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 37;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -66,7 +66,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0003', 0, () => {
+    it('testSafeSeekSpeed0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 174;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -87,7 +87,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0004', 0, () => {
+    it('testSafeSeekSpeed0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 311;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -108,7 +108,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0005', 0, () => {
+    it('testSafeSeekSpeed0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 448;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -129,7 +129,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0006', 0, () => {
+    it('testSafeSeekSpeed0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 585;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -150,7 +150,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0007', 0, () => {
+    it('testSafeSeekSpeed0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 722;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -171,7 +171,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0008', 0, () => {
+    it('testSafeSeekSpeed0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 859;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -192,7 +192,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0009', 0, () => {
+    it('testSafeSeekSpeed0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 996;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -213,7 +213,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0010', 0, () => {
+    it('testSafeSeekSpeed0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1133;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -234,7 +234,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0011', 0, () => {
+    it('testSafeSeekSpeed0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1270;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -255,7 +255,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0012', 0, () => {
+    it('testSafeSeekSpeed0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1407;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -276,7 +276,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0013', 0, () => {
+    it('testSafeSeekSpeed0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1544;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -297,7 +297,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0014', 0, () => {
+    it('testSafeSeekSpeed0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1681;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -318,7 +318,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0015', 0, () => {
+    it('testSafeSeekSpeed0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1818;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -339,7 +339,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0016', 0, () => {
+    it('testSafeSeekSpeed0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1955;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -360,7 +360,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0017', 0, () => {
+    it('testSafeSeekSpeed0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2092;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -381,7 +381,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0018', 0, () => {
+    it('testSafeSeekSpeed0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2229;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -402,7 +402,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0019', 0, () => {
+    it('testSafeSeekSpeed0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2366;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -423,7 +423,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0020', 0, () => {
+    it('testSafeSeekSpeed0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2503;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -444,7 +444,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0021', 0, () => {
+    it('testSafeSeekSpeed0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2640;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -465,7 +465,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0022', 0, () => {
+    it('testSafeSeekSpeed0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2777;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -486,7 +486,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0023', 0, () => {
+    it('testSafeSeekSpeed0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2914;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -507,7 +507,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0024', 0, () => {
+    it('testSafeSeekSpeed0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3051;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -528,7 +528,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0025', 0, () => {
+    it('testSafeSeekSpeed0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3188;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -549,7 +549,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0026', 0, () => {
+    it('testSafeSeekSpeed0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3325;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -570,7 +570,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0027', 0, () => {
+    it('testSafeSeekSpeed0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3462;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -591,7 +591,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0028', 0, () => {
+    it('testSafeSeekSpeed0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3599;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -612,7 +612,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0029', 0, () => {
+    it('testSafeSeekSpeed0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3736;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -633,7 +633,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0030', 0, () => {
+    it('testSafeSeekSpeed0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3873;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -654,7 +654,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0031', 0, () => {
+    it('testSafeSeekSpeed0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4010;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -675,7 +675,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0032', 0, () => {
+    it('testSafeSeekSpeed0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4147;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -696,7 +696,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0033', 0, () => {
+    it('testSafeSeekSpeed0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4284;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -717,7 +717,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0034', 0, () => {
+    it('testSafeSeekSpeed0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4421;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -738,7 +738,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0035', 0, () => {
+    it('testSafeSeekSpeed0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4558;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -759,7 +759,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0036', 0, () => {
+    it('testSafeSeekSpeed0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4695;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -780,7 +780,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0037', 0, () => {
+    it('testSafeSeekSpeed0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4832;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -801,7 +801,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0038', 0, () => {
+    it('testSafeSeekSpeed0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4969;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -822,7 +822,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0039', 0, () => {
+    it('testSafeSeekSpeed0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5106;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -843,7 +843,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0040', 0, () => {
+    it('testSafeSeekSpeed0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5243;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -864,7 +864,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0041', 0, () => {
+    it('testSafeSeekSpeed0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5380;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -885,7 +885,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0042', 0, () => {
+    it('testSafeSeekSpeed0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5517;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -906,7 +906,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0043', 0, () => {
+    it('testSafeSeekSpeed0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5654;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -927,7 +927,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0044', 0, () => {
+    it('testSafeSeekSpeed0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5791;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -948,7 +948,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0045', 0, () => {
+    it('testSafeSeekSpeed0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5928;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -969,7 +969,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0046', 0, () => {
+    it('testSafeSeekSpeed0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6065;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -990,7 +990,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0047', 0, () => {
+    it('testSafeSeekSpeed0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6202;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1011,7 +1011,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0048', 0, () => {
+    it('testSafeSeekSpeed0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6339;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1032,7 +1032,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0049', 0, () => {
+    it('testSafeSeekSpeed0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6476;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1053,7 +1053,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0050', 0, () => {
+    it('testSafeSeekSpeed0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6613;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1074,7 +1074,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0051', 0, () => {
+    it('testSafeSeekSpeed0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6750;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1095,7 +1095,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0052', 0, () => {
+    it('testSafeSeekSpeed0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6887;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1116,7 +1116,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0053', 0, () => {
+    it('testSafeSeekSpeed0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7024;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1137,7 +1137,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0054', 0, () => {
+    it('testSafeSeekSpeed0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7161;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1158,7 +1158,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0055', 0, () => {
+    it('testSafeSeekSpeed0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7298;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1179,7 +1179,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0056', 0, () => {
+    it('testSafeSeekSpeed0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7435;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1200,7 +1200,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0057', 0, () => {
+    it('testSafeSeekSpeed0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7572;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1221,7 +1221,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0058', 0, () => {
+    it('testSafeSeekSpeed0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7709;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1242,7 +1242,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0059', 0, () => {
+    it('testSafeSeekSpeed0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7846;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1263,7 +1263,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0060', 0, () => {
+    it('testSafeSeekSpeed0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7983;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1284,7 +1284,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0061', 0, () => {
+    it('testSafeSeekSpeed0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8120;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1305,7 +1305,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0062', 0, () => {
+    it('testSafeSeekSpeed0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8257;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1326,7 +1326,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0063', 0, () => {
+    it('testSafeSeekSpeed0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8394;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1347,7 +1347,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0064', 0, () => {
+    it('testSafeSeekSpeed0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8531;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1368,7 +1368,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0065', 0, () => {
+    it('testSafeSeekSpeed0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8668;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1389,7 +1389,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0066', 0, () => {
+    it('testSafeSeekSpeed0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8805;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1410,7 +1410,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0067', 0, () => {
+    it('testSafeSeekSpeed0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8942;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1431,7 +1431,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0068', 0, () => {
+    it('testSafeSeekSpeed0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9079;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1452,7 +1452,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0069', 0, () => {
+    it('testSafeSeekSpeed0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9216;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1473,7 +1473,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0070', 0, () => {
+    it('testSafeSeekSpeed0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9353;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1494,7 +1494,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0071', 0, () => {
+    it('testSafeSeekSpeed0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9490;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1515,7 +1515,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0072', 0, () => {
+    it('testSafeSeekSpeed0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9627;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1536,7 +1536,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0073', 0, () => {
+    it('testSafeSeekSpeed0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9764;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1557,7 +1557,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0074', 0, () => {
+    it('testSafeSeekSpeed0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9901;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1578,7 +1578,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0075', 0, () => {
+    it('testSafeSeekSpeed0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10038;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1599,7 +1599,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0076', 0, () => {
+    it('testSafeSeekSpeed0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10175;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1620,7 +1620,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0077', 0, () => {
+    it('testSafeSeekSpeed0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10312;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1641,7 +1641,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0078', 0, () => {
+    it('testSafeSeekSpeed0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10449;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1662,7 +1662,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0079', 0, () => {
+    it('testSafeSeekSpeed0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10586;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1683,7 +1683,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0080', 0, () => {
+    it('testSafeSeekSpeed0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10723;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1704,7 +1704,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0081', 0, () => {
+    it('testSafeSeekSpeed0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10860;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1725,7 +1725,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0082', 0, () => {
+    it('testSafeSeekSpeed0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10997;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1746,7 +1746,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0083', 0, () => {
+    it('testSafeSeekSpeed0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11134;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1767,7 +1767,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0084', 0, () => {
+    it('testSafeSeekSpeed0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11271;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1788,7 +1788,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0085', 0, () => {
+    it('testSafeSeekSpeed0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11408;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1809,7 +1809,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0086', 0, () => {
+    it('testSafeSeekSpeed0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11545;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1830,7 +1830,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0087', 0, () => {
+    it('testSafeSeekSpeed0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11682;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1851,7 +1851,7 @@ export default function subtitleSafeStateTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSeekSpeed0088', 0, () => {
+    it('testSafeSeekSpeed0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11819;
       const clamped: number = Math.max(0, Math.min(value, duration));

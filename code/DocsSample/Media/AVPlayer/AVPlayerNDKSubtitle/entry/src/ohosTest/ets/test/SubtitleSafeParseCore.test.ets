@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function subtitleSafeParseCoreTest() {
   describe('subtitleSafeParseCoreTest', () => {
@@ -24,7 +24,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0001', 0, () => {
+    it('testSafeParseTime0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 500;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -45,7 +45,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0002', 0, () => {
+    it('testSafeParseTime0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 1734;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -66,7 +66,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0003', 0, () => {
+    it('testSafeParseTime0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 2968;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -87,7 +87,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0004', 0, () => {
+    it('testSafeParseTime0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 4202;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -108,7 +108,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0005', 0, () => {
+    it('testSafeParseTime0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 5436;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -129,7 +129,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0006', 0, () => {
+    it('testSafeParseTime0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 6670;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -150,7 +150,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0007', 0, () => {
+    it('testSafeParseTime0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 7904;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -171,7 +171,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0008', 0, () => {
+    it('testSafeParseTime0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 9138;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -192,7 +192,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0009', 0, () => {
+    it('testSafeParseTime0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 10372;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -213,7 +213,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0010', 0, () => {
+    it('testSafeParseTime0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 11606;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -234,7 +234,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0011', 0, () => {
+    it('testSafeParseTime0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 12840;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -255,7 +255,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0012', 0, () => {
+    it('testSafeParseTime0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 14074;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -276,7 +276,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0013', 0, () => {
+    it('testSafeParseTime0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 15308;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -297,7 +297,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0014', 0, () => {
+    it('testSafeParseTime0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 16542;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -318,7 +318,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0015', 0, () => {
+    it('testSafeParseTime0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 17776;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -339,7 +339,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0016', 0, () => {
+    it('testSafeParseTime0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 19010;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -360,7 +360,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0017', 0, () => {
+    it('testSafeParseTime0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 20244;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -381,7 +381,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0018', 0, () => {
+    it('testSafeParseTime0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 21478;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -402,7 +402,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0019', 0, () => {
+    it('testSafeParseTime0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 22712;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -423,7 +423,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0020', 0, () => {
+    it('testSafeParseTime0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 23946;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -444,7 +444,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0021', 0, () => {
+    it('testSafeParseTime0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 25180;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -465,7 +465,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0022', 0, () => {
+    it('testSafeParseTime0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 26414;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -486,7 +486,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0023', 0, () => {
+    it('testSafeParseTime0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 27648;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -507,7 +507,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0024', 0, () => {
+    it('testSafeParseTime0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 28882;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -528,7 +528,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0025', 0, () => {
+    it('testSafeParseTime0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 30116;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -549,7 +549,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0026', 0, () => {
+    it('testSafeParseTime0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 31350;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -570,7 +570,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0027', 0, () => {
+    it('testSafeParseTime0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 32584;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -591,7 +591,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0028', 0, () => {
+    it('testSafeParseTime0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 33818;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -612,7 +612,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0029', 0, () => {
+    it('testSafeParseTime0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 35052;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -633,7 +633,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0030', 0, () => {
+    it('testSafeParseTime0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 36286;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -654,7 +654,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0031', 0, () => {
+    it('testSafeParseTime0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 37520;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -675,7 +675,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0032', 0, () => {
+    it('testSafeParseTime0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 38754;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -696,7 +696,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0033', 0, () => {
+    it('testSafeParseTime0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 39988;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -717,7 +717,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0034', 0, () => {
+    it('testSafeParseTime0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 41222;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -738,7 +738,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0035', 0, () => {
+    it('testSafeParseTime0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 42456;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -759,7 +759,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0036', 0, () => {
+    it('testSafeParseTime0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 43690;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -780,7 +780,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0037', 0, () => {
+    it('testSafeParseTime0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 44924;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -801,7 +801,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0038', 0, () => {
+    it('testSafeParseTime0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 46158;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -822,7 +822,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0039', 0, () => {
+    it('testSafeParseTime0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 47392;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -843,7 +843,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0040', 0, () => {
+    it('testSafeParseTime0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 48626;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -864,7 +864,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0041', 0, () => {
+    it('testSafeParseTime0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 49860;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -885,7 +885,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0042', 0, () => {
+    it('testSafeParseTime0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 51094;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -906,7 +906,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0043', 0, () => {
+    it('testSafeParseTime0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 52328;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -927,7 +927,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0044', 0, () => {
+    it('testSafeParseTime0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 53562;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -948,7 +948,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0045', 0, () => {
+    it('testSafeParseTime0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 54796;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -969,7 +969,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0046', 0, () => {
+    it('testSafeParseTime0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 56030;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -990,7 +990,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0047', 0, () => {
+    it('testSafeParseTime0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 57264;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1011,7 +1011,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0048', 0, () => {
+    it('testSafeParseTime0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 58498;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1032,7 +1032,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0049', 0, () => {
+    it('testSafeParseTime0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 59732;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1053,7 +1053,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0050', 0, () => {
+    it('testSafeParseTime0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 60966;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1074,7 +1074,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0051', 0, () => {
+    it('testSafeParseTime0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 62200;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1095,7 +1095,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0052', 0, () => {
+    it('testSafeParseTime0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 63434;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1116,7 +1116,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0053', 0, () => {
+    it('testSafeParseTime0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 64668;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1137,7 +1137,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0054', 0, () => {
+    it('testSafeParseTime0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 65902;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1158,7 +1158,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0055', 0, () => {
+    it('testSafeParseTime0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 67136;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1179,7 +1179,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0056', 0, () => {
+    it('testSafeParseTime0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 68370;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1200,7 +1200,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0057', 0, () => {
+    it('testSafeParseTime0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 69604;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1221,7 +1221,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0058', 0, () => {
+    it('testSafeParseTime0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 70838;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1242,7 +1242,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0059', 0, () => {
+    it('testSafeParseTime0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 72072;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1263,7 +1263,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0060', 0, () => {
+    it('testSafeParseTime0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 73306;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1284,7 +1284,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0061', 0, () => {
+    it('testSafeParseTime0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 74540;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1305,7 +1305,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0062', 0, () => {
+    it('testSafeParseTime0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 75774;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1326,7 +1326,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0063', 0, () => {
+    it('testSafeParseTime0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 77008;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1347,7 +1347,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0064', 0, () => {
+    it('testSafeParseTime0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 78242;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1368,7 +1368,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0065', 0, () => {
+    it('testSafeParseTime0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 79476;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1389,7 +1389,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0066', 0, () => {
+    it('testSafeParseTime0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 80710;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1410,7 +1410,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0067', 0, () => {
+    it('testSafeParseTime0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 81944;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1431,7 +1431,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0068', 0, () => {
+    it('testSafeParseTime0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 83178;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1452,7 +1452,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0069', 0, () => {
+    it('testSafeParseTime0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 84412;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1473,7 +1473,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0070', 0, () => {
+    it('testSafeParseTime0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 85646;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1494,7 +1494,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0071', 0, () => {
+    it('testSafeParseTime0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 86880;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1515,7 +1515,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0072', 0, () => {
+    it('testSafeParseTime0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 88114;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1536,7 +1536,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0073', 0, () => {
+    it('testSafeParseTime0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 89348;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1557,7 +1557,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0074', 0, () => {
+    it('testSafeParseTime0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 90582;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1578,7 +1578,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0075', 0, () => {
+    it('testSafeParseTime0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 91816;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1599,7 +1599,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0076', 0, () => {
+    it('testSafeParseTime0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 93050;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1620,7 +1620,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0077', 0, () => {
+    it('testSafeParseTime0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 94284;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1641,7 +1641,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0078', 0, () => {
+    it('testSafeParseTime0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 95518;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1662,7 +1662,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0079', 0, () => {
+    it('testSafeParseTime0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 96752;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1683,7 +1683,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0080', 0, () => {
+    it('testSafeParseTime0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 97986;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1704,7 +1704,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0081', 0, () => {
+    it('testSafeParseTime0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 99220;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1725,7 +1725,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0082', 0, () => {
+    it('testSafeParseTime0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 100454;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1746,7 +1746,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0083', 0, () => {
+    it('testSafeParseTime0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 101688;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1767,7 +1767,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0084', 0, () => {
+    it('testSafeParseTime0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 102922;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1788,7 +1788,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0085', 0, () => {
+    it('testSafeParseTime0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 104156;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1809,7 +1809,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0086', 0, () => {
+    it('testSafeParseTime0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 105390;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1830,7 +1830,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0087', 0, () => {
+    it('testSafeParseTime0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 106624;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);
@@ -1851,7 +1851,7 @@ export default function subtitleSafeParseCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeParseTime0088', 0, () => {
+    it('testSafeParseTime0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const totalMs: number = 107858;
       const hours: number = Math.floor(totalMs / 3600000);
       const minutes: number = Math.floor((totalMs % 3600000) / 60000);

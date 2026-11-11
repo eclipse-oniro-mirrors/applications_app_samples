@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function timeConvertExpandedTest() {
@@ -25,7 +25,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0001', 0, () => {
+    it('testExpTimeConvert0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 0;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -42,7 +42,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0002', 0, () => {
+    it('testExpTimeConvert0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 1000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -59,7 +59,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0003', 0, () => {
+    it('testExpTimeConvert0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 2000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -76,7 +76,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0004', 0, () => {
+    it('testExpTimeConvert0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 3000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -93,7 +93,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0005', 0, () => {
+    it('testExpTimeConvert0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 4000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -110,7 +110,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0006', 0, () => {
+    it('testExpTimeConvert0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 5000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -127,7 +127,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0007', 0, () => {
+    it('testExpTimeConvert0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 6000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -144,7 +144,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0008', 0, () => {
+    it('testExpTimeConvert0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 7000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -161,7 +161,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0009', 0, () => {
+    it('testExpTimeConvert0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 8000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -178,7 +178,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0010', 0, () => {
+    it('testExpTimeConvert0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 9000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -195,7 +195,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0011', 0, () => {
+    it('testExpTimeConvert0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 10000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -212,7 +212,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0012', 0, () => {
+    it('testExpTimeConvert0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 11000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -229,7 +229,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0013', 0, () => {
+    it('testExpTimeConvert0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 12000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -246,7 +246,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0014', 0, () => {
+    it('testExpTimeConvert0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 13000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -263,7 +263,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0015', 0, () => {
+    it('testExpTimeConvert0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 14000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -280,7 +280,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0016', 0, () => {
+    it('testExpTimeConvert0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 15000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -297,7 +297,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0017', 0, () => {
+    it('testExpTimeConvert0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 16000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -314,7 +314,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0018', 0, () => {
+    it('testExpTimeConvert0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 17000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -331,7 +331,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0019', 0, () => {
+    it('testExpTimeConvert0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 18000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -348,7 +348,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0020', 0, () => {
+    it('testExpTimeConvert0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 19000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -365,7 +365,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0021', 0, () => {
+    it('testExpTimeConvert0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 20000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -382,7 +382,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0022', 0, () => {
+    it('testExpTimeConvert0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 21000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -399,7 +399,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0023', 0, () => {
+    it('testExpTimeConvert0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 22000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -416,7 +416,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0024', 0, () => {
+    it('testExpTimeConvert0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 23000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -433,7 +433,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0025', 0, () => {
+    it('testExpTimeConvert0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 24000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -450,7 +450,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0026', 0, () => {
+    it('testExpTimeConvert0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 25000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -467,7 +467,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0027', 0, () => {
+    it('testExpTimeConvert0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 26000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -484,7 +484,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0028', 0, () => {
+    it('testExpTimeConvert0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 27000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -501,7 +501,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0029', 0, () => {
+    it('testExpTimeConvert0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 28000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -518,7 +518,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0030', 0, () => {
+    it('testExpTimeConvert0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 29000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -535,7 +535,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0031', 0, () => {
+    it('testExpTimeConvert0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 30000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -552,7 +552,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0032', 0, () => {
+    it('testExpTimeConvert0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 31000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -569,7 +569,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0033', 0, () => {
+    it('testExpTimeConvert0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 32000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -586,7 +586,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0034', 0, () => {
+    it('testExpTimeConvert0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 33000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -603,7 +603,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0035', 0, () => {
+    it('testExpTimeConvert0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 34000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -620,7 +620,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0036', 0, () => {
+    it('testExpTimeConvert0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 35000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -637,7 +637,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0037', 0, () => {
+    it('testExpTimeConvert0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 36000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -654,7 +654,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0038', 0, () => {
+    it('testExpTimeConvert0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 37000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -671,7 +671,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0039', 0, () => {
+    it('testExpTimeConvert0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 38000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -688,7 +688,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0040', 0, () => {
+    it('testExpTimeConvert0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 39000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -705,7 +705,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0041', 0, () => {
+    it('testExpTimeConvert0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 40000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -722,7 +722,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0042', 0, () => {
+    it('testExpTimeConvert0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 41000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -739,7 +739,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0043', 0, () => {
+    it('testExpTimeConvert0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 42000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -756,7 +756,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0044', 0, () => {
+    it('testExpTimeConvert0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 43000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -773,7 +773,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0045', 0, () => {
+    it('testExpTimeConvert0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 44000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -790,7 +790,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0046', 0, () => {
+    it('testExpTimeConvert0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 45000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -807,7 +807,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0047', 0, () => {
+    it('testExpTimeConvert0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 46000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -824,7 +824,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0048', 0, () => {
+    it('testExpTimeConvert0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 47000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -841,7 +841,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0049', 0, () => {
+    it('testExpTimeConvert0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 48000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -858,7 +858,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0050', 0, () => {
+    it('testExpTimeConvert0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 49000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -875,7 +875,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0051', 0, () => {
+    it('testExpTimeConvert0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 50000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -892,7 +892,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0052', 0, () => {
+    it('testExpTimeConvert0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 51000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -909,7 +909,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0053', 0, () => {
+    it('testExpTimeConvert0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 52000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -926,7 +926,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0054', 0, () => {
+    it('testExpTimeConvert0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 53000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -943,7 +943,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0055', 0, () => {
+    it('testExpTimeConvert0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 54000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -960,7 +960,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0056', 0, () => {
+    it('testExpTimeConvert0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 55000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -977,7 +977,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0057', 0, () => {
+    it('testExpTimeConvert0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 56000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -994,7 +994,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0058', 0, () => {
+    it('testExpTimeConvert0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 57000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1011,7 +1011,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0059', 0, () => {
+    it('testExpTimeConvert0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 58000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1028,7 +1028,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0060', 0, () => {
+    it('testExpTimeConvert0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 59000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1045,7 +1045,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0061', 0, () => {
+    it('testExpTimeConvert0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 60000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1062,7 +1062,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0062', 0, () => {
+    it('testExpTimeConvert0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 61000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1079,7 +1079,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0063', 0, () => {
+    it('testExpTimeConvert0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 62000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1096,7 +1096,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0064', 0, () => {
+    it('testExpTimeConvert0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 63000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1113,7 +1113,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0065', 0, () => {
+    it('testExpTimeConvert0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 64000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1130,7 +1130,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0066', 0, () => {
+    it('testExpTimeConvert0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 65000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1147,7 +1147,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0067', 0, () => {
+    it('testExpTimeConvert0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 66000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1164,7 +1164,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0068', 0, () => {
+    it('testExpTimeConvert0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 67000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1181,7 +1181,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0069', 0, () => {
+    it('testExpTimeConvert0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 68000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1198,7 +1198,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0070', 0, () => {
+    it('testExpTimeConvert0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 69000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1215,7 +1215,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0071', 0, () => {
+    it('testExpTimeConvert0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 70000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1232,7 +1232,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0072', 0, () => {
+    it('testExpTimeConvert0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 71000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1249,7 +1249,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0073', 0, () => {
+    it('testExpTimeConvert0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 72000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1266,7 +1266,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0074', 0, () => {
+    it('testExpTimeConvert0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 73000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1283,7 +1283,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0075', 0, () => {
+    it('testExpTimeConvert0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 74000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1300,7 +1300,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0076', 0, () => {
+    it('testExpTimeConvert0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 75000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1317,7 +1317,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0077', 0, () => {
+    it('testExpTimeConvert0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 76000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1334,7 +1334,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0078', 0, () => {
+    it('testExpTimeConvert0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 77000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1351,7 +1351,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0079', 0, () => {
+    it('testExpTimeConvert0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 78000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1368,7 +1368,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0080', 0, () => {
+    it('testExpTimeConvert0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 79000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1385,7 +1385,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0081', 0, () => {
+    it('testExpTimeConvert0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 80000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1402,7 +1402,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0082', 0, () => {
+    it('testExpTimeConvert0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 81000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1419,7 +1419,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0083', 0, () => {
+    it('testExpTimeConvert0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 82000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1436,7 +1436,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0084', 0, () => {
+    it('testExpTimeConvert0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 83000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1453,7 +1453,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0085', 0, () => {
+    it('testExpTimeConvert0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 84000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1470,7 +1470,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0086', 0, () => {
+    it('testExpTimeConvert0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 85000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1487,7 +1487,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0087', 0, () => {
+    it('testExpTimeConvert0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 86000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1504,7 +1504,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0088', 0, () => {
+    it('testExpTimeConvert0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 87000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1521,7 +1521,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0089', 0, () => {
+    it('testExpTimeConvert0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 88000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1538,7 +1538,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0090', 0, () => {
+    it('testExpTimeConvert0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 89000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1555,7 +1555,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0091', 0, () => {
+    it('testExpTimeConvert0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 90000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1572,7 +1572,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0092', 0, () => {
+    it('testExpTimeConvert0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 91000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1589,7 +1589,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0093', 0, () => {
+    it('testExpTimeConvert0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 92000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1606,7 +1606,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0094', 0, () => {
+    it('testExpTimeConvert0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 93000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1623,7 +1623,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0095', 0, () => {
+    it('testExpTimeConvert0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 94000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1640,7 +1640,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0096', 0, () => {
+    it('testExpTimeConvert0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 95000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1657,7 +1657,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0097', 0, () => {
+    it('testExpTimeConvert0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 96000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1674,7 +1674,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0098', 0, () => {
+    it('testExpTimeConvert0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 97000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1691,7 +1691,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0099', 0, () => {
+    it('testExpTimeConvert0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 98000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);
@@ -1708,7 +1708,7 @@ export default function timeConvertExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpTimeConvert0100', 0, () => {
+    it('testExpTimeConvert0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const time: number = 99000;
       const minutes: number = Math.floor(time / 60000);
       const seconds: string = ((time % 60000) / 1000).toFixed(0);

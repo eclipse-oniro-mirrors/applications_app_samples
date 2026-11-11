@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function mediaMetadata8wTest() {
@@ -25,7 +25,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0001', 0, () => {
+    it('test8wMediaMetadata0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -41,7 +41,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0002', 0, () => {
+    it('test8wMediaMetadata0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -57,7 +57,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0003', 0, () => {
+    it('test8wMediaMetadata0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -73,7 +73,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0004', 0, () => {
+    it('test8wMediaMetadata0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -89,7 +89,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0005', 0, () => {
+    it('test8wMediaMetadata0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -105,7 +105,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0006', 0, () => {
+    it('test8wMediaMetadata0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -121,7 +121,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0007', 0, () => {
+    it('test8wMediaMetadata0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -137,7 +137,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0008', 0, () => {
+    it('test8wMediaMetadata0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -153,7 +153,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0009', 0, () => {
+    it('test8wMediaMetadata0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -169,7 +169,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0010', 0, () => {
+    it('test8wMediaMetadata0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -185,7 +185,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0011', 0, () => {
+    it('test8wMediaMetadata0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -201,7 +201,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0012', 0, () => {
+    it('test8wMediaMetadata0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -217,7 +217,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0013', 0, () => {
+    it('test8wMediaMetadata0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -233,7 +233,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0014', 0, () => {
+    it('test8wMediaMetadata0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -249,7 +249,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0015', 0, () => {
+    it('test8wMediaMetadata0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -265,7 +265,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0016', 0, () => {
+    it('test8wMediaMetadata0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -281,7 +281,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0017', 0, () => {
+    it('test8wMediaMetadata0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -297,7 +297,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0018', 0, () => {
+    it('test8wMediaMetadata0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -313,7 +313,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0019', 0, () => {
+    it('test8wMediaMetadata0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -329,7 +329,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0020', 0, () => {
+    it('test8wMediaMetadata0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -345,7 +345,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0021', 0, () => {
+    it('test8wMediaMetadata0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -361,7 +361,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0022', 0, () => {
+    it('test8wMediaMetadata0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -377,7 +377,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0023', 0, () => {
+    it('test8wMediaMetadata0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -393,7 +393,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0024', 0, () => {
+    it('test8wMediaMetadata0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -409,7 +409,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0025', 0, () => {
+    it('test8wMediaMetadata0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -425,7 +425,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0026', 0, () => {
+    it('test8wMediaMetadata0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -441,7 +441,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0027', 0, () => {
+    it('test8wMediaMetadata0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -457,7 +457,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0028', 0, () => {
+    it('test8wMediaMetadata0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -473,7 +473,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0029', 0, () => {
+    it('test8wMediaMetadata0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -489,7 +489,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0030', 0, () => {
+    it('test8wMediaMetadata0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -505,7 +505,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0031', 0, () => {
+    it('test8wMediaMetadata0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -521,7 +521,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0032', 0, () => {
+    it('test8wMediaMetadata0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -537,7 +537,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0033', 0, () => {
+    it('test8wMediaMetadata0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -553,7 +553,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0034', 0, () => {
+    it('test8wMediaMetadata0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -569,7 +569,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0035', 0, () => {
+    it('test8wMediaMetadata0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -585,7 +585,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0036', 0, () => {
+    it('test8wMediaMetadata0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -601,7 +601,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0037', 0, () => {
+    it('test8wMediaMetadata0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -617,7 +617,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0038', 0, () => {
+    it('test8wMediaMetadata0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -633,7 +633,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0039', 0, () => {
+    it('test8wMediaMetadata0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -649,7 +649,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0040', 0, () => {
+    it('test8wMediaMetadata0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -665,7 +665,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0041', 0, () => {
+    it('test8wMediaMetadata0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -681,7 +681,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0042', 0, () => {
+    it('test8wMediaMetadata0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -697,7 +697,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0043', 0, () => {
+    it('test8wMediaMetadata0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -713,7 +713,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0044', 0, () => {
+    it('test8wMediaMetadata0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -729,7 +729,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0045', 0, () => {
+    it('test8wMediaMetadata0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -745,7 +745,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0046', 0, () => {
+    it('test8wMediaMetadata0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -761,7 +761,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0047', 0, () => {
+    it('test8wMediaMetadata0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -777,7 +777,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0048', 0, () => {
+    it('test8wMediaMetadata0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -793,7 +793,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0049', 0, () => {
+    it('test8wMediaMetadata0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -809,7 +809,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0050', 0, () => {
+    it('test8wMediaMetadata0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -825,7 +825,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0051', 0, () => {
+    it('test8wMediaMetadata0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -841,7 +841,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0052', 0, () => {
+    it('test8wMediaMetadata0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -857,7 +857,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0053', 0, () => {
+    it('test8wMediaMetadata0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -873,7 +873,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0054', 0, () => {
+    it('test8wMediaMetadata0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -889,7 +889,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0055', 0, () => {
+    it('test8wMediaMetadata0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -905,7 +905,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0056', 0, () => {
+    it('test8wMediaMetadata0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -921,7 +921,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0057', 0, () => {
+    it('test8wMediaMetadata0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -937,7 +937,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0058', 0, () => {
+    it('test8wMediaMetadata0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -953,7 +953,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0059', 0, () => {
+    it('test8wMediaMetadata0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -969,7 +969,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0060', 0, () => {
+    it('test8wMediaMetadata0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -985,7 +985,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0061', 0, () => {
+    it('test8wMediaMetadata0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1001,7 +1001,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0062', 0, () => {
+    it('test8wMediaMetadata0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1017,7 +1017,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0063', 0, () => {
+    it('test8wMediaMetadata0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1033,7 +1033,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0064', 0, () => {
+    it('test8wMediaMetadata0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1049,7 +1049,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0065', 0, () => {
+    it('test8wMediaMetadata0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1065,7 +1065,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0066', 0, () => {
+    it('test8wMediaMetadata0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1081,7 +1081,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0067', 0, () => {
+    it('test8wMediaMetadata0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1097,7 +1097,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0068', 0, () => {
+    it('test8wMediaMetadata0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1113,7 +1113,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0069', 0, () => {
+    it('test8wMediaMetadata0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1129,7 +1129,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0070', 0, () => {
+    it('test8wMediaMetadata0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1145,7 +1145,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0071', 0, () => {
+    it('test8wMediaMetadata0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1161,7 +1161,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0072', 0, () => {
+    it('test8wMediaMetadata0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1177,7 +1177,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0073', 0, () => {
+    it('test8wMediaMetadata0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1193,7 +1193,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0074', 0, () => {
+    it('test8wMediaMetadata0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1209,7 +1209,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0075', 0, () => {
+    it('test8wMediaMetadata0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1225,7 +1225,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0076', 0, () => {
+    it('test8wMediaMetadata0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1241,7 +1241,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0077', 0, () => {
+    it('test8wMediaMetadata0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1257,7 +1257,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0078', 0, () => {
+    it('test8wMediaMetadata0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1273,7 +1273,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0079', 0, () => {
+    it('test8wMediaMetadata0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1289,7 +1289,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0080', 0, () => {
+    it('test8wMediaMetadata0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1305,7 +1305,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0081', 0, () => {
+    it('test8wMediaMetadata0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1321,7 +1321,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0082', 0, () => {
+    it('test8wMediaMetadata0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1337,7 +1337,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0083', 0, () => {
+    it('test8wMediaMetadata0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1353,7 +1353,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0084', 0, () => {
+    it('test8wMediaMetadata0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1369,7 +1369,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0085', 0, () => {
+    it('test8wMediaMetadata0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1385,7 +1385,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0086', 0, () => {
+    it('test8wMediaMetadata0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1401,7 +1401,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0087', 0, () => {
+    it('test8wMediaMetadata0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1417,7 +1417,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0088', 0, () => {
+    it('test8wMediaMetadata0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1433,7 +1433,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0089', 0, () => {
+    it('test8wMediaMetadata0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1449,7 +1449,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0090', 0, () => {
+    it('test8wMediaMetadata0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1465,7 +1465,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0091', 0, () => {
+    it('test8wMediaMetadata0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1481,7 +1481,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0092', 0, () => {
+    it('test8wMediaMetadata0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1497,7 +1497,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0093', 0, () => {
+    it('test8wMediaMetadata0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1513,7 +1513,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0094', 0, () => {
+    it('test8wMediaMetadata0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1529,7 +1529,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0095', 0, () => {
+    it('test8wMediaMetadata0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1545,7 +1545,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0096', 0, () => {
+    it('test8wMediaMetadata0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 21780300;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('video');
@@ -1561,7 +1561,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0097', 0, () => {
+    it('test8wMediaMetadata0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 682;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1577,7 +1577,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0098', 0, () => {
+    it('test8wMediaMetadata0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 1024;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1593,7 +1593,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0099', 0, () => {
+    it('test8wMediaMetadata0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 4096;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');
@@ -1609,7 +1609,7 @@ export default function mediaMetadata8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wMediaMetadata0100', 0, () => {
+    it('test8wMediaMetadata0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const size: number = 8192;
       const kind: string = size > 1000000 ? 'video' : 'subtitle';
       expect(kind).assertEqual('subtitle');

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function subtitleSafeStateCoreTest() {
   describe('subtitleSafeStateCoreTest', () => {
@@ -24,7 +24,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0001', 0, () => {
+    it('testSafeSyncState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -50;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -45,7 +45,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0002', 0, () => {
+    it('testSafeSyncState0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -49;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -66,7 +66,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0003', 0, () => {
+    it('testSafeSyncState0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -48;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -87,7 +87,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0004', 0, () => {
+    it('testSafeSyncState0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -47;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -108,7 +108,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0005', 0, () => {
+    it('testSafeSyncState0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -46;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -129,7 +129,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0006', 0, () => {
+    it('testSafeSyncState0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -45;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -150,7 +150,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0007', 0, () => {
+    it('testSafeSyncState0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -44;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -171,7 +171,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0008', 0, () => {
+    it('testSafeSyncState0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -43;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -192,7 +192,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0009', 0, () => {
+    it('testSafeSyncState0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -42;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -213,7 +213,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0010', 0, () => {
+    it('testSafeSyncState0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -41;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -234,7 +234,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0011', 0, () => {
+    it('testSafeSyncState0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -40;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -255,7 +255,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0012', 0, () => {
+    it('testSafeSyncState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -39;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -276,7 +276,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0013', 0, () => {
+    it('testSafeSyncState0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -38;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -297,7 +297,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0014', 0, () => {
+    it('testSafeSyncState0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -37;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -318,7 +318,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0015', 0, () => {
+    it('testSafeSyncState0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -36;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -339,7 +339,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0016', 0, () => {
+    it('testSafeSyncState0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -35;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -360,7 +360,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0017', 0, () => {
+    it('testSafeSyncState0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -34;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -381,7 +381,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0018', 0, () => {
+    it('testSafeSyncState0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -33;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -402,7 +402,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0019', 0, () => {
+    it('testSafeSyncState0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -32;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -423,7 +423,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0020', 0, () => {
+    it('testSafeSyncState0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -31;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -444,7 +444,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0021', 0, () => {
+    it('testSafeSyncState0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -30;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -465,7 +465,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0022', 0, () => {
+    it('testSafeSyncState0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -29;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -486,7 +486,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0023', 0, () => {
+    it('testSafeSyncState0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -28;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -507,7 +507,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0024', 0, () => {
+    it('testSafeSyncState0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -27;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -528,7 +528,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0025', 0, () => {
+    it('testSafeSyncState0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -26;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -549,7 +549,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0026', 0, () => {
+    it('testSafeSyncState0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -25;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -570,7 +570,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0027', 0, () => {
+    it('testSafeSyncState0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -24;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -591,7 +591,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0028', 0, () => {
+    it('testSafeSyncState0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -23;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -612,7 +612,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0029', 0, () => {
+    it('testSafeSyncState0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -22;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -633,7 +633,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0030', 0, () => {
+    it('testSafeSyncState0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -21;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -654,7 +654,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0031', 0, () => {
+    it('testSafeSyncState0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -20;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -675,7 +675,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0032', 0, () => {
+    it('testSafeSyncState0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -19;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -696,7 +696,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0033', 0, () => {
+    it('testSafeSyncState0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -18;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -717,7 +717,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0034', 0, () => {
+    it('testSafeSyncState0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -17;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -738,7 +738,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0035', 0, () => {
+    it('testSafeSyncState0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -16;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -759,7 +759,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0036', 0, () => {
+    it('testSafeSyncState0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -15;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -780,7 +780,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0037', 0, () => {
+    it('testSafeSyncState0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -14;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -801,7 +801,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0038', 0, () => {
+    it('testSafeSyncState0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -13;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -822,7 +822,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0039', 0, () => {
+    it('testSafeSyncState0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -12;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -843,7 +843,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0040', 0, () => {
+    it('testSafeSyncState0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -11;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -864,7 +864,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0041', 0, () => {
+    it('testSafeSyncState0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -10;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -885,7 +885,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0042', 0, () => {
+    it('testSafeSyncState0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -9;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -906,7 +906,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0043', 0, () => {
+    it('testSafeSyncState0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -8;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -927,7 +927,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0044', 0, () => {
+    it('testSafeSyncState0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -7;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -948,7 +948,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0045', 0, () => {
+    it('testSafeSyncState0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -6;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -969,7 +969,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0046', 0, () => {
+    it('testSafeSyncState0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -5;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -990,7 +990,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0047', 0, () => {
+    it('testSafeSyncState0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -4;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1011,7 +1011,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0048', 0, () => {
+    it('testSafeSyncState0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -3;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1032,7 +1032,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0049', 0, () => {
+    it('testSafeSyncState0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -2;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1053,7 +1053,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0050', 0, () => {
+    it('testSafeSyncState0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = -1;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1074,7 +1074,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0051', 0, () => {
+    it('testSafeSyncState0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 0;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1095,7 +1095,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0052', 0, () => {
+    it('testSafeSyncState0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 1;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1116,7 +1116,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0053', 0, () => {
+    it('testSafeSyncState0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 2;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1137,7 +1137,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0054', 0, () => {
+    it('testSafeSyncState0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 3;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1158,7 +1158,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0055', 0, () => {
+    it('testSafeSyncState0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 4;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1179,7 +1179,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0056', 0, () => {
+    it('testSafeSyncState0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 5;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1200,7 +1200,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0057', 0, () => {
+    it('testSafeSyncState0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 6;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1221,7 +1221,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0058', 0, () => {
+    it('testSafeSyncState0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 7;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1242,7 +1242,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0059', 0, () => {
+    it('testSafeSyncState0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 8;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1263,7 +1263,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0060', 0, () => {
+    it('testSafeSyncState0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 9;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1284,7 +1284,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0061', 0, () => {
+    it('testSafeSyncState0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 10;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1305,7 +1305,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0062', 0, () => {
+    it('testSafeSyncState0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 11;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1326,7 +1326,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0063', 0, () => {
+    it('testSafeSyncState0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 12;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1347,7 +1347,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0064', 0, () => {
+    it('testSafeSyncState0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 13;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1368,7 +1368,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0065', 0, () => {
+    it('testSafeSyncState0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 14;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1389,7 +1389,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0066', 0, () => {
+    it('testSafeSyncState0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 15;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1410,7 +1410,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0067', 0, () => {
+    it('testSafeSyncState0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 16;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1431,7 +1431,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0068', 0, () => {
+    it('testSafeSyncState0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 17;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1452,7 +1452,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0069', 0, () => {
+    it('testSafeSyncState0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 18;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1473,7 +1473,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0070', 0, () => {
+    it('testSafeSyncState0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 19;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1494,7 +1494,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0071', 0, () => {
+    it('testSafeSyncState0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 20;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1515,7 +1515,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0072', 0, () => {
+    it('testSafeSyncState0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 21;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1536,7 +1536,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0073', 0, () => {
+    it('testSafeSyncState0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 22;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1557,7 +1557,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0074', 0, () => {
+    it('testSafeSyncState0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 23;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1578,7 +1578,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0075', 0, () => {
+    it('testSafeSyncState0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 24;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1599,7 +1599,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0076', 0, () => {
+    it('testSafeSyncState0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 25;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1620,7 +1620,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0077', 0, () => {
+    it('testSafeSyncState0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 26;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1641,7 +1641,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0078', 0, () => {
+    it('testSafeSyncState0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 27;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1662,7 +1662,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0079', 0, () => {
+    it('testSafeSyncState0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 28;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1683,7 +1683,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0080', 0, () => {
+    it('testSafeSyncState0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 29;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1704,7 +1704,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0081', 0, () => {
+    it('testSafeSyncState0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 30;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1725,7 +1725,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0082', 0, () => {
+    it('testSafeSyncState0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 31;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1746,7 +1746,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0083', 0, () => {
+    it('testSafeSyncState0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 32;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1767,7 +1767,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0084', 0, () => {
+    it('testSafeSyncState0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 33;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1788,7 +1788,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0085', 0, () => {
+    it('testSafeSyncState0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 34;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1809,7 +1809,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0086', 0, () => {
+    it('testSafeSyncState0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 35;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1830,7 +1830,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0087', 0, () => {
+    it('testSafeSyncState0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 36;
       let policy: string = 'SHOW';
       if (delta < 0) {
@@ -1851,7 +1851,7 @@ export default function subtitleSafeStateCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeSyncState0088', 0, () => {
+    it('testSafeSyncState0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const delta: number = 37;
       let policy: string = 'SHOW';
       if (delta < 0) {

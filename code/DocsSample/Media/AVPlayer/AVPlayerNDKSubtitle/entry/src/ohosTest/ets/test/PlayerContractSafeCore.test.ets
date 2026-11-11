@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function playerContractSafeCoreTest() {
   describe('playerContractSafeCoreTest', () => {
@@ -24,7 +24,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0001', 0, () => {
+    it('testSafePlayerState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -39,7 +39,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0002', 0, () => {
+    it('testSafePlayerState0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -54,7 +54,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0003', 0, () => {
+    it('testSafePlayerState0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -69,7 +69,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0004', 0, () => {
+    it('testSafePlayerState0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -84,7 +84,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0005', 0, () => {
+    it('testSafePlayerState0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -99,7 +99,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0006', 0, () => {
+    it('testSafePlayerState0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -114,7 +114,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0007', 0, () => {
+    it('testSafePlayerState0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -129,7 +129,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0008', 0, () => {
+    it('testSafePlayerState0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -144,7 +144,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0009', 0, () => {
+    it('testSafePlayerState0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -159,7 +159,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0010', 0, () => {
+    it('testSafePlayerState0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -174,7 +174,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0011', 0, () => {
+    it('testSafePlayerState0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -189,7 +189,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0012', 0, () => {
+    it('testSafePlayerState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -204,7 +204,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0013', 0, () => {
+    it('testSafePlayerState0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -219,7 +219,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0014', 0, () => {
+    it('testSafePlayerState0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -234,7 +234,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0015', 0, () => {
+    it('testSafePlayerState0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -249,7 +249,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0016', 0, () => {
+    it('testSafePlayerState0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -264,7 +264,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0017', 0, () => {
+    it('testSafePlayerState0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -279,7 +279,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0018', 0, () => {
+    it('testSafePlayerState0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -294,7 +294,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0019', 0, () => {
+    it('testSafePlayerState0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -309,7 +309,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0020', 0, () => {
+    it('testSafePlayerState0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -324,7 +324,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0021', 0, () => {
+    it('testSafePlayerState0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -339,7 +339,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0022', 0, () => {
+    it('testSafePlayerState0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -354,7 +354,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0023', 0, () => {
+    it('testSafePlayerState0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -369,7 +369,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0024', 0, () => {
+    it('testSafePlayerState0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -384,7 +384,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0025', 0, () => {
+    it('testSafePlayerState0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -399,7 +399,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0026', 0, () => {
+    it('testSafePlayerState0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -414,7 +414,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0027', 0, () => {
+    it('testSafePlayerState0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -429,7 +429,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0028', 0, () => {
+    it('testSafePlayerState0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -444,7 +444,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0029', 0, () => {
+    it('testSafePlayerState0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -459,7 +459,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0030', 0, () => {
+    it('testSafePlayerState0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -474,7 +474,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0031', 0, () => {
+    it('testSafePlayerState0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -489,7 +489,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0032', 0, () => {
+    it('testSafePlayerState0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -504,7 +504,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0033', 0, () => {
+    it('testSafePlayerState0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -519,7 +519,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0034', 0, () => {
+    it('testSafePlayerState0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -534,7 +534,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0035', 0, () => {
+    it('testSafePlayerState0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -549,7 +549,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0036', 0, () => {
+    it('testSafePlayerState0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -564,7 +564,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0037', 0, () => {
+    it('testSafePlayerState0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -579,7 +579,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0038', 0, () => {
+    it('testSafePlayerState0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -594,7 +594,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0039', 0, () => {
+    it('testSafePlayerState0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -609,7 +609,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0040', 0, () => {
+    it('testSafePlayerState0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -624,7 +624,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0041', 0, () => {
+    it('testSafePlayerState0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -639,7 +639,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0042', 0, () => {
+    it('testSafePlayerState0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -654,7 +654,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0043', 0, () => {
+    it('testSafePlayerState0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -669,7 +669,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0044', 0, () => {
+    it('testSafePlayerState0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -684,7 +684,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0045', 0, () => {
+    it('testSafePlayerState0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -699,7 +699,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0046', 0, () => {
+    it('testSafePlayerState0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -714,7 +714,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0047', 0, () => {
+    it('testSafePlayerState0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -729,7 +729,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0048', 0, () => {
+    it('testSafePlayerState0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -744,7 +744,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0049', 0, () => {
+    it('testSafePlayerState0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -759,7 +759,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0050', 0, () => {
+    it('testSafePlayerState0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -774,7 +774,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0051', 0, () => {
+    it('testSafePlayerState0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -789,7 +789,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0052', 0, () => {
+    it('testSafePlayerState0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -804,7 +804,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0053', 0, () => {
+    it('testSafePlayerState0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -819,7 +819,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0054', 0, () => {
+    it('testSafePlayerState0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -834,7 +834,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0055', 0, () => {
+    it('testSafePlayerState0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -849,7 +849,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0056', 0, () => {
+    it('testSafePlayerState0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -864,7 +864,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0057', 0, () => {
+    it('testSafePlayerState0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -879,7 +879,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0058', 0, () => {
+    it('testSafePlayerState0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -894,7 +894,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0059', 0, () => {
+    it('testSafePlayerState0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -909,7 +909,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0060', 0, () => {
+    it('testSafePlayerState0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -924,7 +924,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0061', 0, () => {
+    it('testSafePlayerState0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -939,7 +939,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0062', 0, () => {
+    it('testSafePlayerState0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -954,7 +954,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0063', 0, () => {
+    it('testSafePlayerState0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -969,7 +969,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0064', 0, () => {
+    it('testSafePlayerState0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -984,7 +984,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0065', 0, () => {
+    it('testSafePlayerState0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -999,7 +999,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0066', 0, () => {
+    it('testSafePlayerState0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -1014,7 +1014,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0067', 0, () => {
+    it('testSafePlayerState0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -1029,7 +1029,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0068', 0, () => {
+    it('testSafePlayerState0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -1044,7 +1044,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0069', 0, () => {
+    it('testSafePlayerState0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -1059,7 +1059,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0070', 0, () => {
+    it('testSafePlayerState0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -1074,7 +1074,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0071', 0, () => {
+    it('testSafePlayerState0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -1089,7 +1089,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0072', 0, () => {
+    it('testSafePlayerState0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -1104,7 +1104,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0073', 0, () => {
+    it('testSafePlayerState0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -1119,7 +1119,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0074', 0, () => {
+    it('testSafePlayerState0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -1134,7 +1134,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0075', 0, () => {
+    it('testSafePlayerState0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -1149,7 +1149,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0076', 0, () => {
+    it('testSafePlayerState0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -1164,7 +1164,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0077', 0, () => {
+    it('testSafePlayerState0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -1179,7 +1179,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0078', 0, () => {
+    it('testSafePlayerState0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -1194,7 +1194,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0079', 0, () => {
+    it('testSafePlayerState0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -1209,7 +1209,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0080', 0, () => {
+    it('testSafePlayerState0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -1224,7 +1224,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0081', 0, () => {
+    it('testSafePlayerState0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -1239,7 +1239,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0082', 0, () => {
+    it('testSafePlayerState0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -1254,7 +1254,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0083', 0, () => {
+    it('testSafePlayerState0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -1269,7 +1269,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0084', 0, () => {
+    it('testSafePlayerState0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -1284,7 +1284,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0085', 0, () => {
+    it('testSafePlayerState0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -1299,7 +1299,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0086', 0, () => {
+    it('testSafePlayerState0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -1314,7 +1314,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0087', 0, () => {
+    it('testSafePlayerState0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -1329,7 +1329,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0088', 0, () => {
+    it('testSafePlayerState0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -1344,7 +1344,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0089', 0, () => {
+    it('testSafePlayerState0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -1359,7 +1359,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0090', 0, () => {
+    it('testSafePlayerState0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -1374,7 +1374,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0091', 0, () => {
+    it('testSafePlayerState0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);
@@ -1389,7 +1389,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0092', 0, () => {
+    it('testSafePlayerState0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'initialized';
       expect(state).assertEqual('initialized');
       expect(state.length).assertLarger(0);
@@ -1404,7 +1404,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0093', 0, () => {
+    it('testSafePlayerState0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'prepared';
       expect(state).assertEqual('prepared');
       expect(state.length).assertLarger(0);
@@ -1419,7 +1419,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0094', 0, () => {
+    it('testSafePlayerState0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'playing';
       expect(state).assertEqual('playing');
       expect(state.length).assertLarger(0);
@@ -1434,7 +1434,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0095', 0, () => {
+    it('testSafePlayerState0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'paused';
       expect(state).assertEqual('paused');
       expect(state.length).assertLarger(0);
@@ -1449,7 +1449,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0096', 0, () => {
+    it('testSafePlayerState0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'completed';
       expect(state).assertEqual('completed');
       expect(state.length).assertLarger(0);
@@ -1464,7 +1464,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0097', 0, () => {
+    it('testSafePlayerState0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'stopped';
       expect(state).assertEqual('stopped');
       expect(state.length).assertLarger(0);
@@ -1479,7 +1479,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0098', 0, () => {
+    it('testSafePlayerState0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'released';
       expect(state).assertEqual('released');
       expect(state.length).assertLarger(0);
@@ -1494,7 +1494,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0099', 0, () => {
+    it('testSafePlayerState0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'error';
       expect(state).assertEqual('error');
       expect(state.length).assertLarger(0);
@@ -1509,7 +1509,7 @@ export default function playerContractSafeCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerState0100', 0, () => {
+    it('testSafePlayerState0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const state: string = 'idle';
       expect(state).assertEqual('idle');
       expect(state.length).assertLarger(0);

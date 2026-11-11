@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function subtitleSafeBoundaryCoreTest() {
   describe('subtitleSafeBoundaryCoreTest', () => {
@@ -24,7 +24,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0001', 0, () => {
+    it('testSafeWrap0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 10;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -41,7 +41,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0002', 0, () => {
+    it('testSafeWrap0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 17;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -58,7 +58,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0003', 0, () => {
+    it('testSafeWrap0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 22;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -75,7 +75,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0004', 0, () => {
+    it('testSafeWrap0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 27;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -92,7 +92,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0005', 0, () => {
+    it('testSafeWrap0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 36;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -109,7 +109,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0006', 0, () => {
+    it('testSafeWrap0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 45;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -126,7 +126,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0007', 0, () => {
+    it('testSafeWrap0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 16;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -143,7 +143,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0008', 0, () => {
+    it('testSafeWrap0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 23;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -160,7 +160,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0009', 0, () => {
+    it('testSafeWrap0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 28;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -177,7 +177,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0010', 0, () => {
+    it('testSafeWrap0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 33;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -194,7 +194,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0011', 0, () => {
+    it('testSafeWrap0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 42;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -211,7 +211,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0012', 0, () => {
+    it('testSafeWrap0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 51;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -228,7 +228,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0013', 0, () => {
+    it('testSafeWrap0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 22;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -245,7 +245,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0014', 0, () => {
+    it('testSafeWrap0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 29;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -262,7 +262,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0015', 0, () => {
+    it('testSafeWrap0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 34;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -279,7 +279,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0016', 0, () => {
+    it('testSafeWrap0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 24;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -296,7 +296,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0017', 0, () => {
+    it('testSafeWrap0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 33;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -313,7 +313,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0018', 0, () => {
+    it('testSafeWrap0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 42;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -330,7 +330,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0019', 0, () => {
+    it('testSafeWrap0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 13;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -347,7 +347,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0020', 0, () => {
+    it('testSafeWrap0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 20;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -364,7 +364,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0021', 0, () => {
+    it('testSafeWrap0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 25;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -381,7 +381,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0022', 0, () => {
+    it('testSafeWrap0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 30;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -398,7 +398,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0023', 0, () => {
+    it('testSafeWrap0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 39;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -415,7 +415,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0024', 0, () => {
+    it('testSafeWrap0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 48;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -432,7 +432,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0025', 0, () => {
+    it('testSafeWrap0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 19;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -449,7 +449,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0026', 0, () => {
+    it('testSafeWrap0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 26;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -466,7 +466,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0027', 0, () => {
+    it('testSafeWrap0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 31;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -483,7 +483,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0028', 0, () => {
+    it('testSafeWrap0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 36;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -500,7 +500,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0029', 0, () => {
+    it('testSafeWrap0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 45;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -517,7 +517,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0030', 0, () => {
+    it('testSafeWrap0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 54;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -534,7 +534,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0031', 0, () => {
+    it('testSafeWrap0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 10;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -551,7 +551,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0032', 0, () => {
+    it('testSafeWrap0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 17;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -568,7 +568,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0033', 0, () => {
+    it('testSafeWrap0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 22;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -585,7 +585,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0034', 0, () => {
+    it('testSafeWrap0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 27;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -602,7 +602,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0035', 0, () => {
+    it('testSafeWrap0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 36;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -619,7 +619,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0036', 0, () => {
+    it('testSafeWrap0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 45;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -636,7 +636,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0037', 0, () => {
+    it('testSafeWrap0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 16;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -653,7 +653,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0038', 0, () => {
+    it('testSafeWrap0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 23;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -670,7 +670,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0039', 0, () => {
+    it('testSafeWrap0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 28;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -687,7 +687,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0040', 0, () => {
+    it('testSafeWrap0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 33;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -704,7 +704,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0041', 0, () => {
+    it('testSafeWrap0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 42;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -721,7 +721,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0042', 0, () => {
+    it('testSafeWrap0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 51;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -738,7 +738,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0043', 0, () => {
+    it('testSafeWrap0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 22;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -755,7 +755,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0044', 0, () => {
+    it('testSafeWrap0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 29;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -772,7 +772,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0045', 0, () => {
+    it('testSafeWrap0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 34;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -789,7 +789,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0046', 0, () => {
+    it('testSafeWrap0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 24;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -806,7 +806,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0047', 0, () => {
+    it('testSafeWrap0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 33;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -823,7 +823,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0048', 0, () => {
+    it('testSafeWrap0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 42;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -840,7 +840,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0049', 0, () => {
+    it('testSafeWrap0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 13;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -857,7 +857,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0050', 0, () => {
+    it('testSafeWrap0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 20;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -874,7 +874,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0051', 0, () => {
+    it('testSafeWrap0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 25;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -891,7 +891,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0052', 0, () => {
+    it('testSafeWrap0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 30;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -908,7 +908,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0053', 0, () => {
+    it('testSafeWrap0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 39;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -925,7 +925,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0054', 0, () => {
+    it('testSafeWrap0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 48;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -942,7 +942,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0055', 0, () => {
+    it('testSafeWrap0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 19;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -959,7 +959,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0056', 0, () => {
+    it('testSafeWrap0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 26;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -976,7 +976,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0057', 0, () => {
+    it('testSafeWrap0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 31;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -993,7 +993,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0058', 0, () => {
+    it('testSafeWrap0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 36;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -1010,7 +1010,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0059', 0, () => {
+    it('testSafeWrap0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 45;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -1027,7 +1027,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0060', 0, () => {
+    it('testSafeWrap0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 54;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -1044,7 +1044,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0061', 0, () => {
+    it('testSafeWrap0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 10;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -1061,7 +1061,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0062', 0, () => {
+    it('testSafeWrap0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 17;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -1078,7 +1078,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0063', 0, () => {
+    it('testSafeWrap0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 22;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -1095,7 +1095,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0064', 0, () => {
+    it('testSafeWrap0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 27;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -1112,7 +1112,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0065', 0, () => {
+    it('testSafeWrap0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 36;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -1129,7 +1129,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0066', 0, () => {
+    it('testSafeWrap0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 45;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -1146,7 +1146,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0067', 0, () => {
+    it('testSafeWrap0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 16;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -1163,7 +1163,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0068', 0, () => {
+    it('testSafeWrap0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 23;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -1180,7 +1180,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0069', 0, () => {
+    it('testSafeWrap0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 28;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -1197,7 +1197,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0070', 0, () => {
+    it('testSafeWrap0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 33;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -1214,7 +1214,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0071', 0, () => {
+    it('testSafeWrap0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 42;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -1231,7 +1231,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0072', 0, () => {
+    it('testSafeWrap0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 51;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -1248,7 +1248,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0073', 0, () => {
+    it('testSafeWrap0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 22;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -1265,7 +1265,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0074', 0, () => {
+    it('testSafeWrap0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 29;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -1282,7 +1282,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0075', 0, () => {
+    it('testSafeWrap0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 34;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -1299,7 +1299,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0076', 0, () => {
+    it('testSafeWrap0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 24;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -1316,7 +1316,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0077', 0, () => {
+    it('testSafeWrap0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 33;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -1333,7 +1333,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0078', 0, () => {
+    it('testSafeWrap0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 42;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -1350,7 +1350,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0079', 0, () => {
+    it('testSafeWrap0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 13;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -1367,7 +1367,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0080', 0, () => {
+    it('testSafeWrap0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 20;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -1384,7 +1384,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0081', 0, () => {
+    it('testSafeWrap0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 25;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -1401,7 +1401,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0082', 0, () => {
+    it('testSafeWrap0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 30;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
@@ -1418,7 +1418,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0083', 0, () => {
+    it('testSafeWrap0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 39;
       const width: number = 32;
       const lines: number = Math.ceil(length / width);
@@ -1435,7 +1435,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0084', 0, () => {
+    it('testSafeWrap0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 48;
       const width: number = 40;
       const lines: number = Math.ceil(length / width);
@@ -1452,7 +1452,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0085', 0, () => {
+    it('testSafeWrap0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 19;
       const width: number = 10;
       const lines: number = Math.ceil(length / width);
@@ -1469,7 +1469,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0086', 0, () => {
+    it('testSafeWrap0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 26;
       const width: number = 16;
       const lines: number = Math.ceil(length / width);
@@ -1486,7 +1486,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0087', 0, () => {
+    it('testSafeWrap0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 31;
       const width: number = 20;
       const lines: number = Math.ceil(length / width);
@@ -1503,7 +1503,7 @@ export default function subtitleSafeBoundaryCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeWrap0088', 0, () => {
+    it('testSafeWrap0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const length: number = 36;
       const width: number = 24;
       const lines: number = Math.ceil(length / width);
