@@ -26,6 +26,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function targetFor(label: string): string {
   return pathInFiles(uniqueName(`avs_offset_${label}`, '.txt'));
@@ -37,6 +38,18 @@ function readFromOffset(fd: number, offset: number, length: number): string {
   const readLength: number = fileIo.readSync(fd, buffer);
   expect(readLength).assertEqual(length);
   return decodeBuffer(buffer, readLength);
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileOffsetMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileOffsetMatrixTest() {
@@ -62,6 +75,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0001');
       const path: string = targetFor('start');
       writeTextFile(path, '0123456789');
       try {
@@ -71,6 +85,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0001');
     })
 
     /**
@@ -82,6 +98,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0002');
       const path: string = targetFor('end');
       writeTextFile(path, '0123456789');
       try {
@@ -91,6 +108,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0002');
     })
 
     /**
@@ -102,6 +121,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0003');
       const path: string = targetFor('advance');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
@@ -115,6 +135,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0003');
     })
 
     /**
@@ -126,6 +148,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0004');
       const path: string = targetFor('middle');
       writeTextFile(path, '0123456789');
       try {
@@ -138,6 +161,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0004');
     })
 
     /**
@@ -149,6 +174,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0005');
       const path: string = targetFor('prefix');
       writeTextFile(path, 'abcdefghij');
       try {
@@ -160,6 +186,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0005');
     })
 
     /**
@@ -171,6 +199,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0006');
       const path: string = targetFor('append');
       writeTextFile(path, 'head');
       try {
@@ -183,6 +212,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0006');
     })
 
     /**
@@ -194,6 +225,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0007');
       const path: string = targetFor('slice');
       writeTextFile(path, '0123456789');
       try {
@@ -204,6 +236,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0007');
     })
 
     /**
@@ -215,6 +249,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0008');
       const path: string = targetFor('from_end');
       writeTextFile(path, 'abcdefghij');
       try {
@@ -228,6 +263,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0008');
     })
 
     /**
@@ -239,6 +276,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0009');
       const path: string = targetFor('reopen');
       writeTextFile(path, 'abcdef');
       try {
@@ -252,6 +290,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0009');
     })
 
     /**
@@ -263,6 +303,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0010');
       const path: string = targetFor('repeat');
       writeTextFile(path, '0123456789');
       try {
@@ -274,6 +315,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0010');
     })
 
     /**
@@ -285,6 +328,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0011');
       const path: string = targetFor('sequence');
       writeTextFile(path, 'AAAAAAAAAA');
       try {
@@ -300,6 +344,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0011');
     })
 
     /**
@@ -311,6 +357,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0012');
       const path: string = targetFor('empty_grow');
       try {
         writeTextFile(path, '');
@@ -324,6 +371,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0012');
     })
 
     /**
@@ -335,6 +384,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0013');
       const path: string = targetFor('eof');
       writeTextFile(path, 'abcdef');
       try {
@@ -348,6 +398,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0013');
     })
 
     /**
@@ -359,6 +411,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileOffset0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileOffset0014');
       const path: string = targetFor('matrix');
       writeTextFile(path, '0123456789abcdef');
       try {
@@ -373,6 +426,8 @@ export default function fileOffsetMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileOffset0014');
     })
   });
 }

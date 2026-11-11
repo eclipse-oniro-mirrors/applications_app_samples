@@ -25,6 +25,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function targetFor(label: string): string {
   return pathInFiles(uniqueName(`avs_mode_${label}`, '.txt'));
@@ -37,6 +38,18 @@ function throws(action: () => void): boolean {
   } catch (error) {
     return true;
   }
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileModeMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileModeMatrixTest() {
@@ -62,6 +75,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0001');
       const path: string = targetFor('create');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
@@ -71,6 +85,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0001');
     })
 
     /**
@@ -82,6 +98,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0002');
       const path: string = targetFor('create_existing');
       try {
         writeTextFile(path, 'preserved');
@@ -92,6 +109,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0002');
     })
 
     /**
@@ -103,6 +122,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0003');
       const path: string = targetFor('trunc');
       try {
         writeTextFile(path, 'will-be-cleared');
@@ -113,6 +133,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0003');
     })
 
     /**
@@ -124,6 +146,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0004');
       const path: string = targetFor('create_trunc');
       try {
         const file: fileIo.File = fileIo.openSync(path,
@@ -135,6 +158,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0004');
     })
 
     /**
@@ -146,6 +171,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0005');
       const path: string = targetFor('append');
       try {
         writeTextFile(path, 'head');
@@ -157,6 +183,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0005');
     })
 
     /**
@@ -168,6 +196,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0006');
       const path: string = targetFor('append_twice');
       try {
         writeTextFile(path, 'a');
@@ -181,6 +210,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0006');
     })
 
     /**
@@ -192,6 +223,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0007');
       const path: string = targetFor('read_write');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
@@ -205,6 +237,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0007');
     })
 
     /**
@@ -216,6 +250,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0008');
       const path: string = targetFor('in_place');
       try {
         writeTextFile(path, 'ABCDEF');
@@ -228,6 +263,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0008');
     })
 
     /**
@@ -239,6 +276,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0009');
       const path: string = targetFor('read_only_write');
       try {
         writeTextFile(path, 'readonly');
@@ -253,6 +291,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0009');
     })
 
     /**
@@ -264,6 +304,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0010');
       const path: string = targetFor('write_only_read');
       try {
         writeTextFile(path, 'writeonly');
@@ -277,6 +318,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0010');
     })
 
     /**
@@ -288,6 +331,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0011');
       const path: string = targetFor('write_only_grow');
       try {
         writeTextFile(path, 'start');
@@ -299,6 +343,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0011');
     })
 
     /**
@@ -310,6 +356,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0012');
       const path: string = targetFor('trunc_append');
       try {
         writeTextFile(path, 'old-content');
@@ -322,6 +369,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0012');
     })
 
     /**
@@ -333,6 +382,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0013');
       const path: string = targetFor('shared_read');
       try {
         writeTextFile(path, 'first');
@@ -349,6 +399,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0013');
     })
 
     /**
@@ -360,6 +412,7 @@ export default function fileModeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileMode0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileMode0014');
       const path: string = targetFor('cycle');
       try {
         const file: fileIo.File = fileIo.openSync(path,
@@ -373,6 +426,8 @@ export default function fileModeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileMode0014');
     })
   });
 }

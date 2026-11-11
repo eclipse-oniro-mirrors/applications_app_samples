@@ -19,9 +19,22 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function targetFor(label: string): string {
   return pathInFiles(uniqueName(`avs_stat_${label}`, '.txt'));
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileStatMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileStatMatrixTest() {
@@ -44,6 +57,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify stat reports a regular file for a newly written one-byte file
      */
     it('testFileStat0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0001');
       const path: string = targetFor('one');
       try {
         writeTextFile(path, 'a');
@@ -54,6 +68,8 @@ export default function fileStatMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileStat0001');
     })
 
     /**
@@ -62,6 +78,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify the stat size matches the payload for 64 and 1024 byte files
      */
     it('testFileStat0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0002');
       const path: string = targetFor('sizes');
       try {
         writeTextFile(path, repeatPayload(64, 's'));
@@ -71,6 +88,8 @@ export default function fileStatMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileStat0002');
     })
 
     /**
@@ -79,6 +98,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify truncation is reflected in the next stat call
      */
     it('testFileStat0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0003');
       const path: string = targetFor('truncate');
       try {
         writeTextFile(path, repeatPayload(512, 't'));
@@ -89,6 +109,8 @@ export default function fileStatMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileStat0003');
     })
 
     /**
@@ -97,6 +119,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify appending updates the stat size to the sum of both chunks
      */
     it('testFileStat0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0004');
       const path: string = targetFor('append');
       try {
         writeTextFile(path, 'head');
@@ -108,6 +131,8 @@ export default function fileStatMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileStat0004');
     })
 
     /**
@@ -116,6 +141,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify stat distinguishes a directory node from a regular file
      */
     it('testFileStat0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0005');
       const dir: string = `${appContext().filesDir}/${uniqueName('avs_stat_dir', '')}`;
       const file: string = targetFor('mixed');
       try {
@@ -129,6 +155,8 @@ export default function fileStatMatrixTest() {
         removeDirQuietly(dir);
         removeQuietly(file);
       }
+    
+      logEnd('testFileStat0005');
     })
 
     /**
@@ -137,6 +165,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify stat on a missing path fails with the no-such-file code
      */
     it('testFileStat0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0006');
       const missing: string = targetFor('missing');
       let code: number = -1;
       try {
@@ -145,6 +174,8 @@ export default function fileStatMatrixTest() {
         code = (error as BusinessError).code;
       }
       expect(code).assertEqual(13900002);
+    
+      logEnd('testFileStat0006');
     })
 
     /**
@@ -153,6 +184,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify an empty file reports size zero and remains a regular file
      */
     it('testFileStat0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0007');
       const path: string = targetFor('empty');
       try {
         writeTextFile(path, '');
@@ -162,6 +194,8 @@ export default function fileStatMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileStat0007');
     })
 
     /**
@@ -170,6 +204,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify repeated stat calls return the same size without mutation
      */
     it('testFileStat0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0008');
       const path: string = targetFor('stable');
       try {
         writeTextFile(path, repeatPayload(300, 'stable'));
@@ -180,6 +215,8 @@ export default function fileStatMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileStat0008');
     })
 
     /**
@@ -188,6 +225,7 @@ export default function fileStatMatrixTest() {
      * @tc.desc      Verify stat size tracks a sequence of growing writes
      */
     it('testFileStat0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileStat0009');
       const path: string = targetFor('growing');
       try {
         const sizes: number[] = [1, 8, 64, 256, 1024];
@@ -198,6 +236,8 @@ export default function fileStatMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileStat0009');
     })
   });
 }

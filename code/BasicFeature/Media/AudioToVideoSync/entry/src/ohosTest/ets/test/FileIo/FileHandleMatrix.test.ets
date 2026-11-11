@@ -26,6 +26,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function targetFor(label: string): string {
   return pathInFiles(uniqueName(`avs_handle_${label}`, '.txt'));
@@ -37,6 +38,18 @@ function readAt(fd: number, offset: number, length: number): string {
   const readLength: number = fileIo.readSync(fd, buffer);
   expect(readLength).assertEqual(length);
   return decodeBuffer(buffer, readLength);
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileHandleMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileHandleMatrixTest() {
@@ -62,6 +75,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0001');
       const path: string = targetFor('distinct');
       writeTextFile(path, 'abcdef');
       try {
@@ -78,6 +92,8 @@ export default function fileHandleMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0001');
     })
 
     /**
@@ -89,6 +105,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0002');
       const path: string = targetFor('visible');
       writeTextFile(path, 'initial');
       try {
@@ -105,6 +122,8 @@ export default function fileHandleMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0002');
     })
 
     /**
@@ -116,6 +135,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0003');
       const path: string = targetFor('independent');
       writeTextFile(path, '0123456789');
       try {
@@ -133,6 +153,8 @@ export default function fileHandleMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0003');
     })
 
     /**
@@ -144,6 +166,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0004');
       const path: string = targetFor('close_one');
       writeTextFile(path, 'abcdefgh');
       try {
@@ -159,6 +182,8 @@ export default function fileHandleMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0004');
     })
 
     /**
@@ -170,6 +195,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0005');
       const path: string = targetFor('many');
       writeTextFile(path, '........');
       const handles: fileIo.File[] = [];
@@ -195,6 +221,8 @@ export default function fileHandleMatrixTest() {
         }
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0005');
     })
 
     /**
@@ -206,6 +234,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0006');
       const path: string = targetFor('reopen');
       writeTextFile(path, 'reopen-content');
       try {
@@ -222,6 +251,8 @@ export default function fileHandleMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0006');
     })
 
     /**
@@ -233,6 +264,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0007');
       const path: string = targetFor('offset_isolation');
       writeTextFile(path, 'AAAAAAAAAA');
       try {
@@ -251,6 +283,8 @@ export default function fileHandleMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0007');
     })
 
     /**
@@ -262,6 +296,7 @@ export default function fileHandleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileHandle0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileHandle0008');
       const path: string = targetFor('commit');
       writeTextFile(path, '');
       try {
@@ -277,6 +312,8 @@ export default function fileHandleMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileHandle0008');
     })
   });
 }

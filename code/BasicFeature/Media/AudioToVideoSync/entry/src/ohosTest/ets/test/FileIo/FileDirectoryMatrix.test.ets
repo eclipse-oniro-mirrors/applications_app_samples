@@ -26,9 +26,22 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function dirFor(label: string): string {
   return `${appContext().filesDir}/${uniqueName(`avs_dir_${label}`, '')}`;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileDirectoryMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileDirectoryMatrixTest() {
@@ -54,6 +67,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0001');
       const root: string = dirFor('chain');
       const middle: string = `${root}/middle`;
       const leaf: string = `${middle}/leaf`;
@@ -68,6 +82,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(middle);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0001');
     })
 
     /**
@@ -79,6 +95,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0002');
       const root: string = dirFor('nested_file');
       const child: string = `${root}/child`;
       const file: string = `${child}/payload.txt`;
@@ -95,6 +112,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0002');
     })
 
     /**
@@ -106,6 +125,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0003');
       const source: string = dirFor('rename_src');
       const target: string = dirFor('rename_dst');
       const file: string = `${source}/inner/data.txt`;
@@ -123,6 +143,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(`${source}/inner`);
         removeDirQuietly(source);
       }
+    
+      logEnd('testFileDirectory0003');
     })
 
     /**
@@ -134,6 +156,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0004');
       const root: string = dirFor('remove_all');
       const nested: string = `${root}/a/b/c`;
       const file: string = `${nested}/file.txt`;
@@ -152,6 +175,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(`${root}/a`);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0004');
     })
 
     /**
@@ -163,6 +188,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0005');
       const root: string = dirFor('siblings');
       const count: number = 10;
       try {
@@ -181,6 +207,8 @@ export default function fileDirectoryMatrixTest() {
         }
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0005');
     })
 
     /**
@@ -192,6 +220,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0006');
       const parent: string = dirFor('space_parent');
       const child: string = `${parent}/with space`;
       try {
@@ -203,6 +232,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(parent);
       }
+    
+      logEnd('testFileDirectory0006');
     })
 
     /**
@@ -214,6 +245,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0007');
       const parent: string = dirFor('cjk_parent');
       const child: string = `${parent}/音画目录`;
       try {
@@ -225,6 +257,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(parent);
       }
+    
+      logEnd('testFileDirectory0007');
     })
 
     /**
@@ -236,6 +270,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0008');
       const root: string = dirFor('non_recursive');
       const child: string = `${root}/child`;
       const grandChild: string = `${child}/grand`;
@@ -253,6 +288,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0008');
     })
 
     /**
@@ -264,6 +301,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0009');
       const root: string = dirFor('deep_write');
       const deep: string = `${root}/l1/l2/l3/l4`;
       const file: string = `${deep}/payload.txt`;
@@ -282,6 +320,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(`${root}/l1`);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0009');
     })
 
     /**
@@ -293,6 +333,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0010');
       const root: string = dirFor('independent');
       const first: string = `${root}/first`;
       const second: string = `${root}/second`;
@@ -312,6 +353,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(second);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0010');
     })
 
     /**
@@ -323,6 +366,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0011');
       const root: string = dirFor('sibling_remove');
       const keep: string = `${root}/keep`;
       const drop: string = `${root}/drop`;
@@ -343,6 +387,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(drop);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileDirectory0011');
     })
 
     /**
@@ -354,6 +400,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileDirectory0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileDirectory0012');
       const name: string = uniqueName('avs_dir_parent_visible', '');
       const dir: string = `${appContext().filesDir}/${name}`;
       try {
@@ -365,6 +412,8 @@ export default function fileDirectoryMatrixTest() {
         removeDirQuietly(dir);
       }
       expect(pathExists(dir)).assertFalse();
+    
+      logEnd('testFileDirectory0012');
     })
   });
 }

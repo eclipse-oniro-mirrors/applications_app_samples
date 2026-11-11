@@ -27,6 +27,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 interface NameCase {
   label: string;
@@ -53,6 +54,18 @@ function namedTarget(label: string, suffix: string): string {
   return pathInFiles(uniqueName(`avs_name_${label}`, suffix));
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileNameMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function fileNameMatrixTest() {
   describe('fileNameMatrixTest', () => {
     beforeAll(() => {
@@ -76,6 +89,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0001');
       const path: string = namedTarget('plain', '_plain.txt');
       try {
         expect(writeTextFile(path, 'plain')).assertEqual(5);
@@ -84,6 +98,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0001');
     })
 
     /**
@@ -95,6 +111,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0002');
       const path: string = namedTarget('digits', '_123456.txt');
       try {
         expect(writeTextFile(path, 'digits')).assertEqual(6);
@@ -103,6 +120,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0002');
     })
 
     /**
@@ -114,6 +133,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0003');
       const path: string = namedTarget('underscores', '_a_b_c.txt');
       try {
         expect(writeTextFile(path, 'underscores')).assertEqual(11);
@@ -121,6 +141,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0003');
     })
 
     /**
@@ -132,6 +154,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0004');
       const path: string = namedTarget('dashes', '_a-b-c.txt');
       try {
         expect(writeTextFile(path, 'dashes')).assertEqual(6);
@@ -139,6 +162,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0004');
     })
 
     /**
@@ -150,6 +175,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0005');
       const path: string = namedTarget('dots', '_a.b.c.txt');
       try {
         writeTextFile(path, 'dots');
@@ -158,6 +184,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0005');
     })
 
     /**
@@ -169,6 +197,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0006');
       const path: string = namedTarget('spaces', '_with space.txt');
       try {
         writeTextFile(path, 'spaces');
@@ -177,6 +206,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0006');
     })
 
     /**
@@ -188,6 +219,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0007');
       const path: string = namedTarget('mixedcase', '_MixedCase.TXT');
       try {
         writeTextFile(path, 'mixedcase');
@@ -196,6 +228,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0007');
     })
 
     /**
@@ -207,6 +241,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0008');
       const path: string = namedTarget('hidden', '_.hidden');
       try {
         writeTextFile(path, 'hidden');
@@ -215,6 +250,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0008');
     })
 
     /**
@@ -226,6 +263,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0009');
       const path: string = namedTarget('double', '_clip.mp4.txt');
       try {
         writeTextFile(path, 'double');
@@ -234,6 +272,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0009');
     })
 
     /**
@@ -245,6 +285,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0010');
       const path: string = namedTarget('brackets', '_[bracket].txt');
       try {
         writeTextFile(path, 'brackets');
@@ -252,6 +293,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0010');
     })
 
     /**
@@ -263,6 +306,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0011');
       const path: string = namedTarget('plus', '_a+b.txt');
       try {
         writeTextFile(path, 'plus');
@@ -271,6 +315,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0011');
     })
 
     /**
@@ -282,6 +328,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0012');
       const path: string = namedTarget('hash', '_a#b.txt');
       try {
         writeTextFile(path, 'hash');
@@ -290,6 +337,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0012');
     })
 
     /**
@@ -301,6 +350,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0013');
       for (let i = 0; i < NAME_CASES.length; i++) {
         const sample: NameCase = NAME_CASES[i];
         const path: string = namedTarget(sample.label, sample.suffix);
@@ -313,6 +363,8 @@ export default function fileNameMatrixTest() {
           removeQuietly(path);
         }
       }
+    
+      logEnd('testFileName0013');
     })
 
     /**
@@ -324,6 +376,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0014');
       const longStem: string = repeatPayload(120, 'n');
       const path: string = pathInFiles(`${longStem}.txt`);
       try {
@@ -334,6 +387,8 @@ export default function fileNameMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileName0014');
     })
 
     /**
@@ -345,6 +400,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0015');
       const lowerName: string = `${uniqueName('avs_case_lower', '')}_lower.txt`;
       const upperName: string = `${uniqueName('avs_case_upper', '')}_UPPER.txt`;
       const lowerPath: string = pathInFiles(lowerName);
@@ -359,6 +415,8 @@ export default function fileNameMatrixTest() {
         removeQuietly(lowerPath);
         removeQuietly(upperPath);
       }
+    
+      logEnd('testFileName0015');
     })
 
     /**
@@ -370,6 +428,7 @@ export default function fileNameMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileName0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileName0016');
       const paths: string[] = [];
       try {
         for (let i = 0; i < NAME_CASES.length; i++) {
@@ -390,6 +449,8 @@ export default function fileNameMatrixTest() {
           removeQuietly(paths[i]);
         }
       }
+    
+      logEnd('testFileName0016');
     })
   });
 }

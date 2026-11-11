@@ -26,6 +26,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 interface ScriptCase {
   label: string;
@@ -48,6 +49,18 @@ const SCRIPT_CASES: ScriptCase[] = [
 
 function targetFor(label: string): string {
   return pathInFiles(uniqueName(`avs_unicode_${label}`, '.txt'));
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileUnicodeMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileUnicodeMatrixTest() {
@@ -73,6 +86,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0001');
       const path: string = targetFor('cjk');
       try {
         expect(writeTextFile(path, '你好世界')).assertEqual(12);
@@ -81,6 +95,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0001');
     })
 
     /**
@@ -92,6 +108,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0002');
       const path: string = targetFor('japanese');
       try {
         expect(writeTextFile(path, 'こんにちは')).assertEqual(15);
@@ -99,6 +116,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0002');
     })
 
     /**
@@ -110,6 +129,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0003');
       const path: string = targetFor('korean');
       try {
         expect(writeTextFile(path, '안녕하세요')).assertEqual(15);
@@ -117,6 +137,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0003');
     })
 
     /**
@@ -128,6 +150,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0004');
       const path: string = targetFor('arabic');
       try {
         expect(writeTextFile(path, 'مرحبا')).assertEqual(10);
@@ -135,6 +158,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0004');
     })
 
     /**
@@ -146,6 +171,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0005');
       const path: string = targetFor('hebrew');
       try {
         expect(writeTextFile(path, 'שלום')).assertEqual(8);
@@ -153,6 +179,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0005');
     })
 
     /**
@@ -164,6 +192,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0006');
       const path: string = targetFor('cyrillic');
       try {
         expect(writeTextFile(path, 'привет')).assertEqual(12);
@@ -171,6 +200,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0006');
     })
 
     /**
@@ -182,6 +213,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0007');
       const path: string = targetFor('greek');
       try {
         expect(writeTextFile(path, 'γειά')).assertEqual(8);
@@ -189,6 +221,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0007');
     })
 
     /**
@@ -200,6 +234,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0008');
       const path: string = targetFor('thai');
       try {
         expect(writeTextFile(path, 'สวัสดี')).assertEqual(18);
@@ -207,6 +242,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0008');
     })
 
     /**
@@ -218,6 +255,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0009');
       const path: string = targetFor('emoji');
       try {
         expect(writeTextFile(path, '😀😃')).assertEqual(8);
@@ -226,6 +264,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0009');
     })
 
     /**
@@ -237,6 +277,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0010');
       const path: string = targetFor('mixed');
       try {
         const payload: string = 'a中😀é';
@@ -247,6 +288,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0010');
     })
 
     /**
@@ -258,6 +301,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0011');
       for (let i = 0; i < SCRIPT_CASES.length; i++) {
         const sample: ScriptCase = SCRIPT_CASES[i];
         const path: string = targetFor(`matrix_${sample.label}`);
@@ -271,6 +315,8 @@ export default function fileUnicodeMatrixTest() {
           removeQuietly(path);
         }
       }
+    
+      logEnd('testFileUnicode0011');
     })
 
     /**
@@ -282,6 +328,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileUnicode0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileUnicode0012');
       const path: string = targetFor('repeated');
       try {
         const payload: string = repeatPayload(60, '音画');
@@ -292,6 +339,8 @@ export default function fileUnicodeMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileUnicode0012');
     })
   });
 }

@@ -15,6 +15,19 @@
 import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, it, expect } from '@ohos/hypium';
 import { util } from '@kit.ArkTS';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Base64Expanded]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
 
 export default function base64ExpandedTest() {
   describe('base64ExpandedTest', () => {
@@ -27,6 +40,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640001');
       const source: Uint8Array = new Uint8Array(0);
       const helper: util.Base64Helper = new util.Base64Helper();
       let rejected: boolean = false;
@@ -37,6 +51,8 @@ export default function base64ExpandedTest() {
       }
       expect(rejected).assertTrue();
       expect(source.length).assertEqual(0);
+    
+      logEnd('testExpB640001');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0002
@@ -47,6 +63,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640002');
       const source: Uint8Array = new Uint8Array(1);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 1) % 256;
@@ -59,6 +76,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640002');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0003
@@ -69,6 +88,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640003');
       const source: Uint8Array = new Uint8Array(2);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 2) % 256;
@@ -81,6 +101,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640003');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0004
@@ -91,6 +113,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640004');
       const source: Uint8Array = new Uint8Array(3);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 3) % 256;
@@ -103,6 +126,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640004');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0005
@@ -113,6 +138,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640005');
       const source: Uint8Array = new Uint8Array(4);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 4) % 256;
@@ -125,6 +151,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640005');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0006
@@ -135,6 +163,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640006');
       const source: Uint8Array = new Uint8Array(5);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 5) % 256;
@@ -147,6 +176,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640006');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0007
@@ -157,6 +188,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640007');
       const source: Uint8Array = new Uint8Array(6);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 6) % 256;
@@ -169,6 +201,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640007');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0008
@@ -179,6 +213,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640008');
       const source: Uint8Array = new Uint8Array(7);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 7) % 256;
@@ -191,6 +226,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640008');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0009
@@ -201,6 +238,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640009');
       const source: Uint8Array = new Uint8Array(8);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 8) % 256;
@@ -213,6 +251,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640009');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0010
@@ -223,6 +263,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640010');
       const source: Uint8Array = new Uint8Array(9);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 9) % 256;
@@ -235,6 +276,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640010');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0011
@@ -245,6 +288,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640011');
       const source: Uint8Array = new Uint8Array(10);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 10) % 256;
@@ -257,6 +301,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640011');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0012
@@ -267,6 +313,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640012');
       const source: Uint8Array = new Uint8Array(11);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 11) % 256;
@@ -279,6 +326,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640012');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0013
@@ -289,6 +338,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640013');
       const source: Uint8Array = new Uint8Array(12);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 12) % 256;
@@ -301,6 +351,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640013');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0014
@@ -311,6 +363,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640014');
       const source: Uint8Array = new Uint8Array(13);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 13) % 256;
@@ -323,6 +376,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640014');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0015
@@ -333,6 +388,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640015');
       const source: Uint8Array = new Uint8Array(14);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 14) % 256;
@@ -345,6 +401,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640015');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0016
@@ -355,6 +413,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640016');
       const source: Uint8Array = new Uint8Array(15);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 15) % 256;
@@ -367,6 +426,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640016');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0017
@@ -377,6 +438,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640017');
       const source: Uint8Array = new Uint8Array(16);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 16) % 256;
@@ -389,6 +451,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640017');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0018
@@ -399,6 +463,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640018');
       const source: Uint8Array = new Uint8Array(17);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 17) % 256;
@@ -411,6 +476,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640018');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0019
@@ -421,6 +488,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640019');
       const source: Uint8Array = new Uint8Array(18);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 18) % 256;
@@ -433,6 +501,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640019');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0020
@@ -443,6 +513,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640020');
       const source: Uint8Array = new Uint8Array(19);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 19) % 256;
@@ -455,6 +526,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640020');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0021
@@ -465,6 +538,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640021');
       const source: Uint8Array = new Uint8Array(20);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 20) % 256;
@@ -477,6 +551,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640021');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0022
@@ -487,6 +563,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640022');
       const source: Uint8Array = new Uint8Array(21);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 21) % 256;
@@ -499,6 +576,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640022');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0023
@@ -509,6 +588,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640023');
       const source: Uint8Array = new Uint8Array(22);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 22) % 256;
@@ -521,6 +601,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640023');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0024
@@ -531,6 +613,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640024');
       const source: Uint8Array = new Uint8Array(23);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 23) % 256;
@@ -543,6 +626,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640024');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0025
@@ -553,6 +638,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640025');
       const source: Uint8Array = new Uint8Array(24);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 24) % 256;
@@ -565,6 +651,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640025');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0026
@@ -575,6 +663,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640026');
       const source: Uint8Array = new Uint8Array(25);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 25) % 256;
@@ -587,6 +676,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640026');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0027
@@ -597,6 +688,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640027');
       const source: Uint8Array = new Uint8Array(26);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 26) % 256;
@@ -609,6 +701,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640027');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0028
@@ -619,6 +713,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640028');
       const source: Uint8Array = new Uint8Array(27);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 27) % 256;
@@ -631,6 +726,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640028');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0029
@@ -641,6 +738,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640029');
       const source: Uint8Array = new Uint8Array(28);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 28) % 256;
@@ -653,6 +751,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640029');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0030
@@ -663,6 +763,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640030');
       const source: Uint8Array = new Uint8Array(29);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 29) % 256;
@@ -675,6 +776,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640030');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0031
@@ -685,6 +788,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640031');
       const source: Uint8Array = new Uint8Array(30);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 30) % 256;
@@ -697,6 +801,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640031');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0032
@@ -707,6 +813,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640032');
       const source: Uint8Array = new Uint8Array(31);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 31) % 256;
@@ -719,6 +826,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640032');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0033
@@ -729,6 +838,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640033');
       const source: Uint8Array = new Uint8Array(32);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 32) % 256;
@@ -741,6 +851,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640033');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0034
@@ -751,6 +863,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640034');
       const source: Uint8Array = new Uint8Array(33);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 33) % 256;
@@ -763,6 +876,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640034');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0035
@@ -773,6 +888,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640035');
       const source: Uint8Array = new Uint8Array(34);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 34) % 256;
@@ -785,6 +901,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640035');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0036
@@ -795,6 +913,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640036');
       const source: Uint8Array = new Uint8Array(35);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 35) % 256;
@@ -807,6 +926,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640036');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0037
@@ -817,6 +938,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640037');
       const source: Uint8Array = new Uint8Array(36);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 36) % 256;
@@ -829,6 +951,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640037');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0038
@@ -839,6 +963,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640038');
       const source: Uint8Array = new Uint8Array(37);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 37) % 256;
@@ -851,6 +976,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640038');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0039
@@ -861,6 +988,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640039');
       const source: Uint8Array = new Uint8Array(38);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 38) % 256;
@@ -873,6 +1001,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640039');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0040
@@ -883,6 +1013,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640040');
       const source: Uint8Array = new Uint8Array(39);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 39) % 256;
@@ -895,6 +1026,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640040');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0041
@@ -905,6 +1038,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640041');
       const source: Uint8Array = new Uint8Array(40);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 40) % 256;
@@ -917,6 +1051,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640041');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0042
@@ -927,6 +1063,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640042');
       const source: Uint8Array = new Uint8Array(41);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 41) % 256;
@@ -939,6 +1076,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640042');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0043
@@ -949,6 +1088,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640043');
       const source: Uint8Array = new Uint8Array(42);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 42) % 256;
@@ -961,6 +1101,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640043');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0044
@@ -971,6 +1113,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640044');
       const source: Uint8Array = new Uint8Array(43);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 43) % 256;
@@ -983,6 +1126,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640044');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0045
@@ -993,6 +1138,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640045');
       const source: Uint8Array = new Uint8Array(44);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 44) % 256;
@@ -1005,6 +1151,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640045');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0046
@@ -1015,6 +1163,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640046');
       const source: Uint8Array = new Uint8Array(45);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 45) % 256;
@@ -1027,6 +1176,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640046');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0047
@@ -1037,6 +1188,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640047');
       const source: Uint8Array = new Uint8Array(46);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 46) % 256;
@@ -1049,6 +1201,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640047');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0048
@@ -1059,6 +1213,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640048');
       const source: Uint8Array = new Uint8Array(47);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 47) % 256;
@@ -1071,6 +1226,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640048');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0049
@@ -1081,6 +1238,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640049');
       const source: Uint8Array = new Uint8Array(48);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 48) % 256;
@@ -1093,6 +1251,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640049');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0050
@@ -1103,6 +1263,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640050');
       const source: Uint8Array = new Uint8Array(49);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 49) % 256;
@@ -1115,6 +1276,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640050');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0051
@@ -1125,6 +1288,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640051');
       const source: Uint8Array = new Uint8Array(50);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 50) % 256;
@@ -1137,6 +1301,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640051');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0052
@@ -1147,6 +1313,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640052');
       const source: Uint8Array = new Uint8Array(51);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 51) % 256;
@@ -1159,6 +1326,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640052');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0053
@@ -1169,6 +1338,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640053');
       const source: Uint8Array = new Uint8Array(52);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 52) % 256;
@@ -1181,6 +1351,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640053');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0054
@@ -1191,6 +1363,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640054');
       const source: Uint8Array = new Uint8Array(53);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 53) % 256;
@@ -1203,6 +1376,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640054');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0055
@@ -1213,6 +1388,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640055');
       const source: Uint8Array = new Uint8Array(54);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 54) % 256;
@@ -1225,6 +1401,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640055');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0056
@@ -1235,6 +1413,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640056');
       const source: Uint8Array = new Uint8Array(55);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 55) % 256;
@@ -1247,6 +1426,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640056');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0057
@@ -1257,6 +1438,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640057');
       const source: Uint8Array = new Uint8Array(56);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 56) % 256;
@@ -1269,6 +1451,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640057');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0058
@@ -1279,6 +1463,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640058');
       const source: Uint8Array = new Uint8Array(57);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 57) % 256;
@@ -1291,6 +1476,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640058');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0059
@@ -1301,6 +1488,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640059');
       const source: Uint8Array = new Uint8Array(58);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 58) % 256;
@@ -1313,6 +1501,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640059');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0060
@@ -1323,6 +1513,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640060');
       const source: Uint8Array = new Uint8Array(59);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 59) % 256;
@@ -1335,6 +1526,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640060');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0061
@@ -1345,6 +1538,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640061');
       const source: Uint8Array = new Uint8Array(60);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 60) % 256;
@@ -1357,6 +1551,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640061');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0062
@@ -1367,6 +1563,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640062');
       const source: Uint8Array = new Uint8Array(61);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 61) % 256;
@@ -1379,6 +1576,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640062');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0063
@@ -1389,6 +1588,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640063');
       const source: Uint8Array = new Uint8Array(62);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 62) % 256;
@@ -1401,6 +1601,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640063');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0064
@@ -1411,6 +1613,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640064');
       const source: Uint8Array = new Uint8Array(63);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 63) % 256;
@@ -1423,6 +1626,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640064');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0065
@@ -1433,6 +1638,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640065');
       const source: Uint8Array = new Uint8Array(64);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 64) % 256;
@@ -1445,6 +1651,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640065');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0066
@@ -1455,6 +1663,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640066');
       const source: Uint8Array = new Uint8Array(65);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 65) % 256;
@@ -1467,6 +1676,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640066');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0067
@@ -1477,6 +1688,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640067');
       const source: Uint8Array = new Uint8Array(66);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 66) % 256;
@@ -1489,6 +1701,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640067');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0068
@@ -1499,6 +1713,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640068');
       const source: Uint8Array = new Uint8Array(67);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 67) % 256;
@@ -1511,6 +1726,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640068');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0069
@@ -1521,6 +1738,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640069');
       const source: Uint8Array = new Uint8Array(68);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 68) % 256;
@@ -1533,6 +1751,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640069');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0070
@@ -1543,6 +1763,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640070');
       const source: Uint8Array = new Uint8Array(69);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 69) % 256;
@@ -1555,6 +1776,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640070');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0071
@@ -1565,6 +1788,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640071');
       const source: Uint8Array = new Uint8Array(70);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 70) % 256;
@@ -1577,6 +1801,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640071');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0072
@@ -1587,6 +1813,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640072');
       const source: Uint8Array = new Uint8Array(71);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 71) % 256;
@@ -1599,6 +1826,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640072');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0073
@@ -1609,6 +1838,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640073');
       const source: Uint8Array = new Uint8Array(72);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 72) % 256;
@@ -1621,6 +1851,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640073');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0074
@@ -1631,6 +1863,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640074');
       const source: Uint8Array = new Uint8Array(73);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 73) % 256;
@@ -1643,6 +1876,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640074');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0075
@@ -1653,6 +1888,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640075');
       const source: Uint8Array = new Uint8Array(74);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 74) % 256;
@@ -1665,6 +1901,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640075');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0076
@@ -1675,6 +1913,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640076');
       const source: Uint8Array = new Uint8Array(75);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 75) % 256;
@@ -1687,6 +1926,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640076');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0077
@@ -1697,6 +1938,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640077');
       const source: Uint8Array = new Uint8Array(76);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 76) % 256;
@@ -1709,6 +1951,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640077');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0078
@@ -1719,6 +1963,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640078');
       const source: Uint8Array = new Uint8Array(77);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 77) % 256;
@@ -1731,6 +1976,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640078');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0079
@@ -1741,6 +1988,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640079');
       const source: Uint8Array = new Uint8Array(78);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 78) % 256;
@@ -1753,6 +2001,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640079');
     })
     /**
      * @tc.number    SUB_AVS_EXP_B64_0080
@@ -1763,6 +2013,7 @@ export default function base64ExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpB640080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpB640080');
       const source: Uint8Array = new Uint8Array(79);
       for (let j: number = 0; j < source.length; j++) {
         source[j] = (j + 79) % 256;
@@ -1775,6 +2026,8 @@ export default function base64ExpandedTest() {
       for (let j: number = 0; j < decoded.length; j++) {
         expect(decoded[j]).assertEqual(source[j]);
       }
+    
+      logEnd('testExpB640080');
     })
   })
 }

@@ -28,6 +28,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 interface NameCase {
   label: string;
@@ -46,6 +47,18 @@ const DIRECTORY_CASES: NameCase[] = [
 
 function uniqueDir(label: string): string {
   return `${appContext().filesDir}/${uniqueName(`avs_${label}_dir`, '')}`;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileSystemOpsMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileSystemOpsMatrixTest() {
@@ -71,6 +84,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0001');
       const dir: string = uniqueDir('create');
       try {
         fileIo.mkdirSync(dir);
@@ -81,6 +95,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0001');
     })
 
     /**
@@ -92,11 +108,14 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0002');
       const dir: string = uniqueDir('remove');
       fileIo.mkdirSync(dir);
       expect(pathExists(dir)).assertTrue();
       fileIo.rmdirSync(dir);
       expect(pathExists(dir)).assertFalse();
+    
+      logEnd('testFileSystem0002');
     })
 
     /**
@@ -108,6 +127,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0003');
       const root: string = uniqueDir('nested');
       const child: string = `${root}/a`;
       const grandChild: string = `${child}/b`;
@@ -122,6 +142,8 @@ export default function fileSystemOpsMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileSystem0003');
     })
 
     /**
@@ -133,6 +155,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0004');
       const dir: string = uniqueDir('empty_list');
       try {
         fileIo.mkdirSync(dir);
@@ -142,6 +165,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0004');
     })
 
     /**
@@ -153,6 +178,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0005');
       const dir: string = uniqueDir('list');
       try {
         fileIo.mkdirSync(dir);
@@ -170,6 +196,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(`${dir}/three.txt`);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0005');
     })
 
     /**
@@ -181,6 +209,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0006');
       const dir: string = uniqueDir('list_remove');
       try {
         fileIo.mkdirSync(dir);
@@ -196,6 +225,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(`${dir}/keep.txt`);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0006');
     })
 
     /**
@@ -207,6 +238,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0007');
       const path: string = pathInFiles(uniqueName('avs_missing', '.txt'));
       try {
         fileIo.unlinkSync(path);
@@ -214,6 +246,8 @@ export default function fileSystemOpsMatrixTest() {
         console.info('unlink on missing path raised an error');
       }
       expect(pathExists(path)).assertFalse();
+    
+      logEnd('testFileSystem0007');
     })
 
     /**
@@ -225,6 +259,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0008');
       const dir: string = uniqueDir('duplicate');
       try {
         fileIo.mkdirSync(dir);
@@ -239,6 +274,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0008');
     })
 
     /**
@@ -250,6 +287,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0009');
       const dir: string = uniqueDir('nonempty');
       const child: string = `${dir}/child.txt`;
       try {
@@ -263,6 +301,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(child);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0009');
     })
 
     /**
@@ -274,6 +314,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0010');
       const source: string = uniqueDir('rename_src');
       const target: string = uniqueDir('rename_dst');
       try {
@@ -288,6 +329,8 @@ export default function fileSystemOpsMatrixTest() {
         removeDirQuietly(target);
         removeDirQuietly(source);
       }
+    
+      logEnd('testFileSystem0010');
     })
 
     /**
@@ -299,6 +342,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0011');
       const dir: string = uniqueDir('type_dir');
       const file: string = uniqueDir('type_file');
       try {
@@ -312,6 +356,8 @@ export default function fileSystemOpsMatrixTest() {
         removeDirQuietly(dir);
         removeQuietly(file);
       }
+    
+      logEnd('testFileSystem0011');
     })
 
     /**
@@ -323,6 +369,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0012');
       for (let i = 0; i < DIRECTORY_CASES.length; i++) {
         const dir: string = `${appContext().filesDir}/${DIRECTORY_CASES[i].name}_${Date.now()}_${i}`;
         try {
@@ -335,6 +382,8 @@ export default function fileSystemOpsMatrixTest() {
           removeDirQuietly(dir);
         }
       }
+    
+      logEnd('testFileSystem0012');
     })
 
     /**
@@ -346,6 +395,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0013');
       const dir: string = uniqueDir('copy_into');
       const source: string = pathInFiles(uniqueName('avs_source', '.txt'));
       const target: string = `${dir}/copied.txt`;
@@ -363,6 +413,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(target);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0013');
     })
 
     /**
@@ -374,6 +426,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0014');
       const name: string = uniqueName('avs_visible', '.txt');
       const path: string = pathInFiles(name);
       try {
@@ -383,6 +436,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileSystem0014');
     })
 
     /**
@@ -394,6 +449,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0015');
       const name: string = uniqueName('avs_dir_visible', '');
       const dir: string = `${appContext().filesDir}/${name}`;
       try {
@@ -404,6 +460,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0015');
     })
 
     /**
@@ -415,6 +473,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0016');
       const root: string = uniqueDir('nested_write');
       const child: string = `${root}/inner`;
       const file: string = `${child}/data.txt`;
@@ -429,6 +488,8 @@ export default function fileSystemOpsMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileSystem0016');
     })
 
     /**
@@ -440,6 +501,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0017');
       const present: string = pathInFiles(uniqueName('avs_present', '.txt'));
       const absent: string = pathInFiles(uniqueName('avs_absent', '.txt'));
       try {
@@ -457,6 +519,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeQuietly(present);
       }
+    
+      logEnd('testFileSystem0017');
     })
 
     /**
@@ -468,6 +532,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0018');
       const source: string = pathInFiles(uniqueName('avs_move_src', '.txt'));
       const target: string = pathInFiles(uniqueName('avs_move_dst', '.txt'));
       try {
@@ -482,6 +547,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(source);
         removeQuietly(target);
       }
+    
+      logEnd('testFileSystem0018');
     })
 
     /**
@@ -493,6 +560,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0019');
       const dir: string = uniqueDir('batch');
       const count: number = 12;
       try {
@@ -512,6 +580,8 @@ export default function fileSystemOpsMatrixTest() {
         }
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0019');
     })
 
     /**
@@ -523,6 +593,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0020');
       const dir: string = uniqueDir('stat_update');
       const file: string = `${dir}/size.txt`;
       try {
@@ -536,6 +607,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(file);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0020');
     })
 
     /**
@@ -547,6 +620,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0021');
       const source: string = pathInFiles(uniqueName('avs_copy_src', '.txt'));
       const target: string = pathInFiles(uniqueName('avs_copy_dst', '.txt'));
       try {
@@ -561,6 +635,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(source);
         removeQuietly(target);
       }
+    
+      logEnd('testFileSystem0021');
     })
 
     /**
@@ -572,6 +648,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0022');
       const dir: string = uniqueDir('isolation');
       try {
         fileIo.mkdirSync(dir);
@@ -583,6 +660,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0022');
     })
 
     /**
@@ -594,6 +673,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0023');
       const dir: string = uniqueDir('recreate');
       try {
         fileIo.mkdirSync(dir);
@@ -609,6 +689,8 @@ export default function fileSystemOpsMatrixTest() {
         removeQuietly(`${dir}/new.txt`);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileSystem0023');
     })
 
     /**
@@ -620,6 +702,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0024');
       const file: string = pathInFiles(uniqueName('avs_list_file', '.txt'));
       try {
         writeTextFile(file, 'not-a-dir');
@@ -634,6 +717,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeQuietly(file);
       }
+    
+      logEnd('testFileSystem0024');
     })
 
     /**
@@ -645,6 +730,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0025');
       const root: string = uniqueDir('nonrecursive');
       const child: string = `${root}/child`;
       try {
@@ -658,6 +744,8 @@ export default function fileSystemOpsMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileSystem0025');
     })
 
     /**
@@ -669,6 +757,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0026');
       const root: string = uniqueDir('utf8_nested');
       const child: string = `${root}/deep/dir`;
       const file: string = `${child}/content.txt`;
@@ -685,6 +774,8 @@ export default function fileSystemOpsMatrixTest() {
         removeDirQuietly(`${root}/deep`);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileSystem0026');
     })
 
     /**
@@ -696,6 +787,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0027');
       const missing: string = pathInFiles(uniqueName('avs_no_stat', '.txt'));
       let failed: boolean = false;
       try {
@@ -705,6 +797,8 @@ export default function fileSystemOpsMatrixTest() {
       }
       expect(failed).assertTrue();
       expect(pathExists(missing)).assertFalse();
+    
+      logEnd('testFileSystem0027');
     })
 
     /**
@@ -716,6 +810,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0028');
       const root: string = uniqueDir('mixed_entries');
       const file: string = `${root}/entry.txt`;
       const child: string = `${root}/entry_dir`;
@@ -734,6 +829,8 @@ export default function fileSystemOpsMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(root);
       }
+    
+      logEnd('testFileSystem0028');
     })
 
     /**
@@ -745,6 +842,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0029');
       const file: string = pathInFiles(uniqueName('avs_self_rename', '.txt'));
       try {
         writeTextFile(file, 'self');
@@ -755,6 +853,8 @@ export default function fileSystemOpsMatrixTest() {
       } finally {
         removeQuietly(file);
       }
+    
+      logEnd('testFileSystem0029');
     })
 
     /**
@@ -766,6 +866,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileSystem0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileSystem0030');
       const filesDir: string = appContext().filesDir;
       expect(filesDir.length).assertLarger(0);
       expect(pathExists(filesDir)).assertTrue();
@@ -773,6 +874,8 @@ export default function fileSystemOpsMatrixTest() {
       const names: string[] = fileIo.listFileSync(filesDir);
       expect(Array.isArray(names)).assertTrue();
       expect(names.length).assertLargerOrEqual(0);
+    
+      logEnd('testFileSystem0030');
     })
   });
 }

@@ -31,7 +31,7 @@ export default function AudioToVideoSyncLogic01Test() {
      * @tc.level     Level 2
      */
     it('testAudioToVideoSyncLogic01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0001 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0001 begin');
       hilog.info(DOMAIN, TAG, 'tag=%{public}s', CommonConstants.INDEX_TAG);
       expect(CommonConstants.INDEX_TAG).assertEqual('INDEX');
       expect(CommonConstants.PX).assertEqual('px');
@@ -47,7 +47,7 @@ export default function AudioToVideoSyncLogic01Test() {
      * @tc.level     Level 2
      */
     it('testAudioToVideoSyncLogic01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0002 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0002 begin');
       expect(CommonConstants.DEFAULT_VALUE).assertEqual(0);
       expect(CommonConstants.DEFAULT_WIDTH).assertEqual(1920);
       expect(CommonConstants.DEFAULT_HEIGHT).assertEqual(1080);
@@ -63,7 +63,7 @@ export default function AudioToVideoSyncLogic01Test() {
      * @tc.level     Level 2
      */
     it('testAudioToVideoSyncLogic01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0003 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0003 begin');
       expect(CommonConstants.DURATION).assertEqual(2000);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0003 end');
     })

@@ -15,9 +15,22 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function dirFor(label: string): string {
   return `${appContext().filesDir}/${uniqueName(`avs_list_${label}`, '')}`;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileIo_FileListMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileListMatrixTest() {
@@ -40,6 +53,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify a new directory lists no entries
      */
     it('testFileList0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0001');
       const dir: string = dirFor('empty');
       try {
         fileIo.mkdirSync(dir);
@@ -47,6 +61,8 @@ export default function fileListMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileList0001');
     })
 
     /**
@@ -55,6 +71,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify one created file appears exactly once in the listing
      */
     it('testFileList0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0002');
       const dir: string = dirFor('one');
       try {
         fileIo.mkdirSync(dir);
@@ -66,6 +83,8 @@ export default function fileListMatrixTest() {
         removeQuietly(`${dir}/only.txt`);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileList0002');
     })
 
     /**
@@ -74,6 +93,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify five created files are all visible in the listing
      */
     it('testFileList0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0003');
       const dir: string = dirFor('five');
       try {
         fileIo.mkdirSync(dir);
@@ -91,6 +111,8 @@ export default function fileListMatrixTest() {
         }
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileList0003');
     })
 
     /**
@@ -99,6 +121,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify removing one file reduces the listing count by one
      */
     it('testFileList0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0004');
       const dir: string = dirFor('remove');
       try {
         fileIo.mkdirSync(dir);
@@ -114,6 +137,8 @@ export default function fileListMatrixTest() {
         removeQuietly(`${dir}/b.txt`);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileList0004');
     })
 
     /**
@@ -122,6 +147,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify a hidden dot file is included in the directory listing
      */
     it('testFileList0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0005');
       const dir: string = dirFor('hidden');
       try {
         fileIo.mkdirSync(dir);
@@ -136,6 +162,8 @@ export default function fileListMatrixTest() {
         removeQuietly(`${dir}/visible.txt`);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileList0005');
     })
 
     /**
@@ -144,6 +172,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify a child directory is listed by name but its files are not
      */
     it('testFileList0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0006');
       const dir: string = dirFor('child');
       const child: string = `${dir}/child`;
       try {
@@ -158,6 +187,8 @@ export default function fileListMatrixTest() {
         removeDirQuietly(child);
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileList0006');
     })
 
     /**
@@ -166,6 +197,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify listing a regular file as a directory fails
      */
     it('testFileList0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0007');
       const file: string = pathInFiles(uniqueName('avs_list_file', '.txt'));
       try {
         writeTextFile(file, 'x');
@@ -179,6 +211,8 @@ export default function fileListMatrixTest() {
       } finally {
         removeQuietly(file);
       }
+    
+      logEnd('testFileList0007');
     })
 
     /**
@@ -187,6 +221,7 @@ export default function fileListMatrixTest() {
      * @tc.desc      Verify twenty files are listed with the exact expected count
      */
     it('testFileList0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileList0008');
       const dir: string = dirFor('twenty');
       const count: number = 20;
       try {
@@ -204,6 +239,8 @@ export default function fileListMatrixTest() {
         }
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileList0008');
     })
   });
 }
