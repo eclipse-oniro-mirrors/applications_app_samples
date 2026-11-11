@@ -65,13 +65,17 @@ void Recorder::StartVideoInputThread()
     }
 }
 
-OH_ImageNative *Recorder::ReadVideoInputImage(int64_t lastSubmittedUs)
+OH_ImageNative *Recorder::ReadVideoInputImage(VideoInputState &state)
 {
     if (encContext_->hasError.load()) {
         AbortRecording("Video input callback failed");
         return nullptr;
     }
-    if (RecorderClockUs() - lastSubmittedUs > INPUT_STALL_US) {
+    if (state.pauseRevision != pauseRevision_.load()) {
+        state.pauseRevision = pauseRevision_.load();
+        state.lastSubmittedUs = RecorderClockUs();
+    }
+    if (RecorderClockUs() - state.lastSubmittedUs > INPUT_STALL_US) {
         AbortRecording("Camera Buffer input stalled: check YUV output combination and encoder input");
         return nullptr;
     }
@@ -79,6 +83,22 @@ OH_ImageNative *Recorder::ReadVideoInputImage(int64_t lastSubmittedUs)
     OH_ImageNative *image = frameReceiver_->ReadLatest();
     if (image == nullptr) {
         std::this_thread::sleep_for(std::chrono::milliseconds(FRAME_POLL_MS));
+        return nullptr;
+    }
+    int64_t timestampNs = 0;
+    if (OH_ImageNative_GetTimestamp(image, &timestampNs) != IMAGE_SUCCESS || timestampNs < 0 ||
+        timestampNs < state.lastTimestampNs) {
+        (void)OH_ImageNative_Release(image);
+        AbortRecording("Invalid or regressing camera timestamp");
+        return nullptr;
+    }
+    // 恢复时相机仍可能交来暂停期间在途的图像；申请编码输入前丢弃旧时间轴上的帧。
+    const int64_t projectedPts = state.firstTimestampNs < 0 ? lastVideoInputPtsUs_ + 1 :
+        state.firstOffsetUs + (timestampNs - state.firstTimestampNs) / NS_PER_US -
+        (pausedDurationUs_ - state.initialPausedUs);
+    if (projectedPts <= lastVideoInputPtsUs_) {
+        (void)OH_ImageNative_Release(image);
+        return nullptr;
     }
     return image;
 }
@@ -90,7 +110,15 @@ void Recorder::VideoEncInputSyncThread()
     VideoInputState state;
     state.lastSubmittedUs = RecorderClockUs();
     while (isStarted_.load() && !videoInputStopping_.load()) {
-        const CameraImage image(ReadVideoInputImage(state.lastSubmittedUs), OH_ImageNative_Release);
+        std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
+        if (isPaused_) {
+            const CameraImage discarded(frameReceiver_->ReadLatest(), OH_ImageNative_Release);
+            state.lastSubmittedUs = RecorderClockUs();
+            inputLock.unlock();
+            std::this_thread::sleep_for(std::chrono::milliseconds(FRAME_POLL_MS));
+            continue;
+        }
+        const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
         if (image == nullptr) {
             continue;
         }
@@ -113,7 +141,15 @@ void Recorder::VideoEncInputAsyncThread()
     VideoInputState state;
     state.lastSubmittedUs = RecorderClockUs();
     while (isStarted_.load() && !videoInputStopping_.load()) {
-        const CameraImage image(ReadVideoInputImage(state.lastSubmittedUs), OH_ImageNative_Release);
+        std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
+        if (isPaused_) {
+            const CameraImage discarded(frameReceiver_->ReadLatest(), OH_ImageNative_Release);
+            state.lastSubmittedUs = RecorderClockUs();
+            inputLock.unlock();
+            std::this_thread::sleep_for(std::chrono::milliseconds(FRAME_POLL_MS));
+            continue;
+        }
+        const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
         if (image == nullptr) {
             continue;
         }
@@ -139,6 +175,11 @@ bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &inf
         AbortRecording("Read camera image timestamp failed");
         return false;
     }
+    if (timestampNs < state.lastTimestampNs) {
+        AbortRecording("Camera timestamp moved backwards");
+        return false;
+    }
+    state.lastTimestampNs = timestampNs;
     if (state.stride == 0 && !ReadVideoInputLayout(state.stride, state.sliceHeight)) {
         AbortRecording("Encoder did not report a valid NV12 input layout");
         return false;
@@ -149,14 +190,14 @@ bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &inf
     }
     if (state.firstTimestampNs < 0) {
         state.firstTimestampNs = timestampNs;
-        state.firstOffsetUs = std::max<int64_t>(0, receivedAtUs - captureStartedUs_);
+        state.initialPausedUs = pausedDurationUs_;
+        state.firstOffsetUs = std::max<int64_t>(0, receivedAtUs - captureStartedUs_ - pausedDurationUs_);
     }
     // 相机时间戳为ns，编码Buffer使用us。首帧保留相对录制启动的偏移，与音频共用起点。
-    const int64_t ptsUs = state.firstOffsetUs + (timestampNs - state.firstTimestampNs) / NS_PER_US;
-    if (ptsUs < lastVideoInputPtsUs_) {
-        AbortRecording("Camera timestamp moved backwards");
-        return false;
-    }
+    // 暂停前已送入编码器的帧正常排空；恢复后的帧扣除暂停时长，边界处保持PTS递增。
+    const int64_t ptsUs = std::max(lastVideoInputPtsUs_ + 1,
+        state.firstOffsetUs + (timestampNs - state.firstTimestampNs) / NS_PER_US -
+        (pausedDurationUs_ - state.initialPausedUs));
     info.attr.pts = ptsUs;
     info.attr.offset = 0;
     info.attr.flags = AVCODEC_BUFFER_FLAGS_NONE;

@@ -19,6 +19,7 @@
 #include <memory>
 #include <vector>
 #include "TranscodePcmConverter.h"
+#include "TranscodeCodecCallbacks.h"
 #include <multimedia/player_framework/native_avcodec_audiocodec.h>
 #include <multimedia/player_framework/native_avdemuxer.h>
 #include <multimedia/player_framework/native_avmuxer.h>
@@ -31,7 +32,7 @@ public:
     ~TranscodeAudioPipeline();
     bool Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track, int64_t rangeStartUs = 0,
         int64_t rangeEndUs = 0, int32_t targetRate = 0, int32_t targetChannels = 0, int64_t bitrate = 128000,
-        bool lowPass = false);
+        bool lowPass = false, bool asynchronous = false);
     bool Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool Ready() const { return ready_; }
     bool Done() const { return outputDone_; }
@@ -46,16 +47,26 @@ private:
     bool PrepareCodecs();
     bool StartCodecs();
     bool Check(int32_t result, const char *operation);
-    bool Feed(bool &advanced);
-    bool Decode(bool &advanced);
-    bool Encode(bool &advanced);
-    bool Drain(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
+    bool FeedSync(bool &advanced);
+    bool FeedAsync(bool &advanced);
+    bool FeedBuffer(uint32_t index, OH_AVBuffer *buffer, bool &advanced);
+    bool DecodeSync(bool &advanced);
+    bool DecodeAsync(bool &advanced);
+    bool AcceptPcm(bool &advanced);
+    bool EncodeSync(bool &advanced);
+    bool EncodeAsync(bool &advanced);
+    bool SubmitPcm(uint32_t index, OH_AVBuffer *input, bool &advanced);
+    bool DrainSync(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
+    bool DrainAsync(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
+    bool WriteOutput(uint32_t index, OH_AVBuffer *buffer, OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool ValidatePcm();
     bool TrimPcm();
     bool FillPcmFrame(bool &advanced);
     bool CheckPcmTimestampContinuity();
     bool ConsumePcmSample(bool &advanced);
     bool ReleasePcmOutput();
+    bool asynchronous_ = false;
+    TranscodeCodecCallbacks callbacks_;
     Error error_;
     OH_AVDemuxer *demuxer_ = nullptr;
     int32_t track_ = -1;

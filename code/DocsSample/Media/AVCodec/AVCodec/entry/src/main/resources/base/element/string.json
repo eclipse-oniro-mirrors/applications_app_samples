@@ -1261,16 +1261,25 @@
     {"name":"transcode_preview_running","value":"Generating preview…"},
     {"name":"transcode_preview_hint","value":"The same frame at or after the chosen time is shown before/after CPU processing, capped at a 640 px long edge. GPU color conversion, encoding and container rotation are not simulated."},
     {"name":"transcode_validation_warning","value":"Output is available, but one or more output checks reported differences or omissions. See the report before sharing."},
-    {"name":"transcode_codec_mode","value":"Video codec scheduling"},
+    {"name":"transcode_codec_mode","value":"Codec scheduling"},
     {"name":"transcode_codec_sync","value":"Synchronous"},
     {"name":"transcode_codec_async","value":"Asynchronous"},
-    {"name":"transcode_codec_mode_hint","value":"Applies to video decoding and encoding, with Buffer or Surface input. AAC conversion and frame preview remain synchronous; remuxing uses no codecs."},
+    {"name":"transcode_codec_mode_hint","value":"Applies to video and AAC decoding/encoding, with Buffer or Surface video input. Frame preview remains synchronous; remuxing uses no codecs."},
     {"name":"recorder_input_mode","value":"Video encoder input"},
     {"name":"recorder_input_direct","value":"Surface (camera direct)"},
     {"name":"recorder_input_buffer","value":"Buffer (copy camera YUV)"},
     {"name":"recorder_buffer_requirements","value":"Buffer input requires API 23+, SDR, 720p/1080p and 30 fps. Selecting it resets incompatible draft options and disables HDR, preprocessing and dual output. Synchronous and asynchronous encoding are supported."},
     {"name":"recorder_buffer_capability_hint","value":"Encoder size and frame rate passed the capability query. Camera dual-preview output, CPU-readable YUV and encoder NV12 input are checked when recording starts."},
     {"name":"recorder_buffer_profile_unavailable","value":"No camera YUV preview profile is available at the selected size and 30 fps. Choose another resolution or Surface input."},
-    {"name":"recorder_buffer_combination_unavailable","value":"Unable to configure camera Buffer capture. The device must support simultaneous display preview and YUV preview output. Check the recording result for details, or choose Surface input."}
+    {"name":"recorder_buffer_combination_unavailable","value":"Unable to configure camera Buffer capture. The device must support simultaneous display preview and YUV preview output. Check the recording result for details, or choose Surface input."},
+    {"name":"recorder_color_unavailable","value":"The device does not support the required recording color space."},
+    {"name":"subtitle_delay_ms","value":"Subtitle offset (ms, positive: later, negative: earlier)"},
+    {"name":"subtitle_delay_apply","value":"Apply offset"},
+    {"name":"subtitle_delay_invalid","value":"Enter an integer from -600000 to 600000."},
+    {"name":"recorder_pause","value":"Pause recording"},
+    {"name":"recorder_resume","value":"Resume recording"},
+    {"name":"recorder_paused","value":"Paused"},
+    {"name":"recorder_pause_hint","value":"Pause requires SDR single-output Buffer recording. Camera preview continues while paused; no audio or video is added to the file."},
+    {"name":"recorder_pause_failed","value":"Unable to pause or resume. Retry or end recording."}
   ]
 }
