@@ -65,7 +65,7 @@ export default function colorMatrixUtilMatrixTest() {
     /**
      * @tc.number    SUB_PHOTOPICKER_CMTMAT_0200
      * @tc.name      testColorMatrixUtil0002
-     * @tc.desc      Verify identity places zeros on every off diagonal slot
+     * @tc.desc      Verify identity returns zeros on every off diagonal slot
      *               including the offset column.
      * @tc.size      SmallTest
      * @tc.type      Function

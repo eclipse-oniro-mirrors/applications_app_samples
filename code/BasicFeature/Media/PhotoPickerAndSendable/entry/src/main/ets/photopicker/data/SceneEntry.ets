@@ -19,15 +19,15 @@
  */
 export class SceneRoutes {
   // Route key of the system photo picker page.
-  static readonly PICKER: string = 'picker';
+  public static readonly PICKER: string = 'picker';
   // Route key of the recent photos page.
-  static readonly RECENT: string = 'recent';
+  public static readonly RECENT: string = 'recent';
   // Route key of the gallery browsing page.
-  static readonly GALLERY: string = 'gallery';
+  public static readonly GALLERY: string = 'gallery';
   // Route key of the image editing page.
-  static readonly EDIT: string = 'edit';
+  public static readonly EDIT: string = 'edit';
   // Route key of the sandbox cache management page.
-  static readonly CACHE: string = 'cache';
+  public static readonly CACHE: string = 'cache';
 }
 
 /**
@@ -36,13 +36,13 @@ export class SceneRoutes {
  */
 export class SceneEntry {
   // Route key that the router should navigate to.
-  route: string;
+  public route: string;
   // Localized page title shown on the card.
-  title: Resource;
+  public title: Resource;
   // Localized one-line capability description shown under the title.
-  description: Resource;
+  public description: Resource;
   // Component id used by UI tests to find the entry card.
-  componentId: string;
+  public componentId: string;
 
   /**
    * Builds one home-page entry description.

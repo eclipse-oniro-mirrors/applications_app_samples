@@ -28,9 +28,9 @@ const MAX_SELECTION: number = 9;
 @ObservedV2
 export class SelectionStore {
   // Ordered list of picked media uris; the order defines the export sequence.
-  @Trace pickedUris: string[] = [];
+  @Trace public pickedUris: string[] = [];
   // Uri currently open in the editor, kept empty when nothing is being edited.
-  @Trace editSource: string = '';
+  @Trace public editSource: string = '';
 
   /**
    * Returns the maximum number of items the user may pick at once.

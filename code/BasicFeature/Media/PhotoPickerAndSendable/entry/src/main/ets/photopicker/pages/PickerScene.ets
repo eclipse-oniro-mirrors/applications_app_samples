@@ -174,7 +174,6 @@ export struct PickerScene {
    */
   private clearSelection(): void {
     Trace.withSync('PickerScene.clearSelection', () => {
-      // Record the clear intent with the current selection size.
       Logger.info(TAG, 'clearSelection count=' + String(this.store.count()));
       // Drop every picked uri from the shared store.
       this.store.clear();

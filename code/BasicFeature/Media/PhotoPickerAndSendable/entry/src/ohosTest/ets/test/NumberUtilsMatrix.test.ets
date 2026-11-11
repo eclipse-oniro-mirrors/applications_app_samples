@@ -659,7 +659,7 @@ export default function numberUtilsMatrixTest() {
      * @tc.number    SUB_PHOTOPICKER_NUMMAT_3400
      * @tc.name      testNumMat0034
      * @tc.desc      Verify roundHalfUp rounds exact half values away from zero
-     *               at zero decimal places.
+     *               with no fractional digits.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0
@@ -678,7 +678,7 @@ export default function numberUtilsMatrixTest() {
      * @tc.number    SUB_PHOTOPICKER_NUMMAT_3500
      * @tc.name      testNumMat0035
      * @tc.desc      Verify roundHalfUp rounds exact half values away from zero
-     *               at one and two decimal places.
+     *               with one and two fractional digits.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0

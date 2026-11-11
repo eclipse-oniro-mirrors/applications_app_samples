@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-// Public surface of the HAR; every symbol the HAP may import must be re-exported here.
 // Feature layer: picker entry, access helpers and the image editing pipeline.
 export { PhotoPickerFeature } from './src/main/ets/photopicker/PhotoPickerFeature';
 // Reusable rounded thumbnail component rendered by the picker pages.

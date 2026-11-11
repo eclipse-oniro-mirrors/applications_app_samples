@@ -47,9 +47,9 @@ const GESTURE_LOG_INTERVAL: number = 200;
  */
 class FilterEntry {
     /** Filter value handed to the engine when this chip is selected. */
-    type: MediaFilterType;
+    public type: MediaFilterType;
     /** Localized label rendered inside the chip button. */
-    label: Resource;
+    public label: Resource;
 
     /**
      * Creates a filter chip descriptor.

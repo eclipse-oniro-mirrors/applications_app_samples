@@ -141,7 +141,6 @@ export struct GalleryScene {
         const businessError = error as BusinessError;
         // Mirror the denied state because the dialog failed.
         this.permissionState = PERMISSION_DENIED;
-        // Surface the system message inside the permission card.
         this.errorMessage = businessError.message;
         // Log the failure together with the business code.
         Logger.errorWithCode(TAG, 'request READ_IMAGEVIDEO', businessError);
@@ -187,7 +186,6 @@ export struct GalleryScene {
     } catch (error) {
       // Keep the error for the log call, the cast stays local to the ApiError object.
       const businessError = error as BusinessError;
-      // Surface the system message inside the page state.
       this.errorMessage = businessError.message;
       // Log the failure together with the business code.
       Logger.errorWithCode(TAG, 'query media library', businessError);

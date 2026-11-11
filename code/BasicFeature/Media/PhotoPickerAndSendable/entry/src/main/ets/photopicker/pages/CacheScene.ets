@@ -212,7 +212,6 @@ export struct CacheScene {
    */
   private removeFile(file: CacheFile): void {
     Trace.withSync('CacheScene.removeFile', () => {
-      // Log the intent with the file name length only, the path stays private.
       Logger.info(TAG, 'removeFile nameLen=' + String(file.name.length));
       try {
         // Delete the sandbox file the cached entry points at.
@@ -233,7 +232,6 @@ export struct CacheScene {
    */
   private clearAll(): void {
     Trace.withSync('CacheScene.clearAll', () => {
-      // Log the intent with the current file count only.
       Logger.info(TAG, 'clearAll start files=' + String(this.files.length));
       try {
         // Remove every output file owned by the sample sandbox directory.

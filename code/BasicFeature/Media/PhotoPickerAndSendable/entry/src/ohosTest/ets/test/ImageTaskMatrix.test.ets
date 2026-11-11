@@ -41,8 +41,8 @@ const SAMPLE_HEIGHT: number = 960;
 /**
  * Registers the synchronous pure logic cases of the image task pipeline of
  * the shared library. The worker entry points of the pipeline depend on a
- * pixel map and on media library IO, so this suite covers the syncable
- * surface only: the edit parameter construction, the filter enum values,
+ * pixel map and on media library IO, so this suite covers the synchronous
+ * operations only: the edit parameter construction, the filter enum values,
  * the worker result contracts and the colour matrix factory mapping that
  * the pipeline consumes while it builds the effect chain.
  */

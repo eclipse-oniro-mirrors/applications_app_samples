@@ -38,19 +38,19 @@ export enum MediaFilterType {
  */
 export class MediaMeta {
   /** Uri of the asset, either a media library uri or a picker granted uri. */
-  uri: string = '';
+  public uri: string = '';
   /** User visible file name of the asset, without any directory part. */
-  displayName: string = '';
+  public displayName: string = '';
   /** Media type enum value reported by the media library, image or video. */
-  mediaType: number = 0;
+  public mediaType: number = 0;
   /** Size of the asset in bytes. */
-  size: number = 0;
+  public size: number = 0;
   /** Width of the asset in pixels, zero when the column was not fetched. */
-  width: number = 0;
+  public width: number = 0;
   /** Height of the asset in pixels, zero when the column was not fetched. */
-  height: number = 0;
+  public height: number = 0;
   /** Mime type text of the asset, empty when the column was not fetched. */
-  mimeType: string = '';
+  public mimeType: string = '';
 
   /**
    * Builds a metadata entry from the fields read out of the media library.
@@ -86,29 +86,29 @@ export class MediaMeta {
  */
 export class EditParams {
   /** Rotation angle in degrees applied after the crop. */
-  rotation: number = 0;
+  public rotation: number = 0;
   /** Left crop handle, normalised to the 0..1 range. */
-  cropLeft: number = 0;
+  public cropLeft: number = 0;
   /** Top crop handle, normalised to the 0..1 range. */
-  cropTop: number = 0;
+  public cropTop: number = 0;
   /** Right crop handle, normalised to the 0..1 range. */
-  cropRight: number = 1;
+  public cropRight: number = 1;
   /** Bottom crop handle, normalised to the 0..1 range. */
-  cropBottom: number = 1;
+  public cropBottom: number = 1;
   /** Preset filter selected in the editor. */
-  filter: MediaFilterType = MediaFilterType.ORIGINAL;
+  public filter: MediaFilterType = MediaFilterType.ORIGINAL;
   /** Brightness lift in the 0..1 range. */
-  brightness: number = 0;
+  public brightness: number = 0;
   /** Contrast multiplier, one means the identity transform. */
-  contrast: number = 1;
+  public contrast: number = 1;
   /** Saturation multiplier, one means the identity transform. */
-  saturation: number = 1;
+  public saturation: number = 1;
   /** Watermark text drawn into the bottom margin, empty disables it. */
-  watermark: string = '';
+  public watermark: string = '';
   /** JPEG compression quality in the 1..100 range. */
-  quality: number = 80;
+  public quality: number = 80;
   /** Longest edge of the output image in pixels. */
-  maxEdge: number = 1600;
+  public maxEdge: number = 1600;
 }
 
 /**
@@ -116,15 +116,15 @@ export class EditParams {
  */
 export class ProcessOutput {
   /** Encoded JPEG bytes of the processed image. */
-  buffer: ArrayBuffer = new ArrayBuffer(0);
+  public buffer: ArrayBuffer = new ArrayBuffer(0);
   /** Width of the processed image in pixels. */
-  width: number = 0;
+  public width: number = 0;
   /** Height of the processed image in pixels. */
-  height: number = 0;
+  public height: number = 0;
   /** Byte length of the encoded buffer. */
-  byteLength: number = 0;
+  public byteLength: number = 0;
   /** Byte length of the original input, used for the compression ratio. */
-  sourceByteLength: number = 0;
+  public sourceByteLength: number = 0;
 }
 
 /**
@@ -132,13 +132,13 @@ export class ProcessOutput {
  */
 export class EditOutcome {
   /** Decoded pixel map shown by the editor, null before the first decode. */
-  pixelMap: image.PixelMap | null = null;
+  public pixelMap: image.PixelMap | null = null;
   /** Raw worker output that produced the pixel map. */
-  output: ProcessOutput = new ProcessOutput();
+  public output: ProcessOutput = new ProcessOutput();
   /** Wall clock time spent inside the task pool, in milliseconds. */
-  workerCost: number = 0;
+  public workerCost: number = 0;
   /** Wall clock time spent decoding the worker output, in milliseconds. */
-  decodeCost: number = 0;
+  public decodeCost: number = 0;
 }
 
 /**
@@ -146,13 +146,13 @@ export class EditOutcome {
  */
 export class CacheFile {
   /** File name inside the output directory, without any directory part. */
-  name: string = '';
+  public name: string = '';
   /** Absolute path of the cached file. */
-  path: string = '';
+  public path: string = '';
   /** Size of the cached file in bytes. */
-  size: number = 0;
+  public size: number = 0;
   /** Last modification time in milliseconds since the epoch. */
-  modifiedTime: number = 0;
+  public modifiedTime: number = 0;
 
   /**
    * Builds one cache entry from a directory listing.
@@ -178,13 +178,13 @@ export class CacheFile {
  */
 export class ExportResult {
   /** Picker granted uri that was exported. */
-  sourceUri: string = '';
+  public sourceUri: string = '';
   /** Absolute sandbox path of the exported file. */
-  targetPath: string = '';
+  public targetPath: string = '';
   /** Number of bytes written into the sandbox, zero on failure. */
-  size: number = 0;
+  public size: number = 0;
   /** True when the whole file was copied without an error. */
-  success: boolean = false;
+  public success: boolean = false;
   /** Error text of a failed export, empty on success. */
-  message: string = '';
+  public message: string = '';
 }

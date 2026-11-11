@@ -100,7 +100,6 @@ struct Index {
    */
   private openScene(route: string): void {
     Trace.withSync('HomeIndex.openScene', () => {
-      // Record the navigation intent with the route name only, no user data is printed.
       Logger.info(TAG, 'openScene route=' + route);
       // Push the destination onto the stack; no extra parameters are passed.
       this.pathStack.pushPathByName(route, null);
@@ -112,7 +111,6 @@ struct Index {
    */
   private clearSelection(): void {
     Trace.withSync('HomeIndex.clearSelection', () => {
-      // Record the clear intent with the current selection size.
       Logger.info(TAG, 'clearSelection count=' + String(this.store.count()));
       // Drop every picked uri from the shared store.
       this.store.clear();

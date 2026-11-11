@@ -573,8 +573,8 @@ export default function stringUtilsMatrixTest() {
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
       // The Chinese character U+4E2D renders as four lowercase hex digits.
       expect(StringUtils.toCharCodeHex('\u4E2D')).assertEqual('4e2d');
-      // The high surrogate of the emoji U+1F600 renders as d83d.
-      expect(StringUtils.toCharCodeHex('\uD83D\uDE00')).assertEqual('d83d');
+      // The emoji begins with a high surrogate code unit.
+      expect(StringUtils.toCharCodeHex(String.fromCodePoint(0x1F600))).assertEqual((55357).toString(16));
       // The space U+0020 renders as 20.
       expect(StringUtils.toCharCodeHex(' ')).assertEqual('20');
       // The tilde U+007E renders as 7e.

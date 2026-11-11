@@ -434,7 +434,7 @@ export default function validateUtilsMatrixTest() {
       // Five digits are one short of the color format.
       expect(ValidateUtils.isHexColor('#F00AA')).assertFalse();
       // Seven digits are one too many for the format.
-      expect(ValidateUtils.isHexColor('#FF00AAB')).assertFalse();
+      expect(ValidateUtils.isHexColor('#FF00ABC')).assertFalse();
       // The leading hash is mandatory.
       expect(ValidateUtils.isHexColor('FF00AA')).assertFalse();
       // The letter G is not a hexadecimal digit.

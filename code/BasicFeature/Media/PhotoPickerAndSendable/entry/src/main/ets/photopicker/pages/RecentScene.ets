@@ -46,9 +46,9 @@ const FALLBACK_THUMB: string = '56vp';
  */
 class PeriodOption {
   /** Period length in seconds, passed straight to the system options object. */
-  seconds: number;
+  public seconds: number;
   /** Localized label rendered inside the period chip. */
-  label: Resource;
+  public label: Resource;
 
   /**
    * Builds one period option.
@@ -68,9 +68,9 @@ class PeriodOption {
  */
 class SourceOption {
   /** Media source value forwarded to the system recent photo options. */
-  source: PhotoSource;
+  public source: PhotoSource;
   /** Localized label rendered inside the source chip. */
-  label: Resource;
+  public label: Resource;
 
   /**
    * Builds one source option.

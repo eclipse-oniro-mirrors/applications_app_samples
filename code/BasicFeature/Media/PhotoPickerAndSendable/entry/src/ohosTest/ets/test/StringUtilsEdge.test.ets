@@ -639,8 +639,8 @@ export default function stringUtilsEdgeTest() {
       expect(StringUtils.toCharCodeHex('\u00FF')).assertEqual('ff');
       // The Chinese zhong character renders as 4e2d.
       expect(StringUtils.toCharCodeHex('\u4E2D')).assertEqual('4e2d');
-      // The high surrogate of the grinning face renders as d83d.
-      expect(StringUtils.toCharCodeHex('\uD83D\uDE00')).assertEqual('d83d');
+      // The emoji begins with a high surrogate code unit.
+      expect(StringUtils.toCharCodeHex(String.fromCodePoint(0x1F600))).assertEqual((55357).toString(16));
       // The maximum BMP code renders as ffff.
       expect(StringUtils.toCharCodeHex('\uFFFF')).assertEqual('ffff');
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
