@@ -4,19 +4,19 @@
 
 本示例演示 OpenHarmony 网络安全校验与网络策略管理能力，代码拆分为可复用的 Library 特性模块和 entry 场景模块。
 
-- 使用 [@kit.NetworkKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/Readme-CN.md) 中的 networkSecurity 完成证书同步校验、异步校验与证书链校验，查询明文 HTTP 策略；使用 policy 读取应用网络访问策略、后台联网策略、UID 策略、流量配额、信任名单与策略事件；使用 http 发起明文 HTTP 探测；使用 connection 读取默认网络与链路信息。
-- 使用 [@kit.DeviceCertificateKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-device-certificate-kit/Readme-CN.md) 中的 cert 解析 X.509 证书元数据。
-- 使用 [@kit.PerformanceAnalysisKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md) 中的 hilog 输出运行日志。
-- 使用 [@kit.ArkTS](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkts/Readme-CN.md) 中的 util 完成 PEM 文本解码与编码。
-- 使用 [@kit.AbilityKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md) 中的 common 与 bundleManager 获取应用上下文与自身 UID。
+- 使用 [@kit.NetworkKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/Readme-CN.md) 中的 networkSecurity 完成证书同步校验、异步校验与证书链校验，查询明文 HTTP 策略；使用 policy 读取应用网络访问策略、后台联网策略、UID 策略、流量配额、信任名单与策略事件；使用 http 发起明文 HTTP 探测；使用 connection 读取默认网络与链路信息。
+- 使用 [@kit.DeviceCertificateKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-device-certificate-kit/Readme-CN.md) 中的 cert 解析 X.509 证书元数据。
+- 使用 [@kit.PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md) 中的 hilog 输出运行日志。
+- 使用 [@kit.ArkTS](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkts/Readme-CN.md) 中的 util 完成 PEM 文本解码与编码。
+- 使用 [@kit.AbilityKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md) 中的 common 与 bundleManager 获取应用上下文与自身 UID。
 
 接口文档：
 
-- [@ohos.net.networkSecurity](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-networkSecurity.md)
-- [@ohos.net.policy](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-net-policy.md)
-- [@ohos.net.http](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-http.md)
-- [@ohos.net.connection](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-net-connection.md)
-- [@ohos.security.cert](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-device-certificate-kit/js-apis-cert.md)
+- [@ohos.net.networkSecurity](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-networkSecurity.md)
+- [@ohos.net.policy](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-net-policy.md)
+- [@ohos.net.http](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-http.md)
+- [@ohos.net.connection](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-network-kit/js-apis-net-connection.md)
+- [@ohos.security.cert](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-device-certificate-kit/js-apis-cert.md)
 
 主要功能如下：
 
@@ -37,9 +37,7 @@
 
 网络策略页提供“已安装应用”入口，点击后推入应用列表页（支持搜索过滤与加载、空态、受限提示三种降级态）；点击应用行推入应用详情页，聚合展示该应用的 Wi-Fi 与蜂窝访问策略、UID 策略与后台联网策略，并提供“允许/拒绝/清除”操作按钮；UID 策略卡的“选择应用”按钮打开可搜索的应用选择面板；策略事件行携带 UID 时可点击 UID 文本直达对应应用详情页。
 
-截图待补充：`screenshots/security.png`。
-
-截图待补充：`screenshots/policy.png`。
+<img src="screenshots/main_page.png" alt="主页面" width="320" height="569"/>
 
 ### 使用说明
 
@@ -122,40 +120,40 @@ NetworkSecurity/
 
 ## 具体实现
 
-网络安全校验与网络策略的封装位于 Library 模块，对外接口统一在 [Index.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/Index.ets) 中导出，场景层以静态类方法调用。
+网络安全校验与网络策略的封装位于 Library 模块，对外接口统一在 [Index.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/Index.ets) 中导出，场景层以静态类方法调用。
 
 ### 特性封装（Library）
 
-- 证书校验：[CertVerifyService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertVerifyService.ets) 封装 networkSecurity.certVerificationSync、networkSecurity.certVerification 与 networkSecurity.verifyCertChain。同步与异步校验把 PEM 文本包装为 CertBlob（CERT_TYPE_PEM），返回码 0 表示通过，其他返回码或 BusinessError 的错误码写入 CertVerifyResult；链校验返回解析后的证书链长度与主机名。三个方法都用 Date.now 记录耗时，结果中包含 elapsedMs。
-- 证书读取与解析：[CertFileService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertFileService.ets) 使用 resourceManager.getRawFileContentSync 读取 rawfile 中的 PEM，再通过 util.TextDecoder 解码为字符串；解析时用 cert.createX509Cert 创建 X509Cert，读取 getIssuerName、getNotBeforeTime、getNotAfterTime、getVersion 与 getSerialNumber。
-- 明文策略查询：[CleartextService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CleartextService.ets) 封装 networkSecurity.isCleartextPermitted 与 networkSecurity.isCleartextPermittedByHostName；主机名为空时跳过查询，平台调用失败时记录日志并返回 false，不向页面抛异常。
-- HTTP 探测：[HttpProbeService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/HttpProbeService.ets) 通过 http.createHttp().request 发起 GET 请求，连接与读取超时均为 10 秒，200 至 399 视为成功；捕获 BusinessError 后单独识别 2300997，返回“明文流量被网络安全策略拦截”的说明，请求对象在 finally 中调用 destroy 释放。
-- 网络环境自检：[EnvironmentService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/EnvironmentService.ets) 使用 connection.getDefaultNetSync 获取默认网络，用 connection.getNetCapabilitiesSync 读取承载类型，用 connection.getConnectionProperties 读取 MTU 与 DNS 数量，再追加全局明文开关与按主机名查询两项检查，共六项。
-- 应用网络访问策略：[AccessPolicyService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/AccessPolicyService.ets) 调用公开接口 policy.getNetAccessPolicy 读取 Wi-Fi 与蜂窝网络访问策略，调用 policy.showAppNetPolicySettings 打开系统网络访问设置页；另封装系统接口 policy.getNetworkAccessPolicy，按 UID 读取访问策略。公开接口读取失败时返回 loaded 为 false 的安全视图，系统接口的错误向上抛出。
-- 已安装应用列表：[AppListService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/AppListService.ets) 封装 bundleManager.getAllBundleInfo（GET_BUNDLE_INFO_WITH_APPLICATION），从 ApplicationInfo 读取应用名、包名、UID 与图标资源；查询失败返回 loaded 为 false 的安全视图，不向页面抛异常。
-- 后台联网策略：[BackgroundPolicyService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/BackgroundPolicyService.ets) 封装 policy.isBackgroundAllowed、policy.setBackgroundAllowed 与 policy.getBackgroundPolicyByUid。
-- UID 策略：[UidPolicyService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/UidPolicyService.ets) 封装 policy.setPolicyByUid、policy.getPolicyByUid、policy.getUidsByPolicy 与重载的 policy.isUidNetAllowed（计量网络与指定网卡两种入参）。
-- 流量配额：[QuotaPolicyService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/QuotaPolicyService.ets) 通过 policy.setNetQuotaPolicies 写入蜂窝网络演示配额，周期为 M1，警告阈值 100 MB，限制阈值 200 MB，超限动作为仅提醒；读取使用 policy.getNetQuotaPolicies，另封装 policy.resetPolicies、policy.restoreAllPolicies 与 policy.updateRemindPolicy。
-- 信任名单：[TrustlistService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/TrustlistService.ets) 调用 policy.setDeviceIdleTrustlist 与 policy.setPowerSaveTrustlist 加入白名单，调用对应的 get 接口读取当前名单；读取失败时返回空名单并标记 loaded 为 false。
-- 策略事件：[PolicyEventService.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/PolicyEventService.ets) 订阅 netUidPolicyChange、netUidRuleChange、netMeteredIfacesChange、netQuotaPolicyChange、netBackgroundPolicyChange 五类事件，把数值型负载转换为英文说明后交给页面回调，UID 策略与 UID 规则事件回调额外携带负载 UID；注册失败时先注销已注册的监听再抛出错误，stop 中逐个注销监听。
-- 错误码字典：[SecurityErrorCodeMap.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/SecurityErrorCodeMap.ets) 收录 201、202、401、2300997、2305001、2305002、2305004、2305007、2305009、2305010、2305011、2305012、2305018、2305069；[PolicyErrorCodeMap.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/PolicyErrorCodeMap.ets) 收录 201、202、401、2100001、2100002、2100003，并提供 isSystemRestricted 判断调用是否因缺少系统权限被拒绝。两个字典都返回标题、原因、建议与级别，未收录的返回码使用“未知错误码”说明。
-- 数据模型：[SecurityTypes.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/SecurityTypes.ets) 定义 CertFileItem、CertMeta、CertVerifyResult、CleartextResult、HttpProbeResult、EnvironmentCheck 与 SecurityErrorExplain；[PolicyTypes.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/PolicyTypes.ets) 定义访问策略、后台策略、UID 策略、配额、信任名单、策略事件视图以及枚举文案转换函数；[AppTypes.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/AppTypes.ets) 定义 AppInfoItem、AppListView 与 AppDetailParam。
+- 证书校验：[CertVerifyService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertVerifyService.ets) 封装 networkSecurity.certVerificationSync、networkSecurity.certVerification 与 networkSecurity.verifyCertChain。同步与异步校验把 PEM 文本包装为 CertBlob（CERT_TYPE_PEM），返回码 0 表示通过，其他返回码或 BusinessError 的错误码写入 CertVerifyResult；链校验返回解析后的证书链长度与主机名。三个方法都用 Date.now 记录耗时，结果中包含 elapsedMs。
+- 证书读取与解析：[CertFileService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertFileService.ets) 使用 resourceManager.getRawFileContentSync 读取 rawfile 中的 PEM，再通过 util.TextDecoder 解码为字符串；解析时用 cert.createX509Cert 创建 X509Cert，读取 getIssuerName、getNotBeforeTime、getNotAfterTime、getVersion 与 getSerialNumber。
+- 明文策略查询：[CleartextService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CleartextService.ets) 封装 networkSecurity.isCleartextPermitted 与 networkSecurity.isCleartextPermittedByHostName；主机名为空时跳过查询，平台调用失败时记录日志并返回 false，不向页面抛异常。
+- HTTP 探测：[HttpProbeService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/HttpProbeService.ets) 通过 http.createHttp().request 发起 GET 请求，连接与读取超时均为 10 秒，200 至 399 视为成功；捕获 BusinessError 后单独识别 2300997，返回“明文流量被网络安全策略拦截”的说明，请求对象在 finally 中调用 destroy 释放。
+- 网络环境自检：[EnvironmentService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/EnvironmentService.ets) 使用 connection.getDefaultNetSync 获取默认网络，用 connection.getNetCapabilitiesSync 读取承载类型，用 connection.getConnectionProperties 读取 MTU 与 DNS 数量，再追加全局明文开关与按主机名查询两项检查，共六项。
+- 应用网络访问策略：[AccessPolicyService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/AccessPolicyService.ets) 调用公开接口 policy.getNetAccessPolicy 读取 Wi-Fi 与蜂窝网络访问策略，调用 policy.showAppNetPolicySettings 打开系统网络访问设置页；另封装系统接口 policy.getNetworkAccessPolicy，按 UID 读取访问策略。公开接口读取失败时返回 loaded 为 false 的安全视图，系统接口的错误向上抛出。
+- 已安装应用列表：[AppListService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/AppListService.ets) 封装 bundleManager.getAllBundleInfo（GET_BUNDLE_INFO_WITH_APPLICATION），从 ApplicationInfo 读取应用名、包名、UID 与图标资源；查询失败返回 loaded 为 false 的安全视图，不向页面抛异常。
+- 后台联网策略：[BackgroundPolicyService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/BackgroundPolicyService.ets) 封装 policy.isBackgroundAllowed、policy.setBackgroundAllowed 与 policy.getBackgroundPolicyByUid。
+- UID 策略：[UidPolicyService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/UidPolicyService.ets) 封装 policy.setPolicyByUid、policy.getPolicyByUid、policy.getUidsByPolicy 与重载的 policy.isUidNetAllowed（计量网络与指定网卡两种入参）。
+- 流量配额：[QuotaPolicyService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/QuotaPolicyService.ets) 通过 policy.setNetQuotaPolicies 写入蜂窝网络演示配额，周期为 M1，警告阈值 100 MB，限制阈值 200 MB，超限动作为仅提醒；读取使用 policy.getNetQuotaPolicies，另封装 policy.resetPolicies、policy.restoreAllPolicies 与 policy.updateRemindPolicy。
+- 信任名单：[TrustlistService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/TrustlistService.ets) 调用 policy.setDeviceIdleTrustlist 与 policy.setPowerSaveTrustlist 加入白名单，调用对应的 get 接口读取当前名单；读取失败时返回空名单并标记 loaded 为 false。
+- 策略事件：[PolicyEventService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/PolicyEventService.ets) 订阅 netUidPolicyChange、netUidRuleChange、netMeteredIfacesChange、netQuotaPolicyChange、netBackgroundPolicyChange 五类事件，把数值型负载转换为英文说明后交给页面回调，UID 策略与 UID 规则事件回调额外携带负载 UID；注册失败时先注销已注册的监听再抛出错误，stop 中逐个注销监听。
+- 错误码字典：[SecurityErrorCodeMap.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/SecurityErrorCodeMap.ets) 收录 201、202、401、2300997、2305001、2305002、2305004、2305007、2305009、2305010、2305011、2305012、2305018、2305069；[PolicyErrorCodeMap.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/PolicyErrorCodeMap.ets) 收录 201、202、401、2100001、2100002、2100003，并提供 isSystemRestricted 判断调用是否因缺少系统权限被拒绝。两个字典都返回标题、原因、建议与级别，未收录的返回码使用“未知错误码”说明。
+- 数据模型：[SecurityTypes.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/SecurityTypes.ets) 定义 CertFileItem、CertMeta、CertVerifyResult、CleartextResult、HttpProbeResult、EnvironmentCheck 与 SecurityErrorExplain；[PolicyTypes.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/PolicyTypes.ets) 定义访问策略、后台策略、UID 策略、配额、信任名单、策略事件视图以及枚举文案转换函数；[AppTypes.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/policy/AppTypes.ets) 定义 AppInfoItem、AppListView 与 AppDetailParam。
 
 ### 场景使用（entry）
 
-- 页面装配：[MainPage.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/MainPage.ets) 使用 Navigation 包裹整体页面，通过 GridRow 的 onBreakpointChange 判断断点，小屏使用 Tabs 底部页签，中屏与大屏使用左侧导航；平板布局中两个页面常驻，通过 visibility 切换显示；navDestination 注册“AppListPage”与“AppDetailPage”路由，页面跳转通过 NsNav 共享 NavPathStack。
-- 安全校验页：[SecurityPage.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/SecurityPage.ets) 在 aboutToAppear 中获取 UIAbilityContext 并绑定 ViewModel，运行环境、证书列表、探测结果与日志均用 Repeat 渲染；证书校验结果、错误码解读与探测结果分别读取 ViewModel 中的 lastResult、SecurityErrorCodeMap 与 probeResults。
-- 安全校验状态：[SecurityViewModel.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/SecurityViewModel.ets) 使用 @ObservedV2 与 @Trace 维护检查项、证书列表、选中项、证书元数据、最近校验结果、明文查询结果、主机名输入、探测结果与日志；bind 时加载内置证书、执行环境自检并默认选中服务器证书，证书链校验固定使用 netsecurity.sample.com 主机名，HTTP 探测结果最多保留 4 条。
-- 网络策略页：[PolicyPage.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/PolicyPage.ets) 展示系统接口状态、公开访问策略、后台策略开关、UID 输入与策略按钮、配额操作与列表、信任名单与策略事件列表，页面销毁时调用 stopEvents 注销监听。
-- 网络策略状态：[PolicyViewModel.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/PolicyViewModel.ets) 使用 @Trace 维护各卡片视图状态与日志；bind 时通过 bundleManager.getBundleInfoForSelfSync 读取自身 UID 作为默认输入，所有系统接口调用统一经过 run 方法，捕获 BusinessError 后由 handleError 判断 201、202，置 systemAvailable 为 false 并写入受限日志，页面保持可用；策略事件回调把负载 UID 填入事件条目。
-- 应用列表：[AppListPage.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/AppListPage.ets) 使用 Repeat 懒加载应用行并渲染搜索、加载、空态与受限提示四种状态；[AppListViewModel.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/AppListViewModel.ets) 使用 @ObservedV2 与 @Trace 维护列表、关键字与忙碌状态，@Computed 计算过滤结果。
-- 应用详情：[AppDetailPage.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/AppDetailPage.ets) 展示应用概览与三类策略卡片，UID 策略卡提供“允许/拒绝/清除”按钮；[AppDetailViewModel.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/AppDetailViewModel.ets) 复用 Library 三类策略服务按 UID 查询，通过 getBundleNameByUidSync、列表匹配与裸 UID 三级解析应用名，应用策略后重查并留痕，受限调用转为日志。
-- 日志收集：[LogTypes.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/model/LogTypes.ets) 定义 LogEntry 与 appendLog，新日志插入首位并裁剪到上限；两个 ViewModel 分别保留最近 50 条日志，策略事件保留最近 30 条，[LogPanel.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/LogPanel.ets) 按级别着色展示并提供“清空”按钮。
-- 界面组件：[SectionCard.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/SectionCard.ets)、[InfoRow.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/InfoRow.ets) 与 [SwitchRow.ets](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/SwitchRow.ets) 统一两个页面的卡片、信息行与开关样式，并通过 idPrefix 生成组件 id。
+- 页面装配：[MainPage.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/MainPage.ets) 使用 Navigation 包裹整体页面，通过 GridRow 的 onBreakpointChange 判断断点，小屏使用 Tabs 底部页签，中屏与大屏使用左侧导航；平板布局中两个页面常驻，通过 visibility 切换显示；navDestination 注册“AppListPage”与“AppDetailPage”路由，页面跳转通过 NsNav 共享 NavPathStack。
+- 安全校验页：[SecurityPage.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/SecurityPage.ets) 在 aboutToAppear 中获取 UIAbilityContext 并绑定 ViewModel，运行环境、证书列表、探测结果与日志均用 Repeat 渲染；证书校验结果、错误码解读与探测结果分别读取 ViewModel 中的 lastResult、SecurityErrorCodeMap 与 probeResults。
+- 安全校验状态：[SecurityViewModel.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/SecurityViewModel.ets) 使用 @ObservedV2 与 @Trace 维护检查项、证书列表、选中项、证书元数据、最近校验结果、明文查询结果、主机名输入、探测结果与日志；bind 时加载内置证书、执行环境自检并默认选中服务器证书，证书链校验固定使用 netsecurity.sample.com 主机名，HTTP 探测结果最多保留 4 条。
+- 网络策略页：[PolicyPage.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/PolicyPage.ets) 展示系统接口状态、公开访问策略、后台策略开关、UID 输入与策略按钮、配额操作与列表、信任名单与策略事件列表，页面销毁时调用 stopEvents 注销监听。
+- 网络策略状态：[PolicyViewModel.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/PolicyViewModel.ets) 使用 @Trace 维护各卡片视图状态与日志；bind 时通过 bundleManager.getBundleInfoForSelfSync 读取自身 UID 作为默认输入，所有系统接口调用统一经过 run 方法，捕获 BusinessError 后由 handleError 判断 201、202，置 systemAvailable 为 false 并写入受限日志，页面保持可用；策略事件回调把负载 UID 填入事件条目。
+- 应用列表：[AppListPage.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/AppListPage.ets) 使用 Repeat 懒加载应用行并渲染搜索、加载、空态与受限提示四种状态；[AppListViewModel.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/AppListViewModel.ets) 使用 @ObservedV2 与 @Trace 维护列表、关键字与忙碌状态，@Computed 计算过滤结果。
+- 应用详情：[AppDetailPage.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/pages/AppDetailPage.ets) 展示应用概览与三类策略卡片，UID 策略卡提供“允许/拒绝/清除”按钮；[AppDetailViewModel.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/ets/networksecurity/viewmodel/AppDetailViewModel.ets) 复用 Library 三类策略服务按 UID 查询，通过 getBundleNameByUidSync、列表匹配与裸 UID 三级解析应用名，应用策略后重查并留痕，受限调用转为日志。
+- 日志收集：[LogTypes.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/model/LogTypes.ets) 定义 LogEntry 与 appendLog，新日志插入首位并裁剪到上限；两个 ViewModel 分别保留最近 50 条日志，策略事件保留最近 30 条，[LogPanel.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/LogPanel.ets) 按级别着色展示并提供“清空”按钮。
+- 界面组件：[SectionCard.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/SectionCard.ets)、[InfoRow.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/InfoRow.ets) 与 [SwitchRow.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/components/SwitchRow.ets) 统一两个页面的卡片、信息行与开关样式，并通过 idPrefix 生成组件 id。
 
 ### 配置与证书
 
-[network_config.json](https://gitee.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/resources/base/profile/network_config.json) 描述示例期望的网络安全配置：base-config 的 cleartextTrafficPermitted 为 false，即默认禁止明文 HTTP，信任锚指向 /etc/security/certificates；domain-config 中 example.com 及其子域允许明文，iana.org 及其子域禁止明文。页面的明文查询与 HTTP 探测结果以设备实际生效的策略为准，配置内容与设备策略不一致时以设备为准。
+[network_config.json](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/resources/base/profile/network_config.json) 描述示例期望的网络安全配置：base-config 的 cleartextTrafficPermitted 为 false，即默认禁止明文 HTTP，信任锚指向 /etc/security/certificates；domain-config 中 example.com 及其子域允许明文，iana.org 及其子域禁止明文。页面的明文查询与 HTTP 探测结果以设备实际生效的策略为准，配置内容与设备策略不一致时以设备为准。
 
 四个内置证书位于 entry/src/main/resources/rawfile/certs：
 
@@ -196,9 +194,9 @@ NetworkSecurity/
 - ohos.permission.GET_INSTALLED_BUNDLE_LIST：允许应用查询已安装应用列表，用于应用列表页与应用选择器，权限级别为 system_basic，授权方式为系统授权，ACL 使能。
 - ohos.permission.GET_BUNDLE_INFO：允许应用查询应用信息，用于 UID 到应用名的解析。
 
-权限定义参考 [系统应用权限列表](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md) 与 [所有应用可申请权限列表](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md)。
+权限定义参考 [系统应用权限列表](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md) 与 [所有应用可申请权限列表](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md)。
 
-MANAGE_NET_STRATEGY 属于 system_basic 级别，需要配置高权限签名，配置方法参考 [申请受限权限](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)。
+MANAGE_NET_STRATEGY 属于 system_basic 级别，需要配置高权限签名，配置方法参考 [申请受限权限](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)。
 
 ## 依赖
 
@@ -209,7 +207,7 @@ MANAGE_NET_STRATEGY 属于 system_basic 级别，需要配置高权限签名，�
 1. 本示例仅支持标准系统上运行，支持设备为 RK3568 的手机与平板。
 2. 本示例使用 API 26 版本 SDK，compileSdkVersion 与 targetSdkVersion 均为 26.0.0，DevEco Studio 需支持 API 26。
 3. @ohos.net.policy 中除 getNetAccessPolicy()（API 26）与 showAppNetPolicySettings()（API 22）外全部为 @systemapi，必须使用 Full SDK 编译，并以 system_basic 级别签名（ohos.permission.MANAGE_NET_STRATEGY）安装。未替换 Full SDK 会编译失败；非系统签名设备调用这些接口会返回 202 或 201，页面以操作日志和“当前设备不具备系统权限，操作已跳过”提示降级，不会崩溃。
-4. 替换 Full SDK 的方法参考 [Full SDK 编译指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-compile-guide.md)，替换后在 DevEco Studio 的 SDK 配置中重新选择 Full SDK 并同步工程。
+4. 替换 Full SDK 的方法参考 [Full SDK 编译指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-compile-guide.md)，替换后在 DevEco Studio 的 SDK 配置中重新选择 Full SDK 并同步工程。
 5. HTTP 探测依赖设备实际网络。无网络或域名解析失败时返回连接类错误码，属于预期结果；探测禁止域名时预期返回 2300997。
 6. 明文查询与 HTTP 探测的结果取决于设备实际生效的网络安全配置，network_config.json 仅表示示例期望的策略内容。
 7. UI 自动化用例位于 entry/src/ohosTest，运行前需连接真机、完成签名配置并安装测试包。
@@ -222,6 +220,6 @@ MANAGE_NET_STRATEGY 属于 system_basic 级别，需要配置高权限签名，�
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/NetworkSecurity/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
