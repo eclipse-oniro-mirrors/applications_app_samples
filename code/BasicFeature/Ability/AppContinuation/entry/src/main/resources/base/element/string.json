@@ -2,23 +2,1795 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "接续接口调用与运行诊断"
+      "value": "Continuation API calls and runtime diagnostics"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "调用接续接口，保存文本并查看运行结果"
+      "value": "Call continuation APIs, save text and inspect results"
     },
     {
       "name": "EntryAbility_label",
-      "value": "接续接口指南"
+      "value": "Continuation API Guide"
     },
     {
       "name": "distributed_datasync_reason",
-      "value": "用于跨设备应用接续，在设备之间同步当前业务状态"
+      "value": "Synchronize current business state between devices for application continuation"
     },
     {
       "name": "official_doc_url",
       "value": "https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-continueManager.md"
+    },
+    {
+      "name": "ac_learningui_001",
+      "value": "Failure · ERROR"
+    },
+    {
+      "name": "ac_learningui_002",
+      "value": "Warning · WARN"
+    },
+    {
+      "name": "ac_learningui_003",
+      "value": "Information · INFO"
+    },
+    {
+      "name": "ac_learningui_004",
+      "value": "Copied to clipboard."
+    },
+    {
+      "name": "ac_learningui_005",
+      "value": "Copy failed: {0}"
+    },
+    {
+      "name": "ac_learningui_006",
+      "value": "Clipboard unavailable: {0}"
+    },
+    {
+      "name": "ac_learningui_007",
+      "value": "Cancel"
+    },
+    {
+      "name": "ac_learningui_008",
+      "value": "Confirm"
+    },
+    {
+      "name": "ac_learningui_009",
+      "value": "Canceled."
+    },
+    {
+      "name": "ac_learningui_010",
+      "value": "Confirmation failed: {0}"
+    },
+    {
+      "name": "ac_learningui_011",
+      "value": "Unable to show confirmation: {0}"
+    },
+    {
+      "name": "ac_learningui_012",
+      "value": "Unable to open the home page: {0}"
+    },
+    {
+      "name": "ac_learningui_013",
+      "value": "Navigation unavailable: {0}"
+    },
+    {
+      "name": "ac_learningui_014",
+      "value": "Platform response fields (redacted)"
+    },
+    {
+      "name": "ac_learningui_015",
+      "value": "Collapse"
+    },
+    {
+      "name": "ac_learningui_016",
+      "value": "Expand"
+    },
+    {
+      "name": "ac_learningui_017",
+      "value": "Notice"
+    },
+    {
+      "name": "ac_learningui_019",
+      "value": "(None / not provided)"
+    },
+    {
+      "name": "ac_learningui_020",
+      "value": "No information recorded yet."
+    },
+    {
+      "name": "ac_learningui_021",
+      "value": "Environment not checked yet."
+    },
+    {
+      "name": "ac_learningui_022",
+      "value": "No events yet."
+    },
+    {
+      "name": "ac_learningui_023",
+      "value": "View details"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_002",
+      "value": "Continuation details"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_003",
+      "value": "System result: {0}"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_004",
+      "value": "Window: {0}"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_005",
+      "value": "Business position: {0}"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_006",
+      "value": "Accepted; waiting for all gates"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_007",
+      "value": "Accept incoming version"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_008",
+      "value": "Keep local and cancel this session"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_009",
+      "value": "Retry business positioning"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_010",
+      "value": "Cancel session and keep local"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_001",
+      "value": "Continuation is in progress or the runtime has been released. Generate and preview again later."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_002",
+      "value": "Business state changed. Generate a new backup or validate the preview again."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_003",
+      "value": "Runtime not initialized. Please try again later."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_004",
+      "value": "Import text changed. Validate and preview before restoring."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_005",
+      "value": "Select at least one scene to restore."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_006",
+      "value": "Restore scope changed. Validate and preview again."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_007",
+      "value": "Select at least one scene to restore. Export and copy still include the entire business workspace."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_008",
+      "value": "Restore scope: {0}; "
+    },
+    {
+      "name": "ac_sceneworkspacebackup_009",
+      "value": "Unselected scenes and their unsaved drafts are preserved and are not written by this operation. Export always includes the entire workspace."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_011",
+      "value": "Restore preview canceled."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_012",
+      "value": "Unsaved changes in the selected scenes will be replaced. "
+    },
+    {
+      "name": "ac_sceneworkspacebackup_013",
+      "value": "Restore the local business workspace?"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_014",
+      "value": "{0}Replace only {1} and their history; "
+    },
+    {
+      "name": "ac_sceneworkspacebackup_015",
+      "value": "Unselected scenes and the original text workspace are unaffected. Export a local backup first."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_016",
+      "value": "Restore preview expired. Validate and preview again."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_017",
+      "value": "Local restore did not complete. Check the current state again; backup contents were not echoed."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_018",
+      "value": "Copy an unencrypted business backup?"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_019",
+      "value": "The copy contains drafts, names, phone numbers, addresses and history. Clipboard sharing is restricted to this device; it is not uploaded automatically. Store and clear the copy responsibly."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_020",
+      "value": "Waiting for the local clipboard result…"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_021",
+      "value": "Backup copy did not complete; business state is unchanged."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_022",
+      "value": "Cannot resume this scene now. End continuation or check draft state first."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_023",
+      "value": "Other unsaved drafts are preserved. Resuming {0}."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_024",
+      "value": "The business page did not open; all unsaved drafts are preserved."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_026",
+      "value": "Collapse backup and restore"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_027",
+      "value": "Backup and restore"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_028",
+      "value": "Save note, reading and form drafts and history."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_029",
+      "value": "Generate backup"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_030",
+      "value": "Copy backup"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_031",
+      "value": "Generated {0} characters; previewing the first 512. This copy is unencrypted. Keep it secure."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_032",
+      "value": "Choose what to restore"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_033",
+      "value": "Note"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_034",
+      "value": "Reading"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_035",
+      "value": "Form"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_036",
+      "value": "Paste the complete backup, then validate and preview"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_037",
+      "value": "Input: {0}/{1} characters. Oversized input is rejected, not truncated for restoration."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_038",
+      "value": "Validate preview"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_039",
+      "value": "Restore backup"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_040",
+      "value": "Cancel preview"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_041",
+      "value": "Continue editing while preserving other unsaved drafts."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_042",
+      "value": "Resume note"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_043",
+      "value": "Resume reading"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_044",
+      "value": "Resume form"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_045",
+      "value": "No preview yet. Validation and cancellation do not write business storage."
+    },
+    {
+      "name": "ac_sceneworkspacebackup_046",
+      "value": "Ready."
+    },
+    {
+      "name": "ac_calldetailpage_001",
+      "value": "Runtime initializing. Loading operation details."
+    },
+    {
+      "name": "ac_calldetailpage_002",
+      "value": "Record not found. Open diagnostics to view available records."
+    },
+    {
+      "name": "ac_calldetailpage_003",
+      "value": "No operation summary is available to copy."
+    },
+    {
+      "name": "ac_calldetailpage_004",
+      "value": "Unable to go back: {0}"
+    },
+    {
+      "name": "ac_calldetailpage_005",
+      "value": "Call details"
+    },
+    {
+      "name": "ac_calldetailpage_007",
+      "value": "Record not found"
+    },
+    {
+      "name": "ac_calldetailpage_008",
+      "value": "Back to diagnostics"
+    },
+    {
+      "name": "ac_calldetailpage_009",
+      "value": "Result"
+    },
+    {
+      "name": "ac_calldetailpage_010",
+      "value": "Phase / level"
+    },
+    {
+      "name": "ac_calldetailpage_011",
+      "value": "Start / end"
+    },
+    {
+      "name": "ac_calldetailpage_012",
+      "value": "In progress"
+    },
+    {
+      "name": "ac_calldetailpage_013",
+      "value": "Duration"
+    },
+    {
+      "name": "ac_calldetailpage_014",
+      "value": "Response"
+    },
+    {
+      "name": "ac_calldetailpage_015",
+      "value": "Error code"
+    },
+    {
+      "name": "ac_calldetailpage_016",
+      "value": "Error message"
+    },
+    {
+      "name": "ac_calldetailpage_017",
+      "value": "Result state"
+    },
+    {
+      "name": "ac_calldetailpage_018",
+      "value": "Result information"
+    },
+    {
+      "name": "ac_calldetailpage_019",
+      "value": "Copy response"
+    },
+    {
+      "name": "ac_calldetailpage_020",
+      "value": "Diagnostics"
+    },
+    {
+      "name": "ac_calldetailpage_021",
+      "value": "Operation records"
+    },
+    {
+      "name": "ac_calldetailpage_022",
+      "value": "Result explanation"
+    },
+    {
+      "name": "ac_calldetailpage_023",
+      "value": "Recommendations"
+    },
+    {
+      "name": "ac_calldetailpage_024",
+      "value": "Copy diagnostic summary"
+    },
+    {
+      "name": "ac_calldetailpage_025",
+      "value": "More information"
+    },
+    {
+      "name": "ac_calldetailpage_026",
+      "value": "Hide environment"
+    },
+    {
+      "name": "ac_calldetailpage_027",
+      "value": "View environment"
+    },
+    {
+      "name": "ac_calldetailpage_028",
+      "value": "Hide event records"
+    },
+    {
+      "name": "ac_calldetailpage_029",
+      "value": "View event records ({0})"
+    },
+    {
+      "name": "ac_calldetailpage_030",
+      "value": "Back to operations"
+    },
+    {
+      "name": "ac_calldetailpage_031",
+      "value": "Back"
+    },
+    {
+      "name": "ac_formscenepage_001",
+      "value": "Back to workbench"
+    },
+    {
+      "name": "ac_formscenepage_002",
+      "value": "Form draft"
+    },
+    {
+      "name": "ac_formscenepage_003",
+      "value": "Step {0}: {1}"
+    },
+    {
+      "name": "ac_formscenepage_004",
+      "value": "Name"
+    },
+    {
+      "name": "ac_formscenepage_005",
+      "value": "Mobile number"
+    },
+    {
+      "name": "ac_formscenepage_006",
+      "value": "Address"
+    },
+    {
+      "name": "ac_formscenepage_007",
+      "value": "Note (optional)"
+    },
+    {
+      "name": "ac_formscenepage_008",
+      "value": "I confirm the information is correct"
+    },
+    {
+      "name": "ac_formscenepage_009",
+      "value": "Step validation: {0}"
+    },
+    {
+      "name": "ac_formscenepage_010",
+      "value": "Passed"
+    },
+    {
+      "name": "ac_formscenepage_011",
+      "value": "{0} items still need attention"
+    },
+    {
+      "name": "ac_formscenepage_012",
+      "value": "Previous step"
+    },
+    {
+      "name": "ac_formscenepage_013",
+      "value": "Next step"
+    },
+    {
+      "name": "ac_formscenepage_014",
+      "value": "Save draft"
+    },
+    {
+      "name": "ac_formscenepage_015",
+      "value": "Validate and confirm completion"
+    },
+    {
+      "name": "ac_formscenepage_016",
+      "value": "Completion confirmed (local sample only; nothing sent to a server)"
+    },
+    {
+      "name": "ac_formscenepage_017",
+      "value": "Completion not confirmed"
+    },
+    {
+      "name": "ac_index_001",
+      "value": "All"
+    },
+    {
+      "name": "ac_index_003",
+      "value": "Selection not restored yet: {0}"
+    },
+    {
+      "name": "ac_index_004",
+      "value": "Text update did not complete: {0}"
+    },
+    {
+      "name": "ac_index_005",
+      "value": "Selection update did not complete: {0}"
+    },
+    {
+      "name": "ac_index_006",
+      "value": "Initializing. Please try again later."
+    },
+    {
+      "name": "ac_index_007",
+      "value": "Operation did not complete: {0}"
+    },
+    {
+      "name": "ac_index_008",
+      "value": "Ability initializing"
+    },
+    {
+      "name": "ac_index_009",
+      "value": "Page did not open: {0}"
+    },
+    {
+      "name": "ac_index_010",
+      "value": "Page unavailable: {0}"
+    },
+    {
+      "name": "ac_index_011",
+      "value": "Initializing. Copy the summary later."
+    },
+    {
+      "name": "ac_index_012",
+      "value": "Official documentation is unavailable. Please try again later."
+    },
+    {
+      "name": "ac_index_013",
+      "value": "Unable to open documentation: {0}"
+    },
+    {
+      "name": "ac_index_015",
+      "value": "Replace text with the example?"
+    },
+    {
+      "name": "ac_index_016",
+      "value": "This replaces the current text and selection."
+    },
+    {
+      "name": "ac_index_017",
+      "value": "The text is already empty."
+    },
+    {
+      "name": "ac_index_018",
+      "value": "Clear text?"
+    },
+    {
+      "name": "ac_index_019",
+      "value": "This clears text and selection and updates the local save."
+    },
+    {
+      "name": "ac_index_020",
+      "value": "Clear records?"
+    },
+    {
+      "name": "ac_index_021",
+      "value": "This clears operation records but preserves current state and text."
+    },
+    {
+      "name": "ac_index_023",
+      "value": "Failure"
+    },
+    {
+      "name": "ac_index_024",
+      "value": "Warning"
+    },
+    {
+      "name": "ac_index_026",
+      "value": "System"
+    },
+    {
+      "name": "ac_index_027",
+      "value": "Waiting for Ability initialization"
+    },
+    {
+      "name": "ac_index_028",
+      "value": "App continuation"
+    },
+    {
+      "name": "ac_index_029",
+      "value": "Call continuation APIs, save text and inspect results."
+    },
+    {
+      "name": "ac_index_030",
+      "value": "Main features"
+    },
+    {
+      "name": "ac_index_031",
+      "value": "API calls"
+    },
+    {
+      "name": "ac_index_032",
+      "value": "Check the environment and register or unregister result listeners."
+    },
+    {
+      "name": "ac_index_033",
+      "value": "Text continuation"
+    },
+    {
+      "name": "ac_index_034",
+      "value": "Edit and save text; restore text and selection after continuation."
+    },
+    {
+      "name": "ac_index_035",
+      "value": "Call diagnostics"
+    },
+    {
+      "name": "ac_index_036",
+      "value": "View operation results, errors and event records."
+    },
+    {
+      "name": "ac_index_037",
+      "value": "Get started"
+    },
+    {
+      "name": "ac_index_038",
+      "value": "Official documentation"
+    },
+    {
+      "name": "ac_index_039",
+      "value": "Continuation workbench"
+    },
+    {
+      "name": "ac_index_040",
+      "value": "View process"
+    },
+    {
+      "name": "ac_index_044",
+      "value": "Document-switch conflict"
+    },
+    {
+      "name": "ac_index_045",
+      "value": "Version conflict"
+    },
+    {
+      "name": "ac_index_046",
+      "value": "Choice recorded; waiting for quick result and page gates"
+    },
+    {
+      "name": "ac_index_047",
+      "value": "Incoming version has not overwritten local text"
+    },
+    {
+      "name": "ac_index_048",
+      "value": "Acceptance recorded. Nothing is written until the quick result and this page are ready."
+    },
+    {
+      "name": "ac_index_050",
+      "value": "Keep local version"
+    },
+    {
+      "name": "ac_index_051",
+      "value": "Text"
+    },
+    {
+      "name": "ac_index_052",
+      "value": "Enter text…"
+    },
+    {
+      "name": "ac_index_053",
+      "value": "Length / selection"
+    },
+    {
+      "name": "ac_index_054",
+      "value": "Save status"
+    },
+    {
+      "name": "ac_index_055",
+      "value": "Save locally"
+    },
+    {
+      "name": "ac_index_056",
+      "value": "Hide more actions"
+    },
+    {
+      "name": "ac_index_057",
+      "value": "More text actions"
+    },
+    {
+      "name": "ac_index_058",
+      "value": "Document / revision"
+    },
+    {
+      "name": "ac_index_059",
+      "value": "v2 payload enabled after the first save"
+    },
+    {
+      "name": "ac_index_060",
+      "value": "Fill example"
+    },
+    {
+      "name": "ac_index_061",
+      "value": "Save as new document (keep text)"
+    },
+    {
+      "name": "ac_index_062",
+      "value": "Save as a new document?"
+    },
+    {
+      "name": "ac_index_063",
+      "value": "Save current content with a separate identity starting at r1; previous revisions are not reused."
+    },
+    {
+      "name": "ac_index_064",
+      "value": "Clear text"
+    },
+    {
+      "name": "ac_index_065",
+      "value": "Continuation settings"
+    },
+    {
+      "name": "ac_index_066",
+      "value": "Hide settings"
+    },
+    {
+      "name": "ac_index_067",
+      "value": "Listener and environment"
+    },
+    {
+      "name": "ac_index_068",
+      "value": "Launch"
+    },
+    {
+      "name": "ac_index_069",
+      "value": "Listener"
+    },
+    {
+      "name": "ac_index_070",
+      "value": "Register listener on"
+    },
+    {
+      "name": "ac_index_071",
+      "value": "Unregister listener off"
+    },
+    {
+      "name": "ac_index_072",
+      "value": "Check environment"
+    },
+    {
+      "name": "ac_index_075",
+      "value": "Request distributed permission"
+    },
+    {
+      "name": "ac_index_076",
+      "value": "Diagnostics"
+    },
+    {
+      "name": "ac_index_077",
+      "value": "Latest result"
+    },
+    {
+      "name": "ac_index_081",
+      "value": "No results yet"
+    },
+    {
+      "name": "ac_index_083",
+      "value": "{0} records"
+    },
+    {
+      "name": "ac_index_089",
+      "value": "No records yet"
+    },
+    {
+      "name": "ac_index_090",
+      "value": "Copy summary"
+    },
+    {
+      "name": "ac_index_091",
+      "value": "Clear records"
+    },
+    {
+      "name": "ac_index_092",
+      "value": "Payload protocol"
+    },
+    {
+      "name": "ac_index_093",
+      "value": "Admission rules"
+    },
+    {
+      "name": "ac_index_094",
+      "value": "Conflict policy"
+    },
+    {
+      "name": "ac_index_095",
+      "value": "Scenarios and validation"
+    },
+    {
+      "name": "ac_index_097",
+      "value": "v{0} | {1} | Decode: {2} | {3}"
+    },
+    {
+      "name": "ac_index_098",
+      "value": "Success"
+    },
+    {
+      "name": "ac_index_100",
+      "value": "Escaping example: {0}"
+    },
+    {
+      "name": "ac_index_101",
+      "value": "Payload limit: {0} characters"
+    },
+    {
+      "name": "ac_index_107",
+      "value": "Isolation check: {0}"
+    },
+    {
+      "name": "ac_index_108",
+      "value": "Isolation rules: {0} | Multi-instance categories: {1}"
+    },
+    {
+      "name": "ac_index_109",
+      "value": "Type"
+    },
+    {
+      "name": "ac_index_111",
+      "value": "Budget category"
+    },
+    {
+      "name": "ac_index_112",
+      "value": "Note"
+    },
+    {
+      "name": "ac_index_113",
+      "value": "Visible fields: {0} | Incomplete required fields: {1}"
+    },
+    {
+      "name": "ac_index_114",
+      "value": "Branch rules: {0} | Missing required detail groups: {1}"
+    },
+    {
+      "name": "ac_index_115",
+      "value": "Title"
+    },
+    {
+      "name": "ac_index_119",
+      "value": "Body"
+    },
+    {
+      "name": "ac_index_123",
+      "value": "Tags"
+    },
+    {
+      "name": "ac_index_126",
+      "value": "Actions available when the target page is missing: {0}"
+    },
+    {
+      "name": "ac_index_127",
+      "value": "Document workspace"
+    },
+    {
+      "name": "ac_index_128",
+      "value": "Multi-document isolation"
+    },
+    {
+      "name": "ac_index_129",
+      "value": "Notes, forms and reading progress remain separate"
+    },
+    {
+      "name": "ac_index_130",
+      "value": "Interruptible form"
+    },
+    {
+      "name": "ac_index_131",
+      "value": "Field-level merge preview"
+    },
+    {
+      "name": "ac_index_132",
+      "value": "Confirm three-way values field by field"
+    },
+    {
+      "name": "ac_index_133",
+      "value": "Continue after restore failure"
+    },
+    {
+      "name": "ac_index_134",
+      "value": "Read back before deciding when a write is uncertain"
+    },
+    {
+      "name": "ac_index_136",
+      "value": "Introduction"
+    },
+    {
+      "name": "ac_index_137",
+      "value": "Workbench"
+    },
+    {
+      "name": "ac_index_138",
+      "value": "Records"
+    },
+    {
+      "name": "ac_index_139",
+      "value": "Protocol"
+    },
+    {
+      "name": "ac_index_140",
+      "value": "Examples"
+    },
+    {
+      "name": "ac_notescenepage_002",
+      "value": "Note draft"
+    },
+    {
+      "name": "ac_notescenepage_003",
+      "value": "Title (up to 80 characters)"
+    },
+    {
+      "name": "ac_notescenepage_004",
+      "value": "Write the content you want to continue editing"
+    },
+    {
+      "name": "ac_notescenepage_005",
+      "value": "Selection [{0}, {1})"
+    },
+    {
+      "name": "ac_notescenepage_006",
+      "value": "Save note"
+    },
+    {
+      "name": "ac_notescenepage_007",
+      "value": "Discard changes"
+    },
+    {
+      "name": "ac_notescenepage_008",
+      "value": "Hide history"
+    },
+    {
+      "name": "ac_notescenepage_009",
+      "value": "History ({0})"
+    },
+    {
+      "name": "ac_notescenepage_010",
+      "value": "Restoring history creates a new revision."
+    },
+    {
+      "name": "ac_processpage_001",
+      "value": "Stop local waiting?"
+    },
+    {
+      "name": "ac_processpage_002",
+      "value": "End the current wait and clean up the listener?"
+    },
+    {
+      "name": "ac_processpage_003",
+      "value": "Runtime initializing. Please try again later."
+    },
+    {
+      "name": "ac_processpage_004",
+      "value": "Local waiting stopped. See diagnostics for listener cleanup results."
+    },
+    {
+      "name": "ac_processpage_005",
+      "value": "Stop request did not complete: {0}"
+    },
+    {
+      "name": "ac_processpage_006",
+      "value": "Unable to open this session’s diagnostics: {0}"
+    },
+    {
+      "name": "ac_processpage_007",
+      "value": "Session diagnostic navigation unavailable: {0}"
+    },
+    {
+      "name": "ac_processpage_009",
+      "value": "Continuation process"
+    },
+    {
+      "name": "ac_processpage_011",
+      "value": "Current state"
+    },
+    {
+      "name": "ac_processpage_012",
+      "value": "Continuation"
+    },
+    {
+      "name": "ac_processpage_015",
+      "value": "Restore progress"
+    },
+    {
+      "name": "ac_processpage_016",
+      "value": "Quick start"
+    },
+    {
+      "name": "ac_processpage_017",
+      "value": "Business data"
+    },
+    {
+      "name": "ac_processpage_018",
+      "value": "Window"
+    },
+    {
+      "name": "ac_processpage_019",
+      "value": "Actual business position"
+    },
+    {
+      "name": "ac_processpage_020",
+      "value": "State restoration"
+    },
+    {
+      "name": "ac_processpage_021",
+      "value": "Completed"
+    },
+    {
+      "name": "ac_processpage_022",
+      "value": "Not committed"
+    },
+    {
+      "name": "ac_processpage_023",
+      "value": "Retry positioning on the actual business page"
+    },
+    {
+      "name": "ac_processpage_024",
+      "value": "Accepted; waiting for all gates"
+    },
+    {
+      "name": "ac_processpage_026",
+      "value": "Keep local and cancel"
+    },
+    {
+      "name": "ac_processpage_027",
+      "value": "Restore summary"
+    },
+    {
+      "name": "ac_processpage_028",
+      "value": "Event records"
+    },
+    {
+      "name": "ac_processpage_029",
+      "value": "Hide events"
+    },
+    {
+      "name": "ac_processpage_030",
+      "value": "View events ({0})"
+    },
+    {
+      "name": "ac_processpage_031",
+      "value": "Stop waiting"
+    },
+    {
+      "name": "ac_processpage_032",
+      "value": "View diagnostics"
+    },
+    {
+      "name": "ac_readingscenepage_002",
+      "value": "Reading progress"
+    },
+    {
+      "name": "ac_readingscenepage_003",
+      "value": "Paragraph {0}/{1}"
+    },
+    {
+      "name": "ac_readingscenepage_004",
+      "value": "Previous paragraph"
+    },
+    {
+      "name": "ac_readingscenepage_005",
+      "value": "Next paragraph"
+    },
+    {
+      "name": "ac_readingscenepage_006",
+      "value": "Save progress and bookmarks"
+    },
+    {
+      "name": "ac_readingscenepage_007",
+      "value": "Add bookmark"
+    },
+    {
+      "name": "ac_readingscenepage_008",
+      "value": "Hide contents"
+    },
+    {
+      "name": "ac_readingscenepage_009",
+      "value": "Chapters"
+    },
+    {
+      "name": "ac_readingscenepage_010",
+      "value": "Bookmarks ({0})"
+    },
+    {
+      "name": "ac_readingscenepage_011",
+      "value": "Chapter {0}, paragraph {1}"
+    },
+    {
+      "name": "ac_readingscenepage_012",
+      "value": "Delete"
+    },
+    {
+      "name": "ac_scenariopage_003",
+      "value": "High-risk scenarios: {0}"
+    },
+    {
+      "name": "ac_scenariopage_004",
+      "value": "Field rules: {0}; cross-field rules: {1}"
+    },
+    {
+      "name": "ac_scenariopage_005",
+      "value": "Payload version v{0}; encoded example: {1} characters"
+    },
+    {
+      "name": "ac_scenariopage_006",
+      "value": "Validation result: {0}"
+    },
+    {
+      "name": "ac_scenariopage_007",
+      "value": "Total scenarios: {0}; first shape: {1}"
+    },
+    {
+      "name": "ac_scenariopage_008",
+      "value": "Dictionary fields: {0}; missing mappings: {1}"
+    },
+    {
+      "name": "ac_scenariopage_009",
+      "value": "Network backoff: attempt 1: {0} ms, attempt 2: {1} ms, "
+    },
+    {
+      "name": "ac_scenariopage_010",
+      "value": "total: {0} ms"
+    },
+    {
+      "name": "ac_scenariopage_011",
+      "value": "Runtime not initialized."
+    },
+    {
+      "name": "ac_scenariopage_012",
+      "value": "Cannot switch business scenes now."
+    },
+    {
+      "name": "ac_scenariopage_015",
+      "value": "‹ Back"
+    },
+    {
+      "name": "ac_scenariopage_017",
+      "value": "Open note scene"
+    },
+    {
+      "name": "ac_scenariopage_018",
+      "value": "Open reading scene"
+    },
+    {
+      "name": "ac_scenariopage_019",
+      "value": "Open form scene"
+    },
+    {
+      "name": "ac_scenariopage_020",
+      "value": "Scenario catalog"
+    },
+    {
+      "name": "ac_scenariopage_021",
+      "value": "Steps"
+    },
+    {
+      "name": "ac_scenariopage_022",
+      "value": "Validation rules"
+    },
+    {
+      "name": "ac_scenariopage_023",
+      "value": "Sample payload validation"
+    },
+    {
+      "name": "ac_scenariopage_024",
+      "value": "Field dictionary"
+    },
+    {
+      "name": "ac_scenariopage_025",
+      "value": "Retry policies"
+    },
+    {
+      "name": "ac_types_off_contract",
+      "value": "SDK API 26 defines the third off argument as the unregistration result callback. This sample uses a separate completion callback to update unregistration state."
+    },
+    {
+      "name": "ac_types_launch_wait",
+      "value": "Waiting for Ability initialization"
+    },
+    {
+      "name": "ac_types_listener_none",
+      "value": "Not registered"
+    },
+    {
+      "name": "ac_types_session_none",
+      "value": "No system continuation event received yet"
+    },
+    {
+      "name": "ac_types_quick_unneeded",
+      "value": "Not required this session"
+    },
+    {
+      "name": "ac_types_data_pending",
+      "value": "Not received yet"
+    },
+    {
+      "name": "ac_types_window_pending",
+      "value": "Not ready"
+    },
+    {
+      "name": "ac_types_position_pending",
+      "value": "Business content not positioned yet"
+    },
+    {
+      "name": "ac_types_save_none",
+      "value": "Not saved yet"
+    },
+    {
+      "name": "ac_types_environment_none",
+      "value": "Not checked yet"
+    },
+    {
+      "name": "ac_types_runtime_wait",
+      "value": "Waiting for Ability runtime initialization."
+    },
+    {
+      "name": "ac_continueclient_001",
+      "value": "[Address hidden]"
+    },
+    {
+      "name": "ac_continueclient_002",
+      "value": "[Path hidden]"
+    },
+    {
+      "name": "ac_continueclient_004",
+      "value": "[Identifier hidden]"
+    },
+    {
+      "name": "ac_continueclient_005",
+      "value": "[Hardware address hidden]"
+    },
+    {
+      "name": "ac_continueclient_006",
+      "value": "[Network address hidden]"
+    },
+    {
+      "name": "ac_continueclient_008",
+      "value": "[Long identifier hidden]"
+    },
+    {
+      "name": "ac_continueclient_009",
+      "value": "[Long number hidden]"
+    },
+    {
+      "name": "ac_continueclient_010",
+      "value": "[Sensitive field hidden]"
+    },
+    {
+      "name": "ac_continueclient_011",
+      "value": "[Quoted content hidden]"
+    },
+    {
+      "name": "ac_continueclient_012",
+      "value": "No readable error message was provided by the platform."
+    },
+    {
+      "name": "ac_continueclient_013",
+      "value": "Redacted: {0}"
+    },
+    {
+      "name": "ac_continueclient_015",
+      "value": "Unknown"
+    },
+    {
+      "name": "ac_continueclient_017",
+      "value": "Missing or not numeric"
+    },
+    {
+      "name": "ac_continueclient_018",
+      "value": "No result description was provided by the platform."
+    },
+    {
+      "name": "ac_continueclient_019",
+      "value": "Result description (redacted): {0}"
+    },
+    {
+      "name": "ac_continueclient_020",
+      "value": "Already listening, waiting for unregistration, or disposed; on was not called again."
+    },
+    {
+      "name": "ac_continueclient_021",
+      "value": "on returned synchronously; waiting for the prepareContinue event."
+    },
+    {
+      "name": "ac_continueclient_022",
+      "value": "on threw synchronously. Register again or try unregistering."
+    },
+    {
+      "name": "ac_continueclient_023",
+      "value": "Waiting for unregistration callback, up to 8 seconds."
+    },
+    {
+      "name": "ac_continueclient_024",
+      "value": "No native registration slot needs cleanup in this runtime."
+    },
+    {
+      "name": "ac_continueclient_025",
+      "value": "Not received yet"
+    },
+    {
+      "name": "ac_continueclient_026",
+      "value": "Unregistration timed out after 8 seconds. Register again or retry unregistration."
+    },
+    {
+      "name": "ac_continueclient_027",
+      "value": "off returned synchronously; waiting for its independent completion callback."
+    },
+    {
+      "name": "ac_continueclient_028",
+      "value": "A synchronous exception followed the off completion notification; keeping the completed state."
+    },
+    {
+      "name": "ac_continueclient_029",
+      "value": "off threw synchronously. Local listening is disabled; register again or retry unregistration."
+    },
+    {
+      "name": "ac_documentworkspace_004",
+      "value": "Archived"
+    },
+    {
+      "name": "ac_documentworkspace_006",
+      "value": "{0} ({1}) | Revision {2} | {3}"
+    },
+    {
+      "name": "ac_documentworkspace_007",
+      "value": "Keep draft"
+    },
+    {
+      "name": "ac_documentworkspace_008",
+      "value": "Discard draft"
+    },
+    {
+      "name": "ac_documentworkspace_009",
+      "value": "Multiple allowed"
+    },
+    {
+      "name": "ac_documentworkspace_010",
+      "value": "One only"
+    },
+    {
+      "name": "ac_documentworkspace_011",
+      "value": "Restorable"
+    },
+    {
+      "name": "ac_documentworkspace_012",
+      "value": "Not restorable"
+    },
+    {
+      "name": "ac_documentworkspace_013",
+      "value": "Keep unsaved note text when switching notes"
+    },
+    {
+      "name": "ac_documentworkspace_014",
+      "value": "Archived notes can be restored from the archive"
+    },
+    {
+      "name": "ac_documentworkspace_015",
+      "value": "Oversized notes are read-only and reject incoming continuation writes"
+    },
+    {
+      "name": "ac_documentworkspace_016",
+      "value": "Saved, unchanged notes do not occupy a draft slot"
+    },
+    {
+      "name": "ac_documentworkspace_017",
+      "value": "Keep partially completed fields when leaving a form"
+    },
+    {
+      "name": "ac_documentworkspace_018",
+      "value": "Confirmed forms cannot be edited"
+    },
+    {
+      "name": "ac_documentworkspace_019",
+      "value": "Archived forms remain viewable as read-only snapshots"
+    },
+    {
+      "name": "ac_documentworkspace_020",
+      "value": "One active slot per form instance prevents duplicate submission"
+    },
+    {
+      "name": "ac_documentworkspace_021",
+      "value": "New reading progress may replace old progress"
+    },
+    {
+      "name": "ac_documentworkspace_022",
+      "value": "Reading progress creates no drafts and uses no partial-form quota"
+    },
+    {
+      "name": "ac_documentworkspace_023",
+      "value": "Stop recording progress for finished content"
+    },
+    {
+      "name": "ac_documentworkspace_024",
+      "value": "Isolate slots from different source apps by ownerApp"
+    },
+    {
+      "name": "ac_documentworkspace_025",
+      "value": "Workspace has {0} issues"
+    },
+    {
+      "name": "ac_documentworkspace_026",
+      "value": "Workspace OK: {0} active, {1} archived"
+    },
+    {
+      "name": "ac_documentworkspace_027",
+      "value": "A slot has no identifier"
+    },
+    {
+      "name": "ac_documentworkspace_028",
+      "value": "Duplicate slot identifier: {0}"
+    },
+    {
+      "name": "ac_documentworkspace_029",
+      "value": "{0} cannot be restored after archival but remains in the archive"
+    },
+    {
+      "name": "ac_documentworkspace_030",
+      "value": "{0} allows one instance; found {1} ({2})"
+    },
+    {
+      "name": "ac_documentworkspace_031",
+      "value": "Category mismatch: slot {0}, payload {1}"
+    },
+    {
+      "name": "ac_documentworkspace_032",
+      "value": "Source app mismatch: slot {0}, payload {1}"
+    },
+    {
+      "name": "ac_documentworkspace_033",
+      "value": "Revision regressed: slot {0}, payload {1}"
+    },
+    {
+      "name": "ac_documentworkspace_034",
+      "value": "No active content is available for continuation"
+    },
+    {
+      "name": "ac_documentworkspace_035",
+      "value": "Archived {0} items: {1}"
+    },
+    {
+      "name": "ac_documentworkspace_036",
+      "value": "Issue: {0}"
+    },
+    {
+      "name": "ac_formsession_001",
+      "value": "Empty"
+    },
+    {
+      "name": "ac_formsession_002",
+      "value": "Filled"
+    },
+    {
+      "name": "ac_formsession_003",
+      "value": "Invalid"
+    },
+    {
+      "name": "ac_formsession_004",
+      "value": "Confirmed"
+    },
+    {
+      "name": "ac_formsession_005",
+      "value": "Editing"
+    },
+    {
+      "name": "ac_formsession_006",
+      "value": "Awaiting confirmation"
+    },
+    {
+      "name": "ac_formsession_009",
+      "value": " (required)"
+    },
+    {
+      "name": "ac_formsession_010",
+      "value": "Empty"
+    },
+    {
+      "name": "ac_formsession_011",
+      "value": "{0} | Show {3} when {1}={2}"
+    },
+    {
+      "name": "ac_formsession_012",
+      "value": "; at least one detail row is required"
+    },
+    {
+      "name": "ac_formsession_013",
+      "value": "Reimbursement"
+    },
+    {
+      "name": "ac_formsession_014",
+      "value": "Leave"
+    },
+    {
+      "name": "ac_formsession_015",
+      "value": "Purchase"
+    },
+    {
+      "name": "ac_formsession_016",
+      "value": "Yes"
+    },
+    {
+      "name": "ac_formsession_017",
+      "value": "Other"
+    },
+    {
+      "name": "ac_formsession_018",
+      "value": "Archived: read-only snapshot; editing is disabled"
+    },
+    {
+      "name": "ac_formsession_019",
+      "value": "{0} | {1} required fields incomplete | Progress {2}%"
+    },
+    {
+      "name": "ac_formsession_020",
+      "value": "{0} | Progress {1}% | {2}"
+    },
+    {
+      "name": "ac_formsession_021",
+      "value": "Ready to submit"
+    },
+    {
+      "name": "ac_formsession_022",
+      "value": "More detail rows required"
+    },
+    {
+      "name": "ac_scenariocatalog_001",
+      "value": "Note"
+    },
+    {
+      "name": "ac_scenariocatalog_004",
+      "value": "Checklist"
+    },
+    {
+      "name": "ac_scenariocatalog_005",
+      "value": "Media progress"
+    },
+    {
+      "name": "ac_scenariocatalog_006",
+      "value": "Low"
+    },
+    {
+      "name": "ac_scenariocatalog_007",
+      "value": "Medium"
+    },
+    {
+      "name": "ac_scenariocatalog_008",
+      "value": "High"
+    },
+    {
+      "name": "ac_scenariocatalog_009",
+      "value": "{0} | Risk: {1}"
+    },
+    {
+      "name": "ac_scenariocatalog_010",
+      "value": "Continue editing a phone note on a tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_011",
+      "value": "Same account"
+    },
+    {
+      "name": "ac_scenariocatalog_012",
+      "value": "Continuation permission granted"
+    },
+    {
+      "name": "ac_scenariocatalog_013",
+      "value": "Open a note on the phone"
+    },
+    {
+      "name": "ac_scenariocatalog_014",
+      "value": "Trigger continuation"
+    },
+    {
+      "name": "ac_scenariocatalog_015",
+      "value": "Confirm reception on the tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_016",
+      "value": "Cursor position matches the text"
+    },
+    {
+      "name": "ac_scenariocatalog_017",
+      "value": "Continue editing a tablet note on a phone"
+    },
+    {
+      "name": "ac_scenariocatalog_019",
+      "value": "Open a note on the tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_021",
+      "value": "Confirm reception on the phone"
+    },
+    {
+      "name": "ac_scenariocatalog_022",
+      "value": "Selection range is preserved"
+    },
+    {
+      "name": "ac_scenariocatalog_023",
+      "value": "Continue phone reading progress on a tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_025",
+      "value": "Reading content cached"
+    },
+    {
+      "name": "ac_scenariocatalog_026",
+      "value": "Open the reading page"
+    },
+    {
+      "name": "ac_scenariocatalog_027",
+      "value": "Go to a specific page"
+    },
+    {
+      "name": "ac_scenariocatalog_029",
+      "value": "Page and scroll position match"
+    },
+    {
+      "name": "ac_scenariocatalog_030",
+      "value": "Continue tablet reading progress on a phone"
+    },
+    {
+      "name": "ac_scenariocatalog_034",
+      "value": "Restore to the same paragraph"
+    },
+    {
+      "name": "ac_scenariocatalog_035",
+      "value": "Continue filling a phone form draft on a tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_037",
+      "value": "Form not submitted"
+    },
+    {
+      "name": "ac_scenariocatalog_038",
+      "value": "Complete some fields"
+    },
+    {
+      "name": "ac_scenariocatalog_040",
+      "value": "Continue filling on the tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_041",
+      "value": "Completed fields are preserved"
+    },
+    {
+      "name": "ac_scenariocatalog_042",
+      "value": "Continue filling a tablet form draft on a phone"
+    },
+    {
+      "name": "ac_scenariocatalog_046",
+      "value": "Field order and validation state match"
+    },
+    {
+      "name": "ac_scenariocatalog_047",
+      "value": "Continue checking a phone checklist on a tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_049",
+      "value": "Check some items"
+    },
+    {
+      "name": "ac_scenariocatalog_051",
+      "value": "Every checked state matches"
+    },
+    {
+      "name": "ac_scenariocatalog_052",
+      "value": "Continue checking a tablet checklist on a phone"
+    },
+    {
+      "name": "ac_scenariocatalog_056",
+      "value": "New items are not duplicated"
+    },
+    {
+      "name": "ac_scenariocatalog_057",
+      "value": "Continue phone media playback on a tablet"
+    },
+    {
+      "name": "ac_scenariocatalog_059",
+      "value": "Media accessible"
+    },
+    {
+      "name": "ac_scenariocatalog_060",
+      "value": "Play to a specific position"
+    },
+    {
+      "name": "ac_scenariocatalog_062",
+      "value": "Playback position differs by at most 1 second"
+    },
+    {
+      "name": "ac_scenariocatalog_063",
+      "value": "Continue tablet media playback on a phone"
+    },
+    {
+      "name": "ac_scenariocatalog_067",
+      "value": "Playback position and audio track match"
+    },
+    {
+      "name": "ac_scenariocatalog_068",
+      "value": "Continue editing from a phone on a PC"
+    },
+    {
+      "name": "ac_scenariocatalog_070",
+      "value": "Same app installed on the PC"
+    },
+    {
+      "name": "ac_scenariocatalog_071",
+      "value": "Edit on the phone"
+    },
+    {
+      "name": "ac_scenariocatalog_073",
+      "value": "Confirm on the PC"
+    },
+    {
+      "name": "ac_scenariocatalog_074",
+      "value": "Text and selection match"
+    },
+    {
+      "name": "ac_scenariocatalog_075",
+      "value": "Continue editing from a PC on a phone"
+    },
+    {
+      "name": "ac_scenariocatalog_077",
+      "value": "Edit on the PC"
+    },
+    {
+      "name": "ac_scenariocatalog_079",
+      "value": "Text matches without overwriting newer local content"
+    },
+    {
+      "name": "ac_scenariocatalog_080",
+      "value": "Continue from a phone to display on a TV"
+    },
+    {
+      "name": "ac_scenariocatalog_082",
+      "value": "Signed in on the TV"
+    },
+    {
+      "name": "ac_scenariocatalog_083",
+      "value": "Open media"
+    },
+    {
+      "name": "ac_scenariocatalog_085",
+      "value": "TV playback starts at the same position"
+    },
+    {
+      "name": "ac_scenariocatalog_086",
+      "value": "Continue TV playback on a phone"
+    },
+    {
+      "name": "ac_scenariocatalog_088",
+      "value": "Play on the TV"
+    },
+    {
+      "name": "ac_scenariocatalog_090",
+      "value": "Phone playback resumes at the same position"
+    },
+    {
+      "name": "ac_scenariocatalog_091",
+      "value": "Continue from a phone to view a summary on a wearable"
+    },
+    {
+      "name": "ac_scenariocatalog_093",
+      "value": "Wearable paired"
+    },
+    {
+      "name": "ac_scenariocatalog_096",
+      "value": "Wearable displays a truncated summary"
+    },
+    {
+      "name": "ac_scenariocatalog_097",
+      "value": "Wearables do not initiate continuation"
     }
   ]
 }
