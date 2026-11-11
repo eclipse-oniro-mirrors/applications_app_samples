@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 故障场景目录。
  *
@@ -18,13 +35,13 @@ export enum FaultOwner {
 export function ownerLabel(owner: FaultOwner): string {
   switch (owner) {
     case FaultOwner.SYSTEM:
-      return '系统侧';
+      return localText('startup_text_0293');
     case FaultOwner.APP:
-      return '应用侧';
+      return localText('startup_text_0294');
     case FaultOwner.USER:
-      return '用户操作';
+      return localText('startup_text_0235');
     default:
-      return '运行环境';
+      return localText('startup_text_0295');
   }
 }
 
@@ -40,13 +57,13 @@ export enum FaultSeverity {
 export function severityLabel(level: FaultSeverity): string {
   switch (level) {
     case FaultSeverity.BLOCKER:
-      return '阻断';
+      return localText('startup_text_0296');
     case FaultSeverity.MAJOR:
-      return '严重';
+      return localText('startup_text_0297');
     case FaultSeverity.MINOR:
-      return '轻微';
+      return localText('startup_text_0298');
     default:
-      return '提示';
+      return localText('startup_text_0299');
   }
 }
 
@@ -77,15 +94,15 @@ export enum CheckLayer {
 export function layerLabel(layer: CheckLayer): string {
   switch (layer) {
     case CheckLayer.CAPABILITY:
-      return '能力层';
+      return localText('startup_text_0300');
     case CheckLayer.PERMISSION:
-      return '权限层';
+      return localText('startup_text_0301');
     case CheckLayer.QUERY:
-      return '调用层';
+      return localText('startup_text_0302');
     case CheckLayer.STORAGE:
-      return '存储层';
+      return localText('startup_text_0303');
     default:
-      return '界面层';
+      return localText('startup_text_0304');
   }
 }
 
@@ -127,7 +144,7 @@ export class FaultEntry {
 
   /** 详情文本，用于展开区。 */
   detail(): string {
-    return `复现：${this.trigger}；判定：${this.detection}；处置：${this.action}`;
+    return formatResource('startup_format_5c2ba0ac6074', [String(this.trigger), String(this.detection), String(this.action)]);
   }
 }
 
@@ -136,75 +153,82 @@ export class FaultEntry {
  *
  * 顺序即页面展示顺序；编号连续，便于按段提交与引用。
  */
-export const FAULT_CATALOG: FaultEntry[] = [
-  new FaultEntry('FT-01', '查询结果一直显示"待调用"', '进入首页后未触发刷新',
+function createFAULT_CATALOG(): FaultEntry[] {
+  return [
+  new FaultEntry('FT-01', localText('startup_text_0308'), localText('startup_text_0309'),
     CheckLayer.QUERY, FaultOwner.APP, FaultSeverity.MAJOR,
-    '记录条数为 0 且四路调用结果均为"待调用"', '触发一次手动刷新并确认回调', true),
-  new FaultEntry('FT-02', '能力检测返回 false，但系统设置里能看到开关',
-    '在 API 11 以下设备上调用 isAutoStartupSupported',
+    localText('startup_text_0310'), localText('startup_text_0311'), true),
+  new FaultEntry('FT-02', localText('startup_text_0312'),
+    localText('startup_text_0313'),
     CheckLayer.CAPABILITY, FaultOwner.SYSTEM, FaultSeverity.MAJOR,
-    '能力检测 false 且 API 等级低于 9', '按系统版本判定为不支持，引导用户升级系统', false),
-  new FaultEntry('FT-03', '查询抛 201 权限拒绝', '未授予分布式数据同步权限',
+    localText('startup_text_0314'), localText('startup_text_0315'), false),
+  new FaultEntry('FT-03', localText('startup_text_0316'), localText('startup_text_0317'),
     CheckLayer.PERMISSION, FaultOwner.USER, FaultSeverity.MAJOR,
-    '错误码为 201 且权限位为未授予', '引导到设置页授予权限后重试', true),
-  new FaultEntry('FT-04', '查询抛 202 非系统应用', '调试包未使用系统签名',
+    localText('startup_text_0318'), localText('startup_text_0319'), true),
+  new FaultEntry('FT-04', localText('startup_text_0320'), localText('startup_text_0321'),
     CheckLayer.PERMISSION, FaultOwner.SYSTEM, FaultSeverity.BLOCKER,
-    '错误码为 202', '确认签名配置；该结论属确定性不支持，不再重试', false),
-  new FaultEntry('FT-05', '查询抛 801 能力不支持', '在穿戴设备上调用接口',
+    localText('startup_text_0322'), localText('startup_text_0323'), false),
+  new FaultEntry('FT-05', localText('startup_text_0324'), localText('startup_text_0325'),
     CheckLayer.CAPABILITY, FaultOwner.SYSTEM, FaultSeverity.MINOR,
-    '错误码为 801 且设备形态为 wearable', '判定为设备不支持，展示手动设置指引', false),
-  new FaultEntry('FT-06', '查询抛 16000050 内部错误', '系统服务瞬时异常',
+    localText('startup_text_0326'), localText('startup_text_0327'), false),
+  new FaultEntry('FT-06', localText('startup_text_0328'), localText('startup_text_0329'),
     CheckLayer.QUERY, FaultOwner.SYSTEM, FaultSeverity.MAJOR,
-    '错误码为 16000050 且连续两次出现', '等待 1 秒后自动重试一次，仍失败则记录', true),
-  new FaultEntry('FT-07', '查询超时没有返回', '调用线程被阻塞超过阈值',
+    localText('startup_text_0330'), localText('startup_text_0331'), true),
+  new FaultEntry('FT-07', localText('startup_text_0332'), localText('startup_text_0333'),
     CheckLayer.QUERY, FaultOwner.APP, FaultSeverity.BLOCKER,
-    '超过约定超时时间仍无回调', '保留上次成功结果，标记超时并允许重试', true),
-  new FaultEntry('FT-08', '设置页返回后结果没有更新', '从设置页返回但未触发前台刷新',
+    localText('startup_text_0334'), localText('startup_text_0335'), true),
+  new FaultEntry('FT-08', localText('startup_text_0336'), localText('startup_text_0337'),
     CheckLayer.UI, FaultOwner.APP, FaultSeverity.MAJOR,
-    '页面重新可见且距上次查询超过 1 秒', '在页面可见时合并触发一次刷新', true),
-  new FaultEntry('FT-09', '重复点击刷新出现两次请求', '连点按钮未做单飞保护',
+    localText('startup_text_0338'), localText('startup_text_0339'), true),
+  new FaultEntry('FT-09', localText('startup_text_0340'), localText('startup_text_0341'),
     CheckLayer.QUERY, FaultOwner.APP, FaultSeverity.MAJOR,
-    '在飞请求数大于 1', '加入单飞保护，重复请求合并为一次', true),
-  new FaultEntry('FT-10', '历史记录列表为空但内存里有数据', '落盘失败未回写',
+    localText('startup_text_0342'), localText('startup_text_0343'), true),
+  new FaultEntry('FT-10', localText('startup_text_0344'), localText('startup_text_0345'),
     CheckLayer.STORAGE, FaultOwner.APP, FaultSeverity.MAJOR,
-    '内存条数大于 0 且持久化条数为 0', '检查存储写入异常并在下次查询时重试落盘', true),
-  new FaultEntry('FT-11', '历史记录出现重复序号', '并发写入未做序号分配保护',
+    localText('startup_text_0346'), localText('startup_text_0347'), true),
+  new FaultEntry('FT-11', localText('startup_text_0348'), localText('startup_text_0349'),
     CheckLayer.STORAGE, FaultOwner.APP, FaultSeverity.MAJOR,
-    '存在相同的记录序号', '按时间重建序号并在写入前校验唯一性', true),
-  new FaultEntry('FT-12', '历史记录时间显示为 1970', '时间戳为 0 或非法',
+    localText('startup_text_0350'), localText('startup_text_0351'), true),
+  new FaultEntry('FT-12', localText('startup_text_0352'), localText('startup_text_0353'),
     CheckLayer.UI, FaultOwner.APP, FaultSeverity.MINOR,
-    '时间戳小于等于 0', '展示为"未记录时间"而非 1970', true),
-  new FaultEntry('FT-13', '错误信息非常长，撑破卡片', '系统返回了超长附加信息',
+    localText('startup_text_0354'), localText('startup_text_0355'), true),
+  new FaultEntry('FT-13', localText('startup_text_0356'), localText('startup_text_0357'),
     CheckLayer.UI, FaultOwner.APP, FaultSeverity.MINOR,
-    '错误信息长度超过 512 字符', '落盘前截断并在界面按行省略', true),
-  new FaultEntry('FT-14', '引导页步骤与当前系统版本不符', '指引目录未按版本区分',
+    localText('startup_text_0358'), localText('startup_text_0359'), true),
+  new FaultEntry('FT-14', localText('startup_text_0360'), localText('startup_text_0361'),
     CheckLayer.UI, FaultOwner.APP, FaultSeverity.MAJOR,
-    '指引条目要求的 API 区间与当前 API 不匹配', '按 API 与形态选择指引条目', true),
-  new FaultEntry('FT-15', '点击"去设置"没有任何反应', '目标应用未声明设置入口',
+    localText('startup_text_0362'), localText('startup_text_0363'), true),
+  new FaultEntry('FT-15', localText('startup_text_0364'), localText('startup_text_0365'),
     CheckLayer.UI, FaultOwner.SYSTEM, FaultSeverity.MAJOR,
-    '跳转能力查询返回 false', '提示手动进入系统设置并提供路径', false),
-  new FaultEntry('FT-16', '同一问题换一台设备结论不同', '设备形态或发行版不同',
+    localText('startup_text_0366'), localText('startup_text_0367'), false),
+  new FaultEntry('FT-16', localText('startup_text_0368'), localText('startup_text_0369'),
     CheckLayer.CAPABILITY, FaultOwner.ENVIRONMENT, FaultSeverity.INFO,
-    '两台设备的形态或发行版不一致', '结论随设备标注，不做跨设备合并', true),
-  new FaultEntry('FT-17', '查询成功但开关仍然显示关闭', '状态结果与能力结果混用',
+    localText('startup_text_0370'), localText('startup_text_0371'), true),
+  new FaultEntry('FT-17', localText('startup_text_0372'), localText('startup_text_0373'),
     CheckLayer.QUERY, FaultOwner.APP, FaultSeverity.MAJOR,
-    '能力结果为 true 且状态结果为 false', '区分能力可查询与开关已开启两种语义', true),
-  new FaultEntry('FT-18', '界面颜色与开关状态不一致', '状态取值未映射到颜色',
+    localText('startup_text_0374'), localText('startup_text_0375'), true),
+  new FaultEntry('FT-18', localText('startup_text_0376'), localText('startup_text_0377'),
     CheckLayer.UI, FaultOwner.APP, FaultSeverity.MINOR,
-    '状态为成功但界面使用中性色', '按状态枚举统一映射颜色', true),
-  new FaultEntry('FT-19', '冷启动时短暂出现空白页', '首次渲染前未给占位内容',
+    localText('startup_text_0378'), localText('startup_text_0379'), true),
+  new FaultEntry('FT-19', localText('startup_text_0380'), localText('startup_text_0381'),
     CheckLayer.UI, FaultOwner.APP, FaultSeverity.MINOR,
-    '首帧前内容高度为 0', '提供骨架占位并延后动画', true),
-  new FaultEntry('FT-20', '存储读取失败导致应用启动缓慢', '读取大文件未限制长度',
+    localText('startup_text_0382'), localText('startup_text_0383'), true),
+  new FaultEntry('FT-20', localText('startup_text_0384'), localText('startup_text_0385'),
     CheckLayer.STORAGE, FaultOwner.APP, FaultSeverity.MAJOR,
-    '读取耗时超过 200 ms 或内容超过上限', '限制单次读取长度并异步加载', true),
-  new FaultEntry('FT-21', '导出内容出现乱码或多出一列', '字段内含分隔符未转义',
+    localText('startup_text_0386'), localText('startup_text_0387'), true),
+  new FaultEntry('FT-21', localText('startup_text_0388'), localText('startup_text_0389'),
     CheckLayer.STORAGE, FaultOwner.APP, FaultSeverity.MAJOR,
-    '导出行的列数与表头不一致', '导出前转义分隔符并校验列数', true),
-  new FaultEntry('FT-22', '多次进入页面后回调被重复触发', '订阅未在页面销毁时解除',
+    localText('startup_text_0390'), localText('startup_text_0391'), true),
+  new FaultEntry('FT-22', localText('startup_text_0392'), localText('startup_text_0393'),
     CheckLayer.UI, FaultOwner.APP, FaultSeverity.MAJOR,
-    '同一页面的订阅计数大于 1', '在销毁时解除订阅并校验计数归零', true)
+    localText('startup_text_0394'), localText('startup_text_0395'), true)
 ];
+}
+export const FAULT_CATALOG: FaultEntry[] = createFAULT_CATALOG();
+registerTextRefresh((): void => {
+  FAULT_CATALOG.splice(0, FAULT_CATALOG.length);
+  createFAULT_CATALOG().forEach((item: FaultEntry): void => { FAULT_CATALOG.push(item); });
+});
 
 /** 编号列表。 */
 export function faultIds(): string[] {
@@ -268,8 +292,8 @@ export class FaultSummary {
 
   /** 一句话摘要。 */
   text(): string {
-    return `共 ${this.total} 条，阻断 ${this.blockers} 条，严重 ${this.majors} 条，` +
-      `可自愈 ${this.recoverable} 条`;
+    return formatResource('startup_format_5f0a9f432572', [String(this.total), String(this.blockers), String(this.majors)]) +
+      formatResource('startup_format_aea3aa4d9ff5', [String(this.recoverable)]);
   }
 
   /** 是否需要立即处理。 */
@@ -336,7 +360,7 @@ export class FaultAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '故障目录自洽' : this.findings.join('；');
+    return this.ok ? localText('startup_text_0401') : this.findings.join('；');
   }
 }
 
@@ -346,28 +370,28 @@ export function auditFaults(): FaultAudit {
   const seen: string[] = [];
   FAULT_CATALOG.forEach((item: FaultEntry, index: number): void => {
     if (seen.indexOf(item.faultId) >= 0) {
-      audit.findings.push(`编号重复：${item.faultId}`);
+      audit.findings.push(formatResource('startup_format_daba46044ae2', [String(item.faultId)]));
     }
     seen.push(item.faultId);
     const expected: string = `FT-${(index + 1).toString().padStart(2, '0')}`;
     if (item.faultId !== expected) {
-      audit.findings.push(`编号不连续：期望 ${expected}，实际 ${item.faultId}`);
+      audit.findings.push(formatResource('startup_format_6d97c27e58d7', [String(expected), String(item.faultId)]));
     }
     if (item.symptom.length === 0) {
-      audit.findings.push(`缺少现象：${item.faultId}`);
+      audit.findings.push(formatResource('startup_format_66ea333bee9f', [String(item.faultId)]));
     }
     if (item.detection.length === 0) {
-      audit.findings.push(`缺少判定依据：${item.faultId}`);
+      audit.findings.push(formatResource('startup_format_31569c094481', [String(item.faultId)]));
     }
     if (item.action.length === 0) {
-      audit.findings.push(`缺少处置动作：${item.faultId}`);
+      audit.findings.push(formatResource('startup_format_420fc3713114', [String(item.faultId)]));
     }
     if ((item.owner as string).length === 0) {
-      audit.findings.push(`缺少归属：${item.faultId}`);
+      audit.findings.push(formatResource('startup_format_c64da49b4fc9', [String(item.faultId)]));
     }
   });
   if (seen.length !== FAULT_CATALOG.length) {
-    audit.findings.push(`编号数量异常：${seen.length}`);
+    audit.findings.push(formatResource('startup_format_72b8ae4cc35b', [String(seen.length)]));
   }
   audit.ok = audit.findings.length === 0;
   return audit;

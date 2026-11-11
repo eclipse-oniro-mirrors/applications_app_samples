@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../text/LocalizedText';
+
 /**
  * 归档保留策略：条数上限、天数上限、按结果差异化保留，以及"先预览、再执行"的清理。
  *
@@ -46,17 +63,17 @@ export enum CleanupReason {
 export function cleanupReasonLabel(reason: CleanupReason): string {
   switch (reason) {
     case CleanupReason.AGE_EXPIRED:
-      return '超过保留天数';
+      return localText('startup_text_0061');
     case CleanupReason.OVER_COUNT:
-      return '超出条数上限';
+      return localText('startup_text_0062');
     case CleanupReason.KEPT_FAILURE_GRACE:
-      return '失败样本多保留一天';
+      return localText('startup_text_0063');
     case CleanupReason.KEPT_PROTECTED:
-      return '最近有效样本，禁止删除';
+      return localText('startup_text_0064');
     case CleanupReason.KEPT_UNKNOWN_TIME:
-      return '时间未知，暂不清理';
+      return localText('startup_text_0065');
     default:
-      return '在保留范围内';
+      return localText('startup_text_0066');
   }
 }
 
@@ -104,7 +121,7 @@ export class RetentionPolicy {
 
   /** 一行摘要。 */
   text(): string {
-    return `条数上限 ${this.maxEntries}｜天数上限 ${this.maxDays} 天｜失败样本额外 ${this.failureBonusDays} 天`;
+    return formatResource('startup_format_c130b6f1be3e', [String(this.maxEntries), String(this.maxDays), String(this.failureBonusDays)]);
   }
 }
 
@@ -138,15 +155,15 @@ export function normalizePolicy(policy: RetentionPolicy): RetentionPolicy {
 export function describePolicy(policy: RetentionPolicy): string[] {
   const safe: RetentionPolicy = normalizePolicy(policy);
   const lines: string[] = [
-    `最多保留 ${safe.maxEntries} 条，超出部分按时间从旧到新清理`,
-    `最多保留 ${safe.maxDays} 天，更早的记录按天数清理`
+    formatResource('startup_format_0578a9fa4203', [String(safe.maxEntries)]),
+    formatResource('startup_format_15112b27191a', [String(safe.maxDays)])
   ];
   if (safe.failureBonusDays > 0) {
-    lines.push(`失败样本额外保留 ${safe.failureBonusDays} 天（实际 ${safe.retentionDaysFor(QueryOutcome.FAILURE)} 天），用于排查`);
+    lines.push(formatResource('startup_format_dc5d80660073', [String(safe.failureBonusDays), String(safe.retentionDaysFor(QueryOutcome.FAILURE))]));
   } else {
-    lines.push('失败样本与其他结果保留天数一致');
+    lines.push(localText('startup_text_0076'));
   }
-  lines.push('最近一条有效样本永远保留，不受上述两条规则影响');
+  lines.push(localText('startup_text_0077'));
   return lines;
 }
 
@@ -170,7 +187,7 @@ export class CleanupDecision {
   }
 
   describe(): string {
-    const action: string = this.keep ? '保留' : '删除';
+    const action: string = this.keep ? localText('startup_text_0078') : localText('startup_text_0079');
     const suffix: string = this.detail.length > 0 ? `｜${this.detail}` : '';
     return `${action} #${this.entryId}｜${cleanupReasonLabel(this.reason)}${suffix}`;
   }
@@ -222,10 +239,10 @@ export class CleanupPreview {
   /** 一句话摘要：保留多少、删除多少、各由哪条规则触发。 */
   summaryText(): string {
     if (this.emptyInput) {
-      return '没有可清理的归档记录：保留 0 条，删除 0 条';
+      return localText('startup_text_0080');
     }
-    return `保留 ${this.keepCount} 条，删除 ${this.deleteCount} 条` +
-      `（按天数 ${this.agedCount} 条，按条数 ${this.countCutCount} 条）`;
+    return formatResource('startup_format_9fdbaf9a38b9', [String(this.keepCount), String(this.deleteCount)]) +
+      formatResource('startup_format_3df62be81a01', [String(this.agedCount), String(this.countCutCount)]);
   }
 
   /** 摘要 + 全部说明。 */
@@ -243,7 +260,7 @@ export class CleanupPreview {
     const lines: string[] = this.decisions.slice(0, take).map((decision: CleanupDecision): string =>
       decision.describe());
     if (take < this.decisions.length) {
-      lines.push(`其余 ${this.decisions.length - take} 条从略`);
+      lines.push(formatResource('startup_format_7e901017c73d', [String(this.decisions.length - take)]));
     }
     return lines;
   }
@@ -255,7 +272,7 @@ export class RetentionAudit {
   public findings: string[] = [];
 
   report(): string {
-    return this.ok ? '保留策略自洽' : this.findings.join('；');
+    return this.ok ? localText('startup_text_0088') : this.findings.join('；');
   }
 }
 
@@ -264,26 +281,26 @@ export function auditRetentionPolicy(policy: RetentionPolicy): RetentionAudit {
   const audit: RetentionAudit = new RetentionAudit();
   if (!Number.isInteger(policy.maxEntries) || policy.maxEntries < MIN_RETENTION_ENTRIES ||
     policy.maxEntries > MAX_RETENTION_ENTRIES) {
-    audit.findings.push(`条数上限越界：${policy.maxEntries}`);
+    audit.findings.push(formatResource('startup_format_d4b6a332589a', [String(policy.maxEntries)]));
   }
   if (!Number.isInteger(policy.maxDays) || policy.maxDays < 1 || policy.maxDays > MAX_RETENTION_DAYS) {
-    audit.findings.push(`天数上限越界：${policy.maxDays}`);
+    audit.findings.push(formatResource('startup_format_1dce782ee99c', [String(policy.maxDays)]));
   }
   if (!Number.isInteger(policy.failureBonusDays) || policy.failureBonusDays < 0 ||
     policy.failureBonusDays > MAX_FAILURE_BONUS_DAYS) {
-    audit.findings.push(`失败样本额外天数越界：${policy.failureBonusDays}`);
+    audit.findings.push(formatResource('startup_format_45877e0e8c45', [String(policy.failureBonusDays)]));
   }
   const safe: RetentionPolicy = normalizePolicy(policy);
   const successDays: number = safe.retentionDaysFor(QueryOutcome.SUCCESS);
   const failureDays: number = safe.retentionDaysFor(QueryOutcome.FAILURE);
   if (failureDays < successDays) {
-    audit.findings.push('失败样本的保留天数少于成功样本');
+    audit.findings.push(localText('startup_text_0092'));
   }
   if (safe.failureBonusDays > 0 && failureDays - successDays !== safe.failureBonusDays) {
-    audit.findings.push('失败样本额外天数未生效');
+    audit.findings.push(localText('startup_text_0093'));
   }
   if (safe.retentionDaysFor(QueryOutcome.TIMEOUT) !== successDays) {
-    audit.findings.push('非失败结论不应享受额外天数');
+    audit.findings.push(localText('startup_text_0094'));
   }
   audit.ok = audit.findings.length === 0;
   return audit;
@@ -315,7 +332,7 @@ export function previewCleanup(entries: ArchiveEntry[], now: number,
 
   if (entries.length === 0) {
     preview.emptyInput = true;
-    preview.notes.push('没有可清理的归档记录：保留 0 条，删除 0 条');
+    preview.notes.push(localText('startup_text_0080'));
     return preview;
   }
 
@@ -390,31 +407,31 @@ export function previewCleanup(entries: ArchiveEntry[], now: number,
     if (!known) {
       keep = true;
       reason = CleanupReason.KEPT_UNKNOWN_TIME;
-      detail = '时间戳缺失或非法，已保留且不计入天数/条数';
+      detail = localText('startup_text_0095');
     } else if (index === protectedIndex) {
       keep = true;
       reason = CleanupReason.KEPT_PROTECTED;
       detail = ageDays > retentionDays ?
-        `年龄 ${ageDays} 天已超过 ${retentionDays} 天，但作为最近有效样本豁免` :
-        '最近一条有效样本，规则不删除';
+        formatResource('startup_format_12dfec4921dc', [String(ageDays), String(retentionDays)]) :
+        localText('startup_text_0099');
     } else if (expired[index]) {
       keep = false;
       reason = CleanupReason.AGE_EXPIRED;
-      detail = `年龄 ${ageDays} 天超过 ${retentionDays} 天`;
+      detail = formatResource('startup_format_07f9b1860c52', [String(ageDays), String(retentionDays)]);
       preview.agedCount++;
     } else if (selected[index]) {
       keep = true;
       if (entry.outcome === QueryOutcome.FAILURE && ageDays > safePolicy.maxDays) {
         reason = CleanupReason.KEPT_FAILURE_GRACE;
-        detail = `失败样本在 ${safePolicy.maxDays} 天基础上多保留 ${safePolicy.failureBonusDays} 天`;
+        detail = formatResource('startup_format_b777fa58943b', [String(safePolicy.maxDays), String(safePolicy.failureBonusDays)]);
       } else {
         reason = CleanupReason.KEPT_RECENT;
-        detail = `年龄 ${ageDays}/${retentionDays} 天，且在 ${safePolicy.maxEntries} 条以内`;
+        detail = formatResource('startup_format_f67f452272bb', [String(ageDays), String(retentionDays), String(safePolicy.maxEntries)]);
       }
     } else {
       keep = false;
       reason = CleanupReason.OVER_COUNT;
-      detail = `超出条数上限 ${safePolicy.maxEntries}，按时间从旧到新清理`;
+      detail = formatResource('startup_format_33f68c0d4b7a', [String(safePolicy.maxEntries)]);
       preview.countCutCount++;
     }
 
@@ -447,21 +464,21 @@ export function previewCleanup(entries: ArchiveEntry[], now: number,
       rank >= safePolicy.maxEntries;
   }
 
-  preview.notes.push(`天数上限 ${safePolicy.maxDays} 天` +
+  preview.notes.push(formatResource('startup_format_f819ef1fad54', [String(safePolicy.maxDays)]) +
     (safePolicy.failureBonusDays > 0 ?
-      `；失败样本额外 ${safePolicy.failureBonusDays} 天（共 ${safePolicy.retentionDaysFor(QueryOutcome.FAILURE)} 天）` :
+      formatResource('startup_format_17b0f2c979e6', [String(safePolicy.failureBonusDays), String(safePolicy.retentionDaysFor(QueryOutcome.FAILURE))]) :
       ''));
-  preview.notes.push(`条数上限 ${safePolicy.maxEntries} 条，超出部分按时间从旧到新清理`);
+  preview.notes.push(formatResource('startup_format_e6bc0515c1ce', [String(safePolicy.maxEntries)]));
   if (preview.protectedId > 0) {
     preview.notes.push(preview.protectedRescued ?
-      `最近有效样本 #${preview.protectedId} 本应被清理，已豁免保留` :
-      `最近有效样本 #${preview.protectedId} 已保留（不受天数/条数规则影响）`);
+      formatResource('startup_format_ff117be8a6d8', [String(preview.protectedId)]) :
+      formatResource('startup_format_de566cf45f13', [String(preview.protectedId)]));
   }
   if (preview.unknownTimeCount > 0) {
-    preview.notes.push(`${preview.unknownTimeCount} 条记录时间未知，已保留且不参与天数/条数计算`);
+    preview.notes.push(formatResource('startup_format_c7d82a01c26c', [String(preview.unknownTimeCount)]));
   }
   if (safeNow <= 0) {
-    preview.notes.push('当前时间无效，已跳过天数规则，仅按条数上限清理');
+    preview.notes.push(localText('startup_text_0115'));
   }
   return preview;
 }
@@ -494,16 +511,16 @@ export class RetentionResult {
 
   text(): string {
     if (!this.executed) {
-      return '未执行清理';
+      return localText('startup_text_0116');
     }
     const lines: string[] = [
-      `清理完成：删除 ${this.removed.length} 条，保留 ${this.kept.length} 条`
+      formatResource('startup_format_b913919d50b3', [String(this.removed.length), String(this.kept.length)])
     ];
     if (this.missingIds.length > 0) {
-      lines.push(`预览中 ${this.missingIds.length} 条待删记录在执行时已不存在`);
+      lines.push(formatResource('startup_format_8a010c72ad3d', [String(this.missingIds.length)]));
     }
     if (this.unseenIds.length > 0) {
-      lines.push(`预览之后新增 ${this.unseenIds.length} 条记录，未纳入本次清理，已保留`);
+      lines.push(formatResource('startup_format_dbf76dc97a16', [String(this.unseenIds.length)]));
     }
     return lines.join('\n');
   }

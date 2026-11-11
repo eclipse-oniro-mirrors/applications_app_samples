@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../text/LocalizedText';
+
 /** Independent real-API diagnostics. No inferred permission, enable/disable or settings-jump API. */
 import {
   CapabilityEvaluation, CapabilityQuery, DeviceForm, SystemFlavor, evaluateCapability
@@ -5,6 +22,7 @@ import {
 import { describeError } from '../rules/ErrorCatalog';
 import { QueryClock, SystemQueryClock, elapsedNow } from '../AutoStartupRuntime';
 import { StartupTelemetry, SystemStartupTelemetry, safeBegin, safeEnd } from '../Telemetry';
+import { reportFailure } from '../SampleLogger';
 
 export interface AutoStartupProbePort {
   isSupported(): Promise<boolean>;
@@ -20,7 +38,7 @@ export class ProbeResult {
   public errorCode: string = '';
   public errorMessage: string = '';
   public elapsedMillis: number = 0;
-  public conclusion: string = '尚未执行';
+  public conclusion: string = localText('startup_text_0208');
   public unsupportedEvidence: boolean = false;
   clone(): ProbeResult {
     const copy = new ProbeResult();
@@ -37,7 +55,7 @@ export class DiagnosticReport {
   public ability: ProbeResult = new ProbeResult();
   public status: ProbeResult = new ProbeResult();
   public consistent: boolean = false;
-  public headline: string = '尚未诊断';
+  public headline: string = localText('startup_text_0209');
   public advice: string = '';
   clone(): DiagnosticReport {
     const copy = new DiagnosticReport();
@@ -49,13 +67,13 @@ export class DiagnosticReport {
 }
 export function conclusionOf(stage: ProbeStage, value: boolean | null, code: string): string {
   switch (stage) {
-    case ProbeStage.SUCCEEDED: return value === null ? '调用成功但未返回明确状态' :
-      (value ? '返回已开启' : '返回未开启');
-    case ProbeStage.UNSUPPORTED: return `系统不支持（${code.length === 0 ? '801' : code}）`;
-    case ProbeStage.FAILED: return `调用失败（${code.length === 0 ? '未知' : code}）`;
-    case ProbeStage.TIMEOUT: return '等待超时，可重试';
-    case ProbeStage.RUNNING: return '正在调用';
-    default: return '尚未执行';
+    case ProbeStage.SUCCEEDED: return value === null ? localText('startup_text_0210') :
+      (value ? localText('startup_text_0211') : localText('startup_text_0212'));
+    case ProbeStage.UNSUPPORTED: return formatResource('startup_format_a1a8020de465', [String(code.length === 0 ? '801' : code)]);
+    case ProbeStage.FAILED: return formatResource('startup_format_db1f6db77389', [String(code.length === 0 ? localText('startup_text_0005') : code)]);
+    case ProbeStage.TIMEOUT: return localText('startup_text_0215');
+    case ProbeStage.RUNNING: return localText('startup_text_0216');
+    default: return localText('startup_text_0208');
   }
 }
 export function isUnsupportedError(code: string): boolean { return describeError(code).unsupported; }
@@ -73,18 +91,18 @@ export function checkConsistency(ability: ProbeResult, status: ProbeResult): boo
     (ability.stage === ProbeStage.UNSUPPORTED && status.stage === ProbeStage.UNSUPPORTED);
 }
 export function adviceOf(ability: ProbeResult, status: ProbeResult, evaluation: CapabilityEvaluation): string {
-  if (ability.stage === ProbeStage.UNSUPPORTED) { return '能力检测不支持；独立状态查询仍可手动诊断，不自动重试。'; }
+  if (ability.stage === ProbeStage.UNSUPPORTED) { return localText('startup_text_0217'); }
   if (ability.stage === ProbeStage.FAILED || ability.stage === ProbeStage.TIMEOUT) {
-    return '能力检测未成功，原生请求结束后可重试；不要判定为未开启。';
+    return localText('startup_text_0218');
   }
   if (status.stage === ProbeStage.FAILED || status.stage === ProbeStage.TIMEOUT) {
-    return '状态查询未成功，原生请求结束后可重试，不要判定为未开启。';
+    return localText('startup_text_0219');
   }
   if (status.stage === ProbeStage.SUCCEEDED) {
-    return status.value ? '本应用状态返回已开启；不代表已验证实际开机拉起。' :
-      '本应用状态返回未开启；若设备提供选项，请手动检查系统设置。';
+    return status.value ? localText('startup_text_0220') :
+      localText('startup_text_0221');
   }
-  return '分别执行两个诊断入口；版本与设备信息只是条件，不代替系统返回值。';
+  return localText('startup_text_0222');
 }
 
 export class CapabilityDiagnostic {
@@ -153,11 +171,11 @@ export class CapabilityDiagnostic {
         resolve(result.clone());
       };
       this.cancelWait = (): void => finish(buildResult(
-        ProbeStage.FAILED, null, 'CANCELLED', '页面已离开', this.clock() - started));
+        ProbeStage.FAILED, null, 'CANCELLED', localText('startup_text_0223'), this.clock() - started));
       this.timer = this.timers.setTimeout((): void => {
         // Timeout ends the visible wait, NOT the underlying non-cancellable native call.
         finish(buildResult(
-          ProbeStage.TIMEOUT, null, 'TIMEOUT', '系统响应超时；仍占用单飞位置至原生调用结束', this.clock() - started));
+          ProbeStage.TIMEOUT, null, 'TIMEOUT', localText('startup_text_0224'), this.clock() - started));
       }, this.timeoutMillis);
       let request: Promise<boolean>;
       try {
@@ -172,7 +190,7 @@ export class CapabilityDiagnostic {
         this.pending = false;
         const result = buildResult(ability && !value ? ProbeStage.UNSUPPORTED : ProbeStage.SUCCEEDED,
           value, ability && !value ? '801' : '0', '', this.clock() - started);
-        if (ability && value) { result.conclusion = '设备能力检测返回支持'; }
+        if (ability && value) { result.conclusion = localText('startup_text_0225'); }
         finish(result);
         this.notify();
       }, (error: Object): void => {
@@ -187,7 +205,7 @@ export class CapabilityDiagnostic {
     const code = candidate === null || candidate === undefined || candidate['code'] === undefined ?
       'UNKNOWN' : String(candidate['code']);
     const message = candidate === null || candidate === undefined || candidate['message'] === undefined ?
-      '未提供错误信息' : String(candidate['message']);
+      localText('startup_text_0226') : String(candidate['message']);
     return buildResult(isUnsupportedError(code) ? ProbeStage.UNSUPPORTED : ProbeStage.FAILED,
       null, code, message, elapsed);
   }
@@ -195,13 +213,13 @@ export class CapabilityDiagnostic {
     if (ability) { this.report.ability = result; } else { this.report.status = result; }
     this.report.consistent = checkConsistency(this.report.ability, this.report.status);
     this.report.advice = adviceOf(this.report.ability, this.report.status, this.report.evaluation);
-    this.report.headline = `能力 ${this.report.ability.conclusion}｜状态 ${this.report.status.conclusion}`;
+    this.report.headline = formatResource('startup_format_43dd26b0d62d', [String(this.report.ability.conclusion), String(this.report.status.conclusion)]);
     this.notify();
   }
   /** Legacy display conversion only. Real timeout is implemented by the timer above. */
   degradeIfTimeout(result: ProbeResult): ProbeResult {
     return result.stage === ProbeStage.RUNNING || result.elapsedMillis > this.timeoutMillis ?
-      buildResult(ProbeStage.TIMEOUT, result.value, 'TIMEOUT', '超时', result.elapsedMillis) : result;
+      buildResult(ProbeStage.TIMEOUT, result.value, 'TIMEOUT', localText('startup_text_0004'), result.elapsedMillis) : result;
   }
   dispose(): void {
     this.generation++;
@@ -213,7 +231,14 @@ export class CapabilityDiagnostic {
   reportSnapshot(): DiagnosticReport { return this.report.clone(); }
   isRunning(): boolean { return this.pending || this.allRunning; }
   private notify(): void {
-    this.listeners.slice().forEach((listener: () => void): void => { try { listener(); } catch (_) {} });
+    this.listeners.slice().forEach((listener: () => void): void => {
+      try {
+        listener();
+      } catch (_) {
+        // Subscriber isolation: a failing diagnostics listener must not stop the others.
+        reportFailure('Diagnostics listener');
+      }
+    });
   }
 }
 export function deriveQuery(apiLevel: number, deviceType: string, isOpenHarmony: boolean,

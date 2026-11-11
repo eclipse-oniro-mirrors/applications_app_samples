@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 历史归档与保留策略。
  *
@@ -18,13 +35,13 @@ export enum RetentionTier {
 export function tierLabel(tier: RetentionTier): string {
   switch (tier) {
     case RetentionTier.RECENT:
-      return '近期';
+      return localText('startup_text_0472');
     case RetentionTier.WEEKLY:
-      return '近周';
+      return localText('startup_text_0473');
     case RetentionTier.ARCHIVE:
-      return '归档';
+      return localText('startup_text_0474');
     default:
-      return '待清理';
+      return localText('startup_text_0475');
   }
 }
 
@@ -80,38 +97,45 @@ export class RetentionRule {
   }
 
   text(): string {
-    const age: string = this.maxAgeMs <= 0 ? '不限' : `${Math.round(this.maxAgeMs / HOUR)} 小时`;
-    const count: string = this.maxCount <= 0 ? '不限' : `${this.maxCount} 条`;
+    const age: string = this.maxAgeMs <= 0 ? localText('startup_text_0476') : formatResource('startup_format_2a1d9519d00a', [String(Math.round(this.maxAgeMs / HOUR))]);
+    const count: string = this.maxCount <= 0 ? localText('startup_text_0476') : formatResource('startup_format_376dc4cad94c', [String(this.maxCount)]);
     return `${this.ruleId} ${tierLabel(this.tier)}｜≤${age}｜≤${count}｜` +
-      `${this.exportable ? '可导出' : '不导出'}`;
+      `${this.exportable ? localText('startup_text_0478') : localText('startup_text_0479')}`;
   }
 }
 
 /** 保留规则表，按年龄升序。 */
-export const RETENTION_RULES: RetentionRule[] = [
+function createRETENTION_RULES(): RetentionRule[] {
+  return [
   new RetentionRule('RT-01', RetentionTier.RECENT, HOUR, 20, true, true,
-    '一小时内的记录全部保留，用于即时回溯'),
+    localText('startup_text_0480')),
   new RetentionRule('RT-02', RetentionTier.RECENT, 6 * HOUR, 40, true, true,
-    '六小时内保留到 40 条'),
+    localText('startup_text_0481')),
   new RetentionRule('RT-03', RetentionTier.RECENT, DAY, 60, true, true,
-    '一天内保留到 60 条'),
+    localText('startup_text_0482')),
   new RetentionRule('RT-04', RetentionTier.WEEKLY, 3 * DAY, 80, true, true,
-    '三天内保留到 80 条'),
+    localText('startup_text_0483')),
   new RetentionRule('RT-05', RetentionTier.WEEKLY, 7 * DAY, 100, true, true,
-    '一周内保留到 100 条'),
+    localText('startup_text_0484')),
   new RetentionRule('RT-06', RetentionTier.WEEKLY, 14 * DAY, 120, true, true,
-    '两周内保留到 120 条'),
+    localText('startup_text_0485')),
   new RetentionRule('RT-07', RetentionTier.ARCHIVE, 30 * DAY, 150, true, false,
-    '一个月内保留到 150 条，错误信息截断'),
+    localText('startup_text_0486')),
   new RetentionRule('RT-08', RetentionTier.ARCHIVE, 60 * DAY, 200, true, false,
-    '两个月内保留到 200 条，不再保留错误详情'),
+    localText('startup_text_0487')),
   new RetentionRule('RT-09', RetentionTier.ARCHIVE, 90 * DAY, 240, true, false,
-    '三个月内保留到 240 条'),
+    localText('startup_text_0488')),
   new RetentionRule('RT-10', RetentionTier.ARCHIVE, 180 * DAY, 280, false, false,
-    '半年内保留到 280 条，不再参与导出'),
+    localText('startup_text_0489')),
   new RetentionRule('RT-11', RetentionTier.EXPIRED, 0, 0, false, false,
-    '超过半年按过期处理，由用户确认后清理')
+    localText('startup_text_0490'))
 ];
+}
+export const RETENTION_RULES: RetentionRule[] = createRETENTION_RULES();
+registerTextRefresh((): void => {
+  RETENTION_RULES.splice(0, RETENTION_RULES.length);
+  createRETENTION_RULES().forEach((item: RetentionRule): void => { RETENTION_RULES.push(item); });
+});
 
 /** 规则编号列表。 */
 export function ruleIds(): string[] {
@@ -237,8 +261,8 @@ export class ArchivePlan {
 
   /** 摘要文本。 */
   text(): string {
-    return `共 ${this.total()} 条：近期 ${this.recent.length}、近周 ${this.weekly.length}、` +
-      `归档 ${this.archive.length}、待清理 ${this.expired.length}`;
+    return formatResource('startup_format_01a5c9de151b', [String(this.total()), String(this.recent.length), String(this.weekly.length)]) +
+      formatResource('startup_format_e0a771771672', [String(this.archive.length), String(this.expired.length)]);
   }
 }
 
@@ -275,13 +299,13 @@ export enum Compaction {
 export function compactionLabel(compaction: Compaction): string {
   switch (compaction) {
     case Compaction.TRUNCATE_DETAIL:
-      return '截断错误详情';
+      return localText('startup_text_0495');
     case Compaction.DROP_OLDEST:
-      return '丢弃最旧记录';
+      return localText('startup_text_0496');
     case Compaction.DROP_ALL:
-      return '整档清理';
+      return localText('startup_text_0497');
     default:
-      return '无需压缩';
+      return localText('startup_text_0498');
   }
 }
 
@@ -322,7 +346,7 @@ export class CompactionReport {
       lines.push(line);
     });
     if (this.needConfirm() > 0) {
-      lines.push(`清理 ${this.needConfirm()} 条需要用户确认`);
+      lines.push(formatResource('startup_format_d5b63804af14', [String(this.needConfirm())]));
     }
     return lines.join('\n');
   }
@@ -337,7 +361,7 @@ export function buildCompaction(records: ArchiveRecord[], now: number): Compacti
   tiers.forEach((tier: RetentionTier): void => {
     const bucket: ArchiveRecord[] = report.plan.bucketOf(tier);
     if (bucket.length === 0) {
-      report.decisions.push(`${tierLabel(tier)}：无记录`);
+      report.decisions.push(formatResource('startup_format_7e7a7271ae8f', [String(tierLabel(tier))]));
       return;
     }
     const input: CompactionInput = new CompactionInput();
@@ -345,7 +369,7 @@ export function buildCompaction(records: ArchiveRecord[], now: number): Compacti
     input.count = bucket.length;
     input.averageChars = 256;
     const decision: Compaction = decideCompaction(input);
-    report.decisions.push(`${tierLabel(tier)}：${bucket.length} 条 -> ` +
+    report.decisions.push(formatResource('startup_format_3fec0c502890', [String(tierLabel(tier)), String(bucket.length)]) +
       `${compactionLabel(decision)}`);
   });
   return report;
@@ -357,7 +381,7 @@ export class RetentionAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '保留策略自洽' : this.findings.join('；');
+    return this.ok ? localText('startup_text_0088') : this.findings.join('；');
   }
 }
 
@@ -370,35 +394,35 @@ export function auditRetention(): RetentionAudit {
   let catchAll: number = 0;
   RETENTION_RULES.forEach((rule: RetentionRule): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(`规则编号重复：${rule.ruleId}`);
+      audit.findings.push(formatResource('startup_format_6101256e6fa0', [String(rule.ruleId)]));
     }
     seen.push(rule.ruleId);
     if (rule.maxAgeMs === 0) {
       catchAll++;
     } else {
       if (rule.maxAgeMs < lastAge) {
-        audit.findings.push(`年龄上限非单调：${rule.ruleId}`);
+        audit.findings.push(formatResource('startup_format_a8ed44fb7399', [String(rule.ruleId)]));
       }
       lastAge = rule.maxAgeMs;
     }
     if (rule.maxCount > 0 && rule.maxCount < lastCount) {
-      audit.findings.push(`条数上限非单调：${rule.ruleId}`);
+      audit.findings.push(formatResource('startup_format_4eafba5aa3e9', [String(rule.ruleId)]));
     }
     if (rule.maxCount > 0) {
       lastCount = rule.maxCount;
     }
     if (rule.description.length === 0) {
-      audit.findings.push(`缺少说明：${rule.ruleId}`);
+      audit.findings.push(formatResource('startup_format_b3d5698e1ce2', [String(rule.ruleId)]));
     }
   });
   if (catchAll !== 1) {
-    audit.findings.push(`兜底档数量异常：${catchAll}`);
+    audit.findings.push(formatResource('startup_format_b7c0be2242fe', [String(catchAll)]));
   }
   if (rulesOfTier(RetentionTier.EXPIRED).length === 0) {
-    audit.findings.push('缺少过期档');
+    audit.findings.push(localText('startup_text_0506'));
   }
   if (RETENTION_RULES[RETENTION_RULES.length - 1].maxAgeMs !== 0) {
-    audit.findings.push('最后一档应为不限年龄');
+    audit.findings.push(localText('startup_text_0507'));
   }
   audit.ok = audit.findings.length === 0;
   return audit;
@@ -414,5 +438,5 @@ export function tierLines(): string[] {
   const tiers: RetentionTier[] = [RetentionTier.RECENT, RetentionTier.WEEKLY,
     RetentionTier.ARCHIVE, RetentionTier.EXPIRED];
   return tiers.map((tier: RetentionTier): string =>
-    `${tierLabel(tier)}：${rulesOfTier(tier).length} 条规则`);
+    formatResource('startup_format_a4b39299cf78', [String(tierLabel(tier)), String(rulesOfTier(tier).length)]));
 }

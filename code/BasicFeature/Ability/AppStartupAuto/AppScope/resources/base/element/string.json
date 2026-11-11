@@ -1,5 +1,8 @@
 {
   "string": [
-    { "name": "app_name", "value": "开机自启" }
+    {
+      "name": "app_name",
+      "value": "Auto-start"
+    }
   ]
 }

@@ -1,5 +1,23 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, recordSourceLabel, recordValueLabel } from './text/LocalizedText';
+import { LegacyHistoryFilter, RecordValue } from './RecordValues';
+
 /** Query-history codec, filtering and redacted export kept free of platform APIs. */
-import { QueryOutcome, QueryRecord, RefreshSource } from './AutoStartupTypes';
+import { parseRefreshSource, QueryOutcome, QueryRecord, RefreshSource } from './AutoStartupTypes';
 
 export interface HistoryStorage {
   read(): string;
@@ -25,9 +43,6 @@ export const HISTORY_MAX_AGE_MS: number = 30 * 24 * 60 * 60 * 1000;
 export const HISTORY_MESSAGE_LIMIT: number = 512;
 export const EXPORT_MESSAGE_LIMIT: number = 96;
 
-const SOURCES: string[] = [
-  RefreshSource.INITIAL, RefreshSource.MANUAL, RefreshSource.FOREGROUND, RefreshSource.SETTINGS
-];
 const OUTCOMES: string[] = [
   QueryOutcome.SUCCESS, QueryOutcome.FAILURE, QueryOutcome.UNSUPPORTED,
   QueryOutcome.TIMEOUT, QueryOutcome.UNKNOWN
@@ -47,13 +62,13 @@ export function boundedMessage(value: string): string {
 }
 
 function outcomeOf(result: string, errorCode: string): QueryOutcome {
-  if (result === '已开启' || result === '未开启') {
+  if (result === RecordValue.ENABLED || result === RecordValue.DISABLED) {
     return QueryOutcome.SUCCESS;
   }
-  if (result === '设备不支持' || result === '查询不支持') {
+  if (result === RecordValue.UNSUPPORTED || result === RecordValue.QUERY_UNSUPPORTED) {
     return QueryOutcome.UNSUPPORTED;
   }
-  if (result === '等待超时' || errorCode === 'TIMEOUT') {
+  if (result === RecordValue.TIMEOUT || errorCode === 'TIMEOUT') {
     return QueryOutcome.TIMEOUT;
   }
   if (result.length > 0) {
@@ -66,9 +81,9 @@ export function normalizeRecord(record: QueryRecord): QueryRecord | undefined {
   if (record === null || typeof record !== 'object') {
     return undefined;
   }
+  const source = typeof record.source === 'string' ? parseRefreshSource(record.source) : undefined;
   if (!Number.isSafeInteger(record.id) || record.id <= 0 || record.id >= Number.MAX_SAFE_INTEGER ||
-    !finiteNonNegative(record.timestamp) || typeof record.source !== 'string' ||
-    SOURCES.indexOf(record.source) < 0 || typeof record.result !== 'string' ||
+    !finiteNonNegative(record.timestamp) || source === undefined || typeof record.result !== 'string' ||
     record.result.length === 0 || record.result.length > 200 ||
     typeof record.supportResult !== 'string' || record.supportResult.length > 200 ||
     typeof record.statusResult !== 'string' || record.statusResult.length > 200 ||
@@ -80,7 +95,7 @@ export function normalizeRecord(record: QueryRecord): QueryRecord | undefined {
   const copy: QueryRecord = new QueryRecord();
   copy.id = record.id;
   copy.timestamp = record.timestamp;
-  copy.source = record.source as RefreshSource;
+  copy.source = source;
   copy.result = record.result;
   copy.supportResult = record.supportResult;
   copy.statusResult = record.statusResult;
@@ -99,7 +114,7 @@ export function serializeHistory(records: QueryRecord[], savedAt: number): strin
     const copy: QueryRecord = new QueryRecord();
     copy.id = record.id;
     copy.timestamp = record.timestamp;
-    copy.source = record.source;
+    copy.source = parseRefreshSource(record.source) ?? record.source;
     copy.result = record.result;
     copy.supportResult = record.supportResult;
     copy.statusResult = record.statusResult;
@@ -132,7 +147,7 @@ function parseArray(values: Object[], now: number): HistoryLoadResult {
     result.records = result.records.slice(0, HISTORY_LIMIT);
   }
   if (result.expired > 0) {
-    result.notice = `已清理 ${result.expired} 条超过 30 天的历史记录`;
+    result.notice = formatResource('startup_format_b7b21312ad6e', [String(result.expired)]);
   }
   return result;
 }
@@ -146,7 +161,7 @@ export function parseHistory(raw: string, now: number): HistoryLoadResult {
   try {
     parsed = JSON.parse(raw) as Object;
   } catch (error) {
-    result.notice = '历史记录损坏，已忽略并以空记录启动';
+    result.notice = localText('startup_text_0175');
     result.recovered = true;
     return result;
   }
@@ -155,22 +170,22 @@ export function parseHistory(raw: string, now: number): HistoryLoadResult {
     const legacy: HistoryLoadResult = parseArray(parsed as Object[], now);
     result.records = legacy.records;
     result.expired = legacy.expired;
-    result.notice = legacy.notice.length > 0 ? `已迁移旧版历史；${legacy.notice}` : '已迁移旧版历史记录';
+    result.notice = legacy.notice.length > 0 ? formatResource('startup_format_4ad3605744e9', [String(legacy.notice)]) : localText('startup_text_0177');
     return result;
   }
   if (parsed === null || typeof parsed !== 'object') {
-    result.notice = '历史记录格式无效，已忽略';
+    result.notice = localText('startup_text_0178');
     result.recovered = true;
     return result;
   }
   const stored = parsed as StoredHistory;
   if (stored.schema !== HISTORY_SCHEMA) {
-    result.notice = '历史记录版本不受支持，已忽略';
+    result.notice = localText('startup_text_0179');
     result.recovered = true;
     return result;
   }
   if (!Array.isArray(stored.records)) {
-    result.notice = '历史记录缺少列表，已忽略';
+    result.notice = localText('startup_text_0180');
     result.recovered = true;
     return result;
   }
@@ -183,17 +198,17 @@ export function parseHistory(raw: string, now: number): HistoryLoadResult {
 
 /** Filtering is defined on the persisted outcome, never on localized text. */
 export function filterHistory(records: QueryRecord[], outcome: string): QueryRecord[] {
-  if (outcome.length === 0 || outcome === '全部') {
+  if (outcome.length === 0 || outcome === 'all' || outcome === LegacyHistoryFilter.ALL) {
     return records.slice();
   }
   let wanted: string = outcome;
-  if (outcome === '成功') {
+  if (outcome === LegacyHistoryFilter.SUCCESS) {
     wanted = QueryOutcome.SUCCESS;
-  } else if (outcome === '失败') {
+  } else if (outcome === LegacyHistoryFilter.FAILURE) {
     wanted = QueryOutcome.FAILURE;
-  } else if (outcome === '不支持') {
+  } else if (outcome === LegacyHistoryFilter.UNSUPPORTED) {
     wanted = QueryOutcome.UNSUPPORTED;
-  } else if (outcome === '超时') {
+  } else if (outcome === LegacyHistoryFilter.TIMEOUT) {
     wanted = QueryOutcome.TIMEOUT;
   }
   return records.filter((record: QueryRecord): boolean => (record.outcome as string) === wanted);
@@ -202,22 +217,22 @@ export function filterHistory(records: QueryRecord[], outcome: string): QueryRec
 export function outcomeLabel(outcome: string): string {
   switch (outcome) {
     case QueryOutcome.SUCCESS:
-      return '成功';
+      return localText('startup_text_0001');
     case QueryOutcome.FAILURE:
-      return '失败';
+      return localText('startup_text_0002');
     case QueryOutcome.UNSUPPORTED:
-      return '不支持';
+      return localText('startup_text_0003');
     case QueryOutcome.TIMEOUT:
-      return '超时';
+      return localText('startup_text_0004');
     default:
-      return '未知';
+      return localText('startup_text_0005');
   }
 }
 
 function maskText(value: string): string {
-  let text: string = value.replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, '[邮箱]');
-  text = text.replace(/\+?\d[\d\s-]{6,}\d/g, '[号码]');
-  text = text.replace(/\d{6,}/g, '[编号]');
+  let text: string = value.replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, localText('startup_text_0182'));
+  text = text.replace(/\+?\d[\d\s-]{6,}\d/g, localText('startup_text_0183'));
+  text = text.replace(/\d{6,}/g, localText('startup_text_0184'));
   text = text.replace(/[\r\n\t]+/g, ' ').trim();
   return shortText(text, EXPORT_MESSAGE_LIMIT);
 }
@@ -228,15 +243,15 @@ function maskText(value: string): string {
  * or long numeric account value.
  */
 export function exportRedacted(records: QueryRecord[], now: number): string {
-  const lines: string[] = ['自启查询历史（脱敏导出）', `生成时间：${new Date(now).toISOString()}`,
-    `记录数：${records.length}`];
+  const lines: string[] = [localText('startup_text_0185'), formatResource('startup_format_82d647b9bd61', [String(new Date(now).toISOString())]),
+    formatResource('startup_format_7098fbdcbc1f', [String(records.length)])];
   records.forEach((record: QueryRecord): void => {
-    lines.push(`#${record.id} | ${new Date(record.timestamp).toISOString()} | ${record.source} | ` +
-      `${outcomeLabel(record.outcome as string)} | ${maskText(record.result)} | ` +
-      `支持 ${maskText(record.supportResult)} | ` +
-      `状态 ${maskText(record.statusResult)} | 错误码 ${maskText(record.errorCode)} | ${record.durationMillis} ms`);
+    lines.push(`#${record.id} | ${new Date(record.timestamp).toISOString()} | ${recordSourceLabel(record.source)} | ` +
+      `${outcomeLabel(record.outcome as string)} | ${maskText(recordValueLabel(record.result))} | ` +
+      formatResource('startup_format_7ee4ac31499d', [String(maskText(recordValueLabel(record.supportResult)))]) +
+      formatResource('startup_format_1f33ac9b39f7', [String(maskText(recordValueLabel(record.statusResult))), String(maskText(record.errorCode)), String(record.durationMillis)]));
     if (record.errorMessage.length > 0) {
-      lines.push(`  说明：${maskText(record.errorMessage)}`);
+      lines.push(formatResource('startup_format_02faa2b6c007', [String(maskText(record.errorMessage))]));
     }
   });
   return lines.join('\n');
@@ -328,7 +343,7 @@ export function compareLatestRecords(records: QueryRecord[]): HistoryComparison 
 export function filterHistoryAdvanced(records: QueryRecord[], source: string, outcome: string,
   fromMillis: number, toMillis: number): QueryRecord[] {
   return records.filter((record: QueryRecord): boolean => {
-    if (source.length > 0 && record.source !== source) {
+    if (source.length > 0 && record.source !== (parseRefreshSource(source) ?? source)) {
       return false;
     }
     if (outcome.length > 0 && record.outcome !== outcome) {

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, registerTextRefresh } from '../text/LocalizedText';
+
 /** Conservative manual guidance. No API-level rule invents a settings jump, permission or switch. */
 import { CapabilityQuery, DeviceForm, SystemFlavor } from '../rules/CapabilityMatrix';
 export enum GuidanceKind {
@@ -49,23 +66,33 @@ export class GuidanceEntry {
   stepCount(): number { return this.steps.length; }
   requiredCount(): number { return this.steps.filter((step: GuidanceStep): boolean => step.required).length; }
 }
-export const FALLBACK_GUIDANCE: GuidanceEntry = new GuidanceEntry('GD-9999', GuidanceKind.MANUAL_ONLY,
-  0, 999, [], [], '手动检查系统设置',
-  '本示例仅查询，不申请额外权限、不直接开启/关闭自启、不跳转系统设置。设备可能不提供相关选项。', [
-    new GuidanceStep(1, '成功刷新后点击“开始手动设置回访”', '保存离开前的查询ID与时间'),
-    new GuidanceStep(2, '手动离开应用并打开系统设置', '查找本应用的启动管理；名称和可用性以实际设备为准'),
-    new GuidanceStep(3, '返回本应用查看重新查询和前后对比', '只检测前后台，无法证明实际进入设置或修改开关')
+function createFallbackGuidance(): GuidanceEntry {
+  return new GuidanceEntry('GD-9999', GuidanceKind.MANUAL_ONLY,
+  0, 999, [], [], localText('startup_text_0606'),
+  localText('startup_text_0607'), [
+    new GuidanceStep(1, localText('startup_text_0608'), localText('startup_text_0609')),
+    new GuidanceStep(2, localText('startup_text_0610'), localText('startup_text_0611')),
+    new GuidanceStep(3, localText('startup_text_0612'), localText('startup_text_0613'))
   ]);
+}
+export const FALLBACK_GUIDANCE: GuidanceEntry = createFallbackGuidance();
+registerTextRefresh((): void => {
+  const fresh = createFallbackGuidance();
+  FALLBACK_GUIDANCE.title = fresh.title;
+  FALLBACK_GUIDANCE.summary = fresh.summary;
+  FALLBACK_GUIDANCE.steps = fresh.steps;
+});
+
 export const GUIDANCE_ENTRIES: GuidanceEntry[] = [FALLBACK_GUIDANCE];
 export function selectGuidance(query: CapabilityQuery): GuidanceEntry { return FALLBACK_GUIDANCE; }
 export function needsJump(entry: GuidanceEntry): boolean { return false; }
 export function stepTexts(entry: GuidanceEntry): string[] {
   return entry.steps.slice().sort((a: GuidanceStep, b: GuidanceStep): number => a.order - b.order)
     .map((step: GuidanceStep): string => `${step.order}. ${step.label}` +
-      (step.detail.length === 0 ? '' : `（${step.detail}）`) + (step.required ? '' : '［可选］'));
+      (step.detail.length === 0 ? '' : `（${step.detail}）`) + (step.required ? '' : localText('startup_text_0614')));
 }
 export function guidanceCaption(entry: GuidanceEntry): string {
-  return `${entry.title}｜共 ${entry.stepCount()} 步，其中必做 ${entry.requiredCount()} 步`;
+  return formatResource('startup_format_96ba822bb5e5', [String(entry.title), String(entry.stepCount()), String(entry.requiredCount())]);
 }
 export function manualOnly(query: CapabilityQuery): boolean { return true; }
 export function guidanceIdsUnique(): boolean {
@@ -73,5 +100,5 @@ export function guidanceIdsUnique(): boolean {
     GUIDANCE_ENTRIES.length;
 }
 export function guidanceCoverage(): string[] {
-  return GUIDANCE_ENTRIES.map((entry: GuidanceEntry): string => `${entry.entryId} 手动指引（不推断设备能力）`);
+  return GUIDANCE_ENTRIES.map((entry: GuidanceEntry): string => formatResource('startup_format_6982eb6fc0cd', [String(entry.entryId)]));
 }

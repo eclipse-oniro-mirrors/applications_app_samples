@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localText } from './text/LocalizedText';
+import { RecordValue } from './RecordValues';
+
 import { BusinessError } from '@kit.BasicServicesKit';
 import { AutoStartupApi, QueryClock, SystemQueryClock, systemAutoStartupApi, elapsedNow } from './AutoStartupRuntime';
 import { RevisitSession, RevisitStage, RevisitTracker, REVISIT_TIMEOUT_MS } from './revisit/RevisitTracker';
@@ -39,7 +57,7 @@ export class AutoStartupService {
   private historyStore: HistoryStorage | undefined = undefined;
   private historyChain: Promise<void> = Promise.resolve();
   private historyMessage: string = '';
-  private historyFilter: string = '全部';
+  private historyFilter: string = 'all';
   private historyWriteSeq: number = 0;
   private historyReadFailed: boolean = false;
   private historyStorageEpoch: number = 0;
@@ -133,7 +151,7 @@ export class AutoStartupService {
       // Native writes cannot be cancelled. Drain the active write, invalidate queued
       // snapshots, then read the actual disk value rather than an obsolete value.
       this.historyReadFailed = true;
-      this.historyMessage = '历史写入尚在结束，完成后重新读取；此期间不覆盖存档';
+      this.historyMessage = localText('startup_text_0192');
       this.historyChain = this.historyChain.then((): void => {
         if (epoch !== this.historyStorageEpoch || store !== this.historyStore) { return; }
         this.restoreHistory();
@@ -169,7 +187,7 @@ export class AutoStartupService {
       // A native flush already in progress cannot be cancelled. Invalidate queued snapshots,
       // wait for that flush, then explicitly reread the actual disk value before unblocking.
       this.revisitReadFailed = true;
-      this.revisitSaveNotice = '回访写入尚在结束，完成后重新读取；此期间不覆盖存档';
+      this.revisitSaveNotice = localText('startup_text_0193');
       this.revisitChain = this.revisitChain.then((): void => this.readRevisit(store, epoch));
       this.notify();
       return;
@@ -188,7 +206,7 @@ export class AutoStartupService {
       safeEvent(this.telemetry, 'revisit_restore', 0, 'success');
     } catch (_) {
       this.revisitReadFailed = true;
-      this.revisitSaveNotice = '回访读取失败或存档无效；暂停回访写入，请重试读取，原存档未覆盖';
+      this.revisitSaveNotice = localText('startup_text_0194');
       safeEvent(this.telemetry, 'revisit_restore', 0, 'failure');
     }
     this.notify();
@@ -218,7 +236,7 @@ export class AutoStartupService {
     const before = this.history[0];
     if (this.attempt !== null || !this.revisit.canGuide() || before === undefined ||
       before.outcome !== QueryOutcome.SUCCESS || this.clock.now() - before.timestamp > REVISIT_TIMEOUT_MS) {
-      this.revisitSaveNotice = '请先完成一次成功刷新（10分钟内），取消旧回访后再开始';
+      this.revisitSaveNotice = localText('startup_text_0195');
       this.notify();
       return false;
     }
@@ -276,7 +294,7 @@ export class AutoStartupService {
       this.rebaseNextId();
       this.historyMessage = loaded.notice;
       this.persistHistory();
-    } catch (_) { this.historyMessage = '历史记录读取失败，可重试读取；内存结果保留'; }
+    } catch (_) { this.historyMessage = localText('startup_text_0196'); }
     this.notify();
   }
 
@@ -298,7 +316,7 @@ export class AutoStartupService {
         safeEvent(this.telemetry, 'revisit_save', sequence, 'success');
       } catch (_) {
         if (sequence === this.revisitWriteSeq && epoch === this.revisitStorageEpoch) {
-          this.revisitSaveNotice = '回访保存失败，可重试保存；内存流程仍可继续';
+          this.revisitSaveNotice = localText('startup_text_0197');
         }
         safeEvent(this.telemetry, 'revisit_save', sequence, 'failure');
       } finally { this.revisitWritesPending--; }
@@ -368,14 +386,14 @@ export class AutoStartupService {
       if (!supported) {
         this.current.phase = QueryPhase.UNSUPPORTED;
         this.current.support = SupportState.UNSUPPORTED;
-        this.current.statusResult = '未调用';
-        this.appendRecord(attempt, '设备不支持');
+        this.current.statusResult = RecordValue.NOT_CALLED;
+        this.appendRecord(attempt, RecordValue.UNSUPPORTED);
         this.release(attempt);
         return;
       }
       this.current.support = SupportState.SUPPORTED;
       this.current.phase = QueryPhase.QUERYING;
-      this.current.statusResult = '调用中';
+      this.current.statusResult = RecordValue.CALLING;
       const request = this.api.getAutoStartupStatusForSelf();
       this.timeoutId = this.clock.setTimeout((): void => this.onTimeout(attempt), 5000);
       request.then((value: boolean): void => {
@@ -460,7 +478,7 @@ export class AutoStartupService {
       this.current.value = value;
       this.current.lastValue = value;
       this.current.statusResult = value ? 'true' : 'false';
-      this.appendRecord(attempt, value ? '已开启' : '未开启');
+      this.appendRecord(attempt, value ? RecordValue.ENABLED : RecordValue.DISABLED);
       this.current.lastSampleTime = this.current.sampleTime;
     }
     this.release(attempt);
@@ -477,8 +495,8 @@ export class AutoStartupService {
       this.current.errorMessage = error && typeof error.message === 'string' ? error.message : String(error);
       this.current.phase = this.errorPhase(code);
       if (checking) {
-        this.current.supportResult = '异常';
-        this.current.statusResult = '未调用';
+        this.current.supportResult = RecordValue.ERROR;
+        this.current.statusResult = RecordValue.NOT_CALLED;
         this.current.support = SupportState.FAILED;
       } else {
         this.current.statusResult = code;
@@ -487,9 +505,9 @@ export class AutoStartupService {
         if (checking) {
           this.current.support = SupportState.UNSUPPORTED;
         }
-        this.appendRecord(attempt, checking ? '设备不支持' : '查询不支持');
+        this.appendRecord(attempt, checking ? RecordValue.UNSUPPORTED : RecordValue.QUERY_UNSUPPORTED);
       } else {
-        this.appendRecord(attempt, checking ? '检测失败' : '查询失败');
+        this.appendRecord(attempt, checking ? RecordValue.PROBE_FAILED : RecordValue.QUERY_FAILED);
       }
     }
     this.release(attempt);
@@ -513,8 +531,8 @@ export class AutoStartupService {
     this.timeoutId = -1;
     this.current.phase = QueryPhase.TIMEOUT;
     this.current.errorCode = 'TIMEOUT';
-    this.current.errorMessage = '系统响应等待超时';
-    this.appendRecord(attempt, '等待超时');
+    this.current.errorMessage = 'Timed out waiting for the system response';
+    this.appendRecord(attempt, RecordValue.TIMEOUT);
     this.notify();
   }
 
@@ -544,7 +562,7 @@ export class AutoStartupService {
       try {
         sink.capture(record.clone()); this.recordSinkNotice = '';
       } catch (_) {
-        this.recordSinkNotice = '归档采集失败；实际查询仍可用，请查看live历史并重试保存';
+        this.recordSinkNotice = localText('startup_text_0204');
       }
     }
     this.history.unshift(record);
@@ -555,13 +573,13 @@ export class AutoStartupService {
   }
 
   private outcomeOf(result: string, errorCode: string): QueryOutcome {
-    if (result === '已开启' || result === '未开启') {
+    if (result === RecordValue.ENABLED || result === RecordValue.DISABLED) {
       return QueryOutcome.SUCCESS;
     }
-    if (result === '设备不支持' || result === '查询不支持') {
+    if (result === RecordValue.UNSUPPORTED || result === RecordValue.QUERY_UNSUPPORTED) {
       return QueryOutcome.UNSUPPORTED;
     }
-    if (result === '等待超时' || errorCode === 'TIMEOUT') {
+    if (result === RecordValue.TIMEOUT || errorCode === 'TIMEOUT') {
       return QueryOutcome.TIMEOUT;
     }
     return QueryOutcome.FAILURE;
@@ -582,7 +600,7 @@ export class AutoStartupService {
     } catch (error) {
       this.history = [];
       this.historyReadFailed = true;
-      this.historyMessage = '历史记录读取失败，内存查询可用；重试读取前不覆盖原存档';
+      this.historyMessage = localText('startup_text_0205');
     }
   }
 
@@ -619,7 +637,7 @@ export class AutoStartupService {
     try {
       snapshot = serializeHistory(this.history, this.clock.now());
     } catch (error) {
-      this.historyMessage = '历史记录序列化失败，查询结果仍保留在内存';
+      this.historyMessage = localText('startup_text_0206');
       return;
     }
     const seq: number = ++this.historyWriteSeq;
@@ -640,7 +658,7 @@ export class AutoStartupService {
       } catch (error) {
         safeEvent(this.telemetry, 'history_save', seq, 'failure');
         if (seq === this.historyWriteSeq && epoch === this.historyStorageEpoch) {
-          this.historyMessage = '历史记录保存失败，本次查询结果仍可用';
+          this.historyMessage = localText('startup_text_0207');
           this.notify();
         }
       } finally { this.historyWritesPending--; }

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 权限申请编排。
  *
@@ -19,15 +36,15 @@ export enum PermissionState {
 export function permissionLabel(state: PermissionState): string {
   switch (state) {
     case PermissionState.GRANTED:
-      return '已授权';
+      return localText('startup_text_0575');
     case PermissionState.DENIED:
-      return '已拒绝';
+      return localText('startup_text_0576');
     case PermissionState.DENIED_PERMANENTLY:
-      return '已永久拒绝';
+      return localText('startup_text_0577');
     case PermissionState.NOT_REQUIRED:
-      return '无需授权';
+      return localText('startup_text_0578');
     default:
-      return '未知';
+      return localText('startup_text_0005');
   }
 }
 
@@ -113,24 +130,31 @@ export class PermissionRule {
   }
 
   text(): string {
-    return `${this.ruleId}｜API ${this.minApi}~${this.maxApi}｜最多 ${this.maxAsks} 次｜` +
+    return formatResource('startup_format_b1724131f5c6', [String(this.ruleId), String(this.minApi), String(this.maxApi), String(this.maxAsks)]) +
       `${this.policy as string}`;
   }
 }
 
 /** 规则表：低版本只弹一次，高版本允许在应用内申请。 */
-export const PERMISSION_RULES: PermissionRule[] = [
+function createPERMISSION_RULES(): PermissionRule[] {
+  return [
   new PermissionRule('PM-0001', 0, 8, 0, RequestPolicy.NO_REQUEST,
-    '当前系统版本不支持自启相关权限', 'API 9 起才有对应权限项'),
+    localText('startup_text_0580'), localText('startup_text_0581')),
   new PermissionRule('PM-0002', 9, 11, 1, RequestPolicy.ASK_ONCE_THEN_SETTINGS,
-    '仅允许申请一次，被拒后请前往系统设置开启', '低版本仅支持一次系统弹窗'),
+    localText('startup_text_0582'), localText('startup_text_0583')),
   new PermissionRule('PM-0003', 12, 17, 2, RequestPolicy.ASK_IN_APP,
-    '可以再次申请，被永久拒绝后需前往系统设置', '12 起允许两次申请'),
+    localText('startup_text_0584'), localText('startup_text_0585')),
   new PermissionRule('PM-0004', 18, 26, 3, RequestPolicy.ASK_IN_APP,
-    '可以多次申请，但每次申请都应说明用途', '18 起申请次数放宽'),
+    localText('startup_text_0586'), localText('startup_text_0587')),
   new PermissionRule('PM-0005', 27, 999, 0, RequestPolicy.SETTINGS_ONLY,
-    '该版本未验证，请直接前往系统设置', '高于已验证版本，不做自动申请')
+    localText('startup_text_0588'), localText('startup_text_0589'))
 ];
+}
+export const PERMISSION_RULES: PermissionRule[] = createPERMISSION_RULES();
+registerTextRefresh((): void => {
+  PERMISSION_RULES.splice(0, PERMISSION_RULES.length);
+  createPERMISSION_RULES().forEach((item: PermissionRule): void => { PERMISSION_RULES.push(item); });
+});
 
 /** 按当前上下文给出申请结论。 */
 export function planPermission(context: PermissionContext): PermissionDecision {
@@ -138,16 +162,16 @@ export function planPermission(context: PermissionContext): PermissionDecision {
   if (context.state === PermissionState.GRANTED) {
     decision.state = PermissionState.GRANTED;
     decision.policy = RequestPolicy.NO_REQUEST;
-    decision.message = '已获得授权，无需再次申请';
-    decision.hint = '授权状态正常';
+    decision.message = localText('startup_text_0590');
+    decision.hint = localText('startup_text_0591');
     decision.ruleId = 'PM-GRANTED';
     return decision;
   }
   if (context.state === PermissionState.NOT_REQUIRED) {
     decision.state = PermissionState.NOT_REQUIRED;
     decision.policy = RequestPolicy.NO_REQUEST;
-    decision.message = '当前设备与版本无需额外授权';
-    decision.hint = '能力矩阵判定为无需权限';
+    decision.message = localText('startup_text_0592');
+    decision.hint = localText('startup_text_0593');
     decision.ruleId = 'PM-NOT-REQUIRED';
     return decision;
   }
@@ -166,7 +190,7 @@ export function planPermission(context: PermissionContext): PermissionDecision {
     decision.state = PermissionState.DENIED_PERMANENTLY;
     decision.canAsk = false;
     decision.needsSettings = true;
-    decision.message = '已被永久拒绝，只能前往系统设置手动开启';
+    decision.message = localText('startup_text_0594');
     return decision;
   }
   if (rule.policy === RequestPolicy.NO_REQUEST) {
@@ -184,20 +208,20 @@ export function planPermission(context: PermissionContext): PermissionDecision {
   if (!context.systemDialogAvailable) {
     decision.canAsk = false;
     decision.needsSettings = true;
-    decision.message = '系统未提供权限弹窗，请前往系统设置';
-    decision.hint = 'systemDialogAvailable 为 false';
+    decision.message = localText('startup_text_0595');
+    decision.hint = localText('startup_text_0596');
     return decision;
   }
   if (context.askedTimes >= rule.maxAsks) {
     decision.canAsk = false;
     decision.needsSettings = true;
-    decision.message = `已申请 ${context.askedTimes} 次，请前往系统设置开启`;
+    decision.message = formatResource('startup_format_94488c103af8', [String(context.askedTimes)]);
     return decision;
   }
   if (context.askedThisSession && rule.policy === RequestPolicy.ASK_ONCE_THEN_SETTINGS) {
     decision.canAsk = false;
     decision.needsSettings = true;
-    decision.message = '本次会话已申请过，请前往系统设置';
+    decision.message = localText('startup_text_0599');
     return decision;
   }
   decision.canAsk = true;
@@ -231,7 +255,7 @@ export class PermissionAudit {
 
   summary(): string {
     if (this.ok) {
-      return '权限规则表自洽';
+      return localText('startup_text_0600');
     }
     return this.findings.join('；');
   }
@@ -242,17 +266,17 @@ export function auditPermissionRules(): PermissionAudit {
   const seen: string[] = [];
   PERMISSION_RULES.forEach((rule: PermissionRule): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(`规则重复：${rule.ruleId}`);
+      audit.findings.push(formatResource('startup_format_0b1a69c1018e', [String(rule.ruleId)]));
     }
     seen.push(rule.ruleId);
     if (rule.maxApi < rule.minApi) {
-      audit.findings.push(`区间非法：${rule.ruleId}`);
+      audit.findings.push(formatResource('startup_format_94cc653b44b9', [String(rule.ruleId)]));
     }
     if (rule.message.length === 0 || rule.hint.length === 0) {
-      audit.findings.push(`缺少文案：${rule.ruleId}`);
+      audit.findings.push(formatResource('startup_format_16333e169681', [String(rule.ruleId)]));
     }
     if (rule.policy === RequestPolicy.ASK_IN_APP && rule.maxAsks <= 0) {
-      audit.findings.push(`申请策略与次数冲突：${rule.ruleId}`);
+      audit.findings.push(formatResource('startup_format_4435339e60fa', [String(rule.ruleId)]));
     }
   });
   for (let api = 0; api <= 30; api++) {
@@ -263,7 +287,7 @@ export function auditPermissionRules(): PermissionAudit {
       }
     });
     if (!hit) {
-      audit.findings.push(`API ${api} 无规则覆盖`);
+      audit.findings.push(formatResource('startup_format_b82568a32a62', [String(api)]));
     }
   }
   audit.ok = audit.findings.length === 0;

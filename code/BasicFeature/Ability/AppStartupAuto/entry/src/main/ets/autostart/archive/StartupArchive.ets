@@ -1,7 +1,25 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../text/LocalizedText';
+
 import { QueryRecord, QueryRecordSink } from '../AutoStartupTypes';
 import { exportRedacted, filterHistoryAdvanced, normalizeRecord, summarizeHistory } from '../AutoStartupHistory';
 import { archiveEntryOf, buildArchiveIndex, dayKeyOf, isDayKey, localOffsetMinutes, IndexBounds } from './ArchiveIndex';
 import { CleanupPreview, defaultRetentionPolicy, previewCleanup } from './RetentionPolicy';
+import { reportFailure } from '../SampleLogger';
 
 export const ARCHIVE_SCHEMA: number = 1;
 export const ARCHIVE_MAX_ENTRIES: number = 500;
@@ -152,7 +170,7 @@ export class ArchiveSnapshot {
   public rejectedCaptures: number = 0;
   public bytes: number = 0;
   public canWrite: boolean = false;
-  public notice: string = '归档尚未连接存储';
+  public notice: string = localText('startup_text_0123');
   public rows: ArchivedQuery[] = [];
 }
 export class ArchiveQuery {
@@ -193,7 +211,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
   private storageClosed: boolean = false;
   private connecting: Promise<boolean> | undefined = undefined;
   private stage: ArchiveStage = ArchiveStage.DETACHED;
-  private notice: string = '归档尚未连接存储';
+  private notice: string = localText('startup_text_0123');
   private pending: QueryRecord[] = [];
   private paused: boolean = false;
   private rejectedCaptures: number = 0;
@@ -242,7 +260,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
       sameStore = previousIdentity.length > 0 && previousIdentity === nextIdentity;
     }
     if (previous !== undefined && !sameStore && this.pending.length > 0) {
-      this.notice = '仍有待保存证据，请先重试；不会自动迁入另一存储'; this.notify(); return false;
+      this.notice = localText('startup_text_0124'); this.notify(); return false;
     }
     const pendingRead = this.pending.length > 0;
     const epoch = ++this.epoch;
@@ -259,12 +277,12 @@ export class StartupArchiveRepository implements QueryRecordSink {
         if (epoch !== this.epoch || storage !== this.storage) { return; }
         this.document = read; this.stage = ArchiveStage.READY;
         this.disableRequested = false; this.paused = pendingRead; loaded = true;
-        this.notice = `已读取 ${read.rows.length} 条归档；不保存原始错误说明` +
-          (pendingRead ? `；另有 ${this.pending.length} 条待确认，请明确重试保存` : '');
+        this.notice = formatResource('startup_format_75f491c7eb20', [String(read.rows.length)]) +
+          (pendingRead ? formatResource('startup_format_c43d1828a91b', [String(this.pending.length)]) : '');
       } catch (_) {
         if (epoch !== this.epoch) { return; }
         this.stage = ArchiveStage.BLOCKED; this.paused = true;
-        this.notice = '归档读取失败或版本无效；暂停写入，请重试读取，原库不覆盖';
+        this.notice = localText('startup_text_0128');
       }
       this.notify();
     });
@@ -292,7 +310,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
       } catch (_) {
         if (epoch === this.epoch) {
           this.stage = ArchiveStage.BLOCKED; this.paused = true;
-          this.notice = '归档连接失败，请重试读取；live查询仍可用'; this.notify();
+          this.notice = localText('startup_text_0129'); this.notify();
         }
         return false;
       }
@@ -306,9 +324,9 @@ export class StartupArchiveRepository implements QueryRecordSink {
     try {
       input = records.map((row: QueryRecord): QueryRecord => archiveRecord(row));
     } catch (_) {
-      return Promise.resolve(this.failure(ArchiveActionCode.INVALID, '记录字段无效，未保存'));
+      return Promise.resolve(this.failure(ArchiveActionCode.INVALID, localText('startup_text_0130')));
     }
-    if (input.length === 0) { return Promise.resolve(this.failure(ArchiveActionCode.INVALID, '当前范围没有可保存的记录')); }
+    if (input.length === 0) { return Promise.resolve(this.failure(ArchiveActionCode.INVALID, localText('startup_text_0131'))); }
     return this.mutate((candidate: ArchiveDocument): ArchiveAction => this.addRows(candidate, input));
   }
 
@@ -317,21 +335,21 @@ export class StartupArchiveRepository implements QueryRecordSink {
     try {
       input = enabled ? seed.map((row: QueryRecord): QueryRecord => archiveRecord(row)) : [];
     } catch (_) {
-      return this.failure(ArchiveActionCode.INVALID, '记录字段无效，自动归档设置未改变');
+      return this.failure(ArchiveActionCode.INVALID, localText('startup_text_0132'));
     }
     const setting = ++this.settingSequence;
     this.disableRequested = !enabled; this.enabling = enabled && this.writable();
     const result = await this.mutate((candidate: ArchiveDocument): ArchiveAction => {
       const action = this.addRows(candidate, enabled ? input : []);
       candidate.automatic = enabled;
-      action.message = enabled ? '已启用自动归档；仅已提交项可在重启后恢复' : '已停用自动归档';
+      action.message = enabled ? localText('startup_text_0133') : localText('startup_text_0134');
       return action;
     });
     if (setting === this.settingSequence) {
       this.enabling = false;
       if (!result.success) {
         this.disableRequested = true;
-        this.notice = '本会话已暂停自动采集，设置尚未保存；下次启动可能沿用旧设置';
+        this.notice = localText('startup_text_0135');
       }
       // A capacity/backpressure pause raised during ENABLING survives a successful
       // settings commit. Only explicit retryPending is allowed to resume it.
@@ -344,14 +362,14 @@ export class StartupArchiveRepository implements QueryRecordSink {
   capture(record: QueryRecord): void {
     if (!(this.document.automatic || this.enabling) || this.disableRequested) { return; }
     if (!this.writable() || this.paused) {
-      this.rejectedCaptures++; this.notice = '自动归档已暂停；后续查询仍仅保留live最近20条'; this.notify(); return;
+      this.rejectedCaptures++; this.notice = localText('startup_text_0136'); this.notify(); return;
     }
     let copy: QueryRecord;
     try {
       copy = archiveRecord(record);
     } catch (_) {
       this.rejectedCaptures++; this.paused = true;
-      this.notice = '新记录无效，自动归档已暂停；查询仍可用'; this.notify(); return;
+      this.notice = localText('startup_text_0137'); this.notify(); return;
     }
     const key = JSON.stringify(copy);
     if (this.document.rows.some((row: ArchivedQuery): boolean => row.evidenceKey() === key) ||
@@ -359,7 +377,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
     if (this.pending.length >= ARCHIVE_PENDING_LIMIT ||
       this.pendingByteCount() + archiveUtf8Bytes(key) > ARCHIVE_PENDING_BYTES) {
       this.rejectedCaptures++; this.paused = true;
-      this.notice = '待保存队列已满，自动归档已暂停；新查询尚未受理归档'; this.notify(); return;
+      this.notice = localText('startup_text_0138'); this.notify(); return;
     }
     this.pending.push(copy); this.notify();
     if (!this.enabling) { this.scheduleDrain(); }
@@ -367,14 +385,14 @@ export class StartupArchiveRepository implements QueryRecordSink {
 
   async retryPending(): Promise<ArchiveAction> {
     if (this.stage === ArchiveStage.BLOCKED && !await this.reload()) {
-      return this.failure(ArchiveActionCode.BLOCKED, '读取仍失败，未覆盖原库');
+      return this.failure(ArchiveActionCode.BLOCKED, localText('startup_text_0139'));
     }
-    if (!this.writable()) { return this.failure(ArchiveActionCode.BLOCKED, '归档尚不可写'); }
+    if (!this.writable()) { return this.failure(ArchiveActionCode.BLOCKED, localText('startup_text_0140')); }
     this.paused = false;
     this.scheduleDrain(); await this.drainPromise;
     if (this.pending.length === 0) {
       const result = new ArchiveAction(); result.success = true; result.code = ArchiveActionCode.UNCHANGED;
-      result.revision = this.document.revision; result.message = '待保存队列已处理'; return result;
+      result.revision = this.document.revision; result.message = localText('startup_text_0141'); return result;
     }
     return this.lastDrain;
   }
@@ -383,7 +401,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
     return this.mutate((candidate: ArchiveDocument): ArchiveAction => {
       if (candidate.revision !== expectedRevision) { throw new ArchiveFailure('STALE'); }
       const result = new ArchiveAction(); result.removed = candidate.rows.length;
-      candidate.rows = []; result.message = '已清空已保存归档；live历史未改变'; return result;
+      candidate.rows = []; result.message = localText('startup_text_0142'); return result;
     });
   }
 
@@ -408,7 +426,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
       const result = new ArchiveAction();
       result.removed = candidate.rows.filter((row: ArchivedQuery): boolean => ids.has(row.archiveId)).length;
       candidate.rows = candidate.rows.filter((row: ArchivedQuery): boolean => !ids.has(row.archiveId));
-      result.message = `已提交清理，删除 ${result.removed} 条`; return result;
+      result.message = formatResource('startup_format_f7ccf2ca0b28', [String(result.removed)]); return result;
     });
   }
 
@@ -420,15 +438,15 @@ export class StartupArchiveRepository implements QueryRecordSink {
     view.rows = rows.slice(view.page * ARCHIVE_PAGE_SIZE, (view.page + 1) * ARCHIVE_PAGE_SIZE)
       .map((row: ArchivedQuery): ArchivedQuery => row.clone());
     if (query.needle.length > 64 || query.day.length > 0 && !isDayKey(query.day)) {
-      view.notice = '日期须为yyyy-MM-dd，检索最多64字符';
+      view.notice = localText('startup_text_0144');
     }
     const offset = localOffsetMinutes(this.clock());
     const index = buildArchiveIndex(rows.map((row: ArchivedQuery) => archiveEntryOf(row.viewRecord())),
       new IndexBounds(), offset, this.clock());
-    view.dayLines = index.days.map((day): string => `${day.dayKey}：${day.total} 条`);
+    view.dayLines = index.days.map((day): string => formatResource('startup_format_22ba0b71e4be', [String(day.dayKey), String(day.total)]));
     const summary = summarizeHistory(rows.map((row: ArchivedQuery): QueryRecord => row.viewRecord()), this.clock());
-    view.summary = `范围 ${summary.total} 条｜成功 ${summary.success}｜失败 ${summary.failure}｜` +
-      `不支持 ${summary.unsupported}｜超时 ${summary.timeout}｜未知 ${summary.unknown}`;
+    view.summary = formatResource('startup_format_78064061fa94', [String(summary.total), String(summary.success), String(summary.failure)]) +
+      formatResource('startup_format_f6b100802a6e', [String(summary.unsupported), String(summary.timeout), String(summary.unknown)]);
     return view;
   }
 
@@ -439,7 +457,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
     }
     const rows = this.matching(query);
     if (rows.length === 0) { throw new ArchiveFailure('EMPTY'); }
-    return '本机查询证据归档（编号为归档编号；不证明实际开机拉起）\n' +
+    return localText('startup_text_0151') +
       exportRedacted(rows.map((row: ArchivedQuery): QueryRecord => row.viewRecord()), this.clock());
   }
 
@@ -449,16 +467,16 @@ export class StartupArchiveRepository implements QueryRecordSink {
     try {
       text = this.exportText(query.clone());
     } catch (_) {
-      return this.failure(ArchiveActionCode.INVALID, '当前范围不可导出，剪贴板未调用');
+      return this.failure(ArchiveActionCode.INVALID, localText('startup_text_0152'));
     }
     try {
       await clipboard.writeText(text);
       const result = new ArchiveAction(); result.success = true; result.code = ArchiveActionCode.SAVED;
-      result.message = '脱敏归档已复制'; result.revision = this.document.revision;
+      result.message = localText('startup_text_0153'); result.revision = this.document.revision;
       if (sequence === this.copySequence && epoch === this.epoch) { this.notice = result.message; this.notify(); }
       return result;
     } catch (_) {
-      const result = new ArchiveAction(); result.code = ArchiveActionCode.FAILED; result.message = '复制失败，请重试';
+      const result = new ArchiveAction(); result.code = ArchiveActionCode.FAILED; result.message = localText('startup_text_0154');
       if (sequence === this.copySequence && epoch === this.epoch) { this.notice = result.message; this.notify(); }
       return result;
     }
@@ -469,7 +487,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
   async close(): Promise<void> {
     const storage = this.storage; ++this.epoch; ++this.copySequence;
     this.disableRequested = true; this.enabling = false; this.paused = true; this.storageClosed = true;
-    this.stage = ArchiveStage.CLOSED; this.notice = '归档已关闭；未提交项不承诺重启恢复'; this.notify();
+    this.stage = ArchiveStage.CLOSED; this.notice = localText('startup_text_0155'); this.notify();
     await this.chain; await this.drainPromise;
     if (storage !== undefined) { await storage.close(); }
   }
@@ -506,7 +524,7 @@ export class StartupArchiveRepository implements QueryRecordSink {
       candidate.rows.push(new ArchivedQuery(candidate.nextId++, record.clone(), now));
       keys.add(key); action.added++;
     });
-    action.message = `已保存 ${action.added} 条，重复 ${action.duplicates} 条；不保存原始错误说明`;
+    action.message = formatResource('startup_format_018291987880', [String(action.added), String(action.duplicates)]);
     return action;
   }
 
@@ -514,13 +532,13 @@ export class StartupArchiveRepository implements QueryRecordSink {
     const epoch = this.epoch; const storage = this.storage;
     const task = this.chain.then(async (): Promise<ArchiveAction> => {
       if (epoch !== this.epoch || storage !== this.storage) {
-        return this.failure(ArchiveActionCode.STALE, '旧存储操作已作废', false);
+        return this.failure(ArchiveActionCode.STALE, localText('startup_text_0159'), false);
       }
-      if (storage === undefined || !this.writable()) { return this.failure(ArchiveActionCode.BLOCKED, '归档不可写，请先重试读取'); }
+      if (storage === undefined || !this.writable()) { return this.failure(ArchiveActionCode.BLOCKED, localText('startup_text_0160')); }
       const base = this.document.clone(); const candidate = base.clone();
       this.stage = ArchiveStage.WRITING; this.notify();
       if (epoch !== this.epoch || storage !== this.storage) {
-        return this.failure(ArchiveActionCode.STALE, '旧存储操作已作废', false);
+        return this.failure(ArchiveActionCode.STALE, localText('startup_text_0159'), false);
       }
       let action: ArchiveAction;
       try {
@@ -539,39 +557,39 @@ export class StartupArchiveRepository implements QueryRecordSink {
         const code = error instanceof ArchiveFailure ? error.code : 'INVALID';
         return this.failure(code === 'CAPACITY' ? ArchiveActionCode.CAPACITY :
           code === 'STALE' ? ArchiveActionCode.STALE : ArchiveActionCode.INVALID,
-          code === 'CAPACITY' ? '归档容量已满，请先预览清理；原归档未改变' : code === 'STALE' ? '记录已更新，请重新预览或确认' : '输入无效，原归档未改变');
+          code === 'CAPACITY' ? localText('startup_text_0161') : code === 'STALE' ? localText('startup_text_0162') : localText('startup_text_0163'));
       }
       if (epoch !== this.epoch || storage !== this.storage) {
-        return this.failure(ArchiveActionCode.STALE, '旧存储操作已作废', false);
+        return this.failure(ArchiveActionCode.STALE, localText('startup_text_0159'), false);
       }
       try {
         await storage.commit(base.revision, candidate.clone());
       } catch (_) {
-        if (epoch !== this.epoch) { return this.failure(ArchiveActionCode.STALE, '旧存储完成结果已忽略', false); }
+        if (epoch !== this.epoch) { return this.failure(ArchiveActionCode.STALE, localText('startup_text_0164'), false); }
         try {
           const confirmed = checkedDocument(await storage.load());
           if (epoch !== this.epoch || storage !== this.storage) {
-            return this.failure(ArchiveActionCode.STALE, '旧存储完成结果已忽略', false);
+            return this.failure(ArchiveActionCode.STALE, localText('startup_text_0164'), false);
           }
           if (encodeArchive(confirmed) !== encodeArchive(candidate)) {
             this.paused = true;
             if (encodeArchive(confirmed) !== encodeArchive(base)) {
               this.stage = ArchiveStage.BLOCKED;
-              return this.failure(ArchiveActionCode.BLOCKED, '存储版本已变化，请重试读取；未覆盖其它写入');
+              return this.failure(ArchiveActionCode.BLOCKED, localText('startup_text_0165'));
             }
             this.stage = ArchiveStage.READY;
-            return this.failure(ArchiveActionCode.FAILED, '保存失败，原归档未改变，待保存证据保留');
+            return this.failure(ArchiveActionCode.FAILED, localText('startup_text_0166'));
           }
         } catch (_) {
           if (epoch !== this.epoch || storage !== this.storage) {
-            return this.failure(ArchiveActionCode.STALE, '旧存储完成结果已忽略', false);
+            return this.failure(ArchiveActionCode.STALE, localText('startup_text_0164'), false);
           }
           this.stage = ArchiveStage.BLOCKED; this.paused = true;
-          return this.failure(ArchiveActionCode.BLOCKED, '提交结果待确认，请重试读取；暂停继续写入');
+          return this.failure(ArchiveActionCode.BLOCKED, localText('startup_text_0167'));
         }
       }
       if (epoch !== this.epoch || storage !== this.storage) {
-        return this.failure(ArchiveActionCode.STALE, '旧存储完成结果已忽略', false);
+        return this.failure(ArchiveActionCode.STALE, localText('startup_text_0164'), false);
       }
       this.document = candidate; this.stage = ArchiveStage.READY;
       action.success = true; action.code = ArchiveActionCode.SAVED; action.revision = candidate.revision;
@@ -614,7 +632,14 @@ export class StartupArchiveRepository implements QueryRecordSink {
   }
   private notify(): void {
     this.listeners.slice().forEach((listener: () => void): void => {
-      if (this.listeners.indexOf(listener) >= 0) { try { listener(); } catch (_) {} }
+      if (this.listeners.indexOf(listener) >= 0) {
+        try {
+          listener();
+        } catch (_) {
+          // Subscriber isolation: one failing listener must not stop the others.
+          reportFailure('Archive listener');
+        }
+      }
     });
   }
 }

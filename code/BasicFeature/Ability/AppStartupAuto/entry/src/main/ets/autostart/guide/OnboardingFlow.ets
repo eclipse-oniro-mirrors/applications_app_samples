@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 首次使用引导的步骤编排。
  *
@@ -19,15 +36,15 @@ export enum OnboardingGroup {
 export function groupLabel(group: OnboardingGroup): string {
   switch (group) {
     case OnboardingGroup.INTRO:
-      return '认识功能';
+      return localText('startup_text_0408');
     case OnboardingGroup.PERMISSION:
-      return '授权准备';
+      return localText('startup_text_0409');
     case OnboardingGroup.CAPABILITY:
-      return '能力确认';
+      return localText('startup_text_0410');
     case OnboardingGroup.PRACTICE:
-      return '实际操作';
+      return localText('startup_text_0411');
     default:
-      return '收尾';
+      return localText('startup_text_0412');
   }
 }
 
@@ -43,13 +60,13 @@ export enum StepStatus {
 export function statusLabel(status: StepStatus): string {
   switch (status) {
     case StepStatus.DONE:
-      return '已完成';
+      return localText('startup_text_0413');
     case StepStatus.SKIPPED:
-      return '已跳过';
+      return localText('startup_text_0414');
     case StepStatus.BLOCKED:
-      return '被阻塞';
+      return localText('startup_text_0415');
     default:
-      return '待完成';
+      return localText('startup_text_0416');
   }
 }
 
@@ -85,53 +102,60 @@ export class OnboardingStep {
 
   text(): string {
     return `${this.stepId} ${this.title}｜${groupLabel(this.group)}｜${this.seconds} s｜` +
-      `${this.skippable ? '可跳过' : '必做'}`;
+      `${this.skippable ? localText('startup_text_0417') : localText('startup_text_0418')}`;
   }
 }
 
 /** 步骤表。 */
-export const ONBOARDING_STEPS: OnboardingStep[] = [
-  new OnboardingStep('OB-01', '了解开机自启的作用', '说明本示例只做查询与设置引导',
+function createONBOARDING_STEPS(): OnboardingStep[] {
+  return [
+  new OnboardingStep('OB-01', localText('startup_text_0419'), localText('startup_text_0420'),
     OnboardingGroup.INTRO, [], false, 20),
-  new OnboardingStep('OB-02', '了解能力检测与开关查询的区别', '两种结果语义不同',
+  new OnboardingStep('OB-02', localText('startup_text_0421'), localText('startup_text_0422'),
     OnboardingGroup.INTRO, ['OB-01'], false, 30),
-  new OnboardingStep('OB-03', '确认设备形态', '不同形态支持情况不同',
+  new OnboardingStep('OB-03', localText('startup_text_0423'), localText('startup_text_0424'),
     OnboardingGroup.INTRO, ['OB-01'], false, 15),
-  new OnboardingStep('OB-04', '确认系统版本', '低于 API 9 无对应接口',
+  new OnboardingStep('OB-04', localText('startup_text_0425'), localText('startup_text_0426'),
     OnboardingGroup.INTRO, ['OB-01'], false, 15),
-  new OnboardingStep('OB-05', '打开应用信息页', '从系统设置进入',
+  new OnboardingStep('OB-05', localText('startup_text_0427'), localText('startup_text_0428'),
     OnboardingGroup.PERMISSION, ['OB-04'], false, 25),
-  new OnboardingStep('OB-06', '授予必要的权限', '按提示授权后返回',
+  new OnboardingStep('OB-06', localText('startup_text_0429'), localText('startup_text_0430'),
     OnboardingGroup.PERMISSION, ['OB-05'], false, 40),
-  new OnboardingStep('OB-07', '确认权限已生效', '返回后自动复查',
+  new OnboardingStep('OB-07', localText('startup_text_0431'), localText('startup_text_0432'),
     OnboardingGroup.PERMISSION, ['OB-06'], false, 20),
-  new OnboardingStep('OB-08', '执行一次能力检测', '点击能力检测按钮',
+  new OnboardingStep('OB-08', localText('startup_text_0433'), localText('startup_text_0434'),
     OnboardingGroup.CAPABILITY, ['OB-07'], false, 20),
-  new OnboardingStep('OB-09', '执行一次状态查询', '点击查询按钮',
+  new OnboardingStep('OB-09', localText('startup_text_0435'), localText('startup_text_0436'),
     OnboardingGroup.CAPABILITY, ['OB-08'], false, 20),
-  new OnboardingStep('OB-10', '查看查询历史', '确认历史记录已生成',
+  new OnboardingStep('OB-10', localText('startup_text_0437'), localText('startup_text_0438'),
     OnboardingGroup.CAPABILITY, ['OB-09'], true, 20),
-  new OnboardingStep('OB-11', '查看诊断报告', '确认自检全部通过或了解原因',
+  new OnboardingStep('OB-11', localText('startup_text_0439'), localText('startup_text_0440'),
     OnboardingGroup.CAPABILITY, ['OB-09'], true, 30),
-  new OnboardingStep('OB-12', '按指引进入系统设置', '从引导页跳转',
+  new OnboardingStep('OB-12', localText('startup_text_0441'), localText('startup_text_0442'),
     OnboardingGroup.PRACTICE, ['OB-09'], true, 30),
-  new OnboardingStep('OB-13', '在系统设置中打开开关', '按设备实际界面操作',
+  new OnboardingStep('OB-13', localText('startup_text_0443'), localText('startup_text_0444'),
     OnboardingGroup.PRACTICE, ['OB-12'], true, 60),
-  new OnboardingStep('OB-14', '返回应用复查结果', '确认开关状态已变化',
+  new OnboardingStep('OB-14', localText('startup_text_0445'), localText('startup_text_0446'),
     OnboardingGroup.PRACTICE, ['OB-13'], true, 25),
-  new OnboardingStep('OB-15', '导出一份查询历史', '确认导出内容可读',
+  new OnboardingStep('OB-15', localText('startup_text_0447'), localText('startup_text_0448'),
     OnboardingGroup.PRACTICE, ['OB-10'], true, 25),
-  new OnboardingStep('OB-16', '查看故障与归档说明', '了解常见现象与清理策略',
+  new OnboardingStep('OB-16', localText('startup_text_0449'), localText('startup_text_0450'),
     OnboardingGroup.CLOSING, ['OB-11'], true, 30),
-  new OnboardingStep('OB-17', '确认历史保留策略', '了解自动清理规则',
+  new OnboardingStep('OB-17', localText('startup_text_0451'), localText('startup_text_0452'),
     OnboardingGroup.CLOSING, ['OB-16'], true, 20),
-  new OnboardingStep('OB-18', '设置完成', '后续可在设置中重新进入引导',
+  new OnboardingStep('OB-18', localText('startup_text_0453'), localText('startup_text_0454'),
     OnboardingGroup.CLOSING, ['OB-17'], false, 10),
-  new OnboardingStep('OB-19', '了解跨设备差异', '同功能在不同设备结论不同',
+  new OnboardingStep('OB-19', localText('startup_text_0455'), localText('startup_text_0456'),
     OnboardingGroup.INTRO, ['OB-03'], true, 25),
-  new OnboardingStep('OB-20', '了解不支持不等于失败', '确定性不支持不会重试',
+  new OnboardingStep('OB-20', localText('startup_text_0457'), localText('startup_text_0458'),
     OnboardingGroup.INTRO, ['OB-02'], true, 20)
 ];
+}
+export const ONBOARDING_STEPS: OnboardingStep[] = createONBOARDING_STEPS();
+registerTextRefresh((): void => {
+  ONBOARDING_STEPS.splice(0, ONBOARDING_STEPS.length);
+  createONBOARDING_STEPS().forEach((item: OnboardingStep): void => { ONBOARDING_STEPS.push(item); });
+});
 
 /** 编号列表。 */
 export function stepIds(): string[] {
@@ -278,8 +302,8 @@ export class OnboardingFlow {
   /** 摘要文本。 */
   text(): string {
     const current: OnboardingStep | undefined = this.current();
-    const next: string = current === undefined ? '全部完成' : `下一步 ${current.stepId}`;
-    return `进度 ${this.progress()}%｜完成 ${this.doneCount()}、跳过 ${this.skippedCount()}｜${next}`;
+    const next: string = current === undefined ? localText('startup_text_0459') : formatResource('startup_format_78b78fe493cb', [String(current.stepId)]);
+    return formatResource('startup_format_c91c3f2c5b3d', [String(this.progress()), String(this.doneCount()), String(this.skippedCount()), String(next)]);
   }
 }
 
@@ -301,7 +325,7 @@ export class OnboardingAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '引导步骤表自洽' : this.findings.join('；');
+    return this.ok ? localText('startup_text_0464') : this.findings.join('；');
   }
 }
 
@@ -312,32 +336,32 @@ export function auditOnboarding(): OnboardingAudit {
   ONBOARDING_STEPS.forEach((step: OnboardingStep, index: number): void => {
     const expected: string = `OB-${(index + 1).toString().padStart(2, '0')}`;
     if (step.stepId !== expected) {
-      audit.findings.push(`编号不连续：期望 ${expected}，实际 ${step.stepId}`);
+      audit.findings.push(formatResource('startup_format_6d97c27e58d7', [String(expected), String(step.stepId)]));
     }
     if (step.title.length === 0) {
-      audit.findings.push(`缺少标题：${step.stepId}`);
+      audit.findings.push(formatResource('startup_format_ef4d5ad604f9', [String(step.stepId)]));
     }
     if (step.seconds < 0) {
-      audit.findings.push(`耗时为负：${step.stepId}`);
+      audit.findings.push(formatResource('startup_format_b42894e8985d', [String(step.stepId)]));
     }
     step.dependsOn.forEach((dep: string): void => {
       if (ids.indexOf(dep) < 0) {
-        audit.findings.push(`依赖不存在：${step.stepId} -> ${dep}`);
+        audit.findings.push(formatResource('startup_format_951b582f14c1', [String(step.stepId), String(dep)]));
       }
       if (dep === step.stepId) {
-        audit.findings.push(`依赖自身：${step.stepId}`);
+        audit.findings.push(formatResource('startup_format_03ab37bee2e6', [String(step.stepId)]));
       }
       const depIndex: number = ids.indexOf(dep);
       if (depIndex >= 0 && depIndex >= index) {
-        audit.findings.push(`依赖顺序错误：${step.stepId} -> ${dep}`);
+        audit.findings.push(formatResource('startup_format_d6efb65bc501', [String(step.stepId), String(dep)]));
       }
     });
   });
   if (ONBOARDING_STEPS.length > 0 && ONBOARDING_STEPS[0].dependsOn.length > 0) {
-    audit.findings.push('首步不应有依赖');
+    audit.findings.push(localText('startup_text_0470'));
   }
   if (mandatorySteps().length === 0) {
-    audit.findings.push('缺少必做步骤');
+    audit.findings.push(localText('startup_text_0471'));
   }
   audit.ok = audit.findings.length === 0;
   return audit;

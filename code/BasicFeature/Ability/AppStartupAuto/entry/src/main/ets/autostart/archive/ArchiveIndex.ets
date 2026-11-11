@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../text/LocalizedText';
+import { RecordValue } from '../RecordValues';
+
 /**
  * 历史归档索引：把归档记录整理成"按日期 / 来源 / 结果"可查的有界索引。
  *
@@ -132,15 +150,15 @@ export function dayEndMillis(dayKey: string, offsetMinutes: number): number {
 export function archiveOutcomeLabel(outcome: string): string {
   switch (outcome) {
     case QueryOutcome.SUCCESS:
-      return '成功';
+      return localText('startup_text_0001');
     case QueryOutcome.FAILURE:
-      return '失败';
+      return localText('startup_text_0002');
     case QueryOutcome.UNSUPPORTED:
-      return '不支持';
+      return localText('startup_text_0003');
     case QueryOutcome.TIMEOUT:
-      return '超时';
+      return localText('startup_text_0004');
     default:
-      return '未知';
+      return localText('startup_text_0005');
   }
 }
 
@@ -148,15 +166,15 @@ export function archiveOutcomeLabel(outcome: string): string {
 export function archiveSourceLabel(source: string): string {
   switch (source) {
     case RefreshSource.INITIAL:
-      return '首次进入';
+      return localText('startup_text_0006');
     case RefreshSource.MANUAL:
-      return '手动刷新';
+      return localText('startup_text_0007');
     case RefreshSource.FOREGROUND:
-      return '返回前台';
+      return localText('startup_text_0008');
     case RefreshSource.SETTINGS:
-      return '设置后查询';
+      return localText('startup_text_0009');
     default:
-      return '未标注';
+      return localText('startup_text_0010');
   }
 }
 
@@ -172,8 +190,8 @@ export class ArchiveEntry {
   public source: string = RefreshSource.INITIAL;
   public outcome: string = QueryOutcome.UNKNOWN;
   public result: string = '';
-  public supportResult: string = '待调用';
-  public statusResult: string = '待调用';
+  public supportResult: string = RecordValue.PENDING;
+  public statusResult: string = RecordValue.PENDING;
   public errorCode: string = '';
   public errorMessage: string = '';
   public durationMillis: number = 0;
@@ -434,8 +452,8 @@ export class ArchiveDay {
   /** 一句话摘要，供诊断/日志使用。 */
   summaryText(): string {
     const truncated: number = this.sampleTruncated();
-    const tail: string = truncated > 0 ? `；另有 ${truncated} 条仅计入统计` : '';
-    return `${this.dayKey}：共 ${this.total} 条（有效 ${this.valid()}），成功率 ${this.successRate()}%${tail}`;
+    const tail: string = truncated > 0 ? formatResource('startup_format_0d5355a338a3', [String(truncated)]) : '';
+    return formatResource('startup_format_4c160f6faab0', [String(this.dayKey), String(this.total), String(this.valid()), String(this.successRate()), String(tail)]);
   }
 }
 
@@ -456,8 +474,8 @@ export class ArchiveDayDetail {
     if (!this.found) {
       return `${this.dayKey}：${this.notice}`;
     }
-    const tail: string = this.truncated > 0 ? `（另有 ${this.truncated} 条仅计入统计）` : '';
-    return `${this.dayKey}：共 ${this.total} 条，返回 ${this.samples.length} 条样本${tail}`;
+    const tail: string = this.truncated > 0 ? formatResource('startup_format_5becf8ede620', [String(this.truncated)]) : '';
+    return formatResource('startup_format_f23e7dd3feb5', [String(this.dayKey), String(this.total), String(this.samples.length), String(tail)]);
   }
 }
 
@@ -484,7 +502,7 @@ export class IndexBounds {
 
   describe(): string {
     const safe: IndexBounds = this.normalized();
-    return `最多 ${safe.maxDays} 天｜每日 ${safe.samplesPerDay} 条样本｜最近 ${safe.recentValid} 条有效样本｜趋势 ${safe.trendPoints} 天`;
+    return formatResource('startup_format_c60eb1c36812', [String(safe.maxDays), String(safe.samplesPerDay), String(safe.recentValid), String(safe.trendPoints)]);
   }
 }
 
@@ -562,13 +580,13 @@ export class ArchiveIndex {
     const day: ArchiveDay | undefined = this.dayOf(dayKey);
     if (day === undefined) {
       if (this.isEmpty()) {
-        detail.notice = '归档为空，尚无任何日期索引';
+        detail.notice = localText('startup_text_0026');
       } else if (!isDayKey(dayKey)) {
-        detail.notice = '日期格式应为 yyyy-MM-dd';
+        detail.notice = localText('startup_text_0027');
       } else {
         const newest: string = this.days.length > 0 ? this.days[0].dayKey : '-';
         const oldest: string = this.days.length > 0 ? this.days[this.days.length - 1].dayKey : '-';
-        detail.notice = `没有该日期的记录（索引窗口 ${oldest} 至 ${newest}）`;
+        detail.notice = formatResource('startup_format_87340c616f4c', [String(oldest), String(newest)]);
       }
       return detail;
     }
@@ -577,7 +595,7 @@ export class ArchiveIndex {
     detail.samples = day.samples.map((entry: ArchiveEntry): ArchiveEntry => entry.clone());
     detail.truncated = day.sampleTruncated();
     if (detail.truncated > 0) {
-      detail.notice = `当天只保留最近 ${day.samples.length} 条样本`;
+      detail.notice = formatResource('startup_format_7f4ce3f8ef8c', [String(day.samples.length)]);
     }
     return detail;
   }
@@ -619,15 +637,15 @@ export class ArchiveIndex {
       return '';
     }
     if (this.rejectedEntries > 0 && this.droppedEntries > 0) {
-      return `归档为空：${this.rejectedEntries} 条记录无效，${this.droppedEntries} 条超出索引窗口`;
+      return formatResource('startup_format_badb09226b3e', [String(this.rejectedEntries), String(this.droppedEntries)]);
     }
     if (this.rejectedEntries > 0) {
-      return `归档为空：${this.rejectedEntries} 条记录均未通过字段校验`;
+      return formatResource('startup_format_4e8f06ff022c', [String(this.rejectedEntries)]);
     }
     if (this.droppedEntries > 0) {
-      return `归档为空：${this.droppedEntries} 条记录全部超出 ${this.bounds.maxDays} 天索引窗口`;
+      return formatResource('startup_format_ffbe500521b4', [String(this.droppedEntries), String(this.bounds.maxDays)]);
     }
-    return '归档为空：还没有任何归档记录';
+    return localText('startup_text_0037');
   }
 
   /** 顶部摘要；空索引直接返回空态说明。 */
@@ -635,8 +653,8 @@ export class ArchiveIndex {
     if (this.isEmpty()) {
       return this.emptyState();
     }
-    const dropped: string = this.droppedEntries > 0 ? `｜窗口外 ${this.droppedEntries} 条` : '';
-    return `归档索引｜${this.days.length} 天｜${this.total} 条｜有效 ${this.validCount()} 条${dropped}`;
+    const dropped: string = this.droppedEntries > 0 ? formatResource('startup_format_d9ea97bffe96', [String(this.droppedEntries)]) : '';
+    return formatResource('startup_format_e4959e4e3e98', [String(this.days.length), String(this.total), String(this.validCount()), String(dropped)]);
   }
 }
 
@@ -727,14 +745,14 @@ export function buildArchiveIndex(entries: ArchiveEntry[], bounds: IndexBounds =
   });
 
   if (index.rejectedEntries > 0) {
-    index.notices.push(`已忽略 ${index.rejectedEntries} 条未通过字段校验的记录`);
+    index.notices.push(formatResource('startup_format_20dde70a31c3', [String(index.rejectedEntries)]));
   }
   if (index.droppedEntries > 0) {
-    index.notices.push(`已丢弃 ${index.droppedEntries} 条超出 ${index.bounds.maxDays} 天索引窗口的记录` +
-      `（涉及 ${index.droppedDays} 个日期）`);
+    index.notices.push(formatResource('startup_format_3b7d59634326', [String(index.droppedEntries), String(index.bounds.maxDays)]) +
+      formatResource('startup_format_f3fe95db8d15', [String(index.droppedDays)]));
   }
   if (index.total > 0) {
-    index.notices.push(`每日最多保留 ${index.bounds.samplesPerDay} 条样本，其余只计入统计`);
+    index.notices.push(formatResource('startup_format_db4cf06a8240', [String(index.bounds.samplesPerDay)]));
   }
   const empty: string = index.emptyState();
   if (empty.length > 0) {
@@ -763,13 +781,13 @@ export enum TrendDirection {
 export function trendDirectionLabel(direction: TrendDirection): string {
   switch (direction) {
     case TrendDirection.RISING:
-      return '上升';
+      return localText('startup_text_0052');
     case TrendDirection.FALLING:
-      return '下降';
+      return localText('startup_text_0053');
     case TrendDirection.STABLE:
-      return '基本持平';
+      return localText('startup_text_0054');
     default:
-      return '数据不足';
+      return localText('startup_text_0055');
   }
 }
 
@@ -801,16 +819,16 @@ export class ArchiveTrend {
 
   text(): string {
     if (this.points.length === 0) {
-      return '趋势数据不足：归档为空';
+      return localText('startup_text_0056');
     }
     if (this.direction === TrendDirection.UNKNOWN) {
-      return `趋势数据不足：只有 ${this.sampleDays} 个有效样本日（至少需要 2 个）`;
+      return formatResource('startup_format_05715f360e67', [String(this.sampleDays)]);
     }
     const first: TrendPoint = this.points[0];
     const last: TrendPoint = this.points[this.points.length - 1];
     const sign: string = this.deltaRate >= 0 ? '+' : '';
-    return `${first.dayKey} → ${last.dayKey}｜成功率 ${first.successRate}% → ${last.successRate}%` +
-      `｜${trendDirectionLabel(this.direction)}（${sign}${this.deltaRate} 个百分点）`;
+    return formatResource('startup_format_df91d0fbb511', [String(first.dayKey), String(last.dayKey), String(first.successRate), String(last.successRate)]) +
+      formatResource('startup_format_2fbfec3cf39a', [String(trendDirectionLabel(this.direction)), String(sign), String(this.deltaRate)]);
   }
 }
 

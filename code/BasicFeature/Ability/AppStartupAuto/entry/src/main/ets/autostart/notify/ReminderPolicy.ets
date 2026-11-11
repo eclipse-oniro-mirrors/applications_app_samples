@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../text/LocalizedText';
+import { RecordValue } from '../RecordValues';
+
 /**
  * 设置提醒策略。
  *
@@ -43,8 +61,8 @@ export class ReminderConfig {
   public requireConfirmedOff: boolean = true;
 
   text(): string {
-    return `间隔 ${Math.round(this.minIntervalMs / 60000)} 分钟｜每日 ${this.dailyLimit} 次｜` +
-      `总计 ${this.totalLimit} 次｜静默 ${this.quietStartHour}:00-${this.quietEndHour}:00`;
+    return formatResource('startup_format_f18cae145e7e', [String(Math.round(this.minIntervalMs / 60000)), String(this.dailyLimit)]) +
+      formatResource('startup_format_b28e8c06c8b6', [String(this.totalLimit), String(this.quietStartHour), String(this.quietEndHour)]);
   }
 }
 
@@ -67,7 +85,7 @@ export class ReminderInput {
   public userSilenced: boolean = false;
 
   text(): string {
-    return `今日 ${this.todayCount} 次｜累计 ${this.totalCount} 次`;
+    return formatResource('startup_format_92c3b7d5b31e', [String(this.todayCount), String(this.totalCount)]);
   }
 }
 
@@ -110,8 +128,8 @@ export function confirmedOff(record: QueryRecord | undefined): boolean {
   if (record.outcome !== QueryOutcome.SUCCESS) {
     return false;
   }
-  return record.result.length > 0 && record.result !== '未获取' &&
-    record.result.indexOf('未开启') >= 0;
+  return record.result.length > 0 && record.result !== RecordValue.NOT_QUERIED &&
+    record.result.indexOf(RecordValue.DISABLED) >= 0;
 }
 
 /** 记录是否明确表示"已开启"。 */
@@ -122,7 +140,7 @@ export function confirmedOn(record: QueryRecord | undefined): boolean {
   if (record.outcome !== QueryOutcome.SUCCESS) {
     return false;
   }
-  return record.result.indexOf('已开启') >= 0;
+  return record.result.indexOf(RecordValue.ENABLED) >= 0;
 }
 
 /** 计算是否应该提醒。判定顺序即优先级。 */
@@ -131,33 +149,33 @@ export function planReminder(input: ReminderInput,
   const decision: ReminderDecision = new ReminderDecision();
   if (input.userSilenced) {
     decision.verdict = ReminderVerdict.SILENCED;
-    decision.message = '用户已关闭提醒';
+    decision.message = localText('startup_text_0557');
     return decision;
   }
   if (confirmedOn(input.latest)) {
     decision.verdict = ReminderVerdict.NOT_NEEDED;
-    decision.message = '自启已开启，无需提醒';
+    decision.message = localText('startup_text_0558');
     return decision;
   }
   if (config.requireConfirmedOff && !confirmedOff(input.latest)) {
     decision.verdict = ReminderVerdict.NOT_CONFIRMED;
-    decision.message = '尚未确认处于未开启状态，不提醒';
+    decision.message = localText('startup_text_0559');
     return decision;
   }
   if (input.totalCount >= config.totalLimit) {
     decision.verdict = ReminderVerdict.LIMIT_REACHED;
-    decision.message = `累计提醒已达 ${config.totalLimit} 次`;
+    decision.message = formatResource('startup_format_af181b1c3000', [String(config.totalLimit)]);
     return decision;
   }
   if (input.todayCount >= config.dailyLimit) {
     decision.verdict = ReminderVerdict.LIMIT_REACHED;
-    decision.message = `今日提醒已达 ${config.dailyLimit} 次`;
+    decision.message = formatResource('startup_format_7badf32cc18c', [String(config.dailyLimit)]);
     return decision;
   }
   const hour: number = new Date(input.now).getHours();
   if (inQuietHours(hour, config)) {
     decision.verdict = ReminderVerdict.SILENCED;
-    decision.message = '当前处于静默时段';
+    decision.message = localText('startup_text_0562');
     return decision;
   }
   if (input.lastRemindedAt > 0) {
@@ -165,13 +183,13 @@ export function planReminder(input: ReminderInput,
     if (elapsed < config.minIntervalMs) {
       decision.verdict = ReminderVerdict.TOO_SOON;
       decision.waitMillis = config.minIntervalMs - elapsed;
-      decision.message = `距上次提醒不足 ${Math.round(config.minIntervalMs / 60000)} 分钟`;
+      decision.message = formatResource('startup_format_c2f506b218d0', [String(Math.round(config.minIntervalMs / 60000))]);
       return decision;
     }
   }
   decision.verdict = ReminderVerdict.SHOULD_REMIND;
   decision.channel = input.todayCount === 0 ? ReminderChannel.BANNER : ReminderChannel.TOAST;
-  decision.message = '可以提醒用户前往系统设置开启自启';
+  decision.message = localText('startup_text_0565');
   return decision;
 }
 
@@ -206,7 +224,7 @@ export class ReminderAudit {
 
   summary(): string {
     if (this.ok) {
-      return '提醒配置自洽';
+      return localText('startup_text_0566');
     }
     return this.findings.join('；');
   }
@@ -215,19 +233,19 @@ export class ReminderAudit {
 export function auditReminderConfig(config: ReminderConfig = DEFAULT_REMINDER): ReminderAudit {
   const audit: ReminderAudit = new ReminderAudit();
   if (config.minIntervalMs <= 0) {
-    audit.findings.push('提醒间隔必须为正');
+    audit.findings.push(localText('startup_text_0567'));
   }
   if (config.dailyLimit <= 0 || config.totalLimit <= 0) {
-    audit.findings.push('提醒次数上限必须为正');
+    audit.findings.push(localText('startup_text_0568'));
   }
   if (config.totalLimit < config.dailyLimit) {
-    audit.findings.push('总上限不应小于每日上限');
+    audit.findings.push(localText('startup_text_0569'));
   }
   if (config.quietStartHour < 0 || config.quietStartHour > 23) {
-    audit.findings.push('静默开始小时越界');
+    audit.findings.push(localText('startup_text_0570'));
   }
   if (config.quietEndHour < 0 || config.quietEndHour > 23) {
-    audit.findings.push('静默结束小时越界');
+    audit.findings.push(localText('startup_text_0571'));
   }
   audit.ok = audit.findings.length === 0;
   return audit;
@@ -236,7 +254,7 @@ export function auditReminderConfig(config: ReminderConfig = DEFAULT_REMINDER): 
 /** 静默时段描述。 */
 export function quietText(config: ReminderConfig): string {
   if (!config.quietHoursEnabled) {
-    return '未启用静默时段';
+    return localText('startup_text_0572');
   }
-  return `静默时段 ${config.quietStartHour}:00 至次日 ${config.quietEndHour}:00`;
+  return formatResource('startup_format_af02ae4037f5', [String(config.quietStartHour), String(config.quietEndHour)]);
 }

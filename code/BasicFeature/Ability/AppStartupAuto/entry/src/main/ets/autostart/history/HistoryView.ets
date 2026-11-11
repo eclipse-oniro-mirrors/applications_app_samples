@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, recordValueLabel, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 历史记录的展示模型：把服务已有的过滤、汇总、比较和导出结果翻译成页面可渲染的文本。
  * 本文件不含系统调用，页面与测试共用同一份判定，避免“页面自己再算一遍”。
@@ -19,14 +36,21 @@ export class OutcomeOption {
   }
 }
 
-export const OUTCOME_OPTIONS: OutcomeOption[] = [
-  new OutcomeOption('', '全部结果'),
-  new OutcomeOption('success', '成功'),
-  new OutcomeOption('failure', '失败'),
-  new OutcomeOption('unsupported', '不支持'),
-  new OutcomeOption('timeout', '超时'),
-  new OutcomeOption('unknown', '未知')
+function createOUTCOME_OPTIONS(): OutcomeOption[] {
+  return [
+  new OutcomeOption('', localText('startup_text_0509')),
+  new OutcomeOption('success', localText('startup_text_0001')),
+  new OutcomeOption('failure', localText('startup_text_0002')),
+  new OutcomeOption('unsupported', localText('startup_text_0003')),
+  new OutcomeOption('timeout', localText('startup_text_0004')),
+  new OutcomeOption('unknown', localText('startup_text_0005'))
 ];
+}
+export const OUTCOME_OPTIONS: OutcomeOption[] = createOUTCOME_OPTIONS();
+registerTextRefresh((): void => {
+  OUTCOME_OPTIONS.splice(0, OUTCOME_OPTIONS.length);
+  createOUTCOME_OPTIONS().forEach((item: OutcomeOption): void => { OUTCOME_OPTIONS.push(item); });
+});
 
 /** 来源筛选项：空串表示不限。 */
 export class SourceOption {
@@ -39,13 +63,20 @@ export class SourceOption {
   }
 }
 
-export const SOURCE_OPTIONS: SourceOption[] = [
-  new SourceOption('', '全部来源'),
-  new SourceOption(RefreshSource.INITIAL as string, '首次进入'),
-  new SourceOption(RefreshSource.MANUAL as string, '手动刷新'),
-  new SourceOption(RefreshSource.FOREGROUND as string, '回到前台'),
-  new SourceOption(RefreshSource.SETTINGS as string, '设置后查询')
+function createSOURCE_OPTIONS(): SourceOption[] {
+  return [
+  new SourceOption('', localText('startup_text_0510')),
+  new SourceOption(RefreshSource.INITIAL as string, localText('startup_text_0006')),
+  new SourceOption(RefreshSource.MANUAL as string, localText('startup_text_0007')),
+  new SourceOption(RefreshSource.FOREGROUND as string, localText('startup_text_0511')),
+  new SourceOption(RefreshSource.SETTINGS as string, localText('startup_text_0009'))
 ];
+}
+export const SOURCE_OPTIONS: SourceOption[] = createSOURCE_OPTIONS();
+registerTextRefresh((): void => {
+  SOURCE_OPTIONS.splice(0, SOURCE_OPTIONS.length);
+  createSOURCE_OPTIONS().forEach((item: SourceOption): void => { SOURCE_OPTIONS.push(item); });
+});
 
 /** 时间范围预设。 */
 export enum RangePreset {
@@ -65,12 +96,19 @@ export class RangeOption {
   }
 }
 
-export const RANGE_OPTIONS: RangeOption[] = [
-  new RangeOption(RangePreset.ALL, '全部时间'),
-  new RangeOption(RangePreset.HOUR, '近 1 小时'),
-  new RangeOption(RangePreset.DAY, '近 24 小时'),
-  new RangeOption(RangePreset.WEEK, '近 7 天')
+function createRANGE_OPTIONS(): RangeOption[] {
+  return [
+  new RangeOption(RangePreset.ALL, localText('startup_text_0512')),
+  new RangeOption(RangePreset.HOUR, localText('startup_text_0513')),
+  new RangeOption(RangePreset.DAY, localText('startup_text_0514')),
+  new RangeOption(RangePreset.WEEK, localText('startup_text_0515'))
 ];
+}
+export const RANGE_OPTIONS: RangeOption[] = createRANGE_OPTIONS();
+registerTextRefresh((): void => {
+  RANGE_OPTIONS.splice(0, RANGE_OPTIONS.length);
+  createRANGE_OPTIONS().forEach((item: RangeOption): void => { RANGE_OPTIONS.push(item); });
+});
 
 /** 时间范围。 */
 export class TimeRange {
@@ -84,9 +122,9 @@ export class TimeRange {
 
   text(): string {
     if (this.from === 0) {
-      return '全部时间';
+      return localText('startup_text_0512');
     }
-    return `${dateTimeText(this.from)} 之后`;
+    return formatResource('startup_format_6e141419ecdd', [String(dateTimeText(this.from))]);
   }
 }
 
@@ -124,9 +162,9 @@ export class HistoryFilter {
   }
 
   text(): string {
-    const outcome: string = this.outcome.length === 0 ? '全部结果' :
+    const outcome: string = this.outcome.length === 0 ? localText('startup_text_0509') :
       outcomeLabel(this.outcome as QueryOutcome);
-    const source: string = this.source.length === 0 ? '全部来源' :
+    const source: string = this.source.length === 0 ? localText('startup_text_0510') :
       sourceLabel(this.source as RefreshSource);
     const range: TimeRange = rangeOf(this.preset, Date.now());
     return `${outcome}｜${source}｜${range.text()}`;
@@ -135,8 +173,8 @@ export class HistoryFilter {
 
 /** 单条记录摘要。 */
 export function describeRecord(record: QueryRecord): string {
-  const duration: string = record.durationMillis > 0 ? `${record.durationMillis} ms` : '耗时缺失';
-  const error: string = record.errorCode.length > 0 ? `｜错误 ${record.errorCode}` : '';
+  const duration: string = record.durationMillis > 0 ? `${record.durationMillis} ms` : localText('startup_text_0517');
+  const error: string = record.errorCode.length > 0 ? formatResource('startup_format_57eeec9dc80a', [String(record.errorCode)]) : '';
   return `#${record.id}｜${sourceLabel(record.source)}｜${outcomeLabel(record.outcome)}｜` +
     `${dateTimeText(record.timestamp)}｜${duration}${error}`;
 }
@@ -144,7 +182,7 @@ export function describeRecord(record: QueryRecord): string {
 /** 列表行，最新在前。 */
 export function recordLines(records: QueryRecord[], limit: number = 40): string[] {
   if (records.length === 0) {
-    return ['当前筛选没有记录'];
+    return [localText('startup_text_0519')];
   }
   return records.slice(0, limit).map((record: QueryRecord): string => describeRecord(record));
 }
@@ -152,43 +190,43 @@ export function recordLines(records: QueryRecord[], limit: number = 40): string[
 /** 汇总行。 */
 export function summaryLines(summary: HistorySummary): string[] {
   if (summary.total === 0) {
-    return ['暂无历史记录'];
+    return [localText('startup_text_0520')];
   }
   return [
-    `共 ${summary.total} 条｜成功 ${summary.success}｜失败 ${summary.failure}｜不支持 ${summary.unsupported}｜` +
-      `超时 ${summary.timeout}｜未知 ${summary.unknown}`,
-    `最近有效 #${summary.latestValidId < 0 ? '无' : summary.latestValidId}｜` +
-      `最新 ${summary.newestAt === 0 ? '无' : dateTimeText(summary.newestAt)}｜` +
-      `最早 ${summary.oldestAt === 0 ? '无' : dateTimeText(summary.oldestAt)}`,
-    summary.expiringSoon > 0 ? `${summary.expiringSoon} 条将在一天内到期` : '暂无到期记录'
+    formatResource('startup_format_e969226f1a2f', [String(summary.total), String(summary.success), String(summary.failure), String(summary.unsupported)]) +
+      formatResource('startup_format_206a2001625d', [String(summary.timeout), String(summary.unknown)]),
+    formatResource('startup_format_1cecab3cb6e9', [String(summary.latestValidId < 0 ? localText('startup_text_0524') : summary.latestValidId)]) +
+      formatResource('startup_format_b2b597c47173', [String(summary.newestAt === 0 ? localText('startup_text_0524') : dateTimeText(summary.newestAt))]) +
+      formatResource('startup_format_b0b0be8a0458', [String(summary.oldestAt === 0 ? localText('startup_text_0524') : dateTimeText(summary.oldestAt))]),
+    summary.expiringSoon > 0 ? formatResource('startup_format_2a33f02d1080', [String(summary.expiringSoon)]) : localText('startup_text_0528')
   ];
 }
 
 /** 前后比较行：样本不足时明确说明，不伪造差异。 */
 export function comparisonLines(comparison: HistoryComparison): string[] {
   if (comparison.afterId < 0) {
-    return ['没有可比较的样本'];
+    return [localText('startup_text_0529')];
   }
   if (comparison.beforeId < 0) {
-    return [`只有一条样本 #${comparison.afterId}（${comparison.afterResult}）`];
+    return [formatResource('startup_format_88e71f9c4642', [String(comparison.afterId), String(recordValueLabel(comparison.afterResult))])];
   }
   return [
-    `前 #${comparison.beforeId} ${comparison.beforeResult}（${dateTimeText(comparison.beforeAt)}）`,
-    `后 #${comparison.afterId} ${comparison.afterResult}（${dateTimeText(comparison.afterAt)}）`,
-    comparison.changed ? '前后结果不同，请人工确认是否与设置变更一致' : '前后结果一致',
-    `间隔 ${Math.max(0, comparison.deltaMillis)} ms`
+    formatResource('startup_format_e500751111fc', [String(comparison.beforeId), String(recordValueLabel(comparison.beforeResult)), String(dateTimeText(comparison.beforeAt))]),
+    formatResource('startup_format_200e5ad30abf', [String(comparison.afterId), String(recordValueLabel(comparison.afterResult)), String(dateTimeText(comparison.afterAt))]),
+    comparison.changed ? localText('startup_text_0533') : localText('startup_text_0534'),
+    formatResource('startup_format_571b5157a65d', [String(Math.max(0, comparison.deltaMillis))])
   ];
 }
 
 /** 导出预览：只展示前若干行，避免页面被长文本撑开。 */
 export function exportPreview(text: string, limit: number = 12): string[] {
   if (text.trim().length === 0) {
-    return ['暂无可导出内容'];
+    return [localText('startup_text_0536')];
   }
   const lines: string[] = text.split('\n');
   const shown: string[] = lines.slice(0, limit);
   if (lines.length > limit) {
-    shown.push(`…（共 ${lines.length} 行）`);
+    shown.push(formatResource('startup_format_18192b9a2e30', [String(lines.length)]));
   }
   return shown;
 }
@@ -224,10 +262,10 @@ export function scopedHistory(records: QueryRecord[], filter: HistoryFilter, now
   const before = beforeId > 0 ?
     scope.records.find((row: QueryRecord): boolean => row.id === beforeId) : scope.records[1];
   if (beforeId > 0 && before === undefined || afterId > 0 && after === undefined) {
-    scope.comparisonText = ['选定记录已不在当前范围，请重选（不会引用范围外记录）'];
+    scope.comparisonText = [localText('startup_text_0539')];
   } else if (before !== undefined && after !== undefined &&
     (before.id === after.id || before.timestamp > after.timestamp)) {
-    scope.comparisonText = ['请选择不同记录，且“前”样本时间不得晚于“后”样本'];
+    scope.comparisonText = [localText('startup_text_0540')];
   } else {
     const selected: QueryRecord[] = [];
     if (after !== undefined) { selected.push(after); }
@@ -237,7 +275,7 @@ export function scopedHistory(records: QueryRecord[], filter: HistoryFilter, now
     scope.comparisonText = comparisonLines(scope.comparison);
     if (!comparison.comparable) { scope.comparisonText = scope.comparisonText.slice(0, 2); }
     scope.comparisonText.push(comparison.summary());
-    scope.comparisonText.push('普通历史对比不证明设置变更；设置回访请查看明确关联的session/query事实。');
+    scope.comparisonText.push(localText('startup_text_0541'));
   }
   scope.exportText = exportRedacted(scope.records, now);
   return scope;
@@ -245,9 +283,9 @@ export function scopedHistory(records: QueryRecord[], filter: HistoryFilter, now
 
 /** Full details are local UI only; exports use exportRedacted and never reuse raw detail lines. */
 export function detailLines(record: QueryRecord | undefined): string[] {
-  if (record === undefined) { return ['请选择当前范围内记录查看详情']; }
-  return [describeRecord(record), `结果：${record.result}；能力：${record.supportResult}；状态：${record.statusResult}`,
-    `错误码：${record.errorCode || '无'}`, `本机错误说明：${record.errorMessage || '无'}`];
+  if (record === undefined) { return [localText('startup_text_0542')]; }
+  return [describeRecord(record), formatResource('startup_format_ebb315835379', [String(recordValueLabel(record.result)), String(recordValueLabel(record.supportResult)), String(recordValueLabel(record.statusResult))]),
+    formatResource('startup_format_aba600cee97e', [String(record.errorCode || localText('startup_text_0524'))]), formatResource('startup_format_ddbcea641f8d', [String(record.errorMessage || localText('startup_text_0524'))])];
 }
 
 /** 按天分组计数，用于快速判断哪几天有采样。 */
@@ -281,7 +319,7 @@ export function dayCounts(records: QueryRecord[]): DayCount[] {
 export function dayCountLines(records: QueryRecord[]): string[] {
   const counts: DayCount[] = dayCounts(records);
   if (counts.length === 0) {
-    return ['没有采样日期'];
+    return [localText('startup_text_0548')];
   }
-  return counts.map((item: DayCount): string => `${item.date}：${item.count} 条`);
+  return counts.map((item: DayCount): string => formatResource('startup_format_22ba0b71e4be', [String(item.date), String(item.count)]));
 }

@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, recordValueLabel } from '../text/LocalizedText';
+import { RecordValue } from '../RecordValues';
+
 /**
  * 设置回访跟踪。
  *
@@ -51,7 +69,7 @@ export class RevisitSession {
   /** 是否由用户主动取消。 */
   public cancelled: boolean = false;
   /** 结论：改变 / 未改变 / 无法判断。 */
-  public conclusion: string = '尚未判断';
+  public conclusion: string = localText('startup_text_0619');
 
   clone(): RevisitSession {
     const copy: RevisitSession = new RevisitSession();
@@ -86,10 +104,10 @@ export class RevisitComparison {
 
   summary(): string {
     if (!this.comparable) {
-      return `无法比较：${this.reason}`;
+      return formatResource('startup_format_281a18257fa1', [String(this.reason)]);
     }
-    return this.changed ? `状态已变化：${this.beforeValue} → ${this.afterValue}` :
-      `状态未变化（仍为 ${this.afterValue}）`;
+    return this.changed ? formatResource('startup_format_c9944c764225', [String(recordValueLabel(this.beforeValue)), String(recordValueLabel(this.afterValue))]) :
+      formatResource('startup_format_d4a54bda281d', [String(recordValueLabel(this.afterValue))]);
   }
 }
 
@@ -102,9 +120,9 @@ export const REVISIT_ATTEMPT_LIMIT: number = 5;
 /** 结果值归一化；null 表示"没查到"，不能当成 false。 */
 export function valueText(value: boolean | null): string {
   if (value === null) {
-    return '未获取';
+    return RecordValue.NOT_QUERIED;
   }
-  return value ? '已开启' : '未开启';
+  return value ? RecordValue.ENABLED : RecordValue.DISABLED;
 }
 
 /** 单条记录是否可作为对比依据。 */
@@ -115,7 +133,7 @@ export function isComparableRecord(record: QueryRecord | undefined): boolean {
   if (record.outcome !== QueryOutcome.SUCCESS) {
     return false;
   }
-  return record.result === '已开启' || record.result === '未开启';
+  return record.result === RecordValue.ENABLED || record.result === RecordValue.DISABLED;
 }
 
 /** 对比两条样本。任一侧不是有效成功样本时明确给出原因。 */
@@ -123,19 +141,19 @@ export function compareSamples(before: QueryRecord | undefined,
   after: QueryRecord | undefined): RevisitComparison {
   const comparison: RevisitComparison = new RevisitComparison();
   if (before === undefined) {
-    comparison.reason = '缺少离开前样本';
+    comparison.reason = localText('startup_text_0623');
     return comparison;
   }
   if (after === undefined) {
-    comparison.reason = '缺少返回后样本';
+    comparison.reason = localText('startup_text_0624');
     return comparison;
   }
   if (!isComparableRecord(before)) {
-    comparison.reason = `离开前样本不可比（${before.outcome as string}）`;
+    comparison.reason = formatResource('startup_format_76f9984881c9', [String(before.outcome as string)]);
     return comparison;
   }
   if (!isComparableRecord(after)) {
-    comparison.reason = `返回后样本不可比（${after.outcome as string}）`;
+    comparison.reason = formatResource('startup_format_37b386bb4012', [String(after.outcome as string)]);
     return comparison;
   }
   comparison.comparable = true;
@@ -188,9 +206,9 @@ export class RevisitTracker {
     created.stage = RevisitStage.GUIDED;
     created.before = before === undefined ? undefined : before.clone();
     created.guidanceRevision = guidanceRevision;
-    created.conclusion = '尚未判断';
+    created.conclusion = localText('startup_text_0619');
     this.session = created;
-    this.lastNotice = '已展示设置指引，请前往系统设置后返回';
+    this.lastNotice = localText('startup_text_0627');
     return created.clone();
   }
 
@@ -198,12 +216,12 @@ export class RevisitTracker {
   markLeft(now: number): RevisitSession {
     const current: RevisitSession = this.session;
     if (current.stage !== RevisitStage.GUIDED) {
-      this.lastNotice = `当前阶段 ${current.stage as string} 不接受离开事件`;
+      this.lastNotice = formatResource('startup_format_0fd646867503', [String(current.stage as string)]);
       return current.clone();
     }
     current.stage = RevisitStage.LEFT;
     current.leftAt = now;
-    this.lastNotice = '已记录离开时间';
+    this.lastNotice = localText('startup_text_0630');
     return current.clone();
   }
 
@@ -211,7 +229,7 @@ export class RevisitTracker {
   markReturned(now: number): RevisitSession {
     const current: RevisitSession = this.session;
     if (current.stage !== RevisitStage.LEFT) {
-      this.lastNotice = `当前阶段 ${current.stage as string} 不接受返回事件`;
+      this.lastNotice = formatResource('startup_format_8bc74e078a5a', [String(current.stage as string)]);
       return current.clone();
     }
     this.checkExpiry(now);
@@ -221,7 +239,7 @@ export class RevisitTracker {
     }
     current.stage = RevisitStage.RETURNED;
     current.returnedAt = now;
-    this.lastNotice = '已返回应用，请重新查询';
+    this.lastNotice = localText('startup_text_0632');
     return current.clone();
   }
 
@@ -229,7 +247,7 @@ export class RevisitTracker {
   markRechecked(after: QueryRecord | undefined, now: number): RevisitSession {
     const current: RevisitSession = this.session;
     if (current.stage !== RevisitStage.RETURNED) {
-      this.lastNotice = `当前阶段 ${current.stage as string} 不接受回查事件`;
+      this.lastNotice = formatResource('startup_format_8b42835338f8', [String(current.stage as string)]);
       return current.clone();
     }
     current.stage = RevisitStage.RECHECKED;
@@ -240,7 +258,7 @@ export class RevisitTracker {
       current.attempts = current.attempts.slice(-REVISIT_ATTEMPT_LIMIT);
     }
     current.conclusion = compareSamples(current.before, current.after).summary();
-    this.lastNotice = '已完成回访对比';
+    this.lastNotice = localText('startup_text_0634');
     this.archiveTerminal(now);
     return current.clone();
   }
@@ -288,8 +306,8 @@ export class RevisitTracker {
     current.stage = RevisitStage.CANCELLED;
     current.cancelled = true;
     current.recheckedAt = now;
-    current.conclusion = '用户取消，未做判断';
-    this.lastNotice = '已取消回访';
+    current.conclusion = localText('startup_text_0635');
+    this.lastNotice = localText('startup_text_0636');
     this.archiveTerminal(now);
     return current.clone();
   }
@@ -307,8 +325,8 @@ export class RevisitTracker {
     current.stage = RevisitStage.EXPIRED;
     current.expectedQueryId = 0;
     current.recheckedAt = now;
-    current.conclusion = '离开超过 10 分钟未返回，判断为未完成';
-    this.lastNotice = '回访已过期';
+    current.conclusion = localText('startup_text_0637');
+    this.lastNotice = localText('startup_text_0638');
     this.archiveTerminal(now);
     return current.clone();
   }
@@ -399,7 +417,7 @@ export class RevisitTracker {
     });
     this.checkExpiry(now);
     this.archiveTerminal(now);
-    this.lastNotice = '已恢复回访；仅确认应用前后台，不证明实际进入设置';
+    this.lastNotice = localText('startup_text_0639');
   }
 
   private decodeSession(item: RevisitSession, now: number): RevisitSession {
@@ -467,10 +485,10 @@ export class RevisitTracker {
     }
     copy.lastQueryId = Math.max(copy.lastQueryId, item.expectedQueryId);
     copy.expectedQueryId = 0; // No native request survives process death.
-    copy.conclusion = '尚未判断';
+    copy.conclusion = localText('startup_text_0619');
     if (copy.stage === RevisitStage.RECHECKED) { copy.conclusion = compareSamples(copy.before, copy.after).summary(); }
-    if (copy.stage === RevisitStage.CANCELLED) { copy.conclusion = '用户取消，未做判断'; }
-    if (copy.stage === RevisitStage.EXPIRED) { copy.conclusion = '离开超过 10 分钟未返回，判断为未完成'; }
+    if (copy.stage === RevisitStage.CANCELLED) { copy.conclusion = localText('startup_text_0635'); }
+    if (copy.stage === RevisitStage.EXPIRED) { copy.conclusion = localText('startup_text_0637'); }
     return copy;
   }
 
