@@ -1806,6 +1806,545 @@ export default function dataSourceListenerCoreTest() {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0048 end');
     })
 
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0049
+     * @tc.name      testDataSourceListener0049
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 48.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0049 begin');
+      const index: number = 48;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0049 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0050
+     * @tc.name      testDataSourceListener0050
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 49.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0050 begin');
+      const index: number = 49;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0050 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0051
+     * @tc.name      testDataSourceListener0051
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 50.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0051 begin');
+      const index: number = 50;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0051 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0052
+     * @tc.name      testDataSourceListener0052
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 51.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0052 begin');
+      const index: number = 51;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0052 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0053
+     * @tc.name      testDataSourceListener0053
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 52.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0053 begin');
+      const index: number = 52;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0053 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0054
+     * @tc.name      testDataSourceListener0054
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 53.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0054 begin');
+      const index: number = 53;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0054 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0055
+     * @tc.name      testDataSourceListener0055
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 54.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0055 begin');
+      const index: number = 54;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0055 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0056
+     * @tc.name      testDataSourceListener0056
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 55.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0056 begin');
+      const index: number = 55;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0056 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0057
+     * @tc.name      testDataSourceListener0057
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 56.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0057 begin');
+      const index: number = 56;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0057 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0058
+     * @tc.name      testDataSourceListener0058
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 57.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0058 begin');
+      const index: number = 57;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0058 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0059
+     * @tc.name      testDataSourceListener0059
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 58.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0059 begin');
+      const index: number = 58;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0059 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0060
+     * @tc.name      testDataSourceListener0060
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 59.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0060 begin');
+      const index: number = 59;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0060 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0061
+     * @tc.name      testDataSourceListener0061
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 60.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0061 begin');
+      const index: number = 60;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0061 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0062
+     * @tc.name      testDataSourceListener0062
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 61.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0062 begin');
+      const index: number = 61;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0062 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0063
+     * @tc.name      testDataSourceListener0063
+     * @tc.desc      Verify dataSourceListener behavior for matrix index 62.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testDataSourceListener0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0063 begin');
+      const index: number = 62;
+      const source: ProbeSource = new ProbeSource();
+      const listenerCount: number = (index % 7) + 2;
+      const listeners: CountingListener[] = [];
+      for (let n: number = 0; n < listenerCount; n++) {
+        const listener: CountingListener = new CountingListener();
+        source.registerDataChangeListener(listener);
+        listeners.push(listener);
+      }
+      const notifyIndex: number = index % 16;
+      source.notifyDataAdd(notifyIndex);
+      for (let n: number = 0; n < listeners.length; n++) {
+        expect(listeners[n].addCount).assertEqual(1);
+        expect(listeners[n].lastIndex).assertEqual(notifyIndex);
+      }
+      source.registerDataChangeListener(listeners[0]);
+      source.notifyDataAdd(notifyIndex + 1);
+      expect(listeners[0].addCount).assertEqual(2);
+      expect(listeners[1].addCount).assertEqual(2);
+      source.unregisterDataChangeListener(listeners[listenerCount - 1]);
+      source.notifyDataAdd(notifyIndex + 2);
+      expect(listeners[listenerCount - 1].addCount).assertEqual(2);
+      expect(listeners[0].addCount).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testDataSourceListener0063 end');
+    })
 
     /**
      * @tc.number    SUB_COMPONENT_REUSE_DATASOURCE_0064

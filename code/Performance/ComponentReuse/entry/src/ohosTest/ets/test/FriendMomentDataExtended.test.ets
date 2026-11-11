@@ -1919,6 +1919,98 @@ export default function friendMomentDataExtendedTest() {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testFriendMomentData0125 end');
     })
 
-  
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_FRIEND_0126
+     * @tc.name      testFriendMomentData0126
+     * @tc.desc      Verify friendMomentData behavior for matrix index 125.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testFriendMomentData0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFriendMomentData0126 begin');
+      const index: number = 125;
+      const data: FriendMomentsData = new FriendMomentsData();
+      const pushCount: number = (index % 20) + 1;
+      for (let n: number = 0; n < pushCount; n++) {
+        data.pushData(new FriendMoment('friend_id_' + n, 'user_' + n, 'avatar_' + n,
+          'text_' + n, 'image_' + n, new ShareModel(n, n * 2, n * 3)));
+      }
+      expect(data.totalCount()).assertEqual(pushCount);
+      let target: number = index % pushCount;
+      if (target === pushCount - 1) {
+        target = 0;
+      }
+      const item: FriendMoment = data.getData(target);
+      expect(item.id).assertEqual('friend_id_' + target);
+      expect(item.userName).assertEqual('user_' + target);
+      expect(item.share.heart).assertEqual(target);
+      expect(item.share.star).assertEqual(target * 2);
+      expect(item.share.message).assertEqual(target * 3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFriendMomentData0126 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_FRIEND_0127
+     * @tc.name      testFriendMomentData0127
+     * @tc.desc      Verify friendMomentData behavior for matrix index 126.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testFriendMomentData0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFriendMomentData0127 begin');
+      const index: number = 126;
+      const data: FriendMomentsData = new FriendMomentsData();
+      const pushCount: number = (index % 20) + 1;
+      for (let n: number = 0; n < pushCount; n++) {
+        data.pushData(new FriendMoment('friend_id_' + n, 'user_' + n, 'avatar_' + n,
+          'text_' + n, 'image_' + n, new ShareModel(n, n * 2, n * 3)));
+      }
+      expect(data.totalCount()).assertEqual(pushCount);
+      let target: number = index % pushCount;
+      if (target === pushCount - 1) {
+        target = 0;
+      }
+      const item: FriendMoment = data.getData(target);
+      expect(item.id).assertEqual('friend_id_' + target);
+      expect(item.userName).assertEqual('user_' + target);
+      expect(item.share.heart).assertEqual(target);
+      expect(item.share.star).assertEqual(target * 2);
+      expect(item.share.message).assertEqual(target * 3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFriendMomentData0127 end');
+    })
+
+    /**
+     * @tc.number    SUB_COMPONENT_REUSE_FRIEND_0128
+     * @tc.name      testFriendMomentData0128
+     * @tc.desc      Verify friendMomentData behavior for matrix index 127.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     LEVEL1
+     */
+    it('testFriendMomentData0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFriendMomentData0128 begin');
+      const index: number = 127;
+      const data: FriendMomentsData = new FriendMomentsData();
+      const pushCount: number = (index % 20) + 1;
+      for (let n: number = 0; n < pushCount; n++) {
+        data.pushData(new FriendMoment('friend_id_' + n, 'user_' + n, 'avatar_' + n,
+          'text_' + n, 'image_' + n, new ShareModel(n, n * 2, n * 3)));
+      }
+      expect(data.totalCount()).assertEqual(pushCount);
+      let target: number = index % pushCount;
+      if (target === pushCount - 1) {
+        target = 0;
+      }
+      const item: FriendMoment = data.getData(target);
+      expect(item.id).assertEqual('friend_id_' + target);
+      expect(item.userName).assertEqual('user_' + target);
+      expect(item.share.heart).assertEqual(target);
+      expect(item.share.star).assertEqual(target * 2);
+      expect(item.share.message).assertEqual(target * 3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFriendMomentData0128 end');
+    })
+
   })
 }
