@@ -36,6 +36,19 @@ namespace {
 constexpr int32_t ERROR_INVALID_PRINTER = PRINT_ERROR_INVALID_PRINTER;
 constexpr int32_t ERROR_GENERIC = PRINT_ERROR_GENERIC_FAILURE;
 constexpr size_t MAX_STRING_LENGTH = 65536;
+constexpr size_t PRINTER_EVENT_ARGUMENT_COUNT = 2;
+constexpr size_t PROPERTY_ARGUMENT_COUNT = 2;
+constexpr size_t DEFAULT_PRINT_ARGUMENT_COUNT = 2;
+constexpr size_t NATIVE_PRINT_ARGUMENT_COUNT = 4;
+constexpr size_t PRINT_JOB_ARGUMENT_COUNT = 4;
+constexpr size_t PRINT_JOB_STATE_ARGUMENT_COUNT = 5;
+enum ArgumentIndex {
+    ARG_FIRST = 0,
+    ARG_SECOND,
+    ARG_THIRD,
+    ARG_FOURTH,
+    ARG_FIFTH
+};
 
 // [Start print_native_declarations]
 struct PageSizeData {
@@ -87,23 +100,23 @@ struct PrintJobStorage {
 };
 // [End print_native_job_storage_cpp]
 
-std::mutex gServiceMutex;
-bool gInitialized = false;
-bool gListenerRegistered = false;
-bool gDiscoveryRunning = false;
+std::mutex g_serviceMutex;
+bool g_initialized = false;
+bool g_listenerRegistered = false;
+bool g_discoveryRunning = false;
 
-std::mutex gDiscoveryMutex;
-napi_threadsafe_function gDiscoveryTsfn = nullptr;
+std::mutex g_discoveryMutex;
+napi_threadsafe_function g_discoveryTsfn = nullptr;
 
-std::mutex gPrinterChangeMutex;
-napi_threadsafe_function gPrinterChangeTsfn = nullptr;
+std::mutex g_printerChangeMutex;
+napi_threadsafe_function g_printerChangeTsfn = nullptr;
 
-std::mutex gNativePrintMutex;
-napi_threadsafe_function gNativePrintTsfn = nullptr;
-int32_t gNativePrintSourceFd = -1;
+std::mutex g_nativePrintMutex;
+napi_threadsafe_function g_nativePrintTsfn = nullptr;
+int32_t g_nativePrintSourceFd = -1;
 
-std::mutex gPrintJobStateMutex;
-napi_threadsafe_function gPrintJobStateTsfn = nullptr;
+std::mutex g_printJobStateMutex;
+napi_threadsafe_function g_printJobStateTsfn = nullptr;
 
 void ReleaseNativePrintTask(napi_threadsafe_function_release_mode mode);
 void ReleasePrintJobStateTask(napi_threadsafe_function_release_mode mode);
@@ -280,7 +293,7 @@ void CallPrinterEventJs(napi_env env, napi_value callback, void *, void *data)
     }
     napi_value args[] = {CreateUint32(env, eventData->event), CreatePrinterInfo(env, eventData->printerInfo)};
     napi_value ignored = nullptr;
-    napi_call_function(env, nullptr, callback, 2, args, &ignored);
+    napi_call_function(env, nullptr, callback, PRINTER_EVENT_ARGUMENT_COUNT, args, &ignored);
     delete eventData;
 }
 
@@ -434,7 +447,7 @@ bool GetPrintArguments(napi_env env, napi_callback_info info, size_t expected, n
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != expected) {
         return false;
     }
-    for (size_t index = 0; index < 4; ++index) {
+    for (size_t index = 0; index < PRINT_JOB_ARGUMENT_COUNT; ++index) {
         if (GetValueType(env, args[index]) != napi_object) {
             return false;
         }
@@ -445,13 +458,13 @@ bool GetPrintArguments(napi_env env, napi_callback_info info, size_t expected, n
 // [Start print_native_lifecycle_cpp]
 napi_value NativeInit(napi_env env, napi_callback_info)
 {
-    std::lock_guard<std::mutex> lock(gServiceMutex);
-    if (gInitialized) {
+    std::lock_guard<std::mutex> lock(g_serviceMutex);
+    if (g_initialized) {
         return CreateInt32(env, PRINT_ERROR_NONE);
     }
     Print_ErrorCode code = OH_Print_Init();
     if (code == PRINT_ERROR_NONE) {
-        gInitialized = true;
+        g_initialized = true;
     }
     return CreateInt32(env, code);
 }
@@ -459,27 +472,27 @@ napi_value NativeInit(napi_env env, napi_callback_info)
 napi_value NativeRelease(napi_env env, napi_callback_info)
 {
     {
-        std::lock_guard<std::mutex> lock(gServiceMutex);
-        if (!gInitialized) {
+        std::lock_guard<std::mutex> lock(g_serviceMutex);
+        if (!g_initialized) {
             return CreateInt32(env, PRINT_ERROR_NONE);
         }
     }
-    if (gDiscoveryRunning) {
+    if (g_discoveryRunning) {
         OH_Print_StopPrinterDiscovery();
-        gDiscoveryRunning = false;
+        g_discoveryRunning = false;
     }
-    ReleaseTsfn(gDiscoveryMutex, gDiscoveryTsfn, napi_tsfn_abort);
-    if (gListenerRegistered) {
+    ReleaseTsfn(g_discoveryMutex, g_discoveryTsfn, napi_tsfn_abort);
+    if (g_listenerRegistered) {
         OH_Print_UnregisterPrinterChangeListener();
-        gListenerRegistered = false;
+        g_listenerRegistered = false;
     }
-    ReleaseTsfn(gPrinterChangeMutex, gPrinterChangeTsfn, napi_tsfn_abort);
+    ReleaseTsfn(g_printerChangeMutex, g_printerChangeTsfn, napi_tsfn_abort);
     Print_ErrorCode code = OH_Print_Release();
     ReleaseNativePrintTask(napi_tsfn_abort);
     ReleasePrintJobStateTask(napi_tsfn_abort);
     {
-        std::lock_guard<std::mutex> lock(gServiceMutex);
-        gInitialized = false;
+        std::lock_guard<std::mutex> lock(g_serviceMutex);
+        g_initialized = false;
     }
     return CreateInt32(env, code);
 }
@@ -493,9 +506,9 @@ void PrinterChangeCallback(Print_PrinterEvent event, const Print_PrinterInfo *pr
     PrinterEventData *data = new PrinterEventData;
     data->event = static_cast<uint32_t>(event);
     data->printerInfo = CopyPrinterInfo(printerInfo);
-    std::lock_guard<std::mutex> lock(gPrinterChangeMutex);
-    if (gPrinterChangeTsfn == nullptr ||
-        napi_call_threadsafe_function(gPrinterChangeTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
+    std::lock_guard<std::mutex> lock(g_printerChangeMutex);
+    if (g_printerChangeTsfn == nullptr ||
+        napi_call_threadsafe_function(g_printerChangeTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
         delete data;
     }
 }
@@ -505,32 +518,32 @@ napi_value NativeRegisterPrinterChangeListener(napi_env env, napi_callback_info 
     size_t count = 1;
     napi_value args[1] = {nullptr};
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 1 ||
-        GetValueType(env, args[0]) != napi_function) {
+        GetValueType(env, args[ARG_FIRST]) != napi_function) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     {
-        std::lock_guard<std::mutex> lock(gPrinterChangeMutex);
-        if (gPrinterChangeTsfn != nullptr ||
-            !CreateTsfn(env, args[0], "PrinterChange", CallPrinterEventJs, gPrinterChangeTsfn)) {
+        std::lock_guard<std::mutex> lock(g_printerChangeMutex);
+        if (g_printerChangeTsfn != nullptr ||
+            !CreateTsfn(env, args[ARG_FIRST], "PrinterChange", CallPrinterEventJs, g_printerChangeTsfn)) {
             return CreateInt32(env, ERROR_GENERIC);
         }
     }
     Print_ErrorCode code = OH_Print_RegisterPrinterChangeListener(PrinterChangeCallback);
     if (code != PRINT_ERROR_NONE) {
-        ReleaseTsfn(gPrinterChangeMutex, gPrinterChangeTsfn, napi_tsfn_abort);
+        ReleaseTsfn(g_printerChangeMutex, g_printerChangeTsfn, napi_tsfn_abort);
     } else {
-        gListenerRegistered = true;
+        g_listenerRegistered = true;
     }
     return CreateInt32(env, code);
 }
 
 napi_value NativeUnregisterPrinterChangeListener(napi_env env, napi_callback_info)
 {
-    if (gListenerRegistered) {
+    if (g_listenerRegistered) {
         OH_Print_UnregisterPrinterChangeListener();
-        gListenerRegistered = false;
+        g_listenerRegistered = false;
     }
-    ReleaseTsfn(gPrinterChangeMutex, gPrinterChangeTsfn, napi_tsfn_abort);
+    ReleaseTsfn(g_printerChangeMutex, g_printerChangeTsfn, napi_tsfn_abort);
     return CreateInt32(env, PRINT_ERROR_NONE);
 }
 
@@ -543,9 +556,9 @@ void PrinterDiscoveryCallback(Print_DiscoveryEvent event, const Print_PrinterInf
     PrinterEventData *data = new PrinterEventData;
     data->event = static_cast<uint32_t>(event);
     data->printerInfo = CopyPrinterInfo(printerInfo);
-    std::lock_guard<std::mutex> lock(gDiscoveryMutex);
-    if (gDiscoveryTsfn == nullptr ||
-        napi_call_threadsafe_function(gDiscoveryTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
+    std::lock_guard<std::mutex> lock(g_discoveryMutex);
+    if (g_discoveryTsfn == nullptr ||
+        napi_call_threadsafe_function(g_discoveryTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
         delete data;
     }
 }
@@ -555,21 +568,21 @@ napi_value NativeStartPrinterDiscovery(napi_env env, napi_callback_info info)
     size_t count = 1;
     napi_value args[1] = {nullptr};
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 1 ||
-        GetValueType(env, args[0]) != napi_function) {
+        GetValueType(env, args[ARG_FIRST]) != napi_function) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     {
-        std::lock_guard<std::mutex> lock(gDiscoveryMutex);
-        if (gDiscoveryTsfn != nullptr ||
-            !CreateTsfn(env, args[0], "PrinterDiscovery", CallPrinterEventJs, gDiscoveryTsfn)) {
+        std::lock_guard<std::mutex> lock(g_discoveryMutex);
+        if (g_discoveryTsfn != nullptr ||
+            !CreateTsfn(env, args[ARG_FIRST], "PrinterDiscovery", CallPrinterEventJs, g_discoveryTsfn)) {
             return CreateInt32(env, ERROR_GENERIC);
         }
     }
     Print_ErrorCode code = OH_Print_StartPrinterDiscovery(PrinterDiscoveryCallback);
     if (code != PRINT_ERROR_NONE) {
-        ReleaseTsfn(gDiscoveryMutex, gDiscoveryTsfn, napi_tsfn_abort);
+        ReleaseTsfn(g_discoveryMutex, g_discoveryTsfn, napi_tsfn_abort);
     } else {
-        gDiscoveryRunning = true;
+        g_discoveryRunning = true;
     }
     return CreateInt32(env, code);
 }
@@ -577,11 +590,11 @@ napi_value NativeStartPrinterDiscovery(napi_env env, napi_callback_info info)
 napi_value NativeStopPrinterDiscovery(napi_env env, napi_callback_info)
 {
     Print_ErrorCode code = PRINT_ERROR_NONE;
-    if (gDiscoveryRunning) {
+    if (g_discoveryRunning) {
         code = OH_Print_StopPrinterDiscovery();
-        gDiscoveryRunning = false;
+        g_discoveryRunning = false;
     }
-    ReleaseTsfn(gDiscoveryMutex, gDiscoveryTsfn, napi_tsfn_abort);
+    ReleaseTsfn(g_discoveryMutex, g_discoveryTsfn, napi_tsfn_abort);
     return CreateInt32(env, code);
 }
 
@@ -591,7 +604,7 @@ napi_value NativeConnectPrinter(napi_env env, napi_callback_info info)
     napi_value args[1] = {nullptr};
     std::string printerId;
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 1 ||
-        !GetString(env, args[0], printerId) || printerId.empty()) {
+        !GetString(env, args[ARG_FIRST], printerId) || printerId.empty()) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     return CreateInt32(env, OH_Print_ConnectPrinter(printerId.c_str()));
@@ -624,7 +637,7 @@ napi_value NativeQueryPrinterInfo(napi_env env, napi_callback_info info)
     napi_value args[1] = {nullptr};
     std::string printerId;
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 1 ||
-        !GetString(env, args[0], printerId) || printerId.empty()) {
+        !GetString(env, args[ARG_FIRST], printerId) || printerId.empty()) {
         return CreateResult(env, PRINT_ERROR_INVALID_PARAMETER, "printerInfo");
     }
     Print_PrinterInfo *printerInfo = nullptr;
@@ -654,14 +667,15 @@ napi_value NativeQueryPrinterInfo(napi_env env, napi_callback_info info)
 
 napi_value NativeQueryPrinterProperties(napi_env env, napi_callback_info info)
 {
-    size_t count = 2;
-    napi_value args[2] = {nullptr};
+    size_t count = PROPERTY_ARGUMENT_COUNT;
+    napi_value args[PROPERTY_ARGUMENT_COUNT] = {nullptr};
     std::string printerId;
     std::vector<std::string> keys;
     napi_value properties = nullptr;
     napi_create_array(env, &properties);
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 2 ||
-        !GetString(env, args[0], printerId) || printerId.empty() || !GetStringArray(env, args[1], keys)) {
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != PROPERTY_ARGUMENT_COUNT ||
+        !GetString(env, args[ARG_FIRST], printerId) || printerId.empty() ||
+        !GetStringArray(env, args[ARG_SECOND], keys)) {
         return CreateResult(env, PRINT_ERROR_INVALID_PARAMETER, "properties", properties);
     }
     std::vector<char *> keyItems;
@@ -683,15 +697,15 @@ napi_value NativeQueryPrinterProperties(napi_env env, napi_callback_info info)
 
 napi_value NativeUpdatePrinterProperties(napi_env env, napi_callback_info info)
 {
-    size_t count = 2;
-    napi_value args[2] = {nullptr};
+    size_t count = PROPERTY_ARGUMENT_COUNT;
+    napi_value args[PROPERTY_ARGUMENT_COUNT] = {nullptr};
     std::string printerId;
     bool isArray = false;
     uint32_t length = 0;
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 2 ||
-        !GetString(env, args[0], printerId) || printerId.empty() ||
-        napi_is_array(env, args[1], &isArray) != napi_ok || !isArray ||
-        napi_get_array_length(env, args[1], &length) != napi_ok || length == 0) {
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != PROPERTY_ARGUMENT_COUNT ||
+        !GetString(env, args[ARG_FIRST], printerId) || printerId.empty() ||
+        napi_is_array(env, args[ARG_SECOND], &isArray) != napi_ok || !isArray ||
+        napi_get_array_length(env, args[ARG_SECOND], &length) != napi_ok || length == 0) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     std::vector<std::string> keys;
@@ -702,7 +716,7 @@ napi_value NativeUpdatePrinterProperties(napi_env env, napi_callback_info info)
         napi_value property = nullptr;
         std::string key;
         std::string value;
-        if (napi_get_element(env, args[1], index, &property) != napi_ok ||
+        if (napi_get_element(env, args[ARG_SECOND], index, &property) != napi_ok ||
             !GetStringProperty(env, property, "key", key) || key.empty() ||
             !GetStringProperty(env, property, "value", value)) {
             return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
@@ -720,12 +734,13 @@ napi_value NativeUpdatePrinterProperties(napi_env env, napi_callback_info info)
 
 napi_value NativeRestorePrinterProperties(napi_env env, napi_callback_info info)
 {
-    size_t count = 2;
-    napi_value args[2] = {nullptr};
+    size_t count = PROPERTY_ARGUMENT_COUNT;
+    napi_value args[PROPERTY_ARGUMENT_COUNT] = {nullptr};
     std::string printerId;
     std::vector<std::string> keys;
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 2 ||
-        !GetString(env, args[0], printerId) || printerId.empty() || !GetStringArray(env, args[1], keys)) {
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != PROPERTY_ARGUMENT_COUNT ||
+        !GetString(env, args[ARG_FIRST], printerId) || printerId.empty() ||
+        !GetStringArray(env, args[ARG_SECOND], keys)) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     std::vector<char *> keyItems;
@@ -756,11 +771,11 @@ void ReleaseNativePrintTask(napi_threadsafe_function_release_mode mode)
     int32_t sourceFd = -1;
     napi_threadsafe_function tsfn = nullptr;
     {
-        std::lock_guard<std::mutex> lock(gNativePrintMutex);
-        sourceFd = gNativePrintSourceFd;
-        gNativePrintSourceFd = -1;
-        tsfn = gNativePrintTsfn;
-        gNativePrintTsfn = nullptr;
+        std::lock_guard<std::mutex> lock(g_nativePrintMutex);
+        sourceFd = g_nativePrintSourceFd;
+        g_nativePrintSourceFd = -1;
+        tsfn = g_nativePrintTsfn;
+        g_nativePrintTsfn = nullptr;
     }
     if (sourceFd >= 0) {
         close(sourceFd);
@@ -777,9 +792,9 @@ void NotifyNativePrintEvent(uint32_t eventType, const char *jobId, uint32_t stat
     data->jobId = SafeString(jobId);
     data->state = state;
     data->writeCode = writeCode;
-    std::lock_guard<std::mutex> lock(gNativePrintMutex);
-    if (gNativePrintTsfn == nullptr ||
-        napi_call_threadsafe_function(gNativePrintTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
+    std::lock_guard<std::mutex> lock(g_nativePrintMutex);
+    if (g_nativePrintTsfn == nullptr ||
+        napi_call_threadsafe_function(g_nativePrintTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
         delete data;
     }
 }
@@ -788,9 +803,9 @@ uint32_t CopyFileToPrintFd(uint32_t destinationFd)
 {
     int32_t sourceFd = -1;
     {
-        std::lock_guard<std::mutex> lock(gNativePrintMutex);
-        if (gNativePrintSourceFd >= 0) {
-            sourceFd = dup(gNativePrintSourceFd);
+        std::lock_guard<std::mutex> lock(g_nativePrintMutex);
+        if (g_nativePrintSourceFd >= 0) {
+            sourceFd = dup(g_nativePrintSourceFd);
         }
     }
     if (sourceFd < 0 || lseek(sourceFd, 0, SEEK_SET) < 0) {
@@ -853,28 +868,29 @@ void NativeJobStateChanged(const char *jobId, uint32_t state)
 
 napi_value NativeStartPrintByNative(napi_env env, napi_callback_info info)
 {
-    size_t count = 4;
-    napi_value args[4] = {nullptr};
+    size_t count = NATIVE_PRINT_ARGUMENT_COUNT;
+    napi_value args[NATIVE_PRINT_ARGUMENT_COUNT] = {nullptr};
     std::string jobName;
     int32_t sourceFd = -1;
     void *context = nullptr;
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 4 ||
-        !GetString(env, args[0], jobName) || jobName.empty() || GetValueType(env, args[1]) != napi_number ||
-        napi_get_value_int32(env, args[1], &sourceFd) != napi_ok || sourceFd < 0 ||
-        napi_unwrap(env, args[2], &context) != napi_ok || context == nullptr ||
-        GetValueType(env, args[3]) != napi_function) {
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok ||
+        count != NATIVE_PRINT_ARGUMENT_COUNT || !GetString(env, args[ARG_FIRST], jobName) || jobName.empty() ||
+        GetValueType(env, args[ARG_SECOND]) != napi_number ||
+        napi_get_value_int32(env, args[ARG_SECOND], &sourceFd) != napi_ok || sourceFd < 0 ||
+        napi_unwrap(env, args[ARG_THIRD], &context) != napi_ok || context == nullptr ||
+        GetValueType(env, args[ARG_FOURTH]) != napi_function) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     {
-        std::lock_guard<std::mutex> lock(gNativePrintMutex);
-        if (gNativePrintTsfn != nullptr ||
-            !CreateTsfn(env, args[3], "NativePrint", CallNativePrintEventJs, gNativePrintTsfn)) {
+        std::lock_guard<std::mutex> lock(g_nativePrintMutex);
+        if (g_nativePrintTsfn != nullptr ||
+            !CreateTsfn(env, args[ARG_FOURTH], "NativePrint", CallNativePrintEventJs, g_nativePrintTsfn)) {
             return CreateInt32(env, ERROR_GENERIC);
         }
-        gNativePrintSourceFd = dup(sourceFd);
-        if (gNativePrintSourceFd < 0) {
-            napi_threadsafe_function failed = gNativePrintTsfn;
-            gNativePrintTsfn = nullptr;
+        g_nativePrintSourceFd = dup(sourceFd);
+        if (g_nativePrintSourceFd < 0) {
+            napi_threadsafe_function failed = g_nativePrintTsfn;
+            g_nativePrintTsfn = nullptr;
             napi_release_threadsafe_function(failed, napi_tsfn_abort);
             return CreateInt32(env, PRINT_ERROR_FILE_IO);
         }
@@ -891,28 +907,57 @@ napi_value NativeStartPrintByNative(napi_env env, napi_callback_info info)
 // [Start print_native_start_job_cpp]
 napi_value NativeStartPrintJob(napi_env env, napi_callback_info info)
 {
-    napi_value args[4] = {nullptr};
-    if (!GetPrintArguments(env, info, 4, args)) {
+    napi_value args[PRINT_JOB_ARGUMENT_COUNT] = {nullptr};
+    if (!GetPrintArguments(env, info, PRINT_JOB_ARGUMENT_COUNT, args)) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     PrintJobStorage storage;
-    if (!BuildPrintJob(env, args[0], args[1], args[2], args[3], storage)) {
+    if (!BuildPrintJob(env, args[ARG_FIRST], args[ARG_SECOND], args[ARG_THIRD], args[ARG_FOURTH], storage)) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     return CreateInt32(env, OH_Print_StartPrintJob(&storage.job));
 }
 // [End print_native_start_job_cpp]
 
+Print_ErrorCode StartJobWithDefaults(Print_PrinterInfo &printerInfo, int32_t fd,
+    const std::string &documentFormat)
+{
+    const Print_DefaultValue &defaults = printerInfo.defaultValue;
+    uint32_t fdList[] = {static_cast<uint32_t>(fd)};
+    char jobName[] = "NativePrintFileDefaults";
+    Print_PrintJob job = {};
+    job.jobName = jobName;
+    job.fdList = fdList;
+    job.fdListCount = 1;
+    job.printerId = printerInfo.printerId;
+    job.copyNumber = defaults.defaultCopies == 0 ? 1 : defaults.defaultCopies;
+    job.paperSource = defaults.defaultPaperSource;
+    job.mediaType = defaults.defaultMediaType;
+    job.pageSizeId = defaults.defaultPageSizeId;
+    job.colorMode = defaults.defaultColorMode;
+    job.duplexMode = defaults.defaultDuplexMode;
+    job.resolution = defaults.defaultResolution;
+    job.printMargin = defaults.defaultMargin;
+    job.borderless = false;
+    job.orientationMode = defaults.defaultOrientation;
+    job.printQuality = defaults.defaultPrintQuality;
+    job.documentFormat = ParseDocumentFormat(documentFormat);
+    job.advancedOptions = defaults.otherDefaultValues;
+    LOGI("Print with printer defaults, printerId=%{public}s", SafeString(job.printerId).c_str());
+    return OH_Print_StartPrintJob(&job);
+}
+
 // [Start print_native_default_job_cpp]
 napi_value NativeStartPrintJobWithDefaultSettings(napi_env env, napi_callback_info info)
 {
-    size_t count = 2;
-    napi_value args[2] = {nullptr};
+    size_t count = DEFAULT_PRINT_ARGUMENT_COUNT;
+    napi_value args[DEFAULT_PRINT_ARGUMENT_COUNT] = {nullptr};
     int32_t fd = -1;
     std::string documentFormat;
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 2 ||
-        napi_get_value_int32(env, args[0], &fd) != napi_ok || fd < 0 ||
-        !GetString(env, args[1], documentFormat) ||
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok ||
+        count != DEFAULT_PRINT_ARGUMENT_COUNT ||
+        napi_get_value_int32(env, args[ARG_FIRST], &fd) != napi_ok || fd < 0 ||
+        !GetString(env, args[ARG_SECOND], documentFormat) ||
         (documentFormat != "application/pdf" && documentFormat != "image/jpeg")) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
@@ -932,29 +977,7 @@ napi_value NativeStartPrintJobWithDefaultSettings(napi_env env, napi_callback_in
         }
         return CreateInt32(env, code == PRINT_ERROR_NONE ? PRINT_ERROR_GENERIC_FAILURE : code);
     }
-    const Print_DefaultValue &defaults = printerInfo->defaultValue;
-    uint32_t fdList[] = {static_cast<uint32_t>(fd)};
-    char jobName[] = "NativePrintFileDefaults";
-    Print_PrintJob job = {};
-    job.jobName = jobName;
-    job.fdList = fdList;
-    job.fdListCount = 1;
-    job.printerId = printerInfo->printerId;
-    job.copyNumber = defaults.defaultCopies == 0 ? 1 : defaults.defaultCopies;
-    job.paperSource = defaults.defaultPaperSource;
-    job.mediaType = defaults.defaultMediaType;
-    job.pageSizeId = defaults.defaultPageSizeId;
-    job.colorMode = defaults.defaultColorMode;
-    job.duplexMode = defaults.defaultDuplexMode;
-    job.resolution = defaults.defaultResolution;
-    job.printMargin = defaults.defaultMargin;
-    job.borderless = false;
-    job.orientationMode = defaults.defaultOrientation;
-    job.printQuality = defaults.defaultPrintQuality;
-    job.documentFormat = ParseDocumentFormat(documentFormat);
-    job.advancedOptions = defaults.otherDefaultValues;
-    LOGI("Print with printer defaults, printerId=%{public}s", SafeString(job.printerId).c_str());
-    code = OH_Print_StartPrintJob(&job);
+    code = StartJobWithDefaults(*printerInfo, fd, documentFormat);
     OH_Print_ReleasePrinterInfo(printerInfo);
     return CreateInt32(env, code);
 }
@@ -978,7 +1001,7 @@ void CallPrintJobStateEventJs(napi_env env, napi_value callback, void *, void *d
 
 void ReleasePrintJobStateTask(napi_threadsafe_function_release_mode mode)
 {
-    ReleaseTsfn(gPrintJobStateMutex, gPrintJobStateTsfn, mode);
+    ReleaseTsfn(g_printJobStateMutex, g_printJobStateTsfn, mode);
 }
 
 // [Start print_native_job_state_cpp]
@@ -988,9 +1011,9 @@ void PrintJobStateChanged(const char *jobId, OH_Print_JobState state)
     data->jobId = SafeString(jobId);
     data->state = static_cast<uint32_t>(state);
     {
-        std::lock_guard<std::mutex> lock(gPrintJobStateMutex);
-        if (gPrintJobStateTsfn == nullptr ||
-            napi_call_threadsafe_function(gPrintJobStateTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
+        std::lock_guard<std::mutex> lock(g_printJobStateMutex);
+        if (g_printJobStateTsfn == nullptr ||
+            napi_call_threadsafe_function(g_printJobStateTsfn, data, napi_tsfn_nonblocking) != napi_ok) {
             delete data;
         }
     }
@@ -1001,18 +1024,19 @@ void PrintJobStateChanged(const char *jobId, OH_Print_JobState state)
 
 napi_value NativeStartPrintWithJobStateCallback(napi_env env, napi_callback_info info)
 {
-    napi_value args[5] = {nullptr};
-    if (!GetPrintArguments(env, info, 5, args) || GetValueType(env, args[4]) != napi_function) {
+    napi_value args[PRINT_JOB_STATE_ARGUMENT_COUNT] = {nullptr};
+    if (!GetPrintArguments(env, info, PRINT_JOB_STATE_ARGUMENT_COUNT, args) ||
+        GetValueType(env, args[ARG_FIFTH]) != napi_function) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     PrintJobStorage storage;
-    if (!BuildPrintJob(env, args[0], args[1], args[2], args[3], storage)) {
+    if (!BuildPrintJob(env, args[ARG_FIRST], args[ARG_SECOND], args[ARG_THIRD], args[ARG_FOURTH], storage)) {
         return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
     }
     {
-        std::lock_guard<std::mutex> lock(gPrintJobStateMutex);
-        if (gPrintJobStateTsfn != nullptr ||
-            !CreateTsfn(env, args[4], "PrintJobState", CallPrintJobStateEventJs, gPrintJobStateTsfn)) {
+        std::lock_guard<std::mutex> lock(g_printJobStateMutex);
+        if (g_printJobStateTsfn != nullptr ||
+            !CreateTsfn(env, args[ARG_FIFTH], "PrintJobState", CallPrintJobStateEventJs, g_printJobStateTsfn)) {
             return CreateInt32(env, ERROR_GENERIC);
         }
     }

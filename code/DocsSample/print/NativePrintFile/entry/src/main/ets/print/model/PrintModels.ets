@@ -150,10 +150,10 @@ export class PrintPropertyModel implements nativePrint.PrintProperty {
 }
 
 export class PrintRequest {
-  printJob: PrintJobModel;
-  pageSize: PageSizeModel;
-  margin: MarginModel;
-  option: PrintOptionModel;
+  public printJob: PrintJobModel;
+  public pageSize: PageSizeModel;
+  public margin: MarginModel;
+  public option: PrintOptionModel;
 
   constructor(printJob: PrintJobModel, pageSize: PageSizeModel, margin: MarginModel, option: PrintOptionModel) {
     this.printJob = printJob;
