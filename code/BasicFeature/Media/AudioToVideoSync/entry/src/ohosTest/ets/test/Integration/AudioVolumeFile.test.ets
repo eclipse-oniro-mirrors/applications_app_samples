@@ -24,6 +24,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function optionsFor(usage: audio.StreamUsage): audio.AudioRendererOptions {
   const streamInfo: audio.AudioStreamInfo = {
@@ -86,6 +87,18 @@ async function persistAndVerify(usage: audio.StreamUsage): Promise<VolumeSnapsho
   };
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Integration_AudioVolumeFile]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function audioVolumeFileTest() {
   describe('audioVolumeFileTest', () => {
     beforeAll(() => {
@@ -109,6 +122,7 @@ export default function audioVolumeFileTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeFile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioVolumeFile0001');
       const snapshot: VolumeSnapshot = await persistAndVerify(audio.StreamUsage.STREAM_USAGE_MEDIA);
       expect(snapshot.min).assertLargerOrEqual(0);
       expect(snapshot.max).assertLargerOrEqual(snapshot.min);
@@ -122,6 +136,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
       expect(snapshot.preparedState).assertEqual(1);
       expect(snapshot.releasedState).assertEqual(4);
+    
+      logEnd('testAudioVolumeFile0001');
     })
 
     /**
@@ -133,6 +149,7 @@ export default function audioVolumeFileTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeFile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioVolumeFile0002');
       const snapshot: VolumeSnapshot = await persistAndVerify(audio.StreamUsage.STREAM_USAGE_MOVIE);
       expect(snapshot.min).assertLargerOrEqual(0);
       expect(snapshot.max).assertLargerOrEqual(snapshot.min);
@@ -146,6 +163,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
       expect(snapshot.preparedState).assertEqual(1);
       expect(snapshot.releasedState).assertEqual(4);
+    
+      logEnd('testAudioVolumeFile0002');
     })
 
     /**
@@ -157,6 +176,7 @@ export default function audioVolumeFileTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeFile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioVolumeFile0003');
       const snapshot: VolumeSnapshot = await persistAndVerify(audio.StreamUsage.STREAM_USAGE_GAME);
       expect(snapshot.min).assertLargerOrEqual(0);
       expect(snapshot.max).assertLargerOrEqual(snapshot.min);
@@ -170,6 +190,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
       expect(snapshot.preparedState).assertEqual(1);
       expect(snapshot.releasedState).assertEqual(4);
+    
+      logEnd('testAudioVolumeFile0003');
     })
 
     /**
@@ -181,6 +203,7 @@ export default function audioVolumeFileTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeFile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioVolumeFile0004');
       const snapshot: VolumeSnapshot = await persistAndVerify(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
       expect(snapshot.min).assertLargerOrEqual(0);
       expect(snapshot.max).assertLargerOrEqual(snapshot.min);
@@ -194,6 +217,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
       expect(snapshot.preparedState).assertEqual(1);
       expect(snapshot.releasedState).assertEqual(4);
+    
+      logEnd('testAudioVolumeFile0004');
     })
 
     /**
@@ -205,6 +230,7 @@ export default function audioVolumeFileTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeFile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeFile0005');
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.StreamUsage.STREAM_USAGE_MOVIE,
@@ -221,6 +247,8 @@ export default function audioVolumeFileTest() {
         expect(min).assertLargerOrEqual(0);
         expect(max).assertLessOrEqual(10000);
       }
+    
+      logEnd('testAudioVolumeFile0005');
     })
   });
 }

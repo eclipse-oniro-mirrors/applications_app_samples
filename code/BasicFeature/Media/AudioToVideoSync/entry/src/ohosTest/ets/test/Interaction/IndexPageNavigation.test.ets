@@ -24,11 +24,24 @@ import {
   findTextOrNull,
   openApp
 } from '../Shared/UiSession';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 async function titleText(target: Driver): Promise<string> {
   const found: Component | null = await findTextOrNull(target, APP_TITLE);
   expect(found !== null).assertTrue();
   return (found as Component).getText();
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Interaction_IndexPageNavigation]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function indexPageNavigationTest() {
@@ -61,7 +74,10 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0001');
       expect(await titleText(target)).assertEqual(APP_TITLE);
+    
+      logEnd('testIndexNavigation0001');
     })
 
     /**
@@ -73,10 +89,13 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0002');
       for (let i = 0; i < 3; i++) {
         const current: Driver = await openApp();
         expect(await titleText(current)).assertEqual(APP_TITLE);
       }
+    
+      logEnd('testIndexNavigation0002');
     })
 
     /**
@@ -88,6 +107,7 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0003');
       try {
         await target.pressBack();
       } catch (error) {
@@ -96,6 +116,8 @@ export default function indexPageNavigationTest() {
       await delay(600);
       const reopened: Driver = await openApp();
       expect(await titleText(reopened)).assertEqual(APP_TITLE);
+    
+      logEnd('testIndexNavigation0003');
     })
 
     /**
@@ -107,6 +129,7 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0004');
       const reopened: Driver = await openApp();
       const play: Component | null = await findTextOrNull(reopened, PLAY_TEXT);
       expect(play !== null).assertTrue();
@@ -116,6 +139,8 @@ export default function indexPageNavigationTest() {
         expect(speed !== null).assertTrue();
         expect(await (speed as Component).isEnabled()).assertFalse();
       }
+    
+      logEnd('testIndexNavigation0004');
     })
 
     /**
@@ -127,6 +152,7 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0005');
       for (let i = 0; i < 5; i++) {
         const current: Driver = await openApp();
         const title: Component | null = await findTextOrNull(current, APP_TITLE);
@@ -134,6 +160,8 @@ export default function indexPageNavigationTest() {
         expect(title !== null).assertTrue();
         expect(play !== null).assertTrue();
       }
+    
+      logEnd('testIndexNavigation0005');
     })
 
     /**
@@ -145,6 +173,7 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0006');
       const current: Driver = await openApp();
       const play: Component | null = await findTextOrNull(current, PLAY_TEXT);
       expect(play !== null).assertTrue();
@@ -158,6 +187,8 @@ export default function indexPageNavigationTest() {
       await current.delayMs(800);
       const reopened: Driver = await openApp();
       expect(await titleText(reopened)).assertEqual(APP_TITLE);
+    
+      logEnd('testIndexNavigation0006');
     })
 
     /**
@@ -169,10 +200,13 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0007');
       const first: Driver = await openApp();
       const second: Driver = await openApp();
       expect(first === second).assertTrue();
       expect(await titleText(second)).assertEqual(APP_TITLE);
+    
+      logEnd('testIndexNavigation0007');
     })
 
     /**
@@ -184,10 +218,13 @@ export default function indexPageNavigationTest() {
      * @tc.level     Level 2
      */
     it('testIndexNavigation0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexNavigation0008');
       const current: Driver = await openApp();
       const titles: Component[] = await current.findComponents(ON.text(APP_TITLE));
       expect(titles.length).assertEqual(1);
       expect(await titles[0].getText()).assertEqual(APP_TITLE);
+    
+      logEnd('testIndexNavigation0008');
     })
   });
 }

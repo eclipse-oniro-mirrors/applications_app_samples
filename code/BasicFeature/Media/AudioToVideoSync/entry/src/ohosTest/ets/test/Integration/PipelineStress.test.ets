@@ -17,6 +17,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function optionsFor(): audio.AudioRendererOptions {
   const streamInfo: audio.AudioStreamInfo = {
@@ -33,6 +34,18 @@ function optionsFor(): audio.AudioRendererOptions {
     streamInfo: streamInfo,
     rendererInfo: rendererInfo
   };
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Integration_PipelineStress]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function pipelineStressTest() {
@@ -55,6 +68,7 @@ export default function pipelineStressTest() {
      * @tc.desc      Verify three rounds of write, append, truncate and read keep exact sizes
      */
     it('testPipelineStress0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPipelineStress0001');
       for (let round = 0; round < 3; round++) {
         const path: string = pathInFiles(uniqueName(`avs_stress_file_${round}`, '.txt'));
         try {
@@ -71,6 +85,8 @@ export default function pipelineStressTest() {
           removeQuietly(path);
         }
       }
+    
+      logEnd('testPipelineStress0001');
     })
 
     /**
@@ -79,6 +95,7 @@ export default function pipelineStressTest() {
      * @tc.desc      Verify five audio lifecycle rounds all end in the released state
      */
     it('testPipelineStress0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testPipelineStress0002');
       for (let round = 0; round < 5; round++) {
         const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor());
         try {
@@ -92,6 +109,8 @@ export default function pipelineStressTest() {
         }
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testPipelineStress0002');
     })
 
     /**
@@ -100,6 +119,7 @@ export default function pipelineStressTest() {
      * @tc.desc      Verify a combined audio and file round trip repeats with identical outcomes
      */
     it('testPipelineStress0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testPipelineStress0003');
       for (let round = 0; round < 3; round++) {
         const path: string = pathInFiles(uniqueName(`avs_stress_combo_${round}`, '.txt'));
         const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor());
@@ -116,6 +136,8 @@ export default function pipelineStressTest() {
           removeQuietly(path);
         }
       }
+    
+      logEnd('testPipelineStress0003');
     })
 
     /**
@@ -124,6 +146,7 @@ export default function pipelineStressTest() {
      * @tc.desc      Verify ten alternating write and read rounds report the requested size each time
      */
     it('testPipelineStress0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPipelineStress0004');
       const path: string = pathInFiles(uniqueName('avs_stress_alt', '.txt'));
       try {
         for (let round = 0; round < 10; round++) {
@@ -135,6 +158,8 @@ export default function pipelineStressTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testPipelineStress0004');
     })
 
     /**
@@ -143,6 +168,7 @@ export default function pipelineStressTest() {
      * @tc.desc      Verify five copy, rename and delete cycles preserve the payload until deletion
      */
     it('testPipelineStress0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPipelineStress0005');
       for (let round = 0; round < 5; round++) {
         const source: string = pathInFiles(uniqueName(`avs_stress_src_${round}`, '.txt'));
         const copy: string = pathInFiles(uniqueName(`avs_stress_copy_${round}`, '.txt'));
@@ -162,6 +188,8 @@ export default function pipelineStressTest() {
           removeQuietly(renamed);
         }
       }
+    
+      logEnd('testPipelineStress0005');
     })
   });
 }

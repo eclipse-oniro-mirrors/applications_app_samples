@@ -29,6 +29,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function viewportHeight(width: number): number {
   return width * CommonConstants.DEFAULT_HEIGHT / CommonConstants.DEFAULT_WIDTH;
@@ -49,6 +50,18 @@ function rendererOptions(): audio.AudioRendererOptions {
     streamInfo: streamInfo,
     rendererInfo: rendererInfo
   };
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Integration_PipelineIntegration]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function pipelineIntegrationTest() {
@@ -74,6 +87,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPipelineIntegration0001');
       const source: string = pathInFiles(uniqueName('avs_pipe_src', '.txt'));
       const copy: string = pathInFiles(uniqueName('avs_pipe_copy', '.txt'));
       const renamed: string = pathInFiles(uniqueName('avs_pipe_renamed', '.txt'));
@@ -94,6 +108,8 @@ export default function pipelineIntegrationTest() {
         removeQuietly(copy);
         removeQuietly(renamed);
       }
+    
+      logEnd('testPipelineIntegration0001');
     })
 
     /**
@@ -105,6 +121,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testPipelineIntegration0002');
       const path: string = pathInFiles(uniqueName('avs_pipe_audio', '.txt'));
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
       try {
@@ -122,6 +139,8 @@ export default function pipelineIntegrationTest() {
         removeQuietly(path);
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testPipelineIntegration0002');
     })
 
     /**
@@ -133,6 +152,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPipelineIntegration0003');
       const screen: display.Display = display.getDefaultDisplaySync();
       const height: number = viewportHeight(screen.width);
       const path: string = pathInFiles(uniqueName('avs_pipe_layout', '.txt'));
@@ -145,6 +165,8 @@ export default function pipelineIntegrationTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testPipelineIntegration0003');
     })
 
     /**
@@ -156,6 +178,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testPipelineIntegration0004');
       const path: string = pathInFiles(uniqueName('avs_pipe_clock', '.txt'));
       const before: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
@@ -171,6 +194,8 @@ export default function pipelineIntegrationTest() {
       const after: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       expect(after).assertLargerOrEqual(before);
       expect(after - before).assertLess(5000);
+    
+      logEnd('testPipelineIntegration0004');
     })
 
     /**
@@ -182,6 +207,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testPipelineIntegration0005');
       const firstPath: string = pathInFiles(uniqueName('avs_pipe_first', '.txt'));
       const secondPath: string = pathInFiles(uniqueName('avs_pipe_second', '.txt'));
       const firstRenderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
@@ -203,6 +229,8 @@ export default function pipelineIntegrationTest() {
         removeQuietly(firstPath);
         removeQuietly(secondPath);
       }
+    
+      logEnd('testPipelineIntegration0005');
     })
 
     /**
@@ -214,6 +242,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testPipelineIntegration0006');
       for (let round = 0; round < 3; round++) {
         const path: string = pathInFiles(uniqueName(`avs_pipe_round_${round}`, '.txt'));
         const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
@@ -230,6 +259,8 @@ export default function pipelineIntegrationTest() {
         }
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testPipelineIntegration0006');
     })
 
     /**
@@ -241,6 +272,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testPipelineIntegration0007');
       const path: string = pathInFiles(uniqueName('avs_pipe_truncate', '.txt'));
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
       try {
@@ -254,6 +286,8 @@ export default function pipelineIntegrationTest() {
         removeQuietly(path);
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testPipelineIntegration0007');
     })
 
     /**
@@ -265,6 +299,7 @@ export default function pipelineIntegrationTest() {
      * @tc.level     Level 2
      */
     it('testPipelineIntegration0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPipelineIntegration0008');
       const widths: number[] = [360, 720, 1080];
       for (let i = 0; i < widths.length; i++) {
         const height: number = viewportHeight(widths[i]);
@@ -278,6 +313,8 @@ export default function pipelineIntegrationTest() {
           removeQuietly(path);
         }
       }
+    
+      logEnd('testPipelineIntegration0008');
     })
   });
 }

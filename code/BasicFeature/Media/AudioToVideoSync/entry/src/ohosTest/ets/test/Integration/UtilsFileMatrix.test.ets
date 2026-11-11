@@ -15,6 +15,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function bytesOf(text: string): Uint8Array {
   return util.TextEncoder.create('utf-8').encode(text);
@@ -43,6 +44,18 @@ function readBytes(path: string, size: number): Uint8Array {
   return new Uint8Array(payload);
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Integration_UtilsFileMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function utilsFileMatrixTest() {
   describe('utilsFileMatrixTest', () => {
     beforeAll(() => {
@@ -63,6 +76,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify UTF-8 encoded bytes written to a file decode back to the source text
      */
     it('testUtilsFile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0001');
       const path: string = targetFor('utf8');
       const text: string = '音画sync';
       const bytes: Uint8Array = bytesOf(text);
@@ -74,6 +88,8 @@ export default function utilsFileMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testUtilsFile0001');
     })
 
     /**
@@ -82,6 +98,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify a Base64 string persisted as text decodes to the original bytes
      */
     it('testUtilsFile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0002');
       const path: string = targetFor('base64');
       const helper: util.Base64Helper = new util.Base64Helper();
       const source: Uint8Array = new Uint8Array([0, 1, 127, 128, 254, 255]);
@@ -98,6 +115,8 @@ export default function utilsFileMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testUtilsFile0002');
     })
 
     /**
@@ -106,6 +125,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify hex text persisted in a file reproduces the original buffer bytes
      */
     it('testUtilsFile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0003');
       const path: string = targetFor('hex');
       const source: buffer.Buffer = buffer.from('abc');
       const hex: string = source.toString('hex');
@@ -119,6 +139,8 @@ export default function utilsFileMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testUtilsFile0003');
     })
 
     /**
@@ -127,6 +149,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify a UUID persisted as text keeps its canonical shape when read back
      */
     it('testUtilsFile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0004');
       const path: string = targetFor('uuid');
       const uuid: string = util.generateRandomUUID(false);
       try {
@@ -139,6 +162,8 @@ export default function utilsFileMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testUtilsFile0004');
     })
 
     /**
@@ -147,6 +172,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify a binary payload survives file write and read without byte changes
      */
     it('testUtilsFile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0005');
       const path: string = targetFor('binary');
       const source: Uint8Array = new Uint8Array(256);
       for (let i = 0; i < source.length; i++) {
@@ -161,6 +187,8 @@ export default function utilsFileMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testUtilsFile0005');
     })
 
     /**
@@ -169,6 +197,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify TextEncoder byte length and on-disk size agree for several scripts
      */
     it('testUtilsFile0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0006');
       const samples: string[] = ['ascii', '中文', 'café', '😀'];
       for (let i = 0; i < samples.length; i++) {
         const path: string = targetFor(`size_${i}`);
@@ -181,6 +210,8 @@ export default function utilsFileMatrixTest() {
           removeQuietly(path);
         }
       }
+    
+      logEnd('testUtilsFile0006');
     })
 
     /**
@@ -189,6 +220,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify a chunk of UTF-8 bytes can be read and decoded at a nonzero offset
      */
     it('testUtilsFile0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0007');
       const path: string = targetFor('offset');
       const text: string = 'HEAD音画TAIL';
       const bytes: Uint8Array = bytesOf(text);
@@ -203,6 +235,8 @@ export default function utilsFileMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testUtilsFile0007');
     })
 
     /**
@@ -211,6 +245,7 @@ export default function utilsFileMatrixTest() {
      * @tc.desc      Verify a JSON-like payload built from utilities round-trips through the file
      */
     it('testUtilsFile0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUtilsFile0008');
       const path: string = targetFor('json');
       const uuid: string = util.generateRandomUUID(false);
       const payload: string = `{"id":"${uuid}","fps":30}`;
@@ -220,7 +255,9 @@ export default function utilsFileMatrixTest() {
         expect(restored).assertEqual(payload);
         expect(restored.indexOf(uuid) >= 0).assertTrue();
         expect(restored.endsWith('"fps":30}')).assertTrue();
-      } finally {
+      
+      logEnd('testUtilsFile0008');
+    } finally {
         removeQuietly(path);
       }
     })

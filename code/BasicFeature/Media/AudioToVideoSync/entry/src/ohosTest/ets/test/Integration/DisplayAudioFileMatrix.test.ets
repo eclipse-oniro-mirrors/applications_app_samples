@@ -27,6 +27,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function viewportHeight(width: number): number {
   return width * CommonConstants.DEFAULT_HEIGHT / CommonConstants.DEFAULT_WIDTH;
@@ -47,6 +48,18 @@ function rendererFor(usage: audio.StreamUsage): Promise<audio.AudioRenderer> {
     streamInfo: streamInfo,
     rendererInfo: rendererInfo
   });
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Integration_DisplayAudioFileMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function displayAudioFileMatrixTest() {
@@ -72,6 +85,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDisplayAudioFile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDisplayAudioFile0001');
       const width: number = 720;
       const path: string = pathInFiles(uniqueName('avs_daf_720', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -84,6 +98,8 @@ export default function displayAudioFileMatrixTest() {
         await renderer.release();
         removeQuietly(path);
       }
+    
+      logEnd('testDisplayAudioFile0001');
     })
 
     /**
@@ -95,6 +111,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDisplayAudioFile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDisplayAudioFile0002');
       const width: number = 360;
       const path: string = pathInFiles(uniqueName('avs_daf_360', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
@@ -108,6 +125,8 @@ export default function displayAudioFileMatrixTest() {
         await renderer.release();
         removeQuietly(path);
       }
+    
+      logEnd('testDisplayAudioFile0002');
     })
 
     /**
@@ -119,6 +138,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDisplayAudioFile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDisplayAudioFile0003');
       const width: number = 1080;
       const path: string = pathInFiles(uniqueName('avs_daf_1080', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_GAME);
@@ -134,6 +154,8 @@ export default function displayAudioFileMatrixTest() {
         await renderer.release();
         removeQuietly(path);
       }
+    
+      logEnd('testDisplayAudioFile0003');
     })
 
     /**
@@ -145,6 +167,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDisplayAudioFile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDisplayAudioFile0004');
       const widths: number[] = [360, 720, 1080];
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
@@ -166,6 +189,8 @@ export default function displayAudioFileMatrixTest() {
           }
         }
       }
+    
+      logEnd('testDisplayAudioFile0004');
     })
 
     /**
@@ -177,6 +202,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDisplayAudioFile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDisplayAudioFile0005');
       const screen: display.Display = display.getDefaultDisplaySync();
       const path: string = pathInFiles(uniqueName('avs_daf_real', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -189,6 +215,8 @@ export default function displayAudioFileMatrixTest() {
         await renderer.release();
         removeQuietly(path);
       }
+    
+      logEnd('testDisplayAudioFile0005');
     })
 
     /**
@@ -200,6 +228,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDisplayAudioFile0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDisplayAudioFile0006');
       const path: string = pathInFiles(uniqueName('avs_daf_terminal', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
       try {
@@ -212,6 +241,8 @@ export default function displayAudioFileMatrixTest() {
         removeQuietly(path);
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testDisplayAudioFile0006');
     })
   });
 }

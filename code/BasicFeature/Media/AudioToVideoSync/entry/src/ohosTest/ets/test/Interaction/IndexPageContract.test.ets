@@ -26,11 +26,24 @@ import {
   findTextOrNull,
   openApp
 } from '../Shared/UiSession';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 async function componentForText(target: Driver, text: string): Promise<Component> {
   const found: Component | null = await findTextOrNull(target, text);
   expect(found !== null).assertTrue();
   return found as Component;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Interaction_IndexPageContract]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function indexPageContractTest() {
@@ -63,6 +76,7 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0001');
       const title: Component = await componentForText(target, APP_TITLE);
       const text: string = await title.getText();
       expect(text).assertEqual(APP_TITLE);
@@ -70,6 +84,8 @@ export default function indexPageContractTest() {
       const bounds = await title.getBounds();
       expect(bounds.right).assertLarger(bounds.left);
       expect(bounds.bottom).assertLarger(bounds.top);
+    
+      logEnd('testIndexPage0001');
     })
 
     /**
@@ -81,10 +97,13 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0002');
       const play: Component = await componentForText(target, PLAY_TEXT);
       expect(await play.getText()).assertEqual(PLAY_TEXT);
       expect(await play.isEnabled()).assertTrue();
       expect(await play.getText() === PLAYING_TEXT).assertFalse();
+    
+      logEnd('testIndexPage0002');
     })
 
     /**
@@ -96,10 +115,13 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0003');
       for (let i = 0; i < SPEED_TEXTS.length; i++) {
         const button: Component = await componentForText(target, SPEED_TEXTS[i]);
         expect(await button.getText()).assertEqual(SPEED_TEXTS[i]);
       }
+    
+      logEnd('testIndexPage0003');
     })
 
     /**
@@ -111,10 +133,13 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0004');
       for (let i = 0; i < SPEED_TEXTS.length; i++) {
         const button: Component = await componentForText(target, SPEED_TEXTS[i]);
         expect(await button.isEnabled()).assertFalse();
       }
+    
+      logEnd('testIndexPage0004');
     })
 
     /**
@@ -126,6 +151,7 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0005');
       const play = await (await componentForText(target, PLAY_TEXT)).getBounds();
       const first = await (await componentForText(target, SPEED_TEXTS[0])).getBounds();
       const second = await (await componentForText(target, SPEED_TEXTS[1])).getBounds();
@@ -134,6 +160,8 @@ export default function indexPageContractTest() {
       expect(second.top).assertLargerOrEqual(first.bottom);
       expect(third.top).assertLargerOrEqual(second.bottom);
       expect(third.bottom).assertLarger(third.top);
+    
+      logEnd('testIndexPage0005');
     })
 
     /**
@@ -145,6 +173,7 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0006');
       const screen: display.Display = display.getDefaultDisplaySync();
       const texts: string[] = [PLAY_TEXT, SPEED_TEXTS[0], SPEED_TEXTS[1], SPEED_TEXTS[2]];
       for (let i = 0; i < texts.length; i++) {
@@ -154,6 +183,8 @@ export default function indexPageContractTest() {
         expect(bounds.right).assertLessOrEqual(screen.width);
         expect(bounds.bottom).assertLessOrEqual(screen.height);
       }
+    
+      logEnd('testIndexPage0006');
     })
 
     /**
@@ -165,6 +196,7 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0007');
       const first = await (await componentForText(target, SPEED_TEXTS[0])).getBounds();
       const firstWidth: number = first.right - first.left;
       const firstHeight: number = first.bottom - first.top;
@@ -175,6 +207,8 @@ export default function indexPageContractTest() {
       }
       expect(firstWidth).assertLarger(0);
       expect(firstHeight).assertLarger(0);
+    
+      logEnd('testIndexPage0007');
     })
 
     /**
@@ -186,11 +220,14 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0008');
       const screen: display.Display = display.getDefaultDisplaySync();
       const bounds = await (await componentForText(target, PLAY_TEXT)).getBounds();
       const centre: number = (bounds.left + bounds.right) / 2;
       expect(Math.abs(centre - screen.width / 2)).assertLessOrEqual(4);
       expect(bounds.right - bounds.left).assertLessOrEqual(screen.width);
+    
+      logEnd('testIndexPage0008');
     })
 
     /**
@@ -202,6 +239,7 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0009');
       const texts: string[] = [PLAY_TEXT, SPEED_TEXTS[0], SPEED_TEXTS[1], SPEED_TEXTS[2]];
       const seen: Set<string> = new Set<string>();
       for (let i = 0; i < texts.length; i++) {
@@ -210,6 +248,8 @@ export default function indexPageContractTest() {
       }
       expect(seen.size).assertEqual(texts.length);
       expect(seen.has(PLAYING_TEXT)).assertFalse();
+    
+      logEnd('testIndexPage0009');
     })
 
     /**
@@ -221,11 +261,14 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0010');
       for (let i = 0; i < 3; i++) {
         const play: Component = await componentForText(target, PLAY_TEXT);
         expect(await play.getText()).assertEqual(PLAY_TEXT);
         expect(await play.isEnabled()).assertTrue();
       }
+    
+      logEnd('testIndexPage0010');
     })
 
     /**
@@ -237,11 +280,14 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0011');
       const titleBounds = await (await componentForText(target, APP_TITLE)).getBounds();
       const playBounds = await (await componentForText(target, PLAY_TEXT)).getBounds();
       expect(playBounds.top).assertLargerOrEqual(titleBounds.bottom);
       expect(titleBounds.top).assertLargerOrEqual(0);
       expect(titleBounds.bottom).assertLarger(titleBounds.top);
+    
+      logEnd('testIndexPage0011');
     })
 
     /**
@@ -253,6 +299,7 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0012');
       const relaunched: Driver = await openApp();
       expect(await (await componentForText(relaunched, APP_TITLE)).getText()).assertEqual(APP_TITLE);
       expect(await (await componentForText(relaunched, PLAY_TEXT)).isEnabled()).assertTrue();
@@ -260,6 +307,8 @@ export default function indexPageContractTest() {
         expect(await (await componentForText(relaunched, SPEED_TEXTS[i])).isEnabled()).assertFalse();
       }
       target = relaunched;
+    
+      logEnd('testIndexPage0012');
     })
 
     /**
@@ -271,9 +320,12 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0013');
       const reopened: Driver = await openApp();
       expect(reopened === target).assertTrue();
       expect(await (await componentForText(target, APP_TITLE)).getText()).assertEqual(APP_TITLE);
+    
+      logEnd('testIndexPage0013');
     })
 
     /**
@@ -285,6 +337,7 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0014');
       const playBounds = await (await componentForText(target, PLAY_TEXT)).getBounds();
       const playHeight: number = playBounds.bottom - playBounds.top;
       for (let i = 0; i < SPEED_TEXTS.length; i++) {
@@ -294,6 +347,8 @@ export default function indexPageContractTest() {
         expect(height).assertLessOrEqual(playHeight + 1);
         expect(bounds.right).assertLarger(bounds.left);
       }
+    
+      logEnd('testIndexPage0014');
     })
 
     /**
@@ -305,11 +360,14 @@ export default function indexPageContractTest() {
      * @tc.level     Level 2
      */
     it('testIndexPage0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testIndexPage0015');
       const play: Component = await componentForText(target, PLAY_TEXT);
       const text: string = await play.getText();
       expect(text.length).assertLarger(0);
       expect(text).assertEqual(PLAY_TEXT);
       expect(text === PLAYING_TEXT).assertFalse();
+    
+      logEnd('testIndexPage0015');
     })
   });
 }
