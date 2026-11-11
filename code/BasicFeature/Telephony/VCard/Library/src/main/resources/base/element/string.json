@@ -1,0 +1,1264 @@
+{
+  "string": [
+    {
+      "name": "vc_app_title",
+      "value": "vCard 联系人",
+      "description": "应用标题"
+    },
+    {
+      "name": "vc_app_slogan",
+      "value": "导入、导出与统一管理电子名片",
+      "description": "应用副标题"
+    },
+    {
+      "name": "vc_tab_contacts",
+      "value": "联系人",
+      "description": "联系人页签"
+    },
+    {
+      "name": "vc_tab_toolbox",
+      "value": "vCard 工具",
+      "description": "工具箱页签"
+    },
+    {
+      "name": "vc_tab_history",
+      "value": "记录",
+      "description": "记录页签"
+    },
+    {
+      "name": "vc_tab_settings",
+      "value": "设置",
+      "description": "设置页签"
+    },
+    {
+      "name": "vc_action_refresh",
+      "value": "刷新",
+      "description": "刷新按钮"
+    },
+    {
+      "name": "vc_action_cancel",
+      "value": "取消",
+      "description": "取消按钮"
+    },
+    {
+      "name": "vc_action_confirm",
+      "value": "确定",
+      "description": "确定按钮"
+    },
+    {
+      "name": "vc_action_save",
+      "value": "保存",
+      "description": "保存按钮"
+    },
+    {
+      "name": "vc_action_delete",
+      "value": "删除",
+      "description": "删除按钮"
+    },
+    {
+      "name": "vc_action_edit",
+      "value": "编辑",
+      "description": "编辑按钮"
+    },
+    {
+      "name": "vc_action_back",
+      "value": "返回",
+      "description": "返回按钮"
+    },
+    {
+      "name": "vc_action_clear",
+      "value": "清空",
+      "description": "清空按钮"
+    },
+    {
+      "name": "vc_action_request_permission",
+      "value": "申请权限",
+      "description": "申请权限按钮"
+    },
+    {
+      "name": "vc_action_ok",
+      "value": "知道了",
+      "description": "提示确认按钮"
+    },
+    {
+      "name": "vc_action_close",
+      "value": "关闭",
+      "description": "关闭按钮"
+    },
+    {
+      "name": "vc_action_select",
+      "value": "选择",
+      "description": "选择按钮"
+    },
+    {
+      "name": "vc_action_view",
+      "value": "查看",
+      "description": "查看按钮"
+    },
+    {
+      "name": "vc_status_granted",
+      "value": "已授予",
+      "description": "已授权状态"
+    },
+    {
+      "name": "vc_status_denied",
+      "value": "未授予",
+      "description": "未授权状态"
+    },
+    {
+      "name": "vc_status_supported",
+      "value": "支持",
+      "description": "能力支持状态"
+    },
+    {
+      "name": "vc_status_unsupported",
+      "value": "不支持",
+      "description": "能力不支持状态"
+    },
+    {
+      "name": "vc_status_declared",
+      "value": "已声明",
+      "description": "权限已声明状态"
+    },
+    {
+      "name": "vc_status_undeclared",
+      "value": "未声明",
+      "description": "权限未声明状态"
+    },
+    {
+      "name": "vc_status_loading",
+      "value": "加载中…",
+      "description": "加载状态"
+    },
+    {
+      "name": "vc_status_success",
+      "value": "成功",
+      "description": "成功状态"
+    },
+    {
+      "name": "vc_status_failed",
+      "value": "失败",
+      "description": "失败状态"
+    },
+    {
+      "name": "vc_status_ready",
+      "value": "已就绪",
+      "description": "文件就绪状态"
+    },
+    {
+      "name": "vc_status_empty",
+      "value": "暂无数据",
+      "description": "空数据状态"
+    },
+    {
+      "name": "vc_contacts_title",
+      "value": "联系人",
+      "description": "联系人页面标题"
+    },
+    {
+      "name": "vc_contacts_subtitle",
+      "value": "读取系统联系人数据库，按姓名、电话或邮箱检索。",
+      "description": "联系人页面说明"
+    },
+    {
+      "name": "vc_contacts_search_hint",
+      "value": "搜索姓名、电话或邮箱",
+      "description": "搜索框提示"
+    },
+    {
+      "name": "vc_contacts_count",
+      "value": "共 %d 位联系人",
+      "description": "联系人总数"
+    },
+    {
+      "name": "vc_contacts_empty_title",
+      "value": "暂无联系人",
+      "description": "联系人空状态标题"
+    },
+    {
+      "name": "vc_contacts_empty_desc",
+      "value": "授予联系人权限后，这里会显示系统联系人。",
+      "description": "联系人空状态说明"
+    },
+    {
+      "name": "vc_contacts_denied_title",
+      "value": "未获得联系人权限",
+      "description": "权限拒绝标题"
+    },
+    {
+      "name": "vc_contacts_denied_desc",
+      "value": "READ_CONTACTS 与 WRITE_CONTACTS 是 system_basic 受限权限，需要配置 ACL 签名。",
+      "description": "权限拒绝说明"
+    },
+    {
+      "name": "vc_contacts_error_title",
+      "value": "联系人加载失败",
+      "description": "加载失败标题"
+    },
+    {
+      "name": "vc_contacts_demo_banner",
+      "value": "当前显示随包示例 VCF 解析出的演示数据，不会写入系统联系人。",
+      "description": "演示模式说明"
+    },
+    {
+      "name": "vc_contacts_demo_title",
+      "value": "演示模式",
+      "description": "演示模式标题"
+    },
+    {
+      "name": "vc_contacts_demo_load",
+      "value": "加载示例联系人",
+      "description": "加载示例联系人按钮"
+    },
+    {
+      "name": "vc_contacts_demo_exit",
+      "value": "退出演示模式",
+      "description": "退出演示模式按钮"
+    },
+    {
+      "name": "vc_contacts_add",
+      "value": "新建联系人",
+      "description": "新建联系人按钮"
+    },
+    {
+      "name": "vc_contacts_section_permission",
+      "value": "权限状态",
+      "description": "权限卡片标题"
+    },
+    {
+      "name": "vc_contacts_section_list",
+      "value": "联系人列表",
+      "description": "列表卡片标题"
+    },
+    {
+      "name": "vc_contacts_permission_granted_desc",
+      "value": "权限已就绪，可以浏览、导入和导出联系人。",
+      "description": "权限已授予说明"
+    },
+    {
+      "name": "vc_contacts_permission_denied_desc",
+      "value": "未授予权限，浏览、导入和导出会失败并返回 201。",
+      "description": "权限未授予说明"
+    },
+    {
+      "name": "vc_contacts_refresh_done",
+      "value": "联系人已刷新",
+      "description": "刷新完成提示"
+    },
+    {
+      "name": "vc_contacts_search_empty",
+      "value": "没有匹配的联系人",
+      "description": "搜索无结果"
+    },
+    {
+      "name": "vc_contacts_demo_hint",
+      "value": "演示数据来自随包 VCF，仅供界面预览。",
+      "description": "演示数据提示"
+    },
+    {
+      "name": "vc_detail_title",
+      "value": "联系人详情",
+      "description": "详情页标题"
+    },
+    {
+      "name": "vc_detail_section_name",
+      "value": "基本信息",
+      "description": "基本信息分组"
+    },
+    {
+      "name": "vc_detail_section_phone",
+      "value": "电话",
+      "description": "电话分组"
+    },
+    {
+      "name": "vc_detail_section_email",
+      "value": "邮箱",
+      "description": "邮箱分组"
+    },
+    {
+      "name": "vc_detail_section_org",
+      "value": "组织",
+      "description": "组织分组"
+    },
+    {
+      "name": "vc_detail_section_address",
+      "value": "地址",
+      "description": "地址分组"
+    },
+    {
+      "name": "vc_detail_section_website",
+      "value": "网站",
+      "description": "网站分组"
+    },
+    {
+      "name": "vc_detail_section_note",
+      "value": "备注",
+      "description": "备注分组"
+    },
+    {
+      "name": "vc_detail_value_empty",
+      "value": "未填写",
+      "description": "字段为空"
+    },
+    {
+      "name": "vc_detail_delete_title",
+      "value": "删除联系人",
+      "description": "删除确认标题"
+    },
+    {
+      "name": "vc_detail_delete_message",
+      "value": "确定删除该联系人吗？删除后无法恢复。",
+      "description": "删除确认内容"
+    },
+    {
+      "name": "vc_detail_deleted",
+      "value": "联系人已删除",
+      "description": "删除成功提示"
+    },
+    {
+      "name": "vc_detail_delete_failed",
+      "value": "删除失败",
+      "description": "删除失败提示"
+    },
+    {
+      "name": "vc_detail_label_company",
+      "value": "公司",
+      "description": "公司标签"
+    },
+    {
+      "name": "vc_detail_label_title",
+      "value": "职位",
+      "description": "职位标签"
+    },
+    {
+      "name": "vc_detail_label_name",
+      "value": "姓名",
+      "description": "姓名标签"
+    },
+    {
+      "name": "vc_edit_title_create",
+      "value": "新建联系人",
+      "description": "新建页标题"
+    },
+    {
+      "name": "vc_edit_title_update",
+      "value": "编辑联系人",
+      "description": "编辑页标题"
+    },
+    {
+      "name": "vc_edit_full_name",
+      "value": "姓名",
+      "description": "姓名输入标签"
+    },
+    {
+      "name": "vc_edit_phone",
+      "value": "主电话",
+      "description": "电话输入标签"
+    },
+    {
+      "name": "vc_edit_email",
+      "value": "主邮箱",
+      "description": "邮箱输入标签"
+    },
+    {
+      "name": "vc_edit_org",
+      "value": "公司",
+      "description": "公司输入标签"
+    },
+    {
+      "name": "vc_edit_job_title",
+      "value": "职位",
+      "description": "职位输入标签"
+    },
+    {
+      "name": "vc_edit_note",
+      "value": "备注",
+      "description": "备注输入标签"
+    },
+    {
+      "name": "vc_edit_hint_full_name",
+      "value": "请输入姓名",
+      "description": "姓名输入提示"
+    },
+    {
+      "name": "vc_edit_hint_phone",
+      "value": "请输入电话号码",
+      "description": "电话输入提示"
+    },
+    {
+      "name": "vc_edit_hint_email",
+      "value": "请输入邮箱",
+      "description": "邮箱输入提示"
+    },
+    {
+      "name": "vc_edit_hint_org",
+      "value": "请输入公司名称",
+      "description": "公司输入提示"
+    },
+    {
+      "name": "vc_edit_hint_job_title",
+      "value": "请输入职位",
+      "description": "职位输入提示"
+    },
+    {
+      "name": "vc_edit_hint_note",
+      "value": "请输入备注",
+      "description": "备注输入提示"
+    },
+    {
+      "name": "vc_edit_name_required",
+      "value": "姓名不能为空",
+      "description": "姓名校验提示"
+    },
+    {
+      "name": "vc_edit_email_invalid",
+      "value": "邮箱格式不正确",
+      "description": "邮箱校验提示"
+    },
+    {
+      "name": "vc_edit_save_ok",
+      "value": "联系人已保存",
+      "description": "保存成功提示"
+    },
+    {
+      "name": "vc_edit_save_failed",
+      "value": "保存失败",
+      "description": "保存失败提示"
+    },
+    {
+      "name": "vc_edit_phone_readonly_hint",
+      "value": "编辑时只更新主电话与主邮箱，其余号码保留。",
+      "description": "编辑说明"
+    },
+    {
+      "name": "vc_toolbox_title",
+      "value": "vCard 工具箱",
+      "description": "工具箱标题"
+    },
+    {
+      "name": "vc_toolbox_subtitle",
+      "value": "使用系统 @ohos.telephony.vcard 接口导入与导出电子名片。",
+      "description": "工具箱说明"
+    },
+    {
+      "name": "vc_toolbox_permission_title",
+      "value": "联系人权限状态",
+      "description": "权限卡片标题"
+    },
+    {
+      "name": "vc_toolbox_permission_granted",
+      "value": "权限已授予，可以导入和导出联系人。",
+      "description": "权限已授予说明"
+    },
+    {
+      "name": "vc_toolbox_permission_denied",
+      "value": "权限未授予，系统会拒绝导入导出并返回 201。",
+      "description": "权限未授予说明"
+    },
+    {
+      "name": "vc_toolbox_permission_acl",
+      "value": "READ_CONTACTS 与 WRITE_CONTACTS 为 system_basic 受限权限，需要配置 ACL 签名。",
+      "description": "受限权限说明"
+    },
+    {
+      "name": "vc_toolbox_syscap_ok",
+      "value": "设备声明了电话核心服务能力。",
+      "description": "系统能力支持说明"
+    },
+    {
+      "name": "vc_toolbox_syscap_no",
+      "value": "设备未声明 SystemCapability.Telephony.CoreService。",
+      "description": "系统能力缺失说明"
+    },
+    {
+      "name": "vc_toolbox_result_title",
+      "value": "执行结果",
+      "description": "结果卡片标题"
+    },
+    {
+      "name": "vc_toolbox_result_none",
+      "value": "还没有执行导入或导出。",
+      "description": "结果空状态"
+    },
+    {
+      "name": "vc_import_title",
+      "value": "导入 vCard",
+      "description": "导入卡片标题"
+    },
+    {
+      "name": "vc_import_desc",
+      "value": "选择 .vcf 文件，预览解析结果后写入联系人数据库。",
+      "description": "导入卡片说明"
+    },
+    {
+      "name": "vc_import_pick",
+      "value": "选择 VCF 文件",
+      "description": "选择文件按钮"
+    },
+    {
+      "name": "vc_import_sample",
+      "value": "导入示例 vCard",
+      "description": "示例导入按钮"
+    },
+    {
+      "name": "vc_import_file_name",
+      "value": "文件",
+      "description": "文件名标签"
+    },
+    {
+      "name": "vc_import_file_size",
+      "value": "大小",
+      "description": "文件大小标签"
+    },
+    {
+      "name": "vc_import_version",
+      "value": "版本",
+      "description": "vCard 版本标签"
+    },
+    {
+      "name": "vc_import_cards",
+      "value": "名片数",
+      "description": "名片数量标签"
+    },
+    {
+      "name": "vc_import_phones",
+      "value": "电话数",
+      "description": "电话数量标签"
+    },
+    {
+      "name": "vc_import_emails",
+      "value": "邮箱数",
+      "description": "邮箱数量标签"
+    },
+    {
+      "name": "vc_import_orgs",
+      "value": "组织数",
+      "description": "组织数量标签"
+    },
+    {
+      "name": "vc_import_addresses",
+      "value": "地址数",
+      "description": "地址数量标签"
+    },
+    {
+      "name": "vc_import_preview_title",
+      "value": "解析预览",
+      "description": "预览分组标题"
+    },
+    {
+      "name": "vc_import_preview_empty",
+      "value": "选择或加载 VCF 文件后显示解析结果。",
+      "description": "预览空状态"
+    },
+    {
+      "name": "vc_import_preview_more",
+      "value": "仅展示前 %d 张名片",
+      "description": "预览数量限制"
+    },
+    {
+      "name": "vc_import_card_phones",
+      "value": "电话 %d",
+      "description": "名片电话数"
+    },
+    {
+      "name": "vc_import_card_emails",
+      "value": "邮箱 %d",
+      "description": "名片邮箱数"
+    },
+    {
+      "name": "vc_import_start",
+      "value": "开始导入",
+      "description": "导入按钮"
+    },
+    {
+      "name": "vc_import_need_file",
+      "value": "请先选择或加载 VCF 文件",
+      "description": "缺少文件提示"
+    },
+    {
+      "name": "vc_import_empty_cards",
+      "value": "未解析到名片，请检查文件内容",
+      "description": "解析为空提示"
+    },
+    {
+      "name": "vc_import_pick_failed",
+      "value": "文件选择失败",
+      "description": "选择失败提示"
+    },
+    {
+      "name": "vc_import_copy_failed",
+      "value": "文件复制失败",
+      "description": "复制失败提示"
+    },
+    {
+      "name": "vc_import_success",
+      "value": "导入完成，共 %d 张名片",
+      "description": "导入成功提示"
+    },
+    {
+      "name": "vc_import_failed",
+      "value": "导入失败（错误码 %d）",
+      "description": "导入失败提示"
+    },
+    {
+      "name": "vc_import_parse_failed",
+      "value": "VCF 解析失败：%s",
+      "description": "解析失败提示"
+    },
+    {
+      "name": "vc_import_file_too_large",
+      "value": "文件超过 2MB，已拒绝解析",
+      "description": "文件过大提示"
+    },
+    {
+      "name": "vc_import_file_ready",
+      "value": "文件已就绪，可以开始导入。",
+      "description": "文件就绪提示"
+    },
+    {
+      "name": "vc_export_title",
+      "value": "导出 vCard",
+      "description": "导出卡片标题"
+    },
+    {
+      "name": "vc_export_desc",
+      "value": "选择范围、版本和编码后生成 VCF 文件。",
+      "description": "导出卡片说明"
+    },
+    {
+      "name": "vc_export_scope",
+      "value": "导出范围",
+      "description": "范围标签"
+    },
+    {
+      "name": "vc_export_scope_all",
+      "value": "全部联系人",
+      "description": "全部导出选项"
+    },
+    {
+      "name": "vc_export_scope_selected",
+      "value": "已选联系人",
+      "description": "选择导出选项"
+    },
+    {
+      "name": "vc_export_pick_contacts",
+      "value": "选择联系人",
+      "description": "选择联系人按钮"
+    },
+    {
+      "name": "vc_export_selected_count",
+      "value": "已选 %d 位联系人",
+      "description": "已选数量"
+    },
+    {
+      "name": "vc_export_selected_empty",
+      "value": "尚未选择联系人",
+      "description": "未选择提示"
+    },
+    {
+      "name": "vc_export_version",
+      "value": "vCard 版本",
+      "description": "版本标签"
+    },
+    {
+      "name": "vc_export_charset",
+      "value": "编码",
+      "description": "编码标签"
+    },
+    {
+      "name": "vc_export_start",
+      "value": "开始导出",
+      "description": "导出按钮"
+    },
+    {
+      "name": "vc_export_need_selection",
+      "value": "请至少选择一位联系人",
+      "description": "缺少选择提示"
+    },
+    {
+      "name": "vc_export_success",
+      "value": "导出完成，共 %d 张名片",
+      "description": "导出成功提示"
+    },
+    {
+      "name": "vc_export_failed",
+      "value": "导出失败（错误码 %d）",
+      "description": "导出失败提示"
+    },
+    {
+      "name": "vc_export_path",
+      "value": "文件路径",
+      "description": "导出路径标签"
+    },
+    {
+      "name": "vc_export_bytes",
+      "value": "文件大小",
+      "description": "导出大小标签"
+    },
+    {
+      "name": "vc_export_cards",
+      "value": "名片数",
+      "description": "导出名片数标签"
+    },
+    {
+      "name": "vc_export_preview_title",
+      "value": "VCF 内容预览",
+      "description": "内容预览标题"
+    },
+    {
+      "name": "vc_export_preview_empty",
+      "value": "导出成功后显示文件内容。",
+      "description": "内容预览空状态"
+    },
+    {
+      "name": "vc_export_save_as",
+      "value": "另存为",
+      "description": "另存为按钮"
+    },
+    {
+      "name": "vc_export_saved",
+      "value": "已保存到所选位置",
+      "description": "保存成功提示"
+    },
+    {
+      "name": "vc_export_save_canceled",
+      "value": "已取消保存",
+      "description": "保存取消提示"
+    },
+    {
+      "name": "vc_export_save_failed",
+      "value": "保存失败",
+      "description": "保存失败提示"
+    },
+    {
+      "name": "vc_export_need_result",
+      "value": "请先执行导出",
+      "description": "缺少导出结果提示"
+    },
+    {
+      "name": "vc_export_size_hint",
+      "value": "大小：%s",
+      "description": "大小提示"
+    },
+    {
+      "name": "vc_export_file_prefix",
+      "value": "contacts",
+      "description": "导出文件名前缀"
+    },
+    {
+      "name": "vc_picker_title",
+      "value": "选择联系人",
+      "description": "选择器标题"
+    },
+    {
+      "name": "vc_picker_select_all",
+      "value": "全选",
+      "description": "全选按钮"
+    },
+    {
+      "name": "vc_picker_clear_all",
+      "value": "取消全选",
+      "description": "取消全选按钮"
+    },
+    {
+      "name": "vc_picker_confirm",
+      "value": "确定选择",
+      "description": "确定选择按钮"
+    },
+    {
+      "name": "vc_picker_empty",
+      "value": "没有可选联系人",
+      "description": "选择器空状态"
+    },
+    {
+      "name": "vc_picker_selected",
+      "value": "已选 %d 位",
+      "description": "选择器已选数量"
+    },
+    {
+      "name": "vc_history_title",
+      "value": "操作记录",
+      "description": "记录页标题"
+    },
+    {
+      "name": "vc_history_subtitle",
+      "value": "导入、导出与联系人变更都会记录在本地。",
+      "description": "记录页说明"
+    },
+    {
+      "name": "vc_history_filter_all",
+      "value": "全部",
+      "description": "全部筛选"
+    },
+    {
+      "name": "vc_history_filter_import",
+      "value": "导入",
+      "description": "导入筛选"
+    },
+    {
+      "name": "vc_history_filter_export",
+      "value": "导出",
+      "description": "导出筛选"
+    },
+    {
+      "name": "vc_history_filter_contact",
+      "value": "联系人",
+      "description": "联系人筛选"
+    },
+    {
+      "name": "vc_history_stat_total",
+      "value": "总操作",
+      "description": "总操作统计"
+    },
+    {
+      "name": "vc_history_stat_import",
+      "value": "导入",
+      "description": "导入统计"
+    },
+    {
+      "name": "vc_history_stat_export",
+      "value": "导出",
+      "description": "导出统计"
+    },
+    {
+      "name": "vc_history_stat_success",
+      "value": "成功",
+      "description": "成功统计"
+    },
+    {
+      "name": "vc_history_empty",
+      "value": "暂无记录",
+      "description": "记录空状态"
+    },
+    {
+      "name": "vc_history_empty_desc",
+      "value": "完成一次导入或导出后，记录会出现在这里。",
+      "description": "记录空状态说明"
+    },
+    {
+      "name": "vc_history_clear_title",
+      "value": "清空记录",
+      "description": "清空确认标题"
+    },
+    {
+      "name": "vc_history_clear_message",
+      "value": "确定清空全部操作记录吗？",
+      "description": "清空确认内容"
+    },
+    {
+      "name": "vc_history_cleared",
+      "value": "记录已清空",
+      "description": "清空成功提示"
+    },
+    {
+      "name": "vc_history_action_import",
+      "value": "导入",
+      "description": "导入类型"
+    },
+    {
+      "name": "vc_history_action_export",
+      "value": "导出",
+      "description": "导出类型"
+    },
+    {
+      "name": "vc_history_action_create",
+      "value": "新建",
+      "description": "新建类型"
+    },
+    {
+      "name": "vc_history_action_update",
+      "value": "编辑",
+      "description": "编辑类型"
+    },
+    {
+      "name": "vc_history_action_delete",
+      "value": "删除",
+      "description": "删除类型"
+    },
+    {
+      "name": "vc_history_record_cards",
+      "value": "%d 张名片",
+      "description": "记录名片数"
+    },
+    {
+      "name": "vc_history_record_code",
+      "value": "错误码 %d",
+      "description": "记录错误码"
+    },
+    {
+      "name": "vc_history_record_target",
+      "value": "对象：%s",
+      "description": "记录对象"
+    },
+    {
+      "name": "vc_history_section_stats",
+      "value": "统计",
+      "description": "统计分组标题"
+    },
+    {
+      "name": "vc_history_section_list",
+      "value": "记录列表",
+      "description": "列表分组标题"
+    },
+    {
+      "name": "vc_settings_title",
+      "value": "设置",
+      "description": "设置页标题"
+    },
+    {
+      "name": "vc_settings_subtitle",
+      "value": "调整 vCard 默认参数与本地数据。",
+      "description": "设置页说明"
+    },
+    {
+      "name": "vc_settings_section_vcard",
+      "value": "vCard 默认参数",
+      "description": "默认参数分组"
+    },
+    {
+      "name": "vc_settings_section_permission",
+      "value": "权限与能力",
+      "description": "权限分组"
+    },
+    {
+      "name": "vc_settings_section_data",
+      "value": "本地数据",
+      "description": "数据分组"
+    },
+    {
+      "name": "vc_settings_section_about",
+      "value": "关于",
+      "description": "关于分组"
+    },
+    {
+      "name": "vc_settings_default_version",
+      "value": "默认版本",
+      "description": "默认版本标签"
+    },
+    {
+      "name": "vc_settings_default_charset",
+      "value": "默认编码",
+      "description": "默认编码标签"
+    },
+    {
+      "name": "vc_settings_auto_jump",
+      "value": "导入后返回联系人",
+      "description": "自动跳转开关"
+    },
+    {
+      "name": "vc_settings_history_limit",
+      "value": "历史保留条数",
+      "description": "历史条数标签"
+    },
+    {
+      "name": "vc_settings_history_limit_value",
+      "value": "%d 条",
+      "description": "历史条数选项"
+    },
+    {
+      "name": "vc_settings_permission",
+      "value": "联系人权限",
+      "description": "权限标签"
+    },
+    {
+      "name": "vc_settings_permission_acl",
+      "value": "受限权限需通过 ACL 配置签名后才能生效。",
+      "description": "权限说明"
+    },
+    {
+      "name": "vc_settings_clean",
+      "value": "清理沙箱 vCard 文件",
+      "description": "清理按钮"
+    },
+    {
+      "name": "vc_settings_clean_desc",
+      "value": "删除导入缓存、导出结果与临时文件。",
+      "description": "清理说明"
+    },
+    {
+      "name": "vc_settings_clean_done",
+      "value": "已清理 %d 个文件",
+      "description": "清理成功提示"
+    },
+    {
+      "name": "vc_settings_clean_none",
+      "value": "没有需要清理的文件",
+      "description": "无文件提示"
+    },
+    {
+      "name": "vc_settings_about_desc",
+      "value": "本示例基于 @ohos.telephony.vcard，从 API 23 开始提供导入与导出能力。",
+      "description": "关于说明"
+    },
+    {
+      "name": "vc_settings_api_level",
+      "value": "API 版本",
+      "description": "API 版本标签"
+    },
+    {
+      "name": "vc_settings_bundle",
+      "value": "包名",
+      "description": "包名标签"
+    },
+    {
+      "name": "vc_settings_syscap",
+      "value": "系统能力",
+      "description": "系统能力标签"
+    },
+    {
+      "name": "vc_settings_saved",
+      "value": "设置已保存",
+      "description": "设置保存提示"
+    },
+    {
+      "name": "vc_settings_version_21",
+      "value": "2.1",
+      "description": "版本选项 2.1"
+    },
+    {
+      "name": "vc_settings_version_30",
+      "value": "3.0",
+      "description": "版本选项 3.0"
+    },
+    {
+      "name": "vc_settings_version_40",
+      "value": "4.0",
+      "description": "版本选项 4.0"
+    },
+    {
+      "name": "vc_settings_auto_jump_on",
+      "value": "已开启",
+      "description": "开关开启"
+    },
+    {
+      "name": "vc_settings_auto_jump_off",
+      "value": "已关闭",
+      "description": "开关关闭"
+    },
+    {
+      "name": "vc_check_syscap_name",
+      "value": "系统能力",
+      "description": "系统能力检查项"
+    },
+    {
+      "name": "vc_check_syscap_ok",
+      "value": "设备声明了 SystemCapability.Telephony.CoreService。",
+      "description": "系统能力支持说明"
+    },
+    {
+      "name": "vc_check_syscap_no",
+      "value": "设备未声明电话核心服务能力，vCard 接口不可用。",
+      "description": "系统能力缺失说明"
+    },
+    {
+      "name": "vc_check_read_name",
+      "value": "读取联系人权限",
+      "description": "读权限检查项"
+    },
+    {
+      "name": "vc_check_read_desc",
+      "value": "READ_CONTACTS：查询联系人并构建导出条件。",
+      "description": "读权限说明"
+    },
+    {
+      "name": "vc_check_write_name",
+      "value": "写入联系人权限",
+      "description": "写权限检查项"
+    },
+    {
+      "name": "vc_check_write_desc",
+      "value": "WRITE_CONTACTS：把 VCF 导入联系人数据库。",
+      "description": "写权限说明"
+    },
+    {
+      "name": "vc_check_declared_ok",
+      "value": "权限已在 module.json5 中声明。",
+      "description": "权限声明成功"
+    },
+    {
+      "name": "vc_check_declared_no",
+      "value": "权限未在 module.json5 中声明。",
+      "description": "权限未声明"
+    },
+    {
+      "name": "vc_check_granted_desc",
+      "value": "运行时权限已授予。",
+      "description": "权限已授予说明"
+    },
+    {
+      "name": "vc_check_denied_desc",
+      "value": "运行时权限未授予，调用会返回 201。",
+      "description": "权限未授予说明"
+    },
+    {
+      "name": "vc_permission_request_ok",
+      "value": "全部权限已授予",
+      "description": "权限申请成功"
+    },
+    {
+      "name": "vc_permission_request_partial",
+      "value": "部分权限未授予",
+      "description": "权限申请部分成功"
+    },
+    {
+      "name": "vc_permission_request_failed",
+      "value": "权限申请失败：%s",
+      "description": "权限申请失败"
+    },
+    {
+      "name": "vc_permission_state_unavailable",
+      "value": "无法读取权限状态",
+      "description": "权限状态读取失败"
+    },
+    {
+      "name": "vc_permission_required",
+      "value": "需要联系人权限",
+      "description": "权限缺失提示"
+    },
+    {
+      "name": "vc_acl_hint",
+      "value": "受限权限需要 ACL 高权限签名。",
+      "description": "ACL 提示"
+    },
+    {
+      "name": "vc_error_201_title",
+      "value": "权限被拒绝",
+      "description": "错误 201 标题"
+    },
+    {
+      "name": "vc_error_201_reason",
+      "value": "应用未获得 READ_CONTACTS 或 WRITE_CONTACTS 权限。",
+      "description": "错误 201 原因"
+    },
+    {
+      "name": "vc_error_201_suggestion",
+      "value": "在设置中授予权限，或配置 ACL 高权限签名后重新安装。",
+      "description": "错误 201 建议"
+    },
+    {
+      "name": "vc_error_401_title",
+      "value": "参数错误",
+      "description": "错误 401 标题"
+    },
+    {
+      "name": "vc_error_401_reason",
+      "value": "必填参数缺失或参数类型不正确。",
+      "description": "错误 401 原因"
+    },
+    {
+      "name": "vc_error_401_suggestion",
+      "value": "检查文件路径、查询条件与版本参数。",
+      "description": "错误 401 建议"
+    },
+    {
+      "name": "vc_error_8300001_title",
+      "value": "参数不在处理范围",
+      "description": "错误 8300001 标题"
+    },
+    {
+      "name": "vc_error_8300001_reason",
+      "value": "文件路径或查询条件超出 vCard 模块支持的范围。",
+      "description": "错误 8300001 原因"
+    },
+    {
+      "name": "vc_error_8300001_suggestion",
+      "value": "确认 VCF 文件位于应用沙箱内且格式正确。",
+      "description": "错误 8300001 建议"
+    },
+    {
+      "name": "vc_error_8300003_title",
+      "value": "系统内部错误",
+      "description": "错误 8300003 标题"
+    },
+    {
+      "name": "vc_error_8300003_reason",
+      "value": "联系人服务内部执行失败。",
+      "description": "错误 8300003 原因"
+    },
+    {
+      "name": "vc_error_8300003_suggestion",
+      "value": "稍后重试，或检查设备联系人服务是否可用。",
+      "description": "错误 8300003 建议"
+    },
+    {
+      "name": "vc_error_8300999_title",
+      "value": "未知错误",
+      "description": "错误 8300999 标题"
+    },
+    {
+      "name": "vc_error_8300999_reason",
+      "value": "vCard 模块返回了未定义的错误。",
+      "description": "错误 8300999 原因"
+    },
+    {
+      "name": "vc_error_8300999_suggestion",
+      "value": "查看 hilog 日志并重试。",
+      "description": "错误 8300999 建议"
+    },
+    {
+      "name": "vc_error_13900002_title",
+      "value": "导出文件不可访问",
+      "description": "错误 13900002 标题"
+    },
+    {
+      "name": "vc_error_13900002_reason",
+      "value": "系统联系人服务未生成可访问的 VCF 文件（错误码 13900002：文件不存在），当前设备镜像的联系人导出服务可能不完整。",
+      "description": "错误 13900002 原因"
+    },
+    {
+      "name": "vc_error_13900002_suggestion",
+      "value": "确认系统版本支持 vCard 导出（API 23+）并使用完整系统镜像，或查看 hilog 日志中 exportVCard 返回的路径。",
+      "description": "错误 13900002 建议"
+    },
+    {
+      "name": "vc_error_unknown_title",
+      "value": "操作失败",
+      "description": "未知错误标题"
+    },
+    {
+      "name": "vc_error_unknown_reason",
+      "value": "发生未预期的错误。",
+      "description": "未知错误原因"
+    },
+    {
+      "name": "vc_error_unknown_suggestion",
+      "value": "查看 hilog 日志了解详情。",
+      "description": "未知错误建议"
+    },
+    {
+      "name": "vc_unknown",
+      "value": "未知",
+      "description": "未知值"
+    },
+    {
+      "name": "vc_none",
+      "value": "无",
+      "description": "空值"
+    },
+    {
+      "name": "vc_sample_file_name",
+      "value": "示例联系人.vcf",
+      "description": "示例文件名"
+    },
+    {
+      "name": "vc_sample_chip",
+      "value": "示例",
+      "description": "示例标记"
+    },
+    {
+      "name": "vc_version_desc_21",
+      "value": "兼容性优先，适合旧设备与第三方通讯录",
+      "description": "2.1 版本说明"
+    },
+    {
+      "name": "vc_version_desc_30",
+      "value": "通用版本，支持更多字段与分组",
+      "description": "3.0 版本说明"
+    },
+    {
+      "name": "vc_version_desc_40",
+      "value": "最新版本，字段表达能力最强",
+      "description": "4.0 版本说明"
+    }
+  ]
+}
