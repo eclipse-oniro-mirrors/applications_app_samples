@@ -1345,6 +1345,13 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/ArkWebPageHeight/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/ArkWeb"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/WebWriteScreenIssue/screenshots/img_3.png" desc="Provided by code/DocsSample/ArkWeb"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/WebWriteScreenIssue/screenshots/img_4.png" desc="Provided by code/DocsSample/ArkWeb"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/entry/src/main/resources/base/media/background.png" desc="auto menu uiability sample icon backgroud"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/entry/src/main/resources/base/media/foreground.png" desc="auto menu uiability sample icon foreground"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/entry/src/main/resources/base/media/startIcon.png" desc="auto menu uiability sample startIcon"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/entry/src/main/resources/base/media/background.pngg" desc="auto menu uiextensionability sample icon backgroud"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/entry/src/main/resources/base/media/foreground.png" desc="auto menu uiextensionability sample icon foreground"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/entry/src/main/resources/base/media/startIcon.png" desc="auto menu uiextensionability sample startIcon"/>
+
 	        <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryOverlay/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/sceenshots/device/snapshot_directory.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryOverlay/src/main/resources/base/media/setting.jpeg" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
