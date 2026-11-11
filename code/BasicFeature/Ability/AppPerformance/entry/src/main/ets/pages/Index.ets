@@ -1,4 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { resolveText, displayValue } from '../core/UiText';
 import { router } from '@kit.ArkUI';
+import { logWarn } from '../core/Logger';
 import { AppService, getAppService } from '../core/AppService';
 import { flowMetricSamples, evaluateFlowThresholds, evaluateFlowGate, flowThresholds,
   flowGateRules } from '../core/FlowMetrics';
@@ -27,6 +44,15 @@ import {
 @Entry
 @Component
 struct Index {
+
+  private text(resource: Resource, args: (string | number)[] = []): string {
+    return resolveText(this.getUIContext().getHostContext(), resource, args);
+  }
+
+  private display(value: string): string {
+    return displayValue(this.getUIContext().getHostContext(), value);
+  }
+
   @State deviceText: string = '';
   @State foreground: boolean = true;
   @State files: string[] = [];
@@ -40,9 +66,9 @@ struct Index {
   @State maintenanceMode: number = 0;
   @State memoryBusy: boolean = false;
   @State resourceBusy: boolean = false;
-  @State resourceText: string = '待读取';
+  @State resourceText: string = '';
   @State latestMemory: CallRecord | undefined = undefined;
-  @State snapFlag: string = '尚未设置';
+  @State snapFlag: string = '';
   @State snapAt: number = 0;
   @State rebuildAt: number = 0;
   @State rebuildWaitSeconds: number = 0;
@@ -56,7 +82,7 @@ struct Index {
   @State selectedModules: string[] = [];
   @State extraFiles: string = '';
   @State configOpen: boolean = false;
-  @State reasonText: string = '手动重建';
+  @State reasonText: string = '';
   @State recordPane: number = 0;
   @State logFilter: number = 0;
   @State expandedRecordId: number = -1;
@@ -94,6 +120,7 @@ struct Index {
   }
 
   aboutToAppear(): void {
+    this.reasonText = this.text($r('app.string.ap_ui_manual_rebuild'));
     const service: AppService = getAppService();
     this.service = service;
     this.applySnapshot(service.getState());
@@ -203,18 +230,18 @@ struct Index {
 
   private confirmRebuild(): void {
     AlertDialog.show({
-      title: '请求重建',
-      message: '重建应用快启数据？',
+      title: this.text($r('app.string.ap_ui_request_rebuild')),
+      message: this.text($r('app.string.ap_ui_rebuild_the_application_s_hypersnap_data')),
       primaryButton: {
-        value: '取消',
+        value: this.text($r('app.string.ap_ui_cancel')),
         action: (): void => {}
       },
       secondaryButton: {
-        value: '确认重建',
+        value: this.text($r('app.string.ap_ui_confirm_rebuild')),
         action: (): void => {
           const service: AppService | undefined = this.service;
           if (service !== undefined) {
-            service.rebuildSnap(this.reasonText.trim() || '手动重建');
+            service.rebuildSnap(this.reasonText.trim() || this.text($r('app.string.ap_ui_manual_rebuild')));
           }
         }
       }
@@ -247,14 +274,14 @@ struct Index {
 
   private confirmClearLogs(): void {
     AlertDialog.show({
-      title: '清空记录',
-      message: '清空全部调用记录？',
+      title: this.text($r('app.string.ap_ui_clear_records')),
+      message: this.text($r('app.string.ap_ui_clear_all_call_records')),
       primaryButton: {
-        value: '取消',
+        value: this.text($r('app.string.ap_ui_cancel')),
         action: (): void => {}
       },
       secondaryButton: {
-        value: '清空',
+        value: this.text($r('app.string.ap_ui_clear')),
         action: (): void => {
           const service: AppService | undefined = this.service;
           if (service !== undefined) {
@@ -293,14 +320,14 @@ struct Index {
 
   private confirmClearLaunches(): void {
     AlertDialog.show({
-      title: '清空采样',
-      message: '清空全部内容加载样本？',
+      title: this.text($r('app.string.ap_ui_clear_samples')),
+      message: this.text($r('app.string.ap_ui_clear_all_content_loading_samples')),
       primaryButton: {
-        value: '取消',
+        value: this.text($r('app.string.ap_ui_cancel')),
         action: (): void => {}
       },
       secondaryButton: {
-        value: '清空',
+        value: this.text($r('app.string.ap_ui_clear')),
         action: (): void => {
           const service: AppService | undefined = this.service;
           if (service !== undefined) {
@@ -329,13 +356,13 @@ struct Index {
 
   @Builder
   memoryPage(): void {
-    this.heading('内存优化', '选择目标，请求回收文件页')
+    this.heading(this.text($r('app.string.ap_ui_memory_optimization')), this.text($r('app.string.ap_ui_select_targets_and_request_file_page_eviction')))
     Row({ space: 10 }) {
       Text(this.deviceText)
         .layoutWeight(1)
         .fontSize(12)
         .fontColor('#667085')
-      Text(this.foreground ? '前台' : '后台')
+      Text(this.foreground ? this.text($r('app.string.ap_ui_foreground')) : this.text($r('app.string.ap_ui_background')))
         .fontSize(12)
         .fontColor('#526582')
         .padding({ left: 9, right: 9, top: 4, bottom: 4 })
@@ -346,8 +373,8 @@ struct Index {
 
     Column({ space: 14 }) {
       Row({ space: 4 }) {
-        ChoiceButton({ label: '文件', selected: this.memoryMode === 0, onSelect: (): void => { this.memoryMode = 0; } })
-        ChoiceButton({ label: '模块', selected: this.memoryMode === 1, onSelect: (): void => { this.memoryMode = 1; } })
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_files')), selected: this.memoryMode === 0, onSelect: (): void => { this.memoryMode = 0; } })
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_modules')), selected: this.memoryMode === 1, onSelect: (): void => { this.memoryMode = 1; } })
       }
       .padding(4)
       .borderRadius(14)
@@ -378,20 +405,20 @@ struct Index {
         .width('100%')
         .alignItems(HorizontalAlign.Start)
 
-        TextInput({ text: this.extraFiles, placeholder: '其他文件名（可选，逗号分隔）' })
+        TextInput({ text: this.extraFiles, placeholder: this.text($r('app.string.ap_ui_other_file_names_optional_comma_separated')) })
           .fontSize(14)
           .height(44)
           .borderRadius(12)
           .backgroundColor('#F5F7FA')
           .onChange((value: string): void => { this.extraFiles = value; })
         if (this.selectedFiles.length === 0 && this.manualFiles().length === 0) {
-          Text('选择文件，或输入其他文件名')
+          Text(this.text($r('app.string.ap_ui_select_files_or_enter_other_file_names')))
             .fontSize(12)
             .fontColor('#667085')
         }
       } else {
         if (this.modules.length === 0) {
-          Text('暂无模块')
+          Text(this.text($r('app.string.ap_ui_no_modules')))
             .fontSize(14)
             .fontColor('#667085')
             .padding({ top: 10, bottom: 10 })
@@ -428,13 +455,13 @@ struct Index {
       }
       Row({ space: 10 }) {
         ActionButton({
-          label: '刷新目标',
+          label: this.text($r('app.string.ap_ui_refresh_targets')),
           primary: false,
           isEnabled: !this.memoryBusy,
           onAction: (): void => { this.refreshTargets(); }
         })
         ActionButton({
-          label: this.memoryBusy ? '调用中' : (this.memoryMode === 0 ? '回收文件页' : '回收模块页'),
+          label: this.memoryBusy ? this.text($r('app.string.ap_ui_calling')) : (this.memoryMode === 0 ? this.text($r('app.string.ap_ui_evict_file_pages')) : this.text($r('app.string.ap_ui_evict_module_pages'))),
           primary: true,
           isEnabled: !this.memoryDisabled(),
           onAction: (): void => { this.evictMemory(); }
@@ -458,15 +485,17 @@ struct Index {
     })
     Row() {
       ActionButton({
-        label: '业务负载实验台',
+        label: this.text($r('app.string.ap_ui_workload_laboratory')),
         primary: false,
         isEnabled: true,
         onAction: (): void => {
-          router.pushUrl({ url: 'pages/WorkloadLabPage' }).catch((): void => {});
+          router.pushUrl({ url: 'pages/WorkloadLabPage' }).catch((error: Error): void => {
+            logWarn(`Workload laboratory navigation failed: ${error.message}`);
+          });
         }
       })
     }.width('100%')
-    Button(this.advancedToolsOpen ? '收起更多工具' : '更多工具').id('apAdvancedToolsToggle')
+    Button(this.advancedToolsOpen ? this.text($r('app.string.ap_ui_hide_more_tools')) : this.text($r('app.string.ap_ui_more_tools'))).id('apAdvancedToolsToggle')
       .type(ButtonType.Normal).width('100%').height(44).fontSize(14)
       .fontColor('#667085').backgroundColor('#FFFFFF').borderRadius(12)
       .onClick((): void => { this.advancedToolsOpen = !this.advancedToolsOpen; })
@@ -481,12 +510,12 @@ struct Index {
   configCard(): void {
     Column({ space: 12 }) {
       Row() {
-        Text('配置')
+        Text(this.text($r('app.string.ap_ui_configuration')))
           .fontSize(16)
           .fontWeight(FontWeight.Medium)
           .fontColor('#182238')
           .layoutWeight(1)
-        Button(this.configOpen ? '收起' : '展开')
+        Button(this.configOpen ? this.text($r('app.string.ap_ui_collapse')) : this.text($r('app.string.ap_ui_expand')))
           .type(ButtonType.Normal)
           .fontSize(12)
           .fontColor('#667085')
@@ -497,14 +526,14 @@ struct Index {
       }
       .width('100%')
       if (this.configOpen) {
-        InfoField({ label: '状态', value: this.configStatus })
-        Text(this.configText.length > 0 ? this.configText : '暂无配置')
+        InfoField({ label: this.text($r('app.string.ap_ui_status')), value: this.configStatus })
+        Text(this.configText.length > 0 ? this.configText : this.text($r('app.string.ap_ui_no_configuration')))
           .fontSize(12)
           .fontColor('#667085')
           .width('100%')
         Row() {
           ActionButton({
-            label: '检查配置',
+            label: this.text($r('app.string.ap_ui_check_configuration')),
             primary: false,
             isEnabled: true,
             onAction: (): void => { this.checkConfig(); }
@@ -524,32 +553,32 @@ struct Index {
   maintenanceCard(): void {
     Column({ space: 12 }) {
       Row() {
-        Text('维护流程')
+        Text(this.text($r('app.string.ap_ui_maintenance_flow')))
           .fontSize(16)
           .fontWeight(FontWeight.Medium)
           .fontColor('#182238')
           .layoutWeight(1)
         if (this.maintenance !== undefined) {
-          Text(this.maintenance.status)
+          Text(this.display(this.maintenance.status))
             .fontSize(12)
             .fontColor('#246BFD')
         } else {
-          Text('未运行')
+          Text($r('app.string.ap_ui_not_run'))
             .fontSize(12)
             .fontColor('#667085')
         }
       }
       .width('100%')
-      Text('读取负载、执行请求并校验资源完整性。')
+      Text(this.text($r('app.string.ap_ui_read_the_workload_make_the_request_and_verify_resource_integrity')))
         .fontSize(12)
         .fontColor('#667085')
         .width('100%')
       Row({ space: 8 }) {
-        ChoiceButton({ label: '文件回收', selected: this.maintenanceMode === 0,
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_file_eviction')), selected: this.maintenanceMode === 0,
           onSelect: (): void => { this.maintenanceMode = 0; } })
-        ChoiceButton({ label: '无回收对照', selected: this.maintenanceMode === 1,
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_no_eviction_control')), selected: this.maintenanceMode === 1,
           onSelect: (): void => { this.maintenanceMode = 1; } })
-        ChoiceButton({ label: '模块回收', selected: this.maintenanceMode === 2,
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_module_eviction')), selected: this.maintenanceMode === 2,
           onSelect: (): void => { this.maintenanceMode = 2; } })
       }
       .width('100%')
@@ -558,7 +587,7 @@ struct Index {
           Column({ space: 4 }) {
             Row() {
               Text(step.label).fontSize(14).fontColor('#182238').layoutWeight(1)
-              Text(step.status).fontSize(12)
+              Text(this.display(step.status)).fontSize(12)
                 .fontColor(step.status === '成功' ? '#11845B' : step.status === '失败' ? '#C23F4A' : '#667085')
             }
             .width('100%')
@@ -566,7 +595,7 @@ struct Index {
               Text(step.detail).fontSize(12).fontColor('#667085').width('100%')
             }
             if (step.elapsed > 0) {
-              Text(`耗时 ${step.elapsed} ms`).fontSize(12).fontColor('#667085').width('100%')
+              Text(this.text($r('app.string.ap_ui_format_061daad6b9'), [step.elapsed])).fontSize(12).fontColor('#667085').width('100%')
             }
           }
           .width('100%')
@@ -575,11 +604,11 @@ struct Index {
         if (this.maintenance.notice.length > 0) {
           Text(this.maintenance.notice).fontSize(12).fontColor('#667085').width('100%')
         }
-        Text(`资源完整性：${this.maintenance.integrity}（${this.maintenance.beforeBytes} → ${this.maintenance.afterBytes} 字节）`)
+        Text(this.text($r('app.string.ap_ui_format_d3ed71152f'), [this.display(this.maintenance.integrity), this.maintenance.beforeBytes, this.maintenance.afterBytes]))
           .fontSize(12).fontColor('#667085').width('100%')
       }
       ActionButton({
-        label: this.maintenanceBusy ? '流程运行中' : '运行维护流程',
+        label: this.maintenanceBusy ? this.text($r('app.string.ap_ui_flow_running')) : this.text($r('app.string.ap_ui_run_maintenance_flow')),
         primary: true,
         isEnabled: !this.maintenanceBusy && !this.memoryBusy,
         onAction: (): void => { this.runMaintenance(); }
@@ -595,23 +624,23 @@ struct Index {
   @Builder
   resourceCard(): void {
     Column({ space: 12 }) {
-      Text('资源校验')
+      Text(this.text($r('app.string.ap_ui_resource_verification')))
         .fontSize(16)
         .fontWeight(FontWeight.Medium)
         .fontColor('#182238')
-      Text(this.resourceText)
+      Text(this.display(this.resourceText))
         .fontSize(12)
         .fontColor('#667085')
         .width('100%')
       Row({ space: 10 }) {
         ActionButton({
-          label: '读取资源',
+          label: this.text($r('app.string.ap_ui_read_resource')),
           primary: false,
           isEnabled: !this.resourceBusy,
           onAction: (): void => { this.readResource(false); }
         })
         ActionButton({
-          label: '读取并校验',
+          label: this.text($r('app.string.ap_ui_read_and_verify')),
           primary: true,
           isEnabled: !this.resourceBusy,
           onAction: (): void => { this.readResource(true); }
@@ -628,23 +657,23 @@ struct Index {
 
   @Builder
   launchPage(): void {
-    this.heading('应用快启', '管理快启设置与重建')
+    this.heading(this.text($r('app.string.ap_ui_hypersnap')), this.text($r('app.string.ap_ui_manage_hypersnap_settings_and_rebuild_requests')))
     Column({ space: 12 }) {
-      Text('快启设置')
+      Text(this.text($r('app.string.ap_ui_hypersnap_settings')))
         .fontSize(16)
         .fontWeight(FontWeight.Medium)
         .fontColor('#182238')
-      InfoField({ label: '最近设置', value: this.snapFlag })
-      InfoField({ label: '设置时间', value: formatTime(this.snapAt) })
+      InfoField({ label: this.text($r('app.string.ap_ui_latest_setting')), value: this.display(this.snapFlag) })
+      InfoField({ label: this.text($r('app.string.ap_ui_setting_time')), value: formatTime(this.snapAt) })
       Row({ space: 10 }) {
         ActionButton({
-          label: '启用',
+          label: this.text($r('app.string.ap_ui_enabled')),
           primary: true,
           isEnabled: true,
           onAction: (): void => { this.setSnapEnabled(true); }
         })
         ActionButton({
-          label: '禁用',
+          label: this.text($r('app.string.ap_ui_disabled')),
           primary: false,
           isEnabled: true,
           onAction: (): void => { this.setSnapEnabled(false); }
@@ -659,22 +688,22 @@ struct Index {
     .borderRadius(16)
 
     Column({ space: 12 }) {
-      Text('快启重建')
+      Text(this.text($r('app.string.ap_ui_hypersnap_rebuild')))
         .fontSize(16)
         .fontWeight(FontWeight.Medium)
         .fontColor('#182238')
-      TextInput({ text: this.reasonText, placeholder: '重建原因' })
+      TextInput({ text: this.reasonText, placeholder: this.text($r('app.string.ap_ui_rebuild_reason')) })
         .fontSize(14)
         .height(44)
         .maxLength(80)
         .borderRadius(12)
         .backgroundColor('#F5F7FA')
         .onChange((value: string): void => { this.reasonText = value; })
-      InfoField({ label: '最近时间', value: formatTime(this.rebuildAt) })
-      InfoField({ label: '冷却', value: `${this.rebuildWaitSeconds} 秒` })
+      InfoField({ label: this.text($r('app.string.ap_ui_latest_time')), value: formatTime(this.rebuildAt) })
+      InfoField({ label: this.text($r('app.string.ap_ui_cooldown')), value: this.text($r('app.string.ap_ui_format_b28ea52b8c'), [this.rebuildWaitSeconds]) })
       Row() {
         ActionButton({
-          label: '请求重建',
+          label: this.text($r('app.string.ap_ui_request_rebuild')),
           primary: true,
           isEnabled: this.rebuildWaitSeconds <= 0,
           onAction: (): void => { this.confirmRebuild(); }
@@ -691,10 +720,10 @@ struct Index {
 
   @Builder
   recordsPage(): void {
-    this.heading('调用记录', '查看请求结果与内容加载耗时')
+    this.heading(this.text($r('app.string.ap_ui_call_records')), this.text($r('app.string.ap_ui_view_request_results_and_content_loading_durations')))
     Row({ space: 4 }) {
-      ChoiceButton({ label: '调用记录', selected: this.recordPane === 0, onSelect: (): void => { this.recordPane = 0; } })
-      ChoiceButton({ label: '内容加载', selected: this.recordPane === 1, onSelect: (): void => { this.recordPane = 1; } })
+      ChoiceButton({ label: this.text($r('app.string.ap_ui_call_records')), selected: this.recordPane === 0, onSelect: (): void => { this.recordPane = 0; } })
+      ChoiceButton({ label: this.text($r('app.string.ap_ui_content_loading')), selected: this.recordPane === 1, onSelect: (): void => { this.recordPane = 1; } })
     }
     .width('100%')
     .padding(4)
@@ -711,26 +740,26 @@ struct Index {
   logsPane(): void {
     Column({ space: 12 }) {
       Row({ space: 4 }) {
-        ChoiceButton({ label: '全部', selected: this.logFilter === 0, onSelect: (): void => { this.logFilter = 0; } })
-        ChoiceButton({ label: '内存', selected: this.logFilter === 1, onSelect: (): void => { this.logFilter = 1; } })
-        ChoiceButton({ label: '快启', selected: this.logFilter === 2, onSelect: (): void => { this.logFilter = 2; } })
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_all')), selected: this.logFilter === 0, onSelect: (): void => { this.logFilter = 0; } })
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_memory')), selected: this.logFilter === 1, onSelect: (): void => { this.logFilter = 1; } })
+        ChoiceButton({ label: this.text($r('app.string.ap_ui_hypersnap_a50897')), selected: this.logFilter === 2, onSelect: (): void => { this.logFilter = 2; } })
       }
       .width('100%')
       .padding(4)
       .backgroundColor('#EEF2F6')
       .borderRadius(14)
-      Text(`共 ${this.filteredLogs().length} 条`)
+      Text(this.text($r('app.string.ap_ui_format_c71ceedb76'), [this.filteredLogs().length]))
         .fontSize(12)
         .fontColor('#667085')
       Row({ space: 10 }) {
         ActionButton({
-          label: '复制记录',
+          label: this.text($r('app.string.ap_ui_copy_records')),
           primary: false,
           isEnabled: this.filteredLogs().length > 0,
           onAction: (): void => { this.copyLogs(); }
         })
         ActionButton({
-          label: '清空记录',
+          label: this.text($r('app.string.ap_ui_clear_records')),
           primary: false,
           isEnabled: this.logs.length > 0,
           onAction: (): void => { this.confirmClearLogs(); }
@@ -745,7 +774,7 @@ struct Index {
     .borderRadius(16)
 
     if (this.filteredLogs().length === 0) {
-      Text('暂无调用记录')
+      Text(this.text($r('app.string.ap_ui_no_call_records')))
         .fontSize(14)
         .fontColor('#667085')
         .width('100%')
@@ -773,7 +802,7 @@ struct Index {
         .width(40)
         .fontSize(14)
         .fontColor('#182238')
-      Text(`${this.sampleCount(group)} 个样本`)
+      Text(this.text($r('app.string.ap_ui_format_b4fc476125'), [this.sampleCount(group)]))
         .layoutWeight(1)
         .fontSize(12)
         .fontColor('#667085')
@@ -788,30 +817,30 @@ struct Index {
   @Builder
   samplesPane(): void {
     Column({ space: 12 }) {
-      Text('内容加载耗时 · 中位数')
+      Text(this.text($r('app.string.ap_ui_content_loading_duration_median')))
         .fontSize(16)
         .fontWeight(FontWeight.Medium)
         .fontColor('#182238')
-      this.sampleSummary('启用', '启用')
-      this.sampleSummary('禁用', '禁用')
-      this.sampleSummary('初始', '初始')
-      Button(this.metricDetailsOpen ? '收起采样说明' : '采样说明').id('apMetricDetailsToggle')
+      this.sampleSummary('启用', this.text($r('app.string.ap_ui_enabled')))
+      this.sampleSummary('禁用', this.text($r('app.string.ap_ui_disabled')))
+      this.sampleSummary('初始', this.text($r('app.string.ap_ui_initial')))
+      Button(this.metricDetailsOpen ? this.text($r('app.string.ap_ui_hide_sampling_notes')) : this.text($r('app.string.ap_ui_sampling_notes'))).id('apMetricDetailsToggle')
         .type(ButtonType.Normal).height(44).fontSize(14).fontColor('#667085')
         .backgroundColor('#F5F7FA').borderRadius(12).width('100%')
         .onClick((): void => { this.metricDetailsOpen = !this.metricDetailsOpen; })
       if (this.metricDetailsOpen) {
-        Text('统计从页面创建到内容加载完成的时间，按最近快启设置分组；不等同于首帧或系统启动路径。')
+        Text(this.text($r('app.string.ap_ui_measures_page_creation_to_content_loaded_grouped_by_the_latest_hypersnap')))
           .fontSize(14).fontColor('#667085').lineHeight(22).width('100%')
       }
       Row({ space: 10 }) {
         ActionButton({
-          label: '复制采样',
+          label: this.text($r('app.string.ap_ui_copy_samples')),
           primary: false,
           isEnabled: this.launches.length > 0,
           onAction: (): void => { this.copyLaunches(); }
         })
         ActionButton({
-          label: '清空采样',
+          label: this.text($r('app.string.ap_ui_clear_samples')),
           primary: false,
           isEnabled: this.launches.length > 0,
           onAction: (): void => { this.confirmClearLaunches(); }
@@ -826,7 +855,7 @@ struct Index {
     .borderRadius(16)
 
     if (this.launches.length === 0) {
-      Text('暂无内容加载样本')
+      Text(this.text($r('app.string.ap_ui_no_content_loading_samples')))
         .fontSize(14)
         .fontColor('#667085')
         .width('100%')
@@ -837,9 +866,9 @@ struct Index {
     } else {
       ForEach(this.launches, (sample: LaunchSample): void => {
         Column({ space: 9 }) {
-          InfoField({ label: '时间', value: formatTime(sample.at) })
-          InfoField({ label: '分组', value: sample.group })
-          InfoField({ label: '内容加载', value: `${sample.contentMs.toFixed(1)} ms` })
+          InfoField({ label: this.text($r('app.string.ap_ui_time')), value: formatTime(sample.at) })
+          InfoField({ label: this.text($r('app.string.ap_ui_group')), value: this.display(sample.group) })
+          InfoField({ label: this.text($r('app.string.ap_ui_content_loading')), value: `${sample.contentMs.toFixed(1)} ms` })
         }
         .width('100%')
         .padding(16)
@@ -852,28 +881,28 @@ struct Index {
 
   @Builder
   planPage(): void {
-    this.heading('维护计划', '当前流程与内容加载预算')
+    this.heading(this.text($r('app.string.ap_ui_maintenance_plan')), this.text($r('app.string.ap_ui_current_flow_and_content_loading_budgets')))
     Column({ space: 14 }) {
-      Text(this.maintenance === undefined ? '尚未运行维护流程' : this.maintenance.status)
+      Text(this.maintenance === undefined ? this.text($r('app.string.ap_ui_no_maintenance_flow_has_run')) : this.maintenance.status)
         .fontSize(18).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
-      Text('内容加载预算').fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+      Text(this.text($r('app.string.ap_ui_content_loading_budgets'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
       Text(this.contentBudgetHeadline(evaluateBudgets(this.launches, CONTENT_LOAD_GROUPS)))
         .fontSize(14).fontColor('#667085').width('100%')
-      Button(this.planDetailsOpen ? '收起计划详情' : '计划详情').id('apPlanDetailsToggle')
+      Button(this.planDetailsOpen ? this.text($r('app.string.ap_ui_hide_plan_details')) : this.text($r('app.string.ap_ui_plan_details'))).id('apPlanDetailsToggle')
         .type(ButtonType.Normal).height(44).width('100%').fontSize(14)
         .fontColor('#246BFD').backgroundColor('#EEF4FF').borderRadius(12)
         .onClick((): void => { this.planDetailsOpen = !this.planDetailsOpen; })
       if (this.planDetailsOpen) {
         Text(this.planHeadline()).fontSize(14).fontColor('#667085').width('100%')
-        Text('阶段结果').fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+        Text(this.text($r('app.string.ap_ui_stage_results'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
         ForEach(this.planStepLines(), (line: string) => {
           Text(line).fontSize(14).fontColor('#667085').width('100%')
         }, (line: string) => line)
-        Text('负载画像').fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+        Text(this.text($r('app.string.ap_ui_workload_profile'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
         ForEach(this.loadProfileLines(), (line: string) => {
           Text(line).fontSize(14).fontColor('#667085').width('100%')
         }, (line: string) => line)
-        Text('预算明细').fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+        Text(this.text($r('app.string.ap_ui_budget_details'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
         ForEach(this.launchBudgetLines(), (line: string) => {
           Text(line).fontSize(14).fontColor('#667085').width('100%')
         }, (line: string) => line)
@@ -898,13 +927,13 @@ struct Index {
   }
 
   private planHeadline(): string {
-    return `${this.maintenance === undefined ? '尚未运行维护流程' : this.maintenance.status}｜` +
+    return `${this.maintenance === undefined ? this.text($r('app.string.ap_ui_no_maintenance_flow_has_run')) : this.maintenance.status}｜` +
       `${gateVerdictLabel(evaluateFlowGate(this.maintenance).verdict())}`;
   }
 
   private planStepLines(): string[] {
-    const lines: string[] = ['阶段：发现目标 → 校验配置 → 读取负载 → 对照/请求回收 → 同资源重读 → 配置回读'];
-    if (this.maintenance === undefined) { return lines.concat('尚无阶段结果'); }
+    const lines: string[] = [this.text($r('app.string.ap_ui_stages_discover_targets_validate_configuration_read_workload_control_evi'))];
+    if (this.maintenance === undefined) { return lines.concat(this.text($r('app.string.ap_ui_no_stage_results_yet'))); }
     this.planRun().outcomes.forEach((item: StepOutcome): void => {
       lines.push(item.text());
     });
@@ -913,7 +942,7 @@ struct Index {
 
   private loadProfileLines(): string[] {
     if (this.maintenance === undefined || this.maintenance.digestBefore.length === 0) {
-      return ['尚无负载读取结果'];
+      return [this.text($r('app.string.ap_ui_no_workload_read_results_yet'))];
     }
     const workload: Workload = new Workload(1, this.maintenance.beforeBytes, this.modules.length);
     const plan = planBatches(workload);
@@ -927,7 +956,7 @@ struct Index {
   }
 
   private contentBudgetHeadline(report: BudgetReport): string {
-    return report.measured() === 0 ? '暂无采样，待评估' : report.headline();
+    return report.measured() === 0 ? this.text($r('app.string.ap_ui_no_samples_evaluation_pending')) : report.headline();
   }
 
   private launchBudgetLines(): string[] {
@@ -940,39 +969,39 @@ struct Index {
       lines.push(stats.text());
     });
     lines.push(auditBudgets(CONTENT_LOAD_GROUPS).summary());
-    lines.push(`分组 ${CONTENT_LOAD_GROUPS.length} 个`);
+    lines.push(this.text($r('app.string.ap_ui_format_dcbc5df895'), [CONTENT_LOAD_GROUPS.length]));
     return lines;
   }
 
   private checkHeadline(): string {
     const verdict: GateVerdict = evaluateFlowGate(this.maintenance).verdict();
     switch (verdict) {
-      case GateVerdict.PASS: return '通过';
-      case GateVerdict.WARN: return '有提示';
-      case GateVerdict.BLOCK: return '未通过';
-      default: return '待评估';
+      case GateVerdict.PASS: return this.text($r('app.string.ap_ui_pass'));
+      case GateVerdict.WARN: return this.text($r('app.string.ap_ui_warnings'));
+      case GateVerdict.BLOCK: return this.text($r('app.string.ap_ui_not_passed'));
+      default: return this.text($r('app.string.ap_ui_evaluation_pending'));
     }
   }
 
   @Builder
   matrixPage(): void {
-    this.heading('检查结果', '按当前维护结果评估')
+    this.heading(this.text($r('app.string.ap_ui_check_results')), this.text($r('app.string.ap_ui_evaluate_the_current_maintenance_results')))
     Column({ space: 14 }) {
       Text(evaluateFlowThresholds(this.maintenance).headline()).fontSize(18)
         .fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
       Text(this.checkHeadline()).fontSize(14)
         .fontColor('#667085').width('100%')
-      Button(this.ruleDetailsOpen ? '收起检查详情' : '检查详情').id('apRulesDetailsToggle')
+      Button(this.ruleDetailsOpen ? this.text($r('app.string.ap_ui_hide_check_details')) : this.text($r('app.string.ap_ui_check_details'))).id('apRulesDetailsToggle')
         .type(ButtonType.Normal).height(44).width('100%').fontSize(14)
         .fontColor('#246BFD').backgroundColor('#EEF4FF').borderRadius(12)
         .onClick((): void => { this.ruleDetailsOpen = !this.ruleDetailsOpen; })
       if (this.ruleDetailsOpen) {
-        Text('阈值评估').fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+        Text(this.text($r('app.string.ap_ui_threshold_evaluation'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
         Text(this.thresholdHeadline()).fontSize(14).fontColor('#667085').width('100%')
         ForEach(this.thresholdLinesState(), (line: string) => {
           Text(line).fontSize(14).fontColor('#667085').width('100%')
         }, (line: string) => line)
-        Text('回归门禁').fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+        Text(this.text($r('app.string.ap_ui_regression_gate'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
         Text(this.gateHeadline()).fontSize(14).fontColor('#667085').width('100%')
         ForEach(this.gateLinesState(), (line: string) => {
           Text(line).fontSize(14).fontColor('#667085').width('100%')
@@ -987,7 +1016,7 @@ struct Index {
 
   private thresholdHeadline(): string {
     const report = evaluateFlowThresholds(this.maintenance);
-    return `${report.headline()}｜${auditThresholds().summary()}｜必达 ${entriesOfLevel(ThresholdLevel.MUST).length} 条`;
+    return this.text($r('app.string.ap_ui_format_321c6e2fd9'), [report.headline(), auditThresholds().summary(), entriesOfLevel(ThresholdLevel.MUST).length]);
   }
 
   private thresholdLinesState(): string[] {
@@ -1004,8 +1033,8 @@ struct Index {
 
   private gateHeadline(): string {
     const report = evaluateFlowGate(this.maintenance);
-    return `${gateVerdictLabel(report.verdict())}｜阻断 ${report.blockers().length} 项｜` +
-      `提示 ${report.warnings().length} 项｜${auditGate().summary()}`;
+    return this.text($r('app.string.ap_ui_format_f26b98675d'), [gateVerdictLabel(report.verdict()), report.blockers().length]) +
+      this.text($r('app.string.ap_ui_format_73a4baf959'), [report.warnings().length, auditGate().summary()]);
   }
 
   private gateLinesState(): string[] {
@@ -1013,7 +1042,7 @@ struct Index {
     flowGateRules().forEach((rule): void => {
       lines.push(rule.text());
     });
-    lines.push(`覆盖指标 ${gateMetrics().length} 个`);
+    lines.push(this.text($r('app.string.ap_ui_format_23dfaf2486'), [gateMetrics().length]));
     const report = evaluateFlowGate(this.maintenance);
     report.results.forEach((item): void => {
       lines.push(item.text());
@@ -1085,11 +1114,11 @@ struct Index {
       .align(Alignment.TopStart)
       .scrollBar(BarState.Off)
       Row({ space: 6 }) {
-        this.bottomTab('内存优化', 0)
-        this.bottomTab('应用快启', 1)
-        this.bottomTab('调用记录', 2)
-        this.bottomTab('维护计划', 3)
-        this.bottomTab('检查结果', 4)
+        this.bottomTab(this.text($r('app.string.ap_ui_memory_optimization')), 0)
+        this.bottomTab(this.text($r('app.string.ap_ui_hypersnap')), 1)
+        this.bottomTab(this.text($r('app.string.ap_ui_call_records')), 2)
+        this.bottomTab(this.text($r('app.string.ap_ui_maintenance_plan')), 3)
+        this.bottomTab(this.text($r('app.string.ap_ui_check_results')), 4)
       }
       .width('100%')
       .padding({ left: 12, right: 12, top: 10, bottom: 10 })

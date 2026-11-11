@@ -1,7 +1,900 @@
 {
   "string": [
-    { "name": "module_desc", "value": "内存优化与应用快启" },
-    { "name": "EntryAbility_desc", "value": "应用性能" },
-    { "name": "EntryAbility_label", "value": "应用性能" }
+    {
+      "name": "module_desc",
+      "value": "Memory optimization and HyperSnap"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "App performance"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "App performance"
+    },
+    {
+      "name": "ap_ui_repeated_experiments",
+      "value": "Repeated experiments"
+    },
+    {
+      "name": "ap_ui_start_repeated_experiments",
+      "value": "Start repeated experiments"
+    },
+    {
+      "name": "ap_ui_stop_after_this_run",
+      "value": "Stop after this run"
+    },
+    {
+      "name": "ap_ui_cancel_waiting",
+      "value": "Cancel waiting"
+    },
+    {
+      "name": "ap_ui_no_usable_samples",
+      "value": "No usable samples"
+    },
+    {
+      "name": "ap_ui_copy_this_series_report",
+      "value": "Copy this series report"
+    },
+    {
+      "name": "ap_ui_hide_experiment_notes",
+      "value": "Hide experiment notes"
+    },
+    {
+      "name": "ap_ui_experiment_notes",
+      "value": "Experiment notes"
+    },
+    {
+      "name": "ap_ui_runs_read_the_same_workload_sequentially_compare_stage_timings_only_unde",
+      "value": "Runs read the same workload sequentially. Compare stage timings only under matching conditions. Missing samples are not zero and do not quantify reclaimed memory. Cancelling waiting does not cancel the system request."
+    },
+    {
+      "name": "ap_ui_latest_result",
+      "value": "Latest result"
+    },
+    {
+      "name": "ap_ui_view_records",
+      "value": "View records"
+    },
+    {
+      "name": "ap_ui_waiting_for_response",
+      "value": "Waiting for response"
+    },
+    {
+      "name": "ap_ui_hide_call_details",
+      "value": "Hide call details"
+    },
+    {
+      "name": "ap_ui_call_details",
+      "value": "Call details"
+    },
+    {
+      "name": "ap_ui_api",
+      "value": "API"
+    },
+    {
+      "name": "ap_ui_target",
+      "value": "Target"
+    },
+    {
+      "name": "ap_ui_code",
+      "value": "Code"
+    },
+    {
+      "name": "ap_ui_no_call_results",
+      "value": "No call results"
+    },
+    {
+      "name": "ap_ui_collapse",
+      "value": "Collapse"
+    },
+    {
+      "name": "ap_ui_details",
+      "value": "Details"
+    },
+    {
+      "name": "ap_ui_message",
+      "value": "Message"
+    },
+    {
+      "name": "ap_ui_duration",
+      "value": "Duration"
+    },
+    {
+      "name": "ap_ui_late_response",
+      "value": "Late response"
+    },
+    {
+      "name": "ap_ui_series_history",
+      "value": "Series history"
+    },
+    {
+      "name": "ap_ui_no_series_history",
+      "value": "No series history"
+    },
+    {
+      "name": "ap_ui_selected_series",
+      "value": "Selected series"
+    },
+    {
+      "name": "ap_ui_select_series",
+      "value": "Select series"
+    },
+    {
+      "name": "ap_ui_current_baseline",
+      "value": "Current baseline"
+    },
+    {
+      "name": "ap_ui_use_as_baseline",
+      "value": "Use as baseline"
+    },
+    {
+      "name": "ap_ui_markdown_selected",
+      "value": "Markdown (selected)"
+    },
+    {
+      "name": "ap_ui_csv_selected",
+      "value": "CSV (selected)"
+    },
+    {
+      "name": "ap_ui_not_read_yet",
+      "value": "Not read yet"
+    },
+    {
+      "name": "ap_ui_not_set_yet",
+      "value": "Not set yet"
+    },
+    {
+      "name": "ap_ui_manual_rebuild",
+      "value": "Manual rebuild"
+    },
+    {
+      "name": "ap_ui_request_rebuild",
+      "value": "Request rebuild"
+    },
+    {
+      "name": "ap_ui_rebuild_the_application_s_hypersnap_data",
+      "value": "Rebuild the application's HyperSnap data?"
+    },
+    {
+      "name": "ap_ui_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "ap_ui_confirm_rebuild",
+      "value": "Confirm rebuild"
+    },
+    {
+      "name": "ap_ui_clear_records",
+      "value": "Clear records"
+    },
+    {
+      "name": "ap_ui_clear_all_call_records",
+      "value": "Clear all call records?"
+    },
+    {
+      "name": "ap_ui_clear",
+      "value": "Clear"
+    },
+    {
+      "name": "ap_ui_clear_samples",
+      "value": "Clear samples"
+    },
+    {
+      "name": "ap_ui_clear_all_content_loading_samples",
+      "value": "Clear all content-loading samples?"
+    },
+    {
+      "name": "ap_ui_memory_optimization",
+      "value": "Memory optimization"
+    },
+    {
+      "name": "ap_ui_select_targets_and_request_file_page_eviction",
+      "value": "Select targets and request file-page eviction"
+    },
+    {
+      "name": "ap_ui_foreground",
+      "value": "Foreground"
+    },
+    {
+      "name": "ap_ui_background",
+      "value": "Background"
+    },
+    {
+      "name": "ap_ui_files",
+      "value": "Files"
+    },
+    {
+      "name": "ap_ui_modules",
+      "value": "Modules"
+    },
+    {
+      "name": "ap_ui_other_file_names_optional_comma_separated",
+      "value": "Other file names (optional, comma-separated)"
+    },
+    {
+      "name": "ap_ui_select_files_or_enter_other_file_names",
+      "value": "Select files or enter other file names"
+    },
+    {
+      "name": "ap_ui_no_modules",
+      "value": "No modules"
+    },
+    {
+      "name": "ap_ui_refresh_targets",
+      "value": "Refresh targets"
+    },
+    {
+      "name": "ap_ui_calling",
+      "value": "Calling"
+    },
+    {
+      "name": "ap_ui_evict_file_pages",
+      "value": "Evict file pages"
+    },
+    {
+      "name": "ap_ui_evict_module_pages",
+      "value": "Evict module pages"
+    },
+    {
+      "name": "ap_ui_workload_laboratory",
+      "value": "Workload laboratory"
+    },
+    {
+      "name": "ap_ui_hide_more_tools",
+      "value": "Hide more tools"
+    },
+    {
+      "name": "ap_ui_more_tools",
+      "value": "More tools"
+    },
+    {
+      "name": "ap_ui_configuration",
+      "value": "Configuration"
+    },
+    {
+      "name": "ap_ui_expand",
+      "value": "Expand"
+    },
+    {
+      "name": "ap_ui_status",
+      "value": "Status"
+    },
+    {
+      "name": "ap_ui_no_configuration",
+      "value": "No configuration"
+    },
+    {
+      "name": "ap_ui_check_configuration",
+      "value": "Check configuration"
+    },
+    {
+      "name": "ap_ui_maintenance_flow",
+      "value": "Maintenance flow"
+    },
+    {
+      "name": "ap_ui_not_run",
+      "value": "Not run"
+    },
+    {
+      "name": "ap_ui_read_the_workload_make_the_request_and_verify_resource_integrity",
+      "value": "Read the workload, make the request and verify resource integrity."
+    },
+    {
+      "name": "ap_ui_file_eviction",
+      "value": "File eviction"
+    },
+    {
+      "name": "ap_ui_no_eviction_control",
+      "value": "No-eviction control"
+    },
+    {
+      "name": "ap_ui_module_eviction",
+      "value": "Module eviction"
+    },
+    {
+      "name": "ap_ui_flow_running",
+      "value": "Flow running"
+    },
+    {
+      "name": "ap_ui_run_maintenance_flow",
+      "value": "Run maintenance flow"
+    },
+    {
+      "name": "ap_ui_resource_verification",
+      "value": "Resource verification"
+    },
+    {
+      "name": "ap_ui_read_resource",
+      "value": "Read resource"
+    },
+    {
+      "name": "ap_ui_read_and_verify",
+      "value": "Read and verify"
+    },
+    {
+      "name": "ap_ui_hypersnap",
+      "value": "HyperSnap"
+    },
+    {
+      "name": "ap_ui_manage_hypersnap_settings_and_rebuild_requests",
+      "value": "Manage HyperSnap settings and rebuild requests"
+    },
+    {
+      "name": "ap_ui_hypersnap_settings",
+      "value": "HyperSnap settings"
+    },
+    {
+      "name": "ap_ui_latest_setting",
+      "value": "Latest setting"
+    },
+    {
+      "name": "ap_ui_setting_time",
+      "value": "Setting time"
+    },
+    {
+      "name": "ap_ui_enabled",
+      "value": "Enabled"
+    },
+    {
+      "name": "ap_ui_disabled",
+      "value": "Disabled"
+    },
+    {
+      "name": "ap_ui_initial",
+      "value": "Initial"
+    },
+    {
+      "name": "ap_ui_hypersnap_rebuild",
+      "value": "HyperSnap rebuild"
+    },
+    {
+      "name": "ap_ui_rebuild_reason",
+      "value": "Rebuild reason"
+    },
+    {
+      "name": "ap_ui_latest_time",
+      "value": "Latest time"
+    },
+    {
+      "name": "ap_ui_cooldown",
+      "value": "Cooldown"
+    },
+    {
+      "name": "ap_ui_call_records",
+      "value": "Call records"
+    },
+    {
+      "name": "ap_ui_view_request_results_and_content_loading_durations",
+      "value": "View request results and content-loading durations"
+    },
+    {
+      "name": "ap_ui_content_loading",
+      "value": "Content loading"
+    },
+    {
+      "name": "ap_ui_all",
+      "value": "All"
+    },
+    {
+      "name": "ap_ui_memory",
+      "value": "Memory"
+    },
+    {
+      "name": "ap_ui_hypersnap_a50897",
+      "value": "HyperSnap"
+    },
+    {
+      "name": "ap_ui_copy_records",
+      "value": "Copy records"
+    },
+    {
+      "name": "ap_ui_no_call_records",
+      "value": "No call records"
+    },
+    {
+      "name": "ap_ui_content_loading_duration_median",
+      "value": "Content-loading duration · median"
+    },
+    {
+      "name": "ap_ui_hide_sampling_notes",
+      "value": "Hide sampling notes"
+    },
+    {
+      "name": "ap_ui_sampling_notes",
+      "value": "Sampling notes"
+    },
+    {
+      "name": "ap_ui_measures_page_creation_to_content_loaded_grouped_by_the_latest_hypersnap",
+      "value": "Measures page creation to content-loaded, grouped by the latest HyperSnap setting. This is not first-frame time or proof of the system launch path."
+    },
+    {
+      "name": "ap_ui_copy_samples",
+      "value": "Copy samples"
+    },
+    {
+      "name": "ap_ui_no_content_loading_samples",
+      "value": "No content-loading samples"
+    },
+    {
+      "name": "ap_ui_time",
+      "value": "Time"
+    },
+    {
+      "name": "ap_ui_group",
+      "value": "Group"
+    },
+    {
+      "name": "ap_ui_maintenance_plan",
+      "value": "Maintenance plan"
+    },
+    {
+      "name": "ap_ui_current_flow_and_content_loading_budgets",
+      "value": "Current flow and content-loading budgets"
+    },
+    {
+      "name": "ap_ui_no_maintenance_flow_has_run",
+      "value": "No maintenance flow has run"
+    },
+    {
+      "name": "ap_ui_content_loading_budgets",
+      "value": "Content-loading budgets"
+    },
+    {
+      "name": "ap_ui_hide_plan_details",
+      "value": "Hide plan details"
+    },
+    {
+      "name": "ap_ui_plan_details",
+      "value": "Plan details"
+    },
+    {
+      "name": "ap_ui_stage_results",
+      "value": "Stage results"
+    },
+    {
+      "name": "ap_ui_workload_profile",
+      "value": "Workload profile"
+    },
+    {
+      "name": "ap_ui_budget_details",
+      "value": "Budget details"
+    },
+    {
+      "name": "ap_ui_stages_discover_targets_validate_configuration_read_workload_control_evi",
+      "value": "Stages: discover targets → validate configuration → read workload → control/eviction request → reread the same resource → reread configuration"
+    },
+    {
+      "name": "ap_ui_no_stage_results_yet",
+      "value": "No stage results yet"
+    },
+    {
+      "name": "ap_ui_no_workload_read_results_yet",
+      "value": "No workload-read results yet"
+    },
+    {
+      "name": "ap_ui_no_samples_evaluation_pending",
+      "value": "No samples; evaluation pending"
+    },
+    {
+      "name": "ap_ui_pass",
+      "value": "Pass"
+    },
+    {
+      "name": "ap_ui_warnings",
+      "value": "Warnings"
+    },
+    {
+      "name": "ap_ui_not_passed",
+      "value": "Not passed"
+    },
+    {
+      "name": "ap_ui_evaluation_pending",
+      "value": "Evaluation pending"
+    },
+    {
+      "name": "ap_ui_check_results",
+      "value": "Check results"
+    },
+    {
+      "name": "ap_ui_evaluate_the_current_maintenance_results",
+      "value": "Evaluate the current maintenance results"
+    },
+    {
+      "name": "ap_ui_hide_check_details",
+      "value": "Hide check details"
+    },
+    {
+      "name": "ap_ui_check_details",
+      "value": "Check details"
+    },
+    {
+      "name": "ap_ui_threshold_evaluation",
+      "value": "Threshold evaluation"
+    },
+    {
+      "name": "ap_ui_regression_gate",
+      "value": "Regression gate"
+    },
+    {
+      "name": "ap_ui_select_a_record_to_view_details",
+      "value": "Select a record to view details"
+    },
+    {
+      "name": "ap_ui_not_recorded_in_legacy_data",
+      "value": "Not recorded in legacy data"
+    },
+    {
+      "name": "ap_ui_missing",
+      "value": "Missing"
+    },
+    {
+      "name": "ap_ui_device_version_foreground_background_and_installed_target_conditions_rec",
+      "value": "Device, version, foreground/background and installed-target conditions recorded"
+    },
+    {
+      "name": "ap_ui_legacy_record_lacks_conditions_and_cannot_be_compared",
+      "value": "Legacy record lacks conditions and cannot be compared"
+    },
+    {
+      "name": "ap_ui_not_started_a_request_is_in_flight_or_parameters_are_invalid",
+      "value": "Not started: a request is in flight or parameters are invalid"
+    },
+    {
+      "name": "ap_ui_clear_experiment_records",
+      "value": "Clear experiment records"
+    },
+    {
+      "name": "ap_ui_clear_the_local_experiment_ledger_without_changing_system_settings",
+      "value": "Clear the local experiment ledger without changing system settings."
+    },
+    {
+      "name": "ap_ui_no_data_available",
+      "value": "No data available"
+    },
+    {
+      "name": "ap_ui_workload_experiments",
+      "value": "Workload experiments"
+    },
+    {
+      "name": "ap_ui_waiting_for_the_system_request_to_finish",
+      "value": "Waiting for the system request to finish"
+    },
+    {
+      "name": "ap_ui_running",
+      "value": "Running"
+    },
+    {
+      "name": "ap_ui_ready",
+      "value": "Ready"
+    },
+    {
+      "name": "ap_ui_select_workload",
+      "value": "Select workload"
+    },
+    {
+      "name": "ap_ui_run_one_experiment",
+      "value": "Run one experiment"
+    },
+    {
+      "name": "ap_ui_current_result",
+      "value": "Current result"
+    },
+    {
+      "name": "ap_ui_hide_history_and_ledger",
+      "value": "Hide history and ledger"
+    },
+    {
+      "name": "ap_ui_history_and_ledger",
+      "value": "History and ledger"
+    },
+    {
+      "name": "ap_ui_experiment_records_for_the_selected_workload_and_mode",
+      "value": "Experiment records for the selected workload and mode"
+    },
+    {
+      "name": "ap_ui_show_all_results",
+      "value": "Show all results"
+    },
+    {
+      "name": "ap_ui_failed_missing_records_only",
+      "value": "Failed/missing records only"
+    },
+    {
+      "name": "ap_ui_record_details",
+      "value": "Record details"
+    },
+    {
+      "name": "ap_ui_sample_percentiles_under_matching_conditions",
+      "value": "Sample percentiles under matching conditions"
+    },
+    {
+      "name": "ap_ui_comparison_under_matching_conditions",
+      "value": "Comparison under matching conditions"
+    },
+    {
+      "name": "ap_ui_copy_filtered_ledger_report_markdown",
+      "value": "Copy filtered ledger report (Markdown)"
+    },
+    {
+      "name": "ap_ui_copy_redacted_ledger",
+      "value": "Copy redacted ledger"
+    },
+    {
+      "name": "ap_ui_clear_ledger",
+      "value": "Clear ledger"
+    },
+    {
+      "name": "ap_ui_hide_experiment_details",
+      "value": "Hide experiment details"
+    },
+    {
+      "name": "ap_ui_experiment_details",
+      "value": "Experiment details"
+    },
+    {
+      "name": "ap_ui_packaged_workload_catalog",
+      "value": "Packaged workload catalog"
+    },
+    {
+      "name": "ap_ui_succeeded",
+      "value": "Succeeded"
+    },
+    {
+      "name": "ap_ui_failed",
+      "value": "Failed"
+    },
+    {
+      "name": "ap_ui_timed_out",
+      "value": "Timed out"
+    },
+    {
+      "name": "ap_ui_cancelled",
+      "value": "Cancelled"
+    },
+    {
+      "name": "ap_ui_skipped",
+      "value": "Skipped"
+    },
+    {
+      "name": "ap_ui_pending",
+      "value": "Pending"
+    },
+    {
+      "name": "ap_ui_not_verified",
+      "value": "Not verified"
+    },
+    {
+      "name": "ap_ui_consistent",
+      "value": "Consistent"
+    },
+    {
+      "name": "ap_ui_inconsistent",
+      "value": "Inconsistent"
+    },
+    {
+      "name": "ap_ui_not_observable",
+      "value": "Not observable"
+    },
+    {
+      "name": "ap_ui_not_observed",
+      "value": "Not observed"
+    },
+    {
+      "name": "ap_ui_call_succeeded",
+      "value": "Call succeeded"
+    },
+    {
+      "name": "ap_ui_call_failed",
+      "value": "Call failed"
+    },
+    {
+      "name": "ap_ui_preparing",
+      "value": "Preparing"
+    },
+    {
+      "name": "ap_ui_waiting_to_stop_after_this_run",
+      "value": "Waiting to stop after this run"
+    },
+    {
+      "name": "ap_ui_cancelling_local_waiting",
+      "value": "Cancelling local waiting"
+    },
+    {
+      "name": "ap_ui_completed",
+      "value": "Completed"
+    },
+    {
+      "name": "ap_ui_stopped",
+      "value": "Stopped"
+    },
+    {
+      "name": "ap_ui_stopped_because_conditions_changed",
+      "value": "Stopped because conditions changed"
+    },
+    {
+      "name": "ap_ui_stopped_because_saving_failed",
+      "value": "Stopped because saving failed"
+    },
+    {
+      "name": "ap_ui_process_ended_series_interrupted",
+      "value": "Process ended; series interrupted"
+    },
+    {
+      "name": "ap_ui_stopped_because_the_experiment_failed",
+      "value": "Stopped because the experiment failed"
+    },
+    {
+      "name": "ap_ui_not_started",
+      "value": "Not started"
+    },
+    {
+      "name": "ap_ui_select_the_workload_and_mode_above_default_3_repetitions",
+      "value": "Select the workload and mode above; default: 3 repetitions"
+    },
+    {
+      "name": "ap_ui_no_series_started_yet",
+      "value": "No series started yet"
+    },
+    {
+      "name": "ap_ui_no_series_saved_yet",
+      "value": "No series saved yet"
+    },
+    {
+      "name": "ap_ui_available_0_0_records_missing_0",
+      "value": "Available 0 / 0 records; missing 0"
+    },
+    {
+      "name": "ap_ui_the_sdk_request_has_not_settled_isolation_remains_active_no_automatic_re",
+      "value": "The SDK request has not settled. Isolation remains active; no automatic retry."
+    },
+    {
+      "name": "ap_ui_saved",
+      "value": "Saved"
+    },
+    {
+      "name": "ap_ui_save_failed_current_results_remain_in_memory_only",
+      "value": "Save failed; current results remain in memory only"
+    },
+    {
+      "name": "ap_ui_saving_persistence_not_confirmed",
+      "value": "Saving; persistence not confirmed"
+    },
+    {
+      "name": "ap_ui_no_historical_series_selected",
+      "value": "No historical series selected"
+    },
+    {
+      "name": "ap_ui_no_other_baseline_series_selected",
+      "value": "No other baseline series selected"
+    },
+    {
+      "name": "ap_ui_no_selected_series_references",
+      "value": "No selected series references"
+    },
+    {
+      "name": "ap_ui_select_two_different_series_to_compare_matching_conditions",
+      "value": "Select two different series to compare matching conditions"
+    },
+    {
+      "name": "ap_ui_selected_series_metadata_was_evicted_select_another_series_explicitly",
+      "value": "Selected series metadata was evicted; select another series explicitly"
+    },
+    {
+      "name": "ap_ui_unavailable_records_are_never_borrowed_from_another_series",
+      "value": "Unavailable: records are never borrowed from another series"
+    },
+    {
+      "name": "ap_ui_baseline_series_metadata_was_evicted_select_another_baseline",
+      "value": "Baseline series metadata was evicted; select another baseline"
+    },
+    {
+      "name": "ap_ui_sample_text",
+      "value": "Sample text"
+    },
+    {
+      "name": "ap_ui_note_list",
+      "value": "Note list"
+    },
+    {
+      "name": "ap_ui_image_index",
+      "value": "Image index"
+    },
+    {
+      "name": "ap_ui_form_draft",
+      "value": "Form draft"
+    },
+    {
+      "name": "ap_ui_a_basic_single_file_workload_used_as_a_control_for_the_existing_flow",
+      "value": "A basic single-file workload used as a control for the existing flow."
+    },
+    {
+      "name": "ap_ui_multi_line_business_data_covering_field_parsing_and_empty_content_checks",
+      "value": "Multi-line business data covering field parsing and empty-content checks."
+    },
+    {
+      "name": "ap_ui_dimension_checks_detect_truncation_and_invalid_values",
+      "value": "Dimension checks detect truncation and invalid values."
+    },
+    {
+      "name": "ap_ui_cross_field_integrity_must_be_rechecked_after_restoration",
+      "value": "Cross-field integrity must be rechecked after restoration."
+    },
+    {
+      "name": "ap_ui_format_8321d92a2b",
+      "value": "Repetitions: %1$s"
+    },
+    {
+      "name": "ap_ui_format_b7127c6410",
+      "value": "Copy selected series history (%1$s)"
+    },
+    {
+      "name": "ap_ui_format_061daad6b9",
+      "value": "Duration: %1$s ms"
+    },
+    {
+      "name": "ap_ui_format_d3ed71152f",
+      "value": "Resource integrity: %1$s (%2$s → %3$s bytes)"
+    },
+    {
+      "name": "ap_ui_format_b28ea52b8c",
+      "value": "%1$s seconds"
+    },
+    {
+      "name": "ap_ui_format_c71ceedb76",
+      "value": "%1$s records"
+    },
+    {
+      "name": "ap_ui_format_b4fc476125",
+      "value": "%1$s samples"
+    },
+    {
+      "name": "ap_ui_format_dcbc5df895",
+      "value": "%1$s groups"
+    },
+    {
+      "name": "ap_ui_format_321c6e2fd9",
+      "value": "%1$s | %2$s | Mandatory: %3$s"
+    },
+    {
+      "name": "ap_ui_format_f26b98675d",
+      "value": "%1$s | Blockers: %2$s | "
+    },
+    {
+      "name": "ap_ui_format_73a4baf959",
+      "value": "Warnings: %1$s | %2$s"
+    },
+    {
+      "name": "ap_ui_format_23dfaf2486",
+      "value": "Metrics covered: %1$s"
+    },
+    {
+      "name": "ap_ui_format_719269605f",
+      "value": "Resource identity: %1$s"
+    },
+    {
+      "name": "ap_ui_format_fe240eb7a9",
+      "value": "Request result: %1$s; effect: %2$s"
+    },
+    {
+      "name": "ap_ui_format_b97fc0e2fc",
+      "value": "Bytes: %1$s → %2$s"
+    },
+    {
+      "name": "ap_ui_format_1020a92250",
+      "value": "Checksum: %1$s → %2$s"
+    },
+    {
+      "name": "ap_ui_format_903956ee80",
+      "value": "Gap: %1$s"
+    },
+    {
+      "name": "ap_ui_format_571e700029",
+      "value": "Request: %1$s"
+    },
+    {
+      "name": "ap_ui_format_91331090f0",
+      "value": "Actual eviction effect: %1$s (request success does not prove reclaimed memory)"
+    }
   ]
 }
