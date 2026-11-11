@@ -1,9 +1,9 @@
 # AudioToVideoSync 测试设计说明 
 - 工程：applications_app_samples / BasicFeature/Media/AudioToVideoSync 
 - 测试模块：entry_test（ohosTest），目标 API 26 
-- 规模：101 个套件，4,224 条 it（不含 List.test.ets 与 Shared） 
+- 规模：67 个套件，1,395 条 it（不含 List.test.ets 与 Shared） 
 - 规范：@tc.number / @tc.name / @tc.desc / @tc.size / @tc.type / @tc.level，命名 testXxxNNNN 
-- 最近修复：Base64/TextCodec/Buffer/OpenMode/FileIoContract 共 44 条失败已全部通过 
+- 最近修复：移除纯 JS/自证类 Expanded/More 套件（Math、String、Numeric、Collection、Date、Index、Sync、AVPlayer 数学等），保留真实调用 ArkTS/fileIo 的套件；Audio/AVPlayer 真实覆盖由 `Audio/`、`Media/` 子目录套件承担 
 - 前置条件：设备解锁、无系统弹窗；main HAP 与 ohosTest HAP 均安装 
 
 ## 一、设计原则 
@@ -39,11 +39,11 @@
 | Robustness | 4 | 30 | 文件/目录/媒体/路径非法输入 | 
 | Utils | 8 | 75 | TextCodec、UUID、Base64、Buffer、URI/URL、集合 | 
 | Interaction | 2 | 23 | 页面结构、按钮状态、返回与重复进入 | 
-| 根目录基础/扩量 | 47 | 3,590 | 基础用例与 Expanded/More 矩阵套件 | 
+| 根目录真实 API | 13 | 761 | Base64/Buffer/TextCodec/URL/FileIo 真实调用与入口基础用例 | 
 
 ## 五、用例规范 
 - 每条用例唯一命名，完整 @tc 元数据，至少一个能因行为变化而失败的断言。 
-- 异常优先断言具体错误码：13900002、13900015 等；拿不到错误码时断言“操作被拒绝 + 资源状态未变”。 
+- 异常优先断言具体错误码：`13900002`（文件/目录不存在）、`13900015`（文件/目录已存在）等；拿不到错误码时断言“操作被拒绝 + 资源状态未变”。 
 - 时序只写上限预算与单调关系，不写精确耗时；用例间通过 paceTurn 让出事件循环。 
 - UI 只覆盖标题、按钮文本/启用态/顺序、重复进入与返回恢复，先解锁并清弹窗。 
 
@@ -52,8 +52,8 @@
 hdc uninstall com.samples.AudioToVideoSync 
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap 
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap 
-hdc shell "a""a" test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -s class clockContractTest,fileContentMatrixTest -s timeout 15000 
-hdc shell "a""a" test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -w 900000 
+hdc shell aa test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -s class clockContractTest,fileContentMatrixTest -s timeout 15000 
+hdc shell aa test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -w 900000 
 ``` 
 
 ## 七、已知问题与修复记录 
