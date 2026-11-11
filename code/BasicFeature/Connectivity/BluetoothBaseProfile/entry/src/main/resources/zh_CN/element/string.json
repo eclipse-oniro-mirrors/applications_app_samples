@@ -11,6 +11,578 @@
     {
       "name": "EntryAbility_label",
       "value": "蓝牙BaseProfile"
+    },
+    {
+      "name": "title_index",
+      "value": "蓝牙BaseProfile示例"
+    },
+    {
+      "name": "index_app_name",
+      "value": "蓝牙 BaseProfile 示例"
+    },
+    {
+      "name": "title_scan",
+      "value": "设备扫描"
+    },
+    {
+      "name": "index_subtitle",
+      "value": "演示蓝牙 BaseProfile API（A2DP/AVRCP/HFP/HID/PAN/PBAP/MAP/HDP）"
+    },
+    {
+      "name": "scan_ready",
+      "value": "准备扫描"
+    },
+    {
+      "name": "scan_scanning",
+      "value": "扫描中..."
+    },
+    {
+      "name": "scan_complete",
+      "value": "扫描完成"
+    },
+    {
+      "name": "scan_stopped",
+      "value": "扫描已停止"
+    },
+    {
+      "name": "scan_start",
+      "value": "开始扫描"
+    },
+    {
+      "name": "scan_stop",
+      "value": "停止扫描"
+    },
+    {
+      "name": "scan_devices_prefix",
+      "value": "设备数："
+    },
+    {
+      "name": "scan_paired_badge",
+      "value": " 已配对"
+    },
+    {
+      "name": "scan_rssi_prefix",
+      "value": "RSSI："
+    },
+    {
+      "name": "scan_signal_excellent",
+      "value": "很强"
+    },
+    {
+      "name": "scan_signal_good",
+      "value": "良好"
+    },
+    {
+      "name": "scan_signal_fair",
+      "value": "一般"
+    },
+    {
+      "name": "scan_signal_weak",
+      "value": "较弱"
+    },
+    {
+      "name": "title_bonded_devices",
+      "value": "已配对设备"
+    },
+    {
+      "name": "title_settings",
+      "value": "蓝牙设置"
+    },
+    {
+      "name": "title_combined_scenario",
+      "value": "组合场景"
+    },
+    {
+      "name": "title_connection_log",
+      "value": "连接日志"
+    },
+    {
+      "name": "title_profile_statistics",
+      "value": "Profile 统计"
+    },
+    {
+      "name": "title_a2dp_full",
+      "value": "音频分发 Profile (A2DP)"
+    },
+    {
+      "name": "title_hfp_full",
+      "value": "免提 Profile (HFP)"
+    },
+    {
+      "name": "title_hid_full",
+      "value": "人机接口 Profile (HID)"
+    },
+    {
+      "name": "title_pan_full",
+      "value": "个人局域网 Profile (PAN)"
+    },
+    {
+      "name": "title_pbap_full",
+      "value": "电话本访问 Profile (PBAP)"
+    },
+    {
+      "name": "title_map_full",
+      "value": "消息访问 Profile (MAP)"
+    },
+    {
+      "name": "title_avrcp_full",
+      "value": "音视频遥控 Profile (AVRCP)"
+    },
+    {
+      "name": "title_hdp_full",
+      "value": "健康设备 Profile (HDP)"
+    },
+    {
+      "name": "p_tab_overview",
+      "value": "概览"
+    },
+    {
+      "name": "p_tab_devices",
+      "value": "设备"
+    },
+    {
+      "name": "p_tab_operations",
+      "value": "操作"
+    },
+    {
+      "name": "p_tab_history",
+      "value": "历史"
+    },
+    {
+      "name": "p_tab_statistics",
+      "value": "统计"
+    },
+    {
+      "name": "p_tab_settings",
+      "value": "设置"
+    },
+    {
+      "name": "p_btn_refresh",
+      "value": "刷新"
+    },
+    {
+      "name": "p_btn_connect",
+      "value": "连接"
+    },
+    {
+      "name": "p_btn_disconnect",
+      "value": "断开"
+    },
+    {
+      "name": "p_btn_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "p_btn_retry",
+      "value": "重试"
+    },
+    {
+      "name": "p_btn_details",
+      "value": "详情"
+    },
+    {
+      "name": "p_btn_show",
+      "value": "显示"
+    },
+    {
+      "name": "p_btn_hide",
+      "value": "隐藏"
+    },
+    {
+      "name": "p_connect_device",
+      "value": "连接设备"
+    },
+    {
+      "name": "p_connect_to_device",
+      "value": "连接到设备"
+    },
+    {
+      "name": "p_disconnect_all",
+      "value": "全部断开"
+    },
+    {
+      "name": "p_reset_manager",
+      "value": "重置管理器"
+    },
+    {
+      "name": "p_reset_to_defaults",
+      "value": "恢复默认"
+    },
+    {
+      "name": "p_loading",
+      "value": "加载中..."
+    },
+    {
+      "name": "p_connection_status",
+      "value": "连接状态"
+    },
+    {
+      "name": "p_connected_devices_label",
+      "value": "已连接设备："
+    },
+    {
+      "name": "p_connected_devices",
+      "value": "已连接设备"
+    },
+    {
+      "name": "p_health_score_label",
+      "value": "健康度："
+    },
+    {
+      "name": "p_health_score",
+      "value": "健康度"
+    },
+    {
+      "name": "p_health_status",
+      "value": "健康状态"
+    },
+    {
+      "name": "p_recent_activity",
+      "value": "最近活动"
+    },
+    {
+      "name": "p_quick_actions",
+      "value": "快捷操作"
+    },
+    {
+      "name": "p_operation_history",
+      "value": "操作历史"
+    },
+    {
+      "name": "p_connection_statistics",
+      "value": "连接统计"
+    },
+    {
+      "name": "p_operation_statistics",
+      "value": "操作统计"
+    },
+    {
+      "name": "p_performance_metrics",
+      "value": "性能指标"
+    },
+    {
+      "name": "p_connection_settings",
+      "value": "连接设置"
+    },
+    {
+      "name": "p_display_settings",
+      "value": "显示设置"
+    },
+    {
+      "name": "p_manager_configuration",
+      "value": "管理器配置"
+    },
+    {
+      "name": "p_view_configuration",
+      "value": "视图配置"
+    },
+    {
+      "name": "p_auto_refresh",
+      "value": "自动刷新"
+    },
+    {
+      "name": "p_show_advanced_options",
+      "value": "显示高级选项"
+    },
+    {
+      "name": "p_refresh_interval_ms",
+      "value": "刷新间隔 (ms)"
+    },
+    {
+      "name": "p_items_per_page",
+      "value": "每页数量"
+    },
+    {
+      "name": "p_sort_by",
+      "value": "排序："
+    },
+    {
+      "name": "p_total_conn_attempts",
+      "value": "总连接尝试次数"
+    },
+    {
+      "name": "p_successful_connections",
+      "value": "成功连接数"
+    },
+    {
+      "name": "p_failed_connections",
+      "value": "失败连接数"
+    },
+    {
+      "name": "p_success_rate",
+      "value": "成功率"
+    },
+    {
+      "name": "p_total_operations",
+      "value": "总操作数"
+    },
+    {
+      "name": "p_successful_operations",
+      "value": "成功操作数"
+    },
+    {
+      "name": "p_failed_operations",
+      "value": "失败操作数"
+    },
+    {
+      "name": "p_operation_success_rate",
+      "value": "操作成功率"
+    },
+    {
+      "name": "p_uptime",
+      "value": "运行时长"
+    },
+    {
+      "name": "p_operations_per_minute",
+      "value": "操作/分钟"
+    },
+    {
+      "name": "p_error_rate",
+      "value": "错误率"
+    },
+    {
+      "name": "p_status",
+      "value": "状态"
+    },
+    {
+      "name": "p_status_label",
+      "value": "状态："
+    },
+    {
+      "name": "p_value_label",
+      "value": "值："
+    },
+    {
+      "name": "p_battery_label",
+      "value": "电量："
+    },
+    {
+      "name": "p_battery",
+      "value": "电量"
+    },
+    {
+      "name": "p_rssi_label",
+      "value": "信号强度："
+    },
+    {
+      "name": "p_rssi",
+      "value": "信号强度"
+    },
+    {
+      "name": "p_volume_label",
+      "value": "音量："
+    },
+    {
+      "name": "p_enter_device_id",
+      "value": "请输入设备 ID"
+    },
+    {
+      "name": "p_search_devices",
+      "value": "搜索设备..."
+    },
+    {
+      "name": "p_please_enter_device_id",
+      "value": "请输入设备 ID"
+    },
+    {
+      "name": "p_unknown",
+      "value": "未知"
+    },
+    {
+      "name": "p_healthy",
+      "value": "健康"
+    },
+    {
+      "name": "p_unhealthy",
+      "value": "不健康"
+    },
+    {
+      "name": "p_yes",
+      "value": "是"
+    },
+    {
+      "name": "p_no",
+      "value": "否"
+    },
+    {
+      "name": "p_call_control",
+      "value": "通话控制"
+    },
+    {
+      "name": "p_answer",
+      "value": "接听"
+    },
+    {
+      "name": "p_reject",
+      "value": "拒接"
+    },
+    {
+      "name": "p_end",
+      "value": "挂断"
+    },
+    {
+      "name": "p_mute",
+      "value": "静音"
+    },
+    {
+      "name": "p_speaker",
+      "value": "扬声器"
+    },
+    {
+      "name": "p_refresh_count",
+      "value": "刷新次数"
+    },
+    {
+      "name": "p_retry_count",
+      "value": "重试次数"
+    },
+    {
+      "name": "p_last_success",
+      "value": "最近成功时间"
+    },
+    {
+      "name": "p_enabled",
+      "value": "已启用"
+    },
+    {
+      "name": "p_display_mode",
+      "value": "显示模式"
+    },
+    {
+      "name": "p_comp_audio_stream",
+      "value": "音频流控制"
+    },
+    {
+      "name": "p_comp_device_card",
+      "value": "蓝牙设备卡片"
+    },
+    {
+      "name": "p_comp_call_panel",
+      "value": "通话控制面板"
+    },
+    {
+      "name": "p_comp_conn_button",
+      "value": "连接操作按钮"
+    },
+    {
+      "name": "p_comp_contact_sync",
+      "value": "联系人同步视图"
+    },
+    {
+      "name": "p_comp_health_data",
+      "value": "健康数据视图"
+    },
+    {
+      "name": "p_comp_input_status",
+      "value": "输入设备状态"
+    },
+    {
+      "name": "p_comp_media_panel",
+      "value": "媒体控制面板"
+    },
+    {
+      "name": "p_comp_message_list",
+      "value": "消息列表视图"
+    },
+    {
+      "name": "p_comp_network_share",
+      "value": "网络共享面板"
+    },
+    {
+      "name": "p_comp_profile_status",
+      "value": "Profile 状态指示器"
+    },
+    {
+      "name": "p_comp_scan_list",
+      "value": "扫描结果列表"
+    },
+    {
+      "name": "p_a2dp_ops_title",
+      "value": "A2DP 操作"
+    },
+    {
+      "name": "p_hfp_ops_title",
+      "value": "HFP 操作"
+    },
+    {
+      "name": "p_hid_ops_title",
+      "value": "HID 操作"
+    },
+    {
+      "name": "p_pan_ops_title",
+      "value": "PAN 操作"
+    },
+    {
+      "name": "p_pbap_ops_title",
+      "value": "PBAP 操作"
+    },
+    {
+      "name": "p_map_ops_title",
+      "value": "MAP 操作"
+    },
+    {
+      "name": "p_avrcp_ops_title",
+      "value": "AVRCP 操作"
+    },
+    {
+      "name": "p_hdp_ops_title",
+      "value": "HDP 操作"
+    },
+    {
+      "name": "p_btn_name",
+      "value": "名称"
+    },
+    {
+      "name": "p_ops_hint_a2dp",
+      "value": "A2DP 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_ops_hint_avrcp",
+      "value": "AVRCP 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_ops_hint_hdp",
+      "value": "HDP 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_ops_hint_hfp",
+      "value": "HFP 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_ops_hint_hid",
+      "value": "HID 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_ops_hint_map",
+      "value": "MAP 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_ops_hint_pan",
+      "value": "PAN 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_ops_hint_pbap",
+      "value": "PBAP 能力对应的操作将在此展示。"
+    },
+    {
+      "name": "p_rssi_fmt",
+      "value": "信号强度：%s"
+    },
+    {
+      "name": "p_battery_fmt",
+      "value": "电量：%s"
+    },
+    {
+      "name": "p_page_of_fmt",
+      "value": "第 %s 页 / 共 %s 页"
+    },
+    {
+      "name": "p_status_fmt",
+      "value": "状态：%s"
+    },
+    {
+      "name": "p_value_fmt",
+      "value": "值：%s"
     }
   ]
 }

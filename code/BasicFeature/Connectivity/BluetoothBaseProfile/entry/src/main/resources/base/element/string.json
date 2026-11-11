@@ -11,6 +11,578 @@
     {
       "name": "EntryAbility_label",
       "value": "BluetoothBaseProfile"
+    },
+    {
+      "name": "title_index",
+      "value": "Bluetooth BaseProfile Sample"
+    },
+    {
+      "name": "index_app_name",
+      "value": "Bluetooth BaseProfile Sample"
+    },
+    {
+      "name": "title_scan",
+      "value": "Device Scan"
+    },
+    {
+      "name": "index_subtitle",
+      "value": "Demonstrates Bluetooth BaseProfile APIs (A2DP/AVRCP/HFP/HID/PAN/PBAP/MAP/HDP)"
+    },
+    {
+      "name": "scan_ready",
+      "value": "Ready to scan"
+    },
+    {
+      "name": "scan_scanning",
+      "value": "Scanning..."
+    },
+    {
+      "name": "scan_complete",
+      "value": "Scan complete"
+    },
+    {
+      "name": "scan_stopped",
+      "value": "Scan stopped"
+    },
+    {
+      "name": "scan_start",
+      "value": "Start Scan"
+    },
+    {
+      "name": "scan_stop",
+      "value": "Stop Scan"
+    },
+    {
+      "name": "scan_devices_prefix",
+      "value": "Devices: "
+    },
+    {
+      "name": "scan_paired_badge",
+      "value": " Paired"
+    },
+    {
+      "name": "scan_rssi_prefix",
+      "value": "RSSI: "
+    },
+    {
+      "name": "scan_signal_excellent",
+      "value": "Excellent"
+    },
+    {
+      "name": "scan_signal_good",
+      "value": "Good"
+    },
+    {
+      "name": "scan_signal_fair",
+      "value": "Fair"
+    },
+    {
+      "name": "scan_signal_weak",
+      "value": "Weak"
+    },
+    {
+      "name": "title_bonded_devices",
+      "value": "Bonded Devices"
+    },
+    {
+      "name": "title_settings",
+      "value": "Bluetooth Settings"
+    },
+    {
+      "name": "title_combined_scenario",
+      "value": "Combined Scenario"
+    },
+    {
+      "name": "title_connection_log",
+      "value": "Connection Log"
+    },
+    {
+      "name": "title_profile_statistics",
+      "value": "Profile Statistics"
+    },
+    {
+      "name": "title_a2dp_full",
+      "value": "Advanced Audio Distribution Profile"
+    },
+    {
+      "name": "title_hfp_full",
+      "value": "Hands-Free Profile"
+    },
+    {
+      "name": "title_hid_full",
+      "value": "Human Interface Device Profile"
+    },
+    {
+      "name": "title_pan_full",
+      "value": "Personal Area Network Profile"
+    },
+    {
+      "name": "title_pbap_full",
+      "value": "Phone Book Access Profile"
+    },
+    {
+      "name": "title_map_full",
+      "value": "Message Access Profile"
+    },
+    {
+      "name": "title_avrcp_full",
+      "value": "Audio/Video Remote Control Profile"
+    },
+    {
+      "name": "title_hdp_full",
+      "value": "Health Device Profile"
+    },
+    {
+      "name": "p_tab_overview",
+      "value": "Overview"
+    },
+    {
+      "name": "p_tab_devices",
+      "value": "Devices"
+    },
+    {
+      "name": "p_tab_operations",
+      "value": "Operations"
+    },
+    {
+      "name": "p_tab_history",
+      "value": "History"
+    },
+    {
+      "name": "p_tab_statistics",
+      "value": "Statistics"
+    },
+    {
+      "name": "p_tab_settings",
+      "value": "Settings"
+    },
+    {
+      "name": "p_btn_refresh",
+      "value": "Refresh"
+    },
+    {
+      "name": "p_btn_connect",
+      "value": "Connect"
+    },
+    {
+      "name": "p_btn_disconnect",
+      "value": "Disconnect"
+    },
+    {
+      "name": "p_btn_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "p_btn_retry",
+      "value": "Retry"
+    },
+    {
+      "name": "p_btn_details",
+      "value": "Details"
+    },
+    {
+      "name": "p_btn_show",
+      "value": "Show"
+    },
+    {
+      "name": "p_btn_hide",
+      "value": "Hide"
+    },
+    {
+      "name": "p_connect_device",
+      "value": "Connect Device"
+    },
+    {
+      "name": "p_connect_to_device",
+      "value": "Connect to Device"
+    },
+    {
+      "name": "p_disconnect_all",
+      "value": "Disconnect All"
+    },
+    {
+      "name": "p_reset_manager",
+      "value": "Reset Manager"
+    },
+    {
+      "name": "p_reset_to_defaults",
+      "value": "Reset to Defaults"
+    },
+    {
+      "name": "p_loading",
+      "value": "Loading..."
+    },
+    {
+      "name": "p_connection_status",
+      "value": "Connection Status"
+    },
+    {
+      "name": "p_connected_devices_label",
+      "value": "Connected Devices:"
+    },
+    {
+      "name": "p_connected_devices",
+      "value": "Connected Devices"
+    },
+    {
+      "name": "p_health_score_label",
+      "value": "Health Score:"
+    },
+    {
+      "name": "p_health_score",
+      "value": "Health Score"
+    },
+    {
+      "name": "p_health_status",
+      "value": "Health Status"
+    },
+    {
+      "name": "p_recent_activity",
+      "value": "Recent Activity"
+    },
+    {
+      "name": "p_quick_actions",
+      "value": "Quick Actions"
+    },
+    {
+      "name": "p_operation_history",
+      "value": "Operation History"
+    },
+    {
+      "name": "p_connection_statistics",
+      "value": "Connection Statistics"
+    },
+    {
+      "name": "p_operation_statistics",
+      "value": "Operation Statistics"
+    },
+    {
+      "name": "p_performance_metrics",
+      "value": "Performance Metrics"
+    },
+    {
+      "name": "p_connection_settings",
+      "value": "Connection Settings"
+    },
+    {
+      "name": "p_display_settings",
+      "value": "Display Settings"
+    },
+    {
+      "name": "p_manager_configuration",
+      "value": "Manager Configuration"
+    },
+    {
+      "name": "p_view_configuration",
+      "value": "View Configuration"
+    },
+    {
+      "name": "p_auto_refresh",
+      "value": "Auto-Refresh"
+    },
+    {
+      "name": "p_show_advanced_options",
+      "value": "Show Advanced Options"
+    },
+    {
+      "name": "p_refresh_interval_ms",
+      "value": "Refresh Interval (ms)"
+    },
+    {
+      "name": "p_items_per_page",
+      "value": "Items Per Page"
+    },
+    {
+      "name": "p_sort_by",
+      "value": "Sort by:"
+    },
+    {
+      "name": "p_total_conn_attempts",
+      "value": "Total Connection Attempts"
+    },
+    {
+      "name": "p_successful_connections",
+      "value": "Successful Connections"
+    },
+    {
+      "name": "p_failed_connections",
+      "value": "Failed Connections"
+    },
+    {
+      "name": "p_success_rate",
+      "value": "Success Rate"
+    },
+    {
+      "name": "p_total_operations",
+      "value": "Total Operations"
+    },
+    {
+      "name": "p_successful_operations",
+      "value": "Successful Operations"
+    },
+    {
+      "name": "p_failed_operations",
+      "value": "Failed Operations"
+    },
+    {
+      "name": "p_operation_success_rate",
+      "value": "Operation Success Rate"
+    },
+    {
+      "name": "p_uptime",
+      "value": "Uptime"
+    },
+    {
+      "name": "p_operations_per_minute",
+      "value": "Operations/Minute"
+    },
+    {
+      "name": "p_error_rate",
+      "value": "Error Rate"
+    },
+    {
+      "name": "p_status",
+      "value": "Status"
+    },
+    {
+      "name": "p_status_label",
+      "value": "Status:"
+    },
+    {
+      "name": "p_value_label",
+      "value": "Value:"
+    },
+    {
+      "name": "p_battery_label",
+      "value": "Battery:"
+    },
+    {
+      "name": "p_battery",
+      "value": "Battery"
+    },
+    {
+      "name": "p_rssi_label",
+      "value": "RSSI:"
+    },
+    {
+      "name": "p_rssi",
+      "value": "RSSI"
+    },
+    {
+      "name": "p_volume_label",
+      "value": "Volume:"
+    },
+    {
+      "name": "p_enter_device_id",
+      "value": "Enter Device ID"
+    },
+    {
+      "name": "p_search_devices",
+      "value": "Search devices..."
+    },
+    {
+      "name": "p_please_enter_device_id",
+      "value": "Please enter a device ID"
+    },
+    {
+      "name": "p_unknown",
+      "value": "Unknown"
+    },
+    {
+      "name": "p_healthy",
+      "value": "Healthy"
+    },
+    {
+      "name": "p_unhealthy",
+      "value": "Unhealthy"
+    },
+    {
+      "name": "p_yes",
+      "value": "Yes"
+    },
+    {
+      "name": "p_no",
+      "value": "No"
+    },
+    {
+      "name": "p_call_control",
+      "value": "Call Control"
+    },
+    {
+      "name": "p_answer",
+      "value": "Answer"
+    },
+    {
+      "name": "p_reject",
+      "value": "Reject"
+    },
+    {
+      "name": "p_end",
+      "value": "End"
+    },
+    {
+      "name": "p_mute",
+      "value": "Mute"
+    },
+    {
+      "name": "p_speaker",
+      "value": "Speaker"
+    },
+    {
+      "name": "p_refresh_count",
+      "value": "Refresh Count"
+    },
+    {
+      "name": "p_retry_count",
+      "value": "Retry Count"
+    },
+    {
+      "name": "p_last_success",
+      "value": "Last Success"
+    },
+    {
+      "name": "p_enabled",
+      "value": "Enabled"
+    },
+    {
+      "name": "p_display_mode",
+      "value": "Display Mode"
+    },
+    {
+      "name": "p_comp_audio_stream",
+      "value": "Audio Stream Control"
+    },
+    {
+      "name": "p_comp_device_card",
+      "value": "Bluetooth Device Card"
+    },
+    {
+      "name": "p_comp_call_panel",
+      "value": "Call Control Panel"
+    },
+    {
+      "name": "p_comp_conn_button",
+      "value": "Connection Action Button"
+    },
+    {
+      "name": "p_comp_contact_sync",
+      "value": "Contact Sync View"
+    },
+    {
+      "name": "p_comp_health_data",
+      "value": "Health Data View"
+    },
+    {
+      "name": "p_comp_input_status",
+      "value": "Input Device Status"
+    },
+    {
+      "name": "p_comp_media_panel",
+      "value": "Media Control Panel"
+    },
+    {
+      "name": "p_comp_message_list",
+      "value": "Message List View"
+    },
+    {
+      "name": "p_comp_network_share",
+      "value": "Network Share Panel"
+    },
+    {
+      "name": "p_comp_profile_status",
+      "value": "Profile Status Indicator"
+    },
+    {
+      "name": "p_comp_scan_list",
+      "value": "Scan Result List"
+    },
+    {
+      "name": "p_a2dp_ops_title",
+      "value": "A2DP Operations"
+    },
+    {
+      "name": "p_hfp_ops_title",
+      "value": "HFP Operations"
+    },
+    {
+      "name": "p_hid_ops_title",
+      "value": "HID Operations"
+    },
+    {
+      "name": "p_pan_ops_title",
+      "value": "PAN Operations"
+    },
+    {
+      "name": "p_pbap_ops_title",
+      "value": "PBAP Operations"
+    },
+    {
+      "name": "p_map_ops_title",
+      "value": "MAP Operations"
+    },
+    {
+      "name": "p_avrcp_ops_title",
+      "value": "AVRCP Operations"
+    },
+    {
+      "name": "p_hdp_ops_title",
+      "value": "HDP Operations"
+    },
+    {
+      "name": "p_btn_name",
+      "value": "Name"
+    },
+    {
+      "name": "p_ops_hint_a2dp",
+      "value": "Profile-specific operations will be displayed here based on the A2DP capabilities."
+    },
+    {
+      "name": "p_ops_hint_avrcp",
+      "value": "Profile-specific operations will be displayed here based on the AVRCP capabilities."
+    },
+    {
+      "name": "p_ops_hint_hdp",
+      "value": "Profile-specific operations will be displayed here based on the HDP capabilities."
+    },
+    {
+      "name": "p_ops_hint_hfp",
+      "value": "Profile-specific operations will be displayed here based on the HFP capabilities."
+    },
+    {
+      "name": "p_ops_hint_hid",
+      "value": "Profile-specific operations will be displayed here based on the HID capabilities."
+    },
+    {
+      "name": "p_ops_hint_map",
+      "value": "Profile-specific operations will be displayed here based on the MAP capabilities."
+    },
+    {
+      "name": "p_ops_hint_pan",
+      "value": "Profile-specific operations will be displayed here based on the PAN capabilities."
+    },
+    {
+      "name": "p_ops_hint_pbap",
+      "value": "Profile-specific operations will be displayed here based on the PBAP capabilities."
+    },
+    {
+      "name": "p_rssi_fmt",
+      "value": "RSSI: %s"
+    },
+    {
+      "name": "p_battery_fmt",
+      "value": "Battery: %s"
+    },
+    {
+      "name": "p_page_of_fmt",
+      "value": "Page %s of %s"
+    },
+    {
+      "name": "p_status_fmt",
+      "value": "Status: %s"
+    },
+    {
+      "name": "p_value_fmt",
+      "value": "Value: %s"
     }
   ]
 }

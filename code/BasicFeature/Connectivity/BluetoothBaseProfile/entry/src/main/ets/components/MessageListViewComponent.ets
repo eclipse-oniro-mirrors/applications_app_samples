@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -495,7 +495,7 @@ export struct MessageListViewComponent {
         .height(50)
         .color(this.config.themeColor)
 
-      Text('Loading...')
+      Text($r('app.string.p_loading'))
         .fontSize(PageConstants.FONT_SIZE_BODY)
         .fontColor('#666666')
         .margin({ top: 10 })
@@ -523,7 +523,7 @@ export struct MessageListViewComponent {
         .margin({ top: 10 })
         .textAlign(TextAlign.Center)
 
-      Button('Retry')
+      Button($r('app.string.p_btn_retry'))
         .onClick(() => {
           this.handleRefresh();
         })
@@ -546,7 +546,7 @@ export struct MessageListViewComponent {
   ContentView() {
     Column() {
       Row() {
-        Text('MessageListView')
+        Text($r('app.string.p_comp_message_list'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Bold)
           .fontColor(this.config.themeColor)
@@ -566,16 +566,16 @@ export struct MessageListViewComponent {
       .margin({ bottom: 15 })
 
       Column() {
-        Text('MessageListView')
+        Text($r('app.string.p_comp_message_list'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
 
-        Text('Status: ' + this.status)
+        Text($r('app.string.p_status_fmt', this.status))
           .fontSize(PageConstants.FONT_SIZE_BODY)
           .fontColor('#666666')
 
-        Text('Value: ' + this.value.toString())
+        Text($r('app.string.p_value_fmt', this.value.toString()))
           .fontSize(PageConstants.FONT_SIZE_BODY)
           .fontColor('#666666')
           .margin({ top: 5 })
@@ -594,17 +594,17 @@ export struct MessageListViewComponent {
     Column() {
       Divider().margin({ top: 15, bottom: 15 })
 
-      Text('Details')
+      Text($r('app.string.p_btn_details'))
         .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
         .fontWeight(FontWeight.Medium)
         .margin({ bottom: 10 })
 
-      this.DetailRow('Refresh Count', this.refreshCounter.toString())
-      this.DetailRow('Retry Count', this.retryCount.toString())
-      this.DetailRow('Last Success', new Date(this.lastSuccessTime).toLocaleTimeString())
-      this.DetailRow('Uptime', this.formatUptime(Date.now() - this.mountTime))
-      this.DetailRow('Enabled', this.config.enabled ? 'Yes' : 'No')
-      this.DetailRow('Display Mode', this.config.displayMode)
+      this.DetailRow($r('app.string.p_refresh_count'), this.refreshCounter.toString())
+      this.DetailRow($r('app.string.p_retry_count'), this.retryCount.toString())
+      this.DetailRow($r('app.string.p_last_success'), new Date(this.lastSuccessTime).toLocaleTimeString())
+      this.DetailRow($r('app.string.p_uptime'), this.formatUptime(Date.now() - this.mountTime))
+      this.DetailRow($r('app.string.p_enabled'), this.config.enabled ? 'Yes' : 'No')
+      this.DetailRow($r('app.string.p_display_mode'), this.config.displayMode)
     }
     .width('100%')
     .padding(10)
@@ -621,7 +621,7 @@ export struct MessageListViewComponent {
    * @returns {Widget} The detail row widget.
    */
   @Builder
-  DetailRow(label: string, value: string) {
+  DetailRow(label: ResourceStr, value: string) {
     Row() {
       Text(label)
         .fontSize(PageConstants.FONT_SIZE_CAPTION)
