@@ -81,8 +81,14 @@ hdc shell aa test -b com.demo.avrecorder01 -m entry_test \
 | AVRecorderServiceIntegration | 真实 AVRecorder 创建、配置与释放 | 60 |
 | AVRecorderCameraIntegration | CameraService/NDK 实际初始化与 profile 选择 | 60 |
 | AVRecorderErrorPaths | 未初始化、重复关闭、非法配置路径 | 80 |
+| AVRecorderFormatContract | 音视频编码/封装/参数/方向契约 | 70 |
+| AVRecorderPermissionContract | 录制权限列表与组合 | 60 |
+| AVRecorderUiFlowModel | 录制页面状态流模型 | 60 |
+| AVRecorderRecordingFlowCore | 录制完整状态流与计时 | 40 |
+| AVRecorderErrorRecoveryCore | 错误码与可恢复/重试判定 | 30 |
+| AVRecorderFileValidationCore | 输出格式与文件大小校验 | 30 |
 
-新增 2,243 条，工程测试用例合计约 **2,259** 条。
+新增 2,533 条，工程测试用例合计约 **2,549** 条。
 
 ## 已知限制
 

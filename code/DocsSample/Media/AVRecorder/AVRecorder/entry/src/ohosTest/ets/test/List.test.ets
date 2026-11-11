@@ -59,6 +59,14 @@ import avRecorderServiceIntegrationTest from './AVRecorderServiceIntegration.tes
 import avRecorderCameraIntegrationTest from './AVRecorderCameraIntegration.test';
 import avRecorderErrorPathsTest from './AVRecorderErrorPaths.test';
 
+import avRecorderFormatContractTest from './AVRecorderFormatContract.test';
+import avRecorderPermissionContractTest from './AVRecorderPermissionContract.test';
+import avRecorderUiFlowModelTest from './AVRecorderUiFlowModel.test';
+
+import avRecorderRecordingFlowCoreTest from './AVRecorderRecordingFlowCore.test';
+import avRecorderErrorRecoveryCoreTest from './AVRecorderErrorRecoveryCore.test';
+import avRecorderFileValidationCoreTest from './AVRecorderFileValidationCore.test';
+
 export default function testsuite(): void {
   abilityTest();
   avRecorderDateTimeCoreTest();
@@ -97,4 +105,10 @@ export default function testsuite(): void {
   avRecorderServiceIntegrationTest();
   avRecorderCameraIntegrationTest();
   avRecorderErrorPathsTest();
+  avRecorderFormatContractTest();
+  avRecorderPermissionContractTest();
+  avRecorderUiFlowModelTest();
+  avRecorderRecordingFlowCoreTest();
+  avRecorderErrorRecoveryCoreTest();
+  avRecorderFileValidationCoreTest();
 }
