@@ -45,26 +45,26 @@ export default function avRecorderTimeBoundaryTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_TIMEBOUND_0001
      * @tc.name      testExtRecTimeBound0000
-     * @tc.desc      Time boundary -1000ms -> -1:59.
+     * @tc.desc      Time boundary -1000ms -> 0:-1.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testExtRecTimeBound0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(getShownTimer(-1000)).assertEqual('-1:59');
+      expect(getShownTimer(-1000)).assertEqual('0:-1');
       expect(getShownTimer(-1000).indexOf(':') > 0).assertTrue();
       expect(getShownTimer(-1000).length).assertLarger(0);
     })
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_TIMEBOUND_0002
      * @tc.name      testExtRecTimeBound0001
-     * @tc.desc      Time boundary -500ms -> -1:59.
+     * @tc.desc      Time boundary -500ms -> 0:0.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testExtRecTimeBound0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(getShownTimer(-500)).assertEqual('-1:59');
+      expect(getShownTimer(-500)).assertEqual('0:0');
       expect(getShownTimer(-500).indexOf(':') > 0).assertTrue();
       expect(getShownTimer(-500).length).assertLarger(0);
     })
@@ -227,26 +227,26 @@ export default function avRecorderTimeBoundaryTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_TIMEBOUND_0015
      * @tc.name      testExtRecTimeBound0014
-     * @tc.desc      Time boundary -1000ms -> -1:59.
+     * @tc.desc      Time boundary -1000ms -> 0:-1.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testExtRecTimeBound0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(getShownTimer(-1000)).assertEqual('-1:59');
+      expect(getShownTimer(-1000)).assertEqual('0:-1');
       expect(getShownTimer(-1000).indexOf(':') > 0).assertTrue();
       expect(getShownTimer(-1000).length).assertLarger(0);
     })
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_TIMEBOUND_0016
      * @tc.name      testExtRecTimeBound0015
-     * @tc.desc      Time boundary -500ms -> -1:59.
+     * @tc.desc      Time boundary -500ms -> 0:0.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testExtRecTimeBound0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(getShownTimer(-500)).assertEqual('-1:59');
+      expect(getShownTimer(-500)).assertEqual('0:0');
       expect(getShownTimer(-500).indexOf(':') > 0).assertTrue();
       expect(getShownTimer(-500).length).assertLarger(0);
     })
@@ -409,26 +409,26 @@ export default function avRecorderTimeBoundaryTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_TIMEBOUND_0029
      * @tc.name      testExtRecTimeBound0028
-     * @tc.desc      Time boundary -1000ms -> -1:59.
+     * @tc.desc      Time boundary -1000ms -> 0:-1.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testExtRecTimeBound0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(getShownTimer(-1000)).assertEqual('-1:59');
+      expect(getShownTimer(-1000)).assertEqual('0:-1');
       expect(getShownTimer(-1000).indexOf(':') > 0).assertTrue();
       expect(getShownTimer(-1000).length).assertLarger(0);
     })
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_TIMEBOUND_0030
      * @tc.name      testExtRecTimeBound0029
-     * @tc.desc      Time boundary -500ms -> -1:59.
+     * @tc.desc      Time boundary -500ms -> 0:0.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testExtRecTimeBound0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(getShownTimer(-500)).assertEqual('-1:59');
+      expect(getShownTimer(-500)).assertEqual('0:0');
       expect(getShownTimer(-500).indexOf(':') > 0).assertTrue();
       expect(getShownTimer(-500).length).assertLarger(0);
     })
