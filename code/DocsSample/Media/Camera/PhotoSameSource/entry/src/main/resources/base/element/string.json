@@ -67,6 +67,10 @@
     {
       "name": "video_mode",
       "value": "录像"
+    },
+    {
+      "name": "switch_camera",
+      "value": "切换相机"
     }
   ]
 }
