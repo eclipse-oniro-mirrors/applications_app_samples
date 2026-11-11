@@ -50,6 +50,8 @@ const FOREGROUND_PERMISSIONS: Permissions[] = [
 const BACKGROUND_PERMISSIONS: Permissions[] = [PERMISSION_LOCATION_IN_BACKGROUND];
 // Timeout of one current location request in milliseconds.
 const CURRENT_LOCATION_TIMEOUT_MS: number = 10000;
+// Error code reported when removing a fence id unknown to the system, for example an expired fence.
+const FENCE_ID_NOT_FOUND: number = 3301602;
 
 /**
  * Callback type invoked for every fence transition reported by the system.
@@ -342,6 +344,15 @@ export class FenceService {
       .catch((error: BusinessError): FenceOperationResult => {
         // Close the trace span when the removal failed.
         hiTraceMeter.finishTrace('FenceService#removeFence', taskId);
+        // An unknown id means the fence is already gone, so callers must not keep retrying it.
+        if (error.code === FENCE_ID_NOT_FOUND) {
+          Logger.warn('FenceService#removeFence: fence already absent, fenceId=' + fenceId);
+          return {
+            success: true,
+            fenceId: INVALID_FENCE_ID,
+            errorCode: NO_ERROR
+          };
+        }
         Logger.error('FenceService#removeFence failed: ' + error.code);
         return {
           success: false,

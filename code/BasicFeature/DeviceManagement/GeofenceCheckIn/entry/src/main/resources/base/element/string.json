@@ -189,6 +189,10 @@
       "value": "围栏已关闭"
     },
     {
+      "name": "gc_msg_fence_disable_failed",
+      "value": "围栏关闭失败，请检查定位权限与定位开关后重试"
+    },
+    {
       "name": "gc_msg_permission_granted",
       "value": "权限已授予"
     },

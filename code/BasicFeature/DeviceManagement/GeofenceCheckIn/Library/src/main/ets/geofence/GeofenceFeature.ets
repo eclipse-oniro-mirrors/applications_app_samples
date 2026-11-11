@@ -253,8 +253,11 @@ export class GeofenceFeature {
         };
       }
       // Remove the previous fence first so it will not be registered twice.
-      if (config.fenceId >= 0) {
-        await FenceService.removeFence(config.fenceId);
+      const removed: FenceOperationResult = await FenceService.removeFence(config.fenceId);
+      // Stop when the previous fence may still be active, otherwise two fences would report events.
+      if (!removed.success) {
+        Logger.error('GeofenceFeature#enableFence: remove previous fence failed, code=' + removed.errorCode);
+        return removed;
       }
       // Build the transition listener that feeds every fence event into the check-in service.
       const listener: FenceTransitionListener =
@@ -290,16 +293,19 @@ export class GeofenceFeature {
    * Remove the registered geofence and persist the disabled state.
    * @param context application context used for persistence
    * @param config configuration holding the fence id to remove
-   * @returns a promise that resolves when the fence is disabled
+   * @returns the fence operation result, a failed removal keeps the stored fence id for a retry
    */
-  static async disableFence(context: common.Context, config: FenceConfig): Promise<void> {
+  static async disableFence(context: common.Context, config: FenceConfig): Promise<FenceOperationResult> {
     // Open a trace span for the whole disable flow.
     const taskId: number = ++traceTaskIdCounter;
     hiTraceMeter.startTrace('GeofenceFeature#disableFence', taskId);
     try {
       // Remove the registered fence when one exists.
-      if (config.fenceId >= 0) {
-        await FenceService.removeFence(config.fenceId);
+      const removed: FenceOperationResult = await FenceService.removeFence(config.fenceId);
+      // Keep the fence id when removal failed, otherwise the still active fence could never be removed.
+      if (!removed.success) {
+        Logger.error('GeofenceFeature#disableFence: remove fence failed, code=' + removed.errorCode);
+        return removed;
       }
       // Reset the fence id and the enabled flag in the configuration.
       config.fenceId = INVALID_FENCE_ID;
@@ -308,6 +314,7 @@ export class GeofenceFeature {
       await GeofenceFeature.saveConfig(context, config);
       // Report the disabled state for later diagnosis.
       Logger.info('GeofenceFeature#disableFence: fence disabled');
+      return removed;
     } finally {
       // Close the trace span whatever the disable outcome is.
       hiTraceMeter.finishTrace('GeofenceFeature#disableFence', taskId);

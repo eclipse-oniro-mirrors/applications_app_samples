@@ -16,7 +16,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 // Log domain for this sample, keeps all logs grouped under one hilog domain.
-const DOMAIN: number = 0xFF00;
+const DOMAIN: number = 0xF811;
 // Unified log tag so every line printed by this sample can be filtered with one keyword.
 const TAG: string = '[Sample_GeofenceCheckIn]';
 // hilog format string that prints the message as public (non-private) text.

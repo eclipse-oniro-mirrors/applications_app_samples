@@ -303,7 +303,13 @@ export class GeofenceViewModel {
     Logger.info('GeofenceViewModel#disableFence: disabling fenceId ' + this.config.fenceId);
     try {
       // Ask the feature layer to remove the fence registration.
-      await GeofenceFeature.disableFence(context, this.config);
+      const result: FenceOperationResult = await GeofenceFeature.disableFence(context, this.config);
+      if (!result.success) {
+        Logger.error('GeofenceViewModel#disableFence: disable failed, code ' + result.errorCode);
+        // Keep the enabled state so the user can retry removing the still registered fence.
+        this.setMessage(context, $r('app.string.gc_msg_fence_disable_failed'), true);
+        return;
+      }
       // Publish the disabled state and clear the fence id.
       this.enabled = false;
       this.fenceId = INVALID_FENCE_ID;
