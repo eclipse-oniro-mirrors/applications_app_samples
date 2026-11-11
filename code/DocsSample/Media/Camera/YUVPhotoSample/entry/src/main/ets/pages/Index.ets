@@ -212,6 +212,7 @@ struct Index {
         controller: this.previewVM.xComponentController
       })
         .size({height: '100%', width: '100%'})
+        .id('cameraPreview')
         // [StartExclude Stack]
         // [StartExclude XComponent_gesture]
         .onLoad(async () => {
@@ -271,6 +272,7 @@ struct Index {
       // focus box
       if (this.isFocusBoxVisible) {
         Image($r('app.media.focus_box'))
+          .id('focusBox')
           .width(80)
           .height(80)
           .position(this.focusBoxPosition)
@@ -328,6 +330,7 @@ struct Index {
         : $r('sys.symbol.camera_assistive_grid_slash')
     )
       .funcButtonStyle()
+      .id('gridLineBtn')
       .onClick(() => {
         this.isGridLineVisible = !this.isGridLineVisible;
         const message = this.isGridLineVisible ? $r('app.string.grid_line_open') : $r('app.string.grid_line_close');
