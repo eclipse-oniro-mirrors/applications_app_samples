@@ -14,16 +14,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
-import { Driver } from '../Shared/MiracastDriver';
 import { Log } from 'library';
-import {
-  getDriver,
-  KEY_BACK,
-  pressAndWait,
-  DELAY_KEY_NAVIGATION,
-  serializedDelay,
-  DELAY_EMITTER_DISPATCH
-} from '../Shared/MiracastDriver';
 
 const TAG: string = 'MiracastAuthSessionSuite';
 
@@ -579,17 +570,12 @@ class AuthFlowCoordinator {
 
 export default function miracastAuthSessionSuite(): void {
   describe('MiracastAuthSession_Suite', () => {
-    let driver: Driver;
 
     beforeAll(async () => {
-      driver = getDriver();
       Log.info(TAG, 'auth session suite started');
-      await serializedDelay(driver, DELAY_EMITTER_DISPATCH);
     });
 
     afterAll(async () => {
-      await pressAndWait(driver, KEY_BACK, 2, DELAY_KEY_NAVIGATION);
-      await serializedDelay(driver, 500);
       Log.info(TAG, 'auth session suite finished');
     });
 

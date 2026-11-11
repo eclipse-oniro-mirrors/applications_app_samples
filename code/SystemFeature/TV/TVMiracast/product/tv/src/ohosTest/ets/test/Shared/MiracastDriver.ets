@@ -605,15 +605,19 @@ export async function isIndexPageVisible(driver: Driver): Promise<boolean> {
 
 /** 判断播放页是否可见：以镜像画面容器或其子项 id 作为判定依据
  *  多路投屏时播放页由 N 个镜像画面单元格组成，任一单元格存在即视为播放页可见。
+ *  仅做 id 级轻量查询：全量 Text 扫描在系统应用上可能长时间不返回，导致 UiTest 驱动被拖死。
  */
 export async function isPlayerPageVisible(driver: Driver): Promise<boolean> {
   try {
     return await runSerializedUiOperation(async () => {
       const containerCount = await countByIdRaw(driver, ID_PLAYER_CONTAINER);
+      if (containerCount > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s',
+          `player page visible by container, count: ${containerCount}`);
+        return true;
+      }
       const itemCount = await countByIdRaw(driver, ID_PLAYER_ITEM);
-      const sessionTexts = await collectTextsRaw(driver);
-      const hasSessionText = containsAnyText(sessionTexts, [TEXT_SESSION_PREFIX]);
-      const visible = containerCount > 0 || itemCount > 0 || hasSessionText;
+      const visible = itemCount > 0;
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s',
         `player page visible: ${visible} container: ${containerCount} item: ${itemCount}`);
       return visible;
@@ -672,34 +676,16 @@ export async function waitForPageStable(driver: Driver, maxWaitMs: number = TIME
   return true;
 }
 
-/** 等待播放页出现：以「播放页可见」为完成事件，超时后重新拉起播放页再等待一次
- *  跨套件顺序执行时播放页可能已被前一套件退出，此时需要重新冷启动。
+/** 等待播放页出现：本套件使用本地桩驱动且不再拉起真实应用（见 launchMiracastApp 注释），
+ *  页面恒不存在，任何轮询都只会把 maxWaitMs 烧成忙等并反复触碰 UiTest 驱动，曾导致用例长时间卡住。
+ *  因此这里改为单次轻量探测，直接返回探测结果；maxWaitMs 仅为兼容调用方签名保留。
  */
 export async function waitForPlayerPage(driver: Driver, maxWaitMs: number = TIMEOUT_PLAYER_RENDER): Promise<boolean> {
   try {
-    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', `waitForPlayerPage start maxWait: ${maxWaitMs}`);
-    const deadline = Date.now() + maxWaitMs;
-    while (Date.now() < deadline) {
-      if (await isPlayerPageVisible(driver)) {
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'player page render event observed');
-        return true;
-      }
-      await serializedDelay(driver, PROBE_POLL_INTERVAL_MS);
-    }
-
-    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'player page render timeout, relaunching application');
-    await launchMiracastApp();
-    const secondDeadline = Date.now() + maxWaitMs;
-    while (Date.now() < secondDeadline) {
-      if (await isPlayerPageVisible(driver)) {
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'player page render event observed after relaunch');
-        return true;
-      }
-      await serializedDelay(driver, PROBE_POLL_INTERVAL_MS);
-    }
-
-    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'player page still absent after relaunch');
-    return false;
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', `waitForPlayerPage single probe, maxWait: ${maxWaitMs}`);
+    const visible = await isPlayerPageVisible(driver);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', `waitForPlayerPage finished, visible: ${visible}`);
+    return visible;
   } catch (error) {
     hilog.error(LOG_DOMAIN, LOG_TAG, '%{public}s', `waitForPlayerPage error: ${safeErrorText(error as Error)}`);
     return false;

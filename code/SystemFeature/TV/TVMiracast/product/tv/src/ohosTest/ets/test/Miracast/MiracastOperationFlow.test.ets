@@ -948,8 +948,9 @@ export default function miracastOperationFlowSuite(): void {
       const duration: number = Date.now() - start;
       const evaluator = new ExecutionTimeThresholdEvaluator(TIMEOUT_PLAYER_RENDER * 10);
       expect(duration).assertLargerOrEqual(0);
+      expect(duration).assertLessOrEqual(TIMEOUT_PLAYER_RENDER * 10);
       expect(evaluator.isWithinThreshold(duration)).assertTrue();
-      expect(visible === true || visible === false).assertTrue();
+      expect(typeof visible).assertEqual('boolean');
     });
     it('flow_should_keep_player_visibility_stable', 0, async () => {
       const first: boolean = await isPlayerPageVisible(driver);

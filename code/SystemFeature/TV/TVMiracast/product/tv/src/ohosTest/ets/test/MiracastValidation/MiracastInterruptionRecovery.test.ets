@@ -14,16 +14,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
-import { Driver } from '../Shared/MiracastDriver';
 import { Log } from 'library';
-import {
-  getDriver,
-  KEY_BACK,
-  pressAndWait,
-  DELAY_KEY_NAVIGATION,
-  DELAY_AFTER_SESSION_OP,
-  serializedDelay
-} from '../Shared/MiracastDriver';
 
 const TAG: string = 'MiracastInterruptionSuite';
 
@@ -442,17 +433,12 @@ class InterruptionSnapshotBuilder {
 
 export default function miracastInterruptionRecoverySuite(): void {
   describe('MiracastInterruptionRecovery_Suite', () => {
-    let driver: Driver;
 
     beforeAll(async () => {
-      driver = getDriver();
       Log.info(TAG, 'interruption suite started');
-      await serializedDelay(driver, DELAY_AFTER_SESSION_OP);
     });
 
     afterAll(async () => {
-      await pressAndWait(driver, KEY_BACK, 2, DELAY_KEY_NAVIGATION);
-      await serializedDelay(driver, 500);
       Log.info(TAG, 'interruption suite finished');
     });
 
@@ -653,7 +639,6 @@ export default function miracastInterruptionRecoverySuite(): void {
       expect(machine.transitionTo(RecoveryStatus.FAILED)).assertFalse();
       expect(machine.getStatus()).assertEqual(RecoveryStatus.NONE);
     });
-
 
     // ===== 时间线 =====
     it('timeline_should_compute_longest_gap', 0, async () => {

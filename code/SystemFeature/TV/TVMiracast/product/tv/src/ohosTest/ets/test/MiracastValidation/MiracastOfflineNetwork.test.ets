@@ -14,16 +14,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
-import { Driver } from '../Shared/MiracastDriver';
 import { Log } from 'library';
-import {
-  getDriver,
-  KEY_BACK,
-  pressAndWait,
-  DELAY_KEY_NAVIGATION,
-  DELAY_SERVICE_RECONNECT,
-  serializedDelay
-} from '../Shared/MiracastDriver';
 
 const TAG: string = 'MiracastOfflineNetworkSuite';
 
@@ -554,17 +545,12 @@ class DiscoveryScheduler {
 
 export default function miracastOfflineNetworkSuite(): void {
   describe('MiracastOfflineNetwork_Suite', () => {
-    let driver: Driver;
 
     beforeAll(async () => {
-      driver = getDriver();
       Log.info(TAG, 'offline network suite started');
-      await serializedDelay(driver, DELAY_SERVICE_RECONNECT);
     });
 
     afterAll(async () => {
-      await pressAndWait(driver, KEY_BACK, 2, DELAY_KEY_NAVIGATION);
-      await serializedDelay(driver, 500);
       Log.info(TAG, 'offline network suite finished');
     });
 

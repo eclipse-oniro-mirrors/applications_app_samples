@@ -14,16 +14,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
-import { Driver } from '../Shared/MiracastDriver';
 import { Log } from 'library';
-import {
-  getDriver,
-  KEY_BACK,
-  pressAndWait,
-  DELAY_KEY_NAVIGATION,
-  DELAY_EMITTER_DISPATCH,
-  serializedDelay
-} from '../Shared/MiracastDriver';
 
 const TAG: string = 'MiracastNotificationSuite';
 
@@ -606,17 +597,12 @@ class MiracastNotificationCoordinator {
 
 export default function miracastNotificationSuite(): void {
   describe('MiracastNotification_Suite', () => {
-    let driver: Driver;
 
     beforeAll(async () => {
-      driver = getDriver();
       Log.info(TAG, 'notification suite started');
-      await serializedDelay(driver, DELAY_EMITTER_DISPATCH);
     });
 
     afterAll(async () => {
-      await pressAndWait(driver, KEY_BACK, 2, DELAY_KEY_NAVIGATION);
-      await serializedDelay(driver, 500);
       Log.info(TAG, 'notification suite finished');
     });
 

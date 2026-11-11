@@ -14,16 +14,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
-import { Driver } from '../Shared/MiracastDriver';
 import { Log } from 'library';
-import {
-  getDriver,
-  KEY_BACK,
-  pressAndWait,
-  DELAY_KEY_NAVIGATION,
-  serializedDelay,
-  TIMEOUT_SERVICE_CONNECT
-} from '../Shared/MiracastDriver';
 
 const TAG: string = 'MiracastAppVersionSuite';
 
@@ -550,17 +541,12 @@ class EngineUpgradePlanner {
 
 export default function miracastAppVersionSuite(): void {
   describe('MiracastAppVersion_Suite', () => {
-    let driver: Driver;
 
     beforeAll(async () => {
-      driver = getDriver();
       Log.info(TAG, 'app version suite started');
-      await serializedDelay(driver, TIMEOUT_SERVICE_CONNECT);
     });
 
     afterAll(async () => {
-      await pressAndWait(driver, KEY_BACK, 2, DELAY_KEY_NAVIGATION);
-      await serializedDelay(driver, 500);
       Log.info(TAG, 'app version suite finished');
     });
 
