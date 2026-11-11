@@ -14,12 +14,15 @@
  */
 
 // node tests/host/RecorderModels.test.cjs <SDK ets-loader/node_modules/typescript/lib/typescript.js>
-// 只验证纯计算和文件接口调用顺序，不代替 ArkUI、文件选择器或真机编码验证。
+// 只验证纯计算和文件接口调用顺序，不代替ArkUI、文件选择器或真机编码验证。
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const ts = require(path.resolve(process.argv[2]));
+const BUFFER_RECORDING_MIN_API = 23;
+const LEGACY_RECORDER_FIELD_COUNT = 25;
+const FULL_HD_HEIGHT = 1080;
 const sourceRoot = path.resolve(__dirname, '../../entry/src/main/ets');
 const cache = new Map();
 let playbackState = 0;
@@ -179,7 +182,7 @@ function testLiveDiagnostics() {
   assert.match(RecorderLiveDiagnosticsModel.report(diagnostics, true), /副路/);
   stream.frames = 0;
   assert.doesNotMatch(RecorderLiveDiagnosticsModel.report(diagnostics, false), /副路/);
-  console.log('Live recording diagnostics: sources, target comparison, unknowns, warnings, and dual reports passed');
+  console.info('Live recording diagnostics: sources, target comparison, unknowns, warnings, and dual reports passed');
 }
 
 async function testConfiguration() {
@@ -246,6 +249,35 @@ async function testConfiguration() {
   assert.match(ConfigurationFeedback.recordingConstraint(camera, 25), /API 26/);
   camera.isSync = 1;
   assert.match(ConfigurationFeedback.recordingConstraint(camera, 26), /异步/);
+  const bufferDraft = new RecorderSettingsDraft();
+  bufferDraft.inputMode = 1;
+  bufferDraft.videoDump = true;
+  const bufferCamera = new CameraDataModel();
+  assert.equal(bufferDraft.apply(bufferCamera), true);
+  assert.equal(bufferCamera.bufferInput, true);
+  assert.equal(bufferCamera.enableVideoDump, true);
+  assert.equal(ConfigurationFeedback.recordingConstraint(bufferCamera, BUFFER_RECORDING_MIN_API), '');
+  assert.match(ConfigurationFeedback.recordingConstraint(bufferCamera, BUFFER_RECORDING_MIN_API - 1), /API 23/);
+  for (const field of ['codec', 'resolution', 'frameRate', 'preprocMode', 'dualOutput']) {
+    const incompatible = new RecorderSettingsDraft();
+    incompatible.inputMode = 1;
+    incompatible[field] = field === 'codec' || field === 'resolution' ? 0 : 1;
+    assert.equal(incompatible.apply(new CameraDataModel()), false, field);
+  }
+  const bufferSnapshot = UserConfiguration.capture(player, bufferCamera);
+  const restoredBuffer = new CameraDataModel();
+  UserConfiguration.restore(bufferSnapshot, new PlayerSettingsModel(), restoredBuffer);
+  assert.equal(restoredBuffer.bufferInput, true);
+  assert.equal(restoredBuffer.cameraHeight, FULL_HD_HEIGHT);
+  const legacySurface = new CameraDataModel();
+  UserConfiguration.restore({ ...bufferSnapshot,
+    recorder: bufferSnapshot.recorder.slice(0, LEGACY_RECORDER_FIELD_COUNT) },
+    new PlayerSettingsModel(), legacySurface);
+  assert.equal(legacySurface.bufferInput, false);
+  bufferSnapshot.recorder[1] = 1;
+  const invalidBuffer = new CameraDataModel();
+  UserConfiguration.restore(bufferSnapshot, new PlayerSettingsModel(), invalidBuffer);
+  assert.equal(invalidBuffer.bufferInput, false, 'Reject persisted HDR/Buffer combination');
   failPreferenceOpen = true;
   await assert.rejects(() => ConfigurationStore.open({}));
   failPreferenceOpen = false;
@@ -266,7 +298,7 @@ async function testConfiguration() {
   assert.equal((await ConfigurationStore.load()).player.length, 0);
   preferenceValues.set('current.snapshot', committed);
   assert.equal(preferenceValues.size, 2, 'One stored value is expected per complete configuration');
-  console.log('Configuration: round trip, presets, invalid values, draft isolation, write ordering, and retry passed');
+  console.info('Configuration: round trip, presets, invalid values, draft isolation, write ordering, and retry passed');
 }
 
 async function testDumpCleanup() {
@@ -292,7 +324,7 @@ async function testDumpCleanup() {
   assert.equal(calls.filter((call) => call.startsWith('unlink:')).length, 3);
   assert.ok(!calls.some((call) => call.includes('.mp4') || call.includes('.pending') || call.includes('/../')));
   assert.equal(await DumpFilesModel.removeSession('/files', '../recording_123'), 0);
-  console.log('Dump cleanup: idle checks, session grouping, sidecars, and unrelated-file protection passed');
+  console.info('Dump cleanup: idle checks, session grouping, sidecars, and unrelated-file protection passed');
 }
 
 function testPreprocessing() {
@@ -327,7 +359,7 @@ function testPreprocessing() {
   assert.equal(data.cropBottom - data.cropTop + 1, 810);
   assert.equal(data.downsamplingWidth, 1280);
   assert.equal(data.downsamplingHeight, 720);
-  console.log('Preprocessing: ' + cases + ' combinations and inclusive crop bounds passed');
+  console.info(`Preprocessing: ${cases} combinations and inclusive crop bounds passed`);
 }
 
 function resetIo() {
@@ -351,7 +383,7 @@ async function testDumpGroups() {
   assert.equal(groups.find((group) => group.id === 'VideoDecoderOut_nv12_123.yuv').files.length, 3);
   assert.equal(groups.find((group) => group.id === 'recording_123').status, '达到容量限制');
   assert.ok(groups.every((group) => group.files.every((file) => !file.name.endsWith('.pending'))));
-  console.log('Dump grouping: primary/secondary, sidecars, replaced files, and unrelated files passed');
+  console.info('Dump grouping: primary/secondary, sidecars, replaced files, and unrelated files passed');
 }
 
 async function testDumpExports() {
@@ -389,7 +421,7 @@ async function testDumpExports() {
   copyFails = true;
   await assert.rejects(() => DumpFilesModel.exportFile(context, entry));
   assert.equal(calls.filter((call) => call.startsWith('close:')).length, 2);
-  console.log('Dump export: cancellation, activity recheck, space, ZIP cleanup, and fd cleanup passed');
+  console.info('Dump export: cancellation, activity recheck, space, ZIP cleanup, and fd cleanup passed');
 }
 
 async function testMediaFileWriter() {
@@ -463,7 +495,8 @@ function testStorageProtection() {
     estimate = highRate.estimate(diagnostics, false, true, (i + 1) * 1000);
   }
   assert.equal(estimate.remainingSeconds, (1024 - 400) / 40, 'Estimate must use the ten-second reserve at high bitrate');
-  console.log('Storage protection: warm-up, shared volume, both files/Dump growth, default-off and unknown-space handling passed');
+  console.info('Storage protection: warm-up, shared volume, both files/Dump growth, ' +
+    'default-off and unknown-space handling passed');
 }
 
 
@@ -588,7 +621,21 @@ async function testCameraLifecycle() {
   failure.outputStarted = true;
   await assert.rejects(() => failure.stop(() => {}), /Camera output stop failed/);
   assert.equal(events.includes('session.stop'), true);
-  console.log('Camera lifecycle: preparation/start exit races, listener/stop failures, and idempotent release passed');
+  const buffer = new CameraSessionController();
+  events.length = 0;
+  buffer.bufferMode = true;
+  buffer.bufferOutput = createOutput(false, false);
+  buffer.preview = { release: async () => { events.push('preview.release'); } };
+  buffer.session = session;
+  await buffer.start();
+  assert.equal(events.includes('output.start'), false, 'Session already started the YUV preview stream');
+  assert.equal(await buffer.stop(() => { events.push('frame.end'); }), false);
+  assert.deepEqual(events, ['session.stop'], 'Stop both preview producers before Native sends EOS');
+  await buffer.release();
+  assert.equal(events.filter(x => x === 'output.release').length, 1);
+  assert.equal(events.filter(x => x === 'preview.release').length, 1);
+  assert.equal(events.includes('frame.end'), false, 'Buffer mode does not await a VideoOutput frameEnd');
+  console.info('Camera lifecycle: preparation/start exit races, listener/stop failures, and idempotent release passed');
 }
 
 async function testRecordingSegments() {

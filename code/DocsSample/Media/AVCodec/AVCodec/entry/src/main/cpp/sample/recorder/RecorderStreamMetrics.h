@@ -38,7 +38,7 @@ struct RecorderStreamMetricsInfo {
     uint64_t ptsRegressions = 0;
 };
 
-// 仅保存最近一秒的接收时刻和字节数，不保存 codec Buffer；最多保留 1024 个样本。
+// 仅保存最近一秒的接收时刻和字节数，不保存codec Buffer；最多保留1024个样本。
 class RecorderStreamMetrics {
 public:
     void Configure(double fps, int64_t bitrate)

@@ -14,8 +14,10 @@
  */
 
 #include "napi/native_api.h"
-#include <cstring>
+// [Start archive_include]
 #include <filemanagement/archive/oh_archive.h>
+// [End archive_include]
+#include <cstring>
 #include <napi/native_api.h>
 #include <cstdio>
 #include <cstdlib>

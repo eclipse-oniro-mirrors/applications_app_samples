@@ -422,7 +422,7 @@ export struct DeviceDiagnosticsPage {
     let outputFile: fileIo.File | undefined = undefined;
     try {
       const options = new picker.DocumentSaveOptions();
-      // 文件名自带扩展名，不再设置 suffix，避免 Picker 再拼接一次。
+      // 文件名自带扩展名，不再设置suffix，避免Picker再拼接一次。
       options.newFileNames = ['avcodec-diagnostic-report.txt'];
       const hostContext = this.getUIContext().getHostContext();
       if (hostContext === undefined) {

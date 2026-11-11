@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// Preview display ownership is independent of callback delivery order.
+// 预上屏显示状态不依赖回调的到达顺序。
 #ifndef PREVIEW_DISPLAY_STATE_H
 #define PREVIEW_DISPLAY_STATE_H
 #include <cstddef>

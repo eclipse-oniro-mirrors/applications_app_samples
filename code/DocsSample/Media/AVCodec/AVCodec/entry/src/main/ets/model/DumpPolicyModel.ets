@@ -14,7 +14,7 @@
  */
 
 export class DumpPolicyModel {
-  // 0 表示不限制该项，大小和时长分别生效。
+  // 0表示不限制该项，大小和时长分别生效。
   public static readonly UNLIMITED: number = 0;
   public static readonly SIZE_OPTIONS: number[] = [64, 256, DumpPolicyModel.UNLIMITED];
   public static readonly DURATION_OPTIONS: number[] = [10, 30, DumpPolicyModel.UNLIMITED];
