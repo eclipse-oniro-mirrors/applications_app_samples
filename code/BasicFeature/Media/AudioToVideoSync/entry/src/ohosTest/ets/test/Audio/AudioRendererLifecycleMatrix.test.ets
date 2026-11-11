@@ -38,26 +38,26 @@ function optionsFor(usage: audio.StreamUsage): audio.AudioRendererOptions {
 
 async function createFor(usage: audio.StreamUsage): Promise<audio.AudioRenderer> {
   const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor(usage));
-  expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+  expect(renderer.state).assertEqual(1);
   return renderer;
 }
 
 async function fullLifecycle(usage: audio.StreamUsage): Promise<void> {
   const renderer: audio.AudioRenderer = await createFor(usage);
   try {
-    expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+    expect(renderer.state).assertEqual(1);
     await renderer.start();
-    expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+    expect(renderer.state).assertEqual(2);
     await renderer.pause();
-    expect(renderer.state).assertEqual(audio.AudioState.STATE_PAUSED);
+    expect(renderer.state).assertEqual(5);
     await renderer.start();
-    expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+    expect(renderer.state).assertEqual(2);
     await renderer.stop();
-    expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+    expect(renderer.state).assertEqual(3);
   } finally {
     await renderer.release();
   }
-  expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+  expect(renderer.state).assertEqual(4);
 }
 
 export default function audioRendererLifecycleMatrixTest() {
@@ -254,7 +254,7 @@ export default function audioRendererLifecycleMatrixTest() {
       } catch (error) {
         console.info('start after release raised an error');
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -270,13 +270,13 @@ export default function audioRendererLifecycleMatrixTest() {
       const game: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
         await media.start();
-        expect(media.state).assertEqual(audio.AudioState.STATE_RUNNING);
-        expect(game.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(media.state).assertEqual(2);
+        expect(game.state).assertEqual(1);
         await game.start();
-        expect(game.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(game.state).assertEqual(2);
         await game.stop();
-        expect(game.state).assertEqual(audio.AudioState.STATE_STOPPED);
-        expect(media.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(game.state).assertEqual(3);
+        expect(media.state).assertEqual(2);
       } finally {
         await media.release();
         await game.release();
@@ -300,7 +300,7 @@ export default function audioRendererLifecycleMatrixTest() {
     /**
      * @tc.number    SUB_AVS_AUDIO_LIFECYCLE_1500
      * @tc.name      testAudioLifecycle0015
-     * @tc.desc      Verify every sampled usage reports a state inside the documented AudioState enumeration
+     * @tc.desc      Verify every sampled usage reports a state inside the documented state enumeration
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
@@ -313,12 +313,12 @@ export default function audioRendererLifecycleMatrixTest() {
         audio.StreamUsage.STREAM_USAGE_NOTIFICATION
       ];
       const allowed: number[] = [
-        audio.AudioState.STATE_NEW,
-        audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING,
-        audio.AudioState.STATE_STOPPED,
-        audio.AudioState.STATE_RELEASED,
-        audio.AudioState.STATE_PAUSED
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
       ];
       for (let i = 0; i < usages.length; i++) {
         const renderer: audio.AudioRenderer = await createFor(usages[i]);

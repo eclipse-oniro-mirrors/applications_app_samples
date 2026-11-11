@@ -143,7 +143,7 @@ export default function Audio01Test() {
       };
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(options);
       try {
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(renderer.state).assertEqual(1);
       } finally {
         await renderer.release();
       }

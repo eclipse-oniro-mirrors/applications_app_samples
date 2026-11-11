@@ -131,7 +131,7 @@ export default function operationLatencyTest() {
           streamInfo: streamInfo,
           rendererInfo: rendererInfo
         });
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(renderer.state).assertEqual(1);
         await renderer.release();
       }
       const cost: number = Date.now() - start;

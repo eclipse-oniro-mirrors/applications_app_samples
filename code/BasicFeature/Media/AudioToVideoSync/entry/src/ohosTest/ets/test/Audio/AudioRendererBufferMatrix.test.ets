@@ -37,7 +37,7 @@ function optionsFor(usage: audio.StreamUsage): audio.AudioRendererOptions {
 
 async function createFor(usage: audio.StreamUsage): Promise<audio.AudioRenderer> {
   const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor(usage));
-  expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+  expect(renderer.state).assertEqual(1);
   return renderer;
 }
 
@@ -67,13 +67,13 @@ export default function audioRendererBufferMatrixTest() {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       try {
         await renderer.start();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(renderer.state).assertEqual(2);
         await renderer.stop();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+        expect(renderer.state).assertEqual(3);
         await renderer.start();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(renderer.state).assertEqual(2);
         await renderer.stop();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+        expect(renderer.state).assertEqual(3);
       } finally {
         await renderer.release();
       }
@@ -92,9 +92,9 @@ export default function audioRendererBufferMatrixTest() {
       try {
         for (let i = 0; i < 5; i++) {
           await renderer.start();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
           await renderer.pause();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PAUSED);
+          expect(renderer.state).assertEqual(5);
         }
       } finally {
         await renderer.release();
@@ -114,9 +114,9 @@ export default function audioRendererBufferMatrixTest() {
       try {
         for (let i = 0; i < 5; i++) {
           await renderer.start();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
           await renderer.stop();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+          expect(renderer.state).assertEqual(3);
         }
       } finally {
         await renderer.release();
@@ -134,9 +134,9 @@ export default function audioRendererBufferMatrixTest() {
     it('testAudioBuffer0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       await renderer.start();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(renderer.state).assertEqual(2);
       await renderer.release();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -151,9 +151,9 @@ export default function audioRendererBufferMatrixTest() {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
       await renderer.start();
       await renderer.pause();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(renderer.state).assertEqual(5);
       await renderer.release();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -168,9 +168,9 @@ export default function audioRendererBufferMatrixTest() {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_RINGTONE);
       await renderer.start();
       await renderer.stop();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(renderer.state).assertEqual(3);
       await renderer.release();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -186,13 +186,13 @@ export default function audioRendererBufferMatrixTest() {
       const second: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
         await first.start();
-        expect(first.state).assertEqual(audio.AudioState.STATE_RUNNING);
-        expect(second.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(first.state).assertEqual(2);
+        expect(second.state).assertEqual(1);
         await second.start();
-        expect(second.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(second.state).assertEqual(2);
         await first.stop();
-        expect(first.state).assertEqual(audio.AudioState.STATE_STOPPED);
-        expect(second.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(first.state).assertEqual(3);
+        expect(second.state).assertEqual(2);
       } finally {
         await first.release();
         await second.release();
@@ -212,7 +212,7 @@ export default function audioRendererBufferMatrixTest() {
       try {
         await renderer.start();
         for (let i = 0; i < 50; i++) {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
         }
       } finally {
         await renderer.release();
@@ -241,7 +241,7 @@ export default function audioRendererBufferMatrixTest() {
           await renderer.start();
           await renderer.stop();
           await renderer.release();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+          expect(renderer.state).assertEqual(4);
         } finally {
           try {
             await renderer.release();
@@ -264,7 +264,7 @@ export default function audioRendererBufferMatrixTest() {
       for (let i = 0; i < 10; i++) {
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
         await renderer.release();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
   });

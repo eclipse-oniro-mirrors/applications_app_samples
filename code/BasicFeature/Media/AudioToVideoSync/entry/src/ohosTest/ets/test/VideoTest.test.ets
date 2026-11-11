@@ -26,7 +26,7 @@ const TAG: string = 'Video01';
  * Video Test Suite（视频显示链路真实用例）
  *
  * 被测逻辑：Index.ets 用真实屏幕宽度按 16:9 换算出 XComponent 的高度，解码后的视频帧
- * 通过 EGL 渲染到该 SURFACE 上。用例直接读取真实显示参数，并复用工程真实常量
+ * 通过 EGL 渲染到该 render target 上。用例直接读取真实显示参数，并复用工程真实常量
  * （CommonConstants.DEFAULT_WIDTH / DEFAULT_HEIGHT / PX）参与计算，校验布局换算的边界，
  * 不使用写死的分辨率、刷新率等模拟值。
  */

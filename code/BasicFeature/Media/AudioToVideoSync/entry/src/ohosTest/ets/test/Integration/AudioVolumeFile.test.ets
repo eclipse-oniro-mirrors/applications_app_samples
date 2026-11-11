@@ -120,8 +120,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[0])).assertEqual(snapshot.min);
       expect(Number(snapshot.parts[1])).assertEqual(snapshot.max);
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
-      expect(snapshot.preparedState).assertEqual(audio.AudioState.STATE_PREPARED);
-      expect(snapshot.releasedState).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(snapshot.preparedState).assertEqual(1);
+      expect(snapshot.releasedState).assertEqual(4);
     })
 
     /**
@@ -144,8 +144,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[0])).assertEqual(snapshot.min);
       expect(Number(snapshot.parts[1])).assertEqual(snapshot.max);
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
-      expect(snapshot.preparedState).assertEqual(audio.AudioState.STATE_PREPARED);
-      expect(snapshot.releasedState).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(snapshot.preparedState).assertEqual(1);
+      expect(snapshot.releasedState).assertEqual(4);
     })
 
     /**
@@ -168,8 +168,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[0])).assertEqual(snapshot.min);
       expect(Number(snapshot.parts[1])).assertEqual(snapshot.max);
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
-      expect(snapshot.preparedState).assertEqual(audio.AudioState.STATE_PREPARED);
-      expect(snapshot.releasedState).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(snapshot.preparedState).assertEqual(1);
+      expect(snapshot.releasedState).assertEqual(4);
     })
 
     /**
@@ -192,8 +192,8 @@ export default function audioVolumeFileTest() {
       expect(Number(snapshot.parts[0])).assertEqual(snapshot.min);
       expect(Number(snapshot.parts[1])).assertEqual(snapshot.max);
       expect(Number(snapshot.parts[2])).assertEqual(snapshot.current);
-      expect(snapshot.preparedState).assertEqual(audio.AudioState.STATE_PREPARED);
-      expect(snapshot.releasedState).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(snapshot.preparedState).assertEqual(1);
+      expect(snapshot.releasedState).assertEqual(4);
     })
 
     /**

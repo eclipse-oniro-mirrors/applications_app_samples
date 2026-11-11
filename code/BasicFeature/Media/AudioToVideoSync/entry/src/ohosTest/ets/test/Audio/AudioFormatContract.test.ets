@@ -47,7 +47,7 @@ async function createFor(usage: audio.StreamUsage, rate: audio.AudioSamplingRate
   channel: audio.AudioChannel): Promise<audio.AudioRenderer> {
   const renderer: audio.AudioRenderer = await audio.createAudioRenderer(
     optionsFor(usage, rate, channel, audio.AudioSampleFormat.SAMPLE_FORMAT_S16LE));
-  expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+  expect(renderer.state).assertEqual(1);
   return renderer;
 }
 
@@ -124,7 +124,7 @@ export default function audioFormatContractTest() {
           const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
             rates[i], channels[j]);
           try {
-            expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+            expect(renderer.state).assertEqual(1);
           } finally {
             await renderer.release();
           }
@@ -154,7 +154,7 @@ export default function audioFormatContractTest() {
         const renderer: audio.AudioRenderer = await createFor(usages[i],
           audio.AudioSamplingRate.SAMPLE_RATE_48000, audio.AudioChannel.CHANNEL_2);
         try {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          expect(renderer.state).assertEqual(1);
         } finally {
           await renderer.release();
         }
@@ -173,7 +173,7 @@ export default function audioFormatContractTest() {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.AudioSamplingRate.SAMPLE_RATE_48000, audio.AudioChannel.CHANNEL_2);
       await renderer.release();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -216,7 +216,7 @@ export default function audioFormatContractTest() {
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MOVIE,
           rates[i], audio.AudioChannel.CHANNEL_1);
         await renderer.release();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
 
@@ -235,10 +235,10 @@ export default function audioFormatContractTest() {
         audio.AudioSamplingRate.SAMPLE_RATE_48000, audio.AudioChannel.CHANNEL_2);
       try {
         await first.release();
-        expect(first.state).assertEqual(audio.AudioState.STATE_RELEASED);
-        expect(second.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(first.state).assertEqual(4);
+        expect(second.state).assertEqual(1);
         await second.start();
-        expect(second.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(second.state).assertEqual(2);
       } finally {
         await second.release();
       }

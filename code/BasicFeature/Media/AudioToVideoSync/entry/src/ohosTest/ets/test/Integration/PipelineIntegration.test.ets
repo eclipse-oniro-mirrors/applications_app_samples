@@ -108,20 +108,20 @@ export default function pipelineIntegrationTest() {
       const path: string = pathInFiles(uniqueName('avs_pipe_audio', '.txt'));
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
       try {
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(renderer.state).assertEqual(1);
         await renderer.start();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(renderer.state).assertEqual(2);
         writeTextFile(path, 'while-running');
         expect(readTextFile(path, 13)).assertEqual('while-running');
         await renderer.pause();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PAUSED);
+        expect(renderer.state).assertEqual(5);
         await renderer.stop();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+        expect(renderer.state).assertEqual(3);
       } finally {
         await renderer.release();
         removeQuietly(path);
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -190,8 +190,8 @@ export default function pipelineIntegrationTest() {
         writeTextFile(firstPath, 'first-pipe');
         writeTextFile(secondPath, 'second-pipe');
         await firstRenderer.start();
-        expect(firstRenderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
-        expect(secondRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(firstRenderer.state).assertEqual(2);
+        expect(secondRenderer.state).assertEqual(1);
         expect(readTextFile(firstPath, 10)).assertEqual('first-pipe');
         expect(readTextFile(secondPath, 11)).assertEqual('second-pipe');
         fileIo.unlinkSync(firstPath);
@@ -221,14 +221,14 @@ export default function pipelineIntegrationTest() {
           writeTextFile(path, `round-${round}`);
           expect(readTextFile(path, 7)).assertEqual(`round-${round}`);
           await renderer.start();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
           await renderer.stop();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+          expect(renderer.state).assertEqual(3);
         } finally {
           await renderer.release();
           removeQuietly(path);
         }
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
 
@@ -253,7 +253,7 @@ export default function pipelineIntegrationTest() {
         await renderer.release();
         removeQuietly(path);
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**

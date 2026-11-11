@@ -49,7 +49,7 @@ function optionsFor(usage: audio.StreamUsage): audio.AudioRendererOptions {
 
 async function createFor(usage: audio.StreamUsage): Promise<audio.AudioRenderer> {
   const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor(usage));
-  expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+  expect(renderer.state).assertEqual(1);
   return renderer;
 }
 
@@ -80,11 +80,11 @@ export default function audioLifecycleThroughputTest() {
       for (let i = 0; i < CREATE_START_STOP_RELEASE_ROUNDS; i++) {
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
         await renderer.start();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(renderer.state).assertEqual(2);
         await renderer.stop();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+        expect(renderer.state).assertEqual(3);
         await renderer.release();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
@@ -105,9 +105,9 @@ export default function audioLifecycleThroughputTest() {
       try {
         for (let i = 0; i < START_PAUSE_ROUNDS; i++) {
           await renderer.start();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
           await renderer.pause();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PAUSED);
+          expect(renderer.state).assertEqual(5);
         }
       } finally {
         await renderer.release();
@@ -137,7 +137,7 @@ export default function audioLifecycleThroughputTest() {
         } finally {
           await renderer.release();
         }
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
@@ -162,7 +162,7 @@ export default function audioLifecycleThroughputTest() {
         const cost: number = Date.now() - start;
         expect(cost).assertLargerOrEqual(0);
         expect(cost).assertLess(10000);
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
   });

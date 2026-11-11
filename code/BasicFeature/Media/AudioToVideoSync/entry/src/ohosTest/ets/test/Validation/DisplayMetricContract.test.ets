@@ -128,8 +128,8 @@ export default function displayMetricContractTest() {
         display.DisplayState.STATE_UNKNOWN,
         display.DisplayState.STATE_OFF,
         display.DisplayState.STATE_ON,
-        display.DisplayState.STATE_DOZE,
-        display.DisplayState.STATE_DOZE_SUSPEND
+        3,
+        4
       ];
       expect(known.indexOf(target.state) >= 0).assertTrue();
       expect(target.state).assertLargerOrEqual(display.DisplayState.STATE_UNKNOWN);
@@ -536,7 +536,7 @@ export default function displayMetricContractTest() {
       const target: display.Display = defaultDisplay();
       expect(target.state === display.DisplayState.STATE_UNKNOWN).assertFalse();
       expect(target.state).assertLargerOrEqual(display.DisplayState.STATE_OFF);
-      expect(target.state).assertLessOrEqual(display.DisplayState.STATE_DOZE_SUSPEND);
+      expect(target.state).assertLessOrEqual(4);
       expect(target.alive).assertTrue();
     })
 

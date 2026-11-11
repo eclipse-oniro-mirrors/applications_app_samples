@@ -27,11 +27,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -44,11 +44,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -61,11 +61,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -78,11 +78,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -95,11 +95,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -112,11 +112,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -129,11 +129,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -146,11 +146,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -163,11 +163,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -180,11 +180,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -197,11 +197,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -214,11 +214,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -231,11 +231,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -248,11 +248,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -265,11 +265,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -282,11 +282,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -299,11 +299,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -316,11 +316,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -333,11 +333,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -350,11 +350,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -367,11 +367,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -384,11 +384,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -401,11 +401,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -418,11 +418,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -435,11 +435,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -452,11 +452,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -469,11 +469,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -486,11 +486,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -503,11 +503,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -520,11 +520,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -537,11 +537,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -554,11 +554,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -571,11 +571,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -588,11 +588,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -605,11 +605,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -622,11 +622,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -639,11 +639,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -656,11 +656,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -673,11 +673,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -690,11 +690,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -707,11 +707,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -724,11 +724,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -741,11 +741,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -758,11 +758,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -775,11 +775,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -792,11 +792,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -809,11 +809,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -826,11 +826,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -843,11 +843,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -860,11 +860,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -877,11 +877,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -894,11 +894,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -911,11 +911,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -928,11 +928,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -945,11 +945,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -962,11 +962,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -979,11 +979,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -996,11 +996,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1013,11 +1013,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -1030,11 +1030,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -1047,11 +1047,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -1064,11 +1064,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -1081,11 +1081,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -1098,11 +1098,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1115,11 +1115,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -1132,11 +1132,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -1149,11 +1149,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -1166,11 +1166,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -1183,11 +1183,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -1200,11 +1200,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1217,11 +1217,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -1234,11 +1234,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -1251,11 +1251,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -1268,11 +1268,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -1285,11 +1285,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -1302,11 +1302,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1319,11 +1319,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -1336,11 +1336,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -1353,11 +1353,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -1370,11 +1370,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -1387,11 +1387,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -1404,11 +1404,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1421,11 +1421,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -1438,11 +1438,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -1455,11 +1455,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -1472,11 +1472,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -1489,11 +1489,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -1506,11 +1506,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1523,11 +1523,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -1540,11 +1540,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -1557,11 +1557,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -1574,11 +1574,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -1591,11 +1591,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -1608,11 +1608,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1625,11 +1625,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })
@@ -1642,11 +1642,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[5]).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(states[5]).assertEqual(4);
       expect(states[5] >= 0).assertTrue();
       expect(states.indexOf(states[5])).assertEqual(5);
     })
@@ -1659,11 +1659,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[0]).assertEqual(audio.AudioState.STATE_NEW);
+      expect(states[0]).assertEqual(0);
       expect(states[0] >= 0).assertTrue();
       expect(states.indexOf(states[0])).assertEqual(0);
     })
@@ -1676,11 +1676,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[1]).assertEqual(audio.AudioState.STATE_PREPARED);
+      expect(states[1]).assertEqual(1);
       expect(states[1] >= 0).assertTrue();
       expect(states.indexOf(states[1])).assertEqual(1);
     })
@@ -1693,11 +1693,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[2]).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(states[2]).assertEqual(2);
       expect(states[2] >= 0).assertTrue();
       expect(states.indexOf(states[2])).assertEqual(2);
     })
@@ -1710,11 +1710,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[3]).assertEqual(audio.AudioState.STATE_PAUSED);
+      expect(states[3]).assertEqual(5);
       expect(states[3] >= 0).assertTrue();
       expect(states.indexOf(states[3])).assertEqual(3);
     })
@@ -1727,11 +1727,11 @@ export default function audioRendererContractMoreTest() {
      * @tc.level     Level 2
      */
     it('testMoreAudioRenderer0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       expect(states.length).assertEqual(6);
-      expect(states[4]).assertEqual(audio.AudioState.STATE_STOPPED);
+      expect(states[4]).assertEqual(3);
       expect(states[4] >= 0).assertTrue();
       expect(states.indexOf(states[4])).assertEqual(4);
     })

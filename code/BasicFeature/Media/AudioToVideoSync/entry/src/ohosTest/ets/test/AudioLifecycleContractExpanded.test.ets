@@ -27,9 +27,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 0;
       const allowed: boolean = false;
@@ -47,9 +47,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 0;
       const allowed: boolean = false;
@@ -67,9 +67,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 0;
       const allowed: boolean = false;
@@ -87,9 +87,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 0;
       const allowed: boolean = false;
@@ -107,9 +107,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 0;
       const allowed: boolean = false;
@@ -127,9 +127,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 0;
       const allowed: boolean = false;
@@ -147,9 +147,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 1;
       const allowed: boolean = true;
@@ -167,9 +167,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 1;
       const allowed: boolean = false;
@@ -187,9 +187,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 1;
       const allowed: boolean = false;
@@ -207,9 +207,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 1;
       const allowed: boolean = false;
@@ -227,9 +227,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 1;
       const allowed: boolean = false;
@@ -247,9 +247,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 1;
       const allowed: boolean = false;
@@ -267,9 +267,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 2;
       const allowed: boolean = false;
@@ -287,9 +287,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 2;
       const allowed: boolean = true;
@@ -307,9 +307,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 2;
       const allowed: boolean = false;
@@ -327,9 +327,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 2;
       const allowed: boolean = true;
@@ -347,9 +347,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 2;
       const allowed: boolean = true;
@@ -367,9 +367,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 2;
       const allowed: boolean = false;
@@ -387,9 +387,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 3;
       const allowed: boolean = false;
@@ -407,9 +407,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 3;
       const allowed: boolean = false;
@@ -427,9 +427,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 3;
       const allowed: boolean = true;
@@ -447,9 +447,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 3;
       const allowed: boolean = false;
@@ -467,9 +467,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 3;
       const allowed: boolean = false;
@@ -487,9 +487,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 3;
       const allowed: boolean = false;
@@ -507,9 +507,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 4;
       const allowed: boolean = false;
@@ -527,9 +527,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 4;
       const allowed: boolean = false;
@@ -547,9 +547,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 4;
       const allowed: boolean = true;
@@ -567,9 +567,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 4;
       const allowed: boolean = true;
@@ -587,9 +587,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 4;
       const allowed: boolean = false;
@@ -607,9 +607,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 4;
       const allowed: boolean = false;
@@ -627,9 +627,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 5;
       const allowed: boolean = true;
@@ -647,9 +647,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 5;
       const allowed: boolean = true;
@@ -667,9 +667,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 5;
       const allowed: boolean = true;
@@ -687,9 +687,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 5;
       const allowed: boolean = true;
@@ -707,9 +707,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 5;
       const allowed: boolean = true;
@@ -727,9 +727,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 5;
       const allowed: boolean = false;
@@ -747,9 +747,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 0;
       const allowed: boolean = false;
@@ -767,9 +767,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 0;
       const allowed: boolean = false;
@@ -787,9 +787,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 0;
       const allowed: boolean = false;
@@ -807,9 +807,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 0;
       const allowed: boolean = false;
@@ -827,9 +827,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 0;
       const allowed: boolean = false;
@@ -847,9 +847,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 0;
       const allowed: boolean = false;
@@ -867,9 +867,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 1;
       const allowed: boolean = true;
@@ -887,9 +887,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 1;
       const allowed: boolean = false;
@@ -907,9 +907,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 1;
       const allowed: boolean = false;
@@ -927,9 +927,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 1;
       const allowed: boolean = false;
@@ -947,9 +947,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 1;
       const allowed: boolean = false;
@@ -967,9 +967,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 1;
       const allowed: boolean = false;
@@ -987,9 +987,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 2;
       const allowed: boolean = false;
@@ -1007,9 +1007,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 2;
       const allowed: boolean = true;
@@ -1027,9 +1027,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 2;
       const allowed: boolean = false;
@@ -1047,9 +1047,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 2;
       const allowed: boolean = true;
@@ -1067,9 +1067,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 2;
       const allowed: boolean = true;
@@ -1087,9 +1087,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 2;
       const allowed: boolean = false;
@@ -1107,9 +1107,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 3;
       const allowed: boolean = false;
@@ -1127,9 +1127,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 3;
       const allowed: boolean = false;
@@ -1147,9 +1147,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 3;
       const allowed: boolean = true;
@@ -1167,9 +1167,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 3;
       const allowed: boolean = false;
@@ -1187,9 +1187,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 3;
       const allowed: boolean = false;
@@ -1207,9 +1207,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 3;
       const allowed: boolean = false;
@@ -1227,9 +1227,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 4;
       const allowed: boolean = false;
@@ -1247,9 +1247,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 4;
       const allowed: boolean = false;
@@ -1267,9 +1267,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 4;
       const allowed: boolean = true;
@@ -1287,9 +1287,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 4;
       const allowed: boolean = true;
@@ -1307,9 +1307,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 4;
       const allowed: boolean = false;
@@ -1327,9 +1327,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 4;
       const allowed: boolean = false;
@@ -1347,9 +1347,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 5;
       const allowed: boolean = true;
@@ -1367,9 +1367,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 5;
       const allowed: boolean = true;
@@ -1387,9 +1387,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 5;
       const allowed: boolean = true;
@@ -1407,9 +1407,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 5;
       const allowed: boolean = true;
@@ -1427,9 +1427,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 5;
       const allowed: boolean = true;
@@ -1447,9 +1447,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 5;
       const allowed: boolean = false;
@@ -1467,9 +1467,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 0;
       const allowed: boolean = false;
@@ -1487,9 +1487,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 0;
       const allowed: boolean = false;
@@ -1507,9 +1507,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 0;
       const allowed: boolean = false;
@@ -1527,9 +1527,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 0;
       const allowed: boolean = false;
@@ -1547,9 +1547,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 0;
       const allowed: boolean = false;
@@ -1567,9 +1567,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 0;
       const allowed: boolean = false;
@@ -1587,9 +1587,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 1;
       const allowed: boolean = true;
@@ -1607,9 +1607,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 1;
       const allowed: boolean = false;
@@ -1627,9 +1627,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 1;
       const allowed: boolean = false;
@@ -1647,9 +1647,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 1;
       const allowed: boolean = false;
@@ -1667,9 +1667,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 1;
       const allowed: boolean = false;
@@ -1687,9 +1687,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 1;
       const allowed: boolean = false;
@@ -1707,9 +1707,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 2;
       const allowed: boolean = false;
@@ -1727,9 +1727,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 2;
       const allowed: boolean = true;
@@ -1747,9 +1747,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 2;
       const allowed: boolean = false;
@@ -1767,9 +1767,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 3;
       const to: number = 2;
       const allowed: boolean = true;
@@ -1787,9 +1787,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 4;
       const to: number = 2;
       const allowed: boolean = true;
@@ -1807,9 +1807,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 5;
       const to: number = 2;
       const allowed: boolean = false;
@@ -1827,9 +1827,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 0;
       const to: number = 3;
       const allowed: boolean = false;
@@ -1847,9 +1847,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 1;
       const to: number = 3;
       const allowed: boolean = false;
@@ -1867,9 +1867,9 @@ export default function audioLifecycleContractExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjLifecycle0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
-      const states: number[] = [audio.AudioState.STATE_NEW, audio.AudioState.STATE_PREPARED,
-        audio.AudioState.STATE_RUNNING, audio.AudioState.STATE_PAUSED,
-        audio.AudioState.STATE_STOPPED, audio.AudioState.STATE_RELEASED];
+      const states: number[] = [0, 1,
+        2, 5,
+        3, 4];
       const from: number = 2;
       const to: number = 3;
       const allowed: boolean = true;

@@ -67,7 +67,7 @@ async function createPreparedRenderer(usage: audio.StreamUsage = audio.StreamUsa
   format: audio.AudioSampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S16LE): Promise<audio.AudioRenderer> {
   const renderer: audio.AudioRenderer = await audio.createAudioRenderer(
     rendererOptions(usage, rate, channel, format));
-  expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+  expect(renderer.state).assertEqual(1);
   return renderer;
 }
 
@@ -96,9 +96,9 @@ export default function audioPipelineContractTest() {
     it('testAudioRenderer0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        expect(renderer.state === audio.AudioState.STATE_NEW).assertFalse();
-        expect(renderer.state === audio.AudioState.STATE_INVALID).assertFalse();
+        expect(renderer.state).assertEqual(1);
+        expect(renderer.state === 0).assertFalse();
+        expect(renderer.state === -1).assertFalse();
         expect(renderer.state).assertEqual(1);
       } finally {
         await renderer.release();
@@ -116,7 +116,7 @@ export default function audioPipelineContractTest() {
     it('testAudioRenderer0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
       expect(renderer.state).assertEqual(4);
     })
 
@@ -132,7 +132,7 @@ export default function audioPipelineContractTest() {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(renderer.state).assertEqual(2);
         expect(renderer.state).assertEqual(2);
       } finally {
         await renderer.release();
@@ -152,7 +152,7 @@ export default function audioPipelineContractTest() {
       try {
         await renderer.start();
         await renderer.pause();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PAUSED);
+        expect(renderer.state).assertEqual(5);
         expect(renderer.state).assertEqual(5);
       } finally {
         await renderer.release();
@@ -173,8 +173,8 @@ export default function audioPipelineContractTest() {
         await renderer.start();
         await renderer.pause();
         await renderer.start();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
-        expect(renderer.state === audio.AudioState.STATE_PAUSED).assertFalse();
+        expect(renderer.state).assertEqual(2);
+        expect(renderer.state === 5).assertFalse();
       } finally {
         await renderer.release();
       }
@@ -193,7 +193,7 @@ export default function audioPipelineContractTest() {
       try {
         await renderer.start();
         await renderer.stop();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+        expect(renderer.state).assertEqual(3);
         expect(renderer.state).assertEqual(3);
       } finally {
         await renderer.release();
@@ -214,7 +214,7 @@ export default function audioPipelineContractTest() {
         await renderer.start();
         await renderer.pause();
         await renderer.stop();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+        expect(renderer.state).assertEqual(3);
       } finally {
         await renderer.release();
       }
@@ -231,9 +231,9 @@ export default function audioPipelineContractTest() {
     it('testAudioRenderer0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.start();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+      expect(renderer.state).assertEqual(2);
       await renderer.release();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -252,7 +252,7 @@ export default function audioPipelineContractTest() {
       } catch (error) {
         console.info('start after release raised an error');
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -271,7 +271,7 @@ export default function audioPipelineContractTest() {
       } catch (error) {
         console.info('pause after release raised an error');
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -290,7 +290,7 @@ export default function audioPipelineContractTest() {
       } catch (error) {
         console.info('stop after release raised an error');
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -304,13 +304,13 @@ export default function audioPipelineContractTest() {
     it('testAudioRenderer0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
       try {
         await renderer.release();
       } catch (error) {
         console.info('second release raised an error');
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -325,7 +325,7 @@ export default function audioPipelineContractTest() {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         for (let i = 0; i < 100; i++) {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          expect(renderer.state).assertEqual(1);
         }
       } finally {
         await renderer.release();
@@ -345,11 +345,11 @@ export default function audioPipelineContractTest() {
       const second: audio.AudioRenderer = await createPreparedRenderer();
       try {
         expect(first === second).assertFalse();
-        expect(first.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        expect(second.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(first.state).assertEqual(1);
+        expect(second.state).assertEqual(1);
         await first.start();
-        expect(first.state).assertEqual(audio.AudioState.STATE_RUNNING);
-        expect(second.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(first.state).assertEqual(2);
+        expect(second.state).assertEqual(1);
       } finally {
         await first.release();
         await second.release();
@@ -369,10 +369,10 @@ export default function audioPipelineContractTest() {
       const victim: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await victim.release();
-        expect(victim.state).assertEqual(audio.AudioState.STATE_RELEASED);
-        expect(survivor.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(victim.state).assertEqual(4);
+        expect(survivor.state).assertEqual(1);
         await survivor.start();
-        expect(survivor.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(survivor.state).assertEqual(2);
       } finally {
         await survivor.release();
       }
@@ -389,9 +389,9 @@ export default function audioPipelineContractTest() {
     it('testAudioRenderer0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 6; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(renderer.state).assertEqual(1);
         await renderer.release();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
 
@@ -407,7 +407,7 @@ export default function audioPipelineContractTest() {
       for (let i = 0; i < RENDER_USAGES.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[i]);
         try {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          expect(renderer.state).assertEqual(1);
         } finally {
           await renderer.release();
         }
@@ -442,7 +442,7 @@ export default function audioPipelineContractTest() {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, audio.AudioSamplingRate.SAMPLE_RATE_48000, CHANNELS[i]);
         try {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          expect(renderer.state).assertEqual(1);
         } finally {
           await renderer.release();
         }
@@ -462,7 +462,7 @@ export default function audioPipelineContractTest() {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, SAMPLE_RATES[i]);
         try {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          expect(renderer.state).assertEqual(1);
         } finally {
           await renderer.release();
         }
@@ -483,7 +483,7 @@ export default function audioPipelineContractTest() {
           const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[usageIndex],
             audio.AudioSamplingRate.SAMPLE_RATE_48000, CHANNELS[channelIndex]);
           try {
-            expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+            expect(renderer.state).assertEqual(1);
           } finally {
             await renderer.release();
           }
@@ -505,7 +505,7 @@ export default function audioPipelineContractTest() {
           const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[usageIndex],
             SAMPLE_RATES[rateIndex]);
           try {
-            expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+            expect(renderer.state).assertEqual(1);
           } finally {
             await renderer.release();
           }
@@ -533,11 +533,11 @@ export default function audioPipelineContractTest() {
       }
       expect(created.length).assertEqual(RENDER_USAGES.length * CHANNELS.length * SAMPLE_RATES.length);
       for (let i = 0; i < created.length; i++) {
-        expect(created[i].state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(created[i].state).assertEqual(1);
       }
       for (let i = 0; i < created.length; i++) {
         await created[i].release();
-        expect(created[i].state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(created[i].state).assertEqual(4);
       }
     })
 
@@ -555,7 +555,7 @@ export default function audioPipelineContractTest() {
           audio.StreamUsage.STREAM_USAGE_MEDIA, audio.AudioSamplingRate.SAMPLE_RATE_48000,
           audio.AudioChannel.CHANNEL_2, FORMATS[i]);
         try {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          expect(renderer.state).assertEqual(1);
         } finally {
           await renderer.release();
         }

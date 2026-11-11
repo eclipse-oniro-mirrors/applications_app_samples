@@ -76,7 +76,7 @@ export default function displayAudioFileMatrixTest() {
       const path: string = pathInFiles(uniqueName('avs_daf_720', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       try {
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(renderer.state).assertEqual(1);
         expect(writeTextFile(path, `${width}`)).assertEqual(3);
         expect(readTextFile(path, 3)).assertEqual('720');
         expect(viewportHeight(width) / width).assertClose(9 / 16, 1e-9);
@@ -99,7 +99,7 @@ export default function displayAudioFileMatrixTest() {
       const path: string = pathInFiles(uniqueName('avs_daf_360', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
       try {
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(renderer.state).assertEqual(1);
         writeTextFile(path, `w${width}`);
         expect(fileIo.statSync(path).size).assertEqual(4);
         expect(readTextFile(path, 4)).assertEqual('w360');
@@ -124,12 +124,12 @@ export default function displayAudioFileMatrixTest() {
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
         await renderer.start();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+        expect(renderer.state).assertEqual(2);
         writeTextFile(path, `${width}`);
         expect(readTextFile(path, 4)).assertEqual('1080');
         expect(viewportHeight(width)).assertClose(607.5, 1e-9);
         await renderer.stop();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+        expect(renderer.state).assertEqual(3);
       } finally {
         await renderer.release();
         removeQuietly(path);
@@ -156,7 +156,7 @@ export default function displayAudioFileMatrixTest() {
           const path: string = pathInFiles(uniqueName(`avs_daf_${widths[i]}_${j}`, '.txt'));
           const renderer: audio.AudioRenderer = await rendererFor(usages[j]);
           try {
-            expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+            expect(renderer.state).assertEqual(1);
             expect(viewportHeight(widths[i]) / widths[i]).assertClose(9 / 16, 1e-9);
             writeTextFile(path, `${widths[i]}-${j}`);
             expect(readTextFile(path, `${widths[i]}-${j}`.length)).assertEqual(`${widths[i]}-${j}`);
@@ -184,7 +184,7 @@ export default function displayAudioFileMatrixTest() {
         writeTextFile(path, `${screen.width}`);
         expect(readTextFile(path, `${screen.width}`.length)).assertEqual(`${screen.width}`);
         expect(viewportHeight(screen.width) / screen.width).assertClose(9 / 16, 1e-9);
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+        expect(renderer.state).assertEqual(1);
       } finally {
         await renderer.release();
         removeQuietly(path);
@@ -211,7 +211,7 @@ export default function displayAudioFileMatrixTest() {
         await renderer.release();
         removeQuietly(path);
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
   });
 }

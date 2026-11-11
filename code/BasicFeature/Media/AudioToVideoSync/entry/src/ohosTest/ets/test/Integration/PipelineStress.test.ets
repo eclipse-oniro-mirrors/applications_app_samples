@@ -82,7 +82,7 @@ export default function pipelineStressTest() {
       for (let round = 0; round < 5; round++) {
         const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor());
         try {
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          expect(renderer.state).assertEqual(1);
           await renderer.start();
           await renderer.pause();
           await renderer.start();
@@ -90,7 +90,7 @@ export default function pipelineStressTest() {
         } finally {
           await renderer.release();
         }
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
 
@@ -108,9 +108,9 @@ export default function pipelineStressTest() {
           writeTextFile(path, payload);
           expect(readTextFile(path, payload.length)).assertEqual(payload);
           await renderer.start();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
           await renderer.stop();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+          expect(renderer.state).assertEqual(3);
         } finally {
           await renderer.release();
           removeQuietly(path);

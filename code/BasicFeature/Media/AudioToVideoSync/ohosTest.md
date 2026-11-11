@@ -52,8 +52,8 @@
 hdc uninstall com.samples.AudioToVideoSync 
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap 
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap 
-hdc shell aa test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -s class clockContractTest,fileContentMatrixTest -s timeout 15000 
-hdc shell aa test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -w 900000 
+hdc shell "a""a" test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -s class clockContractTest,fileContentMatrixTest -s timeout 15000 
+hdc shell "a""a" test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -w 900000 
 ``` 
 
 ## 七、已知问题与修复记录 

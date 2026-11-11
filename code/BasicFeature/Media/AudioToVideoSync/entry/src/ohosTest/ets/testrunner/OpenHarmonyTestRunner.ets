@@ -10,7 +10,7 @@ let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
 let jsonPath: string = 'mock/mock-config.json';
 let tag: string = 'testTag';
 const UNLOCK_ERROR = -3;
-const global: object = new Function("return this")();
+const global: object = new Function('return this')();
 
 async function onAbilityCreateCallback(data: UIAbility) {
   hilog.info(0x0000, tag, 'onAbilityCreateCallback, data: ${}', JSON.stringify(data));

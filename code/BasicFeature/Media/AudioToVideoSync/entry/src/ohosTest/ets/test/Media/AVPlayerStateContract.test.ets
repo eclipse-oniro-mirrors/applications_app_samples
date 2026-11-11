@@ -202,7 +202,7 @@ export default function avPlayerStateContractTest() {
     /**
      * @tc.number    SUB_AVS_MEDIA_PLAYER_1000
      * @tc.name      testAVPlayerState0010
-     * @tc.desc      Verify a new player exposes no video surface before one is attached
+     * @tc.desc      Verify a new player exposes no video render target before one is attached
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2

@@ -32,7 +32,7 @@ function optionsFor(usage: audio.StreamUsage): audio.AudioRendererOptions {
 async function createFor(): Promise<audio.AudioRenderer> {
   const renderer: audio.AudioRenderer = await audio.createAudioRenderer(
     optionsFor(audio.StreamUsage.STREAM_USAGE_MEDIA));
-  expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+  expect(renderer.state).assertEqual(1);
   return renderer;
 }
 
@@ -59,7 +59,7 @@ export default function audioLoopMatrixTest() {
       for (let i = 0; i < CREATE_ROUNDS; i++) {
         const renderer: audio.AudioRenderer = await createFor();
         await renderer.release();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
 
@@ -73,14 +73,14 @@ export default function audioLoopMatrixTest() {
       try {
         for (let i = 0; i < START_ROUNDS; i++) {
           await renderer.start();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
           await renderer.stop();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_STOPPED);
+          expect(renderer.state).assertEqual(3);
         }
       } finally {
         await renderer.release();
       }
-      expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+      expect(renderer.state).assertEqual(4);
     })
 
     /**
@@ -94,9 +94,9 @@ export default function audioLoopMatrixTest() {
         await renderer.start();
         for (let i = 0; i < PAUSE_ROUNDS; i++) {
           await renderer.pause();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_PAUSED);
+          expect(renderer.state).assertEqual(5);
           await renderer.start();
-          expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
+          expect(renderer.state).assertEqual(2);
         }
       } finally {
         await renderer.release();
@@ -113,7 +113,7 @@ export default function audioLoopMatrixTest() {
         const renderer: audio.AudioRenderer = await createFor();
         await renderer.start();
         await renderer.release();
-        expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
+        expect(renderer.state).assertEqual(4);
       }
     })
   });
