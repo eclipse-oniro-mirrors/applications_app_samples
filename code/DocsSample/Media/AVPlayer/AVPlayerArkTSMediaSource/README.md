@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例为媒体->Media Kit(媒体服务)->[使用AVPlayer设置播放MediaSource(ArkTS)](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/media/media/playback-url-setting-method.md)的配套示例工程。 
+本示例为媒体->Media Kit(媒体服务)->[使用AVPlayer设置播放MediaSource(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/media/media/playback-url-setting-method.md)的配套示例工程。 
 
 本示例展示了如何使用AVPlayer在播放时使用代理下载功能。
 
@@ -60,9 +60,9 @@ ohos.permission.GET_WIFI_INFO：允许应用获取Wi-Fi信息和使用P2P能力�
 
 1. 本示例支持标准系统上运行，支持设备：RK3568;
 
-2. 本示例支持API23版本SDK，版本号：6.1.0.830;
+2. 本示例支持HarmonyOS SDK 26.0.0 Release，原样包含OpenHarmony SDK Ohos_sdk_public 26.0.0.105 (API Version 26.0.0 Release)，版本号：26.0.0.105;
    
-3. 本示例已支持使DevEco Studio 6.1.0 Release (构建版本：6.1.0.830，构建 2026年4月20日)编译运行
+3. 本示例已支持使DevEco Studio 26.0.0 Release (构建版本：26.0.0.851，构建 2026年9月22日)编译运行
 
 ## 下载
 
