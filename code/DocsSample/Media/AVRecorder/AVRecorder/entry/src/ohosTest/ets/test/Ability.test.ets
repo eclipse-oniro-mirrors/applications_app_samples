@@ -356,13 +356,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_0500
-     * @tc.name      testAVRecorderAudioNDKRecord0005
-     * @tc.desc      Record and stop audio with the NDK page, verify the timer and output file.
+     * @tc.name      testAVRecorderAudioNativeRecord0005
+     * @tc.desc      Record and stop audio with the Native page, verify the timer and output file.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testAVRecorderAudioNDKRecord0005',
+    it('testAVRecorderAudioNativeRecord0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -394,13 +394,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_0600
-     * @tc.name      testAVRecorderAudioNDKPauseResume0006
-     * @tc.desc      Pause and resume audio recording on the NDK page, then stop it.
+     * @tc.name      testAVRecorderAudioNativePauseResume0006
+     * @tc.desc      Pause and resume audio recording on the Native page, then stop it.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testAVRecorderAudioNDKPauseResume0006',
+    it('testAVRecorderAudioNativePauseResume0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -553,13 +553,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_1000
-     * @tc.name      testAVRecorderVideoNDKRecord0010
-     * @tc.desc      Record and stop video with the NDK page, verify the timer and output file.
+     * @tc.name      testAVRecorderVideoNativeRecord0010
+     * @tc.desc      Record and stop video with the Native page, verify the timer and output file.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testAVRecorderVideoNDKRecord0010',
+    it('testAVRecorderVideoNativeRecord0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -591,13 +591,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_1100
-     * @tc.name      testAVRecorderVideoNDKPauseResume0011
-     * @tc.desc      Pause and resume video recording on the NDK page, then stop it.
+     * @tc.name      testAVRecorderVideoNativePauseResume0011
+     * @tc.desc      Pause and resume video recording on the Native page, then stop it.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testAVRecorderVideoNDKPauseResume0011',
+    it('testAVRecorderVideoNativePauseResume0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();

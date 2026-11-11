@@ -78,7 +78,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0003
      * @tc.name      testExtRecPage0002
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -95,7 +95,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0004
      * @tc.name      testExtRecPage0003
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -146,7 +146,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0007
      * @tc.name      testExtRecPage0006
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -163,7 +163,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0008
      * @tc.name      testExtRecPage0007
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -214,7 +214,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0011
      * @tc.name      testExtRecPage0010
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -231,7 +231,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0012
      * @tc.name      testExtRecPage0011
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -282,7 +282,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0015
      * @tc.name      testExtRecPage0014
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -299,7 +299,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0016
      * @tc.name      testExtRecPage0015
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -350,7 +350,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0019
      * @tc.name      testExtRecPage0018
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -367,7 +367,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0020
      * @tc.name      testExtRecPage0019
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -418,7 +418,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0023
      * @tc.name      testExtRecPage0022
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -435,7 +435,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0024
      * @tc.name      testExtRecPage0023
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -486,7 +486,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0027
      * @tc.name      testExtRecPage0026
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -503,7 +503,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0028
      * @tc.name      testExtRecPage0027
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -554,7 +554,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0031
      * @tc.name      testExtRecPage0030
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -571,7 +571,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0032
      * @tc.name      testExtRecPage0031
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -622,7 +622,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0035
      * @tc.name      testExtRecPage0034
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -639,7 +639,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0036
      * @tc.name      testExtRecPage0035
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -690,7 +690,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0039
      * @tc.name      testExtRecPage0038
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -707,7 +707,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0040
      * @tc.name      testExtRecPage0039
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -758,7 +758,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0043
      * @tc.name      testExtRecPage0042
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -775,7 +775,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0044
      * @tc.name      testExtRecPage0043
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -826,7 +826,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0047
      * @tc.name      testExtRecPage0046
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -843,7 +843,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0048
      * @tc.name      testExtRecPage0047
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -894,7 +894,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0051
      * @tc.name      testExtRecPage0050
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -911,7 +911,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0052
      * @tc.name      testExtRecPage0051
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -962,7 +962,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0055
      * @tc.name      testExtRecPage0054
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -979,7 +979,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0056
      * @tc.name      testExtRecPage0055
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1030,7 +1030,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0059
      * @tc.name      testExtRecPage0058
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1047,7 +1047,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0060
      * @tc.name      testExtRecPage0059
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1098,7 +1098,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0063
      * @tc.name      testExtRecPage0062
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1115,7 +1115,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0064
      * @tc.name      testExtRecPage0063
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1166,7 +1166,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0067
      * @tc.name      testExtRecPage0066
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1183,7 +1183,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0068
      * @tc.name      testExtRecPage0067
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1234,7 +1234,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0071
      * @tc.name      testExtRecPage0070
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1251,7 +1251,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0072
      * @tc.name      testExtRecPage0071
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1302,7 +1302,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0075
      * @tc.name      testExtRecPage0074
-     * @tc.desc      Page contract videoRecorderNDKPage audioResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage audioResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1319,7 +1319,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0076
      * @tc.name      testExtRecPage0075
-     * @tc.desc      Page contract audioRecorderNDKPage audioStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage audioStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1370,7 +1370,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0079
      * @tc.name      testExtRecPage0078
-     * @tc.desc      Page contract videoRecorderNDKPage videoResume audioTime.
+     * @tc.desc      Page contract videoRecorderNativePage videoResume audioTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1387,7 +1387,7 @@ export default function avRecorderPageContractTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_PAGE_0080
      * @tc.name      testExtRecPage0079
-     * @tc.desc      Page contract audioRecorderNDKPage videoStop videoTime.
+     * @tc.desc      Page contract audioRecorderNativePage videoStop videoTime.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2

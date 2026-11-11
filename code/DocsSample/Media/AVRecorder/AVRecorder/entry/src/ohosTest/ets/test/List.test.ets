@@ -36,21 +36,21 @@ import avRecorderFileUtilIntegrationTest from './AVRecorderFileUtilIntegration.t
 import avRecorderCameraSelectionTest from './AVRecorderCameraSelection.test';
 import avRecorderUiFlowCoreTest from './AVRecorderUiFlowCore.test';
 
-import avRecorderCameraNDKSelectionTest from './AVRecorderCameraNDKSelection.test';
+import avRecorderCameraNativeSelectionTest from './AVRecorderCameraNativeSelection.test';
 import avRecorderPageStateCoreTest from './AVRecorderPageStateCore.test';
 import avRecorderFileNamingMatrixTest from './AVRecorderFileNamingMatrix.test';
 import avRecorderTimeBoundaryTest from './AVRecorderTimeBoundary.test';
-import avRecorderNdkPageContractTest from './AVRecorderNdkPageContract.test';
+import avRecorderNativePageContractTest from './AVRecorderNativePageContract.test';
 
 import avRecorderFileUtilFilesTest from './AVRecorderFileUtilFiles.test';
 import avRecorderDurationStateCoreTest from './AVRecorderDurationStateCore.test';
 import avRecorderTimeNamingEdgeTest from './AVRecorderTimeNamingEdge.test';
 
 import avRecorderSettingsUiTest from './AVRecorderSettingsUi.test';
-import avRecorderNdkUiTest from './AVRecorderNdkUi.test';
+import avRecorderNativeUiTest from './AVRecorderNativeUi.test';
 
 import avRecorderCameraServiceNoopTest from './AVRecorderCameraServiceNoop.test';
-import avRecorderCameraNDKNoopTest from './AVRecorderCameraNDKNoop.test';
+import avRecorderCameraNativeNoopTest from './AVRecorderCameraNativeNoop.test';
 import avRecorderPageSettingsCoreTest from './AVRecorderPageSettingsCore.test';
 import avRecorderFileOutputMatrixTest from './AVRecorderFileOutputMatrix.test';
 import avRecorderUiContractsTest from './AVRecorderUiContracts.test';
@@ -87,18 +87,18 @@ export default function testsuite(): void {
   avRecorderFileUtilIntegrationTest();
   avRecorderCameraSelectionTest();
   avRecorderUiFlowCoreTest();
-  avRecorderCameraNDKSelectionTest();
+  avRecorderCameraNativeSelectionTest();
   avRecorderPageStateCoreTest();
   avRecorderFileNamingMatrixTest();
   avRecorderTimeBoundaryTest();
-  avRecorderNdkPageContractTest();
+  avRecorderNativePageContractTest();
   avRecorderFileUtilFilesTest();
   avRecorderDurationStateCoreTest();
   avRecorderTimeNamingEdgeTest();
   avRecorderSettingsUiTest();
-  avRecorderNdkUiTest();
+  avRecorderNativeUiTest();
   avRecorderCameraServiceNoopTest();
-  avRecorderCameraNDKNoopTest();
+  avRecorderCameraNativeNoopTest();
   avRecorderPageSettingsCoreTest();
   avRecorderFileOutputMatrixTest();
   avRecorderUiContractsTest();

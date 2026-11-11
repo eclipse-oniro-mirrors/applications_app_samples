@@ -82,7 +82,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0003
      * @tc.name      testExtRecUiFlow0002
-     * @tc.desc      UI flow videoRecorderNDKPage audioResume 44100Hz.
+     * @tc.desc      UI flow videoRecorderNativePage audioResume 44100Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -101,7 +101,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0004
      * @tc.name      testExtRecUiFlow0003
-     * @tc.desc      UI flow audioRecorderNDKPage audioStop 48000Hz.
+     * @tc.desc      UI flow audioRecorderNativePage audioStop 48000Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -158,7 +158,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0007
      * @tc.name      testExtRecUiFlow0006
-     * @tc.desc      UI flow videoRecorderNDKPage videoResume 22050Hz.
+     * @tc.desc      UI flow videoRecorderNativePage videoResume 22050Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -177,7 +177,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0008
      * @tc.name      testExtRecUiFlow0007
-     * @tc.desc      UI flow audioRecorderNDKPage videoStop 44100Hz.
+     * @tc.desc      UI flow audioRecorderNativePage videoStop 44100Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -234,7 +234,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0011
      * @tc.name      testExtRecUiFlow0010
-     * @tc.desc      UI flow videoRecorderNDKPage audioResume 8000Hz.
+     * @tc.desc      UI flow videoRecorderNativePage audioResume 8000Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -253,7 +253,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0012
      * @tc.name      testExtRecUiFlow0011
-     * @tc.desc      UI flow audioRecorderNDKPage audioStop 22050Hz.
+     * @tc.desc      UI flow audioRecorderNativePage audioStop 22050Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -310,7 +310,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0015
      * @tc.name      testExtRecUiFlow0014
-     * @tc.desc      UI flow videoRecorderNDKPage videoResume 96000Hz.
+     * @tc.desc      UI flow videoRecorderNativePage videoResume 96000Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -329,7 +329,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0016
      * @tc.name      testExtRecUiFlow0015
-     * @tc.desc      UI flow audioRecorderNDKPage videoStop 8000Hz.
+     * @tc.desc      UI flow audioRecorderNativePage videoStop 8000Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -386,7 +386,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0019
      * @tc.name      testExtRecUiFlow0018
-     * @tc.desc      UI flow videoRecorderNDKPage audioResume 48000Hz.
+     * @tc.desc      UI flow videoRecorderNativePage audioResume 48000Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -405,7 +405,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0020
      * @tc.name      testExtRecUiFlow0019
-     * @tc.desc      UI flow audioRecorderNDKPage audioStop 96000Hz.
+     * @tc.desc      UI flow audioRecorderNativePage audioStop 96000Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -462,7 +462,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0023
      * @tc.name      testExtRecUiFlow0022
-     * @tc.desc      UI flow videoRecorderNDKPage videoResume 44100Hz.
+     * @tc.desc      UI flow videoRecorderNativePage videoResume 44100Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -481,7 +481,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0024
      * @tc.name      testExtRecUiFlow0023
-     * @tc.desc      UI flow audioRecorderNDKPage videoStop 48000Hz.
+     * @tc.desc      UI flow audioRecorderNativePage videoStop 48000Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -538,7 +538,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0027
      * @tc.name      testExtRecUiFlow0026
-     * @tc.desc      UI flow videoRecorderNDKPage audioResume 22050Hz.
+     * @tc.desc      UI flow videoRecorderNativePage audioResume 22050Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -557,7 +557,7 @@ export default function avRecorderUiFlowCoreTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UIFLOW_0028
      * @tc.name      testExtRecUiFlow0027
-     * @tc.desc      UI flow audioRecorderNDKPage audioStop 44100Hz.
+     * @tc.desc      UI flow audioRecorderNativePage audioStop 44100Hz.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2

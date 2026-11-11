@@ -88,7 +88,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0003
      * @tc.name      testExtRecUiContract0002
-     * @tc.desc      UI contract videoRecorderNDKPage audioResume.
+     * @tc.desc      UI contract videoRecorderNativePage audioResume.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -104,7 +104,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0004
      * @tc.name      testExtRecUiContract0003
-     * @tc.desc      UI contract audioRecorderNDKPage audioStop.
+     * @tc.desc      UI contract audioRecorderNativePage audioStop.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -152,7 +152,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0007
      * @tc.name      testExtRecUiContract0006
-     * @tc.desc      UI contract videoRecorderNDKPage videoResume.
+     * @tc.desc      UI contract videoRecorderNativePage videoResume.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -168,7 +168,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0008
      * @tc.name      testExtRecUiContract0007
-     * @tc.desc      UI contract audioRecorderNDKPage videoStop.
+     * @tc.desc      UI contract audioRecorderNativePage videoStop.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -216,7 +216,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0011
      * @tc.name      testExtRecUiContract0010
-     * @tc.desc      UI contract videoRecorderNDKPage audioStart.
+     * @tc.desc      UI contract videoRecorderNativePage audioStart.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -232,7 +232,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0012
      * @tc.name      testExtRecUiContract0011
-     * @tc.desc      UI contract audioRecorderNDKPage audioPause.
+     * @tc.desc      UI contract audioRecorderNativePage audioPause.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -280,7 +280,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0015
      * @tc.name      testExtRecUiContract0014
-     * @tc.desc      UI contract videoRecorderNDKPage videoStart.
+     * @tc.desc      UI contract videoRecorderNativePage videoStart.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -296,7 +296,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0016
      * @tc.name      testExtRecUiContract0015
-     * @tc.desc      UI contract audioRecorderNDKPage videoPause.
+     * @tc.desc      UI contract audioRecorderNativePage videoPause.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -344,7 +344,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0019
      * @tc.name      testExtRecUiContract0018
-     * @tc.desc      UI contract videoRecorderNDKPage audioSetting.
+     * @tc.desc      UI contract videoRecorderNativePage audioSetting.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -360,7 +360,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0020
      * @tc.name      testExtRecUiContract0019
-     * @tc.desc      UI contract audioRecorderNDKPage videoSetting.
+     * @tc.desc      UI contract audioRecorderNativePage videoSetting.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -408,7 +408,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0023
      * @tc.name      testExtRecUiContract0022
-     * @tc.desc      UI contract videoRecorderNDKPage audioResume.
+     * @tc.desc      UI contract videoRecorderNativePage audioResume.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -424,7 +424,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0024
      * @tc.name      testExtRecUiContract0023
-     * @tc.desc      UI contract audioRecorderNDKPage audioStop.
+     * @tc.desc      UI contract audioRecorderNativePage audioStop.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -472,7 +472,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0027
      * @tc.name      testExtRecUiContract0026
-     * @tc.desc      UI contract videoRecorderNDKPage videoResume.
+     * @tc.desc      UI contract videoRecorderNativePage videoResume.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -488,7 +488,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0028
      * @tc.name      testExtRecUiContract0027
-     * @tc.desc      UI contract audioRecorderNDKPage videoStop.
+     * @tc.desc      UI contract audioRecorderNativePage videoStop.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -536,7 +536,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0031
      * @tc.name      testExtRecUiContract0030
-     * @tc.desc      UI contract videoRecorderNDKPage audioStart.
+     * @tc.desc      UI contract videoRecorderNativePage audioStart.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -552,7 +552,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0032
      * @tc.name      testExtRecUiContract0031
-     * @tc.desc      UI contract audioRecorderNDKPage audioPause.
+     * @tc.desc      UI contract audioRecorderNativePage audioPause.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -600,7 +600,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0035
      * @tc.name      testExtRecUiContract0034
-     * @tc.desc      UI contract videoRecorderNDKPage videoStart.
+     * @tc.desc      UI contract videoRecorderNativePage videoStart.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -616,7 +616,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0036
      * @tc.name      testExtRecUiContract0035
-     * @tc.desc      UI contract audioRecorderNDKPage videoPause.
+     * @tc.desc      UI contract audioRecorderNativePage videoPause.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -664,7 +664,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0039
      * @tc.name      testExtRecUiContract0038
-     * @tc.desc      UI contract videoRecorderNDKPage audioSetting.
+     * @tc.desc      UI contract videoRecorderNativePage audioSetting.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -680,7 +680,7 @@ export default function avRecorderUiContractsTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_UICONTRACT_0040
      * @tc.name      testExtRecUiContract0039
-     * @tc.desc      UI contract audioRecorderNDKPage videoSetting.
+     * @tc.desc      UI contract audioRecorderNativePage videoSetting.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2

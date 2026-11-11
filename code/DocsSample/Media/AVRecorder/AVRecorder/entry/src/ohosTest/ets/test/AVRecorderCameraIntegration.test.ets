@@ -88,7 +88,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0002
      * @tc.name      testExtRecCamInt0001
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -136,7 +136,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0004
      * @tc.name      testExtRecCamInt0003
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -184,7 +184,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0006
      * @tc.name      testExtRecCamInt0005
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -232,7 +232,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0008
      * @tc.name      testExtRecCamInt0007
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -280,7 +280,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0010
      * @tc.name      testExtRecCamInt0009
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -328,7 +328,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0012
      * @tc.name      testExtRecCamInt0011
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -376,7 +376,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0014
      * @tc.name      testExtRecCamInt0013
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -424,7 +424,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0016
      * @tc.name      testExtRecCamInt0015
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -472,7 +472,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0018
      * @tc.name      testExtRecCamInt0017
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -520,7 +520,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0020
      * @tc.name      testExtRecCamInt0019
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -568,7 +568,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0022
      * @tc.name      testExtRecCamInt0021
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -616,7 +616,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0024
      * @tc.name      testExtRecCamInt0023
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -664,7 +664,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0026
      * @tc.name      testExtRecCamInt0025
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -712,7 +712,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0028
      * @tc.name      testExtRecCamInt0027
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -760,7 +760,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0030
      * @tc.name      testExtRecCamInt0029
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -808,7 +808,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0032
      * @tc.name      testExtRecCamInt0031
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -856,7 +856,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0034
      * @tc.name      testExtRecCamInt0033
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -904,7 +904,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0036
      * @tc.name      testExtRecCamInt0035
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -952,7 +952,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0038
      * @tc.name      testExtRecCamInt0037
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1000,7 +1000,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0040
      * @tc.name      testExtRecCamInt0039
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1048,7 +1048,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0042
      * @tc.name      testExtRecCamInt0041
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1096,7 +1096,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0044
      * @tc.name      testExtRecCamInt0043
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1144,7 +1144,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0046
      * @tc.name      testExtRecCamInt0045
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1192,7 +1192,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0048
      * @tc.name      testExtRecCamInt0047
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1240,7 +1240,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0050
      * @tc.name      testExtRecCamInt0049
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1288,7 +1288,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0052
      * @tc.name      testExtRecCamInt0051
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1336,7 +1336,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0054
      * @tc.name      testExtRecCamInt0053
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1384,7 +1384,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0056
      * @tc.name      testExtRecCamInt0055
-     * @tc.desc      CameraServiceNDK init/select 1280x720.
+     * @tc.desc      CameraServiceNative init/select 1280x720.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1432,7 +1432,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0058
      * @tc.name      testExtRecCamInt0057
-     * @tc.desc      CameraServiceNDK init/select 640x480.
+     * @tc.desc      CameraServiceNative init/select 640x480.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1480,7 +1480,7 @@ export default function avRecorderCameraIntegrationTest(): void {
     /**
      * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_CAMINT_0060
      * @tc.name      testExtRecCamInt0059
-     * @tc.desc      CameraServiceNDK init/select 1920x1080.
+     * @tc.desc      CameraServiceNative init/select 1920x1080.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
