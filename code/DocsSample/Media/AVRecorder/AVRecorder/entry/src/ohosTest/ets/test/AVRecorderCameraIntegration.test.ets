@@ -18,7 +18,7 @@ import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
 import { camera } from '@kit.CameraKit';
 import CameraService from '../../../main/ets/services/CameraService';
-import CameraServiceNDK from '../../../main/ets/services/CameraServiceNDK';
+import CameraServiceNative from '../../../main/ets/services/CameraServiceNative';
 import { Resolution } from '../../../main/ets/services/CommonTypes';
 
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
@@ -95,7 +95,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -143,7 +143,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -191,7 +191,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -239,7 +239,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -287,7 +287,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -335,7 +335,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -383,7 +383,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -431,7 +431,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -479,7 +479,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -527,7 +527,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -575,7 +575,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -623,7 +623,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -671,7 +671,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -719,7 +719,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -767,7 +767,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -815,7 +815,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -863,7 +863,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -911,7 +911,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -959,7 +959,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -1007,7 +1007,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -1055,7 +1055,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -1103,7 +1103,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -1151,7 +1151,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -1199,7 +1199,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -1247,7 +1247,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -1295,7 +1295,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -1343,7 +1343,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;
@@ -1391,7 +1391,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1280;
@@ -1439,7 +1439,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 640;
@@ -1487,7 +1487,7 @@ export default function avRecorderCameraIntegrationTest(): void {
      */
     it('testExtRecCamInt0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const context: common.Context = delegator.getAppContext();
-      const service: CameraServiceNDK = new CameraServiceNDK();
+      const service: CameraServiceNative = new CameraServiceNative();
       service.init(context);
       const resolution: Resolution = new Resolution();
       resolution.frameWidth = 1920;

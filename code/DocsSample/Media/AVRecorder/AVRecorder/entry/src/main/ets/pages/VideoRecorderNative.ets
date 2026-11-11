@@ -17,14 +17,14 @@ import { dateTime } from '../utils/DateTimeUtil';
 import Logger from '../utils/Logger';
 import display from '@ohos.display';
 import recorderLib from 'libentry.so';
-import CameraServiceNDK from '../services/CameraServiceNDK';
+import CameraServiceNative from '../services/CameraServiceNative';
 
-const TAG: string = 'Sample_VideoRecorderNDK';
+const TAG: string = 'Sample_VideoRecorderNative';
 
 @Entry
 @Component
-struct VideoRecorderNDK {
-  private cameraService: CameraServiceNDK = new CameraServiceNDK();
+struct VideoRecorderNative {
+  private cameraService: CameraServiceNative = new CameraServiceNative();
   private surfaceId: string = '';
   xComponentController: XComponentController = new XComponentController();
   @State videoRecorderTimeText: string = '00:00';
@@ -151,15 +151,15 @@ struct VideoRecorderNDK {
                 surfaceWidth: displayObj.width,
                 surfaceHeight: displayObj.height
               });
-              Logger.info(TAG, '[VideoRecorderNDK] surfaceSize: ' + displayObj.height + 'x' + displayObj.width);
+              Logger.info(TAG, '[VideoRecorderNative] surfaceSize: ' + displayObj.height + 'x' + displayObj.width);
               this.surfaceId = this.xComponentController.getXComponentSurfaceId();
-              Logger.info(TAG, '[VideoRecorderNDK] surfaceId: ' + this.surfaceId);
+              Logger.info(TAG, '[VideoRecorderNative] surfaceId: ' + this.surfaceId);
               Logger.info(TAG, 'XComponent loaded');
             })
             .width('100%').height('100%')
             .backgroundColor(Color.Black)
           Text(this.videoRecorderTimeText)
-            .id('videoTimeNDK')
+            .id('videoTimeNative')
             .fontFamily('HarmonyHeiTi-Light')
             .width(70)
             .height(40)
@@ -176,7 +176,7 @@ struct VideoRecorderNDK {
               .height(86)
               .margin({ left: 132, top: 612, right: 132, bottom: 72})
               .onClick(() => { this.startRecordingProcess(); })
-              .id('videoStartNDK')
+              .id('videoStartNative')
           } else {
             Image($r('app.media.ic_circle_open'))
               .width(120)
@@ -187,7 +187,7 @@ struct VideoRecorderNDK {
               .height(16)
               .margin({ left: 146, top: 652, right: 198, bottom: 112})
               .onClick(() => { this.stopRecordingProcess(); })
-              .id('videoStopNDK')
+              .id('videoStopNative')
             if (!this.isPauseRecording) {
               Image($r('app.media.ic_red_circle'))
                 .width(12)
@@ -198,7 +198,7 @@ struct VideoRecorderNDK {
                 .height(15)
                 .margin({ left: 200, top: 652, right: 146, bottom: 113})
                 .onClick(() => { this.pauseRecordingProcess(); })
-                .id('videoPauseNDK')
+                .id('videoPauseNative')
             } else {
               Image($r('app.media.ic_small_pause'))
                 .width(14)
@@ -209,7 +209,7 @@ struct VideoRecorderNDK {
                 .height(16)
                 .margin({ left: 198, top: 651, right: 144, bottom: 111})
                 .onClick(() => { this.resumeRecordingProcess(); })
-                .id('videoResumeNDK')
+                .id('videoResumeNative')
             }
           }
         }.width('100%').height('100%')

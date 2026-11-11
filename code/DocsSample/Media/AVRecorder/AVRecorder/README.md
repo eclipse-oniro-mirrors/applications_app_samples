@@ -2,7 +2,7 @@
 
 ###  Introduction
 
-In this sample, you can use AVRecorder interfaces to record audio or video. It provides both ArkTS and C(NDK) interfaces for recording.
+In this sample, you can use AVRecorder interfaces to record audio or video. It provides both ArkTS and C(Native) interfaces for recording.
 
 ### Required Permissions
 
@@ -20,10 +20,10 @@ ohos.permission.WRITE_MEDIA, which allows an app to write media files to the use
 2. Click the **Video Recording** button to switch to the video recording page.  You can click the setting button to choose video resolution. Click the start, pause, resume, stop button to control the recording process.
 3. Click the **Audio Recording** button to switch to the audio recording page. You can click the setting button to choose audio sample rate. Click the start, pause, resume, stop button to control the recording process.
 
-**C(NDK) Interface:**
+**C(Native) Interface:**
 
-4. Click the **VideoRecorder(NDK)** button to switch to the NDK video recording page. Click the start, pause, resume, stop button to control the recording process.
-5. Click the **AudioRecorder(NDK)** button to switch to the NDK audio recording page. Click the start, pause, resume, stop button to control the recording process.
+4. Click the **VideoRecorder(Native)** button to switch to the Native video recording page. Click the start, pause, resume, stop button to control the recording process.
+5. Click the **AudioRecorder(Native)** button to switch to the Native audio recording page. Click the start, pause, resume, stop button to control the recording process.
 
 6. The files you have recorded can be found in Photos.
 

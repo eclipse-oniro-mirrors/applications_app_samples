@@ -131,7 +131,7 @@ async function getTextById(driver: Driver, id: string): Promise<string> {
 }
 
 async function stopIfRecording(driver: Driver): Promise<void> {
-  const stopIds: string[] = ['audioStop', 'audioStopNDK', 'videoStop', 'videoStopNDK'];
+  const stopIds: string[] = ['audioStop', 'audioStopNative', 'videoStop', 'videoStopNative'];
   for (let i = 0; i < stopIds.length; i++) {
     const stopButton: Component = await driver.findComponent(ON.id(stopIds[i]).clickable(true));
     if (stopButton) {
@@ -210,7 +210,7 @@ export default function abilityTest() {
           const ready: boolean = await ensureIndex(driver);
           expect(ready).assertTrue();
           const pageIds: string[] = ['videoRecorderPage', 'audioRecorderPage',
-            'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+            'videoRecorderNativePage', 'audioRecorderNativePage'];
           for (let i = 0; i < pageIds.length; i++) {
             expect(await waitForId(driver, pageIds[i], 5)).assertTrue();
           }
@@ -366,26 +366,26 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          expect(await openPage(driver, 'audioRecorderNDKPage')).assertTrue();
-          const start: Component = await driver.waitForComponent(ON.id('audioStartNDK'), 3000);
-          expect(await existsById(driver, 'audioStartNDK')).assertTrue();
+          expect(await openPage(driver, 'audioRecorderNativePage')).assertTrue();
+          const start: Component = await driver.waitForComponent(ON.id('audioStartNative'), 3000);
+          expect(await existsById(driver, 'audioStartNative')).assertTrue();
           deleteRecordFile(AUDIO_FILE);
           await start.click();
           await sleep(DELAY_MEDIUM);
-          const stop: Component = await driver.waitForComponent(ON.id('audioStopNDK'), 3000);
-          expect(await existsById(driver, 'audioStopNDK')).assertTrue();
-          expect(await existsById(driver, 'audioPauseNDK')).assertTrue();
-          const runningText: string = await getTextById(driver, 'audioTimeNDK');
+          const stop: Component = await driver.waitForComponent(ON.id('audioStopNative'), 3000);
+          expect(await existsById(driver, 'audioStopNative')).assertTrue();
+          expect(await existsById(driver, 'audioPauseNative')).assertTrue();
+          const runningText: string = await getTextById(driver, 'audioTimeNative');
           expect(runningText === '00:00').assertFalse();
           await stop.click();
           await sleep(1500);
-          await await driver.waitForComponent(ON.id('audioStartNDK'), 3000);
-          expect(await existsById(driver, 'audioStartNDK')).assertTrue();
+          await await driver.waitForComponent(ON.id('audioStartNative'), 3000);
+          expect(await existsById(driver, 'audioStartNative')).assertTrue();
           const size: number = recordFileSize(AUDIO_FILE);
-          log(`audio NDK file size: ${size}`);
+          log(`audio Native file size: ${size}`);
           expect(size).assertLarger(1000);
         } catch (err) {
-          log(`testAVRecorderAudioNDKRecord0005 failed: ${String(err)}`);
+          log(`testAVRecorderAudioNativeRecord0005 failed: ${String(err)}`);
           expect().assertFail();
         } finally {
           done();
@@ -404,24 +404,24 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          expect(await openPage(driver, 'audioRecorderNDKPage')).assertTrue();
-          expect(await clickId(driver, 'audioStartNDK', 3000)).assertTrue();
+          expect(await openPage(driver, 'audioRecorderNativePage')).assertTrue();
+          expect(await clickId(driver, 'audioStartNative', 3000)).assertTrue();
           await sleep(DELAY_MEDIUM);
-          expect(await clickId(driver, 'audioPauseNDK', 3000)).assertTrue();
+          expect(await clickId(driver, 'audioPauseNative', 3000)).assertTrue();
           await sleep(800);
-          const pausedText: string = await getTextById(driver, 'audioTimeNDK');
+          const pausedText: string = await getTextById(driver, 'audioTimeNative');
           await sleep(1500);
-          const pausedAgain: string = await getTextById(driver, 'audioTimeNDK');
+          const pausedAgain: string = await getTextById(driver, 'audioTimeNative');
           expect(pausedAgain).assertEqual(pausedText);
-          expect(await clickId(driver, 'audioResumeNDK', 3000)).assertTrue();
+          expect(await clickId(driver, 'audioResumeNative', 3000)).assertTrue();
           await sleep(1800);
-          const resumedText: string = await getTextById(driver, 'audioTimeNDK');
+          const resumedText: string = await getTextById(driver, 'audioTimeNative');
           expect(resumedText === pausedText).assertFalse();
-          expect(await clickId(driver, 'audioStopNDK', 3000)).assertTrue();
+          expect(await clickId(driver, 'audioStopNative', 3000)).assertTrue();
           await sleep(DELAY_SHORT);
-          expect(await existsById(driver, 'audioStartNDK')).assertTrue();
+          expect(await existsById(driver, 'audioStartNative')).assertTrue();
         } catch (err) {
-          log(`testAVRecorderAudioNDKPauseResume0006 failed: ${String(err)}`);
+          log(`testAVRecorderAudioNativePauseResume0006 failed: ${String(err)}`);
           expect().assertFail();
         } finally {
           done();
@@ -563,26 +563,26 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          expect(await openPage(driver, 'videoRecorderNDKPage')).assertTrue();
-          const start: Component = await driver.waitForComponent(ON.id('videoStartNDK'), 5000);
-          expect(await existsById(driver, 'videoStartNDK')).assertTrue();
+          expect(await openPage(driver, 'videoRecorderNativePage')).assertTrue();
+          const start: Component = await driver.waitForComponent(ON.id('videoStartNative'), 5000);
+          expect(await existsById(driver, 'videoStartNative')).assertTrue();
           deleteRecordFile(VIDEO_FILE);
           await start.click();
           await sleep(3000);
-          const stop: Component = await driver.waitForComponent(ON.id('videoStopNDK'), 3000);
-          expect(await existsById(driver, 'videoStopNDK')).assertTrue();
-          expect(await existsById(driver, 'videoPauseNDK')).assertTrue();
-          const runningText: string = await getTextById(driver, 'videoTimeNDK');
+          const stop: Component = await driver.waitForComponent(ON.id('videoStopNative'), 3000);
+          expect(await existsById(driver, 'videoStopNative')).assertTrue();
+          expect(await existsById(driver, 'videoPauseNative')).assertTrue();
+          const runningText: string = await getTextById(driver, 'videoTimeNative');
           expect(runningText === '00:00').assertFalse();
           await stop.click();
           await sleep(DELAY_MEDIUM);
-          await await driver.waitForComponent(ON.id('videoStartNDK'), 3000);
-          expect(await existsById(driver, 'videoStartNDK')).assertTrue();
+          await await driver.waitForComponent(ON.id('videoStartNative'), 3000);
+          expect(await existsById(driver, 'videoStartNative')).assertTrue();
           const size: number = recordFileSize(VIDEO_FILE);
-          log(`video NDK file size: ${size}`);
+          log(`video Native file size: ${size}`);
           expect(size).assertLarger(0);
         } catch (err) {
-          log(`testAVRecorderVideoNDKRecord0010 failed: ${String(err)}`);
+          log(`testAVRecorderVideoNativeRecord0010 failed: ${String(err)}`);
           expect().assertFail();
         } finally {
           done();
@@ -601,24 +601,24 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          expect(await openPage(driver, 'videoRecorderNDKPage')).assertTrue();
-          expect(await clickId(driver, 'videoStartNDK', 5000)).assertTrue();
+          expect(await openPage(driver, 'videoRecorderNativePage')).assertTrue();
+          expect(await clickId(driver, 'videoStartNative', 5000)).assertTrue();
           await sleep(3000);
-          expect(await clickId(driver, 'videoPauseNDK', 3000)).assertTrue();
+          expect(await clickId(driver, 'videoPauseNative', 3000)).assertTrue();
           await sleep(800);
-          const pausedText: string = await getTextById(driver, 'videoTimeNDK');
+          const pausedText: string = await getTextById(driver, 'videoTimeNative');
           await sleep(1500);
-          const pausedAgain: string = await getTextById(driver, 'videoTimeNDK');
+          const pausedAgain: string = await getTextById(driver, 'videoTimeNative');
           expect(pausedAgain).assertEqual(pausedText);
-          expect(await clickId(driver, 'videoResumeNDK', 3000)).assertTrue();
+          expect(await clickId(driver, 'videoResumeNative', 3000)).assertTrue();
           await sleep(1800);
-          const resumedText: string = await getTextById(driver, 'videoTimeNDK');
+          const resumedText: string = await getTextById(driver, 'videoTimeNative');
           expect(resumedText === pausedText).assertFalse();
-          expect(await clickId(driver, 'videoStopNDK', 3000)).assertTrue();
+          expect(await clickId(driver, 'videoStopNative', 3000)).assertTrue();
           await sleep(DELAY_MEDIUM);
-          expect(await existsById(driver, 'videoStartNDK')).assertTrue();
+          expect(await existsById(driver, 'videoStartNative')).assertTrue();
         } catch (err) {
-          log(`testAVRecorderVideoNDKPauseResume0011 failed: ${String(err)}`);
+          log(`testAVRecorderVideoNativePauseResume0011 failed: ${String(err)}`);
           expect().assertFail();
         } finally {
           done();

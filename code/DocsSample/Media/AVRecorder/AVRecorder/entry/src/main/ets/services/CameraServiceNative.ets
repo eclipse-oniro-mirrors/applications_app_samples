@@ -18,7 +18,7 @@ import common from '@ohos.app.ability.common';
 import camera from '@ohos.multimedia.camera';
 import { Resolution } from './CommonTypes';
 
-export default class CameraServiceNDK {
+export default class CameraServiceNative {
   private cameraManager: camera.CameraManager | undefined = undefined;
   private cameras: Array<camera.CameraDevice> | undefined = undefined;
   private cameraOutputCapability: camera.CameraOutputCapability | undefined = undefined;
@@ -37,16 +37,16 @@ export default class CameraServiceNDK {
     }
     this.cameraManager = camera.getCameraManager(context);
     if (this.cameraManager) {
-      console.info('[CameraServiceNDK/init] getCameraManager succeeded');
+      console.info('[CameraServiceNative/init] getCameraManager succeeded');
     } else {
-      console.error('[CameraServiceNDK/init] getCameraManager failed');
+      console.error('[CameraServiceNative/init] getCameraManager failed');
       return;
     }
     this.cameras = this.cameraManager.getSupportedCameras();
     if (this.cameras) {
-      console.info('[CameraServiceNDK/init] getCameras succeeded');
+      console.info('[CameraServiceNative/init] getCameras succeeded');
     } else {
-      console.error('[CameraServiceNDK/init] getCameras failed');
+      console.error('[CameraServiceNative/init] getCameras failed');
       return;
     }
     this.cameraOutputCapability = this.cameraManager.getSupportedOutputCapability(this.cameras[this.cameraIndex],
@@ -59,9 +59,9 @@ export default class CameraServiceNDK {
       if (this.cameraManager && this.cameras && this.cameras.length > 0) {
         this.cameraInput = this.cameraManager.createCameraInput(this.cameras[this.cameraIndex]);
         if (this.cameraInput) {
-          console.info('[CameraServiceNDK/createInput] createCameraInput succeeded');
+          console.info('[CameraServiceNative/createInput] createCameraInput succeeded');
         } else {
-          console.error('[CameraServiceNDK/createInput] createCameraInput failed');
+          console.error('[CameraServiceNative/createInput] createCameraInput failed');
           return;
         }
         await this.cameraInput.open();
@@ -99,9 +99,9 @@ export default class CameraServiceNDK {
         let index: number = this.selectProfile(this.previewProfiles, this.videoResolution);
         this.previewOutput = this.cameraManager.createPreviewOutput(this.previewProfiles[index], previewSurfaceId);
         if (this.previewOutput) {
-          console.info('[CameraServiceNDK] createPreviewOutput succeeded');
+          console.info('[CameraServiceNative] createPreviewOutput succeeded');
         } else {
-          console.error('[CameraServiceNDK] createPreviewOutput failed');
+          console.error('[CameraServiceNative] createPreviewOutput failed');
         }
       }
     } catch (error) {
@@ -115,14 +115,14 @@ export default class CameraServiceNDK {
       if (this.cameraManager) {
         this.captureSession = this.cameraManager.createSession<camera.VideoSession>(camera.SceneMode.NORMAL_VIDEO);
         if (!this.captureSession) {
-          console.error('[CameraServiceNDK] createCaptureSession failed');
+          console.error('[CameraServiceNative] createCaptureSession failed');
           return;
         }
         this.captureSession.beginConfig();
         this.captureSession.addInput(this.cameraInput);
         this.captureSession.addOutput(this.previewOutput);
         await this.captureSession.commitConfig();
-        console.info('[CameraServiceNDK] createCaptureSession succeeded');
+        console.info('[CameraServiceNative] createCaptureSession succeeded');
       }
     } catch (error) {
       let err = error as BusinessError;
@@ -133,11 +133,11 @@ export default class CameraServiceNDK {
   async startCaptureSession(): Promise<void> {
     try {
       if (!this.captureSession) {
-        console.error('[CameraServiceNDK/startCaptureSession] CaptureSession does not exists');
+        console.error('[CameraServiceNative/startCaptureSession] CaptureSession does not exists');
         return;
       }
       await this.captureSession.start();
-      console.info('[CameraServiceNDK] startCaptureSession succeeded');
+      console.info('[CameraServiceNative] startCaptureSession succeeded');
     } catch (error) {
       let err = error as BusinessError;
       console.error(`Failed to start CaptureSession, error code: ${err.code}, message: ${err.message}`);
@@ -157,11 +157,11 @@ export default class CameraServiceNDK {
         if (this.videoOutput) {
           await this.videoOutput.start();
         } else {
-          console.error('[CameraServiceNDK/restartVideoOutput] videoOutput is null');
+          console.error('[CameraServiceNative/restartVideoOutput] videoOutput is null');
           return;
         }
       }
-      console.info('[CameraServiceNDK] restartVideoOutput succeeded');
+      console.info('[CameraServiceNative] restartVideoOutput succeeded');
     } catch (error) {
       let err = error as BusinessError;
       console.error(`Failed to restart VideoOutput, error code: ${err.code}, message: ${err.message}`);
@@ -172,7 +172,7 @@ export default class CameraServiceNDK {
     try {
       if (this.captureSession && this.videoOutput) {
         this.captureSession.removeOutput(this.videoOutput);
-        console.info('[CameraServiceNDK] removeVideoOutput succeeded');
+        console.info('[CameraServiceNative] removeVideoOutput succeeded');
       }
     } catch (error) {
       let err = error as BusinessError;
@@ -186,14 +186,14 @@ export default class CameraServiceNDK {
         let index: number = this.selectVideoProfile(this.videoProfiles, this.videoResolution);
         this.videoOutput = this.cameraManager.createVideoOutput(this.videoProfiles[index], surfaceId);
         if (!this.videoOutput) {
-          console.error('[CameraServiceNDK/createVideoOutput] create videoOutPut fail');
+          console.error('[CameraServiceNative/createVideoOutput] create videoOutPut fail');
           return;
         }
       } else {
-        console.error('[CameraServiceNDK] createVideoOutput failed');
+        console.error('[CameraServiceNative] createVideoOutput failed');
         return;
       }
-      console.info('[CameraServiceNDK] createVideoOutput succeeded');
+      console.info('[CameraServiceNative] createVideoOutput succeeded');
     } catch (error) {
       let err = error as BusinessError;
       console.error(`Failed to create VideoOutput, error code: ${err.code}, message: ${err.message}`);

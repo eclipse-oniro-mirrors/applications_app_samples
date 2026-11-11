@@ -97,7 +97,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -114,7 +114,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -165,7 +165,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -182,7 +182,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -233,7 +233,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -250,7 +250,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -301,7 +301,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -318,7 +318,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -369,7 +369,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -386,7 +386,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -437,7 +437,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -454,7 +454,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -505,7 +505,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -522,7 +522,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -573,7 +573,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -590,7 +590,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -641,7 +641,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -658,7 +658,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -709,7 +709,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -726,7 +726,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -777,7 +777,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -794,7 +794,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -845,7 +845,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -862,7 +862,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -913,7 +913,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -930,7 +930,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -981,7 +981,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -998,7 +998,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1049,7 +1049,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1066,7 +1066,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1117,7 +1117,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1134,7 +1134,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1185,7 +1185,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1202,7 +1202,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1253,7 +1253,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1270,7 +1270,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1321,7 +1321,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioResume'.endsWith('Start') || 'audioResume'.endsWith('Pause') || 'audioResume'.endsWith('Resume') || 'audioResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1338,7 +1338,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('audioStop'.endsWith('Start') || 'audioStop'.endsWith('Pause') || 'audioStop'.endsWith('Resume') || 'audioStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1389,7 +1389,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('videoRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('videoRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoResume'.endsWith('Start') || 'videoResume'.endsWith('Pause') || 'videoResume'.endsWith('Resume') || 'videoResume'.endsWith('Stop')).assertTrue();
       expect('audioTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);
@@ -1406,7 +1406,7 @@ export default function avRecorderPageContractTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecPage0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect('audioRecorderNDKPage'.endsWith('Page')).assertTrue();
+      expect('audioRecorderNativePage'.endsWith('Page')).assertTrue();
       expect('videoStop'.endsWith('Start') || 'videoStop'.endsWith('Pause') || 'videoStop'.endsWith('Resume') || 'videoStop'.endsWith('Stop')).assertTrue();
       expect('videoTime'.endsWith('Time')).assertTrue();
       expect(48000).assertEqual(48000);

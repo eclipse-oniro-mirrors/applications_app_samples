@@ -62,7 +62,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStart') >= 0).assertTrue();
@@ -78,7 +78,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioPause') >= 0).assertTrue();
@@ -94,9 +94,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioResume') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -110,9 +110,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStop') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -126,7 +126,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStart') >= 0).assertTrue();
@@ -142,7 +142,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoPause') >= 0).assertTrue();
@@ -158,9 +158,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoResume') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -174,9 +174,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStop') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -190,7 +190,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioSetting') >= 0).assertTrue();
@@ -206,7 +206,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoSetting') >= 0).assertTrue();
@@ -222,9 +222,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStart') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -238,9 +238,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioPause') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -254,7 +254,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioResume') >= 0).assertTrue();
@@ -270,7 +270,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStop') >= 0).assertTrue();
@@ -286,9 +286,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStart') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -302,9 +302,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoPause') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -318,7 +318,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoResume') >= 0).assertTrue();
@@ -334,7 +334,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStop') >= 0).assertTrue();
@@ -350,9 +350,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioSetting') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -366,9 +366,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoSetting') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -382,7 +382,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStart') >= 0).assertTrue();
@@ -398,7 +398,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioPause') >= 0).assertTrue();
@@ -414,9 +414,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioResume') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -430,9 +430,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStop') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -446,7 +446,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStart') >= 0).assertTrue();
@@ -462,7 +462,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoPause') >= 0).assertTrue();
@@ -478,9 +478,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoResume') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -494,9 +494,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStop') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -510,7 +510,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioSetting') >= 0).assertTrue();
@@ -526,7 +526,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoSetting') >= 0).assertTrue();
@@ -542,9 +542,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStart') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -558,9 +558,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioPause') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -574,7 +574,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioResume') >= 0).assertTrue();
@@ -590,7 +590,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('audioStop') >= 0).assertTrue();
@@ -606,9 +606,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStart') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -622,9 +622,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoPause') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -638,7 +638,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('videoRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoResume') >= 0).assertTrue();
@@ -654,7 +654,7 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
       expect(pages.indexOf('audioRecorderPage') >= 0).assertTrue();
       expect(buttons.indexOf('videoStop') >= 0).assertTrue();
@@ -670,9 +670,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('videoRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('videoRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('audioSetting') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);
@@ -686,9 +686,9 @@ export default function avRecorderUiContractsTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecUiContract0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNDKPage', 'audioRecorderNDKPage'];
+      const pages: string[] = ['videoRecorderPage', 'audioRecorderPage', 'videoRecorderNativePage', 'audioRecorderNativePage'];
       const buttons: string[] = ['audioStart', 'audioPause', 'audioResume', 'audioStop', 'videoStart', 'videoPause', 'videoResume', 'videoStop', 'audioSetting', 'videoSetting'];
-      expect(pages.indexOf('audioRecorderNDKPage') >= 0).assertTrue();
+      expect(pages.indexOf('audioRecorderNativePage') >= 0).assertTrue();
       expect(buttons.indexOf('videoSetting') >= 0).assertTrue();
       expect(pages.length).assertEqual(4);
       expect(buttons.length).assertEqual(10);

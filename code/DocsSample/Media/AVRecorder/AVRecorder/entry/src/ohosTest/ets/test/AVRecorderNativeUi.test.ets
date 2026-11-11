@@ -24,7 +24,7 @@ const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 const driver: Driver = Driver.create();
 
 function log(message: string): void {
-  hilog.info(DOMAIN, 'avRecorderNdkUi', '%{public}s', message);
+  hilog.info(DOMAIN, 'avRecorderNativeUi', '%{public}s', message);
 }
 
 function sleep(duration: number): Promise<void> {
@@ -118,7 +118,7 @@ function expect(actual: string | number | boolean | Object | null | undefined): 
 }
 
 export default function avRecorderNativeUiTest(): void {
-  describe('avRecorderNdkUiTest', () => {
+  describe('avRecorderNativeUiTest', () => {
     beforeAll(async () => {
       const want: Want = { bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME };
       await delegator.startAbility(want);
@@ -133,7 +133,7 @@ export default function avRecorderNativeUiTest(): void {
       });
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0001
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0001
      * @tc.name      testExtRecAudioNativeUi0000
      * @tc.desc      Audio Native page check 1.
      * @tc.size      MEDIUMTEST
@@ -141,13 +141,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0002
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0002
      * @tc.name      testExtRecAudioNativeUi0001
      * @tc.desc      Audio Native page check 2.
      * @tc.size      MEDIUMTEST
@@ -155,13 +155,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0003
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0003
      * @tc.name      testExtRecAudioNativeUi0002
      * @tc.desc      Audio Native page check 3.
      * @tc.size      MEDIUMTEST
@@ -169,13 +169,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0004
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0004
      * @tc.name      testExtRecAudioNativeUi0003
      * @tc.desc      Audio Native page check 4.
      * @tc.size      MEDIUMTEST
@@ -183,13 +183,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0005
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0005
      * @tc.name      testExtRecAudioNativeUi0004
      * @tc.desc      Audio Native page check 5.
      * @tc.size      MEDIUMTEST
@@ -197,13 +197,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0006
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0006
      * @tc.name      testExtRecAudioNativeUi0005
      * @tc.desc      Audio Native page check 6.
      * @tc.size      MEDIUMTEST
@@ -211,13 +211,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0007
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0007
      * @tc.name      testExtRecAudioNativeUi0006
      * @tc.desc      Audio Native page check 7.
      * @tc.size      MEDIUMTEST
@@ -225,13 +225,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0008
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0008
      * @tc.name      testExtRecAudioNativeUi0007
      * @tc.desc      Audio Native page check 8.
      * @tc.size      MEDIUMTEST
@@ -239,13 +239,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0009
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0009
      * @tc.name      testExtRecAudioNativeUi0008
      * @tc.desc      Audio Native page check 9.
      * @tc.size      MEDIUMTEST
@@ -253,13 +253,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0010
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0010
      * @tc.name      testExtRecAudioNativeUi0009
      * @tc.desc      Audio Native page check 10.
      * @tc.size      MEDIUMTEST
@@ -267,13 +267,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecAudioNativeUi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('audioRecorderNDKPage')).assertTrue();
-      expect(await waitForId('audioStartNDK', 10)).assertTrue();
-      expect(await existsById('audioStartNDK')).assertTrue();
-      expect(await existsById('audioStopNDK') || await existsById('audioStartNDK')).assertTrue();
+      expect(await openPage('audioRecorderNativePage')).assertTrue();
+      expect(await waitForId('audioStartNative', 10)).assertTrue();
+      expect(await existsById('audioStartNative')).assertTrue();
+      expect(await existsById('audioStopNative') || await existsById('audioStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0011
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0011
      * @tc.name      testExtRecVideoNativeUi0000
      * @tc.desc      Video Native page check 1.
      * @tc.size      MEDIUMTEST
@@ -281,13 +281,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0012
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0012
      * @tc.name      testExtRecVideoNativeUi0001
      * @tc.desc      Video Native page check 2.
      * @tc.size      MEDIUMTEST
@@ -295,13 +295,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0013
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0013
      * @tc.name      testExtRecVideoNativeUi0002
      * @tc.desc      Video Native page check 3.
      * @tc.size      MEDIUMTEST
@@ -309,13 +309,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0014
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0014
      * @tc.name      testExtRecVideoNativeUi0003
      * @tc.desc      Video Native page check 4.
      * @tc.size      MEDIUMTEST
@@ -323,13 +323,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0015
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0015
      * @tc.name      testExtRecVideoNativeUi0004
      * @tc.desc      Video Native page check 5.
      * @tc.size      MEDIUMTEST
@@ -337,13 +337,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0016
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0016
      * @tc.name      testExtRecVideoNativeUi0005
      * @tc.desc      Video Native page check 6.
      * @tc.size      MEDIUMTEST
@@ -351,13 +351,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0017
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0017
      * @tc.name      testExtRecVideoNativeUi0006
      * @tc.desc      Video Native page check 7.
      * @tc.size      MEDIUMTEST
@@ -365,13 +365,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0018
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0018
      * @tc.name      testExtRecVideoNativeUi0007
      * @tc.desc      Video Native page check 8.
      * @tc.size      MEDIUMTEST
@@ -379,13 +379,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0019
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0019
      * @tc.name      testExtRecVideoNativeUi0008
      * @tc.desc      Video Native page check 9.
      * @tc.size      MEDIUMTEST
@@ -393,13 +393,13 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
     /**
-     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NDKUI_0020
+     * @tc.number    SUB_AUDIO_VIDEO_RECORDER_EXT_NativeUI_0020
      * @tc.name      testExtRecVideoNativeUi0009
      * @tc.desc      Video Native page check 10.
      * @tc.size      MEDIUMTEST
@@ -407,10 +407,10 @@ export default function avRecorderNativeUiTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtRecVideoNativeUi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      expect(await openPage('videoRecorderNDKPage')).assertTrue();
-      expect(await waitForId('videoStartNDK', 10)).assertTrue();
-      expect(await existsById('videoStartNDK')).assertTrue();
-      expect(await existsById('videoStopNDK') || await existsById('videoStartNDK')).assertTrue();
+      expect(await openPage('videoRecorderNativePage')).assertTrue();
+      expect(await waitForId('videoStartNative', 10)).assertTrue();
+      expect(await existsById('videoStartNative')).assertTrue();
+      expect(await existsById('videoStopNative') || await existsById('videoStartNative')).assertTrue();
     })
   });
 }

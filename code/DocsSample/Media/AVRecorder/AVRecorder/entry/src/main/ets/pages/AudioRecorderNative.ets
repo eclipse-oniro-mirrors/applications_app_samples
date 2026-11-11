@@ -17,11 +17,11 @@ import Logger from '../utils/Logger';
 import { dateTime } from '../utils/DateTimeUtil';
 import recorderLib from 'libentry.so';
 
-const TAG: string = 'Sample_AudioRecorderNDK';
+const TAG: string = 'Sample_AudioRecorderNative';
 
 @Entry
 @Component
-struct AudioRecorderNDK {
+struct AudioRecorderNative {
   @State audioRecorderTimeText: string = '00:00';
   private seconds: number = 0;
   private timer: number = 0;
@@ -103,7 +103,7 @@ struct AudioRecorderNDK {
       Row() {
         Stack({ alignContent: Alignment.Center }) {
           Text(this.audioRecorderTimeText)
-            .id('audioTimeNDK')
+            .id('audioTimeNative')
             .fontFamily('HarmonyHeiTi-Light')
             .width(70)
             .height(40)
@@ -138,7 +138,7 @@ struct AudioRecorderNDK {
                 Logger.info(TAG, 'start button clicked');
                 this.startRecordingProcess();
               })
-              .id('audioStartNDK')
+              .id('audioStartNative')
           } else {
             Image($r('app.media.ic_circle_open'))
               .width(120)
@@ -161,7 +161,7 @@ struct AudioRecorderNDK {
               .onClick(() => {
                 this.stopRecordingProcess();
               })
-              .id('audioStopNDK')
+              .id('audioStopNative')
             if (!this.isPauseRecording) {
               Image($r('app.media.ic_red_circle'))
                 .width(12)
@@ -184,7 +184,7 @@ struct AudioRecorderNDK {
                 .onClick(() => {
                   this.pauseRecordingProcess();
                 })
-                .id('audioPauseNDK')
+                .id('audioPauseNative')
             } else {
               Image($r('app.media.ic_small_pause'))
                 .width(14)
@@ -207,7 +207,7 @@ struct AudioRecorderNDK {
                 .onClick(() => {
                   this.resumeRecordingProcess();
                 })
-                .id('audioResumeNDK')
+                .id('audioResumeNative')
             }
           }
         }.width('100%').height('100%')
