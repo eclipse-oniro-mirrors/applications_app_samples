@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
-import abilityTest from './abilityTest.test';
+import StationaryAppTest from './StationaryAppTest.test';
 import stationEnumCoreTest from './StationaryEnumCore.test';
 import stationApiShapeCoreTest from './StationaryApiShapeCore.test';
 import stationApiOutcomeMatrixTest from './StationaryApiOutcomeMatrix.test';
@@ -33,9 +32,11 @@ import stationaryPerfTest from './StationaryPerf.test';
 import stationaryLifecycleTest from './StationaryLifecycle.test';
 import stationaryAbilityContractTest from './StationaryAbilityContract.test';
 import stationaryAppContextTest from './StationaryAppContext.test';
+import abilityTest from './Ability.test';
 
 export default function testsuite() {
   abilityTest();
+  StationaryAppTest();
   stationEnumCoreTest();
   stationApiShapeCoreTest();
   stationApiOutcomeMatrixTest();

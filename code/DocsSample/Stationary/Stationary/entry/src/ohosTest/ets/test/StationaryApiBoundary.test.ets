@@ -23,8 +23,8 @@ const DOMAIN: number = 0xF812;
 const ALLOWED_CODES: number[] = [201, 401, 801];
 const LATENCY: number = 1000000000;
 
-const ACTIVITIES: string[] = ['still', 'relativeStill'];
-const MALFORMED_ACTIVITIES: string[] = [
+const TYPES: string[] = ['still', 'relativeStill'];
+const MALFORMED_TYPES: string[] = [
   'Still',
   'RELATIVESTILL',
   'relative_still',
@@ -78,7 +78,7 @@ function run(action: () => void): CallOutcome {
   return outcome;
 }
 
-function callback(_response: stationary.ActivityResponse): void {
+function callback(_response: Object): void {
 }
 
 function expectDocumentedOutcome(label: string, outcome: CallOutcome): void {
@@ -89,8 +89,8 @@ function expectDocumentedOutcome(label: string, outcome: CallOutcome): void {
   expect(outcome.success + outcome.allowedError).assertEqual(1);
 }
 
-function onActivity(activity: string): CallOutcome {
-  return run(() => stationary.on(activity as stationary.ActivityType, stationary.ActivityEvent.ENTER,
+function onType(eventType: string): CallOutcome {
+  return run(() => stationary.on(eventType as string as 'still' | 'relativeStill', 1,
     LATENCY, callback));
 }
 
@@ -98,12 +98,12 @@ function totalOf(outcome: CallOutcome): number {
   return outcome.success + outcome.allowedError;
 }
 
-function onIndex(activity: string): number {
-  return ACTIVITIES.indexOf(activity);
+function onIndex(eventType: string): number {
+  return TYPES.indexOf(eventType);
 }
 
-function onceIndex(activity: string): number {
-  return ACTIVITIES.indexOf(activity);
+function onceIndex(eventType: string): number {
+  return TYPES.indexOf(eventType);
 }
 
 function onLatencyTotal(latency: number): number {
@@ -116,27 +116,27 @@ function onEventTotal(event: number): number {
 
 function offEvent(event: number, withCallback: boolean): CallOutcome {
   if (withCallback) {
-    return run(() => stationary.off('still', event as stationary.ActivityEvent, callback));
+    return run(() => stationary.off('still', event as 1, callback));
   }
-  return run(() => stationary.off('still', event as stationary.ActivityEvent));
+  return run(() => stationary.off('still', event as 1));
 }
 
-function onceActivity(activity: string): CallOutcome {
-  return run(() => stationary.once(activity as stationary.ActivityType, callback));
+function onceType(eventType: string): CallOutcome {
+  return run(() => stationary.once(eventType as string as 'still' | 'relativeStill', callback));
 }
 
 function onEvent(event: number): CallOutcome {
-  return run(() => stationary.on('still', event as stationary.ActivityEvent, LATENCY, callback));
+  return run(() => stationary.on('still', event as 1, LATENCY, callback));
 }
 
 function onLatency(latency: number): CallOutcome {
-  return run(() => stationary.on('still', stationary.ActivityEvent.ENTER, latency, callback));
+  return run(() => stationary.on('still', 1, latency, callback));
 }
 
 /**
  * stationary API 入参边界（环境自适应）。
  *
- * 文档合法入参只允许成功或 201/401/801；非法入参（错误 activity 字面量、越界 event、
+ * 文档合法入参只允许成功或 201/401/801；非法入参（错误 eventType 字面量、越界 event、
  * 超出 1e9~3e9 的 reportLatencyNs）同样只允许这两种终态，非文档错误码计非法。
  */
 export default function StationaryApiBoundaryTest(): void {
@@ -145,7 +145,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0100
      * @tc.name      testStationaryBoundary0001
-     * @tc.desc      Verify on accepts documented activity "still"
+     * @tc.desc      Verify on accepts documented type "still"
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL0
@@ -153,7 +153,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0001 begin');
       expectDocumentedOutcome('on still',
-        onActivity('still'));
+        onType('still'));
       expect(onIndex('still')).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0001 end');
     });
@@ -161,7 +161,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0200
      * @tc.name      testStationaryBoundary0002
-     * @tc.desc      Verify once accepts documented activity "still"
+     * @tc.desc      Verify once accepts documented type "still"
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL0
@@ -169,7 +169,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0002 begin');
       expectDocumentedOutcome('once still',
-        onceActivity('still'));
+        onceType('still'));
       expect(onceIndex('still')).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0002 end');
     });
@@ -177,7 +177,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0300
      * @tc.name      testStationaryBoundary0003
-     * @tc.desc      Verify on accepts documented activity "relativeStill"
+     * @tc.desc      Verify on accepts documented type "relativeStill"
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL0
@@ -185,7 +185,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0003 begin');
       expectDocumentedOutcome('on relativeStill',
-        onActivity('relativeStill'));
+        onType('relativeStill'));
       expect(onIndex('relativeStill')).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0003 end');
     });
@@ -193,7 +193,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0400
      * @tc.name      testStationaryBoundary0004
-     * @tc.desc      Verify once accepts documented activity "relativeStill"
+     * @tc.desc      Verify once accepts documented type "relativeStill"
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL0
@@ -201,7 +201,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0004 begin');
       expectDocumentedOutcome('once relativeStill',
-        onceActivity('relativeStill'));
+        onceType('relativeStill'));
       expect(onceIndex('relativeStill')).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0004 end');
     });
@@ -209,7 +209,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0500
      * @tc.name      testStationaryBoundary0005
-     * @tc.desc      Verify on rejects malformed activity "Still" with documented error
+     * @tc.desc      Verify on rejects malformed type "Still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -217,14 +217,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0005 begin');
       expectDocumentedOutcome('on Still',
-        onActivity('Still'));
+        onType('Still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0005 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0600
      * @tc.name      testStationaryBoundary0006
-     * @tc.desc      Verify once rejects malformed activity "Still" with documented error
+     * @tc.desc      Verify once rejects malformed type "Still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -232,14 +232,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0006 begin');
       expectDocumentedOutcome('once Still',
-        onceActivity('Still'));
+        onceType('Still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0006 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0700
      * @tc.name      testStationaryBoundary0007
-     * @tc.desc      Verify on rejects malformed activity "RELATIVESTILL" with documented error
+     * @tc.desc      Verify on rejects malformed type "RELATIVESTILL" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -247,14 +247,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0007 begin');
       expectDocumentedOutcome('on RELATIVESTILL',
-        onActivity('RELATIVESTILL'));
+        onType('RELATIVESTILL'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0007 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0800
      * @tc.name      testStationaryBoundary0008
-     * @tc.desc      Verify once rejects malformed activity "RELATIVESTILL" with documented error
+     * @tc.desc      Verify once rejects malformed type "RELATIVESTILL" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -262,14 +262,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0008 begin');
       expectDocumentedOutcome('once RELATIVESTILL',
-        onceActivity('RELATIVESTILL'));
+        onceType('RELATIVESTILL'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0008 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_0900
      * @tc.name      testStationaryBoundary0009
-     * @tc.desc      Verify on rejects malformed activity "relative_still" with documented error
+     * @tc.desc      Verify on rejects malformed type "relative_still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -277,14 +277,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0009 begin');
       expectDocumentedOutcome('on relative_still',
-        onActivity('relative_still'));
+        onType('relative_still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0009 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1000
      * @tc.name      testStationaryBoundary0010
-     * @tc.desc      Verify once rejects malformed activity "relative_still" with documented error
+     * @tc.desc      Verify once rejects malformed type "relative_still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -292,14 +292,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0010 begin');
       expectDocumentedOutcome('once relative_still',
-        onceActivity('relative_still'));
+        onceType('relative_still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0010 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1100
      * @tc.name      testStationaryBoundary0011
-     * @tc.desc      Verify on rejects malformed activity "relative still" with documented error
+     * @tc.desc      Verify on rejects malformed type "relative still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -307,14 +307,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0011 begin');
       expectDocumentedOutcome('on relative still',
-        onActivity('relative still'));
+        onType('relative still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0011 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1200
      * @tc.name      testStationaryBoundary0012
-     * @tc.desc      Verify once rejects malformed activity "relative still" with documented error
+     * @tc.desc      Verify once rejects malformed type "relative still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -322,14 +322,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0012 begin');
       expectDocumentedOutcome('once relative still',
-        onceActivity('relative still'));
+        onceType('relative still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0012 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1300
      * @tc.name      testStationaryBoundary0013
-     * @tc.desc      Verify on rejects malformed activity "still " with documented error
+     * @tc.desc      Verify on rejects malformed type "still " with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -337,14 +337,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0013 begin');
       expectDocumentedOutcome('on still ',
-        onActivity('still '));
+        onType('still '));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0013 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1400
      * @tc.name      testStationaryBoundary0014
-     * @tc.desc      Verify once rejects malformed activity "still " with documented error
+     * @tc.desc      Verify once rejects malformed type "still " with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -352,14 +352,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0014 begin');
       expectDocumentedOutcome('once still ',
-        onceActivity('still '));
+        onceType('still '));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0014 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1500
      * @tc.name      testStationaryBoundary0015
-     * @tc.desc      Verify on rejects malformed activity " still" with documented error
+     * @tc.desc      Verify on rejects malformed type " still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -367,14 +367,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0015 begin');
       expectDocumentedOutcome('on  still',
-        onActivity(' still'));
+        onType(' still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0015 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1600
      * @tc.name      testStationaryBoundary0016
-     * @tc.desc      Verify once rejects malformed activity " still" with documented error
+     * @tc.desc      Verify once rejects malformed type " still" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -382,14 +382,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0016 begin');
       expectDocumentedOutcome('once  still',
-        onceActivity(' still'));
+        onceType(' still'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0016 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1700
      * @tc.name      testStationaryBoundary0017
-     * @tc.desc      Verify on rejects malformed activity "stable" with documented error
+     * @tc.desc      Verify on rejects malformed type "stable" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -397,14 +397,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0017 begin');
       expectDocumentedOutcome('on stable',
-        onActivity('stable'));
+        onType('stable'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0017 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1800
      * @tc.name      testStationaryBoundary0018
-     * @tc.desc      Verify once rejects malformed activity "stable" with documented error
+     * @tc.desc      Verify once rejects malformed type "stable" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -412,14 +412,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0018 begin');
       expectDocumentedOutcome('once stable',
-        onceActivity('stable'));
+        onceType('stable'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0018 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_1900
      * @tc.name      testStationaryBoundary0019
-     * @tc.desc      Verify on rejects malformed activity "stillness" with documented error
+     * @tc.desc      Verify on rejects malformed type "stillness" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -427,14 +427,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0019 begin');
       expectDocumentedOutcome('on stillness',
-        onActivity('stillness'));
+        onType('stillness'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0019 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2000
      * @tc.name      testStationaryBoundary0020
-     * @tc.desc      Verify once rejects malformed activity "stillness" with documented error
+     * @tc.desc      Verify once rejects malformed type "stillness" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -442,14 +442,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0020 begin');
       expectDocumentedOutcome('once stillness',
-        onceActivity('stillness'));
+        onceType('stillness'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0020 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2100
      * @tc.name      testStationaryBoundary0021
-     * @tc.desc      Verify on rejects malformed activity "relative" with documented error
+     * @tc.desc      Verify on rejects malformed type "relative" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -457,14 +457,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0021 begin');
       expectDocumentedOutcome('on relative',
-        onActivity('relative'));
+        onType('relative'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0021 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2200
      * @tc.name      testStationaryBoundary0022
-     * @tc.desc      Verify once rejects malformed activity "relative" with documented error
+     * @tc.desc      Verify once rejects malformed type "relative" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -472,14 +472,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0022 begin');
       expectDocumentedOutcome('once relative',
-        onceActivity('relative'));
+        onceType('relative'));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0022 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2300
      * @tc.name      testStationaryBoundary0023
-     * @tc.desc      Verify on rejects malformed activity "<empty>" with documented error
+     * @tc.desc      Verify on rejects malformed type "<empty>" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -487,14 +487,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0023 begin');
       expectDocumentedOutcome('on <empty>',
-        onActivity(''));
+        onType(''));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0023 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2400
      * @tc.name      testStationaryBoundary0024
-     * @tc.desc      Verify once rejects malformed activity "<empty>" with documented error
+     * @tc.desc      Verify once rejects malformed type "<empty>" with documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -502,14 +502,14 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0024 begin');
       expectDocumentedOutcome('once <empty>',
-        onceActivity(''));
+        onceType(''));
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0024 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2500
      * @tc.name      testStationaryBoundary0025
-     * @tc.desc      Verify documented ActivityEvent value 1 is accepted by on
+     * @tc.desc      Verify documented Event value 1 is accepted by on
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL0
@@ -524,7 +524,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2600
      * @tc.name      testStationaryBoundary0026
-     * @tc.desc      Verify documented ActivityEvent value 2 is accepted by on
+     * @tc.desc      Verify documented Event value 2 is accepted by on
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL0
@@ -539,7 +539,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_2700
      * @tc.name      testStationaryBoundary0027
-     * @tc.desc      Verify documented ActivityEvent value 3 is accepted by on
+     * @tc.desc      Verify documented Event value 3 is accepted by on
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL0
@@ -561,7 +561,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0028 begin');
-      const outcome: CallOutcome = run(() => stationary.on('still', 0 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.on('still', 0 as 1,
         LATENCY, callback));
       expectDocumentedOutcome('on 0', outcome);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0028 end');
@@ -577,7 +577,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0029 begin');
-      const outcome: CallOutcome = run(() => stationary.off('still', 0 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.off('still', 0 as 1,
         callback));
       expectDocumentedOutcome('off 0', outcome);
       expect(totalOf(offEvent(0, true))).assertEqual(1);
@@ -594,7 +594,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0030 begin');
-      const outcome: CallOutcome = run(() => stationary.on('still', 4 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.on('still', 4 as 1,
         LATENCY, callback));
       expectDocumentedOutcome('on 4', outcome);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0030 end');
@@ -610,7 +610,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0031 begin');
-      const outcome: CallOutcome = run(() => stationary.off('still', 4 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.off('still', 4 as 1,
         callback));
       expectDocumentedOutcome('off 4', outcome);
       expect(totalOf(offEvent(4, true))).assertEqual(1);
@@ -627,7 +627,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0032 begin');
-      const outcome: CallOutcome = run(() => stationary.on('still', -1 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.on('still', -1 as 1,
         LATENCY, callback));
       expectDocumentedOutcome('on -1', outcome);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0032 end');
@@ -643,7 +643,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0033 begin');
-      const outcome: CallOutcome = run(() => stationary.off('still', -1 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.off('still', -1 as 1,
         callback));
       expectDocumentedOutcome('off -1', outcome);
       expect(totalOf(offEvent(-1, true))).assertEqual(1);
@@ -660,7 +660,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0034 begin');
-      const outcome: CallOutcome = run(() => stationary.on('still', 100 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.on('still', 100 as 1,
         LATENCY, callback));
       expectDocumentedOutcome('on 100', outcome);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0034 end');
@@ -676,7 +676,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0035 begin');
-      const outcome: CallOutcome = run(() => stationary.off('still', 100 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.off('still', 100 as 1,
         callback));
       expectDocumentedOutcome('off 100', outcome);
       expect(totalOf(offEvent(100, true))).assertEqual(1);
@@ -693,7 +693,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0036 begin');
-      const outcome: CallOutcome = run(() => stationary.on('still', NaN as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.on('still', NaN as 1,
         LATENCY, callback));
       expectDocumentedOutcome('on NaN', outcome);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0036 end');
@@ -709,7 +709,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0037 begin');
-      const outcome: CallOutcome = run(() => stationary.off('still', NaN as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.off('still', NaN as 1,
         callback));
       expectDocumentedOutcome('off NaN', outcome);
       expect(totalOf(offEvent(Number.NaN, true))).assertEqual(1);
@@ -726,7 +726,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0038 begin');
-      const outcome: CallOutcome = run(() => stationary.on('still', 1.5 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.on('still', 1.5 as 1,
         LATENCY, callback));
       expectDocumentedOutcome('on 1.5', outcome);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0038 end');
@@ -742,7 +742,7 @@ export default function StationaryApiBoundaryTest(): void {
      */
     it('testStationaryBoundary0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0039 begin');
-      const outcome: CallOutcome = run(() => stationary.off('still', 1.5 as stationary.ActivityEvent,
+      const outcome: CallOutcome = run(() => stationary.off('still', 1.5 as 1,
         callback));
       expectDocumentedOutcome('off 1.5', outcome);
       expect(totalOf(offEvent(1.5, true))).assertEqual(1);
@@ -1177,7 +1177,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0067 begin');
       expectDocumentedOutcome('off cb 1',
-        run(() => stationary.off('still', 1 as stationary.ActivityEvent, callback)));
+        run(() => stationary.off('still', 1 as 1, callback)));
       expect(totalOf(offEvent(1, true))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0067 end');
     });
@@ -1193,7 +1193,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0068 begin');
       expectDocumentedOutcome('off all 1',
-        run(() => stationary.off('still', 1 as stationary.ActivityEvent)));
+        run(() => stationary.off('still', 1 as 1)));
       expect(totalOf(offEvent(1, false))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0068 end');
     });
@@ -1209,7 +1209,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0069 begin');
       expectDocumentedOutcome('off cb 2',
-        run(() => stationary.off('still', 2 as stationary.ActivityEvent, callback)));
+        run(() => stationary.off('still', 2 as 1, callback)));
       expect(totalOf(offEvent(2, true))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0069 end');
     });
@@ -1225,7 +1225,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0070 begin');
       expectDocumentedOutcome('off all 2',
-        run(() => stationary.off('still', 2 as stationary.ActivityEvent)));
+        run(() => stationary.off('still', 2 as 1)));
       expect(totalOf(offEvent(2, false))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0070 end');
     });
@@ -1241,7 +1241,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0071 begin');
       expectDocumentedOutcome('off cb 3',
-        run(() => stationary.off('still', 3 as stationary.ActivityEvent, callback)));
+        run(() => stationary.off('still', 3 as 1, callback)));
       expect(totalOf(offEvent(3, true))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0071 end');
     });
@@ -1257,7 +1257,7 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0072 begin');
       expectDocumentedOutcome('off all 3',
-        run(() => stationary.off('still', 3 as stationary.ActivityEvent)));
+        run(() => stationary.off('still', 3 as 1)));
       expect(totalOf(offEvent(3, false))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0072 end');
     });
@@ -1265,7 +1265,7 @@ export default function StationaryApiBoundaryTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_7300
      * @tc.name      testStationaryBoundary0073
-     * @tc.desc      Verify off relative to activity "still" keeps documented outcome
+     * @tc.desc      Verify off relative to eventType "still" keeps documented outcome
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1273,16 +1273,16 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0073 begin');
       expectDocumentedOutcome('off still',
-        run(() => stationary.off('still' as stationary.ActivityType,
-          stationary.ActivityEvent.ENTER, callback)));
-      expect(totalOf(run(() => stationary.off('still', stationary.ActivityEvent.ENTER, callback)))).assertEqual(1);
+        run(() => stationary.off('still' as string as 'still' | 'relativeStill',
+          1, callback)));
+      expect(totalOf(run(() => stationary.off('still', 1, callback)))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0073 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_BOUNDARY_7400
      * @tc.name      testStationaryBoundary0074
-     * @tc.desc      Verify off relative to activity "relativeStill" keeps documented outcome
+     * @tc.desc      Verify off relative to eventType "relativeStill" keeps documented outcome
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1290,9 +1290,9 @@ export default function StationaryApiBoundaryTest(): void {
     it('testStationaryBoundary0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0074 begin');
       expectDocumentedOutcome('off relativeStill',
-        run(() => stationary.off('relativeStill' as stationary.ActivityType,
-          stationary.ActivityEvent.ENTER, callback)));
-      expect(totalOf(run(() => stationary.off('relativeStill', stationary.ActivityEvent.ENTER,
+        run(() => stationary.off('relativeStill' as string as 'still' | 'relativeStill',
+          1, callback)));
+      expect(totalOf(run(() => stationary.off('relativeStill', 1,
         callback)))).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryBoundary0074 end');
     });

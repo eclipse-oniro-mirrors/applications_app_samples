@@ -48,22 +48,22 @@ function run(action: () => void): CallOutcome {
   return outcome;
 }
 
-function callback(_response: stationary.ActivityResponse): void {
+function callback(_response: Object): void {
 }
 
 function onStill(): CallOutcome {
-  return run(() => stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback));
+  return run(() => stationary.on('still', 1, 1000000000, callback));
 }
 
 function offStill(): CallOutcome {
-  return run(() => stationary.off('still', stationary.ActivityEvent.ENTER, callback));
+  return run(() => stationary.off('still', 1, callback));
 }
 
-function onRelative(event: stationary.ActivityEvent): CallOutcome {
+function onRelative(event: number): CallOutcome {
   return run(() => stationary.on('relativeStill', event, 1000000000, callback));
 }
 
-function offRelative(event: stationary.ActivityEvent, withCallback: boolean): CallOutcome {
+function offRelative(event: number, withCallback: boolean): CallOutcome {
   return withCallback ? run(() => stationary.off('relativeStill', event, callback)) :
     run(() => stationary.off('relativeStill', event));
 }
@@ -347,8 +347,8 @@ export default function StationaryApiInterleaveTest() {
      */
     it('testInterleaveRelative0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testInterleaveRelative0015');
-      check(onRelative(stationary.ActivityEvent.ENTER));
-      check(offRelative(stationary.ActivityEvent.ENTER, true));
+      check(onRelative(1));
+      check(offRelative(1, true));
       caseEnd('testInterleaveRelative0015');
     });
 
@@ -362,8 +362,8 @@ export default function StationaryApiInterleaveTest() {
      */
     it('testInterleaveRelative0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testInterleaveRelative0016');
-      check(onRelative(stationary.ActivityEvent.EXIT));
-      check(offRelative(stationary.ActivityEvent.EXIT, true));
+      check(onRelative(2));
+      check(offRelative(2, true));
       caseEnd('testInterleaveRelative0016');
     });
 
@@ -377,8 +377,8 @@ export default function StationaryApiInterleaveTest() {
      */
     it('testInterleaveRelative0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testInterleaveRelative0017');
-      check(onRelative(stationary.ActivityEvent.ENTER_EXIT));
-      check(offRelative(stationary.ActivityEvent.ENTER_EXIT, true));
+      check(onRelative(3));
+      check(offRelative(3, true));
       caseEnd('testInterleaveRelative0017');
     });
 
@@ -406,9 +406,9 @@ export default function StationaryApiInterleaveTest() {
      */
     it('testInterleaveRelative0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testInterleaveRelative0019');
-      check(onRelative(stationary.ActivityEvent.ENTER_EXIT));
+      check(onRelative(3));
       check(onceRelative());
-      check(offRelative(stationary.ActivityEvent.ENTER_EXIT, true));
+      check(offRelative(3, true));
       caseEnd('testInterleaveRelative0019');
     });
 
@@ -422,9 +422,9 @@ export default function StationaryApiInterleaveTest() {
      */
     it('testInterleaveRelative0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testInterleaveRelative0020');
-      check(offRelative(stationary.ActivityEvent.ENTER, false));
-      check(offRelative(stationary.ActivityEvent.EXIT, false));
-      check(offRelative(stationary.ActivityEvent.ENTER_EXIT, false));
+      check(offRelative(1, false));
+      check(offRelative(2, false));
+      check(offRelative(3, false));
       caseEnd('testInterleaveRelative0020');
     });
   });

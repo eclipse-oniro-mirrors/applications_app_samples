@@ -33,7 +33,7 @@
 
 ### 2.2 高复用设计
 
-- **共享驱动**：每个 UI 套件复用一个 `Driver` 单例，`beforeAll` 统一拉起 `EntryAbility` 并等待首个按钮。
+- **共享驱动**：每个 UI 套件复用一个 `Driver` 单例，`beforeAll` 统一拉起 `EntryAbility` 并等待第一个按钮。
 - **统一辅助**：`clickButton` / `clickSequence` / `readShowText` 统一点击与文本读取；API 侧用 `run(action)` 把调用折叠为“成功/允许错误/非法错误”计数。
 - **真实实现**：测试直接引用 `@kit.MultimodalAwarenessKit` 的 `motion` 与页面真实控件，不复制业务实现。
 

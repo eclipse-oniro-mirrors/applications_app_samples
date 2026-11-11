@@ -50,7 +50,7 @@
     ],
     "testRunner": {
       "name": "OpenHarmonyTestRunner",
-      "srcPath": "./ets/TestRunner/OpenHarmonyTestRunner.ets"
+      "srcPath": "./ets/testrunner/OpenHarmonyTestRunner.ets"
     }
   }
 }

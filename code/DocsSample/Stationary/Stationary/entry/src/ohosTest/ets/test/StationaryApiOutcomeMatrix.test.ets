@@ -51,7 +51,7 @@ function run(action: () => void): CallOutcome {
   return outcome;
 }
 
-function callback(_response: stationary.ActivityResponse): void {
+function callback(_response: Object): void {
 }
 
 function record(label: string, outcome: CallOutcome): void {
@@ -79,51 +79,51 @@ function expectSequenceValid(label: string, outcomes: CallOutcome[]): void {
 }
 
 function onStillEnter(): CallOutcome {
-  return run(() => stationary.on('still', stationary.ActivityEvent.ENTER, LATENCY, callback));
+  return run(() => stationary.on('still', 1, LATENCY, callback));
 }
 
 function onStillExit(): CallOutcome {
-  return run(() => stationary.on('still', stationary.ActivityEvent.EXIT, LATENCY, callback));
+  return run(() => stationary.on('still', 2, LATENCY, callback));
 }
 
 function onStillBoth(): CallOutcome {
-  return run(() => stationary.on('still', stationary.ActivityEvent.ENTER_EXIT, LATENCY, callback));
+  return run(() => stationary.on('still', 3, LATENCY, callback));
 }
 
 function onRelativeEnter(): CallOutcome {
-  return run(() => stationary.on('relativeStill', stationary.ActivityEvent.ENTER, LATENCY, callback));
+  return run(() => stationary.on('relativeStill', 1, LATENCY, callback));
 }
 
 function onRelativeExit(): CallOutcome {
-  return run(() => stationary.on('relativeStill', stationary.ActivityEvent.EXIT, LATENCY, callback));
+  return run(() => stationary.on('relativeStill', 2, LATENCY, callback));
 }
 
 function onRelativeBoth(): CallOutcome {
-  return run(() => stationary.on('relativeStill', stationary.ActivityEvent.ENTER_EXIT, LATENCY, callback));
+  return run(() => stationary.on('relativeStill', 3, LATENCY, callback));
 }
 
 function offStillEnter(): CallOutcome {
-  return run(() => stationary.off('still', stationary.ActivityEvent.ENTER, callback));
+  return run(() => stationary.off('still', 1, callback));
 }
 
 function offStillExit(): CallOutcome {
-  return run(() => stationary.off('still', stationary.ActivityEvent.EXIT, callback));
+  return run(() => stationary.off('still', 2, callback));
 }
 
 function offStillBoth(): CallOutcome {
-  return run(() => stationary.off('still', stationary.ActivityEvent.ENTER_EXIT, callback));
+  return run(() => stationary.off('still', 3, callback));
 }
 
 function offAllStillEnter(): CallOutcome {
-  return run(() => stationary.off('still', stationary.ActivityEvent.ENTER));
+  return run(() => stationary.off('still', 1));
 }
 
 function offAllStillBoth(): CallOutcome {
-  return run(() => stationary.off('still', stationary.ActivityEvent.ENTER_EXIT));
+  return run(() => stationary.off('still', 3));
 }
 
 function onStillEnterAt(reportLatencyNs: number): CallOutcome {
-  return run(() => stationary.on('still', stationary.ActivityEvent.ENTER, reportLatencyNs, callback));
+  return run(() => stationary.on('still', 1, reportLatencyNs, callback));
 }
 
 function onceStill(): CallOutcome {
@@ -1486,7 +1486,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_9500
      * @tc.name      testStationaryOutcome0095
-     * @tc.desc      Verify once with malformed activity "empty" only raises documented error
+     * @tc.desc      Verify once with malformed type "empty" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1496,7 +1496,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('' as stationary.ActivityType, callback);
+        stationary.once('' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1514,7 +1514,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_9600
      * @tc.name      testStationaryOutcome0096
-     * @tc.desc      Verify once with malformed activity "upper" only raises documented error
+     * @tc.desc      Verify once with malformed type "upper" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1524,7 +1524,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('STILL' as stationary.ActivityType, callback);
+        stationary.once('STILL' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1542,7 +1542,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_9700
      * @tc.name      testStationaryOutcome0097
-     * @tc.desc      Verify once with malformed activity "space" only raises documented error
+     * @tc.desc      Verify once with malformed type "space" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1552,7 +1552,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('still ' as stationary.ActivityType, callback);
+        stationary.once('still ' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1570,7 +1570,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_9800
      * @tc.name      testStationaryOutcome0098
-     * @tc.desc      Verify once with malformed activity "underscore" only raises documented error
+     * @tc.desc      Verify once with malformed type "underscore" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1580,7 +1580,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('relative_still' as stationary.ActivityType, callback);
+        stationary.once('relative_still' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1598,7 +1598,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_9900
      * @tc.name      testStationaryOutcome0099
-     * @tc.desc      Verify once with malformed activity "camel" only raises documented error
+     * @tc.desc      Verify once with malformed type "camel" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1608,7 +1608,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('relativeboth' as stationary.ActivityType, callback);
+        stationary.once('relativeboth' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1626,7 +1626,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0100
      * @tc.name      testStationaryOutcome0100
-     * @tc.desc      Verify once with malformed activity "num" only raises documented error
+     * @tc.desc      Verify once with malformed type "num" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1636,7 +1636,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('1' as stationary.ActivityType, callback);
+        stationary.once('1' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1654,7 +1654,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0200
      * @tc.name      testStationaryOutcome0101
-     * @tc.desc      Verify once with malformed activity "null" only raises documented error
+     * @tc.desc      Verify once with malformed type "null" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1664,7 +1664,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('null' as stationary.ActivityType, callback);
+        stationary.once('null' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1682,7 +1682,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0300
      * @tc.name      testStationaryOutcome0102
-     * @tc.desc      Verify once with malformed activity "mixed" only raises documented error
+     * @tc.desc      Verify once with malformed type "mixed" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1692,7 +1692,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('Still' as stationary.ActivityType, callback);
+        stationary.once('Still' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1710,7 +1710,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0400
      * @tc.name      testStationaryOutcome0103
-     * @tc.desc      Verify once with malformed activity "empty" only raises documented error
+     * @tc.desc      Verify once with malformed type "empty" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1720,7 +1720,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('' as stationary.ActivityType, callback);
+        stationary.once('' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1738,7 +1738,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0500
      * @tc.name      testStationaryOutcome0104
-     * @tc.desc      Verify once with malformed activity "upper" only raises documented error
+     * @tc.desc      Verify once with malformed type "upper" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1748,7 +1748,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('STILL' as stationary.ActivityType, callback);
+        stationary.once('STILL' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1766,7 +1766,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0600
      * @tc.name      testStationaryOutcome0105
-     * @tc.desc      Verify once with malformed activity "space" only raises documented error
+     * @tc.desc      Verify once with malformed type "space" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1776,7 +1776,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('still ' as stationary.ActivityType, callback);
+        stationary.once('still ' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1794,7 +1794,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0700
      * @tc.name      testStationaryOutcome0106
-     * @tc.desc      Verify once with malformed activity "underscore" only raises documented error
+     * @tc.desc      Verify once with malformed type "underscore" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1804,7 +1804,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('relative_still' as stationary.ActivityType, callback);
+        stationary.once('relative_still' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1822,7 +1822,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0800
      * @tc.name      testStationaryOutcome0107
-     * @tc.desc      Verify once with malformed activity "camel" only raises documented error
+     * @tc.desc      Verify once with malformed type "camel" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1832,7 +1832,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('relativeboth' as stationary.ActivityType, callback);
+        stationary.once('relativeboth' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1850,7 +1850,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_0900
      * @tc.name      testStationaryOutcome0108
-     * @tc.desc      Verify once with malformed activity "num" only raises documented error
+     * @tc.desc      Verify once with malformed type "num" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1860,7 +1860,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('1' as stationary.ActivityType, callback);
+        stationary.once('1' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1878,7 +1878,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_1000
      * @tc.name      testStationaryOutcome0109
-     * @tc.desc      Verify once with malformed activity "null" only raises documented error
+     * @tc.desc      Verify once with malformed type "null" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1888,7 +1888,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('null' as stationary.ActivityType, callback);
+        stationary.once('null' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1906,7 +1906,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_1100
      * @tc.name      testStationaryOutcome0110
-     * @tc.desc      Verify once with malformed activity "mixed" only raises documented error
+     * @tc.desc      Verify once with malformed type "mixed" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1916,7 +1916,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('Still' as stationary.ActivityType, callback);
+        stationary.once('Still' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1934,7 +1934,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_1200
      * @tc.name      testStationaryOutcome0111
-     * @tc.desc      Verify once with malformed activity "empty" only raises documented error
+     * @tc.desc      Verify once with malformed type "empty" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1944,7 +1944,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('' as stationary.ActivityType, callback);
+        stationary.once('' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1962,7 +1962,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_1300
      * @tc.name      testStationaryOutcome0112
-     * @tc.desc      Verify once with malformed activity "upper" only raises documented error
+     * @tc.desc      Verify once with malformed type "upper" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -1972,7 +1972,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('STILL' as stationary.ActivityType, callback);
+        stationary.once('STILL' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -1990,7 +1990,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_1400
      * @tc.name      testStationaryOutcome0113
-     * @tc.desc      Verify once with malformed activity "space" only raises documented error
+     * @tc.desc      Verify once with malformed type "space" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -2000,7 +2000,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('still ' as stationary.ActivityType, callback);
+        stationary.once('still ' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {
@@ -2018,7 +2018,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_OUTCOME_ONE_1500
      * @tc.name      testStationaryOutcome0114
-     * @tc.desc      Verify once with malformed activity "underscore" only raises documented error
+     * @tc.desc      Verify once with malformed type "underscore" only raises documented error
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL2
@@ -2028,7 +2028,7 @@ export default function StationaryApiOutcomeMatrixTest(): void {
       let invalidError: number = 0;
       let validOutcome: number = 0;
       try {
-        stationary.once('relative_still' as stationary.ActivityType, callback);
+        stationary.once('relative_still' as string as 'still' | 'relativeStill', callback);
         validOutcome++;
       } catch (err) {
         if (isAllowedError(err as Object)) {

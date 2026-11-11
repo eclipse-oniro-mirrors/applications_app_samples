@@ -37,7 +37,7 @@ const SHOW_READ_INTERVAL_MS: number = 1000;
 let sharedDriver: Driver | null = null;
 let cachedSupport: boolean | null = null;
 
-function noopCallback(_response: stationary.ActivityResponse): void {
+function noopCallback(_response: Object): void {
 }
 
 export function getDriver(): Driver {
@@ -98,14 +98,14 @@ export function stationarySupported(): boolean {
   if (cachedSupport === null) {
     let opened: boolean = false;
     try {
-      stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, noopCallback);
+      stationary.on('still', 1, 1000000000, noopCallback);
       opened = true;
     } catch (err) {
       opened = false;
     }
     if (opened) {
       try {
-        stationary.off('still', stationary.ActivityEvent.ENTER, noopCallback);
+        stationary.off('still', 1, noopCallback);
       } catch (err) {
       }
     }

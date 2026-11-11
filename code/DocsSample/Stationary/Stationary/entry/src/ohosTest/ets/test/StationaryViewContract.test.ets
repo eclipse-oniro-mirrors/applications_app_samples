@@ -29,7 +29,7 @@ const RESULT_TEXTS: string[] = [
 ];
 const INITIAL_MESSAGE: string = 'stationary';
 const ACTION_HANDLERS: string[] = ['subscribe', 'unsubscribe', 'getStatus'];
-const ACTIVITY_TYPES: string[] = ['still', 'relativeStill'];
+const TYPE_NAMES: string[] = ['still', 'relativeStill'];
 
 function handlerText(index: number): string {
   return ACTION_HANDLERS[index];
@@ -367,34 +367,34 @@ export default function StationaryViewContractTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_VIEW_1900
      * @tc.name      testStationaryView0019
-     * @tc.desc      Verify documented activity type "still" is used by the page
+     * @tc.desc      Verify documented type type "still" is used by the page
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL1
      */
     it('testStationaryView0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryView0019 begin');
-      const activity: string = ACTIVITY_TYPES[0];
-      hilog.info(DOMAIN, TAG, '%{public}s', 'activity=' + activity);
-      expect(activity.length > 0).assertTrue();
-      expect(activity).assertEqual('still');
+      const eventType: string = TYPE_NAMES[0];
+      hilog.info(DOMAIN, TAG, '%{public}s', 'type=' + eventType);
+      expect(eventType.length > 0).assertTrue();
+      expect(eventType).assertEqual('still');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryView0019 end');
     });
 
     /**
      * @tc.number    SUB_STATIONARY_VIEW_2000
      * @tc.name      testStationaryView0020
-     * @tc.desc      Verify documented activity type "relativeStill" is used by the page
+     * @tc.desc      Verify documented type type "relativeStill" is used by the page
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL1
      */
     it('testStationaryView0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryView0020 begin');
-      const activity: string = ACTIVITY_TYPES[1];
-      hilog.info(DOMAIN, TAG, '%{public}s', 'activity=' + activity);
-      expect(activity.length > 0).assertTrue();
-      expect(activity).assertEqual('relativeStill');
+      const eventType: string = TYPE_NAMES[1];
+      hilog.info(DOMAIN, TAG, '%{public}s', 'type=' + eventType);
+      expect(eventType.length > 0).assertTrue();
+      expect(eventType).assertEqual('relativeStill');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryView0020 end');
     });
 

@@ -35,7 +35,7 @@ function caseBegin(name: string): void {
   hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
 }
 
-export default function abilityTest() {
+export default function StationaryAppTest() {
   describe('StationaryAppTest', () => {
     /**
      * @tc.number    SUB_ABILITY_TEST_0100

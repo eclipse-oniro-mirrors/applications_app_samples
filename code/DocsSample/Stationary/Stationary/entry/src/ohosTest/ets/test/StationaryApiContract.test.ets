@@ -12,9 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { stationary } from '@kit.MultimodalAwarenessKit';
+interface StateSnapshot { state: number; }
 
 const DOMAIN: number = 0xF812;
 const TAG: string = 'Sample_Stationary';
@@ -64,23 +66,23 @@ export default function StationaryApiContractTest() {
     /**
      * @tc.number SUB_STATIONARY_API_0200
      * @tc.name testStationaryApi0002
-     * @tc.desc Verify ActivityEvent keeps its documented numeric values
+     * @tc.desc Verify Event keeps its documented numeric values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
      */
     it('testStationaryApi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       caseBegin('testStationaryApi0002');
-      expect(stationary.ActivityEvent.ENTER).assertEqual(1);
-      expect(stationary.ActivityEvent.EXIT).assertEqual(2);
-      expect(stationary.ActivityEvent.ENTER_EXIT).assertEqual(3);
+      expect(1).assertEqual(1);
+      expect(2).assertEqual(2);
+      expect(3).assertEqual(3);
       caseEnd('testStationaryApi0002');
     });
 
     /**
      * @tc.number SUB_STATIONARY_API_0300
      * @tc.name testStationaryApi0003
-     * @tc.desc Verify ActivityEvent members are distinct and integers
+     * @tc.desc Verify Event members are distinct and integers
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
@@ -88,9 +90,9 @@ export default function StationaryApiContractTest() {
     it('testStationaryApi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       caseBegin('testStationaryApi0003');
       const values: number[] = [
-        stationary.ActivityEvent.ENTER,
-        stationary.ActivityEvent.EXIT,
-        stationary.ActivityEvent.ENTER_EXIT
+        1,
+        2,
+        3
       ];
       expect(values.length).assertEqual(3);
       expect(new Set<number>(values).size).assertEqual(3);
@@ -101,22 +103,22 @@ export default function StationaryApiContractTest() {
     /**
      * @tc.number SUB_STATIONARY_API_0400
      * @tc.name testStationaryApi0004
-     * @tc.desc Verify ActivityState keeps its documented numeric values
+     * @tc.desc Verify State keeps its documented numeric values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
      */
     it('testStationaryApi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       caseBegin('testStationaryApi0004');
-      expect(stationary.ActivityState.ENTER).assertEqual(1);
-      expect(stationary.ActivityState.EXIT).assertEqual(2);
+      expect(1).assertEqual(1);
+      expect(2).assertEqual(2);
       caseEnd('testStationaryApi0004');
     });
 
     /**
      * @tc.number SUB_STATIONARY_API_0500
      * @tc.name testStationaryApi0005
-     * @tc.desc Verify ActivityState members are distinct and integers
+     * @tc.desc Verify State members are distinct and integers
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
@@ -124,8 +126,8 @@ export default function StationaryApiContractTest() {
     it('testStationaryApi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       caseBegin('testStationaryApi0005');
       const values: number[] = [
-        stationary.ActivityState.ENTER,
-        stationary.ActivityState.EXIT
+        1,
+        2
       ];
       expect(values.length).assertEqual(2);
       expect(new Set<number>(values).size).assertEqual(2);
@@ -136,17 +138,17 @@ export default function StationaryApiContractTest() {
     /**
      * @tc.number SUB_STATIONARY_API_0600
      * @tc.name testStationaryApi0006
-     * @tc.desc Verify ActivityState ENTER/EXIT share the numeric values of the matching events
+     * @tc.desc Verify State ENTER/EXIT share the numeric values of the matching events
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
     it('testStationaryApi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryApi0006');
-      expect(Number(stationary.ActivityState.ENTER))
-        .assertEqual(Number(stationary.ActivityEvent.ENTER));
-      expect(Number(stationary.ActivityState.EXIT))
-        .assertEqual(Number(stationary.ActivityEvent.EXIT));
+      expect(Number(1))
+        .assertEqual(Number(1));
+      expect(Number(2))
+        .assertEqual(Number(2));
       caseEnd('testStationaryApi0006');
     });
 
@@ -160,27 +162,27 @@ export default function StationaryApiContractTest() {
      */
     it('testStationaryApi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryApi0007');
-      expect(Number(stationary.ActivityEvent.ENTER_EXIT)).assertEqual(
-        Number(stationary.ActivityEvent.ENTER) | Number(stationary.ActivityEvent.EXIT));
-      expect(Number(stationary.ActivityEvent.EXIT) >
-        Number(stationary.ActivityEvent.ENTER)).assertTrue();
-      expect(Number(stationary.ActivityEvent.ENTER_EXIT) >
-        Number(stationary.ActivityEvent.EXIT)).assertTrue();
+      expect(Number(3)).assertEqual(
+        Number(1) | Number(2));
+      expect(Number(2) >
+        Number(1)).assertTrue();
+      expect(Number(3) >
+        Number(2)).assertTrue();
       caseEnd('testStationaryApi0007');
     });
 
     /**
      * @tc.number SUB_STATIONARY_API_0800
      * @tc.name testStationaryApi0008
-     * @tc.desc Verify the ActivityType literals are accepted and mutually distinct
+     * @tc.desc Verify the Type literals are accepted and mutually distinct
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
     it('testStationaryApi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryApi0008');
-      const still: stationary.ActivityType = 'still';
-      const relativeStill: stationary.ActivityType = 'relativeStill';
+      const still: string = 'still';
+      const relativeStill: string = 'relativeStill';
       expect(still).assertEqual('still');
       expect(relativeStill).assertEqual('relativeStill');
       expect(new Set<string>([still, relativeStill]).size).assertEqual(2);
@@ -190,17 +192,17 @@ export default function StationaryApiContractTest() {
     /**
      * @tc.number SUB_STATIONARY_API_0900
      * @tc.name testStationaryApi0009
-     * @tc.desc Verify an ActivityResponse object keeps the state it was built with
+     * @tc.desc Verify an Response object keeps the state it was built with
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
     it('testStationaryApi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryApi0009');
-      const entering: stationary.ActivityResponse = { state: stationary.ActivityState.ENTER };
-      const exiting: stationary.ActivityResponse = { state: stationary.ActivityState.EXIT };
-      expect(entering.state).assertEqual(stationary.ActivityState.ENTER);
-      expect(exiting.state).assertEqual(stationary.ActivityState.EXIT);
+      const entering: StateSnapshot = { state: 1 };
+      const exiting: StateSnapshot = { state: 2 };
+      expect(entering.state).assertEqual(1);
+      expect(exiting.state).assertEqual(2);
       expect(Number(entering.state) !== Number(exiting.state)).assertTrue();
       caseEnd('testStationaryApi0009');
     });

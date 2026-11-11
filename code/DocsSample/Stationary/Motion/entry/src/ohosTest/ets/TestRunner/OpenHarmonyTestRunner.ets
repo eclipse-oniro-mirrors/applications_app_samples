@@ -25,7 +25,7 @@ let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
 let jsonPath: string = 'mock/mock-config.json';
 let tag: string = 'testTag';
 const UNLOCK_ERROR = -3;
-const global: object = new Function("return this")();
+const global: object = new Function('return this')();
 
 async function onAbilityCreateCallback(data: UIAbility) {
   hilog.info(0x0000, tag, 'onAbilityCreateCallback, data: ${}', JSON.stringify(data));
@@ -96,8 +96,8 @@ async function startAbility(bundleName: string, abilityName: string, moduleName:
     command += ' -D';
   }
   await abilityDelegator.executeShellCommand(command).then(result => {
-    if (result.stdResult.includes("error: unlock screen failed in developer mode")
-    || result.stdResult.includes("10106102")) {
+    if (result.stdResult.includes("error: unlock screen failed in developer mode") ||
+      result.stdResult.includes("10106102")) {
       hilog.info(0x0000, tag, '%{public}s', `startAbility failed ${result.stdResult}`);
       abilityDelegator.finishTest("", UNLOCK_ERROR, () => {});
       return;

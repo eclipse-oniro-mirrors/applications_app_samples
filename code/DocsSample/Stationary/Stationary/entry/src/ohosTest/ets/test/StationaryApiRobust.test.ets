@@ -48,7 +48,7 @@ function run(action: () => void): CallOutcome {
   return outcome;
 }
 
-function callback(_response: stationary.ActivityResponse): void {
+function callback(_response: Object): void {
 }
 
 function expectSingleValidOutcome(outcome: CallOutcome): void {
@@ -92,9 +92,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       caseBegin('testStationaryRobust0001');
       expectSingleValidOutcome(run(() =>
-        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
+        stationary.on('still', 1, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('still', 1, callback)));
       caseEnd('testStationaryRobust0001');
     });
 
@@ -109,9 +109,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0002');
       expectSingleValidOutcome(run(() =>
-        stationary.on('still', stationary.ActivityEvent.EXIT, 1000000000, callback)));
+        stationary.on('still', 2, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.EXIT, callback)));
+        stationary.off('still', 2, callback)));
       caseEnd('testStationaryRobust0002');
     });
 
@@ -126,9 +126,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0003');
       expectSingleValidOutcome(run(() =>
-        stationary.on('still', stationary.ActivityEvent.ENTER_EXIT, 1000000000, callback)));
+        stationary.on('still', 3, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER_EXIT, callback)));
+        stationary.off('still', 3, callback)));
       caseEnd('testStationaryRobust0003');
     });
 
@@ -143,9 +143,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0004');
       expectSingleValidOutcome(run(() =>
-        stationary.on('relativeStill', stationary.ActivityEvent.ENTER, 1000000000, callback)));
+        stationary.on('relativeStill', 1, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('relativeStill', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('relativeStill', 1, callback)));
       caseEnd('testStationaryRobust0004');
     });
 
@@ -160,9 +160,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0005');
       expectSingleValidOutcome(run(() =>
-        stationary.on('relativeStill', stationary.ActivityEvent.ENTER_EXIT, 1000000000, callback)));
+        stationary.on('relativeStill', 3, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('relativeStill', stationary.ActivityEvent.ENTER_EXIT, callback)));
+        stationary.off('relativeStill', 3, callback)));
       caseEnd('testStationaryRobust0005');
     });
 
@@ -177,11 +177,11 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0006');
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('still', 1, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER_EXIT, callback)));
+        stationary.off('still', 3, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('relativeStill', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('relativeStill', 1, callback)));
       caseEnd('testStationaryRobust0006');
     });
 
@@ -196,9 +196,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0007');
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER)));
+        stationary.off('still', 1)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('relativeStill', stationary.ActivityEvent.ENTER_EXIT)));
+        stationary.off('relativeStill', 3)));
       caseEnd('testStationaryRobust0007');
     });
 
@@ -243,9 +243,9 @@ export default function StationaryApiRobustTest() {
       const periods: number[] = [1000000000, 2000000000, 3000000000];
       for (const period of periods) {
         expectSingleValidOutcome(run(() =>
-          stationary.on('still', stationary.ActivityEvent.ENTER, period, callback)));
+          stationary.on('still', 1, period, callback)));
         expectSingleValidOutcome(run(() =>
-          stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+          stationary.off('still', 1, callback)));
       }
       caseEnd('testStationaryRobust0010');
     });
@@ -282,9 +282,9 @@ export default function StationaryApiRobustTest() {
      */
     it('testStationaryRobust0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0012');
-      expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.ENTER)));
-      expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.EXIT)));
-      expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.ENTER_EXIT)));
+      expectSingleValidOutcome(run(() => stationary.off('still', 1)));
+      expectSingleValidOutcome(run(() => stationary.off('still', 2)));
+      expectSingleValidOutcome(run(() => stationary.off('still', 3)));
       caseEnd('testStationaryRobust0012');
     });
 
@@ -299,9 +299,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0013');
       expectSingleValidOutcome(run(() =>
-        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
+        stationary.on('still', 1, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('still', 1, callback)));
       caseEnd('testStationaryRobust0013');
     });
 
@@ -316,9 +316,9 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0014');
       expectSingleValidOutcome(run(() =>
-        stationary.on('still', stationary.ActivityEvent.ENTER, 3000000000, callback)));
+        stationary.on('still', 1, 3000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('still', 1, callback)));
       caseEnd('testStationaryRobust0014');
     });
 
@@ -333,11 +333,11 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0015');
       expectSingleValidOutcome(run(() =>
-        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
+        stationary.on('still', 1, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('still', 1, callback)));
       expectSingleValidOutcome(run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+        stationary.off('still', 1, callback)));
       caseEnd('testStationaryRobust0015');
     });
 
@@ -352,12 +352,12 @@ export default function StationaryApiRobustTest() {
     it('testStationaryRobust0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       caseBegin('testStationaryRobust0016');
       const second: CallOutcome = run(() =>
-        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback));
+        stationary.on('still', 1, 1000000000, callback));
       const third: CallOutcome = run(() =>
-        stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback));
+        stationary.on('still', 1, 1000000000, callback));
       const cancelOne: CallOutcome = run(() =>
-        stationary.off('still', stationary.ActivityEvent.ENTER, callback));
-      const cancelRest: CallOutcome = run(() => stationary.off('still', stationary.ActivityEvent.ENTER));
+        stationary.off('still', 1, callback));
+      const cancelRest: CallOutcome = run(() => stationary.off('still', 1));
       expectSingleValidOutcome(second);
       expectSingleValidOutcome(third);
       expectSingleValidOutcome(cancelOne);

@@ -12,10 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { stationary } from '@kit.MultimodalAwarenessKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+interface StateSnapshot { state: number; }
 
 const DOMAIN: number = 0xF812;
 
@@ -58,23 +60,23 @@ function invoke(action: () => void): Outcome {
   return outcome;
 }
 
-function ok(_response: stationary.ActivityResponse): void {
+function ok(_response: Object): void {
 }
 
 function callOnStillEnter(): Outcome {
-  return invoke(() => stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, ok));
+  return invoke(() => stationary.on('still', 1, 1000000000, ok));
 }
 
 function callOnRelativeExit(): Outcome {
-  return invoke(() => stationary.on('relativeStill', stationary.ActivityEvent.EXIT, 1000000000, ok));
+  return invoke(() => stationary.on('relativeStill', 2, 1000000000, ok));
 }
 
 function callOffStillEnter(): Outcome {
-  return invoke(() => stationary.off('still', stationary.ActivityEvent.ENTER, ok));
+  return invoke(() => stationary.off('still', 1, ok));
 }
 
 function callOffAllStillEnter(): Outcome {
-  return invoke(() => stationary.off('still', stationary.ActivityEvent.ENTER));
+  return invoke(() => stationary.off('still', 1));
 }
 
 function callOnceStill(): Outcome {
@@ -88,7 +90,7 @@ function callOnceRelative(): Outcome {
 /**
  * stationary API 形态契约（设备无关部分 + 环境自适应部分）。
  *
- * 校验三个接口暴露性、错误码白名单、ActivityResponse 字段形态，
+ * 校验三个接口暴露性、错误码白名单、Response 字段形态，
  * 以及每次调用都能折叠为"成功/文档错误/非法错误"三态之一。
  */
 export default function StationaryApiShapeCoreTest(): void {
@@ -120,8 +122,8 @@ export default function StationaryApiShapeCoreTest(): void {
      */
     it('testStationaryShape0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0002 begin');
-      const hasEvent: boolean = stationary.ActivityEvent !== undefined;
-      const hasState: boolean = stationary.ActivityState !== undefined;
+      const hasEvent: boolean = typeof stationary.on === 'function';
+      const hasState: boolean = typeof stationary.once === 'function';
       hilog.info(DOMAIN, TAG, '%{public}s', 'event=' + hasEvent + ' state=' + hasState);
       expect(hasEvent).assertTrue();
       expect(hasState).assertTrue();
@@ -131,14 +133,14 @@ export default function StationaryApiShapeCoreTest(): void {
     /**
      * @tc.number    SUB_STATIONARY_SHAPE_0300
      * @tc.name      testStationaryShape0003
-     * @tc.desc      Verify ActivityResponse carried by the callback has a numeric state field
+     * @tc.desc      Verify Response carried by the callback has a numeric state field
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL1
      */
     it('testStationaryShape0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0003 begin');
-      const response: stationary.ActivityResponse = { state: stationary.ActivityState.ENTER };
+      const response: StateSnapshot = { state: 1 };
       hilog.info(DOMAIN, TAG, '%{public}s', 'state=' + response.state);
       expect(typeof response.state).assertEqual('number');
       expect(Number.isInteger(Number(response.state))).assertTrue();
@@ -748,8 +750,8 @@ export default function StationaryApiShapeCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0031 begin');
       let codeType: string = 'none';
       try {
-        stationary.on('still', 1 as stationary.ActivityEvent, 1000000000, ok);
-        stationary.off('still', 1 as stationary.ActivityEvent, ok);
+        stationary.on('still', 1 as 1, 1000000000, ok);
+        stationary.off('still', 1 as 1, ok);
       } catch (err) {
         codeType = typeof (err as BusinessError).code;
       }
@@ -771,8 +773,8 @@ export default function StationaryApiShapeCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0032 begin');
       let codeType: string = 'none';
       try {
-        stationary.on('still', 2 as stationary.ActivityEvent, 1000000000, ok);
-        stationary.off('still', 2 as stationary.ActivityEvent, ok);
+        stationary.on('still', 2 as 1, 1000000000, ok);
+        stationary.off('still', 2 as 1, ok);
       } catch (err) {
         codeType = typeof (err as BusinessError).code;
       }
@@ -794,8 +796,8 @@ export default function StationaryApiShapeCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0033 begin');
       let codeType: string = 'none';
       try {
-        stationary.on('still', 3 as stationary.ActivityEvent, 1000000000, ok);
-        stationary.off('still', 3 as stationary.ActivityEvent, ok);
+        stationary.on('still', 3 as 1, 1000000000, ok);
+        stationary.off('still', 3 as 1, ok);
       } catch (err) {
         codeType = typeof (err as BusinessError).code;
       }
@@ -817,8 +819,8 @@ export default function StationaryApiShapeCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0034 begin');
       let codeType: string = 'none';
       try {
-        stationary.on('still', 1 as stationary.ActivityEvent, 1000000000, ok);
-        stationary.off('still', 1 as stationary.ActivityEvent, ok);
+        stationary.on('still', 1 as 1, 1000000000, ok);
+        stationary.off('still', 1 as 1, ok);
       } catch (err) {
         codeType = typeof (err as BusinessError).code;
       }
@@ -840,8 +842,8 @@ export default function StationaryApiShapeCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0035 begin');
       let codeType: string = 'none';
       try {
-        stationary.on('still', 2 as stationary.ActivityEvent, 1000000000, ok);
-        stationary.off('still', 2 as stationary.ActivityEvent, ok);
+        stationary.on('still', 2 as 1, 1000000000, ok);
+        stationary.off('still', 2 as 1, ok);
       } catch (err) {
         codeType = typeof (err as BusinessError).code;
       }
@@ -863,8 +865,8 @@ export default function StationaryApiShapeCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStationaryShape0036 begin');
       let codeType: string = 'none';
       try {
-        stationary.on('still', 3 as stationary.ActivityEvent, 1000000000, ok);
-        stationary.off('still', 3 as stationary.ActivityEvent, ok);
+        stationary.on('still', 3 as 1, 1000000000, ok);
+        stationary.off('still', 3 as 1, ok);
       } catch (err) {
         codeType = typeof (err as BusinessError).code;
       }

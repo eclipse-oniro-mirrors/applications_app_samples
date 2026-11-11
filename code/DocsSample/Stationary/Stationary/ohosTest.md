@@ -14,7 +14,7 @@
 
 ### 2.1 分层设计
 
-- **API 行为层**：`stationary.on` / `stationary.once` / `stationary.off` 暴露性，`ActivityEvent`、`ActivityState` 枚举取值与唯一性，`ActivityType` 字面量取值，`ActivityResponse` 数据结构。
+- **API 行为层**：`stationary.on` / `stationary.once` / `stationary.off` 暴露性，`TypeEvent`、`TypeState` 枚举取值与唯一性，`TypeType` 字面量取值，`TypeResponse` 数据结构。
 - **运行时行为层**：设备支持时调用成功；不支持、无权限或被拒的入参只允许抛出 `201`（无权限）、`401`（参数错误）与 `801`（能力不支持），并保证每次调用“恰好一个合法结果”。
 - **交互序列层**：页面 3 个按钮的单动作、全量有序对、全量有序三元组与回到起点的四连序列，验证“最后一次动作覆盖状态文案”。
 - **稳定性与恢复层**：重复点击幂等、两按钮交替操作、应用重启后控件恢复与动作可用。
@@ -53,7 +53,7 @@
 
 ### 3.2 关键风险
 
-- 设备不支持静止感知或无权限时，API 抛出 `801`/`201`；实测本机对非法 `activity` 字面量同步抛出 `401`。页面在异常分支**不更新文案**，因此 UI 用例必须按设备能力自适应断言。
+- 设备不支持静止感知或无权限时，API 抛出 `801`/`201`；实测本机对非法 类型字面量同步抛出 `401`。页面在异常分支**不更新文案**，因此 UI 用例必须按设备能力自适应断言。
 - `reportLatencyNs` 存在下限约束：实测 `1e6` 会被拒绝，`1e9` 起可用；用例固定使用 `1e9`/`2e9`/`3e9`。
 - UiTest 每进程仅允许一个驱动，且要求应用在前台。
 - 设备熄屏后 UiTest 只能看到锁屏窗口，按钮点击全部失效；`StationaryUiSupport.startApp` 会先唤醒屏幕（`KEYCODE_WAKEUP`）再拉起 `EntryAbility` 并重试，`resetStatusText` 在按钮不可见时同样走该恢复路径。
@@ -75,9 +75,9 @@
 
 ### 4.3 接口与数据
 
-- `ActivityEvent`：`ENTER=1`、`EXIT=2`、`ENTER_EXIT=3`，且 `ENTER_EXIT` 等于 `ENTER | EXIT`；`ActivityState` 与 `ActivityEvent` 的 `ENTER`/`EXIT` 取值相同（均为 `1`/`2`）。
-- `ActivityState`：`ENTER=1`、`EXIT=2`，与同名事件数值一致。
-- `ActivityType`：`'still'`、`'relativeStill'` 两个字面量均被接受且互异。
+- `TypeEvent`：`ENTER=1`、`EXIT=2`、`ENTER_EXIT=3`，且 `ENTER_EXIT` 等于 `ENTER | EXIT`；`TypeState` 与 `TypeEvent` 的 `ENTER`/`EXIT` 取值相同（均为 `1`/`2`）。
+- `TypeState`：`ENTER=1`、`EXIT=2`，与同名事件数值一致。
+- `TypeType`：`'still'`、`'relativeStill'` 两个字面量均被接受且互异。
 - 三个按钮文案分别为 `订阅` / `取消订阅` / `获取`，非空且互异。
 
 ### 4.4 稳定性与隔离
@@ -133,17 +133,17 @@
 | API 行为 | `StationaryApiContract` | 9 | 函数暴露性、两个枚举取值/唯一性、类型字面量与响应结构 |
 | API 健壮 | `StationaryApiRobust` | 17 | 订阅/一次性获取/取消只允许成功或 201/401/801；省略回调、报告周期上下界、relativeStill 重复查询、重复取消、同一回调重复注册 |
 | API 交错 | `StationaryApiInterleave` | 20 | still on/off 三连 8 种组合 + once 混排 + relativeStill 全事件与省略回调 |
-| 枚举行为 | `StationaryEnumCore` | 23 | `ActivityEvent`/`ActivityState` 取值、类型、正整数、成员互异；`ActivityType` 两个字面量取值与命名 |
-| 接口形态 | `StationaryApiShapeCore` | 36 | `on`/`off`/`once` 暴露性、错误码白名单（201/401/801）、`ActivityResponse` 字段形态、六类调用折叠为三态 |
+| 枚举行为 | `StationaryEnumCore` | 23 | `TypeEvent`/`TypeState` 取值、类型、正整数、成员互异；`TypeType` 两个字面量取值与命名 |
+| 接口形态 | `StationaryApiShapeCore` | 36 | `on`/`off`/`once` 暴露性、错误码白名单（201/401/801）、`TypeResponse` 字段形态、六类调用折叠为三态 |
 | 结果矩阵 | `StationaryApiOutcomeMatrix` | 134 | 单动作、二动作、三动作混排、回调形态与重复轮次；每步只允许成功或文档错误 |
-| 入参边界 | `StationaryApiBoundary` | 74 | `ActivityType` 合法/畸形字面量、`ActivityEvent` 越界值、`reportLatencyNs` 1e9~3e9 窗口内外、`off` 回调有无 |
+| 入参边界 | `StationaryApiBoundary` | 74 | `TypeType` 合法/畸形字面量、`TypeEvent` 越界值、`reportLatencyNs` 1e9~3e9 窗口内外、`off` 回调有无 |
 | UI 单动作 | `StationaryUiMatrix` | 14 | 控件存在、三按钮文案映射、幂等、整轮操作、三按钮纵向堆叠等宽居中、标题位于按钮上方、按钮宽度约 30%、标题高度约 20% |
 | UI 序列 | `StationaryUiSequenceMatrix` | 63 | 全量有序对（9）+ 全量有序三元组（27）+ 四连回起点（27） |
 | UI 重复 | `StationaryUiRepeat` | 10 | 单按钮重复 3/8 次、两按钮交替 5 轮 |
 | 视图对应关系 | `StationaryViewContract` | 33 | 标题/按钮层级、等宽居中、覆盖三分之四布局、控件文案与 id 行为 |
 | 状态迁移 | `StationaryStateTransition` | 48 | 单动作、两连/三连序列、重置后动作、末次生效，按环境自适应断言 |
 | UI 文案 | `StationaryUiLabel` | 5 | 按钮文案非空且互异、精确定义、状态文本持续可见 |
-| 性能稳定 | `StationaryPerf` | 5 | 三个动作点击到文案落定的耗时（宽松上界 3s、最慢≤最快×10）、20 次点击不漂移、控件反复可查询、连点后回到空闲文案 |
+| 性能稳定 | `StationaryPerf` | 5 | 三个动作点击到文案落定的耗时（宽松上界 3s、最长耗时≤最短耗时×10）、20 次点击不漂移、控件反复可查询、连点后回到空闲文案 |
 | 重启恢复 | `StationaryLifecycle` | 9 | 重启 3 次、动作后重启、重启后动作、重启后序列与文案可读 |
 | Ability 行为 | `StationaryAbilityContract` | 9 | EntryAbility 位于前台与上下文一致；EntryBackupAbility 的 onBackup/onRestore 正常/边界/连跑/多实例 |
 | 运行上下文 | `StationaryAppContext` | 11 | 包名与版本、entry 模块唯一性、EntryAbility 与 deviceTypes、备份扩展注册、Ability 归属、前台 Ability、窗口尺寸、缓存目录 |
