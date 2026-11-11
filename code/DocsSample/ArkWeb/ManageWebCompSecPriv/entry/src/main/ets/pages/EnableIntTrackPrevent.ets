@@ -31,7 +31,7 @@ struct WebComponent {
             console.info('enableIntelligentTrackingPrevention: true');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: 'www.example.com', controller: this.controller });

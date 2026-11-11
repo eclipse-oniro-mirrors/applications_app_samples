@@ -44,7 +44,7 @@ struct Index {
             this.webviewController.refresh();
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Button('Register JavaScript To Window')
@@ -65,7 +65,7 @@ struct Index {
             );
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Button('deleteJavaScriptRegister')
@@ -74,7 +74,7 @@ struct Index {
             this.webviewController.deleteJavaScriptRegister('testObjName');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index4.html'), controller: this.webviewController })

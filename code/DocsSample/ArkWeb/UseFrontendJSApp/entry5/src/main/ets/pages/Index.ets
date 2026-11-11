@@ -54,7 +54,7 @@ struct Index {
                 testNapi.createWebMessagePorts('noTag');
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('createPort')
@@ -64,7 +64,7 @@ struct Index {
                 testNapi.createWebMessagePorts(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -78,7 +78,7 @@ struct Index {
                 testNapi.setMessageEventHandler(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
 
@@ -89,7 +89,7 @@ struct Index {
                 testNapi.setMessageEventHandlerThread(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -103,7 +103,7 @@ struct Index {
                 testNapi.postMessage(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('SendStringThread')
@@ -114,7 +114,7 @@ struct Index {
                 testNapi.postMessageThread(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -128,7 +128,7 @@ struct Index {
                 testNapi.postBufferMessage(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('SendNone')
@@ -139,7 +139,7 @@ struct Index {
                 testNapi.postNoneMessage(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -153,7 +153,7 @@ struct Index {
                 testNapi.closeMessagePort(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('destroyNullPort')
@@ -163,7 +163,7 @@ struct Index {
                 testNapi.destroyNullMessagePort(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('destroyPort')
@@ -173,7 +173,7 @@ struct Index {
                 testNapi.destroyMessagePort(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -191,7 +191,7 @@ struct Index {
                   this.controller.runJavaScript('for(var i = 0; i < 2000; i++) postStringToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Buffer')
@@ -201,7 +201,7 @@ struct Index {
                   this.controller.runJavaScript('postBufferToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Number')
@@ -211,7 +211,7 @@ struct Index {
                   this.controller.runJavaScript('postNumberToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
           }
@@ -224,7 +224,7 @@ struct Index {
                   this.controller.runJavaScript('postJsonToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Array')
@@ -234,7 +234,7 @@ struct Index {
                   this.controller.runJavaScript('postArrayStringToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Object')
@@ -244,7 +244,7 @@ struct Index {
                   this.controller.runJavaScript('postObjectToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
           }
