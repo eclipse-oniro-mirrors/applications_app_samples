@@ -136,7 +136,7 @@ export default function bundleErrorCodeMatrixTest() {
       expect(result !== undefined).assertTrue();
       if (result !== undefined) {
         // The SDK documents 17700001 for a missing bundle, but callers behind different
-        // permission gates also surface 201 on some builds; both are non-success outcomes.
+        // permission gates also return 201 on some builds; both are non-success outcomes.
         expect(result.code === ERR_BUNDLE_NOT_FOUND || result.code === ERR_PERMISSION_DENIED).assertTrue();
         expect(isKnownBusinessCode(result.code)).assertTrue();
         expect(result.message.length > 0).assertTrue();

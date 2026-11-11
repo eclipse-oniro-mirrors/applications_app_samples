@@ -20,18 +20,7 @@
 
 - 测试模块：`entry_test`（ohosTest），`TestAbility` + `OpenHarmonyTestRunner`。
 - 设备前置：解锁、无系统弹窗；main HAP 与 ohosTest HAP 均安装。
-- 运行命令：
 
-```bash
-hdc uninstall com.example.componentreuse
-hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.example.componentreuse -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s class builderContextCoreTest -s timeout 15000
-```
-
-- 全部套件运行：去掉 `-s class` 参数即可。
-- UI 套件 `ActsAbilityTest` 已拆成 10 条独立用例（每个页面一条），单条远低于 15s 默认超时。
 
 ## 套件总览
 
@@ -56,7 +45,7 @@ hdc shell aa test -b com.example.componentreuse -m entry_test \
 
 - 每个矩阵套件 64 条用例，`Core/Extended/Advanced/Tail` 各覆盖一段参数区间。
 - 所有用例直接引用 `entry/src/main/ets` 下的真实类与常量，并通过 `hilog`（DOMAIN `0xF811`、TAG `[Sample_ComponentReuse_*]`）输出 begin/end 日志，带完整 `@tc.number/@tc.name/@tc.desc` 元数据。
-- 已补齐 `testability/TestAbility.ets`、`testability/pages/Index.ets`、`testrunner/OpenHarmonyTestRunner.ets`、`resources` 与 `module.json5` 测试入口，保证 `aa test` 可直接运行。
+- 已补齐 `testability/TestAbility.ets`、`testability/pages/Index.ets`、`testrunner/OpenHarmonyTestRunner.ets`、`resources` 与 `module.json5` 测试入口，保证测试可直接运行。
 
 ## 验证记录
 

@@ -11,18 +11,7 @@
 
 - 测试模块：`entry_test`（ohosTest），`TestAbility` + `OpenHarmonyTestRunner`。
 - 设备前置：解锁、无系统弹窗；main HAP 与 ohosTest HAP 均安装。
-- 运行命令：
 
-```bash
-hdc uninstall ohos.app.hap.myapplication
-hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b ohos.app.hap.myapplication -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s class bundleAppIdCoreTest -s timeout 15000
-```
-
-- 全部套件运行：去掉 `-s class` 参数即可。
-- `module.json5` 的 `testRunner.srcPath` 与实际目录统一为小写 `./ets/testrunner/OpenHarmonyTestRunner.ets`。
 
 ## 套件总览
 
