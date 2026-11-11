@@ -7,8 +7,21 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { systemDateTime } from '@kit.BasicServicesKit';
 import { delay, paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const NANOS_PER_MILLI: number = 1000000;
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Time_TimerDriftMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
 
 export default function timerDriftMatrixTest() {
   describe('timerDriftMatrixTest', () => {
@@ -30,6 +43,7 @@ export default function timerDriftMatrixTest() {
      * @tc.desc      Verify the uptime and wall clocks measure the same five short intervals within tolerance
      */
     it('testTimerDrift0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testTimerDrift0001');
       for (let i = 0; i < 5; i++) {
         const upBefore: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
         const wallBefore: number = Date.now();
@@ -42,6 +56,8 @@ export default function timerDriftMatrixTest() {
         expect(wallDelta).assertLargerOrEqual(30);
         expect(Math.abs(upDelta - wallDelta)).assertLess(200);
       }
+    
+      logEnd('testTimerDrift0001');
     })
 
     /**
@@ -50,6 +66,7 @@ export default function timerDriftMatrixTest() {
      * @tc.desc      Verify twenty tiny delays complete without a cumulative drift beyond budget
      */
     it('testTimerDrift0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testTimerDrift0002');
       const upBefore: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const wallBefore: number = Date.now();
       for (let i = 0; i < 20; i++) {
@@ -61,6 +78,8 @@ export default function timerDriftMatrixTest() {
       expect(wallDelta).assertLargerOrEqual(0);
       expect(wallDelta).assertLess(3000);
       expect(Math.abs(upDelta - wallDelta)).assertLess(300);
+    
+      logEnd('testTimerDrift0002');
     })
 
     /**
@@ -69,11 +88,14 @@ export default function timerDriftMatrixTest() {
      * @tc.desc      Verify the nanosecond and millisecond wall clocks stay consistent after a delay
      */
     it('testTimerDrift0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testTimerDrift0003');
       await delay(20);
       const millis: number = systemDateTime.getTime(false);
       const nanos: number = systemDateTime.getTime(true);
       expect(nanos).assertLarger(0);
       expect(Math.abs(nanos / NANOS_PER_MILLI - millis)).assertLess(2000);
+    
+      logEnd('testTimerDrift0003');
     })
 
     /**
@@ -82,6 +104,7 @@ export default function timerDriftMatrixTest() {
      * @tc.desc      Verify a 100 ms delay is observed by both clocks within the same tolerance
      */
     it('testTimerDrift0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testTimerDrift0004');
       const upBefore: number = systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, false);
       const wallBefore: number = Date.now();
       await delay(100);
@@ -90,6 +113,8 @@ export default function timerDriftMatrixTest() {
       expect(upDelta).assertLargerOrEqual(80);
       expect(wallDelta).assertLargerOrEqual(80);
       expect(Math.abs(upDelta - wallDelta)).assertLess(250);
+    
+      logEnd('testTimerDrift0004');
     })
   });
 }

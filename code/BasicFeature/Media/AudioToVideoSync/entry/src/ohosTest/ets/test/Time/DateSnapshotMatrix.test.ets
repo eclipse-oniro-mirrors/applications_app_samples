@@ -17,9 +17,22 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { systemDateTime } from '@kit.BasicServicesKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const NANOS_PER_MILLI: number = 1000000;
 const CLOCK_TOLERANCE_MS: number = 2000;
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Time_DateSnapshotMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
 
 export default function dateSnapshotMatrixTest() {
   describe('dateSnapshotMatrixTest', () => {
@@ -44,11 +57,14 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDateSnapshot0001');
       const wall: number = systemDateTime.getTime(false);
       const dateNow: number = Date.now();
       expect(wall).assertLarger(0);
       expect(dateNow).assertLarger(0);
       expect(Math.abs(wall - dateNow)).assertLess(CLOCK_TOLERANCE_MS * 2);
+    
+      logEnd('testDateSnapshot0001');
     })
 
     /**
@@ -60,10 +76,13 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDateSnapshot0002');
       const millis: number = systemDateTime.getTime(false);
       const nanos: number = systemDateTime.getTime(true);
       expect(nanos).assertLarger(0);
       expect(Math.abs(nanos / NANOS_PER_MILLI - millis)).assertLess(CLOCK_TOLERANCE_MS);
+    
+      logEnd('testDateSnapshot0002');
     })
 
     /**
@@ -75,6 +94,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDateSnapshot0003');
       const current: Date = await systemDateTime.getDate();
       expect(current.getFullYear()).assertLargerOrEqual(2000);
       expect(current.getFullYear()).assertLessOrEqual(2100);
@@ -82,6 +102,8 @@ export default function dateSnapshotMatrixTest() {
       expect(current.getMonth()).assertLessOrEqual(11);
       expect(current.getDate()).assertLargerOrEqual(1);
       expect(current.getDate()).assertLessOrEqual(31);
+    
+      logEnd('testDateSnapshot0003');
     })
 
     /**
@@ -93,11 +115,14 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDateSnapshot0004');
       const wall: Date = new Date(systemDateTime.getTime(false));
       const snapshot: Date = await systemDateTime.getDate();
       expect(snapshot.getFullYear()).assertEqual(wall.getFullYear());
       expect(snapshot.getMonth()).assertEqual(wall.getMonth());
       expect(snapshot.getDate()).assertEqual(wall.getDate());
+    
+      logEnd('testDateSnapshot0004');
     })
 
     /**
@@ -109,6 +134,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDateSnapshot0005');
       const snapshot: Date = await systemDateTime.getDate();
       const millis: number = snapshot.getTime();
       const restored: Date = new Date(millis);
@@ -117,6 +143,8 @@ export default function dateSnapshotMatrixTest() {
       expect(restored.getMonth()).assertEqual(snapshot.getMonth());
       expect(restored.getDate()).assertEqual(snapshot.getDate());
       expect(restored.getHours()).assertEqual(snapshot.getHours());
+    
+      logEnd('testDateSnapshot0005');
     })
 
     /**
@@ -128,11 +156,14 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDateSnapshot0006');
       const syncZone: string = systemDateTime.getTimezoneSync();
       const asyncZone: string = await systemDateTime.getTimezone();
       expect(syncZone.length).assertLarger(0);
       expect(asyncZone.length).assertLarger(0);
       expect(asyncZone).assertEqual(syncZone);
+    
+      logEnd('testDateSnapshot0006');
     })
 
     /**
@@ -144,11 +175,14 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDateSnapshot0007');
       const startup: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const active: number = systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, false);
       expect(startup).assertLarger(0);
       expect(active).assertLarger(0);
       expect(active).assertLessOrEqual(startup + 1);
+    
+      logEnd('testDateSnapshot0007');
     })
 
     /**
@@ -160,6 +194,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDateSnapshot0008');
       let previous: number = (await systemDateTime.getDate()).getTime();
       for (let i = 0; i < 5; i++) {
         const current: number = (await systemDateTime.getDate()).getTime();
@@ -167,6 +202,8 @@ export default function dateSnapshotMatrixTest() {
         previous = current;
       }
       expect(previous).assertLarger(0);
+    
+      logEnd('testDateSnapshot0008');
     })
 
     /**
@@ -178,6 +215,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testDateSnapshot0009');
       const snapshot: Date = await systemDateTime.getDate();
       expect(snapshot.getHours()).assertLargerOrEqual(0);
       expect(snapshot.getHours()).assertLessOrEqual(23);
@@ -187,6 +225,8 @@ export default function dateSnapshotMatrixTest() {
       expect(snapshot.getSeconds()).assertLessOrEqual(60);
       expect(snapshot.getMilliseconds()).assertLargerOrEqual(0);
       expect(snapshot.getMilliseconds()).assertLessOrEqual(999);
+    
+      logEnd('testDateSnapshot0009');
     })
 
     /**
@@ -198,6 +238,7 @@ export default function dateSnapshotMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDateSnapshot0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDateSnapshot0010');
       for (let i = 0; i < 20; i++) {
         const wall: number = systemDateTime.getTime(false);
         const uptime: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
@@ -205,6 +246,8 @@ export default function dateSnapshotMatrixTest() {
         expect(uptime).assertLarger(0);
         expect(uptime).assertLessOrEqual(wall);
       }
+    
+      logEnd('testDateSnapshot0010');
     })
   });
 }
