@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitleOverlapExpandedTest() {
@@ -25,7 +25,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0001', 0, () => {
+    it('testMoreSubtitleOverlap0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const end: number = 500;
       const nextStart: number = 400;
@@ -43,7 +43,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0002', 0, () => {
+    it('testMoreSubtitleOverlap0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 100;
       const end: number = 600;
       const nextStart: number = 500;
@@ -61,7 +61,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0003', 0, () => {
+    it('testMoreSubtitleOverlap0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 200;
       const end: number = 700;
       const nextStart: number = 600;
@@ -79,7 +79,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0004', 0, () => {
+    it('testMoreSubtitleOverlap0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 300;
       const end: number = 800;
       const nextStart: number = 700;
@@ -97,7 +97,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0005', 0, () => {
+    it('testMoreSubtitleOverlap0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 400;
       const end: number = 900;
       const nextStart: number = 800;
@@ -115,7 +115,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0006', 0, () => {
+    it('testMoreSubtitleOverlap0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 500;
       const end: number = 1000;
       const nextStart: number = 900;
@@ -133,7 +133,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0007', 0, () => {
+    it('testMoreSubtitleOverlap0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 600;
       const end: number = 1100;
       const nextStart: number = 1000;
@@ -151,7 +151,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0008', 0, () => {
+    it('testMoreSubtitleOverlap0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 700;
       const end: number = 1200;
       const nextStart: number = 1100;
@@ -169,7 +169,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0009', 0, () => {
+    it('testMoreSubtitleOverlap0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 800;
       const end: number = 1300;
       const nextStart: number = 1200;
@@ -187,7 +187,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0010', 0, () => {
+    it('testMoreSubtitleOverlap0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 900;
       const end: number = 1400;
       const nextStart: number = 1300;
@@ -205,7 +205,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0011', 0, () => {
+    it('testMoreSubtitleOverlap0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1000;
       const end: number = 1500;
       const nextStart: number = 1400;
@@ -223,7 +223,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0012', 0, () => {
+    it('testMoreSubtitleOverlap0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1100;
       const end: number = 1600;
       const nextStart: number = 1500;
@@ -241,7 +241,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0013', 0, () => {
+    it('testMoreSubtitleOverlap0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1200;
       const end: number = 1700;
       const nextStart: number = 1600;
@@ -259,7 +259,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0014', 0, () => {
+    it('testMoreSubtitleOverlap0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1300;
       const end: number = 1800;
       const nextStart: number = 1700;
@@ -277,7 +277,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0015', 0, () => {
+    it('testMoreSubtitleOverlap0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1400;
       const end: number = 1900;
       const nextStart: number = 1800;
@@ -295,7 +295,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0016', 0, () => {
+    it('testMoreSubtitleOverlap0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1500;
       const end: number = 2000;
       const nextStart: number = 1900;
@@ -313,7 +313,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0017', 0, () => {
+    it('testMoreSubtitleOverlap0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1600;
       const end: number = 2100;
       const nextStart: number = 2000;
@@ -331,7 +331,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0018', 0, () => {
+    it('testMoreSubtitleOverlap0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1700;
       const end: number = 2200;
       const nextStart: number = 2100;
@@ -349,7 +349,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0019', 0, () => {
+    it('testMoreSubtitleOverlap0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1800;
       const end: number = 2300;
       const nextStart: number = 2200;
@@ -367,7 +367,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0020', 0, () => {
+    it('testMoreSubtitleOverlap0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1900;
       const end: number = 2400;
       const nextStart: number = 2300;
@@ -385,7 +385,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0021', 0, () => {
+    it('testMoreSubtitleOverlap0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2000;
       const end: number = 2500;
       const nextStart: number = 2400;
@@ -403,7 +403,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0022', 0, () => {
+    it('testMoreSubtitleOverlap0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2100;
       const end: number = 2600;
       const nextStart: number = 2500;
@@ -421,7 +421,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0023', 0, () => {
+    it('testMoreSubtitleOverlap0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2200;
       const end: number = 2700;
       const nextStart: number = 2600;
@@ -439,7 +439,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0024', 0, () => {
+    it('testMoreSubtitleOverlap0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2300;
       const end: number = 2800;
       const nextStart: number = 2700;
@@ -457,7 +457,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0025', 0, () => {
+    it('testMoreSubtitleOverlap0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2400;
       const end: number = 2900;
       const nextStart: number = 2800;
@@ -475,7 +475,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0026', 0, () => {
+    it('testMoreSubtitleOverlap0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2500;
       const end: number = 3000;
       const nextStart: number = 2900;
@@ -493,7 +493,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0027', 0, () => {
+    it('testMoreSubtitleOverlap0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2600;
       const end: number = 3100;
       const nextStart: number = 3000;
@@ -511,7 +511,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0028', 0, () => {
+    it('testMoreSubtitleOverlap0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2700;
       const end: number = 3200;
       const nextStart: number = 3100;
@@ -529,7 +529,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0029', 0, () => {
+    it('testMoreSubtitleOverlap0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2800;
       const end: number = 3300;
       const nextStart: number = 3200;
@@ -547,7 +547,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0030', 0, () => {
+    it('testMoreSubtitleOverlap0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2900;
       const end: number = 3400;
       const nextStart: number = 3300;
@@ -565,7 +565,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0031', 0, () => {
+    it('testMoreSubtitleOverlap0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3000;
       const end: number = 3500;
       const nextStart: number = 3400;
@@ -583,7 +583,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0032', 0, () => {
+    it('testMoreSubtitleOverlap0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3100;
       const end: number = 3600;
       const nextStart: number = 3500;
@@ -601,7 +601,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0033', 0, () => {
+    it('testMoreSubtitleOverlap0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3200;
       const end: number = 3700;
       const nextStart: number = 3600;
@@ -619,7 +619,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0034', 0, () => {
+    it('testMoreSubtitleOverlap0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3300;
       const end: number = 3800;
       const nextStart: number = 3700;
@@ -637,7 +637,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0035', 0, () => {
+    it('testMoreSubtitleOverlap0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3400;
       const end: number = 3900;
       const nextStart: number = 3800;
@@ -655,7 +655,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0036', 0, () => {
+    it('testMoreSubtitleOverlap0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3500;
       const end: number = 4000;
       const nextStart: number = 3900;
@@ -673,7 +673,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0037', 0, () => {
+    it('testMoreSubtitleOverlap0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3600;
       const end: number = 4100;
       const nextStart: number = 4000;
@@ -691,7 +691,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0038', 0, () => {
+    it('testMoreSubtitleOverlap0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3700;
       const end: number = 4200;
       const nextStart: number = 4100;
@@ -709,7 +709,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0039', 0, () => {
+    it('testMoreSubtitleOverlap0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3800;
       const end: number = 4300;
       const nextStart: number = 4200;
@@ -727,7 +727,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0040', 0, () => {
+    it('testMoreSubtitleOverlap0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3900;
       const end: number = 4400;
       const nextStart: number = 4300;
@@ -745,7 +745,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0041', 0, () => {
+    it('testMoreSubtitleOverlap0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4000;
       const end: number = 4500;
       const nextStart: number = 4400;
@@ -763,7 +763,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0042', 0, () => {
+    it('testMoreSubtitleOverlap0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4100;
       const end: number = 4600;
       const nextStart: number = 4500;
@@ -781,7 +781,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0043', 0, () => {
+    it('testMoreSubtitleOverlap0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4200;
       const end: number = 4700;
       const nextStart: number = 4600;
@@ -799,7 +799,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0044', 0, () => {
+    it('testMoreSubtitleOverlap0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4300;
       const end: number = 4800;
       const nextStart: number = 4700;
@@ -817,7 +817,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0045', 0, () => {
+    it('testMoreSubtitleOverlap0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4400;
       const end: number = 4900;
       const nextStart: number = 4800;
@@ -835,7 +835,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0046', 0, () => {
+    it('testMoreSubtitleOverlap0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4500;
       const end: number = 5000;
       const nextStart: number = 4900;
@@ -853,7 +853,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0047', 0, () => {
+    it('testMoreSubtitleOverlap0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4600;
       const end: number = 5100;
       const nextStart: number = 5000;
@@ -871,7 +871,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0048', 0, () => {
+    it('testMoreSubtitleOverlap0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4700;
       const end: number = 5200;
       const nextStart: number = 5100;
@@ -889,7 +889,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0049', 0, () => {
+    it('testMoreSubtitleOverlap0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4800;
       const end: number = 5300;
       const nextStart: number = 5200;
@@ -907,7 +907,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0050', 0, () => {
+    it('testMoreSubtitleOverlap0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4900;
       const end: number = 5400;
       const nextStart: number = 5300;
@@ -925,7 +925,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0051', 0, () => {
+    it('testMoreSubtitleOverlap0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5000;
       const end: number = 5500;
       const nextStart: number = 5400;
@@ -943,7 +943,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0052', 0, () => {
+    it('testMoreSubtitleOverlap0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5100;
       const end: number = 5600;
       const nextStart: number = 5500;
@@ -961,7 +961,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0053', 0, () => {
+    it('testMoreSubtitleOverlap0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5200;
       const end: number = 5700;
       const nextStart: number = 5600;
@@ -979,7 +979,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0054', 0, () => {
+    it('testMoreSubtitleOverlap0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5300;
       const end: number = 5800;
       const nextStart: number = 5700;
@@ -997,7 +997,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0055', 0, () => {
+    it('testMoreSubtitleOverlap0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5400;
       const end: number = 5900;
       const nextStart: number = 5800;
@@ -1015,7 +1015,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0056', 0, () => {
+    it('testMoreSubtitleOverlap0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5500;
       const end: number = 6000;
       const nextStart: number = 5900;
@@ -1033,7 +1033,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0057', 0, () => {
+    it('testMoreSubtitleOverlap0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5600;
       const end: number = 6100;
       const nextStart: number = 6000;
@@ -1051,7 +1051,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0058', 0, () => {
+    it('testMoreSubtitleOverlap0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5700;
       const end: number = 6200;
       const nextStart: number = 6100;
@@ -1069,7 +1069,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0059', 0, () => {
+    it('testMoreSubtitleOverlap0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5800;
       const end: number = 6300;
       const nextStart: number = 6200;
@@ -1087,7 +1087,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0060', 0, () => {
+    it('testMoreSubtitleOverlap0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5900;
       const end: number = 6400;
       const nextStart: number = 6300;
@@ -1105,7 +1105,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0061', 0, () => {
+    it('testMoreSubtitleOverlap0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6000;
       const end: number = 6500;
       const nextStart: number = 6400;
@@ -1123,7 +1123,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0062', 0, () => {
+    it('testMoreSubtitleOverlap0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6100;
       const end: number = 6600;
       const nextStart: number = 6500;
@@ -1141,7 +1141,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0063', 0, () => {
+    it('testMoreSubtitleOverlap0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6200;
       const end: number = 6700;
       const nextStart: number = 6600;
@@ -1159,7 +1159,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0064', 0, () => {
+    it('testMoreSubtitleOverlap0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6300;
       const end: number = 6800;
       const nextStart: number = 6700;
@@ -1177,7 +1177,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0065', 0, () => {
+    it('testMoreSubtitleOverlap0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6400;
       const end: number = 6900;
       const nextStart: number = 6800;
@@ -1195,7 +1195,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0066', 0, () => {
+    it('testMoreSubtitleOverlap0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6500;
       const end: number = 7000;
       const nextStart: number = 6900;
@@ -1213,7 +1213,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0067', 0, () => {
+    it('testMoreSubtitleOverlap0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6600;
       const end: number = 7100;
       const nextStart: number = 7000;
@@ -1231,7 +1231,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0068', 0, () => {
+    it('testMoreSubtitleOverlap0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6700;
       const end: number = 7200;
       const nextStart: number = 7100;
@@ -1249,7 +1249,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0069', 0, () => {
+    it('testMoreSubtitleOverlap0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6800;
       const end: number = 7300;
       const nextStart: number = 7200;
@@ -1267,7 +1267,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0070', 0, () => {
+    it('testMoreSubtitleOverlap0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6900;
       const end: number = 7400;
       const nextStart: number = 7300;
@@ -1285,7 +1285,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0071', 0, () => {
+    it('testMoreSubtitleOverlap0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7000;
       const end: number = 7500;
       const nextStart: number = 7400;
@@ -1303,7 +1303,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0072', 0, () => {
+    it('testMoreSubtitleOverlap0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7100;
       const end: number = 7600;
       const nextStart: number = 7500;
@@ -1321,7 +1321,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0073', 0, () => {
+    it('testMoreSubtitleOverlap0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7200;
       const end: number = 7700;
       const nextStart: number = 7600;
@@ -1339,7 +1339,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0074', 0, () => {
+    it('testMoreSubtitleOverlap0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7300;
       const end: number = 7800;
       const nextStart: number = 7700;
@@ -1357,7 +1357,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0075', 0, () => {
+    it('testMoreSubtitleOverlap0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7400;
       const end: number = 7900;
       const nextStart: number = 7800;
@@ -1375,7 +1375,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0076', 0, () => {
+    it('testMoreSubtitleOverlap0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7500;
       const end: number = 8000;
       const nextStart: number = 7900;
@@ -1393,7 +1393,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0077', 0, () => {
+    it('testMoreSubtitleOverlap0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7600;
       const end: number = 8100;
       const nextStart: number = 8000;
@@ -1411,7 +1411,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0078', 0, () => {
+    it('testMoreSubtitleOverlap0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7700;
       const end: number = 8200;
       const nextStart: number = 8100;
@@ -1429,7 +1429,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0079', 0, () => {
+    it('testMoreSubtitleOverlap0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7800;
       const end: number = 8300;
       const nextStart: number = 8200;
@@ -1447,7 +1447,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0080', 0, () => {
+    it('testMoreSubtitleOverlap0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7900;
       const end: number = 8400;
       const nextStart: number = 8300;
@@ -1465,7 +1465,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0081', 0, () => {
+    it('testMoreSubtitleOverlap0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8000;
       const end: number = 8500;
       const nextStart: number = 8400;
@@ -1483,7 +1483,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0082', 0, () => {
+    it('testMoreSubtitleOverlap0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8100;
       const end: number = 8600;
       const nextStart: number = 8500;
@@ -1501,7 +1501,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0083', 0, () => {
+    it('testMoreSubtitleOverlap0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8200;
       const end: number = 8700;
       const nextStart: number = 8600;
@@ -1519,7 +1519,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0084', 0, () => {
+    it('testMoreSubtitleOverlap0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8300;
       const end: number = 8800;
       const nextStart: number = 8700;
@@ -1537,7 +1537,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0085', 0, () => {
+    it('testMoreSubtitleOverlap0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8400;
       const end: number = 8900;
       const nextStart: number = 8800;
@@ -1555,7 +1555,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0086', 0, () => {
+    it('testMoreSubtitleOverlap0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8500;
       const end: number = 9000;
       const nextStart: number = 8900;
@@ -1573,7 +1573,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0087', 0, () => {
+    it('testMoreSubtitleOverlap0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8600;
       const end: number = 9100;
       const nextStart: number = 9000;
@@ -1591,7 +1591,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0088', 0, () => {
+    it('testMoreSubtitleOverlap0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8700;
       const end: number = 9200;
       const nextStart: number = 9100;
@@ -1609,7 +1609,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0089', 0, () => {
+    it('testMoreSubtitleOverlap0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8800;
       const end: number = 9300;
       const nextStart: number = 9200;
@@ -1627,7 +1627,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0090', 0, () => {
+    it('testMoreSubtitleOverlap0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8900;
       const end: number = 9400;
       const nextStart: number = 9300;
@@ -1645,7 +1645,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0091', 0, () => {
+    it('testMoreSubtitleOverlap0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9000;
       const end: number = 9500;
       const nextStart: number = 9400;
@@ -1663,7 +1663,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0092', 0, () => {
+    it('testMoreSubtitleOverlap0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9100;
       const end: number = 9600;
       const nextStart: number = 9500;
@@ -1681,7 +1681,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0093', 0, () => {
+    it('testMoreSubtitleOverlap0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9200;
       const end: number = 9700;
       const nextStart: number = 9600;
@@ -1699,7 +1699,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0094', 0, () => {
+    it('testMoreSubtitleOverlap0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9300;
       const end: number = 9800;
       const nextStart: number = 9700;
@@ -1717,7 +1717,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0095', 0, () => {
+    it('testMoreSubtitleOverlap0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9400;
       const end: number = 9900;
       const nextStart: number = 9800;
@@ -1735,7 +1735,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0096', 0, () => {
+    it('testMoreSubtitleOverlap0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9500;
       const end: number = 10000;
       const nextStart: number = 9900;
@@ -1753,7 +1753,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0097', 0, () => {
+    it('testMoreSubtitleOverlap0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9600;
       const end: number = 10100;
       const nextStart: number = 10000;
@@ -1771,7 +1771,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0098', 0, () => {
+    it('testMoreSubtitleOverlap0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9700;
       const end: number = 10200;
       const nextStart: number = 10100;
@@ -1789,7 +1789,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0099', 0, () => {
+    it('testMoreSubtitleOverlap0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9800;
       const end: number = 10300;
       const nextStart: number = 10200;
@@ -1807,7 +1807,7 @@ export default function subtitleOverlapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleOverlap0100', 0, () => {
+    it('testMoreSubtitleOverlap0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9900;
       const end: number = 10400;
       const nextStart: number = 10300;

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function playerControlStateExpandedTest() {
@@ -25,7 +25,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0001', 0, () => {
+    it('testExpPlayerControl0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -42,7 +42,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0002', 0, () => {
+    it('testExpPlayerControl0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -59,7 +59,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0003', 0, () => {
+    it('testExpPlayerControl0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -76,7 +76,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0004', 0, () => {
+    it('testExpPlayerControl0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -93,7 +93,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0005', 0, () => {
+    it('testExpPlayerControl0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -110,7 +110,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0006', 0, () => {
+    it('testExpPlayerControl0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -127,7 +127,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0007', 0, () => {
+    it('testExpPlayerControl0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -144,7 +144,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0008', 0, () => {
+    it('testExpPlayerControl0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -161,7 +161,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0009', 0, () => {
+    it('testExpPlayerControl0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -178,7 +178,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0010', 0, () => {
+    it('testExpPlayerControl0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -195,7 +195,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0011', 0, () => {
+    it('testExpPlayerControl0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -212,7 +212,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0012', 0, () => {
+    it('testExpPlayerControl0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -229,7 +229,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0013', 0, () => {
+    it('testExpPlayerControl0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -246,7 +246,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0014', 0, () => {
+    it('testExpPlayerControl0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -263,7 +263,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0015', 0, () => {
+    it('testExpPlayerControl0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -280,7 +280,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0016', 0, () => {
+    it('testExpPlayerControl0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -297,7 +297,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0017', 0, () => {
+    it('testExpPlayerControl0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -314,7 +314,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0018', 0, () => {
+    it('testExpPlayerControl0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -331,7 +331,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0019', 0, () => {
+    it('testExpPlayerControl0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -348,7 +348,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0020', 0, () => {
+    it('testExpPlayerControl0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -365,7 +365,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0021', 0, () => {
+    it('testExpPlayerControl0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -382,7 +382,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0022', 0, () => {
+    it('testExpPlayerControl0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -399,7 +399,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0023', 0, () => {
+    it('testExpPlayerControl0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -416,7 +416,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0024', 0, () => {
+    it('testExpPlayerControl0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -433,7 +433,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0025', 0, () => {
+    it('testExpPlayerControl0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -450,7 +450,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0026', 0, () => {
+    it('testExpPlayerControl0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -467,7 +467,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0027', 0, () => {
+    it('testExpPlayerControl0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -484,7 +484,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0028', 0, () => {
+    it('testExpPlayerControl0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -501,7 +501,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0029', 0, () => {
+    it('testExpPlayerControl0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -518,7 +518,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0030', 0, () => {
+    it('testExpPlayerControl0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -535,7 +535,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0031', 0, () => {
+    it('testExpPlayerControl0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -552,7 +552,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0032', 0, () => {
+    it('testExpPlayerControl0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -569,7 +569,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0033', 0, () => {
+    it('testExpPlayerControl0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -586,7 +586,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0034', 0, () => {
+    it('testExpPlayerControl0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -603,7 +603,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0035', 0, () => {
+    it('testExpPlayerControl0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -620,7 +620,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0036', 0, () => {
+    it('testExpPlayerControl0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -637,7 +637,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0037', 0, () => {
+    it('testExpPlayerControl0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -654,7 +654,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0038', 0, () => {
+    it('testExpPlayerControl0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -671,7 +671,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0039', 0, () => {
+    it('testExpPlayerControl0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -688,7 +688,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0040', 0, () => {
+    it('testExpPlayerControl0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -705,7 +705,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0041', 0, () => {
+    it('testExpPlayerControl0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -722,7 +722,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0042', 0, () => {
+    it('testExpPlayerControl0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -739,7 +739,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0043', 0, () => {
+    it('testExpPlayerControl0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -756,7 +756,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0044', 0, () => {
+    it('testExpPlayerControl0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -773,7 +773,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0045', 0, () => {
+    it('testExpPlayerControl0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -790,7 +790,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0046', 0, () => {
+    it('testExpPlayerControl0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -807,7 +807,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0047', 0, () => {
+    it('testExpPlayerControl0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -824,7 +824,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0048', 0, () => {
+    it('testExpPlayerControl0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -841,7 +841,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0049', 0, () => {
+    it('testExpPlayerControl0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -858,7 +858,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0050', 0, () => {
+    it('testExpPlayerControl0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -875,7 +875,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0051', 0, () => {
+    it('testExpPlayerControl0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -892,7 +892,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0052', 0, () => {
+    it('testExpPlayerControl0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -909,7 +909,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0053', 0, () => {
+    it('testExpPlayerControl0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -926,7 +926,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0054', 0, () => {
+    it('testExpPlayerControl0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -943,7 +943,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0055', 0, () => {
+    it('testExpPlayerControl0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -960,7 +960,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0056', 0, () => {
+    it('testExpPlayerControl0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -977,7 +977,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0057', 0, () => {
+    it('testExpPlayerControl0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -994,7 +994,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0058', 0, () => {
+    it('testExpPlayerControl0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1011,7 +1011,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0059', 0, () => {
+    it('testExpPlayerControl0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1028,7 +1028,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0060', 0, () => {
+    it('testExpPlayerControl0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1045,7 +1045,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0061', 0, () => {
+    it('testExpPlayerControl0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1062,7 +1062,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0062', 0, () => {
+    it('testExpPlayerControl0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1079,7 +1079,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0063', 0, () => {
+    it('testExpPlayerControl0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1096,7 +1096,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0064', 0, () => {
+    it('testExpPlayerControl0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1113,7 +1113,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0065', 0, () => {
+    it('testExpPlayerControl0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1130,7 +1130,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0066', 0, () => {
+    it('testExpPlayerControl0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1147,7 +1147,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0067', 0, () => {
+    it('testExpPlayerControl0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1164,7 +1164,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0068', 0, () => {
+    it('testExpPlayerControl0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1181,7 +1181,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0069', 0, () => {
+    it('testExpPlayerControl0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1198,7 +1198,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0070', 0, () => {
+    it('testExpPlayerControl0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1215,7 +1215,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0071', 0, () => {
+    it('testExpPlayerControl0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1232,7 +1232,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0072', 0, () => {
+    it('testExpPlayerControl0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1249,7 +1249,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0073', 0, () => {
+    it('testExpPlayerControl0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1266,7 +1266,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0074', 0, () => {
+    it('testExpPlayerControl0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1283,7 +1283,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0075', 0, () => {
+    it('testExpPlayerControl0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1300,7 +1300,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0076', 0, () => {
+    it('testExpPlayerControl0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1317,7 +1317,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0077', 0, () => {
+    it('testExpPlayerControl0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1334,7 +1334,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0078', 0, () => {
+    it('testExpPlayerControl0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1351,7 +1351,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0079', 0, () => {
+    it('testExpPlayerControl0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1368,7 +1368,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0080', 0, () => {
+    it('testExpPlayerControl0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1385,7 +1385,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0081', 0, () => {
+    it('testExpPlayerControl0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1402,7 +1402,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0082', 0, () => {
+    it('testExpPlayerControl0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1419,7 +1419,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0083', 0, () => {
+    it('testExpPlayerControl0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1436,7 +1436,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0084', 0, () => {
+    it('testExpPlayerControl0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1453,7 +1453,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0085', 0, () => {
+    it('testExpPlayerControl0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1470,7 +1470,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0086', 0, () => {
+    it('testExpPlayerControl0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1487,7 +1487,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0087', 0, () => {
+    it('testExpPlayerControl0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1504,7 +1504,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0088', 0, () => {
+    it('testExpPlayerControl0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1521,7 +1521,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0089', 0, () => {
+    it('testExpPlayerControl0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1538,7 +1538,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0090', 0, () => {
+    it('testExpPlayerControl0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1555,7 +1555,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0091', 0, () => {
+    it('testExpPlayerControl0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1572,7 +1572,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0092', 0, () => {
+    it('testExpPlayerControl0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1589,7 +1589,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0093', 0, () => {
+    it('testExpPlayerControl0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1606,7 +1606,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0094', 0, () => {
+    it('testExpPlayerControl0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1623,7 +1623,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0095', 0, () => {
+    it('testExpPlayerControl0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1640,7 +1640,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0096', 0, () => {
+    it('testExpPlayerControl0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1657,7 +1657,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0097', 0, () => {
+    it('testExpPlayerControl0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1674,7 +1674,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0098', 0, () => {
+    it('testExpPlayerControl0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1691,7 +1691,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0099', 0, () => {
+    it('testExpPlayerControl0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');
@@ -1708,7 +1708,7 @@ export default function playerControlStateExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpPlayerControl0100', 0, () => {
+    it('testExpPlayerControl0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       const state: string = ended ? 'end' : (paused ? 'paused' : 'playing');

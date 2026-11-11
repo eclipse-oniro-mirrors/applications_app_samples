@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function speedCycleExpandedTest() {
@@ -25,7 +25,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0001', 0, () => {
+    it('testMoreSpeedCycle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -43,7 +43,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0002', 0, () => {
+    it('testMoreSpeedCycle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -61,7 +61,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0003', 0, () => {
+    it('testMoreSpeedCycle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -79,7 +79,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0004', 0, () => {
+    it('testMoreSpeedCycle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -97,7 +97,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0005', 0, () => {
+    it('testMoreSpeedCycle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -115,7 +115,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0006', 0, () => {
+    it('testMoreSpeedCycle0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -133,7 +133,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0007', 0, () => {
+    it('testMoreSpeedCycle0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -151,7 +151,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0008', 0, () => {
+    it('testMoreSpeedCycle0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -169,7 +169,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0009', 0, () => {
+    it('testMoreSpeedCycle0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -187,7 +187,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0010', 0, () => {
+    it('testMoreSpeedCycle0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -205,7 +205,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0011', 0, () => {
+    it('testMoreSpeedCycle0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -223,7 +223,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0012', 0, () => {
+    it('testMoreSpeedCycle0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -241,7 +241,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0013', 0, () => {
+    it('testMoreSpeedCycle0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -259,7 +259,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0014', 0, () => {
+    it('testMoreSpeedCycle0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -277,7 +277,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0015', 0, () => {
+    it('testMoreSpeedCycle0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -295,7 +295,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0016', 0, () => {
+    it('testMoreSpeedCycle0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -313,7 +313,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0017', 0, () => {
+    it('testMoreSpeedCycle0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -331,7 +331,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0018', 0, () => {
+    it('testMoreSpeedCycle0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -349,7 +349,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0019', 0, () => {
+    it('testMoreSpeedCycle0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -367,7 +367,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0020', 0, () => {
+    it('testMoreSpeedCycle0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -385,7 +385,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0021', 0, () => {
+    it('testMoreSpeedCycle0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -403,7 +403,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0022', 0, () => {
+    it('testMoreSpeedCycle0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -421,7 +421,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0023', 0, () => {
+    it('testMoreSpeedCycle0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -439,7 +439,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0024', 0, () => {
+    it('testMoreSpeedCycle0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -457,7 +457,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0025', 0, () => {
+    it('testMoreSpeedCycle0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -475,7 +475,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0026', 0, () => {
+    it('testMoreSpeedCycle0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -493,7 +493,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0027', 0, () => {
+    it('testMoreSpeedCycle0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -511,7 +511,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0028', 0, () => {
+    it('testMoreSpeedCycle0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -529,7 +529,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0029', 0, () => {
+    it('testMoreSpeedCycle0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -547,7 +547,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0030', 0, () => {
+    it('testMoreSpeedCycle0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -565,7 +565,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0031', 0, () => {
+    it('testMoreSpeedCycle0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -583,7 +583,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0032', 0, () => {
+    it('testMoreSpeedCycle0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -601,7 +601,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0033', 0, () => {
+    it('testMoreSpeedCycle0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -619,7 +619,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0034', 0, () => {
+    it('testMoreSpeedCycle0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -637,7 +637,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0035', 0, () => {
+    it('testMoreSpeedCycle0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -655,7 +655,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0036', 0, () => {
+    it('testMoreSpeedCycle0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -673,7 +673,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0037', 0, () => {
+    it('testMoreSpeedCycle0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -691,7 +691,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0038', 0, () => {
+    it('testMoreSpeedCycle0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -709,7 +709,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0039', 0, () => {
+    it('testMoreSpeedCycle0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -727,7 +727,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0040', 0, () => {
+    it('testMoreSpeedCycle0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -745,7 +745,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0041', 0, () => {
+    it('testMoreSpeedCycle0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -763,7 +763,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0042', 0, () => {
+    it('testMoreSpeedCycle0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -781,7 +781,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0043', 0, () => {
+    it('testMoreSpeedCycle0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -799,7 +799,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0044', 0, () => {
+    it('testMoreSpeedCycle0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -817,7 +817,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0045', 0, () => {
+    it('testMoreSpeedCycle0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -835,7 +835,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0046', 0, () => {
+    it('testMoreSpeedCycle0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -853,7 +853,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0047', 0, () => {
+    it('testMoreSpeedCycle0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -871,7 +871,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0048', 0, () => {
+    it('testMoreSpeedCycle0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -889,7 +889,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0049', 0, () => {
+    it('testMoreSpeedCycle0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -907,7 +907,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0050', 0, () => {
+    it('testMoreSpeedCycle0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -925,7 +925,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0051', 0, () => {
+    it('testMoreSpeedCycle0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -943,7 +943,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0052', 0, () => {
+    it('testMoreSpeedCycle0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -961,7 +961,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0053', 0, () => {
+    it('testMoreSpeedCycle0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -979,7 +979,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0054', 0, () => {
+    it('testMoreSpeedCycle0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -997,7 +997,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0055', 0, () => {
+    it('testMoreSpeedCycle0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -1015,7 +1015,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0056', 0, () => {
+    it('testMoreSpeedCycle0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -1033,7 +1033,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0057', 0, () => {
+    it('testMoreSpeedCycle0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1051,7 +1051,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0058', 0, () => {
+    it('testMoreSpeedCycle0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1069,7 +1069,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0059', 0, () => {
+    it('testMoreSpeedCycle0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1087,7 +1087,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0060', 0, () => {
+    it('testMoreSpeedCycle0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1105,7 +1105,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0061', 0, () => {
+    it('testMoreSpeedCycle0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1123,7 +1123,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0062', 0, () => {
+    it('testMoreSpeedCycle0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1141,7 +1141,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0063', 0, () => {
+    it('testMoreSpeedCycle0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1159,7 +1159,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0064', 0, () => {
+    it('testMoreSpeedCycle0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1177,7 +1177,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0065', 0, () => {
+    it('testMoreSpeedCycle0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -1195,7 +1195,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0066', 0, () => {
+    it('testMoreSpeedCycle0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -1213,7 +1213,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0067', 0, () => {
+    it('testMoreSpeedCycle0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -1231,7 +1231,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0068', 0, () => {
+    it('testMoreSpeedCycle0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -1249,7 +1249,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0069', 0, () => {
+    it('testMoreSpeedCycle0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -1267,7 +1267,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0070', 0, () => {
+    it('testMoreSpeedCycle0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -1285,7 +1285,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0071', 0, () => {
+    it('testMoreSpeedCycle0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -1303,7 +1303,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0072', 0, () => {
+    it('testMoreSpeedCycle0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 1;
       const index: number = (start + clicks) % 4;
@@ -1321,7 +1321,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0073', 0, () => {
+    it('testMoreSpeedCycle0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -1339,7 +1339,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0074', 0, () => {
+    it('testMoreSpeedCycle0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -1357,7 +1357,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0075', 0, () => {
+    it('testMoreSpeedCycle0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -1375,7 +1375,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0076', 0, () => {
+    it('testMoreSpeedCycle0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 2;
       const index: number = (start + clicks) % 4;
@@ -1393,7 +1393,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0077', 0, () => {
+    it('testMoreSpeedCycle0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -1411,7 +1411,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0078', 0, () => {
+    it('testMoreSpeedCycle0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -1429,7 +1429,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0079', 0, () => {
+    it('testMoreSpeedCycle0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -1447,7 +1447,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0080', 0, () => {
+    it('testMoreSpeedCycle0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 3;
       const index: number = (start + clicks) % 4;
@@ -1465,7 +1465,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0081', 0, () => {
+    it('testMoreSpeedCycle0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -1483,7 +1483,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0082', 0, () => {
+    it('testMoreSpeedCycle0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -1501,7 +1501,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0083', 0, () => {
+    it('testMoreSpeedCycle0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -1519,7 +1519,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0084', 0, () => {
+    it('testMoreSpeedCycle0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 4;
       const index: number = (start + clicks) % 4;
@@ -1537,7 +1537,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0085', 0, () => {
+    it('testMoreSpeedCycle0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -1555,7 +1555,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0086', 0, () => {
+    it('testMoreSpeedCycle0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -1573,7 +1573,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0087', 0, () => {
+    it('testMoreSpeedCycle0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -1591,7 +1591,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0088', 0, () => {
+    it('testMoreSpeedCycle0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 5;
       const index: number = (start + clicks) % 4;
@@ -1609,7 +1609,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0089', 0, () => {
+    it('testMoreSpeedCycle0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1627,7 +1627,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0090', 0, () => {
+    it('testMoreSpeedCycle0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1645,7 +1645,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0091', 0, () => {
+    it('testMoreSpeedCycle0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1663,7 +1663,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0092', 0, () => {
+    it('testMoreSpeedCycle0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 6;
       const index: number = (start + clicks) % 4;
@@ -1681,7 +1681,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0093', 0, () => {
+    it('testMoreSpeedCycle0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1699,7 +1699,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0094', 0, () => {
+    it('testMoreSpeedCycle0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1717,7 +1717,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0095', 0, () => {
+    it('testMoreSpeedCycle0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1735,7 +1735,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0096', 0, () => {
+    it('testMoreSpeedCycle0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 7;
       const index: number = (start + clicks) % 4;
@@ -1753,7 +1753,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0097', 0, () => {
+    it('testMoreSpeedCycle0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -1771,7 +1771,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0098', 0, () => {
+    it('testMoreSpeedCycle0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -1789,7 +1789,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0099', 0, () => {
+    it('testMoreSpeedCycle0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;
@@ -1807,7 +1807,7 @@ export default function speedCycleExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSpeedCycle0100', 0, () => {
+    it('testMoreSpeedCycle0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3;
       const clicks: number = 0;
       const index: number = (start + clicks) % 4;

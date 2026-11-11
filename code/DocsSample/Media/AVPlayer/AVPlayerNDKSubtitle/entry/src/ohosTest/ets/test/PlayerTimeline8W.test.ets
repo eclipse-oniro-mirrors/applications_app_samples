@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function playerTimeline8wTest() {
@@ -25,7 +25,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0001', 0, () => {
+    it('test8wPlayerTimeline0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 0;
       const percent: number = position * 100 / duration;
@@ -42,7 +42,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0002', 0, () => {
+    it('test8wPlayerTimeline0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 137;
       const percent: number = position * 100 / duration;
@@ -59,7 +59,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0003', 0, () => {
+    it('test8wPlayerTimeline0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 274;
       const percent: number = position * 100 / duration;
@@ -76,7 +76,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0004', 0, () => {
+    it('test8wPlayerTimeline0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 411;
       const percent: number = position * 100 / duration;
@@ -93,7 +93,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0005', 0, () => {
+    it('test8wPlayerTimeline0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 548;
       const percent: number = position * 100 / duration;
@@ -110,7 +110,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0006', 0, () => {
+    it('test8wPlayerTimeline0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 685;
       const percent: number = position * 100 / duration;
@@ -127,7 +127,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0007', 0, () => {
+    it('test8wPlayerTimeline0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 822;
       const percent: number = position * 100 / duration;
@@ -144,7 +144,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0008', 0, () => {
+    it('test8wPlayerTimeline0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 959;
       const percent: number = position * 100 / duration;
@@ -161,7 +161,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0009', 0, () => {
+    it('test8wPlayerTimeline0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 1096;
       const percent: number = position * 100 / duration;
@@ -178,7 +178,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0010', 0, () => {
+    it('test8wPlayerTimeline0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 1233;
       const percent: number = position * 100 / duration;
@@ -195,7 +195,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0011', 0, () => {
+    it('test8wPlayerTimeline0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 1370;
       const percent: number = position * 100 / duration;
@@ -212,7 +212,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0012', 0, () => {
+    it('test8wPlayerTimeline0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 1507;
       const percent: number = position * 100 / duration;
@@ -229,7 +229,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0013', 0, () => {
+    it('test8wPlayerTimeline0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 1644;
       const percent: number = position * 100 / duration;
@@ -246,7 +246,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0014', 0, () => {
+    it('test8wPlayerTimeline0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 1781;
       const percent: number = position * 100 / duration;
@@ -263,7 +263,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0015', 0, () => {
+    it('test8wPlayerTimeline0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 1918;
       const percent: number = position * 100 / duration;
@@ -280,7 +280,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0016', 0, () => {
+    it('test8wPlayerTimeline0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 2055;
       const percent: number = position * 100 / duration;
@@ -297,7 +297,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0017', 0, () => {
+    it('test8wPlayerTimeline0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 2192;
       const percent: number = position * 100 / duration;
@@ -314,7 +314,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0018', 0, () => {
+    it('test8wPlayerTimeline0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 2329;
       const percent: number = position * 100 / duration;
@@ -331,7 +331,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0019', 0, () => {
+    it('test8wPlayerTimeline0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 2466;
       const percent: number = position * 100 / duration;
@@ -348,7 +348,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0020', 0, () => {
+    it('test8wPlayerTimeline0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 2603;
       const percent: number = position * 100 / duration;
@@ -365,7 +365,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0021', 0, () => {
+    it('test8wPlayerTimeline0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 2740;
       const percent: number = position * 100 / duration;
@@ -382,7 +382,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0022', 0, () => {
+    it('test8wPlayerTimeline0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 2877;
       const percent: number = position * 100 / duration;
@@ -399,7 +399,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0023', 0, () => {
+    it('test8wPlayerTimeline0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 3014;
       const percent: number = position * 100 / duration;
@@ -416,7 +416,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0024', 0, () => {
+    it('test8wPlayerTimeline0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 3151;
       const percent: number = position * 100 / duration;
@@ -433,7 +433,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0025', 0, () => {
+    it('test8wPlayerTimeline0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 3288;
       const percent: number = position * 100 / duration;
@@ -450,7 +450,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0026', 0, () => {
+    it('test8wPlayerTimeline0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 3425;
       const percent: number = position * 100 / duration;
@@ -467,7 +467,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0027', 0, () => {
+    it('test8wPlayerTimeline0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 3562;
       const percent: number = position * 100 / duration;
@@ -484,7 +484,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0028', 0, () => {
+    it('test8wPlayerTimeline0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 3699;
       const percent: number = position * 100 / duration;
@@ -501,7 +501,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0029', 0, () => {
+    it('test8wPlayerTimeline0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 3836;
       const percent: number = position * 100 / duration;
@@ -518,7 +518,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0030', 0, () => {
+    it('test8wPlayerTimeline0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 3973;
       const percent: number = position * 100 / duration;
@@ -535,7 +535,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0031', 0, () => {
+    it('test8wPlayerTimeline0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 4110;
       const percent: number = position * 100 / duration;
@@ -552,7 +552,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0032', 0, () => {
+    it('test8wPlayerTimeline0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 4247;
       const percent: number = position * 100 / duration;
@@ -569,7 +569,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0033', 0, () => {
+    it('test8wPlayerTimeline0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 4384;
       const percent: number = position * 100 / duration;
@@ -586,7 +586,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0034', 0, () => {
+    it('test8wPlayerTimeline0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 4521;
       const percent: number = position * 100 / duration;
@@ -603,7 +603,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0035', 0, () => {
+    it('test8wPlayerTimeline0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 4658;
       const percent: number = position * 100 / duration;
@@ -620,7 +620,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0036', 0, () => {
+    it('test8wPlayerTimeline0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 4795;
       const percent: number = position * 100 / duration;
@@ -637,7 +637,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0037', 0, () => {
+    it('test8wPlayerTimeline0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 4932;
       const percent: number = position * 100 / duration;
@@ -654,7 +654,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0038', 0, () => {
+    it('test8wPlayerTimeline0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 5069;
       const percent: number = position * 100 / duration;
@@ -671,7 +671,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0039', 0, () => {
+    it('test8wPlayerTimeline0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 5206;
       const percent: number = position * 100 / duration;
@@ -688,7 +688,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0040', 0, () => {
+    it('test8wPlayerTimeline0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 5343;
       const percent: number = position * 100 / duration;
@@ -705,7 +705,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0041', 0, () => {
+    it('test8wPlayerTimeline0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 5480;
       const percent: number = position * 100 / duration;
@@ -722,7 +722,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0042', 0, () => {
+    it('test8wPlayerTimeline0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 5617;
       const percent: number = position * 100 / duration;
@@ -739,7 +739,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0043', 0, () => {
+    it('test8wPlayerTimeline0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 5754;
       const percent: number = position * 100 / duration;
@@ -756,7 +756,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0044', 0, () => {
+    it('test8wPlayerTimeline0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 5891;
       const percent: number = position * 100 / duration;
@@ -773,7 +773,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0045', 0, () => {
+    it('test8wPlayerTimeline0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 6028;
       const percent: number = position * 100 / duration;
@@ -790,7 +790,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0046', 0, () => {
+    it('test8wPlayerTimeline0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 6165;
       const percent: number = position * 100 / duration;
@@ -807,7 +807,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0047', 0, () => {
+    it('test8wPlayerTimeline0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 6302;
       const percent: number = position * 100 / duration;
@@ -824,7 +824,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0048', 0, () => {
+    it('test8wPlayerTimeline0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 6439;
       const percent: number = position * 100 / duration;
@@ -841,7 +841,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0049', 0, () => {
+    it('test8wPlayerTimeline0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 6576;
       const percent: number = position * 100 / duration;
@@ -858,7 +858,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0050', 0, () => {
+    it('test8wPlayerTimeline0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 6713;
       const percent: number = position * 100 / duration;
@@ -875,7 +875,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0051', 0, () => {
+    it('test8wPlayerTimeline0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 6850;
       const percent: number = position * 100 / duration;
@@ -892,7 +892,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0052', 0, () => {
+    it('test8wPlayerTimeline0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 6987;
       const percent: number = position * 100 / duration;
@@ -909,7 +909,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0053', 0, () => {
+    it('test8wPlayerTimeline0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 7124;
       const percent: number = position * 100 / duration;
@@ -926,7 +926,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0054', 0, () => {
+    it('test8wPlayerTimeline0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 7261;
       const percent: number = position * 100 / duration;
@@ -943,7 +943,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0055', 0, () => {
+    it('test8wPlayerTimeline0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 7398;
       const percent: number = position * 100 / duration;
@@ -960,7 +960,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0056', 0, () => {
+    it('test8wPlayerTimeline0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 7535;
       const percent: number = position * 100 / duration;
@@ -977,7 +977,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0057', 0, () => {
+    it('test8wPlayerTimeline0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 7672;
       const percent: number = position * 100 / duration;
@@ -994,7 +994,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0058', 0, () => {
+    it('test8wPlayerTimeline0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 7809;
       const percent: number = position * 100 / duration;
@@ -1011,7 +1011,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0059', 0, () => {
+    it('test8wPlayerTimeline0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 7946;
       const percent: number = position * 100 / duration;
@@ -1028,7 +1028,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0060', 0, () => {
+    it('test8wPlayerTimeline0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 8083;
       const percent: number = position * 100 / duration;
@@ -1045,7 +1045,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0061', 0, () => {
+    it('test8wPlayerTimeline0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 8220;
       const percent: number = position * 100 / duration;
@@ -1062,7 +1062,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0062', 0, () => {
+    it('test8wPlayerTimeline0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 8357;
       const percent: number = position * 100 / duration;
@@ -1079,7 +1079,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0063', 0, () => {
+    it('test8wPlayerTimeline0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 8494;
       const percent: number = position * 100 / duration;
@@ -1096,7 +1096,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0064', 0, () => {
+    it('test8wPlayerTimeline0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 8631;
       const percent: number = position * 100 / duration;
@@ -1113,7 +1113,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0065', 0, () => {
+    it('test8wPlayerTimeline0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 8768;
       const percent: number = position * 100 / duration;
@@ -1130,7 +1130,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0066', 0, () => {
+    it('test8wPlayerTimeline0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 8905;
       const percent: number = position * 100 / duration;
@@ -1147,7 +1147,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0067', 0, () => {
+    it('test8wPlayerTimeline0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 9042;
       const percent: number = position * 100 / duration;
@@ -1164,7 +1164,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0068', 0, () => {
+    it('test8wPlayerTimeline0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 9179;
       const percent: number = position * 100 / duration;
@@ -1181,7 +1181,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0069', 0, () => {
+    it('test8wPlayerTimeline0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 9316;
       const percent: number = position * 100 / duration;
@@ -1198,7 +1198,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0070', 0, () => {
+    it('test8wPlayerTimeline0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 9453;
       const percent: number = position * 100 / duration;
@@ -1215,7 +1215,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0071', 0, () => {
+    it('test8wPlayerTimeline0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 9590;
       const percent: number = position * 100 / duration;
@@ -1232,7 +1232,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0072', 0, () => {
+    it('test8wPlayerTimeline0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 9727;
       const percent: number = position * 100 / duration;
@@ -1249,7 +1249,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0073', 0, () => {
+    it('test8wPlayerTimeline0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 9864;
       const percent: number = position * 100 / duration;
@@ -1266,7 +1266,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0074', 0, () => {
+    it('test8wPlayerTimeline0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 10001;
       const percent: number = position * 100 / duration;
@@ -1283,7 +1283,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0075', 0, () => {
+    it('test8wPlayerTimeline0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 10138;
       const percent: number = position * 100 / duration;
@@ -1300,7 +1300,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0076', 0, () => {
+    it('test8wPlayerTimeline0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 275;
       const percent: number = position * 100 / duration;
@@ -1317,7 +1317,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0077', 0, () => {
+    it('test8wPlayerTimeline0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 10412;
       const percent: number = position * 100 / duration;
@@ -1334,7 +1334,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0078', 0, () => {
+    it('test8wPlayerTimeline0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 10549;
       const percent: number = position * 100 / duration;
@@ -1351,7 +1351,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0079', 0, () => {
+    it('test8wPlayerTimeline0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 10686;
       const percent: number = position * 100 / duration;
@@ -1368,7 +1368,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0080', 0, () => {
+    it('test8wPlayerTimeline0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 10823;
       const percent: number = position * 100 / duration;
@@ -1385,7 +1385,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0081', 0, () => {
+    it('test8wPlayerTimeline0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 960;
       const percent: number = position * 100 / duration;
@@ -1402,7 +1402,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0082', 0, () => {
+    it('test8wPlayerTimeline0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 11097;
       const percent: number = position * 100 / duration;
@@ -1419,7 +1419,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0083', 0, () => {
+    it('test8wPlayerTimeline0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 11234;
       const percent: number = position * 100 / duration;
@@ -1436,7 +1436,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0084', 0, () => {
+    it('test8wPlayerTimeline0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 11371;
       const percent: number = position * 100 / duration;
@@ -1453,7 +1453,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0085', 0, () => {
+    it('test8wPlayerTimeline0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 11508;
       const percent: number = position * 100 / duration;
@@ -1470,7 +1470,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0086', 0, () => {
+    it('test8wPlayerTimeline0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 1645;
       const percent: number = position * 100 / duration;
@@ -1487,7 +1487,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0087', 0, () => {
+    it('test8wPlayerTimeline0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 11782;
       const percent: number = position * 100 / duration;
@@ -1504,7 +1504,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0088', 0, () => {
+    it('test8wPlayerTimeline0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 11919;
       const percent: number = position * 100 / duration;
@@ -1521,7 +1521,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0089', 0, () => {
+    it('test8wPlayerTimeline0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 12056;
       const percent: number = position * 100 / duration;
@@ -1538,7 +1538,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0090', 0, () => {
+    it('test8wPlayerTimeline0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 12193;
       const percent: number = position * 100 / duration;
@@ -1555,7 +1555,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0091', 0, () => {
+    it('test8wPlayerTimeline0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 2330;
       const percent: number = position * 100 / duration;
@@ -1572,7 +1572,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0092', 0, () => {
+    it('test8wPlayerTimeline0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 12467;
       const percent: number = position * 100 / duration;
@@ -1589,7 +1589,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0093', 0, () => {
+    it('test8wPlayerTimeline0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 12604;
       const percent: number = position * 100 / duration;
@@ -1606,7 +1606,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0094', 0, () => {
+    it('test8wPlayerTimeline0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 12741;
       const percent: number = position * 100 / duration;
@@ -1623,7 +1623,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0095', 0, () => {
+    it('test8wPlayerTimeline0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 12878;
       const percent: number = position * 100 / duration;
@@ -1640,7 +1640,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0096', 0, () => {
+    it('test8wPlayerTimeline0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const position: number = 3015;
       const percent: number = position * 100 / duration;
@@ -1657,7 +1657,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0097', 0, () => {
+    it('test8wPlayerTimeline0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 20000;
       const position: number = 13152;
       const percent: number = position * 100 / duration;
@@ -1674,7 +1674,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0098', 0, () => {
+    it('test8wPlayerTimeline0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 30000;
       const position: number = 13289;
       const percent: number = position * 100 / duration;
@@ -1691,7 +1691,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0099', 0, () => {
+    it('test8wPlayerTimeline0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 60000;
       const position: number = 13426;
       const percent: number = position * 100 / duration;
@@ -1708,7 +1708,7 @@ export default function playerTimeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wPlayerTimeline0100', 0, () => {
+    it('test8wPlayerTimeline0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 120000;
       const position: number = 13563;
       const percent: number = position * 100 / duration;

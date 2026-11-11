@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 export default function playerContractSafeTailTest() {
   describe('playerContractSafeTailTest', () => {
@@ -24,7 +24,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0001', 0, () => {
+    it('testSafePlayerApi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -41,7 +41,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0002', 0, () => {
+    it('testSafePlayerApi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -58,7 +58,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0003', 0, () => {
+    it('testSafePlayerApi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -75,7 +75,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0004', 0, () => {
+    it('testSafePlayerApi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -92,7 +92,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0005', 0, () => {
+    it('testSafePlayerApi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -109,7 +109,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0006', 0, () => {
+    it('testSafePlayerApi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -126,7 +126,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0007', 0, () => {
+    it('testSafePlayerApi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -143,7 +143,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0008', 0, () => {
+    it('testSafePlayerApi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -160,7 +160,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0009', 0, () => {
+    it('testSafePlayerApi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -177,7 +177,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0010', 0, () => {
+    it('testSafePlayerApi0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -194,7 +194,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0011', 0, () => {
+    it('testSafePlayerApi0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -211,7 +211,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0012', 0, () => {
+    it('testSafePlayerApi0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -228,7 +228,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0013', 0, () => {
+    it('testSafePlayerApi0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -245,7 +245,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0014', 0, () => {
+    it('testSafePlayerApi0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -262,7 +262,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0015', 0, () => {
+    it('testSafePlayerApi0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -279,7 +279,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0016', 0, () => {
+    it('testSafePlayerApi0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -296,7 +296,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0017', 0, () => {
+    it('testSafePlayerApi0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -313,7 +313,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0018', 0, () => {
+    it('testSafePlayerApi0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -330,7 +330,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0019', 0, () => {
+    it('testSafePlayerApi0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -347,7 +347,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0020', 0, () => {
+    it('testSafePlayerApi0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -364,7 +364,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0021', 0, () => {
+    it('testSafePlayerApi0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -381,7 +381,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0022', 0, () => {
+    it('testSafePlayerApi0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -398,7 +398,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0023', 0, () => {
+    it('testSafePlayerApi0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -415,7 +415,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0024', 0, () => {
+    it('testSafePlayerApi0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -432,7 +432,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0025', 0, () => {
+    it('testSafePlayerApi0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -449,7 +449,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0026', 0, () => {
+    it('testSafePlayerApi0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -466,7 +466,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0027', 0, () => {
+    it('testSafePlayerApi0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -483,7 +483,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0028', 0, () => {
+    it('testSafePlayerApi0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -500,7 +500,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0029', 0, () => {
+    it('testSafePlayerApi0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -517,7 +517,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0030', 0, () => {
+    it('testSafePlayerApi0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -534,7 +534,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0031', 0, () => {
+    it('testSafePlayerApi0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -551,7 +551,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0032', 0, () => {
+    it('testSafePlayerApi0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -568,7 +568,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0033', 0, () => {
+    it('testSafePlayerApi0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -585,7 +585,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0034', 0, () => {
+    it('testSafePlayerApi0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -602,7 +602,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0035', 0, () => {
+    it('testSafePlayerApi0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -619,7 +619,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0036', 0, () => {
+    it('testSafePlayerApi0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -636,7 +636,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0037', 0, () => {
+    it('testSafePlayerApi0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -653,7 +653,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0038', 0, () => {
+    it('testSafePlayerApi0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -670,7 +670,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0039', 0, () => {
+    it('testSafePlayerApi0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -687,7 +687,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0040', 0, () => {
+    it('testSafePlayerApi0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -704,7 +704,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0041', 0, () => {
+    it('testSafePlayerApi0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -721,7 +721,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0042', 0, () => {
+    it('testSafePlayerApi0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -738,7 +738,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0043', 0, () => {
+    it('testSafePlayerApi0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -755,7 +755,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0044', 0, () => {
+    it('testSafePlayerApi0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -772,7 +772,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0045', 0, () => {
+    it('testSafePlayerApi0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -789,7 +789,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0046', 0, () => {
+    it('testSafePlayerApi0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -806,7 +806,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0047', 0, () => {
+    it('testSafePlayerApi0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -823,7 +823,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0048', 0, () => {
+    it('testSafePlayerApi0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -840,7 +840,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0049', 0, () => {
+    it('testSafePlayerApi0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -857,7 +857,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0050', 0, () => {
+    it('testSafePlayerApi0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -874,7 +874,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0051', 0, () => {
+    it('testSafePlayerApi0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -891,7 +891,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0052', 0, () => {
+    it('testSafePlayerApi0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -908,7 +908,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0053', 0, () => {
+    it('testSafePlayerApi0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -925,7 +925,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0054', 0, () => {
+    it('testSafePlayerApi0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -942,7 +942,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0055', 0, () => {
+    it('testSafePlayerApi0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -959,7 +959,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0056', 0, () => {
+    it('testSafePlayerApi0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -976,7 +976,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0057', 0, () => {
+    it('testSafePlayerApi0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -993,7 +993,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0058', 0, () => {
+    it('testSafePlayerApi0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1010,7 +1010,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0059', 0, () => {
+    it('testSafePlayerApi0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1027,7 +1027,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0060', 0, () => {
+    it('testSafePlayerApi0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1044,7 +1044,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0061', 0, () => {
+    it('testSafePlayerApi0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1061,7 +1061,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0062', 0, () => {
+    it('testSafePlayerApi0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1078,7 +1078,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0063', 0, () => {
+    it('testSafePlayerApi0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1095,7 +1095,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0064', 0, () => {
+    it('testSafePlayerApi0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1112,7 +1112,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0065', 0, () => {
+    it('testSafePlayerApi0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1129,7 +1129,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0066', 0, () => {
+    it('testSafePlayerApi0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1146,7 +1146,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0067', 0, () => {
+    it('testSafePlayerApi0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1163,7 +1163,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0068', 0, () => {
+    it('testSafePlayerApi0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1180,7 +1180,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0069', 0, () => {
+    it('testSafePlayerApi0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1197,7 +1197,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0070', 0, () => {
+    it('testSafePlayerApi0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1214,7 +1214,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0071', 0, () => {
+    it('testSafePlayerApi0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1231,7 +1231,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0072', 0, () => {
+    it('testSafePlayerApi0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1248,7 +1248,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0073', 0, () => {
+    it('testSafePlayerApi0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1265,7 +1265,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0074', 0, () => {
+    it('testSafePlayerApi0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1282,7 +1282,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0075', 0, () => {
+    it('testSafePlayerApi0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1299,7 +1299,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0076', 0, () => {
+    it('testSafePlayerApi0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1316,7 +1316,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0077', 0, () => {
+    it('testSafePlayerApi0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1333,7 +1333,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0078', 0, () => {
+    it('testSafePlayerApi0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1350,7 +1350,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0079', 0, () => {
+    it('testSafePlayerApi0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1367,7 +1367,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0080', 0, () => {
+    it('testSafePlayerApi0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1384,7 +1384,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0081', 0, () => {
+    it('testSafePlayerApi0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1401,7 +1401,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0082', 0, () => {
+    it('testSafePlayerApi0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1418,7 +1418,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0083', 0, () => {
+    it('testSafePlayerApi0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1435,7 +1435,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0084', 0, () => {
+    it('testSafePlayerApi0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1452,7 +1452,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0085', 0, () => {
+    it('testSafePlayerApi0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1469,7 +1469,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0086', 0, () => {
+    it('testSafePlayerApi0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1486,7 +1486,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0087', 0, () => {
+    it('testSafePlayerApi0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1503,7 +1503,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0088', 0, () => {
+    it('testSafePlayerApi0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1520,7 +1520,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0089', 0, () => {
+    it('testSafePlayerApi0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1537,7 +1537,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0090', 0, () => {
+    it('testSafePlayerApi0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1554,7 +1554,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0091', 0, () => {
+    it('testSafePlayerApi0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1571,7 +1571,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0092', 0, () => {
+    it('testSafePlayerApi0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1588,7 +1588,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0093', 0, () => {
+    it('testSafePlayerApi0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1605,7 +1605,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0094', 0, () => {
+    it('testSafePlayerApi0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1622,7 +1622,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0095', 0, () => {
+    it('testSafePlayerApi0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1639,7 +1639,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0096', 0, () => {
+    it('testSafePlayerApi0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1656,7 +1656,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0097', 0, () => {
+    it('testSafePlayerApi0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1673,7 +1673,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0098', 0, () => {
+    it('testSafePlayerApi0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1690,7 +1690,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0099', 0, () => {
+    it('testSafePlayerApi0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1707,7 +1707,7 @@ export default function playerContractSafeTailTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafePlayerApi0100', 0, () => {
+    it('testSafePlayerApi0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];

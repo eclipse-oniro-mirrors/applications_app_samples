@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitlePipeline8wTest() {
@@ -25,7 +25,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0001', 0, () => {
+    it('test8wSubtitlePipeline0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 0;
       const end: number = 1000;
       const duration: number = end - start;
@@ -43,7 +43,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0002', 0, () => {
+    it('test8wSubtitlePipeline0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 200;
       const end: number = 1200;
       const duration: number = end - start;
@@ -61,7 +61,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0003', 0, () => {
+    it('test8wSubtitlePipeline0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 400;
       const end: number = 1400;
       const duration: number = end - start;
@@ -79,7 +79,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0004', 0, () => {
+    it('test8wSubtitlePipeline0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 600;
       const end: number = 1600;
       const duration: number = end - start;
@@ -97,7 +97,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0005', 0, () => {
+    it('test8wSubtitlePipeline0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 800;
       const end: number = 1800;
       const duration: number = end - start;
@@ -115,7 +115,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0006', 0, () => {
+    it('test8wSubtitlePipeline0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1000;
       const end: number = 2000;
       const duration: number = end - start;
@@ -133,7 +133,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0007', 0, () => {
+    it('test8wSubtitlePipeline0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1200;
       const end: number = 2200;
       const duration: number = end - start;
@@ -151,7 +151,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0008', 0, () => {
+    it('test8wSubtitlePipeline0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1400;
       const end: number = 2400;
       const duration: number = end - start;
@@ -169,7 +169,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0009', 0, () => {
+    it('test8wSubtitlePipeline0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1600;
       const end: number = 2600;
       const duration: number = end - start;
@@ -187,7 +187,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0010', 0, () => {
+    it('test8wSubtitlePipeline0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 1800;
       const end: number = 2800;
       const duration: number = end - start;
@@ -205,7 +205,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0011', 0, () => {
+    it('test8wSubtitlePipeline0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2000;
       const end: number = 3000;
       const duration: number = end - start;
@@ -223,7 +223,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0012', 0, () => {
+    it('test8wSubtitlePipeline0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2200;
       const end: number = 3200;
       const duration: number = end - start;
@@ -241,7 +241,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0013', 0, () => {
+    it('test8wSubtitlePipeline0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2400;
       const end: number = 3400;
       const duration: number = end - start;
@@ -259,7 +259,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0014', 0, () => {
+    it('test8wSubtitlePipeline0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2600;
       const end: number = 3600;
       const duration: number = end - start;
@@ -277,7 +277,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0015', 0, () => {
+    it('test8wSubtitlePipeline0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 2800;
       const end: number = 3800;
       const duration: number = end - start;
@@ -295,7 +295,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0016', 0, () => {
+    it('test8wSubtitlePipeline0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3000;
       const end: number = 4000;
       const duration: number = end - start;
@@ -313,7 +313,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0017', 0, () => {
+    it('test8wSubtitlePipeline0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3200;
       const end: number = 4200;
       const duration: number = end - start;
@@ -331,7 +331,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0018', 0, () => {
+    it('test8wSubtitlePipeline0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3400;
       const end: number = 4400;
       const duration: number = end - start;
@@ -349,7 +349,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0019', 0, () => {
+    it('test8wSubtitlePipeline0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3600;
       const end: number = 4600;
       const duration: number = end - start;
@@ -367,7 +367,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0020', 0, () => {
+    it('test8wSubtitlePipeline0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 3800;
       const end: number = 4800;
       const duration: number = end - start;
@@ -385,7 +385,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0021', 0, () => {
+    it('test8wSubtitlePipeline0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4000;
       const end: number = 5000;
       const duration: number = end - start;
@@ -403,7 +403,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0022', 0, () => {
+    it('test8wSubtitlePipeline0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4200;
       const end: number = 5200;
       const duration: number = end - start;
@@ -421,7 +421,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0023', 0, () => {
+    it('test8wSubtitlePipeline0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4400;
       const end: number = 5400;
       const duration: number = end - start;
@@ -439,7 +439,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0024', 0, () => {
+    it('test8wSubtitlePipeline0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4600;
       const end: number = 5600;
       const duration: number = end - start;
@@ -457,7 +457,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0025', 0, () => {
+    it('test8wSubtitlePipeline0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 4800;
       const end: number = 5800;
       const duration: number = end - start;
@@ -475,7 +475,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0026', 0, () => {
+    it('test8wSubtitlePipeline0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5000;
       const end: number = 6000;
       const duration: number = end - start;
@@ -493,7 +493,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0027', 0, () => {
+    it('test8wSubtitlePipeline0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5200;
       const end: number = 6200;
       const duration: number = end - start;
@@ -511,7 +511,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0028', 0, () => {
+    it('test8wSubtitlePipeline0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5400;
       const end: number = 6400;
       const duration: number = end - start;
@@ -529,7 +529,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0029', 0, () => {
+    it('test8wSubtitlePipeline0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5600;
       const end: number = 6600;
       const duration: number = end - start;
@@ -547,7 +547,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0030', 0, () => {
+    it('test8wSubtitlePipeline0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 5800;
       const end: number = 6800;
       const duration: number = end - start;
@@ -565,7 +565,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0031', 0, () => {
+    it('test8wSubtitlePipeline0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6000;
       const end: number = 7000;
       const duration: number = end - start;
@@ -583,7 +583,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0032', 0, () => {
+    it('test8wSubtitlePipeline0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6200;
       const end: number = 7200;
       const duration: number = end - start;
@@ -601,7 +601,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0033', 0, () => {
+    it('test8wSubtitlePipeline0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6400;
       const end: number = 7400;
       const duration: number = end - start;
@@ -619,7 +619,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0034', 0, () => {
+    it('test8wSubtitlePipeline0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6600;
       const end: number = 7600;
       const duration: number = end - start;
@@ -637,7 +637,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0035', 0, () => {
+    it('test8wSubtitlePipeline0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 6800;
       const end: number = 7800;
       const duration: number = end - start;
@@ -655,7 +655,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0036', 0, () => {
+    it('test8wSubtitlePipeline0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7000;
       const end: number = 8000;
       const duration: number = end - start;
@@ -673,7 +673,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0037', 0, () => {
+    it('test8wSubtitlePipeline0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7200;
       const end: number = 8200;
       const duration: number = end - start;
@@ -691,7 +691,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0038', 0, () => {
+    it('test8wSubtitlePipeline0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7400;
       const end: number = 8400;
       const duration: number = end - start;
@@ -709,7 +709,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0039', 0, () => {
+    it('test8wSubtitlePipeline0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7600;
       const end: number = 8600;
       const duration: number = end - start;
@@ -727,7 +727,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0040', 0, () => {
+    it('test8wSubtitlePipeline0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 7800;
       const end: number = 8800;
       const duration: number = end - start;
@@ -745,7 +745,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0041', 0, () => {
+    it('test8wSubtitlePipeline0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8000;
       const end: number = 9000;
       const duration: number = end - start;
@@ -763,7 +763,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0042', 0, () => {
+    it('test8wSubtitlePipeline0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8200;
       const end: number = 9200;
       const duration: number = end - start;
@@ -781,7 +781,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0043', 0, () => {
+    it('test8wSubtitlePipeline0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8400;
       const end: number = 9400;
       const duration: number = end - start;
@@ -799,7 +799,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0044', 0, () => {
+    it('test8wSubtitlePipeline0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8600;
       const end: number = 9600;
       const duration: number = end - start;
@@ -817,7 +817,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0045', 0, () => {
+    it('test8wSubtitlePipeline0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 8800;
       const end: number = 9800;
       const duration: number = end - start;
@@ -835,7 +835,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0046', 0, () => {
+    it('test8wSubtitlePipeline0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9000;
       const end: number = 10000;
       const duration: number = end - start;
@@ -853,7 +853,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0047', 0, () => {
+    it('test8wSubtitlePipeline0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9200;
       const end: number = 10200;
       const duration: number = end - start;
@@ -871,7 +871,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0048', 0, () => {
+    it('test8wSubtitlePipeline0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9400;
       const end: number = 10400;
       const duration: number = end - start;
@@ -889,7 +889,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0049', 0, () => {
+    it('test8wSubtitlePipeline0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9600;
       const end: number = 10600;
       const duration: number = end - start;
@@ -907,7 +907,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0050', 0, () => {
+    it('test8wSubtitlePipeline0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 9800;
       const end: number = 10800;
       const duration: number = end - start;
@@ -925,7 +925,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0051', 0, () => {
+    it('test8wSubtitlePipeline0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 10000;
       const end: number = 11000;
       const duration: number = end - start;
@@ -943,7 +943,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0052', 0, () => {
+    it('test8wSubtitlePipeline0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 10200;
       const end: number = 11200;
       const duration: number = end - start;
@@ -961,7 +961,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0053', 0, () => {
+    it('test8wSubtitlePipeline0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 10400;
       const end: number = 11400;
       const duration: number = end - start;
@@ -979,7 +979,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0054', 0, () => {
+    it('test8wSubtitlePipeline0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 10600;
       const end: number = 11600;
       const duration: number = end - start;
@@ -997,7 +997,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0055', 0, () => {
+    it('test8wSubtitlePipeline0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 10800;
       const end: number = 11800;
       const duration: number = end - start;
@@ -1015,7 +1015,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0056', 0, () => {
+    it('test8wSubtitlePipeline0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 11000;
       const end: number = 12000;
       const duration: number = end - start;
@@ -1033,7 +1033,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0057', 0, () => {
+    it('test8wSubtitlePipeline0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 11200;
       const end: number = 12200;
       const duration: number = end - start;
@@ -1051,7 +1051,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0058', 0, () => {
+    it('test8wSubtitlePipeline0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 11400;
       const end: number = 12400;
       const duration: number = end - start;
@@ -1069,7 +1069,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0059', 0, () => {
+    it('test8wSubtitlePipeline0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 11600;
       const end: number = 12600;
       const duration: number = end - start;
@@ -1087,7 +1087,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0060', 0, () => {
+    it('test8wSubtitlePipeline0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 11800;
       const end: number = 12800;
       const duration: number = end - start;
@@ -1105,7 +1105,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0061', 0, () => {
+    it('test8wSubtitlePipeline0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 12000;
       const end: number = 13000;
       const duration: number = end - start;
@@ -1123,7 +1123,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0062', 0, () => {
+    it('test8wSubtitlePipeline0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 12200;
       const end: number = 13200;
       const duration: number = end - start;
@@ -1141,7 +1141,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0063', 0, () => {
+    it('test8wSubtitlePipeline0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 12400;
       const end: number = 13400;
       const duration: number = end - start;
@@ -1159,7 +1159,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0064', 0, () => {
+    it('test8wSubtitlePipeline0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 12600;
       const end: number = 13600;
       const duration: number = end - start;
@@ -1177,7 +1177,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0065', 0, () => {
+    it('test8wSubtitlePipeline0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 12800;
       const end: number = 13800;
       const duration: number = end - start;
@@ -1195,7 +1195,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0066', 0, () => {
+    it('test8wSubtitlePipeline0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 13000;
       const end: number = 14000;
       const duration: number = end - start;
@@ -1213,7 +1213,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0067', 0, () => {
+    it('test8wSubtitlePipeline0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 13200;
       const end: number = 14200;
       const duration: number = end - start;
@@ -1231,7 +1231,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0068', 0, () => {
+    it('test8wSubtitlePipeline0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 13400;
       const end: number = 14400;
       const duration: number = end - start;
@@ -1249,7 +1249,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0069', 0, () => {
+    it('test8wSubtitlePipeline0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 13600;
       const end: number = 14600;
       const duration: number = end - start;
@@ -1267,7 +1267,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0070', 0, () => {
+    it('test8wSubtitlePipeline0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 13800;
       const end: number = 14800;
       const duration: number = end - start;
@@ -1285,7 +1285,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0071', 0, () => {
+    it('test8wSubtitlePipeline0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 14000;
       const end: number = 15000;
       const duration: number = end - start;
@@ -1303,7 +1303,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0072', 0, () => {
+    it('test8wSubtitlePipeline0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 14200;
       const end: number = 15200;
       const duration: number = end - start;
@@ -1321,7 +1321,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0073', 0, () => {
+    it('test8wSubtitlePipeline0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 14400;
       const end: number = 15400;
       const duration: number = end - start;
@@ -1339,7 +1339,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0074', 0, () => {
+    it('test8wSubtitlePipeline0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 14600;
       const end: number = 15600;
       const duration: number = end - start;
@@ -1357,7 +1357,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0075', 0, () => {
+    it('test8wSubtitlePipeline0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 14800;
       const end: number = 15800;
       const duration: number = end - start;
@@ -1375,7 +1375,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0076', 0, () => {
+    it('test8wSubtitlePipeline0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 15000;
       const end: number = 16000;
       const duration: number = end - start;
@@ -1393,7 +1393,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0077', 0, () => {
+    it('test8wSubtitlePipeline0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 15200;
       const end: number = 16200;
       const duration: number = end - start;
@@ -1411,7 +1411,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0078', 0, () => {
+    it('test8wSubtitlePipeline0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 15400;
       const end: number = 16400;
       const duration: number = end - start;
@@ -1429,7 +1429,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0079', 0, () => {
+    it('test8wSubtitlePipeline0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 15600;
       const end: number = 16600;
       const duration: number = end - start;
@@ -1447,7 +1447,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0080', 0, () => {
+    it('test8wSubtitlePipeline0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 15800;
       const end: number = 16800;
       const duration: number = end - start;
@@ -1465,7 +1465,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0081', 0, () => {
+    it('test8wSubtitlePipeline0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 16000;
       const end: number = 17000;
       const duration: number = end - start;
@@ -1483,7 +1483,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0082', 0, () => {
+    it('test8wSubtitlePipeline0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 16200;
       const end: number = 17200;
       const duration: number = end - start;
@@ -1501,7 +1501,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0083', 0, () => {
+    it('test8wSubtitlePipeline0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 16400;
       const end: number = 17400;
       const duration: number = end - start;
@@ -1519,7 +1519,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0084', 0, () => {
+    it('test8wSubtitlePipeline0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 16600;
       const end: number = 17600;
       const duration: number = end - start;
@@ -1537,7 +1537,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0085', 0, () => {
+    it('test8wSubtitlePipeline0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 16800;
       const end: number = 17800;
       const duration: number = end - start;
@@ -1555,7 +1555,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0086', 0, () => {
+    it('test8wSubtitlePipeline0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 17000;
       const end: number = 18000;
       const duration: number = end - start;
@@ -1573,7 +1573,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0087', 0, () => {
+    it('test8wSubtitlePipeline0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 17200;
       const end: number = 18200;
       const duration: number = end - start;
@@ -1591,7 +1591,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0088', 0, () => {
+    it('test8wSubtitlePipeline0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 17400;
       const end: number = 18400;
       const duration: number = end - start;
@@ -1609,7 +1609,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0089', 0, () => {
+    it('test8wSubtitlePipeline0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 17600;
       const end: number = 18600;
       const duration: number = end - start;
@@ -1627,7 +1627,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0090', 0, () => {
+    it('test8wSubtitlePipeline0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 17800;
       const end: number = 18800;
       const duration: number = end - start;
@@ -1645,7 +1645,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0091', 0, () => {
+    it('test8wSubtitlePipeline0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 18000;
       const end: number = 19000;
       const duration: number = end - start;
@@ -1663,7 +1663,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0092', 0, () => {
+    it('test8wSubtitlePipeline0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 18200;
       const end: number = 19200;
       const duration: number = end - start;
@@ -1681,7 +1681,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0093', 0, () => {
+    it('test8wSubtitlePipeline0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 18400;
       const end: number = 19400;
       const duration: number = end - start;
@@ -1699,7 +1699,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0094', 0, () => {
+    it('test8wSubtitlePipeline0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 18600;
       const end: number = 19600;
       const duration: number = end - start;
@@ -1717,7 +1717,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0095', 0, () => {
+    it('test8wSubtitlePipeline0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 18800;
       const end: number = 19800;
       const duration: number = end - start;
@@ -1735,7 +1735,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0096', 0, () => {
+    it('test8wSubtitlePipeline0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 19000;
       const end: number = 20000;
       const duration: number = end - start;
@@ -1753,7 +1753,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0097', 0, () => {
+    it('test8wSubtitlePipeline0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 19200;
       const end: number = 20200;
       const duration: number = end - start;
@@ -1771,7 +1771,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0098', 0, () => {
+    it('test8wSubtitlePipeline0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 19400;
       const end: number = 20400;
       const duration: number = end - start;
@@ -1789,7 +1789,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0099', 0, () => {
+    it('test8wSubtitlePipeline0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 19600;
       const end: number = 20600;
       const duration: number = end - start;
@@ -1807,7 +1807,7 @@ export default function subtitlePipeline8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wSubtitlePipeline0100', 0, () => {
+    it('test8wSubtitlePipeline0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const start: number = 19800;
       const end: number = 20800;
       const duration: number = end - start;

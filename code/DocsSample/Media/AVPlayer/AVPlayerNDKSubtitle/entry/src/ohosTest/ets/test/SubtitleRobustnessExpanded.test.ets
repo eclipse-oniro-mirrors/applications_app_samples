@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitleRobustnessExpandedTest() {
@@ -25,7 +25,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0001', 0, () => {
+    it('testMoreSubtitleRobust0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -41,7 +41,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0002', 0, () => {
+    it('testMoreSubtitleRobust0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -57,7 +57,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0003', 0, () => {
+    it('testMoreSubtitleRobust0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -73,7 +73,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0004', 0, () => {
+    it('testMoreSubtitleRobust0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -89,7 +89,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0005', 0, () => {
+    it('testMoreSubtitleRobust0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -105,7 +105,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0006', 0, () => {
+    it('testMoreSubtitleRobust0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -121,7 +121,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0007', 0, () => {
+    it('testMoreSubtitleRobust0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -137,7 +137,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0008', 0, () => {
+    it('testMoreSubtitleRobust0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -153,7 +153,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0009', 0, () => {
+    it('testMoreSubtitleRobust0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -169,7 +169,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0010', 0, () => {
+    it('testMoreSubtitleRobust0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -185,7 +185,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0011', 0, () => {
+    it('testMoreSubtitleRobust0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -201,7 +201,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0012', 0, () => {
+    it('testMoreSubtitleRobust0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -217,7 +217,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0013', 0, () => {
+    it('testMoreSubtitleRobust0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -233,7 +233,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0014', 0, () => {
+    it('testMoreSubtitleRobust0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -249,7 +249,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0015', 0, () => {
+    it('testMoreSubtitleRobust0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -265,7 +265,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0016', 0, () => {
+    it('testMoreSubtitleRobust0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -281,7 +281,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0017', 0, () => {
+    it('testMoreSubtitleRobust0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -297,7 +297,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0018', 0, () => {
+    it('testMoreSubtitleRobust0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -313,7 +313,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0019', 0, () => {
+    it('testMoreSubtitleRobust0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -329,7 +329,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0020', 0, () => {
+    it('testMoreSubtitleRobust0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -345,7 +345,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0021', 0, () => {
+    it('testMoreSubtitleRobust0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -361,7 +361,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0022', 0, () => {
+    it('testMoreSubtitleRobust0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -377,7 +377,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0023', 0, () => {
+    it('testMoreSubtitleRobust0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -393,7 +393,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0024', 0, () => {
+    it('testMoreSubtitleRobust0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -409,7 +409,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0025', 0, () => {
+    it('testMoreSubtitleRobust0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -425,7 +425,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0026', 0, () => {
+    it('testMoreSubtitleRobust0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -441,7 +441,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0027', 0, () => {
+    it('testMoreSubtitleRobust0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -457,7 +457,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0028', 0, () => {
+    it('testMoreSubtitleRobust0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -473,7 +473,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0029', 0, () => {
+    it('testMoreSubtitleRobust0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -489,7 +489,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0030', 0, () => {
+    it('testMoreSubtitleRobust0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -505,7 +505,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0031', 0, () => {
+    it('testMoreSubtitleRobust0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -521,7 +521,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0032', 0, () => {
+    it('testMoreSubtitleRobust0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -537,7 +537,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0033', 0, () => {
+    it('testMoreSubtitleRobust0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -553,7 +553,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0034', 0, () => {
+    it('testMoreSubtitleRobust0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -569,7 +569,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0035', 0, () => {
+    it('testMoreSubtitleRobust0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -585,7 +585,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0036', 0, () => {
+    it('testMoreSubtitleRobust0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -601,7 +601,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0037', 0, () => {
+    it('testMoreSubtitleRobust0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -617,7 +617,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0038', 0, () => {
+    it('testMoreSubtitleRobust0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -633,7 +633,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0039', 0, () => {
+    it('testMoreSubtitleRobust0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -649,7 +649,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0040', 0, () => {
+    it('testMoreSubtitleRobust0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -665,7 +665,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0041', 0, () => {
+    it('testMoreSubtitleRobust0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -681,7 +681,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0042', 0, () => {
+    it('testMoreSubtitleRobust0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -697,7 +697,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0043', 0, () => {
+    it('testMoreSubtitleRobust0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -713,7 +713,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0044', 0, () => {
+    it('testMoreSubtitleRobust0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -729,7 +729,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0045', 0, () => {
+    it('testMoreSubtitleRobust0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -745,7 +745,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0046', 0, () => {
+    it('testMoreSubtitleRobust0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -761,7 +761,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0047', 0, () => {
+    it('testMoreSubtitleRobust0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -777,7 +777,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0048', 0, () => {
+    it('testMoreSubtitleRobust0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -793,7 +793,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0049', 0, () => {
+    it('testMoreSubtitleRobust0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -809,7 +809,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0050', 0, () => {
+    it('testMoreSubtitleRobust0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -825,7 +825,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0051', 0, () => {
+    it('testMoreSubtitleRobust0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -841,7 +841,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0052', 0, () => {
+    it('testMoreSubtitleRobust0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -857,7 +857,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0053', 0, () => {
+    it('testMoreSubtitleRobust0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -873,7 +873,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0054', 0, () => {
+    it('testMoreSubtitleRobust0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -889,7 +889,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0055', 0, () => {
+    it('testMoreSubtitleRobust0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -905,7 +905,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0056', 0, () => {
+    it('testMoreSubtitleRobust0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -921,7 +921,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0057', 0, () => {
+    it('testMoreSubtitleRobust0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -937,7 +937,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0058', 0, () => {
+    it('testMoreSubtitleRobust0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -953,7 +953,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0059', 0, () => {
+    it('testMoreSubtitleRobust0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -969,7 +969,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0060', 0, () => {
+    it('testMoreSubtitleRobust0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -985,7 +985,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0061', 0, () => {
+    it('testMoreSubtitleRobust0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1001,7 +1001,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0062', 0, () => {
+    it('testMoreSubtitleRobust0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1017,7 +1017,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0063', 0, () => {
+    it('testMoreSubtitleRobust0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1033,7 +1033,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0064', 0, () => {
+    it('testMoreSubtitleRobust0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1049,7 +1049,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0065', 0, () => {
+    it('testMoreSubtitleRobust0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -1065,7 +1065,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0066', 0, () => {
+    it('testMoreSubtitleRobust0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1081,7 +1081,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0067', 0, () => {
+    it('testMoreSubtitleRobust0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1097,7 +1097,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0068', 0, () => {
+    it('testMoreSubtitleRobust0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1113,7 +1113,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0069', 0, () => {
+    it('testMoreSubtitleRobust0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1129,7 +1129,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0070', 0, () => {
+    it('testMoreSubtitleRobust0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1145,7 +1145,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0071', 0, () => {
+    it('testMoreSubtitleRobust0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1161,7 +1161,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0072', 0, () => {
+    it('testMoreSubtitleRobust0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1177,7 +1177,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0073', 0, () => {
+    it('testMoreSubtitleRobust0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -1193,7 +1193,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0074', 0, () => {
+    it('testMoreSubtitleRobust0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1209,7 +1209,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0075', 0, () => {
+    it('testMoreSubtitleRobust0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1225,7 +1225,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0076', 0, () => {
+    it('testMoreSubtitleRobust0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1241,7 +1241,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0077', 0, () => {
+    it('testMoreSubtitleRobust0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1257,7 +1257,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0078', 0, () => {
+    it('testMoreSubtitleRobust0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1273,7 +1273,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0079', 0, () => {
+    it('testMoreSubtitleRobust0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1289,7 +1289,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0080', 0, () => {
+    it('testMoreSubtitleRobust0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1305,7 +1305,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0081', 0, () => {
+    it('testMoreSubtitleRobust0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -1321,7 +1321,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0082', 0, () => {
+    it('testMoreSubtitleRobust0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1337,7 +1337,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0083', 0, () => {
+    it('testMoreSubtitleRobust0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1353,7 +1353,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0084', 0, () => {
+    it('testMoreSubtitleRobust0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1369,7 +1369,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0085', 0, () => {
+    it('testMoreSubtitleRobust0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1385,7 +1385,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0086', 0, () => {
+    it('testMoreSubtitleRobust0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1401,7 +1401,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0087', 0, () => {
+    it('testMoreSubtitleRobust0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1417,7 +1417,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0088', 0, () => {
+    it('testMoreSubtitleRobust0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1433,7 +1433,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0089', 0, () => {
+    it('testMoreSubtitleRobust0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -1449,7 +1449,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0090', 0, () => {
+    it('testMoreSubtitleRobust0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1465,7 +1465,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0091', 0, () => {
+    it('testMoreSubtitleRobust0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1481,7 +1481,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0092', 0, () => {
+    it('testMoreSubtitleRobust0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1497,7 +1497,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0093', 0, () => {
+    it('testMoreSubtitleRobust0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1513,7 +1513,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0094', 0, () => {
+    it('testMoreSubtitleRobust0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3599999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1529,7 +1529,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0095', 0, () => {
+    it('testMoreSubtitleRobust0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 3600000;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1545,7 +1545,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0096', 0, () => {
+    it('testMoreSubtitleRobust0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 86399999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1561,7 +1561,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0097', 0, () => {
+    it('testMoreSubtitleRobust0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = -1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(false);
@@ -1577,7 +1577,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0098', 0, () => {
+    it('testMoreSubtitleRobust0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 0;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1593,7 +1593,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0099', 0, () => {
+    it('testMoreSubtitleRobust0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 1;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);
@@ -1609,7 +1609,7 @@ export default function subtitleRobustnessExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleRobust0100', 0, () => {
+    it('testMoreSubtitleRobust0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const timestamp: number = 999;
       const valid: boolean = timestamp >= 0 && timestamp <= 86399999;
       expect(valid).assertEqual(true);

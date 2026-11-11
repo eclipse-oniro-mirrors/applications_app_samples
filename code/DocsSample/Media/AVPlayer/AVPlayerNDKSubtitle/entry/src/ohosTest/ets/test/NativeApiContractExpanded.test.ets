@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function nativeApiContractExpandedTest() {
@@ -25,7 +25,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0001', 0, () => {
+    it('testExpNativeApi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -43,7 +43,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0002', 0, () => {
+    it('testExpNativeApi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -61,7 +61,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0003', 0, () => {
+    it('testExpNativeApi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -79,7 +79,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0004', 0, () => {
+    it('testExpNativeApi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -97,7 +97,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0005', 0, () => {
+    it('testExpNativeApi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -115,7 +115,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0006', 0, () => {
+    it('testExpNativeApi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -133,7 +133,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0007', 0, () => {
+    it('testExpNativeApi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -151,7 +151,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0008', 0, () => {
+    it('testExpNativeApi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -169,7 +169,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0009', 0, () => {
+    it('testExpNativeApi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -187,7 +187,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0010', 0, () => {
+    it('testExpNativeApi0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -205,7 +205,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0011', 0, () => {
+    it('testExpNativeApi0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -223,7 +223,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0012', 0, () => {
+    it('testExpNativeApi0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -241,7 +241,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0013', 0, () => {
+    it('testExpNativeApi0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -259,7 +259,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0014', 0, () => {
+    it('testExpNativeApi0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -277,7 +277,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0015', 0, () => {
+    it('testExpNativeApi0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -295,7 +295,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0016', 0, () => {
+    it('testExpNativeApi0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -313,7 +313,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0017', 0, () => {
+    it('testExpNativeApi0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -331,7 +331,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0018', 0, () => {
+    it('testExpNativeApi0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -349,7 +349,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0019', 0, () => {
+    it('testExpNativeApi0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -367,7 +367,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0020', 0, () => {
+    it('testExpNativeApi0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -385,7 +385,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0021', 0, () => {
+    it('testExpNativeApi0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -403,7 +403,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0022', 0, () => {
+    it('testExpNativeApi0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -421,7 +421,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0023', 0, () => {
+    it('testExpNativeApi0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -439,7 +439,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0024', 0, () => {
+    it('testExpNativeApi0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -457,7 +457,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0025', 0, () => {
+    it('testExpNativeApi0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -475,7 +475,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0026', 0, () => {
+    it('testExpNativeApi0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -493,7 +493,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0027', 0, () => {
+    it('testExpNativeApi0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -511,7 +511,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0028', 0, () => {
+    it('testExpNativeApi0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -529,7 +529,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0029', 0, () => {
+    it('testExpNativeApi0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -547,7 +547,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0030', 0, () => {
+    it('testExpNativeApi0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -565,7 +565,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0031', 0, () => {
+    it('testExpNativeApi0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -583,7 +583,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0032', 0, () => {
+    it('testExpNativeApi0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -601,7 +601,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0033', 0, () => {
+    it('testExpNativeApi0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -619,7 +619,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0034', 0, () => {
+    it('testExpNativeApi0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -637,7 +637,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0035', 0, () => {
+    it('testExpNativeApi0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -655,7 +655,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0036', 0, () => {
+    it('testExpNativeApi0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -673,7 +673,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0037', 0, () => {
+    it('testExpNativeApi0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -691,7 +691,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0038', 0, () => {
+    it('testExpNativeApi0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -709,7 +709,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0039', 0, () => {
+    it('testExpNativeApi0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -727,7 +727,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0040', 0, () => {
+    it('testExpNativeApi0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -745,7 +745,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0041', 0, () => {
+    it('testExpNativeApi0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -763,7 +763,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0042', 0, () => {
+    it('testExpNativeApi0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -781,7 +781,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0043', 0, () => {
+    it('testExpNativeApi0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -799,7 +799,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0044', 0, () => {
+    it('testExpNativeApi0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -817,7 +817,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0045', 0, () => {
+    it('testExpNativeApi0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -835,7 +835,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0046', 0, () => {
+    it('testExpNativeApi0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -853,7 +853,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0047', 0, () => {
+    it('testExpNativeApi0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -871,7 +871,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0048', 0, () => {
+    it('testExpNativeApi0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -889,7 +889,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0049', 0, () => {
+    it('testExpNativeApi0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -907,7 +907,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0050', 0, () => {
+    it('testExpNativeApi0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -925,7 +925,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0051', 0, () => {
+    it('testExpNativeApi0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -943,7 +943,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0052', 0, () => {
+    it('testExpNativeApi0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -961,7 +961,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0053', 0, () => {
+    it('testExpNativeApi0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -979,7 +979,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0054', 0, () => {
+    it('testExpNativeApi0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -997,7 +997,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0055', 0, () => {
+    it('testExpNativeApi0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1015,7 +1015,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0056', 0, () => {
+    it('testExpNativeApi0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1033,7 +1033,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0057', 0, () => {
+    it('testExpNativeApi0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1051,7 +1051,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0058', 0, () => {
+    it('testExpNativeApi0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1069,7 +1069,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0059', 0, () => {
+    it('testExpNativeApi0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1087,7 +1087,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0060', 0, () => {
+    it('testExpNativeApi0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1105,7 +1105,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0061', 0, () => {
+    it('testExpNativeApi0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1123,7 +1123,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0062', 0, () => {
+    it('testExpNativeApi0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1141,7 +1141,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0063', 0, () => {
+    it('testExpNativeApi0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1159,7 +1159,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0064', 0, () => {
+    it('testExpNativeApi0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1177,7 +1177,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0065', 0, () => {
+    it('testExpNativeApi0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1195,7 +1195,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0066', 0, () => {
+    it('testExpNativeApi0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1213,7 +1213,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0067', 0, () => {
+    it('testExpNativeApi0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1231,7 +1231,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0068', 0, () => {
+    it('testExpNativeApi0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1249,7 +1249,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0069', 0, () => {
+    it('testExpNativeApi0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1267,7 +1267,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0070', 0, () => {
+    it('testExpNativeApi0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1285,7 +1285,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0071', 0, () => {
+    it('testExpNativeApi0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1303,7 +1303,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0072', 0, () => {
+    it('testExpNativeApi0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1321,7 +1321,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0073', 0, () => {
+    it('testExpNativeApi0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1339,7 +1339,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0074', 0, () => {
+    it('testExpNativeApi0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1357,7 +1357,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0075', 0, () => {
+    it('testExpNativeApi0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1375,7 +1375,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0076', 0, () => {
+    it('testExpNativeApi0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1393,7 +1393,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0077', 0, () => {
+    it('testExpNativeApi0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1411,7 +1411,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0078', 0, () => {
+    it('testExpNativeApi0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1429,7 +1429,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0079', 0, () => {
+    it('testExpNativeApi0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1447,7 +1447,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0080', 0, () => {
+    it('testExpNativeApi0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1465,7 +1465,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0081', 0, () => {
+    it('testExpNativeApi0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1483,7 +1483,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0082', 0, () => {
+    it('testExpNativeApi0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1501,7 +1501,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0083', 0, () => {
+    it('testExpNativeApi0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1519,7 +1519,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0084', 0, () => {
+    it('testExpNativeApi0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1537,7 +1537,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0085', 0, () => {
+    it('testExpNativeApi0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1555,7 +1555,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0086', 0, () => {
+    it('testExpNativeApi0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1573,7 +1573,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0087', 0, () => {
+    it('testExpNativeApi0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1591,7 +1591,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0088', 0, () => {
+    it('testExpNativeApi0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1609,7 +1609,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0089', 0, () => {
+    it('testExpNativeApi0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1627,7 +1627,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0090', 0, () => {
+    it('testExpNativeApi0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1645,7 +1645,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0091', 0, () => {
+    it('testExpNativeApi0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1663,7 +1663,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0092', 0, () => {
+    it('testExpNativeApi0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1681,7 +1681,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0093', 0, () => {
+    it('testExpNativeApi0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1699,7 +1699,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0094', 0, () => {
+    it('testExpNativeApi0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1717,7 +1717,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0095', 0, () => {
+    it('testExpNativeApi0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1735,7 +1735,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0096', 0, () => {
+    it('testExpNativeApi0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1753,7 +1753,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0097', 0, () => {
+    it('testExpNativeApi0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1771,7 +1771,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0098', 0, () => {
+    it('testExpNativeApi0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1789,7 +1789,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0099', 0, () => {
+    it('testExpNativeApi0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];
@@ -1807,7 +1807,7 @@ export default function nativeApiContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpNativeApi0100', 0, () => {
+    it('testExpNativeApi0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const names: string[] = ['setup', 'play', 'setSpeed', 'getSpeed', 'pause', 'seek',
         'getDuration', 'getCurrentTime', 'getVideoHeight', 'getVideoWidth', 'release',
         'addSubtitle', 'getSubtitle'];

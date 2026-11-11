@@ -12,10 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 
+const TAG: string = '[Sample_FileDescriptorTruncate]';
+const DOMAIN: number = 0xF811;
 const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 
@@ -30,7 +33,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0001', 0, () => {
+    it('testFinalFdTruncate0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0001 begin');
       const path: string = `${context.filesDir}/fd_truncate_1.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -39,18 +43,24 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(200);
         fileIo.truncateSync(file.fd, 100);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert truncated size for: ' + path);
         expect(fileIo.statSync(path).size).assertEqual(100);
         fileIo.closeSync(file);
         const readBuffer: ArrayBuffer = new ArrayBuffer(100);
         const readFile: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.READ_ONLY);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert read size for: ' + path);
         expect(fileIo.readSync(readFile.fd, readBuffer)).assertEqual(100);
         fileIo.closeSync(readFile);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert truncated size for: ' + path);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert final size for: ' + path);
         expect(fileIo.statSync(path).size).assertEqual(100);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0001 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0002
@@ -60,7 +70,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0002', 0, () => {
+    it('testFinalFdTruncate0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0002 begin');
       const path: string = `${context.filesDir}/fd_truncate_2.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -69,6 +80,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(204);
         fileIo.truncateSync(file.fd, 102);
         expect(fileIo.statSync(path).size).assertEqual(102);
@@ -79,8 +91,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(102);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0002 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0003
@@ -90,7 +103,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0003', 0, () => {
+    it('testFinalFdTruncate0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0003 begin');
       const path: string = `${context.filesDir}/fd_truncate_3.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -99,6 +113,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(208);
         fileIo.truncateSync(file.fd, 104);
         expect(fileIo.statSync(path).size).assertEqual(104);
@@ -109,8 +124,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(104);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0003 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0004
@@ -120,7 +136,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0004', 0, () => {
+    it('testFinalFdTruncate0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0004 begin');
       const path: string = `${context.filesDir}/fd_truncate_4.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -129,6 +146,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(212);
         fileIo.truncateSync(file.fd, 106);
         expect(fileIo.statSync(path).size).assertEqual(106);
@@ -139,8 +157,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(106);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0004 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0005
@@ -150,7 +169,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0005', 0, () => {
+    it('testFinalFdTruncate0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0005 begin');
       const path: string = `${context.filesDir}/fd_truncate_5.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -159,6 +179,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(216);
         fileIo.truncateSync(file.fd, 108);
         expect(fileIo.statSync(path).size).assertEqual(108);
@@ -169,8 +190,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(108);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0005 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0006
@@ -180,7 +202,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0006', 0, () => {
+    it('testFinalFdTruncate0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0006 begin');
       const path: string = `${context.filesDir}/fd_truncate_6.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -189,6 +212,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(220);
         fileIo.truncateSync(file.fd, 110);
         expect(fileIo.statSync(path).size).assertEqual(110);
@@ -199,8 +223,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(110);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0006 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0007
@@ -210,7 +235,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0007', 0, () => {
+    it('testFinalFdTruncate0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0007 begin');
       const path: string = `${context.filesDir}/fd_truncate_7.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -219,6 +245,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(224);
         fileIo.truncateSync(file.fd, 112);
         expect(fileIo.statSync(path).size).assertEqual(112);
@@ -229,8 +256,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(112);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0007 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0008
@@ -240,7 +268,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0008', 0, () => {
+    it('testFinalFdTruncate0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0008 begin');
       const path: string = `${context.filesDir}/fd_truncate_8.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -249,6 +278,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(228);
         fileIo.truncateSync(file.fd, 114);
         expect(fileIo.statSync(path).size).assertEqual(114);
@@ -259,8 +289,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(114);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0008 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0009
@@ -270,7 +301,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0009', 0, () => {
+    it('testFinalFdTruncate0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0009 begin');
       const path: string = `${context.filesDir}/fd_truncate_9.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -279,6 +311,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(232);
         fileIo.truncateSync(file.fd, 116);
         expect(fileIo.statSync(path).size).assertEqual(116);
@@ -289,8 +322,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(116);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0009 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0010
@@ -300,7 +334,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0010', 0, () => {
+    it('testFinalFdTruncate0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0010 begin');
       const path: string = `${context.filesDir}/fd_truncate_10.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -309,6 +344,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(236);
         fileIo.truncateSync(file.fd, 118);
         expect(fileIo.statSync(path).size).assertEqual(118);
@@ -319,8 +355,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(118);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0010 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0011
@@ -330,7 +367,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0011', 0, () => {
+    it('testFinalFdTruncate0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0011 begin');
       const path: string = `${context.filesDir}/fd_truncate_11.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -339,6 +377,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(240);
         fileIo.truncateSync(file.fd, 120);
         expect(fileIo.statSync(path).size).assertEqual(120);
@@ -349,8 +388,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(120);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0011 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0012
@@ -360,7 +400,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0012', 0, () => {
+    it('testFinalFdTruncate0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0012 begin');
       const path: string = `${context.filesDir}/fd_truncate_12.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -369,6 +410,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(244);
         fileIo.truncateSync(file.fd, 122);
         expect(fileIo.statSync(path).size).assertEqual(122);
@@ -379,8 +421,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(122);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0012 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0013
@@ -390,7 +433,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0013', 0, () => {
+    it('testFinalFdTruncate0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0013 begin');
       const path: string = `${context.filesDir}/fd_truncate_13.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -399,6 +443,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(248);
         fileIo.truncateSync(file.fd, 124);
         expect(fileIo.statSync(path).size).assertEqual(124);
@@ -409,8 +454,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(124);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0013 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0014
@@ -420,7 +466,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0014', 0, () => {
+    it('testFinalFdTruncate0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0014 begin');
       const path: string = `${context.filesDir}/fd_truncate_14.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -429,6 +476,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(252);
         fileIo.truncateSync(file.fd, 126);
         expect(fileIo.statSync(path).size).assertEqual(126);
@@ -439,8 +487,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(126);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0014 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0015
@@ -450,7 +499,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0015', 0, () => {
+    it('testFinalFdTruncate0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0015 begin');
       const path: string = `${context.filesDir}/fd_truncate_15.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -459,6 +509,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(256);
         fileIo.truncateSync(file.fd, 128);
         expect(fileIo.statSync(path).size).assertEqual(128);
@@ -469,8 +520,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(128);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0015 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0016
@@ -480,7 +532,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0016', 0, () => {
+    it('testFinalFdTruncate0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0016 begin');
       const path: string = `${context.filesDir}/fd_truncate_16.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -489,6 +542,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(260);
         fileIo.truncateSync(file.fd, 130);
         expect(fileIo.statSync(path).size).assertEqual(130);
@@ -499,8 +553,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(130);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0016 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0017
@@ -510,7 +565,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0017', 0, () => {
+    it('testFinalFdTruncate0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0017 begin');
       const path: string = `${context.filesDir}/fd_truncate_17.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -519,6 +575,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(264);
         fileIo.truncateSync(file.fd, 132);
         expect(fileIo.statSync(path).size).assertEqual(132);
@@ -529,8 +586,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(132);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0017 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0018
@@ -540,7 +598,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0018', 0, () => {
+    it('testFinalFdTruncate0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0018 begin');
       const path: string = `${context.filesDir}/fd_truncate_18.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -549,6 +608,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(268);
         fileIo.truncateSync(file.fd, 134);
         expect(fileIo.statSync(path).size).assertEqual(134);
@@ -559,8 +619,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(134);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0018 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0019
@@ -570,7 +631,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0019', 0, () => {
+    it('testFinalFdTruncate0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0019 begin');
       const path: string = `${context.filesDir}/fd_truncate_19.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -579,6 +641,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(272);
         fileIo.truncateSync(file.fd, 136);
         expect(fileIo.statSync(path).size).assertEqual(136);
@@ -589,8 +652,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(136);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0019 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0020
@@ -600,7 +664,8 @@ export default function fileDescriptorTruncateBehaviorTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFinalFdTruncate0020', 0, () => {
+    it('testFinalFdTruncate0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0020 begin');
       const path: string = `${context.filesDir}/fd_truncate_20.bin`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -609,6 +674,7 @@ export default function fileDescriptorTruncateBehaviorTest() {
         for (let j: number = 0; j < view.length; j++) {
           view[j] = j % 256;
         }
+        hilog.info(DOMAIN, TAG, '%{public}s', 'assert write size for: ' + path);
         expect(fileIo.writeSync(file.fd, buffer)).assertEqual(276);
         fileIo.truncateSync(file.fd, 138);
         expect(fileIo.statSync(path).size).assertEqual(138);
@@ -619,8 +685,9 @@ export default function fileDescriptorTruncateBehaviorTest() {
         fileIo.closeSync(readFile);
         expect(fileIo.statSync(path).size).assertEqual(138);
       } finally {
-        try { fileIo.unlinkSync(path); } catch (error) {}
+        try { fileIo.unlinkSync(path); } catch (error) { hilog.info(DOMAIN, TAG, '%{public}s', 'cleanup skipped: ' + path); }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFinalFdTruncate0020 end');
     })
   })
 }

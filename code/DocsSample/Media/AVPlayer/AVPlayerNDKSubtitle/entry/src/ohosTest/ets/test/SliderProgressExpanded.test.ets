@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function sliderProgressExpandedTest() {
@@ -25,7 +25,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0001', 0, () => {
+    it('testExpSlider0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 0;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -43,7 +43,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0002', 0, () => {
+    it('testExpSlider0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -61,7 +61,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0003', 0, () => {
+    it('testExpSlider0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -79,7 +79,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0004', 0, () => {
+    it('testExpSlider0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -97,7 +97,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0005', 0, () => {
+    it('testExpSlider0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -115,7 +115,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0006', 0, () => {
+    it('testExpSlider0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -133,7 +133,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0007', 0, () => {
+    it('testExpSlider0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -151,7 +151,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0008', 0, () => {
+    it('testExpSlider0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -169,7 +169,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0009', 0, () => {
+    it('testExpSlider0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -187,7 +187,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0010', 0, () => {
+    it('testExpSlider0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -205,7 +205,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0011', 0, () => {
+    it('testExpSlider0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -223,7 +223,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0012', 0, () => {
+    it('testExpSlider0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -241,7 +241,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0013', 0, () => {
+    it('testExpSlider0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -259,7 +259,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0014', 0, () => {
+    it('testExpSlider0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -277,7 +277,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0015', 0, () => {
+    it('testExpSlider0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -295,7 +295,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0016', 0, () => {
+    it('testExpSlider0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -313,7 +313,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0017', 0, () => {
+    it('testExpSlider0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -331,7 +331,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0018', 0, () => {
+    it('testExpSlider0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -349,7 +349,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0019', 0, () => {
+    it('testExpSlider0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -367,7 +367,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0020', 0, () => {
+    it('testExpSlider0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 1900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -385,7 +385,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0021', 0, () => {
+    it('testExpSlider0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -403,7 +403,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0022', 0, () => {
+    it('testExpSlider0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -421,7 +421,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0023', 0, () => {
+    it('testExpSlider0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -439,7 +439,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0024', 0, () => {
+    it('testExpSlider0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -457,7 +457,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0025', 0, () => {
+    it('testExpSlider0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -475,7 +475,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0026', 0, () => {
+    it('testExpSlider0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -493,7 +493,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0027', 0, () => {
+    it('testExpSlider0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -511,7 +511,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0028', 0, () => {
+    it('testExpSlider0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -529,7 +529,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0029', 0, () => {
+    it('testExpSlider0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -547,7 +547,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0030', 0, () => {
+    it('testExpSlider0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 2900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -565,7 +565,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0031', 0, () => {
+    it('testExpSlider0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -583,7 +583,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0032', 0, () => {
+    it('testExpSlider0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -601,7 +601,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0033', 0, () => {
+    it('testExpSlider0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -619,7 +619,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0034', 0, () => {
+    it('testExpSlider0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -637,7 +637,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0035', 0, () => {
+    it('testExpSlider0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -655,7 +655,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0036', 0, () => {
+    it('testExpSlider0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -673,7 +673,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0037', 0, () => {
+    it('testExpSlider0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -691,7 +691,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0038', 0, () => {
+    it('testExpSlider0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -709,7 +709,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0039', 0, () => {
+    it('testExpSlider0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -727,7 +727,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0040', 0, () => {
+    it('testExpSlider0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 3900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -745,7 +745,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0041', 0, () => {
+    it('testExpSlider0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -763,7 +763,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0042', 0, () => {
+    it('testExpSlider0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -781,7 +781,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0043', 0, () => {
+    it('testExpSlider0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -799,7 +799,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0044', 0, () => {
+    it('testExpSlider0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -817,7 +817,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0045', 0, () => {
+    it('testExpSlider0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -835,7 +835,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0046', 0, () => {
+    it('testExpSlider0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -853,7 +853,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0047', 0, () => {
+    it('testExpSlider0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -871,7 +871,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0048', 0, () => {
+    it('testExpSlider0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -889,7 +889,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0049', 0, () => {
+    it('testExpSlider0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -907,7 +907,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0050', 0, () => {
+    it('testExpSlider0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 4900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -925,7 +925,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0051', 0, () => {
+    it('testExpSlider0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -943,7 +943,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0052', 0, () => {
+    it('testExpSlider0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -961,7 +961,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0053', 0, () => {
+    it('testExpSlider0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -979,7 +979,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0054', 0, () => {
+    it('testExpSlider0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -997,7 +997,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0055', 0, () => {
+    it('testExpSlider0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1015,7 +1015,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0056', 0, () => {
+    it('testExpSlider0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1033,7 +1033,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0057', 0, () => {
+    it('testExpSlider0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1051,7 +1051,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0058', 0, () => {
+    it('testExpSlider0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1069,7 +1069,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0059', 0, () => {
+    it('testExpSlider0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1087,7 +1087,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0060', 0, () => {
+    it('testExpSlider0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 5900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1105,7 +1105,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0061', 0, () => {
+    it('testExpSlider0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1123,7 +1123,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0062', 0, () => {
+    it('testExpSlider0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1141,7 +1141,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0063', 0, () => {
+    it('testExpSlider0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1159,7 +1159,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0064', 0, () => {
+    it('testExpSlider0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1177,7 +1177,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0065', 0, () => {
+    it('testExpSlider0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1195,7 +1195,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0066', 0, () => {
+    it('testExpSlider0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1213,7 +1213,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0067', 0, () => {
+    it('testExpSlider0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1231,7 +1231,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0068', 0, () => {
+    it('testExpSlider0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1249,7 +1249,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0069', 0, () => {
+    it('testExpSlider0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1267,7 +1267,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0070', 0, () => {
+    it('testExpSlider0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 6900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1285,7 +1285,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0071', 0, () => {
+    it('testExpSlider0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1303,7 +1303,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0072', 0, () => {
+    it('testExpSlider0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1321,7 +1321,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0073', 0, () => {
+    it('testExpSlider0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1339,7 +1339,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0074', 0, () => {
+    it('testExpSlider0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1357,7 +1357,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0075', 0, () => {
+    it('testExpSlider0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1375,7 +1375,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0076', 0, () => {
+    it('testExpSlider0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1393,7 +1393,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0077', 0, () => {
+    it('testExpSlider0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1411,7 +1411,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0078', 0, () => {
+    it('testExpSlider0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1429,7 +1429,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0079', 0, () => {
+    it('testExpSlider0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1447,7 +1447,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0080', 0, () => {
+    it('testExpSlider0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 7900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1465,7 +1465,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0081', 0, () => {
+    it('testExpSlider0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1483,7 +1483,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0082', 0, () => {
+    it('testExpSlider0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1501,7 +1501,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0083', 0, () => {
+    it('testExpSlider0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1519,7 +1519,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0084', 0, () => {
+    it('testExpSlider0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1537,7 +1537,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0085', 0, () => {
+    it('testExpSlider0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1555,7 +1555,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0086', 0, () => {
+    it('testExpSlider0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1573,7 +1573,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0087', 0, () => {
+    it('testExpSlider0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1591,7 +1591,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0088', 0, () => {
+    it('testExpSlider0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1609,7 +1609,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0089', 0, () => {
+    it('testExpSlider0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1627,7 +1627,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0090', 0, () => {
+    it('testExpSlider0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 8900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1645,7 +1645,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0091', 0, () => {
+    it('testExpSlider0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9000;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1663,7 +1663,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0092', 0, () => {
+    it('testExpSlider0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9100;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1681,7 +1681,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0093', 0, () => {
+    it('testExpSlider0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9200;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1699,7 +1699,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0094', 0, () => {
+    it('testExpSlider0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9300;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1717,7 +1717,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0095', 0, () => {
+    it('testExpSlider0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9400;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1735,7 +1735,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0096', 0, () => {
+    it('testExpSlider0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9500;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1753,7 +1753,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0097', 0, () => {
+    it('testExpSlider0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9600;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1771,7 +1771,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0098', 0, () => {
+    it('testExpSlider0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9700;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1789,7 +1789,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0099', 0, () => {
+    it('testExpSlider0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9800;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;
@@ -1807,7 +1807,7 @@ export default function sliderProgressExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSlider0100', 0, () => {
+    it('testExpSlider0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const current: number = 9900;
       const duration: number = 10000;
       const percent: number = current * 100 / duration;

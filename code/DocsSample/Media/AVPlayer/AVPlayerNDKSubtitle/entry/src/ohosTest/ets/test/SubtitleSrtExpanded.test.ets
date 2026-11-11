@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitleSrtExpandedTest() {
@@ -25,7 +25,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0001', 0, () => {
+    it('testExpSubtitleSrt0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '1';
       const text: string = 'line1 a\nline1 b';
       const lines: string[] = text.split('\n');
@@ -42,7 +42,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0002', 0, () => {
+    it('testExpSubtitleSrt0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '2';
       const text: string = 'line2 a\nline2 b';
       const lines: string[] = text.split('\n');
@@ -59,7 +59,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0003', 0, () => {
+    it('testExpSubtitleSrt0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '3';
       const text: string = 'line3 a\nline3 b';
       const lines: string[] = text.split('\n');
@@ -76,7 +76,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0004', 0, () => {
+    it('testExpSubtitleSrt0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '4';
       const text: string = 'line4 a\nline4 b';
       const lines: string[] = text.split('\n');
@@ -93,7 +93,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0005', 0, () => {
+    it('testExpSubtitleSrt0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '5';
       const text: string = 'line5 a\nline5 b';
       const lines: string[] = text.split('\n');
@@ -110,7 +110,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0006', 0, () => {
+    it('testExpSubtitleSrt0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '6';
       const text: string = 'line6 a\nline6 b';
       const lines: string[] = text.split('\n');
@@ -127,7 +127,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0007', 0, () => {
+    it('testExpSubtitleSrt0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '7';
       const text: string = 'line7 a\nline7 b';
       const lines: string[] = text.split('\n');
@@ -144,7 +144,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0008', 0, () => {
+    it('testExpSubtitleSrt0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '8';
       const text: string = 'line8 a\nline8 b';
       const lines: string[] = text.split('\n');
@@ -161,7 +161,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0009', 0, () => {
+    it('testExpSubtitleSrt0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '9';
       const text: string = 'line9 a\nline9 b';
       const lines: string[] = text.split('\n');
@@ -178,7 +178,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0010', 0, () => {
+    it('testExpSubtitleSrt0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '10';
       const text: string = 'line10 a\nline10 b';
       const lines: string[] = text.split('\n');
@@ -195,7 +195,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0011', 0, () => {
+    it('testExpSubtitleSrt0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '11';
       const text: string = 'line11 a\nline11 b';
       const lines: string[] = text.split('\n');
@@ -212,7 +212,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0012', 0, () => {
+    it('testExpSubtitleSrt0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '12';
       const text: string = 'line12 a\nline12 b';
       const lines: string[] = text.split('\n');
@@ -229,7 +229,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0013', 0, () => {
+    it('testExpSubtitleSrt0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '13';
       const text: string = 'line13 a\nline13 b';
       const lines: string[] = text.split('\n');
@@ -246,7 +246,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0014', 0, () => {
+    it('testExpSubtitleSrt0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '14';
       const text: string = 'line14 a\nline14 b';
       const lines: string[] = text.split('\n');
@@ -263,7 +263,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0015', 0, () => {
+    it('testExpSubtitleSrt0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '15';
       const text: string = 'line15 a\nline15 b';
       const lines: string[] = text.split('\n');
@@ -280,7 +280,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0016', 0, () => {
+    it('testExpSubtitleSrt0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '16';
       const text: string = 'line16 a\nline16 b';
       const lines: string[] = text.split('\n');
@@ -297,7 +297,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0017', 0, () => {
+    it('testExpSubtitleSrt0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '17';
       const text: string = 'line17 a\nline17 b';
       const lines: string[] = text.split('\n');
@@ -314,7 +314,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0018', 0, () => {
+    it('testExpSubtitleSrt0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '18';
       const text: string = 'line18 a\nline18 b';
       const lines: string[] = text.split('\n');
@@ -331,7 +331,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0019', 0, () => {
+    it('testExpSubtitleSrt0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '19';
       const text: string = 'line19 a\nline19 b';
       const lines: string[] = text.split('\n');
@@ -348,7 +348,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0020', 0, () => {
+    it('testExpSubtitleSrt0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '20';
       const text: string = 'line20 a\nline20 b';
       const lines: string[] = text.split('\n');
@@ -365,7 +365,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0021', 0, () => {
+    it('testExpSubtitleSrt0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '21';
       const text: string = 'line21 a\nline21 b';
       const lines: string[] = text.split('\n');
@@ -382,7 +382,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0022', 0, () => {
+    it('testExpSubtitleSrt0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '22';
       const text: string = 'line22 a\nline22 b';
       const lines: string[] = text.split('\n');
@@ -399,7 +399,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0023', 0, () => {
+    it('testExpSubtitleSrt0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '23';
       const text: string = 'line23 a\nline23 b';
       const lines: string[] = text.split('\n');
@@ -416,7 +416,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0024', 0, () => {
+    it('testExpSubtitleSrt0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '24';
       const text: string = 'line24 a\nline24 b';
       const lines: string[] = text.split('\n');
@@ -433,7 +433,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0025', 0, () => {
+    it('testExpSubtitleSrt0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '25';
       const text: string = 'line25 a\nline25 b';
       const lines: string[] = text.split('\n');
@@ -450,7 +450,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0026', 0, () => {
+    it('testExpSubtitleSrt0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '26';
       const text: string = 'line26 a\nline26 b';
       const lines: string[] = text.split('\n');
@@ -467,7 +467,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0027', 0, () => {
+    it('testExpSubtitleSrt0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '27';
       const text: string = 'line27 a\nline27 b';
       const lines: string[] = text.split('\n');
@@ -484,7 +484,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0028', 0, () => {
+    it('testExpSubtitleSrt0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '28';
       const text: string = 'line28 a\nline28 b';
       const lines: string[] = text.split('\n');
@@ -501,7 +501,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0029', 0, () => {
+    it('testExpSubtitleSrt0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '29';
       const text: string = 'line29 a\nline29 b';
       const lines: string[] = text.split('\n');
@@ -518,7 +518,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0030', 0, () => {
+    it('testExpSubtitleSrt0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '30';
       const text: string = 'line30 a\nline30 b';
       const lines: string[] = text.split('\n');
@@ -535,7 +535,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0031', 0, () => {
+    it('testExpSubtitleSrt0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '31';
       const text: string = 'line31 a\nline31 b';
       const lines: string[] = text.split('\n');
@@ -552,7 +552,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0032', 0, () => {
+    it('testExpSubtitleSrt0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '32';
       const text: string = 'line32 a\nline32 b';
       const lines: string[] = text.split('\n');
@@ -569,7 +569,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0033', 0, () => {
+    it('testExpSubtitleSrt0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '33';
       const text: string = 'line33 a\nline33 b';
       const lines: string[] = text.split('\n');
@@ -586,7 +586,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0034', 0, () => {
+    it('testExpSubtitleSrt0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '34';
       const text: string = 'line34 a\nline34 b';
       const lines: string[] = text.split('\n');
@@ -603,7 +603,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0035', 0, () => {
+    it('testExpSubtitleSrt0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '35';
       const text: string = 'line35 a\nline35 b';
       const lines: string[] = text.split('\n');
@@ -620,7 +620,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0036', 0, () => {
+    it('testExpSubtitleSrt0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '36';
       const text: string = 'line36 a\nline36 b';
       const lines: string[] = text.split('\n');
@@ -637,7 +637,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0037', 0, () => {
+    it('testExpSubtitleSrt0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '37';
       const text: string = 'line37 a\nline37 b';
       const lines: string[] = text.split('\n');
@@ -654,7 +654,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0038', 0, () => {
+    it('testExpSubtitleSrt0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '38';
       const text: string = 'line38 a\nline38 b';
       const lines: string[] = text.split('\n');
@@ -671,7 +671,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0039', 0, () => {
+    it('testExpSubtitleSrt0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '39';
       const text: string = 'line39 a\nline39 b';
       const lines: string[] = text.split('\n');
@@ -688,7 +688,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0040', 0, () => {
+    it('testExpSubtitleSrt0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '40';
       const text: string = 'line40 a\nline40 b';
       const lines: string[] = text.split('\n');
@@ -705,7 +705,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0041', 0, () => {
+    it('testExpSubtitleSrt0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '41';
       const text: string = 'line41 a\nline41 b';
       const lines: string[] = text.split('\n');
@@ -722,7 +722,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0042', 0, () => {
+    it('testExpSubtitleSrt0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '42';
       const text: string = 'line42 a\nline42 b';
       const lines: string[] = text.split('\n');
@@ -739,7 +739,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0043', 0, () => {
+    it('testExpSubtitleSrt0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '43';
       const text: string = 'line43 a\nline43 b';
       const lines: string[] = text.split('\n');
@@ -756,7 +756,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0044', 0, () => {
+    it('testExpSubtitleSrt0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '44';
       const text: string = 'line44 a\nline44 b';
       const lines: string[] = text.split('\n');
@@ -773,7 +773,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0045', 0, () => {
+    it('testExpSubtitleSrt0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '45';
       const text: string = 'line45 a\nline45 b';
       const lines: string[] = text.split('\n');
@@ -790,7 +790,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0046', 0, () => {
+    it('testExpSubtitleSrt0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '46';
       const text: string = 'line46 a\nline46 b';
       const lines: string[] = text.split('\n');
@@ -807,7 +807,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0047', 0, () => {
+    it('testExpSubtitleSrt0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '47';
       const text: string = 'line47 a\nline47 b';
       const lines: string[] = text.split('\n');
@@ -824,7 +824,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0048', 0, () => {
+    it('testExpSubtitleSrt0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '48';
       const text: string = 'line48 a\nline48 b';
       const lines: string[] = text.split('\n');
@@ -841,7 +841,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0049', 0, () => {
+    it('testExpSubtitleSrt0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '49';
       const text: string = 'line49 a\nline49 b';
       const lines: string[] = text.split('\n');
@@ -858,7 +858,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0050', 0, () => {
+    it('testExpSubtitleSrt0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '50';
       const text: string = 'line50 a\nline50 b';
       const lines: string[] = text.split('\n');
@@ -875,7 +875,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0051', 0, () => {
+    it('testExpSubtitleSrt0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '51';
       const text: string = 'line51 a\nline51 b';
       const lines: string[] = text.split('\n');
@@ -892,7 +892,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0052', 0, () => {
+    it('testExpSubtitleSrt0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '52';
       const text: string = 'line52 a\nline52 b';
       const lines: string[] = text.split('\n');
@@ -909,7 +909,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0053', 0, () => {
+    it('testExpSubtitleSrt0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '53';
       const text: string = 'line53 a\nline53 b';
       const lines: string[] = text.split('\n');
@@ -926,7 +926,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0054', 0, () => {
+    it('testExpSubtitleSrt0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '54';
       const text: string = 'line54 a\nline54 b';
       const lines: string[] = text.split('\n');
@@ -943,7 +943,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0055', 0, () => {
+    it('testExpSubtitleSrt0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '55';
       const text: string = 'line55 a\nline55 b';
       const lines: string[] = text.split('\n');
@@ -960,7 +960,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0056', 0, () => {
+    it('testExpSubtitleSrt0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '56';
       const text: string = 'line56 a\nline56 b';
       const lines: string[] = text.split('\n');
@@ -977,7 +977,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0057', 0, () => {
+    it('testExpSubtitleSrt0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '57';
       const text: string = 'line57 a\nline57 b';
       const lines: string[] = text.split('\n');
@@ -994,7 +994,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0058', 0, () => {
+    it('testExpSubtitleSrt0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '58';
       const text: string = 'line58 a\nline58 b';
       const lines: string[] = text.split('\n');
@@ -1011,7 +1011,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0059', 0, () => {
+    it('testExpSubtitleSrt0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '59';
       const text: string = 'line59 a\nline59 b';
       const lines: string[] = text.split('\n');
@@ -1028,7 +1028,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0060', 0, () => {
+    it('testExpSubtitleSrt0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '60';
       const text: string = 'line60 a\nline60 b';
       const lines: string[] = text.split('\n');
@@ -1045,7 +1045,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0061', 0, () => {
+    it('testExpSubtitleSrt0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '61';
       const text: string = 'line61 a\nline61 b';
       const lines: string[] = text.split('\n');
@@ -1062,7 +1062,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0062', 0, () => {
+    it('testExpSubtitleSrt0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '62';
       const text: string = 'line62 a\nline62 b';
       const lines: string[] = text.split('\n');
@@ -1079,7 +1079,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0063', 0, () => {
+    it('testExpSubtitleSrt0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '63';
       const text: string = 'line63 a\nline63 b';
       const lines: string[] = text.split('\n');
@@ -1096,7 +1096,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0064', 0, () => {
+    it('testExpSubtitleSrt0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '64';
       const text: string = 'line64 a\nline64 b';
       const lines: string[] = text.split('\n');
@@ -1113,7 +1113,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0065', 0, () => {
+    it('testExpSubtitleSrt0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '65';
       const text: string = 'line65 a\nline65 b';
       const lines: string[] = text.split('\n');
@@ -1130,7 +1130,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0066', 0, () => {
+    it('testExpSubtitleSrt0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '66';
       const text: string = 'line66 a\nline66 b';
       const lines: string[] = text.split('\n');
@@ -1147,7 +1147,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0067', 0, () => {
+    it('testExpSubtitleSrt0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '67';
       const text: string = 'line67 a\nline67 b';
       const lines: string[] = text.split('\n');
@@ -1164,7 +1164,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0068', 0, () => {
+    it('testExpSubtitleSrt0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '68';
       const text: string = 'line68 a\nline68 b';
       const lines: string[] = text.split('\n');
@@ -1181,7 +1181,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0069', 0, () => {
+    it('testExpSubtitleSrt0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '69';
       const text: string = 'line69 a\nline69 b';
       const lines: string[] = text.split('\n');
@@ -1198,7 +1198,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0070', 0, () => {
+    it('testExpSubtitleSrt0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '70';
       const text: string = 'line70 a\nline70 b';
       const lines: string[] = text.split('\n');
@@ -1215,7 +1215,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0071', 0, () => {
+    it('testExpSubtitleSrt0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '71';
       const text: string = 'line71 a\nline71 b';
       const lines: string[] = text.split('\n');
@@ -1232,7 +1232,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0072', 0, () => {
+    it('testExpSubtitleSrt0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '72';
       const text: string = 'line72 a\nline72 b';
       const lines: string[] = text.split('\n');
@@ -1249,7 +1249,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0073', 0, () => {
+    it('testExpSubtitleSrt0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '73';
       const text: string = 'line73 a\nline73 b';
       const lines: string[] = text.split('\n');
@@ -1266,7 +1266,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0074', 0, () => {
+    it('testExpSubtitleSrt0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '74';
       const text: string = 'line74 a\nline74 b';
       const lines: string[] = text.split('\n');
@@ -1283,7 +1283,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0075', 0, () => {
+    it('testExpSubtitleSrt0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '75';
       const text: string = 'line75 a\nline75 b';
       const lines: string[] = text.split('\n');
@@ -1300,7 +1300,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0076', 0, () => {
+    it('testExpSubtitleSrt0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '76';
       const text: string = 'line76 a\nline76 b';
       const lines: string[] = text.split('\n');
@@ -1317,7 +1317,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0077', 0, () => {
+    it('testExpSubtitleSrt0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '77';
       const text: string = 'line77 a\nline77 b';
       const lines: string[] = text.split('\n');
@@ -1334,7 +1334,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0078', 0, () => {
+    it('testExpSubtitleSrt0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '78';
       const text: string = 'line78 a\nline78 b';
       const lines: string[] = text.split('\n');
@@ -1351,7 +1351,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0079', 0, () => {
+    it('testExpSubtitleSrt0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '79';
       const text: string = 'line79 a\nline79 b';
       const lines: string[] = text.split('\n');
@@ -1368,7 +1368,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0080', 0, () => {
+    it('testExpSubtitleSrt0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '80';
       const text: string = 'line80 a\nline80 b';
       const lines: string[] = text.split('\n');
@@ -1385,7 +1385,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0081', 0, () => {
+    it('testExpSubtitleSrt0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '81';
       const text: string = 'line81 a\nline81 b';
       const lines: string[] = text.split('\n');
@@ -1402,7 +1402,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0082', 0, () => {
+    it('testExpSubtitleSrt0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '82';
       const text: string = 'line82 a\nline82 b';
       const lines: string[] = text.split('\n');
@@ -1419,7 +1419,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0083', 0, () => {
+    it('testExpSubtitleSrt0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '83';
       const text: string = 'line83 a\nline83 b';
       const lines: string[] = text.split('\n');
@@ -1436,7 +1436,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0084', 0, () => {
+    it('testExpSubtitleSrt0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '84';
       const text: string = 'line84 a\nline84 b';
       const lines: string[] = text.split('\n');
@@ -1453,7 +1453,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0085', 0, () => {
+    it('testExpSubtitleSrt0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '85';
       const text: string = 'line85 a\nline85 b';
       const lines: string[] = text.split('\n');
@@ -1470,7 +1470,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0086', 0, () => {
+    it('testExpSubtitleSrt0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '86';
       const text: string = 'line86 a\nline86 b';
       const lines: string[] = text.split('\n');
@@ -1487,7 +1487,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0087', 0, () => {
+    it('testExpSubtitleSrt0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '87';
       const text: string = 'line87 a\nline87 b';
       const lines: string[] = text.split('\n');
@@ -1504,7 +1504,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0088', 0, () => {
+    it('testExpSubtitleSrt0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '88';
       const text: string = 'line88 a\nline88 b';
       const lines: string[] = text.split('\n');
@@ -1521,7 +1521,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0089', 0, () => {
+    it('testExpSubtitleSrt0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '89';
       const text: string = 'line89 a\nline89 b';
       const lines: string[] = text.split('\n');
@@ -1538,7 +1538,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0090', 0, () => {
+    it('testExpSubtitleSrt0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '90';
       const text: string = 'line90 a\nline90 b';
       const lines: string[] = text.split('\n');
@@ -1555,7 +1555,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0091', 0, () => {
+    it('testExpSubtitleSrt0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '91';
       const text: string = 'line91 a\nline91 b';
       const lines: string[] = text.split('\n');
@@ -1572,7 +1572,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0092', 0, () => {
+    it('testExpSubtitleSrt0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '92';
       const text: string = 'line92 a\nline92 b';
       const lines: string[] = text.split('\n');
@@ -1589,7 +1589,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0093', 0, () => {
+    it('testExpSubtitleSrt0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '93';
       const text: string = 'line93 a\nline93 b';
       const lines: string[] = text.split('\n');
@@ -1606,7 +1606,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0094', 0, () => {
+    it('testExpSubtitleSrt0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '94';
       const text: string = 'line94 a\nline94 b';
       const lines: string[] = text.split('\n');
@@ -1623,7 +1623,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0095', 0, () => {
+    it('testExpSubtitleSrt0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '95';
       const text: string = 'line95 a\nline95 b';
       const lines: string[] = text.split('\n');
@@ -1640,7 +1640,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0096', 0, () => {
+    it('testExpSubtitleSrt0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '96';
       const text: string = 'line96 a\nline96 b';
       const lines: string[] = text.split('\n');
@@ -1657,7 +1657,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0097', 0, () => {
+    it('testExpSubtitleSrt0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '97';
       const text: string = 'line97 a\nline97 b';
       const lines: string[] = text.split('\n');
@@ -1674,7 +1674,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0098', 0, () => {
+    it('testExpSubtitleSrt0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '98';
       const text: string = 'line98 a\nline98 b';
       const lines: string[] = text.split('\n');
@@ -1691,7 +1691,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0099', 0, () => {
+    it('testExpSubtitleSrt0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '99';
       const text: string = 'line99 a\nline99 b';
       const lines: string[] = text.split('\n');
@@ -1708,7 +1708,7 @@ export default function subtitleSrtExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleSrt0100', 0, () => {
+    it('testExpSubtitleSrt0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const index: string = '100';
       const text: string = 'line100 a\nline100 b';
       const lines: string[] = text.split('\n');

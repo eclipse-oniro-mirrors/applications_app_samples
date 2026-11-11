@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function resourceIntegrity8wTest() {
@@ -25,7 +25,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0001', 0, () => {
+    it('test8wResourceIntegrity0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -42,7 +42,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0002', 0, () => {
+    it('test8wResourceIntegrity0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -59,7 +59,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0003', 0, () => {
+    it('test8wResourceIntegrity0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -76,7 +76,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0004', 0, () => {
+    it('test8wResourceIntegrity0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -93,7 +93,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0005', 0, () => {
+    it('test8wResourceIntegrity0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -110,7 +110,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0006', 0, () => {
+    it('test8wResourceIntegrity0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -127,7 +127,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0007', 0, () => {
+    it('test8wResourceIntegrity0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -144,7 +144,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0008', 0, () => {
+    it('test8wResourceIntegrity0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -161,7 +161,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0009', 0, () => {
+    it('test8wResourceIntegrity0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -178,7 +178,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0010', 0, () => {
+    it('test8wResourceIntegrity0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -195,7 +195,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0011', 0, () => {
+    it('test8wResourceIntegrity0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -212,7 +212,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0012', 0, () => {
+    it('test8wResourceIntegrity0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -229,7 +229,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0013', 0, () => {
+    it('test8wResourceIntegrity0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -246,7 +246,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0014', 0, () => {
+    it('test8wResourceIntegrity0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -263,7 +263,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0015', 0, () => {
+    it('test8wResourceIntegrity0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -280,7 +280,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0016', 0, () => {
+    it('test8wResourceIntegrity0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -297,7 +297,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0017', 0, () => {
+    it('test8wResourceIntegrity0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -314,7 +314,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0018', 0, () => {
+    it('test8wResourceIntegrity0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -331,7 +331,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0019', 0, () => {
+    it('test8wResourceIntegrity0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -348,7 +348,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0020', 0, () => {
+    it('test8wResourceIntegrity0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -365,7 +365,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0021', 0, () => {
+    it('test8wResourceIntegrity0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -382,7 +382,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0022', 0, () => {
+    it('test8wResourceIntegrity0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -399,7 +399,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0023', 0, () => {
+    it('test8wResourceIntegrity0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -416,7 +416,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0024', 0, () => {
+    it('test8wResourceIntegrity0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -433,7 +433,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0025', 0, () => {
+    it('test8wResourceIntegrity0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -450,7 +450,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0026', 0, () => {
+    it('test8wResourceIntegrity0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -467,7 +467,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0027', 0, () => {
+    it('test8wResourceIntegrity0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -484,7 +484,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0028', 0, () => {
+    it('test8wResourceIntegrity0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -501,7 +501,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0029', 0, () => {
+    it('test8wResourceIntegrity0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -518,7 +518,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0030', 0, () => {
+    it('test8wResourceIntegrity0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -535,7 +535,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0031', 0, () => {
+    it('test8wResourceIntegrity0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -552,7 +552,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0032', 0, () => {
+    it('test8wResourceIntegrity0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -569,7 +569,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0033', 0, () => {
+    it('test8wResourceIntegrity0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -586,7 +586,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0034', 0, () => {
+    it('test8wResourceIntegrity0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -603,7 +603,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0035', 0, () => {
+    it('test8wResourceIntegrity0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -620,7 +620,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0036', 0, () => {
+    it('test8wResourceIntegrity0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -637,7 +637,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0037', 0, () => {
+    it('test8wResourceIntegrity0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -654,7 +654,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0038', 0, () => {
+    it('test8wResourceIntegrity0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -671,7 +671,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0039', 0, () => {
+    it('test8wResourceIntegrity0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -688,7 +688,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0040', 0, () => {
+    it('test8wResourceIntegrity0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -705,7 +705,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0041', 0, () => {
+    it('test8wResourceIntegrity0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -722,7 +722,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0042', 0, () => {
+    it('test8wResourceIntegrity0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -739,7 +739,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0043', 0, () => {
+    it('test8wResourceIntegrity0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -756,7 +756,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0044', 0, () => {
+    it('test8wResourceIntegrity0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -773,7 +773,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0045', 0, () => {
+    it('test8wResourceIntegrity0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -790,7 +790,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0046', 0, () => {
+    it('test8wResourceIntegrity0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -807,7 +807,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0047', 0, () => {
+    it('test8wResourceIntegrity0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -824,7 +824,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0048', 0, () => {
+    it('test8wResourceIntegrity0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -841,7 +841,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0049', 0, () => {
+    it('test8wResourceIntegrity0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -858,7 +858,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0050', 0, () => {
+    it('test8wResourceIntegrity0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -875,7 +875,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0051', 0, () => {
+    it('test8wResourceIntegrity0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -892,7 +892,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0052', 0, () => {
+    it('test8wResourceIntegrity0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -909,7 +909,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0053', 0, () => {
+    it('test8wResourceIntegrity0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -926,7 +926,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0054', 0, () => {
+    it('test8wResourceIntegrity0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -943,7 +943,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0055', 0, () => {
+    it('test8wResourceIntegrity0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -960,7 +960,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0056', 0, () => {
+    it('test8wResourceIntegrity0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -977,7 +977,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0057', 0, () => {
+    it('test8wResourceIntegrity0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -994,7 +994,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0058', 0, () => {
+    it('test8wResourceIntegrity0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1011,7 +1011,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0059', 0, () => {
+    it('test8wResourceIntegrity0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1028,7 +1028,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0060', 0, () => {
+    it('test8wResourceIntegrity0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1045,7 +1045,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0061', 0, () => {
+    it('test8wResourceIntegrity0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1062,7 +1062,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0062', 0, () => {
+    it('test8wResourceIntegrity0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1079,7 +1079,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0063', 0, () => {
+    it('test8wResourceIntegrity0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1096,7 +1096,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0064', 0, () => {
+    it('test8wResourceIntegrity0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1113,7 +1113,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0065', 0, () => {
+    it('test8wResourceIntegrity0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1130,7 +1130,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0066', 0, () => {
+    it('test8wResourceIntegrity0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1147,7 +1147,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0067', 0, () => {
+    it('test8wResourceIntegrity0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1164,7 +1164,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0068', 0, () => {
+    it('test8wResourceIntegrity0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1181,7 +1181,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0069', 0, () => {
+    it('test8wResourceIntegrity0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1198,7 +1198,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0070', 0, () => {
+    it('test8wResourceIntegrity0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1215,7 +1215,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0071', 0, () => {
+    it('test8wResourceIntegrity0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1232,7 +1232,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0072', 0, () => {
+    it('test8wResourceIntegrity0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1249,7 +1249,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0073', 0, () => {
+    it('test8wResourceIntegrity0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1266,7 +1266,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0074', 0, () => {
+    it('test8wResourceIntegrity0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1283,7 +1283,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0075', 0, () => {
+    it('test8wResourceIntegrity0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1300,7 +1300,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0076', 0, () => {
+    it('test8wResourceIntegrity0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1317,7 +1317,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0077', 0, () => {
+    it('test8wResourceIntegrity0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1334,7 +1334,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0078', 0, () => {
+    it('test8wResourceIntegrity0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1351,7 +1351,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0079', 0, () => {
+    it('test8wResourceIntegrity0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1368,7 +1368,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0080', 0, () => {
+    it('test8wResourceIntegrity0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1385,7 +1385,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0081', 0, () => {
+    it('test8wResourceIntegrity0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1402,7 +1402,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0082', 0, () => {
+    it('test8wResourceIntegrity0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1419,7 +1419,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0083', 0, () => {
+    it('test8wResourceIntegrity0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1436,7 +1436,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0084', 0, () => {
+    it('test8wResourceIntegrity0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1453,7 +1453,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0085', 0, () => {
+    it('test8wResourceIntegrity0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1470,7 +1470,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0086', 0, () => {
+    it('test8wResourceIntegrity0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1487,7 +1487,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0087', 0, () => {
+    it('test8wResourceIntegrity0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1504,7 +1504,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0088', 0, () => {
+    it('test8wResourceIntegrity0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1521,7 +1521,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0089', 0, () => {
+    it('test8wResourceIntegrity0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1538,7 +1538,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0090', 0, () => {
+    it('test8wResourceIntegrity0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1555,7 +1555,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0091', 0, () => {
+    it('test8wResourceIntegrity0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1572,7 +1572,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0092', 0, () => {
+    it('test8wResourceIntegrity0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1589,7 +1589,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0093', 0, () => {
+    it('test8wResourceIntegrity0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1606,7 +1606,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0094', 0, () => {
+    it('test8wResourceIntegrity0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1623,7 +1623,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0095', 0, () => {
+    it('test8wResourceIntegrity0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1640,7 +1640,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0096', 0, () => {
+    it('test8wResourceIntegrity0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 682;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1657,7 +1657,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0097', 0, () => {
+    it('test8wResourceIntegrity0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 21780300;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1674,7 +1674,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0098', 0, () => {
+    it('test8wResourceIntegrity0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 1024;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1691,7 +1691,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0099', 0, () => {
+    it('test8wResourceIntegrity0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 2048;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;
@@ -1708,7 +1708,7 @@ export default function resourceIntegrity8wTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('test8wResourceIntegrity0100', 0, () => {
+    it('test8wResourceIntegrity0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const total: number = 4096;
       const chunk: number = Math.floor(total / 4);
       const remainder: number = total % 4;

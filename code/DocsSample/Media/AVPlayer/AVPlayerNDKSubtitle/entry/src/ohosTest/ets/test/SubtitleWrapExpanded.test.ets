@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitleWrapExpandedTest() {
@@ -25,7 +25,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0001', 0, () => {
+    it('testMoreSubtitleWrap0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -42,7 +42,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0002', 0, () => {
+    it('testMoreSubtitleWrap0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -59,7 +59,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0003', 0, () => {
+    it('testMoreSubtitleWrap0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -76,7 +76,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0004', 0, () => {
+    it('testMoreSubtitleWrap0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -93,7 +93,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0005', 0, () => {
+    it('testMoreSubtitleWrap0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -110,7 +110,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0006', 0, () => {
+    it('testMoreSubtitleWrap0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -127,7 +127,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0007', 0, () => {
+    it('testMoreSubtitleWrap0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -144,7 +144,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0008', 0, () => {
+    it('testMoreSubtitleWrap0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -161,7 +161,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0009', 0, () => {
+    it('testMoreSubtitleWrap0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -178,7 +178,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0010', 0, () => {
+    it('testMoreSubtitleWrap0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -195,7 +195,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0011', 0, () => {
+    it('testMoreSubtitleWrap0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -212,7 +212,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0012', 0, () => {
+    it('testMoreSubtitleWrap0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -229,7 +229,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0013', 0, () => {
+    it('testMoreSubtitleWrap0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -246,7 +246,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0014', 0, () => {
+    it('testMoreSubtitleWrap0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -263,7 +263,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0015', 0, () => {
+    it('testMoreSubtitleWrap0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -280,7 +280,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0016', 0, () => {
+    it('testMoreSubtitleWrap0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -297,7 +297,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0017', 0, () => {
+    it('testMoreSubtitleWrap0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -314,7 +314,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0018', 0, () => {
+    it('testMoreSubtitleWrap0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -331,7 +331,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0019', 0, () => {
+    it('testMoreSubtitleWrap0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -348,7 +348,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0020', 0, () => {
+    it('testMoreSubtitleWrap0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -365,7 +365,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0021', 0, () => {
+    it('testMoreSubtitleWrap0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -382,7 +382,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0022', 0, () => {
+    it('testMoreSubtitleWrap0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -399,7 +399,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0023', 0, () => {
+    it('testMoreSubtitleWrap0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -416,7 +416,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0024', 0, () => {
+    it('testMoreSubtitleWrap0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -433,7 +433,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0025', 0, () => {
+    it('testMoreSubtitleWrap0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -450,7 +450,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0026', 0, () => {
+    it('testMoreSubtitleWrap0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -467,7 +467,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0027', 0, () => {
+    it('testMoreSubtitleWrap0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -484,7 +484,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0028', 0, () => {
+    it('testMoreSubtitleWrap0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -501,7 +501,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0029', 0, () => {
+    it('testMoreSubtitleWrap0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -518,7 +518,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0030', 0, () => {
+    it('testMoreSubtitleWrap0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -535,7 +535,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0031', 0, () => {
+    it('testMoreSubtitleWrap0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -552,7 +552,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0032', 0, () => {
+    it('testMoreSubtitleWrap0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -569,7 +569,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0033', 0, () => {
+    it('testMoreSubtitleWrap0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -586,7 +586,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0034', 0, () => {
+    it('testMoreSubtitleWrap0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -603,7 +603,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0035', 0, () => {
+    it('testMoreSubtitleWrap0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -620,7 +620,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0036', 0, () => {
+    it('testMoreSubtitleWrap0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -637,7 +637,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0037', 0, () => {
+    it('testMoreSubtitleWrap0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -654,7 +654,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0038', 0, () => {
+    it('testMoreSubtitleWrap0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -671,7 +671,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0039', 0, () => {
+    it('testMoreSubtitleWrap0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -688,7 +688,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0040', 0, () => {
+    it('testMoreSubtitleWrap0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -705,7 +705,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0041', 0, () => {
+    it('testMoreSubtitleWrap0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -722,7 +722,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0042', 0, () => {
+    it('testMoreSubtitleWrap0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -739,7 +739,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0043', 0, () => {
+    it('testMoreSubtitleWrap0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -756,7 +756,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0044', 0, () => {
+    it('testMoreSubtitleWrap0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -773,7 +773,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0045', 0, () => {
+    it('testMoreSubtitleWrap0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -790,7 +790,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0046', 0, () => {
+    it('testMoreSubtitleWrap0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -807,7 +807,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0047', 0, () => {
+    it('testMoreSubtitleWrap0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -824,7 +824,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0048', 0, () => {
+    it('testMoreSubtitleWrap0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -841,7 +841,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0049', 0, () => {
+    it('testMoreSubtitleWrap0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -858,7 +858,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0050', 0, () => {
+    it('testMoreSubtitleWrap0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -875,7 +875,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0051', 0, () => {
+    it('testMoreSubtitleWrap0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -892,7 +892,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0052', 0, () => {
+    it('testMoreSubtitleWrap0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -909,7 +909,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0053', 0, () => {
+    it('testMoreSubtitleWrap0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -926,7 +926,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0054', 0, () => {
+    it('testMoreSubtitleWrap0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -943,7 +943,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0055', 0, () => {
+    it('testMoreSubtitleWrap0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -960,7 +960,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0056', 0, () => {
+    it('testMoreSubtitleWrap0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -977,7 +977,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0057', 0, () => {
+    it('testMoreSubtitleWrap0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -994,7 +994,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0058', 0, () => {
+    it('testMoreSubtitleWrap0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -1011,7 +1011,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0059', 0, () => {
+    it('testMoreSubtitleWrap0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -1028,7 +1028,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0060', 0, () => {
+    it('testMoreSubtitleWrap0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -1045,7 +1045,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0061', 0, () => {
+    it('testMoreSubtitleWrap0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -1062,7 +1062,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0062', 0, () => {
+    it('testMoreSubtitleWrap0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -1079,7 +1079,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0063', 0, () => {
+    it('testMoreSubtitleWrap0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -1096,7 +1096,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0064', 0, () => {
+    it('testMoreSubtitleWrap0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -1113,7 +1113,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0065', 0, () => {
+    it('testMoreSubtitleWrap0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -1130,7 +1130,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0066', 0, () => {
+    it('testMoreSubtitleWrap0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -1147,7 +1147,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0067', 0, () => {
+    it('testMoreSubtitleWrap0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -1164,7 +1164,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0068', 0, () => {
+    it('testMoreSubtitleWrap0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -1181,7 +1181,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0069', 0, () => {
+    it('testMoreSubtitleWrap0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -1198,7 +1198,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0070', 0, () => {
+    it('testMoreSubtitleWrap0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -1215,7 +1215,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0071', 0, () => {
+    it('testMoreSubtitleWrap0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -1232,7 +1232,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0072', 0, () => {
+    it('testMoreSubtitleWrap0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -1249,7 +1249,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0073', 0, () => {
+    it('testMoreSubtitleWrap0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -1266,7 +1266,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0074', 0, () => {
+    it('testMoreSubtitleWrap0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -1283,7 +1283,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0075', 0, () => {
+    it('testMoreSubtitleWrap0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -1300,7 +1300,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0076', 0, () => {
+    it('testMoreSubtitleWrap0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -1317,7 +1317,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0077', 0, () => {
+    it('testMoreSubtitleWrap0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -1334,7 +1334,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0078', 0, () => {
+    it('testMoreSubtitleWrap0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -1351,7 +1351,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0079', 0, () => {
+    it('testMoreSubtitleWrap0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -1368,7 +1368,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0080', 0, () => {
+    it('testMoreSubtitleWrap0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -1385,7 +1385,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0081', 0, () => {
+    it('testMoreSubtitleWrap0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -1402,7 +1402,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0082', 0, () => {
+    it('testMoreSubtitleWrap0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -1419,7 +1419,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0083', 0, () => {
+    it('testMoreSubtitleWrap0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -1436,7 +1436,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0084', 0, () => {
+    it('testMoreSubtitleWrap0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -1453,7 +1453,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0085', 0, () => {
+    it('testMoreSubtitleWrap0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -1470,7 +1470,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0086', 0, () => {
+    it('testMoreSubtitleWrap0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -1487,7 +1487,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0087', 0, () => {
+    it('testMoreSubtitleWrap0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -1504,7 +1504,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0088', 0, () => {
+    it('testMoreSubtitleWrap0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -1521,7 +1521,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0089', 0, () => {
+    it('testMoreSubtitleWrap0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -1538,7 +1538,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0090', 0, () => {
+    it('testMoreSubtitleWrap0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -1555,7 +1555,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0091', 0, () => {
+    it('testMoreSubtitleWrap0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -1572,7 +1572,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0092', 0, () => {
+    it('testMoreSubtitleWrap0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -1589,7 +1589,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0093', 0, () => {
+    it('testMoreSubtitleWrap0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -1606,7 +1606,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0094', 0, () => {
+    it('testMoreSubtitleWrap0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);
@@ -1623,7 +1623,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0095', 0, () => {
+    it('testMoreSubtitleWrap0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 32;
       const lines: number = Math.ceil(text.length / width);
@@ -1640,7 +1640,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0096', 0, () => {
+    it('testMoreSubtitleWrap0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 40;
       const lines: number = Math.ceil(text.length / width);
@@ -1657,7 +1657,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0097', 0, () => {
+    it('testMoreSubtitleWrap0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSS';
       const width: number = 10;
       const lines: number = Math.ceil(text.length / width);
@@ -1674,7 +1674,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0098', 0, () => {
+    it('testMoreSubtitleWrap0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSS';
       const width: number = 16;
       const lines: number = Math.ceil(text.length / width);
@@ -1691,7 +1691,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0099', 0, () => {
+    it('testMoreSubtitleWrap0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 20;
       const lines: number = Math.ceil(text.length / width);
@@ -1708,7 +1708,7 @@ export default function subtitleWrapExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSubtitleWrap0100', 0, () => {
+    it('testMoreSubtitleWrap0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const text: string = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
       const width: number = 24;
       const lines: number = Math.ceil(text.length / width);

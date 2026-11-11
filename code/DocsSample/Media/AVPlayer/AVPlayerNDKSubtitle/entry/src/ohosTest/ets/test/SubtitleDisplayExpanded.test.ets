@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function subtitleDisplayExpandedTest() {
@@ -25,7 +25,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0001', 0, () => {
+    it('testExpSubtitleDisplay0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 0  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 0');
@@ -41,7 +41,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0002', 0, () => {
+    it('testExpSubtitleDisplay0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 1  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 1');
@@ -57,7 +57,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0003', 0, () => {
+    it('testExpSubtitleDisplay0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 2  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 2');
@@ -73,7 +73,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0004', 0, () => {
+    it('testExpSubtitleDisplay0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 3  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 3');
@@ -89,7 +89,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0005', 0, () => {
+    it('testExpSubtitleDisplay0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 4  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 4');
@@ -105,7 +105,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0006', 0, () => {
+    it('testExpSubtitleDisplay0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 5  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 5');
@@ -121,7 +121,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0007', 0, () => {
+    it('testExpSubtitleDisplay0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 6  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 6');
@@ -137,7 +137,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0008', 0, () => {
+    it('testExpSubtitleDisplay0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 7  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 7');
@@ -153,7 +153,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0009', 0, () => {
+    it('testExpSubtitleDisplay0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 8  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 8');
@@ -169,7 +169,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0010', 0, () => {
+    it('testExpSubtitleDisplay0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 9  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 9');
@@ -185,7 +185,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0011', 0, () => {
+    it('testExpSubtitleDisplay0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 10  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 10');
@@ -201,7 +201,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0012', 0, () => {
+    it('testExpSubtitleDisplay0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 11  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 11');
@@ -217,7 +217,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0013', 0, () => {
+    it('testExpSubtitleDisplay0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 12  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 12');
@@ -233,7 +233,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0014', 0, () => {
+    it('testExpSubtitleDisplay0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 13  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 13');
@@ -249,7 +249,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0015', 0, () => {
+    it('testExpSubtitleDisplay0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 14  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 14');
@@ -265,7 +265,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0016', 0, () => {
+    it('testExpSubtitleDisplay0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 15  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 15');
@@ -281,7 +281,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0017', 0, () => {
+    it('testExpSubtitleDisplay0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 16  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 16');
@@ -297,7 +297,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0018', 0, () => {
+    it('testExpSubtitleDisplay0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 17  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 17');
@@ -313,7 +313,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0019', 0, () => {
+    it('testExpSubtitleDisplay0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 18  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 18');
@@ -329,7 +329,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0020', 0, () => {
+    it('testExpSubtitleDisplay0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 19  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 19');
@@ -345,7 +345,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0021', 0, () => {
+    it('testExpSubtitleDisplay0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 20  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 20');
@@ -361,7 +361,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0022', 0, () => {
+    it('testExpSubtitleDisplay0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 21  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 21');
@@ -377,7 +377,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0023', 0, () => {
+    it('testExpSubtitleDisplay0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 22  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 22');
@@ -393,7 +393,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0024', 0, () => {
+    it('testExpSubtitleDisplay0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 23  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 23');
@@ -409,7 +409,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0025', 0, () => {
+    it('testExpSubtitleDisplay0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 24  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 24');
@@ -425,7 +425,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0026', 0, () => {
+    it('testExpSubtitleDisplay0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 25  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 25');
@@ -441,7 +441,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0027', 0, () => {
+    it('testExpSubtitleDisplay0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 26  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 26');
@@ -457,7 +457,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0028', 0, () => {
+    it('testExpSubtitleDisplay0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 27  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 27');
@@ -473,7 +473,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0029', 0, () => {
+    it('testExpSubtitleDisplay0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 28  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 28');
@@ -489,7 +489,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0030', 0, () => {
+    it('testExpSubtitleDisplay0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 29  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 29');
@@ -505,7 +505,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0031', 0, () => {
+    it('testExpSubtitleDisplay0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 30  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 30');
@@ -521,7 +521,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0032', 0, () => {
+    it('testExpSubtitleDisplay0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 31  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 31');
@@ -537,7 +537,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0033', 0, () => {
+    it('testExpSubtitleDisplay0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 32  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 32');
@@ -553,7 +553,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0034', 0, () => {
+    it('testExpSubtitleDisplay0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 33  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 33');
@@ -569,7 +569,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0035', 0, () => {
+    it('testExpSubtitleDisplay0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 34  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 34');
@@ -585,7 +585,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0036', 0, () => {
+    it('testExpSubtitleDisplay0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 35  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 35');
@@ -601,7 +601,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0037', 0, () => {
+    it('testExpSubtitleDisplay0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 36  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 36');
@@ -617,7 +617,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0038', 0, () => {
+    it('testExpSubtitleDisplay0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 37  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 37');
@@ -633,7 +633,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0039', 0, () => {
+    it('testExpSubtitleDisplay0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 38  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 38');
@@ -649,7 +649,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0040', 0, () => {
+    it('testExpSubtitleDisplay0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 39  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 39');
@@ -665,7 +665,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0041', 0, () => {
+    it('testExpSubtitleDisplay0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 40  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 40');
@@ -681,7 +681,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0042', 0, () => {
+    it('testExpSubtitleDisplay0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 41  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 41');
@@ -697,7 +697,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0043', 0, () => {
+    it('testExpSubtitleDisplay0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 42  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 42');
@@ -713,7 +713,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0044', 0, () => {
+    it('testExpSubtitleDisplay0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 43  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 43');
@@ -729,7 +729,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0045', 0, () => {
+    it('testExpSubtitleDisplay0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 44  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 44');
@@ -745,7 +745,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0046', 0, () => {
+    it('testExpSubtitleDisplay0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 45  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 45');
@@ -761,7 +761,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0047', 0, () => {
+    it('testExpSubtitleDisplay0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 46  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 46');
@@ -777,7 +777,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0048', 0, () => {
+    it('testExpSubtitleDisplay0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 47  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 47');
@@ -793,7 +793,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0049', 0, () => {
+    it('testExpSubtitleDisplay0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 48  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 48');
@@ -809,7 +809,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0050', 0, () => {
+    it('testExpSubtitleDisplay0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 49  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 49');
@@ -825,7 +825,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0051', 0, () => {
+    it('testExpSubtitleDisplay0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 50  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 50');
@@ -841,7 +841,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0052', 0, () => {
+    it('testExpSubtitleDisplay0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 51  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 51');
@@ -857,7 +857,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0053', 0, () => {
+    it('testExpSubtitleDisplay0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 52  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 52');
@@ -873,7 +873,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0054', 0, () => {
+    it('testExpSubtitleDisplay0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 53  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 53');
@@ -889,7 +889,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0055', 0, () => {
+    it('testExpSubtitleDisplay0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 54  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 54');
@@ -905,7 +905,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0056', 0, () => {
+    it('testExpSubtitleDisplay0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 55  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 55');
@@ -921,7 +921,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0057', 0, () => {
+    it('testExpSubtitleDisplay0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 56  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 56');
@@ -937,7 +937,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0058', 0, () => {
+    it('testExpSubtitleDisplay0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 57  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 57');
@@ -953,7 +953,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0059', 0, () => {
+    it('testExpSubtitleDisplay0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 58  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 58');
@@ -969,7 +969,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0060', 0, () => {
+    it('testExpSubtitleDisplay0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 59  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 59');
@@ -985,7 +985,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0061', 0, () => {
+    it('testExpSubtitleDisplay0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 60  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 60');
@@ -1001,7 +1001,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0062', 0, () => {
+    it('testExpSubtitleDisplay0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 61  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 61');
@@ -1017,7 +1017,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0063', 0, () => {
+    it('testExpSubtitleDisplay0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 62  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 62');
@@ -1033,7 +1033,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0064', 0, () => {
+    it('testExpSubtitleDisplay0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 63  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 63');
@@ -1049,7 +1049,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0065', 0, () => {
+    it('testExpSubtitleDisplay0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 64  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 64');
@@ -1065,7 +1065,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0066', 0, () => {
+    it('testExpSubtitleDisplay0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 65  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 65');
@@ -1081,7 +1081,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0067', 0, () => {
+    it('testExpSubtitleDisplay0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 66  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 66');
@@ -1097,7 +1097,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0068', 0, () => {
+    it('testExpSubtitleDisplay0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 67  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 67');
@@ -1113,7 +1113,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0069', 0, () => {
+    it('testExpSubtitleDisplay0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 68  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 68');
@@ -1129,7 +1129,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0070', 0, () => {
+    it('testExpSubtitleDisplay0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 69  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 69');
@@ -1145,7 +1145,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0071', 0, () => {
+    it('testExpSubtitleDisplay0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 70  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 70');
@@ -1161,7 +1161,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0072', 0, () => {
+    it('testExpSubtitleDisplay0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 71  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 71');
@@ -1177,7 +1177,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0073', 0, () => {
+    it('testExpSubtitleDisplay0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 72  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 72');
@@ -1193,7 +1193,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0074', 0, () => {
+    it('testExpSubtitleDisplay0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 73  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 73');
@@ -1209,7 +1209,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0075', 0, () => {
+    it('testExpSubtitleDisplay0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 74  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 74');
@@ -1225,7 +1225,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0076', 0, () => {
+    it('testExpSubtitleDisplay0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 75  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 75');
@@ -1241,7 +1241,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0077', 0, () => {
+    it('testExpSubtitleDisplay0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 76  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 76');
@@ -1257,7 +1257,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0078', 0, () => {
+    it('testExpSubtitleDisplay0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 77  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 77');
@@ -1273,7 +1273,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0079', 0, () => {
+    it('testExpSubtitleDisplay0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 78  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 78');
@@ -1289,7 +1289,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0080', 0, () => {
+    it('testExpSubtitleDisplay0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 79  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 79');
@@ -1305,7 +1305,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0081', 0, () => {
+    it('testExpSubtitleDisplay0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 80  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 80');
@@ -1321,7 +1321,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0082', 0, () => {
+    it('testExpSubtitleDisplay0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 81  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 81');
@@ -1337,7 +1337,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0083', 0, () => {
+    it('testExpSubtitleDisplay0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 82  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 82');
@@ -1353,7 +1353,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0084', 0, () => {
+    it('testExpSubtitleDisplay0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 83  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 83');
@@ -1369,7 +1369,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0085', 0, () => {
+    it('testExpSubtitleDisplay0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 84  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 84');
@@ -1385,7 +1385,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0086', 0, () => {
+    it('testExpSubtitleDisplay0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 85  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 85');
@@ -1401,7 +1401,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0087', 0, () => {
+    it('testExpSubtitleDisplay0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 86  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 86');
@@ -1417,7 +1417,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0088', 0, () => {
+    it('testExpSubtitleDisplay0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 87  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 87');
@@ -1433,7 +1433,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0089', 0, () => {
+    it('testExpSubtitleDisplay0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 88  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 88');
@@ -1449,7 +1449,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0090', 0, () => {
+    it('testExpSubtitleDisplay0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 89  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 89');
@@ -1465,7 +1465,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0091', 0, () => {
+    it('testExpSubtitleDisplay0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 90  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 90');
@@ -1481,7 +1481,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0092', 0, () => {
+    it('testExpSubtitleDisplay0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 91  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 91');
@@ -1497,7 +1497,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0093', 0, () => {
+    it('testExpSubtitleDisplay0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 92  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 92');
@@ -1513,7 +1513,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0094', 0, () => {
+    it('testExpSubtitleDisplay0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 93  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 93');
@@ -1529,7 +1529,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0095', 0, () => {
+    it('testExpSubtitleDisplay0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 94  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 94');
@@ -1545,7 +1545,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0096', 0, () => {
+    it('testExpSubtitleDisplay0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 95  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 95');
@@ -1561,7 +1561,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0097', 0, () => {
+    it('testExpSubtitleDisplay0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 96  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 96');
@@ -1577,7 +1577,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0098', 0, () => {
+    it('testExpSubtitleDisplay0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 97  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 97');
@@ -1593,7 +1593,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0099', 0, () => {
+    it('testExpSubtitleDisplay0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 98  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 98');
@@ -1609,7 +1609,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0100', 0, () => {
+    it('testExpSubtitleDisplay0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle line 99  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle line 99');
@@ -1625,7 +1625,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0101', 0, () => {
+    it('testExpSubtitleDisplay0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 0  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 0');
@@ -1641,7 +1641,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0102', 0, () => {
+    it('testExpSubtitleDisplay0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 1  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 1');
@@ -1657,7 +1657,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0103', 0, () => {
+    it('testExpSubtitleDisplay0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 2  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 2');
@@ -1673,7 +1673,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0104', 0, () => {
+    it('testExpSubtitleDisplay0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 3  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 3');
@@ -1689,7 +1689,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0105', 0, () => {
+    it('testExpSubtitleDisplay0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 4  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 4');
@@ -1705,7 +1705,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0106', 0, () => {
+    it('testExpSubtitleDisplay0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 5  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 5');
@@ -1721,7 +1721,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0107', 0, () => {
+    it('testExpSubtitleDisplay0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 6  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 6');
@@ -1737,7 +1737,7 @@ export default function subtitleDisplayExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpSubtitleDisplay0108', 0, () => {
+    it('testExpSubtitleDisplay0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const source: string = '  Subtitle extra 7  ';
       const trimmed: string = source.trim();
       expect(trimmed).assertEqual('Subtitle extra 7');

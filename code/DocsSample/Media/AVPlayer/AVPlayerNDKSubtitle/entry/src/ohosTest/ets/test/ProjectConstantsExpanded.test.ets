@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function projectConstantsExpandedTest() {
@@ -25,7 +25,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0001', 0, () => {
+    it('testExpProjectConstant0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -43,7 +43,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0002', 0, () => {
+    it('testExpProjectConstant0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -61,7 +61,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0003', 0, () => {
+    it('testExpProjectConstant0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -79,7 +79,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0004', 0, () => {
+    it('testExpProjectConstant0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -97,7 +97,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0005', 0, () => {
+    it('testExpProjectConstant0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -115,7 +115,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0006', 0, () => {
+    it('testExpProjectConstant0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -133,7 +133,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0007', 0, () => {
+    it('testExpProjectConstant0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -151,7 +151,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0008', 0, () => {
+    it('testExpProjectConstant0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -169,7 +169,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0009', 0, () => {
+    it('testExpProjectConstant0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -187,7 +187,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0010', 0, () => {
+    it('testExpProjectConstant0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -205,7 +205,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0011', 0, () => {
+    it('testExpProjectConstant0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -223,7 +223,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0012', 0, () => {
+    it('testExpProjectConstant0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -241,7 +241,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0013', 0, () => {
+    it('testExpProjectConstant0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -259,7 +259,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0014', 0, () => {
+    it('testExpProjectConstant0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -277,7 +277,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0015', 0, () => {
+    it('testExpProjectConstant0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -295,7 +295,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0016', 0, () => {
+    it('testExpProjectConstant0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -313,7 +313,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0017', 0, () => {
+    it('testExpProjectConstant0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -331,7 +331,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0018', 0, () => {
+    it('testExpProjectConstant0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -349,7 +349,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0019', 0, () => {
+    it('testExpProjectConstant0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -367,7 +367,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0020', 0, () => {
+    it('testExpProjectConstant0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -385,7 +385,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0021', 0, () => {
+    it('testExpProjectConstant0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -403,7 +403,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0022', 0, () => {
+    it('testExpProjectConstant0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -421,7 +421,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0023', 0, () => {
+    it('testExpProjectConstant0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -439,7 +439,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0024', 0, () => {
+    it('testExpProjectConstant0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -457,7 +457,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0025', 0, () => {
+    it('testExpProjectConstant0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -475,7 +475,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0026', 0, () => {
+    it('testExpProjectConstant0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -493,7 +493,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0027', 0, () => {
+    it('testExpProjectConstant0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -511,7 +511,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0028', 0, () => {
+    it('testExpProjectConstant0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -529,7 +529,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0029', 0, () => {
+    it('testExpProjectConstant0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -547,7 +547,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0030', 0, () => {
+    it('testExpProjectConstant0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -565,7 +565,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0031', 0, () => {
+    it('testExpProjectConstant0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -583,7 +583,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0032', 0, () => {
+    it('testExpProjectConstant0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -601,7 +601,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0033', 0, () => {
+    it('testExpProjectConstant0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -619,7 +619,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0034', 0, () => {
+    it('testExpProjectConstant0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -637,7 +637,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0035', 0, () => {
+    it('testExpProjectConstant0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -655,7 +655,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0036', 0, () => {
+    it('testExpProjectConstant0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -673,7 +673,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0037', 0, () => {
+    it('testExpProjectConstant0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -691,7 +691,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0038', 0, () => {
+    it('testExpProjectConstant0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -709,7 +709,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0039', 0, () => {
+    it('testExpProjectConstant0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -727,7 +727,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0040', 0, () => {
+    it('testExpProjectConstant0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -745,7 +745,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0041', 0, () => {
+    it('testExpProjectConstant0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -763,7 +763,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0042', 0, () => {
+    it('testExpProjectConstant0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -781,7 +781,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0043', 0, () => {
+    it('testExpProjectConstant0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -799,7 +799,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0044', 0, () => {
+    it('testExpProjectConstant0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -817,7 +817,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0045', 0, () => {
+    it('testExpProjectConstant0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -835,7 +835,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0046', 0, () => {
+    it('testExpProjectConstant0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -853,7 +853,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0047', 0, () => {
+    it('testExpProjectConstant0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -871,7 +871,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0048', 0, () => {
+    it('testExpProjectConstant0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -889,7 +889,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0049', 0, () => {
+    it('testExpProjectConstant0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -907,7 +907,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0050', 0, () => {
+    it('testExpProjectConstant0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -925,7 +925,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0051', 0, () => {
+    it('testExpProjectConstant0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -943,7 +943,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0052', 0, () => {
+    it('testExpProjectConstant0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -961,7 +961,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0053', 0, () => {
+    it('testExpProjectConstant0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -979,7 +979,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0054', 0, () => {
+    it('testExpProjectConstant0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -997,7 +997,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0055', 0, () => {
+    it('testExpProjectConstant0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1015,7 +1015,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0056', 0, () => {
+    it('testExpProjectConstant0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1033,7 +1033,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0057', 0, () => {
+    it('testExpProjectConstant0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1051,7 +1051,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0058', 0, () => {
+    it('testExpProjectConstant0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1069,7 +1069,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0059', 0, () => {
+    it('testExpProjectConstant0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1087,7 +1087,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0060', 0, () => {
+    it('testExpProjectConstant0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1105,7 +1105,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0061', 0, () => {
+    it('testExpProjectConstant0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1123,7 +1123,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0062', 0, () => {
+    it('testExpProjectConstant0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1141,7 +1141,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0063', 0, () => {
+    it('testExpProjectConstant0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1159,7 +1159,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0064', 0, () => {
+    it('testExpProjectConstant0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1177,7 +1177,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0065', 0, () => {
+    it('testExpProjectConstant0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1195,7 +1195,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0066', 0, () => {
+    it('testExpProjectConstant0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1213,7 +1213,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0067', 0, () => {
+    it('testExpProjectConstant0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1231,7 +1231,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0068', 0, () => {
+    it('testExpProjectConstant0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1249,7 +1249,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0069', 0, () => {
+    it('testExpProjectConstant0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1267,7 +1267,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0070', 0, () => {
+    it('testExpProjectConstant0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1285,7 +1285,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0071', 0, () => {
+    it('testExpProjectConstant0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1303,7 +1303,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0072', 0, () => {
+    it('testExpProjectConstant0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1321,7 +1321,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0073', 0, () => {
+    it('testExpProjectConstant0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1339,7 +1339,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0074', 0, () => {
+    it('testExpProjectConstant0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1357,7 +1357,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0075', 0, () => {
+    it('testExpProjectConstant0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1375,7 +1375,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0076', 0, () => {
+    it('testExpProjectConstant0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1393,7 +1393,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0077', 0, () => {
+    it('testExpProjectConstant0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1411,7 +1411,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0078', 0, () => {
+    it('testExpProjectConstant0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1429,7 +1429,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0079', 0, () => {
+    it('testExpProjectConstant0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1447,7 +1447,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0080', 0, () => {
+    it('testExpProjectConstant0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1465,7 +1465,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0081', 0, () => {
+    it('testExpProjectConstant0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1483,7 +1483,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0082', 0, () => {
+    it('testExpProjectConstant0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1501,7 +1501,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0083', 0, () => {
+    it('testExpProjectConstant0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1519,7 +1519,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0084', 0, () => {
+    it('testExpProjectConstant0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1537,7 +1537,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0085', 0, () => {
+    it('testExpProjectConstant0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1555,7 +1555,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0086', 0, () => {
+    it('testExpProjectConstant0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1573,7 +1573,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0087', 0, () => {
+    it('testExpProjectConstant0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1591,7 +1591,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0088', 0, () => {
+    it('testExpProjectConstant0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1609,7 +1609,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0089', 0, () => {
+    it('testExpProjectConstant0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1627,7 +1627,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0090', 0, () => {
+    it('testExpProjectConstant0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1645,7 +1645,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0091', 0, () => {
+    it('testExpProjectConstant0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1663,7 +1663,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0092', 0, () => {
+    it('testExpProjectConstant0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1681,7 +1681,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0093', 0, () => {
+    it('testExpProjectConstant0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1699,7 +1699,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0094', 0, () => {
+    it('testExpProjectConstant0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1717,7 +1717,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0095', 0, () => {
+    it('testExpProjectConstant0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1735,7 +1735,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0096', 0, () => {
+    it('testExpProjectConstant0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1753,7 +1753,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0097', 0, () => {
+    it('testExpProjectConstant0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1771,7 +1771,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0098', 0, () => {
+    it('testExpProjectConstant0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1789,7 +1789,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0099', 0, () => {
+    it('testExpProjectConstant0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;
@@ -1807,7 +1807,7 @@ export default function projectConstantsExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpProjectConstant0100', 0, () => {
+    it('testExpProjectConstant0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const interval: number = 300;
       const oneMinute: number = 60000;
       const oneSecond: number = 1000;

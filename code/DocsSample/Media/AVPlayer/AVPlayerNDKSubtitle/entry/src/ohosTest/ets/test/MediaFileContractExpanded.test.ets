@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function mediaFileContractExpandedTest() {
@@ -25,7 +25,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0001', 0, () => {
+    it('testExpMediaFile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -41,7 +41,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0002', 0, () => {
+    it('testExpMediaFile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -57,7 +57,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0003', 0, () => {
+    it('testExpMediaFile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -73,7 +73,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0004', 0, () => {
+    it('testExpMediaFile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -89,7 +89,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0005', 0, () => {
+    it('testExpMediaFile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -105,7 +105,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0006', 0, () => {
+    it('testExpMediaFile0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -121,7 +121,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0007', 0, () => {
+    it('testExpMediaFile0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -137,7 +137,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0008', 0, () => {
+    it('testExpMediaFile0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -153,7 +153,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0009', 0, () => {
+    it('testExpMediaFile0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -169,7 +169,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0010', 0, () => {
+    it('testExpMediaFile0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -185,7 +185,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0011', 0, () => {
+    it('testExpMediaFile0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -201,7 +201,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0012', 0, () => {
+    it('testExpMediaFile0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -217,7 +217,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0013', 0, () => {
+    it('testExpMediaFile0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -233,7 +233,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0014', 0, () => {
+    it('testExpMediaFile0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -249,7 +249,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0015', 0, () => {
+    it('testExpMediaFile0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -265,7 +265,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0016', 0, () => {
+    it('testExpMediaFile0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -281,7 +281,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0017', 0, () => {
+    it('testExpMediaFile0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -297,7 +297,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0018', 0, () => {
+    it('testExpMediaFile0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -313,7 +313,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0019', 0, () => {
+    it('testExpMediaFile0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -329,7 +329,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0020', 0, () => {
+    it('testExpMediaFile0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -345,7 +345,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0021', 0, () => {
+    it('testExpMediaFile0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -361,7 +361,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0022', 0, () => {
+    it('testExpMediaFile0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -377,7 +377,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0023', 0, () => {
+    it('testExpMediaFile0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -393,7 +393,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0024', 0, () => {
+    it('testExpMediaFile0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -409,7 +409,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0025', 0, () => {
+    it('testExpMediaFile0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -425,7 +425,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0026', 0, () => {
+    it('testExpMediaFile0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -441,7 +441,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0027', 0, () => {
+    it('testExpMediaFile0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -457,7 +457,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0028', 0, () => {
+    it('testExpMediaFile0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -473,7 +473,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0029', 0, () => {
+    it('testExpMediaFile0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -489,7 +489,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0030', 0, () => {
+    it('testExpMediaFile0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -505,7 +505,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0031', 0, () => {
+    it('testExpMediaFile0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -521,7 +521,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0032', 0, () => {
+    it('testExpMediaFile0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -537,7 +537,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0033', 0, () => {
+    it('testExpMediaFile0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -553,7 +553,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0034', 0, () => {
+    it('testExpMediaFile0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -569,7 +569,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0035', 0, () => {
+    it('testExpMediaFile0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -585,7 +585,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0036', 0, () => {
+    it('testExpMediaFile0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -601,7 +601,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0037', 0, () => {
+    it('testExpMediaFile0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -617,7 +617,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0038', 0, () => {
+    it('testExpMediaFile0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -633,7 +633,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0039', 0, () => {
+    it('testExpMediaFile0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -649,7 +649,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0040', 0, () => {
+    it('testExpMediaFile0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -665,7 +665,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0041', 0, () => {
+    it('testExpMediaFile0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -681,7 +681,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0042', 0, () => {
+    it('testExpMediaFile0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -697,7 +697,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0043', 0, () => {
+    it('testExpMediaFile0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -713,7 +713,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0044', 0, () => {
+    it('testExpMediaFile0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -729,7 +729,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0045', 0, () => {
+    it('testExpMediaFile0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -745,7 +745,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0046', 0, () => {
+    it('testExpMediaFile0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -761,7 +761,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0047', 0, () => {
+    it('testExpMediaFile0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -777,7 +777,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0048', 0, () => {
+    it('testExpMediaFile0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -793,7 +793,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0049', 0, () => {
+    it('testExpMediaFile0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -809,7 +809,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0050', 0, () => {
+    it('testExpMediaFile0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -825,7 +825,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0051', 0, () => {
+    it('testExpMediaFile0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -841,7 +841,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0052', 0, () => {
+    it('testExpMediaFile0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -857,7 +857,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0053', 0, () => {
+    it('testExpMediaFile0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -873,7 +873,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0054', 0, () => {
+    it('testExpMediaFile0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -889,7 +889,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0055', 0, () => {
+    it('testExpMediaFile0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -905,7 +905,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0056', 0, () => {
+    it('testExpMediaFile0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -921,7 +921,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0057', 0, () => {
+    it('testExpMediaFile0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -937,7 +937,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0058', 0, () => {
+    it('testExpMediaFile0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -953,7 +953,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0059', 0, () => {
+    it('testExpMediaFile0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -969,7 +969,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0060', 0, () => {
+    it('testExpMediaFile0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -985,7 +985,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0061', 0, () => {
+    it('testExpMediaFile0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1001,7 +1001,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0062', 0, () => {
+    it('testExpMediaFile0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1017,7 +1017,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0063', 0, () => {
+    it('testExpMediaFile0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1033,7 +1033,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0064', 0, () => {
+    it('testExpMediaFile0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1049,7 +1049,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0065', 0, () => {
+    it('testExpMediaFile0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1065,7 +1065,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0066', 0, () => {
+    it('testExpMediaFile0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1081,7 +1081,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0067', 0, () => {
+    it('testExpMediaFile0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1097,7 +1097,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0068', 0, () => {
+    it('testExpMediaFile0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1113,7 +1113,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0069', 0, () => {
+    it('testExpMediaFile0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1129,7 +1129,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0070', 0, () => {
+    it('testExpMediaFile0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1145,7 +1145,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0071', 0, () => {
+    it('testExpMediaFile0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1161,7 +1161,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0072', 0, () => {
+    it('testExpMediaFile0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1177,7 +1177,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0073', 0, () => {
+    it('testExpMediaFile0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1193,7 +1193,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0074', 0, () => {
+    it('testExpMediaFile0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1209,7 +1209,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0075', 0, () => {
+    it('testExpMediaFile0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1225,7 +1225,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0076', 0, () => {
+    it('testExpMediaFile0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1241,7 +1241,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0077', 0, () => {
+    it('testExpMediaFile0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1257,7 +1257,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0078', 0, () => {
+    it('testExpMediaFile0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1273,7 +1273,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0079', 0, () => {
+    it('testExpMediaFile0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1289,7 +1289,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0080', 0, () => {
+    it('testExpMediaFile0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1305,7 +1305,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0081', 0, () => {
+    it('testExpMediaFile0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1321,7 +1321,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0082', 0, () => {
+    it('testExpMediaFile0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1337,7 +1337,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0083', 0, () => {
+    it('testExpMediaFile0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1353,7 +1353,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0084', 0, () => {
+    it('testExpMediaFile0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1369,7 +1369,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0085', 0, () => {
+    it('testExpMediaFile0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1385,7 +1385,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0086', 0, () => {
+    it('testExpMediaFile0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1401,7 +1401,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0087', 0, () => {
+    it('testExpMediaFile0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1417,7 +1417,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0088', 0, () => {
+    it('testExpMediaFile0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1433,7 +1433,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0089', 0, () => {
+    it('testExpMediaFile0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1449,7 +1449,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0090', 0, () => {
+    it('testExpMediaFile0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1465,7 +1465,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0091', 0, () => {
+    it('testExpMediaFile0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1481,7 +1481,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0092', 0, () => {
+    it('testExpMediaFile0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1497,7 +1497,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0093', 0, () => {
+    it('testExpMediaFile0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1513,7 +1513,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0094', 0, () => {
+    it('testExpMediaFile0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1529,7 +1529,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0095', 0, () => {
+    it('testExpMediaFile0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1545,7 +1545,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0096', 0, () => {
+    it('testExpMediaFile0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1561,7 +1561,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0097', 0, () => {
+    it('testExpMediaFile0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1577,7 +1577,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0098', 0, () => {
+    it('testExpMediaFile0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');
@@ -1593,7 +1593,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0099', 0, () => {
+    it('testExpMediaFile0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'test1.mp4';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('test1.mp4');
@@ -1609,7 +1609,7 @@ export default function mediaFileContractExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testExpMediaFile0100', 0, () => {
+    it('testExpMediaFile0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const name: string = 'subtitle.srt';
       const parts: string[] = name.split('.');
       expect(name).assertEqual('subtitle.srt');

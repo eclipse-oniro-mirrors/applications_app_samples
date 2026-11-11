@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function seekBoundaryExpandedTest() {
@@ -25,7 +25,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0001', 0, () => {
+    it('testMoreSeekBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = -50;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -42,7 +42,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0002', 0, () => {
+    it('testMoreSeekBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 87;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -59,7 +59,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0003', 0, () => {
+    it('testMoreSeekBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 224;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -76,7 +76,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0004', 0, () => {
+    it('testMoreSeekBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 361;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -93,7 +93,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0005', 0, () => {
+    it('testMoreSeekBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 498;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -110,7 +110,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0006', 0, () => {
+    it('testMoreSeekBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 635;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -127,7 +127,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0007', 0, () => {
+    it('testMoreSeekBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 772;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -144,7 +144,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0008', 0, () => {
+    it('testMoreSeekBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 909;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -161,7 +161,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0009', 0, () => {
+    it('testMoreSeekBoundary0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1046;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -178,7 +178,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0010', 0, () => {
+    it('testMoreSeekBoundary0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1183;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -195,7 +195,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0011', 0, () => {
+    it('testMoreSeekBoundary0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1320;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -212,7 +212,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0012', 0, () => {
+    it('testMoreSeekBoundary0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1457;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -229,7 +229,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0013', 0, () => {
+    it('testMoreSeekBoundary0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1594;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -246,7 +246,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0014', 0, () => {
+    it('testMoreSeekBoundary0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1731;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -263,7 +263,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0015', 0, () => {
+    it('testMoreSeekBoundary0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 1868;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -280,7 +280,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0016', 0, () => {
+    it('testMoreSeekBoundary0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2005;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -297,7 +297,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0017', 0, () => {
+    it('testMoreSeekBoundary0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2142;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -314,7 +314,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0018', 0, () => {
+    it('testMoreSeekBoundary0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2279;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -331,7 +331,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0019', 0, () => {
+    it('testMoreSeekBoundary0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2416;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -348,7 +348,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0020', 0, () => {
+    it('testMoreSeekBoundary0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2553;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -365,7 +365,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0021', 0, () => {
+    it('testMoreSeekBoundary0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2690;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -382,7 +382,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0022', 0, () => {
+    it('testMoreSeekBoundary0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2827;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -399,7 +399,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0023', 0, () => {
+    it('testMoreSeekBoundary0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 2964;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -416,7 +416,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0024', 0, () => {
+    it('testMoreSeekBoundary0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3101;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -433,7 +433,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0025', 0, () => {
+    it('testMoreSeekBoundary0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3238;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -450,7 +450,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0026', 0, () => {
+    it('testMoreSeekBoundary0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3375;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -467,7 +467,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0027', 0, () => {
+    it('testMoreSeekBoundary0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3512;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -484,7 +484,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0028', 0, () => {
+    it('testMoreSeekBoundary0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3649;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -501,7 +501,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0029', 0, () => {
+    it('testMoreSeekBoundary0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3786;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -518,7 +518,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0030', 0, () => {
+    it('testMoreSeekBoundary0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 3923;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -535,7 +535,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0031', 0, () => {
+    it('testMoreSeekBoundary0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4060;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -552,7 +552,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0032', 0, () => {
+    it('testMoreSeekBoundary0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4197;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -569,7 +569,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0033', 0, () => {
+    it('testMoreSeekBoundary0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4334;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -586,7 +586,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0034', 0, () => {
+    it('testMoreSeekBoundary0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4471;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -603,7 +603,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0035', 0, () => {
+    it('testMoreSeekBoundary0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4608;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -620,7 +620,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0036', 0, () => {
+    it('testMoreSeekBoundary0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4745;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -637,7 +637,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0037', 0, () => {
+    it('testMoreSeekBoundary0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 4882;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -654,7 +654,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0038', 0, () => {
+    it('testMoreSeekBoundary0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5019;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -671,7 +671,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0039', 0, () => {
+    it('testMoreSeekBoundary0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5156;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -688,7 +688,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0040', 0, () => {
+    it('testMoreSeekBoundary0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5293;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -705,7 +705,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0041', 0, () => {
+    it('testMoreSeekBoundary0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5430;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -722,7 +722,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0042', 0, () => {
+    it('testMoreSeekBoundary0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5567;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -739,7 +739,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0043', 0, () => {
+    it('testMoreSeekBoundary0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5704;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -756,7 +756,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0044', 0, () => {
+    it('testMoreSeekBoundary0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5841;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -773,7 +773,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0045', 0, () => {
+    it('testMoreSeekBoundary0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 5978;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -790,7 +790,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0046', 0, () => {
+    it('testMoreSeekBoundary0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6115;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -807,7 +807,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0047', 0, () => {
+    it('testMoreSeekBoundary0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6252;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -824,7 +824,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0048', 0, () => {
+    it('testMoreSeekBoundary0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6389;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -841,7 +841,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0049', 0, () => {
+    it('testMoreSeekBoundary0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6526;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -858,7 +858,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0050', 0, () => {
+    it('testMoreSeekBoundary0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6663;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -875,7 +875,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0051', 0, () => {
+    it('testMoreSeekBoundary0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6800;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -892,7 +892,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0052', 0, () => {
+    it('testMoreSeekBoundary0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 6937;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -909,7 +909,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0053', 0, () => {
+    it('testMoreSeekBoundary0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7074;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -926,7 +926,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0054', 0, () => {
+    it('testMoreSeekBoundary0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7211;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -943,7 +943,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0055', 0, () => {
+    it('testMoreSeekBoundary0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7348;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -960,7 +960,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0056', 0, () => {
+    it('testMoreSeekBoundary0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7485;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -977,7 +977,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0057', 0, () => {
+    it('testMoreSeekBoundary0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7622;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -994,7 +994,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0058', 0, () => {
+    it('testMoreSeekBoundary0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7759;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1011,7 +1011,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0059', 0, () => {
+    it('testMoreSeekBoundary0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 7896;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1028,7 +1028,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0060', 0, () => {
+    it('testMoreSeekBoundary0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8033;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1045,7 +1045,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0061', 0, () => {
+    it('testMoreSeekBoundary0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8170;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1062,7 +1062,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0062', 0, () => {
+    it('testMoreSeekBoundary0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8307;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1079,7 +1079,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0063', 0, () => {
+    it('testMoreSeekBoundary0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8444;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1096,7 +1096,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0064', 0, () => {
+    it('testMoreSeekBoundary0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8581;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1113,7 +1113,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0065', 0, () => {
+    it('testMoreSeekBoundary0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8718;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1130,7 +1130,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0066', 0, () => {
+    it('testMoreSeekBoundary0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8855;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1147,7 +1147,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0067', 0, () => {
+    it('testMoreSeekBoundary0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 8992;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1164,7 +1164,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0068', 0, () => {
+    it('testMoreSeekBoundary0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9129;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1181,7 +1181,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0069', 0, () => {
+    it('testMoreSeekBoundary0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9266;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1198,7 +1198,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0070', 0, () => {
+    it('testMoreSeekBoundary0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9403;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1215,7 +1215,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0071', 0, () => {
+    it('testMoreSeekBoundary0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9540;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1232,7 +1232,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0072', 0, () => {
+    it('testMoreSeekBoundary0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9677;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1249,7 +1249,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0073', 0, () => {
+    it('testMoreSeekBoundary0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9814;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1266,7 +1266,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0074', 0, () => {
+    it('testMoreSeekBoundary0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 9951;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1283,7 +1283,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0075', 0, () => {
+    it('testMoreSeekBoundary0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10088;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1300,7 +1300,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0076', 0, () => {
+    it('testMoreSeekBoundary0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10225;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1317,7 +1317,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0077', 0, () => {
+    it('testMoreSeekBoundary0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10362;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1334,7 +1334,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0078', 0, () => {
+    it('testMoreSeekBoundary0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10499;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1351,7 +1351,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0079', 0, () => {
+    it('testMoreSeekBoundary0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10636;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1368,7 +1368,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0080', 0, () => {
+    it('testMoreSeekBoundary0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10773;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1385,7 +1385,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0081', 0, () => {
+    it('testMoreSeekBoundary0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 10910;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1402,7 +1402,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0082', 0, () => {
+    it('testMoreSeekBoundary0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11047;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1419,7 +1419,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0083', 0, () => {
+    it('testMoreSeekBoundary0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11184;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1436,7 +1436,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0084', 0, () => {
+    it('testMoreSeekBoundary0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11321;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1453,7 +1453,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0085', 0, () => {
+    it('testMoreSeekBoundary0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11458;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1470,7 +1470,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0086', 0, () => {
+    it('testMoreSeekBoundary0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11595;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1487,7 +1487,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0087', 0, () => {
+    it('testMoreSeekBoundary0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11732;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1504,7 +1504,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0088', 0, () => {
+    it('testMoreSeekBoundary0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 11869;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1521,7 +1521,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0089', 0, () => {
+    it('testMoreSeekBoundary0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12006;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1538,7 +1538,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0090', 0, () => {
+    it('testMoreSeekBoundary0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12143;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1555,7 +1555,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0091', 0, () => {
+    it('testMoreSeekBoundary0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12280;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1572,7 +1572,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0092', 0, () => {
+    it('testMoreSeekBoundary0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12417;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1589,7 +1589,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0093', 0, () => {
+    it('testMoreSeekBoundary0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12554;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1606,7 +1606,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0094', 0, () => {
+    it('testMoreSeekBoundary0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12691;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1623,7 +1623,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0095', 0, () => {
+    it('testMoreSeekBoundary0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12828;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1640,7 +1640,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0096', 0, () => {
+    it('testMoreSeekBoundary0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 12965;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1657,7 +1657,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0097', 0, () => {
+    it('testMoreSeekBoundary0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 13102;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1674,7 +1674,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0098', 0, () => {
+    it('testMoreSeekBoundary0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 13239;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1691,7 +1691,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0099', 0, () => {
+    it('testMoreSeekBoundary0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 13376;
       const clamped: number = Math.max(0, Math.min(value, duration));
@@ -1708,7 +1708,7 @@ export default function seekBoundaryExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMoreSeekBoundary0100', 0, () => {
+    it('testMoreSeekBoundary0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const duration: number = 10000;
       const value: number = 13513;
       const clamped: number = Math.max(0, Math.min(value, duration));
