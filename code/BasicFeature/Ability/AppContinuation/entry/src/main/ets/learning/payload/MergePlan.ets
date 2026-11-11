@@ -19,11 +19,11 @@ export enum FieldChoice {
 
 /** 单个字段的三方取值。 */
 export class FieldTriple {
-  key: string = '';
-  label: string = '';
-  base: string = '';
-  local: string = '';
-  remote: string = '';
+  public key: string = '';
+  public label: string = '';
+  public base: string = '';
+  public local: string = '';
+  public remote: string = '';
 
   constructor(key: string = '', label: string = '') {
     this.key = key;
@@ -31,27 +31,27 @@ export class FieldTriple {
   }
 
   /** 本地是否改过。 */
-  localChanged(): boolean {
+  public localChanged(): boolean {
     return this.local !== this.base;
   }
 
   /** 对端是否改过。 */
-  remoteChanged(): boolean {
+  public remoteChanged(): boolean {
     return this.remote !== this.base;
   }
 
   /** 双方是否都改过且改得不一致。 */
-  conflict(): boolean {
+  public conflict(): boolean {
     return this.localChanged() && this.remoteChanged() && this.local !== this.remote;
   }
 
   /** 双方是否改成了同一个值。 */
-  converged(): boolean {
+  public converged(): boolean {
     return this.localChanged() && this.remoteChanged() && this.local === this.remote;
   }
 
   /** 无冲突时的自动取值；有冲突时返回 NEEDS_MANUAL。 */
-  automaticChoice(): FieldChoice {
+  public automaticChoice(): FieldChoice {
     if (this.converged()) {
       return FieldChoice.LOCAL;
     }
@@ -67,21 +67,23 @@ export class FieldTriple {
     return FieldChoice.BASE;
   }
 
-  describe(): string {
-    return `${this.label}｜基线 ${this.base.length === 0 ? '(空)' : this.base}｜本地 ${this.local.length === 0 ? '(空)' : this.local}｜对端 ${this.remote.length === 0 ? '(空)' : this.remote}`;
+  public describe(): string {
+    return `${this.label}｜基线 ${this.base.length === 0 ? '(空)' : this.base}｜` +
+      `本地 ${this.local.length === 0 ? '(空)' : this.local}｜` +
+      `对端 ${this.remote.length === 0 ? '(空)' : this.remote}`;
   }
 }
 
 /** 一个字段的最终决定。 */
 export class FieldDecision {
-  key: string = '';
-  choice: FieldChoice = FieldChoice.BASE;
+  public key: string = '';
+  public choice: FieldChoice = FieldChoice.BASE;
   /** 决定采用的取值。 */
-  value: string = '';
+  public value: string = '';
   /** 是否有冲突。 */
-  conflicted: boolean = false;
+  public conflicted: boolean = false;
   /** 冲突说明；无冲突时为空串。 */
-  reason: string = '';
+  public reason: string = '';
 
   constructor(key: string = '', choice: FieldChoice = FieldChoice.BASE, value: string = '') {
     this.key = key;
@@ -89,35 +91,36 @@ export class FieldDecision {
     this.value = value;
   }
 
-  describe(): string {
-    return `${this.key}｜${this.choice as string}｜${this.value.length === 0 ? '(空)' : this.value}${this.conflicted ? '｜冲突：' + this.reason : ''}`;
+  public describe(): string {
+    return `${this.key}｜${this.choice as string}｜${this.value.length === 0 ? '(空)' : this.value}` +
+      `${this.conflicted ? '｜冲突：' + this.reason : ''}`;
   }
 }
 
 /** 合并计划。 */
 export class MergePlan {
-  decisions: FieldDecision[] = [];
+  public decisions: FieldDecision[] = [];
   /** 是否存在需要人工确认的字段。 */
-  hasManual(): boolean {
+  public hasManual(): boolean {
     return this.decisions.some((item: FieldDecision): boolean => item.choice === FieldChoice.MANUAL);
   }
 
   /** 冲突字段数。 */
-  conflictCount(): number {
+  public conflictCount(): number {
     return this.decisions.filter((item: FieldDecision): boolean => item.conflicted).length;
   }
 
   /** 已定字段数。 */
-  settledCount(): number {
+  public settledCount(): number {
     return this.decisions.filter((item: FieldDecision): boolean => item.choice !== FieldChoice.MANUAL).length;
   }
 
-  decisionOf(key: string): FieldDecision | undefined {
+  public decisionOf(key: string): FieldDecision | undefined {
     return this.decisions.find((item: FieldDecision): boolean => item.key === key);
   }
 
   /** 人工指定某个字段的取值。 */
-  choose(key: string, choice: FieldChoice, value: string): boolean {
+  public choose(key: string, choice: FieldChoice, value: string): boolean {
     const found = this.decisionOf(key);
     if (found === undefined || choice === FieldChoice.MANUAL) {
       return false;
@@ -130,21 +133,21 @@ export class MergePlan {
 
 /** 合并结果。 */
 export class MergeResult {
-  keys: string[] = [];
-  values: string[] = [];
+  public keys: string[] = [];
+  public values: string[] = [];
   /** 未决定的字段。 */
   public pending: string[] = [];
 
-  valueOf(key: string): string {
+  public valueOf(key: string): string {
     const index: number = this.keys.indexOf(key);
     return index < 0 ? '' : this.values[index];
   }
 
-  complete(): boolean {
+  public complete(): boolean {
     return this.pending.length === 0;
   }
 
-  describe(): string {
+  public describe(): string {
     if (!this.complete()) {
       return `还有 ${this.pending.length} 个字段待确认：${this.pending.join('/')}`;
     }
@@ -251,5 +254,6 @@ export function tripleStats(triples: FieldTriple[]): string {
     triple.localChanged() && !triple.remoteChanged()).length;
   const remoteOnly: number = triples.filter((triple: FieldTriple): boolean =>
     !triple.localChanged() && triple.remoteChanged()).length;
-  return `字段 ${triples.length}｜仅本地改 ${localOnly}｜仅对端改 ${remoteOnly}｜双方一致 ${converged}｜真冲突 ${conflicts}`;
+  return `字段 ${triples.length}｜仅本地改 ${localOnly}｜仅对端改 ${remoteOnly}｜` +
+    `双方一致 ${converged}｜真冲突 ${conflicts}`;
 }

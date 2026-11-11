@@ -66,20 +66,20 @@ export function riskOrder(risk: ScenarioRisk): number {
 
 /** 一个场景。 */
 export class ScenarioEntry {
-  scenarioId: string = '';
-  title: string = '';
-  shape: PayloadShape = PayloadShape.NOTE;
+  public scenarioId: string = '';
+  public title: string = '';
+  public shape: PayloadShape = PayloadShape.NOTE;
   /** 发起端。 */
-  from: DeviceClass = DeviceClass.PHONE;
+  public from: DeviceClass = DeviceClass.PHONE;
   /** 接收端。 */
-  to: DeviceClass = DeviceClass.PHONE;
+  public to: DeviceClass = DeviceClass.PHONE;
   /** 前置条件。 */
-  requires: string[] = [];
+  public requires: string[] = [];
   /** 操作步骤。 */
-  steps: string[] = [];
+  public steps: string[] = [];
   /** 成功判据。 */
-  success: string = '';
-  risk: ScenarioRisk = ScenarioRisk.LOW;
+  public success: string = '';
+  public risk: ScenarioRisk = ScenarioRisk.LOW;
 
   constructor(scenarioId: string = '', title: string = '', shape: PayloadShape = PayloadShape.NOTE,
     from: DeviceClass = DeviceClass.PHONE, to: DeviceClass = DeviceClass.PHONE,
@@ -97,18 +97,18 @@ export class ScenarioEntry {
   }
 
   /** 是否同设备类型。 */
-  sameDevice(): boolean {
+  public sameDevice(): boolean {
     return this.from === this.to;
   }
 
   /** 单行文本。 */
-  text(): string {
+  public text(): string {
     return `${this.scenarioId}｜${this.title}｜${this.from as string}->${this.to as string}｜` +
       `${shapeLabel(this.shape)}｜风险${riskLabel(this.risk)}`;
   }
 
   /** 步骤文本。 */
-  stepTexts(): string[] {
+  public stepTexts(): string[] {
     return this.steps.map((step: string, index: number): string =>
       `${this.scenarioId}-${index + 1} ${step}`);
   }
@@ -245,19 +245,19 @@ export function stepCountOf(scenarioId: string): number {
 
 /** 场景统计。 */
 export class ScenarioSummary {
-  total: number = 0;
-  high: number = 0;
-  medium: number = 0;
-  low: number = 0;
-  steps: number = 0;
+  public total: number = 0;
+  public high: number = 0;
+  public medium: number = 0;
+  public low: number = 0;
+  public steps: number = 0;
 
-  text(): string {
+  public text(): string {
     return `共 ${this.total} 个场景、${this.steps} 个步骤：高 ${this.high}、中 ${this.medium}、` +
       `低 ${this.low}`;
   }
 
   /** 高风险占比。 */
-  highRatio(): number {
+  public highRatio(): number {
     if (this.total === 0) {
       return 0;
     }
@@ -278,10 +278,10 @@ export function summarizeScenarios(): ScenarioSummary {
 
 /** 场景自检。 */
 export class ScenarioAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return this.ok ? '场景目录自洽' : this.findings.join('；');
   }
 }

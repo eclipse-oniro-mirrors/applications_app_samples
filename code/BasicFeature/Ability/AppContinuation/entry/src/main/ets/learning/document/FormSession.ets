@@ -29,15 +29,15 @@ export enum FormStage {
 
 /** 一个字段。 */
 export class FormField {
-  key: string = '';
-  label: string = '';
-  required: boolean = false;
-  state: FieldState = FieldState.EMPTY;
-  value: string = '';
+  public key: string = '';
+  public label: string = '';
+  public required: boolean = false;
+  public state: FieldState = FieldState.EMPTY;
+  public value: string = '';
   /** 最大长度，0 表示不限。 */
-  maxLength: number = 0;
+  public maxLength: number = 0;
   /** 该字段出现在哪些分支下；空数组表示始终可见。 */
-  visibleWhen: string[] = [];
+  public visibleWhen: string[] = [];
 
   constructor(key: string = '', label: string = '', required: boolean = false, maxLength: number = 0) {
     this.key = key;
@@ -47,7 +47,7 @@ export class FormField {
   }
 
   /** 按当前值重算状态，不信任外部写入的 state。 */
-  refresh(): void {
+  public refresh(): void {
     if (this.value.length === 0) {
       this.state = FieldState.EMPTY;
       return;
@@ -60,33 +60,34 @@ export class FormField {
   }
 
   /** 是否阻断提交。 */
-  blocking(): boolean {
+  public blocking(): boolean {
     return this.required && (this.state === FieldState.EMPTY || this.state === FieldState.INVALID);
   }
 
-  describe(): string {
-    return `${this.label}${this.required ? '(必填)' : ''}＝${this.value.length === 0 ? '空' : this.value}｜${this.state as string}`;
+  public describe(): string {
+    return `${this.label}${this.required ? '(必填)' : ''}＝` +
+      `${this.value.length === 0 ? '空' : this.value}｜${this.state as string}`;
   }
 }
 
 /** 一条可重复明细。 */
 export class FormRow {
   /** 行标识，接续时用于对齐。 */
-  id: string = '';
+  public id: string = '';
   /** 行内字段取值，按 key 顺序拼接，避免依赖映射类型。 */
-  keys: string[] = [];
-  values: string[] = [];
+  public keys: string[] = [];
+  public values: string[] = [];
 
   constructor(id: string = '') {
     this.id = id;
   }
 
-  valueOf(key: string): string {
+  public valueOf(key: string): string {
     const index: number = this.keys.indexOf(key);
     return index < 0 ? '' : this.values[index];
   }
 
-  set(key: string, value: string): void {
+  public set(key: string, value: string): void {
     const index: number = this.keys.indexOf(key);
     if (index < 0) {
       this.keys.push(key);
@@ -97,11 +98,11 @@ export class FormRow {
   }
 
   /** 该行是否有任何非空取值。 */
-  filled(): boolean {
+  public filled(): boolean {
     return this.values.some((value: string): boolean => value.length > 0);
   }
 
-  describe(): string {
+  public describe(): string {
     const parts: string[] = [];
     this.keys.forEach((key: string, index: number): void => {
       parts.push(`${key}=${this.values[index]}`);
@@ -112,15 +113,15 @@ export class FormRow {
 
 /** 分支规则：某个选项被选中时，哪些字段转为可见。 */
 export class BranchRule {
-  code: string = '';
+  public code: string = '';
   /** 触发分支的字段。 */
-  fieldKey: string = '';
+  public fieldKey: string = '';
   /** 触发值。 */
-  triggerValue: string = '';
+  public triggerValue: string = '';
   /** 转为可见的字段 key。 */
-  revealsFields: string[] = [];
+  public revealsFields: string[] = [];
   /** 该分支是否要求至少一行明细。 */
-  requireRow: boolean = false;
+  public requireRow: boolean = false;
 
   constructor(code: string = '', fieldKey: string = '', triggerValue: string = '',
     revealsFields: string[] = [], requireRow: boolean = false) {
@@ -131,8 +132,9 @@ export class BranchRule {
     this.requireRow = requireRow;
   }
 
-  describe(): string {
-    return `${this.code}｜${this.fieldKey}=${this.triggerValue} 时显示 ${this.revealsFields.join('/')}${this.requireRow ? '，且需至少一行明细' : ''}`;
+  public describe(): string {
+    return `${this.code}｜${this.fieldKey}=${this.triggerValue} 时显示 ${this.revealsFields.join('/')}` +
+      `${this.requireRow ? '，且需至少一行明细' : ''}`;
   }
 }
 
@@ -147,17 +149,17 @@ export const BRANCH_RULES: BranchRule[] = [
 
 /** 表单快照：可序列化，用于接续与恢复。 */
 export class FormSnapshot {
-  formId: string = '';
-  stage: FieldStageHolder = new FieldStageHolder();
-  fieldKeys: string[] = [];
-  fieldValues: string[] = [];
-  rowIds: string[] = [];
-  rowKeys: string[] = [];
-  rowValues: string[] = [];
-  revision: number = 0;
+  public formId: string = '';
+  public stage: FieldStageHolder = new FieldStageHolder();
+  public fieldKeys: string[] = [];
+  public fieldValues: string[] = [];
+  public rowIds: string[] = [];
+  public rowKeys: string[] = [];
+  public rowValues: string[] = [];
+  public revision: number = 0;
 
   /** 快照是否可用于恢复。 */
-  usable(): boolean {
+  public usable(): boolean {
     return this.formId.length > 0 && this.fieldKeys.length === this.fieldValues.length;
   }
 }
@@ -184,33 +186,33 @@ export class FormSession {
     this.formId = formId;
   }
 
-  id(): string {
+  public id(): string {
     return this.formId;
   }
 
-  currentStage(): FormStage {
+  public currentStage(): FormStage {
     return this.stage;
   }
 
-  currentRevision(): number {
+  public currentRevision(): number {
     return this.revision;
   }
 
-  addField(field: FormField): void {
+  public addField(field: FormField): void {
     this.fields.push(field);
     this.revision++;
   }
 
-  fields_(): FormField[] {
+  public fields_(): FormField[] {
     return this.fields.slice();
   }
 
-  rows_(): FormRow[] {
+  public rows_(): FormRow[] {
     return this.rows.slice();
   }
 
   /** 写入字段值并重算状态；已确认后拒绝修改。 */
-  setValue(key: string, value: string): boolean {
+  public setValue(key: string, value: string): boolean {
     if (this.stage === FormStage.CONFIRMED || this.stage === FormStage.ARCHIVED) {
       return false;
     }
@@ -225,7 +227,7 @@ export class FormSession {
   }
 
   /** 追加一行明细。 */
-  addRow(row: FormRow): boolean {
+  public addRow(row: FormRow): boolean {
     if (this.stage === FormStage.CONFIRMED || this.stage === FormStage.ARCHIVED) {
       return false;
     }
@@ -235,7 +237,7 @@ export class FormSession {
   }
 
   /** 移除一行明细；空标识视为无操作。 */
-  removeRow(id: string): boolean {
+  public removeRow(id: string): boolean {
     const index: number = this.rows.findIndex((row: FormRow): boolean => row.id === id);
     if (index < 0) {
       return false;
@@ -246,19 +248,19 @@ export class FormSession {
   }
 
   /** 当前值。 */
-  valueOf(key: string): string {
+  public valueOf(key: string): string {
     const field = this.fields.find((item: FormField): boolean => item.key === key);
     return field === undefined ? '' : field.value;
   }
 
   /** 命中的分支规则。 */
-  activeBranches(): BranchRule[] {
+  public activeBranches(): BranchRule[] {
     return BRANCH_RULES.filter((rule: BranchRule): boolean =>
       this.valueOf(rule.fieldKey) === rule.triggerValue);
   }
 
   /** 按分支重算可见字段。 */
-  visibleFields(): FormField[] {
+  public visibleFields(): FormField[] {
     const branches: BranchRule[] = this.activeBranches();
     const revealed: string[] = [];
     branches.forEach((rule: BranchRule): void => {
@@ -273,23 +275,23 @@ export class FormSession {
   }
 
   /** 可见字段中阻断提交的项。 */
-  blockingFields(): FormField[] {
+  public blockingFields(): FormField[] {
     return this.visibleFields().filter((field: FormField): boolean => field.blocking());
   }
 
   /** 需要明细但还没有明细的分支。 */
-  missingRows(): BranchRule[] {
+  public missingRows(): BranchRule[] {
     return this.activeBranches().filter((rule: BranchRule): boolean =>
       rule.requireRow && this.rows.filter((row: FormRow): boolean => row.filled()).length === 0);
   }
 
   /** 已填字段数。 */
-  filledCount(): number {
+  public filledCount(): number {
     return this.visibleFields().filter((field: FormField): boolean => field.value.length > 0).length;
   }
 
   /** 填写进度百分比，取整。 */
-  progressPercent(): number {
+  public progressPercent(): number {
     const visible: FormField[] = this.visibleFields();
     if (visible.length === 0) {
       return 0;
@@ -299,7 +301,7 @@ export class FormSession {
   }
 
   /** 是否可提交。 */
-  canSubmit(): boolean {
+  public canSubmit(): boolean {
     if (this.stage === FormStage.CONFIRMED || this.stage === FormStage.ARCHIVED) {
       return false;
     }
@@ -307,7 +309,7 @@ export class FormSession {
   }
 
   /** 进入待确认：仅在可提交时成立。 */
-  review(): boolean {
+  public review(): boolean {
     if (!this.canSubmit()) {
       return false;
     }
@@ -317,7 +319,7 @@ export class FormSession {
   }
 
   /** 确认提交：从待确认或编辑中直接确认都必须满足可提交条件。 */
-  confirm(): boolean {
+  public confirm(): boolean {
     if (!this.canSubmit()) {
       return false;
     }
@@ -332,7 +334,7 @@ export class FormSession {
   }
 
   /** 回到编辑：已归档不可退回。 */
-  reopen(): boolean {
+  public reopen(): boolean {
     if (this.stage === FormStage.ARCHIVED) {
       return false;
     }
@@ -342,7 +344,7 @@ export class FormSession {
   }
 
   /** 归档为只读快照。 */
-  archive(): boolean {
+  public archive(): boolean {
     if (this.stage !== FormStage.CONFIRMED) {
       return false;
     }
@@ -352,7 +354,7 @@ export class FormSession {
   }
 
   /** 导出快照，用于接续通道传输。 */
-  snapshot(): FormSnapshot {
+  public snapshot(): FormSnapshot {
     const copy: FormSnapshot = new FormSnapshot();
     copy.formId = this.formId;
     copy.stage.stage = this.stage;
@@ -377,7 +379,7 @@ export class FormSession {
    * 只恢复字段值、明细与修订号，阶段一律回到编辑中：
    * 已确认状态需要用户重新确认，不能因为一次接续就替用户提交。
    */
-  apply(snapshot: FormSnapshot): boolean {
+  public apply(snapshot: FormSnapshot): boolean {
     if (!snapshot.usable()) {
       return false;
     }

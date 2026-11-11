@@ -143,7 +143,8 @@ export struct SceneWorkspaceBackup {
   private scopeSummary(): string {
     const scope = this.selectedScope();
     if (scope.length === 0) { return '请至少选择一个恢复场景。生成和复制仍包含完整业务工作区。'; }
-    return `恢复范围：${scope.map((kind: string): string => sceneLabel(kind)).join('、')}；未选场景及其未保存草稿保留，不随本次写盘。生成备份始终包含完整工作区。`;
+    return `恢复范围：${scope.map((kind: string): string => sceneLabel(kind)).join('、')}；` +
+      '未选场景及其未保存草稿保留，不随本次写盘。生成备份始终包含完整工作区。';
   }
 
   private inspect(): void {
@@ -167,7 +168,8 @@ export struct SceneWorkspaceBackup {
     const scope = this.selectedScope();
     const warning = preview.requiresDirtyConfirmation ? '将替换所选场景中未保存的业务修改。' : '';
     confirmLearningAction(this.getUIContext(), '恢复本地业务工作区？',
-      `${warning}仅替换${scope.map((kind: string): string => sceneLabel(kind)).join('、')}及其历史；未选场景与原文本学习区不受影响。建议先主动导出本机备份。`,
+      `${warning}仅替换${scope.map((kind: string): string => sceneLabel(kind)).join('、')}及其历史；` +
+        '未选场景与原文本学习区不受影响。建议先主动导出本机备份。',
       (): void => {
         if (!this.mounted || !this.expanded || generation !== this.lifecycle || current !== this.bound) { return; }
         if (inputGeneration !== this.inputGeneration) { this.status = '恢复预览已过期，请重新校验并预览。'; return; }
@@ -218,7 +220,8 @@ export struct SceneWorkspaceBackup {
     try {
       const navigate = this.onResumeScene;
       if (navigate !== undefined) { navigate(kind); return; }
-      const page = kind === 'note' ? 'pages/NoteScenePage' : kind === 'reading' ? 'pages/ReadingScenePage' : 'pages/FormScenePage';
+      const page = kind === 'note' ? 'pages/NoteScenePage' :
+        kind === 'reading' ? 'pages/ReadingScenePage' : 'pages/FormScenePage';
       this.getUIContext().getRouter().pushUrl({ url: page }).catch((): void => {
         current.activateText();
         if (this.mounted) { this.status = '业务页面未打开；所有未保存草稿仍保留。'; }
@@ -247,24 +250,29 @@ export struct SceneWorkspaceBackup {
         if (this.exportReady) {
           Text(`已生成 ${this.exportRaw.length} 字符，预览前512字符。副本未加密，请妥善保管。`)
             .fontSize(12).fontColor(LEARNING_MUTED).width('100%')
-          Text(this.exportRaw.slice(0, 512)).id('ACBackupExportText').fontSize(12).fontColor(LEARNING_MUTED).width('100%')
+          Text(this.exportRaw.slice(0, 512)).id('ACBackupExportText')
+            .fontSize(12).fontColor(LEARNING_MUTED).width('100%')
             .maxLines(6).textOverflow({ overflow: TextOverflow.Ellipsis }).copyOption(CopyOptions.None)
         }
         Text('选择恢复内容').fontSize(14).fontColor(LEARNING_INK).width('100%')
         Row({ space: 8 }) {
           Row({ space: 4 }) {
             Checkbox({ name: 'note' }).id('ACBackupScopeNote').width(44).height(44).padding(10).select(this.scopeNote)
-              .enabled(this.canOperate && !this.busy).onChange((value: boolean): void => { this.changeScope('note', value); })
+              .enabled(this.canOperate && !this.busy)
+              .onChange((value: boolean): void => { this.changeScope('note', value); })
             Text('笔记').fontSize(14).fontColor(LEARNING_INK)
           }.layoutWeight(1)
           Row({ space: 4 }) {
-            Checkbox({ name: 'reading' }).id('ACBackupScopeReading').width(44).height(44).padding(10).select(this.scopeReading)
-              .enabled(this.canOperate && !this.busy).onChange((value: boolean): void => { this.changeScope('reading', value); })
+            Checkbox({ name: 'reading' }).id('ACBackupScopeReading')
+              .width(44).height(44).padding(10).select(this.scopeReading)
+              .enabled(this.canOperate && !this.busy)
+              .onChange((value: boolean): void => { this.changeScope('reading', value); })
             Text('阅读').fontSize(14).fontColor(LEARNING_INK)
           }.layoutWeight(1)
           Row({ space: 4 }) {
             Checkbox({ name: 'form' }).id('ACBackupScopeForm').width(44).height(44).padding(10).select(this.scopeForm)
-              .enabled(this.canOperate && !this.busy).onChange((value: boolean): void => { this.changeScope('form', value); })
+              .enabled(this.canOperate && !this.busy)
+              .onChange((value: boolean): void => { this.changeScope('form', value); })
             Text('表单').fontSize(14).fontColor(LEARNING_INK)
           }.layoutWeight(1)
         }.width('100%')
@@ -278,7 +286,8 @@ export struct SceneWorkspaceBackup {
         Row({ space: 8 }) {
           Button('校验预览', { type: ButtonType.Normal }).id('ACBackupPreview').layoutWeight(1)
             .height(44).fontSize(14).fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10)
-            .enabled(this.canRestore && !this.busy && this.selectedScope().length > 0).onClick((): void => { this.inspect(); })
+            .enabled(this.canRestore && !this.busy && this.selectedScope().length > 0)
+            .onClick((): void => { this.inspect(); })
           Button('恢复备份', { type: ButtonType.Normal }).id('ACBackupApply').layoutWeight(1)
             .height(44).fontSize(14).fontColor('#FFFFFF').backgroundColor(LEARNING_BLUE).borderRadius(10)
             .enabled(this.previewReady && this.canRestore && !this.busy && this.selectedScope().length > 0)

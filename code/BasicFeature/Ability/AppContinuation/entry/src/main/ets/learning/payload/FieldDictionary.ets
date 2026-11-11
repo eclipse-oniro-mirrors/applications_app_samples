@@ -60,18 +60,18 @@ export function unitLabel(unit: FieldUnit): string {
 
 /** 一条字段说明。 */
 export class FieldDoc {
-  key: string = '';
-  label: string = '';
-  role: FieldRole = FieldRole.CONTENT;
-  unit: FieldUnit = FieldUnit.NONE;
+  public key: string = '';
+  public label: string = '';
+  public role: FieldRole = FieldRole.CONTENT;
+  public unit: FieldUnit = FieldUnit.NONE;
   /** 是否必填。 */
-  required: boolean = false;
+  public required: boolean = false;
   /** 长度上限；0 表示不限。 */
-  maxLength: number = 0;
+  public maxLength: number = 0;
   /** 缺失时的行为说明。 */
-  missingHint: string = '';
+  public missingHint: string = '';
   /** 是否在界面上展示。 */
-  visible: boolean = true;
+  public visible: boolean = true;
 
   constructor(key: string = '', label: string = '', role: FieldRole = FieldRole.CONTENT,
     unit: FieldUnit = FieldUnit.NONE, required: boolean = false, maxLength: number = 0,
@@ -86,7 +86,7 @@ export class FieldDoc {
     this.visible = visible;
   }
 
-  text(): string {
+  public text(): string {
     const limit: string = this.maxLength > 0 ? `≤${this.maxLength}` : '不限';
     return `${this.key} ${this.label}｜${roleLabel(this.role)}｜${limit}｜` +
       `${this.required ? '必填' : '选填'}`;
@@ -250,10 +250,10 @@ export function describeValue(data: PayloadData, key: string): string {
 
 /** 字典自检。 */
 export class DictionaryAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return this.ok ? '字段字典自洽' : this.findings.join('；');
   }
 }

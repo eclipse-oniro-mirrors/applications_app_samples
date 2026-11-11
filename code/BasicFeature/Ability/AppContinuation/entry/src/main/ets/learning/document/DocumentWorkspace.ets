@@ -20,18 +20,18 @@ export enum DocKind {
 /** 一个可接续槽位。 */
 export class DocumentSlot {
   /** 槽位标识，来自业务侧的文档标识。 */
-  id: string = '';
-  kind: DocKind = DocKind.NOTE;
+  public id: string = '';
+  public kind: DocKind = DocKind.NOTE;
   /** 展示用标题。 */
-  title: string = '';
+  public title: string = '';
   /** 修订号，单调递增；接续时必须匹配。 */
-  revision: number = 0;
+  public revision: number = 0;
   /** 产生该槽位的应用标识。 */
-  ownerApp: string = '';
+  public ownerApp: string = '';
   /** 最近更新时间。 */
-  updatedAt: number = 0;
+  public updatedAt: number = 0;
   /** 是否已归档。 */
-  archived: boolean = false;
+  public archived: boolean = false;
 
   constructor(id: string = '', kind: DocKind = DocKind.NOTE, title: string = '') {
     this.id = id;
@@ -40,12 +40,12 @@ export class DocumentSlot {
   }
 
   /** 是否可用于接续：有标识、有标题、未归档。 */
-  usable(): boolean {
+  public usable(): boolean {
     return this.id.length > 0 && this.title.length > 0 && !this.archived;
   }
 
   /** 供页面一行展示。 */
-  describe(): string {
+  public describe(): string {
     const state: string = this.archived ? '已归档' : '进行中';
     return `${this.title}（${this.kind as string}）｜修订 ${this.revision}｜${state}`;
   }
@@ -53,16 +53,16 @@ export class DocumentSlot {
 
 /** 一条隔离规则。 */
 export class DocRule {
-  code: string = '';
+  public code: string = '';
   /** 规则约束的对象类别。 */
-  kind: DocKind = DocKind.NOTE;
+  public kind: DocKind = DocKind.NOTE;
   /** 切换离开时是否必须保留未提交内容。 */
-  keepDraft: boolean = true;
+  public keepDraft: boolean = true;
   /** 是否允许同时存在多份同类对象。 */
-  allowMultiple: boolean = true;
+  public allowMultiple: boolean = true;
   /** 归档后是否可恢复。 */
-  restorable: boolean = true;
-  note: string = '';
+  public restorable: boolean = true;
+  public note: string = '';
 
   constructor(code: string = '', kind: DocKind = DocKind.NOTE, keepDraft: boolean = true,
     allowMultiple: boolean = true, restorable: boolean = true, note: string = '') {
@@ -74,8 +74,9 @@ export class DocRule {
     this.note = note;
   }
 
-  describe(): string {
-    return `${this.code} ${this.kind as string}｜${this.keepDraft ? '保留草稿' : '不保留'}｜${this.allowMultiple ? '允许多份' : '仅一份'}｜${this.restorable ? '可恢复' : '不可恢复'}`;
+  public describe(): string {
+    return `${this.code} ${this.kind as string}｜${this.keepDraft ? '保留草稿' : '不保留'}｜` +
+      `${this.allowMultiple ? '允许多份' : '仅一份'}｜${this.restorable ? '可恢复' : '不可恢复'}`;
   }
 }
 
@@ -107,17 +108,17 @@ function ruleOf(kind: DocKind): DocRule | undefined {
 
 /** 工作区校验结果。 */
 export class WorkspaceAudit {
-  findings: string[] = [];
+  public findings: string[] = [];
   /** 打开中的槽位数。 */
-  active: number = 0;
+  public active: number = 0;
   /** 归档槽位数。 */
   public archived: number = 0;
 
-  ok(): boolean {
+  public ok(): boolean {
     return this.findings.length === 0;
   }
 
-  summary(): string {
+  public summary(): string {
     if (!this.ok()) {
       return `工作区有 ${this.findings.length} 处问题`;
     }
@@ -136,7 +137,7 @@ export class DocumentWorkspace {
   private activeId: string = '';
 
   /** 依据规则表判断该类对象能否再打开一份。存在“仅一份”规则时按条数限制。 */
-  canOpen(kind: DocKind): boolean {
+  public canOpen(kind: DocKind): boolean {
     const limited: boolean = DOC_RULES.some((rule: DocRule): boolean =>
       rule.kind === kind && !rule.allowMultiple);
     if (limited) {
@@ -147,7 +148,7 @@ export class DocumentWorkspace {
   }
 
   /** 打开一个槽位；同 id 已存在时更新标题与修订号。 */
-  open(slot: DocumentSlot): boolean {
+  public open(slot: DocumentSlot): boolean {
     if (slot.id.length === 0) {
       return false;
     }
@@ -169,7 +170,7 @@ export class DocumentWorkspace {
   }
 
   /** 切换到指定槽位；不存在或已归档时返回 false。 */
-  switchTo(id: string): boolean {
+  public switchTo(id: string): boolean {
     const found = this.slots.find((slot: DocumentSlot): boolean => slot.id === id && !slot.archived);
     if (found === undefined) {
       return false;
@@ -179,7 +180,7 @@ export class DocumentWorkspace {
   }
 
   /** 归档当前槽位；成功后选中项清空。 */
-  archive(id: string): boolean {
+  public archive(id: string): boolean {
     const found = this.slots.find((slot: DocumentSlot): boolean => slot.id === id);
     if (found === undefined || found.archived) {
       return false;
@@ -192,7 +193,7 @@ export class DocumentWorkspace {
   }
 
   /** 从归档恢复；该类不可恢复时返回 false。 */
-  restore(id: string): boolean {
+  public restore(id: string): boolean {
     const found = this.slots.find((slot: DocumentSlot): boolean => slot.id === id);
     if (found === undefined || !found.archived) {
       return false;
@@ -207,7 +208,7 @@ export class DocumentWorkspace {
   }
 
   /** 关闭并移除槽位。 */
-  close(id: string): boolean {
+  public close(id: string): boolean {
     const index: number = this.slots.findIndex((slot: DocumentSlot): boolean => slot.id === id);
     if (index < 0) {
       return false;
@@ -220,43 +221,43 @@ export class DocumentWorkspace {
   }
 
   /** 当前选中槽位。 */
-  active(): DocumentSlot | undefined {
+  public active(): DocumentSlot | undefined {
     return this.slots.find((slot: DocumentSlot): boolean => slot.id === this.activeId);
   }
 
   /** 当前选中槽位标识。 */
-  activeSlotId(): string {
+  public activeSlotId(): string {
     return this.activeId;
   }
 
   /** 进行中的槽位。 */
-  activeSlots(): DocumentSlot[] {
+  public activeSlots(): DocumentSlot[] {
     return this.slots.filter((slot: DocumentSlot): boolean => !slot.archived);
   }
 
   /** 已归档的槽位。 */
-  archivedSlots(): DocumentSlot[] {
+  public archivedSlots(): DocumentSlot[] {
     return this.slots.filter((slot: DocumentSlot): boolean => slot.archived);
   }
 
   /** 全部槽位。 */
-  allSlots(): DocumentSlot[] {
+  public allSlots(): DocumentSlot[] {
     return this.slots.slice();
   }
 
   /** 按类别统计进行中的数量。 */
-  countOf(kind: DocKind): number {
+  public countOf(kind: DocKind): number {
     return this.slots.filter((slot: DocumentSlot): boolean => slot.kind === kind && !slot.archived).length;
   }
 
   /** 该类别切换时是否必须保留草稿。 */
-  keepsDraft(kind: DocKind): boolean {
+  public keepsDraft(kind: DocKind): boolean {
     const rule = ruleOf(kind);
     return rule === undefined ? false : rule.keepDraft;
   }
 
   /** 校验整份工作区。 */
-  audit(): WorkspaceAudit {
+  public audit(): WorkspaceAudit {
     const audit: WorkspaceAudit = new WorkspaceAudit();
     audit.active = this.activeSlots().length;
     audit.archived = this.archivedSlots().length;

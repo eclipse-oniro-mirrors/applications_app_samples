@@ -6,10 +6,14 @@ import {
   DiagnosticEvent, emptyLearningSnapshot, EnvironmentItem, LearningListener, LearningSnapshot,
   MAX_TEXT_LENGTH, OperationRecord, TEXT_PAYLOAD_KEY
 } from './LearningTypes';
-import { ContinueClient, ContinueObservation, redactPlatformText, safeErrorCode, safeErrorMessage } from './ContinueClient';
+import {
+  ContinueClient, ContinueObservation, redactPlatformText, safeErrorCode, safeErrorMessage
+} from './ContinueClient';
 import { decodeScene, emptyScene, encodeScene, SCENE_PAYLOAD_KEY, SceneDocument } from './scene/SceneModel';
 import { PreferencesSceneStore, SceneSnapshot, SceneStorePort, SceneWorkbench } from './scene/SceneWorkbench';
-import { SceneBackupCode, SceneBackupExport, SceneBackupPreview, SceneBackupRestoreResult } from './scene/SceneWorkspaceBackupModel';
+import {
+  SceneBackupCode, SceneBackupExport, SceneBackupPreview, SceneBackupRestoreResult
+} from './scene/SceneWorkspaceBackupModel';
 import { SceneBackupClipboard, SceneBackupCopyCode, SceneBackupCopyResult } from './scene/SceneBackupClipboard';
 
 const STORE_KEY: string = 'single_text_document';
@@ -157,8 +161,8 @@ function decodePayload(raw: Object | undefined): PayloadRead {
   const text = bag['text'];
   const start = bag['selectionStart'];
   const end = bag['selectionEnd'];
-  if ((version !== 1 && version !== 2) || page !== 'text' || typeof tag !== 'string'
-    || !/^[A-Za-z0-9_-]{1,96}$/.test(tag as string)) {
+  if ((version !== 1 && version !== 2) || page !== 'text' || typeof tag !== 'string' ||
+    !/^[A-Za-z0-9_-]{1,96}$/.test(tag as string)) {
     rejected.reason = '载荷版本、页面或接续标签不受支持。';
     return rejected;
   }
@@ -173,8 +177,14 @@ function decodePayload(raw: Object | undefined): PayloadRead {
     return rejected;
   }
   const value: TextPayload = {
-    version: version as number, transferId: tag as string, page: 'text', text: text as string,
-    selectionStart: start as number, selectionEnd: end as number, documentId: '', revision: 0
+    version: version as number,
+    transferId: tag as string,
+    page: 'text',
+    text: text as string,
+    selectionStart: start as number,
+    selectionEnd: end as number,
+    documentId: '',
+    revision: 0
   };
   if (version === 2) {
     const documentId = bag['documentId'];
@@ -209,8 +219,20 @@ function readContinuation(want: Want): PayloadRead {
   const read = decodeScene(parameters[SCENE_PAYLOAD_KEY]);
   if (read.value === undefined) { return { value: undefined, reason: read.reason }; }
   const scene = read.value;
-  return { value: { version: 2, transferId: scene.transferId, page: scene.state.kind,
-    text: '', selectionStart: 0, selectionEnd: 0, documentId: scene.documentId, revision: scene.revision, scene: scene }, reason: '' };
+  return {
+    value: {
+      version: 2,
+      transferId: scene.transferId,
+      page: scene.state.kind,
+      text: '',
+      selectionStart: 0,
+      selectionEnd: 0,
+      documentId: scene.documentId,
+      revision: scene.revision,
+      scene: scene
+    },
+    reason: ''
+  };
 }
 
 export class LearningController {
@@ -336,10 +358,26 @@ export class LearningController {
     const timestamp: number = this.dependencies.clock.now();
     const id: string = `op-${timestamp}-${++this.serial}`;
     const record: OperationRecord = {
-      id: id, operation: operation, purpose: purpose, title: title, result: '进行中', stage: '开始', level: 'INFO',
-      startedAt: this.nowText(), endedAt: '', durationMillis: 0, errorCode: '', rawMessage: '', rawResultState: '',
-      resultInfo: '', facts: [], explanation: [], limits: [], nextSteps: [],
-      environment: copyEnvironment(this.value.environment), events: []
+      id: id,
+      operation: operation,
+      purpose: purpose,
+      title: title,
+      result: '进行中',
+      stage: '开始',
+      level: 'INFO',
+      startedAt: this.nowText(),
+      endedAt: '',
+      durationMillis: 0,
+      errorCode: '',
+      rawMessage: '',
+      rawResultState: '',
+      resultInfo: '',
+      facts: [],
+      explanation: [],
+      limits: [],
+      nextSteps: [],
+      environment: copyEnvironment(this.value.environment),
+      events: []
     };
     this.started.set(id, timestamp);
     this.value.records.unshift(record);
@@ -480,20 +518,33 @@ export class LearningController {
     try {
       const publicInfo = this.dependencies.environment.readPublic();
       const api: EnvironmentItem = {
-        key: 'api', label: '设备系统 API', value: `${publicInfo.apiVersion}`, status: '已读取',
+        key: 'api',
+        label: '设备系统 API',
+        value: `${publicInfo.apiVersion}`,
+        status: '已读取',
         detail: '设备系统 API 属性读数；接续接口自 API 18 提供。'
       };
       const type: EnvironmentItem = {
-        key: 'type', label: '设备类型', value: publicInfo.deviceType, status: '已读取', detail: '公开的设备类型。'
+        key: 'type',
+        label: '设备类型',
+        value: publicInfo.deviceType,
+        status: '已读取',
+        detail: '公开的设备类型。'
       };
       const os: EnvironmentItem = {
-        key: 'os', label: '设备系统版本', value: publicInfo.osFullName, status: '已读取',
+        key: 'os',
+        label: '设备系统版本',
+        value: publicInfo.osFullName,
+        status: '已读取',
         detail: '公开的系统版本字符串。'
       };
       items.push(api, type, os);
     } catch (error) {
       const unavailable: EnvironmentItem = {
-        key: 'public', label: '公共系统信息', value: '未知', status: '读取失败',
+        key: 'public',
+        label: '公共系统信息',
+        value: '未知',
+        status: '读取失败',
         detail: `公共信息读取失败，平台错误码 ${safeErrorCode(error as Object)}。`
       };
       items.push(unavailable);
@@ -501,13 +552,20 @@ export class LearningController {
     try {
       const capable: boolean = this.dependencies.environment.supportsMission();
       const mission: EnvironmentItem = {
-        key: 'syscap', label: 'Mission 系统能力', value: capable ? '声明支持' : '未声明支持',
-        status: capable ? '已检查' : '受限', detail: 'canIUse 查询本机 Mission 系统能力声明。'
+        key: 'syscap',
+        label: 'Mission 系统能力',
+        value: capable ? '声明支持' : '未声明支持',
+        status: capable ? '已检查' : '受限',
+        detail: 'canIUse 查询本机 Mission 系统能力声明。'
       };
       items.push(mission);
     } catch (error) {
       const mission: EnvironmentItem = {
-        key: 'syscap', label: 'Mission 系统能力', value: '未知', status: '无法确认', detail: '公共能力查询失败。'
+        key: 'syscap',
+        label: 'Mission 系统能力',
+        value: '未知',
+        status: '无法确认',
+        detail: '公共能力查询失败。'
       };
       items.push(mission);
     }
@@ -532,7 +590,10 @@ export class LearningController {
       items.push(permission);
     }
     const peer: EnvironmentItem = {
-      key: 'peer', label: '对端在线 / 互信 / 系统接续入口', value: '未知', status: '未验证',
+      key: 'peer',
+      label: '对端在线 / 互信 / 系统接续入口',
+      value: '未知',
+      status: '未验证',
       detail: '请通过系统接续入口检查对端在线与互信状态。'
     };
     items.push(peer);
@@ -634,8 +695,8 @@ export class LearningController {
     this.callEvent(record, 'ON 同步调用', call.accepted ? 'INFO' : 'ERROR', call.detail);
     if (!call.accepted && record.endedAt.length === 0) {
       record.errorCode = call.errorCode;
-      record.rawMessage = call.rawMessage === undefined ? '本地槽策略阻止调用，无平台异常消息。'
-        : this.readableMessage(call.rawMessage);
+      record.rawMessage = call.rawMessage === undefined ? '本地槽策略阻止调用，无平台异常消息。' :
+        this.readableMessage(call.rawMessage);
       this.describeError(record);
       if (owner.indexOf('probe:') === 0) {
         this.probeRecordId = '';
@@ -673,8 +734,8 @@ export class LearningController {
       this.clearProbeTimer();
       this.probeRecordId = '';
       record.facts.push('本次通知归属手动探针观察。');
-      this.finish(record, event.kind === 'SUCCESS' ? '收到成功状态通知'
-        : event.kind === 'UNKNOWN' ? '收到未知状态，请查看原始数字状态' : '收到平台失败或异步错误通知',
+      this.finish(record, event.kind === 'SUCCESS' ? '收到成功状态通知' :
+        event.kind === 'UNKNOWN' ? '收到未知状态，请查看原始数字状态' : '收到平台失败或异步错误通知',
         event.kind === 'SUCCESS' ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR', '探针通知完成');
       this.value.notice = '探针已收到系统事件，可在操作详情查看结果。';
       this.beginOff();
@@ -687,12 +748,12 @@ export class LearningController {
     }
     session.quickSeen = true;
     session.quickOk = event.kind === 'SUCCESS';
-    this.value.quickResult = event.kind === 'SUCCESS' ? '成功（原始状态 0）'
-      : event.kind === 'UNKNOWN' ? `未知（原始状态 ${event.rawState}）`
-      : event.kind === 'ERROR' ? `异步错误（错误码 ${event.errorCode}）` : `失败（原始状态 ${event.rawState}）`;
+    this.value.quickResult = event.kind === 'SUCCESS' ? '成功（原始状态 0）' :
+      event.kind === 'UNKNOWN' ? `未知（原始状态 ${event.rawState}）` :
+      event.kind === 'ERROR' ? `异步错误（错误码 ${event.errorCode}）` : `失败（原始状态 ${event.rawState}）`;
     if (!session.quickOk) {
-      this.failSession(event.kind === 'UNKNOWN' ? '系统快速通知状态未知，本轮文本提交已停止。'
-        : event.kind === 'ERROR' ? '获取快速结果发生异步错误；未提交文本。' : '系统报告快速启动失败；未提交文本。', '快速结果');
+      this.failSession(event.kind === 'UNKNOWN' ? '系统快速通知状态未知，本轮文本提交已停止。' :
+        event.kind === 'ERROR' ? '获取快速结果发生异步错误；未提交文本。' : '系统报告快速启动失败；未提交文本。', '快速结果');
     } else {
       this.advanceSession();
     }
@@ -752,8 +813,8 @@ export class LearningController {
         this.value.notice = event.detail;
       } else {
         const success: boolean = event.kind === 'SUCCESS';
-        this.finish(record, success ? '平台已明确确认注销成功' : event.kind === 'UNKNOWN'
-          ? '注销回调状态未知' : '注销失败或异步错误',
+        this.finish(record, success ? '平台已明确确认注销成功' : event.kind === 'UNKNOWN' ?
+          '注销回调状态未知' : '注销失败或异步错误',
           success ? 'INFO' : event.kind === 'UNKNOWN' ? 'WARN' : 'ERROR', 'OFF 异步完成');
         record.facts.push(`独立完成回调原始数字状态 ${event.rawState}。`);
         if (!success) {
@@ -768,8 +829,8 @@ export class LearningController {
     this.callEvent(record, 'OFF 同步调用', call.accepted ? 'INFO' : 'ERROR', call.detail);
     if (!call.accepted && record.endedAt.length === 0) {
       record.errorCode = call.errorCode;
-      record.rawMessage = call.rawMessage === undefined ? '本地槽策略阻止调用，无平台异常消息。'
-        : this.readableMessage(call.rawMessage);
+      record.rawMessage = call.rawMessage === undefined ? '本地槽策略阻止调用，无平台异常消息。' :
+        this.readableMessage(call.rawMessage);
       this.describeError(record);
       this.offRecordId = '';
       record.nextSteps.push('可重新注册或重试注销。');
@@ -818,9 +879,14 @@ export class LearningController {
 
   private localPayload(): TextPayload {
     const payload: TextPayload = {
-      version: this.documentId.length > 0 ? 2 : 1, transferId: 'local', page: 'text', text: this.value.text,
-      selectionStart: this.value.selectionStart, selectionEnd: this.value.selectionEnd,
-      documentId: this.documentId, revision: this.localRevision
+      version: this.documentId.length > 0 ? 2 : 1,
+      transferId: 'local',
+      page: 'text',
+      text: this.value.text,
+      selectionStart: this.value.selectionStart,
+      selectionEnd: this.value.selectionEnd,
+      documentId: this.documentId,
+      revision: this.localRevision
     };
     return payload;
   }
@@ -981,9 +1047,9 @@ export class LearningController {
     const store = this.store;
     if (store === undefined || this.storageUncertain) {
       const unavailable: WriteOutcome = {
-        ok: false, code: '', detail: this.storageUncertain
-          ? '存储回滚未能确认；停止后续写入以保护原文。请结束本 Ability 后重新检查存储。'
-          : '独立 Preferences 不可用；当前原文已保留。'
+        ok: false, code: '', detail: this.storageUncertain ?
+          '存储回滚未能确认；停止后续写入以保护原文。请结束本 Ability 后重新检查存储。' :
+          '独立 Preferences 不可用；当前原文已保留。'
       };
       return unavailable;
     }
@@ -1009,9 +1075,9 @@ export class LearningController {
         this.storageUncertain = true;
       }
       const failed: WriteOutcome = {
-        ok: false, code: safeErrorCode(error as Object), detail: rolledBack
-          ? '持久化失败，已回滚存储；页面原文与选区已保留。'
-          : '持久化失败且回滚未能确认；页面原文仍保留，后续写入已停止，磁盘状态未知。'
+        ok: false, code: safeErrorCode(error as Object), detail: rolledBack ?
+          '持久化失败，已回滚存储；页面原文与选区已保留。' :
+          '持久化失败且回滚未能确认；页面原文仍保留，后续写入已停止，磁盘状态未知。'
       };
       return failed;
     }
@@ -1022,8 +1088,8 @@ export class LearningController {
       return;
     }
     this.value.launchReasonCode = numericReason;
-    this.value.launchReason = numericReason === 10 ? '系统 PREPARE_CONTINUATION（10）'
-      : numericReason === 3 ? '系统 CONTINUATION（3）' : `普通启动 / 其他原因（${numericReason}）`;
+    this.value.launchReason = numericReason === 10 ? '系统 PREPARE_CONTINUATION（10）' :
+      numericReason === 3 ? '系统 CONTINUATION（3）' : `普通启动 / 其他原因（${numericReason}）`;
     if (numericReason !== 10 && numericReason !== 3) {
       this.value.notice = '';
       this.publish();
@@ -1090,8 +1156,15 @@ export class LearningController {
     record.limits.push('各阶段应用等待上限：15 秒。',
       '通知按本地监听代次归属，业务候选按接续标签去重。');
     const session: RestoreSession = {
-      generation: ++this.sessionGeneration, recordId: record.id, quickRequired: quickRequired,
-      quickSeen: false, quickOk: !quickRequired, candidate: undefined, active: true, waitingPhase: '', positionOk: false
+      generation: ++this.sessionGeneration,
+      recordId: record.id,
+      quickRequired: quickRequired,
+      quickSeen: false,
+      quickOk: !quickRequired,
+      candidate: undefined,
+      active: true,
+      waitingPhase: '',
+      positionOk: false
     };
     this.session = session;
     this.sceneWorkbench.setLocked(true);
@@ -1260,8 +1333,8 @@ export class LearningController {
             current.waitingPhase !== phase) {
             return;
           }
-          const missing: string = phase === '快速结果' ? '未收到可用的系统快速结果通知'
-            : phase === '业务数据' ? '未收到完整有效的业务载荷' : phase === '业务定位' ? '未收到实际业务选区/段落/步骤定位回执' :
+          const missing: string = phase === '快速结果' ? '未收到可用的系统快速结果通知' :
+            phase === '业务数据' ? '未收到完整有效的业务载荷' : phase === '业务定位' ? '未收到实际业务选区/段落/步骤定位回执' :
               '未收到显式页面加载成功信号';
           this.failSession(`${missing}；本阶段 15 秒等待已到期，本地恢复已结束。`, `${phase}超时`);
           this.publish();
@@ -1309,9 +1382,14 @@ export class LearningController {
       return undefined;
     }
     const accepted: TextPayload = {
-      version: 2, transferId: candidate.transferId, page: 'text', text: candidate.text,
-      selectionStart: candidate.selectionStart, selectionEnd: candidate.selectionEnd,
-      documentId: candidate.documentId, revision: base + 1
+      version: 2,
+      transferId: candidate.transferId,
+      page: 'text',
+      text: candidate.text,
+      selectionStart: candidate.selectionStart,
+      selectionEnd: candidate.selectionEnd,
+      documentId: candidate.documentId,
+      revision: base + 1
     };
     return accepted;
   }
@@ -1327,9 +1405,14 @@ export class LearningController {
       return undefined;
     }
     const payload: TextPayload = {
-      version: 2, transferId: candidate.transferId, page: 'text', text: candidate.text,
-      selectionStart: candidate.selectionStart, selectionEnd: candidate.selectionEnd,
-      documentId: candidate.documentId, revision: revision
+      version: 2,
+      transferId: candidate.transferId,
+      page: 'text',
+      text: candidate.text,
+      selectionStart: candidate.selectionStart,
+      selectionEnd: candidate.selectionEnd,
+      documentId: candidate.documentId,
+      revision: revision
     };
     return { payload: payload, documentId: candidate.documentId, revision: revision };
   }
@@ -1393,7 +1476,8 @@ export class LearningController {
     this.value.dataState = '业务数据已提交';
     this.value.committed = true;
     this.value.restoredSummary = `已恢复文本及选区；文档 ${plan.documentId.length > 0 ? plan.documentId : '旧版无标识'} ` +
-      `r${plan.revision}；正文 ${plan.payload.text.length} 个 UTF-16 单元，选区 ${plan.payload.selectionStart}–${plan.payload.selectionEnd}。`;
+      `r${plan.revision}；正文 ${plan.payload.text.length} 个 UTF-16 单元，选区 ` +
+      `${plan.payload.selectionStart}–${plan.payload.selectionEnd}。`;
     this.value.sessionState = '本轮已提交（本地业务恢复成功）';
     this.value.notice = '文本与选区恢复完成，数据已保存。';
     session.active = false;
@@ -1632,8 +1716,10 @@ export class LearningController {
       return;
     }
     const state = target.document.state;
-    const matches: boolean = kind === 'note' ? first === state.note.selectionStart && second === state.note.selectionEnd :
-      kind === 'reading' ? first === state.reading.chapter && second === state.reading.anchor : first === state.form.step;
+    const matches: boolean = kind === 'note' ?
+      first === state.note.selectionStart && second === state.note.selectionEnd :
+      kind === 'reading' ? first === state.reading.chapter && second === state.reading.anchor :
+        first === state.form.step;
     session.positionOk = ok && matches;
     this.value.businessPositionState = session.positionOk ? '业务定位已获实际页面回执' : '业务定位失败，候选未提交；可重试定位或停止';
     if (session.positionOk) {
@@ -1786,9 +1872,9 @@ export class LearningController {
       this.clearProbeTimer();
       this.beginOff();
     }
-    this.value.notice = this.client.state().offPending
-      ? '本地等待已停止，正在注销监听，最多等待 8 秒。'
-      : '本地等待已停止，可重新注册或注销。';
+    this.value.notice = this.client.state().offPending ?
+      '本地等待已停止，正在注销监听，最多等待 8 秒。' :
+      '本地等待已停止，可重新注册或注销。';
     this.publish();
   }
 
@@ -1810,9 +1896,9 @@ export class LearningController {
     retained.forEach((record: OperationRecord): void => {
       record.events = [];
     });
-    this.value.notice = retained.length > 0
-      ? '已清除已完成记录与事件，保留在途操作记录以接收后续回调。'
-      : '已清除记录与事件。';
+    this.value.notice = retained.length > 0 ?
+      '已清除已完成记录与事件，保留在途操作记录以接收后续回调。' :
+      '已清除记录与事件。';
     this.publish();
   }
 

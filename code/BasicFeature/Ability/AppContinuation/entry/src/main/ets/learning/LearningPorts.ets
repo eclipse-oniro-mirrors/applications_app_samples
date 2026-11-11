@@ -18,15 +18,15 @@ export interface LearningClock {
 }
 
 export class SystemLearningClock implements LearningClock {
-  now(): number {
+  public now(): number {
     return Date.now();
   }
 
-  setTimeout(callback: () => void, delayMillis: number): number {
+  public setTimeout(callback: () => void, delayMillis: number): number {
     return setTimeout(callback, delayMillis);
   }
 
-  clearTimeout(id: number): void {
+  public clearTimeout(id: number): void {
     clearTimeout(id);
   }
 }
@@ -65,11 +65,11 @@ class PlatformContinueNative implements ContinueNativePort {
     this.context = context;
   }
 
-  on(callback: ContinueNativeCallback): void {
+  public on(callback: ContinueNativeCallback): void {
     continueManager.on('prepareContinue', this.context, callback);
   }
 
-  off(callback: ContinueNativeCallback): void {
+  public off(callback: ContinueNativeCallback): void {
     continueManager.off('prepareContinue', this.context, callback);
   }
 }
@@ -82,7 +82,7 @@ class PlatformLearningEnvironment implements LearningEnvironmentPort {
     this.context = context;
   }
 
-  readPublic(): PublicEnvironment {
+  public readPublic(): PublicEnvironment {
     return {
       apiVersion: deviceInfo.sdkApiVersion,
       deviceType: deviceInfo.deviceType,
@@ -90,16 +90,16 @@ class PlatformLearningEnvironment implements LearningEnvironmentPort {
     };
   }
 
-  supportsMission(): boolean {
+  public supportsMission(): boolean {
     return canIUse('SystemCapability.Ability.AbilityRuntime.Mission');
   }
 
-  checkPermission(): number {
+  public checkPermission(): number {
     return abilityAccessCtrl.createAtManager().checkAccessTokenSync(this.context.applicationInfo.accessTokenId,
       this.permission);
   }
 
-  requestPermission(): Promise<number[]> {
+  public requestPermission(): Promise<number[]> {
     return abilityAccessCtrl.createAtManager().requestPermissionsFromUser(this.context, [this.permission])
       .then((result): number[] => result.authResults);
   }
@@ -113,26 +113,26 @@ export class PlatformLearningStore implements LearningStore {
     this.store = preferences.getPreferencesSync(context, { name: namespace });
   }
 
-  getSync(key: string, defaultValue: string): Object {
+  public getSync(key: string, defaultValue: string): Object {
     return this.store.getSync(key, defaultValue);
   }
 
-  putSync(key: string, value: string): void {
+  public putSync(key: string, value: string): void {
     this.store.putSync(key, value);
   }
 
-  deleteSync(key: string): void {
+  public deleteSync(key: string): void {
     this.store.deleteSync(key);
   }
 
-  flushSync(): void {
+  public flushSync(): void {
     this.store.flushSync();
   }
 }
 
 class PlatformLearningDependencies implements LearningDependencies {
-  readonly clock: LearningClock = new SystemLearningClock();
-  readonly native: ContinueNativePort;
+  public readonly clock: LearningClock = new SystemLearningClock();
+  public readonly native: ContinueNativePort;
   public readonly environment: LearningEnvironmentPort;
   private readonly context: common.UIAbilityContext;
 
@@ -142,7 +142,7 @@ class PlatformLearningDependencies implements LearningDependencies {
     this.environment = new PlatformLearningEnvironment(context);
   }
 
-  openStore(): LearningStore {
+  public openStore(): LearningStore {
     return new PlatformLearningStore(this.context);
   }
 }

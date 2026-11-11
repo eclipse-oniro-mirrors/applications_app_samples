@@ -58,8 +58,8 @@ export default class EntryAbility extends UIAbility {
 
   onContinue(wantParam: Record<string, Object>): AbilityConstant.OnContinueResult {
     const controller = this.controller;
-    return controller === undefined ? AbilityConstant.OnContinueResult.REJECT
-      : controller.buildContinuation(wantParam);
+    return controller === undefined ? AbilityConstant.OnContinueResult.REJECT :
+      controller.buildContinuation(wantParam);
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {

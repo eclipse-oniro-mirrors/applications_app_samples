@@ -53,8 +53,8 @@ export function safeErrorMessage(error: Object | undefined | null): string {
   }
   const bag = error as Record<string, Object>;
   const message = bag['message'];
-  return typeof message === 'string' && (message as string).length > 0
-    ? `已脱敏：${redactPlatformText(message as string)}` : '平台未提供可读错误消息。';
+  return typeof message === 'string' && (message as string).length > 0 ?
+    `已脱敏：${redactPlatformText(message as string)}` : '平台未提供可读错误消息。';
 }
 
 export function safeErrorCode(error: Object | undefined | null): string {
@@ -89,8 +89,11 @@ function observation(phase: string, err: BusinessError | undefined | null,
     kind = 'FAILURE';
   }
   const result: ContinueObservation = {
-    phase: phase, kind: kind, errorCode: err === undefined || err === null ? '' : safeErrorCode(err),
-    rawState: raw, detail: detail
+    phase: phase,
+    kind: kind,
+    errorCode: err === undefined || err === null ? '' : safeErrorCode(err),
+    rawState: raw,
+    detail: detail
   };
   return result;
 }
@@ -193,7 +196,10 @@ export class ContinueClient {
       this.offAttempt++;
       if (!this.released) {
         const timeout: ContinueObservation = {
-          phase: 'OFF_OBSERVATION', kind: 'UNCONFIRMED', errorCode: '', rawState: '尚未收到',
+          phase: 'OFF_OBSERVATION',
+          kind: 'UNCONFIRMED',
+          errorCode: '',
+          rawState: '尚未收到',
           detail: '注销等待已超时（8 秒），可重新注册或重试注销。'
         };
         observer(timeout);

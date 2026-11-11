@@ -84,14 +84,14 @@ export function losesContent(resolution: Resolution): boolean {
 
 /** 冲突判断输入。 */
 export class ConflictInput {
-  local: PayloadData = new PayloadData();
-  remote: PayloadData = new PayloadData();
+  public local: PayloadData = new PayloadData();
+  public remote: PayloadData = new PayloadData();
   /** 本机是否有未提交改动。 */
-  localDirty: boolean = false;
+  public localDirty: boolean = false;
   /** 对端是否是本次接续带来的改动。 */
-  remoteDirty: boolean = false;
+  public remoteDirty: boolean = false;
   /** 是否存在对端载荷。 */
-  remotePresent: boolean = true;
+  public remotePresent: boolean = true;
 
   constructor(local: PayloadData = new PayloadData(), remote: PayloadData = new PayloadData()) {
     this.local = local;
@@ -136,12 +136,12 @@ export function classify(input: ConflictInput): ConflictKind {
 
 /** 单条冲突规则。 */
 export class ConflictRule {
-  ruleId: string = '';
-  kind: ConflictKind = ConflictKind.NONE;
-  localDirty: boolean = false;
-  remoteDirty: boolean = false;
-  resolution: Resolution = Resolution.KEEP_LOCAL;
-  reason: string = '';
+  public ruleId: string = '';
+  public kind: ConflictKind = ConflictKind.NONE;
+  public localDirty: boolean = false;
+  public remoteDirty: boolean = false;
+  public resolution: Resolution = Resolution.KEEP_LOCAL;
+  public reason: string = '';
 
   constructor(ruleId: string = '', kind: ConflictKind = ConflictKind.NONE,
     localDirty: boolean = false, remoteDirty: boolean = false,
@@ -155,12 +155,12 @@ export class ConflictRule {
   }
 
   /** 是否命中。上下两档 dirty 用布尔精确匹配。 */
-  matches(kind: ConflictKind, localDirty: boolean, remoteDirty: boolean): boolean {
+  public matches(kind: ConflictKind, localDirty: boolean, remoteDirty: boolean): boolean {
     return this.kind === kind && this.localDirty === localDirty &&
       this.remoteDirty === remoteDirty;
   }
 
-  text(): string {
+  public text(): string {
     return `${this.ruleId} ${conflictLabel(this.kind)}｜本地${this.localDirty ? '脏' : '净'}` +
       `｜远端${this.remoteDirty ? '脏' : '净'} -> ${resolutionLabel(this.resolution)}`;
   }
@@ -232,23 +232,23 @@ export const CONFLICT_RULES: ConflictRule[] = [
 
 /** 决策结果。 */
 export class ConflictDecision {
-  kind: ConflictKind = ConflictKind.NONE;
-  resolution: Resolution = Resolution.KEEP_LOCAL;
-  rule: ConflictRule | undefined = undefined;
+  public kind: ConflictKind = ConflictKind.NONE;
+  public resolution: Resolution = Resolution.KEEP_LOCAL;
+  public rule: ConflictRule | undefined = undefined;
 
   /** 是否命中了规则。 */
-  matched(): boolean {
+  public matched(): boolean {
     return this.rule !== undefined;
   }
 
   /** 一句话说明。 */
-  text(): string {
+  public text(): string {
     const ruleId: string = this.rule === undefined ? '未命中规则' : this.rule.ruleId;
     return `${conflictLabel(this.kind)} -> ${resolutionLabel(this.resolution)}（${ruleId}）`;
   }
 
   /** 需要用户确认。 */
-  confirm(): boolean {
+  public confirm(): boolean {
     return needsConfirmation(this.resolution);
   }
 }
@@ -270,13 +270,13 @@ export function decide(input: ConflictInput): ConflictDecision {
 
 /** 合并结果。 */
 export class MergeResult {
-  data: PayloadData = new PayloadData();
+  public data: PayloadData = new PayloadData();
   /** 实际使用的策略。 */
-  resolution: Resolution = Resolution.KEEP_LOCAL;
+  public resolution: Resolution = Resolution.KEEP_LOCAL;
   /** 合并说明。 */
-  notes: string[] = [];
+  public notes: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return `${resolutionLabel(this.resolution)}｜${this.notes.length} 条说明`;
   }
 }
@@ -347,10 +347,10 @@ export function applyResolution(input: ConflictInput, decision: ConflictDecision
 
 /** 规则表自检。 */
 export class ConflictAudit {
-  ok: boolean = false;
+  public ok: boolean = false;
   public findings: string[] = [];
 
-  summary(): string {
+  public summary(): string {
     return this.ok ? '冲突规则表自洽' : this.findings.join('；');
   }
 }
