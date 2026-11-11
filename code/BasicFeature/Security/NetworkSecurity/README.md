@@ -196,7 +196,7 @@ NetworkSecurity/
 - ohos.permission.MANAGE_NET_STRATEGY：允许应用获取网络策略信息或修改网络策略设置，权限级别为 system_basic，授权方式为系统授权，ACL 使能。
 - ohos.permission.GET_INSTALLED_BUNDLE_LIST：允许应用查询已安装应用列表，用于应用列表页与应用选择器，权限级别为 system_basic，授权方式为系统授权，ACL 使能。
 - ohos.permission.GET_BUNDLE_INFO：允许应用查询应用信息，用于 UID 到应用名的解析。
-- ohos.permission.GET_BUNDLE_INFO_PRIVILEGED：用于通过 application.createModuleContext 的三参数重载创建其他应用的模块上下文，读取应用名称和图标。
+- ohos.permission.GET_BUNDLE_INFO_PRIVILEGED：用于通过 application.createModuleContext 的三参数重载创建目标应用的模块上下文，读取应用名称和图标。
 
 权限定义参考 [系统应用权限列表](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md) 与 [所有应用可申请权限列表](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md)。
 
