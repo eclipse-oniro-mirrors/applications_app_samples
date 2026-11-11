@@ -1,5 +1,7 @@
 # 会议室场景控制测试用例报告
 
+当前工程包名为 `com.samples.infraredandgesture`。以下测试记录对应调整前的包名 `com.samples.meetingscene`；新包名尚未重新构建或执行测试。
+
 ## 一、测试环境
 
 | 项目 | 说明                                                                         |

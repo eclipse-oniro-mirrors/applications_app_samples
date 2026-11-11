@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例演示基于红外发射能力的会议室设备控制应用。应用包名为 `com.samples.meetingscene`，支持手机与平板两种设备形态：手机作为会议室中控台，平板用于房间，设备和场景的编排配置。
+本示例演示基于红外发射能力的会议室设备控制应用。应用包名为 `com.samples.infraredandgesture`，支持手机与平板两种设备形态：手机作为会议室中控台，平板用于房间，设备和场景的编排配置。
 
 主要功能如下：
 
@@ -13,11 +13,11 @@
 
 使用到的系统能力如下：
 
-- [@kit.InputKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-input-kit/Readme-CN.md)：`infraredEmitter` 红外发射。
-- [@kit.ArkData](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/Readme-CN.md)：`relationalStore` 关系型数据库，`preferences` 轻量级键值对存储。
-- [@kit.CoreFileKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/Readme-CN.md)：配置包文件的读写与目录管理。
-- [@kit.AbilityKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md)：UIAbility 生命周期与上下文。
-- [@kit.PerformanceAnalysisKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md)：`hilog` 日志输出与 `hiTraceMeter` 性能打点。
+- [@kit.InputKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-input-kit/Readme-CN.md)：`infraredEmitter` 红外发射。
+- [@kit.ArkData](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/Readme-CN.md)：`relationalStore` 关系型数据库，`preferences` 轻量级键值对存储。
+- [@kit.CoreFileKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/Readme-CN.md)：配置包文件的读写与目录管理。
+- [@kit.AbilityKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md)：UIAbility 生命周期与上下文。
+- [@kit.PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md)：`hilog` 日志输出与 `hiTraceMeter` 性能打点。
 
 ## 效果预览
 
@@ -125,7 +125,7 @@ InfraredAndGesture
 
 - `ohos.permission.MANAGE_INPUT_INFRARED_EMITTER`：管理红外发射器，用于发送红外码。该权限为 system_basic 级别，需要通过 ACL 申请。
 
-权限定义可参考[应用权限列表](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md)。
+权限定义可参考[应用权限列表](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md)。
 
 ## 依赖
 
@@ -133,14 +133,14 @@ InfraredAndGesture
 
 测试框架依赖（`oh-package.json5` 的 devDependencies）：
 
-- [@ohos/hypium](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/application-test/arkxtest-guidelines.md)：1.0.25，UI 自动化测试框架。
+- [@ohos/hypium](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/application-test/arkxtest-guidelines.md)：1.0.25，UI 自动化测试框架。
 - @ohos/hamock：1.0.0，Mock 框架。
 
 ## 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备为 phone 与 tablet。
 2. 本示例基于 OpenHarmony SDK API 26.0.0 开发。
-3. 本示例使用系统接口 `infraredEmitter`，需要使用 Full SDK 编译，且应用需要系统级签名。Full SDK 替换方法可参考[替换指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-compile-guide.md)。
+3. 本示例使用系统接口 `infraredEmitter`，需要使用 Full SDK 编译，且应用需要系统级签名。Full SDK 替换方法可参考[替换指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-compile-guide.md)。
 4. 本示例需要 DevEco Studio 6.0 Release 或更高版本。
 
 ## 测试
@@ -155,6 +155,6 @@ UI 自动化用例位于 `entry/src/ohosTest`，套件名为 `MeetingSceneUiTest
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Input/InfraredAndGesture/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

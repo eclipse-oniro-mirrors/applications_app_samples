@@ -25,7 +25,7 @@ const DOMAIN: number = 0xF811;
 /** Package-name keyword prefixed to every log line so logs can be filtered by bundle. */
 const BUNDLE: string = 'MeetingScene_Extra_';
 /** Bundle name of the sample under test. */
-const BUNDLE_NAME: string = 'com.samples.meetingscene';
+const BUNDLE_NAME: string = 'com.samples.infraredandgesture';
 /** Entry ability of the sample under test. */
 const ABILITY_NAME: string = 'EntryAbility';
 /** Device type value reported by tablets. */
