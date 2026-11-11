@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -272,7 +272,7 @@ export class TypeUtils {
       try {
         return JSON.stringify(value);
       } catch (error) {
-        hilog.warn(DOMAIN, TAG, `对象转字符串失败: ${error}`);
+        hilog.warn(DOMAIN, TAG, 'TypeUtils objectToString failed, error=%{public}s', String(error));
         return String(value);
       }
     }
@@ -376,7 +376,7 @@ export class TypeUtils {
    */
   static requireNonNull<T>(value: T | null | undefined, name: string): T {
     if (value === null || value === undefined) {
-      hilog.error(DOMAIN, TAG, `必需参数 '${name}' 不能为空`);
+      hilog.error(DOMAIN, TAG, 'TypeUtils required parameter is empty, name=%{public}s', name);
       throw new Error(`必需参数 '${name}' 不能为空`);
     }
     return value;

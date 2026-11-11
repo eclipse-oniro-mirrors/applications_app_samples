@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,15 +36,15 @@ export class IntelligentSceneViewModel {
   /** 事件服务实例 */
   private eventService: EventService = new EventService();
   /** 页面操作日志 */
-  pageLogs: string[] = [];
+  public pageLogs: string[] = [];
   /** 免打扰是否启用 */
-  isDndEnabled: boolean = false;
+  public isDndEnabled: boolean = false;
   /** 免打扰时是否允许通知 */
-  isNotifyAllowed: boolean = true;
+  public isNotifyAllowed: boolean = true;
   /** 当前查询状态 */
-  currentStatus: DoNotDisturbStatus = DoNotDisturbStatus.IDLE;
+  public currentStatus: DoNotDisturbStatus = DoNotDisturbStatus.IDLE;
   /** 是否正在加载 */
-  isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   /**
    * 初始化视图模型。

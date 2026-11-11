@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -55,7 +55,7 @@ export class MathUtils {
    */
   static clamp(value: number, min: number, max: number): number {
     if (min > max) {
-      hilog.warn(DOMAIN, TAG, 'clamp: 最小值不能大于最大值，已自动交换');
+      hilog.warn(DOMAIN, TAG, 'MathUtils clamp: min greater than max, auto swapped');
       const temp: number = min;
       min = max;
       max = temp;
@@ -328,7 +328,7 @@ export class MathUtils {
    */
   static percentage(part: number, total: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
     if (total === 0) {
-      hilog.warn(DOMAIN, TAG, '百分比计算: 总数不能为零');
+      hilog.warn(DOMAIN, TAG, 'MathUtils percentage: total must not be zero');
       return 0;
     }
     const result: number = (part / total) * 100;

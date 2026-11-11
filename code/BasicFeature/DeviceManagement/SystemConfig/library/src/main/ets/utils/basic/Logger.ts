@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -114,7 +114,7 @@ export class Logger {
    */
   static setLevel(level: LogLevel): void {
     Logger.currentLevel = level;
-    hilog.info(DOMAIN, TAG, `日志级别已设置为: ${LogLevel[level]}`);
+    hilog.info(DOMAIN, TAG, 'Logger level set to=%{public}s', LogLevel[level]);
   }
 
   /**
@@ -294,7 +294,7 @@ export class Logger {
     Logger.bufferIndex = 0;
     Logger.bufferFull = false;
     Logger.listeners = [];
-    hilog.info(DOMAIN, TAG, '日志缓冲区已清空');
+    hilog.info(DOMAIN, TAG, 'Logger buffer cleared');
   }
 
   // ========================================
@@ -309,7 +309,7 @@ export class Logger {
     const existingIndex: number = Logger.listeners.indexOf(listener);
     if (existingIndex === -1) {
       Logger.listeners.push(listener);
-      hilog.debug(DOMAIN, TAG, '已添加日志监听器');
+      hilog.debug(DOMAIN, TAG, 'Logger listener added');
     }
   }
 
@@ -321,7 +321,7 @@ export class Logger {
     const index: number = Logger.listeners.indexOf(listener);
     if (index !== -1) {
       Logger.listeners.splice(index, 1);
-      hilog.debug(DOMAIN, TAG, '已移除日志监听器');
+      hilog.debug(DOMAIN, TAG, 'Logger listener removed');
     }
   }
 
@@ -334,7 +334,7 @@ export class Logger {
       try {
         Logger.listeners[i].onLog(entry);
       } catch (error) {
-        hilog.error(DOMAIN, TAG, `通知日志监听器时发生错误: ${error}`);
+        hilog.error(DOMAIN, TAG, 'Logger notify listener error=%{public}s', String(error));
       }
     }
   }

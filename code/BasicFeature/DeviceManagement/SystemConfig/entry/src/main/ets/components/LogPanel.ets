@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,7 +22,7 @@ import { PageConstants } from 'library';
 @Component
 export struct LogPanel {
   /** 日志标题 */
-  @Prop panelTitle: string = '操作日志';
+  @Prop panelTitle: ResourceStr = $r('app.string.log_panel_title');
   /** 日志条目列表 */
   @Prop logs: string[] = [];
   /** 面板最大高度 */
@@ -42,7 +42,7 @@ export struct LogPanel {
 
         Blank()
 
-        Text(`共 ${this.logs.length} 条`)
+        Text($r('app.string.log_count', this.logs.length))
           .fontSize(PageConstants.FONT_SIZE_SMALL)
           .fontColor(PageConstants.COLOR_TEXT_HINT)
       }
@@ -55,7 +55,7 @@ export struct LogPanel {
       // 日志列表区域
       if (this.logs.length === 0) {
         Column() {
-          Text('暂无日志')
+          Text($r('app.string.log_empty'))
             .fontSize(PageConstants.FONT_SIZE_BODY)
             .fontColor(PageConstants.COLOR_TEXT_HINT)
         }
@@ -76,7 +76,7 @@ export struct LogPanel {
                   top: 6,
                   bottom: 6
                 })
-                .backgroundColor(index % 2 === 0 ? '#FAFAFA' : PageConstants.COLOR_SURFACE)
+                .backgroundColor(index % 2 === 0 ? '#FAFAFA' : PageConstants.COLOR_CARD)
             }
           }, (logItem: string, index: number) => `${index}_${logItem}`)
         }
@@ -91,7 +91,7 @@ export struct LogPanel {
       }
     }
     .width('100%')
-    .backgroundColor(PageConstants.COLOR_SURFACE)
+    .backgroundColor(PageConstants.COLOR_CARD)
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
     .shadow({
       radius: 4,

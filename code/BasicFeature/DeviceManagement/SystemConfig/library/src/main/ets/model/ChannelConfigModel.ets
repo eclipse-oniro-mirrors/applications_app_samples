@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -53,17 +53,17 @@ export interface ChannelConfigJson {
  */
 export class ChannelConfigModel {
   /** 渠道标识符 */
-  channelId: string;
+  public channelId: string;
   /** 渠道配置状态 */
-  status: ChannelConfigStatus;
+  public status: ChannelConfigStatus;
   /** 最后一次获取的时间戳 */
-  lastFetchTime: number;
+  public lastFetchTime: number;
   /** 错误信息（获取失败时记录） */
-  errorMessage: string;
+  public errorMessage: string;
   /** 错误码 */
-  errorCode: number;
+  public errorCode: number;
   /** 获取次数统计 */
-  fetchCount: number;
+  public fetchCount: number;
 
   /**
    * 创建渠道配置模型实例。

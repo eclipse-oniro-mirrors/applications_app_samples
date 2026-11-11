@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -35,11 +35,11 @@ export interface StatusBadgeProps {
 @Component
 export struct StatusBadge {
   /** 标签文本 */
-  @Prop text: string = '';
+  @Prop text: ResourceStr = '';
   /** 标签文字颜色 */
   @Prop textColor: string = PageConstants.COLOR_TEXT_PRIMARY;
   /** 标签背景颜色 */
-  @Prop bgColor: string = PageConstants.COLOR_SURFACE;
+  @Prop bgColor: string = PageConstants.COLOR_CARD;
 
   build() {
     Text(this.text)

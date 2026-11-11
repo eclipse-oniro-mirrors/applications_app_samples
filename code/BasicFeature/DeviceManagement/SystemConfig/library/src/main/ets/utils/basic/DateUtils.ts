@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -98,7 +98,7 @@ export class DateUtils {
     const date: Date = new Date(timestamp);
 
     if (isNaN(date.getTime())) {
-      hilog.warn(DOMAIN, TAG, `无效的时间戳: ${timestamp}`);
+      hilog.warn(DOMAIN, TAG, 'DateUtils invalid timestamp=%{public}d', timestamp);
       return '';
     }
 
@@ -165,12 +165,12 @@ export class DateUtils {
     try {
       const date: Date = new Date(dateStr);
       if (isNaN(date.getTime())) {
-        hilog.warn(DOMAIN, TAG, `日期解析失败: ${dateStr}`);
+        hilog.warn(DOMAIN, TAG, 'DateUtils parseDate failed, dateStr=%{public}s', dateStr);
         return 0;
       }
       return date.getTime();
     } catch (error) {
-      hilog.error(DOMAIN, TAG, `日期解析异常: ${error}`);
+      hilog.error(DOMAIN, TAG, 'DateUtils parseDate error=%{public}s', String(error));
       return 0;
     }
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -179,7 +179,7 @@ export class Constants {
    * 记录常量加载完成的日志信息
    */
   static initialize(): void {
-    hilog.info(DOMAIN, TAG, `常量类已初始化，API版本: ${Constants.API_VERSION_STRING}`);
+    hilog.info(DOMAIN, TAG, 'Constants initialized, apiVersion=%{public}s', Constants.API_VERSION_STRING);
   }
 
   /**

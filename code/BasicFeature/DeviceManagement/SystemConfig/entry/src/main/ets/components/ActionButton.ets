@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,7 +36,7 @@ export interface ActionButtonProps {
 @Component
 export struct ActionButton {
   /** 按钮文本 */
-  @Prop buttonText: string = '按钮';
+  @Prop buttonText: ResourceStr = '';
   /** 按钮类型标识 */
   @Prop buttonType: string = 'primary';
   /** 是否禁用 */
@@ -56,7 +56,7 @@ export struct ActionButton {
       case 'primary':
         return PageConstants.COLOR_PRIMARY;
       case 'secondary':
-        return PageConstants.COLOR_SURFACE;
+        return PageConstants.COLOR_CARD;
       case 'danger':
         return PageConstants.COLOR_ERROR;
       default:

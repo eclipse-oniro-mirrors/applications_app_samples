@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,7 +23,7 @@ export class SystemConfigConstants {
   /** 日志域 */
   static readonly DOMAIN: number = 0xFF00;
   /** 应用 bundleName */
-  static readonly BUNDLE_NAME: string = 'ohos.samples.systemconfig';
+  static readonly BUNDLE_NAME: string = 'com.samples.systemconfig';
   /** hiTraceMeter 域标识 */
   static readonly TRACE_DOMAIN: number = 0xFF00;
   /** hiAppEvent 域标识 */

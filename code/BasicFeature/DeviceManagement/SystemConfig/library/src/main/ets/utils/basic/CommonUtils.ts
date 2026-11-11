@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -179,7 +179,7 @@ export class CommonUtils {
       const jsonStr: string = JSON.stringify(obj);
       return JSON.parse(jsonStr) as T;
     } catch (error) {
-      hilog.error(DOMAIN, TAG, `深拷贝失败: ${error}`);
+      hilog.error(DOMAIN, TAG, 'CommonUtils deepCopy failed, error=%{public}s', String(error));
       return obj;
     }
   }
@@ -209,12 +209,13 @@ export class CommonUtils {
       try {
         const result: T = await fn();
         if (attempt > 0) {
-          hilog.info(DOMAIN, TAG, `重试第${attempt}次成功`);
+          hilog.info(DOMAIN, TAG, 'CommonUtils retry succeeded, attempt=%{public}d', attempt);
         }
         return result;
       } catch (error) {
         lastError = error instanceof Error ? error : new Error(String(error));
-        hilog.warn(DOMAIN, TAG, `操作失败，第${attempt + 1}次尝试: ${lastError.message}`);
+        hilog.warn(DOMAIN, TAG, 'CommonUtils retry failed, attempt=%{public}d, error=%{public}s',
+          attempt + 1, lastError.message);
 
         if (attempt < maxRetries) {
           const waitTime: number = exponentialBackoff
@@ -245,7 +246,7 @@ export class CommonUtils {
     try {
       return JSON.parse(str) as object;
     } catch (error) {
-      hilog.warn(DOMAIN, TAG, `JSON解析失败: ${error}`);
+      hilog.warn(DOMAIN, TAG, 'CommonUtils parseJson failed, error=%{public}s', String(error));
       return null;
     }
   }
@@ -267,7 +268,7 @@ export class CommonUtils {
       }
       return JSON.stringify(obj);
     } catch (error) {
-      hilog.warn(DOMAIN, TAG, `JSON序列化失败: ${error}`);
+      hilog.warn(DOMAIN, TAG, 'CommonUtils stringify failed, error=%{public}s', String(error));
       return null;
     }
   }
