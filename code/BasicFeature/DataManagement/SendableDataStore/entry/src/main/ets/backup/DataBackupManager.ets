@@ -65,10 +65,11 @@ export class DataBackupManager {
       return ResultText.ofArgs($r('app.string.result_backup_create_exists'), [name],
         `createBackup failed: backup '${name}' already exists`);
     }
-    const checksum: string = this.generateChecksum(name, entryCount);
+    const createdAt: number = Date.now();
+    const checksum: string = this.generateChecksum(name, entryCount, createdAt);
     const info: BackupInfo = {
       name: name,
-      createdAt: Date.now(),
+      createdAt: createdAt,
       size: entryCount * 128,
       storeType: storeType,
       entryCount: entryCount,
@@ -295,7 +296,7 @@ export class DataBackupManager {
         `verifyBackupIntegrity failed: backup '${name}' not found`);
     }
     const backup: BackupInfo = this.backups[idx];
-    const expectedChecksum: string = this.generateChecksum(backup.name, backup.entryCount);
+    const expectedChecksum: string = this.generateChecksum(backup.name, backup.entryCount, backup.createdAt);
     const valid: boolean = backup.checksum === expectedChecksum;
     const state: string = valid ? ResultText.of($r('app.string.result_backup_integrity_valid'), 'VALID') :
       ResultText.of($r('app.string.result_backup_integrity_invalid'), 'INVALID');
@@ -348,9 +349,16 @@ export class DataBackupManager {
     return -1;
   }
 
-  private generateChecksum(name: string, entryCount: number): string {
+  /**
+   * Builds the checksum of a backup.
+   *
+   * The creation timestamp is passed in instead of being read from Date.now(),
+   * so that the checksum of a given backup stays stable and can be re-computed
+   * by verifyBackupIntegrity().
+   */
+  private generateChecksum(name: string, entryCount: number, createdAt: number): string {
     let hash: number = 0;
-    const input: string = `${name}_${entryCount}_${Date.now()}`;
+    const input: string = `${name}_${entryCount}_${createdAt}`;
     for (let i: number = 0; i < input.length; i++) {
       const char: number = input.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;

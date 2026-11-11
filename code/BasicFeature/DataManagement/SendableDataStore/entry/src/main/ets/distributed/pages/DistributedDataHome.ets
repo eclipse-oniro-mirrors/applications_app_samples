@@ -131,9 +131,12 @@ struct DistributedDataHome {
             (): void => this.runSync((): string => this.manager.getConflicts()))
           this.buttonRow($r('app.string.unresolved_conflicts'),
             (): void => this.runSync((): string => this.manager.getUnresolvedConflicts()),
-            $r('app.string.show_dist_stats'),
-            (): void => this.runSync((): string => this.manager.getStatistics()))
-          this.actionButton($r('app.string.reset_dist_stats'),
+            $r('app.string.resolve_conflict'),
+            (): void => this.runSync((): string =>
+              this.manager.resolveConflict('user_name', this.manager.getConflictPolicy())))
+          this.buttonRow($r('app.string.show_dist_stats'),
+            (): void => this.runSync((): string => this.manager.getStatistics()),
+            $r('app.string.reset_dist_stats'),
             (): void => this.runSync((): string => this.manager.resetStatistics()))
         }
         .width('100%')

@@ -193,37 +193,11 @@ export class DataEncryptionManager {
   }
 
   computeHash(data: string): string {
-    if (data.length === 0) {
-      return ResultText.of($r('app.string.result_encryption_hash_empty'), 'computeHash failed: empty data');
-    }
-    let hash: number = 0;
-    for (let i: number = 0; i < data.length; i++) {
-      const char: number = data.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash;
-    }
-    const absHash: number = Math.abs(hash);
-    let hashStr: string = '';
-    switch (this.hashAlgorithm) {
-      case HashAlgorithm.SHA_256:
-        hashStr = `sha256_${absHash.toString(16).padStart(8, '0')}`;
-        break;
-      case HashAlgorithm.SHA_512:
-        hashStr = `sha512_${absHash.toString(16).padStart(16, '0')}`;
-        break;
-      case HashAlgorithm.SM3:
-        hashStr = `sm3_${absHash.toString(16).padStart(8, '0')}`;
-        break;
-      default:
-        hashStr = `unknown_${absHash.toString(16)}`;
-    }
-    this.hashCount++;
-    return ResultText.ofArgs($r('app.string.result_encryption_hash'), [String(this.hashAlgorithm), hashStr],
-      `computeHash(${this.hashAlgorithm}): ${hashStr}`);
+    return this.hashText(data, true);
   }
 
   verifyHash(data: string, expectedHash: string): string {
-    const computed: string = this.computeHash(data);
+    const computed: string = this.hashText(data, false);
     const match: boolean = computed === expectedHash;
     return ResultText.ofArgs($r('app.string.result_encryption_verify_hash'), [match ? 'MATCH' : 'MISMATCH'],
       `verifyHash: ${match ? 'MATCH' : 'MISMATCH'}`);
@@ -316,5 +290,43 @@ export class DataEncryptionManager {
     this.lastEncryptTime = 0;
     this.lastDecryptTime = 0;
     Logger.info('DataEncryptionManager released');
+  }
+
+  /**
+   * Builds the hash result text for the given data.
+   *
+   * Only a real hash computation increases the statistics counter, so that a
+   * verification, which recomputes the same hash, does not inflate it.
+   */
+  private hashText(data: string, countStatistic: boolean): string {
+    if (data.length === 0) {
+      return ResultText.of($r('app.string.result_encryption_hash_empty'), 'computeHash failed: empty data');
+    }
+    let hash: number = 0;
+    for (let i: number = 0; i < data.length; i++) {
+      const char: number = data.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    const absHash: number = Math.abs(hash);
+    let hashStr: string = '';
+    switch (this.hashAlgorithm) {
+      case HashAlgorithm.SHA_256:
+        hashStr = `sha256_${absHash.toString(16).padStart(8, '0')}`;
+        break;
+      case HashAlgorithm.SHA_512:
+        hashStr = `sha512_${absHash.toString(16).padStart(16, '0')}`;
+        break;
+      case HashAlgorithm.SM3:
+        hashStr = `sm3_${absHash.toString(16).padStart(8, '0')}`;
+        break;
+      default:
+        hashStr = `unknown_${absHash.toString(16)}`;
+    }
+    if (countStatistic) {
+      this.hashCount++;
+    }
+    return ResultText.ofArgs($r('app.string.result_encryption_hash'), [String(this.hashAlgorithm), hashStr],
+      `computeHash(${this.hashAlgorithm}): ${hashStr}`);
   }
 }

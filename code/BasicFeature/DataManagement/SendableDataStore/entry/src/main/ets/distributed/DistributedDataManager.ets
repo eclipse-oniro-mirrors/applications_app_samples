@@ -38,6 +38,7 @@ export class DistributedDataManager {
   private conflictPolicy: ConflictPolicy = ConflictPolicy.LOCAL_FIRST;
   private isSyncing: boolean = false;
   private lastSyncTime: number = 0;
+  private lastWriteTime: number = 0;
   private syncCount: number = 0;
   private insertCount: number = 0;
   private updateCount: number = 0;
@@ -60,6 +61,7 @@ export class DistributedDataManager {
     this.conflictPolicy = ConflictPolicy.LOCAL_FIRST;
     this.isSyncing = false;
     this.lastSyncTime = 0;
+    this.lastWriteTime = 0;
     this.syncCount = 0;
     this.insertCount = 0;
     this.updateCount = 0;
@@ -88,6 +90,7 @@ export class DistributedDataManager {
       }
       this.localData = newData;
       this.updateCount++;
+      this.lastWriteTime = Date.now();
       return ResultText.ofArgs($r('app.string.result_distributed_put_updated'), [key, value],
         `put updated: ${key}=${value}`);
     }
@@ -103,6 +106,7 @@ export class DistributedDataManager {
     this.localData = newValues;
     this.localDataCount++;
     this.insertCount++;
+    this.lastWriteTime = Date.now();
     return ResultText.ofArgs($r('app.string.result_distributed_put_inserted'), [key, value],
       `put inserted: ${key}=${value}`);
   }
@@ -287,16 +291,20 @@ export class DistributedDataManager {
     this.isSyncing = true;
     this.syncCount++;
     let syncedCount: number = 0;
+    let conflictTotal: number = 0;
+    const syncTime: number = Date.now();
     for (let i: number = 0; i < this.deviceCount; i++) {
       if (this.devices[i].isConnected) {
         syncedCount++;
+        conflictTotal += this.simulateRemoteConflicts(this.devices[i].deviceId, syncTime);
       }
     }
-    this.lastSyncTime = Date.now();
+    this.lastSyncTime = syncTime;
     this.isSyncing = false;
     return ResultText.ofArgs($r('app.string.result_distributed_sync_completed'),
-      [syncedCount, this.deviceCount, this.lastSyncTime],
-      `sync completed: ${syncedCount}/${this.deviceCount} devices synced at ${this.lastSyncTime}`);
+      [syncedCount, this.deviceCount, this.lastSyncTime, conflictTotal],
+      `sync completed: ${syncedCount}/${this.deviceCount} devices synced at ${this.lastSyncTime}, ` +
+        `conflicts detected: ${conflictTotal}`);
   }
 
   syncStatus(): string {
@@ -336,17 +344,23 @@ export class DistributedDataManager {
   }
 
   resolveConflict(key: string, resolution: ConflictPolicy): string {
+    if (!DataValidator.isValidConflictPolicy(resolution)) {
+      return ResultText.ofArgs($r('app.string.result_distributed_policy_invalid'), [String(resolution)],
+        `resolveConflict failed: invalid policy '${resolution}'`);
+    }
     const idx: number = this.findConflictIndex(key);
     if (idx < 0) {
       return ResultText.ofArgs($r('app.string.result_distributed_resolve_not_found'), [key],
         `resolveConflict failed: no conflict for key '${key}'`);
     }
+    const resolvedValue: string = this.chooseConflictValue(this.conflicts[idx], resolution);
+    this.applyLocalValue(key, resolvedValue);
     const newConflicts: ConflictRecord[] = [];
     for (let i: number = 0; i < this.conflictCount; i++) {
       if (i === idx) {
         const resolved: ConflictRecord = {
           key: this.conflicts[i].key,
-          localValue: this.conflicts[i].localValue,
+          localValue: resolvedValue,
           remoteValue: this.conflicts[i].remoteValue,
           localTimestamp: this.conflicts[i].localTimestamp,
           remoteTimestamp: this.conflicts[i].remoteTimestamp,
@@ -361,7 +375,7 @@ export class DistributedDataManager {
     }
     this.conflicts = newConflicts;
     return ResultText.ofArgs($r('app.string.result_distributed_resolve_completed'), [key, String(resolution)],
-      `resolveConflict: '${key}' resolved with ${resolution}`);
+      `resolveConflict: '${key}' resolved with ${resolution}, value=${resolvedValue}`);
   }
 
   getConflicts(): string {
@@ -435,6 +449,7 @@ export class DistributedDataManager {
     this.conflictPolicy = ConflictPolicy.LOCAL_FIRST;
     this.isSyncing = false;
     this.lastSyncTime = 0;
+    this.lastWriteTime = 0;
     this.syncCount = 0;
     this.insertCount = 0;
     this.updateCount = 0;
@@ -469,5 +484,90 @@ export class DistributedDataManager {
       }
     }
     return -1;
+  }
+
+  /**
+   * Simulates the writes a peer device reports during a sync.
+   *
+   * The demo has no real peer, so every locally stored key whose remote value
+   * differs from the local one is recorded as a pending conflict. That keeps the
+   * conflict APIs (getConflicts / getUnresolvedConflicts / resolveConflict)
+   * reachable from the sync workflow.
+   */
+  private simulateRemoteConflicts(deviceId: string, syncTime: number): number {
+    const pending: ConflictRecord[] = [];
+    for (let i: number = 0; i < this.localDataCount; i++) {
+      if (this.conflictCount + pending.length >= MAX_CONFLICTS) {
+        break;
+      }
+      const key: string = this.localKeys[i];
+      if (this.hasPendingConflict(key)) {
+        continue;
+      }
+      const remoteValue: string = `remote_${this.localData[i]}`;
+      const record: ConflictRecord = {
+        key: key,
+        localValue: this.localData[i],
+        remoteValue: remoteValue,
+        localTimestamp: this.lastWriteTime,
+        remoteTimestamp: syncTime,
+        deviceId: deviceId,
+        resolved: false,
+        resolution: this.conflictPolicy
+      };
+      pending.push(record);
+    }
+    if (pending.length === 0) {
+      return 0;
+    }
+    const newConflicts: ConflictRecord[] = [];
+    for (let i: number = 0; i < this.conflictCount; i++) {
+      newConflicts.push(this.conflicts[i]);
+    }
+    for (let i: number = 0; i < pending.length; i++) {
+      newConflicts.push(pending[i]);
+    }
+    this.conflicts = newConflicts;
+    this.conflictCount = newConflicts.length;
+    return pending.length;
+  }
+
+  private hasPendingConflict(key: string): boolean {
+    for (let i: number = 0; i < this.conflictCount; i++) {
+      if (this.conflicts[i].key === key && !this.conflicts[i].resolved) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private chooseConflictValue(conflict: ConflictRecord, resolution: ConflictPolicy): string {
+    switch (resolution) {
+      case ConflictPolicy.REMOTE_FIRST:
+        return conflict.remoteValue;
+      case ConflictPolicy.TIMESTAMP:
+        return conflict.remoteTimestamp > conflict.localTimestamp ? conflict.remoteValue : conflict.localValue;
+      case ConflictPolicy.MERGE:
+        return `${conflict.localValue}|${conflict.remoteValue}`;
+      case ConflictPolicy.LOCAL_FIRST:
+      default:
+        return conflict.localValue;
+    }
+  }
+
+  private applyLocalValue(key: string, value: string): void {
+    const idx: number = this.findLocalKeyIndex(key);
+    if (idx < 0) {
+      return;
+    }
+    const newData: string[] = [];
+    for (let i: number = 0; i < this.localDataCount; i++) {
+      if (i === idx) {
+        newData.push(value);
+      } else {
+        newData.push(this.localData[i]);
+      }
+    }
+    this.localData = newData;
   }
 }

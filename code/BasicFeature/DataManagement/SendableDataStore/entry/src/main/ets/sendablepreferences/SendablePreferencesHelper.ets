@@ -284,7 +284,7 @@ export class SendablePreferencesHelper {
     }
     const results: string[] = [];
     for (let i: number = 0; i < keys.length; i++) {
-    if (DataValidator.isValidKey(keys[i])) {
+      if (DataValidator.isValidKey(keys[i])) {
         const value: lang.ISendable = await instance.get(keys[i], DEFAULT_VALUE);
         results.push(`${keys[i]}=${JSON.stringify(value)}`);
       }
