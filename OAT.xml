@@ -109,6 +109,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/foreground.png" desc="Provided by InfraredAndGesture"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/startIcon.png" desc="Provided by InfraredAndGesture"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/screenshots/main_page.png" desc="Provided by InfraredAndGesture screenshots"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/screenshots/handedness.gif" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
                 <filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleJS/screenshots/Sample-Run-C.jpeg" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleJS"/>
                 <filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleJS/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleJS"/>
                 <filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleJS/entry/src/main/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleJS"/>
@@ -641,6 +647,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Native/NdkQoS/screenshots/device/main.jpeg" desc="Provided by code/BasicFeature/Native/NdkNativeQoS"/>
                 <filteritem type="filepath" name="code/BasicFeature/Native/NdkQoS/screenshots/device/showhighQoScomputingTime.jpeg" desc="Provided by code/BasicFeature/Native/NdkNativeQoS"/>
                 <filteritem type="filepath" name="code/BasicFeature/Native/NdkQoS/entry/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Native/NdkNativeQoS"/>
+				<filteritem type="filepath" name="code/DocsSample/KernelEnhanceKit/GewuService/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/KernelEnhanceKit/GewuService"/>
+				<filteritem type="filepath" name="code/DocsSample/KernelEnhanceKit/GewuService/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/KernelEnhanceKit/GewuService"/>
+				<filteritem type="filepath" name="code/DocsSample/KernelEnhanceKit/GewuService/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/KernelEnhanceKit/GewuService"/>
+				<filteritem type="filepath" name="code/DocsSample/KernelEnhanceKit/GewuService/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/KernelEnhanceKit/GewuService"/>
+				<filteritem type="filepath" name="code/DocsSample/KernelEnhanceKit/GewuService/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/KernelEnhanceKit/GewuService"/>
+				<filteritem type="filepath" name="code/DocsSample/KernelEnhanceKit/GewuService/screenshots/device/main.jpg" desc="Provided by code/DocsSample/KernelEnhanceKit/GewuService"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkNotification/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/BasicFeature/Native/NdkNotification/"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkNotification/screenshots/device/turnOnNotification.jpeg" desc="Provided by code/BasicFeature/Native/NdkNotification/"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkNotification/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Native/NdkNotification/"/>
@@ -1883,7 +1895,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/NetConnection_Exploitation_case/screenshots/CodeNumber.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/NetConnection_Exploitation_case/screenshots/GetDefaultNet.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/NetConnection_Exploitation_case/screenshots/GetHasDefaultNet.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
-				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/NetConnection_Exploitation_case/screenshots/GetIsDefaultNetMetered.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>			
+				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/NetConnection_Exploitation_case/screenshots/GetIsDefaultNetMetered.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_Datatransmission/HTTP_case/screenshots/Program_Startup.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_Datatransmission/HTTP_case/screenshots/Send_HTTP_Request.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_Datatransmission/HTTP_case/screenshots/Send_Streaming_HTTP_Request.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
@@ -1911,9 +1923,9 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/FlowManagement_case/screenshots/Aquire_all_traffic_upStream.jpeg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/FlowManagement_case/screenshots/Aquire_traffic_downStream.jpeg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/FlowManagement_case/screenshots/Aquire_traffic_upStream.jpeg" desc="Provided by code/DocsSample/NetWork_Kit"/>
-				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/VPNControl_Case/screenshots/Vpn_Index.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>				
-				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/VPNControl_Case/screenshots/Create_Tunnel.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>					
-				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/VPNControl_Case/screenshots/Start_VpnExt.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>				
+				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/VPNControl_Case/screenshots/Vpn_Index.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
+				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/VPNControl_Case/screenshots/Create_Tunnel.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
+				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/VPNControl_Case/screenshots/Start_VpnExt.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/NetWork_Kit/NetWorkKit_NetManager/VPNControl_Case/screenshots/Stop_Vpn.jpg" desc="Provided by code/DocsSample/NetWork_Kit"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/UseFrontendJSApp/FrontendCallAppFn/UsageOfComplexTypes_one/screenshots/UsageOfComplexTypes_one.png" desc="Provided by code/DocsSample/ArkWeb"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/UseFrontendJSApp/FrontendCallAppFn/UsageOfComplexTypes_two/screenshots/UsageOfComplexTypes_two.png" desc="Provided by code/DocsSample/ArkWeb"/>
@@ -2152,20 +2164,20 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPIFunction/screenshots/NodeAPIFunction1.png" desc="Provided by code/DocsSample/ArkTS"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPIFunction/screenshots/NodeAPIFunction2.png" desc="Provided by code/DocsSample/ArkTS"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPILifeCycle/screenshots/NodeAPILifeCycle1.png" desc="Provided by code/DocsSample/ArkTS"/>
-				<filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPILifeCycle/screenshots/NodeAPILifeCycle2.png" desc="Provided by code/DocsSample/ArkTS"/>				
-				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/video_trimmer.gif" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>	
+				<filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPILifeCycle/screenshots/NodeAPILifeCycle2.png" desc="Provided by code/DocsSample/ArkTS"/>
+				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/video_trimmer.gif" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/images/bind.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/images/copy_url.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/images/past_url.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/images/permission.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/images/prop.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/images/setUrl.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
-				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/hfs.exe" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>				
+				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/environment/hfs.exe" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/AppScope/resources/base/media/app_icon.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/background.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
-				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>	
-				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>				
+				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
+				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_autoplay_preview1.jpg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_autoplay_preview2.jpg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_autoplay_preview3.jpg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
@@ -2177,7 +2189,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_chat.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_thumb_handle.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_time.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
-				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_user.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>				
+				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_user.png" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_user_lock.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_study_on.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_short_on.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
@@ -2185,7 +2197,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_mine_on.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_mine_off.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_explore_on.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
-				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_explore_off.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>		
+				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_explore_off.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_conference_on.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_conference_off.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_tab_challenge_on.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
@@ -2200,7 +2212,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_download.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_delete.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_trimmer_address.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
-				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_list_autoplay_cancel_filled.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>				
+				<filteritem type="filepath" name="code/BasicFeature/Media/VideoTrimmer/entry/src/main/resources/base/media/video_list_autoplay_cancel_filled.svg" desc="Provide by code/BasicFeature/Media/VideoTrimmer"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/AudioToVideoSync/screenshots/device/play.png" desc="Provide by code/BasicFeature/Media/AudioToVideoSync"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/AudioToVideoSync/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/BasicFeature/Media/AudioToVideoSync"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/AudioToVideoSync/screenshots/device/ATVS_Index.png" desc="Provide by code/BasicFeature/Media/AudioToVideoSync"/>
@@ -2399,7 +2411,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/SuperFeature/Widget/ArkTSCard/CardInteractionCase/screenshots/devices/Case.jpg" desc="Provide by code/SuperFeature/Widget/ArkTSCard/CardInteractionCase"/>
 				<filteritem type="filepath" name="code/SuperFeature/Widget/ArkTSCard/CardInteractionCase/screenshots/devices/Widget.jpg" desc="Provide by code/SuperFeature/Widget/ArkTSCard/CardInteractionCase"/>
 	            <filteritem type="filepath" name="code/UI/CustomAnimationTab/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/UI/CustomAnimationTab"/>
-				<filteritem type="filepath" name="code/UI/CustomAnimationTab/src/main/resources/base/media/customanimationtabs_example3.jpg" desc="Provided by code/UI/CustomAnimationTab"/>	
+				<filteritem type="filepath" name="code/UI/CustomAnimationTab/src/main/resources/base/media/customanimationtabs_example3.jpg" desc="Provided by code/UI/CustomAnimationTab"/>
 				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/src/customanimationtabs.gif" desc="Provided by code/UI/CustomAnimationTab"/>
 				<filteritem type="filepath" name="code/UI/CustomAnimationTab/src/main/resources/base/media/customanimationtabs_eq.jpg" desc="Provided by code/UI/CustomAnimationTab"/>
 				<filteritem type="filepath" name="code/UI/CustomAnimationTab/entry/src/main/resources/base/media/background.png" desc="Provided by code/UI/CustomAnimationTab"/>
@@ -2409,9 +2421,9 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/src/main/resources/base/media/customanimationtabs_example4.jpg" desc="Provided by code/UI/CustomAnimationTab"/>
 				<filteritem type="filepath" name="code/UI/CustomAnimationTab/AppScope/resources/base/media/app_icon.png" desc="Provided by code/UI/CustomAnimationTab"/>
 				<filteritem type="filepath" name="code/UI/CustomAnimationTab/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/UI/CustomAnimationTab"/>
-				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/src/main/resources/base/media/customanimationtabs_example3.jpg" desc="Provided by code/UI/CustomAnimationTab"/>	
-				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/customanimationtabs.gif" desc="Provided by code/UI/CustomAnimationTab"/>		
-				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/src/main/resources/base/media/customanimationtabs_eq.jpg" desc="Provided by code/UI/CustomAnimationTab"/>	
+				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/src/main/resources/base/media/customanimationtabs_example3.jpg" desc="Provided by code/UI/CustomAnimationTab"/>
+				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/customanimationtabs.gif" desc="Provided by code/UI/CustomAnimationTab"/>
+				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/src/main/resources/base/media/customanimationtabs_eq.jpg" desc="Provided by code/UI/CustomAnimationTab"/>
 				<filteritem type="filepath" name="code/UI/CustomAnimationTab/customanimationtab/src/main/resources/base/media/customanimationtabs_example1.jpg" desc="Provided by code/UI/CustomAnimationTab"/>
 				<filteritem type="filepath" name="code/UI/SearchComponent/AppScope/resources/base/media/app_icon.png" desc="Provide by code/UI/SearchComponent"/>
 				<filteritem type="filepath" name="code/UI/SearchComponent/entry/src/main/resources/base/media/background.png" desc="Provide by code/UI/SearchComponent"/>
@@ -2465,6 +2477,9 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/KeyGenerationConversion/RandomlyGenerateSymmetricKey/screenshots/RandomlyGenerateSymmetricKey2.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/KeyGenerationConversion/RandomlyGenerateSymmetricKeyArkTS/screenshots/RandomlyGenerateSymmetricKeyArkTS1.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/KeyGenerationConversion/RandomlyGenerateSymmetricKeyArkTS/screenshots/RandomlyGenerateSymmetricKeyArkTS2.png" desc="Provided by code/DocsSample/Security"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/InAppCustomKeyboard/screenshots/devices/main.jpg" desc="Provided by code/DocsSample/InputMethod"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/InAppCustomKeyboard/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/InputMethod"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/InAppCustomKeyboard/entry/src/main/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/InputMethod"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/KeyGenerationConversion/SpecifiedParametersGenerateAsymmetricKeyPair/screenshots/SpecifiedParametersGenerateAsymmetricKeyPair1.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/KeyGenerationConversion/SpecifiedParametersGenerateAsymmetricKeyPair/screenshots/SpecifiedParametersGenerateAsymmetricKeyPair2.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/KeyNegotiation/screenshots/KeyNegotiation1.png" desc="Provided by code/DocsSample/Security"/>
@@ -2474,7 +2489,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/MessageDigestComputation/screenshots/MessageDigestComputation1.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/MessageDigestComputation/screenshots/MessageDigestComputation2.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/SecureRandomNumberGeneration/screenshots/SecureRandomNumberGeneration1.png" desc="Provided by code/DocsSample/Security"/>
-				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/SecureRandomNumberGeneration/screenshots/SecureRandomNumberGeneration2.png" desc="Provided by code/DocsSample/Security"/>				
+				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/SecureRandomNumberGeneration/screenshots/SecureRandomNumberGeneration2.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/SignatureVerification/SigningSignatureVerification/screenshots/SigningSignatureVerification1.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/SignatureVerification/SigningSignatureVerification/screenshots/SigningSignatureVerification2.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/CryptoArchitectureKit/SignatureVerification/SigningSignatureVerificationArkTs/screenshots/SigningSignatureVerificationArkTs1.png" desc="Provided by code/DocsSample/Security"/>

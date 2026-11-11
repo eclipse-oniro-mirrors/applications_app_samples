@@ -40,7 +40,7 @@ export class PlaybackSessionController {
   private generation: number = 0;
   private listenerRegistered: boolean = false;
   private stopTask: Promise<void> | undefined = undefined;
-  // AVSession 未激活时暂存最新播放状态，激活后再同步给系统媒体控件。
+  // AVSession未激活时暂存最新播放状态，激活后再同步给系统媒体控件。
   private pendingPlaybackState: avSession.AVPlaybackState | undefined = undefined;
 
   async start(context: common.UIAbilityContext, media: PlaybackSessionMedia,

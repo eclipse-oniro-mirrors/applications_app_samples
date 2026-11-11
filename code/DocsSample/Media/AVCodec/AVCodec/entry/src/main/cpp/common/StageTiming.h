@@ -34,7 +34,7 @@ struct StageTimingInfo {
     double maximumMs = 0;
 };
 
-// 调用方负责同步。平均值和最大值覆盖全程，P95 只覆盖最近 256 次，避免长录制无限占用内存。
+// 调用方负责同步。平均值和最大值覆盖全程，P95只覆盖最近256次，避免长录制无限占用内存。
 class StageTiming {
 public:
     void Record(int64_t microseconds)

@@ -245,8 +245,8 @@ private:
     OperationFailure failure_;
     mutable std::mutex mutex_;
     PlaybackInfo completedPlaybackInfo_;
-    // 切换音轨会暂时释放 mutex_ 并等待音频线程退出。
-    // 此锁将该操作与 Stop()、Release() 串行，禁止并发销毁流水线。
+    // 切换音轨会暂时释放mutex_ 并等待音频线程退出。
+    // 此锁将该操作与Stop()、Release() 串行，禁止并发销毁流水线。
     std::mutex audioTrackOperationMutex_;
     std::atomic<bool> isStarted_ { false };
     std::atomic<bool> isReleased_ { false };
@@ -261,7 +261,7 @@ private:
     std::atomic<bool> audioDucked_ { false };
     std::atomic<bool> appBackgrounded_ { false };
     std::atomic<bool> backgroundPlaybackEnabled_ { false };
-    // 仅当后台播放关闭且播放器主动暂停时为 true，用于区分用户暂停与后台暂停。
+    // 仅当后台播放关闭且播放器主动暂停时为true，用于区分用户暂停与后台暂停。
     std::atomic<bool> backgroundPausedPlayback_ { false };
     std::atomic<bool> hasDecodedOutput_ { false };
     std::atomic<bool> stopRequested_ { false };
@@ -289,7 +289,7 @@ private:
     std::condition_variable doneCond_;
     std::mutex doneMutex;
     SampleInfo sampleInfo_;
-    // Surface 解码器配置后会持续使用该窗口；codec 销毁前保持引用，防止 XComponent 提前回收窗口。
+    // Surface解码器配置后会持续使用该窗口；codec销毁前保持引用，防止XComponent提前回收窗口。
     NativeXComponentSample::PluginManager::PluginWindowLease decoderWindowLease_;
     MediaInfo mediaInfo_;
     std::unique_ptr<CodecUserData> videoDecContext_ = nullptr;

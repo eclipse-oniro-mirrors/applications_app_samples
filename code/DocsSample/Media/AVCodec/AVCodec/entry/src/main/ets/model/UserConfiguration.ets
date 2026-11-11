@@ -18,6 +18,16 @@ import { CameraDataModel } from './CameraDataModel';
 import { RecorderPreprocessModel } from './RecorderPreprocessModel';
 import { ConfigurationSnapshot } from './ConfigurationStore';
 import { DumpPolicyModel } from './DumpPolicyModel';
+import { CommonConstants as Const } from '../common/CommonConstants';
+
+// 各代数组快照的字段数。新增字段只追加到末尾，保留旧配置兼容性。
+const RECORDER_BASE_FIELDS: number = 22;
+const RECORDER_STORAGE_FIELDS: number = 23;
+const RECORDER_SEGMENT_FIELDS: number = 25;
+const RECORDER_BUFFER_FIELDS: number = 26;
+const SHORT_SEGMENT_SECONDS: number = 60;
+const MEDIUM_SEGMENT_SECONDS: number = 180;
+const LONG_SEGMENT_SECONDS: number = 300;
 
 export class UserConfiguration {
   static capture(player: PlayerSettingsModel, recorder: CameraDataModel): ConfigurationSnapshot {
@@ -32,7 +42,7 @@ export class UserConfiguration {
         recorder.audioBitRate, recorder.audioCaptureLatencyMode, recorder.videoStabilizationMode,
         recorder.preprocMode, recorder.cropPercent, recorder.downsamplingTargetHeight, recorder.secondaryTargetHeight,
         recorder.dropToFrameRate, Number(recorder.enableDualOutput), Number(recorder.enableVideoDump),
-        Number(recorder.stopOnLowSpace), recorder.segmentSeconds, recorder.segmentMiB],
+        Number(recorder.stopOnLowSpace), recorder.segmentSeconds, recorder.segmentMiB, Number(recorder.bufferInput)],
       dump: [DumpPolicyModel.maxMiB, DumpPolicyModel.maxSeconds]
     };
   }
@@ -77,8 +87,9 @@ export class UserConfiguration {
       recorder.enableDualOutput = r[20] === 1;
       recorder.enableVideoDump = r[21] === 1;
       recorder.stopOnLowSpace = r.length >= 23 && r[22] === 1;
-      recorder.segmentSeconds = r.length === 25 && r[0] === 2 ? r[23] : 0;
-      recorder.segmentMiB = r.length === 25 && r[0] === 2 ? r[24] : 0;
+      recorder.segmentSeconds = r.length >= RECORDER_SEGMENT_FIELDS && r[0] === Const.FORMAT_MP4 ? r[23] : 0;
+      recorder.segmentMiB = r.length >= RECORDER_SEGMENT_FIELDS && r[0] === Const.FORMAT_MP4 ? r[24] : 0;
+      recorder.bufferInput = r.length === RECORDER_BUFFER_FIELDS && r[25] === 1;
       RecorderPreprocessModel.apply(recorder);
     }
     if (snapshot.dump.length === 2 &&
@@ -93,7 +104,7 @@ export class UserConfiguration {
     const player = new PlayerSettingsModel();
     const recorder = new CameraDataModel();
     if (index === 1) {
-      // Buffer 检查只改变链路，不自动开启可能占用大量空间的裸帧 Dump。
+      // Buffer检查只改变链路，不自动开启可能占用大量空间的裸帧Dump。
       player.videoDecoderRunMode = 1;
     } else if (index === 2) {
       recorder.setResolution(1280, 720, 10000000);
@@ -116,8 +127,17 @@ export class UserConfiguration {
   }
 
   private static validRecorder(r: number[]): boolean {
-    return (r.length === 22 || r.length === 23 || r.length === 25) && UserConfiguration.integers(r) &&
-      (r.length !== 25 || (UserConfiguration.choice(r[23], [0, 60, 180, 300]) &&
+    const bufferResolution: boolean =
+      (r[3] === Const.VIDEO_WIDTH_720P && r[4] === Const.VIDEO_HEIGHT_720P) ||
+      (r[3] === Const.VIDEO_WIDTH_1080P && r[4] === Const.VIDEO_HEIGHT_1080P);
+    return (r.length === RECORDER_BASE_FIELDS || r.length === RECORDER_STORAGE_FIELDS ||
+      r.length === RECORDER_SEGMENT_FIELDS || r.length === RECORDER_BUFFER_FIELDS) &&
+      UserConfiguration.integers(r) &&
+      (r.length !== RECORDER_BUFFER_FIELDS || (UserConfiguration.choice(r[25], [0, 1]) && (r[25] === 0 ||
+        (r[1] === 0 && bufferResolution && r[5] === Const.RECORDER_BUFFER_FRAME_RATE &&
+          r[15] === 0 && r[19] === 0 && r[20] === 0)))) &&
+      (r.length < RECORDER_SEGMENT_FIELDS || (UserConfiguration.choice(r[23],
+        [0, SHORT_SEGMENT_SECONDS, MEDIUM_SEGMENT_SECONDS, LONG_SEGMENT_SECONDS]) &&
         UserConfiguration.choice(r[24], [0, 256, 512, 1024]))) &&
       (r.length === 22 || UserConfiguration.choice(r[22], [0, 1])) &&
       UserConfiguration.choice(r[0], [2, 14]) && UserConfiguration.choice(r[1], [0, 1]) &&

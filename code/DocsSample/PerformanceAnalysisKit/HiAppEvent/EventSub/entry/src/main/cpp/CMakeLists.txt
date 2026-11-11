@@ -12,6 +12,7 @@ include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
 
 # [Start eventsub_cmake_code]
+# [Start hicoliesub_cmake_code]
 set(GZ_FILE "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/jsoncpp/src/jsoncpp-1.9.6.tar.gz")
 set(DEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../build")
 # 检查是否存在entry/build目录
@@ -29,3 +30,4 @@ target_include_directories(entry PRIVATE ${DEST_DIR}/jsoncpp-1.9.6/include/json)
 # [End eventsub_cmake_code]
 # 新增动态库依赖libohhicollie.so（HiCollie对外检测接口）
 target_link_libraries(entry PUBLIC libohhicollie.so)
+# [End hicoliesub_cmake_code]
