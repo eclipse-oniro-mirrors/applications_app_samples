@@ -1,0 +1,1796 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "接续接口调用与运行诊断"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "调用接续接口，保存文本并查看运行结果"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "接续接口指南"
+    },
+    {
+      "name": "distributed_datasync_reason",
+      "value": "用于跨设备应用接续，在设备之间同步当前业务状态"
+    },
+    {
+      "name": "official_doc_url",
+      "value": "https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-continueManager.md"
+    },
+    {
+      "name": "ac_learningui_001",
+      "value": "失败 · ERROR"
+    },
+    {
+      "name": "ac_learningui_002",
+      "value": "警告 · WARN"
+    },
+    {
+      "name": "ac_learningui_003",
+      "value": "信息 · INFO"
+    },
+    {
+      "name": "ac_learningui_004",
+      "value": "已复制到剪贴板。"
+    },
+    {
+      "name": "ac_learningui_005",
+      "value": "复制失败：{0}"
+    },
+    {
+      "name": "ac_learningui_006",
+      "value": "剪贴板不可用：{0}"
+    },
+    {
+      "name": "ac_learningui_007",
+      "value": "取消"
+    },
+    {
+      "name": "ac_learningui_008",
+      "value": "确认"
+    },
+    {
+      "name": "ac_learningui_009",
+      "value": "已取消。"
+    },
+    {
+      "name": "ac_learningui_010",
+      "value": "确认操作失败：{0}"
+    },
+    {
+      "name": "ac_learningui_011",
+      "value": "确认框显示失败：{0}"
+    },
+    {
+      "name": "ac_learningui_012",
+      "value": "未打开主页面：{0}"
+    },
+    {
+      "name": "ac_learningui_013",
+      "value": "导航不可用：{0}"
+    },
+    {
+      "name": "ac_learningui_014",
+      "value": "平台返回字段（已脱敏）"
+    },
+    {
+      "name": "ac_learningui_015",
+      "value": "收起"
+    },
+    {
+      "name": "ac_learningui_016",
+      "value": "展开"
+    },
+    {
+      "name": "ac_learningui_017",
+      "value": "提示"
+    },
+    {
+      "name": "ac_learningui_019",
+      "value": "（无 / 未提供）"
+    },
+    {
+      "name": "ac_learningui_020",
+      "value": "暂无已记录信息。"
+    },
+    {
+      "name": "ac_learningui_021",
+      "value": "尚未检查环境。"
+    },
+    {
+      "name": "ac_learningui_022",
+      "value": "暂无事件。"
+    },
+    {
+      "name": "ac_learningui_023",
+      "value": "查看详情"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_002",
+      "value": "接续详情"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_003",
+      "value": "系统结果：{0}"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_004",
+      "value": "窗口：{0}"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_005",
+      "value": "业务定位：{0}"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_006",
+      "value": "已接受，仍等待全部门控"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_007",
+      "value": "接受接续版本"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_008",
+      "value": "保留本机并取消本轮"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_009",
+      "value": "重试业务定位"
+    },
+    {
+      "name": "ac_scenecontinuationstatus_010",
+      "value": "取消本轮并保留本机"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_001",
+      "value": "系统接续在途或运行时已释放，请稍后重新生成和预览。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_002",
+      "value": "业务状态已变化，请重新生成备份或校验预览。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_003",
+      "value": "运行时尚未初始化，请稍后重试。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_004",
+      "value": "导入文本已变更，请校验并预览后再恢复。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_005",
+      "value": "请至少选择一个恢复场景。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_006",
+      "value": "恢复范围已变更，请重新校验并预览。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_007",
+      "value": "请至少选择一个恢复场景。生成和复制仍包含完整业务工作区。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_008",
+      "value": "恢复范围：{0}；"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_009",
+      "value": "未选场景及其未保存草稿保留，不随本次写盘。生成备份始终包含完整工作区。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_011",
+      "value": "已取消恢复预览。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_012",
+      "value": "将替换所选场景中未保存的业务修改。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_013",
+      "value": "恢复本地业务工作区？"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_014",
+      "value": "{0}仅替换{1}及其历史；"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_015",
+      "value": "未选场景与原文本学习区不受影响。建议先主动导出本机备份。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_016",
+      "value": "恢复预览已过期，请重新校验并预览。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_017",
+      "value": "本地恢复未完成，当前状态请重新检查；未回显备份内容。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_018",
+      "value": "复制未加密业务备份？"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_019",
+      "value": "副本含当前草稿、姓名电话地址及历史版本。只设置本机剪贴板分享范围，不会自动上传；请自行妥善保管和清除副本。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_020",
+      "value": "正在等待本机剪贴板复制结果…"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_021",
+      "value": "备份复制未完成；业务状态保持不变。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_022",
+      "value": "当前不能继续业务场景，请先结束接续或检查草稿状态。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_023",
+      "value": "已保留其它未保存草稿，继续{0}。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_024",
+      "value": "业务页面未打开；所有未保存草稿仍保留。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_026",
+      "value": "收起备份与恢复"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_027",
+      "value": "备份与恢复"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_028",
+      "value": "保存笔记、阅读与表单的草稿和历史。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_029",
+      "value": "生成备份"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_030",
+      "value": "复制备份"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_031",
+      "value": "已生成 {0} 字符，预览前512字符。副本未加密，请妥善保管。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_032",
+      "value": "选择恢复内容"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_033",
+      "value": "笔记"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_034",
+      "value": "阅读"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_035",
+      "value": "表单"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_036",
+      "value": "粘贴完整备份，再校验预览"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_037",
+      "value": "输入 {0}/{1} 字符；超限只拒绝，不截断后恢复。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_038",
+      "value": "校验预览"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_039",
+      "value": "恢复备份"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_040",
+      "value": "取消预览"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_041",
+      "value": "继续编辑，保留其它未保存草稿。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_042",
+      "value": "继续笔记"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_043",
+      "value": "继续阅读"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_044",
+      "value": "继续表单"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_045",
+      "value": "尚未预览；校验和取消均不会写入业务存储。"
+    },
+    {
+      "name": "ac_sceneworkspacebackup_046",
+      "value": "准备就绪。"
+    },
+    {
+      "name": "ac_calldetailpage_001",
+      "value": "运行对象正在初始化，操作详情加载中。"
+    },
+    {
+      "name": "ac_calldetailpage_002",
+      "value": "当前未找到这条记录，请前往诊断中心查看现有记录。"
+    },
+    {
+      "name": "ac_calldetailpage_003",
+      "value": "当前暂无可复制的操作摘要。"
+    },
+    {
+      "name": "ac_calldetailpage_004",
+      "value": "返回失败：{0}"
+    },
+    {
+      "name": "ac_calldetailpage_005",
+      "value": "调用详情"
+    },
+    {
+      "name": "ac_calldetailpage_007",
+      "value": "未找到记录"
+    },
+    {
+      "name": "ac_calldetailpage_008",
+      "value": "返回诊断中心"
+    },
+    {
+      "name": "ac_calldetailpage_009",
+      "value": "结果"
+    },
+    {
+      "name": "ac_calldetailpage_010",
+      "value": "阶段 / 级别"
+    },
+    {
+      "name": "ac_calldetailpage_011",
+      "value": "开始 / 结束"
+    },
+    {
+      "name": "ac_calldetailpage_012",
+      "value": "进行中"
+    },
+    {
+      "name": "ac_calldetailpage_013",
+      "value": "耗时"
+    },
+    {
+      "name": "ac_calldetailpage_014",
+      "value": "返回结果"
+    },
+    {
+      "name": "ac_calldetailpage_015",
+      "value": "错误码"
+    },
+    {
+      "name": "ac_calldetailpage_016",
+      "value": "错误信息"
+    },
+    {
+      "name": "ac_calldetailpage_017",
+      "value": "结果状态"
+    },
+    {
+      "name": "ac_calldetailpage_018",
+      "value": "结果信息"
+    },
+    {
+      "name": "ac_calldetailpage_019",
+      "value": "复制返回结果"
+    },
+    {
+      "name": "ac_calldetailpage_020",
+      "value": "诊断信息"
+    },
+    {
+      "name": "ac_calldetailpage_021",
+      "value": "操作记录"
+    },
+    {
+      "name": "ac_calldetailpage_022",
+      "value": "结果说明"
+    },
+    {
+      "name": "ac_calldetailpage_023",
+      "value": "建议"
+    },
+    {
+      "name": "ac_calldetailpage_024",
+      "value": "复制诊断摘要"
+    },
+    {
+      "name": "ac_calldetailpage_025",
+      "value": "更多信息"
+    },
+    {
+      "name": "ac_calldetailpage_026",
+      "value": "收起环境信息"
+    },
+    {
+      "name": "ac_calldetailpage_027",
+      "value": "查看环境信息"
+    },
+    {
+      "name": "ac_calldetailpage_028",
+      "value": "收起事件记录"
+    },
+    {
+      "name": "ac_calldetailpage_029",
+      "value": "查看事件记录（{0}）"
+    },
+    {
+      "name": "ac_calldetailpage_030",
+      "value": "返回调用"
+    },
+    {
+      "name": "ac_calldetailpage_031",
+      "value": "返回"
+    },
+    {
+      "name": "ac_formscenepage_001",
+      "value": "返回工作台"
+    },
+    {
+      "name": "ac_formscenepage_002",
+      "value": "表单草稿"
+    },
+    {
+      "name": "ac_formscenepage_003",
+      "value": "步骤 {0}：{1}"
+    },
+    {
+      "name": "ac_formscenepage_004",
+      "value": "姓名"
+    },
+    {
+      "name": "ac_formscenepage_005",
+      "value": "手机号"
+    },
+    {
+      "name": "ac_formscenepage_006",
+      "value": "地址"
+    },
+    {
+      "name": "ac_formscenepage_007",
+      "value": "备注（可留空）"
+    },
+    {
+      "name": "ac_formscenepage_008",
+      "value": "确认以上信息无误"
+    },
+    {
+      "name": "ac_formscenepage_009",
+      "value": "本步校验：{0}"
+    },
+    {
+      "name": "ac_formscenepage_010",
+      "value": "通过"
+    },
+    {
+      "name": "ac_formscenepage_011",
+      "value": "整表待完善 {0} 项"
+    },
+    {
+      "name": "ac_formscenepage_012",
+      "value": "上一步"
+    },
+    {
+      "name": "ac_formscenepage_013",
+      "value": "下一步"
+    },
+    {
+      "name": "ac_formscenepage_014",
+      "value": "保存草稿"
+    },
+    {
+      "name": "ac_formscenepage_015",
+      "value": "校验并确认完成"
+    },
+    {
+      "name": "ac_formscenepage_016",
+      "value": "已确认完成（仅本地示例，不发送服务器）"
+    },
+    {
+      "name": "ac_formscenepage_017",
+      "value": "尚未确认完成"
+    },
+    {
+      "name": "ac_index_001",
+      "value": "全部"
+    },
+    {
+      "name": "ac_index_003",
+      "value": "选择区暂未恢复：{0}"
+    },
+    {
+      "name": "ac_index_004",
+      "value": "文本更新未完成：{0}"
+    },
+    {
+      "name": "ac_index_005",
+      "value": "选择区更新未完成：{0}"
+    },
+    {
+      "name": "ac_index_006",
+      "value": "正在初始化，请稍后重试。"
+    },
+    {
+      "name": "ac_index_007",
+      "value": "操作未完成：{0}"
+    },
+    {
+      "name": "ac_index_008",
+      "value": "Ability 正在初始化"
+    },
+    {
+      "name": "ac_index_009",
+      "value": "页面未打开：{0}"
+    },
+    {
+      "name": "ac_index_010",
+      "value": "页面不可用：{0}"
+    },
+    {
+      "name": "ac_index_011",
+      "value": "正在初始化，请稍后复制摘要。"
+    },
+    {
+      "name": "ac_index_012",
+      "value": "官方文档暂时无法打开，请稍后重试。"
+    },
+    {
+      "name": "ac_index_013",
+      "value": "文档打开失败：{0}"
+    },
+    {
+      "name": "ac_index_015",
+      "value": "用示例替换文本？"
+    },
+    {
+      "name": "ac_index_016",
+      "value": "将替换当前文本和选择区。"
+    },
+    {
+      "name": "ac_index_017",
+      "value": "文本已经为空。"
+    },
+    {
+      "name": "ac_index_018",
+      "value": "清空文本？"
+    },
+    {
+      "name": "ac_index_019",
+      "value": "将清空文本和选择区，并更新本机保存。"
+    },
+    {
+      "name": "ac_index_020",
+      "value": "清空记录？"
+    },
+    {
+      "name": "ac_index_021",
+      "value": "将清除操作记录，保留当前状态和文本。"
+    },
+    {
+      "name": "ac_index_023",
+      "value": "失败"
+    },
+    {
+      "name": "ac_index_024",
+      "value": "警告"
+    },
+    {
+      "name": "ac_index_026",
+      "value": "系统"
+    },
+    {
+      "name": "ac_index_027",
+      "value": "等待 Ability 初始化"
+    },
+    {
+      "name": "ac_index_028",
+      "value": "应用接续"
+    },
+    {
+      "name": "ac_index_029",
+      "value": "调用接续接口，保存文本并查看运行结果。"
+    },
+    {
+      "name": "ac_index_030",
+      "value": "主要功能"
+    },
+    {
+      "name": "ac_index_031",
+      "value": "接口调用"
+    },
+    {
+      "name": "ac_index_032",
+      "value": "检查运行环境，注册或注销结果监听。"
+    },
+    {
+      "name": "ac_index_033",
+      "value": "文本接续"
+    },
+    {
+      "name": "ac_index_034",
+      "value": "编辑和保存文本，接续后恢复文本与选择区。"
+    },
+    {
+      "name": "ac_index_035",
+      "value": "调用诊断"
+    },
+    {
+      "name": "ac_index_036",
+      "value": "查看操作结果、错误信息和过程记录。"
+    },
+    {
+      "name": "ac_index_037",
+      "value": "开始使用"
+    },
+    {
+      "name": "ac_index_038",
+      "value": "官方文档"
+    },
+    {
+      "name": "ac_index_039",
+      "value": "接续工作台"
+    },
+    {
+      "name": "ac_index_040",
+      "value": "查看过程"
+    },
+    {
+      "name": "ac_index_044",
+      "value": "文档切换冲突"
+    },
+    {
+      "name": "ac_index_045",
+      "value": "版本冲突"
+    },
+    {
+      "name": "ac_index_046",
+      "value": "已记录选择，等待快速结果与页面门控"
+    },
+    {
+      "name": "ac_index_047",
+      "value": "接续版本尚未覆盖本机正文"
+    },
+    {
+      "name": "ac_index_048",
+      "value": "接受决定已记录；在系统快速结果与本页面就绪前不会写入。"
+    },
+    {
+      "name": "ac_index_050",
+      "value": "保留本机版本"
+    },
+    {
+      "name": "ac_index_051",
+      "value": "文本"
+    },
+    {
+      "name": "ac_index_052",
+      "value": "输入文本…"
+    },
+    {
+      "name": "ac_index_053",
+      "value": "长度 / 选择区"
+    },
+    {
+      "name": "ac_index_054",
+      "value": "保存状态"
+    },
+    {
+      "name": "ac_index_055",
+      "value": "保存本机"
+    },
+    {
+      "name": "ac_index_056",
+      "value": "收起更多操作"
+    },
+    {
+      "name": "ac_index_057",
+      "value": "更多文本操作"
+    },
+    {
+      "name": "ac_index_058",
+      "value": "文档 / 修订"
+    },
+    {
+      "name": "ac_index_059",
+      "value": "首次保存后启用 v2 载荷"
+    },
+    {
+      "name": "ac_index_060",
+      "value": "填入示例"
+    },
+    {
+      "name": "ac_index_061",
+      "value": "另存为新文档（保留正文）"
+    },
+    {
+      "name": "ac_index_062",
+      "value": "另存为新文档？"
+    },
+    {
+      "name": "ac_index_063",
+      "value": "保存当前内容并从 r1 建立独立身份；旧修订不再沿用。"
+    },
+    {
+      "name": "ac_index_064",
+      "value": "清空文本"
+    },
+    {
+      "name": "ac_index_065",
+      "value": "接续设置"
+    },
+    {
+      "name": "ac_index_066",
+      "value": "收起设置"
+    },
+    {
+      "name": "ac_index_067",
+      "value": "监听与运行环境"
+    },
+    {
+      "name": "ac_index_068",
+      "value": "启动"
+    },
+    {
+      "name": "ac_index_069",
+      "value": "监听"
+    },
+    {
+      "name": "ac_index_070",
+      "value": "注册监听 on"
+    },
+    {
+      "name": "ac_index_071",
+      "value": "注销监听 off"
+    },
+    {
+      "name": "ac_index_072",
+      "value": "检查环境"
+    },
+    {
+      "name": "ac_index_075",
+      "value": "申请分布式权限"
+    },
+    {
+      "name": "ac_index_076",
+      "value": "诊断中心"
+    },
+    {
+      "name": "ac_index_077",
+      "value": "最近结果"
+    },
+    {
+      "name": "ac_index_081",
+      "value": "暂无结果"
+    },
+    {
+      "name": "ac_index_083",
+      "value": "{0} 条"
+    },
+    {
+      "name": "ac_index_089",
+      "value": "暂无记录"
+    },
+    {
+      "name": "ac_index_090",
+      "value": "复制摘要"
+    },
+    {
+      "name": "ac_index_091",
+      "value": "清空记录"
+    },
+    {
+      "name": "ac_index_092",
+      "value": "载荷协议"
+    },
+    {
+      "name": "ac_index_093",
+      "value": "准入规则"
+    },
+    {
+      "name": "ac_index_094",
+      "value": "冲突策略"
+    },
+    {
+      "name": "ac_index_095",
+      "value": "场景与校验"
+    },
+    {
+      "name": "ac_index_097",
+      "value": "v{0}｜{1}｜解码{2}｜{3}"
+    },
+    {
+      "name": "ac_index_098",
+      "value": "成功"
+    },
+    {
+      "name": "ac_index_100",
+      "value": "转义样例：{0}"
+    },
+    {
+      "name": "ac_index_101",
+      "value": "载荷上限 {0} 字符"
+    },
+    {
+      "name": "ac_index_107",
+      "value": "隔离校验：{0}"
+    },
+    {
+      "name": "ac_index_108",
+      "value": "隔离规则 {0} 条｜允许多份的类别 {1} 类"
+    },
+    {
+      "name": "ac_index_109",
+      "value": "类型"
+    },
+    {
+      "name": "ac_index_111",
+      "value": "预算科目"
+    },
+    {
+      "name": "ac_index_112",
+      "value": "备注"
+    },
+    {
+      "name": "ac_index_113",
+      "value": "可见字段 {0}｜必填未完成 {1}"
+    },
+    {
+      "name": "ac_index_114",
+      "value": "分支规则 {0} 条｜需明细但未满足 {1} 个"
+    },
+    {
+      "name": "ac_index_115",
+      "value": "标题"
+    },
+    {
+      "name": "ac_index_119",
+      "value": "正文"
+    },
+    {
+      "name": "ac_index_123",
+      "value": "标签"
+    },
+    {
+      "name": "ac_index_126",
+      "value": "目标页面缺失可执行动作 {0} 个"
+    },
+    {
+      "name": "ac_index_127",
+      "value": "文档工作区"
+    },
+    {
+      "name": "ac_index_128",
+      "value": "多文档隔离"
+    },
+    {
+      "name": "ac_index_129",
+      "value": "笔记 / 表单 / 阅读进度各自独立"
+    },
+    {
+      "name": "ac_index_130",
+      "value": "可中断表单"
+    },
+    {
+      "name": "ac_index_131",
+      "value": "字段级合并预览"
+    },
+    {
+      "name": "ac_index_132",
+      "value": "三方取值逐字段确认"
+    },
+    {
+      "name": "ac_index_133",
+      "value": "恢复失败后的继续操作"
+    },
+    {
+      "name": "ac_index_134",
+      "value": "写入不确定时先读回再决定"
+    },
+    {
+      "name": "ac_index_136",
+      "value": "介绍"
+    },
+    {
+      "name": "ac_index_137",
+      "value": "工作台"
+    },
+    {
+      "name": "ac_index_138",
+      "value": "记录"
+    },
+    {
+      "name": "ac_index_139",
+      "value": "协议"
+    },
+    {
+      "name": "ac_index_140",
+      "value": "示例"
+    },
+    {
+      "name": "ac_notescenepage_002",
+      "value": "笔记草稿"
+    },
+    {
+      "name": "ac_notescenepage_003",
+      "value": "标题（最多80字）"
+    },
+    {
+      "name": "ac_notescenepage_004",
+      "value": "写下想继续编辑的内容"
+    },
+    {
+      "name": "ac_notescenepage_005",
+      "value": "选区 [{0}, {1})"
+    },
+    {
+      "name": "ac_notescenepage_006",
+      "value": "保存笔记"
+    },
+    {
+      "name": "ac_notescenepage_007",
+      "value": "放弃修改"
+    },
+    {
+      "name": "ac_notescenepage_008",
+      "value": "收起历史版本"
+    },
+    {
+      "name": "ac_notescenepage_009",
+      "value": "历史版本（{0}）"
+    },
+    {
+      "name": "ac_notescenepage_010",
+      "value": "恢复历史会生成新修订。"
+    },
+    {
+      "name": "ac_processpage_001",
+      "value": "停止本地等待？"
+    },
+    {
+      "name": "ac_processpage_002",
+      "value": "结束当前等待并清理监听？"
+    },
+    {
+      "name": "ac_processpage_003",
+      "value": "运行对象正在初始化，请稍后重试。"
+    },
+    {
+      "name": "ac_processpage_004",
+      "value": "已停止本地等待，监听清理结果见诊断。"
+    },
+    {
+      "name": "ac_processpage_005",
+      "value": "停止请求未完成：{0}"
+    },
+    {
+      "name": "ac_processpage_006",
+      "value": "未打开本轮诊断：{0}"
+    },
+    {
+      "name": "ac_processpage_007",
+      "value": "本轮诊断导航不可用：{0}"
+    },
+    {
+      "name": "ac_processpage_009",
+      "value": "接续过程"
+    },
+    {
+      "name": "ac_processpage_011",
+      "value": "当前状态"
+    },
+    {
+      "name": "ac_processpage_012",
+      "value": "接续"
+    },
+    {
+      "name": "ac_processpage_015",
+      "value": "恢复进度"
+    },
+    {
+      "name": "ac_processpage_016",
+      "value": "快速拉起"
+    },
+    {
+      "name": "ac_processpage_017",
+      "value": "业务数据"
+    },
+    {
+      "name": "ac_processpage_018",
+      "value": "窗口"
+    },
+    {
+      "name": "ac_processpage_019",
+      "value": "实际业务定位"
+    },
+    {
+      "name": "ac_processpage_020",
+      "value": "状态恢复"
+    },
+    {
+      "name": "ac_processpage_021",
+      "value": "已完成"
+    },
+    {
+      "name": "ac_processpage_022",
+      "value": "尚未提交"
+    },
+    {
+      "name": "ac_processpage_023",
+      "value": "重试实际业务页定位"
+    },
+    {
+      "name": "ac_processpage_024",
+      "value": "已接受，等待所有门控"
+    },
+    {
+      "name": "ac_processpage_026",
+      "value": "保留本机并取消"
+    },
+    {
+      "name": "ac_processpage_027",
+      "value": "恢复摘要"
+    },
+    {
+      "name": "ac_processpage_028",
+      "value": "事件记录"
+    },
+    {
+      "name": "ac_processpage_029",
+      "value": "收起事件"
+    },
+    {
+      "name": "ac_processpage_030",
+      "value": "查看事件（{0}）"
+    },
+    {
+      "name": "ac_processpage_031",
+      "value": "停止等待"
+    },
+    {
+      "name": "ac_processpage_032",
+      "value": "查看诊断"
+    },
+    {
+      "name": "ac_readingscenepage_002",
+      "value": "阅读进度"
+    },
+    {
+      "name": "ac_readingscenepage_003",
+      "value": "第 {0}/{1} 段"
+    },
+    {
+      "name": "ac_readingscenepage_004",
+      "value": "上一段"
+    },
+    {
+      "name": "ac_readingscenepage_005",
+      "value": "下一段"
+    },
+    {
+      "name": "ac_readingscenepage_006",
+      "value": "保存进度与书签"
+    },
+    {
+      "name": "ac_readingscenepage_007",
+      "value": "加书签"
+    },
+    {
+      "name": "ac_readingscenepage_008",
+      "value": "收起目录"
+    },
+    {
+      "name": "ac_readingscenepage_009",
+      "value": "章节目录"
+    },
+    {
+      "name": "ac_readingscenepage_010",
+      "value": "书签（{0}）"
+    },
+    {
+      "name": "ac_readingscenepage_011",
+      "value": "第{0}章 第{1}段"
+    },
+    {
+      "name": "ac_readingscenepage_012",
+      "value": "删除"
+    },
+    {
+      "name": "ac_scenariopage_003",
+      "value": "高风险场景 {0} 个"
+    },
+    {
+      "name": "ac_scenariopage_004",
+      "value": "字段规则 {0} 条，跨字段规则 {1} 条"
+    },
+    {
+      "name": "ac_scenariopage_005",
+      "value": "载荷版本 v{0}，示例编码 {1} 字符"
+    },
+    {
+      "name": "ac_scenariopage_006",
+      "value": "校验结论：{0}"
+    },
+    {
+      "name": "ac_scenariopage_007",
+      "value": "场景总数 {0}，形态 {1} 起"
+    },
+    {
+      "name": "ac_scenariopage_008",
+      "value": "字典字段 {0} 个，缺失映射 {1} 个"
+    },
+    {
+      "name": "ac_scenariopage_009",
+      "value": "网络退避：第 1 次 {0} ms，第 2 次 {1} ms，"
+    },
+    {
+      "name": "ac_scenariopage_010",
+      "value": "累计 {0} ms"
+    },
+    {
+      "name": "ac_scenariopage_011",
+      "value": "运行对象尚未初始化。"
+    },
+    {
+      "name": "ac_scenariopage_012",
+      "value": "当前不能切换业务场景。"
+    },
+    {
+      "name": "ac_scenariopage_015",
+      "value": "‹ 返回"
+    },
+    {
+      "name": "ac_scenariopage_017",
+      "value": "打开笔记场景"
+    },
+    {
+      "name": "ac_scenariopage_018",
+      "value": "打开阅读场景"
+    },
+    {
+      "name": "ac_scenariopage_019",
+      "value": "打开表单场景"
+    },
+    {
+      "name": "ac_scenariopage_020",
+      "value": "场景目录"
+    },
+    {
+      "name": "ac_scenariopage_021",
+      "value": "执行步骤"
+    },
+    {
+      "name": "ac_scenariopage_022",
+      "value": "校验规则"
+    },
+    {
+      "name": "ac_scenariopage_023",
+      "value": "示例载荷校验"
+    },
+    {
+      "name": "ac_scenariopage_024",
+      "value": "字段字典"
+    },
+    {
+      "name": "ac_scenariopage_025",
+      "value": "重试策略"
+    },
+    {
+      "name": "ac_types_off_contract",
+      "value": "本机 SDK API 26 将 off 第三参数定义为注销结果回调。本示例使用独立完成回调更新注销状态。"
+    },
+    {
+      "name": "ac_types_launch_wait",
+      "value": "等待 Ability 初始化"
+    },
+    {
+      "name": "ac_types_listener_none",
+      "value": "未注册"
+    },
+    {
+      "name": "ac_types_session_none",
+      "value": "尚未收到系统接续事件"
+    },
+    {
+      "name": "ac_types_quick_unneeded",
+      "value": "本轮不需要"
+    },
+    {
+      "name": "ac_types_data_pending",
+      "value": "尚未到达"
+    },
+    {
+      "name": "ac_types_window_pending",
+      "value": "未就绪"
+    },
+    {
+      "name": "ac_types_position_pending",
+      "value": "尚未定位业务内容"
+    },
+    {
+      "name": "ac_types_save_none",
+      "value": "尚未保存"
+    },
+    {
+      "name": "ac_types_environment_none",
+      "value": "尚未检查"
+    },
+    {
+      "name": "ac_types_runtime_wait",
+      "value": "等待 Ability 初始化运行时。"
+    },
+    {
+      "name": "ac_continueclient_001",
+      "value": "[地址已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_002",
+      "value": "[路径已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_004",
+      "value": "[标识已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_005",
+      "value": "[硬件地址已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_006",
+      "value": "[网络地址已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_008",
+      "value": "[长标识已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_009",
+      "value": "[长数字已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_010",
+      "value": "[敏感字段已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_011",
+      "value": "[引号内容已隐藏]"
+    },
+    {
+      "name": "ac_continueclient_012",
+      "value": "平台未提供可读错误消息。"
+    },
+    {
+      "name": "ac_continueclient_013",
+      "value": "已脱敏：{0}"
+    },
+    {
+      "name": "ac_continueclient_015",
+      "value": "未知"
+    },
+    {
+      "name": "ac_continueclient_017",
+      "value": "缺失或非数字"
+    },
+    {
+      "name": "ac_continueclient_018",
+      "value": "平台未提供结果说明。"
+    },
+    {
+      "name": "ac_continueclient_019",
+      "value": "结果说明（已脱敏）：{0}"
+    },
+    {
+      "name": "ac_continueclient_020",
+      "value": "正在监听、等待注销回调或运行时已释放；未重复调用 on。"
+    },
+    {
+      "name": "ac_continueclient_021",
+      "value": "on 同步调用已返回，等待 prepareContinue 事件。"
+    },
+    {
+      "name": "ac_continueclient_022",
+      "value": "on 同步抛出异常，可重新注册或尝试注销。"
+    },
+    {
+      "name": "ac_continueclient_023",
+      "value": "正在等待注销回调，最多等待 8 秒。"
+    },
+    {
+      "name": "ac_continueclient_024",
+      "value": "没有需要清理的本运行时 native 注册槽。"
+    },
+    {
+      "name": "ac_continueclient_025",
+      "value": "尚未收到"
+    },
+    {
+      "name": "ac_continueclient_026",
+      "value": "注销等待已超时（8 秒），可重新注册或重试注销。"
+    },
+    {
+      "name": "ac_continueclient_027",
+      "value": "off 同步调用已返回，等待独立注销完成回调。"
+    },
+    {
+      "name": "ac_continueclient_028",
+      "value": "off 完成通知后又发生同步异常；当前保留完成通知的状态。"
+    },
+    {
+      "name": "ac_continueclient_029",
+      "value": "off 同步抛出异常；本地监听已停用，可重新注册或重试注销。"
+    },
+    {
+      "name": "ac_documentworkspace_004",
+      "value": "已归档"
+    },
+    {
+      "name": "ac_documentworkspace_006",
+      "value": "{0}（{1}）｜修订 {2}｜{3}"
+    },
+    {
+      "name": "ac_documentworkspace_007",
+      "value": "保留草稿"
+    },
+    {
+      "name": "ac_documentworkspace_008",
+      "value": "不保留"
+    },
+    {
+      "name": "ac_documentworkspace_009",
+      "value": "允许多份"
+    },
+    {
+      "name": "ac_documentworkspace_010",
+      "value": "仅一份"
+    },
+    {
+      "name": "ac_documentworkspace_011",
+      "value": "可恢复"
+    },
+    {
+      "name": "ac_documentworkspace_012",
+      "value": "不可恢复"
+    },
+    {
+      "name": "ac_documentworkspace_013",
+      "value": "笔记切换保留未保存正文"
+    },
+    {
+      "name": "ac_documentworkspace_014",
+      "value": "笔记归档后可从归档区恢复"
+    },
+    {
+      "name": "ac_documentworkspace_015",
+      "value": "正文超过上限的笔记只读，不接受接续写入"
+    },
+    {
+      "name": "ac_documentworkspace_016",
+      "value": "已保存且无改动的笔记不占草稿槽"
+    },
+    {
+      "name": "ac_documentworkspace_017",
+      "value": "表单离开必须保留半填字段"
+    },
+    {
+      "name": "ac_documentworkspace_018",
+      "value": "已确认提交的表单不再接受编辑"
+    },
+    {
+      "name": "ac_documentworkspace_019",
+      "value": "表单归档为只读快照，仍可查看"
+    },
+    {
+      "name": "ac_documentworkspace_020",
+      "value": "同一表单实例只允许一个活动槽位，避免重复提交"
+    },
+    {
+      "name": "ac_documentworkspace_021",
+      "value": "阅读进度允许被新进度覆盖"
+    },
+    {
+      "name": "ac_documentworkspace_022",
+      "value": "阅读进度不产生草稿，不占用半填额度"
+    },
+    {
+      "name": "ac_documentworkspace_023",
+      "value": "已读完的对象不再记录进度"
+    },
+    {
+      "name": "ac_documentworkspace_024",
+      "value": "不同来源应用的槽位互不覆盖，按 ownerApp 隔离"
+    },
+    {
+      "name": "ac_documentworkspace_025",
+      "value": "工作区有 {0} 处问题"
+    },
+    {
+      "name": "ac_documentworkspace_026",
+      "value": "工作区正常：{0} 个进行中，{1} 个已归档"
+    },
+    {
+      "name": "ac_documentworkspace_027",
+      "value": "存在没有标识的槽位"
+    },
+    {
+      "name": "ac_documentworkspace_028",
+      "value": "槽位标识重复：{0}"
+    },
+    {
+      "name": "ac_documentworkspace_029",
+      "value": "{0} 归档后不可恢复，但仍留在归档区"
+    },
+    {
+      "name": "ac_documentworkspace_030",
+      "value": "{0} 只允许一份，实际 {1} 份（{2}）"
+    },
+    {
+      "name": "ac_documentworkspace_031",
+      "value": "类别不一致：槽位 {0}，载荷 {1}"
+    },
+    {
+      "name": "ac_documentworkspace_032",
+      "value": "来源应用不一致：槽位 {0}，载荷 {1}"
+    },
+    {
+      "name": "ac_documentworkspace_033",
+      "value": "修订号回退：槽位 {0}，载荷 {1}"
+    },
+    {
+      "name": "ac_documentworkspace_034",
+      "value": "没有进行中的可接续对象"
+    },
+    {
+      "name": "ac_documentworkspace_035",
+      "value": "归档 {0} 项：{1}"
+    },
+    {
+      "name": "ac_documentworkspace_036",
+      "value": "问题：{0}"
+    },
+    {
+      "name": "ac_formsession_001",
+      "value": "未填写"
+    },
+    {
+      "name": "ac_formsession_002",
+      "value": "已填写"
+    },
+    {
+      "name": "ac_formsession_003",
+      "value": "不合规"
+    },
+    {
+      "name": "ac_formsession_004",
+      "value": "已确认"
+    },
+    {
+      "name": "ac_formsession_005",
+      "value": "编辑中"
+    },
+    {
+      "name": "ac_formsession_006",
+      "value": "待确认"
+    },
+    {
+      "name": "ac_formsession_009",
+      "value": "(必填)"
+    },
+    {
+      "name": "ac_formsession_010",
+      "value": "空"
+    },
+    {
+      "name": "ac_formsession_011",
+      "value": "{0}｜{1}={2} 时显示 {3}"
+    },
+    {
+      "name": "ac_formsession_012",
+      "value": "，且需至少一行明细"
+    },
+    {
+      "name": "ac_formsession_013",
+      "value": "报销"
+    },
+    {
+      "name": "ac_formsession_014",
+      "value": "请假"
+    },
+    {
+      "name": "ac_formsession_015",
+      "value": "采购"
+    },
+    {
+      "name": "ac_formsession_016",
+      "value": "是"
+    },
+    {
+      "name": "ac_formsession_017",
+      "value": "其他"
+    },
+    {
+      "name": "ac_formsession_018",
+      "value": "已归档：只读快照，不可再编辑"
+    },
+    {
+      "name": "ac_formsession_019",
+      "value": "{0}｜还有 {1} 个必填项未完成｜进度 {2}%"
+    },
+    {
+      "name": "ac_formsession_020",
+      "value": "{0}｜进度 {1}%｜{2}"
+    },
+    {
+      "name": "ac_formsession_021",
+      "value": "可提交"
+    },
+    {
+      "name": "ac_formsession_022",
+      "value": "待补明细"
+    },
+    {
+      "name": "ac_scenariocatalog_001",
+      "value": "便签"
+    },
+    {
+      "name": "ac_scenariocatalog_004",
+      "value": "清单"
+    },
+    {
+      "name": "ac_scenariocatalog_005",
+      "value": "媒体进度"
+    },
+    {
+      "name": "ac_scenariocatalog_006",
+      "value": "低"
+    },
+    {
+      "name": "ac_scenariocatalog_007",
+      "value": "中"
+    },
+    {
+      "name": "ac_scenariocatalog_008",
+      "value": "高"
+    },
+    {
+      "name": "ac_scenariocatalog_009",
+      "value": "{0}｜风险{1}"
+    },
+    {
+      "name": "ac_scenariocatalog_010",
+      "value": "手机便签接续到平板继续编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_011",
+      "value": "同一账号"
+    },
+    {
+      "name": "ac_scenariocatalog_012",
+      "value": "已授予接续权限"
+    },
+    {
+      "name": "ac_scenariocatalog_013",
+      "value": "在手机打开便签"
+    },
+    {
+      "name": "ac_scenariocatalog_014",
+      "value": "触发接续"
+    },
+    {
+      "name": "ac_scenariocatalog_015",
+      "value": "在平板确认接收"
+    },
+    {
+      "name": "ac_scenariocatalog_016",
+      "value": "光标位置与正文一致"
+    },
+    {
+      "name": "ac_scenariocatalog_017",
+      "value": "平板便签回到手机继续编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_019",
+      "value": "在平板打开便签"
+    },
+    {
+      "name": "ac_scenariocatalog_021",
+      "value": "在手机确认接收"
+    },
+    {
+      "name": "ac_scenariocatalog_022",
+      "value": "选区范围保持一致"
+    },
+    {
+      "name": "ac_scenariocatalog_023",
+      "value": "手机阅读进度接续到平板"
+    },
+    {
+      "name": "ac_scenariocatalog_025",
+      "value": "阅读内容已缓存"
+    },
+    {
+      "name": "ac_scenariocatalog_026",
+      "value": "打开阅读页"
+    },
+    {
+      "name": "ac_scenariocatalog_027",
+      "value": "翻到指定页"
+    },
+    {
+      "name": "ac_scenariocatalog_029",
+      "value": "页码与滚动位置一致"
+    },
+    {
+      "name": "ac_scenariocatalog_030",
+      "value": "平板阅读进度接续到手机"
+    },
+    {
+      "name": "ac_scenariocatalog_034",
+      "value": "恢复到同一段落"
+    },
+    {
+      "name": "ac_scenariocatalog_035",
+      "value": "手机表单草稿接续到平板填写"
+    },
+    {
+      "name": "ac_scenariocatalog_037",
+      "value": "表单未提交"
+    },
+    {
+      "name": "ac_scenariocatalog_038",
+      "value": "填写部分字段"
+    },
+    {
+      "name": "ac_scenariocatalog_040",
+      "value": "在平板继续填写"
+    },
+    {
+      "name": "ac_scenariocatalog_041",
+      "value": "已填字段不丢失"
+    },
+    {
+      "name": "ac_scenariocatalog_042",
+      "value": "平板表单草稿接续到手机填写"
+    },
+    {
+      "name": "ac_scenariocatalog_046",
+      "value": "字段顺序与校验状态一致"
+    },
+    {
+      "name": "ac_scenariocatalog_047",
+      "value": "手机清单接续到平板勾选"
+    },
+    {
+      "name": "ac_scenariocatalog_049",
+      "value": "勾选部分项"
+    },
+    {
+      "name": "ac_scenariocatalog_051",
+      "value": "勾选状态逐项一致"
+    },
+    {
+      "name": "ac_scenariocatalog_052",
+      "value": "平板清单接续到手机勾选"
+    },
+    {
+      "name": "ac_scenariocatalog_056",
+      "value": "新增项不重复"
+    },
+    {
+      "name": "ac_scenariocatalog_057",
+      "value": "手机媒体进度接续到平板播放"
+    },
+    {
+      "name": "ac_scenariocatalog_059",
+      "value": "媒体可访问"
+    },
+    {
+      "name": "ac_scenariocatalog_060",
+      "value": "播放到指定位置"
+    },
+    {
+      "name": "ac_scenariocatalog_062",
+      "value": "播放位置误差在 1 秒内"
+    },
+    {
+      "name": "ac_scenariocatalog_063",
+      "value": "平板媒体进度接续到手机播放"
+    },
+    {
+      "name": "ac_scenariocatalog_067",
+      "value": "播放位置与音轨一致"
+    },
+    {
+      "name": "ac_scenariocatalog_068",
+      "value": "手机接续到 PC 继续编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_070",
+      "value": "PC 已安装同款应用"
+    },
+    {
+      "name": "ac_scenariocatalog_071",
+      "value": "在手机编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_073",
+      "value": "在 PC 确认"
+    },
+    {
+      "name": "ac_scenariocatalog_074",
+      "value": "正文与选区一致"
+    },
+    {
+      "name": "ac_scenariocatalog_075",
+      "value": "PC 接续到手机继续编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_077",
+      "value": "在 PC 编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_079",
+      "value": "正文一致且不覆盖本机更新内容"
+    },
+    {
+      "name": "ac_scenariocatalog_080",
+      "value": "手机接续到 TV 展示"
+    },
+    {
+      "name": "ac_scenariocatalog_082",
+      "value": "TV 已登录"
+    },
+    {
+      "name": "ac_scenariocatalog_083",
+      "value": "打开媒体"
+    },
+    {
+      "name": "ac_scenariocatalog_085",
+      "value": "TV 上从同一位置开始播放"
+    },
+    {
+      "name": "ac_scenariocatalog_086",
+      "value": "TV 接续到手机继续播放"
+    },
+    {
+      "name": "ac_scenariocatalog_088",
+      "value": "在 TV 播放"
+    },
+    {
+      "name": "ac_scenariocatalog_090",
+      "value": "手机从同一位置继续"
+    },
+    {
+      "name": "ac_scenariocatalog_091",
+      "value": "手机接续到穿戴查看摘要"
+    },
+    {
+      "name": "ac_scenariocatalog_093",
+      "value": "穿戴已配对"
+    },
+    {
+      "name": "ac_scenariocatalog_096",
+      "value": "穿戴展示截断后的摘要"
+    },
+    {
+      "name": "ac_scenariocatalog_097",
+      "value": "穿戴不支持发起接续"
+    }
+  ]
+}
