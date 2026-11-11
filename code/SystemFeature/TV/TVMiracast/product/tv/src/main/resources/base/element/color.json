@@ -1,0 +1,32 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#ffffff"
+    },
+    {
+      "name": "close_btn_normal_color",
+      "value": "#9a9a9a"
+    },
+    {
+      "name": "text_color_normal",
+      "value": "#676767"
+    },
+    {
+      "name": "normal_gray_bg",
+      "value": "#e7e7e7"
+    },
+    {
+      "name": "focused_blue_bg",
+      "value": "#006fff"
+    },
+    {
+      "name": "white",
+      "value": "#ffffff"
+    },
+    {
+      "name": "black",
+      "value": "#000000"
+    }
+  ]
+}
