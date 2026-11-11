@@ -14,10 +14,10 @@
  */
 import { describe, it as hypiumIt, expect as hypiumExpect, beforeAll, beforeEach, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
 
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const driver: Driver = Driver.create();
 const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
 
@@ -32,7 +32,7 @@ function parseTimeToSeconds(text: string): number {
 
 async function resetSpeedToDefault(): Promise<void> {
   for (let index: number = 0; index < 4; index++) {
-    const button = await driver.findComponent(ON.id('Speed'));
+    const button: Component = await driver.findComponent(ON.id('Speed'));
     const text: string = (await button.getText()).trim();
     if (text === '1.0X') { return; }
     await button.click();
@@ -41,8 +41,8 @@ async function resetSpeedToDefault(): Promise<void> {
 }
 
 
-const TAG: string = '[Sample_playWithCachePlaybackIntegration]';
-const DOMAIN: number = 0xF813;
+const TAG: string = '[Sample_PlayWithCachePlaybackIntegration]';
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {
@@ -95,12 +95,7 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      */
     it('testExtCachePlayback0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
-      for (let index: number = 0; index < 0; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
-        await button.click();
-        await driver.delayMs(500);
-      }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.0X');
     })
     /**
@@ -114,11 +109,11 @@ export default function playWithCachePlaybackIntegrationTest(): void {
     it('testExtCachePlayback0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
       for (let index: number = 0; index < 1; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
+        const button: Component = await driver.findComponent(ON.id('Speed'));
         await button.click();
         await driver.delayMs(500);
       }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.25X');
     })
     /**
@@ -132,11 +127,11 @@ export default function playWithCachePlaybackIntegrationTest(): void {
     it('testExtCachePlayback0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
       for (let index: number = 0; index < 2; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
+        const button: Component = await driver.findComponent(ON.id('Speed'));
         await button.click();
         await driver.delayMs(500);
       }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.75X');
     })
     /**
@@ -150,11 +145,11 @@ export default function playWithCachePlaybackIntegrationTest(): void {
     it('testExtCachePlayback0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
       for (let index: number = 0; index < 3; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
+        const button: Component = await driver.findComponent(ON.id('Speed'));
         await button.click();
         await driver.delayMs(500);
       }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('2.0X');
     })
     /**
@@ -166,7 +161,7 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      let button = await driver.findComponent(ON.id('pause'));
+      let button: Component = await driver.findComponent(ON.id('pause'));
       if (button === null || button === undefined) {
         button = await driver.findComponent(ON.id('play'));
       }
@@ -181,7 +176,7 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const slider = await driver.findComponent(ON.id('Slider'));
+      const slider: Component = await driver.findComponent(ON.id('Slider'));
       expect(slider !== null && slider !== undefined).assertTrue();
     })
     /**
@@ -193,7 +188,7 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const speed = await driver.findComponent(ON.id('Speed'));
+      const speed: Component = await driver.findComponent(ON.id('Speed'));
       expect(speed !== null && speed !== undefined).assertTrue();
     })
     /**
@@ -205,7 +200,7 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const text = await driver.findComponent(ON.id('durationTimeText'));
+      const text: Component = await driver.findComponent(ON.id('durationTimeText'));
       expect((await text.getText()).length).assertLarger(0);
     })
     /**
@@ -217,11 +212,11 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const slider = await driver.findComponent(ON.id('Slider'));
+      const slider: Component = await driver.findComponent(ON.id('Slider'));
       const point = await slider.getBoundsCenter();
       await driver.drag(point.x - 30, point.y, point.x + 90, point.y, 600);
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.id('currentTimeText'));
+      const text: Component = await driver.findComponent(ON.id('currentTimeText'));
       expect(parseTimeToSeconds(await text.getText())).assertLargerOrEqual(0);
     })
     /**
@@ -233,11 +228,11 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const slider = await driver.findComponent(ON.id('Slider'));
+      const slider: Component = await driver.findComponent(ON.id('Slider'));
       const point = await slider.getBoundsCenter();
       await driver.drag(point.x + 30, point.y, point.x - 60, point.y, 600);
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.id('currentTimeText'));
+      const text: Component = await driver.findComponent(ON.id('currentTimeText'));
       expect(parseTimeToSeconds(await text.getText())).assertLargerOrEqual(0);
     })
     /**
@@ -249,12 +244,12 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const pause = await driver.findComponent(ON.id('pause'));
+      const pause: Component = await driver.findComponent(ON.id('pause'));
       if (pause !== null && pause !== undefined) {
         await pause.click();
         await driver.delayMs(800);
       }
-      let control = await driver.findComponent(ON.id('play'));
+      let control: Component = await driver.findComponent(ON.id('play'));
       if (control === null || control === undefined) {
         control = await driver.findComponent(ON.id('pause'));
       }
@@ -269,8 +264,8 @@ export default function playWithCachePlaybackIntegrationTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCachePlayback0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const current = await driver.findComponent(ON.id('currentTimeText'));
-      const duration = await driver.findComponent(ON.id('durationTimeText'));
+      const current: Component = await driver.findComponent(ON.id('currentTimeText'));
+      const duration: Component = await driver.findComponent(ON.id('durationTimeText'));
       expect((await current.getText()).length).assertLarger(0);
       expect((await duration.getText()).length).assertLarger(0);
     })

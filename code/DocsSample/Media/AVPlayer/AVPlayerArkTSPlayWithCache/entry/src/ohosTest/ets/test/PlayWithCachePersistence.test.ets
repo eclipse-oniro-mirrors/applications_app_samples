@@ -16,7 +16,7 @@ import { describe, it as hypiumIt, expect as hypiumExpect, beforeEach, TestType,
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[Sample_playWithCachePersistence]';
-const DOMAIN: number = 0xF813;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {
@@ -64,9 +64,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);
@@ -269,9 +266,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);
@@ -474,9 +468,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);
@@ -679,9 +670,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);
@@ -884,9 +872,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);
@@ -1089,9 +1074,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);
@@ -1294,9 +1276,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);
@@ -1499,9 +1478,6 @@ export default function playWithCachePersistenceTest(): void {
      */
     it('testExtCachePersist0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let cacheKeys: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        cacheKeys.push('seg_' + index);
-      }
       const enabled: boolean = true;
       const restored: boolean = enabled;
       expect(cacheKeys.length).assertEqual(0);

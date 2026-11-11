@@ -16,7 +16,7 @@ import { describe, it as hypiumIt, expect as hypiumExpect, beforeEach, TestType,
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[Sample_playWithCacheOfflineCacheState]';
-const DOMAIN: number = 0xF813;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {
@@ -66,9 +66,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -85,9 +82,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -218,9 +212,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -237,9 +228,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -370,9 +358,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -389,9 +374,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -522,9 +504,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -541,9 +520,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -674,9 +650,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -693,9 +666,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -826,9 +796,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -845,9 +812,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -978,9 +942,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -997,9 +958,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -1130,9 +1088,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -1149,9 +1104,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -1282,9 +1234,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -1301,9 +1250,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -1434,9 +1380,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(true);
       expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
@@ -1453,9 +1396,6 @@ export default function playWithCacheOfflineCacheStateTest(): void {
       const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       expect(enabled).assertEqual(false);
       expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();

@@ -21,7 +21,7 @@ const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
 
 const TAG: string = '[Sample_MediaSourceRawFdContract]';
-const DOMAIN: number = 0xF812;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {

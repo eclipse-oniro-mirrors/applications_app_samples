@@ -16,7 +16,7 @@ import { beforeEach, describe, it as hypiumIt, expect as hypiumExpect, TestType,
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[Sample_MediaSourceSpeedCycle]';
-const DOMAIN: number = 0xF812;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {

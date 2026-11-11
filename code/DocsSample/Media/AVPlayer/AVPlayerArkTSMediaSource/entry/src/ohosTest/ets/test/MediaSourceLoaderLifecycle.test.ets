@@ -17,7 +17,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { HashMap } from '@kit.ArkTS';
 
 const TAG: string = '[Sample_MediaSourceLoaderLifecycle]';
-const DOMAIN: number = 0xF812;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {

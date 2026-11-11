@@ -42,7 +42,7 @@ async function resetSpeedToDefault(): Promise<void> {
 
 
 const TAG: string = '[Sample_playWithCacheUiSeek]';
-const DOMAIN: number = 0xF813;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {
@@ -95,11 +95,6 @@ export default function playWithCacheUiSeekTest(): void {
      */
     it('testExtCacheUiSeek0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
-      for (let index: number = 0; index < 0; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
-        await button.click();
-        await driver.delayMs(500);
-      }
       const result = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.0X');
     })

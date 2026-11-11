@@ -17,7 +17,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DownloadPool, FileInfo, FileType, ProgressType } from '../../../main/ets/components/download';
 
 const TAG: string = '[Sample_MediaSourceDownloadContract]';
-const DOMAIN: number = 0xF812;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {

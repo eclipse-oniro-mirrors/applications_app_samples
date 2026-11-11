@@ -191,7 +191,7 @@ export default function abilityTest(): void {
           const after: number = await waitForTimeAdvance(driver, before);
           hilog.info(DOMAIN, TAG, '%{public}s', `test0003 seek time before: ${before}, after: ${after}`);
           expect(after).assertLargerOrEqual(0);
-          expect(after).assertLargerOrEqual(before);
+          expect(after).assertLarger(before);
           const pausedButton = await driver.findComponent(ON.id('play'));
           await pausedButton.click();
         } catch (error) {
@@ -230,8 +230,9 @@ export default function abilityTest(): void {
           await driver.delayMs(DELAY_PAUSE_CHECK);
           const after: number = await readCurrentTime(driver);
           hilog.info(DOMAIN, TAG, '%{public}s', `test0004 pause time before: ${before}, after: ${after}`);
-          expect(after).assertLargerOrEqual(before);
-          expect(after).assertLargerOrEqual(0);
+          const delta: number = after - before;
+          expect(delta).assertLargerOrEqual(0);
+          expect(delta).assertLessOrEqual(1);
         } catch (error) {
           hilog.error(DOMAIN, TAG, '%{public}s', `test0004 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();

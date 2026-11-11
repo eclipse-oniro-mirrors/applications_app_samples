@@ -16,7 +16,7 @@ import { describe, it as hypiumIt, expect as hypiumExpect, beforeEach, TestType,
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[Sample_playWithCacheSpeedCycle]';
-const DOMAIN: number = 0xF813;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {

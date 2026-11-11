@@ -30,7 +30,7 @@ function parseTimeToSeconds(text: string): number {
   return min * 60 + sec;
 }
 const TAG: string = '[Sample_MediaSourceUiPlayback]';
-const DOMAIN: number = 0xF812;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {
@@ -100,11 +100,6 @@ export default function mediaSourceUiPlaybackTest(): void {
       expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
       const speedButton = await driver.findComponent(ON.id('Speed'));
       expect((await speedButton.getText()).trim()).assertEqual('1.0X');
-      for (let index: number = 0; index < 0; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
-        await button.click();
-        await driver.delayMs(500);
-      }
       const result = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.0X');
     })

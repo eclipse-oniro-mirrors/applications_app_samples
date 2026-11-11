@@ -16,7 +16,7 @@ import { describe, it as hypiumIt, expect as hypiumExpect, beforeEach, TestType,
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[Sample_playWithCacheOfflineState]';
-const DOMAIN: number = 0xF813;
+const DOMAIN: number = 0xF811;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {
@@ -64,9 +64,6 @@ export default function playWithCacheOfflineStateTest(): void {
      */
     it('testExtCacheOffline0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       const keys: string[] = [];
       expect(enabled).assertEqual(true);
       expect(keys.length).assertEqual(0);
@@ -136,9 +133,6 @@ export default function playWithCacheOfflineStateTest(): void {
      */
     it('testExtCacheOffline0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       const keys: string[] = ['a', 'b', 'c'];
       expect(enabled).assertEqual(true);
       expect(keys.length).assertEqual(3);
@@ -208,9 +202,6 @@ export default function playWithCacheOfflineStateTest(): void {
      */
     it('testExtCacheOffline0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       const keys: string[] = ['a', 'b', 'c'];
       expect(enabled).assertEqual(true);
       expect(keys.length).assertEqual(3);
@@ -280,9 +271,6 @@ export default function playWithCacheOfflineStateTest(): void {
      */
     it('testExtCacheOffline0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       const keys: string[] = [];
       expect(enabled).assertEqual(true);
       expect(keys.length).assertEqual(0);
@@ -352,9 +340,6 @@ export default function playWithCacheOfflineStateTest(): void {
      */
     it('testExtCacheOffline0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       let enabled: boolean = true;
-      for (let index: number = 0; index < 0; index++) {
-        enabled = !enabled;
-      }
       const keys: string[] = ['a', 'b', 'c'];
       expect(enabled).assertEqual(true);
       expect(keys.length).assertEqual(3);
