@@ -1,0 +1,19 @@
+{
+  "module": {
+    "name": "entry_test",
+    "type": "feature",
+    "deviceTypes": ["default"],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:test_pages",
+    "abilities": [
+      {
+        "name": "TestAbility",
+        "srcEntry": "./ets/testability/TestAbility.ets",
+        "startWindowIcon": "$media:app_icon_performance",
+        "startWindowBackground": "$color:test_window_background",
+        "exported": true
+      }
+    ]
+  }
+}
