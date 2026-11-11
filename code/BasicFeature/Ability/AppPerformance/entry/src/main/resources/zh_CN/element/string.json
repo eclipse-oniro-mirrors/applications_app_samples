@@ -1,0 +1,900 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "内存优化与应用快启"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "应用性能"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "应用性能"
+    },
+    {
+      "name": "ap_ui_repeated_experiments",
+      "value": "重复实验"
+    },
+    {
+      "name": "ap_ui_start_repeated_experiments",
+      "value": "开始重复实验"
+    },
+    {
+      "name": "ap_ui_stop_after_this_run",
+      "value": "本次完成后停止"
+    },
+    {
+      "name": "ap_ui_cancel_waiting",
+      "value": "取消等待"
+    },
+    {
+      "name": "ap_ui_no_usable_samples",
+      "value": "暂无可用样本"
+    },
+    {
+      "name": "ap_ui_copy_this_series_report",
+      "value": "复制本系列分析报告"
+    },
+    {
+      "name": "ap_ui_hide_experiment_notes",
+      "value": "收起实验说明"
+    },
+    {
+      "name": "ap_ui_experiment_notes",
+      "value": "实验说明"
+    },
+    {
+      "name": "ap_ui_runs_read_the_same_workload_sequentially_compare_stage_timings_only_unde",
+      "value": "每次读取同一负载并串行执行。仅比较同条件的阶段耗时，缺失样本不记为0，也不据此量化系统回收量。取消等待不会中断系统请求。"
+    },
+    {
+      "name": "ap_ui_latest_result",
+      "value": "最近结果"
+    },
+    {
+      "name": "ap_ui_view_records",
+      "value": "查看记录"
+    },
+    {
+      "name": "ap_ui_waiting_for_response",
+      "value": "等待返回"
+    },
+    {
+      "name": "ap_ui_hide_call_details",
+      "value": "收起调用详情"
+    },
+    {
+      "name": "ap_ui_call_details",
+      "value": "调用详情"
+    },
+    {
+      "name": "ap_ui_api",
+      "value": "接口"
+    },
+    {
+      "name": "ap_ui_target",
+      "value": "目标"
+    },
+    {
+      "name": "ap_ui_code",
+      "value": "代码"
+    },
+    {
+      "name": "ap_ui_no_call_results",
+      "value": "暂无调用结果"
+    },
+    {
+      "name": "ap_ui_collapse",
+      "value": "收起"
+    },
+    {
+      "name": "ap_ui_details",
+      "value": "详情"
+    },
+    {
+      "name": "ap_ui_message",
+      "value": "消息"
+    },
+    {
+      "name": "ap_ui_duration",
+      "value": "耗时"
+    },
+    {
+      "name": "ap_ui_late_response",
+      "value": "延迟返回"
+    },
+    {
+      "name": "ap_ui_series_history",
+      "value": "系列历史"
+    },
+    {
+      "name": "ap_ui_no_series_history",
+      "value": "暂无系列历史"
+    },
+    {
+      "name": "ap_ui_selected_series",
+      "value": "已选系列"
+    },
+    {
+      "name": "ap_ui_select_series",
+      "value": "选择系列"
+    },
+    {
+      "name": "ap_ui_current_baseline",
+      "value": "当前对照"
+    },
+    {
+      "name": "ap_ui_use_as_baseline",
+      "value": "作为对照"
+    },
+    {
+      "name": "ap_ui_markdown_selected",
+      "value": "Markdown（已选）"
+    },
+    {
+      "name": "ap_ui_csv_selected",
+      "value": "CSV（已选）"
+    },
+    {
+      "name": "ap_ui_not_read_yet",
+      "value": "待读取"
+    },
+    {
+      "name": "ap_ui_not_set_yet",
+      "value": "尚未设置"
+    },
+    {
+      "name": "ap_ui_manual_rebuild",
+      "value": "手动重建"
+    },
+    {
+      "name": "ap_ui_request_rebuild",
+      "value": "请求重建"
+    },
+    {
+      "name": "ap_ui_rebuild_the_application_s_hypersnap_data",
+      "value": "重建应用快启数据？"
+    },
+    {
+      "name": "ap_ui_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "ap_ui_confirm_rebuild",
+      "value": "确认重建"
+    },
+    {
+      "name": "ap_ui_clear_records",
+      "value": "清空记录"
+    },
+    {
+      "name": "ap_ui_clear_all_call_records",
+      "value": "清空全部调用记录？"
+    },
+    {
+      "name": "ap_ui_clear",
+      "value": "清空"
+    },
+    {
+      "name": "ap_ui_clear_samples",
+      "value": "清空采样"
+    },
+    {
+      "name": "ap_ui_clear_all_content_loading_samples",
+      "value": "清空全部内容加载样本？"
+    },
+    {
+      "name": "ap_ui_memory_optimization",
+      "value": "内存优化"
+    },
+    {
+      "name": "ap_ui_select_targets_and_request_file_page_eviction",
+      "value": "选择目标，请求回收文件页"
+    },
+    {
+      "name": "ap_ui_foreground",
+      "value": "前台"
+    },
+    {
+      "name": "ap_ui_background",
+      "value": "后台"
+    },
+    {
+      "name": "ap_ui_files",
+      "value": "文件"
+    },
+    {
+      "name": "ap_ui_modules",
+      "value": "模块"
+    },
+    {
+      "name": "ap_ui_other_file_names_optional_comma_separated",
+      "value": "其他文件名（可选，逗号分隔）"
+    },
+    {
+      "name": "ap_ui_select_files_or_enter_other_file_names",
+      "value": "选择文件，或输入其他文件名"
+    },
+    {
+      "name": "ap_ui_no_modules",
+      "value": "暂无模块"
+    },
+    {
+      "name": "ap_ui_refresh_targets",
+      "value": "刷新目标"
+    },
+    {
+      "name": "ap_ui_calling",
+      "value": "调用中"
+    },
+    {
+      "name": "ap_ui_evict_file_pages",
+      "value": "回收文件页"
+    },
+    {
+      "name": "ap_ui_evict_module_pages",
+      "value": "回收模块页"
+    },
+    {
+      "name": "ap_ui_workload_laboratory",
+      "value": "业务负载实验台"
+    },
+    {
+      "name": "ap_ui_hide_more_tools",
+      "value": "收起更多工具"
+    },
+    {
+      "name": "ap_ui_more_tools",
+      "value": "更多工具"
+    },
+    {
+      "name": "ap_ui_configuration",
+      "value": "配置"
+    },
+    {
+      "name": "ap_ui_expand",
+      "value": "展开"
+    },
+    {
+      "name": "ap_ui_status",
+      "value": "状态"
+    },
+    {
+      "name": "ap_ui_no_configuration",
+      "value": "暂无配置"
+    },
+    {
+      "name": "ap_ui_check_configuration",
+      "value": "检查配置"
+    },
+    {
+      "name": "ap_ui_maintenance_flow",
+      "value": "维护流程"
+    },
+    {
+      "name": "ap_ui_not_run",
+      "value": "未运行"
+    },
+    {
+      "name": "ap_ui_read_the_workload_make_the_request_and_verify_resource_integrity",
+      "value": "读取负载、执行请求并校验资源完整性。"
+    },
+    {
+      "name": "ap_ui_file_eviction",
+      "value": "文件回收"
+    },
+    {
+      "name": "ap_ui_no_eviction_control",
+      "value": "无回收对照"
+    },
+    {
+      "name": "ap_ui_module_eviction",
+      "value": "模块回收"
+    },
+    {
+      "name": "ap_ui_flow_running",
+      "value": "流程运行中"
+    },
+    {
+      "name": "ap_ui_run_maintenance_flow",
+      "value": "运行维护流程"
+    },
+    {
+      "name": "ap_ui_resource_verification",
+      "value": "资源校验"
+    },
+    {
+      "name": "ap_ui_read_resource",
+      "value": "读取资源"
+    },
+    {
+      "name": "ap_ui_read_and_verify",
+      "value": "读取并校验"
+    },
+    {
+      "name": "ap_ui_hypersnap",
+      "value": "应用快启"
+    },
+    {
+      "name": "ap_ui_manage_hypersnap_settings_and_rebuild_requests",
+      "value": "管理快启设置与重建"
+    },
+    {
+      "name": "ap_ui_hypersnap_settings",
+      "value": "快启设置"
+    },
+    {
+      "name": "ap_ui_latest_setting",
+      "value": "最近设置"
+    },
+    {
+      "name": "ap_ui_setting_time",
+      "value": "设置时间"
+    },
+    {
+      "name": "ap_ui_enabled",
+      "value": "启用"
+    },
+    {
+      "name": "ap_ui_disabled",
+      "value": "禁用"
+    },
+    {
+      "name": "ap_ui_initial",
+      "value": "初始"
+    },
+    {
+      "name": "ap_ui_hypersnap_rebuild",
+      "value": "快启重建"
+    },
+    {
+      "name": "ap_ui_rebuild_reason",
+      "value": "重建原因"
+    },
+    {
+      "name": "ap_ui_latest_time",
+      "value": "最近时间"
+    },
+    {
+      "name": "ap_ui_cooldown",
+      "value": "冷却"
+    },
+    {
+      "name": "ap_ui_call_records",
+      "value": "调用记录"
+    },
+    {
+      "name": "ap_ui_view_request_results_and_content_loading_durations",
+      "value": "查看请求结果与内容加载耗时"
+    },
+    {
+      "name": "ap_ui_content_loading",
+      "value": "内容加载"
+    },
+    {
+      "name": "ap_ui_all",
+      "value": "全部"
+    },
+    {
+      "name": "ap_ui_memory",
+      "value": "内存"
+    },
+    {
+      "name": "ap_ui_hypersnap_a50897",
+      "value": "快启"
+    },
+    {
+      "name": "ap_ui_copy_records",
+      "value": "复制记录"
+    },
+    {
+      "name": "ap_ui_no_call_records",
+      "value": "暂无调用记录"
+    },
+    {
+      "name": "ap_ui_content_loading_duration_median",
+      "value": "内容加载耗时 · 中位数"
+    },
+    {
+      "name": "ap_ui_hide_sampling_notes",
+      "value": "收起采样说明"
+    },
+    {
+      "name": "ap_ui_sampling_notes",
+      "value": "采样说明"
+    },
+    {
+      "name": "ap_ui_measures_page_creation_to_content_loaded_grouped_by_the_latest_hypersnap",
+      "value": "统计从页面创建到内容加载完成的时间，按最近快启设置分组；不等同于首帧或系统启动路径。"
+    },
+    {
+      "name": "ap_ui_copy_samples",
+      "value": "复制采样"
+    },
+    {
+      "name": "ap_ui_no_content_loading_samples",
+      "value": "暂无内容加载样本"
+    },
+    {
+      "name": "ap_ui_time",
+      "value": "时间"
+    },
+    {
+      "name": "ap_ui_group",
+      "value": "分组"
+    },
+    {
+      "name": "ap_ui_maintenance_plan",
+      "value": "维护计划"
+    },
+    {
+      "name": "ap_ui_current_flow_and_content_loading_budgets",
+      "value": "当前流程与内容加载预算"
+    },
+    {
+      "name": "ap_ui_no_maintenance_flow_has_run",
+      "value": "尚未运行维护流程"
+    },
+    {
+      "name": "ap_ui_content_loading_budgets",
+      "value": "内容加载预算"
+    },
+    {
+      "name": "ap_ui_hide_plan_details",
+      "value": "收起计划详情"
+    },
+    {
+      "name": "ap_ui_plan_details",
+      "value": "计划详情"
+    },
+    {
+      "name": "ap_ui_stage_results",
+      "value": "阶段结果"
+    },
+    {
+      "name": "ap_ui_workload_profile",
+      "value": "负载画像"
+    },
+    {
+      "name": "ap_ui_budget_details",
+      "value": "预算明细"
+    },
+    {
+      "name": "ap_ui_stages_discover_targets_validate_configuration_read_workload_control_evi",
+      "value": "阶段：发现目标 → 校验配置 → 读取负载 → 对照/请求回收 → 同资源重读 → 配置回读"
+    },
+    {
+      "name": "ap_ui_no_stage_results_yet",
+      "value": "尚无阶段结果"
+    },
+    {
+      "name": "ap_ui_no_workload_read_results_yet",
+      "value": "尚无负载读取结果"
+    },
+    {
+      "name": "ap_ui_no_samples_evaluation_pending",
+      "value": "暂无采样，待评估"
+    },
+    {
+      "name": "ap_ui_pass",
+      "value": "通过"
+    },
+    {
+      "name": "ap_ui_warnings",
+      "value": "有提示"
+    },
+    {
+      "name": "ap_ui_not_passed",
+      "value": "未通过"
+    },
+    {
+      "name": "ap_ui_evaluation_pending",
+      "value": "待评估"
+    },
+    {
+      "name": "ap_ui_check_results",
+      "value": "检查结果"
+    },
+    {
+      "name": "ap_ui_evaluate_the_current_maintenance_results",
+      "value": "按当前维护结果评估"
+    },
+    {
+      "name": "ap_ui_hide_check_details",
+      "value": "收起检查详情"
+    },
+    {
+      "name": "ap_ui_check_details",
+      "value": "检查详情"
+    },
+    {
+      "name": "ap_ui_threshold_evaluation",
+      "value": "阈值评估"
+    },
+    {
+      "name": "ap_ui_regression_gate",
+      "value": "回归门禁"
+    },
+    {
+      "name": "ap_ui_select_a_record_to_view_details",
+      "value": "选择一条记录查看明细"
+    },
+    {
+      "name": "ap_ui_not_recorded_in_legacy_data",
+      "value": "旧记录未记录"
+    },
+    {
+      "name": "ap_ui_missing",
+      "value": "缺失"
+    },
+    {
+      "name": "ap_ui_device_version_foreground_background_and_installed_target_conditions_rec",
+      "value": "已记录设备/版本/前后台/安装目标条件"
+    },
+    {
+      "name": "ap_ui_legacy_record_lacks_conditions_and_cannot_be_compared",
+      "value": "旧记录缺少条件，不可比较"
+    },
+    {
+      "name": "ap_ui_not_started_a_request_is_in_flight_or_parameters_are_invalid",
+      "value": "未开始：已有在途请求或参数无效"
+    },
+    {
+      "name": "ap_ui_clear_experiment_records",
+      "value": "清空实验记录"
+    },
+    {
+      "name": "ap_ui_clear_the_local_experiment_ledger_without_changing_system_settings",
+      "value": "清空本地实验账本，不修改系统设置。"
+    },
+    {
+      "name": "ap_ui_no_data_available",
+      "value": "暂无可用数据"
+    },
+    {
+      "name": "ap_ui_workload_experiments",
+      "value": "负载实验"
+    },
+    {
+      "name": "ap_ui_waiting_for_the_system_request_to_finish",
+      "value": "等待系统请求结束"
+    },
+    {
+      "name": "ap_ui_running",
+      "value": "运行中"
+    },
+    {
+      "name": "ap_ui_ready",
+      "value": "就绪"
+    },
+    {
+      "name": "ap_ui_select_workload",
+      "value": "选择负载"
+    },
+    {
+      "name": "ap_ui_run_one_experiment",
+      "value": "运行一次实验"
+    },
+    {
+      "name": "ap_ui_current_result",
+      "value": "本次结果"
+    },
+    {
+      "name": "ap_ui_hide_history_and_ledger",
+      "value": "收起历史与账本"
+    },
+    {
+      "name": "ap_ui_history_and_ledger",
+      "value": "历史与账本"
+    },
+    {
+      "name": "ap_ui_experiment_records_for_the_selected_workload_and_mode",
+      "value": "当前负载与模式的实验记录"
+    },
+    {
+      "name": "ap_ui_show_all_results",
+      "value": "显示全部结果"
+    },
+    {
+      "name": "ap_ui_failed_missing_records_only",
+      "value": "仅失败/缺失记录"
+    },
+    {
+      "name": "ap_ui_record_details",
+      "value": "记录明细"
+    },
+    {
+      "name": "ap_ui_sample_percentiles_under_matching_conditions",
+      "value": "同条件样本分位数"
+    },
+    {
+      "name": "ap_ui_comparison_under_matching_conditions",
+      "value": "同条件比较"
+    },
+    {
+      "name": "ap_ui_copy_filtered_ledger_report_markdown",
+      "value": "复制全账本筛选报告（Markdown）"
+    },
+    {
+      "name": "ap_ui_copy_redacted_ledger",
+      "value": "复制脱敏账本"
+    },
+    {
+      "name": "ap_ui_clear_ledger",
+      "value": "清空账本"
+    },
+    {
+      "name": "ap_ui_hide_experiment_details",
+      "value": "收起实验详情"
+    },
+    {
+      "name": "ap_ui_experiment_details",
+      "value": "实验详情"
+    },
+    {
+      "name": "ap_ui_packaged_workload_catalog",
+      "value": "打包负载目录"
+    },
+    {
+      "name": "ap_ui_succeeded",
+      "value": "成功"
+    },
+    {
+      "name": "ap_ui_failed",
+      "value": "失败"
+    },
+    {
+      "name": "ap_ui_timed_out",
+      "value": "超时"
+    },
+    {
+      "name": "ap_ui_cancelled",
+      "value": "已取消"
+    },
+    {
+      "name": "ap_ui_skipped",
+      "value": "跳过"
+    },
+    {
+      "name": "ap_ui_pending",
+      "value": "待执行"
+    },
+    {
+      "name": "ap_ui_not_verified",
+      "value": "未校验"
+    },
+    {
+      "name": "ap_ui_consistent",
+      "value": "一致"
+    },
+    {
+      "name": "ap_ui_inconsistent",
+      "value": "不一致"
+    },
+    {
+      "name": "ap_ui_not_observable",
+      "value": "不可观测"
+    },
+    {
+      "name": "ap_ui_not_observed",
+      "value": "未观测"
+    },
+    {
+      "name": "ap_ui_call_succeeded",
+      "value": "调用成功"
+    },
+    {
+      "name": "ap_ui_call_failed",
+      "value": "调用失败"
+    },
+    {
+      "name": "ap_ui_preparing",
+      "value": "准备中"
+    },
+    {
+      "name": "ap_ui_waiting_to_stop_after_this_run",
+      "value": "等待本次完成后停止"
+    },
+    {
+      "name": "ap_ui_cancelling_local_waiting",
+      "value": "正在取消本地等待"
+    },
+    {
+      "name": "ap_ui_completed",
+      "value": "已完成"
+    },
+    {
+      "name": "ap_ui_stopped",
+      "value": "已停止"
+    },
+    {
+      "name": "ap_ui_stopped_because_conditions_changed",
+      "value": "条件变化，已停止"
+    },
+    {
+      "name": "ap_ui_stopped_because_saving_failed",
+      "value": "保存失败，已停止"
+    },
+    {
+      "name": "ap_ui_process_ended_series_interrupted",
+      "value": "进程结束，系列中断"
+    },
+    {
+      "name": "ap_ui_stopped_because_the_experiment_failed",
+      "value": "实验失败，已停止"
+    },
+    {
+      "name": "ap_ui_not_started",
+      "value": "未开始"
+    },
+    {
+      "name": "ap_ui_select_the_workload_and_mode_above_default_3_repetitions",
+      "value": "负载与模式由上方选择；默认重复3次"
+    },
+    {
+      "name": "ap_ui_no_series_started_yet",
+      "value": "尚未开始系列"
+    },
+    {
+      "name": "ap_ui_no_series_saved_yet",
+      "value": "尚无系列存档"
+    },
+    {
+      "name": "ap_ui_available_0_0_records_missing_0",
+      "value": "可用 0 / 0 条，缺失 0 条"
+    },
+    {
+      "name": "ap_ui_the_sdk_request_has_not_settled_isolation_remains_active_no_automatic_re",
+      "value": "SDK尚未settle，继续隔离；不会自动重发"
+    },
+    {
+      "name": "ap_ui_saved",
+      "value": "已保存"
+    },
+    {
+      "name": "ap_ui_save_failed_current_results_remain_in_memory_only",
+      "value": "保存失败，当前结果仅在内存保留"
+    },
+    {
+      "name": "ap_ui_saving_persistence_not_confirmed",
+      "value": "保存中，尚未确认落盘"
+    },
+    {
+      "name": "ap_ui_no_historical_series_selected",
+      "value": "尚未选择系列历史"
+    },
+    {
+      "name": "ap_ui_no_other_baseline_series_selected",
+      "value": "尚未选择另一个对照系列"
+    },
+    {
+      "name": "ap_ui_no_selected_series_references",
+      "value": "没有所选系列引用"
+    },
+    {
+      "name": "ap_ui_select_two_different_series_to_compare_matching_conditions",
+      "value": "选择两个不同系列查看同条件比较"
+    },
+    {
+      "name": "ap_ui_selected_series_metadata_was_evicted_select_another_series_explicitly",
+      "value": "所选系列元信息已淘汰；请显式重新选择"
+    },
+    {
+      "name": "ap_ui_unavailable_records_are_never_borrowed_from_another_series",
+      "value": "不可用：不从其他系列借用记录"
+    },
+    {
+      "name": "ap_ui_baseline_series_metadata_was_evicted_select_another_baseline",
+      "value": "对照系列元信息已淘汰；请重新选择"
+    },
+    {
+      "name": "ap_ui_sample_text",
+      "value": "示例文本"
+    },
+    {
+      "name": "ap_ui_note_list",
+      "value": "笔记列表"
+    },
+    {
+      "name": "ap_ui_image_index",
+      "value": "图片索引"
+    },
+    {
+      "name": "ap_ui_form_draft",
+      "value": "表单草稿"
+    },
+    {
+      "name": "ap_ui_a_basic_single_file_workload_used_as_a_control_for_the_existing_flow",
+      "value": "最基础的单文件负载，用于对照既有流程。"
+    },
+    {
+      "name": "ap_ui_multi_line_business_data_covering_field_parsing_and_empty_content_checks",
+      "value": "多行业务数据，覆盖字段解析与空内容判定。"
+    },
+    {
+      "name": "ap_ui_dimension_checks_detect_truncation_and_invalid_values",
+      "value": "尺寸字段参与校验，能发现截断与非法数值。"
+    },
+    {
+      "name": "ap_ui_cross_field_integrity_must_be_rechecked_after_restoration",
+      "value": "跨字段完整性，恢复后需要重新校验。"
+    },
+    {
+      "name": "ap_ui_format_8321d92a2b",
+      "value": "重复次数 %1$s"
+    },
+    {
+      "name": "ap_ui_format_b7127c6410",
+      "value": "复制所选系列历史（%1$s）"
+    },
+    {
+      "name": "ap_ui_format_061daad6b9",
+      "value": "耗时 %1$s ms"
+    },
+    {
+      "name": "ap_ui_format_d3ed71152f",
+      "value": "资源完整性：%1$s（%2$s → %3$s 字节）"
+    },
+    {
+      "name": "ap_ui_format_b28ea52b8c",
+      "value": "%1$s 秒"
+    },
+    {
+      "name": "ap_ui_format_c71ceedb76",
+      "value": "共 %1$s 条"
+    },
+    {
+      "name": "ap_ui_format_b4fc476125",
+      "value": "%1$s 个样本"
+    },
+    {
+      "name": "ap_ui_format_dcbc5df895",
+      "value": "分组 %1$s 个"
+    },
+    {
+      "name": "ap_ui_format_321c6e2fd9",
+      "value": "%1$s｜%2$s｜必达 %3$s 条"
+    },
+    {
+      "name": "ap_ui_format_f26b98675d",
+      "value": "%1$s｜阻断 %2$s 项｜"
+    },
+    {
+      "name": "ap_ui_format_73a4baf959",
+      "value": "提示 %1$s 项｜%2$s"
+    },
+    {
+      "name": "ap_ui_format_23dfaf2486",
+      "value": "覆盖指标 %1$s 个"
+    },
+    {
+      "name": "ap_ui_format_719269605f",
+      "value": "资源身份：%1$s"
+    },
+    {
+      "name": "ap_ui_format_fe240eb7a9",
+      "value": "请求结果：%1$s；效果：%2$s"
+    },
+    {
+      "name": "ap_ui_format_b97fc0e2fc",
+      "value": "字节：%1$s → %2$s"
+    },
+    {
+      "name": "ap_ui_format_1020a92250",
+      "value": "校验值：%1$s → %2$s"
+    },
+    {
+      "name": "ap_ui_format_903956ee80",
+      "value": "缺口：%1$s"
+    },
+    {
+      "name": "ap_ui_format_571e700029",
+      "value": "请求：%1$s"
+    },
+    {
+      "name": "ap_ui_format_91331090f0",
+      "value": "实际回收效果：%1$s（不以请求成功推断回收量）"
+    }
+  ]
+}
