@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -450,7 +450,7 @@ export class HfpService {
         return false;
       }
 
-      const index = this.connectedDeviceIds.indexOf(deviceId);
+      const index: number = this.connectedDeviceIds.indexOf(deviceId);
       if (index === -1) {
         this.addHistoryEntry('disconnect', false, 'Device not connected');
         hiTraceMeter.finishTrace(`${this.serviceName}_disconnect`, 0);
@@ -760,7 +760,7 @@ export class HfpService {
         return false;
       }
 
-      const lastCall = this.callHistory.length > 0 ? this.callHistory[this.callHistory.length - 1] : null;
+      const lastCall: HfpCallInfo | null = this.callHistory.length > 0 ? this.callHistory[this.callHistory.length - 1] : null;
       if (lastCall) {
         await this.dialNumber(lastCall.phoneNumber);
         this.addHistoryEntry('redial', true, `Redialing ${lastCall.phoneNumber}`);
@@ -794,7 +794,7 @@ export class HfpService {
         return false;
       }
 
-      const clamped = Math.max(0, Math.min(100, Math.round(volume)));
+      const clamped: number = Math.max(0, Math.min(100, Math.round(volume)));
       this.model.micVolume = clamped;
       if (this.audioConfig) {
         this.audioConfig.micVolume = clamped;
@@ -828,7 +828,7 @@ export class HfpService {
         return false;
       }
 
-      const clamped = Math.max(0, Math.min(100, Math.round(volume)));
+      const clamped: number = Math.max(0, Math.min(100, Math.round(volume)));
       this.model.speakerVolume = clamped;
       if (this.audioConfig) {
         this.audioConfig.speakerVolume = clamped;
@@ -1077,7 +1077,7 @@ export class HfpService {
    * @param {(state: BluetoothConnectionState) => void} callback - The callback to remove.
    */
   removeConnectionCallback(callback: (state: BluetoothConnectionState) => void): void {
-    const index = this.connectionCallbacks.indexOf(callback);
+    const index: number = this.connectionCallbacks.indexOf(callback);
     if (index !== -1) {
       this.connectionCallbacks.splice(index, 1);
     }
@@ -1100,7 +1100,7 @@ export class HfpService {
    * @param {(model: HfpModel) => void} callback - The callback to remove.
    */
   removeDataCallback(callback: (model: HfpModel) => void): void {
-    const index = this.dataCallbacks.indexOf(callback);
+    const index: number = this.dataCallbacks.indexOf(callback);
     if (index !== -1) {
       this.dataCallbacks.splice(index, 1);
     }
@@ -1123,7 +1123,7 @@ export class HfpService {
    * @param {(callInfo: HfpCallInfo) => void} callback - The callback to remove.
    */
   removeCallCallback(callback: (callInfo: HfpCallInfo) => void): void {
-    const index = this.callCallbacks.indexOf(callback);
+    const index: number = this.callCallbacks.indexOf(callback);
     if (index !== -1) {
       this.callCallbacks.splice(index, 1);
     }

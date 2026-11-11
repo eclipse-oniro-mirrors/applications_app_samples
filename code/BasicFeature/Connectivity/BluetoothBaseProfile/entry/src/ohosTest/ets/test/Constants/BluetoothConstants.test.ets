@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -159,8 +159,8 @@ export default function bluetoothConstantsTest(): void {
       expect(BluetoothConstants.TRACE_DOMAIN).assertEqual(BluetoothConstants.DOMAIN);
       expect(BluetoothConstants.EVENT_DOMAIN).assertEqual(BluetoothConstants.DOMAIN);
 
-      expect(BluetoothConstants.BUNDLE_NAME).assertEqual('ohos.samples.bluetoothbaseprofile');
-      expect(BluetoothConstants.BUNDLE_NAME.length).assertEqual(33);
+      expect(BluetoothConstants.BUNDLE_NAME).assertEqual('com.samples.bluetoothbaseprofile');
+      expect(BluetoothConstants.BUNDLE_NAME.length).assertEqual(32);
       expect(BluetoothConstants.BUNDLE_NAME.split('.').length).assertEqual(3);
 
       expect(BluetoothConstants.EVENT_GROUP).assertEqual('bluetoothBaseProfileEvent');

@@ -1698,9 +1698,9 @@
 # 构建测试 HAP
 devecocli build --modules entry@ohosTest
 # 安装并全量执行（entry_test 模块，用例级超时 60s）
-hdc shell "aa test -b ohos.samples.bluetoothbaseprofile -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 60000"
+hdc shell "aa test -b com.samples.bluetoothbaseprofile -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 60000"
 # 仅执行本次补充的工具类套件
-hdc shell "aa test -b ohos.samples.bluetoothbaseprofile -m entry_test -s unittest OpenHarmonyTestRunner -s class DeviceUtilsTest,FileUtilsTest,PreferenceUtilsTest,StorageUtilsTest,EncryptionUtilsTest,HttpUtilsTest,NetworkUtilsTest,PermissionUtilsTest,ConstantsTest -s timeout 30000"
+hdc shell "aa test -b com.samples.bluetoothbaseprofile -m entry_test -s unittest OpenHarmonyTestRunner -s class DeviceUtilsTest,FileUtilsTest,PreferenceUtilsTest,StorageUtilsTest,EncryptionUtilsTest,HttpUtilsTest,NetworkUtilsTest,PermissionUtilsTest,ConstantsTest -s timeout 30000"
 ```
 
 > `-s unittest` 在本工程需传运行器类名 `OpenHarmonyTestRunner`；传 `/ets/TestRunner/OpenHarmonyTestRunner` 全路径时 BMS 解析不到测试运行器，会报 `ReferenceError: Cannot find module ... OpenHarmonyTestRunner` 并返回 `App died`。

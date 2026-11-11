@@ -92,6 +92,52 @@ library/src/main/ets/
 
 本示例基于Hypium框架提供了ohosTest测试套件，覆盖Profile管理器、服务、数据模型、工具类及集成场景。详见[ohosTest.md](ohosTest.md)。
 
+### 签名配置
+
+根目录 [build-profile.json5](build-profile.json5) 中的 `signingConfigs.material` 属于**开发者本地配置**，仅保留了原作者机器上的绝对路径、密钥库与加密口令作为形状参考。任何使用者在真机或模拟器上运行本工程前，都必须在本地重新生成签名材料；**切勿**将个人的 `keyPassword`、`storePassword` 与绝对路径再次提交回仓库。
+
+方式一 —— DevEco Studio 自动生成（推荐）：
+
+1. 使用 DevEco Studio 26.0 及以上版本打开本工程。
+2. 选择 **File > Project Structure > Project > Signing Configs**。
+3. 勾选 **Automatically generate signature**。
+   - 由于本工程的 `runtimeOS` 为 **OpenHarmony**，请点击 **Sign In** 使用华为开发者账号登录（或采用方式二生成的 OpenHarmony 本地根 CA），DevEco 会在 `~/.ohos/config/openharmony/`（Windows：`C:\Users\<你>\.ohos\config\openharmony\`）下生成 `default_BluetoothBaseProfile_*.p12 / .cer / .p7b`。
+4. 点击 **OK / Apply**，DevEco 会自动把本地路径与口令回写到 `build-profile.json5` 的 `signingConfigs` 段中。
+5. 正常构建安装即可：**Build > Build Hap(s)/APP(s)**，或 `devecocli build`。
+
+方式二 —— 命令行 `hap-sign-tool`（无 IDE，适合 CI）：
+
+1. 在 OpenHarmony SDK 中定位签名工具：`<sdk>/default/openharmony/toolchains/hap-sign-tool.jar`，需要 Java 8 及以上。
+2. 首次使用需准备 OpenHarmony 根 CA（每机一次）。既可以从 OpenHarmony 官方的应用签名页下载测试根 CA，也可以用 `hap-sign-tool` 自行生成：
+
+   ```
+   java -jar hap-sign-tool.jar generate-keypair -keyFile oh-test-root.key -keyPwd ******
+   java -jar hap-sign-tool.jar self-sign-cert  -keyFile oh-test-root.key -keyPwd ****** \
+       -certFile oh-test-root-cert.cer -outForm DER -subjectCN "OH Root CA"
+   ```
+
+3. 依次生成开发者密钥、CSR、由根 CA 签发的证书，并按 OpenHarmony *应用签名开发指导* 中的 Profile Schema 生成 `.p7b` 描述文件。
+4. 对 `hvigorw` 产出的 HAP 进行签名：
+
+   ```
+   java -jar hap-sign-tool.jar sign-hap \
+       -mode localSign \
+       -keyAlias debugKey \
+       -keystoreFile ./developer.p12 -keystorePwd ****** \
+       -appCertFile  ./developer.cer \
+       -profileFile  ./developer.p7b \
+       -signAlg SHA256withECDSA \
+       -inFile  ./entry/build/default/outputs/default/entry-default-unsigned.hap \
+       -outFile ./entry/build/default/outputs/default/entry-default-signed.hap
+   ```
+
+5. 将 `build-profile.json5` 中 `signingConfigs.material` 指向本地的 `.p12 / .cer / .p7b`；或保持留空，直接用 `hdc file send … && hdc shell bm install -p …` 安装签名后的 HAP。
+
+注意事项：
+
+- 提交代码前请确认 `.p12`、`.cer`、`.p7b`、`.keystore` 与本地 `sign/` 目录已被 `.gitignore` 排除。
+- 若安装时报 `error:install sign info inconsistent`，说明签名密钥发生变化，请先执行 `hdc shell bm uninstall -n com.samples.bluetoothbaseprofile` 卸载旧包，或使用 `devecocli run --uninstall` 后重新构建。
+
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行。
@@ -107,6 +153,6 @@ library/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Connectivity/BluetoothBaseProfile/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -57,7 +57,7 @@ export class BluetoothConstants {
   static readonly DOMAIN: number = 0xF830;
 
   /** Application bundle name for identification */
-  static readonly BUNDLE_NAME: string = 'ohos.samples.bluetoothbaseprofile';
+  static readonly BUNDLE_NAME: string = 'com.samples.bluetoothbaseprofile';
 
   /** hiTraceMeter trace domain for performance analysis */
   static readonly TRACE_DOMAIN: number = 0xF830;

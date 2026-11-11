@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -450,7 +450,7 @@ export class AvrcpService {
         return false;
       }
 
-      const index = this.connectedDeviceIds.indexOf(deviceId);
+      const index: number = this.connectedDeviceIds.indexOf(deviceId);
       if (index === -1) {
         this.addHistoryEntry('disconnect', false, 'Device not connected');
         hiTraceMeter.finishTrace(`${this.serviceName}_disconnect`, 0);
@@ -583,7 +583,7 @@ export class AvrcpService {
    * @returns {AvrcpPerformanceMetrics} The performance metrics.
    */
   getPerformanceMetrics(): AvrcpPerformanceMetrics {
-    const uptime = this.serviceStartTime > 0 ? Date.now() - this.serviceStartTime : 0;
+    const uptime: number = this.serviceStartTime > 0 ? Date.now() - this.serviceStartTime : 0;
     return {
       ...this.performanceMetrics,
       uptimeMs: uptime,
@@ -631,7 +631,7 @@ export class AvrcpService {
    * @param {(state: BluetoothConnectionState) => void} callback - The callback to remove.
    */
   removeConnectionCallback(callback: (state: BluetoothConnectionState) => void): void {
-    const index = this.connectionCallbacks.indexOf(callback);
+    const index: number = this.connectionCallbacks.indexOf(callback);
     if (index !== -1) {
       this.connectionCallbacks.splice(index, 1);
     }
@@ -654,7 +654,7 @@ export class AvrcpService {
    * @param {(model: AvrcpModel) => void} callback - The callback to remove.
    */
   removeDataCallback(callback: (model: AvrcpModel) => void): void {
-    const index = this.dataCallbacks.indexOf(callback);
+    const index: number = this.dataCallbacks.indexOf(callback);
     if (index !== -1) {
       this.dataCallbacks.splice(index, 1);
     }
@@ -677,7 +677,7 @@ export class AvrcpService {
    * @param {(record: AvrcpOperationRecord) => void} callback - The callback to remove.
    */
   removeOperationCallback(callback: (record: AvrcpOperationRecord) => void): void {
-    const index = this.operationCallbacks.indexOf(callback);
+    const index: number = this.operationCallbacks.indexOf(callback);
     if (index !== -1) {
       this.operationCallbacks.splice(index, 1);
     }
@@ -698,7 +698,7 @@ export class AvrcpService {
    * @returns {object} Statistics object with connection, operation, and performance data.
    */
   getStatistics(): object {
-    const metrics = this.getPerformanceMetrics();
+    const metrics: AvrcpPerformanceMetrics = this.getPerformanceMetrics();
     return {
       serviceName: this.serviceName,
       isInitialized: this.isInitialized,
@@ -882,7 +882,7 @@ export class AvrcpService {
    */
   private addOperationRecord(operationName: string, deviceId: string, success: boolean,
     errorMessage: string, details: string): void {
-    const now = Date.now();
+    const now: number = Date.now();
     const record: AvrcpOperationRecord = {
       operationId: `op_${++this.operationIdCounter}`,
       operationName,

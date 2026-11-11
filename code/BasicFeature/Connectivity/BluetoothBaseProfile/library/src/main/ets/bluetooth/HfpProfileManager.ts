@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,6 +19,7 @@ import { HfpService } from '../service/HfpService';
 import { HfpModel } from '../model/HfpModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
+import { ManagerHealthStatus } from '../types/ProfileTypes';
 
 /**
  * @interface HfpManagerStatistics
@@ -346,7 +347,7 @@ export class HfpProfileManager {
         return false;
       }
 
-      const serviceInitialized = await this.service.initialize();
+      const serviceInitialized: boolean = await this.service.initialize();
       if (!serviceInitialized) {
         hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s service initialization failed', this.managerName);
         hiTraceMeter.finishTrace(`${this.managerName}_initialize`, 0);
@@ -442,7 +443,7 @@ export class HfpProfileManager {
       this.statistics.totalConnectionAttempts++;
       this.statistics.lastConnectionEvent = Date.now();
 
-      const connected = await this.service.connect(deviceId);
+      const connected: boolean = await this.service.connect(deviceId);
 
       if (connected) {
         this.managedDeviceIds.push(deviceId);
@@ -500,14 +501,14 @@ export class HfpProfileManager {
         return false;
       }
 
-      const index = this.managedDeviceIds.indexOf(deviceId);
+      const index: number = this.managedDeviceIds.indexOf(deviceId);
       if (index === -1) {
         this.addOperationRecord('disconnect', false, 'Not managed', `Device ${deviceId} not managed`);
         hiTraceMeter.finishTrace(`${this.managerName}_disconnect`, 0);
         return false;
       }
 
-      const disconnected = await this.service.disconnect(deviceId);
+      const disconnected: boolean = await this.service.disconnect(deviceId);
 
       if (disconnected) {
         this.managedDeviceIds.splice(index, 1);
@@ -627,9 +628,9 @@ export class HfpProfileManager {
   /**
    * @method getHealthStatus
    * @description Returns the current health status of the manager.
-   * @returns {object} Health status object with score and details.
+   * @returns {ManagerHealthStatus} Health status object with score and details.
    */
-  getHealthStatus(): object {
+  getHealthStatus(): ManagerHealthStatus {
     this.updateStatistics();
     return {
       isHealthy: this.statistics.isHealthy,
@@ -662,7 +663,7 @@ export class HfpProfileManager {
    * @param {(state: BluetoothConnectionState) => void} callback - The callback to remove.
    */
   removeStateCallback(callback: (state: BluetoothConnectionState) => void): void {
-    const index = this.stateCallbacks.indexOf(callback);
+    const index: number = this.stateCallbacks.indexOf(callback);
     if (index !== -1) {
       this.stateCallbacks.splice(index, 1);
     }
@@ -685,7 +686,7 @@ export class HfpProfileManager {
    * @param {(model: HfpModel) => void} callback - The callback to remove.
    */
   removeDataCallback(callback: (model: HfpModel) => void): void {
-    const index = this.dataCallbacks.indexOf(callback);
+    const index: number = this.dataCallbacks.indexOf(callback);
     if (index !== -1) {
       this.dataCallbacks.splice(index, 1);
     }
@@ -759,7 +760,7 @@ export class HfpProfileManager {
    * @private
    */
   private updateStatistics(): void {
-    const uptime = this.managerStartTime > 0 ? Date.now() - this.managerStartTime : 0;
+    const uptime: number = this.managerStartTime > 0 ? Date.now() - this.managerStartTime : 0;
     this.statistics.uptimeMs = uptime;
 
     if (this.statistics.totalConnectionAttempts > 0) {
@@ -803,7 +804,7 @@ export class HfpProfileManager {
    * @private
    */
   private addOperationRecord(operationName: string, success: boolean, errorMessage: string, details: string): void {
-    const now = Date.now();
+    const now: number = Date.now();
     const record: HfpOperationRecord = {
       operationId: `mgr_op_${++this.operationIdCounter}`,
       operationName,

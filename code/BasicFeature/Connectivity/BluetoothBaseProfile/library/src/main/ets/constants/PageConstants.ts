@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -48,37 +48,6 @@ export class PageConstants {
   static readonly PAGE_COMBINED_SCENARIO: string = 'pages/CombinedScenarioPage';
   /** 设置页面路由 */
   static readonly PAGE_SETTINGS: string = 'pages/SettingsPage';
-
-  /** 首页标题 */
-  static readonly TITLE_INDEX: string = '蓝牙BaseProfile示例';
-  /** A2DP标题 */
-  static readonly TITLE_A2DP: string = '音频分发(A2DP)';
-  /** HFP标题 */
-  static readonly TITLE_HFP: string = '免提(HFP)';
-  /** HID标题 */
-  static readonly TITLE_HID: string = '人机交互(HID)';
-  /** PAN标题 */
-  static readonly TITLE_PAN: string = '个人局域网(PAN)';
-  /** PBAP标题 */
-  static readonly TITLE_PBAP: string = '电话本(PBAP)';
-  /** MAP标题 */
-  static readonly TITLE_MAP: string = '消息访问(MAP)';
-  /** AVRCP标题 */
-  static readonly TITLE_AVRCP: string = '音视频遥控(AVRCP)';
-  /** HDP标题 */
-  static readonly TITLE_HDP: string = '健康设备(HDP)';
-  /** 扫描标题 */
-  static readonly TITLE_SCAN: string = '设备扫描';
-  /** 已配对设备标题 */
-  static readonly TITLE_BONDED_DEVICES: string = '已配对设备';
-  /** 连接日志标题 */
-  static readonly TITLE_CONNECTION_LOG: string = '连接日志';
-  /** Profile统计标题 */
-  static readonly TITLE_PROFILE_STATISTICS: string = 'Profile统计';
-  /** 组合场景标题 */
-  static readonly TITLE_COMBINED_SCENARIO: string = '组合场景';
-  /** 设置标题 */
-  static readonly TITLE_SETTINGS: string = '蓝牙设置';
 
   /** 状态栏高度 */
   static readonly STATUS_BAR_HEIGHT: number = 56;

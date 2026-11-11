@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -119,3 +119,16 @@ export { BluetoothMockDataGenerator } from './src/main/ets/mock/BluetoothMockDat
 export { DeviceMockData } from './src/main/ets/mock/DeviceMockData';
 export { ConnectionMockData } from './src/main/ets/mock/ConnectionMockData';
 export { ProfileMockData } from './src/main/ets/mock/ProfileMockData';
+
+// ========================================
+// Shared Profile Types
+// ========================================
+export type { ManagerHealthStatus, ManagerFilterCriteria, OperationHistoryEntry } from './src/main/ets/types/ProfileTypes';
+export type { A2dpManagerStatistics, A2dpOperationRecord } from './src/main/ets/bluetooth/A2dpProfileManager';
+export type { AvrcpManagerStatistics, AvrcpOperationRecord } from './src/main/ets/bluetooth/AvrcpProfileManager';
+export type { HdpManagerStatistics, HdpOperationRecord } from './src/main/ets/bluetooth/HdpProfileManager';
+export type { HfpManagerStatistics, HfpOperationRecord } from './src/main/ets/bluetooth/HfpProfileManager';
+export type { HidManagerStatistics, HidOperationRecord } from './src/main/ets/bluetooth/HidProfileManager';
+export type { MapManagerStatistics, MapOperationRecord } from './src/main/ets/bluetooth/MapProfileManager';
+export type { PanManagerStatistics, PanOperationRecord } from './src/main/ets/bluetooth/PanProfileManager';
+export type { PbapManagerStatistics, PbapOperationRecord } from './src/main/ets/bluetooth/PbapProfileManager';

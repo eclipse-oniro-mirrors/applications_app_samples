@@ -92,6 +92,52 @@ N/A
 
 This sample provides ohosTest test suites based on the Hypium framework, covering profile managers, services, models, utilities, and integration scenarios. For details, see [ohosTest.md](ohosTest.md).
 
+### Signing Configuration
+
+The `signingConfigs.material` field in the root [build-profile.json5](build-profile.json5) is **developer-local** — it contains absolute paths, keystores and encrypted passwords from the original author's machine and is only kept as a shape reference. Every user must regenerate the signing material locally before running the sample on a real device or emulator. Do **not** commit your own `keyPassword` / `storePassword` / personal paths back to the repository.
+
+Option 1 — DevEco Studio (recommended):
+
+1. Open this project in DevEco Studio 26.0 or later.
+2. Choose **File > Project Structure > Project > Signing Configs**.
+3. Tick **Automatically generate signature**.
+   - For **OpenHarmony** (`runtimeOS: OpenHarmony`), click **Sign In** with your Huawei developer account (or use a locally generated OpenHarmony root CA — see Option 2) so DevEco can produce `default_BluetoothBaseProfile_*.p12 / .cer / .p7b` under `~/.ohos/config/openharmony/` (Windows: `C:\Users\<you>\.ohos\config\openharmony\`).
+4. Click **OK / Apply**. DevEco writes back the `signingConfigs` block in `build-profile.json5` with your local paths.
+5. Build and install as usual: **Build > Build Hap(s)/APP(s)** or `devecocli build`.
+
+Option 2 — Command line with `hap-sign-tool` (no IDE, useful for CI):
+
+1. Locate the signing tool in your OpenHarmony SDK: `<sdk>/default/openharmony/toolchains/hap-sign-tool.jar`. The tool requires Java 8 or later.
+2. Prepare an OpenHarmony root CA (once per machine). Either download the official test root CA from the OpenHarmony signing page, or generate one with `keytool` and `hap-sign-tool`:
+
+   ```
+   java -jar hap-sign-tool.jar generate-keypair -keyFile oh-test-root.key -keyPwd ******
+   java -jar hap-sign-tool.jar self-sign-cert  -keyFile oh-test-root.key -keyPwd ****** \
+       -certFile oh-test-root-cert.cer -outForm DER -subjectCN "OH Root CA"
+   ```
+
+3. Generate the developer key, CSR, and profile-signed certificate, then build the `.p7b` profile with a valid OpenHarmony app profile (see the *Code Signing* guide in the OpenHarmony docs for the JSON schema).
+4. Sign the HAP produced by `hvigorw`:
+
+   ```
+   java -jar hap-sign-tool.jar sign-hap \
+       -mode localSign \
+       -keyAlias debugKey \
+       -keystoreFile ./developer.p12 -keystorePwd ****** \
+       -appCertFile  ./developer.cer \
+       -profileFile  ./developer.p7b \
+       -signAlg SHA256withECDSA \
+       -inFile  ./entry/build/default/outputs/default/entry-default-unsigned.hap \
+       -outFile ./entry/build/default/outputs/default/entry-default-signed.hap
+   ```
+
+5. Point `signingConfigs.material` in `build-profile.json5` at the local `.p12 / .cer / .p7b` files, or leave it empty and install the HAP directly via `hdc file send … && hdc shell bm install -p …`.
+
+Notes:
+
+- Add `.p12`, `.cer`, `.p7b`, `.keystore` and any local `sign/` directory to `.gitignore` before committing (the project-level [.gitignore](.gitignore) already excludes them).
+- If installation fails with `error:install sign info inconsistent`, uninstall first (`hdc shell bm uninstall -n com.samples.bluetoothbaseprofile`) or run `devecocli run --uninstall`, then rebuild.
+
 ### Constraints
 
 1. This sample can only be run on standard-system devices.
@@ -107,6 +153,6 @@ To download this project separately, run the following commands:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Connectivity/BluetoothBaseProfile/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

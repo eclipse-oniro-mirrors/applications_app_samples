@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -661,7 +661,7 @@ export class A2dpService {
         return false;
       }
 
-      const index = this.connectedDeviceIds.indexOf(deviceId);
+      const index: number = this.connectedDeviceIds.indexOf(deviceId);
       if (index === -1) {
         this.addHistoryEntry('disconnect', false, 'Device not connected');
         hiTraceMeter.finishTrace(`${this.serviceName}_disconnect`, 0);
@@ -843,7 +843,7 @@ export class A2dpService {
       }
 
       if (this.playbackInfo && this.playbackInfo.totalTracks > 0) {
-        const nextIndex = (this.playbackInfo.trackIndex + 1) % this.playbackInfo.totalTracks;
+        const nextIndex: number = (this.playbackInfo.trackIndex + 1) % this.playbackInfo.totalTracks;
         this.playbackInfo.trackIndex = nextIndex;
         this.playbackInfo.positionMs = 0;
         this.model.playbackPosition = 0;
@@ -881,7 +881,7 @@ export class A2dpService {
       }
 
       if (this.playbackInfo && this.playbackInfo.totalTracks > 0) {
-        const prevIndex = (this.playbackInfo.trackIndex - 1 + this.playbackInfo.totalTracks) % this.playbackInfo.totalTracks;
+        const prevIndex: number = (this.playbackInfo.trackIndex - 1 + this.playbackInfo.totalTracks) % this.playbackInfo.totalTracks;
         this.playbackInfo.trackIndex = prevIndex;
         this.playbackInfo.positionMs = 0;
         this.model.playbackPosition = 0;
@@ -919,7 +919,7 @@ export class A2dpService {
         return false;
       }
 
-      const clampedVolume = Math.max(0, Math.min(100, Math.round(volume)));
+      const clampedVolume: number = Math.max(0, Math.min(100, Math.round(volume)));
       this.model.volume = clampedVolume;
       if (this.playbackInfo) {
         this.playbackInfo.volume = clampedVolume;
@@ -961,7 +961,7 @@ export class A2dpService {
         return false;
       }
 
-      const codec = this.supportedCodecs.find(c => c.codecId === codecId);
+      const codec: A2dpAudioCodecInfo | undefined = this.supportedCodecs.find((c: A2dpAudioCodecInfo) => c.codecId === codecId);
       if (!codec) {
         this.addHistoryEntry('selectCodec', false, `Unsupported codec: ${codecId}`);
         hiTraceMeter.finishTrace(`${this.serviceName}_selectCodec`, 0);
@@ -1121,7 +1121,7 @@ export class A2dpService {
    * @param {(state: BluetoothConnectionState) => void} callback - The callback to remove.
    */
   removeConnectionCallback(callback: (state: BluetoothConnectionState) => void): void {
-    const index = this.connectionCallbacks.indexOf(callback);
+    const index: number = this.connectionCallbacks.indexOf(callback);
     if (index !== -1) {
       this.connectionCallbacks.splice(index, 1);
     }
@@ -1144,7 +1144,7 @@ export class A2dpService {
    * @param {(model: A2dpModel) => void} callback - The callback to remove.
    */
   removeDataCallback(callback: (model: A2dpModel) => void): void {
-    const index = this.dataCallbacks.indexOf(callback);
+    const index: number = this.dataCallbacks.indexOf(callback);
     if (index !== -1) {
       this.dataCallbacks.splice(index, 1);
     }
@@ -1167,7 +1167,7 @@ export class A2dpService {
    * @param {(info: A2dpPlaybackInfo) => void} callback - The callback to remove.
    */
   removePlaybackCallback(callback: (info: A2dpPlaybackInfo) => void): void {
-    const index = this.playbackCallbacks.indexOf(callback);
+    const index: number = this.playbackCallbacks.indexOf(callback);
     if (index !== -1) {
       this.playbackCallbacks.splice(index, 1);
     }
@@ -1190,7 +1190,7 @@ export class A2dpService {
    * @param {(metrics: A2dpQualityMetrics) => void} callback - The callback to remove.
    */
   removeQualityCallback(callback: (metrics: A2dpQualityMetrics) => void): void {
-    const index = this.qualityCallbacks.indexOf(callback);
+    const index: number = this.qualityCallbacks.indexOf(callback);
     if (index !== -1) {
       this.qualityCallbacks.splice(index, 1);
     }
