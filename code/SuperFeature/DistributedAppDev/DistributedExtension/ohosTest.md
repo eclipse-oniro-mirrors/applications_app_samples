@@ -10,11 +10,11 @@
 | 交叉验证设备 | 同型设备，OpenHarmony 7.0.0.38 |
 | SDK | `compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `26.0.0` |
 | runtimeOS | `OpenHarmony`（非静态工程，`products[0]` 显式写了 `compileSdkVersion`） |
-| deviceTypes | `default` / `tablet` / `2in1`（OpenHarmony SDK 的 `ets/api/device-define` 没有 `phone`） |
+| deviceTypes | `default` / `tablet`（OpenHarmony SDK 的 `ets/api/device-define` 没有 `phone`） |
 | 被测应用 | `com.example.distributedextension` |
 | 测试模块 | `entry_test`（`entry/src/ohosTest`） |
 | 用例入口 | `entry/src/ohosTest/ets/test/List.test.ets` |
-| 用例规模 | 66 个测试文件 + `List.test.ets`，共 3016 条 |
+| 用例规模 | 71 个测试文件 + `List.test.ets`，共 3016 条 |
 
 ## 二、用例组织
 
@@ -139,9 +139,7 @@ node -e "const m=require('./entry/build/default/intermediates/package/ohosTest/m
 
 ## 六、用例静态审计
 
-```powershell
-node scripts\audit-cases.js
-```
+提交前用本地审计脚本（开发环境工具，不随工程提供）扫全部测试文件，机械判定以下条目：
 
 检查项：`@tc.number` / `@tc.name` / `@tc.desc` 是否齐全，`@tc.name` 与 `it()` 是否同名，`@tc.number` 与 `it()` 名是否全局唯一，每条用例是否至少 3 处 `expect(`，是否出现 `expect(true)` / `assertEqual(true)` / `expect(typeof x)` 这类恒真或弱断言，单行是否超过 120 字符，每个测试文件是否都在 `List.test.ets` 里注册。
 

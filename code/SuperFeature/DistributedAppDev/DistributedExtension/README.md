@@ -268,11 +268,13 @@ DistributedExtension
 │   │   ├── entryability                    EntryAbility
 │   │   └── entrybackupability              EntryBackupAbility
 │   └── resources                           字符串（`base/element/string.json` 存全部用户可见文案）、颜色、主题、页面配置
-├── entry/src/ohosTest/ets/test             设备侧测试（66 个测试文件 + List.test.ets，3016 个用例）
+├── entry/src/ohosTest/ets/test             设备侧测试（71 个测试文件 + List.test.ets，3016 个用例）
 ├── entry/src/ohosTest/ets/util/TestTick.ets 用例间让出主线程的定时器（各 describe 的 beforeEachIt 调用它）
-├── scripts/sign-openharmony.ps1            命令行本地签名（release 模板）
-├── scripts/audit-cases.js                  用例静态审计（@tc 元数据、断言数量、弱断言、行宽、注册）
-├── signature                               签名材料固定副本（profile + 证书链，供 IDE 面板手工指定）
+├── build-profile.json5                     产品与模块配置（`signingConfigs` 为空数组）
+├── code-linter.json5                       静态检查规则
+├── hvigorfile.ts                           构建脚本入口（工程根与 entry 各一份）
+├── hvigor/hvigor-config.json5              hvigor 版本与插件依赖
+├── oh-package.json5 / oh-package-lock.json5 三方依赖（hypium / hamock）
 ├── screenshot                              效果预览截图（首页 / 分布式扩展 / 链路增强）
 ├── ohosTest.md                             测试说明（环境、分层、步骤、结果、限制、静态审计）
 └── README.md
@@ -280,14 +282,14 @@ DistributedExtension
 
 ## 获取代码
 
-本工程位于 `applications_app_samples` 仓库的 `SuperFeature/DistributedAppDev/DistributedExtension` 目录，
+本工程位于 `applications_app_samples` 仓库的 `code/SuperFeature/DistributedAppDev/DistributedExtension` 目录，
 建议用 sparse-checkout 只拉这一份：
 
 ```bash
 git clone --filter=blob:none --no-checkout https://gitcode.com/openharmony/applications_app_samples.git
 cd applications_app_samples
 git sparse-checkout init --cone
-git sparse-checkout set SuperFeature/DistributedAppDev/DistributedExtension
+git sparse-checkout set code/SuperFeature/DistributedAppDev/DistributedExtension
 git checkout master
 ```
 
@@ -297,7 +299,7 @@ git checkout master
 
 - 需要 OpenHarmony API 26（SDK 26.0.0）及以上；`runtimeOS` 为 `OpenHarmony`，`products[0]` 必须显式写
   `compileSdkVersion`，否则 hvigor 报 `00303034 Configuration Error`。
-- `module.json5` 与 `entry/src/ohosTest/module.json5` 的 `deviceTypes` 只声明 `default` / `tablet` / `2in1`。
+- `module.json5` 与 `entry/src/ohosTest/module.json5` 的 `deviceTypes` 只声明 `default` / `tablet`。
   OpenHarmony SDK 的 `ets/api/device-define` 没有 `phone`，保留 `phone` 会让 `runtimeOS: OpenHarmony` 的
   构建在 `SyscapTransform` 报 `00303060`（系统能力交集为空）。
 - `type: "distributed"` 的扩展需应用具备系统应用身份与 ACL 才会被系统真正拉起；本示例只演示注册信息
@@ -313,49 +315,42 @@ git checkout master
 
 ## 构建、签名与安装
 
-`build-profile.json5` 里已有 `signingConfigs`（指向 DevEco 自动签名材料），所以 `assembleHap` 会直接产出
-`entry-default-signed.hap` / `entry-ohosTest-signed.hap`，这份产物的签名身份与 DevEco 部署的包一致，
-命令行装完可以直接回到 IDE 里点运行。另一种是 release 模板签名（用 SDK 自带的 `OpenHarmony.p12`），
-本工程提供 `scripts/sign-openharmony.ps1`：
+仓库里的 `build-profile.json5` 中 `signingConfigs` 为空数组（`"signingConfigs": []`），`assembleHap` 只产出
+`-unsigned.hap`，`SignHap` 跳过并提示：
+
+```
+WARN: Will skip sign 'hap'. No signingConfigs profile is configured in current project.
+```
+
+要装到真机，先用 DevEco Studio 生成一套属于本机的签名：
+
+1. 用 DevEco Studio 打开工程，`File > Project Structure > Signing Configs`，勾选
+   `Automatically generate signature`，登录后由 IDE 生成 `.p12` / `.cer` / `.p7b` 并写入 `build-profile.json5`；
+2. `products[0]` 里已有 `"signingConfig": "default"`，它只是指向配置名，材料没生成时仍只产 unsigned 包。
+   若材料生成后 `products[0]` 里缺这一行，`assembleHap` 会打印 `WARN: No signingConfig found for product default`；
+3. 之后再走命令行构建，`SignHap` 才会执行并产出 `-signed.hap`。
 
 ```powershell
 # 主模块
-& "D:\devecoStudio-7.0\DevEco Studio\tools\hvigor\bin\hvigorw.bat" --mode module `
+& "<DevEco>\tools\hvigor\bin\hvigorw.bat" --mode module `
   -p module=entry@default -p product=default assembleHap --no-daemon
 
 # ohosTest 包
-& "D:\devecoStudio-7.0\DevEco Studio\tools\hvigor\bin\hvigorw.bat" --mode module `
-  -p module=entry@ohosTest -p product=default assembleHap --no-daemon
-
-# 签名（release 模板，不需要设备 UDID；会覆盖上面产出的 signed hap，签名身份随之变化）
-powershell -ExecutionPolicy Bypass -File .\scripts\sign-openharmony.ps1
-powershell -ExecutionPolicy Bypass -File .\scripts\sign-openharmony.ps1 `
-  -InHap "entry\build\default\outputs\ohosTest\entry-ohosTest-unsigned.hap" `
-  -OutHap "entry\build\default\outputs\ohosTest\entry-ohosTest-signed.hap"
-
-# 安装
-D:\hdc.exe install -r entry\build\default\outputs\default\entry-default-signed.hap
-D:\hdc.exe install -r entry\build\default\outputs\ohosTest\entry-ohosTest-signed.hap
+& "<DevEco>\tools\hvigor\bin\hvigorw.bat" --mode module `
+  -p module=entry@ohosTest -p isOhosTest=true -p product=default -p buildMode=test assembleHap --no-daemon
 ```
 
-> **两种签名不要混用在同一台设备上。** 设备上已有 release 签名的包时，IDE 部署会失败
-> （`9568332` / `9568289`）并让测试框架退出、报 `00502002`；要回 IDE 跑测，先 `hdc uninstall` 再由 IDE 装。
-> 日常跑测建议只用 hvigor 自己签的那一份。
+安装（主包与测试包必须出自同一次签名）：
+
+```powershell
+hdc uninstall com.example.distributedextension
+hdc install -r entry\build\default\outputs\default\entry-default-signed.hap
+hdc install -r entry\build\default\outputs\ohosTest\entry-ohosTest-signed.hap
+```
 
 启动 UI：在设备桌面点击本应用图标。
 
-签名脚本用的几个固定参数，换成别的 OpenHarmony SDK 时要注意：
-
-- 叶子证书取 `UnsgnedReleasedProfileTemplate.json` 的 `bundle-info.distribution-certificate`。
-  p12 里 `openharmony application release` 条目自带的是自签证书，直接当链头会报
-  `verify certificate chain failed`；
-- 证书链 = 模板叶子 + `keytool -exportcert -rfc -alias "openharmony application ca"` + `-alias "rootcacert"`；
-- `sign-profile` 用别名 `openharmony application profile release` 与 `OpenHarmonyProfileRelease.pem`；
-- `sign-app` 用别名 `openharmony application release`，并带 `-compatibleVersion 24 -signCode 1`；
-- release profile 不需要 `debug-info.device-ids`，装到任意 OpenHarmony 设备上都能验证。
-
-脚本跑完会执行 `verify-app`，本机输出 `verify: Verify success`；`hdc install` 返回
-`install bundle successfully`。
+> `signingConfigs` 里的口令是 IDE 加密后的串，改成明文会让 hvigor 报 `00303116`；本机的签名配置也不要提交上库。
 
 ## DevEco 自动签名实测
 
@@ -372,9 +367,9 @@ D:\hdc.exe install -r entry\build\default\outputs\ohosTest\entry-ohosTest-signed
 
 | 设备上已有 | 要装的包 | 结果 |
 | --- | --- | --- |
-| 脚本 release | IDE debug | `9568289 install failed due to grant request permissions failed` |
-| 脚本 release | 脚本 release | 成功 |
-| IDE debug | 脚本 release | `9568332 install sign info inconsistent` |
+| release 模板 | IDE debug | `9568289 install failed due to grant request permissions failed` |
+| release 模板 | release 模板 | 成功 |
+| IDE debug | release 模板 | `9568332 install sign info inconsistent` |
 | IDE debug | IDE debug | 成功 |
 
 为确认 9568289 与 `requestPermissions` 无关，这个错误码出现在「换证书覆盖安装」路径上，系统在 SPM 阶段拒绝。
@@ -394,20 +389,15 @@ hilog 里只有校验码，不指向具体权限：
 | `debug-info.device-ids` | 20 个 UDID | 无（release 不需要） |
 | `issuer` | `app_gallery` | `pki_internal` |
 
-另外 hvigor 不接受明文口令：把材料直接指向 SDK 的 `OpenHarmony.p12`（口令 `123456`）并在
-`build-profile.json5` 里写 `"storePassword": "xxxxx"`，会报
+另外 hvigor 不接受明文口令：把材料直接指向 SDK 的 `OpenHarmony.p12` 并在 `build-profile.json5` 里写明文
+`storePassword`，会报
 
 ```
 00303116 Configuration Error
 The length of the storePassword or keyPassword field in the signature configuration is less than 32
 ```
 
-也就是说 IDE 构建只认 IDE 加密过的口令，命令行脚本才能用明文口令。想在 IDE 里用 release 材料，得在
-Project Structure → Signing Configs 面板里手工选 `signature/app-chain.pem` 与
-`signature/distributedextension.p7b`、口令填 `123456`，由 IDE 自己加密后落盘。
-
-结论：本工程日常用脚本签名；`signature/` 下是脚本产物的固定副本（公开测试证书与 profile，不含私钥），
-方便在 IDE 面板里直接指定。
+也就是说 IDE 构建只认 IDE 加密过的口令。
 
 ## 运行测试
 
@@ -441,7 +431,7 @@ OHOS_REPORT_RESULT: stream=Tests run: 3016, Failure: 0, Error: 0, Pass: 3016, Ig
 - 定时器延迟必须大于 0：`setTimeout(resolve, 0)` 会被并进同一次任务，实测仍然在 500 多条处被杀，改成 1 ms 才生效；
 - 不需要每条都等：设备上定时器回调要几十毫秒，每条都等会把整套时长从 1 分半拉到 3 分钟以上，每 10 条一次足够。
 
-用例按「分 - 总」组织，66 个测试文件共 3016 条：先用纯逻辑与细粒度矩阵把每个模块单独钉住（分），
+用例按「分 - 总」组织，71 个测试文件共 3016 条：先用纯逻辑与细粒度矩阵把每个模块单独钉住（分），
 再按质量维度（性能 / 稳定性 / 非法输入 / 兼容 / 国际化 / 恢复）成轴各穿一遍，最后把多个模块串成页面真实会走的链路、
 把多类设备接口放在同一台机器上组合调用（总）。
 
@@ -468,7 +458,7 @@ OHOS_REPORT_RESULT: stream=Tests run: 3016, Failure: 0, Error: 0, Pass: 3016, Ig
 | `DistributedTextCodecMatrix.test.ets` | 15 | 手写 UTF-8 编解码、字节数、非法字节丢弃 |
 | `DistributedPermissionModelMatrix.test.ets` | 9 | `PermissionOutcome.describe()` 的文案规则 + 设备上真查两个 user_grant 权限 |
 
-**第一层补充：输入值网格（14 个文件，1239 条）**
+**第一层补充：输入值网格（17 个文件，1239 条）**
 
 前 18 个文件把「哪些函数该有什么行为」钉住了，但每个函数只用了几个代表值。这一批把**输入值本身**铺开：
 同一个函数，换一个新输入值就是一条新用例，断言仍落在主代码的真实出口上。
@@ -478,19 +468,22 @@ OHOS_REPORT_RESULT: stream=Tests run: 3016, Failure: 0, Error: 0, Pass: 3016, Ig
 | `DistributedUtf8AsciiGrid.test.ets` | 95 | 0x20–0x7E 逐字符：字节序列（十进制串）、字节数、回环相等 |
 | `DistributedUtf8LatinGrid.test.ets` | 96 | U+00A0–U+00FF 逐码点：钉住 0xC2 / 0xC3 两个首字节 |
 | `DistributedUtf8TwoByteGrid.test.ets` | 120 | U+0080–U+07FF 步长 16 抽样：首字节区间与 10xxxxxx 掩码 |
-| `DistributedUtf8CjkGrid.test.ets` | 200 | CJK 基本区步长 37 抽样 200 个汉字：三字节编码逐字节核对 |
+| `DistributedUtf8CjkGrid.test.ets` | 100 | CJK 基本区步长 37 抽样的前 100 个汉字：三字节编码逐字节核对 |
+| `DistributedUtf8CjkGridPart2.test.ets` | 100 | 同一步长继续抽样到第 200 个汉字，拆两个文件控制单文件规模 |
 | `DistributedUtf8FourByteGrid.test.ets` | 64 | U+10000–U+10FFFF 步长 16384 抽样：代理对拼接与 0xF0–0xF4 |
 | `DistributedUtf8MalformedGrid.test.ets` | 22 | 截断尾字节、非法首字节、越界码点、孤立代理、0xC0 0x80 超长编码 |
 | `DistributedUtf8MixedGrid.test.ets` | 18 | 页面上真实出现的服务名、权限名、MAC、UUID、40 位数字载荷 |
 | `DistributedHexPreviewGrid.test.ets` | 43 | 0x00–0x20 / 0x7F / 0x80 / 0xAB / 0xFF 逐字节补零，加 6 组 limit 收尾 |
 | `DistributedPad2Grid.test.ets` | 109 | 0–99 全铺，加三位数、四位数、负数（负数会拼出 `0-1`，如实钉住） |
-| `DistributedDurationGrid.test.ets` | 232 | 毫秒段步长 11、秒段步长 900、分钟段步长 1 分钟，加 59999 / 60000 / 60001 进位与 5 个负值 |
+| `DistributedDurationGrid.test.ets` | 91 | 毫秒段步长 11 逐点推进 |
+| `DistributedDurationSecondGrid.test.ets` | 66 | 秒段 1000–59500 步长 900，核对 `toFixed(1)` 的 `.x s` 形态 |
+| `DistributedDurationMinuteGrid.test.ets` | 75 | 分钟段步长 1 分钟，含 59999 / 60000 / 60001 进位边界与负值 |
 | `DistributedClockGrid.test.ets` | 96 | 24 个钟点 × 4 组时分秒（全 0 / 单位数 / 59 / 秒 1） |
 | `DistributedStampGrid.test.ets` | 8 | 闰日、月末、世纪边界与普通日期，核对 `年-月-日 时:分:秒` 拼装 |
 | `DistributedTruncateGrid.test.ets` | 84 | 4 个字符串 × `maxLength` 0–20：不截断 / 只剩省略号 / 头长尾短三种形态 |
 | `DistributedClampGrid.test.ets` | 52 | 4 个字符串 × `maxBytes` 0–12：ASCII / CJK / 代理对三种字符宽度，逐例核对裁剪结果与最终字节数不超上限 |
 
-**第一层补充之二：查询与状态机路径网格（14 个文件，983 条）**
+**第一层补充之二：查询与状态机路径网格（17 个文件，983 条）**
 
 第二批把输入值铺在纯函数上，这一批铺在**带状态的模块**上：日志查询、目录检索、协同参数、两条状态机、错误文案。
 
@@ -503,10 +496,13 @@ OHOS_REPORT_RESULT: stream=Tests run: 3016, Failure: 0, Error: 0, Pass: 3016, Ig
 | `DistributedCatalogKeywordGrid.test.ets` | 55 | 55 个关键字覆盖 code / 标题 / 接口名 / 摘要，含大小写、前缀片段、符号与中文 |
 | `DistributedCatalogFieldGrid.test.ets` | 45 | 按字段取样，其中 `note`、`permission`、`entryFunction` 不在检索范围内，取样里专门放它们的词，结果必须为 0 |
 | `DistributedCollabIndexGrid.test.ets` | 43 | 36 个协同下标（空串、纯空白、制表符、全角空格、中文、emoji、长串）× 7 种 `wantParam` 键组合 |
-| `DistributedLinkTriplePathGrid.test.ets` | 128 | 链路 8 个动作的三步序列共 512 条，等距取 128 条：逐条推进并核对终点阶段 |
-| `DistributedLinkQuadPathGrid.test.ets` | 100 | 四步序列从 8^4 条里等距取 100 条，覆盖「关闭后重建」「启动后停止再重建」这类深路径 |
+| `DistributedLinkTriplePathGrid.test.ets` | 64 | 链路 8 个动作的三步序列共 512 条，等距取 128 条的前 64 条：逐条推进并核对终点阶段 |
+| `DistributedLinkTriplePathGridPart2.test.ets` | 64 | 承接前 64 条推进剩余 64 条三步序列；非法序列（如未创建就 connect）也要求「原地不动」作为终点 |
+| `DistributedLinkQuadPathGrid.test.ets` | 50 | 四步序列从 8^4 条里等距取 100 条的前 50 条 |
+| `DistributedLinkQuadPathGridPart2.test.ets` | 50 | 承接前 50 条，覆盖「关闭后重建」「启动后停止再重建」这类深路径，终点核对 `canSend` / `allowedActions` |
+| `DistributedCodecAffixGrid.test.ets` | 81 | ASCII 与 Latin-1 段：每个字符 × 前缀 / 后缀 / 两侧包裹三种形态，首尾 ASCII 只贡献 1 字节 |
+| `DistributedCodecAffixGridPart2.test.ets` | 81 | CJK 与 emoji 段（含代理对）：同一组三种包裹形态，`decode(encode(x))` 必须与原文全等 |
 | `DistributedChannelPathGrid.test.ets` | 63 | 通道 5 个动作的 125 条三步序列取 63 条，重点覆盖「打开失败后重开」 |
-| `DistributedCodecAffixGrid.test.ets` | 162 | 60 个字符（ASCII / Latin-1 / CJK / emoji 四种宽度）× 前缀 / 后缀 / 两侧包裹：首尾 ASCII 只贡献 1 字节 |
 | `DistributedErrorMessageGrid.test.ets` | 63 | 21 个错误码（含 2 个未登记码）× 3 种 message：`describeThrown` 必须是 `formatError + 分号 + hint` 的严格拼接 |
 | `DistributedComposeGrid.test.ets` | 39 | 4 段文案 × 10 个字节上限：裁剪 → 编码 → 十六进制预览 → 解码回原文四步串起来 |
 | `DistributedHexLimitGrid.test.ets` | 55 | 5 个缓冲区（空 / 单字节 / 边界字节 / 16 字节 / 17 字节）× 11 个 `limit`（1–32）：省略号在 16/17 字节处分叉 |
@@ -631,16 +627,13 @@ UI 冒烟依赖应用在前台且停在首页：连跑多轮时若上一轮把�
 
 ### 用例静态审计
 
-`scripts/audit-cases.js` 把《XTS编码常见问题集规范指导手册》里能机械判定的条目做成检查：
-
-```powershell
-node scripts\audit-cases.js
-```
+提交前用一份本地审计脚本，把《XTS编码常见问题集规范指导手册》里能机械判定的条目全扫了一遍
+（脚本是开发环境工具，不随工程提供）：
 
 检查内容：`@tc.number` / `@tc.name` / `@tc.desc` 是否齐全，`@tc.name` 与 `it()` 是否同名，`@tc.number` 与 `it()` 名是否全局唯一，
 每条用例是否至少 3 处 `expect(`，是否出现 `expect(true)` / `assertEqual(true)` / `expect(typeof x)` 这类恒真或弱断言，
 单行是否超过 120 字符，每个测试文件是否都在 `List.test.ets` 里注册。
-当前输出：`文件 67 个，用例 3016 条，审计通过：0 违规`。审计按文件全扫，不区分执行方式，所以一次跑完不影响这条结论。
+当前输出：`文件 72 个，用例 3016 条，审计通过：0 违规`。审计按文件全扫，不区分执行方式，所以一次跑完不影响这条结论。
 
 ## 已知限制
 
@@ -669,17 +662,17 @@ node scripts\audit-cases.js
   1. `List.test.ets` 是否是「默认导入 `*.test` + `xxxTest();` 直接调用」的纯净写法。表驱动会被判未注册
      （单文件跑报 `00502004`）；**任何一个非 `*.test` 的导入**（`@ohos/hypium`、`./TestTick` 这类辅助模块）
      都会让静态扫描整体清零，报 `00502002`。本工程最初把 `beforeEachIt` 钩子写在 list 文件里，就是踩了这一条；
-  2. 设备上的包与 IDE 构建出来的包是否**同一签名身份**。命令行若用 `scripts/sign-openharmony.ps1`
-     （SDK `OpenHarmony.p12` 的 release 模板）重签，设备上就多了一套身份：IDE 部署会先以
+  2. 设备上的包与 IDE 构建出来的包是否**同一签名身份**。命令行若用另一套证书（例如 release 模板）
+     重签，设备上就多了一套身份：IDE 部署会先以
      `9568332 install sign info inconsistent`（反向装则 `9568289 grant request permissions failed`）失败，
      测试框架随即退出并报 `00502002`，`idea.log` 里表现为 `DeployHapTask create` 之后再无 `perform`、
      `<test-subcommand>` 从未拉起（`hdclib.log` 里出现 `Running` 记录才说明部署真的过了）；
      注意 IDE 部署测试包时基座应用要在设备上，手工卸载后直接点运行同样会卡在这一步；
   3. 连了多台设备时，IDE 是否跑在装了旧包的设备上——那台设备的测试包没有新套件，按套件名过滤后同样是 0 条
      （实测 7.0.0.38 那台停在旧包时 `-s class` 返回 0，同一命令在 7.1.0.22 上返回 39）。
-- **构建时不要覆盖签名**：`build-profile.json5` 的 `signingConfigs` 已指向 DevEco 自动签名材料，
-  hvigor 产出的 signed hap 与 IDE 部署的包同一身份，可以互相覆盖安装；只有在出包给外部时才对同一份产物
-  再跑 `scripts/sign-openharmony.ps1`，且装过 release 签名的设备要先 `hdc uninstall` 再回到 IDE 构建。
+- **构建时不要覆盖签名**：签名材料由 DevEco 自动签名生成并写入本机的 `build-profile.json5`，
+  hvigor 产出的 signed hap 与 IDE 部署的包同一身份，可以互相覆盖安装；换成另一套证书重签后，
+  装过旧签名的设备要先 `hdc uninstall` 再回到 IDE 构建。
 
 ## 参考资料
 

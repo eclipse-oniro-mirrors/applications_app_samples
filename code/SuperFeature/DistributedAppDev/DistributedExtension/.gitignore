@@ -11,3 +11,5 @@
 **/.test
 /.appanalyzer
 /.signing
+/signature
+/scripts
