@@ -22,7 +22,7 @@ struct Index {
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
         })
       // [EndExclude spc_menu_development_guidance_ui_ability_back]
-      Button("click to back")
+      Button('click to back')
         .onClick(() => {
           (this.getUIContext().getHostContext() as common.UIAbilityContext).terminateSelf().catch((err: Error) => {
             hilog.error(DOMAIN, TAG, 'error: %{public}s', JSON.stringify(err));

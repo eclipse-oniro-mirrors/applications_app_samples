@@ -17,7 +17,7 @@ struct UECPage {
         Button("click to back")
           .onClick(() => {
             try {
-              this.session.sendData({ 'action': "exit" })
+              this.session.sendData({ 'action': 'exit' })
             } catch (error) {
               hilog.error(DOMAIN, TAG, 'sendData error');
             }
