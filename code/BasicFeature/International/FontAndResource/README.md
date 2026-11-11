@@ -97,7 +97,7 @@ FontAndResource/
 |   |   |   |--- NetworkUtils.ets           // 网络连接状态查询
 |   |   |   |--- NumberUtils.ets            // 数值格式化，范围限定，单位换算与解析
 |   |   |   |--- PermissionUtils.ets        // 运行时权限检查与申请
-|   |   |   |--- PreferencesUtil.ets        // 首选项键值存储
+|   |   |   |--- PreferencesUtil.ets        // Preferences 键值存储
 |   |   |   |--- RandomUtils.ets            // 随机字节，ID 与颜色生成
 |   |   |   |--- StringUtils.ets            // 字符串处理
 |   |   |   |--- ValidateUtils.ets          // 手机号，邮箱，IPv4，颜色值等格式校验
