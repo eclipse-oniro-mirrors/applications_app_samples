@@ -184,6 +184,16 @@ struct Index {
   private connectPrinter(printer: PrinterInfoModel): void {
     const code: number = nativePrint.nativeConnectPrinter(printer.printerId);
     this.setCodeResult('OH_Print_ConnectPrinter', code);
+    if (code !== 0) {
+      return;
+    }
+    const result: nativePrint.PrinterInfoResult = nativePrint.nativeQueryPrinterInfo(printer.printerId);
+    if (result.code === 0 && result.printerInfo !== undefined) {
+      const connectedPrinter: PrinterInfoModel = PrinterInfoModel.fromNative(result.printerInfo);
+      this.upsertPrinter(connectedPrinter);
+      this.selectPrinter(connectedPrinter);
+      this.operationResult = this.getResourceText($r('app.string.connected')) + ': ' + connectedPrinter.printerName;
+    }
   }
   // [End print_native_discovery_ets]
 
