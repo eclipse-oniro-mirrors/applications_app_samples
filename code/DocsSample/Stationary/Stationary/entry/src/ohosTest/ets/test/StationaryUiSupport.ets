@@ -54,15 +54,44 @@ export function entryWant(): Want {
   };
 }
 
-export async function startApp(): Promise<boolean> {
+const LOCK_RETRY: number = 3;
+const KEYCODE_WAKEUP: number = 224;
+
+/** 屏幕熄灭后 UiTest 只能看到锁屏窗口，点击按钮不会生效；此时先唤醒屏幕。 */
+async function wakeUpScreen(driver: Driver): Promise<void> {
+  try {
+    await driver.triggerKey(KEYCODE_WAKEUP);
+  } catch (err) {
+    hilog.warn(DOMAIN, TAG, 'triggerKey wakeup failed');
+  }
+  await driver.delayMs(SETTLE_MS);
+}
+
+async function launchEntry(): Promise<void> {
   const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
   try {
     await delegator.startAbility(entryWant());
   } catch (err) {
+    hilog.warn(DOMAIN, TAG, 'startAbility EntryAbility failed');
   }
+}
+
+/**
+ * 把应用拉到前台并确认按钮可见。锁屏时前台是锁屏窗口，按键启动只会落在锁屏层，
+ * 因此每轮先唤醒屏幕再拉起 EntryAbility；按钮仍不可见则再重试。
+ */
+export async function startApp(): Promise<boolean> {
   const driver: Driver = getDriver();
-  await driver.delayMs(1000);
-  return await driver.waitForComponent(ON.id('button1'), 8000) !== null;
+  for (let attempt = 0; attempt < LOCK_RETRY; attempt++) {
+    await wakeUpScreen(driver);
+    await launchEntry();
+    await driver.delayMs(SETTLE_MS);
+    if (await driver.waitForComponent(ON.id('button1'), 4000) !== null) {
+      return true;
+    }
+    hilog.warn(DOMAIN, TAG, 'startApp attempt %{public}d: button1 not visible', attempt);
+  }
+  return await driver.waitForComponent(ON.id('button1'), 1000) !== null;
 }
 
 export function stationarySupported(): boolean {
@@ -206,9 +235,17 @@ export async function labelOf(driver: Driver, id: string): Promise<string> {
   return '';
 }
 
-/** 先把文案切到固定起点，使断言不依赖前序用例遗留的状态。 */
+/**
+ * 先把文案切到固定起点，使断言不依赖前序用例遗留的状态。
+ * 长时间等待时设备可能再次熄屏，此时按钮不可见，重新唤醒并拉起应用后再点击。
+ */
 export async function resetStatusText(driver: Driver): Promise<string> {
-  if (!(await clickUntilApplied(driver, 'button2'))) {
+  let clicked: boolean = await clickUntilApplied(driver, 'button2');
+  if (!clicked) {
+    await startApp();
+    clicked = await clickUntilApplied(driver, 'button2');
+  }
+  if (!clicked) {
     return '';
   }
   return await readShowText(driver);

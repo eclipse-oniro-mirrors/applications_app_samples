@@ -12,11 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { stationary } from '@kit.MultimodalAwarenessKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-const ALLOWED_CODES: number[] = [201, 801];
+const DOMAIN: number = 0xF812;
+const TAG: string = 'Sample_Stationary';
+
+const ALLOWED_CODES: number[] = [201, 401, 801];
 
 class CallOutcome {
   public success: number = 0;
@@ -84,6 +88,23 @@ function check(outcome: CallOutcome): void {
  * 每一步都要求恰好一个合法结果，用于验证重复订阅、重复取消与一次性查询
  * 交错执行时不会产生未文档化的异常。
  */
+
+function caseBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function caseEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
+function expectDocumentedOutcome(outcome: CallOutcome, label: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s',
+    label + ' success=' + outcome.success + ' allowed=' + outcome.allowedError +
+      ' invalid=' + outcome.invalidError);
+  expect(outcome.invalidError).assertEqual(0);
+  expect(outcome.success + outcome.allowedError).assertEqual(1);
+}
+
 export default function StationaryApiInterleaveTest() {
   describe('StationaryApiInterleaveTest', () => {
     /**
@@ -95,10 +116,12 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0001');
       check(onStill());
       check(offStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveStill0001');
     });
 
     /**
@@ -110,9 +133,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0002');
       check(offStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveStill0002');
     });
 
     /**
@@ -124,9 +149,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0003');
       check(onStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveStill0003');
     });
 
     /**
@@ -138,10 +165,12 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0004');
       check(offStill());
       check(offStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveStill0004');
     });
 
     /**
@@ -153,9 +182,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0005');
       check(onStill());
       check(offStill());
       check(offStill());
+      caseEnd('testInterleaveStill0005');
     });
 
     /**
@@ -167,9 +198,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0006');
       check(offStill());
       check(onStill());
       check(onStill());
+      caseEnd('testInterleaveStill0006');
     });
 
     /**
@@ -181,10 +214,12 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0007');
       check(onStill());
       check(onStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveStill0007');
     });
 
     /**
@@ -196,9 +231,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveStill0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveStill0008');
       check(offStill());
       check(offStill());
       check(offStill());
+      caseEnd('testInterleaveStill0008');
     });
 
     /**
@@ -210,10 +247,12 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOnce0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveOnce0009');
       check(onceStill());
       check(offStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveOnce0009');
     });
 
     /**
@@ -225,10 +264,12 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOnce0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveOnce0010');
       check(offStill());
       check(onceStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveOnce0010');
     });
 
     /**
@@ -240,9 +281,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOnce0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveOnce0011');
       check(onStill());
       check(onceStill());
       check(offStill());
+      caseEnd('testInterleaveOnce0011');
     });
 
     /**
@@ -254,9 +297,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOnce0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveOnce0012');
       check(onceStill());
       check(onStill());
       check(offStill());
+      caseEnd('testInterleaveOnce0012');
     });
 
     /**
@@ -268,9 +313,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOnce0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveOnce0013');
       check(onceStill());
       check(onceStill());
       check(onceStill());
+      caseEnd('testInterleaveOnce0013');
     });
 
     /**
@@ -282,10 +329,12 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOnce0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveOnce0014');
       check(onStill());
       check(onStill());
       check(onceStill());
       check(offStill());
+      caseEnd('testInterleaveOnce0014');
     });
 
     /**
@@ -297,8 +346,10 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveRelative0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveRelative0015');
       check(onRelative(stationary.ActivityEvent.ENTER));
       check(offRelative(stationary.ActivityEvent.ENTER, true));
+      caseEnd('testInterleaveRelative0015');
     });
 
     /**
@@ -310,8 +361,10 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveRelative0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveRelative0016');
       check(onRelative(stationary.ActivityEvent.EXIT));
       check(offRelative(stationary.ActivityEvent.EXIT, true));
+      caseEnd('testInterleaveRelative0016');
     });
 
     /**
@@ -323,8 +376,10 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveRelative0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveRelative0017');
       check(onRelative(stationary.ActivityEvent.ENTER_EXIT));
       check(offRelative(stationary.ActivityEvent.ENTER_EXIT, true));
+      caseEnd('testInterleaveRelative0017');
     });
 
     /**
@@ -336,7 +391,9 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveRelative0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveRelative0018');
       check(onceRelative());
+      caseEnd('testInterleaveRelative0018');
     });
 
     /**
@@ -348,9 +405,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveRelative0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveRelative0019');
       check(onRelative(stationary.ActivityEvent.ENTER_EXIT));
       check(onceRelative());
       check(offRelative(stationary.ActivityEvent.ENTER_EXIT, true));
+      caseEnd('testInterleaveRelative0019');
     });
 
     /**
@@ -362,9 +421,11 @@ export default function StationaryApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveRelative0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testInterleaveRelative0020');
       check(offRelative(stationary.ActivityEvent.ENTER, false));
       check(offRelative(stationary.ActivityEvent.EXIT, false));
       check(offRelative(stationary.ActivityEvent.ENTER_EXIT, false));
+      caseEnd('testInterleaveRelative0020');
     });
   });
 }

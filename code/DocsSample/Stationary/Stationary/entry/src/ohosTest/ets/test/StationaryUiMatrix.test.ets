@@ -39,6 +39,15 @@ import {
 const DOMAIN: number = 0xF812;
 const TAG: string = 'Sample_Stationary';
 
+
+function caseEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
+function caseBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
 export default function StationaryUiMatrixTest() {
   describe('StationaryUiMatrixTest', () => {
     beforeAll(async () => {
@@ -54,6 +63,7 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryUi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      caseBegin('testStationaryUi0001');
       const driver: Driver = getDriver();
       expect(await driver.waitForComponent(ON.id(SHOW_ID), 4000) !== null).assertTrue();
       let found: number = 0;
@@ -63,6 +73,7 @@ export default function StationaryUiMatrixTest() {
         }
       }
       expect(found).assertEqual(BUTTON_IDS.length);
+      caseEnd('testStationaryUi0001');
     });
 
     /**
@@ -74,8 +85,10 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryUi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      caseBegin('testStationaryUi0002');
       const driver: Driver = getDriver();
       expect(await clickAndExpect(driver, 0)).assertTrue();
+      caseEnd('testStationaryUi0002');
     });
 
     /**
@@ -87,8 +100,10 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryUi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      caseBegin('testStationaryUi0003');
       const driver: Driver = getDriver();
       expect(await clickAndExpect(driver, 1)).assertTrue();
+      caseEnd('testStationaryUi0003');
     });
 
     /**
@@ -100,8 +115,10 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryUi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      caseBegin('testStationaryUi0004');
       const driver: Driver = getDriver();
       expect(await clickAndExpect(driver, 2)).assertTrue();
+      caseEnd('testStationaryUi0004');
     });
 
     /**
@@ -113,8 +130,10 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0005');
       const driver: Driver = getDriver();
       expect(await repeatClick(driver, 'button1', 2)).assertTrue();
+      caseEnd('testStationaryUi0005');
     });
 
     /**
@@ -126,8 +145,10 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0006');
       const driver: Driver = getDriver();
       expect(await clickAndExpectLast(driver, ['button1', 'button2'])).assertTrue();
+      caseEnd('testStationaryUi0006');
     });
 
     /**
@@ -139,8 +160,10 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0007');
       const driver: Driver = getDriver();
       expect(await clickAndExpectLast(driver, ['button2', 'button3'])).assertTrue();
+      caseEnd('testStationaryUi0007');
     });
 
     /**
@@ -152,8 +175,10 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0008');
       const driver: Driver = getDriver();
       expect(await clickAndExpectLast(driver, BUTTON_IDS)).assertTrue();
+      caseEnd('testStationaryUi0008');
     });
 
     /**
@@ -165,6 +190,7 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0009');
       const driver: Driver = getDriver();
       expect(await clickAndExpect(driver, 0)).assertTrue();
       expect(await clickAndExpect(driver, 2)).assertTrue();
@@ -175,6 +201,7 @@ export default function StationaryUiMatrixTest() {
         }
       }
       expect(found).assertEqual(BUTTON_IDS.length);
+      caseEnd('testStationaryUi0009');
     });
 
     /**
@@ -186,10 +213,12 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0010');
       const driver: Driver = getDriver();
       for (let i = 0; i < BUTTON_IDS.length; i++) {
         expect(await clickAndExpect(driver, i)).assertTrue();
       }
+      caseEnd('testStationaryUi0010');
     });
 
     /**
@@ -201,6 +230,7 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0011');
       const driver: Driver = getDriver();
       const first: Component | null = await driver.waitForComponent(ON.id(BUTTON_IDS[0]), 4000);
       expect(first !== null).assertTrue();
@@ -229,6 +259,7 @@ export default function StationaryUiMatrixTest() {
         expect(rect.top >= previousBottom).assertTrue();
         previousBottom = rect.top;
       }
+      caseEnd('testStationaryUi0011');
     });
 
     /**
@@ -240,6 +271,7 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0012');
       const driver: Driver = getDriver();
       const show: Component | null = await driver.waitForComponent(ON.id(SHOW_ID), 4000);
       expect(show !== null).assertTrue();
@@ -256,6 +288,7 @@ export default function StationaryUiMatrixTest() {
           expect(rect.top >= showRect.bottom).assertTrue();
         }
       }
+      caseEnd('testStationaryUi0012');
     });
 
     /**
@@ -267,6 +300,7 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0013');
       const driver: Driver = getDriver();
       const button: Component | null = await driver.waitForComponent(ON.id(BUTTON_IDS[0]), 4000);
       expect(button !== null).assertTrue();
@@ -288,6 +322,7 @@ export default function StationaryUiMatrixTest() {
       const rect: Rect = await button.getBounds();
       const ratio: number = (rect.right - rect.left) / windowWidth;
       expect(ratio > 0.25 && ratio < 0.35).assertTrue();
+      caseEnd('testStationaryUi0013');
     });
 
     /**
@@ -299,6 +334,7 @@ export default function StationaryUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryUi0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryUi0014');
       const driver: Driver = getDriver();
       const show: Component | null = await driver.waitForComponent(ON.id(SHOW_ID), 4000);
       expect(show !== null).assertTrue();
@@ -320,6 +356,7 @@ export default function StationaryUiMatrixTest() {
       const rect: Rect = await show.getBounds();
       const ratio: number = (rect.bottom - rect.top) / windowHeight;
       expect(ratio > 0.15 && ratio < 0.25).assertTrue();
+      caseEnd('testStationaryUi0014');
     });
   });
 }

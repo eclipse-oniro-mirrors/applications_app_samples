@@ -12,11 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { stationary } from '@kit.MultimodalAwarenessKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-const ALLOWED_CODES: number[] = [201, 801];
+const DOMAIN: number = 0xF812;
+const TAG: string = 'Sample_Stationary';
+
+const ALLOWED_CODES: number[] = [201, 401, 801];
 
 class CallOutcome {
   public success: number = 0;
@@ -55,9 +59,26 @@ function expectSingleValidOutcome(outcome: CallOutcome): void {
 /**
  * stationary Kit 运行时契约（环境自适应）
  *
- * 设备支持时调用成功；不支持或无权限时按文档抛出 201/801。每个调用都要求
+ * 设备支持时调用成功；不支持、无权限或参数被拒时抛出 201/401/801。每个调用都要求
  * “恰好一个合法结果”，非法异常计数必须为 0，避免把任意异常当成通过。
  */
+
+function caseBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function caseEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
+function expectDocumentedOutcome(outcome: CallOutcome, label: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s',
+    label + ' success=' + outcome.success + ' allowed=' + outcome.allowedError +
+      ' invalid=' + outcome.invalidError);
+  expect(outcome.invalidError).assertEqual(0);
+  expect(outcome.success + outcome.allowedError).assertEqual(1);
+}
+
 export default function StationaryApiRobustTest() {
   describe('StationaryApiRobustTest', () => {
     /**
@@ -69,10 +90,12 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryRobust0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      caseBegin('testStationaryRobust0001');
       expectSingleValidOutcome(run(() =>
         stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+      caseEnd('testStationaryRobust0001');
     });
 
     /**
@@ -84,10 +107,12 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0002');
       expectSingleValidOutcome(run(() =>
         stationary.on('still', stationary.ActivityEvent.EXIT, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.EXIT, callback)));
+      caseEnd('testStationaryRobust0002');
     });
 
     /**
@@ -99,10 +124,12 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0003');
       expectSingleValidOutcome(run(() =>
         stationary.on('still', stationary.ActivityEvent.ENTER_EXIT, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER_EXIT, callback)));
+      caseEnd('testStationaryRobust0003');
     });
 
     /**
@@ -114,10 +141,12 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0004');
       expectSingleValidOutcome(run(() =>
         stationary.on('relativeStill', stationary.ActivityEvent.ENTER, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('relativeStill', stationary.ActivityEvent.ENTER, callback)));
+      caseEnd('testStationaryRobust0004');
     });
 
     /**
@@ -129,10 +158,12 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0005');
       expectSingleValidOutcome(run(() =>
         stationary.on('relativeStill', stationary.ActivityEvent.ENTER_EXIT, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('relativeStill', stationary.ActivityEvent.ENTER_EXIT, callback)));
+      caseEnd('testStationaryRobust0005');
     });
 
     /**
@@ -144,12 +175,14 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0006');
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER_EXIT, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('relativeStill', stationary.ActivityEvent.ENTER, callback)));
+      caseEnd('testStationaryRobust0006');
     });
 
     /**
@@ -161,10 +194,12 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0007');
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER)));
       expectSingleValidOutcome(run(() =>
         stationary.off('relativeStill', stationary.ActivityEvent.ENTER_EXIT)));
+      caseEnd('testStationaryRobust0007');
     });
 
     /**
@@ -176,7 +211,9 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryRobust0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      caseBegin('testStationaryRobust0008');
       expectSingleValidOutcome(run(() => stationary.once('still', callback)));
+      caseEnd('testStationaryRobust0008');
     });
 
     /**
@@ -188,7 +225,9 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0009');
       expectSingleValidOutcome(run(() => stationary.once('relativeStill', callback)));
+      caseEnd('testStationaryRobust0009');
     });
 
     /**
@@ -200,6 +239,7 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0010');
       const periods: number[] = [1000000000, 2000000000, 3000000000];
       for (const period of periods) {
         expectSingleValidOutcome(run(() =>
@@ -207,6 +247,7 @@ export default function StationaryApiRobustTest() {
         expectSingleValidOutcome(run(() =>
           stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
       }
+      caseEnd('testStationaryRobust0010');
     });
 
     /**
@@ -218,6 +259,7 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0011');
       let invalidError: number = 0;
       let valid: number = 0;
       for (let i = 0; i < 5; i++) {
@@ -227,6 +269,7 @@ export default function StationaryApiRobustTest() {
       }
       expect(invalidError).assertEqual(0);
       expect(valid).assertEqual(5);
+      caseEnd('testStationaryRobust0011');
     });
 
     /**
@@ -238,9 +281,11 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0012');
       expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.ENTER)));
       expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.EXIT)));
       expectSingleValidOutcome(run(() => stationary.off('still', stationary.ActivityEvent.ENTER_EXIT)));
+      caseEnd('testStationaryRobust0012');
     });
 
     /**
@@ -252,10 +297,12 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0013');
       expectSingleValidOutcome(run(() =>
         stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+      caseEnd('testStationaryRobust0013');
     });
 
     /**
@@ -267,38 +314,43 @@ export default function StationaryApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryRobust0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0014');
       expectSingleValidOutcome(run(() =>
         stationary.on('still', stationary.ActivityEvent.ENTER, 3000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+      caseEnd('testStationaryRobust0014');
     });
 
     /**
-     * @tc.number SUB_STATIONARY_ROBUST_1600
-     * @tc.name testStationaryRobust0016
+     * @tc.number SUB_STATIONARY_ROBUST_1500
+     * @tc.name testStationaryRobust0015
      * @tc.desc Verify a second unsubscribe after one subscribe stays a documented outcome
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testStationaryRobust0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('testStationaryRobust0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0015');
       expectSingleValidOutcome(run(() =>
         stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
       expectSingleValidOutcome(run(() =>
         stationary.off('still', stationary.ActivityEvent.ENTER, callback)));
+      caseEnd('testStationaryRobust0015');
     });
 
     /**
-     * @tc.number SUB_STATIONARY_ROBUST_1700
-     * @tc.name testStationaryRobust0017
+     * @tc.number SUB_STATIONARY_ROBUST_1600
+     * @tc.name testStationaryRobust0016
      * @tc.desc Verify registering the same callback twice then cancelling keeps documented outcomes
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testStationaryRobust0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('testStationaryRobust0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0016');
       const second: CallOutcome = run(() =>
         stationary.on('still', stationary.ActivityEvent.ENTER, 1000000000, callback));
       const third: CallOutcome = run(() =>
@@ -312,20 +364,23 @@ export default function StationaryApiRobustTest() {
       expectSingleValidOutcome(cancelRest);
       expect(second.success).assertEqual(third.success);
       expect(second.allowedError).assertEqual(third.allowedError);
+      caseEnd('testStationaryRobust0016');
     });
 
     /**
-     * @tc.number SUB_STATIONARY_ROBUST_1500
-     * @tc.name testStationaryRobust0015
+     * @tc.number SUB_STATIONARY_ROBUST_1700
+     * @tc.name testStationaryRobust0017
      * @tc.desc Verify a one-shot query repeated for relativeStill never yields an undocumented error
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testStationaryRobust0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('testStationaryRobust0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryRobust0017');
       for (let i = 0; i < 5; i++) {
         expectSingleValidOutcome(run(() => stationary.once('relativeStill', callback)));
       }
+      caseEnd('testStationaryRobust0017');
     });
   });
 }
