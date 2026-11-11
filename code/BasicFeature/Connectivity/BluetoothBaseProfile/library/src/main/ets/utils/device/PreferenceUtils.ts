@@ -90,7 +90,9 @@ export class PreferenceUtils {
   static getString(key: string, defaultValue: string = '', storeName: string = PreferenceUtils.DEFAULT_STORE): string {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
     const value: string | number | boolean | undefined = store.get(key);
-    if (value === undefined) return defaultValue;
+    if (value === undefined) {
+      return defaultValue;
+    }
     return String(value);
   }
 
@@ -117,7 +119,9 @@ export class PreferenceUtils {
   static getNumber(key: string, defaultValue: number = 0, storeName: string = PreferenceUtils.DEFAULT_STORE): number {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
     const value: string | number | boolean | undefined = store.get(key);
-    if (value === undefined) return defaultValue;
+    if (value === undefined) {
+      return defaultValue;
+    }
     return Number(value);
   }
 
@@ -144,7 +148,9 @@ export class PreferenceUtils {
   static getBoolean(key: string, defaultValue: boolean = false, storeName: string = PreferenceUtils.DEFAULT_STORE): boolean {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
     const value: string | number | boolean | undefined = store.get(key);
-    if (value === undefined) return defaultValue;
+    if (value === undefined) {
+      return defaultValue;
+    }
     return Boolean(value);
   }
 

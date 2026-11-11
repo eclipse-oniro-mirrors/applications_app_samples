@@ -39,7 +39,9 @@ export class StringUtils {
    * @returns 首字母大写后的字符串
    */
   static capitalize(str: string): string {
-    if (!str || str.length === 0) return str;
+    if (!str || str.length === 0) {
+      return str;
+    }
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
@@ -49,7 +51,9 @@ export class StringUtils {
    * @returns 首字母小写后的字符串
    */
   static uncapitalize(str: string): string {
-    if (!str || str.length === 0) return str;
+    if (!str || str.length === 0) {
+      return str;
+    }
     return str.charAt(0).toLowerCase() + str.slice(1);
   }
 
@@ -59,9 +63,13 @@ export class StringUtils {
    * @returns 驼峰命名格式
    */
   static toCamelCase(str: string): string {
-    if (!str || str.length === 0) return str;
+    if (!str || str.length === 0) {
+      return str;
+    }
     const words: string[] = StringUtils.splitWords(str);
-    if (words.length === 0) return str;
+    if (words.length === 0) {
+      return str;
+    }
     let result: string = words[0].toLowerCase();
     for (let i: number = 1; i < words.length; i++) {
       result += StringUtils.capitalize(words[i].toLowerCase());
@@ -75,7 +83,9 @@ export class StringUtils {
    * @returns 蛇形命名格式
    */
   static toSnakeCase(str: string): string {
-    if (!str || str.length === 0) return str;
+    if (!str || str.length === 0) {
+      return str;
+    }
     const words: string[] = StringUtils.splitWords(str);
     return words.map((w: string): string => w.toLowerCase()).join('_');
   }
@@ -86,7 +96,9 @@ export class StringUtils {
    * @returns 短横线命名格式
    */
   static toKebabCase(str: string): string {
-    if (!str || str.length === 0) return str;
+    if (!str || str.length === 0) {
+      return str;
+    }
     const words: string[] = StringUtils.splitWords(str);
     return words.map((w: string): string => w.toLowerCase()).join('-');
   }
@@ -111,7 +123,9 @@ export class StringUtils {
    * @returns 是否包含
    */
   static contains(str: string, sub: string): boolean {
-    if (!str || !sub) return false;
+    if (!str || !sub) {
+      return false;
+    }
     return str.indexOf(sub) !== -1;
   }
 
@@ -122,7 +136,9 @@ export class StringUtils {
    * @returns 是否以指定前缀开头
    */
   static startsWith(str: string, prefix: string): boolean {
-    if (!str || !prefix) return false;
+    if (!str || !prefix) {
+      return false;
+    }
     return str.indexOf(prefix) === 0;
   }
 
@@ -133,7 +149,9 @@ export class StringUtils {
    * @returns 是否以指定后缀结尾
    */
   static endsWith(str: string, suffix: string): boolean {
-    if (!str || !suffix) return false;
+    if (!str || !suffix) {
+      return false;
+    }
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
   }
 
@@ -144,12 +162,16 @@ export class StringUtils {
    * @returns 出现次数
    */
   static countOccurrences(str: string, sub: string): number {
-    if (!str || !sub || sub.length === 0) return 0;
+    if (!str || !sub || sub.length === 0) {
+      return 0;
+    }
     let count: number = 0;
     let pos: number = 0;
     while (true) {
       const index: number = str.indexOf(sub, pos);
-      if (index === -1) break;
+      if (index === -1) {
+        break;
+      }
       count++;
       pos = index + 1;
     }
@@ -163,7 +185,9 @@ export class StringUtils {
    * @returns 重复后的字符串
    */
   static repeat(str: string, count: number): string {
-    if (count <= 0 || !str) return '';
+    if (count <= 0 || !str) {
+      return '';
+    }
     let result: string = '';
     for (let i: number = 0; i < count; i++) {
       result += str;
@@ -177,7 +201,9 @@ export class StringUtils {
    * @returns 反转后的字符串
    */
   static reverse(str: string): string {
-    if (!str) return str;
+    if (!str) {
+      return str;
+    }
     let result: string = '';
     for (let i: number = str.length - 1; i >= 0; i--) {
       result += str.charAt(i);
@@ -191,7 +217,9 @@ export class StringUtils {
    * @returns 移除空白后的字符串
    */
   static removeWhitespace(str: string): string {
-    if (!str) return str;
+    if (!str) {
+      return str;
+    }
     return str.replace(/\s+/g, '');
   }
 
@@ -229,7 +257,9 @@ export class StringUtils {
    * @returns 哈希值
    */
   static hashCode(str: string): number {
-    if (!str || str.length === 0) return 0;
+    if (!str || str.length === 0) {
+      return 0;
+    }
     let hash: number = 5381;
     for (let i: number = 0; i < str.length; i++) {
       hash = ((hash << 5) + hash) + str.charCodeAt(i);
@@ -262,7 +292,9 @@ export class StringUtils {
    * @returns 长度
    */
   static safeLength(str: string | null | undefined): number {
-    if (!str) return 0;
+    if (!str) {
+      return 0;
+    }
     return str.length;
   }
 
@@ -274,7 +306,9 @@ export class StringUtils {
    * @returns 截断后的字符串
    */
   static truncate(str: string, maxLen: number, suffix: string = '...'): string {
-    if (!str || str.length <= maxLen) return str;
+    if (!str || str.length <= maxLen) {
+      return str;
+    }
     return str.substring(0, maxLen - suffix.length) + suffix;
   }
 
@@ -287,7 +321,9 @@ export class StringUtils {
    * @returns 填充后的字符串
    */
   static pad(str: string, length: number, char: string = ' ', padLeft: boolean = true): string {
-    if (!str || str.length >= length) return str;
+    if (!str || str.length >= length) {
+      return str;
+    }
     const padding: string = StringUtils.repeat(char, length - str.length);
     return padLeft ? padding + str : str + padding;
   }

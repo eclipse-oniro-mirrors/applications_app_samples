@@ -33,7 +33,9 @@ export class EncryptionUtils {
    * @returns Base64编码后的字符串
    */
   static base64Encode(input: string): string {
-    if (!input) return '';
+    if (!input) {
+      return '';
+    }
     let result: string = '';
     let i: number = 0;
     const bytes: number[] = [];
@@ -64,7 +66,9 @@ export class EncryptionUtils {
    * @returns 解码后的字符串
    */
   static base64Decode(input: string): string {
-    if (!input) return '';
+    if (!input) {
+      return '';
+    }
     const clean: string = input.replace(/=/g, '');
     let result: string = '';
     const bytes: number[] = [];
@@ -75,8 +79,12 @@ export class EncryptionUtils {
       const c4: number = EncryptionUtils.BASE64_CHARS.indexOf(clean[i + 3]);
       const triplet: number = (c1 << 18) | (c2 << 12) | (c3 << 6) | c4;
       bytes.push((triplet >> 16) & 0xFF);
-      if (clean[i + 2] !== undefined) bytes.push((triplet >> 8) & 0xFF);
-      if (clean[i + 3] !== undefined) bytes.push(triplet & 0xFF);
+      if (clean[i + 2] !== undefined) {
+        bytes.push((triplet >> 8) & 0xFF);
+      }
+      if (clean[i + 3] !== undefined) {
+        bytes.push(triplet & 0xFF);
+      }
     }
     for (const b of bytes) {
       result += String.fromCharCode(b);
@@ -91,7 +99,9 @@ export class EncryptionUtils {
    * @returns 加密后的字符串
    */
   static xorEncrypt(input: string, key: string): string {
-    if (!input || !key) return '';
+    if (!input || !key) {
+      return '';
+    }
     let result: string = '';
     for (let i: number = 0; i < input.length; i++) {
       const charCode: number = input.charCodeAt(i) ^ key.charCodeAt(i % key.length);
@@ -116,7 +126,9 @@ export class EncryptionUtils {
    * @returns 哈希值（十六进制字符串）
    */
   static simpleHash(input: string): string {
-    if (!input) return '00000000';
+    if (!input) {
+      return '00000000';
+    }
     let hash: number = 0x811c9dc5;
     for (let i: number = 0; i < input.length; i++) {
       hash ^= input.charCodeAt(i);
@@ -193,7 +205,9 @@ export class EncryptionUtils {
    * @returns 掩码后的字符串
    */
   static maskSensitive(input: string, visibleChars: number = 4): string {
-    if (!input || input.length <= visibleChars) return '****';
+    if (!input || input.length <= visibleChars) {
+      return '****';
+    }
     const visible: string = input.substring(input.length - visibleChars);
     const masked: string = '*'.repeat(input.length - visibleChars);
     return masked + visible;

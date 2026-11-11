@@ -48,7 +48,9 @@ export class MathUtils {
    * @returns 平均值
    */
   static average(values: number[]): number {
-    if (values.length === 0) return 0;
+    if (values.length === 0) {
+      return 0;
+    }
     let sum: number = 0;
     for (let i: number = 0; i < values.length; i++) {
       sum += values[i];
@@ -62,7 +64,9 @@ export class MathUtils {
    * @returns 中位数
    */
   static median(values: number[]): number {
-    if (values.length === 0) return 0;
+    if (values.length === 0) {
+      return 0;
+    }
     const sorted: number[] = [...values].sort((a: number, b: number) => a - b);
     const mid: number = Math.floor(sorted.length / 2);
     if (sorted.length % 2 === 0) {
@@ -77,7 +81,9 @@ export class MathUtils {
    * @returns 标准差
    */
   static standardDeviation(values: number[]): number {
-    if (values.length === 0) return 0;
+    if (values.length === 0) {
+      return 0;
+    }
     const avg: number = MathUtils.average(values);
     let sumSquares: number = 0;
     for (let i: number = 0; i < values.length; i++) {
@@ -94,7 +100,9 @@ export class MathUtils {
    * @returns 百分比 (0-100)
    */
   static percentage(value: number, total: number): number {
-    if (total === 0) return 0;
+    if (total === 0) {
+      return 0;
+    }
     return MathUtils.clamp(Math.round((value / total) * 100), 0, 100);
   }
 
@@ -107,7 +115,9 @@ export class MathUtils {
    * @returns 估算距离（米）
    */
   static rssiToDistance(rssi: number, txPower: number = -59, pathLossExponent: number = 2.0): number {
-    if (rssi === 0) return -1;
+    if (rssi === 0) {
+      return -1;
+    }
     const ratio: number = (rssi - txPower) / (10 * pathLossExponent);
     return Math.pow(10, ratio);
   }
@@ -118,8 +128,12 @@ export class MathUtils {
    * @returns 信号质量 (0-100)
    */
   static rssiToQuality(rssi: number): number {
-    if (rssi <= -100) return 0;
-    if (rssi >= -50) return 100;
+    if (rssi <= -100) {
+      return 0;
+    }
+    if (rssi >= -50) {
+      return 100;
+    }
     return 2 * (rssi + 100);
   }
 
@@ -201,7 +215,9 @@ export class MathUtils {
    * @returns 最小公倍数
    */
   static lcm(a: number, b: number): number {
-    if (a === 0 || b === 0) return 0;
+    if (a === 0 || b === 0) {
+      return 0;
+    }
     return Math.abs(a * b) / MathUtils.gcd(a, b);
   }
 }

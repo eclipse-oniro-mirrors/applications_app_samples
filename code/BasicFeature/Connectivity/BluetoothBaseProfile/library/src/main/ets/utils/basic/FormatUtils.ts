@@ -30,7 +30,9 @@ export class FormatUtils {
    * @returns 格式化后的字符串
    */
   static formatBytes(bytes: number): string {
-    if (bytes === 0) return '0 B';
+    if (bytes === 0) {
+      return '0 B';
+    }
     const units: string[] = ['B', 'KB', 'MB', 'GB', 'TB'];
     const k: number = 1024;
     const i: number = Math.floor(Math.log(bytes) / Math.log(k));
@@ -44,8 +46,12 @@ export class FormatUtils {
    * @returns 格式化后的字符串
    */
   static formatBitRate(bps: number): string {
-    if (bps < 1000) return bps + ' bps';
-    if (bps < 1000000) return (bps / 1000).toFixed(1) + ' Kbps';
+    if (bps < 1000) {
+      return bps + ' bps';
+    }
+    if (bps < 1000000) {
+      return (bps / 1000).toFixed(1) + ' Kbps';
+    }
     return (bps / 1000000).toFixed(1) + ' Mbps';
   }
 
@@ -55,7 +61,9 @@ export class FormatUtils {
    * @returns 格式化后的MAC地址
    */
   static formatMacAddress(mac: string): string {
-    if (!mac || mac.length < 12) return mac;
+    if (!mac || mac.length < 12) {
+      return mac;
+    }
     const clean: string = mac.replace(/[:-]/g, '').toUpperCase();
     const parts: string[] = [];
     for (let i: number = 0; i < clean.length; i += 2) {
@@ -70,10 +78,18 @@ export class FormatUtils {
    * @returns 信号强度描述
    */
   static formatSignalStrength(rssi: number): string {
-    if (rssi >= -50) return 'Excellent';
-    if (rssi >= -60) return 'Good';
-    if (rssi >= -70) return 'Fair';
-    if (rssi >= -80) return 'Weak';
+    if (rssi >= -50) {
+      return 'Excellent';
+    }
+    if (rssi >= -60) {
+      return 'Good';
+    }
+    if (rssi >= -70) {
+      return 'Fair';
+    }
+    if (rssi >= -80) {
+      return 'Weak';
+    }
     return 'Very Weak';
   }
 
@@ -84,7 +100,9 @@ export class FormatUtils {
    * @returns 百分比字符串
    */
   static formatPercentage(value: number, total: number): string {
-    if (total === 0) return '0%';
+    if (total === 0) {
+      return '0%';
+    }
     return Math.round((value / total) * 100) + '%';
   }
 
@@ -103,7 +121,9 @@ export class FormatUtils {
    * @returns 格式化后的电话号码
    */
   static formatPhoneNumber(phone: string): string {
-    if (!phone || phone.length !== 11) return phone;
+    if (!phone || phone.length !== 11) {
+      return phone;
+    }
     return phone.substring(0, 3) + ' ' + phone.substring(3, 7) + ' ' + phone.substring(7);
   }
 
@@ -113,9 +133,13 @@ export class FormatUtils {
    * @returns 格式化后的UUID
    */
   static formatUuid(uuid: string): string {
-    if (!uuid) return '';
+    if (!uuid) {
+      return '';
+    }
     const clean: string = uuid.replace(/-/g, '').toLowerCase();
-    if (clean.length !== 32) return uuid;
+    if (clean.length !== 32) {
+      return uuid;
+    }
     return clean.substring(0, 8) + '-' + clean.substring(8, 12) + '-' +
       clean.substring(12, 16) + '-' + clean.substring(16, 20) + '-' + clean.substring(20);
   }
@@ -128,7 +152,9 @@ export class FormatUtils {
    * @returns 截断后的字符串
    */
   static truncate(str: string, maxLen: number, suffix: string = '...'): string {
-    if (!str || str.length <= maxLen) return str;
+    if (!str || str.length <= maxLen) {
+      return str;
+    }
     return str.substring(0, maxLen - suffix.length) + suffix;
   }
 

@@ -66,7 +66,9 @@ export class StorageUtils {
    */
   static get<T>(key: string): T | null {
     const entry: CacheEntry | undefined = StorageUtils.cache.get(key);
-    if (!entry) return null;
+    if (!entry) {
+      return null;
+    }
     if (Date.now() > entry.expiresAt) {
       StorageUtils.cache.delete(key);
       return null;
@@ -83,7 +85,9 @@ export class StorageUtils {
    */
   static has(key: string): boolean {
     const entry: CacheEntry | undefined = StorageUtils.cache.get(key);
-    if (!entry) return false;
+    if (!entry) {
+      return false;
+    }
     if (Date.now() > entry.expiresAt) {
       StorageUtils.cache.delete(key);
       return false;
@@ -171,7 +175,9 @@ export class StorageUtils {
     const now: number = Date.now();
     StorageUtils.cache.forEach((entry: CacheEntry) => {
       totalAccess += entry.accessCount;
-      if (now > entry.expiresAt) expiredCount++;
+      if (now > entry.expiresAt) {
+        expiredCount++;
+      }
     });
     return {
       totalEntries: StorageUtils.cache.size,

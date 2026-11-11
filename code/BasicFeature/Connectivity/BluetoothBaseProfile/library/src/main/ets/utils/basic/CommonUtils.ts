@@ -246,7 +246,9 @@ export class CommonUtils {
    * @returns 最后一个元素
    */
   static last<T>(arr: T[]): T | undefined {
-    if (arr.length === 0) return undefined;
+    if (arr.length === 0) {
+      return undefined;
+    }
     return arr[arr.length - 1];
   }
 
@@ -256,7 +258,9 @@ export class CommonUtils {
    * @returns 第一个元素
    */
   static first<T>(arr: T[]): T | undefined {
-    if (arr.length === 0) return undefined;
+    if (arr.length === 0) {
+      return undefined;
+    }
     return arr[0];
   }
 }

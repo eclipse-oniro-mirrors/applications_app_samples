@@ -98,9 +98,15 @@ export class ClipboardUtils {
    * @returns 数据类型
    */
   static detectType(data: string): ClipboardDataType {
-    if (!data) return ClipboardDataType.UNKNOWN;
-    if (data.startsWith('http://') || data.startsWith('https://')) return ClipboardDataType.URI;
-    if (data.startsWith('<') && data.indexOf('>') !== -1) return ClipboardDataType.HTML;
+    if (!data) {
+      return ClipboardDataType.UNKNOWN;
+    }
+    if (data.startsWith('http://') || data.startsWith('https://')) {
+      return ClipboardDataType.URI;
+    }
+    if (data.startsWith('<') && data.indexOf('>') !== -1) {
+      return ClipboardDataType.HTML;
+    }
     return ClipboardDataType.TEXT;
   }
 

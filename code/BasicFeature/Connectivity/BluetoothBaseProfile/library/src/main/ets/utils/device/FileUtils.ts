@@ -48,7 +48,9 @@ export class FileUtils {
    * @returns 扩展名（不含点号）
    */
   static getExtension(filename: string): string {
-    if (!filename || filename.indexOf('.') === -1) return '';
+    if (!filename || filename.indexOf('.') === -1) {
+      return '';
+    }
     const parts: string[] = filename.split('.');
     return parts[parts.length - 1].toLowerCase();
   }
@@ -59,7 +61,9 @@ export class FileUtils {
    * @returns 文件名
    */
   static getFileName(filePath: string): string {
-    if (!filePath) return '';
+    if (!filePath) {
+      return '';
+    }
     const parts: string[] = filePath.split('/');
     return parts[parts.length - 1];
   }
@@ -70,9 +74,13 @@ export class FileUtils {
    * @returns 不含扩展名的文件名
    */
   static getFileNameWithoutExtension(filename: string): string {
-    if (!filename) return '';
+    if (!filename) {
+      return '';
+    }
     const lastDot: number = filename.lastIndexOf('.');
-    if (lastDot === -1) return filename;
+    if (lastDot === -1) {
+      return filename;
+    }
     return filename.substring(0, lastDot);
   }
 
@@ -82,7 +90,9 @@ export class FileUtils {
    * @returns 格式化后的大小字符串
    */
   static formatFileSize(bytes: number): string {
-    if (bytes === 0) return '0 B';
+    if (bytes === 0) {
+      return '0 B';
+    }
     const units: string[] = ['B', 'KB', 'MB', 'GB', 'TB'];
     const k: number = 1024;
     const i: number = Math.floor(Math.log(bytes) / Math.log(k));
@@ -154,10 +164,18 @@ export class FileUtils {
    * @returns 图标名称
    */
   static getFileIconName(extension: string): string {
-    if (FileUtils.isImageFile(extension)) return 'image';
-    if (FileUtils.isAudioFile(extension)) return 'audio';
-    if (FileUtils.isVideoFile(extension)) return 'video';
-    if (FileUtils.isDocumentFile(extension)) return 'document';
+    if (FileUtils.isImageFile(extension)) {
+      return 'image';
+    }
+    if (FileUtils.isAudioFile(extension)) {
+      return 'audio';
+    }
+    if (FileUtils.isVideoFile(extension)) {
+      return 'video';
+    }
+    if (FileUtils.isDocumentFile(extension)) {
+      return 'document';
+    }
     return 'file';
   }
 
@@ -167,7 +185,9 @@ export class FileUtils {
    * @returns 规范化后的路径
    */
   static normalizePath(path: string): string {
-    if (!path) return '';
+    if (!path) {
+      return '';
+    }
     return path.replace(/\\+/g, '/').replace(/\/+/g, '/');
   }
 
@@ -177,10 +197,14 @@ export class FileUtils {
    * @returns 父目录路径
    */
   static getParentPath(filePath: string): string {
-    if (!filePath) return '';
+    if (!filePath) {
+      return '';
+    }
     const normalized: string = FileUtils.normalizePath(filePath);
     const lastSlash: number = normalized.lastIndexOf('/');
-    if (lastSlash === -1) return '';
+    if (lastSlash === -1) {
+      return '';
+    }
     return normalized.substring(0, lastSlash);
   }
 
@@ -190,11 +214,17 @@ export class FileUtils {
    * @returns 路径是否有效
    */
   static isValidPath(path: string): boolean {
-    if (!path || path.length === 0) return false;
-    if (path.indexOf('\\') !== -1) return false;
+    if (!path || path.length === 0) {
+      return false;
+    }
+    if (path.indexOf('\\') !== -1) {
+      return false;
+    }
     const invalidChars: string[] = ['<', '>', '|', '*', '?'];
     for (const char of invalidChars) {
-      if (path.indexOf(char) !== -1) return false;
+      if (path.indexOf(char) !== -1) {
+        return false;
+      }
     }
     return true;
   }

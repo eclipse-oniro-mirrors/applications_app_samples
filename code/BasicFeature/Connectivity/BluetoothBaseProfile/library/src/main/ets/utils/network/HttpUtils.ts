@@ -90,7 +90,9 @@ export class HttpUtils {
    */
   static parseQueryString(queryString: string): Record<string, string> {
     const result: Record<string, string> = {};
-    if (!queryString) return result;
+    if (!queryString) {
+      return result;
+    }
     const clean: string = queryString.startsWith('?') ? queryString.substring(1) : queryString;
     const pairs: string[] = clean.split('&');
     for (const pair of pairs) {

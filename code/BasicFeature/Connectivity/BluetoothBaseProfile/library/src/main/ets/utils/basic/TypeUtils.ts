@@ -89,10 +89,18 @@ export class TypeUtils {
    * @returns 是否为空
    */
   static isEmpty(value: unknown): boolean {
-    if (value === null || value === undefined) return true;
-    if (typeof value === 'string') return value.length === 0;
-    if (Array.isArray(value)) return value.length === 0;
-    if (typeof value === 'object') return Object.keys(value as object).length === 0;
+    if (value === null || value === undefined) {
+      return true;
+    }
+    if (typeof value === 'string') {
+      return value.length === 0;
+    }
+    if (Array.isArray(value)) {
+      return value.length === 0;
+    }
+    if (typeof value === 'object') {
+      return Object.keys(value as object).length === 0;
+    }
     return false;
   }
 
@@ -113,12 +121,16 @@ export class TypeUtils {
    * @returns 布尔值
    */
   static toBoolean(value: unknown): boolean {
-    if (typeof value === 'boolean') return value;
+    if (typeof value === 'boolean') {
+      return value;
+    }
     if (typeof value === 'string') {
       const lower: string = value.toLowerCase();
       return lower === 'true' || lower === '1' || lower === 'yes';
     }
-    if (typeof value === 'number') return value !== 0;
+    if (typeof value === 'number') {
+      return value !== 0;
+    }
     return false;
   }
 
@@ -129,8 +141,12 @@ export class TypeUtils {
    * @returns 字符串
    */
   static toString(value: unknown, defaultValue: string = ''): string {
-    if (value === null || value === undefined) return defaultValue;
-    if (typeof value === 'string') return value;
+    if (value === null || value === undefined) {
+      return defaultValue;
+    }
+    if (typeof value === 'string') {
+      return value;
+    }
     return String(value);
   }
 
@@ -140,7 +156,9 @@ export class TypeUtils {
    * @returns 拷贝后的新对象
    */
   static deepClone<T>(obj: T): T {
-    if (obj === null || typeof obj !== 'object') return obj;
+    if (obj === null || typeof obj !== 'object') {
+      return obj;
+    }
     try {
       return JSON.parse(JSON.stringify(obj));
     } catch (e) {
@@ -155,17 +173,29 @@ export class TypeUtils {
    * @returns 是否深度相等
    */
   static deepEquals(a: unknown, b: unknown): boolean {
-    if (a === b) return true;
-    if (a === null || b === null) return false;
-    if (typeof a !== typeof b) return false;
-    if (typeof a !== 'object') return a === b;
+    if (a === b) {
+      return true;
+    }
+    if (a === null || b === null) {
+      return false;
+    }
+    if (typeof a !== typeof b) {
+      return false;
+    }
+    if (typeof a !== 'object') {
+      return a === b;
+    }
     const objA: Record<string, unknown> = a as Record<string, unknown>;
     const objB: Record<string, unknown> = b as Record<string, unknown>;
     const keysA: string[] = Object.keys(objA);
     const keysB: string[] = Object.keys(objB);
-    if (keysA.length !== keysB.length) return false;
+    if (keysA.length !== keysB.length) {
+      return false;
+    }
     for (const key of keysA) {
-      if (!TypeUtils.deepEquals(objA[key], objB[key])) return false;
+      if (!TypeUtils.deepEquals(objA[key], objB[key])) {
+        return false;
+      }
     }
     return true;
   }
@@ -176,9 +206,15 @@ export class TypeUtils {
    * @returns 类型名称
    */
   static getTypeName(value: unknown): string {
-    if (value === null) return 'null';
-    if (value === undefined) return 'undefined';
-    if (Array.isArray(value)) return 'array';
+    if (value === null) {
+      return 'null';
+    }
+    if (value === undefined) {
+      return 'undefined';
+    }
+    if (Array.isArray(value)) {
+      return 'array';
+    }
     return typeof value;
   }
 

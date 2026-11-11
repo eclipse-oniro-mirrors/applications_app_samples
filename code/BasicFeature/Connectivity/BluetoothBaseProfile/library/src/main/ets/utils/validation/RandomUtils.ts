@@ -38,7 +38,9 @@ export class RandomUtils {
     const hex: string = '0123456789ABCDEF';
     let mac: string = '';
     for (let i: number = 0; i < 6; i++) {
-      if (i > 0) mac += ':';
+      if (i > 0) {
+        mac += ':';
+      }
       mac += hex.charAt(Math.floor(Math.random() * 16));
       mac += hex.charAt(Math.floor(Math.random() * 16));
     }
@@ -71,7 +73,9 @@ export class RandomUtils {
     const hex: string = '0123456789abcdef';
     let uuid: string = '';
     for (let i: number = 0; i < 32; i++) {
-      if (i === 8 || i === 12 || i === 16 || i === 20) uuid += '-';
+      if (i === 8 || i === 12 || i === 16 || i === 20) {
+        uuid += '-';
+      }
       uuid += hex.charAt(Math.floor(Math.random() * 16));
     }
     return uuid;
