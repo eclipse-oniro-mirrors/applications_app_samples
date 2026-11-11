@@ -1,0 +1,1796 @@
+{
+  "string": [
+    {
+      "name": "startup_text_0446",
+      "value": "Confirm that the toggle state has changed"
+    },
+    {
+      "name": "startup_text_0447",
+      "value": "Export a copy of query history"
+    },
+    {
+      "name": "startup_text_0448",
+      "value": "Confirm that the exported content is readable"
+    },
+    {
+      "name": "startup_text_0449",
+      "value": "View fault and archive documentation"
+    },
+    {
+      "name": "startup_text_0450",
+      "value": "Understand common symptoms and cleanup policies"
+    },
+    {
+      "name": "startup_text_0451",
+      "value": "Confirm the history retention policy"
+    },
+    {
+      "name": "startup_text_0452",
+      "value": "Understand automatic cleanup rules"
+    },
+    {
+      "name": "startup_text_0453",
+      "value": "Setup complete"
+    },
+    {
+      "name": "startup_text_0454",
+      "value": "You can reopen the guide from settings later"
+    },
+    {
+      "name": "startup_text_0455",
+      "value": "Understand cross-device differences"
+    },
+    {
+      "name": "startup_text_0456",
+      "value": "The same feature can yield different conclusions on different devices"
+    },
+    {
+      "name": "startup_text_0457",
+      "value": "Understand that not supported does not mean failure"
+    },
+    {
+      "name": "startup_text_0458",
+      "value": "Definitive not-supported results are not retried"
+    },
+    {
+      "name": "startup_text_0459",
+      "value": "All complete"
+    },
+    {
+      "name": "startup_text_0460",
+      "value": "Next step "
+    },
+    {
+      "name": "startup_text_0461",
+      "value": "Progress "
+    },
+    {
+      "name": "startup_text_0462",
+      "value": "% | completed "
+    },
+    {
+      "name": "startup_text_0463",
+      "value": ", skipped "
+    },
+    {
+      "name": "startup_text_0464",
+      "value": "Guide step table is consistent"
+    },
+    {
+      "name": "startup_text_0465",
+      "value": "Missing title:"
+    },
+    {
+      "name": "startup_text_0466",
+      "value": "Negative duration:"
+    },
+    {
+      "name": "startup_text_0467",
+      "value": "Dependency does not exist:"
+    },
+    {
+      "name": "startup_text_0468",
+      "value": "Self-dependency:"
+    },
+    {
+      "name": "startup_text_0469",
+      "value": "Incorrect dependency order:"
+    },
+    {
+      "name": "startup_text_0470",
+      "value": "The first step should have no dependencies"
+    },
+    {
+      "name": "startup_text_0471",
+      "value": "Missing required steps"
+    },
+    {
+      "name": "startup_text_0472",
+      "value": "Recent"
+    },
+    {
+      "name": "startup_text_0473",
+      "value": "Past week"
+    },
+    {
+      "name": "startup_text_0474",
+      "value": "Archive"
+    },
+    {
+      "name": "startup_text_0475",
+      "value": "Pending cleanup"
+    },
+    {
+      "name": "startup_text_0476",
+      "value": "Unlimited"
+    },
+    {
+      "name": "startup_text_0477",
+      "value": " hours"
+    },
+    {
+      "name": "startup_text_0478",
+      "value": "Exportable"
+    },
+    {
+      "name": "startup_text_0479",
+      "value": "Not exported"
+    },
+    {
+      "name": "startup_text_0480",
+      "value": "Retain all records from the past hour for immediate review"
+    },
+    {
+      "name": "startup_text_0481",
+      "value": "Retain up to 40 records from the past six hours"
+    },
+    {
+      "name": "startup_text_0482",
+      "value": "Retain up to 60 records from the past day"
+    },
+    {
+      "name": "startup_text_0483",
+      "value": "Retain up to 80 records from the past three days"
+    },
+    {
+      "name": "startup_text_0484",
+      "value": "Retain up to 100 records from the past week"
+    },
+    {
+      "name": "startup_text_0485",
+      "value": "Retain up to 120 records from the past two weeks"
+    },
+    {
+      "name": "startup_text_0486",
+      "value": "Retain up to 150 records from the past month; truncate error messages"
+    },
+    {
+      "name": "startup_text_0487",
+      "value": "Retain up to 200 records from the past two months; no longer retain error details"
+    },
+    {
+      "name": "startup_text_0488",
+      "value": "Retain up to 240 records from the past three months"
+    },
+    {
+      "name": "startup_text_0489",
+      "value": "Retain up to 280 records from the past six months; exclude them from export"
+    },
+    {
+      "name": "startup_text_0490",
+      "value": "Treat records older than six months as expired; clean up after user confirmation"
+    },
+    {
+      "name": "startup_text_0491",
+      "value": " records: recent "
+    },
+    {
+      "name": "startup_text_0492",
+      "value": ", past week "
+    },
+    {
+      "name": "startup_text_0493",
+      "value": "Archive "
+    },
+    {
+      "name": "startup_text_0494",
+      "value": ", pending cleanup "
+    },
+    {
+      "name": "startup_text_0495",
+      "value": "Truncate error details"
+    },
+    {
+      "name": "startup_text_0496",
+      "value": "Discard oldest records"
+    },
+    {
+      "name": "startup_text_0497",
+      "value": "Clean up the entire archive"
+    },
+    {
+      "name": "startup_text_0498",
+      "value": "No compression needed"
+    },
+    {
+      "name": "startup_text_0499",
+      "value": "Cleaning up "
+    },
+    {
+      "name": "startup_text_0500",
+      "value": " records requires user confirmation"
+    },
+    {
+      "name": "startup_text_0501",
+      "value": "：No records"
+    },
+    {
+      "name": "startup_text_0502",
+      "value": " records -> "
+    },
+    {
+      "name": "startup_text_0503",
+      "value": "Non-monotonic age limits："
+    },
+    {
+      "name": "startup_text_0504",
+      "value": "Non-monotonic record limits："
+    },
+    {
+      "name": "startup_text_0505",
+      "value": "Unexpected number of fallback tiers："
+    },
+    {
+      "name": "startup_text_0506",
+      "value": "Missing expiration tier"
+    },
+    {
+      "name": "startup_text_0507",
+      "value": "The final tier should have no age limit"
+    },
+    {
+      "name": "startup_text_0508",
+      "value": " rules"
+    },
+    {
+      "name": "startup_text_0509",
+      "value": "All results"
+    },
+    {
+      "name": "startup_text_0510",
+      "value": "All sources"
+    },
+    {
+      "name": "startup_text_0511",
+      "value": "Return to foreground"
+    },
+    {
+      "name": "startup_text_0512",
+      "value": "All time"
+    },
+    {
+      "name": "startup_text_0513",
+      "value": "Last 1 hour"
+    },
+    {
+      "name": "startup_text_0514",
+      "value": "Last 24 hours"
+    },
+    {
+      "name": "startup_text_0515",
+      "value": "Last 7 days"
+    },
+    {
+      "name": "startup_text_0516",
+      "value": " after"
+    },
+    {
+      "name": "startup_text_0517",
+      "value": "Duration missing"
+    },
+    {
+      "name": "startup_text_0518",
+      "value": "｜Error "
+    },
+    {
+      "name": "startup_text_0519",
+      "value": "No records match the current filters"
+    },
+    {
+      "name": "startup_text_0520",
+      "value": "No history yet"
+    },
+    {
+      "name": "startup_text_0521",
+      "value": "｜Unsupported "
+    },
+    {
+      "name": "startup_text_0522",
+      "value": "Timeout "
+    },
+    {
+      "name": "startup_text_0523",
+      "value": "Latest valid #"
+    },
+    {
+      "name": "startup_text_0524",
+      "value": "None"
+    },
+    {
+      "name": "startup_text_0525",
+      "value": "Latest "
+    },
+    {
+      "name": "startup_text_0526",
+      "value": "Earliest "
+    },
+    {
+      "name": "startup_text_0527",
+      "value": " records will expire within one day"
+    },
+    {
+      "name": "startup_text_0528",
+      "value": "No records nearing expiration"
+    },
+    {
+      "name": "startup_text_0529",
+      "value": "No comparable samples"
+    },
+    {
+      "name": "startup_text_0530",
+      "value": "Only one sample #"
+    },
+    {
+      "name": "startup_text_0531",
+      "value": "Before #"
+    },
+    {
+      "name": "startup_text_0532",
+      "value": "After #"
+    },
+    {
+      "name": "startup_text_0533",
+      "value": "The before and after results differ. Manually confirm whether this matches the settings change"
+    },
+    {
+      "name": "startup_text_0534",
+      "value": "The before and after results match"
+    },
+    {
+      "name": "startup_text_0535",
+      "value": "Interval "
+    },
+    {
+      "name": "startup_text_0536",
+      "value": "Nothing to export yet"
+    },
+    {
+      "name": "startup_text_0537",
+      "value": "…（total "
+    },
+    {
+      "name": "startup_text_0538",
+      "value": " lines）"
+    },
+    {
+      "name": "startup_text_0539",
+      "value": "The selected record is no longer in the current scope. Select it again（records outside the scope will not be referenced）"
+    },
+    {
+      "name": "startup_text_0540",
+      "value": "Select different records, and ensure the “before” sample is no later than the “after” sample"
+    },
+    {
+      "name": "startup_text_0541",
+      "value": "A regular history comparison does not prove a settings change; for a settings follow-up, check the explicitly linked session/query facts."
+    },
+    {
+      "name": "startup_text_0542",
+      "value": "Select a record within the current scope to view details"
+    },
+    {
+      "name": "startup_text_0543",
+      "value": "Result："
+    },
+    {
+      "name": "startup_text_0544",
+      "value": "；Capability："
+    },
+    {
+      "name": "startup_text_0545",
+      "value": "；Status："
+    },
+    {
+      "name": "startup_text_0546",
+      "value": "Error code："
+    },
+    {
+      "name": "startup_text_0547",
+      "value": "Local error description："
+    },
+    {
+      "name": "startup_text_0548",
+      "value": "No sampling dates"
+    },
+    {
+      "name": "startup_text_0549",
+      "value": " minutes｜Daily "
+    },
+    {
+      "name": "startup_text_0550",
+      "value": " times｜"
+    },
+    {
+      "name": "startup_text_0551",
+      "value": "Total "
+    },
+    {
+      "name": "startup_text_0552",
+      "value": " times｜Quiet hours "
+    },
+    {
+      "name": "startup_text_0553",
+      "value": "Today "
+    },
+    {
+      "name": "startup_text_0554",
+      "value": " times｜Cumulative "
+    },
+    {
+      "name": "startup_text_0555",
+      "value": " times"
+    },
+    {
+      "name": "startup_text_0556",
+      "value": "Not retrieved"
+    },
+    {
+      "name": "startup_text_0557",
+      "value": "The user has disabled reminders"
+    },
+    {
+      "name": "startup_text_0558",
+      "value": "Auto-start is enabled; no reminder needed"
+    },
+    {
+      "name": "startup_text_0559",
+      "value": "Auto-start has not been confirmed as disabled; no reminder"
+    },
+    {
+      "name": "startup_text_0560",
+      "value": "Total reminders have reached "
+    },
+    {
+      "name": "startup_text_0561",
+      "value": "Today's reminders have reached "
+    },
+    {
+      "name": "startup_text_0562",
+      "value": "Currently within quiet hours"
+    },
+    {
+      "name": "startup_text_0563",
+      "value": "Time since the last reminder is less than "
+    },
+    {
+      "name": "startup_text_0564",
+      "value": " minutes"
+    },
+    {
+      "name": "startup_text_0565",
+      "value": "The user can be reminded to enable auto-start in system settings"
+    },
+    {
+      "name": "startup_text_0566",
+      "value": "Reminder configuration is consistent"
+    },
+    {
+      "name": "startup_text_0567",
+      "value": "The reminder interval must be positive"
+    },
+    {
+      "name": "startup_text_0568",
+      "value": "The reminder count limit must be positive"
+    },
+    {
+      "name": "startup_text_0569",
+      "value": "The total limit should not be lower than the daily limit"
+    },
+    {
+      "name": "startup_text_0570",
+      "value": "Quiet hours start hour is out of range"
+    },
+    {
+      "name": "startup_text_0571",
+      "value": "Quiet hours end hour is out of range"
+    },
+    {
+      "name": "startup_text_0572",
+      "value": "Quiet hours are not enabled"
+    },
+    {
+      "name": "startup_text_0573",
+      "value": "Quiet hours "
+    },
+    {
+      "name": "startup_text_0574",
+      "value": ":00 to the next day at "
+    },
+    {
+      "name": "startup_text_0575",
+      "value": "Granted"
+    },
+    {
+      "name": "startup_text_0576",
+      "value": "Denied"
+    },
+    {
+      "name": "startup_text_0577",
+      "value": "Permanently denied"
+    },
+    {
+      "name": "startup_text_0578",
+      "value": "No authorization required"
+    },
+    {
+      "name": "startup_text_0579",
+      "value": "｜At most "
+    },
+    {
+      "name": "startup_text_0580",
+      "value": "The current system version does not support auto-start-related permissions"
+    },
+    {
+      "name": "startup_text_0581",
+      "value": "The corresponding permission is available only from API 9 onward"
+    },
+    {
+      "name": "startup_text_0582",
+      "value": "Only one request is allowed. If denied, enable it in system settings"
+    },
+    {
+      "name": "startup_text_0583",
+      "value": "Earlier versions support only one system prompt"
+    },
+    {
+      "name": "startup_text_0584",
+      "value": "Another request is allowed. After permanent denial, use system settings"
+    },
+    {
+      "name": "startup_text_0585",
+      "value": "Two requests are allowed from 12 onward"
+    },
+    {
+      "name": "startup_text_0586",
+      "value": "Multiple requests are allowed, but the purpose should be explained each time"
+    },
+    {
+      "name": "startup_text_0587",
+      "value": "The request count restriction is relaxed from 18 onward"
+    },
+    {
+      "name": "startup_text_0588",
+      "value": "This version has not been verified. Go directly to system settings"
+    },
+    {
+      "name": "startup_text_0589",
+      "value": "Above the verified versions; no automatic request"
+    },
+    {
+      "name": "startup_text_0590",
+      "value": "Authorization has already been granted; no further request needed"
+    },
+    {
+      "name": "startup_text_0591",
+      "value": "Authorization status is normal"
+    },
+    {
+      "name": "startup_text_0592",
+      "value": "The current device and version require no additional authorization"
+    },
+    {
+      "name": "startup_text_0593",
+      "value": "The capability matrix determines that no permission is required"
+    },
+    {
+      "name": "startup_text_0594",
+      "value": "Permanently denied; it can only be enabled manually in system settings"
+    },
+    {
+      "name": "startup_text_0595",
+      "value": "The system does not provide a permission prompt. Go to system settings"
+    },
+    {
+      "name": "startup_text_0596",
+      "value": "systemDialogAvailable is false"
+    },
+    {
+      "name": "startup_text_0597",
+      "value": "Requested "
+    },
+    {
+      "name": "startup_text_0598",
+      "value": " times. Enable it in system settings"
+    },
+    {
+      "name": "startup_text_0599",
+      "value": "Already requested in this session. Go to system settings"
+    },
+    {
+      "name": "startup_text_0600",
+      "value": "The permission rule table is consistent"
+    },
+    {
+      "name": "startup_text_0601",
+      "value": "Duplicate rule："
+    },
+    {
+      "name": "startup_text_0602",
+      "value": "Invalid range："
+    },
+    {
+      "name": "startup_text_0603",
+      "value": "Missing text："
+    },
+    {
+      "name": "startup_text_0604",
+      "value": "Request policy conflicts with the request count："
+    },
+    {
+      "name": "startup_text_0605",
+      "value": " is not covered by any rule"
+    },
+    {
+      "name": "startup_text_0606",
+      "value": "Manually check system settings"
+    },
+    {
+      "name": "startup_text_0607",
+      "value": "This sample only queries status. It does not request additional permissions, directly enable/disable auto-start, or open system settings. The device may not provide the relevant options."
+    },
+    {
+      "name": "startup_text_0608",
+      "value": "After a successful refresh, tap “Start manual settings follow-up”"
+    },
+    {
+      "name": "startup_text_0609",
+      "value": "Save the query ID and time before leaving"
+    },
+    {
+      "name": "startup_text_0610",
+      "value": "Manually leave the app and open system settings"
+    },
+    {
+      "name": "startup_text_0611",
+      "value": "Find startup management for this app; the name and availability depend on the actual device"
+    },
+    {
+      "name": "startup_text_0612",
+      "value": "Return to this app to view the new query and before/after comparison"
+    },
+    {
+      "name": "startup_text_0613",
+      "value": "Only foreground/background transitions are detected; this cannot prove that settings were opened or a toggle was changed"
+    },
+    {
+      "name": "startup_text_0614",
+      "value": "［Optional］"
+    },
+    {
+      "name": "startup_text_0615",
+      "value": "｜Total "
+    },
+    {
+      "name": "startup_text_0616",
+      "value": " steps, of which required "
+    },
+    {
+      "name": "startup_text_0617",
+      "value": " steps"
+    },
+    {
+      "name": "startup_text_0618",
+      "value": " Manual guide（does not infer device capabilities）"
+    },
+    {
+      "name": "startup_text_0619",
+      "value": "Not assessed yet"
+    },
+    {
+      "name": "startup_text_0620",
+      "value": "Cannot compare："
+    },
+    {
+      "name": "startup_text_0621",
+      "value": "Status changed："
+    },
+    {
+      "name": "startup_text_0622",
+      "value": "Status unchanged（still "
+    },
+    {
+      "name": "startup_text_0623",
+      "value": "Missing sample from before leaving"
+    },
+    {
+      "name": "startup_text_0624",
+      "value": "Missing sample from after returning"
+    },
+    {
+      "name": "startup_text_0625",
+      "value": "Sample from before leaving is not comparable（"
+    },
+    {
+      "name": "startup_text_0626",
+      "value": "Sample from after returning is not comparable（"
+    },
+    {
+      "name": "startup_text_0627",
+      "value": "The settings guide has been shown. Go to system settings, then return"
+    },
+    {
+      "name": "startup_text_0628",
+      "value": "Current stage "
+    },
+    {
+      "name": "startup_text_0629",
+      "value": " does not accept a leave event"
+    },
+    {
+      "name": "startup_text_0630",
+      "value": "Departure time recorded"
+    },
+    {
+      "name": "startup_text_0631",
+      "value": " does not accept a return event"
+    },
+    {
+      "name": "startup_text_0632",
+      "value": "Returned to the app. Query again"
+    },
+    {
+      "name": "startup_text_0633",
+      "value": " does not accept a recheck event"
+    },
+    {
+      "name": "startup_text_0634",
+      "value": "Follow-up comparison completed"
+    },
+    {
+      "name": "startup_text_0635",
+      "value": "Canceled by the user; no assessment made"
+    },
+    {
+      "name": "startup_text_0636",
+      "value": "Follow-up canceled"
+    },
+    {
+      "name": "startup_text_0637",
+      "value": "The app has been away for over 10 minutes without a return; marked as incomplete"
+    },
+    {
+      "name": "startup_text_0638",
+      "value": "Follow-up expired"
+    },
+    {
+      "name": "startup_text_0639",
+      "value": "Follow-up restored; this only confirms app foreground/background transitions, not that settings were actually opened"
+    },
+    {
+      "name": "startup_text_0640",
+      "value": "No terminated follow-up selected yet"
+    },
+    {
+      "name": "startup_text_0641",
+      "value": "｜Guide version "
+    },
+    {
+      "name": "startup_text_0642",
+      "value": "Created "
+    },
+    {
+      "name": "startup_text_0643",
+      "value": "｜Background "
+    },
+    {
+      "name": "startup_text_0644",
+      "value": "｜Foreground "
+    },
+    {
+      "name": "startup_text_0645",
+      "value": "Termination/last recheck "
+    },
+    {
+      "name": "startup_text_0646",
+      "value": "｜Canceled "
+    },
+    {
+      "name": "startup_text_0647",
+      "value": "Before leaving "
+    },
+    {
+      "name": "startup_text_0648",
+      "value": "After returning "
+    },
+    {
+      "name": "startup_text_0649",
+      "value": "These facts only prove app foreground/background transitions and query results, not that the user opened settings, changed a toggle, or that the app actually launched at boot."
+    },
+    {
+      "name": "startup_text_0650",
+      "value": "Recheck attempt "
+    },
+    {
+      "name": "startup_text_0651",
+      "value": "｜Error code "
+    },
+    {
+      "name": "startup_text_0652",
+      "value": "All form factors"
+    },
+    {
+      "name": "startup_text_0653",
+      "value": "All systems"
+    },
+    {
+      "name": "startup_text_0654",
+      "value": "autoStartupManager is available only from API 9 onward. Versions below 9 are always treated as unsupported by the system."
+    },
+    {
+      "name": "startup_text_0655",
+      "value": "The current system version is too old to use auto-start at boot settings."
+    },
+    {
+      "name": "startup_text_0656",
+      "value": "Wearable form factors do not provide an auto-start settings entry before API 12."
+    },
+    {
+      "name": "startup_text_0657",
+      "value": "The current device form factor does not currently support auto-start at boot."
+    },
+    {
+      "name": "startup_text_0658",
+      "value": "TV form factors do not provide an auto-start settings entry before API 12."
+    },
+    {
+      "name": "startup_text_0659",
+      "value": "OpenHarmony API 9~11 provides status queries only; changing settings requires opening the system page."
+    },
+    {
+      "name": "startup_text_0660",
+      "value": "Auto-start at boot status can be viewed; it must be enabled in system settings."
+    },
+    {
+      "name": "startup_text_0661",
+      "value": "On commercial distributions, API 9~11 requires auto-start-related permissions to have been granted before querying status."
+    },
+    {
+      "name": "startup_text_0662",
+      "value": "Permission must be granted before auto-start at boot status can be viewed."
+    },
+    {
+      "name": "startup_text_0663",
+      "value": "From API 12 onward, wearable form factors provide queries only, not settings."
+    },
+    {
+      "name": "startup_text_0664",
+      "value": "The current device can show the status, but it cannot be enabled within the app."
+    },
+    {
+      "name": "startup_text_0665",
+      "value": "From OpenHarmony API 12 onward, TV form factors provide queries and settings."
+    },
+    {
+      "name": "startup_text_0666",
+      "value": "Auto-start at boot can be viewed and configured."
+    },
+    {
+      "name": "startup_text_0667",
+      "value": "On commercial distributions, configuring auto-start on TV form factors requires a system-signature permission."
+    },
+    {
+      "name": "startup_text_0668",
+      "value": "The current device requires additional authorization to configure auto-start at boot."
+    },
+    {
+      "name": "startup_text_0669",
+      "value": "OpenHarmony API 12~13 provides queries and settings for phones and tablets."
+    },
+    {
+      "name": "startup_text_0670",
+      "value": "On commercial distributions, phones and tablets require the user to grant auto-start permission."
+    },
+    {
+      "name": "startup_text_0671",
+      "value": "Permission must be granted before auto-start at boot can be configured."
+    },
+    {
+      "name": "startup_text_0672",
+      "value": "Before API 18, wearable form factors provide queries only, not settings."
+    },
+    {
+      "name": "startup_text_0673",
+      "value": "API 14~17 provides queries and settings for TV form factors."
+    },
+    {
+      "name": "startup_text_0674",
+      "value": "API 14~17 provides queries and settings for phones and tablets."
+    },
+    {
+      "name": "startup_text_0675",
+      "value": "From API 18 onward, all form factors provide queries and settings."
+    },
+    {
+      "name": "startup_text_0676",
+      "value": "Above the verified API 26, interface behavior is unconfirmed and is treated as unknown."
+    },
+    {
+      "name": "startup_text_0677",
+      "value": "The current system version has not been verified; results are for reference only."
+    },
+    {
+      "name": "startup_text_0678",
+      "value": "On API 9~11, if the system distribution cannot be identified, treat it as unknown and do not assume support."
+    },
+    {
+      "name": "startup_text_0679",
+      "value": "The current system's auto-start capabilities cannot be determined at this time."
+    },
+    {
+      "name": "startup_text_0680",
+      "value": "On API 12~17, if the system distribution cannot be identified, treat it as unknown and do not assume support."
+    },
+    {
+      "name": "startup_text_0681",
+      "value": "If the device form factor cannot be identified, do not assume support; show a manual guide only."
+    },
+    {
+      "name": "startup_text_0682",
+      "value": "The current device's auto-start capabilities cannot be determined at this time."
+    },
+    {
+      "name": "startup_text_0683",
+      "value": "No matching rule"
+    },
+    {
+      "name": "startup_text_0684",
+      "value": "Add capability matrix rules"
+    },
+    {
+      "name": "startup_text_0685",
+      "value": "Operation successful."
+    },
+    {
+      "name": "startup_text_0686",
+      "value": "A successful call does not mean the change has actually taken effect in the system; read the status back to confirm."
+    },
+    {
+      "name": "startup_text_0687",
+      "value": "Required permission is missing; cannot continue."
+    },
+    {
+      "name": "startup_text_0688",
+      "value": "Permission check failed; confirm that the ohos.permission declaration has taken effect and the user has granted permission."
+    },
+    {
+      "name": "startup_text_0689",
+      "value": "The current app is not a system app."
+    },
+    {
+      "name": "startup_text_0690",
+      "value": "This interface is available only to system apps. Third-party apps should use a public interface or guide the user to configure it manually."
+    },
+    {
+      "name": "startup_text_0691",
+      "value": "Invalid request parameters."
+    },
+    {
+      "name": "startup_text_0692",
+      "value": "Check parameter types, value ranges, and required fields. Do not retry with the same invalid parameters."
+    },
+    {
+      "name": "startup_text_0693",
+      "value": "The current device does not support this capability."
+    },
+    {
+      "name": "startup_text_0694",
+      "value": "The device lacks this capability. This is unsupported, not a failure; a \"Retry\" button should not be shown."
+    },
+    {
+      "name": "startup_text_0695",
+      "value": "Invalid parameters."
+    },
+    {
+      "name": "startup_text_0696",
+      "value": "Ability-layer parameter validation failed; check want, bundleName, and the request code."
+    },
+    {
+      "name": "startup_text_0697",
+      "value": "The context is no longer valid."
+    },
+    {
+      "name": "startup_text_0698",
+      "value": "The Ability has been destroyed or the context is uninitialized. Initiate the request again within a valid lifecycle."
+    },
+    {
+      "name": "startup_text_0699",
+      "value": "Internal system error."
+    },
+    {
+      "name": "startup_text_0700",
+      "value": "An internal error can usually be retried once; after repeated failures, log the error and stop retrying."
+    },
+    {
+      "name": "startup_text_0701",
+      "value": "The target is not a foreground Ability."
+    },
+    {
+      "name": "startup_text_0702",
+      "value": "Opening the settings page must be initiated while visible."
+    },
+    {
+      "name": "startup_text_0703",
+      "value": "Target Ability not found."
+    },
+    {
+      "name": "startup_text_0704",
+      "value": "The system settings page does not exist or its name does not match. Keep the manual guide available."
+    },
+    {
+      "name": "startup_text_0705",
+      "value": "Text exceeds the limit."
+    },
+    {
+      "name": "startup_text_0706",
+      "value": "Error messages must be truncated before writing to avoid a secondary failure."
+    },
+    {
+      "name": "startup_text_0707",
+      "value": "A required field is empty."
+    },
+    {
+      "name": "startup_text_0708",
+      "value": "Empty values should not reach the persistence layer."
+    },
+    {
+      "name": "startup_text_0709",
+      "value": "Failed to read local records."
+    },
+    {
+      "name": "startup_text_0710",
+      "value": "If the saved data is corrupted, keep an empty list and show a message; do not overwrite the data."
+    },
+    {
+      "name": "startup_text_0711",
+      "value": "Failed to write local records."
+    },
+    {
+      "name": "startup_text_0712",
+      "value": "A write failure must not change existing records in memory."
+    },
+    {
+      "name": "startup_text_0713",
+      "value": "Query timed out."
+    },
+    {
+      "name": "startup_text_0714",
+      "value": "A timeout is retryable and does not mean unsupported; the record should be marked timeout, not failure."
+    },
+    {
+      "name": "startup_text_0715",
+      "value": "Unknown result."
+    },
+    {
+      "name": "startup_text_0716",
+      "value": "Unknown results are counted separately, not as successes or failures."
+    },
+    {
+      "name": "startup_text_0717",
+      "value": "Success "
+    },
+    {
+      "name": "startup_text_0718",
+      "value": "Auto-start at boot"
+    },
+    {
+      "name": "startup_text_0719",
+      "value": "Auto-start at boot is enabled"
+    },
+    {
+      "name": "startup_text_0720",
+      "value": "Auto-start at boot is not enabled"
+    },
+    {
+      "name": "startup_text_0721",
+      "value": "The current status cannot be determined at this time"
+    },
+    {
+      "name": "startup_text_0722",
+      "value": "Query failed; it can be retried once"
+    },
+    {
+      "name": "startup_text_0723",
+      "value": "The current device or system does not support this capability"
+    },
+    {
+      "name": "startup_text_0724",
+      "value": "Change it in system settings"
+    },
+    {
+      "name": "startup_text_0725",
+      "value": "Permission must be granted before continuing"
+    },
+    {
+      "name": "startup_text_0726",
+      "value": "No records to export"
+    },
+    {
+      "name": "startup_text_0727",
+      "value": "Export content generated"
+    },
+    {
+      "name": "startup_text_0728",
+      "value": "No query records yet"
+    },
+    {
+      "name": "startup_text_0729",
+      "value": "Self-check completed"
+    },
+    {
+      "name": "startup_text_0730",
+      "value": "Settings guide"
+    },
+    {
+      "name": "startup_text_0731",
+      "value": "Usage guide"
+    },
+    {
+      "name": "startup_text_0732",
+      "value": "Enable reminders"
+    },
+    {
+      "name": "startup_text_0733",
+      "value": "{count} records in total, most recently at {time}"
+    },
+    {
+      "name": "startup_text_0734",
+      "value": "Requested {asked} times, up to {max} times"
+    },
+    {
+      "name": "startup_text_0735",
+      "value": "{minutes} minutes until the next reminder is allowed"
+    },
+    {
+      "name": "startup_text_0736",
+      "value": "{format} format, {rows} lines, {size} bytes"
+    },
+    {
+      "name": "startup_text_0737",
+      "value": "Step {current} of {total}（{percent}%）"
+    },
+    {
+      "name": "startup_text_0738",
+      "value": "{passed} passed, {warned} warnings, {failed} failed"
+    },
+    {
+      "name": "startup_text_0739",
+      "value": "The text table is consistent"
+    },
+    {
+      "name": "startup_text_0740",
+      "value": "Duplicate text key："
+    },
+    {
+      "name": "startup_text_0741",
+      "value": "Empty text："
+    },
+    {
+      "name": "startup_text_0742",
+      "value": "Invalid length limit："
+    },
+    {
+      "name": "startup_text_0743",
+      "value": "Text is too long："
+    },
+    {
+      "name": "startup_text_0744",
+      "value": "Empty template："
+    },
+    {
+      "name": "startup_text_0745",
+      "value": "Unclosed placeholder："
+    },
+    {
+      "name": "startup_text_0746",
+      "value": "Inconsistent placeholder parsing："
+    },
+    {
+      "name": "startup_text_0747",
+      "value": " placeholders）"
+    },
+    {
+      "name": "startup_text_0748",
+      "value": "Unknown time"
+    },
+    {
+      "name": "startup_text_0749",
+      "value": "Time unknown"
+    },
+    {
+      "name": "startup_text_0750",
+      "value": "Just now"
+    },
+    {
+      "name": "startup_text_0751",
+      "value": " minutes ago"
+    },
+    {
+      "name": "startup_text_0752",
+      "value": " hours ago"
+    },
+    {
+      "name": "startup_text_0753",
+      "value": " days ago"
+    },
+    {
+      "name": "startup_text_0754",
+      "value": "Unknown duration"
+    },
+    {
+      "name": "startup_text_0755",
+      "value": "id,Time,Source,Result,Conclusion,Error code,Duration(ms)"
+    },
+    {
+      "name": "startup_text_0756",
+      "value": "| # | Time | Source | Result | Conclusion | Error code |"
+    },
+    {
+      "name": "startup_text_0757",
+      "value": "Error message："
+    },
+    {
+      "name": "startup_text_0758",
+      "value": "Not queried"
+    },
+    {
+      "name": "startup_text_0759",
+      "value": "Query"
+    },
+    {
+      "name": "startup_text_0760",
+      "value": "Awaiting check"
+    },
+    {
+      "name": "startup_text_0761",
+      "value": "Querying"
+    },
+    {
+      "name": "startup_text_0762",
+      "value": "Awaiting query"
+    },
+    {
+      "name": "startup_text_0763",
+      "value": "Enabled for this app"
+    },
+    {
+      "name": "startup_text_0764",
+      "value": "Not enabled for this app"
+    },
+    {
+      "name": "startup_text_0765",
+      "value": "Query temporarily unavailable"
+    },
+    {
+      "name": "startup_text_0766",
+      "value": "Query timed out"
+    },
+    {
+      "name": "startup_text_0767",
+      "value": "Clear query records?"
+    },
+    {
+      "name": "startup_text_0768",
+      "value": "Clear query history on this device. Saved archives are not affected."
+    },
+    {
+      "name": "startup_text_0769",
+      "value": "Cancel"
+    },
+    {
+      "name": "startup_text_0770",
+      "value": "Confirm"
+    },
+    {
+      "name": "startup_text_0771",
+      "value": "Result category："
+    },
+    {
+      "name": "startup_text_0772",
+      "value": "Collapse details −"
+    },
+    {
+      "name": "startup_text_0773",
+      "value": "View details +"
+    },
+    {
+      "name": "startup_text_0774",
+      "value": "Duration："
+    },
+    {
+      "name": "startup_text_0775",
+      "value": "Query records"
+    },
+    {
+      "name": "startup_text_0776",
+      "value": "Close"
+    },
+    {
+      "name": "startup_text_0777",
+      "value": "Clear records"
+    },
+    {
+      "name": "startup_text_0778",
+      "value": "Redacted export"
+    },
+    {
+      "name": "startup_text_0779",
+      "value": "No query records yet"
+    },
+    {
+      "name": "startup_text_0780",
+      "value": "Select a saved archive to view details"
+    },
+    {
+      "name": "startup_text_0781",
+      "value": "Archive #"
+    },
+    {
+      "name": "startup_text_0782",
+      "value": "｜Original query #"
+    },
+    {
+      "name": "startup_text_0783",
+      "value": "\nLong-term archives do not save raw error descriptions; they do not prove that the app actually launched at boot."
+    },
+    {
+      "name": "startup_text_0784",
+      "value": "Processing; saving is not yet confirmed"
+    },
+    {
+      "name": "startup_text_0785",
+      "value": "Operation incomplete. Retry; success has not been confirmed"
+    },
+    {
+      "name": "startup_text_0786",
+      "value": "Source filter updated"
+    },
+    {
+      "name": "startup_text_0787",
+      "value": "Result filter updated"
+    },
+    {
+      "name": "startup_text_0788",
+      "value": "Confirm clearing "
+    },
+    {
+      "name": "startup_text_0789",
+      "value": " saved archives？live history is not affected."
+    },
+    {
+      "name": "startup_text_0790",
+      "value": "Disable automatic archiving for subsequent new queries? Saved evidence will not be deleted."
+    },
+    {
+      "name": "startup_text_0791",
+      "value": "Enable automatic archiving and save the current scope? Only actual query evidence is retained; raw error descriptions are not saved."
+    },
+    {
+      "name": "startup_text_0792",
+      "value": "#Archive ID or exact error code"
+    },
+    {
+      "name": "startup_text_0793",
+      "value": "Search criteria updated"
+    },
+    {
+      "name": "startup_text_0794",
+      "value": "Date yyyy-MM-dd（leave empty for no limit）"
+    },
+    {
+      "name": "startup_text_0795",
+      "value": "Date filter updated"
+    },
+    {
+      "name": "startup_text_0796",
+      "value": "Manual"
+    },
+    {
+      "name": "startup_text_0797",
+      "value": "After settings"
+    },
+    {
+      "name": "startup_text_0798",
+      "value": "First time"
+    },
+    {
+      "name": "startup_text_0799",
+      "value": "Foreground"
+    },
+    {
+      "name": "startup_text_0800",
+      "value": "Local query evidence archive"
+    },
+    {
+      "name": "startup_text_0801",
+      "value": "Collapse storage and privacy notes −"
+    },
+    {
+      "name": "startup_text_0802",
+      "value": "Storage and privacy notes +"
+    },
+    {
+      "name": "startup_text_0803",
+      "value": "Saved evidence is not pruned with the latest 20 live records; raw error descriptions are not saved, and it does not prove that the app actually launched at boot."
+    },
+    {
+      "name": "startup_text_0804",
+      "value": "｜Automatic "
+    },
+    {
+      "name": "startup_text_0805",
+      "value": "Enable"
+    },
+    {
+      "name": "startup_text_0806",
+      "value": "Pending save "
+    },
+    {
+      "name": "startup_text_0807",
+      "value": "Pause"
+    },
+    {
+      "name": "startup_text_0808",
+      "value": "Processable"
+    },
+    {
+      "name": "startup_text_0809",
+      "value": " records｜Current scope "
+    },
+    {
+      "name": "startup_text_0810",
+      "value": " records｜"
+    },
+    {
+      "name": "startup_text_0811",
+      "value": "/1048576 bytes"
+    },
+    {
+      "name": "startup_text_0812",
+      "value": "Pending items are not yet confirmed as written to disk; automatic collection pauses on storage failure or when capacity is full, and subsequent queries still retain only the latest 20 live records."
+    },
+    {
+      "name": "startup_text_0813",
+      "value": "Save current scope to archive"
+    },
+    {
+      "name": "startup_text_0814",
+      "value": "Disable automatic archiving"
+    },
+    {
+      "name": "startup_text_0815",
+      "value": "Enable automatic archiving"
+    },
+    {
+      "name": "startup_text_0816",
+      "value": "Confirm automatic archiving settings"
+    },
+    {
+      "name": "startup_text_0817",
+      "value": "Canceled; the archive is unchanged"
+    },
+    {
+      "name": "startup_text_0818",
+      "value": "Retry read/save"
+    },
+    {
+      "name": "startup_text_0819",
+      "value": "Copy redacted archive"
+    },
+    {
+      "name": "startup_text_0820",
+      "value": "Cleanup preview"
+    },
+    {
+      "name": "startup_text_0821",
+      "value": "Clear archive"
+    },
+    {
+      "name": "startup_text_0822",
+      "value": "Confirm cleanup"
+    },
+    {
+      "name": "startup_text_0823",
+      "value": "Confirm clearing"
+    },
+    {
+      "name": "startup_text_0824",
+      "value": "No saved archives in the current scope"
+    },
+    {
+      "name": "startup_text_0825",
+      "value": "Previous page"
+    },
+    {
+      "name": "startup_text_0826",
+      "value": "Next page"
+    },
+    {
+      "name": "startup_text_0827",
+      "value": "Distribution by date"
+    },
+    {
+      "name": "startup_text_0828",
+      "value": "Within do-not-disturb hours"
+    },
+    {
+      "name": "startup_text_0829",
+      "value": "Outside do-not-disturb hours"
+    },
+    {
+      "name": "startup_text_0830",
+      "value": " user-visible text entries"
+    },
+    {
+      "name": "startup_text_0831",
+      "value": "Standalone auto-start diagnostics（actual API, not evidence of launch at boot）\nAPI level "
+    },
+    {
+      "name": "startup_text_0832",
+      "value": "Device form factor "
+    },
+    {
+      "name": "startup_text_0833",
+      "value": "\nCapability "
+    },
+    {
+      "name": "startup_text_0834",
+      "value": "Redacted report copied"
+    },
+    {
+      "name": "startup_text_0835",
+      "value": "Export failed. Tap Copy to retry; query results are unchanged"
+    },
+    {
+      "name": "startup_text_0836",
+      "value": "No content yet"
+    },
+    {
+      "name": "startup_text_0837",
+      "value": "Not checked yet"
+    },
+    {
+      "name": "startup_text_0838",
+      "value": "Stage "
+    },
+    {
+      "name": "startup_text_0839",
+      "value": "；Return "
+    },
+    {
+      "name": "startup_text_0840",
+      "value": "Error code "
+    },
+    {
+      "name": "startup_text_0841",
+      "value": "；Duration "
+    },
+    {
+      "name": "startup_text_0842",
+      "value": "‹ Back"
+    },
+    {
+      "name": "startup_text_0843",
+      "value": "Standalone API diagnostics"
+    },
+    {
+      "name": "startup_text_0844",
+      "value": "Check device capabilities and this app's status separately, without requesting additional permissions."
+    },
+    {
+      "name": "startup_text_0845",
+      "value": "Check device capabilities"
+    },
+    {
+      "name": "startup_text_0846",
+      "value": "Device capabilities"
+    },
+    {
+      "name": "startup_text_0847",
+      "value": "Query this app's status"
+    },
+    {
+      "name": "startup_text_0848",
+      "value": "This app's status"
+    },
+    {
+      "name": "startup_text_0849",
+      "value": "Querying. Wait for the system to respond."
+    },
+    {
+      "name": "startup_text_0850",
+      "value": "Copy redacted diagnostic report / Retry on failure"
+    },
+    {
+      "name": "startup_text_0851",
+      "value": "Collapse diagnostic notes and policies −"
+    },
+    {
+      "name": "startup_text_0852",
+      "value": "Diagnostic notes and policies +"
+    },
+    {
+      "name": "startup_text_0853",
+      "value": "A capability check returning false means the device is unsupported, not that auto-start is disabled; status is determined by the actual return value of each interface."
+    },
+    {
+      "name": "startup_text_0854",
+      "value": "This only queries and does not automatically change settings; query results do not prove that the app actually launched at boot. The following policies are for reference and do not mean authorization has been granted or notifications sent."
+    },
+    {
+      "name": "startup_text_0855",
+      "value": "Query history：private storage, up to"
+    },
+    {
+      "name": "startup_text_0856",
+      "value": "records, 30 days；format"
+    },
+    {
+      "name": "startup_text_0857",
+      "value": "，error message limit"
+    },
+    {
+      "name": "startup_text_0858",
+      "value": "Permission request policy"
+    },
+    {
+      "name": "startup_text_0859",
+      "value": "Text and reminder hours"
+    },
+    {
+      "name": "startup_text_0860",
+      "value": "Archive retention policy"
+    },
+    {
+      "name": "startup_text_0861",
+      "value": "Ownership distribution："
+    },
+    {
+      "name": "startup_text_0862",
+      "value": "Layer distribution："
+    },
+    {
+      "name": "startup_text_0863",
+      "value": "Priority item "
+    },
+    {
+      "name": "startup_text_0864",
+      "value": "Viable chain："
+    },
+    {
+      "name": "startup_text_0865",
+      "value": "Support conclusion："
+    },
+    {
+      "name": "startup_text_0866",
+      "value": "Failure conclusion："
+    },
+    {
+      "name": "startup_text_0867",
+      "value": "Evidence "
+    },
+    {
+      "name": "startup_text_0868",
+      "value": " records, chain rules "
+    },
+    {
+      "name": "startup_text_0869",
+      "value": "Required "
+    },
+    {
+      "name": "startup_text_0870",
+      "value": " steps, skippable "
+    },
+    {
+      "name": "startup_text_0871",
+      "value": " steps，"
+    },
+    {
+      "name": "startup_text_0872",
+      "value": "Estimated "
+    },
+    {
+      "name": "startup_text_0873",
+      "value": " seconds"
+    },
+    {
+      "name": "startup_text_0874",
+      "value": "Current step："
+    },
+    {
+      "name": "startup_text_0875",
+      "value": "Blocking steps "
+    },
+    {
+      "name": "startup_text_0876",
+      "value": " items"
+    },
+    {
+      "name": "startup_text_0877",
+      "value": "Copied "
+    },
+    {
+      "name": "startup_text_0878",
+      "value": " characters"
+    },
+    {
+      "name": "startup_text_0879",
+      "value": "Fault catalog"
+    },
+    {
+      "name": "startup_text_0880",
+      "value": "Faults and archives"
+    },
+    {
+      "name": "startup_text_0881",
+      "value": "Expand troubleshooting references as needed; they are not fault detection results for this device."
+    },
+    {
+      "name": "startup_text_0882",
+      "value": "Catalog "
+    },
+    {
+      "name": "startup_text_0883",
+      "value": " entries｜History "
+    },
+    {
+      "name": "startup_text_0884",
+      "value": "Resolution order"
+    },
+    {
+      "name": "startup_text_0885",
+      "value": "Archiving and retention"
+    },
+    {
+      "name": "startup_text_0886",
+      "value": "Conclusion evidence chain"
+    },
+    {
+      "name": "startup_text_0887",
+      "value": "Guide steps"
+    },
+    {
+      "name": "startup_text_0888",
+      "value": "Copy all"
+    },
+    {
+      "name": "startup_text_0889",
+      "value": "Manual settings follow-up"
+    },
+    {
+      "name": "startup_text_0890",
+      "value": "After starting, complete the settings and return within 10 minutes."
+    },
+    {
+      "name": "startup_text_0891",
+      "value": "Start manual settings follow-up"
+    },
+    {
+      "name": "startup_text_0892",
+      "value": "Current follow-up"
+    },
+    {
+      "name": "startup_text_0893",
+      "value": "Before leaving："
+    }
+  ]
+}
