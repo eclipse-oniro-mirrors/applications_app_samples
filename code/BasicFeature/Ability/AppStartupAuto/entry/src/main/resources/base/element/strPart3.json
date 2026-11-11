@@ -1,0 +1,1220 @@
+{
+  "string": [
+    {
+      "name": "startup_text_0894",
+      "value": "After returning："
+    },
+    {
+      "name": "startup_text_0895",
+      "value": "Retry query after returning"
+    },
+    {
+      "name": "startup_text_0896",
+      "value": "Cancel current follow-up"
+    },
+    {
+      "name": "startup_text_0897",
+      "value": "Collapse follow-up details −"
+    },
+    {
+      "name": "startup_text_0898",
+      "value": "Follow-up details +"
+    },
+    {
+      "name": "startup_text_0899",
+      "value": "Stage："
+    },
+    {
+      "name": "startup_text_0900",
+      "value": "Left："
+    },
+    {
+      "name": "startup_text_0901",
+      "value": "；Returned："
+    },
+    {
+      "name": "startup_text_0902",
+      "value": "Linked recheck ID："
+    },
+    {
+      "name": "startup_text_0903",
+      "value": "Collapse storage operations −"
+    },
+    {
+      "name": "startup_text_0904",
+      "value": "Storage and recovery +"
+    },
+    {
+      "name": "startup_text_0905",
+      "value": "Retry save"
+    },
+    {
+      "name": "startup_text_0906",
+      "value": "Retry reading follow-up"
+    },
+    {
+      "name": "startup_text_0907",
+      "value": "Discard unread/corrupted follow-up data"
+    },
+    {
+      "name": "startup_text_0908",
+      "value": "Discard the original follow-up data?"
+    },
+    {
+      "name": "startup_text_0909",
+      "value": "Only this app's private follow-up is reset. If reading fails, retry first; after confirmation, the original saved data will be replaced."
+    },
+    {
+      "name": "startup_text_0910",
+      "value": "Discard and reset"
+    },
+    {
+      "name": "startup_text_0911",
+      "value": "Collapse follow-up archive −"
+    },
+    {
+      "name": "startup_text_0912",
+      "value": "Follow-up archive · "
+    },
+    {
+      "name": "startup_text_0913",
+      "value": " rounds +"
+    },
+    {
+      "name": "startup_text_0914",
+      "value": "Retain up to 10 rounds for 30 days, with up to 5 recheck attempts per round."
+    },
+    {
+      "name": "startup_text_0915",
+      "value": "No ended follow-ups yet"
+    },
+    {
+      "name": "startup_text_0916",
+      "value": "No valid successful samples in the current scope"
+    },
+    {
+      "name": "startup_text_0917",
+      "value": "Latest valid in the current scope："
+    },
+    {
+      "name": "startup_text_0918",
+      "value": "Result filter："
+    },
+    {
+      "name": "startup_text_0919",
+      "value": "Source filter："
+    },
+    {
+      "name": "startup_text_0920",
+      "value": "Time range："
+    },
+    {
+      "name": "startup_text_0921",
+      "value": "Filters and comparison selections reset"
+    },
+    {
+      "name": "startup_text_0922",
+      "value": "The current scope is empty, with no records to export; a separate option is available for exporting all records"
+    },
+    {
+      "name": "startup_text_0923",
+      "value": "All history"
+    },
+    {
+      "name": "startup_text_0924",
+      "value": "Current filtered scope"
+    },
+    {
+      "name": "startup_text_0925",
+      "value": "All"
+    },
+    {
+      "name": "startup_text_0926",
+      "value": "Current scope"
+    },
+    {
+      "name": "startup_text_0927",
+      "value": "Redacted history copied"
+    },
+    {
+      "name": "startup_text_0928",
+      "value": "Copy failed. Tap the same export button to retry; storage is unchanged"
+    },
+    {
+      "name": "startup_text_0929",
+      "value": "Clear history"
+    },
+    {
+      "name": "startup_text_0930",
+      "value": "Clear saved query history? This operation affects only this app's history."
+    },
+    {
+      "name": "startup_text_0931",
+      "value": "Clear"
+    },
+    {
+      "name": "startup_text_0932",
+      "value": "Clear requested; the page will retain a message if writing fails"
+    },
+    {
+      "name": "startup_text_0933",
+      "value": "Save retry requested"
+    },
+    {
+      "name": "startup_text_0934",
+      "value": "History reread requested"
+    },
+    {
+      "name": "startup_text_0935",
+      "value": "Query history"
+    },
+    {
+      "name": "startup_text_0936",
+      "value": " records · "
+    },
+    {
+      "name": "startup_text_0937",
+      "value": "Collapse filters −"
+    },
+    {
+      "name": "startup_text_0938",
+      "value": "Filters +"
+    },
+    {
+      "name": "startup_text_0939",
+      "value": "Export current scope"
+    },
+    {
+      "name": "startup_text_0940",
+      "value": "Result"
+    },
+    {
+      "name": "startup_text_0941",
+      "value": "Source"
+    },
+    {
+      "name": "startup_text_0942",
+      "value": "Time"
+    },
+    {
+      "name": "startup_text_0943",
+      "value": "Reset filters"
+    },
+    {
+      "name": "startup_text_0944",
+      "value": "Storage and more actions +"
+    },
+    {
+      "name": "startup_text_0945",
+      "value": "Retry read"
+    },
+    {
+      "name": "startup_text_0946",
+      "value": "Redacted export of all records（ignore filters）"
+    },
+    {
+      "name": "startup_text_0947",
+      "value": "Collapse saved archives −"
+    },
+    {
+      "name": "startup_text_0948",
+      "value": "Saved archives +"
+    },
+    {
+      "name": "startup_text_0949",
+      "value": "Record"
+    },
+    {
+      "name": "startup_text_0950",
+      "value": "Selected as before"
+    },
+    {
+      "name": "startup_text_0951",
+      "value": "Select as before"
+    },
+    {
+      "name": "startup_text_0952",
+      "value": "Selected as after"
+    },
+    {
+      "name": "startup_text_0953",
+      "value": "Select as after"
+    },
+    {
+      "name": "startup_text_0954",
+      "value": "Details"
+    },
+    {
+      "name": "startup_text_0955",
+      "value": "Record details in the current scope（local）"
+    },
+    {
+      "name": "startup_text_0956",
+      "value": "Before/after comparison in the current scope"
+    },
+    {
+      "name": "startup_text_0957",
+      "value": "Collapse statistics and preview −"
+    },
+    {
+      "name": "startup_text_0958",
+      "value": "Statistics, comparison, and export preview +"
+    },
+    {
+      "name": "startup_text_0959",
+      "value": "Current scope summary"
+    },
+    {
+      "name": "startup_text_0960",
+      "value": "Export preview"
+    },
+    {
+      "name": "startup_text_0961",
+      "value": " records · Success "
+    },
+    {
+      "name": "startup_text_0962",
+      "value": " · Failure "
+    },
+    {
+      "name": "startup_text_0963",
+      "value": " · Timeout "
+    },
+    {
+      "name": "startup_text_0964",
+      "value": " · Unknown "
+    },
+    {
+      "name": "startup_text_0965",
+      "value": " · Latest valid #"
+    },
+    {
+      "name": "startup_text_0966",
+      "value": " · No valid samples"
+    },
+    {
+      "name": "startup_text_0967",
+      "value": " records will expire"
+    },
+    {
+      "name": "startup_text_0968",
+      "value": "；Copy failed. Retry"
+    },
+    {
+      "name": "startup_text_0969",
+      "value": "Waiting for the system to respond"
+    },
+    {
+      "name": "startup_text_0970",
+      "value": "Retry"
+    },
+    {
+      "name": "startup_text_0971",
+      "value": "Check again"
+    },
+    {
+      "name": "startup_text_0972",
+      "value": "Refresh status"
+    },
+    {
+      "name": "startup_text_0973",
+      "value": "Auto-start status"
+    },
+    {
+      "name": "startup_text_0974",
+      "value": "Awaiting system response"
+    },
+    {
+      "name": "startup_text_0975",
+      "value": "Device support："
+    },
+    {
+      "name": "startup_text_0976",
+      "value": "Latest query："
+    },
+    {
+      "name": "startup_text_0977",
+      "value": "Previous query："
+    },
+    {
+      "name": "startup_text_0978",
+      "value": "Diagnostic report"
+    },
+    {
+      "name": "startup_text_0979",
+      "value": "Need to adjust settings?"
+    },
+    {
+      "name": "startup_text_0980",
+      "value": "Follow the guide to configure settings manually, then recheck after returning"
+    },
+    {
+      "name": "startup_text_0981",
+      "value": "How to configure"
+    },
+    {
+      "name": "startup_text_0982",
+      "value": "Collapse device guide −"
+    },
+    {
+      "name": "startup_text_0983",
+      "value": "Device guide +"
+    },
+    {
+      "name": "startup_text_0984",
+      "value": "Call details −"
+    },
+    {
+      "name": "startup_text_0985",
+      "value": "Call details +"
+    },
+    {
+      "name": "startup_text_0986",
+      "value": "View status and configure settings manually as needed"
+    },
+    {
+      "name": "startup_text_0987",
+      "value": "Query records · "
+    },
+    {
+      "name": "startup_text_0988",
+      "value": "records"
+    },
+    {
+      "name": "startup_text_0989",
+      "value": "History management · Filter / Compare / Export"
+    },
+    {
+      "name": "startup_format_0d5355a338a3",
+      "value": "; another {0} records are counted in statistics only"
+    },
+    {
+      "name": "startup_format_4c160f6faab0",
+      "value": "{0}: total {1} records (valid {2}), success rate {3}%{4}"
+    },
+    {
+      "name": "startup_format_5becf8ede620",
+      "value": "(another {0} records are counted in statistics only)"
+    },
+    {
+      "name": "startup_format_f23e7dd3feb5",
+      "value": "{0}: total {1} records, returning {2} samples{3}"
+    },
+    {
+      "name": "startup_format_c60eb1c36812",
+      "value": "Up to {0} days | daily {1} samples | latest {2} valid samples | trend {3} days"
+    },
+    {
+      "name": "startup_format_87340c616f4c",
+      "value": "No records for this date（index window {0} to {1}）"
+    },
+    {
+      "name": "startup_format_7f4ce3f8ef8c",
+      "value": "For that day, retain only the latest {0} samples"
+    },
+    {
+      "name": "startup_format_badb09226b3e",
+      "value": "Archive is empty:{0} records are invalid,{1} records are outside the index window"
+    },
+    {
+      "name": "startup_format_4e8f06ff022c",
+      "value": "Archive is empty:{0} records all failed field validation"
+    },
+    {
+      "name": "startup_format_ffbe500521b4",
+      "value": "Archive is empty:{0} records are all outside the index window of {1} days"
+    },
+    {
+      "name": "startup_format_d9ea97bffe96",
+      "value": "| outside window {0} records"
+    },
+    {
+      "name": "startup_format_e4959e4e3e98",
+      "value": "Archive index |{0} days |{1} records | valid {2} records{3}"
+    },
+    {
+      "name": "startup_format_20dde70a31c3",
+      "value": "Ignored {0} records that failed field validation"
+    },
+    {
+      "name": "startup_format_3b7d59634326",
+      "value": "Discarded {0} records outside the index window of {1} days"
+    },
+    {
+      "name": "startup_format_f3fe95db8d15",
+      "value": "(covering {0} dates)"
+    },
+    {
+      "name": "startup_format_db4cf06a8240",
+      "value": "Retain at most {0} samples per day; the rest are counted in statistics only"
+    },
+    {
+      "name": "startup_format_05715f360e67",
+      "value": "Insufficient trend data: only {0} days with valid samples (at least 2 required)"
+    },
+    {
+      "name": "startup_format_df91d0fbb511",
+      "value": "{0} → {1}| success rate {2}% → {3}%"
+    },
+    {
+      "name": "startup_format_2fbfec3cf39a",
+      "value": "｜{0}（{1}{2} percentage points）"
+    },
+    {
+      "name": "startup_format_c130b6f1be3e",
+      "value": "Record limit {0}| retention limit {1} days | extra retention for failed samples {2} days"
+    },
+    {
+      "name": "startup_format_0578a9fa4203",
+      "value": "Retain at most {0} records; remove excess records from oldest to newest"
+    },
+    {
+      "name": "startup_format_15112b27191a",
+      "value": "Retain at most {0} days; remove older records based on age"
+    },
+    {
+      "name": "startup_format_dc5d80660073",
+      "value": "Retain failed samples for an extra {0} days (actual {1} days) for troubleshooting"
+    },
+    {
+      "name": "startup_format_9fdbaf9a38b9",
+      "value": "Retain {0} records, delete {1} records"
+    },
+    {
+      "name": "startup_format_3df62be81a01",
+      "value": "(by age {0} records, by count {1} records)"
+    },
+    {
+      "name": "startup_format_7e901017c73d",
+      "value": "Remaining {0} records omitted"
+    },
+    {
+      "name": "startup_format_d4b6a332589a",
+      "value": "Record limit out of range:{0}"
+    },
+    {
+      "name": "startup_format_1dce782ee99c",
+      "value": "Retention period limit out of range:{0}"
+    },
+    {
+      "name": "startup_format_45877e0e8c45",
+      "value": "Extra retention days for failed samples out of range:{0}"
+    },
+    {
+      "name": "startup_format_12dfec4921dc",
+      "value": "Age {0} days exceeds {1} days, but exempt as the latest valid sample"
+    },
+    {
+      "name": "startup_format_07f9b1860c52",
+      "value": "Age {0} days exceeds {1} days"
+    },
+    {
+      "name": "startup_format_b777fa58943b",
+      "value": "Failed samples are retained for {0} days plus an extra {1} days"
+    },
+    {
+      "name": "startup_format_f67f452272bb",
+      "value": "Age {0}/{1} days, within the limit of {2} records"
+    },
+    {
+      "name": "startup_format_33f68c0d4b7a",
+      "value": "Record limit exceeded: {0}, remove from oldest to newest"
+    },
+    {
+      "name": "startup_format_f819ef1fad54",
+      "value": "Retention limit {0} days"
+    },
+    {
+      "name": "startup_format_17b0f2c979e6",
+      "value": "; extra retention for failed samples {0} days (total {1} days)"
+    },
+    {
+      "name": "startup_format_e6bc0515c1ce",
+      "value": "Record limit {0} records; remove excess records from oldest to newest"
+    },
+    {
+      "name": "startup_format_ff117be8a6d8",
+      "value": "Latest valid sample #{0} would have been removed; exempted and retained"
+    },
+    {
+      "name": "startup_format_de566cf45f13",
+      "value": "Latest valid sample #{0} retained (exempt from age/count rules)"
+    },
+    {
+      "name": "startup_format_c7d82a01c26c",
+      "value": "{0} records have unknown times; retained and excluded from age/count calculations"
+    },
+    {
+      "name": "startup_format_b913919d50b3",
+      "value": "Cleanup complete: deleted {0} records, retained {1} records"
+    },
+    {
+      "name": "startup_format_8a010c72ad3d",
+      "value": "From the preview, {0} records marked for deletion no longer existed at execution time"
+    },
+    {
+      "name": "startup_format_dbf76dc97a16",
+      "value": "Added after the preview: {0} records; excluded from this cleanup and retained"
+    },
+    {
+      "name": "startup_format_75f491c7eb20",
+      "value": "Read {0} archive records; original error descriptions are not saved"
+    },
+    {
+      "name": "startup_format_c43d1828a91b",
+      "value": "; another {0} records pending confirmation; explicitly retry saving"
+    },
+    {
+      "name": "startup_format_f7ccf2ca0b28",
+      "value": "Cleanup committed; deleted {0} records"
+    },
+    {
+      "name": "startup_format_22ba0b71e4be",
+      "value": "{0}：{1} records"
+    },
+    {
+      "name": "startup_format_78064061fa94",
+      "value": "Scope {0} records | success {1}| failure {2}｜"
+    },
+    {
+      "name": "startup_format_f6b100802a6e",
+      "value": "Not supported {0}| timeout {1}| unknown {2}"
+    },
+    {
+      "name": "startup_format_018291987880",
+      "value": "Saved {0} records, duplicates {1} records; original error descriptions are not saved"
+    },
+    {
+      "name": "startup_format_b7b21312ad6e",
+      "value": "Cleaned up {0} history records older than 30 days"
+    },
+    {
+      "name": "startup_format_4ad3605744e9",
+      "value": "Legacy history migrated;{0}"
+    },
+    {
+      "name": "startup_format_82d647b9bd61",
+      "value": "Generated at:{0}"
+    },
+    {
+      "name": "startup_format_7098fbdcbc1f",
+      "value": "Record count:{0}"
+    },
+    {
+      "name": "startup_format_7ee4ac31499d",
+      "value": "Support {0} | "
+    },
+    {
+      "name": "startup_format_1f33ac9b39f7",
+      "value": "Status {0} | Error code {1} | {2} ms"
+    },
+    {
+      "name": "startup_format_02faa2b6c007",
+      "value": "  Description:{0}"
+    },
+    {
+      "name": "startup_format_a1a8020de465",
+      "value": "System not supported（{0}）"
+    },
+    {
+      "name": "startup_format_db1f6db77389",
+      "value": "Call failed（{0}）"
+    },
+    {
+      "name": "startup_format_43dd26b0d62d",
+      "value": "Capability {0}| status {1}"
+    },
+    {
+      "name": "startup_format_ffabbad46b71",
+      "value": "{0}｜{1}｜{2}| weight {3}"
+    },
+    {
+      "name": "startup_format_321ea355c0bc",
+      "value": "{0} {1}| required {2}｜"
+    },
+    {
+      "name": "startup_format_87fca9c8d4da",
+      "value": "Optional {0}"
+    },
+    {
+      "name": "startup_format_160909d76e1e",
+      "value": "Missing {0}"
+    },
+    {
+      "name": "startup_format_3b39889b9d5a",
+      "value": "{0} {1}｜{2}| confidence {3}%"
+    },
+    {
+      "name": "startup_format_6101256e6fa0",
+      "value": "Duplicate rule ID:{0}"
+    },
+    {
+      "name": "startup_format_6d97c27e58d7",
+      "value": "Nonconsecutive IDs: expected {0}, actual {1}"
+    },
+    {
+      "name": "startup_format_15bb22ea4ee5",
+      "value": "Missing required evidence:{0}"
+    },
+    {
+      "name": "startup_format_156c0ae5433c",
+      "value": "Required evidence does not exist:{0}.{1}"
+    },
+    {
+      "name": "startup_format_7618fbd73324",
+      "value": "Optional evidence does not exist:{0}.{1}"
+    },
+    {
+      "name": "startup_format_fd45f3b16c0e",
+      "value": "Evidence classified more than once:{0}.{1}"
+    },
+    {
+      "name": "startup_format_b3d5698e1ce2",
+      "value": "Missing description:{0}"
+    },
+    {
+      "name": "startup_format_cb7bf9935b55",
+      "value": "Conclusion lacks an evidence chain:{0}"
+    },
+    {
+      "name": "startup_format_5c2ba0ac6074",
+      "value": "Reproduction:{0}; assessment:{1}; resolution:{2}"
+    },
+    {
+      "name": "startup_format_5f0a9f432572",
+      "value": "Total {0} issues, blocking {1} issues, severe {2} issues,"
+    },
+    {
+      "name": "startup_format_aea3aa4d9ff5",
+      "value": "Self-recoverable {0} records"
+    },
+    {
+      "name": "startup_format_daba46044ae2",
+      "value": "Duplicate ID:{0}"
+    },
+    {
+      "name": "startup_format_66ea333bee9f",
+      "value": "Missing symptom:{0}"
+    },
+    {
+      "name": "startup_format_31569c094481",
+      "value": "Missing assessment criteria:{0}"
+    },
+    {
+      "name": "startup_format_420fc3713114",
+      "value": "Missing resolution action:{0}"
+    },
+    {
+      "name": "startup_format_c64da49b4fc9",
+      "value": "Missing ownership:{0}"
+    },
+    {
+      "name": "startup_format_72b8ae4cc35b",
+      "value": "Unexpected ID count:{0}"
+    },
+    {
+      "name": "startup_format_78b78fe493cb",
+      "value": "Next step {0}"
+    },
+    {
+      "name": "startup_format_c91c3f2c5b3d",
+      "value": "Progress {0}% | completed {1}, skipped {2}｜{3}"
+    },
+    {
+      "name": "startup_format_ef4d5ad604f9",
+      "value": "Missing title:{0}"
+    },
+    {
+      "name": "startup_format_b42894e8985d",
+      "value": "Negative duration:{0}"
+    },
+    {
+      "name": "startup_format_951b582f14c1",
+      "value": "Dependency does not exist:{0} -> {1}"
+    },
+    {
+      "name": "startup_format_03ab37bee2e6",
+      "value": "Self-dependency:{0}"
+    },
+    {
+      "name": "startup_format_d6efb65bc501",
+      "value": "Incorrect dependency order:{0} -> {1}"
+    },
+    {
+      "name": "startup_format_2a1d9519d00a",
+      "value": "{0} hours"
+    },
+    {
+      "name": "startup_format_376dc4cad94c",
+      "value": "{0} records"
+    },
+    {
+      "name": "startup_format_01a5c9de151b",
+      "value": "Total {0} records: recent {1}, past week {2}、"
+    },
+    {
+      "name": "startup_format_e0a771771672",
+      "value": "Archive {0}, pending cleanup {1}"
+    },
+    {
+      "name": "startup_format_d5b63804af14",
+      "value": "Cleaning up {0} records requires user confirmation"
+    },
+    {
+      "name": "startup_format_7e7a7271ae8f",
+      "value": "{0}：No records"
+    },
+    {
+      "name": "startup_format_3fec0c502890",
+      "value": "{0}：{1} records -> "
+    },
+    {
+      "name": "startup_format_a8ed44fb7399",
+      "value": "Non-monotonic age limits：{0}"
+    },
+    {
+      "name": "startup_format_4eafba5aa3e9",
+      "value": "Non-monotonic record limits：{0}"
+    },
+    {
+      "name": "startup_format_b7c0be2242fe",
+      "value": "Unexpected number of fallback tiers：{0}"
+    },
+    {
+      "name": "startup_format_a4b39299cf78",
+      "value": "{0}：{1} rules"
+    },
+    {
+      "name": "startup_format_6e141419ecdd",
+      "value": "{0} after"
+    },
+    {
+      "name": "startup_format_57eeec9dc80a",
+      "value": "｜Error {0}"
+    },
+    {
+      "name": "startup_format_e969226f1a2f",
+      "value": "Total {0} records | success {1}| failure {2}｜Unsupported {3}｜"
+    },
+    {
+      "name": "startup_format_206a2001625d",
+      "value": "Timeout {0}| unknown {1}"
+    },
+    {
+      "name": "startup_format_1cecab3cb6e9",
+      "value": "Latest valid #{0}｜"
+    },
+    {
+      "name": "startup_format_b2b597c47173",
+      "value": "Latest {0}｜"
+    },
+    {
+      "name": "startup_format_b0b0be8a0458",
+      "value": "Earliest {0}"
+    },
+    {
+      "name": "startup_format_2a33f02d1080",
+      "value": "{0} records will expire within one day"
+    },
+    {
+      "name": "startup_format_88e71f9c4642",
+      "value": "Only one sample #{0}（{1}）"
+    },
+    {
+      "name": "startup_format_e500751111fc",
+      "value": "Before #{0} {1}（{2}）"
+    },
+    {
+      "name": "startup_format_200e5ad30abf",
+      "value": "After #{0} {1}（{2}）"
+    },
+    {
+      "name": "startup_format_571b5157a65d",
+      "value": "Interval {0} ms"
+    },
+    {
+      "name": "startup_format_18192b9a2e30",
+      "value": "…（total {0} lines）"
+    },
+    {
+      "name": "startup_format_ebb315835379",
+      "value": "Result：{0}；Capability：{1}；Status：{2}"
+    },
+    {
+      "name": "startup_format_aba600cee97e",
+      "value": "Error code：{0}"
+    },
+    {
+      "name": "startup_format_ddbcea641f8d",
+      "value": "Local error description：{0}"
+    },
+    {
+      "name": "startup_format_f18cae145e7e",
+      "value": "Interval {0} minutes｜Daily {1} times｜"
+    },
+    {
+      "name": "startup_format_b28e8c06c8b6",
+      "value": "Total {0} times｜Quiet hours {1}:00-{2}:00"
+    },
+    {
+      "name": "startup_format_92c3b7d5b31e",
+      "value": "Today {0} times｜Cumulative {1} times"
+    },
+    {
+      "name": "startup_format_af181b1c3000",
+      "value": "Total reminders have reached {0} times"
+    },
+    {
+      "name": "startup_format_7badf32cc18c",
+      "value": "Today's reminders have reached {0} times"
+    },
+    {
+      "name": "startup_format_c2f506b218d0",
+      "value": "Time since the last reminder is less than {0} minutes"
+    },
+    {
+      "name": "startup_format_af02ae4037f5",
+      "value": "Quiet hours {0}:00 to the next day at {1}:00"
+    },
+    {
+      "name": "startup_format_b1724131f5c6",
+      "value": "{0}｜API {1}~{2}｜At most {3} times｜"
+    },
+    {
+      "name": "startup_format_94488c103af8",
+      "value": "Requested {0} times. Enable it in system settings"
+    },
+    {
+      "name": "startup_format_0b1a69c1018e",
+      "value": "Duplicate rule：{0}"
+    },
+    {
+      "name": "startup_format_94cc653b44b9",
+      "value": "Invalid range：{0}"
+    },
+    {
+      "name": "startup_format_16333e169681",
+      "value": "Missing text：{0}"
+    },
+    {
+      "name": "startup_format_4435339e60fa",
+      "value": "Request policy conflicts with the request count：{0}"
+    },
+    {
+      "name": "startup_format_b82568a32a62",
+      "value": "API {0} is not covered by any rule"
+    },
+    {
+      "name": "startup_format_96ba822bb5e5",
+      "value": "{0}｜Total {1} steps, of which required {2} steps"
+    },
+    {
+      "name": "startup_format_6982eb6fc0cd",
+      "value": "{0} Manual guide（does not infer device capabilities）"
+    },
+    {
+      "name": "startup_format_281a18257fa1",
+      "value": "Cannot compare：{0}"
+    },
+    {
+      "name": "startup_format_c9944c764225",
+      "value": "Status changed：{0} → {1}"
+    },
+    {
+      "name": "startup_format_d4a54bda281d",
+      "value": "Status unchanged（still {0}）"
+    },
+    {
+      "name": "startup_format_76f9984881c9",
+      "value": "Sample from before leaving is not comparable（{0}）"
+    },
+    {
+      "name": "startup_format_37b386bb4012",
+      "value": "Sample from after returning is not comparable（{0}）"
+    },
+    {
+      "name": "startup_format_0fd646867503",
+      "value": "Current stage {0} does not accept a leave event"
+    },
+    {
+      "name": "startup_format_8bc74e078a5a",
+      "value": "Current stage {0} does not accept a return event"
+    },
+    {
+      "name": "startup_format_8b42835338f8",
+      "value": "Current stage {0} does not accept a recheck event"
+    },
+    {
+      "name": "startup_format_360de0970f87",
+      "value": "session {0}｜{1}｜Guide version {2}"
+    },
+    {
+      "name": "startup_format_7b971e5c43f8",
+      "value": "Created {0}｜Background {1}｜Foreground {2}"
+    },
+    {
+      "name": "startup_format_ffcd03352e3d",
+      "value": "Termination/last recheck {0}｜Canceled {1}"
+    },
+    {
+      "name": "startup_format_39a7ab3f3050",
+      "value": "Before leaving {0}"
+    },
+    {
+      "name": "startup_format_80fe90e6fd9e",
+      "value": "After returning {0}"
+    },
+    {
+      "name": "startup_format_3ce3e8a0287e",
+      "value": "Recheck attempt {0}｜Error code {1}｜{2} ms"
+    },
+    {
+      "name": "startup_format_448e841d4196",
+      "value": "Success {0}| failure {1}｜Unsupported {2}｜"
+    },
+    {
+      "name": "startup_format_c7d0d7a0f3e9",
+      "value": "Duplicate text key：{0}"
+    },
+    {
+      "name": "startup_format_776c349a3174",
+      "value": "Empty text：{0}"
+    },
+    {
+      "name": "startup_format_d6c1777f81e2",
+      "value": "Invalid length limit：{0}"
+    },
+    {
+      "name": "startup_format_8fe38e8fdb7d",
+      "value": "Text is too long：{0}"
+    },
+    {
+      "name": "startup_format_3c6f74b8ebe9",
+      "value": "Empty template：{0}"
+    },
+    {
+      "name": "startup_format_7e26987afdaa",
+      "value": "Unclosed placeholder：{0}"
+    },
+    {
+      "name": "startup_format_a9d5643f0d1f",
+      "value": "Inconsistent placeholder parsing：{0}"
+    },
+    {
+      "name": "startup_format_7547051850cf",
+      "value": "{0}：{1}（{2} placeholders）"
+    },
+    {
+      "name": "startup_format_66f93fe5e906",
+      "value": "{0} minutes ago"
+    },
+    {
+      "name": "startup_format_6504a911f9e1",
+      "value": "{0} hours ago"
+    },
+    {
+      "name": "startup_format_09f12da9a77f",
+      "value": "{0} days ago"
+    },
+    {
+      "name": "startup_format_4e2bb6c8a095",
+      "value": "Error message：{0}"
+    },
+    {
+      "name": "startup_format_d7d2b72b0fc1",
+      "value": "Result category：{0}"
+    },
+    {
+      "name": "startup_format_ff376b73126d",
+      "value": "Duration：{0} ms"
+    },
+    {
+      "name": "startup_format_6d031965ef02",
+      "value": "Archive #{0}｜Original query #{1}\n"
+    },
+    {
+      "name": "startup_format_250354fd74be",
+      "value": "Confirm clearing {0} saved archives？live history is not affected."
+    },
+    {
+      "name": "startup_format_106ca484f859",
+      "value": "Status {0}｜Automatic {1}｜"
+    },
+    {
+      "name": "startup_format_0a37325a996c",
+      "value": "Pending save {0}｜{1}"
+    },
+    {
+      "name": "startup_format_4d47b0140922",
+      "value": "Saved {0} records｜Current scope {1} records｜{2}/1048576 bytes"
+    },
+    {
+      "name": "startup_format_0d580d1b7775",
+      "value": "#{0}｜Original query #{1}｜{2}"
+    },
+    {
+      "name": "startup_format_fe5608d9043b",
+      "value": "{0} user-visible text entries"
+    },
+    {
+      "name": "startup_format_08cb0b931b1d",
+      "value": "Standalone auto-start diagnostics（actual API, not evidence of launch at boot）\nAPI level {0}\n"
+    },
+    {
+      "name": "startup_format_c3f33b9111c0",
+      "value": "Device form factor {0}\nCapability {1} {2}\n"
+    },
+    {
+      "name": "startup_format_c5c55bd3cded",
+      "value": "Status {0} {1}\n"
+    },
+    {
+      "name": "startup_format_54a96c164202",
+      "value": "Stage {0}；Return {1}"
+    },
+    {
+      "name": "startup_format_62510b4d60c0",
+      "value": "Error code {0}；Duration {1} ms"
+    },
+    {
+      "name": "startup_format_39b4fd76be2a",
+      "value": "Query history：private storage, up to{0}records, 30 days；format{1}，error message limit{2}。"
+    },
+    {
+      "name": "startup_format_08ea3219d621",
+      "value": "Ownership distribution：{0}"
+    },
+    {
+      "name": "startup_format_e69a71fbd7c2",
+      "value": "Layer distribution：{0}"
+    },
+    {
+      "name": "startup_format_dc531a6cf5e6",
+      "value": "Priority item {0} records"
+    },
+    {
+      "name": "startup_format_23a6d544d29a",
+      "value": "Viable chain：{0}"
+    },
+    {
+      "name": "startup_format_8b98ce0363db",
+      "value": "Support conclusion：{0}"
+    },
+    {
+      "name": "startup_format_aef3ff20682d",
+      "value": "Failure conclusion：{0}"
+    },
+    {
+      "name": "startup_format_0e00c374dbc8",
+      "value": "Evidence {0} records, chain rules {1} records"
+    },
+    {
+      "name": "startup_format_336f0852ca33",
+      "value": "Required {0} steps, skippable {1} steps，"
+    },
+    {
+      "name": "startup_format_0b70d84ddd7a",
+      "value": "Estimated {0} seconds"
+    },
+    {
+      "name": "startup_format_6457ea597395",
+      "value": "Current step：{0}"
+    },
+    {
+      "name": "startup_format_b331ac27728f",
+      "value": "Blocking steps {0} items"
+    },
+    {
+      "name": "startup_format_32e57d9ce315",
+      "value": "Copied {0} characters"
+    },
+    {
+      "name": "startup_format_23553164b8f3",
+      "value": "Catalog {0} entries｜History {1} records"
+    },
+    {
+      "name": "startup_format_cae88552bad3",
+      "value": "Before leaving：{0}"
+    },
+    {
+      "name": "startup_format_9fb76b9f4a57",
+      "value": "After returning：{0}"
+    },
+    {
+      "name": "startup_format_84f8745990cf",
+      "value": "Stage：{0}"
+    },
+    {
+      "name": "startup_format_1c36bcd4e70d",
+      "value": "Left：{0}；Returned：{1}"
+    },
+    {
+      "name": "startup_format_27777b5cb3c1",
+      "value": "Linked recheck ID：{0}"
+    },
+    {
+      "name": "startup_format_a75b195995bb",
+      "value": "Follow-up archive · {0} rounds +"
+    },
+    {
+      "name": "startup_format_c13c67ff9a02",
+      "value": "Latest valid in the current scope：{0}"
+    },
+    {
+      "name": "startup_format_928a140542fd",
+      "value": "Result filter：{0}"
+    },
+    {
+      "name": "startup_format_5e01e113b688",
+      "value": "Source filter：{0}"
+    },
+    {
+      "name": "startup_format_80619f799169",
+      "value": "Time range：{0}"
+    },
+    {
+      "name": "startup_format_d13ec67220c6",
+      "value": "{0}Redacted history copied"
+    },
+    {
+      "name": "startup_format_f81a5f60798c",
+      "value": "{0} records · {1}"
+    },
+    {
+      "name": "startup_format_d4162659f392",
+      "value": "Total {0} records · Success {1} · Failure {2} · "
+    },
+    {
+      "name": "startup_format_b655c0b469bb",
+      "value": "Not supported {0} · Timeout {1} · Unknown {2}"
+    },
+    {
+      "name": "startup_format_417aa7fb9d0c",
+      "value": " · Latest valid #{0}"
+    },
+    {
+      "name": "startup_format_9665e649878d",
+      "value": " · {0} records will expire"
+    },
+    {
+      "name": "startup_format_420bf171a18b",
+      "value": "{0}；Copy failed. Retry"
+    },
+    {
+      "name": "startup_format_0d8bc32738eb",
+      "value": "Device support：{0}"
+    },
+    {
+      "name": "startup_format_20c4cde090c1",
+      "value": "Latest query：{0}"
+    },
+    {
+      "name": "startup_format_880313dd233b",
+      "value": "Previous query：{0} "
+    },
+    {
+      "name": "startup_format_7c478eee9f7b",
+      "value": "Query records · {0}records"
+    }
+  ]
+}
