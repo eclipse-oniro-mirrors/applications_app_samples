@@ -14,7 +14,7 @@
 
 1. 使用IDE自动签名，编译运行，在Log中过滤`getBundleInfoForSelf`信息，查看日志打印。
 
-2. 通过自动测试框架可进行测试及维护。
+2. 通过自动测试框架可进行测试及维护，在DevEco Studio中右键`entry/src/ohosTest/ets/test`目录运行全部用例。
 
 ### 工程目录
 ```
@@ -28,6 +28,10 @@ entry/src/
 |                 |---pages/GetAppIdentifier.ets      // 获取应用唯一标识appIdentifier
 |                 |---pages/GetFingerprint.ets        // 获取应用签名指纹信息
 |                 |---pages/index.ets                 // entry主应用入口页面
+|   |--- ohosTest/
+|        |--- module.json5                            // 测试模块配置
+|        |--- ets/test/List.test.ets                  // 测试套件入口
+|        |--- ets/test/Ability.test.ets               // 应用常见问题示例测试用例
 ```
 
 ### 相关权限
@@ -42,9 +46,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行, 支持设备：tablet（平板或者平板模拟器）。
 
-2.本示例为Stage模型，支持API20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony_6.0.0.47。
+2.本示例为Stage模型，支持API20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony_6.0.0.47；当前已升级至API 26版本SDK，SDK版本号(API Version 26)，镜像版本号(7.1.0.21)。
 
-3.本示例需要使用DevEco Studio 5.1.1 Release (Build Version: 5.1.1.840, built on September 5, 2025)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 5.1.1 Release (Build Version: 5.1.1.840, built on September 5, 2025)及以上版本才可编译运行；当前已升级至DevEco Studio 26.0.0 Release及以上版本。
 
 ### 下载
 
