@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,20 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  Stack,
-  Resource,
-  $r,
-  $rawfile,
-  Text,
-  Image,
-  Color,
-  EnterKeyType,
-  ShadowOptions,
-  StateStyles
-} from '@kit.ArkUI';
 import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 
@@ -40,22 +25,32 @@ enum EntryKey {
 // 返回组件
 @Component
 export struct ReturnItem {
-  @StorageLink('enterKeyType') enterKeyType: int = EnterKeyType.Done as int;
+  @StorageLink('enterKeyType') enterKeyType: number = EnterKeyType.Done as number;
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
   returnWidth: Resource | undefined = undefined;
+
+  @Styles
+  normalStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray'))
+  }
+
+  @Styles
+  pressedStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray_pressed'))
+  }
 
   build(): void {
     if (this.returnWidth) {
       Stack() {
-        if (this.enterKeyType === EnterKeyType.Send as int) {
+        if (this.enterKeyType === EnterKeyType.Send as number) {
           Text(EntryKey.Send)
             .fontSize(this.inputStyle.symbol_fontSize)
             .fontColor(Color.Black)
-        } else if (this.enterKeyType === EnterKeyType.Search as int) {
+        } else if (this.enterKeyType === EnterKeyType.Search as number) {
           Text(EntryKey.Search)
             .fontSize(this.inputStyle.symbol_fontSize)
             .fontColor(Color.Black)
-        } else if (this.enterKeyType === EnterKeyType.Go as int) {
+        } else if (this.enterKeyType === EnterKeyType.Go as number) {
           Text(EntryKey.Go)
             .fontSize(this.inputStyle.symbol_fontSize)
             .fontColor(Color.Black)
@@ -74,14 +69,7 @@ export struct ReturnItem {
       .onClick(() => {
         InputHandler.getInstance().sendKeyFunction();
       })
-      .stateStyles({
-        normal: () => {
-          this.backgroundColor($r('app.color.key_item_gray'))
-        },
-        pressed: () => {
-          this.backgroundColor($r('app.color.key_item_gray_pressed'))
-        }
-      } as StateStyles)
+      .stateStyles({ normal: this.normalStyle, pressed: this.pressedStyle })
     }
   }
 }

@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,23 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  Flex,
-  Resource,
-  Text,
-  Consume,
-  $r,
-  StateStyles,
-  ClickEvent,
-  FlexOptions,
-  ShadowOptions,
-  ItemAlign,
-  FlexAlign,
-  FlexDirection,
-  Color
-} from '@kit.ArkUI';
 import { keySourceListType, } from '../InputMethodExtensionAbility/pages/KeyboardKeyData';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
@@ -40,6 +22,16 @@ import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardContr
 export struct KeyItem {
   keyValue: keySourceListType | undefined = undefined;
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
+
+  @Styles
+  normalStyle(): void {
+    .backgroundColor($r('app.color.key_item_normal'))
+  }
+
+  @Styles
+  pressedStyle(): void {
+    .backgroundColor($r('app.color.key_item_normal_pressed'))
+  }
 
   build(): void {
     Flex({
@@ -55,6 +47,7 @@ export struct KeyItem {
     }
     .backgroundColor($r('app.color.key_item_normal'))
     .borderRadius(4)
+    .id('key_' + (this.keyValue ? this.keyValue.content : 'none'))
     .width(this.inputStyle.basicButtonWidth)
     .height('100%')
     .shadow({ radius: 1, color: $r('app.color.shadow'), offsetY: 3 } as ShadowOptions)
@@ -63,13 +56,6 @@ export struct KeyItem {
         InputHandler.getInstance().insertText(this.keyValue?.content as string);
       }
     })
-    .stateStyles({
-      normal: () => {
-        this.backgroundColor($r('app.color.key_item_normal'))
-      },
-      pressed: () => {
-        this.backgroundColor($r('app.color.key_item_normal_pressed'))
-      }
-    } as StateStyles)
+    .stateStyles({ normal: this.normalStyle, pressed: this.pressedStyle })
   }
 }
