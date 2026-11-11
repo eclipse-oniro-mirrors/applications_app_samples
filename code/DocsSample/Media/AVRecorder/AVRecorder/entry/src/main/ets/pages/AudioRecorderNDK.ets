@@ -103,6 +103,7 @@ struct AudioRecorderNDK {
       Row() {
         Stack({ alignContent: Alignment.Center }) {
           Text(this.audioRecorderTimeText)
+            .id('audioTimeNDK')
             .fontFamily('HarmonyHeiTi-Light')
             .width(70)
             .height(40)

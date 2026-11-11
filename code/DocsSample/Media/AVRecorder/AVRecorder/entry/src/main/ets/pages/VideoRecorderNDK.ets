@@ -159,6 +159,7 @@ struct VideoRecorderNDK {
             .width('100%').height('100%')
             .backgroundColor(Color.Black)
           Text(this.videoRecorderTimeText)
+            .id('videoTimeNDK')
             .fontFamily('HarmonyHeiTi-Light')
             .width(70)
             .height(40)

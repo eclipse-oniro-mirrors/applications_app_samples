@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { beforeAll, beforeEach, describe, it as hypiumIt, expect as hypiumExpect, TestType, Size, Level, Assert } from '@ohos/hypium';
+import { beforeAll, beforeEach, describe, it as hypiumIt, expect as hypiumExpect, TestType, Size, Level } from '@ohos/hypium';
 import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -99,7 +99,20 @@ function it(name: string, filter: number, func: () => void | Promise<void>): voi
   });
 }
 
-function expect(actual: string | number | boolean | Object | null | undefined): Assert {
+interface ExpectAssert {
+  assertEqual(expectValue: string | number | boolean | Object | null | undefined): void;
+  assertTrue(): void;
+  assertFalse(): void;
+  assertLarger(expectValue: number): void;
+  assertLargerOrEqual(expectValue: number): void;
+  assertLess(expectValue: number): void;
+  assertLessOrEqual(expectValue: number): void;
+  assertClose(expectValue: number, precision: number): void;
+  assertUndefined(): void;
+  assertFail(): void;
+}
+
+function expect(actual: string | number | boolean | Object | null | undefined): ExpectAssert {
   hilog.info(DOMAIN, TAG, '%{public}s', 'actual: ' + String(actual));
   return hypiumExpect(actual);
 }

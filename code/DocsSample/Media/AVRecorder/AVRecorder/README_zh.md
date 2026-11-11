@@ -95,13 +95,19 @@ entry/src/main/
 
 ### 约束与限制
 
-1.本示例仅支持在标准系统上运行，支持设备：Phone。
+1.本示例仅支持在标准系统上运行，支持设备：`default`（deviceType），已在 32 位 OpenHarmony 开发板上验证。
 
-2.本示例推荐使用当前最新版本的API和SDK编译运行。
+2.本示例已适配 API version 26.0.0（`compileSdkVersion: "26.0.0"`，OpenHarmony 26.0.0.38 Release SDK），`runtimeOS` 为 `OpenHarmony`。
 
-3.本示例推荐使用当前最新版本的DevEco Studio。
+3.本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本编译运行。
 
 4.相机、媒体库为系统接口，需要配置高权限签名，相关权限级别可查阅权限列表，需要配置系统应用签名，可以参考[特殊权限配置方法](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/hapsigntool-overview.md)。
+
+5.首次启动需允许相机、麦克风、媒体读写权限，否则无法录制。
+
+6.NDK 原生库已包含 `armeabi-v7a`、`arm64-v8a`、`x86_64` 三个 ABI，以兼容 32 位开发板。
+
+7.已知限制：在当前 32 位开发板上，NDK 视频录制能进入录制状态但编码器不产帧，输出文件仅约 0.5 KB；ArkTS 视频录制与 NDK 音频录制输出正常。
 
 ### 下载
 
