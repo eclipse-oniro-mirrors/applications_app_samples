@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { businessLabel } from '../i18n/BusinessLabels';
+import { uiText, resourceText } from '../i18n/Strings';
 /**
  * 待办的截止、延期与重复规则。
  *
@@ -37,9 +54,13 @@ export enum DueState {
 /** 一条到期规则。 */
 export class DueRule {
   public code: string = '';
-  public condition: string = '';
+  private conditionValue: string = '';
+  get condition(): string { return resourceText(this.conditionValue); }
+  set condition(value: string) { this.conditionValue = value; }
   public state: DueState = DueState.NO_DUE;
-  public note: string = '';
+  private noteValue: string = '';
+  get note(): string { return resourceText(this.noteValue); }
+  set note(value: string) { this.noteValue = value; }
 
   constructor(code: string = '', condition: string = '', state: DueState = DueState.NO_DUE,
     note: string = '') {
@@ -50,7 +71,7 @@ export class DueRule {
   }
 
   describe(): string {
-    return `${this.code}｜${this.condition} → ${this.state as string}｜${this.note}`;
+    return `${this.code}｜${this.condition} → ${businessLabel(this.state as string)}｜${this.note}`;
   }
 }
 
@@ -63,16 +84,16 @@ export const DUE_SOON_MS: number = 24 * 60 * 60 * 1000;
  * 顺序即判定顺序：已完成优先于一切，其余按剩余时间由近到远。
  */
 export const DUE_RULES: DueRule[] = [
-  new DueRule('DU-01', '已完成', DueState.DONE, '完成态不再提示逾期'),
-  new DueRule('DU-02', '没有截止时间', DueState.NO_DUE, '无截止的待办不参与逾期排序'),
-  new DueRule('DU-03', '截止时间早于当前时间', DueState.OVERDUE, '逾期按绝对值展示天数'),
-  new DueRule('DU-04', '截止时间在 24 小时内', DueState.DUE_SOON, '进入即将到期分组'),
-  new DueRule('DU-05', '截止时间晚于 24 小时', DueState.FUTURE, '正常展示'),
-  new DueRule('DU-06', '延期后仍未到期', DueState.FUTURE, '延期只是一次新的截止时间'),
-  new DueRule('DU-07', '延期后仍逾期', DueState.OVERDUE, '延期不掩盖已发生的逾期'),
-  new DueRule('DU-08', '重复任务本次已完成', DueState.DONE, '本次完成，下一次按重复规则生成'),
-  new DueRule('DU-09', '重复任务落入例外日期', DueState.NO_DUE, '例外日跳过，顺延到下一个有效日'),
-  new DueRule('DU-10', '已完成但被重新打开', DueState.FUTURE, '重新打开后按当前时间重算')
+  new DueRule('DU-01', "@string/shortcut_text_0679", DueState.DONE, "@string/shortcut_text_0569"),
+  new DueRule('DU-02', "@string/shortcut_text_0388", DueState.NO_DUE, "@string/shortcut_text_0600"),
+  new DueRule('DU-03', "@string/shortcut_text_0331", DueState.OVERDUE, "@string/shortcut_text_0707"),
+  new DueRule('DU-04', "@string/shortcut_text_0330", DueState.DUE_SOON, "@string/shortcut_text_0344"),
+  new DueRule('DU-05', "@string/shortcut_text_0329", DueState.FUTURE, "@string/shortcut_text_0739"),
+  new DueRule('DU-06', "@string/shortcut_text_0638", DueState.FUTURE, "@string/shortcut_text_0640"),
+  new DueRule('DU-07', "@string/shortcut_text_0639", DueState.OVERDUE, "@string/shortcut_text_0637"),
+  new DueRule('DU-08', "@string/shortcut_text_0764", DueState.DONE, "@string/shortcut_text_0064"),
+  new DueRule('DU-09', "@string/shortcut_text_0765", DueState.NO_DUE, "@string/shortcut_text_0380"),
+  new DueRule('DU-10', "@string/shortcut_text_0681", DueState.FUTURE, "@string/shortcut_text_0776")
 ];
 
 /** 一个待办的到期信息。 */
@@ -224,8 +245,8 @@ export class DueBuckets {
   }
 
   describe(): string {
-    return `逾期 ${this.overdue.length}｜即将到期 ${this.soon.length}｜未到期 ${this.future.length}｜` +
-      `无截止 ${this.undated.length}｜已完成 ${this.done.length}`;
+    return uiText("shortcut_text_0706", [String(this.overdue.length), String(this.soon.length), String(this.future.length)]) +
+      uiText("shortcut_text_0599", [String(this.undated.length), String(this.done.length)]);
   }
 }
 
@@ -257,7 +278,7 @@ export function dueLines(): string[] {
 /** 一句话摘要。 */
 export function dueSummary(items: TodoDue[], now: number): string {
   if (items.length === 0) {
-    return '暂无待办';
+    return uiText("shortcut_text_0720");
   }
   return bucketize(items, now).describe();
 }
@@ -265,8 +286,8 @@ export function dueSummary(items: TodoDue[], now: number): string {
 /** 重复方式展示。 */
 export function repeatText(repeat: RepeatKind, due: TodoDue, now: number): string {
   if (repeat === RepeatKind.NONE) {
-    return '不重复';
+    return uiText("shortcut_text_0134");
   }
   const next: number = nextOccurrence(due, now);
-  return next <= 0 ? `${repeat as string}（下次未定）` : `${repeat as string}（下次 ${dateKeyOf(next)}）`;
+  return next <= 0 ? uiText("shortcut_text_0023", [businessLabel(repeat as string)]) : uiText("shortcut_text_0022", [businessLabel(repeat as string), String(dateKeyOf(next))]);
 }

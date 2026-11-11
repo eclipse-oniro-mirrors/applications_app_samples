@@ -1,5 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { describe, expect } from '@ohos/hypium';
-import { Component, Driver, ON } from '@kit.TestKit';
+import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
+import { resolveText } from '../../../main/ets/core/UiText';
 import { scenario } from '../support/BoundedCase';
 import { finishUiTestAbility, launchUiTestAbility, uiTestCase, uiTestFailure } from '../support/UiTestSupport';
 
@@ -59,7 +75,8 @@ export default function reactiveUiTests(): void {
       await waitText(driver, '日志结果2');
       await clickId(driver, 'ui-update');
       await waitText(driver, '日志结果3');
-      await waitText(driver, '调用成功');
+      await waitText(driver, resolveText(abilityDelegatorRegistry.getAbilityDelegator().getAppContext(),
+        $r('app.string.ap_ui_call_succeeded')));
       await waitText(driver, '30 ms');
       const finalButton = await waitText(driver, '动作3');
       expect(await finalButton.isEnabled()).assertTrue();

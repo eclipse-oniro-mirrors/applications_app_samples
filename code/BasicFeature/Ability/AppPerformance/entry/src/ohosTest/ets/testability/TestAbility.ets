@@ -1,5 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
+import { logError } from '../../../main/ets/core/Logger';
 import { attachUiTestAbility, detachUiTestAbility, UiTestAbilitySession } from '../support/UiTestSupport';
 
 /** Test-module routing only. The original ReactiveUi launch remains the default. */
@@ -57,12 +73,12 @@ export default class TestAbility extends UIAbility {
       stage.loadContent(page, storage, (error): void => {
         const failure = error !== undefined && error.code ? `${error.code} ${error.message}` : '';
         if (session !== undefined) { session.finishLoad(generation, page, failure); }
-        if (failure.length > 0) { console.error(`Test page load failed: ${failure}`); }
+        if (failure.length > 0) { logError(`Test page load failed: ${failure}`); }
       });
     } catch (error) {
       const failure = (error as Error).message;
       if (session !== undefined) { session.finishLoad(generation, page, failure); }
-      console.error(`Test page load failed: ${failure}`);
+      logError(`Test page load failed: ${failure}`);
     }
   }
 }

@@ -1,5 +1,24 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { logInfo, logWarning } from '../../../main/ets/services/Logger';
+
+export const BUNDLE: string = 'com.example.shortcut';
+let caseSequence: number = 0;
 
 export const CASE_TIMEOUT_MS: number = 10000;
 export type Cleanup = () => void;
@@ -59,15 +78,27 @@ export class CaseScope {
 
 export async function runCase(body: (scope: CaseScope) => Promise<void>): Promise<void> {
   const scope: CaseScope = new CaseScope();
+  const caseId: number = ++caseSequence;
+  logInfo(`${BUNDLE} case=${caseId} begin`);
   let timer: number = -1;
   const timeout: Promise<void> = new Promise<void>((_, reject) => {
     timer = setTimeout((): void => reject(new Error('用例超过10秒')), CASE_TIMEOUT_MS);
   });
   try {
     await Promise.race([body(scope), timeout]);
+  } catch (error) {
+    logWarning(`${BUNDLE} case=${caseId} failure`);
+    throw error;
   } finally {
     clearTimeout(timer);
-    scope.finish();
+    try {
+      scope.finish();
+    } catch (error) {
+      logWarning(`${BUNDLE} case=${caseId} cleanup failure`);
+      throw error;
+    } finally {
+      logInfo(`${BUNDLE} case=${caseId} end`);
+    }
   }
 }
 

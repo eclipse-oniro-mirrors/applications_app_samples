@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { businessLabel } from '../i18n/BusinessLabels';
+import { uiText, resourceText } from '../i18n/Strings';
 /**
  * 待办的状态机与优先级排序。
  *
@@ -18,15 +35,15 @@ export enum TodoState {
 export function todoStateLabel(state: TodoState): string {
   switch (state) {
     case TodoState.OPEN:
-      return '待处理';
+      return uiText("shortcut_text_0203");
     case TodoState.DOING:
-      return '进行中';
+      return uiText("shortcut_text_0345");
     case TodoState.DONE:
-      return '已完成';
+      return uiText("shortcut_text_0679");
     case TodoState.DROPPED:
-      return '已放弃';
+      return uiText("shortcut_text_0652");
     default:
-      return '已推迟';
+      return uiText("shortcut_text_0678");
   }
 }
 
@@ -49,17 +66,17 @@ export enum TodoEvent {
 export function todoEventLabel(event: TodoEvent): string {
   switch (event) {
     case TodoEvent.START:
-      return '开始';
+      return uiText("shortcut_text_0352");
     case TodoEvent.FINISH:
-      return '完成';
+      return uiText("shortcut_text_0566");
     case TodoEvent.DROP:
-      return '放弃';
+      return uiText("shortcut_text_0235");
     case TodoEvent.DEFER:
-      return '推迟';
+      return uiText("shortcut_text_0562");
     case TodoEvent.REOPEN:
-      return '重新打开';
+      return uiText("shortcut_text_0775");
     default:
-      return '过期';
+      return uiText("shortcut_text_0258");
   }
 }
 
@@ -69,7 +86,9 @@ export class TodoTransition {
   public from: TodoState = TodoState.OPEN;
   public event: TodoEvent = TodoEvent.START;
   public to: TodoState = TodoState.OPEN;
-  public note: string = '';
+  private noteValue: string = '';
+  get note(): string { return resourceText(this.noteValue); }
+  set note(value: string) { this.noteValue = value; }
 
   constructor(ruleId: string = '', from: TodoState = TodoState.OPEN,
     event: TodoEvent = TodoEvent.START, to: TodoState = TodoState.OPEN, note: string = '') {
@@ -88,21 +107,21 @@ export class TodoTransition {
 
 /** 迁移表。顺序即优先级。 */
 export const TODO_TRANSITIONS: TodoTransition[] = [
-  new TodoTransition('TT-01', TodoState.OPEN, TodoEvent.START, TodoState.DOING, '开始处理'),
-  new TodoTransition('TT-02', TodoState.OPEN, TodoEvent.FINISH, TodoState.DONE, '直接完成'),
-  new TodoTransition('TT-03', TodoState.OPEN, TodoEvent.DROP, TodoState.DROPPED, '不做了'),
-  new TodoTransition('TT-04', TodoState.OPEN, TodoEvent.DEFER, TodoState.DEFERRED, '推迟到以后'),
-  new TodoTransition('TT-05', TodoState.DOING, TodoEvent.FINISH, TodoState.DONE, '处理完成'),
-  new TodoTransition('TT-06', TodoState.DOING, TodoEvent.DROP, TodoState.DROPPED, '处理中放弃'),
-  new TodoTransition('TT-07', TodoState.DOING, TodoEvent.DEFER, TodoState.DEFERRED, '处理中推迟'),
-  new TodoTransition('TT-08', TodoState.DEFERRED, TodoEvent.REOPEN, TodoState.OPEN, '恢复为待处理'),
-  new TodoTransition('TT-09', TodoState.DEFERRED, TodoEvent.START, TodoState.DOING, '直接开始'),
+  new TodoTransition('TT-01', TodoState.OPEN, TodoEvent.START, TodoState.DOING, "@string/shortcut_text_0353"),
+  new TodoTransition('TT-02', TodoState.OPEN, TodoEvent.FINISH, TodoState.DONE, "@string/shortcut_text_0751"),
+  new TodoTransition('TT-03', TodoState.OPEN, TodoEvent.DROP, TodoState.DROPPED, "@string/shortcut_text_0135"),
+  new TodoTransition('TT-04', TodoState.OPEN, TodoEvent.DEFER, TodoState.DEFERRED, "@string/shortcut_text_0564"),
+  new TodoTransition('TT-05', TodoState.DOING, TodoEvent.FINISH, TodoState.DONE, "@string/shortcut_text_0166"),
+  new TodoTransition('TT-06', TodoState.DOING, TodoEvent.DROP, TodoState.DROPPED, "@string/shortcut_text_0168"),
+  new TodoTransition('TT-07', TodoState.DOING, TodoEvent.DEFER, TodoState.DEFERRED, "@string/shortcut_text_0169"),
+  new TodoTransition('TT-08', TodoState.DEFERRED, TodoEvent.REOPEN, TodoState.OPEN, "@string/shortcut_text_0287"),
+  new TodoTransition('TT-09', TodoState.DEFERRED, TodoEvent.START, TodoState.DOING, "@string/shortcut_text_0750"),
   new TodoTransition('TT-10', TodoState.DEFERRED, TodoEvent.EXPIRE, TodoState.DROPPED,
-    '推迟到期后自动放弃'),
-  new TodoTransition('TT-11', TodoState.DONE, TodoEvent.REOPEN, TodoState.OPEN, '完成后又需要处理'),
-  new TodoTransition('TT-12', TodoState.DROPPED, TodoEvent.REOPEN, TodoState.OPEN, '重新捡起'),
-  new TodoTransition('TT-13', TodoState.OPEN, TodoEvent.EXPIRE, TodoState.DROPPED, '过期未处理'),
-  new TodoTransition('TT-14', TodoState.DOING, TodoEvent.EXPIRE, TodoState.DROPPED, '处理超时')
+    "@string/shortcut_text_0563"),
+  new TodoTransition('TT-11', TodoState.DONE, TodoEvent.REOPEN, TodoState.OPEN, "@string/shortcut_text_0568"),
+  new TodoTransition('TT-12', TodoState.DROPPED, TodoEvent.REOPEN, TodoState.OPEN, "@string/shortcut_text_0781"),
+  new TodoTransition('TT-13', TodoState.OPEN, TodoEvent.EXPIRE, TodoState.DROPPED, "@string/shortcut_text_0260"),
+  new TodoTransition('TT-14', TodoState.DOING, TodoEvent.EXPIRE, TodoState.DROPPED, "@string/shortcut_text_0163")
 ];
 
 /** 迁移结果。 */
@@ -114,9 +133,9 @@ export class TodoTransitionResult {
 
   text(): string {
     if (!this.applied) {
-      return `被拒绝：${this.reason}`;
+      return uiText("shortcut_text_0063", [String(this.reason)]);
     }
-    return this.rule === undefined ? `进入${todoStateLabel(this.to)}` : this.rule.note;
+    return this.rule === undefined ? uiText("shortcut_text_0343", [String(todoStateLabel(this.to))]) : this.rule.note;
   }
 }
 
@@ -132,7 +151,7 @@ export function nextTodoState(from: TodoState, event: TodoEvent): TodoTransition
     }
   }
   result.to = from;
-  result.reason = `${todoStateLabel(from)} 不接受事件 ${todoEventLabel(event)}`;
+  result.reason = uiText("shortcut_text_0010", [String(todoStateLabel(from)), String(todoEventLabel(event))]);
   return result;
 }
 
@@ -271,17 +290,17 @@ export function openTodos(items: TodoItem[]): TodoItem[] {
 /** 统计摘要行。 */
 export function summarizeTodos(items: TodoItem[], now: number): string[] {
   const buckets: string[] = ['已逾期', '今天', '明天', '本周', '以后', '无截止'];
-  const lines: string[] = [`共 ${items.length} 条，未结束 ${openTodos(items).length} 条`];
+  const lines: string[] = [uiText("shortcut_text_0251", [String(items.length), String(openTodos(items).length)])];
   buckets.forEach((bucket: string): void => {
     const count: number = items.filter((item: TodoItem): boolean =>
       !item.closed() && dueBucket(item, now) === bucket).length;
-    lines.push(`${bucket}：${count} 条`);
+    lines.push(uiText("shortcut_text_0017", [businessLabel(bucket), String(count)]));
   });
   const states: TodoState[] = [TodoState.OPEN, TodoState.DOING, TodoState.DEFERRED,
     TodoState.DONE, TodoState.DROPPED];
   states.forEach((state: TodoState): void => {
     const count: number = items.filter((item: TodoItem): boolean => item.state === state).length;
-    lines.push(`${todoStateLabel(state)}：${count} 条`);
+    lines.push(uiText("shortcut_text_0017", [String(todoStateLabel(state)), String(count)]));
   });
   return lines;
 }
@@ -292,7 +311,7 @@ export class TodoAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '待办迁移表自洽' : this.findings.join('；');
+    return this.ok ? uiText("shortcut_text_0194") : this.findings.join('；');
   }
 }
 
@@ -302,21 +321,21 @@ export function auditTodoRules(): TodoAudit {
   const seen: string[] = [];
   TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(`迁移编号重复：${rule.ruleId}`);
+      audit.findings.push(uiText("shortcut_text_0433", [String(rule.ruleId)]));
     }
     seen.push(rule.ruleId);
     if (rule.note.length === 0) {
-      audit.findings.push(`缺少说明：${rule.ruleId}`);
+      audit.findings.push(uiText("shortcut_text_0473", [String(rule.ruleId)]));
     }
     if (rule.from === rule.to) {
-      audit.findings.push(`迁移前后状态相同：${rule.ruleId}`);
+      audit.findings.push(uiText("shortcut_text_0434", [String(rule.ruleId)]));
     }
   });
   const states: TodoState[] = [TodoState.OPEN, TodoState.DOING, TodoState.DEFERRED,
     TodoState.DONE, TodoState.DROPPED];
   states.forEach((state: TodoState): void => {
     if (todoEventsOf(state).length === 0) {
-      audit.findings.push(`状态没有出口：${todoStateLabel(state)}`);
+      audit.findings.push(uiText("shortcut_text_0785", [String(todoStateLabel(state))]));
     }
   });
   audit.ok = audit.findings.length === 0;

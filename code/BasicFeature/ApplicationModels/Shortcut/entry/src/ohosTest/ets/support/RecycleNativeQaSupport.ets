@@ -1,6 +1,22 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { common } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { logInfo, logWarning } from '../../../main/ets/services/Logger';
 import { BusinessStore, NoteItem, StoredData, decodeBusinessDocument } from '../../../main/ets/business/BusinessStore';
 import {
   BusinessStorage, BusinessWriteError, PreferencesBusinessStorage
@@ -63,7 +79,7 @@ export class RecycleNativeQaFixture {
   }
 
   mark(phase: string): void {
-    console.info(`[SC_NATIVE_QA] namespace=${this.namespace} phase=${phase} elapsedMs=${Date.now() - this.startedAt}`);
+    logInfo(`native QA phase=${phase} elapsedMs=${Date.now() - this.startedAt}`);
   }
 
   async open(): Promise<BusinessStore> {
@@ -177,11 +193,21 @@ export async function withRecycleNativeQa(
   recycleNamespaceSequence++;
   const namespace: string = `sc_recycle_native_qa_${Date.now()}_${recycleNamespaceSequence}`;
   const fixture: RecycleNativeQaFixture = new RecycleNativeQaFixture(context, namespace, startedAt);
-  fixture.mark('fixture-ready');
+  fixture.mark('begin');
   try {
     await body(fixture);
     fixture.mark('body-complete');
+  } catch (error) {
+    logWarning('Native QA failure');
+    throw error;
   } finally {
-    try { await fixture.close(); } finally { fixture.mark('case-complete-including-cleanup'); }
+    try {
+      await fixture.close();
+    } catch (error) {
+      logWarning('Native QA cleanup failure');
+      throw error;
+    } finally {
+      fixture.mark('end');
+    }
   }
 }

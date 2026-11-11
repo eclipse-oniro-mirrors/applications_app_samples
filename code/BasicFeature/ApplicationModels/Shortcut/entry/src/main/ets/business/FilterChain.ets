@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { businessLabel } from '../i18n/BusinessLabels';
+import { uiText } from '../i18n/Strings';
 /**
  * 可组合的筛选链。
  *
@@ -33,23 +50,23 @@ export enum FilterOperator {
 export function operatorLabel(operator: FilterOperator): string {
   switch (operator) {
     case FilterOperator.CONTAINS:
-      return '包含';
+      return uiText("shortcut_text_0040");
     case FilterOperator.EQUALS:
-      return '等于';
+      return uiText("shortcut_text_0214");
     case FilterOperator.NOT_EQUALS:
-      return '不等于';
+      return uiText("shortcut_text_0129");
     case FilterOperator.HAS_TAG:
-      return '含标签';
+      return uiText("shortcut_text_0263");
     case FilterOperator.NOT_HAS_TAG:
-      return '不含标签';
+      return uiText("shortcut_text_0130");
     case FilterOperator.GREATER:
-      return '大于';
+      return uiText("shortcut_text_0189");
     case FilterOperator.LESS:
-      return '小于';
+      return uiText("shortcut_text_0610");
     case FilterOperator.IS_TRUE:
-      return '为真';
+      return uiText("shortcut_text_0573");
     default:
-      return '为假';
+      return uiText("shortcut_text_0572");
   }
 }
 
@@ -57,17 +74,17 @@ export function operatorLabel(operator: FilterOperator): string {
 export function fieldLabel(field: FilterField): string {
   switch (field) {
     case FilterField.TITLE:
-      return '标题';
+      return uiText("shortcut_text_0120");
     case FilterField.STATE:
-      return '状态';
+      return uiText("shortcut_text_0784");
     case FilterField.TAG:
-      return '标签';
+      return uiText("shortcut_text_0095");
     case FilterField.UPDATED:
-      return '更新时间';
+      return uiText("shortcut_text_0247");
     case FilterField.GROUP:
-      return '分组';
+      return uiText("shortcut_text_0239");
     default:
-      return '置顶';
+      return uiText("shortcut_text_0759");
   }
 }
 
@@ -103,7 +120,7 @@ export class FilterNode {
   text(): string {
     const base: string = `${fieldLabel(this.field)}${operatorLabel(this.operator)}` +
       `${this.value.length > 0 ? this.value : this.numeric.toString()}`;
-    return this.negate ? `非（${base}）` : base;
+    return this.negate ? uiText("shortcut_text_0238", [String(base)]) : base;
   }
 }
 
@@ -129,7 +146,7 @@ export class FilterTarget {
   }
 
   text(): string {
-    return `${this.title}｜${this.state}｜${this.group}｜${this.pinned ? '置顶' : '普通'}`;
+    return `${this.title}｜${this.state}｜${this.group}｜${this.pinned ? uiText("shortcut_text_0759") : uiText("shortcut_text_0429")}`;
   }
 }
 
@@ -206,9 +223,9 @@ export class FilterChain {
   /** 说明文本。 */
   text(): string {
     if (this.empty()) {
-      return `${this.name}：全部`;
+      return uiText("shortcut_text_0020", [businessLabel(this.name)]);
     }
-    return `${this.name}：${this.nodes.map((node: FilterNode): string => node.text()).join(' 且 ')}`;
+    return `${businessLabel(this.name)}：${this.nodes.map((node: FilterNode): string => node.text()).join(uiText("shortcut_text_0004"))}`;
   }
 }
 
@@ -306,7 +323,7 @@ export function mergeChains(left: FilterChain, right: FilterChain): FilterChain 
 
 /** 取反一条链：只反转最后一个节点，便于"排除某项"。 */
 export function negateLast(chain: FilterChain): FilterChain {
-  const copy: FilterChain = new FilterChain(`${chain.chainId}-not`, `${chain.name}（排除）`,
+  const copy: FilterChain = new FilterChain(`${chain.chainId}-not`, uiText("shortcut_text_0021", [String(chain.name)]),
     chain.nodes.map((item: FilterNode): FilterNode =>
       new FilterNode(item.nodeId, item.field, item.operator, item.value, item.numeric,
         item.negate)));
@@ -329,7 +346,7 @@ export class ChainAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '筛选链自洽' : this.findings.join('；');
+    return this.ok ? uiText("shortcut_text_0493") : this.findings.join('；');
   }
 }
 
@@ -339,32 +356,32 @@ export function auditChains(): ChainAudit {
   const seen: string[] = [];
   PRESET_CHAINS.forEach((chain: FilterChain, index: number): void => {
     if (seen.indexOf(chain.chainId) >= 0) {
-      audit.findings.push(`链编号重复：${chain.chainId}`);
+      audit.findings.push(uiText("shortcut_text_0382", [String(chain.chainId)]));
     }
     seen.push(chain.chainId);
     const expected: string = `FC-${(index + 1).toString().padStart(2, '0')}`;
     if (chain.chainId !== expected) {
-      audit.findings.push(`链编号不连续：期望 ${expected}，实际 ${chain.chainId}`);
+      audit.findings.push(uiText("shortcut_text_0381", [String(expected), String(chain.chainId)]));
     }
     if (chain.name.length === 0) {
-      audit.findings.push(`链缺少名称：${chain.chainId}`);
+      audit.findings.push(uiText("shortcut_text_0383", [String(chain.chainId)]));
     }
     const nodeIds: string[] = [];
     chain.nodes.forEach((item: FilterNode): void => {
       if (nodeIds.indexOf(item.nodeId) >= 0) {
-        audit.findings.push(`节点编号重复：${chain.chainId}.${item.nodeId}`);
+        audit.findings.push(uiText("shortcut_text_0326", [String(chain.chainId), String(item.nodeId)]));
       }
       nodeIds.push(item.nodeId);
       const textOperator: boolean = item.operator === FilterOperator.CONTAINS ||
         item.operator === FilterOperator.EQUALS || item.operator === FilterOperator.NOT_EQUALS ||
         item.operator === FilterOperator.HAS_TAG || item.operator === FilterOperator.NOT_HAS_TAG;
       if (textOperator && item.value.length === 0) {
-        audit.findings.push(`文本运算符缺少取值：${chain.chainId}.${item.nodeId}`);
+        audit.findings.push(uiText("shortcut_text_0593", [String(chain.chainId), String(item.nodeId)]));
       }
       const numberOperator: boolean = item.operator === FilterOperator.GREATER ||
         item.operator === FilterOperator.LESS;
       if (numberOperator && item.numeric <= 0) {
-        audit.findings.push(`数值运算符缺少阈值：${chain.chainId}.${item.nodeId}`);
+        audit.findings.push(uiText("shortcut_text_0532", [String(chain.chainId), String(item.nodeId)]));
       }
     });
   });

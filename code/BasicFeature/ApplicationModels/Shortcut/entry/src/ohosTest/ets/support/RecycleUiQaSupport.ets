@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /** Only the persistence boundary is fake; all note/history/recycle transitions use BusinessStore. */
 import { common } from '@kit.AbilityKit';
 import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
@@ -5,6 +20,9 @@ import { BusinessStore } from '../../../main/ets/business/BusinessStore';
 import { RecycleBatchPreview } from '../../../main/ets/business/RecycleBatch';
 import { BusinessStorage, BusinessWriteError } from '../../../main/ets/business/BusinessStorage';
 import { MAX_ACTIVE_NOTES, NOTE_RECYCLE_RETENTION_MS } from '../../../main/ets/business/NoteRecyclePolicy';
+import { uiText } from '../../../main/ets/i18n/Strings';
+import { useModelBaselineStrings } from './TestStrings';
+import { logInfo, logWarning } from '../../../main/ets/services/Logger';
 
 export class RecycleQaSignal {
   public readonly promise: Promise<void>;
@@ -222,7 +240,7 @@ export async function recycleQaClick(driver: Driver, id: string): Promise<void> 
   await (await recycleQaNode(driver, id)).click();
 }
 export async function recycleQaDialog(driver: Driver, label: string,
-  title: string = '永久删除便签'): Promise<void> {
+  title: string = uiText('shortcut_text_0699')): Promise<void> {
   const dialogTitle = await driver.waitForComponent(ON.text(title), 3000);
   if (dialogTitle === undefined || dialogTitle === null) { throw new Error(`Missing recycle dialog: ${title}`); }
   // Relative selection avoids the identically labelled production button behind the modal.
@@ -231,6 +249,7 @@ export async function recycleQaDialog(driver: Driver, label: string,
   await button.click();
 }
 export async function launchRecycleUiQa(scenario: string): Promise<Driver> {
+  logInfo('Native UI QA begin');
   // Do not reuse a previous case's Ability if its cleanup was interrupted.
   if (activeQaAbility !== undefined) { await finishRecycleUiQa(); }
   const parameters: Record<string, Object> = {};
@@ -257,6 +276,14 @@ export async function finishRecycleUiQa(): Promise<void> {
   } finally {
     // No owned Ability means launch failed before creation, or onDestroy already ran.
     // Never query or terminate whichever unrelated Ability happens to be on top.
-    if (session !== undefined) { await session.close(); }
+    try {
+      if (session !== undefined) { await session.close(); }
+    } catch (error) {
+      logWarning('Native UI QA cleanup failure');
+      throw error;
+    } finally {
+      useModelBaselineStrings();
+      logInfo('Native UI QA end');
+    }
   }
 }

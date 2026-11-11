@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText, resourceText } from '../i18n/Strings';
 /**
  * 收藏治理规则。
  *
@@ -21,19 +37,19 @@ export enum CollectionAction {
 export function actionLabel(action: CollectionAction): string {
   switch (action) {
     case CollectionAction.KEEP:
-      return '保留';
+      return uiText("shortcut_text_0056");
     case CollectionAction.MERGE:
-      return '合并';
+      return uiText("shortcut_text_0264");
     case CollectionAction.DROP:
-      return '清理';
+      return uiText("shortcut_text_0439");
     case CollectionAction.PIN:
-      return '置顶';
+      return uiText("shortcut_text_0759");
     case CollectionAction.UNPIN:
-      return '取消置顶';
+      return uiText("shortcut_text_0456");
     case CollectionAction.RETAG:
-      return '重设标签';
+      return uiText("shortcut_text_0769");
     default:
-      return '仅提醒';
+      return uiText("shortcut_text_0338");
   }
 }
 
@@ -85,8 +101,8 @@ export class CollectionItem {
   }
 
   text(): string {
-    return `${this.title}｜${this.source}｜${this.tags.length} 标签｜` +
-      `${this.pinned ? '已置顶' : '未置顶'}`;
+    return uiText("shortcut_text_0026", [String(this.title), String(this.source), String(this.tags.length)]) +
+      `${this.pinned ? uiText("shortcut_text_0689") : uiText("shortcut_text_0590")}`;
   }
 }
 
@@ -114,7 +130,9 @@ export class CollectionRule {
   public level: CollectionLevel = CollectionLevel.WARN;
   /** 阈值：标签上限、置顶上限、天数为单位。 */
   public threshold: number = 0;
-  public description: string = '';
+  private descriptionValue: string = '';
+  get description(): string { return resourceText(this.descriptionValue); }
+  set description(value: string) { this.descriptionValue = value; }
 
   constructor(ruleId: string = '', kind: CollectionRuleKind = CollectionRuleKind.VALIDITY,
     action: CollectionAction = CollectionAction.KEEP, level: CollectionLevel = CollectionLevel.WARN,
@@ -138,45 +156,45 @@ const DAY: number = 86400000;
 /** 规则表。 */
 export const COLLECTION_RULES: CollectionRule[] = [
   new CollectionRule('CL-01', CollectionRuleKind.VALIDITY, CollectionAction.DROP,
-    CollectionLevel.ERROR, 0, '标识为空视为损坏数据，直接剔除'),
+    CollectionLevel.ERROR, 0, "@string/shortcut_text_0118"),
   new CollectionRule('CL-02', CollectionRuleKind.VALIDITY, CollectionAction.DROP,
-    CollectionLevel.ERROR, 0, '标题为空视为无意义收藏'),
+    CollectionLevel.ERROR, 0, "@string/shortcut_text_0125"),
   new CollectionRule('CL-03', CollectionRuleKind.VALIDITY, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, '摘要为空但标题有效，保留并提示补全'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0726"),
   new CollectionRule('CL-04', CollectionRuleKind.VALIDITY, CollectionAction.RETAG,
-    CollectionLevel.WARN, 0, '来源为空，按未知来源重新打标签'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0374"),
   new CollectionRule('CL-05', CollectionRuleKind.DUPLICATE, CollectionAction.MERGE,
-    CollectionLevel.WARN, 0, '同来源同标题视为重复收藏，合并为一条'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0555"),
   new CollectionRule('CL-06', CollectionRuleKind.DUPLICATE, CollectionAction.DROP,
-    CollectionLevel.ERROR, 0, '标识完全重复，保留最早一条'),
+    CollectionLevel.ERROR, 0, "@string/shortcut_text_0116"),
   new CollectionRule('CL-07', CollectionRuleKind.TAG, CollectionAction.RETAG,
-    CollectionLevel.WARN, 5, '标签超过 5 个时只保留前 5 个'),
+    CollectionLevel.WARN, 5, "@string/shortcut_text_0096"),
   new CollectionRule('CL-08', CollectionRuleKind.TAG, CollectionAction.RETAG,
-    CollectionLevel.WARN, 0, '标签含空串时清理空标签'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0098"),
   new CollectionRule('CL-09', CollectionRuleKind.TAG, CollectionAction.RETAG,
-    CollectionLevel.WARN, 0, '标签重复时去重'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0113"),
   new CollectionRule('CL-10', CollectionRuleKind.PIN, CollectionAction.PIN,
-    CollectionLevel.WARN, 0, '手工标记为置顶的条目保持置顶'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0527"),
   new CollectionRule('CL-11', CollectionRuleKind.PIN, CollectionAction.UNPIN,
-    CollectionLevel.WARN, 3, '置顶条目超过 3 条时取消最早的置顶'),
+    CollectionLevel.WARN, 3, "@string/shortcut_text_0761"),
   new CollectionRule('CL-12', CollectionRuleKind.PIN, CollectionAction.UNPIN,
-    CollectionLevel.WARN, 0, '置顶条目已被清理时同步取消置顶'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0762"),
   new CollectionRule('CL-13', CollectionRuleKind.AGE, CollectionAction.DROP,
-    CollectionLevel.WARN, 365, '超过 365 天且未置顶的收藏建议清理'),
+    CollectionLevel.WARN, 365, "@string/shortcut_text_0156"),
   new CollectionRule('CL-14', CollectionRuleKind.AGE, CollectionAction.WARN_ONLY,
-    CollectionLevel.WARN, 180, '超过 180 天未读给出提醒'),
+    CollectionLevel.WARN, 180, "@string/shortcut_text_0155"),
   new CollectionRule('CL-15', CollectionRuleKind.AGE, CollectionAction.KEEP,
-    CollectionLevel.WARN, 30, '一个月内的收藏一律保留'),
+    CollectionLevel.WARN, 30, "@string/shortcut_text_0643"),
   new CollectionRule('CL-16', CollectionRuleKind.TIME, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, '保存时间为 0 时按未知时间处理，不参与清理'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0051"),
   new CollectionRule('CL-17', CollectionRuleKind.TIME, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, '保存时间晚于当前时间时保留并记录异常'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0050"),
   new CollectionRule('CL-18', CollectionRuleKind.DUPLICATE, CollectionAction.MERGE,
-    CollectionLevel.WARN, 0, '同来源且标题仅差空白字符视为重复'),
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0554"),
   new CollectionRule('CL-19', CollectionRuleKind.TAG, CollectionAction.KEEP,
-    CollectionLevel.WARN, 1, '仅有一个标签时不改动'),
+    CollectionLevel.WARN, 1, "@string/shortcut_text_0339"),
   new CollectionRule('CL-20', CollectionRuleKind.VALIDITY, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, '其余情况一律保留，不做隐式变更')
+    CollectionLevel.WARN, 0, "@string/shortcut_text_0431")
 ];
 
 /** 规则编号列表。 */
@@ -225,42 +243,42 @@ export class GovernanceVerdict {
 export function judgeItem(item: CollectionItem, now: number,
   existingKeys: string[]): GovernanceVerdict {
   if (item.id.length === 0) {
-    return new GovernanceVerdict('', CollectionAction.DROP, 'CL-01', '标识为空', CollectionLevel.ERROR);
+    return new GovernanceVerdict('', CollectionAction.DROP, 'CL-01', uiText("shortcut_text_0117"), CollectionLevel.ERROR);
   }
   if (item.title.trim().length === 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-02', '标题为空',
+    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-02', uiText("shortcut_text_0124"),
       CollectionLevel.ERROR);
   }
   if (existingKeys.indexOf(item.mergeKey()) >= 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.MERGE, 'CL-05', '同来源同标题重复',
+    return new GovernanceVerdict(item.id, CollectionAction.MERGE, 'CL-05', uiText("shortcut_text_0556"),
       CollectionLevel.WARN);
   }
   if (item.tags.length > 5 || item.tagCount() !== item.tags.length) {
-    return new GovernanceVerdict(item.id, CollectionAction.RETAG, 'CL-07', '标签数量或重复需重设',
+    return new GovernanceVerdict(item.id, CollectionAction.RETAG, 'CL-07', uiText("shortcut_text_0104"),
       CollectionLevel.WARN);
   }
   if (item.savedAt <= 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-16', '保存时间未知，跳过清理',
+    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-16', uiText("shortcut_text_0052"),
       CollectionLevel.WARN);
   }
   if (item.savedAt > now + DAY) {
-    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-17', '保存时间异常，保留',
+    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-17', uiText("shortcut_text_0053"),
       CollectionLevel.WARN);
   }
   const ageDays: number = Math.floor(Math.max(0, now - item.savedAt) / DAY);
   if (ageDays > 365 && !item.pinned) {
-    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-13', `超过 ${ageDays} 天未置顶`,
+    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-13', uiText("shortcut_text_0154", [String(ageDays)]),
       CollectionLevel.WARN);
   }
   if (ageDays > 180) {
     return new GovernanceVerdict(item.id, CollectionAction.WARN_ONLY, 'CL-14',
-      `超过 ${ageDays} 天未读`, CollectionLevel.WARN);
+      uiText("shortcut_text_0153", [String(ageDays)]), CollectionLevel.WARN);
   }
   if (item.summary.trim().length === 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-03', '摘要为空，建议补全',
+    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-03', uiText("shortcut_text_0725"),
       CollectionLevel.WARN);
   }
-  return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-20', '无需治理',
+  return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-20', uiText("shortcut_text_0602"),
     CollectionLevel.WARN);
 }
 
@@ -287,9 +305,9 @@ export class GovernancePlan {
 
   /** 摘要文本。 */
   text(): string {
-    return `共 ${this.verdicts.length} 条：保留 ${this.countOf(CollectionAction.KEEP)}、` +
-      `合并 ${this.countOf(CollectionAction.MERGE)}、清理 ${this.countOf(CollectionAction.DROP)}、` +
-      `重设标签 ${this.countOf(CollectionAction.RETAG)}、需确认 ${this.confirmCount()}`;
+    return uiText("shortcut_text_0252", [String(this.verdicts.length), String(this.countOf(CollectionAction.KEEP))]) +
+      uiText("shortcut_text_0265", [String(this.countOf(CollectionAction.MERGE)), String(this.countOf(CollectionAction.DROP))]) +
+      uiText("shortcut_text_0770", [String(this.countOf(CollectionAction.RETAG)), String(this.confirmCount())]);
   }
 
   /** 逐行文本。 */
@@ -313,7 +331,7 @@ export function govern(items: CollectionItem[], now: number): GovernancePlan {
   sorted.forEach((item: CollectionItem): void => {
     if (ids.indexOf(item.id) >= 0) {
       plan.verdicts.push(new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-06',
-        '标识重复', CollectionLevel.ERROR));
+        uiText("shortcut_text_0119"), CollectionLevel.ERROR));
       return;
     }
     ids.push(item.id);
@@ -344,7 +362,7 @@ export class CollectionAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '收藏规则表自洽' : this.findings.join('；');
+    return this.ok ? uiText("shortcut_text_0518") : this.findings.join('；');
   }
 }
 
@@ -354,18 +372,18 @@ export function auditCollectionRules(): CollectionAudit {
   const seen: string[] = [];
   COLLECTION_RULES.forEach((rule: CollectionRule, index: number): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(`规则编号重复：${rule.ruleId}`);
+      audit.findings.push(uiText("shortcut_text_0256", [String(rule.ruleId)]));
     }
     seen.push(rule.ruleId);
     const expected: string = `CL-${(index + 1).toString().padStart(2, '0')}`;
     if (rule.ruleId !== expected) {
-      audit.findings.push(`编号不连续：期望 ${expected}，实际 ${rule.ruleId}`);
+      audit.findings.push(uiText("shortcut_text_0075", [String(expected), String(rule.ruleId)]));
     }
     if (rule.description.length === 0) {
-      audit.findings.push(`缺少说明：${rule.ruleId}`);
+      audit.findings.push(uiText("shortcut_text_0473", [String(rule.ruleId)]));
     }
     if (rule.threshold < 0) {
-      audit.findings.push(`阈值为负：${rule.ruleId}`);
+      audit.findings.push(uiText("shortcut_text_0712", [String(rule.ruleId)]));
     }
   });
   const kinds: CollectionRuleKind[] = [CollectionRuleKind.VALIDITY, CollectionRuleKind.DUPLICATE,
@@ -373,7 +391,7 @@ export function auditCollectionRules(): CollectionAudit {
     CollectionRuleKind.TIME];
   kinds.forEach((kind: CollectionRuleKind): void => {
     if (rulesOfKind(kind).length === 0) {
-      audit.findings.push(`类别无用例：${kind as string}`);
+      audit.findings.push(uiText("shortcut_text_0376", [String(kind as string)]));
     }
   });
   audit.ok = audit.findings.length === 0;

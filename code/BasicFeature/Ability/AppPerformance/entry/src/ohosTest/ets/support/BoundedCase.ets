@@ -1,6 +1,24 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { it } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { systemDateTime } from '@kit.BasicServicesKit';
+import { logInfo, logWarn, logError } from '../../../main/ets/core/Logger';
+
+export const BUNDLE: string = 'com.example.appperformance';
 
 export const CASE_TIMEOUT_MS: number = 10000;
 export const RUNNER_TIMEOUT_MS: number = 12000;
@@ -25,6 +43,7 @@ export function boundedIt(name: string, _level: number, body: ScenarioBody): voi
 
 export function scenario(name: string, body: ScenarioBody): void {
   it(name, 0, async (): Promise<void> => {
+    logInfo(`${BUNDLE} ${name} begin`);
     const started = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
     let timer: number = -1;
     let failure: Error | undefined = undefined;
@@ -54,8 +73,13 @@ export function scenario(name: string, body: ScenarioBody): void {
     try {
       await abilityDelegatorRegistry.getAbilityDelegator().print(`[AP_CASE] ${JSON.stringify(result)}`);
     } catch (error) {
-      console.info(`[AP_CASE] ${JSON.stringify(result)}`);
+      logWarn(`Case result output failed: ${(error as Error).message}`);
+      logInfo(`[AP_CASE] ${JSON.stringify(result)}`);
     }
+    if (failure !== undefined) {
+      logError(`${BUNDLE} ${name} failure: ${failure.message}`);
+    }
+    logInfo(`${BUNDLE} ${name} end: ${result.status}; ${duration} ms`);
     if (failure !== undefined) {
       throw failure;
     }

@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { describe, expect, it } from '@ohos/hypium';
 import {
   ParamKind, ROUTE_TABLE, RoutePage, RouteParam, RouteRequest, auditRoutes, pageOf,
@@ -137,7 +152,7 @@ export default function businessRuleMatrixTest(): void {
       expect(routesOfPage(RoutePage.NOTE).length).assertEqual(2);
       expect(routesOfPage(RoutePage.DETAIL).length).assertEqual(2);
       expect(routesOfPage(RoutePage.RULE_CENTER).length).assertEqual(1);
-      expect(routesOfPage(RoutePage.ACTIVITY)[0]).assertEqual('sc.activity');
+      expect(routesOfPage(RoutePage.CALL_LOG)[0]).assertEqual('sc.calls');
       const param: RouteParam = new RouteParam('count', ParamKind.NUMBER, false, '0');
       expect(param.accepts('12')).assertTrue();
       expect(param.accepts('abc')).assertFalse();
@@ -285,9 +300,9 @@ export default function businessRuleMatrixTest(): void {
       expect(tokenize('Hello World').length).assertEqual(2);
       expect(tokenize('Hello World')[0]).assertEqual('hello');
       expect(uniqueTokens('便签便签').length).assertEqual(2);
-      expect(countOccurrences('aab', 'a')).assertEqual(2);
-      expect(countOccurrences('aab', '')).assertEqual(0);
-      expect(countOccurrences('aab', 'z')).assertEqual(0);
+      expect(countOccurrences('xxz', 'x')).assertEqual(2);
+      expect(countOccurrences('xxz', '')).assertEqual(0);
+      expect(countOccurrences('xxz', 'y')).assertEqual(0);
       expect(tokenSummary('')).assertEqual('没有可检索的词');
       expect(tokenSummary('便签 note').indexOf('3 个词') === 0).assertTrue();
     });

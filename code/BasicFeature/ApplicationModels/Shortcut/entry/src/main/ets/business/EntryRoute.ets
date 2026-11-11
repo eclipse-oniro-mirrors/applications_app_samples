@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText, resourceText } from '../i18n/Strings';
 /**
  * 快捷入口到页面的声明式路由表。
  *
@@ -12,7 +28,7 @@ export enum RoutePage {
   TODO = 'todo',
   COLLECTION = 'collection',
   DETAIL = 'detail',
-  ACTIVITY = 'activity',
+  CALL_LOG = 'calls',
   RULE_CENTER = 'ruleCenter',
   UNKNOWN = 'unknown'
 }
@@ -63,7 +79,7 @@ export class RouteParam {
   }
 
   text(): string {
-    return `${this.name}(${this.kind as string})${this.required ? '必填' : '选填'}`;
+    return `${this.name}(${this.kind as string})${this.required ? uiText("shortcut_text_0072") : uiText("shortcut_text_0632")}`;
   }
 }
 
@@ -76,7 +92,9 @@ export class RouteEntry {
   public requiresLogin: boolean = false;
   /** 入口有效期（毫秒）；0 表示不过期。 */
   public maxAgeMs: number = 0;
-  public description: string = '';
+  private descriptionValue: string = '';
+  get description(): string { return resourceText(this.descriptionValue); }
+  set description(value: string) { this.descriptionValue = value; }
 
   constructor(routeId: string = '', page: RoutePage = RoutePage.UNKNOWN, params: RouteParam[] = [],
     requiresLogin: boolean = false, maxAgeMs: number = 0, description: string = '') {
@@ -94,10 +112,10 @@ export class RouteEntry {
   }
 
   text(): string {
-    const names: string = this.params.length === 0 ? '无参数' :
+    const names: string = this.params.length === 0 ? uiText("shortcut_text_0596") :
       this.params.map((param: RouteParam): string => param.name).join(',');
     return `${this.routeId} -> ${this.page as string}｜${names}｜` +
-      `${this.requiresLogin ? '需登录' : '免登录'}`;
+      `${this.requiresLogin ? uiText("shortcut_text_0626") : uiText("shortcut_text_0401")}`;
   }
 }
 
@@ -105,25 +123,25 @@ export class RouteEntry {
 export const ROUTE_TABLE: RouteEntry[] = [
   new RouteEntry('sc.note.new', RoutePage.NOTE,
     [new RouteParam('draftId', ParamKind.ID, false, ''), new RouteParam('focus', ParamKind.BOOLEAN,
-      false, 'true')], false, 0, '打开便签编辑页，可直接进入草稿'),
+      false, 'true')], false, 0, "@string/shortcut_text_0181"),
   new RouteEntry('sc.todo.today', RoutePage.TODO,
     [new RouteParam('date', ParamKind.TEXT, false, 'today'),
-      new RouteParam('filter', ParamKind.TEXT, false, 'all')], false, 0, '打开今日待办'),
+      new RouteParam('filter', ParamKind.TEXT, false, 'all')], false, 0, "@string/shortcut_text_0186"),
   new RouteEntry('sc.collection.saved', RoutePage.COLLECTION,
     [new RouteParam('tag', ParamKind.TEXT, false, ''), new RouteParam('sort', ParamKind.TEXT, false,
-      'recent')], false, 0, '打开收藏列表'),
+      'recent')], false, 0, "@string/shortcut_text_0187"),
   new RouteEntry('sc.detail', RoutePage.DETAIL,
-    [new RouteParam('noteId', ParamKind.ID, true, '')], true, 0, '打开指定便签详情'),
-  new RouteEntry('sc.activity', RoutePage.ACTIVITY,
-    [new RouteParam('range', ParamKind.TEXT, false, 'week')], false, 0, '打开调用记录'),
-  new RouteEntry('sc.rule.center', RoutePage.RULE_CENTER, [], false, 0, '打开规则中心'),
+    [new RouteParam('noteId', ParamKind.ID, true, '')], true, 0, "@string/shortcut_text_0188"),
+  new RouteEntry('sc.calls', RoutePage.CALL_LOG,
+    [new RouteParam('range', ParamKind.TEXT, false, 'week')], false, 0, "@string/shortcut_text_0183"),
+  new RouteEntry('sc.rule.center', RoutePage.RULE_CENTER, [], false, 0, "@string/shortcut_text_0185"),
   new RouteEntry('sc.note.resume', RoutePage.NOTE,
     [new RouteParam('draftId', ParamKind.ID, true, '')], false, 600000,
-    '恢复上次草稿，超过 10 分钟按过期处理'),
+    "@string/shortcut_text_0283"),
   new RouteEntry('sc.todo.detail', RoutePage.DETAIL,
     [new RouteParam('todoId', ParamKind.ID, true, ''),
       new RouteParam('from', ParamKind.TEXT, false, 'shortcut')], true, 1800000,
-    '打开待办详情，超过 30 分钟按过期处理')
+    "@string/shortcut_text_0182")
 ];
 
 /** 路由 id 列表。 */
@@ -201,10 +219,10 @@ export class RouteResolution {
 
   text(): string {
     if (!this.ok) {
-      return `未解析：${this.issues.join('；')}`;
+      return uiText("shortcut_text_0577", [String(this.issues.join('；'))]);
     }
-    return `-> ${this.page as string}｜${this.keys.length} 个参数｜` +
-      `${this.expired ? '已过期' : '有效'}`;
+    return uiText("shortcut_text_0005", [String(this.page as string), String(this.keys.length)]) +
+      `${this.expired ? uiText("shortcut_text_0654") : uiText("shortcut_text_0704")}`;
   }
 }
 
@@ -213,14 +231,14 @@ export function resolveRoute(request: RouteRequest): RouteResolution {
   const result: RouteResolution = new RouteResolution();
   const entry: RouteEntry | undefined = routeOf(request.routeId);
   if (entry === undefined) {
-    result.issues.push(`未知路由：${request.routeId}`);
+    result.issues.push(uiText("shortcut_text_0587", [String(request.routeId)]));
     result.page = RoutePage.HOME;
     return result;
   }
   result.entry = entry;
   result.page = entry.page;
   if (entry.requiresLogin && !request.loggedIn) {
-    result.issues.push('需要登录后才能进入');
+    result.issues.push(uiText("shortcut_text_0628"));
     return result;
   }
   if (entry.maxAgeMs > 0 && request.at > 0) {
@@ -231,23 +249,24 @@ export function resolveRoute(request: RouteRequest): RouteResolution {
     const raw: string = request.get(param.name);
     if (raw.length === 0 && param.required) {
       result.missing.push(param.name);
-      result.issues.push(`缺少必填参数：${param.name}`);
+      result.issues.push(uiText("shortcut_text_0469", [String(param.name)]));
       return;
     }
     const value: string = param.coerce(raw);
     if (raw.length > 0 && value !== raw) {
-      result.issues.push(`参数取值非法：${param.name}`);
+      result.issues.push(uiText("shortcut_text_0140", [String(param.name)]));
     }
     result.keys.push(param.name);
     result.values.push(value);
   });
+  // Unknown keys are warnings; decide validity before appending localized warning text.
+  const parametersValid: boolean = result.missing.length === 0 && result.issues.length === 0;
   request.keys.forEach((key: string): void => {
     if (entry.paramOf(key) === undefined) {
-      result.issues.push(`忽略未知参数：${key}`);
+      result.issues.push(uiText('shortcut_text_0274', [key]));
     }
   });
-  result.ok = result.missing.length === 0 &&
-    result.issues.every((issue: string): boolean => issue.indexOf('忽略未知参数') === 0);
+  result.ok = parametersValid;
   return result;
 }
 
@@ -257,7 +276,7 @@ export class RouteAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '路由表自洽' : this.findings.join('；');
+    return this.ok ? uiText("shortcut_text_0386") : this.findings.join('；');
   }
 }
 
@@ -267,24 +286,24 @@ export function auditRoutes(): RouteAudit {
   const seen: string[] = [];
   ROUTE_TABLE.forEach((entry: RouteEntry): void => {
     if (seen.indexOf(entry.routeId) >= 0) {
-      audit.findings.push(`路由重复：${entry.routeId}`);
+      audit.findings.push(uiText("shortcut_text_0387", [String(entry.routeId)]));
     }
     seen.push(entry.routeId);
     if (entry.page === RoutePage.UNKNOWN) {
-      audit.findings.push(`目标页面未知：${entry.routeId}`);
+      audit.findings.push(uiText("shortcut_text_0412", [String(entry.routeId)]));
     }
     if (entry.description.length === 0) {
-      audit.findings.push(`缺少说明：${entry.routeId}`);
+      audit.findings.push(uiText("shortcut_text_0473", [String(entry.routeId)]));
     }
     if (entry.maxAgeMs < 0) {
-      audit.findings.push(`有效期非法：${entry.routeId}`);
+      audit.findings.push(uiText("shortcut_text_0705", [String(entry.routeId)]));
     }
     entry.params.forEach((param: RouteParam): void => {
       if (param.name.length === 0) {
-        audit.findings.push(`参数名为空：${entry.routeId}`);
+        audit.findings.push(uiText("shortcut_text_0139", [String(entry.routeId)]));
       }
       if (param.required && param.fallback.length > 0 && param.accepts(param.fallback)) {
-        audit.findings.push(`必填参数不应带可用兜底：${entry.routeId}.${param.name}`);
+        audit.findings.push(uiText("shortcut_text_0073", [String(entry.routeId), String(param.name)]));
       }
     });
   });

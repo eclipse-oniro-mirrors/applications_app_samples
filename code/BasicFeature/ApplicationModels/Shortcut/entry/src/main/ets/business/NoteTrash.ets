@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { businessLabel } from '../i18n/BusinessLabels';
+import { uiText, resourceText } from '../i18n/Strings';
 /**
  * 笔记回收站与保存基线。
  *
@@ -21,9 +38,13 @@ export enum SaveOutcome {
 /** 一条保存规则。 */
 export class SaveRule {
   public code: string = '';
-  public condition: string = '';
+  private conditionValue: string = '';
+  get condition(): string { return resourceText(this.conditionValue); }
+  set condition(value: string) { this.conditionValue = value; }
   public outcome: SaveOutcome = SaveOutcome.SAFE;
-  public note: string = '';
+  private noteValue: string = '';
+  get note(): string { return resourceText(this.noteValue); }
+  set note(value: string) { this.noteValue = value; }
 
   constructor(code: string = '', condition: string = '', outcome: SaveOutcome = SaveOutcome.SAFE,
     note: string = '') {
@@ -34,7 +55,7 @@ export class SaveRule {
   }
 
   describe(): string {
-    return `${this.code}｜${this.condition} → ${this.outcome as string}｜${this.note}`;
+    return `${this.code}｜${this.condition} → ${businessLabel(this.outcome as string)}｜${this.note}`;
   }
 }
 
@@ -45,16 +66,16 @@ export class SaveRule {
  * 三者相等表示无变化；local > baseline 且 local == remote 表示双方改成了同一版本。
  */
 export const SAVE_RULES: SaveRule[] = [
-  new SaveRule('SV-01', '三方修订号相同', SaveOutcome.SAFE, '没有新变化，保存不改变内容'),
-  new SaveRule('SV-02', '只有本机前进', SaveOutcome.SAFE, '常规保存'),
-  new SaveRule('SV-03', '只有对端前进', SaveOutcome.CONFIRM, '本机内容已过期，保存会覆盖对端'),
-  new SaveRule('SV-04', '双方都前进且修订号相同', SaveOutcome.SAFE, '收敛到同一版本'),
-  new SaveRule('SV-05', '双方都前进且修订号不同', SaveOutcome.BRANCH, '另存为新分支，两侧都保留'),
-  new SaveRule('SV-06', '对端修订号低于基线', SaveOutcome.CONFIRM, '对端可能回滚过，保存前需确认'),
-  new SaveRule('SV-07', '本机无修订号', SaveOutcome.BLOCKED, '缺少本机修订号，不允许写入'),
-  new SaveRule('SV-08', '存在未结束的接续恢复', SaveOutcome.BLOCKED, '恢复在途时写入会产生不确定结果'),
-  new SaveRule('SV-09', '笔记已在回收站', SaveOutcome.BLOCKED, '回收站内笔记不可直接保存'),
-  new SaveRule('SV-10', '上次写入结果不确定', SaveOutcome.CONFIRM, '需先读回磁盘再决定')
+  new SaveRule('SV-01', "@string/shortcut_text_0491", SaveOutcome.SAFE, "@string/shortcut_text_0394"),
+  new SaveRule('SV-02', "@string/shortcut_text_0755", SaveOutcome.SAFE, "@string/shortcut_text_0150"),
+  new SaveRule('SV-03', "@string/shortcut_text_0757", SaveOutcome.CONFIRM, "@string/shortcut_text_0066"),
+  new SaveRule('SV-04', "@string/shortcut_text_0540", SaveOutcome.SAFE, "@string/shortcut_text_0524"),
+  new SaveRule('SV-05', "@string/shortcut_text_0539", SaveOutcome.BRANCH, "@string/shortcut_text_0385"),
+  new SaveRule('SV-06', "@string/shortcut_text_0229", SaveOutcome.CONFIRM, "@string/shortcut_text_0228"),
+  new SaveRule('SV-07', "@string/shortcut_text_0067", SaveOutcome.BLOCKED, "@string/shortcut_text_0468"),
+  new SaveRule('SV-08', "@string/shortcut_text_0180", SaveOutcome.BLOCKED, "@string/shortcut_text_0289"),
+  new SaveRule('SV-09', "@string/shortcut_text_0071", SaveOutcome.BLOCKED, "@string/shortcut_text_0303"),
+  new SaveRule('SV-10', "@string/shortcut_text_0496", SaveOutcome.CONFIRM, "@string/shortcut_text_0627")
 ];
 
 /** 保存判定输入。 */
@@ -88,7 +109,7 @@ export class SaveDecision {
   }
 
   describe(): string {
-    return `${this.code}｜${this.outcome as string}｜${this.message}`;
+    return `${this.code}｜${businessLabel(this.outcome as string)}｜${this.message}`;
   }
 }
 
@@ -173,8 +194,8 @@ export class TrashEntry {
   }
 
   describe(): string {
-    return `${this.title}｜${this.state as string}｜修订 ${this.revision}｜` +
-      `来源 ${this.origin.length === 0 ? '未记录' : this.origin}`;
+    return uiText("shortcut_text_0029", [String(this.title), String(this.state as string), String(this.revision)]) +
+      uiText("shortcut_text_0372", [String(this.origin.length === 0 ? uiText("shortcut_text_0576") : this.origin)]);
   }
 }
 
@@ -267,13 +288,13 @@ export function trashLines(bin: TrashBin, now: number): string[] {
   const lines: string[] = [];
   const items: TrashEntry[] = bin.trashed();
   if (items.length === 0) {
-    lines.push('回收站为空');
+    lines.push(uiText("shortcut_text_0304"));
     return lines;
   }
-  lines.push(`回收站 ${items.length} 项｜保留 ${TRASH_RETENTION_DAYS} 天`);
+  lines.push(uiText("shortcut_text_0300", [String(items.length), String(TRASH_RETENTION_DAYS)]));
   items.forEach((entry: TrashEntry): void => {
     const days: number = Math.floor((now - entry.trashedAt) / 86400000);
-    const state: string = entry.restorable(now, TRASH_RETENTION_DAYS * 86400000) ? `可恢复（已存 ${days} 天）` : '已过期';
+    const state: string = entry.restorable(now, TRASH_RETENTION_DAYS * 86400000) ? uiText("shortcut_text_0356", [String(days)]) : uiText("shortcut_text_0654");
     lines.push(`${entry.describe()}｜${state}`);
   });
   return lines;
@@ -282,10 +303,10 @@ export function trashLines(bin: TrashBin, now: number): string[] {
 /** 一句话保存建议。 */
 export function saveAdvice(decision: SaveDecision): string {
   if (decision.writable()) {
-    return '可以保存';
+    return uiText("shortcut_text_0360");
   }
   if (decision.outcome === SaveOutcome.BRANCH) {
-    return '建议另存为新分支，保留两侧内容';
+    return uiText("shortcut_text_0321");
   }
   return decision.message;
 }

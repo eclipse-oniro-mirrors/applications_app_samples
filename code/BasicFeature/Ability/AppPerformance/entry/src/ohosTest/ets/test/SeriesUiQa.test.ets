@@ -1,4 +1,21 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // 待集中验证：当前仅静态对齐正式组件/SDK，未执行本套件或任何中间门禁。
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { resolveText } from '../../../main/ets/core/UiText';
 import { afterEach, describe, expect, it } from '@ohos/hypium';
 import { SERIES_MIN_REPETITIONS, SERIES_MAX_REPETITIONS } from '../../../main/ets/core/ExperimentSeries';
 import { uiTestCase } from '../support/UiTestSupport';
@@ -38,13 +55,15 @@ export default function seriesUiQaTests(): void {
       const driver = await launchSeriesUiQa('empty');
       await seriesQaClick(driver, 'apSeriesCountMinus');
       await seriesQaClick(driver, 'apSeriesCountMinus');
-      expect(await seriesQaText(driver, 'apSeriesCountValue')).assertEqual(`重复次数 ${SERIES_MIN_REPETITIONS}`);
+      expect(await seriesQaText(driver, 'apSeriesCountValue')).assertEqual(resolveText(abilityDelegatorRegistry.getAbilityDelegator().getAppContext(),
+        $r('app.string.ap_ui_format_8321d92a2b'), [SERIES_MIN_REPETITIONS]));
       expect(await (await seriesQaNode(driver, 'apSeriesCountMinus')).isEnabled()).assertFalse();
       expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertTrue();
       for (let index: number = 0; index < SERIES_MAX_REPETITIONS - SERIES_MIN_REPETITIONS; index++) {
         await seriesQaClick(driver, 'apSeriesCountPlus');
       }
-      expect(await seriesQaText(driver, 'apSeriesCountValue')).assertEqual(`重复次数 ${SERIES_MAX_REPETITIONS}`);
+      expect(await seriesQaText(driver, 'apSeriesCountValue')).assertEqual(resolveText(abilityDelegatorRegistry.getAbilityDelegator().getAppContext(),
+        $r('app.string.ap_ui_format_8321d92a2b'), [SERIES_MAX_REPETITIONS]));
       expect(await (await seriesQaNode(driver, 'apSeriesCountPlus')).isEnabled()).assertFalse();
       expect(currentSeriesUiQa().platform.resourceCalls).assertEqual(0);
     }, finishSeriesUiQa));

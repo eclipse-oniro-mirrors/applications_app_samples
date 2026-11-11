@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { describe, expect, it } from '@ohos/hypium';
 import { ExperimentRecord, ExperimentStage } from '../../../main/ets/core/ExperimentLedger';
 import { FLOW_KEYS } from '../../../main/ets/core/FlowMetrics';
@@ -17,7 +32,7 @@ import {
 } from '../../../main/ets/core/report/ReportExport';
 
 const DIGEST: string = 'abcdef12';
-const ENV: string = 'Pixel 8 · Android 14';
+const ENV: string = 'Pixel 8 · SampleOS 14';
 
 function stagesOf(): ExperimentStage[] {
   const values: number[] = [10, 20, 30, 40, 50, 60];
@@ -58,7 +73,7 @@ function recordOf(id: string, workloadId: string = 'w1', device: string = ENV): 
 function fieldsOf(device: string = 'Pixel 8'): ConditionFields {
   const fields: ConditionFields = new ConditionFields();
   fields.device = device;
-  fields.osVersion = 'Android 14';
+  fields.osVersion = 'SampleOS 14';
   fields.appVersion = '1.0.0';
   fields.workloadId = 'w1';
   fields.mode = 'control';
@@ -152,9 +167,9 @@ export default function reportCasesTest(): void {
      */
 
     it('testFingerprintBasicsCases0005', 0, (): void => {
-      const source: ConditionSource = ConditionSource.fromEnvironment('Pixel 8 · Android 14', ' 2.0 ');
+      const source: ConditionSource = ConditionSource.fromEnvironment('Pixel 8 · SampleOS 14', ' 2.0 ');
       expect(source.device).assertEqual('Pixel 8');
-      expect(source.osVersion).assertEqual('Android 14');
+      expect(source.osVersion).assertEqual('SampleOS 14');
       expect(source.appVersion).assertEqual('2.0');
       expect(source.protocol).assertEqual(SAMPLING_PROTOCOL);
       const single: ConditionSource = ConditionSource.fromEnvironment('OnlyModel', '1.0');
@@ -292,7 +307,7 @@ export default function reportCasesTest(): void {
       const fields: ConditionFields = fieldsOf();
       fields.foreground = '前台';
       expect(describeCondition(fields))
-        .assertEqual('Pixel 8 · Android 14 · APP 1.0.0｜w1 · 对照组｜样本 1024 字节 · 摘要 abcdef12｜' +
+        .assertEqual('Pixel 8 · SampleOS 14 · APP 1.0.0｜w1 · 对照组｜样本 1024 字节 · 摘要 abcdef12｜' +
           '目标 0 项 · 摘要 tg-811c9dc5｜协议 ledger-v1 · 6 阶段 · 单次运行 · 同资源重读 · 前台');
       expect(describeCondition(new ConditionFields()).indexOf('设备未记录 · 系统未记录 · APP 版本未记录') === 0)
         .assertTrue();
@@ -311,7 +326,7 @@ export default function reportCasesTest(): void {
     it('testFingerprintRuleCases0005', 0, (): void => {
       const fields: ConditionFields = fieldsOfRecord(recordOf('r1'));
       expect(fields.device).assertEqual('Pixel 8');
-      expect(fields.osVersion).assertEqual('Android 14');
+      expect(fields.osVersion).assertEqual('SampleOS 14');
       expect(fields.appVersion).assertEqual('1.0.0');
       expect(fields.foreground).assertEqual('前台');
       expect(fields.targetCount).assertEqual(0);
@@ -389,7 +404,7 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintRuleCases0009', 0, (): void => {
       const comparison: ConditionComparison =
-        compareConditions(fieldsOf(), fieldsOf('Pixel 9 · Android 14'));
+        compareConditions(fieldsOf(), fieldsOf('Pixel 9 · SampleOS 14'));
       expect(comparison.verdict).assertEqual(ConditionVerdict.PARTIAL);
       expect(comparison.diffs.length).assertEqual(1);
       expect(comparison.diffs[0].label).assertEqual('设备型号');
@@ -449,7 +464,7 @@ export default function reportCasesTest(): void {
       const same: ConditionComparison = compareRecordConditions(recordOf('a'), recordOf('b'));
       expect(same.verdict).assertEqual(ConditionVerdict.SAME);
       const other: ConditionComparison =
-        compareRecordConditions(recordOf('a'), recordOf('b', 'w1', 'Pixel 9 · Android 14'));
+        compareRecordConditions(recordOf('a'), recordOf('b', 'w1', 'Pixel 9 · SampleOS 14'));
       expect(other.verdict).assertEqual(ConditionVerdict.PARTIAL);
       expect(other.diffs[0].right).assertEqual('Pixel 9');
     });
@@ -569,7 +584,7 @@ export default function reportCasesTest(): void {
     it('testReportTableCases0006', 0, (): void => {
       const table: ReportTable = ReportTable.build([
         recordOf('r1'), recordOf('r2'),
-        recordOf('r3', 'w1', 'Pixel 9 · Android 14')
+        recordOf('r3', 'w1', 'Pixel 9 · SampleOS 14')
       ]);
       expect(table.size()).assertEqual(2);
       expect(table.rows[0].label).assertEqual('条件组1');
@@ -781,7 +796,7 @@ export default function reportCasesTest(): void {
     it('testReportExportCases0004', 0, (): void => {
       const meta: ReportMeta = new ReportMeta('报告', 1700000000000);
       const table: ReportTable = ReportTable.build([
-        recordOf('r1'), recordOf('r2', 'w1', 'Pixel 9 · Android 14')
+        recordOf('r1'), recordOf('r2', 'w1', 'Pixel 9 · SampleOS 14')
       ]);
       const text: string = buildMarkdown(table, meta);
       expect(text.indexOf('以 条件组1 为基准，条件组2：') > 0).assertTrue();

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { businessLabel } from '../i18n/BusinessLabels';
+import { uiText, resourceText } from '../i18n/Strings';
 /**
  * 标签索引与真实数据检索。
  *
@@ -21,9 +38,15 @@ export enum ScoreSource {
 /** 标签规范化规则。 */
 export class TagRule {
   public code: string = '';
-  public condition: string = '';
-  public action: string = '';
-  public note: string = '';
+  private conditionValue: string = '';
+  get condition(): string { return resourceText(this.conditionValue); }
+  set condition(value: string) { this.conditionValue = value; }
+  private actionValue: string = '';
+  get action(): string { return resourceText(this.actionValue); }
+  set action(value: string) { this.actionValue = value; }
+  private noteValue: string = '';
+  get note(): string { return resourceText(this.noteValue); }
+  set note(value: string) { this.noteValue = value; }
 
   constructor(code: string = '', condition: string = '', action: string = '', note: string = '') {
     this.code = code;
@@ -39,16 +62,16 @@ export class TagRule {
 
 /** 标签规则表。 */
 export const TAG_RULES: TagRule[] = [
-  new TagRule('TG-01', '标签首尾有空白', '去掉首尾空白', '不做其他字符替换'),
-  new TagRule('TG-02', '标签为空或全空白', '丢弃该标签', '空标签不进入索引'),
-  new TagRule('TG-03', '标签长度超过 24 个字符', '截断到 24', '与存储上限一致'),
-  new TagRule('TG-04', '英文大小写不同', '统一为小写', '检索时同样按小写比对'),
-  new TagRule('TG-05', '同一篇笔记内重复标签', '只保留一个', '去重按规范化后的值'),
-  new TagRule('TG-06', '标签命中同义词表', '归并为表内标准词', '同义词表显式声明，不自动推断'),
-  new TagRule('TG-07', '标签以 # 开头', '去掉 # 前缀', '展示时可再加回'),
-  new TagRule('TG-08', '标签含连续分隔符', '折叠为一个分隔符', '避免空段'),
-  new TagRule('TG-09', '标签为纯数字', '保留原样', '不当作序号处理'),
-  new TagRule('TG-10', '标签数量超过 12 个', '按输入顺序保留前 12 个', '超出部分丢弃并提示')
+  new TagRule('TG-01', "@string/shortcut_text_0102", "@string/shortcut_text_0458", "@string/shortcut_text_0136"),
+  new TagRule('TG-02', "@string/shortcut_text_0107", "@string/shortcut_text_0218", "@string/shortcut_text_0363"),
+  new TagRule('TG-03', "@string/shortcut_text_0112", "@string/shortcut_text_0328", "@string/shortcut_text_0709"),
+  new TagRule('TG-04', "@string/shortcut_text_0695", "@string/shortcut_text_0559", "@string/shortcut_text_0319"),
+  new TagRule('TG-05', "@string/shortcut_text_0557", "@string/shortcut_text_0752", "@string/shortcut_text_0460"),
+  new TagRule('TG-06', "@string/shortcut_text_0101", "@string/shortcut_text_0254", "@string/shortcut_text_0558"),
+  new TagRule('TG-07', "@string/shortcut_text_0109", "@string/shortcut_text_0457", "@string/shortcut_text_0729"),
+  new TagRule('TG-08', "@string/shortcut_text_0099", "@string/shortcut_text_0730", "@string/shortcut_text_0074"),
+  new TagRule('TG-09', "@string/shortcut_text_0106", "@string/shortcut_text_0062", "@string/shortcut_text_0128"),
+  new TagRule('TG-10', "@string/shortcut_text_0103", "@string/shortcut_text_0034", "@string/shortcut_text_0152")
 ];
 
 /** 同义词归并表：左为标准词，右为被归并写法。 */
@@ -140,7 +163,7 @@ export class Hit {
   }
 
   describe(): string {
-    return `${this.id}｜${this.score} 分｜${this.source as string}｜${this.matched}`;
+    return uiText("shortcut_text_0025", [String(this.id), String(this.score), businessLabel(this.source as string), String(this.matched)]);
   }
 }
 
@@ -277,9 +300,9 @@ export function synonymLines(): string[] {
 /** 检索结果展示行。 */
 export function searchLines(hits: Hit[]): string[] {
   if (hits.length === 0) {
-    return ['无匹配结果'];
+    return [uiText("shortcut_text_0601")];
   }
-  const lines: string[] = [`命中 ${hits.length} 条`];
+  const lines: string[] = [uiText("shortcut_text_0403", [String(hits.length)])];
   hits.forEach((hit: Hit): void => {
     lines.push(hit.describe());
   });
