@@ -73,8 +73,13 @@ hdc shell aa test -b com.demo.avrecorder01 -m entry_test \
 | AVRecorderTimeNamingEdge | 时间取整与输出命名异常边界 | 40 |
 | AVRecorderSettingsUi | 音频/视频设置弹窗真实 UI | 20 |
 | AVRecorderNdkUi | 音频/视频 NDK 录制页真实 UI | 20 |
+| AVRecorderCameraServiceNoop | CameraService 未初始化空状态调用 | 80 |
+| AVRecorderCameraNDKNoop | CameraServiceNDK 未初始化空状态调用 | 80 |
+| AVRecorderPageSettingsCore | 页面采样率、分辨率、声道与状态 | 76 |
+| AVRecorderFileOutputMatrix | 输出文件命名、大小与时长矩阵 | 80 |
+| AVRecorderUiContracts | 页面、按钮与设置控件契约 | 40 |
 
-新增 1,687 条，工程测试用例合计约 **1,703** 条。
+新增 2,043 条，工程测试用例合计约 **2,059** 条。
 
 ## 已知限制
 

@@ -49,6 +49,12 @@ import avRecorderTimeNamingEdgeTest from './AVRecorderTimeNamingEdge.test';
 import avRecorderSettingsUiTest from './AVRecorderSettingsUi.test';
 import avRecorderNdkUiTest from './AVRecorderNdkUi.test';
 
+import avRecorderCameraServiceNoopTest from './AVRecorderCameraServiceNoop.test';
+import avRecorderCameraNDKNoopTest from './AVRecorderCameraNDKNoop.test';
+import avRecorderPageSettingsCoreTest from './AVRecorderPageSettingsCore.test';
+import avRecorderFileOutputMatrixTest from './AVRecorderFileOutputMatrix.test';
+import avRecorderUiContractsTest from './AVRecorderUiContracts.test';
+
 export default function testsuite(): void {
   abilityTest();
   avRecorderDateTimeCoreTest();
@@ -79,4 +85,9 @@ export default function testsuite(): void {
   avRecorderTimeNamingEdgeTest();
   avRecorderSettingsUiTest();
   avRecorderNdkUiTest();
+  avRecorderCameraServiceNoopTest();
+  avRecorderCameraNDKNoopTest();
+  avRecorderPageSettingsCoreTest();
+  avRecorderFileOutputMatrixTest();
+  avRecorderUiContractsTest();
 }
