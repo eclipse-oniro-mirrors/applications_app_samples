@@ -27,7 +27,7 @@ struct Index {
 
   private async loadImageFromThread(): Promise<void> {
     const resourceMgr = this.uiContext?.getHostContext()?.resourceManager;
-    // 此处‘startIcon.png’为media下复制到工程中的resources/rawfile文件夹中，请开发者自行替换，
+    // 此处的‘startIcon.png’需要开发者自行从resources/base/media下复制到工程中的resources/rawfile文件夹中，
     // 否则imageSource创建失败会导致后续无法正常执行（日志中会打印Failed to get RawFd）。
     await resourceMgr?.getRawFd('startIcon.png').then(async rawFileDescriptor => {
       await taskpool.execute(loadPixelMap, rawFileDescriptor).then(pixelMap => {
