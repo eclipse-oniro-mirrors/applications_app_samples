@@ -128,7 +128,7 @@ struct Index {
     });
     // [Start createMediaSource3]
     // 设置mediaSource，应用按需设置URL
-    let url = '';
+    let url = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
     // [End createMediaSource3]
     await this.preDownload(url);
   }
@@ -216,7 +216,7 @@ struct Index {
         case 'initialized': // avplayer 设置播放源后触发该状态上报
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state initialized called.`);
           if (this.surfaceId) {
-            this.avPlayer.surfaceId = this.surfaceId; // 设置显示画面，当播放的资源为纯音频时无需设置
+            this.avPlayer.surfaceId = this.surfaceId; // 设置显示画面
             console.info(`${this.tag}: setAVPlayerCallback this.avPlayer.surfaceId = ${this.avPlayer.surfaceId}`);
             this.avPlayer.prepare();
           }
@@ -230,23 +230,7 @@ struct Index {
           this.currentTime = this.avPlayer.currentTime;
           this.avPlayer.play(); // 调用播放接口开始播放
           console.info(`${this.tag}:
-            setAVPlayerCallback speedSelect: ${this.speedSelect}, duration: ${this.durationTime}`);
-          if (this.speedSelect != -1) {
-            switch (this.speedSelect) {
-              case SPEED_ZERO:
-                this.avSetSpeed(media.PlaybackSpeed.SPEED_FORWARD_1_00_X);
-                break;
-              case SPEED_ONE:
-                this.avSetSpeed(media.PlaybackSpeed.SPEED_FORWARD_1_25_X);
-                break;
-              case SPEED_TWO:
-                this.avSetSpeed(media.PlaybackSpeed.SPEED_FORWARD_1_75_X);
-                break;
-              case SPEED_THREE:
-                this.avSetSpeed(media.PlaybackSpeed.SPEED_FORWARD_2_00_X);
-                break;
-            }
-          }
+            setAVPlayerCallback duration: ${this.durationTime}`);
           callback(this.avPlayer);
           break;
         case 'playing': // play成功调用后触发该状态机上报
@@ -387,15 +371,16 @@ struct Index {
     // [Start createMediaSource4]
     let headers: Record<string, string> = {};
     this.mediaSource = media.createMediaSourceWithUrl(url, headers);
+    this.mediaSource.setMimeType(media.AVMimeTypes.APPLICATION_M3U8);
     // [End createMediaSource4]
     // [Start enableOfflineCache]
     this.mediaSource.enableOfflineCache(true);
     // [End enableOfflineCache]
     // [Start PlaybackStrategy]
     if (this.avPlayer) {
-      let strategy: media.PlaybackStrategy = { preferredBufferDuration: 0 };
+      let strategy: media.PlaybackStrategy = { preferredBufferDuration: 20, showFirstFrameOnPrepare: true };
       this.avPlayer.setMediaSource(this.mediaSource, strategy);
-      console.info(`${this.tag}: setMediaSource completed, ready to play`);
+      console.info(`${this.tag}: setMediaSource completed, wait for initialized state`);
     }
     // [End PlaybackStrategy]
   }
