@@ -1,0 +1,1400 @@
+{
+  "string": [
+    {
+      "name": "ac_fielddictionary_014",
+      "value": "Discard the entire payload if missing"
+    },
+    {
+      "name": "ac_fielddictionary_015",
+      "value": "Revision"
+    },
+    {
+      "name": "ac_fielddictionary_016",
+      "value": "Use 0 if missing"
+    },
+    {
+      "name": "ac_fielddictionary_018",
+      "value": "Display as unnamed if missing"
+    },
+    {
+      "name": "ac_fielddictionary_020",
+      "value": "Use empty text if missing"
+    },
+    {
+      "name": "ac_fielddictionary_021",
+      "value": "Selection start"
+    },
+    {
+      "name": "ac_fielddictionary_023",
+      "value": "Selection end"
+    },
+    {
+      "name": "ac_fielddictionary_025",
+      "value": "Source device"
+    },
+    {
+      "name": "ac_fielddictionary_026",
+      "value": "Display unknown if missing"
+    },
+    {
+      "name": "ac_fielddictionary_027",
+      "value": "Write time"
+    },
+    {
+      "name": "ac_fielddictionary_028",
+      "value": "Display unrecorded time if missing"
+    },
+    {
+      "name": "ac_fielddictionary_029",
+      "value": "App version"
+    },
+    {
+      "name": "ac_fielddictionary_030",
+      "value": "Use an empty string if missing"
+    },
+    {
+      "name": "ac_fielddictionary_031",
+      "value": "Conflict flag"
+    },
+    {
+      "name": "ac_fielddictionary_032",
+      "value": "Use none if missing"
+    },
+    {
+      "name": "ac_fielddictionary_033",
+      "value": "Checksum"
+    },
+    {
+      "name": "ac_fielddictionary_034",
+      "value": "Missing means not checked"
+    },
+    {
+      "name": "ac_fielddictionary_035",
+      "value": "Payload version"
+    },
+    {
+      "name": "ac_fielddictionary_036",
+      "value": "Missing means unparseable"
+    },
+    {
+      "name": "ac_fielddictionary_037",
+      "value": "Body length"
+    },
+    {
+      "name": "ac_fielddictionary_038",
+      "value": "Calculated from body"
+    },
+    {
+      "name": "ac_fielddictionary_039",
+      "value": "Selection length"
+    },
+    {
+      "name": "ac_fielddictionary_040",
+      "value": "Calculated from selection"
+    },
+    {
+      "name": "ac_fielddictionary_041",
+      "value": "Encoded size"
+    },
+    {
+      "name": "ac_fielddictionary_042",
+      "value": "Calculated from encoded content"
+    },
+    {
+      "name": "ac_fielddictionary_043",
+      "value": "Remaining capacity"
+    },
+    {
+      "name": "ac_fielddictionary_044",
+      "value": "Calculated from limit and encoded size"
+    },
+    {
+      "name": "ac_fielddictionary_045",
+      "value": "Time since write"
+    },
+    {
+      "name": "ac_fielddictionary_046",
+      "value": "Calculated from write time"
+    },
+    {
+      "name": "ac_fielddictionary_047",
+      "value": "Conflict description"
+    },
+    {
+      "name": "ac_fielddictionary_048",
+      "value": "Mapped from conflict flag"
+    },
+    {
+      "name": "ac_fielddictionary_049",
+      "value": "Revision gap"
+    },
+    {
+      "name": "ac_fielddictionary_050",
+      "value": "Compared with remote revision"
+    },
+    {
+      "name": "ac_fielddictionary_051",
+      "value": "Tag count"
+    },
+    {
+      "name": "ac_fielddictionary_052",
+      "value": "Calculated from tags in the body"
+    },
+    {
+      "name": "ac_fielddictionary_058",
+      "value": "Time not recorded"
+    },
+    {
+      "name": "ac_fielddictionary_060",
+      "value": "{0}: undefined field"
+    },
+    {
+      "name": "ac_fielddictionary_061",
+      "value": "{0}: (empty)"
+    },
+    {
+      "name": "ac_fielddictionary_062",
+      "value": "Field dictionary is consistent"
+    },
+    {
+      "name": "ac_fielddictionary_063",
+      "value": "Duplicate field: {0}"
+    },
+    {
+      "name": "ac_fielddictionary_064",
+      "value": "Missing label: {0}"
+    },
+    {
+      "name": "ac_fielddictionary_065",
+      "value": "Required field has no missing-value description: {0}"
+    },
+    {
+      "name": "ac_fielddictionary_066",
+      "value": "Negative length limit: {0}"
+    },
+    {
+      "name": "ac_fielddictionary_067",
+      "value": "Field missing from dictionary: {0}"
+    },
+    {
+      "name": "ac_fielddictionary_068",
+      "value": "Missing required-field documentation"
+    },
+    {
+      "name": "ac_fielddictionary_069",
+      "value": "{0}: {1} fields"
+    },
+    {
+      "name": "ac_mergeplan_001",
+      "value": "Use local"
+    },
+    {
+      "name": "ac_mergeplan_003",
+      "value": "Revert to baseline"
+    },
+    {
+      "name": "ac_mergeplan_004",
+      "value": "Manual confirmation required"
+    },
+    {
+      "name": "ac_mergeplan_005",
+      "value": "{0} | Baseline {1} | "
+    },
+    {
+      "name": "ac_mergeplan_006",
+      "value": "(empty)"
+    },
+    {
+      "name": "ac_mergeplan_007",
+      "value": "Local {0} | "
+    },
+    {
+      "name": "ac_mergeplan_009",
+      "value": "Remote {0}"
+    },
+    {
+      "name": "ac_mergeplan_012",
+      "value": " | Conflict: "
+    },
+    {
+      "name": "ac_mergeplan_013",
+      "value": "{0} fields await confirmation: {1}"
+    },
+    {
+      "name": "ac_mergeplan_014",
+      "value": "Merged {0} fields"
+    },
+    {
+      "name": "ac_mergeplan_015",
+      "value": "No common baseline; cannot determine who changed the value"
+    },
+    {
+      "name": "ac_mergeplan_016",
+      "value": "Both sides changed to different values"
+    },
+    {
+      "name": "ac_mergeplan_017",
+      "value": "No fields to merge"
+    },
+    {
+      "name": "ac_mergeplan_018",
+      "value": "{0} fields | {1} settled | {2} conflicts"
+    },
+    {
+      "name": "ac_mergeplan_019",
+      "value": "Some fields await confirmation. Do not write to either side before confirmation"
+    },
+    {
+      "name": "ac_mergeplan_020",
+      "value": "Fields {0} | Local-only changes {1} | Remote-only changes {2} | "
+    },
+    {
+      "name": "ac_mergeplan_021",
+      "value": "Converged {0} | Conflicts {1}"
+    },
+    {
+      "name": "ac_payloadcodec_001",
+      "value": "(empty body)"
+    },
+    {
+      "name": "ac_payloadcodec_002",
+      "value": "{0} characters"
+    },
+    {
+      "name": "ac_payloadcodec_003",
+      "value": "{0} | rev {1} | {2} | Selection {3}–{4}"
+    },
+    {
+      "name": "ac_payloadcodec_004",
+      "value": "Required field missing"
+    },
+    {
+      "name": "ac_payloadcodec_005",
+      "value": "Invalid value; fallback applied"
+    },
+    {
+      "name": "ac_payloadcodec_006",
+      "value": "Empty payload"
+    },
+    {
+      "name": "ac_payloadcodec_007",
+      "value": "Payload limit exceeded"
+    },
+    {
+      "name": "ac_payloadcodec_008",
+      "value": "Version missing"
+    },
+    {
+      "name": "ac_payloadcodec_009",
+      "value": "Unsupported version {0}"
+    },
+    {
+      "name": "ac_payloadcodec_010",
+      "value": "Document ID is empty; entire payload discarded"
+    },
+    {
+      "name": "ac_payloadcodec_011",
+      "value": "Body truncated by {0} characters"
+    },
+    {
+      "name": "ac_payloadcodec_012",
+      "value": "Not truncated"
+    },
+    {
+      "name": "ac_payloadcodec_013",
+      "value": "No field changes"
+    },
+    {
+      "name": "ac_payloadcodec_014",
+      "value": "{0} fields changed: {1}"
+    },
+    {
+      "name": "ac_payloadcodec_015",
+      "value": "{0} / {1} characters ({2}%, {3} bytes)"
+    },
+    {
+      "name": "ac_payloadcodec_016",
+      "value": "Required field was not encoded: {0}"
+    },
+    {
+      "name": "ac_payloadcodec_017",
+      "value": "Multiline field limit exceeds body limit: {0}"
+    },
+    {
+      "name": "ac_payloadschema_007",
+      "value": "Unnamed"
+    },
+    {
+      "name": "ac_payloadschema_016",
+      "value": "Add selection, source device and write time"
+    },
+    {
+      "name": "ac_payloadschema_017",
+      "value": "Add app version, conflict flag and checksum"
+    },
+    {
+      "name": "ac_payloadschema_018",
+      "value": "Payload field catalog is consistent"
+    },
+    {
+      "name": "ac_payloadschema_019",
+      "value": "Duplicate field name: {0}"
+    },
+    {
+      "name": "ac_payloadschema_020",
+      "value": "Field version out of range: {0}"
+    },
+    {
+      "name": "ac_payloadschema_021",
+      "value": "Enum has no values: {0}"
+    },
+    {
+      "name": "ac_payloadschema_022",
+      "value": "Enum fallback is outside the allowed values: {0}"
+    },
+    {
+      "name": "ac_payloadschema_023",
+      "value": "Invalid integer fallback: {0}"
+    },
+    {
+      "name": "ac_payloadschema_024",
+      "value": "Broken migration chain: expected v{0}, found v{1}"
+    },
+    {
+      "name": "ac_payloadschema_025",
+      "value": "Migration chain does not reach the current version; stops at v{0}"
+    },
+    {
+      "name": "ac_payloadschema_026",
+      "value": "Current payload version v{0}; {1} fields"
+    },
+    {
+      "name": "ac_payloadvalidator_001",
+      "value": "Error"
+    },
+    {
+      "name": "ac_payloadvalidator_002",
+      "value": "Warning"
+    },
+    {
+      "name": "ac_payloadvalidator_003",
+      "value": "Document ID must not be empty"
+    },
+    {
+      "name": "ac_payloadvalidator_004",
+      "value": "Document ID may contain only letters, digits, . _ : -"
+    },
+    {
+      "name": "ac_payloadvalidator_005",
+      "value": "Document ID must be at most 64 characters"
+    },
+    {
+      "name": "ac_payloadvalidator_006",
+      "value": "Revision must not be negative"
+    },
+    {
+      "name": "ac_payloadvalidator_007",
+      "value": "Revision is unusually large and may be invalid"
+    },
+    {
+      "name": "ac_payloadvalidator_008",
+      "value": "Titles longer than 64 characters will be truncated"
+    },
+    {
+      "name": "ac_payloadvalidator_009",
+      "value": "Body exceeds 4096 characters"
+    },
+    {
+      "name": "ac_payloadvalidator_010",
+      "value": "Selection start must not be negative"
+    },
+    {
+      "name": "ac_payloadvalidator_011",
+      "value": "Selection end must not be negative"
+    },
+    {
+      "name": "ac_payloadvalidator_012",
+      "value": "Source device is empty; cross-device diagnosis loses context"
+    },
+    {
+      "name": "ac_payloadvalidator_013",
+      "value": "Source device ID contains invalid characters"
+    },
+    {
+      "name": "ac_payloadvalidator_014",
+      "value": "Write time must not be negative"
+    },
+    {
+      "name": "ac_payloadvalidator_015",
+      "value": "App version exceeds 32 characters"
+    },
+    {
+      "name": "ac_payloadvalidator_016",
+      "value": "Invalid conflict flag"
+    },
+    {
+      "name": "ac_payloadvalidator_017",
+      "value": "Unusual checksum length"
+    },
+    {
+      "name": "ac_payloadvalidator_018",
+      "value": "Body exceeds 1024 characters; some devices may reject it"
+    },
+    {
+      "name": "ac_payloadvalidator_019",
+      "value": "Selection end must not precede its start"
+    },
+    {
+      "name": "ac_payloadvalidator_020",
+      "value": "Selection end must not exceed body length"
+    },
+    {
+      "name": "ac_payloadvalidator_021",
+      "value": "Selection start must not exceed body length"
+    },
+    {
+      "name": "ac_payloadvalidator_022",
+      "value": "Non-empty body should have a revision greater than 0"
+    },
+    {
+      "name": "ac_payloadvalidator_023",
+      "value": "Non-empty body should include a checksum"
+    },
+    {
+      "name": "ac_payloadvalidator_024",
+      "value": "Checksum should match the content"
+    },
+    {
+      "name": "ac_payloadvalidator_025",
+      "value": "Write time should not be over 5 minutes in the future"
+    },
+    {
+      "name": "ac_payloadvalidator_026",
+      "value": "Encoded character count must not exceed the payload limit"
+    },
+    {
+      "name": "ac_payloadvalidator_027",
+      "value": "Warn when encoded bytes exceed twice the limit"
+    },
+    {
+      "name": "ac_payloadvalidator_028",
+      "value": "Validation passed"
+    },
+    {
+      "name": "ac_payloadvalidator_029",
+      "value": "{0} errors, {1} warnings"
+    },
+    {
+      "name": "ac_payloadvalidator_030",
+      "value": "{0} warnings"
+    },
+    {
+      "name": "ac_payloadvalidator_031",
+      "value": "Validation rules are consistent"
+    },
+    {
+      "name": "ac_payloadvalidator_033",
+      "value": "Missing hint: {0}"
+    },
+    {
+      "name": "ac_payloadvalidator_034",
+      "value": "No value can be read for the field: {0}"
+    },
+    {
+      "name": "ac_payloadvalidator_035",
+      "value": "Invalid regular expression: {0}"
+    },
+    {
+      "name": "ac_payloadvalidator_036",
+      "value": "Not enough enum values: {0}"
+    },
+    {
+      "name": "ac_recoveryplan_001",
+      "value": "Target page missing"
+    },
+    {
+      "name": "ac_recoveryplan_002",
+      "value": "Content version changed"
+    },
+    {
+      "name": "ac_recoveryplan_003",
+      "value": "Write result uncertain"
+    },
+    {
+      "name": "ac_recoveryplan_004",
+      "value": "Stale receipt arrived late"
+    },
+    {
+      "name": "ac_recoveryplan_005",
+      "value": "No failure"
+    },
+    {
+      "name": "ac_recoveryplan_006",
+      "value": "Retry continuation"
+    },
+    {
+      "name": "ac_recoveryplan_007",
+      "value": "Roll back to local cache"
+    },
+    {
+      "name": "ac_recoveryplan_008",
+      "value": "Keep local content"
+    },
+    {
+      "name": "ac_recoveryplan_009",
+      "value": "Export before resetting"
+    },
+    {
+      "name": "ac_recoveryplan_010",
+      "value": "Ask the user"
+    },
+    {
+      "name": "ac_recoveryplan_011",
+      "value": "No action needed"
+    },
+    {
+      "name": "ac_recoveryplan_012",
+      "value": "Data loss possible"
+    },
+    {
+      "name": "ac_recoveryplan_013",
+      "value": "No data loss"
+    },
+    {
+      "name": "ac_recoveryplan_014",
+      "value": " | Read back first"
+    },
+    {
+      "name": "ac_recoveryplan_015",
+      "value": "Target page is missing, possibly due to an older app. Content was rolled back to local cache; save as a new document"
+    },
+    {
+      "name": "ac_recoveryplan_016",
+      "value": "Target page is missing and no local cache exists. Export before resetting to avoid data loss"
+    },
+    {
+      "name": "ac_recoveryplan_017",
+      "value": "Content version changed. Keep local content without overwriting newer remote changes"
+    },
+    {
+      "name": "ac_recoveryplan_018",
+      "value": "Content version changed and local content also changed. Let the user choose which side to keep"
+    },
+    {
+      "name": "ac_recoveryplan_019",
+      "value": "Write result is uncertain. Read back disk state before deciding whether to retry"
+    },
+    {
+      "name": "ac_recoveryplan_020",
+      "value": "Write result is uncertain and read-back failed. Warn that a partial write may have occurred; let the user decide whether to retry"
+    },
+    {
+      "name": "ac_recoveryplan_021",
+      "value": "Ignore a late stale receipt; do not use it to overwrite current content"
+    },
+    {
+      "name": "ac_recoveryplan_022",
+      "value": "A stale receipt carries a higher revision. Ask the user to verify before deciding"
+    },
+    {
+      "name": "ac_recoveryplan_023",
+      "value": "Target page is missing but the system reports it available. Retry once; roll back if it fails again"
+    },
+    {
+      "name": "ac_recoveryplan_024",
+      "value": "Write is uncertain and local content matters. Export before resetting to keep a verifiable copy"
+    },
+    {
+      "name": "ac_recoveryplan_025",
+      "value": "Fetch remote content again after a version change and retry once; do not retry if fetching fails"
+    },
+    {
+      "name": "ac_recoveryplan_026",
+      "value": "{0} | No action needed"
+    },
+    {
+      "name": "ac_recoveryplan_027",
+      "value": "No restoration failure needs action now"
+    },
+    {
+      "name": "ac_recoveryplan_028",
+      "value": " (unsaved content may be lost)"
+    },
+    {
+      "name": "ac_continuationrules_001",
+      "value": "Ready for continuation"
+    },
+    {
+      "name": "ac_continuationrules_002",
+      "value": "Permission required"
+    },
+    {
+      "name": "ac_continuationrules_003",
+      "value": "System version too old"
+    },
+    {
+      "name": "ac_continuationrules_004",
+      "value": "Unsupported device type"
+    },
+    {
+      "name": "ac_continuationrules_005",
+      "value": "Payload too large"
+    },
+    {
+      "name": "ac_continuationrules_006",
+      "value": "No active session"
+    },
+    {
+      "name": "ac_continuationrules_008",
+      "value": "All device types"
+    },
+    {
+      "name": "ac_continuationrules_009",
+      "value": "continueManager is available starting at API 9"
+    },
+    {
+      "name": "ac_continuationrules_010",
+      "value": "Wearables do not support continuation before API 12"
+    },
+    {
+      "name": "ac_continuationrules_011",
+      "value": "TVs do not support continuation before API 12"
+    },
+    {
+      "name": "ac_continuationrules_012",
+      "value": "API 9–11 continuation requires distributed data sync permission"
+    },
+    {
+      "name": "ac_continuationrules_013",
+      "value": "Wearables receive only and cannot initiate continuation"
+    },
+    {
+      "name": "ac_continuationrules_014",
+      "value": "Large-screen devices require permission on API 12–13"
+    },
+    {
+      "name": "ac_continuationrules_015",
+      "value": "Phones and tablets require permission on API 12–13"
+    },
+    {
+      "name": "ac_continuationrules_016",
+      "value": "Wearables still cannot initiate continuation before API 18"
+    },
+    {
+      "name": "ac_continuationrules_017",
+      "value": "API 14–17 uniformly requires permission"
+    },
+    {
+      "name": "ac_continuationrules_018",
+      "value": "All device types are available from API 18; permission is still required"
+    },
+    {
+      "name": "ac_continuationrules_019",
+      "value": "Above the validated API 26 range; behavior unconfirmed"
+    },
+    {
+      "name": "ac_continuationrules_020",
+      "value": "Do not assume support for unknown device types"
+    },
+    {
+      "name": "ac_continuationrules_022",
+      "value": "Add an admission rule"
+    },
+    {
+      "name": "ac_continuationrules_023",
+      "value": "Payload exceeds {0} characters. Shorten the text"
+    },
+    {
+      "name": "ac_continuationrules_024",
+      "value": "Grant distributed data sync permission in Settings"
+    },
+    {
+      "name": "ac_continuationrules_025",
+      "value": "Admission rules are consistent"
+    },
+    {
+      "name": "ac_continuationrules_027",
+      "value": "Invalid interval: {0}"
+    },
+    {
+      "name": "ac_continuationrules_029",
+      "value": "No rule covers API {0}"
+    },
+    {
+      "name": "ac_scenebackupclipboard_001",
+      "value": "Copy entry has been released; clipboard was not accessed."
+    },
+    {
+      "name": "ac_scenebackupclipboard_002",
+      "value": "Waiting for the previous copy. Do not click again."
+    },
+    {
+      "name": "ac_scenebackupclipboard_003",
+      "value": "No complete business backup is available; clipboard unchanged."
+    },
+    {
+      "name": "ac_scenebackupclipboard_004",
+      "value": "Backup copied after leaving the original page. Manage the clipboard copy yourself."
+    },
+    {
+      "name": "ac_scenebackupclipboard_005",
+      "value": "Business backup copied to this device’s clipboard. It is unencrypted; keep it secure."
+    },
+    {
+      "name": "ac_scenebackupclipboard_006",
+      "value": "The original page was closed; copy results no longer update it."
+    },
+    {
+      "name": "ac_scenebackupclipboard_007",
+      "value": "Backup copy failed; business data and input are unchanged."
+    },
+    {
+      "name": "ac_scenemodel_001",
+      "value": "Chapter 1 · Continuation and drafts"
+    },
+    {
+      "name": "ac_scenemodel_002",
+      "value": "Continuation transfers current business state to another device. Business data, the system quick result and window loading are separate facts and must be observed separately."
+    },
+    {
+      "name": "ac_scenemodel_003",
+      "value": "Selection and unsaved changes are part of the context alongside note text. Successful transfer does not mean the user has agreed to overwrite a local draft."
+    },
+    {
+      "name": "ac_scenemodel_004",
+      "value": "Reading progress consists of the book version, chapter and paragraph anchor. This book is bundled with the app; only progress, not the book file, is transferred."
+    },
+    {
+      "name": "ac_scenemodel_005",
+      "value": "Chapter 2 · Versions and conflicts"
+    },
+    {
+      "name": "ac_scenemodel_006",
+      "value": "Document identity determines what a revision number means. Revisions of different documents cannot be merged by taking the maximum."
+    },
+    {
+      "name": "ac_scenemodel_007",
+      "value": "If local content is unsaved, let the user accept the incoming version or keep local content. A higher remote revision must not silently replace it."
+    },
+    {
+      "name": "ac_scenemodel_008",
+      "value": "Persist before replacing the page. Restore the old value after a failed write; if rollback cannot be confirmed, freeze further writes to avoid increasing uncertainty."
+    },
+    {
+      "name": "ac_scenemodel_009",
+      "value": "Chapter 3 · Continue working"
+    },
+    {
+      "name": "ac_scenemodel_010",
+      "value": "After restoration, the recipient can edit, add bookmarks, change chapters and initiate continuation again through the system entry."
+    },
+    {
+      "name": "ac_scenemodel_011",
+      "value": "A loaded page only proves its container is ready, not that the text selection or reading anchor is positioned. The actual business page must report positioning."
+    },
+    {
+      "name": "ac_scenemodel_012",
+      "value": "Controlled host tests check business rules; SDK builds check static contracts. Real cross-device behavior still requires authorized verification through the system entry."
+    },
+    {
+      "name": "ac_scenemodel_013",
+      "value": "Basic information"
+    },
+    {
+      "name": "ac_scenemodel_014",
+      "value": "Contact details"
+    },
+    {
+      "name": "ac_scenemodel_015",
+      "value": "Confirm submission"
+    },
+    {
+      "name": "ac_scenemodel_016",
+      "value": "Enter a name"
+    },
+    {
+      "name": "ac_scenemodel_017",
+      "value": "Name must be at most 40 characters"
+    },
+    {
+      "name": "ac_scenemodel_018",
+      "value": "Mobile number must have 11 digits and start with 1"
+    },
+    {
+      "name": "ac_scenemodel_019",
+      "value": "Enter an address"
+    },
+    {
+      "name": "ac_scenemodel_020",
+      "value": "Address must be at most 100 characters"
+    },
+    {
+      "name": "ac_scenemodel_021",
+      "value": "Confirm that the information is correct"
+    },
+    {
+      "name": "ac_scenemodel_022",
+      "value": "Note must be at most 200 characters"
+    },
+    {
+      "name": "ac_scenemodel_026",
+      "value": "Original text"
+    },
+    {
+      "name": "ac_scenemodel_027",
+      "value": "Invalid business payload type or length."
+    },
+    {
+      "name": "ac_scenemodel_028",
+      "value": "Invalid business protocol version, scene, identity or revision."
+    },
+    {
+      "name": "ac_scenemodel_029",
+      "value": "Business state failed note/reading adapter validation, or the local book version does not match."
+    },
+    {
+      "name": "ac_sceneworkbench_001",
+      "value": "Reading r{0} | Chapter {1}, paragraph {2}"
+    },
+    {
+      "name": "ac_sceneworkbench_002",
+      "value": "Form r{0} | {1} | {2}"
+    },
+    {
+      "name": "ac_sceneworkbench_003",
+      "value": "Unsaved"
+    },
+    {
+      "name": "ac_sceneworkbench_004",
+      "value": "Draft retained"
+    },
+    {
+      "name": "ac_sceneworkbench_005",
+      "value": "Note r{0} | {1}"
+    },
+    {
+      "name": "ac_sceneworkbench_006",
+      "value": "Unsaved changes"
+    },
+    {
+      "name": "ac_sceneworkbench_007",
+      "value": "Saved"
+    },
+    {
+      "name": "ac_sceneworkbench_008",
+      "value": "Invalid scene archive type; writes frozen"
+    },
+    {
+      "name": "ac_sceneworkbench_009",
+      "value": "Corrupt scene archive; original value preserved and writes frozen"
+    },
+    {
+      "name": "ac_sceneworkbench_010",
+      "value": "Scene storage read failed; disk state unknown and writes frozen"
+    },
+    {
+      "name": "ac_sceneworkbench_011",
+      "value": "Scene storage is frozen. Re-enter the Ability to inspect the archive"
+    },
+    {
+      "name": "ac_sceneworkbench_012",
+      "value": "Scene workspace validation failed or capacity exceeded"
+    },
+    {
+      "name": "ac_sceneworkbench_013",
+      "value": "Scene save failed and was compensated to the original archive; edits, revisions and history are unchanged"
+    },
+    {
+      "name": "ac_sceneworkbench_014",
+      "value": "Scene save and compensation failed; disk state unknown. Further writes are frozen and current edits are preserved"
+    },
+    {
+      "name": "ac_sceneworkbench_015",
+      "value": "Persisted {0} r{1}"
+    },
+    {
+      "name": "ac_sceneworkbench_016",
+      "value": "Revision limit reached. Save as a new document"
+    },
+    {
+      "name": "ac_sceneworkbench_017",
+      "value": "Unknown scene"
+    },
+    {
+      "name": "ac_sceneworkbench_018",
+      "value": "Unsaved changes exist. Save or discard them before switching"
+    },
+    {
+      "name": "ac_sceneworkbench_019",
+      "value": "Invalid title, text or selection"
+    },
+    {
+      "name": "ac_sceneworkbench_020",
+      "value": "Chapter or paragraph does not exist"
+    },
+    {
+      "name": "ac_sceneworkbench_021",
+      "value": "Bookmark already exists or limit reached"
+    },
+    {
+      "name": "ac_sceneworkbench_022",
+      "value": "Bookmark does not exist"
+    },
+    {
+      "name": "ac_sceneworkbench_023",
+      "value": "Invalid field name, length or Unicode"
+    },
+    {
+      "name": "ac_sceneworkbench_024",
+      "value": "Step does not exist"
+    },
+    {
+      "name": "ac_sceneworkbench_025",
+      "value": "Whole-form validation has not passed; cannot confirm completion"
+    },
+    {
+      "name": "ac_sceneworkbench_026",
+      "value": "Local business state is unsaved. Choose the incoming version or keep local state."
+    },
+    {
+      "name": "ac_sceneworkbench_027",
+      "value": "An older revision or different state at the same revision requires an explicit choice."
+    },
+    {
+      "name": "ac_sceneworkbench_028",
+      "value": "Accepting the conflict would exceed the revision limit; nothing written"
+    },
+    {
+      "name": "ac_sceneworkbench_029",
+      "value": "History does not exist"
+    },
+    {
+      "name": "ac_sceneworkbench_030",
+      "value": "History identity mismatch or revision limit reached"
+    },
+    {
+      "name": "ac_sceneworkbench_031",
+      "value": "Business restoration is in progress or the runtime was released. Backup generation is unavailable."
+    },
+    {
+      "name": "ac_sceneworkbench_032",
+      "value": "The current in-memory workspace failed format validation; no incomplete backup was generated."
+    },
+    {
+      "name": "ac_sceneworkbench_033",
+      "value": "Generated an in-memory rescue copy. The original archive remains frozen; disk was not repaired or overwritten."
+    },
+    {
+      "name": "ac_sceneworkbench_034",
+      "value": "Generated a business backup including unsaved content and history. The original text workspace is excluded."
+    },
+    {
+      "name": "ac_sceneworkbench_035",
+      "value": "Unable to generate a complete business backup; current edits are unchanged."
+    },
+    {
+      "name": "ac_sceneworkbench_036",
+      "value": "Business restoration is in progress or the runtime was released. Restore preview is unavailable."
+    },
+    {
+      "name": "ac_sceneworkbench_037",
+      "value": "Scene storage is frozen. Export an in-memory rescue copy; import writes are disabled."
+    },
+    {
+      "name": "ac_sceneworkbench_038",
+      "value": "Business restoration is in progress or the runtime was released. Local restoration is unavailable."
+    },
+    {
+      "name": "ac_sceneworkbench_039",
+      "value": "Scene storage is frozen; current edits are preserved and no further writes occurred."
+    },
+    {
+      "name": "ac_sceneworkbench_041",
+      "value": "Restore scope changed. Preview the new scope again."
+    },
+    {
+      "name": "ac_sceneworkbench_042",
+      "value": "Explicitly confirm replacing unsaved business changes before restoring."
+    },
+    {
+      "name": "ac_sceneworkbench_043",
+      "value": "Business workspace is unchanged; no repeated restoration is needed."
+    },
+    {
+      "name": "ac_sceneworkbench_044",
+      "value": "Local business workspace restored."
+    },
+    {
+      "name": "ac_sceneworkbench_045",
+      "value": "Selected business scenes restored; unselected scenes preserved."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_001",
+      "value": "Invalid backup format or business state."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_002",
+      "value": "Invalid restore scope. Only note, reading and form are supported."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_004",
+      "value": "Paste the complete business workspace backup."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_005",
+      "value": "Backup exceeds workspace capacity; import will not be truncated."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_006",
+      "value": "Invalid backup format, business fields, history relationships or local book version."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_009",
+      "value": "Selection"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_010",
+      "value": "Saved baseline"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_011",
+      "value": "Chapter and paragraph"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_012",
+      "value": "Bookmarks"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_017",
+      "value": "Step"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_018",
+      "value": "Confirmation state"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_019",
+      "value": "Not selected; keep local"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_020",
+      "value": "Clear and create an empty document"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_021",
+      "value": "Same document"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_022",
+      "value": "Restoring the same document requires a new revision, but the revision limit was reached."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_023",
+      "value": "Replace with backup document"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_024",
+      "value": "Restoration would exceed the revision limit for the same identity; no workspace data was written."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_025",
+      "value": "Restore plan exceeds capacity or violates the workspace format."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_026",
+      "value": "Restore plan failed complete workspace validation; nothing written."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_027",
+      "value": "Backup validated. Review the differences before confirming full workspace restoration."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_028",
+      "value": "Backup validated. Restore only selected scenes; keep unselected scenes and drafts."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_029",
+      "value": "Backup matches selected business state; no repeated write is needed."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_030",
+      "value": "Scope: selected scenes and their history only; excludes the original text workspace."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_031",
+      "value": "Restore: {0}."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_032",
+      "value": "Keep unselected: {0}."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_033",
+      "value": "{0}: not selected. Keep local identity, saved baseline and history; do not import this scene."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_034",
+      "value": "Changed fields: {0}; "
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_035",
+      "value": "No business field changes"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_036",
+      "value": "History: {0} → {1} entries"
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_037",
+      "value": "This scene is absent from the backup. Confirmation clears the corresponding local scene."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_038",
+      "value": "Note retains unsaved content and its saved baseline. Save or discard after restoration."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_039",
+      "value": "Replace unsaved business state: {0}."
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_040",
+      "value": "Unselected unsaved drafts stay only in memory and are not written in this operation: "
+    },
+    {
+      "name": "ac_sceneworkspacebackupmodel_041",
+      "value": "Only selected scene histories are replaced; unselected history is preserved. Active business context: {0}."
+    },
+    {
+      "name": "ac_retrypolicy_001",
+      "value": "Network error"
+    },
+    {
+      "name": "ac_retrypolicy_002",
+      "value": "Request timeout"
+    },
+    {
+      "name": "ac_retrypolicy_003",
+      "value": "Insufficient permission"
+    },
+    {
+      "name": "ac_retrypolicy_004",
+      "value": "Incompatible version"
+    },
+    {
+      "name": "ac_retrypolicy_005",
+      "value": "Device busy"
+    },
+    {
+      "name": "ac_retrypolicy_006",
+      "value": "Storage error"
+    },
+    {
+      "name": "ac_retrypolicy_007",
+      "value": "Invalid payload"
+    },
+    {
+      "name": "ac_retrypolicy_008",
+      "value": "Unknown reason"
+    },
+    {
+      "name": "ac_retrypolicy_009",
+      "value": "No retry"
+    },
+    {
+      "name": "ac_retrypolicy_010",
+      "value": "Fixed interval"
+    },
+    {
+      "name": "ac_retrypolicy_011",
+      "value": "Linear backoff"
+    },
+    {
+      "name": "ac_retrypolicy_012",
+      "value": "Exponential backoff"
+    },
+    {
+      "name": "ac_retrypolicy_013",
+      "value": "Up to {0} attempts | Starting at {1} ms"
+    },
+    {
+      "name": "ac_retrypolicy_014",
+      "value": "Use exponential backoff for network instability, up to four attempts"
+    },
+    {
+      "name": "ac_retrypolicy_015",
+      "value": "Use one fixed-interval retry on a known weak network"
+    },
+    {
+      "name": "ac_retrypolicy_016",
+      "value": "Use linear backoff after timeouts to avoid repeated overload"
+    },
+    {
+      "name": "ac_retrypolicy_017",
+      "value": "Do not automatically retry a timed-out long task; let the user decide"
+    },
+    {
+      "name": "ac_retrypolicy_018",
+      "value": "Retry permission failures only after the user grants permission"
+    },
+    {
+      "name": "ac_retrypolicy_019",
+      "value": "Upgrade the app or system for incompatible versions"
+    },
+    {
+      "name": "ac_retrypolicy_020",
+      "value": "Retry a busy device three times at a fixed interval"
+    },
+    {
+      "name": "ac_retrypolicy_021",
+      "value": "Use two linear-backoff attempts for mild load"
+    },
+    {
+      "name": "ac_retrypolicy_022",
+      "value": "Retry a failed storage write after one second"
+    },
+    {
+      "name": "ac_retrypolicy_023",
+      "value": "Retry insufficient storage only after the user frees space"
+    },
+    {
+      "name": "ac_retrypolicy_024",
+      "value": "Correct invalid payload content before retrying"
+    },
+    {
+      "name": "ac_retrypolicy_025",
+      "value": "Make only one conservative retry for an unknown reason"
+    },
+    {
+      "name": "ac_retrypolicy_026",
+      "value": "Allow one additional backoff for background continuation"
+    },
+    {
+      "name": "ac_retrypolicy_027",
+      "value": "Use exponential backoff for foreground upload"
+    },
+    {
+      "name": "ac_retrypolicy_028",
+      "value": "Use exponential backoff for heavily loaded devices"
+    },
+    {
+      "name": "ac_retrypolicy_029",
+      "value": "Use linear backoff for temporary write unavailability"
+    },
+    {
+      "name": "ac_retrypolicy_030",
+      "value": "Stop automatic retries after repeated unknown failures"
+    },
+    {
+      "name": "ac_retrypolicy_031",
+      "value": "Record only; show a page notice without retrying"
+    },
+    {
+      "name": "ac_retrypolicy_032",
+      "value": "Allow one confirming retry after authorization returns"
+    },
+    {
+      "name": "ac_retrypolicy_033",
+      "value": "Do not retry payload issues; show validation results"
+    },
+    {
+      "name": "ac_retrypolicy_034",
+      "value": "No matching rule"
+    },
+    {
+      "name": "ac_retrypolicy_035",
+      "value": "Attempt {0} | {1} | Wait {2} ms | "
+    },
+    {
+      "name": "ac_retrypolicy_038",
+      "value": "Succeeded"
+    },
+    {
+      "name": "ac_retrypolicy_039",
+      "value": "Attempts exhausted"
+    },
+    {
+      "name": "ac_retrypolicy_040",
+      "value": "Retry available"
+    },
+    {
+      "name": "ac_retrypolicy_041",
+      "value": "{0} | {1} | {2} attempts | Total wait {3} ms"
+    },
+    {
+      "name": "ac_retrypolicy_042",
+      "value": "Retry rules are consistent"
+    },
+    {
+      "name": "ac_retrypolicy_044",
+      "value": "Multiple attempts declared for a no-retry rule: {0}"
+    },
+    {
+      "name": "ac_retrypolicy_045",
+      "value": "Retry enabled with zero initial delay: {0}"
+    },
+    {
+      "name": "ac_retrypolicy_046",
+      "value": "Maximum delay is smaller than initial delay: {0}"
+    },
+    {
+      "name": "ac_retrypolicy_048",
+      "value": "Missing ID: {0}"
+    },
+    {
+      "name": "ac_retrypolicy_049",
+      "value": "No policy for reason: {0}"
+    },
+    {
+      "name": "ac_retrypolicy_050",
+      "value": "{0}: {1} policies, {2} retryable"
+    },
+    {
+      "name": "ac_index_141",
+      "value": "Learning record"
+    },
+    {
+      "name": "ac_index_142",
+      "value": "Peer record"
+    },
+    {
+      "name": "ac_index_143",
+      "value": "Expense form (partially filled)"
+    },
+    {
+      "name": "ac_index_144",
+      "value": "API document reading progress"
+    },
+    {
+      "name": "ac_index_145",
+      "value": "Learning record (local)"
+    },
+    {
+      "name": "ac_index_146",
+      "value": "Revision 1"
+    },
+    {
+      "name": "ac_index_147",
+      "value": "Revision 2"
+    },
+    {
+      "name": "ac_index_148",
+      "value": "Local"
+    },
+    {
+      "name": "ac_index_149",
+      "value": "Peer"
+    },
+    {
+      "name": "ac_index_150",
+      "value": "Scene example"
+    },
+    {
+      "name": "ac_index_151",
+      "value": "First sample line\nSecond sample line"
+    },
+    {
+      "name": "ac_index_152",
+      "value": "Procurement"
+    }
+  ]
+}
