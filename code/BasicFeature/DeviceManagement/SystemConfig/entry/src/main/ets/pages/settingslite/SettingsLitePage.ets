@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,13 +36,19 @@ struct SettingsLitePage {
   /** 视图模型实例 */
   @State viewModel: SettingsLiteViewModel = new SettingsLiteViewModel();
   /** PIN 设置状态文本 */
-  @State pinStatusText: string = '空闲';
+  @State pinStatusText: ResourceStr = $r('app.string.status_idle');
   /** NFC 设置状态文本 */
-  @State nfcStatusText: string = '空闲';
+  @State nfcStatusText: ResourceStr = $r('app.string.status_idle');
   /** 双击设置状态文本 */
-  @State doubleClickStatusText: string = '空闲';
+  @State doubleClickStatusText: ResourceStr = $r('app.string.status_idle');
+  /** PIN 设置操作状态 */
+  @State pinStatus: SettingsOperationStatus = SettingsOperationStatus.IDLE;
+  /** NFC 设置操作状态 */
+  @State nfcStatus: SettingsOperationStatus = SettingsOperationStatus.IDLE;
+  /** 双击设置操作状态 */
+  @State doubleClickStatus: SettingsOperationStatus = SettingsOperationStatus.IDLE;
   /** 双击查询结果文本 */
-  @State clickResultDisplay: string = '未查询';
+  @State clickResultDisplay: ResourceStr = $r('app.string.value_not_queried');
   /** 日志列表 */
   @State displayLogs: string[] = [];
   /** 详情文本 */
@@ -76,24 +82,28 @@ struct SettingsLitePage {
     this.pinStatusText = this.viewModel.getItemStatusText(this.viewModel.pinModel);
     this.nfcStatusText = this.viewModel.getItemStatusText(this.viewModel.nfcModel);
     this.doubleClickStatusText = this.viewModel.getItemStatusText(this.viewModel.doubleClickModel);
-    this.clickResultDisplay = this.viewModel.clickResultText || '未查询';
+    this.pinStatus = this.viewModel.pinModel.operationStatus;
+    this.nfcStatus = this.viewModel.nfcModel.operationStatus;
+    this.doubleClickStatus = this.viewModel.doubleClickModel.operationStatus;
+    this.clickResultDisplay = this.viewModel.clickResultText || $r('app.string.value_not_queried');
     this.displayLogs = this.viewModel.getLogs();
     this.detailText = this.viewModel.getAllSettingsDetail();
   }
 
   /**
    * 获取状态标签的文字颜色。
-   * @param {string} statusText - 状态文本
+   * 基于操作状态枚举判断，不依赖显示文本。
+   * @param {SettingsOperationStatus} status - 操作状态
    * @returns {string} 颜色值
    */
-  private getStatusTextColor(statusText: string): string {
-    switch (statusText) {
-      case '操作成功':
+  private getStatusTextColor(status: SettingsOperationStatus): string {
+    switch (status) {
+      case SettingsOperationStatus.SUCCESS:
         return PageConstants.COLOR_SUCCESS;
-      case '操作失败':
+      case SettingsOperationStatus.FAILED:
         return PageConstants.COLOR_ERROR;
-      case '打开页面中':
-      case '查询中':
+      case SettingsOperationStatus.OPENING:
+      case SettingsOperationStatus.QUERYING:
         return PageConstants.COLOR_WARNING;
       default:
         return PageConstants.COLOR_TEXT_HINT;
@@ -102,17 +112,18 @@ struct SettingsLitePage {
 
   /**
    * 获取状态标签的背景颜色。
-   * @param {string} statusText - 状态文本
+   * 基于操作状态枚举判断，不依赖显示文本。
+   * @param {SettingsOperationStatus} status - 操作状态
    * @returns {string} 颜色值
    */
-  private getStatusBgColor(statusText: string): string {
-    switch (statusText) {
-      case '操作成功':
+  private getStatusBgColor(status: SettingsOperationStatus): string {
+    switch (status) {
+      case SettingsOperationStatus.SUCCESS:
         return '#E8F5E9';
-      case '操作失败':
+      case SettingsOperationStatus.FAILED:
         return '#FFEBEE';
-      case '打开页面中':
-      case '查询中':
+      case SettingsOperationStatus.OPENING:
+      case SettingsOperationStatus.QUERYING:
         return '#FFF3E0';
       default:
         return '#F0F0F0';
@@ -127,7 +138,7 @@ struct SettingsLitePage {
     Column() {
       // 标题栏
       Row() {
-        Text(PageConstants.TITLE_SETTINGS_LITE)
+        Text($r('app.string.page_settings_lite'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
@@ -135,7 +146,7 @@ struct SettingsLitePage {
       .width('100%')
       .height(PageConstants.NAV_BAR_HEIGHT)
       .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
       // 可滚动内容区域
@@ -143,30 +154,30 @@ struct SettingsLitePage {
         Column({ space: PageConstants.SECTION_SPACING }) {
           // PIN 设置卡片
           InfoCard({
-            title: 'PIN 码设置',
+            title: $r('app.string.card_pin_title'),
             subtitle: 'settingsLite.openPinSettingPage()'
           }) {
             Column({ space: 8 }) {
               Row() {
-                Text('状态:')
+                Text($r('app.string.label_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(60)
                 StatusBadge({
                   text: this.pinStatusText,
-                  textColor: this.getStatusTextColor(this.pinStatusText),
-                  bgColor: this.getStatusBgColor(this.pinStatusText)
+                  textColor: this.getStatusTextColor(this.pinStatus),
+                  bgColor: this.getStatusBgColor(this.pinStatus)
                 })
               }
               .width('100%')
               .alignItems(VerticalAlign.Center)
 
               ActionButton({
-                buttonText: '打开 PIN 设置页面',
+                buttonText: $r('app.string.btn_open_pin_page'),
                 buttonType: 'primary',
                 isDisabled: this.viewModel.isLoading,
-                onButtonClick: () => {
-                  this.viewModel.openPinSettings();
+                onButtonClick: async () => {
+                  await this.viewModel.openPinSettings();
                   this.refreshDisplay();
                 }
               })
@@ -176,30 +187,30 @@ struct SettingsLitePage {
 
           // NFC 设置卡片
           InfoCard({
-            title: 'NFC 设置',
+            title: $r('app.string.card_nfc_title'),
             subtitle: 'settingsLite.openNfcSettingsPage()'
           }) {
             Column({ space: 8 }) {
               Row() {
-                Text('状态:')
+                Text($r('app.string.label_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(60)
                 StatusBadge({
                   text: this.nfcStatusText,
-                  textColor: this.getStatusTextColor(this.nfcStatusText),
-                  bgColor: this.getStatusBgColor(this.nfcStatusText)
+                  textColor: this.getStatusTextColor(this.nfcStatus),
+                  bgColor: this.getStatusBgColor(this.nfcStatus)
                 })
               }
               .width('100%')
               .alignItems(VerticalAlign.Center)
 
               ActionButton({
-                buttonText: '打开 NFC 设置页面',
+                buttonText: $r('app.string.btn_open_nfc_page'),
                 buttonType: 'primary',
                 isDisabled: this.viewModel.isLoading,
-                onButtonClick: () => {
-                  this.viewModel.openNfcSettings();
+                onButtonClick: async () => {
+                  await this.viewModel.openNfcSettings();
                   this.refreshDisplay();
                 }
               })
@@ -209,26 +220,26 @@ struct SettingsLitePage {
 
           // 双击设置卡片
           InfoCard({
-            title: '双击设置',
+            title: $r('app.string.card_double_click_title'),
             subtitle: 'settingsLite.openDoubleClickSettingsPage() / isDoubleClickAppForSelf()'
           }) {
             Column({ space: 8 }) {
               Row() {
-                Text('状态:')
+                Text($r('app.string.label_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(60)
                 StatusBadge({
                   text: this.doubleClickStatusText,
-                  textColor: this.getStatusTextColor(this.doubleClickStatusText),
-                  bgColor: this.getStatusBgColor(this.doubleClickStatusText)
+                  textColor: this.getStatusTextColor(this.doubleClickStatus),
+                  bgColor: this.getStatusBgColor(this.doubleClickStatus)
                 })
               }
               .width('100%')
               .alignItems(VerticalAlign.Center)
 
               Row() {
-                Text('查询结果:')
+                Text($r('app.string.label_query_result'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(80)
@@ -240,17 +251,17 @@ struct SettingsLitePage {
               .width('100%')
 
               ActionButton({
-                buttonText: '打开双击设置页面',
+                buttonText: $r('app.string.btn_open_double_click_page'),
                 buttonType: 'primary',
                 isDisabled: this.viewModel.isLoading,
-                onButtonClick: () => {
-                  this.viewModel.openDoubleClickSettings();
+                onButtonClick: async () => {
+                  await this.viewModel.openDoubleClickSettings();
                   this.refreshDisplay();
                 }
               })
 
               ActionButton({
-                buttonText: '查询双击应用',
+                buttonText: $r('app.string.btn_query_double_click'),
                 buttonType: 'secondary',
                 isDisabled: this.viewModel.isLoading,
                 onButtonClick: () => {
@@ -265,7 +276,7 @@ struct SettingsLitePage {
           // 操作按钮区域
           Column({ space: PageConstants.ITEM_SPACING }) {
             ActionButton({
-              buttonText: '重置',
+              buttonText: $r('app.string.btn_reset'),
               buttonType: 'danger',
               isDisabled: false,
               onButtonClick: () => {
@@ -279,8 +290,8 @@ struct SettingsLitePage {
           // 详情信息卡片
           if (this.detailText.length > 0) {
             InfoCard({
-              title: '详细数据',
-              subtitle: 'SettingsItemModel JSON 表示'
+              title: $r('app.string.card_detail_title'),
+              subtitle: $r('app.string.card_detail_subtitle_settings')
             }) {
               Text(this.detailText)
                 .fontSize(PageConstants.FONT_SIZE_SMALL)
@@ -292,7 +303,7 @@ struct SettingsLitePage {
 
           // 日志面板
           LogPanel({
-            panelTitle: '操作日志',
+            panelTitle: $r('app.string.log_panel_title'),
             logs: this.displayLogs,
             maxHeight: 200
           })

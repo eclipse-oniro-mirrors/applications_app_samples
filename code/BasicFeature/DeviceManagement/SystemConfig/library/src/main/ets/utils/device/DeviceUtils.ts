@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,8 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { deviceInfo } from '@kit.BasicServicesKit';
+import { display } from '@kit.ArkUI';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
 
 const TAG: string = SystemConfigConstants.TAG;
@@ -33,10 +35,6 @@ const DEVICE_TYPE_TV: string = 'tv';
 const DEVICE_TYPE_WEARABLE: string = 'wearable';
 /** 设备类型 - 车机 */
 const DEVICE_TYPE_CAR: string = 'car';
-/** 默认屏幕宽度（像素） */
-const DEFAULT_SCREEN_WIDTH: number = 1080;
-/** 默认屏幕高度（像素） */
-const DEFAULT_SCREEN_HEIGHT: number = 2340;
 
 // ========================================
 // 设备信息工具类
@@ -44,22 +42,23 @@ const DEFAULT_SCREEN_HEIGHT: number = 2340;
 
 /**
  * 设备信息工具类。
- * 提供静态方法获取设备类型、屏幕尺寸、系统版本等设备相关信息。
+ * 基于 deviceInfo 与 display 模块提供静态方法，
+ * 获取设备类型、屏幕尺寸、系统版本等真实设备信息。
  */
 export class DeviceUtils {
   /** 缓存的设备类型 */
   private static cachedDeviceType: string = '';
   /** 缓存的设备 ID */
   private static cachedDeviceId: string = '';
-  /** 屏幕宽度（像素） */
-  private static screenWidth: number = DEFAULT_SCREEN_WIDTH;
-  /** 屏幕高度（像素） */
-  private static screenHeight: number = DEFAULT_SCREEN_HEIGHT;
+  /** 屏幕宽度（像素，0 表示尚未获取） */
+  private static screenWidth: number = 0;
+  /** 屏幕高度（像素，0 表示尚未获取） */
+  private static screenHeight: number = 0;
 
   /**
    * 获取设备类型。
-   * 根据设备显示信息返回设备类型标识，
-   * 支持 default、tablet、tv、wearable、car 等类型。
+   * 读取 deviceInfo.deviceType 真实设备类型标识，
+   * 归一化为 default、tablet、tv、wearable、car 等类型。
    * @returns {string} 设备类型字符串
    */
   static getDeviceType(): string {
@@ -70,17 +69,18 @@ export class DeviceUtils {
     hilog.info(DOMAIN, TAG, 'DeviceUtils getDeviceType: detecting device type');
     let deviceType: string = DEVICE_TYPE_DEFAULT;
     try {
-      const displayInfo: string = DeviceUtils.getDisplayInfo();
-      if (displayInfo.indexOf('tablet') >= 0 || displayInfo.indexOf('pad') >= 0) {
+      const rawType: string = deviceInfo.deviceType.toLowerCase();
+      if (rawType === DEVICE_TYPE_TABLET) {
         deviceType = DEVICE_TYPE_TABLET;
-      } else if (displayInfo.indexOf('tv') >= 0 || displayInfo.indexOf('smarttv') >= 0) {
+      } else if (rawType === DEVICE_TYPE_TV) {
         deviceType = DEVICE_TYPE_TV;
-      } else if (displayInfo.indexOf('wearable') >= 0 || displayInfo.indexOf('watch') >= 0) {
+      } else if (rawType === DEVICE_TYPE_WEARABLE) {
         deviceType = DEVICE_TYPE_WEARABLE;
-      } else if (displayInfo.indexOf('car') >= 0 || displayInfo.indexOf('vehicle') >= 0) {
+      } else if (rawType === DEVICE_TYPE_CAR) {
         deviceType = DEVICE_TYPE_CAR;
       } else {
-        deviceType = DEVICE_TYPE_DEFAULT;
+        // 未归一化的真实设备类型原样返回，空值兜底为 default 以免缓存空串
+        deviceType = rawType.length > 0 ? rawType : DEVICE_TYPE_DEFAULT;
       }
       hilog.info(DOMAIN, TAG, 'DeviceUtils getDeviceType: detected=%{public}s', deviceType);
     } catch (error) {
@@ -92,13 +92,22 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取显示信息字符串。
-   * 模拟从 device.display 获取设备标识信息。
-   * @returns {string} 显示信息
+   * 从 display 模块惰性获取真实屏幕尺寸。
+   * 获取失败时保持当前值（可能为 0），不伪造默认尺寸。
    */
-  private static getDisplayInfo(): string {
-    hilog.debug(DOMAIN, TAG, 'DeviceUtils getDisplayInfo: fetching display info');
-    return DEVICE_TYPE_DEFAULT;
+  private static ensureScreenSize(): void {
+    if (DeviceUtils.screenWidth > 0 && DeviceUtils.screenHeight > 0) {
+      return;
+    }
+    try {
+      const defaultDisplay: display.Display = display.getDefaultDisplaySync();
+      DeviceUtils.screenWidth = defaultDisplay.width;
+      DeviceUtils.screenHeight = defaultDisplay.height;
+      hilog.info(DOMAIN, TAG, 'DeviceUtils ensureScreenSize: width=%{public}d, height=%{public}d',
+        DeviceUtils.screenWidth, DeviceUtils.screenHeight);
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'DeviceUtils ensureScreenSize: failed to read display size');
+    }
   }
 
   /**
@@ -107,6 +116,7 @@ export class DeviceUtils {
    * @returns {number} 屏幕宽度（像素）
    */
   static getScreenWidth(): number {
+    DeviceUtils.ensureScreenSize();
     hilog.debug(DOMAIN, TAG, 'DeviceUtils getScreenWidth: width=%{public}d', DeviceUtils.screenWidth);
     return DeviceUtils.screenWidth;
   }
@@ -117,6 +127,7 @@ export class DeviceUtils {
    * @returns {number} 屏幕高度（像素）
    */
   static getScreenHeight(): number {
+    DeviceUtils.ensureScreenSize();
     hilog.debug(DOMAIN, TAG, 'DeviceUtils getScreenHeight: height=%{public}d', DeviceUtils.screenHeight);
     return DeviceUtils.screenHeight;
   }
@@ -139,12 +150,22 @@ export class DeviceUtils {
 
   /**
    * 判断当前设备是否为模拟器。
-   * 通过检查设备类型标识中是否包含模拟器特征来判断。
+   * 通过 deviceInfo 的 productModel / marketName / displayVersion
+   * 中的模拟器特征标识判断，default 设备类型不再视为模拟器。
    * @returns {boolean} 是否为模拟器
    */
   static isEmulator(): boolean {
-    const deviceType: string = DeviceUtils.getDeviceType();
-    const isEmu: boolean = deviceType === 'emulator' || deviceType === SystemConfigConstants.DEFAULT_CHANNEL_ID;
+    let isEmu: boolean = false;
+    try {
+      const model: string = deviceInfo.productModel.toLowerCase();
+      const market: string = deviceInfo.marketName.toLowerCase();
+      const displayVersion: string = deviceInfo.displayVersion.toLowerCase();
+      isEmu = model.indexOf('emulator') >= 0 || model.indexOf('virt') >= 0 ||
+        market.indexOf('emulator') >= 0 || displayVersion.indexOf('emulator') >= 0;
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'DeviceUtils isEmulator: detection failed, returning false');
+      isEmu = false;
+    }
     hilog.debug(DOMAIN, TAG, 'DeviceUtils isEmulator: result=%{public}s', isEmu.toString());
     return isEmu;
   }
@@ -155,7 +176,7 @@ export class DeviceUtils {
    * @returns {boolean} 是否为竖屏
    */
   static isPortrait(): boolean {
-    const result: boolean = DeviceUtils.screenHeight >= DeviceUtils.screenWidth;
+    const result: boolean = DeviceUtils.getScreenHeight() >= DeviceUtils.getScreenWidth();
     hilog.debug(DOMAIN, TAG, 'DeviceUtils isPortrait: result=%{public}s', result.toString());
     return result;
   }
@@ -166,7 +187,7 @@ export class DeviceUtils {
    * @returns {boolean} 是否为横屏
    */
   static isLandscape(): boolean {
-    const result: boolean = DeviceUtils.screenWidth > DeviceUtils.screenHeight;
+    const result: boolean = DeviceUtils.getScreenWidth() > DeviceUtils.getScreenHeight();
     hilog.debug(DOMAIN, TAG, 'DeviceUtils isLandscape: result=%{public}s', result.toString());
     return result;
   }
@@ -207,8 +228,8 @@ export class DeviceUtils {
     }
     hilog.info(DOMAIN, TAG, 'DeviceUtils getDeviceId: generating device id');
     const rawInfo: string = DeviceUtils.getDeviceType() + '_' +
-      DeviceUtils.screenWidth.toString() + '_' +
-      DeviceUtils.screenHeight.toString() + '_' +
+      DeviceUtils.getScreenWidth().toString() + '_' +
+      DeviceUtils.getScreenHeight().toString() + '_' +
       DeviceUtils.getOsVersion();
     let hash: number = 0;
     for (let i: number = 0; i < rawInfo.length; i++) {
@@ -225,23 +246,35 @@ export class DeviceUtils {
 
   /**
    * 获取操作系统版本。
-   * 返回当前设备的 OpenHarmony 系统版本号。
+   * 返回当前设备的 OpenHarmony 系统版本全称（deviceInfo.osFullName）。
    * @returns {string} 系统版本号
    */
   static getOsVersion(): string {
     hilog.debug(DOMAIN, TAG, 'DeviceUtils getOsVersion: fetching OS version');
-    const osVersion: string = 'OpenHarmony 5.0';
+    let osVersion: string = '';
+    try {
+      osVersion = deviceInfo.osFullName;
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'DeviceUtils getOsVersion: detection failed');
+      osVersion = '';
+    }
     hilog.info(DOMAIN, TAG, 'DeviceUtils getOsVersion: version=%{public}s', osVersion);
     return osVersion;
   }
 
   /**
    * 获取 API 版本号。
-   * 返回当前设备支持的 API 版本。
+   * 返回当前设备 SDK 支持的 API 版本（deviceInfo.sdkApiVersion）。
    * @returns {number} API 版本号
    */
   static getApiVersion(): number {
-    const apiVersion: number = 26;
+    let apiVersion: number = 0;
+    try {
+      apiVersion = deviceInfo.sdkApiVersion;
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'DeviceUtils getApiVersion: detection failed');
+      apiVersion = 0;
+    }
     hilog.debug(DOMAIN, TAG, 'DeviceUtils getApiVersion: apiVersion=%{public}d', apiVersion);
     return apiVersion;
   }
@@ -264,7 +297,7 @@ export class DeviceUtils {
     hilog.info(DOMAIN, TAG, 'DeviceUtils clearCache: clearing all cached device info');
     DeviceUtils.cachedDeviceType = '';
     DeviceUtils.cachedDeviceId = '';
-    DeviceUtils.screenWidth = DEFAULT_SCREEN_WIDTH;
-    DeviceUtils.screenHeight = DEFAULT_SCREEN_HEIGHT;
+    DeviceUtils.screenWidth = 0;
+    DeviceUtils.screenHeight = 0;
   }
 }

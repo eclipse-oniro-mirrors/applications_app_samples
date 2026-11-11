@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
 
 const TAG: string = SystemConfigConstants.TAG;
@@ -23,6 +24,10 @@ const DOMAIN: number = SystemConfigConstants.DOMAIN;
 const BASE64_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 /** 十六进制字符表 */
 const HEX_CHARS: string = '0123456789abcdef';
+/** Nonce 使用的 Base62 字符表 */
+const NONCE_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+/** Base62 无偏取样的字节阈值（62 * 4 = 248，248 以上字节丢弃重取） */
+const NONCE_REJECT_THRESHOLD: number = 248;
 /**
  * 加密与哈希工具类。
  */
@@ -78,90 +83,87 @@ export class EncryptionUtils {
   }
 
   /**
-   * 计算字符串的 MD5 哈希值（简化模拟）。
+   * 计算字符串的 MD5 哈希值（标准 MD5，基于 cryptoFramework）。
    * @param {string} str - 待哈希的字符串
    * @returns {string} 32 位十六进制哈希值
    */
   static md5Hash(str: string): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils md5Hash: computing, length=%{public}d', str.length);
-    let h0: number = 0x67452301;
-    let h1: number = 0xEFCDAB89;
-    let h2: number = 0x98BADCFE;
-    let h3: number = 0x10325476;
-    for (let i: number = 0; i < str.length; i++) {
-      const ch: number = str.charCodeAt(i);
-      h0 = (h0 ^ ((ch * 0x1B873593) >>> 0)) >>> 0;
-      h1 = (h1 + ((h0 ^ (h0 >>> 16)) * 0x85EBCA6B) >>> 0) >>> 0;
-      h2 = (h2 ^ ((h1 + (h1 >>> 13)) * 0xC2B2AE35) >>> 0) >>> 0;
-      h3 = (h3 + ((h2 ^ (h2 >>> 16)) * 0x27D4EB2F) >>> 0) >>> 0;
-      h0 = (h0 + ((h3 ^ (h3 >>> 15)) * 0x1B873593) >>> 0) >>> 0;
-    }
-    const result: string = EncryptionUtils.padHex(h0 ^ (h0 >>> 16)) +
-      EncryptionUtils.padHex(h1 ^ (h1 >>> 16)) +
-      EncryptionUtils.padHex(h2 ^ (h2 >>> 16)) +
-      EncryptionUtils.padHex(h3 ^ (h3 >>> 16));
-    hilog.debug(DOMAIN, TAG, 'EncryptionUtils md5Hash: hash computed');
-    return result;
+    return EncryptionUtils.digestHex('MD5', str);
   }
 
   /**
-   * 计算字符串的 SHA-256 哈希值（简化模拟）。
+   * 计算字符串的 SHA-256 哈希值（标准 SHA-256，基于 cryptoFramework）。
    * @param {string} str - 待哈希的字符串
    * @returns {string} 64 位十六进制哈希值
    */
   static sha256Hash(str: string): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils sha256Hash: computing, length=%{public}d', str.length);
-    const state: number[] = [
-      0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A,
-      0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19
-    ];
-    for (let round: number = 0; round < 4; round++) {
-      for (let i: number = 0; i < str.length; i++) {
-        const ch: number = str.charCodeAt(i) + round * 37;
-        state[0] = (state[0] ^ ((ch * 0x85EBCA6B) >>> 0)) >>> 0;
-        state[1] = (state[1] + ((state[0] ^ (state[0] >>> 16)) * 0xC2B2AE35) >>> 0) >>> 0;
-        state[2] = (state[2] ^ ((state[1] + (state[1] >>> 13)) * 0x27D4EB2F) >>> 0) >>> 0;
-        state[3] = (state[3] + ((state[2] ^ (state[2] >>> 16)) * 0x1B873593) >>> 0) >>> 0;
-        state[4] = (state[4] ^ ((state[3] + (state[3] >>> 15)) >>> 0)) >>> 0;
-        state[5] = (state[5] + ((state[4] ^ (state[4] >>> 13)) * 0x85EBCA6B) >>> 0) >>> 0;
-        state[6] = (state[6] ^ ((state[5] + (state[5] >>> 16)) * 0xC2B2AE35) >>> 0) >>> 0;
-        state[7] = (state[7] + ((state[6] ^ (state[6] >>> 13)) * 0x27D4EB2F) >>> 0) >>> 0;
-      }
-    }
-    let result: string = '';
-    for (let i: number = 0; i < state.length; i++) {
-      result += EncryptionUtils.padHex(state[i]);
-    }
-    hilog.debug(DOMAIN, TAG, 'EncryptionUtils sha256Hash: hash computed');
-    return result;
+    return EncryptionUtils.digestHex('SHA256', str);
   }
 
   /**
-   * 生成指定长度的随机 Nonce 字符串。
+   * 使用 cryptoFramework 消息摘要算法计算 UTF-8 字节串的哈希。
+   * @param {string} algName - 摘要算法名称（MD5 / SHA256）
+   * @param {string} str - 待哈希的字符串
+   * @returns {string} 十六进制哈希值
+   */
+  private static digestHex(algName: string, str: string): string {
+    const md: cryptoFramework.Md = cryptoFramework.createMd(algName);
+    const bytes: number[] = EncryptionUtils.stringToBytes(str);
+    // 空输入不构造空 DataBlob 调用 updateSync（部分实现判为非法参数），
+    // 直接 digestSync 即得到零字节的标准摘要（MD5("")/SHA256("") 标准向量）
+    if (bytes.length > 0) {
+      const input: cryptoFramework.DataBlob = { data: new Uint8Array(bytes) };
+      md.updateSync(input);
+    }
+    const result: cryptoFramework.DataBlob = md.digestSync();
+    hilog.debug(DOMAIN, TAG, 'EncryptionUtils digestHex: %{public}s hash computed', algName);
+    const hexBytes: number[] = [];
+    for (let i: number = 0; i < result.data.length; i++) {
+      hexBytes.push(result.data[i]);
+    }
+    return EncryptionUtils.bytesToHex(hexBytes);
+  }
+
+  /**
+   * 生成指定长度的随机 Nonce 字符串（密码学安全随机数 + 拒绝采样）。
    * @param {number} length - Nonce 长度，必须大于 0
    * @returns {string} 随机 Nonce 字符串
    */
   static generateNonce(length: number): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils generateNonce: length=%{public}d', length);
-    const chars: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    if (length <= 0) {
+      return '';
+    }
+    const random: cryptoFramework.Random = cryptoFramework.createRandom();
     let nonce: string = '';
-    for (let i: number = 0; i < length; i++) {
-      nonce += chars.charAt(Math.floor(Math.random() * chars.length));
+    while (nonce.length < length) {
+      const remain: number = length - nonce.length;
+      const blob: cryptoFramework.DataBlob = random.generateRandomSync(remain * 2);
+      for (let i: number = 0; i < blob.data.length && nonce.length < length; i++) {
+        const byte: number = blob.data[i];
+        if (byte < NONCE_REJECT_THRESHOLD) {
+          nonce += NONCE_CHARS.charAt(byte % NONCE_CHARS.length);
+        }
+      }
     }
     return nonce;
   }
 
   /**
-   * 生成随机 Token 字符串（64 位十六进制）。
+   * 生成随机 Token 字符串（64 位十六进制，32 字节密码学安全随机数）。
    * @returns {string} 64 位十六进制随机令牌
    */
   static generateToken(): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils generateToken: generating random token');
-    let token: string = '';
-    for (let i: number = 0; i < 64; i++) {
-      token += HEX_CHARS.charAt(Math.floor(Math.random() * 16));
+    const random: cryptoFramework.Random = cryptoFramework.createRandom();
+    const blob: cryptoFramework.DataBlob = random.generateRandomSync(32);
+    const tokenBytes: number[] = [];
+    for (let i: number = 0; i < blob.data.length; i++) {
+      tokenBytes.push(blob.data[i]);
     }
-    return token;
+    return EncryptionUtils.bytesToHex(tokenBytes);
   }
 
   /**
@@ -283,18 +285,5 @@ export class EncryptionUtils {
       }
     }
     return result;
-  }
-
-  /**
-   * 将数字格式化为 8 位十六进制字符串。
-   * @param {number} num - 待格式化的无符号整数
-   * @returns {string} 8 位十六进制字符串
-   */
-  private static padHex(num: number): string {
-    let hex: string = (num >>> 0).toString(16);
-    while (hex.length < 8) {
-      hex = '0' + hex;
-    }
-    return hex;
   }
 }

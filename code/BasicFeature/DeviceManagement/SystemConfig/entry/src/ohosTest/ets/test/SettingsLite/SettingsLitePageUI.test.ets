@@ -1,9 +1,24 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, expect, it } from '@ohos/hypium';
 import {
   ClickResult,
   SettingsItemModelJson,
   SettingsItemType,
-  SettingsOperationStatus
+  SettingsOperationStatus,
+  SystemConfigConstants
 } from 'library';
 import { UiTestSession } from '../Utils/UiTestSupport';
 
@@ -41,11 +56,11 @@ function modelOf(details: SettingsItemModelJson[], itemType: SettingsItemType): 
 export default function settingsLitePageUITest(): void {
   describe('SettingsLitePageUITest', () => {
     /**
-     * @tc.number: SUB_SETTINGS_LITE_PAGE_UI_0100
-     * @tc.name: testSettingsLitePageUI0001
-     * @tc.desc: Verify initial setting cards statuses result and detail models.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_PAGE_UI_0100
+     * @tc.name testSettingsLitePageUI0001
+     * @tc.desc Verify initial setting cards statuses result and detail models.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testSettingsLitePageUI0001', 0, async () => {
@@ -74,11 +89,11 @@ export default function settingsLitePageUITest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_PAGE_UI_0200
-     * @tc.name: testSettingsLitePageUI0002
-     * @tc.desc: Verify double click result log and simulated result detail.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_PAGE_UI_0200
+     * @tc.name testSettingsLitePageUI0002
+     * @tc.desc Verify double click query reports FA-only unsupported error in Stage model.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testSettingsLitePageUI0002', 0, async () => {
@@ -86,20 +101,19 @@ export default function settingsLitePageUITest(): void {
       try {
         await openSettingsLitePage(session);
         await session.scrollClickText('查询双击应用');
-        expect(await session.scrollTextOf('不是双击应用自身')).assertEqual('不是双击应用自身');
-        expect(await session.scrollTextOf('操作成功')).assertEqual('操作成功');
-        expect(await session.scrollTextOf('双击查询结果: 不是双击应用自身', true))
-          .assertContain('双击查询结果: 不是双击应用自身');
-        // 初始化一条、查询进行中一条、查询结果一条
+        // settingsLite 为 FA 专用接口，Stage 环境查询如实返回不支持错误
+        expect(await session.scrollTextOf('查询出错')).assertEqual('查询出错');
+        expect(await session.scrollTextOf('操作失败')).assertEqual('操作失败');
+        expect(await session.scrollTextOf('双击查询失败', true)).assertContain('双击查询失败');
+        // 初始化一条、查询进行中一条、查询失败一条
         expect(await session.scrollTextOf(logCountLabel(3))).assertEqual(logCountLabel(3));
         const details: SettingsItemModelJson[] = await readSettingsDetail(session);
         const doubleClick: SettingsItemModelJson = modelOf(details, SettingsItemType.DOUBLE_CLICK_SETTING);
-        expect(doubleClick.operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
-        expect(doubleClick.clickResult).assertEqual(ClickResult.NOT_SELF);
-        expect(doubleClick.description).assertEqual('双击查询结果 (模拟): notSelf');
+        expect(doubleClick.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
+        expect(doubleClick.clickResult).assertEqual(ClickResult.ERROR);
         expect(doubleClick.operationCount).assertEqual(1);
         expect(doubleClick.lastOperationTime).assertLarger(0);
-        expect(doubleClick.errorCode).assertEqual(0);
+        expect(doubleClick.errorCode).assertEqual(SystemConfigConstants.ERROR_INTERNAL);
         expect(modelOf(details, SettingsItemType.PIN_SETTING).operationCount).assertEqual(0);
         expect(modelOf(details, SettingsItemType.NFC_SETTING).operationCount).assertEqual(0);
       } finally {
@@ -108,11 +122,11 @@ export default function settingsLitePageUITest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_PAGE_UI_0300
-     * @tc.name: testSettingsLitePageUI0003
-     * @tc.desc: Verify reset restores all states result details and logs.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_PAGE_UI_0300
+     * @tc.name testSettingsLitePageUI0003
+     * @tc.desc Verify reset restores all states result details and logs.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testSettingsLitePageUI0003', 0, async () => {
@@ -120,13 +134,13 @@ export default function settingsLitePageUITest(): void {
       try {
         await openSettingsLitePage(session);
         await session.scrollClickText('查询双击应用');
-        expect(await session.scrollTextOf('不是双击应用自身')).assertEqual('不是双击应用自身');
+        expect(await session.scrollTextOf('查询出错')).assertEqual('查询出错');
         await session.scrollClickText('重置');
         expect(await session.textCount('空闲')).assertEqual(3);
-        expect(await session.textCount('操作成功')).assertEqual(0);
+        expect(await session.textCount('操作失败')).assertEqual(0);
         expect(await session.scrollTextOf('未查询')).assertEqual('未查询');
         // 查询结果字段与重置前是同一个节点，此处已把它滚入视口，计数为 0 才能证明旧值被清除
-        expect(await session.textCount('不是双击应用自身')).assertEqual(0);
+        expect(await session.textCount('查询出错')).assertEqual(0);
         // resetState 先清空日志数组再写入“状态已重置”，面板计数回落为一条即证明历史日志全部清除
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
         expect(await session.scrollTextOf('状态已重置', true)).assertContain('状态已重置');

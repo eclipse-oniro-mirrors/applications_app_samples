@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -45,17 +45,18 @@ export class SettingsLiteViewModel {
   /** UIAbility 上下文 */
   private context: common.UIAbilityContext | null = null;
   /** 页面操作日志 */
-  pageLogs: string[] = [];
+  public pageLogs: string[] = [];
   /** PIN 设置项模型 */
-  pinModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.PIN_SETTING, 'PIN 码设置', '打开 PIN 码设置页面');
+  public pinModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.PIN_SETTING, 'PIN 码设置', '打开 PIN 码设置页面');
   /** NFC 设置项模型 */
-  nfcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.NFC_SETTING, 'NFC 设置', '打开 NFC 设置页面');
+  public nfcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.NFC_SETTING, 'NFC 设置', '打开 NFC 设置页面');
   /** 双击设置项模型 */
-  doubleClickModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.DOUBLE_CLICK_SETTING, '双击设置', '打开双击设置页面');
+  public doubleClickModel: SettingsItemModel = new SettingsItemModel(
+    SettingsItemType.DOUBLE_CLICK_SETTING, '双击设置', '打开双击设置页面');
   /** 双击查询结果 */
-  clickResultText: string = '';
+  public clickResultText: string = '';
   /** 是否正在加载 */
-  isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   /**
    * 初始化视图模型。
@@ -81,104 +82,112 @@ export class SettingsLiteViewModel {
    * 打开 PIN 码设置页面。
    * 调用 SettingsLiteService.openPinSettingPage() 接口。
    */
-  openPinSettings(): void {
+  async openPinSettings(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel openPinSettings: opening');
     this.addLog('正在打开 PIN 设置页面...');
 
-    this.traceService.startTrace(TraceName.SETTINGS_OPEN_PIN, 'openPin');
+    const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_OPEN_PIN, 'openPin');
 
-    if (!this.context) {
-      this.addLog('错误: 上下文未初始化');
-      return;
+    try {
+      if (!this.context) {
+        this.addLog('错误: 上下文未初始化');
+        return;
+      }
+
+      const success: boolean = await this.settingsService.openPinSettingPage(this.context);
+      this.syncModels();
+
+      if (success) {
+        this.addLog('PIN 设置页面已打开');
+        this.eventService.reportSettingsPageOpened('pin', true);
+      } else {
+        this.addLog(`打开 PIN 设置页面失败: ${this.pinModel.errorMessage}`);
+        this.eventService.reportSettingsPageOpened('pin', false);
+        this.eventService.reportError('openPinSettings', this.pinModel.errorMessage, this.pinModel.errorCode);
+      }
+    } finally {
+      this.traceService.finishTrace(TraceName.SETTINGS_OPEN_PIN, taskId);
     }
-
-    const success: boolean = this.settingsService.openPinSettingPage(this.context);
-    this.syncModels();
-
-    if (success) {
-      this.addLog('PIN 设置页面已打开');
-      this.eventService.reportSettingsPageOpened('pin', true);
-    } else {
-      this.addLog(`打开 PIN 设置页面失败: ${this.pinModel.errorMessage}`);
-      this.eventService.reportSettingsPageOpened('pin', false);
-      this.eventService.reportError('openPinSettings', this.pinModel.errorMessage, this.pinModel.errorCode);
-    }
-
-    this.traceService.finishTrace(TraceName.SETTINGS_OPEN_PIN);
   }
 
   /**
    * 打开 NFC 设置页面。
    * 调用 SettingsLiteService.openNfcSettingsPage() 接口。
    */
-  openNfcSettings(): void {
+  async openNfcSettings(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel openNfcSettings: opening');
     this.addLog('正在打开 NFC 设置页面...');
 
-    this.traceService.startTrace(TraceName.SETTINGS_OPEN_NFC, 'openNfc');
+    const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_OPEN_NFC, 'openNfc');
 
-    if (!this.context) {
-      this.addLog('错误: 上下文未初始化');
-      return;
+    try {
+      if (!this.context) {
+        this.addLog('错误: 上下文未初始化');
+        return;
+      }
+
+      const success: boolean = await this.settingsService.openNfcSettingsPage(this.context);
+      this.syncModels();
+
+      if (success) {
+        this.addLog('NFC 设置页面已打开');
+        this.eventService.reportSettingsPageOpened('nfc', true);
+      } else {
+        this.addLog(`打开 NFC 设置页面失败: ${this.nfcModel.errorMessage}`);
+        this.eventService.reportSettingsPageOpened('nfc', false);
+        this.eventService.reportError('openNfcSettings', this.nfcModel.errorMessage, this.nfcModel.errorCode);
+      }
+    } finally {
+      this.traceService.finishTrace(TraceName.SETTINGS_OPEN_NFC, taskId);
     }
-
-    const success: boolean = this.settingsService.openNfcSettingsPage(this.context);
-    this.syncModels();
-
-    if (success) {
-      this.addLog('NFC 设置页面已打开');
-      this.eventService.reportSettingsPageOpened('nfc', true);
-    } else {
-      this.addLog(`打开 NFC 设置页面失败: ${this.nfcModel.errorMessage}`);
-      this.eventService.reportSettingsPageOpened('nfc', false);
-      this.eventService.reportError('openNfcSettings', this.nfcModel.errorMessage, this.nfcModel.errorCode);
-    }
-
-    this.traceService.finishTrace(TraceName.SETTINGS_OPEN_NFC);
   }
 
   /**
    * 打开双击设置页面。
    * 调用 SettingsLiteService.openDoubleClickSettingsPage() 接口。
    */
-  openDoubleClickSettings(): void {
+  async openDoubleClickSettings(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel openDoubleClickSettings: opening');
     this.addLog('正在打开双击设置页面...');
 
-    this.traceService.startTrace(TraceName.SETTINGS_OPEN_DOUBLE_CLICK, 'openDoubleClick');
+    const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_OPEN_DOUBLE_CLICK, 'openDoubleClick');
 
-    if (!this.context) {
-      this.addLog('错误: 上下文未初始化');
-      return;
+    try {
+      if (!this.context) {
+        this.addLog('错误: 上下文未初始化');
+        return;
+      }
+
+      const success: boolean = await this.settingsService.openDoubleClickSettingsPage(this.context);
+      this.syncModels();
+
+      if (success) {
+        this.addLog('双击设置页面已打开');
+        this.eventService.reportSettingsPageOpened('doubleClick', true);
+      } else {
+        this.addLog(`打开双击设置页面失败: ${this.doubleClickModel.errorMessage}`);
+        this.eventService.reportSettingsPageOpened('doubleClick', false);
+        this.eventService.reportError('openDoubleClickSettings', this.doubleClickModel.errorMessage, this.doubleClickModel.errorCode);
+      }
+    } finally {
+      this.traceService.finishTrace(TraceName.SETTINGS_OPEN_DOUBLE_CLICK, taskId);
     }
-
-    const success: boolean = this.settingsService.openDoubleClickSettingsPage(this.context);
-    this.syncModels();
-
-    if (success) {
-      this.addLog('双击设置页面已打开');
-      this.eventService.reportSettingsPageOpened('doubleClick', true);
-    } else {
-      this.addLog(`打开双击设置页面失败: ${this.doubleClickModel.errorMessage}`);
-      this.eventService.reportSettingsPageOpened('doubleClick', false);
-      this.eventService.reportError('openDoubleClickSettings', this.doubleClickModel.errorMessage, this.doubleClickModel.errorCode);
-    }
-
-    this.traceService.finishTrace(TraceName.SETTINGS_OPEN_DOUBLE_CLICK);
   }
 
   /**
    * 查询双击应用是否为自身。
    * 调用 SettingsLiteService.isDoubleClickAppForSelf() 接口。
+   * settingsLite 为 FA 模型专用接口，Stage 环境下回调返回不支持错误。
    */
   queryDoubleClickApp(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel queryDoubleClickApp: querying');
     this.addLog('正在查询双击应用信息...');
 
-    this.traceService.startTrace(TraceName.SETTINGS_QUERY_DOUBLE_CLICK, 'queryDoubleClick');
+    const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_QUERY_DOUBLE_CLICK, 'queryDoubleClick');
 
     if (!this.context) {
       this.addLog('错误: 上下文未初始化');
+      this.traceService.finishTrace(TraceName.SETTINGS_QUERY_DOUBLE_CLICK, taskId);
       return;
     }
 
@@ -194,7 +203,7 @@ export class SettingsLiteViewModel {
         this.eventService.reportDoubleClickQueried(this.clickResultText);
       }
 
-      this.traceService.finishTrace(TraceName.SETTINGS_QUERY_DOUBLE_CLICK);
+      this.traceService.finishTrace(TraceName.SETTINGS_QUERY_DOUBLE_CLICK, taskId);
     });
   }
 

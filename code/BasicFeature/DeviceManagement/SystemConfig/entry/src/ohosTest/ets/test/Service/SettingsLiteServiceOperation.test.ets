@@ -1,10 +1,25 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, it, expect } from '@ohos/hypium';
 import { common, Want } from '@kit.AbilityKit';
 import {
   SettingsLiteService,
   SettingsItemModel,
   SettingsOperationStatus,
-  ClickResult
+  ClickResult,
+  SystemConfigConstants
 } from 'library';
 
 class RecordingAbilityContext {
@@ -59,18 +74,18 @@ function assertIdle(model: SettingsItemModel): void {
 export default function settingsLiteServiceOperationTest(): void {
   describe('SettingsLiteServiceOperationTest', () => {
     /**
-     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0100
-     * @tc.name: testSettingsLiteServiceOperation0001
-     * @tc.desc: Verify PIN settings Want and successful service state.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_SERVICE_OPERATION_0100
+     * @tc.name testSettingsLiteServiceOperation0001
+     * @tc.desc Verify PIN settings Want and successful service state.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
-    it('testSettingsLiteServiceOperation0001', 0, () => {
+    it('testSettingsLiteServiceOperation0001', 0, async () => {
       const service: SettingsLiteService = new SettingsLiteService();
       const context: RecordingAbilityContext = new RecordingAbilityContext();
       service.initialize();
-      const opened: boolean = service.openPinSettingPage(context.asUIAbilityContext());
+      const opened: boolean = await service.openPinSettingPage(context.asUIAbilityContext());
       const captured: Want | null = context.capturedWant;
       const wantAction: string = captured === null ? '' : (captured.action ?? '');
       const wantUri: string = captured === null ? '' : (captured.uri ?? '');
@@ -86,18 +101,18 @@ export default function settingsLiteServiceOperationTest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0200
-     * @tc.name: testSettingsLiteServiceOperation0002
-     * @tc.desc: Verify NFC settings Want and successful service state.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_SERVICE_OPERATION_0200
+     * @tc.name testSettingsLiteServiceOperation0002
+     * @tc.desc Verify NFC settings Want and successful service state.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
-    it('testSettingsLiteServiceOperation0002', 0, () => {
+    it('testSettingsLiteServiceOperation0002', 0, async () => {
       const service: SettingsLiteService = new SettingsLiteService();
       const context: RecordingAbilityContext = new RecordingAbilityContext();
       service.initialize();
-      const opened: boolean = service.openNfcSettingsPage(context.asUIAbilityContext());
+      const opened: boolean = await service.openNfcSettingsPage(context.asUIAbilityContext());
       const captured: Want | null = context.capturedWant;
       const wantAction: string = captured === null ? '' : (captured.action ?? '');
       const wantUri: string = captured === null ? '' : (captured.uri ?? '');
@@ -113,18 +128,18 @@ export default function settingsLiteServiceOperationTest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0300
-     * @tc.name: testSettingsLiteServiceOperation0003
-     * @tc.desc: Verify double-click settings Want and successful service state.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_SERVICE_OPERATION_0300
+     * @tc.name testSettingsLiteServiceOperation0003
+     * @tc.desc Verify double-click settings Want and successful service state.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
-    it('testSettingsLiteServiceOperation0003', 0, () => {
+    it('testSettingsLiteServiceOperation0003', 0, async () => {
       const service: SettingsLiteService = new SettingsLiteService();
       const context: RecordingAbilityContext = new RecordingAbilityContext();
       service.initialize();
-      const opened: boolean = service.openDoubleClickSettingsPage(context.asUIAbilityContext());
+      const opened: boolean = await service.openDoubleClickSettingsPage(context.asUIAbilityContext());
       const captured: Want | null = context.capturedWant;
       const wantAction: string = captured === null ? '' : (captured.action ?? '');
       const wantUri: string = captured === null ? '' : (captured.uri ?? '');
@@ -140,19 +155,19 @@ export default function settingsLiteServiceOperationTest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0400
-     * @tc.name: testSettingsLiteServiceOperation0004
-     * @tc.desc: Verify PIN synchronous failure details and model isolation.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_SERVICE_OPERATION_0400
+     * @tc.name testSettingsLiteServiceOperation0004
+     * @tc.desc Verify PIN synchronous failure details and model isolation.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 1
      */
-    it('testSettingsLiteServiceOperation0004', 0, () => {
+    it('testSettingsLiteServiceOperation0004', 0, async () => {
       const service: SettingsLiteService = new SettingsLiteService();
       const context: ThrowingAbilityContext = new ThrowingAbilityContext(
         new StartAbilityTestError(401, 'PIN start failed'));
       service.initialize();
-      const opened: boolean = service.openPinSettingPage(context.asUIAbilityContext());
+      const opened: boolean = await service.openPinSettingPage(context.asUIAbilityContext());
       const model: SettingsItemModel = service.getPinModel();
       expect(opened).assertFalse();
       expect(model.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
@@ -165,19 +180,19 @@ export default function settingsLiteServiceOperationTest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0500
-     * @tc.name: testSettingsLiteServiceOperation0005
-     * @tc.desc: Verify NFC synchronous failure details and model isolation.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_SERVICE_OPERATION_0500
+     * @tc.name testSettingsLiteServiceOperation0005
+     * @tc.desc Verify NFC synchronous failure details and model isolation.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 1
      */
-    it('testSettingsLiteServiceOperation0005', 0, () => {
+    it('testSettingsLiteServiceOperation0005', 0, async () => {
       const service: SettingsLiteService = new SettingsLiteService();
       const context: ThrowingAbilityContext = new ThrowingAbilityContext(
         new StartAbilityTestError(402, 'NFC start failed'));
       service.initialize();
-      const opened: boolean = service.openNfcSettingsPage(context.asUIAbilityContext());
+      const opened: boolean = await service.openNfcSettingsPage(context.asUIAbilityContext());
       const model: SettingsItemModel = service.getNfcModel();
       expect(opened).assertFalse();
       expect(model.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
@@ -190,19 +205,19 @@ export default function settingsLiteServiceOperationTest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0600
-     * @tc.name: testSettingsLiteServiceOperation0006
-     * @tc.desc: Verify double-click synchronous failure details and model isolation.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_SERVICE_OPERATION_0600
+     * @tc.name testSettingsLiteServiceOperation0006
+     * @tc.desc Verify double-click synchronous failure details and model isolation.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 1
      */
-    it('testSettingsLiteServiceOperation0006', 0, () => {
+    it('testSettingsLiteServiceOperation0006', 0, async () => {
       const service: SettingsLiteService = new SettingsLiteService();
       const context: ThrowingAbilityContext = new ThrowingAbilityContext(
         new StartAbilityTestError(403, 'Gesture start failed'));
       service.initialize();
-      const opened: boolean = service.openDoubleClickSettingsPage(context.asUIAbilityContext());
+      const opened: boolean = await service.openDoubleClickSettingsPage(context.asUIAbilityContext());
       const model: SettingsItemModel = service.getDoubleClickModel();
       expect(opened).assertFalse();
       expect(model.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
@@ -215,11 +230,11 @@ export default function settingsLiteServiceOperationTest(): void {
     });
 
     /**
-     * @tc.number: SUB_SETTINGS_LITE_SERVICE_OPERATION_0700
-     * @tc.name: testSettingsLiteServiceOperation0007
-     * @tc.desc: Verify double-click query callback and successful model result.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_SETTINGS_LITE_SERVICE_OPERATION_0700
+     * @tc.name testSettingsLiteServiceOperation0007
+     * @tc.desc Verify double-click query returns FA-only unsupported error in Stage model.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testSettingsLiteServiceOperation0007', 0, () => {
@@ -227,8 +242,8 @@ export default function settingsLiteServiceOperationTest(): void {
       const context: RecordingAbilityContext = new RecordingAbilityContext();
       let callbackCount: number = 0;
       let callbackError: Object | null = new Error('Callback not invoked');
-      let callbackResult: ClickResult = ClickResult.ERROR;
-      let callbackErrorCode: number = -1;
+      let callbackResult: ClickResult = ClickResult.NOT_SELF;
+      let callbackErrorCode: number = 0;
       service.initialize();
       service.isDoubleClickAppForSelf(context.asUIAbilityContext(), (err: Object | null, cb): void => {
         callbackCount += 1;
@@ -237,12 +252,13 @@ export default function settingsLiteServiceOperationTest(): void {
         callbackErrorCode = cb.errorCode;
       });
       const model: SettingsItemModel = service.getDoubleClickModel();
+      // settingsLite 为 FA 模型专用接口，Stage 环境下如实回调不支持错误，不再返回模拟成功
       expect(callbackCount).assertEqual(1);
-      expect(callbackError === null).assertTrue();
-      expect(callbackResult).assertEqual(ClickResult.NOT_SELF);
-      expect(callbackErrorCode).assertEqual(0);
-      expect(model.operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
-      expect(model.clickResult).assertEqual(ClickResult.NOT_SELF);
+      expect(callbackError !== null).assertTrue();
+      expect(callbackResult).assertEqual(ClickResult.ERROR);
+      expect(callbackErrorCode).assertEqual(SystemConfigConstants.ERROR_INTERNAL);
+      expect(model.operationStatus).assertEqual(SettingsOperationStatus.FAILED);
+      expect(model.clickResult).assertEqual(ClickResult.ERROR);
       expect(model.operationCount).assertEqual(1);
       service.destroy();
     });
