@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { uiText } from '../../../main/ets/i18n/Strings';
 // 待集中验证：当前仅静态对齐正式组件/SDK，未执行本套件或任何中间门禁。
 import { afterEach, describe, expect, it } from '@ohos/hypium';
 import { ON } from '@kit.TestKit';
@@ -20,8 +36,8 @@ export default function recycleUiQaTests(): void {
      */
     it('testRecycleUiQa0001', 0, async (): Promise<void> => {
       const driver = await launchRecycleUiQa('empty');
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual('回收站为空');
-      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(`回收站 0 / ${MAX_RECYCLED_NOTES} · 已过期 0`);
+      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
+      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(uiText('shortcut_text_0299', ['0', String(MAX_RECYCLED_NOTES), '0']));
       expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertFalse();
       expect(currentRecycleUiQa().storage.writes).assertEqual(0);
     });
@@ -39,11 +55,11 @@ export default function recycleUiQaTests(): void {
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('便签已恢复；如搜索未显示，请清空搜索');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0091"));
       expect(fixture.store.snapshot().notes[0].body).assertEqual('qa-recycle-private-body');
       expect(fixture.store.snapshot().notes[0].id).assertEqual(fixture.noteId);
       expect(fixture.store.historyFor(fixture.noteId)[0].action).assertEqual('create');
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual('回收站为空');
+      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
     });
 
     /**
@@ -59,7 +75,7 @@ export default function recycleUiQaTests(): void {
       const driver = await launchRecycleUiQa('seeded');
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-purge-${fixture.trashId}`);
-      await recycleQaDialog(driver, '取消');
+      await recycleQaDialog(driver, uiText("shortcut_text_0452"));
       expect(fixture.storage.value).assertEqual(fixture.baseline);
       expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertTrue();
       expect(fixture.store.snapshot().recycledNotes[0].history[0].action).assertEqual('create');
@@ -79,13 +95,13 @@ export default function recycleUiQaTests(): void {
       const driver = await launchRecycleUiQa('seeded');
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-purge-${fixture.trashId}`);
-      await recycleQaDialog(driver, '永久删除');
+      await recycleQaDialog(driver, uiText("shortcut_text_0696"));
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('已永久删除，无法恢复');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0687"));
       expect(fixture.store.snapshot().notes.length).assertEqual(0);
       expect(fixture.store.historyFor(fixture.noteId).length).assertEqual(0);
       expect(fixture.storage.value.indexOf('qa-recycle-private-body')).assertEqual(-1);
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual('回收站为空');
+      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
     });
 
     /**
@@ -101,11 +117,11 @@ export default function recycleUiQaTests(): void {
       const fixture = currentRecycleUiQa();
       expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
       expect(await (await recycleQaNode(driver, `trash-restore-${fixture.recentTrashId}`)).isEnabled()).assertTrue();
-      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(`回收站 2 / ${MAX_RECYCLED_NOTES} · 已过期 1`);
+      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(uiText('shortcut_text_0299', ['2', String(MAX_RECYCLED_NOTES), '1']));
       await recycleQaClick(driver, 'note-trash-cleanup');
-      await recycleQaDialog(driver, '清理过期项', '清理过期便签');
+      await recycleQaDialog(driver, uiText("shortcut_text_0441"), uiText("shortcut_text_0440"));
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('已清理1项过期便签');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText('shortcut_text_0668', ['1']));
       expect(fixture.store.snapshot().recycledNotes[0].trashId).assertEqual(fixture.recentTrashId);
       expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertFalse();
     });
@@ -123,13 +139,13 @@ export default function recycleUiQaTests(): void {
       const driver = await launchRecycleUiQa('pending');
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
-      expect(await recycleQaText(driver, 'note-trash-busy')).assertEqual('处理中…');
+      expect(await recycleQaText(driver, 'note-trash-busy')).assertEqual(uiText("shortcut_text_0167"));
       expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled()).assertFalse();
       expect(await (await recycleQaNode(driver, 'note-trash-refresh')).isEnabled()).assertFalse();
       expect(fixture.store.snapshot().notes.length).assertEqual(0);
       fixture.release();
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('便签已恢复；如搜索未显示，请清空搜索');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0091"));
       expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 1);
     });
 
@@ -147,7 +163,7 @@ export default function recycleUiQaTests(): void {
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('保存失败，请重试');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0049"));
       expect(fixture.storage.value).assertEqual(fixture.baseline);
       expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertTrue();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
@@ -169,12 +185,12 @@ export default function recycleUiQaTests(): void {
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('写入结果未确认，请先重新读取核对');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0617"));
       expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
       expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled()).assertFalse();
       await recycleQaClick(driver, 'note-trash-reload');
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('便签已恢复；如搜索未显示，请清空搜索（已重新读取确认）');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText('shortcut_text_0024', [uiText('shortcut_text_0091')]));
       expect(fixture.storage.reloads).assertEqual(1);
       expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 1);
       expect(fixture.store.snapshot().notes[0].id).assertEqual(fixture.noteId);
@@ -194,8 +210,8 @@ export default function recycleUiQaTests(): void {
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-purge-${fixture.trashId}`);
       await fixture.store.restoreTrashedNote(fixture.trashId);
-      await recycleQaDialog(driver, '永久删除');
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('回收项已变化，请重新查看');
+      await recycleQaDialog(driver, uiText("shortcut_text_0696"));
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0297"));
       expect(fixture.store.snapshot().notes[0].id).assertEqual(fixture.noteId);
       expect(fixture.store.historyFor(fixture.noteId)[0].body).assertEqual('qa-recycle-private-body');
       expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 1);
@@ -204,7 +220,7 @@ export default function recycleUiQaTests(): void {
     /**
      * @tc.number SUB_SHORTCUT_RECYCLEUIQA_1000
      * @tc.name testRecycleUiQa0010
-     * @tc.desc A failed initial read renders its retry surface and recovers through that real entry
+     * @tc.desc A failed initial read renders its retry view and recovers through that real entry
      * without writing user data.
      * @tc.size MediumTest
      * @tc.type Function
@@ -213,7 +229,7 @@ export default function recycleUiQaTests(): void {
     it('testRecycleUiQa0010', 0, async (): Promise<void> => {
       const driver = await launchRecycleUiQa('readFailure');
       const fixture = currentRecycleUiQa();
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual('读取失败，请重试');
+      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0224"));
       expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertFalse();
       expect(await (await recycleQaNode(driver, 'note-trash-reload')).isEnabled()).assertTrue();
       fixture.storage.failRead = false;
@@ -221,7 +237,7 @@ export default function recycleUiQaTests(): void {
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().loading);
       expect(fixture.store.snapshot().ready).assertTrue();
       expect(fixture.storage.writes).assertEqual(0);
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual('回收站为空');
+      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
     });
 
     /**
@@ -256,7 +272,7 @@ export default function recycleUiQaTests(): void {
     it('testRecycleUiQa0012', 0, async (): Promise<void> => {
       const driver = await launchRecycleUiQa('capacity');
       const fixture = currentRecycleUiQa();
-      expect(await recycleQaText(driver, 'note-trash-capacity')).assertEqual('活动便签已满，释放名额后可恢复');
+      expect(await recycleQaText(driver, 'note-trash-capacity')).assertEqual(uiText("shortcut_text_0310"));
       expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
       expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled()).assertTrue();
       const activeId = fixture.store.snapshot().notes[0].id;
@@ -285,7 +301,7 @@ export default function recycleUiQaTests(): void {
       await recycleQaClick(driver, 'note-trash-refresh');
       expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
       expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertTrue();
-      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(`回收站 1 / ${MAX_RECYCLED_NOTES} · 已过期 1`);
+      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(uiText('shortcut_text_0299', ['1', String(MAX_RECYCLED_NOTES), '1']));
       expect(fixture.storage.value).assertEqual(fixture.baseline);
       expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
     });
@@ -332,14 +348,14 @@ export default function recycleUiQaTests(): void {
       await recycleQaClick(driver, 'note-trash-select-all');
       await recycleQaClick(driver, 'note-trash-batch-restore');
       await recycleQaClick(driver, 'note-trash-batch-confirm');
-      await recycleQaDialog(driver, '取消', '确认批量恢复');
+      await recycleQaDialog(driver, uiText("shortcut_text_0452"), uiText("shortcut_text_0478"));
       expect(await (await recycleQaNode(driver, `trash-select-${fixture.trashId}`)).isChecked()).assertTrue();
       expect(fixture.storage.value).assertEqual(fixture.baseline);
       await recycleQaClick(driver, `trash-select-${fixture.trashId}`);
       await recycleQaClick(driver, 'note-trash-batch-restore');
       expect(recycleQaPreview(fixture).selectedCount).assertEqual(2);
       await recycleQaClick(driver, 'note-trash-batch-confirm');
-      await recycleQaDialog(driver, '批量恢复', '确认批量恢复');
+      await recycleQaDialog(driver, uiText("shortcut_text_0425"), uiText("shortcut_text_0478"));
       await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
       expect(fixture.store.snapshot().notes.length).assertEqual(2);
       expect(fixture.store.snapshot().recycledNotes[0].trashId).assertEqual(fixture.trashId);
@@ -364,7 +380,7 @@ export default function recycleUiQaTests(): void {
       const rejected = recycleQaPreview(fixture);
       const old = rejected.rows.find((row): boolean => row.trashId === fixture.trashId);
       if (old === undefined) { throw new Error('Expired target was silently omitted from the preview'); }
-      expect(old.reason).assertEqual('超过30天保留期');
+      expect(old.reason).assertEqual(uiText("shortcut_text_0157"));
       expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled()).assertFalse();
       expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
       await recycleQaClick(driver, 'note-trash-batch-cancel');
@@ -394,7 +410,7 @@ export default function recycleUiQaTests(): void {
       const preview = recycleQaPreview(fixture);
       expect(preview.selectedCount).assertEqual(3);
       expect(preview.availableSlots).assertEqual(2);
-      expect(preview.errors.indexOf('活动便签名额不足：需要3，可用2') >= 0).assertTrue();
+      expect(preview.errors.indexOf(uiText('shortcut_text_0309', ['3', '2'])) >= 0).assertTrue();
       expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled()).assertFalse();
       expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
       expect(fixture.store.snapshot().notes.length).assertEqual(MAX_ACTIVE_NOTES - 2);

@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { shortcutManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { describe, expect, it } from '@ohos/hypium';
@@ -280,7 +295,7 @@ export default function shortcutCoverageTests(): void {
         const pending = f.service.refresh();
         (await f.query(1)).reject(new Error('no business code') as BusinessError);
         await pending;
-        expect(f.service.snapshot().queryError).assertEqual('code=未提供；no business code');
+        expect(f.service.snapshot().queryError).assertEqual('code=not provided；no business code');
         const retry = f.service.refresh();
         (await f.query(2)).resolve([]);
         await retry;
