@@ -12,11 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 
-const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 export default function SubtitleSafeFileIoMiddleSecondTest() {
   describe('SubtitleSafeFileIoMiddleSecondTest', () => {
@@ -28,7 +28,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0127', 0, () => {
+    it('testSafeFileIo0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_127.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -58,7 +58,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0128', 0, () => {
+    it('testSafeFileIo0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_128.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -88,7 +88,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0129', 0, () => {
+    it('testSafeFileIo0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_129.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -118,7 +118,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0130', 0, () => {
+    it('testSafeFileIo0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_130.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -148,7 +148,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0131', 0, () => {
+    it('testSafeFileIo0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_131.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -178,7 +178,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0132', 0, () => {
+    it('testSafeFileIo0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_132.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -208,7 +208,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0133', 0, () => {
+    it('testSafeFileIo0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_133.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -238,7 +238,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0134', 0, () => {
+    it('testSafeFileIo0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_134.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -268,7 +268,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0135', 0, () => {
+    it('testSafeFileIo0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_135.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -298,7 +298,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0136', 0, () => {
+    it('testSafeFileIo0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_136.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -328,7 +328,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0137', 0, () => {
+    it('testSafeFileIo0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_137.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -358,7 +358,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0138', 0, () => {
+    it('testSafeFileIo0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_138.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -388,7 +388,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0139', 0, () => {
+    it('testSafeFileIo0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_139.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -418,7 +418,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0140', 0, () => {
+    it('testSafeFileIo0140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_140.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -448,7 +448,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0141', 0, () => {
+    it('testSafeFileIo0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_141.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -478,7 +478,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0142', 0, () => {
+    it('testSafeFileIo0142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_142.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -508,7 +508,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0143', 0, () => {
+    it('testSafeFileIo0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_143.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -538,7 +538,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0144', 0, () => {
+    it('testSafeFileIo0144', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_144.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -568,7 +568,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0145', 0, () => {
+    it('testSafeFileIo0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_145.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -598,7 +598,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0146', 0, () => {
+    it('testSafeFileIo0146', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_146.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -628,7 +628,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0147', 0, () => {
+    it('testSafeFileIo0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_147.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -658,7 +658,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0148', 0, () => {
+    it('testSafeFileIo0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_148.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -688,7 +688,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0149', 0, () => {
+    it('testSafeFileIo0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_149.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -718,7 +718,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0150', 0, () => {
+    it('testSafeFileIo0150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_150.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -748,7 +748,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0151', 0, () => {
+    it('testSafeFileIo0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_151.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -778,7 +778,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0152', 0, () => {
+    it('testSafeFileIo0152', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_152.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -808,7 +808,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0153', 0, () => {
+    it('testSafeFileIo0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_153.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -838,7 +838,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0154', 0, () => {
+    it('testSafeFileIo0154', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_154.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -868,7 +868,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0155', 0, () => {
+    it('testSafeFileIo0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_155.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -898,7 +898,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0156', 0, () => {
+    it('testSafeFileIo0156', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_156.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -928,7 +928,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0157', 0, () => {
+    it('testSafeFileIo0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_157.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -958,7 +958,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0158', 0, () => {
+    it('testSafeFileIo0158', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_158.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -988,7 +988,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0159', 0, () => {
+    it('testSafeFileIo0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_159.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1018,7 +1018,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0160', 0, () => {
+    it('testSafeFileIo0160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_160.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1048,7 +1048,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0161', 0, () => {
+    it('testSafeFileIo0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_161.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1078,7 +1078,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0162', 0, () => {
+    it('testSafeFileIo0162', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_162.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1108,7 +1108,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0163', 0, () => {
+    it('testSafeFileIo0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_163.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1138,7 +1138,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0164', 0, () => {
+    it('testSafeFileIo0164', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_164.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1168,7 +1168,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0165', 0, () => {
+    it('testSafeFileIo0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_165.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1198,7 +1198,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0166', 0, () => {
+    it('testSafeFileIo0166', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_166.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1228,7 +1228,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0167', 0, () => {
+    it('testSafeFileIo0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_167.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
@@ -1258,7 +1258,7 @@ export default function SubtitleSafeFileIoMiddleSecondTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeFileIo0168', 0, () => {
+    it('testSafeFileIo0168', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/safe_file_168.dat`;
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);

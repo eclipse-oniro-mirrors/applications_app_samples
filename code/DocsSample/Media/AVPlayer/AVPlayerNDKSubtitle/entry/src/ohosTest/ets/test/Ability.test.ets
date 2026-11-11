@@ -86,7 +86,6 @@ export default function abilityTest(): void {
       await driver.delayMs(1000);
 
       done();
-      hilog.info(DOMAIN, TAG, 'Slider_001 end');
       hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleSlider0002 end');
     })
 

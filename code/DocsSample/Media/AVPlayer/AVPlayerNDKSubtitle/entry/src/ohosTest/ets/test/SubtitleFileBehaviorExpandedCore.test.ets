@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { util } from '@kit.ArkTS';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
@@ -30,7 +30,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0001', 0, () => {
+    it('testBehaviorSubtitleFile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_1.srt`;
       const content: string = '1\n00:00:00,000 --> 00:00:05,000\nBehavior line 1\n';
       try {
@@ -60,7 +60,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0002', 0, () => {
+    it('testBehaviorSubtitleFile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_2.srt`;
       const content: string = '2\nBAD TIMESTAMP\nBroken line 2\n';
       try {
@@ -90,7 +90,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0003', 0, () => {
+    it('testBehaviorSubtitleFile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_3.srt`;
       const content: string = '3\n00:00:00,000 --> 00:00:05,000\nBehavior line 3\n';
       try {
@@ -120,7 +120,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0004', 0, () => {
+    it('testBehaviorSubtitleFile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_4.srt`;
       const content: string = '4\nBAD TIMESTAMP\nBroken line 4\n';
       try {
@@ -150,7 +150,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0005', 0, () => {
+    it('testBehaviorSubtitleFile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_5.srt`;
       const content: string = '5\n00:00:00,000 --> 00:00:05,000\nBehavior line 5\n';
       try {
@@ -180,7 +180,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0006', 0, () => {
+    it('testBehaviorSubtitleFile0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_6.srt`;
       const content: string = '6\nBAD TIMESTAMP\nBroken line 6\n';
       try {
@@ -210,7 +210,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0007', 0, () => {
+    it('testBehaviorSubtitleFile0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_7.srt`;
       const content: string = '7\n00:00:00,000 --> 00:00:05,000\nBehavior line 7\n';
       try {
@@ -240,7 +240,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0008', 0, () => {
+    it('testBehaviorSubtitleFile0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_8.srt`;
       const content: string = '8\nBAD TIMESTAMP\nBroken line 8\n';
       try {
@@ -270,7 +270,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0009', 0, () => {
+    it('testBehaviorSubtitleFile0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_9.srt`;
       const content: string = '9\n00:00:00,000 --> 00:00:05,000\nBehavior line 9\n';
       try {
@@ -300,7 +300,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0010', 0, () => {
+    it('testBehaviorSubtitleFile0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_10.srt`;
       const content: string = '10\nBAD TIMESTAMP\nBroken line 10\n';
       try {
@@ -330,7 +330,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0011', 0, () => {
+    it('testBehaviorSubtitleFile0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_11.srt`;
       const content: string = '11\n00:00:00,000 --> 00:00:05,000\nBehavior line 11\n';
       try {
@@ -360,7 +360,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0012', 0, () => {
+    it('testBehaviorSubtitleFile0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_12.srt`;
       const content: string = '12\nBAD TIMESTAMP\nBroken line 12\n';
       try {
@@ -390,7 +390,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0013', 0, () => {
+    it('testBehaviorSubtitleFile0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_13.srt`;
       const content: string = '13\n00:00:00,000 --> 00:00:05,000\nBehavior line 13\n';
       try {
@@ -420,7 +420,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0014', 0, () => {
+    it('testBehaviorSubtitleFile0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_14.srt`;
       const content: string = '14\nBAD TIMESTAMP\nBroken line 14\n';
       try {
@@ -450,7 +450,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0015', 0, () => {
+    it('testBehaviorSubtitleFile0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_15.srt`;
       const content: string = '15\n00:00:00,000 --> 00:00:05,000\nBehavior line 15\n';
       try {
@@ -480,7 +480,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0016', 0, () => {
+    it('testBehaviorSubtitleFile0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_16.srt`;
       const content: string = '16\nBAD TIMESTAMP\nBroken line 16\n';
       try {
@@ -510,7 +510,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0017', 0, () => {
+    it('testBehaviorSubtitleFile0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_17.srt`;
       const content: string = '17\n00:00:00,000 --> 00:00:05,000\nBehavior line 17\n';
       try {
@@ -540,7 +540,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0018', 0, () => {
+    it('testBehaviorSubtitleFile0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_18.srt`;
       const content: string = '18\nBAD TIMESTAMP\nBroken line 18\n';
       try {
@@ -570,7 +570,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0019', 0, () => {
+    it('testBehaviorSubtitleFile0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_19.srt`;
       const content: string = '19\n00:00:00,000 --> 00:00:05,000\nBehavior line 19\n';
       try {
@@ -600,7 +600,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0020', 0, () => {
+    it('testBehaviorSubtitleFile0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_20.srt`;
       const content: string = '20\nBAD TIMESTAMP\nBroken line 20\n';
       try {
@@ -630,7 +630,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0021', 0, () => {
+    it('testBehaviorSubtitleFile0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_21.srt`;
       const content: string = '21\n00:00:00,000 --> 00:00:05,000\nBehavior line 21\n';
       try {
@@ -660,7 +660,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0022', 0, () => {
+    it('testBehaviorSubtitleFile0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_22.srt`;
       const content: string = '22\nBAD TIMESTAMP\nBroken line 22\n';
       try {
@@ -690,7 +690,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0023', 0, () => {
+    it('testBehaviorSubtitleFile0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_23.srt`;
       const content: string = '23\n00:00:00,000 --> 00:00:05,000\nBehavior line 23\n';
       try {
@@ -720,7 +720,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0024', 0, () => {
+    it('testBehaviorSubtitleFile0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_24.srt`;
       const content: string = '24\nBAD TIMESTAMP\nBroken line 24\n';
       try {
@@ -750,7 +750,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0025', 0, () => {
+    it('testBehaviorSubtitleFile0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_25.srt`;
       const content: string = '25\n00:00:00,000 --> 00:00:05,000\nBehavior line 25\n';
       try {
@@ -780,7 +780,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0026', 0, () => {
+    it('testBehaviorSubtitleFile0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_26.srt`;
       const content: string = '26\nBAD TIMESTAMP\nBroken line 26\n';
       try {
@@ -810,7 +810,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0027', 0, () => {
+    it('testBehaviorSubtitleFile0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_27.srt`;
       const content: string = '27\n00:00:00,000 --> 00:00:05,000\nBehavior line 27\n';
       try {
@@ -840,7 +840,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0028', 0, () => {
+    it('testBehaviorSubtitleFile0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_28.srt`;
       const content: string = '28\nBAD TIMESTAMP\nBroken line 28\n';
       try {
@@ -870,7 +870,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0029', 0, () => {
+    it('testBehaviorSubtitleFile0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_29.srt`;
       const content: string = '29\n00:00:00,000 --> 00:00:05,000\nBehavior line 29\n';
       try {
@@ -900,7 +900,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0030', 0, () => {
+    it('testBehaviorSubtitleFile0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_30.srt`;
       const content: string = '30\nBAD TIMESTAMP\nBroken line 30\n';
       try {
@@ -930,7 +930,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0031', 0, () => {
+    it('testBehaviorSubtitleFile0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_31.srt`;
       const content: string = '31\n00:00:00,000 --> 00:00:05,000\nBehavior line 31\n';
       try {
@@ -960,7 +960,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0032', 0, () => {
+    it('testBehaviorSubtitleFile0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_32.srt`;
       const content: string = '32\nBAD TIMESTAMP\nBroken line 32\n';
       try {
@@ -990,7 +990,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0033', 0, () => {
+    it('testBehaviorSubtitleFile0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_33.srt`;
       const content: string = '33\n00:00:00,000 --> 00:00:05,000\nBehavior line 33\n';
       try {
@@ -1020,7 +1020,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0034', 0, () => {
+    it('testBehaviorSubtitleFile0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_34.srt`;
       const content: string = '34\nBAD TIMESTAMP\nBroken line 34\n';
       try {
@@ -1050,7 +1050,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0035', 0, () => {
+    it('testBehaviorSubtitleFile0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_35.srt`;
       const content: string = '35\n00:00:00,000 --> 00:00:05,000\nBehavior line 35\n';
       try {
@@ -1080,7 +1080,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0036', 0, () => {
+    it('testBehaviorSubtitleFile0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_36.srt`;
       const content: string = '36\nBAD TIMESTAMP\nBroken line 36\n';
       try {
@@ -1110,7 +1110,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0037', 0, () => {
+    it('testBehaviorSubtitleFile0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_37.srt`;
       const content: string = '37\n00:00:00,000 --> 00:00:05,000\nBehavior line 37\n';
       try {
@@ -1140,7 +1140,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0038', 0, () => {
+    it('testBehaviorSubtitleFile0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_38.srt`;
       const content: string = '38\nBAD TIMESTAMP\nBroken line 38\n';
       try {
@@ -1170,7 +1170,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0039', 0, () => {
+    it('testBehaviorSubtitleFile0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_39.srt`;
       const content: string = '39\n00:00:00,000 --> 00:00:05,000\nBehavior line 39\n';
       try {
@@ -1200,7 +1200,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0040', 0, () => {
+    it('testBehaviorSubtitleFile0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_40.srt`;
       const content: string = '40\nBAD TIMESTAMP\nBroken line 40\n';
       try {
@@ -1230,7 +1230,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0041', 0, () => {
+    it('testBehaviorSubtitleFile0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_41.srt`;
       const content: string = '41\n00:00:00,000 --> 00:00:05,000\nBehavior line 41\n';
       try {
@@ -1260,7 +1260,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0042', 0, () => {
+    it('testBehaviorSubtitleFile0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_42.srt`;
       const content: string = '42\nBAD TIMESTAMP\nBroken line 42\n';
       try {
@@ -1290,7 +1290,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0043', 0, () => {
+    it('testBehaviorSubtitleFile0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_43.srt`;
       const content: string = '43\n00:00:00,000 --> 00:00:05,000\nBehavior line 43\n';
       try {
@@ -1320,7 +1320,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0044', 0, () => {
+    it('testBehaviorSubtitleFile0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_44.srt`;
       const content: string = '44\nBAD TIMESTAMP\nBroken line 44\n';
       try {
@@ -1350,7 +1350,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0045', 0, () => {
+    it('testBehaviorSubtitleFile0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_45.srt`;
       const content: string = '45\n00:00:00,000 --> 00:00:05,000\nBehavior line 45\n';
       try {
@@ -1380,7 +1380,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0046', 0, () => {
+    it('testBehaviorSubtitleFile0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_46.srt`;
       const content: string = '46\nBAD TIMESTAMP\nBroken line 46\n';
       try {
@@ -1410,7 +1410,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0047', 0, () => {
+    it('testBehaviorSubtitleFile0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_47.srt`;
       const content: string = '47\n00:00:00,000 --> 00:00:05,000\nBehavior line 47\n';
       try {
@@ -1440,7 +1440,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0048', 0, () => {
+    it('testBehaviorSubtitleFile0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_48.srt`;
       const content: string = '48\nBAD TIMESTAMP\nBroken line 48\n';
       try {
@@ -1470,7 +1470,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0049', 0, () => {
+    it('testBehaviorSubtitleFile0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_49.srt`;
       const content: string = '49\n00:00:00,000 --> 00:00:05,000\nBehavior line 49\n';
       try {
@@ -1500,7 +1500,7 @@ export default function SubtitleFileBehaviorExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorSubtitleFile0050', 0, () => {
+    it('testBehaviorSubtitleFile0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const path: string = `${context.filesDir}/behavior_subtitle_50.srt`;
       const content: string = '50\nBAD TIMESTAMP\nBroken line 50\n';
       try {

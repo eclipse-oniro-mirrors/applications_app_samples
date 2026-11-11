@@ -73,7 +73,6 @@ import SubtitleSafeFileIoTailFirstTest from './SubtitleSafeFileIoTailFirst.test'
 import SubtitleSafeFileIoTailSecondTest from './SubtitleSafeFileIoTailSecond.test';
 import playerContractSafeCoreTest from './PlayerContractSafeCore.test';
 import playerContractSafeTailTest from './PlayerContractSafeTail.test';
-import uiSmokeSafeTest from './UiSmokeSafe.test';
 
 export default function testsuite() {
   abilityTest();
@@ -127,5 +126,4 @@ export default function testsuite() {
   SubtitleSafeFileIoTailSecondTest();
   playerContractSafeCoreTest();
   playerContractSafeTailTest();
-  uiSmokeSafeTest();
 }

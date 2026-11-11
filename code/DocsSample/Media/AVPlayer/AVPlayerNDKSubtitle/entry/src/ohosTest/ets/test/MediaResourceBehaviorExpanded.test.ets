@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { application, common } from '@kit.AbilityKit';
 
@@ -73,7 +73,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0001', 0, () => {
+    it('testBehaviorResource0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -87,7 +87,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0002', 0, () => {
+    it('testBehaviorResource0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -101,7 +101,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0003', 0, () => {
+    it('testBehaviorResource0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertEqual(21780300);
       expect(bytes.length).assertLarger(0);
@@ -115,7 +115,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0004', 0, () => {
+    it('testBehaviorResource0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertEqual(682);
       expect(bytes.length).assertLarger(0);
@@ -129,7 +129,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0005', 0, () => {
+    it('testBehaviorResource0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -143,7 +143,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0006', 0, () => {
+    it('testBehaviorResource0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -157,7 +157,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0007', 0, () => {
+    it('testBehaviorResource0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -171,7 +171,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0008', 0, () => {
+    it('testBehaviorResource0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -185,7 +185,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0009', 0, () => {
+    it('testBehaviorResource0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       const bytes: Uint8Array = videoBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -199,7 +199,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0010', 0, () => {
+    it('testBehaviorResource0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       const bytes: Uint8Array = subtitleBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -213,7 +213,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0011', 0, () => {
+    it('testBehaviorResource0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -227,7 +227,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0012', 0, () => {
+    it('testBehaviorResource0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -241,7 +241,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0013', 0, () => {
+    it('testBehaviorResource0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertEqual(21780300);
       expect(bytes.length).assertLarger(0);
@@ -255,7 +255,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0014', 0, () => {
+    it('testBehaviorResource0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertEqual(682);
       expect(bytes.length).assertLarger(0);
@@ -269,7 +269,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0015', 0, () => {
+    it('testBehaviorResource0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -283,7 +283,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0016', 0, () => {
+    it('testBehaviorResource0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -297,7 +297,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0017', 0, () => {
+    it('testBehaviorResource0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -311,7 +311,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0018', 0, () => {
+    it('testBehaviorResource0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -325,7 +325,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0019', 0, () => {
+    it('testBehaviorResource0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       const bytes: Uint8Array = videoBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -339,7 +339,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0020', 0, () => {
+    it('testBehaviorResource0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       const bytes: Uint8Array = subtitleBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -353,7 +353,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0021', 0, () => {
+    it('testBehaviorResource0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -367,7 +367,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0022', 0, () => {
+    it('testBehaviorResource0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -381,7 +381,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0023', 0, () => {
+    it('testBehaviorResource0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertEqual(21780300);
       expect(bytes.length).assertLarger(0);
@@ -395,7 +395,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0024', 0, () => {
+    it('testBehaviorResource0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertEqual(682);
       expect(bytes.length).assertLarger(0);
@@ -409,7 +409,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0025', 0, () => {
+    it('testBehaviorResource0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -423,7 +423,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0026', 0, () => {
+    it('testBehaviorResource0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -437,7 +437,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0027', 0, () => {
+    it('testBehaviorResource0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -451,7 +451,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0028', 0, () => {
+    it('testBehaviorResource0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -465,7 +465,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0029', 0, () => {
+    it('testBehaviorResource0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       const bytes: Uint8Array = videoBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -479,7 +479,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0030', 0, () => {
+    it('testBehaviorResource0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       const bytes: Uint8Array = subtitleBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -493,7 +493,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0031', 0, () => {
+    it('testBehaviorResource0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -507,7 +507,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0032', 0, () => {
+    it('testBehaviorResource0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -521,7 +521,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0033', 0, () => {
+    it('testBehaviorResource0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertEqual(21780300);
       expect(bytes.length).assertLarger(0);
@@ -535,7 +535,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0034', 0, () => {
+    it('testBehaviorResource0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertEqual(682);
       expect(bytes.length).assertLarger(0);
@@ -549,7 +549,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0035', 0, () => {
+    it('testBehaviorResource0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -563,7 +563,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0036', 0, () => {
+    it('testBehaviorResource0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -577,7 +577,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0037', 0, () => {
+    it('testBehaviorResource0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -591,7 +591,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0038', 0, () => {
+    it('testBehaviorResource0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -605,7 +605,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0039', 0, () => {
+    it('testBehaviorResource0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       const bytes: Uint8Array = videoBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -619,7 +619,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0040', 0, () => {
+    it('testBehaviorResource0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       const bytes: Uint8Array = subtitleBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -633,7 +633,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0041', 0, () => {
+    it('testBehaviorResource0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -647,7 +647,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0042', 0, () => {
+    it('testBehaviorResource0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.offset).assertLargerOrEqual(0);
@@ -661,7 +661,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0043', 0, () => {
+    it('testBehaviorResource0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertEqual(21780300);
       expect(bytes.length).assertLarger(0);
@@ -675,7 +675,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0044', 0, () => {
+    it('testBehaviorResource0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertEqual(682);
       expect(bytes.length).assertLarger(0);
@@ -689,7 +689,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0045', 0, () => {
+    it('testBehaviorResource0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -703,7 +703,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0046', 0, () => {
+    it('testBehaviorResource0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       expect(descriptor.fd).assertLarger(0);
       expect(descriptor.length).assertLarger(0);
@@ -717,7 +717,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0047', 0, () => {
+    it('testBehaviorResource0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = videoBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -731,7 +731,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0048', 0, () => {
+    it('testBehaviorResource0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const bytes: Uint8Array = subtitleBytes();
       expect(bytes.length).assertLarger(0);
       expect(bytes[0]).assertLargerOrEqual(0);
@@ -745,7 +745,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0049', 0, () => {
+    it('testBehaviorResource0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = videoFd();
       const bytes: Uint8Array = videoBytes();
       expect(descriptor.length).assertEqual(bytes.length);
@@ -759,7 +759,7 @@ export default function mediaResourceBehaviorExpandedTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBehaviorResource0050', 0, () => {
+    it('testBehaviorResource0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const descriptor = subtitleFd();
       const bytes: Uint8Array = subtitleBytes();
       expect(descriptor.length).assertEqual(bytes.length);

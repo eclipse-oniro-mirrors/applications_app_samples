@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 
 export default function PlayerStateMatrixExpandedCoreTest() {
@@ -25,7 +25,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0001', 0, () => {
+    it('testMorePlayerState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -47,7 +47,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0002', 0, () => {
+    it('testMorePlayerState0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -69,7 +69,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0003', 0, () => {
+    it('testMorePlayerState0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -91,7 +91,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0004', 0, () => {
+    it('testMorePlayerState0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -113,7 +113,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0005', 0, () => {
+    it('testMorePlayerState0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -135,7 +135,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0006', 0, () => {
+    it('testMorePlayerState0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -157,7 +157,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0007', 0, () => {
+    it('testMorePlayerState0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -179,7 +179,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0008', 0, () => {
+    it('testMorePlayerState0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -201,7 +201,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0009', 0, () => {
+    it('testMorePlayerState0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -223,7 +223,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0010', 0, () => {
+    it('testMorePlayerState0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -245,7 +245,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0011', 0, () => {
+    it('testMorePlayerState0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -267,7 +267,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0012', 0, () => {
+    it('testMorePlayerState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -289,7 +289,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0013', 0, () => {
+    it('testMorePlayerState0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -311,7 +311,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0014', 0, () => {
+    it('testMorePlayerState0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -333,7 +333,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0015', 0, () => {
+    it('testMorePlayerState0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -355,7 +355,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0016', 0, () => {
+    it('testMorePlayerState0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -377,7 +377,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0017', 0, () => {
+    it('testMorePlayerState0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -399,7 +399,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0018', 0, () => {
+    it('testMorePlayerState0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -421,7 +421,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0019', 0, () => {
+    it('testMorePlayerState0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -443,7 +443,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0020', 0, () => {
+    it('testMorePlayerState0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -465,7 +465,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0021', 0, () => {
+    it('testMorePlayerState0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -487,7 +487,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0022', 0, () => {
+    it('testMorePlayerState0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -509,7 +509,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0023', 0, () => {
+    it('testMorePlayerState0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -531,7 +531,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0024', 0, () => {
+    it('testMorePlayerState0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -553,7 +553,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0025', 0, () => {
+    it('testMorePlayerState0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -575,7 +575,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0026', 0, () => {
+    it('testMorePlayerState0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -597,7 +597,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0027', 0, () => {
+    it('testMorePlayerState0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -619,7 +619,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0028', 0, () => {
+    it('testMorePlayerState0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -641,7 +641,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0029', 0, () => {
+    it('testMorePlayerState0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -663,7 +663,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0030', 0, () => {
+    it('testMorePlayerState0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -685,7 +685,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0031', 0, () => {
+    it('testMorePlayerState0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -707,7 +707,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0032', 0, () => {
+    it('testMorePlayerState0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -729,7 +729,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0033', 0, () => {
+    it('testMorePlayerState0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -751,7 +751,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0034', 0, () => {
+    it('testMorePlayerState0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -773,7 +773,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0035', 0, () => {
+    it('testMorePlayerState0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -795,7 +795,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0036', 0, () => {
+    it('testMorePlayerState0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -817,7 +817,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0037', 0, () => {
+    it('testMorePlayerState0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -839,7 +839,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0038', 0, () => {
+    it('testMorePlayerState0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -861,7 +861,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0039', 0, () => {
+    it('testMorePlayerState0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -883,7 +883,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0040', 0, () => {
+    it('testMorePlayerState0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -905,7 +905,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0041', 0, () => {
+    it('testMorePlayerState0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -927,7 +927,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0042', 0, () => {
+    it('testMorePlayerState0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -949,7 +949,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0043', 0, () => {
+    it('testMorePlayerState0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -971,7 +971,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0044', 0, () => {
+    it('testMorePlayerState0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -993,7 +993,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0045', 0, () => {
+    it('testMorePlayerState0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -1015,7 +1015,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0046', 0, () => {
+    it('testMorePlayerState0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = true;
       let state: string = 'playing';
@@ -1037,7 +1037,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0047', 0, () => {
+    it('testMorePlayerState0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -1059,7 +1059,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0048', 0, () => {
+    it('testMorePlayerState0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -1081,7 +1081,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0049', 0, () => {
+    it('testMorePlayerState0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = true;
       const ended: boolean = false;
       let state: string = 'playing';
@@ -1103,7 +1103,7 @@ export default function PlayerStateMatrixExpandedCoreTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMorePlayerState0050', 0, () => {
+    it('testMorePlayerState0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const paused: boolean = false;
       const ended: boolean = false;
       let state: string = 'playing';

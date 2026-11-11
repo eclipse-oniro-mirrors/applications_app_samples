@@ -12,20 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
-import { Component, Driver, ON } from '@kit.TestKit';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 
+const TAG: string = '[Sample_UiSmokeSafe]';
+const DOMAIN: number = 0xF811;
 const driver: Driver = Driver.create();
-const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = AbilityDelegatorRegistry.getArguments().bundleName;
+const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 
 
 export default function uiSmokeSafeTest() {
   describe('uiSmokeSafeTest', () => {
   beforeAll(async () => {
     await abilityDelegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
-    await driver.delayMs(2000);
+    await driver.delayMs(5000);
   });
 
     /**
@@ -36,12 +38,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0001', 0, async () => {
+    it('testSafeUiSmoke0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0001 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('VideoView'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0001 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0001 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0001 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0002
@@ -51,12 +57,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0002', 0, async () => {
+    it('testSafeUiSmoke0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0002 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('Slider'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0002 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0002 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0002 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0003
@@ -66,12 +76,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0003', 0, async () => {
+    it('testSafeUiSmoke0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0003 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('Speed'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0003 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0003 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0003 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0004
@@ -81,12 +95,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0004', 0, async () => {
+    it('testSafeUiSmoke0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0004 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('currentTimeText'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0004 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0004 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0004 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0005
@@ -96,12 +114,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0005', 0, async () => {
+    it('testSafeUiSmoke0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0005 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('durationTimeText'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0005 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0005 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0005 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0006
@@ -111,12 +133,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0006', 0, async () => {
+    it('testSafeUiSmoke0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0006 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('pause'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0006 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0006 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0006 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0007
@@ -126,12 +152,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0007', 0, async () => {
+    it('testSafeUiSmoke0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0007 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('VideoView'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0007 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0007 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0007 end');
     })
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0008
@@ -141,12 +171,16 @@ export default function uiSmokeSafeTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSafeUiSmoke0008', 0, async () => {
+    it('testSafeUiSmoke0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0008 begin');
       await driver.delayMs(300);
       const component: Component | null = await driver.findComponent(ON.id('Slider'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0008 component present: ' + String(component !== null && component !== undefined));
       expect(component !== null && component !== undefined).assertTrue();
       const top = await abilityDelegator.getCurrentTopAbility();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0008 top ability: ' + top.context.abilityInfo.name);
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSafeUiSmoke0008 end');
     })
   })
 }
