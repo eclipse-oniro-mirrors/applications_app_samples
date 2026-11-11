@@ -46,7 +46,8 @@
     // [EndExclude module_executableBinaryPaths]
     "executableBinaryPaths": [
       {
-        "path": "libs/arm64-v8a/test.bin"
+        "path": "libs/arm64-v8a/test.bin",
+        "permissionControlMode": "independent"
       }
     ],
     // [StartExclude module_executableBinaryPaths]
