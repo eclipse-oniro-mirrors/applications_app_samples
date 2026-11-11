@@ -56,8 +56,8 @@ OH_AudioRenderer_Callbacks callbacks;
 // [StartExclude Render_CustomCallback]
 // 超低时延播放流相关全局变量
 OH_AudioStreamManager* audioStreamManager = nullptr;
-OH_AudioStreamBuilder* g_ultraBuilder;
-OH_AudioRenderer* g_ultraAudioRenderer;
+OH_AudioStreamBuilder* g_ultraBuilder = nullptr;
+OH_AudioRenderer* g_ultraAudioRenderer = nullptr;
 std::atomic<OH_AudioStream_FastStatus> g_ultraFastStatus {AUDIOSTREAM_FASTSTATUS_NORMAL};
 FILE * g_ultraFp = nullptr;
 

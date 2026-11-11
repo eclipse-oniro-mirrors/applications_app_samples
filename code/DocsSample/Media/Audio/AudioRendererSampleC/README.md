@@ -60,7 +60,7 @@
   - 点击'设置同时写入回调'按钮，首先调用`OH_AudioStreamBuilder_Create`创建音频构造器。接着配置播放参数，包括采样率、声道数、采样格式、编码类型等，其中编码类型为`AUDIOSTREAM_ENCODING_TYPE_AUDIOVIVID`。然后调用`OH_AudioStreamBuilder_SetWriteDataWithMetadataCallback`来设置写入数据回调可以同时写入PCM数据和元数据。
   - 点击'查询超低时延支持'按钮，首先调用`OH_AudioManager_GetAudioStreamManager`获取音频流管理器，然后构造与待创建播放流参数一致的`OH_AudioStreamInfo`，最后调用`OH_AudioStreamManager_IsUltraFastPlaybackSupported`查询当前设备是否支持超低时延播放。
   - 点击'创建超低时延播放流'按钮，创建流程与'创建播放流'类似，区别在于调用`OH_AudioStreamBuilder_SetLatencyMode`设置时延模式为`AUDIOSTREAM_LATENCY_MODE_ULTRA_FAST`，并通过`OH_AudioStreamBuilder_SetRendererFastStatusChangeCallback`注册低时延状态变化回调以及时感知运行模式降级。调用`OH_AudioStreamBuilder_GenerateRenderer`构造音频流时，需处理权限缺失（`AUDIOSTREAM_RESULT_ERROR_PERMISSION_DENIED`）与硬件不支持（`AUDIOSTREAM_ERROR_UNSUPPORTED_ABILITY`）的新错误码。
-  - 点击'获取低时延状态'按钮，调用`OH_AudioRenderer_GetFastStatus`查询音频流实际运行的低时延状态，返回值可能为`AUDIOSTREAM_FASTSTATUS_NORMAL`、`AUDIOSTREAM_FASTSTATUS_FAST`或`AUDIOSTREAM_FASTSTATUS_ULTRA_FAST`。与`OH_AudioRenderer_GetLatencyMode`返回的设置值不同，该接口返回的是实际运行状态。
+  - 点击'获取超低时延状态'按钮，调用`OH_AudioRenderer_GetFastStatus`查询音频流实际运行的低时延状态，返回值可能为`AUDIOSTREAM_FASTSTATUS_NORMAL`、`AUDIOSTREAM_FASTSTATUS_FAST`或`AUDIOSTREAM_FASTSTATUS_ULTRA_FAST`。与`OH_AudioRenderer_GetLatencyMode`返回的设置值不同，该接口返回的是实际运行状态。
   - 点击'销毁超低时延播放流'按钮，调用`OH_AudioStreamBuilder_Destroy`销毁超低时延音频流。
 
 
