@@ -17,6 +17,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const RENDER_USAGES: audio.StreamUsage[] = [
   audio.StreamUsage.STREAM_USAGE_MEDIA,
@@ -71,6 +72,18 @@ async function createPreparedRenderer(usage: audio.StreamUsage = audio.StreamUsa
   return renderer;
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Audio_AudioPipelineContract]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function audioPipelineContractTest() {
   describe('audioPipelineContractTest', () => {
     beforeAll(() => {
@@ -94,6 +107,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0001');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         expect(renderer.state).assertEqual(1);
@@ -103,6 +117,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioRenderer0001');
     })
 
     /**
@@ -114,10 +130,13 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0002');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       expect(renderer.state).assertEqual(4);
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioRenderer0002');
     })
 
     /**
@@ -129,6 +148,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0003');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -137,6 +157,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioRenderer0003');
     })
 
     /**
@@ -148,6 +170,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0004');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -157,6 +180,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioRenderer0004');
     })
 
     /**
@@ -168,6 +193,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0005');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -178,6 +204,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioRenderer0005');
     })
 
     /**
@@ -189,6 +217,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0006');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -198,6 +227,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioRenderer0006');
     })
 
     /**
@@ -209,6 +240,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0007');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -218,6 +250,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioRenderer0007');
     })
 
     /**
@@ -229,11 +263,14 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0008');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.start();
       expect(renderer.state).assertEqual(2);
       await renderer.release();
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioRenderer0008');
     })
 
     /**
@@ -245,6 +282,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0009');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       try {
@@ -253,6 +291,8 @@ export default function audioPipelineContractTest() {
         console.info('start after release raised an error');
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioRenderer0009');
     })
 
     /**
@@ -264,6 +304,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0010');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       try {
@@ -272,6 +313,8 @@ export default function audioPipelineContractTest() {
         console.info('pause after release raised an error');
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioRenderer0010');
     })
 
     /**
@@ -283,6 +326,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0011');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       try {
@@ -291,6 +335,8 @@ export default function audioPipelineContractTest() {
         console.info('stop after release raised an error');
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioRenderer0011');
     })
 
     /**
@@ -302,6 +348,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0012');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       expect(renderer.state).assertEqual(4);
@@ -311,6 +358,8 @@ export default function audioPipelineContractTest() {
         console.info('second release raised an error');
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioRenderer0012');
     })
 
     /**
@@ -322,6 +371,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0013');
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         for (let i = 0; i < 100; i++) {
@@ -330,6 +380,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioRenderer0013');
     })
 
     /**
@@ -341,6 +393,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0014');
       const first: audio.AudioRenderer = await createPreparedRenderer();
       const second: audio.AudioRenderer = await createPreparedRenderer();
       try {
@@ -354,6 +407,8 @@ export default function audioPipelineContractTest() {
         await first.release();
         await second.release();
       }
+    
+      logEnd('testAudioRenderer0014');
     })
 
     /**
@@ -365,6 +420,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0015');
       const survivor: audio.AudioRenderer = await createPreparedRenderer();
       const victim: audio.AudioRenderer = await createPreparedRenderer();
       try {
@@ -376,6 +432,8 @@ export default function audioPipelineContractTest() {
       } finally {
         await survivor.release();
       }
+    
+      logEnd('testAudioRenderer0015');
     })
 
     /**
@@ -387,12 +445,15 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioRenderer0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioRenderer0016');
       for (let i = 0; i < 6; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer();
         expect(renderer.state).assertEqual(1);
         await renderer.release();
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testAudioRenderer0016');
     })
 
     /**
@@ -404,6 +465,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioStream0001');
       for (let i = 0; i < RENDER_USAGES.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[i]);
         try {
@@ -412,6 +474,8 @@ export default function audioPipelineContractTest() {
           await renderer.release();
         }
       }
+    
+      logEnd('testAudioStream0001');
     })
 
     /**
@@ -423,10 +487,13 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioStream0002');
       expect(audio.StreamUsage.STREAM_USAGE_MEDIA).assertEqual(audio.StreamUsage.STREAM_USAGE_MUSIC);
       expect(audio.StreamUsage.STREAM_USAGE_MEDIA).assertEqual(1);
       expect(audio.StreamUsage.STREAM_USAGE_UNKNOWN).assertEqual(0);
       expect(audio.StreamUsage.STREAM_USAGE_MEDIA).assertLarger(audio.StreamUsage.STREAM_USAGE_UNKNOWN);
+    
+      logEnd('testAudioStream0002');
     })
 
     /**
@@ -438,6 +505,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioStream0003');
       for (let i = 0; i < CHANNELS.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, audio.AudioSamplingRate.SAMPLE_RATE_48000, CHANNELS[i]);
@@ -447,6 +515,8 @@ export default function audioPipelineContractTest() {
           await renderer.release();
         }
       }
+    
+      logEnd('testAudioStream0003');
     })
 
     /**
@@ -458,6 +528,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioStream0004');
       for (let i = 0; i < SAMPLE_RATES.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, SAMPLE_RATES[i]);
@@ -467,6 +538,8 @@ export default function audioPipelineContractTest() {
           await renderer.release();
         }
       }
+    
+      logEnd('testAudioStream0004');
     })
 
     /**
@@ -478,6 +551,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioStream0005');
       for (let usageIndex = 0; usageIndex < RENDER_USAGES.length; usageIndex++) {
         for (let channelIndex = 0; channelIndex < CHANNELS.length; channelIndex++) {
           const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[usageIndex],
@@ -489,6 +563,8 @@ export default function audioPipelineContractTest() {
           }
         }
       }
+    
+      logEnd('testAudioStream0005');
     })
 
     /**
@@ -500,6 +576,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioStream0006');
       for (let usageIndex = 0; usageIndex < RENDER_USAGES.length; usageIndex++) {
         for (let rateIndex = 0; rateIndex < SAMPLE_RATES.length; rateIndex++) {
           const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[usageIndex],
@@ -511,6 +588,8 @@ export default function audioPipelineContractTest() {
           }
         }
       }
+    
+      logEnd('testAudioStream0006');
     })
 
     /**
@@ -522,6 +601,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioStream0007');
       const created: audio.AudioRenderer[] = [];
       for (let usageIndex = 0; usageIndex < RENDER_USAGES.length; usageIndex++) {
         for (let channelIndex = 0; channelIndex < CHANNELS.length; channelIndex++) {
@@ -539,6 +619,8 @@ export default function audioPipelineContractTest() {
         await created[i].release();
         expect(created[i].state).assertEqual(4);
       }
+    
+      logEnd('testAudioStream0007');
     })
 
     /**
@@ -550,6 +632,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioStream0008');
       for (let i = 0; i < FORMATS.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, audio.AudioSamplingRate.SAMPLE_RATE_48000,
@@ -560,6 +643,8 @@ export default function audioPipelineContractTest() {
           await renderer.release();
         }
       }
+    
+      logEnd('testAudioStream0008');
     })
 
     /**
@@ -571,12 +656,15 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioStream0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioStream0009');
       expect(audio.AudioEncodingType.ENCODING_TYPE_RAW).assertEqual(0);
       expect(audio.AudioSampleFormat.SAMPLE_FORMAT_S16LE).assertEqual(1);
       expect(audio.AudioChannel.CHANNEL_1).assertEqual(1);
       expect(audio.AudioChannel.CHANNEL_2).assertEqual(2);
       expect(audio.AudioSamplingRate.SAMPLE_RATE_44100).assertEqual(44100);
       expect(audio.AudioSamplingRate.SAMPLE_RATE_48000).assertEqual(48000);
+    
+      logEnd('testAudioStream0009');
     })
 
     /**
@@ -588,6 +676,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolume0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolume0001');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -597,6 +686,8 @@ export default function audioPipelineContractTest() {
       expect(max).assertLarger(min);
       expect(current).assertLargerOrEqual(min);
       expect(current).assertLessOrEqual(max);
+    
+      logEnd('testAudioVolume0001');
     })
 
     /**
@@ -608,6 +699,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolume0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolume0002');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       for (let i = 0; i < RENDER_USAGES.length; i++) {
         const usage: audio.StreamUsage = RENDER_USAGES[i];
@@ -619,6 +711,8 @@ export default function audioPipelineContractTest() {
         expect(current).assertLargerOrEqual(min);
         expect(current).assertLessOrEqual(max);
       }
+    
+      logEnd('testAudioVolume0002');
     })
 
     /**
@@ -630,6 +724,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolume0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolume0003');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -639,6 +734,8 @@ export default function audioPipelineContractTest() {
         expect(manager.getMaxVolumeByStream(usage)).assertEqual(max);
       }
       expect(max - min).assertLargerOrEqual(0);
+    
+      logEnd('testAudioVolume0003');
     })
 
     /**
@@ -650,6 +747,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolume0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolume0004');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const mediaMin: number = manager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MEDIA);
       const musicMin: number = manager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MUSIC);
@@ -657,6 +755,8 @@ export default function audioPipelineContractTest() {
       const musicMax: number = manager.getMaxVolumeByStream(audio.StreamUsage.STREAM_USAGE_MUSIC);
       expect(musicMin).assertEqual(mediaMin);
       expect(musicMax).assertEqual(mediaMax);
+    
+      logEnd('testAudioVolume0004');
     })
 
     /**
@@ -668,6 +768,7 @@ export default function audioPipelineContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolume0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolume0005');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -677,6 +778,8 @@ export default function audioPipelineContractTest() {
       expect(Number.isInteger(min)).assertTrue();
       expect(Number.isInteger(max)).assertTrue();
       expect(max).assertLessOrEqual(10000);
+    
+      logEnd('testAudioVolume0005');
     })
   });
 }

@@ -17,6 +17,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function optionsFor(usage: audio.StreamUsage): audio.AudioRendererOptions {
   const streamInfo: audio.AudioStreamInfo = {
@@ -60,6 +61,18 @@ async function fullLifecycle(usage: audio.StreamUsage): Promise<void> {
   expect(renderer.state).assertEqual(4);
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Audio_AudioRendererLifecycleMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function audioRendererLifecycleMatrixTest() {
   describe('audioRendererLifecycleMatrixTest', () => {
     beforeAll(() => {
@@ -83,7 +96,10 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0001');
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MEDIA);
+    
+      logEnd('testAudioLifecycle0001');
     })
 
     /**
@@ -95,7 +111,10 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0002');
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MUSIC);
+    
+      logEnd('testAudioLifecycle0002');
     })
 
     /**
@@ -107,7 +126,10 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0003');
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MOVIE);
+    
+      logEnd('testAudioLifecycle0003');
     })
 
     /**
@@ -119,7 +141,10 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0004');
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_GAME);
+    
+      logEnd('testAudioLifecycle0004');
     })
 
     /**
@@ -131,7 +156,10 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0005');
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
+    
+      logEnd('testAudioLifecycle0005');
     })
 
     /**
@@ -143,7 +171,10 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0006');
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_RINGTONE);
+    
+      logEnd('testAudioLifecycle0006');
     })
 
     /**
@@ -155,7 +186,10 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0007');
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_ALARM);
+    
+      logEnd('testAudioLifecycle0007');
     })
 
     /**
@@ -167,6 +201,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioLifecycle0008');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -176,6 +211,8 @@ export default function audioRendererLifecycleMatrixTest() {
       expect(max).assertLarger(min);
       expect(current).assertLargerOrEqual(min);
       expect(current).assertLessOrEqual(max);
+    
+      logEnd('testAudioLifecycle0008');
     })
 
     /**
@@ -187,6 +224,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioLifecycle0009');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MOVIE;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -196,6 +234,8 @@ export default function audioRendererLifecycleMatrixTest() {
       expect(max).assertLargerOrEqual(min);
       expect(current).assertLargerOrEqual(min);
       expect(current).assertLessOrEqual(max);
+    
+      logEnd('testAudioLifecycle0009');
     })
 
     /**
@@ -207,6 +247,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioLifecycle0010');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_GAME;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -216,6 +257,8 @@ export default function audioRendererLifecycleMatrixTest() {
       expect(max).assertLargerOrEqual(min);
       expect(current).assertLargerOrEqual(min);
       expect(current).assertLessOrEqual(max);
+    
+      logEnd('testAudioLifecycle0010');
     })
 
     /**
@@ -227,6 +270,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioLifecycle0011');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_NOTIFICATION;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -236,6 +280,8 @@ export default function audioRendererLifecycleMatrixTest() {
       expect(max).assertLargerOrEqual(min);
       expect(current).assertLargerOrEqual(min);
       expect(current).assertLessOrEqual(max);
+    
+      logEnd('testAudioLifecycle0011');
     })
 
     /**
@@ -247,6 +293,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0012');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       await renderer.release();
       try {
@@ -255,6 +302,8 @@ export default function audioRendererLifecycleMatrixTest() {
         console.info('start after release raised an error');
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioLifecycle0012');
     })
 
     /**
@@ -266,6 +315,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0013');
       const media: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       const game: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
@@ -281,6 +331,8 @@ export default function audioRendererLifecycleMatrixTest() {
         await media.release();
         await game.release();
       }
+    
+      logEnd('testAudioLifecycle0013');
     })
 
     /**
@@ -292,9 +344,12 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0014');
       for (let i = 0; i < 3; i++) {
         await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MOVIE);
       }
+    
+      logEnd('testAudioLifecycle0014');
     })
 
     /**
@@ -306,6 +361,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioLifecycle0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLifecycle0015');
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.StreamUsage.STREAM_USAGE_MOVIE,
@@ -326,6 +382,8 @@ export default function audioRendererLifecycleMatrixTest() {
         await renderer.release();
         expect(allowed.indexOf(renderer.state) >= 0).assertTrue();
       }
+    
+      logEnd('testAudioLifecycle0015');
     })
   });
 }

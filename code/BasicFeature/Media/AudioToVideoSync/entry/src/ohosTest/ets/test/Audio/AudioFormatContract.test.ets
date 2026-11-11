@@ -17,6 +17,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const FORMAT_VALUES: number[] = [
   audio.AudioSampleFormat.SAMPLE_FORMAT_S16LE,
@@ -51,6 +52,18 @@ async function createFor(usage: audio.StreamUsage, rate: audio.AudioSamplingRate
   return renderer;
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Audio_AudioFormatContract]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function audioFormatContractTest() {
   describe('audioFormatContractTest', () => {
     beforeAll(() => {
@@ -74,6 +87,7 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioFormat0001');
       const distinct: Set<number> = new Set<number>();
       for (let i = 0; i < FORMAT_VALUES.length; i++) {
         expect(FORMAT_VALUES[i]).assertLarger(0);
@@ -84,6 +98,8 @@ export default function audioFormatContractTest() {
       expect(audio.AudioSampleFormat.SAMPLE_FORMAT_S24LE).assertEqual(2);
       expect(audio.AudioSampleFormat.SAMPLE_FORMAT_S32LE).assertEqual(3);
       expect(audio.AudioSampleFormat.SAMPLE_FORMAT_F32LE).assertEqual(4);
+    
+      logEnd('testAudioFormat0001');
     })
 
     /**
@@ -95,11 +111,14 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioFormat0002');
       expect(audio.AudioChannel.CHANNEL_1).assertEqual(1);
       expect(audio.AudioChannel.CHANNEL_2).assertEqual(2);
       expect(audio.AudioEncodingType.ENCODING_TYPE_RAW).assertEqual(0);
       expect(audio.AudioSamplingRate.SAMPLE_RATE_44100).assertEqual(44100);
       expect(audio.AudioSamplingRate.SAMPLE_RATE_48000).assertEqual(48000);
+    
+      logEnd('testAudioFormat0002');
     })
 
     /**
@@ -111,6 +130,7 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioFormat0003');
       const rates: audio.AudioSamplingRate[] = [
         audio.AudioSamplingRate.SAMPLE_RATE_44100,
         audio.AudioSamplingRate.SAMPLE_RATE_48000
@@ -130,6 +150,8 @@ export default function audioFormatContractTest() {
           }
         }
       }
+    
+      logEnd('testAudioFormat0003');
     })
 
     /**
@@ -141,6 +163,7 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioFormat0004');
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.StreamUsage.STREAM_USAGE_MUSIC,
@@ -159,6 +182,8 @@ export default function audioFormatContractTest() {
           await renderer.release();
         }
       }
+    
+      logEnd('testAudioFormat0004');
     })
 
     /**
@@ -170,10 +195,13 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioFormat0005');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.AudioSamplingRate.SAMPLE_RATE_48000, audio.AudioChannel.CHANNEL_2);
       await renderer.release();
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioFormat0005');
     })
 
     /**
@@ -185,6 +213,7 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioFormat0006');
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -197,6 +226,8 @@ export default function audioFormatContractTest() {
       expect(max).assertLargerOrEqual(min);
       expect(current).assertLargerOrEqual(min);
       expect(current).assertLessOrEqual(max);
+    
+      logEnd('testAudioFormat0006');
     })
 
     /**
@@ -208,6 +239,7 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioFormat0007');
       const rates: audio.AudioSamplingRate[] = [
         audio.AudioSamplingRate.SAMPLE_RATE_44100,
         audio.AudioSamplingRate.SAMPLE_RATE_48000
@@ -218,6 +250,8 @@ export default function audioFormatContractTest() {
         await renderer.release();
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testAudioFormat0007');
     })
 
     /**
@@ -229,6 +263,7 @@ export default function audioFormatContractTest() {
      * @tc.level     Level 2
      */
     it('testAudioFormat0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioFormat0008');
       const first: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.AudioSamplingRate.SAMPLE_RATE_44100, audio.AudioChannel.CHANNEL_2);
       const second: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
@@ -242,6 +277,8 @@ export default function audioFormatContractTest() {
       } finally {
         await second.release();
       }
+    
+      logEnd('testAudioFormat0008');
     })
   });
 }

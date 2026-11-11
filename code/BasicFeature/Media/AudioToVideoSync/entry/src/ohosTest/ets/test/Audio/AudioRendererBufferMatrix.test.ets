@@ -17,6 +17,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function optionsFor(usage: audio.StreamUsage): audio.AudioRendererOptions {
   const streamInfo: audio.AudioStreamInfo = {
@@ -39,6 +40,18 @@ async function createFor(usage: audio.StreamUsage): Promise<audio.AudioRenderer>
   const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor(usage));
   expect(renderer.state).assertEqual(1);
   return renderer;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Audio_AudioRendererBufferMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function audioRendererBufferMatrixTest() {
@@ -64,6 +77,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0001');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       try {
         await renderer.start();
@@ -77,6 +91,8 @@ export default function audioRendererBufferMatrixTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioBuffer0001');
     })
 
     /**
@@ -88,6 +104,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0002');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
       try {
         for (let i = 0; i < 5; i++) {
@@ -99,6 +116,8 @@ export default function audioRendererBufferMatrixTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioBuffer0002');
     })
 
     /**
@@ -110,6 +129,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0003');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
         for (let i = 0; i < 5; i++) {
@@ -121,6 +141,8 @@ export default function audioRendererBufferMatrixTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioBuffer0003');
     })
 
     /**
@@ -132,11 +154,14 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0004');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       await renderer.start();
       expect(renderer.state).assertEqual(2);
       await renderer.release();
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioBuffer0004');
     })
 
     /**
@@ -148,12 +173,15 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0005');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
       await renderer.start();
       await renderer.pause();
       expect(renderer.state).assertEqual(5);
       await renderer.release();
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioBuffer0005');
     })
 
     /**
@@ -165,12 +193,15 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0006');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_RINGTONE);
       await renderer.start();
       await renderer.stop();
       expect(renderer.state).assertEqual(3);
       await renderer.release();
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioBuffer0006');
     })
 
     /**
@@ -182,6 +213,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0007');
       const first: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       const second: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
@@ -197,6 +229,8 @@ export default function audioRendererBufferMatrixTest() {
         await first.release();
         await second.release();
       }
+    
+      logEnd('testAudioBuffer0007');
     })
 
     /**
@@ -208,6 +242,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0008');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       try {
         await renderer.start();
@@ -217,6 +252,8 @@ export default function audioRendererBufferMatrixTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioBuffer0008');
     })
 
     /**
@@ -228,6 +265,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0009');
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.StreamUsage.STREAM_USAGE_MOVIE,
@@ -250,6 +288,8 @@ export default function audioRendererBufferMatrixTest() {
           }
         }
       }
+    
+      logEnd('testAudioBuffer0009');
     })
 
     /**
@@ -261,11 +301,14 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioBuffer0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioBuffer0010');
       for (let i = 0; i < 10; i++) {
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
         await renderer.release();
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testAudioBuffer0010');
     })
   });
 }

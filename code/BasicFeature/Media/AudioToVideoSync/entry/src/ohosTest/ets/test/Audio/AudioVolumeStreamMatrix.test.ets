@@ -17,6 +17,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const USAGES: audio.StreamUsage[] = [
   audio.StreamUsage.STREAM_USAGE_MEDIA,
@@ -45,6 +46,18 @@ function assertRange(usage: audio.StreamUsage): void {
   expect(Number.isInteger(max)).assertTrue();
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Audio_AudioVolumeStreamMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function audioVolumeStreamMatrixTest() {
   describe('audioVolumeStreamMatrixTest', () => {
     beforeAll(() => {
@@ -68,7 +81,10 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0001');
       assertRange(audio.StreamUsage.STREAM_USAGE_MEDIA);
+    
+      logEnd('testAudioVolumeStream0001');
     })
 
     /**
@@ -80,7 +96,10 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0002');
       assertRange(audio.StreamUsage.STREAM_USAGE_MUSIC);
+    
+      logEnd('testAudioVolumeStream0002');
     })
 
     /**
@@ -92,7 +111,10 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0003');
       assertRange(audio.StreamUsage.STREAM_USAGE_MOVIE);
+    
+      logEnd('testAudioVolumeStream0003');
     })
 
     /**
@@ -104,7 +126,10 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0004');
       assertRange(audio.StreamUsage.STREAM_USAGE_GAME);
+    
+      logEnd('testAudioVolumeStream0004');
     })
 
     /**
@@ -116,7 +141,10 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0005');
       assertRange(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
+    
+      logEnd('testAudioVolumeStream0005');
     })
 
     /**
@@ -128,7 +156,10 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0006');
       assertRange(audio.StreamUsage.STREAM_USAGE_RINGTONE);
+    
+      logEnd('testAudioVolumeStream0006');
     })
 
     /**
@@ -140,7 +171,10 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0007');
       assertRange(audio.StreamUsage.STREAM_USAGE_ALARM);
+    
+      logEnd('testAudioVolumeStream0007');
     })
 
     /**
@@ -152,9 +186,12 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0008');
       for (let i = 0; i < USAGES.length; i++) {
         assertRange(USAGES[i]);
       }
+    
+      logEnd('testAudioVolumeStream0008');
     })
 
     /**
@@ -166,6 +203,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0009');
       const volumeManager: audio.AudioVolumeManager = manager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = volumeManager.getMinVolumeByStream(usage);
@@ -175,6 +213,8 @@ export default function audioVolumeStreamMatrixTest() {
         expect(volumeManager.getMaxVolumeByStream(usage)).assertEqual(max);
       }
       expect(max - min).assertLargerOrEqual(0);
+    
+      logEnd('testAudioVolumeStream0009');
     })
 
     /**
@@ -186,11 +226,14 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.level     Level 2
      */
     it('testAudioVolumeStream0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testAudioVolumeStream0010');
       const volumeManager: audio.AudioVolumeManager = manager();
       expect(volumeManager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MUSIC))
         .assertEqual(volumeManager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MEDIA));
       expect(volumeManager.getMaxVolumeByStream(audio.StreamUsage.STREAM_USAGE_MUSIC))
         .assertEqual(volumeManager.getMaxVolumeByStream(audio.StreamUsage.STREAM_USAGE_MEDIA));
+    
+      logEnd('testAudioVolumeStream0010');
     })
   });
 }
