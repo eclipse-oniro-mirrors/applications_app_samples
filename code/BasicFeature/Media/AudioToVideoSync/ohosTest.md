@@ -47,16 +47,8 @@
 - 时序只写上限预算与单调关系，不写精确耗时；用例间通过 paceTurn 让出事件循环。 
 - UI 只覆盖标题、按钮文本/启用态/顺序、重复进入与返回恢复，先解锁并清弹窗。 
 
-## 六、执行方式 
-```bash
-hdc uninstall com.samples.AudioToVideoSync 
-hdc install -r entry/build/default/outputs/default/entry-default-signed.hap 
-hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap 
-hdc shell aa test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -s class clockContractTest,fileContentMatrixTest -s timeout 15000 
-hdc shell aa test -b com.samples.AudioToVideoSync -m entry_test -s unittest OpenHarmonyTestRunner -w 900000 
-``` 
 
-## 七、已知问题与修复记录 
+## 六、已知问题与修复记录 
 | 问题 | 现象 | 处理 | 
 |---|---|---| 
 | Base64 空输入 | encodeToStringSync 空数组抛 Parameter error | 断言空输入被拒绝 | 
@@ -65,12 +57,12 @@ hdc shell aa test -b com.samples.AudioToVideoSync -m entry_test -s unittest Open
 | OpenMode 全 false | mode 合法为 0，却断言 mode>0 | 移除该断言，保留 CREATE 位与类型断言 | 
 | 安装未生效 | 改完测试仍执行旧代码 | 先 uninstall 再安装 main + ohosTest | 
 
-## 八、未直接覆盖 
+## 七、未直接覆盖 
 - C++ Player::ProcessWaitTime 等同步算法无 native 单测（需新增 native 测试目标，当前不改生产构建）。 
 - 图库选择器到真实播放的端到端自动化受系统 UI 与媒体资源限制，主要依赖手工验收。 
 - 真实硬件解码/蓝牙时延需要设备组合验证。 
 
-## 九、手工用例表 
+## 八、手工用例表 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 结果 | 
 |---|---|---|---|---|---| 
 | 相册视频正常播放 | 启动应用、设备解锁 | 点击播放，选择图库视频 | 视频正常播放、有画面有声音 | 否 | Pass | 
