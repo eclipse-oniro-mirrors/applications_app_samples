@@ -14,21 +14,18 @@
 `product/tv/src/main/ets/pages/Index.ets`，投屏服务实现在
 `product/tv/src/main/ets/serviceextability/` 目录。
 
+### 效果预览
+
+| 首页 | 设置页 | 修改设备名称 |
+|------|--------|--------------|
+| ![image](screenshots/screenshot_1.svg) | ![image](screenshots/screenshot_2.svg) | ![image](screenshots/screenshot_3.svg) |
+
 使用说明：
 
 1. 安装并启动应用，按提示授予相关系统权限。
 2. 在首页选择投屏开关，等待可投屏设备列表刷新。
 3. 选择目标设备发起投屏，进入播放页面后可进行暂停、静音、停止等操作。
 4. 在设置页可修改本机名称，并管理可信设备列表。
-
-### 截图预览
-
-> 说明：真机截图待补充，请将截图放置于 `screenshots/` 目录后，将下方占位替换为实际图片。
-
-<!--
-![](./screenshots/screenshot_1.png)
-![](./screenshots/screenshot_2.png)
--->
 
 ### 工程目录
 
