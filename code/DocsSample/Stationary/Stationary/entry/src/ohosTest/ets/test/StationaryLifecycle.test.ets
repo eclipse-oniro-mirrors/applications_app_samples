@@ -12,9 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
+
 import {
   SHOW_ID,
   BUTTON_IDS,
@@ -24,6 +26,9 @@ import {
   clickAndExpectLast,
   readShowText
 } from './StationaryUiSupport';
+
+const DOMAIN: number = 0xF812;
+const TAG: string = 'Sample_Stationary';
 
 async function relaunch(driver: Driver): Promise<boolean> {
   const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
@@ -42,6 +47,15 @@ async function relaunch(driver: Driver): Promise<boolean> {
  * 通过重复拉起 EntryAbility 模拟应用恢复，校验页面控件可恢复、动作在恢复后
  * 仍可用、状态文本仍按最后一次动作更新。
  */
+
+function caseEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
+function caseBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
 export default function StationaryLifecycleTest() {
   describe('StationaryLifecycleTest', () => {
     beforeAll(async () => {
@@ -58,6 +72,7 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0001');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       let found: number = 0;
@@ -68,6 +83,7 @@ export default function StationaryLifecycleTest() {
       }
       expect(found).assertEqual(BUTTON_IDS.length);
       expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
+      caseEnd('testStationaryLife0001');
     });
 
     /**
@@ -79,10 +95,12 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0002');
       const driver: Driver = getDriver();
       expect(await clickAndExpect(driver, 0)).assertTrue();
       expect(await relaunch(driver)).assertTrue();
       expect(await driver.findComponent(ON.id('button1')) !== null).assertTrue();
+      caseEnd('testStationaryLife0002');
     });
 
     /**
@@ -94,11 +112,13 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0003');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await relaunch(driver)).assertTrue();
       }
       expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
+      caseEnd('testStationaryLife0003');
     });
 
     /**
@@ -110,9 +130,11 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0004');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       expect(await clickAndExpect(driver, 2)).assertTrue();
+      caseEnd('testStationaryLife0004');
     });
 
     /**
@@ -124,11 +146,13 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0005');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       for (const id of BUTTON_IDS) {
         expect(await driver.findComponent(ON.id(id)) !== null).assertTrue();
       }
+      caseEnd('testStationaryLife0005');
     });
 
     /**
@@ -140,9 +164,11 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0006');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       expect(await clickAndExpect(driver, 1)).assertTrue();
+      caseEnd('testStationaryLife0006');
     });
 
     /**
@@ -154,9 +180,11 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0007');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       expect(await clickAndExpectLast(driver, ['button1', 'button2'])).assertTrue();
+      caseEnd('testStationaryLife0007');
     });
 
     /**
@@ -168,11 +196,13 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0008');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await relaunch(driver)).assertTrue();
         expect((await readShowText(driver)).length > 0).assertTrue();
       }
+      caseEnd('testStationaryLife0008');
     });
 
     /**
@@ -184,6 +214,7 @@ export default function StationaryLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryLife0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testStationaryLife0009');
       const driver: Driver = getDriver();
       for (let index = 0; index < BUTTON_IDS.length; index++) {
         expect(await clickAndExpect(driver, index)).assertTrue();
@@ -192,6 +223,7 @@ export default function StationaryLifecycleTest() {
       for (const id of BUTTON_IDS) {
         expect(await driver.findComponent(ON.id(id)) !== null).assertTrue();
       }
+      caseEnd('testStationaryLife0009');
     });
   });
 }

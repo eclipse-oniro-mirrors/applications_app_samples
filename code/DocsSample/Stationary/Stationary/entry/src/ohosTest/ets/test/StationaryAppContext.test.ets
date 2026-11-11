@@ -66,6 +66,15 @@ async function mainWindow(): Promise<window.Window | null> {
  * 只校验清单与运行态自洽的部分：包名与测试目标一致、entry 模块与 EntryAbility
  * 已注册、页面 Ability 位于前台、主窗口存在且尺寸为正。不依赖 stationary 能力。
  */
+
+function caseEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
+function caseBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
 export default function StationaryAppContextTest() {
   describe('StationaryAppContextTest', () => {
     beforeAll(async () => {
@@ -89,9 +98,11 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL0
      */
     it('testAppContext0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      caseBegin('testAppContext0001');
       const info: bundleManager.BundleInfo = await bundleInfo();
       expect(info.name).assertEqual(abilityDelegatorRegistry.getArguments().bundleName);
       expect(info.name.length > 0).assertTrue();
+      caseEnd('testAppContext0001');
     });
 
     /**
@@ -103,10 +114,12 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL1
      */
     it('testAppContext0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0002');
       const info: bundleManager.BundleInfo = await bundleInfo();
       expect(info.versionCode > 0).assertTrue();
       expect(info.versionName.length > 0).assertTrue();
       expect(Number.isNaN(Number(info.versionCode))).assertFalse();
+      caseEnd('testAppContext0002');
     });
 
     /**
@@ -118,6 +131,7 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL1
      */
     it('testAppContext0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0003');
       const info: bundleManager.BundleInfo = await bundleInfo();
       const names: string[] = [];
       for (const hap of info.hapModulesInfo) {
@@ -125,6 +139,7 @@ export default function StationaryAppContextTest() {
       }
       expect(names.indexOf('entry') >= 0).assertTrue();
       expect(names.filter((name: string) => name === 'entry').length).assertEqual(1);
+      caseEnd('testAppContext0003');
     });
 
     /**
@@ -136,6 +151,7 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL1
      */
     it('testAppContext0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0004');
       const info: bundleManager.BundleInfo = await bundleInfo();
       let found: boolean = false;
       for (const hap of info.hapModulesInfo) {
@@ -153,6 +169,7 @@ export default function StationaryAppContextTest() {
         expect(hasAbility).assertTrue();
       }
       expect(found).assertTrue();
+      caseEnd('testAppContext0004');
     });
 
     /**
@@ -164,11 +181,13 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL1
      */
     it('testAppContext0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0005');
       for (let round = 0; round < 3; round++) {
         const info: bundleManager.BundleInfo = await bundleInfo();
         expect(info.name).assertEqual(abilityDelegatorRegistry.getArguments().bundleName);
         expect(info.versionCode > 0).assertTrue();
       }
+      caseEnd('testAppContext0005');
     });
 
     /**
@@ -180,6 +199,7 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL1
      */
     it('testAppContext0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0006');
       const top: UIAbility | null = await topAbility();
       expect(top !== null).assertTrue();
       if (top === null) {
@@ -187,6 +207,7 @@ export default function StationaryAppContextTest() {
       }
       expect(top.context.abilityInfo.name).assertEqual('EntryAbility');
       expect(top.context.abilityInfo.moduleName).assertEqual('entry');
+      caseEnd('testAppContext0006');
     });
 
     /**
@@ -198,6 +219,7 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL1
      */
     it('testAppContext0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0007');
       const main: window.Window | null = await mainWindow();
       expect(main !== null).assertTrue();
       if (main === null) {
@@ -206,6 +228,7 @@ export default function StationaryAppContextTest() {
       const properties: window.WindowProperties = main.getWindowProperties();
       expect(properties.windowRect.width > 0).assertTrue();
       expect(properties.windowRect.height > 0).assertTrue();
+      caseEnd('testAppContext0007');
     });
 
     /**
@@ -217,21 +240,25 @@ export default function StationaryAppContextTest() {
      * @tc.level LEVEL1
      */
     it('testAppContext0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0008');
       for (let round = 0; round < 3; round++) {
         const main: window.Window | null = await mainWindow();
         expect(main !== null).assertTrue();
+        expect(await topAbility() !== null).assertTrue();
       }
+      caseEnd('testAppContext0008');
     });
 
     /**
-     * @tc.number SUB_STATIONARY_CONTEXT_1000
-     * @tc.name testAppContext0010
+     * @tc.number SUB_STATIONARY_CONTEXT_0900
+     * @tc.name testAppContext0009
      * @tc.desc Verify the entry module registers EntryBackupAbility as a backup extension
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testAppContext0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testAppContext0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0009');
       const info: bundleManager.BundleInfo = await bundleInfo();
       const backupExts: bundleManager.ExtensionAbilityInfo[] = [];
       for (const hap of info.hapModulesInfo) {
@@ -245,17 +272,19 @@ export default function StationaryAppContextTest() {
       expect(backupExts[0].name).assertEqual('EntryBackupAbility');
       expect(backupExts[0].moduleName).assertEqual('entry');
       expect(backupExts[0].bundleName).assertEqual(abilityDelegatorRegistry.getArguments().bundleName);
+      caseEnd('testAppContext0009');
     });
 
     /**
-     * @tc.number SUB_STATIONARY_CONTEXT_1100
-     * @tc.name testAppContext0011
+     * @tc.number SUB_STATIONARY_CONTEXT_1000
+     * @tc.name testAppContext0010
      * @tc.desc Verify the entry module and its abilities all belong to the bundle under test
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testAppContext0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testAppContext0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0010');
       const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
       const info: bundleManager.BundleInfo = await bundleInfo();
       let abilityCount: number = 0;
@@ -269,17 +298,19 @@ export default function StationaryAppContextTest() {
       }
       expect(abilityCount > 0).assertTrue();
       expect(info.name).assertEqual(bundleName);
+      caseEnd('testAppContext0010');
     });
 
     /**
-     * @tc.number SUB_STATIONARY_CONTEXT_0900
-     * @tc.name testAppContext0009
+     * @tc.number SUB_STATIONARY_CONTEXT_1100
+     * @tc.name testAppContext0011
      * @tc.desc Verify the ability cache dir is readable through the context
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testAppContext0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testAppContext0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testAppContext0011');
       const top: UIAbility | null = await topAbility();
       expect(top !== null).assertTrue();
       if (top === null) {
@@ -297,6 +328,7 @@ export default function StationaryAppContextTest() {
       expect(await fileIo.access(cacheDir)).assertTrue();
       expect(await fileIo.access(filesDir)).assertTrue();
       expect(await fileIo.access(codeDir)).assertTrue();
+      caseEnd('testAppContext0011');
     });
   });
 }

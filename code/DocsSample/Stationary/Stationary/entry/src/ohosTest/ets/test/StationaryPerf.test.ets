@@ -76,14 +76,6 @@ function average(samples: number[]): number {
   return samples.length === 0 ? 0 : Math.round(sum / samples.length);
 }
 
-function maxOf(samples: number[]): number {
-  let max: number = 0;
-  for (const sample of samples) {
-    max = Math.max(max, sample);
-  }
-  return max;
-}
-
 function minOf(samples: number[]): number {
   let min: number = Number.MAX_SAFE_INTEGER;
   for (const sample of samples) {
@@ -100,6 +92,15 @@ function minOf(samples: number[]): number {
  * 不超过最快一次的 10 倍，用于发现"偶发卡死"类退化，而不是做精确基准。
  * stationary 不支持的设备上文案不变，耗时用例会直接跳过（不做虚假断言）。
  */
+
+function caseEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
+function caseBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
 export default function StationaryPerfTest() {
   describe('StationaryPerfTest', () => {
     beforeAll(async () => {
@@ -108,13 +109,14 @@ export default function StationaryPerfTest() {
 
     /**
      * @tc.number SUB_STATIONARY_PERF_0100
-     * @tc.name testPerfClickLatency1
+     * @tc.name testPerfClickLatency0001
      * @tc.desc Verify every action settles the status text within the soft time bound
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testPerfClickLatency1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testPerfClickLatency0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testPerfClickLatency0001');
       const driver: Driver = getDriver();
       const before: string = await resetStatusText(driver);
       const supported: boolean = stationarySupported();
@@ -129,17 +131,19 @@ export default function StationaryPerfTest() {
           expect(await settledText(driver, before)).assertEqual(before);
         }
       }
+      caseEnd('testPerfClickLatency0001');
     });
 
     /**
      * @tc.number SUB_STATIONARY_PERF_0200
-     * @tc.name testPerfClickLatency2
+     * @tc.name testPerfClickLatency0002
      * @tc.desc Verify repeated subscribe settles within bound and without outliers
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testPerfClickLatency2', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testPerfClickLatency0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testPerfClickLatency0002');
       const driver: Driver = getDriver();
       const before: string = await resetStatusText(driver);
       if (!stationarySupported()) {
@@ -164,22 +168,26 @@ export default function StationaryPerfTest() {
         return;
       }
       const fastest: number = minOf(samples);
-      const slowest: number = maxOf(samples);
+      const slowest: number = Math.max(...samples);
       hilog.info(DOMAIN, TAG, 'subscribe samples fastest=%{public}d avg=%{public}d slowest=%{public}d',
         fastest, average(samples), slowest);
       expect(slowest < UPPER_BOUND_MS).assertTrue();
       expect(slowest <= Math.max(fastest, 1) * 10).assertTrue();
+      expect(fastest > 0).assertTrue();
+      expect(average(samples) >= minOf(samples)).assertTrue();
+      caseEnd('testPerfClickLatency0002');
     });
 
     /**
      * @tc.number SUB_STATIONARY_PERF_0300
-     * @tc.name testPerfStable1
+     * @tc.name testPerfStable0003
      * @tc.desc Verify twenty subscribe clicks never drift the status text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testPerfStable1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testPerfStable0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testPerfStable0003');
       const driver: Driver = getDriver();
       const before: string = await resetStatusText(driver);
       const expected: string = expectedTextFor(0, before);
@@ -192,36 +200,45 @@ export default function StationaryPerfTest() {
         await button.click();
         expect(await settledText(driver, expected)).assertEqual(expected);
       }
+      caseEnd('testPerfStable0003');
     });
 
     /**
      * @tc.number SUB_STATIONARY_PERF_0400
-     * @tc.name testPerfStable2
+     * @tc.name testPerfStable0004
      * @tc.desc Verify every control stays reachable after repeated queries
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testPerfStable2', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testPerfStable0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testPerfStable0004');
       const driver: Driver = getDriver();
       const ids: string[] = [SHOW_ID].concat(BUTTON_IDS);
+      let checked: number = 0;
       for (let round = 0; round < 10; round++) {
         for (const id of ids) {
           const target: Component | null = await driver.findComponent(ON.id(id));
           expect(target !== null).assertTrue();
+          if (target !== null) {
+            checked++;
+          }
         }
       }
+      expect(checked).assertEqual(ids.length * 10);
+      caseEnd('testPerfStable0004');
     });
 
     /**
      * @tc.number SUB_STATIONARY_PERF_0500
-     * @tc.name testPerfRecovery1
+     * @tc.name testPerfRecovery0005
      * @tc.desc Verify the page settles back to the idle text after a long click burst
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testPerfRecovery1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testPerfRecovery0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      caseBegin('testPerfRecovery0005');
       const driver: Driver = getDriver();
       const before: string = await resetStatusText(driver);
       for (let round = 0; round < 5; round++) {
@@ -236,6 +253,7 @@ export default function StationaryPerfTest() {
       const idle: string = await resetStatusText(driver);
       expect(idle).assertEqual(before);
       expect(await settledText(driver, before)).assertEqual(before);
+      caseEnd('testPerfRecovery0005');
     });
   });
 }
