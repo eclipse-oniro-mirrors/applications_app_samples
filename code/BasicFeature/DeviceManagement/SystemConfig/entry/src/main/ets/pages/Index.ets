@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,10 +25,12 @@ const DOMAIN: number = SystemConfigConstants.DOMAIN;
  * 定义首页导航列表的每一项数据结构。
  */
 interface NavItem {
+  /** 导航项唯一标识（用于列表 key） */
+  id: string;
   /** 导航项标题 */
-  title: string;
+  title: ResourceStr;
   /** 导航项描述 */
-  description: string;
+  description: ResourceStr;
   /** 导航项图标 */
   icon: string;
   /** 目标页面路由 */
@@ -46,20 +48,23 @@ struct Index {
   /** 导航项列表 */
   @State navItems: NavItem[] = [
     {
-      title: '定制配置',
-      description: '获取设备渠道标识符（customConfig.getChannelId）',
+      id: 'custom_config',
+      title: $r('app.string.page_custom_config'),
+      description: $r('app.string.nav_desc_custom_config'),
       icon: '📋',
       targetPage: PageConstants.PAGE_CUSTOM_CONFIG
     },
     {
-      title: '情景模式',
-      description: '查询免打扰状态和通知允许状态（intelligentScene）',
+      id: 'intelligent_scene',
+      title: $r('app.string.page_intelligent_scene'),
+      description: $r('app.string.nav_desc_intelligent_scene'),
       icon: '🔕',
       targetPage: PageConstants.PAGE_INTELLIGENT_SCENE
     },
     {
-      title: '设置信息',
-      description: '打开系统设置页面和查询双击应用（settingsLite）',
+      id: 'settings_lite',
+      title: $r('app.string.page_settings_lite'),
+      description: $r('app.string.nav_desc_settings_lite'),
       icon: '⚙️',
       targetPage: PageConstants.PAGE_SETTINGS_LITE
     }
@@ -73,7 +78,7 @@ struct Index {
     Column() {
       // 标题栏
       Row() {
-        Text(PageConstants.TITLE_INDEX)
+        Text($r('app.string.page_index_title'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
@@ -84,18 +89,18 @@ struct Index {
         left: PageConstants.PAGE_PADDING,
         right: PageConstants.PAGE_PADDING
       })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
       // 应用信息卡片
       Column() {
-        Text('SystemConfig 示例')
+        Text($r('app.string.app_intro_title'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
           .margin({ bottom: 8 })
 
-        Text('本示例演示 Basic Services Kit 中的定制配置、情景模式和设置信息接口。')
+        Text($r('app.string.app_intro_desc'))
           .fontSize(PageConstants.FONT_SIZE_BODY)
           .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
           .width('100%')
@@ -119,7 +124,7 @@ struct Index {
         right: PageConstants.PAGE_PADDING,
         top: PageConstants.SECTION_SPACING
       })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
       .borderRadius(PageConstants.CARD_BORDER_RADIUS)
       .shadow({
         radius: 4,
@@ -135,7 +140,7 @@ struct Index {
           ListItem() {
             this.navItemCard(item)
           }
-        }, (item: NavItem) => item.title)
+        }, (item: NavItem) => item.id)
       }
       .width('100%')
       .padding({
@@ -187,7 +192,7 @@ struct Index {
     }
     .width('100%')
     .padding(PageConstants.CARD_PADDING)
-    .backgroundColor(PageConstants.COLOR_SURFACE)
+    .backgroundColor(PageConstants.COLOR_CARD)
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
     .shadow({
       radius: 4,

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -97,23 +97,23 @@ export interface SettingsItemModelJson {
  */
 export class SettingsItemModel {
   /** 设置项类型 */
-  itemType: SettingsItemType;
+  public itemType: SettingsItemType;
   /** 设置项显示标题 */
-  title: string;
+  public title: string;
   /** 设置项描述信息 */
-  description: string;
+  public description: string;
   /** 操作状态 */
-  operationStatus: SettingsOperationStatus;
+  public operationStatus: SettingsOperationStatus;
   /** 双击回调结果（仅双击设置类型有效） */
-  clickResult: ClickResult;
+  public clickResult: ClickResult;
   /** 最后一次操作的时间戳 */
-  lastOperationTime: number;
+  public lastOperationTime: number;
   /** 错误信息 */
-  errorMessage: string;
+  public errorMessage: string;
   /** 错误码 */
-  errorCode: number;
+  public errorCode: number;
   /** 操作次数统计 */
-  operationCount: number;
+  public operationCount: number;
 
   /**
    * 创建设置项模型实例。

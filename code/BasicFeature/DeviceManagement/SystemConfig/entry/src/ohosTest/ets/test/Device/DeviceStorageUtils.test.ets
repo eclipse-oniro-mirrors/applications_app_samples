@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { StorageUtils } from 'library';
@@ -109,15 +123,22 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0500
      * @tc.name testDeviceStorageUtils0005
-     * @tc.desc 边界: 非正输入按当前公式返回精确结果
+     * @tc.desc 边界: isStorageLow 基于可用/总量比例判定，非法输入返回 false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
     it('testDeviceStorageUtils0005', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceStorageUtils0005 begin');
-      expect(StorageUtils.isStorageLow(0)).assertFalse();
-      expect(StorageUtils.isStorageLow(-1)).assertTrue();
+      // 非法输入：可用为负或总量非正 -> false
+      expect(StorageUtils.isStorageLow(-1, 100)).assertFalse();
+      expect(StorageUtils.isStorageLow(10, 0)).assertFalse();
+      // 可用为 0 且总量为正 -> 存储不足
+      expect(StorageUtils.isStorageLow(0, 100)).assertTrue();
+      // 正数低存储分支可达：5% < 10% 阈值 -> true
+      expect(StorageUtils.isStorageLow(5, 100)).assertTrue();
+      // 50% -> 存储不低
+      expect(StorageUtils.isStorageLow(50, 100)).assertFalse();
       expect(StorageUtils.estimateFreeSpace(0)).assertEqual(0);
     });
 

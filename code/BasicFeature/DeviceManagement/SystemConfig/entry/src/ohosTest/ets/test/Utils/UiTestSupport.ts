@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -14,7 +28,7 @@ import {
 
 const DOMAIN: number = 0xF821;
 const TAG: string = '[Sample_SystemConfig]';
-const BUNDLE_NAME: string = 'ohos.samples.systemconfig';
+const BUNDLE_NAME: string = 'com.samples.systemconfig';
 const ENTRY_ABILITY: string = 'EntryAbility';
 /**
  * 单步组件等待预算。页面跳转后已 waitForIdle，正常渲染只需几十毫秒，

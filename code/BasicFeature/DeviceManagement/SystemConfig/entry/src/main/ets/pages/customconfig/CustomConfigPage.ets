@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -35,9 +35,9 @@ struct CustomConfigPage {
   /** 视图模型实例 */
   @State viewModel: CustomConfigViewModel = new CustomConfigViewModel();
   /** 当前渠道号显示 */
-  @State displayChannelId: string = '未获取';
+  @State displayChannelId: ResourceStr = $r('app.string.value_not_fetched');
   /** 当前状态文本 */
-  @State displayStatus: string = '未初始化';
+  @State displayStatus: ResourceStr = $r('app.string.status_uninitialized');
   /** 状态标签颜色 */
   @State statusColor: string = PageConstants.COLOR_TEXT_HINT;
   /** 状态标签背景色 */
@@ -71,7 +71,7 @@ struct CustomConfigPage {
    * 从视图模型同步数据到 @State 变量。
    */
   private refreshDisplay(): void {
-    this.displayChannelId = this.viewModel.currentChannelId || '未获取';
+    this.displayChannelId = this.viewModel.currentChannelId || $r('app.string.value_not_fetched');
     this.displayStatus = this.getStatusText(this.viewModel.currentStatus);
     this.updateStatusStyle(this.viewModel.currentStatus);
     this.displayLogs = this.viewModel.getLogs();
@@ -79,22 +79,22 @@ struct CustomConfigPage {
   }
 
   /**
-   * 获取状态的中文文本。
+   * 获取状态对应的本地化文本资源。
    * @param {ChannelConfigStatus} status - 状态枚举值
-   * @returns {string} 中文状态描述
+   * @returns {Resource} 状态文本资源
    */
-  private getStatusText(status: ChannelConfigStatus): string {
+  private getStatusText(status: ChannelConfigStatus): Resource {
     switch (status) {
       case ChannelConfigStatus.UNINITIALIZED:
-        return '未初始化';
+        return $r('app.string.status_uninitialized');
       case ChannelConfigStatus.LOADING:
-        return '获取中';
+        return $r('app.string.status_loading');
       case ChannelConfigStatus.SUCCESS:
-        return '获取成功';
+        return $r('app.string.status_success');
       case ChannelConfigStatus.FAILED:
-        return '获取失败';
+        return $r('app.string.status_failed');
       default:
-        return '未知';
+        return $r('app.string.status_unknown');
     }
   }
 
@@ -131,7 +131,7 @@ struct CustomConfigPage {
     Column() {
       // 标题栏
       Row() {
-        Text(PageConstants.TITLE_CUSTOM_CONFIG)
+        Text($r('app.string.page_custom_config'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
@@ -139,7 +139,7 @@ struct CustomConfigPage {
       .width('100%')
       .height(PageConstants.NAV_BAR_HEIGHT)
       .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
       // 可滚动内容区域
@@ -147,12 +147,12 @@ struct CustomConfigPage {
         Column({ space: PageConstants.SECTION_SPACING }) {
           // 渠道号信息卡片
           InfoCard({
-            title: '渠道配置信息',
-            subtitle: 'customConfig.getChannelId() 接口调用结果'
+            title: $r('app.string.card_channel_title'),
+            subtitle: $r('app.string.card_channel_subtitle')
           }) {
             Column({ space: 8 }) {
               Row() {
-                Text('渠道号:')
+                Text($r('app.string.label_channel_id'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(80)
@@ -164,7 +164,7 @@ struct CustomConfigPage {
               .width('100%')
 
               Row() {
-                Text('状态:')
+                Text($r('app.string.label_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(80)
@@ -184,7 +184,7 @@ struct CustomConfigPage {
           // 操作按钮区域
           Column({ space: PageConstants.ITEM_SPACING }) {
             ActionButton({
-              buttonText: '获取渠道号',
+              buttonText: $r('app.string.btn_get_channel_id'),
               buttonType: 'primary',
               isDisabled: this.viewModel.isLoading,
               onButtonClick: () => {
@@ -194,7 +194,7 @@ struct CustomConfigPage {
             })
 
             ActionButton({
-              buttonText: '查看详情',
+              buttonText: $r('app.string.btn_view_detail'),
               buttonType: 'secondary',
               isDisabled: false,
               onButtonClick: () => {
@@ -204,7 +204,7 @@ struct CustomConfigPage {
             })
 
             ActionButton({
-              buttonText: '重置',
+              buttonText: $r('app.string.btn_reset'),
               buttonType: 'danger',
               isDisabled: false,
               onButtonClick: () => {
@@ -218,8 +218,8 @@ struct CustomConfigPage {
           // 详情信息卡片
           if (this.detailText.length > 0) {
             InfoCard({
-              title: '详细数据',
-              subtitle: 'ChannelConfigModel JSON 表示'
+              title: $r('app.string.card_detail_title'),
+              subtitle: $r('app.string.card_detail_subtitle_channel')
             }) {
               Text(this.detailText)
                 .fontSize(PageConstants.FONT_SIZE_SMALL)
@@ -231,7 +231,7 @@ struct CustomConfigPage {
 
           // 日志面板
           LogPanel({
-            panelTitle: '操作日志',
+            panelTitle: $r('app.string.log_panel_title'),
             logs: this.displayLogs,
             maxHeight: 200
           })

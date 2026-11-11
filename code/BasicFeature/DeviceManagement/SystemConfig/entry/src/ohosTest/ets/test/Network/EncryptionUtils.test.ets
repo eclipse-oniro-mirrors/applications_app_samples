@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { EncryptionUtils } from 'library';
@@ -181,6 +195,48 @@ export default function EncryptionUtilsTest(): void {
       expect(hash1 === hash2).assertFalse();
       expect(hash1.length).assertEqual(32);
       expect(hash2.length).assertEqual(32);
+    });
+
+    /**
+     * @tc.number SUB_ENCRYPTION_UTILS_1100
+     * @tc.name testEncryptionUtils0011
+     * @tc.desc 正向: MD5 结果匹配标准测试向量（真实算法校验）
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testEncryptionUtils0011', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testEncryptionUtils0011: begin');
+      // RFC 标准向量: MD5("test") 与 MD5("")
+      const hashTest: string = EncryptionUtils.md5Hash('test');
+      hilog.info(DOMAIN, TAG, 'testEncryptionUtils0011: md5(test)=%{public}s', hashTest);
+      expect(hashTest).assertEqual('098f6bcd4621d373cade4e832627b4f6');
+      const hashEmpty: string = EncryptionUtils.md5Hash('');
+      hilog.info(DOMAIN, TAG, 'testEncryptionUtils0011: md5(empty)=%{public}s', hashEmpty);
+      expect(hashEmpty).assertEqual('d41d8cd98f00b204e9800998ecf8427e');
+      // 真实 MD5 输出恒为 32 位小写十六进制
+      expect(hashTest.length).assertEqual(32);
+    });
+
+    /**
+     * @tc.number SUB_ENCRYPTION_UTILS_1200
+     * @tc.name testEncryptionUtils0012
+     * @tc.desc 正向: SHA-256 结果匹配标准测试向量（真实算法校验）
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testEncryptionUtils0012', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testEncryptionUtils0012: begin');
+      // 标准向量: SHA-256("test") 与 SHA-256("")
+      const hashTest: string = EncryptionUtils.sha256Hash('test');
+      hilog.info(DOMAIN, TAG, 'testEncryptionUtils0012: sha256(test)=%{public}s', hashTest);
+      expect(hashTest).assertEqual('9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
+      const hashEmpty: string = EncryptionUtils.sha256Hash('');
+      hilog.info(DOMAIN, TAG, 'testEncryptionUtils0012: sha256(empty)=%{public}s', hashEmpty);
+      expect(hashEmpty).assertEqual('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
+      // 真实 SHA-256 输出恒为 64 位小写十六进制
+      expect(hashTest.length).assertEqual(64);
     });
   });
 }

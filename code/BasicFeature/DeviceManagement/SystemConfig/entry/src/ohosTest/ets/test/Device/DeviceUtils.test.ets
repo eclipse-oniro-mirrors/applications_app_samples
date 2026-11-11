@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DeviceUtils, SystemConfigConstants } from 'library';
@@ -23,8 +37,10 @@ export default function DeviceUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0001: begin');
       DeviceUtils.clearCache();
       const deviceType: string = DeviceUtils.getDeviceType();
+      hilog.info(DOMAIN, TAG, 'testDeviceUtils0001: deviceType=%{public}s', deviceType);
       expect(deviceType.length).assertLarger(0);
-      expect(deviceType).assertEqual('default');
+      // 真实设备类型不再硬编码为 default；归一化外的取值可能含数字（如 2in1），仅校验为非空小写字母数字标识串
+      expect(/^[a-z0-9]+$/.test(deviceType)).assertTrue();
       const cached: string = DeviceUtils.getDeviceType();
       expect(cached).assertEqual(deviceType);
     });
@@ -40,9 +56,17 @@ export default function DeviceUtilsTest(): void {
     it('testDeviceUtils0002', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0002: begin');
       DeviceUtils.clearCache();
-      expect(DeviceUtils.getScreenWidth()).assertLarger(0);
-      expect(DeviceUtils.getScreenHeight()).assertLarger(0);
-      expect(DeviceUtils.getScreenHeight()).assertLarger(DeviceUtils.getScreenWidth() - 1);
+      const width: number = DeviceUtils.getScreenWidth();
+      const height: number = DeviceUtils.getScreenHeight();
+      hilog.info(DOMAIN, TAG, 'testDeviceUtils0002: width=%{public}d, height=%{public}d', width, height);
+      // 屏幕尺寸来自真实 display，仅校验为正数，不再假设具体分辨率与朝向
+      expect(width).assertLarger(0);
+      expect(height).assertLarger(0);
+      hilog.info(DOMAIN, TAG, 'testDeviceUtils0002: repeat width=%{public}d, height=%{public}d',
+        DeviceUtils.getScreenWidth(), DeviceUtils.getScreenHeight());
+      // ensureScreenSize 惰性取值后写入缓存，重复获取必须稳定一致
+      expect(DeviceUtils.getScreenWidth()).assertEqual(width);
+      expect(DeviceUtils.getScreenHeight()).assertEqual(height);
     });
 
     /**
@@ -73,9 +97,18 @@ export default function DeviceUtilsTest(): void {
     it('testDeviceUtils0004', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0004: begin');
       DeviceUtils.clearCache();
-      expect(DeviceUtils.isPortrait()).assertEqual(true);
-      expect(DeviceUtils.isLandscape()).assertEqual(false);
-      expect(DeviceUtils.isPortrait()).assertEqual(!DeviceUtils.isLandscape());
+      const portrait: boolean = DeviceUtils.isPortrait();
+      const landscape: boolean = DeviceUtils.isLandscape();
+      hilog.info(DOMAIN, TAG, 'testDeviceUtils0004: portrait=%{public}s, landscape=%{public}s',
+        portrait.toString(), landscape.toString());
+      // 朝向由真实屏幕尺寸决定，横竖屏互斥，不再假设默认为竖屏
+      expect(portrait).assertEqual(!landscape);
+      // 朝向判定必须与真实宽高关系一致：竖屏 height>=width，横屏 width>height
+      const w: number = DeviceUtils.getScreenWidth();
+      const h: number = DeviceUtils.getScreenHeight();
+      hilog.info(DOMAIN, TAG, 'testDeviceUtils0004: width=%{public}d, height=%{public}d', w, h);
+      expect(portrait).assertEqual(h >= w);
+      expect(landscape).assertEqual(w > h);
     });
 
     /**
@@ -89,9 +122,12 @@ export default function DeviceUtilsTest(): void {
     it('testDeviceUtils0005', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0005: begin');
       const version: string = DeviceUtils.getOsVersion();
+      hilog.info(DOMAIN, TAG, 'testDeviceUtils0005: osVersion=%{public}s', version);
+      // 系统版本来自 deviceInfo.osFullName，仅校验非空，不再硬编码具体版本串
       expect(version.length).assertLarger(0);
-      expect(version.indexOf('OpenHarmony')).assertLarger(-1);
-      expect(version).assertEqual('OpenHarmony 5.0');
+      // osFullName 为稳定单行标识串，重复获取必须一致且不含换行
+      expect(version).assertEqual(DeviceUtils.getOsVersion());
+      expect(version.indexOf('\n')).assertEqual(-1);
     });
 
     /**
@@ -123,9 +159,13 @@ export default function DeviceUtilsTest(): void {
     it('testDeviceUtils0007', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0007: begin');
       const version: number = DeviceUtils.getApiVersion();
+      hilog.info(DOMAIN, TAG, 'testDeviceUtils0007: apiVersion=%{public}d', version);
+      // API 版本来自 deviceInfo.sdkApiVersion，随运行设备而变，仅校验为正整数
       expect(version).assertLarger(0);
-      expect(version).assertEqual(26);
       expect(Number.isInteger(version)).assertTrue();
+      // 本工程目标 API 26，运行设备不低于最低支持版本 10；重复读取必须稳定
+      expect(version >= 10).assertTrue();
+      expect(DeviceUtils.getApiVersion()).assertEqual(version);
     });
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -54,19 +54,19 @@ export interface DoNotDisturbModelJson {
  */
 export class DoNotDisturbModel {
   /** 免打扰功能是否启用 */
-  isDoNotDisturbEnabled: boolean;
+  public isDoNotDisturbEnabled: boolean;
   /** 免打扰模式下是否允许通知 */
-  isNotifyAllowed: boolean;
+  public isNotifyAllowed: boolean;
   /** 查询状态 */
-  status: DoNotDisturbStatus;
+  public status: DoNotDisturbStatus;
   /** 最后一次查询的时间戳 */
-  lastQueryTime: number;
+  public lastQueryTime: number;
   /** 错误信息 */
-  errorMessage: string;
+  public errorMessage: string;
   /** 错误码 */
-  errorCode: number;
+  public errorCode: number;
   /** 查询次数统计 */
-  queryCount: number;
+  public queryCount: number;
 
   /**
    * 创建免打扰模型实例。

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -237,18 +237,26 @@ export class FileUtils {
       return 'unnamed_file';
     }
     const illegalChars: RegExp = /[<>:"/\\|?*\x00-\x1F]/g;
-    let sanitized: string = name.replace(illegalChars, '_');
-    sanitized = sanitized.trim();
+    let sanitized: string = name.replace(illegalChars, '_').trim();
     if (sanitized.length === 0) {
       sanitized = 'unnamed_file';
     }
     if (sanitized.length > 200) {
-      const ext: string = FileUtils.getFileExtension(sanitized);
-      const baseName: string = sanitized.substring(0, sanitized.lastIndexOf('.'));
-      sanitized = baseName.substring(0, 200 - ext.length - 1) + '.' + ext;
+      sanitized = FileUtils.truncateFileName(sanitized);
     }
     hilog.debug(DOMAIN, TAG, 'FileUtils sanitizeFileName: sanitized=%{public}s', sanitized);
     return sanitized;
+  }
+
+  /**
+   * 将超长文件名截断到 200 字符以内，同时保留扩展名。
+   * @param {string} sanitized - 已清理的超长文件名
+   * @returns {string} 截断后的文件名
+   */
+  private static truncateFileName(sanitized: string): string {
+    const ext: string = FileUtils.getFileExtension(sanitized);
+    const baseName: string = sanitized.substring(0, sanitized.lastIndexOf('.'));
+    return baseName.substring(0, 200 - ext.length - 1) + '.' + ext;
   }
 
   /**

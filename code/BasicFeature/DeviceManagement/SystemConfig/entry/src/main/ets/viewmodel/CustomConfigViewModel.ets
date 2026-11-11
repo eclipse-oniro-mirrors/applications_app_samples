@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,13 +36,13 @@ export class CustomConfigViewModel {
   /** 事件服务实例 */
   private eventService: EventService = new EventService();
   /** 页面操作日志 */
-  pageLogs: string[] = [];
+  public pageLogs: string[] = [];
   /** 当前渠道号 */
-  currentChannelId: string = '';
+  public currentChannelId: string = '';
   /** 当前状态 */
-  currentStatus: ChannelConfigStatus = ChannelConfigStatus.UNINITIALIZED;
+  public currentStatus: ChannelConfigStatus = ChannelConfigStatus.UNINITIALIZED;
   /** 是否正在加载 */
-  isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   /**
    * 初始化视图模型。
@@ -70,7 +70,7 @@ export class CustomConfigViewModel {
     this.isLoading = true;
     this.addLog('正在获取渠道号...');
 
-    this.traceService.startTrace(TraceName.CUSTOM_CONFIG_GET_CHANNEL, 'fetchChannelId');
+    const taskId: number = this.traceService.startTrace(TraceName.CUSTOM_CONFIG_GET_CHANNEL, 'fetchChannelId');
 
     try {
       const channelId: string = this.configService.getChannelId();
@@ -92,7 +92,7 @@ export class CustomConfigViewModel {
       this.addLog('获取渠道号异常');
       hilog.error(DOMAIN, TAG, 'CustomConfigViewModel fetchChannelId: exception');
     } finally {
-      this.traceService.finishTrace(TraceName.CUSTOM_CONFIG_GET_CHANNEL);
+      this.traceService.finishTrace(TraceName.CUSTOM_CONFIG_GET_CHANNEL, taskId);
       this.isLoading = false;
     }
   }

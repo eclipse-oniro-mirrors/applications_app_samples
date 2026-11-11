@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,15 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
+import { hilog, hiAppEvent } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { SystemConfigConstants } from '../constants/SystemConfigConstants';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
+
+/** hiAppEvent 自定义事件域（仅字母/数字/下划线，字母开头） */
+const EVENT_DOMAIN: string = 'SystemConfig';
 
 /**
  * 事件类型枚举。
@@ -94,7 +98,8 @@ export interface EventHistoryRecord {
 
 /**
  * 事件服务。
- * 封装 hiAppEvent 的事件上报能力，
+ * 封装 hiAppEvent 的事件上报能力（hiAppEvent.write），
+ * 每次上报同时维护本地历史与监听器通知，便于观测。
  * 提供事件注册、上报、过滤和统计功能。
  */
 export class EventService {
@@ -106,6 +111,10 @@ export class EventService {
   private isInitialized: boolean = false;
   /** 最大历史记录数 */
   private maxHistorySize: number = SystemConfigConstants.MAX_LOG_ENTRIES;
+  /** hiAppEvent.write 成功次数 */
+  private writeSuccessCount: number = 0;
+  /** hiAppEvent.write 失败次数 */
+  private writeFailCount: number = 0;
 
   /**
    * 初始化事件服务。
@@ -116,10 +125,12 @@ export class EventService {
     hilog.info(DOMAIN, TAG, 'EventService initialize: starting initialization');
 
     try {
-      // hiAppEvent 在 Stage 模型下直接使用，无需注册 watcher
+      // Stage 模型下直接通过 hiAppEvent.write 上报应用事件，无需注册 watcher
       hilog.info(DOMAIN, TAG, 'EventService initialize: event service initialized');
       this.isInitialized = true;
       this.eventHistory = [];
+      this.writeSuccessCount = 0;
+      this.writeFailCount = 0;
       hilog.info(DOMAIN, TAG, 'EventService initialize: initialization complete');
       return true;
     } catch (err) {
@@ -314,7 +325,8 @@ export class EventService {
   // ========================================
 
   /**
-   * 发送事件到所有监听器并记录历史。
+   * 发送事件到所有监听器并记录历史，
+   * 同时通过 hiAppEvent.write 上报应用事件。
    * @param {EventTypeName} eventName - 事件名称
    * @param {Record<string, Object>} eventData - 事件数据
    */
@@ -341,6 +353,50 @@ export class EventService {
         hilog.error(DOMAIN, TAG, 'EventService emitEvent: listener error');
       }
     }
+
+    this.writeToHiAppEvent(eventName, eventData);
+  }
+
+  /**
+   * 通过 hiAppEvent.write 上报应用事件。
+   * 错误事件使用 FAULT 类型，其余使用 BEHAVIOR 类型。
+   * 上报失败仅记录日志，不影响本地历史与监听器通知。
+   * @param {EventTypeName} eventName - 事件名称
+   * @param {Record<string, Object>} eventData - 事件数据
+   */
+  private writeToHiAppEvent(eventName: EventTypeName, eventData: Record<string, Object>): void {
+    const info: hiAppEvent.AppEventInfo = {
+      domain: EVENT_DOMAIN,
+      name: eventName as string,
+      eventType: eventName === EventTypeName.ERROR_OCCURRED
+        ? hiAppEvent.EventType.FAULT
+        : hiAppEvent.EventType.BEHAVIOR,
+      params: eventData
+    };
+    // hiAppEvent.write 参数校验可能以同步异常返回，捕获后不影响本地历史与监听器通知
+    try {
+      hiAppEvent.write(info).then(() => {
+        this.writeSuccessCount += 1;
+        hilog.debug(DOMAIN, TAG, 'EventService writeToHiAppEvent: %{public}s written', eventName);
+      }).catch((err: BusinessError) => {
+        this.writeFailCount += 1;
+        hilog.error(DOMAIN, TAG, 'EventService writeToHiAppEvent: %{public}s failed, code=%{public}d, msg=%{public}s',
+          eventName, err.code, err.message);
+      });
+    } catch (syncErr) {
+      this.writeFailCount += 1;
+      const businessErr = syncErr as BusinessError;
+      hilog.error(DOMAIN, TAG, 'EventService writeToHiAppEvent: %{public}s threw synchronously, msg=%{public}s',
+        eventName, businessErr.message ?? 'unknown');
+    }
+  }
+
+  /**
+   * 获取 hiAppEvent.write 上报统计。
+   * @returns {number[]} [成功次数, 失败次数]
+   */
+  getWriteCounters(): number[] {
+    return [this.writeSuccessCount, this.writeFailCount];
   }
 
   /**
@@ -367,6 +423,8 @@ export class EventService {
     hilog.info(DOMAIN, TAG, 'EventService destroy: releasing resources');
     this.listeners = [];
     this.eventHistory = [];
+    this.writeSuccessCount = 0;
+    this.writeFailCount = 0;
     this.isInitialized = false;
     hilog.info(DOMAIN, TAG, 'EventService destroy: resources released');
   }

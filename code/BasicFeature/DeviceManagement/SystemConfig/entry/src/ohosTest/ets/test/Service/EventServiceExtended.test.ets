@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { EventService, EventTypeName } from 'library';
@@ -545,6 +559,38 @@ export default function EventServiceExtendedTest(): void {
       expect(stats.countByType.size).assertEqual(0);
       expect(stats.earliestTime).assertEqual(0);
       expect(stats.latestTime).assertEqual(0);
+      service.destroy();
+    });
+
+    /**
+     * @tc.number SUB_EVENT_SERVICE_EXTENDED_2100
+     * @tc.name testEventServiceExtended0021
+     * @tc.desc 正向: hiAppEvent 上报计数器返回契约与不变量
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testEventServiceExtended0021', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testEventServiceExtended0021: begin');
+      const service: EventService = new EventService();
+      service.initialize();
+      // 新服务计数器归零，返回 [成功, 失败] 两元素
+      const before: number[] = service.getWriteCounters();
+      expect(before.length).assertEqual(2);
+      expect(before[0]).assertEqual(0);
+      expect(before[1]).assertEqual(0);
+      // 触发 3 次事件上报（内部走 hiAppEvent.write）
+      service.reportSettingsPageOpened('pin', true);
+      service.reportDoubleClickQueried('isSelf');
+      service.reportError('op', 'boom', 100);
+      const after: number[] = service.getWriteCounters();
+      hilog.info(DOMAIN, TAG, 'testEventServiceExtended0021: success=%{public}d, fail=%{public}d',
+        after[0], after[1]);
+      expect(after.length).assertEqual(2);
+      // write 结算为异步微任务且结果依赖设备侧 dfx 服务，此处只校验计数不变量：非负且不超过已上报事件数
+      expect(after[0] >= 0).assertTrue();
+      expect(after[1] >= 0).assertTrue();
+      expect(after[0] + after[1] <= 3).assertTrue();
       service.destroy();
     });
   });

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -49,11 +49,11 @@ export default function IntelligentSceneDndTest(): void {
   describe('IntelligentSceneDndTest', () => {
 
     /**
-     * @tc.number: SUB_INTELLIGENT_SCENE_DND_0100
-     * @tc.name: testIntelligentSceneDnd0001
-     * @tc.desc: Query DND enabled state once and verify model bookkeeping.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_INTELLIGENT_SCENE_DND_0100
+     * @tc.name testIntelligentSceneDnd0001
+     * @tc.desc Query DND enabled state once and verify model bookkeeping.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testIntelligentSceneDnd0001', 0, async () => {
@@ -89,11 +89,11 @@ export default function IntelligentSceneDndTest(): void {
     });
 
     /**
-     * @tc.number: SUB_INTELLIGENT_SCENE_DND_0200
-     * @tc.name: testIntelligentSceneDnd0002
-     * @tc.desc: Query notify allowed state and verify DND field is untouched.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_INTELLIGENT_SCENE_DND_0200
+     * @tc.name testIntelligentSceneDnd0002
+     * @tc.desc Query notify allowed state and verify DND field is untouched.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testIntelligentSceneDnd0002', 0, async () => {
@@ -126,11 +126,11 @@ export default function IntelligentSceneDndTest(): void {
     });
 
     /**
-     * @tc.number: SUB_INTELLIGENT_SCENE_DND_0300
-     * @tc.name: testIntelligentSceneDnd0003
-     * @tc.desc: Query all DND states once and verify the returned live model counts.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_INTELLIGENT_SCENE_DND_0300
+     * @tc.name testIntelligentSceneDnd0003
+     * @tc.desc Query all DND states once and verify the returned live model counts.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testIntelligentSceneDnd0003', 0, async () => {
@@ -163,11 +163,11 @@ export default function IntelligentSceneDndTest(): void {
     });
 
     /**
-     * @tc.number: SUB_INTELLIGENT_SCENE_DND_0400
-     * @tc.name: testIntelligentSceneDnd0004
-     * @tc.desc: Reset and re-initialize the service, then verify field defaults and model instance replacement.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_INTELLIGENT_SCENE_DND_0400
+     * @tc.name testIntelligentSceneDnd0004
+     * @tc.desc Reset and re-initialize the service, then verify field defaults and model instance replacement.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 1
      */
     it('testIntelligentSceneDnd0004', 0, async () => {
@@ -205,11 +205,11 @@ export default function IntelligentSceneDndTest(): void {
     });
 
     /**
-     * @tc.number: SUB_INTELLIGENT_SCENE_DND_0500
-     * @tc.name: testIntelligentSceneDnd0005
-     * @tc.desc: Query DND state without initializing and verify service stays uninitialized.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_INTELLIGENT_SCENE_DND_0500
+     * @tc.name testIntelligentSceneDnd0005
+     * @tc.desc Query DND state without initializing and verify service stays uninitialized.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 1
      */
     it('testIntelligentSceneDnd0005', 0, async () => {

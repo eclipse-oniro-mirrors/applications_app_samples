@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,11 +36,11 @@ struct IntelligentScenePage {
   /** 视图模型实例 */
   @State viewModel: IntelligentSceneViewModel = new IntelligentSceneViewModel();
   /** 免打扰启用状态显示 */
-  @State displayDndEnabled: string = '未查询';
+  @State displayDndEnabled: ResourceStr = $r('app.string.value_not_queried');
   /** 通知允许状态显示 */
-  @State displayNotifyAllowed: string = '未查询';
+  @State displayNotifyAllowed: ResourceStr = $r('app.string.value_not_queried');
   /** 当前查询状态文本 */
-  @State displayStatus: string = '空闲';
+  @State displayStatus: ResourceStr = $r('app.string.status_idle');
   /** 状态标签颜色 */
   @State statusColor: string = PageConstants.COLOR_TEXT_HINT;
   /** 状态标签背景色 */
@@ -74,8 +74,8 @@ struct IntelligentScenePage {
    * 从视图模型同步数据到 @State 变量。
    */
   private refreshDisplay(): void {
-    this.displayDndEnabled = this.viewModel.isDndEnabled ? '已启用' : '未启用';
-    this.displayNotifyAllowed = this.viewModel.isNotifyAllowed ? '允许' : '不允许';
+    this.displayDndEnabled = this.viewModel.isDndEnabled ? $r('app.string.value_enabled') : $r('app.string.value_disabled');
+    this.displayNotifyAllowed = this.viewModel.isNotifyAllowed ? $r('app.string.value_allowed') : $r('app.string.value_not_allowed');
     this.displayStatus = this.getStatusText(this.viewModel.currentStatus);
     this.updateStatusStyle(this.viewModel.currentStatus);
     this.displayLogs = this.viewModel.getLogs();
@@ -83,22 +83,22 @@ struct IntelligentScenePage {
   }
 
   /**
-   * 获取状态的中文文本。
+   * 获取状态对应的本地化文本资源。
    * @param {DoNotDisturbStatus} status - 状态枚举值
-   * @returns {string} 中文状态描述
+   * @returns {Resource} 状态文本资源
    */
-  private getStatusText(status: DoNotDisturbStatus): string {
+  private getStatusText(status: DoNotDisturbStatus): Resource {
     switch (status) {
       case DoNotDisturbStatus.IDLE:
-        return '空闲';
+        return $r('app.string.status_idle');
       case DoNotDisturbStatus.QUERYING:
-        return '查询中';
+        return $r('app.string.status_querying');
       case DoNotDisturbStatus.SUCCESS:
-        return '查询成功';
+        return $r('app.string.status_query_success');
       case DoNotDisturbStatus.FAILED:
-        return '查询失败';
+        return $r('app.string.status_query_failed');
       default:
-        return '未知';
+        return $r('app.string.status_unknown');
     }
   }
 
@@ -135,7 +135,7 @@ struct IntelligentScenePage {
     Column() {
       // 标题栏
       Row() {
-        Text(PageConstants.TITLE_INTELLIGENT_SCENE)
+        Text($r('app.string.page_intelligent_scene'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
@@ -143,7 +143,7 @@ struct IntelligentScenePage {
       .width('100%')
       .height(PageConstants.NAV_BAR_HEIGHT)
       .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
       // 可滚动内容区域
@@ -151,12 +151,12 @@ struct IntelligentScenePage {
         Column({ space: PageConstants.SECTION_SPACING }) {
           // 免打扰状态信息卡片
           InfoCard({
-            title: '免打扰状态信息',
-            subtitle: 'intelligentScene 模块查询结果'
+            title: $r('app.string.card_dnd_title'),
+            subtitle: $r('app.string.card_dnd_subtitle')
           }) {
             Column({ space: 8 }) {
               Row() {
-                Text('免打扰模式:')
+                Text($r('app.string.label_dnd_mode'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(100)
@@ -168,7 +168,7 @@ struct IntelligentScenePage {
               .width('100%')
 
               Row() {
-                Text('通知允许:')
+                Text($r('app.string.label_notify_allowed'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(100)
@@ -180,7 +180,7 @@ struct IntelligentScenePage {
               .width('100%')
 
               Row() {
-                Text('查询状态:')
+                Text($r('app.string.label_query_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
                   .width(100)
@@ -194,7 +194,7 @@ struct IntelligentScenePage {
               .alignItems(VerticalAlign.Center)
 
               Row() {
-                Text('所需权限:')
+                Text($r('app.string.label_required_permission'))
                   .fontSize(PageConstants.FONT_SIZE_SMALL)
                   .fontColor(PageConstants.COLOR_TEXT_HINT)
                   .width(100)
@@ -213,7 +213,7 @@ struct IntelligentScenePage {
           // 操作按钮区域
           Column({ space: PageConstants.ITEM_SPACING }) {
             ActionButton({
-              buttonText: '查询免打扰状态',
+              buttonText: $r('app.string.btn_check_dnd'),
               buttonType: 'primary',
               isDisabled: this.viewModel.isLoading,
               onButtonClick: async () => {
@@ -223,7 +223,7 @@ struct IntelligentScenePage {
             })
 
             ActionButton({
-              buttonText: '查询通知允许状态',
+              buttonText: $r('app.string.btn_query_notify'),
               buttonType: 'primary',
               isDisabled: this.viewModel.isLoading,
               onButtonClick: async () => {
@@ -233,7 +233,7 @@ struct IntelligentScenePage {
             })
 
             ActionButton({
-              buttonText: '查询全部状态',
+              buttonText: $r('app.string.btn_query_all'),
               buttonType: 'secondary',
               isDisabled: this.viewModel.isLoading,
               onButtonClick: async () => {
@@ -243,7 +243,7 @@ struct IntelligentScenePage {
             })
 
             ActionButton({
-              buttonText: '重置',
+              buttonText: $r('app.string.btn_reset'),
               buttonType: 'danger',
               isDisabled: false,
               onButtonClick: () => {
@@ -257,8 +257,8 @@ struct IntelligentScenePage {
           // 详情信息卡片
           if (this.detailText.length > 0) {
             InfoCard({
-              title: '详细数据',
-              subtitle: 'DoNotDisturbModel JSON 表示'
+              title: $r('app.string.card_detail_title'),
+              subtitle: $r('app.string.card_detail_subtitle_dnd')
             }) {
               Text(this.detailText)
                 .fontSize(PageConstants.FONT_SIZE_SMALL)
@@ -270,7 +270,7 @@ struct IntelligentScenePage {
 
           // 日志面板
           LogPanel({
-            panelTitle: '操作日志',
+            panelTitle: $r('app.string.log_panel_title'),
             logs: this.displayLogs,
             maxHeight: 200
           })

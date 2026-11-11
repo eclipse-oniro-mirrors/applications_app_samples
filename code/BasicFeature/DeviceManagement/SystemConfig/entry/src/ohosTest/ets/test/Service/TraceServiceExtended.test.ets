@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { TraceService, TraceName } from 'library';
@@ -200,7 +214,7 @@ export default function TraceServiceExtendedTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0800
      * @tc.name testTraceServiceExtended0008
-     * @tc.desc 正向: finishTrace 传入 count>0 和 count=0 均正常减少计数
+     * @tc.desc 正向: finishTrace 按 taskId 精确配对结束，未知 taskId 不影响计数
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -209,12 +223,17 @@ export default function TraceServiceExtendedTest(): void {
       hilog.info(DOMAIN, TAG, 'testTraceServiceExtended0008: begin');
       const service: TraceService = new TraceService();
       service.initialize();
-      service.startTrace(TraceName.SERVICE_INIT);
-      service.startTrace(TraceName.PAGE_LOAD);
+      const idInit: number = service.startTrace(TraceName.SERVICE_INIT);
+      const idPage: number = service.startTrace(TraceName.PAGE_LOAD);
+      hilog.info(DOMAIN, TAG, 'testTraceServiceExtended0008: idInit=%{public}d, idPage=%{public}d', idInit, idPage);
       expect(service.getActiveTraceCount()).assertEqual(2);
-      service.finishTrace(TraceName.SERVICE_INIT, 5);
+      // 未知 taskId 不匹配任何活动追踪，计数保持不变
+      service.finishTrace(TraceName.SERVICE_INIT, 9999);
+      expect(service.getActiveTraceCount()).assertEqual(2);
+      // 正确 taskId 精确结束对应追踪
+      service.finishTrace(TraceName.SERVICE_INIT, idInit);
       expect(service.getActiveTraceCount()).assertEqual(1);
-      service.finishTrace(TraceName.PAGE_LOAD, 0);
+      service.finishTrace(TraceName.PAGE_LOAD, idPage);
       expect(service.getActiveTraceCount()).assertEqual(0);
       service.destroy();
     });

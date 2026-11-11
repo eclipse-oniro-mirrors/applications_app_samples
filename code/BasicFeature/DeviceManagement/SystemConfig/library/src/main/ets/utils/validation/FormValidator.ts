@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -186,29 +186,31 @@ export class FormValidator {
       return { valid: false, error: `${name} 为必填项` };
     }
 
-    // 非空时才继续后续检查
-    if (value.length > 0) {
-      // 最小长度检查
-      if (rule.minLength !== undefined && value.length < rule.minLength) {
-        return { valid: false, error: `${name} 长度不能少于 ${rule.minLength} 个字符` };
-      }
+    // 空值时跳过后续规则检查
+    if (value.length === 0) {
+      return { valid: true, error: null };
+    }
 
-      // 最大长度检查
-      if (rule.maxLength !== undefined && value.length > rule.maxLength) {
-        return { valid: false, error: `${name} 长度不能超过 ${rule.maxLength} 个字符` };
-      }
+    // 最小长度检查
+    if (rule.minLength !== undefined && value.length < rule.minLength) {
+      return { valid: false, error: `${name} 长度不能少于 ${rule.minLength} 个字符` };
+    }
 
-      // 正则模式匹配
-      if (rule.pattern !== undefined && !rule.pattern.test(value)) {
-        return { valid: false, error: `${name} 格式不正确` };
-      }
+    // 最大长度检查
+    if (rule.maxLength !== undefined && value.length > rule.maxLength) {
+      return { valid: false, error: `${name} 长度不能超过 ${rule.maxLength} 个字符` };
+    }
 
-      // 自定义验证器
-      if (rule.customValidator !== undefined) {
-        const customError: string | null = rule.customValidator(value);
-        if (customError !== null) {
-          return { valid: false, error: customError };
-        }
+    // 正则模式匹配
+    if (rule.pattern !== undefined && !rule.pattern.test(value)) {
+      return { valid: false, error: `${name} 格式不正确` };
+    }
+
+    // 自定义验证器
+    if (rule.customValidator !== undefined) {
+      const customError: string | null = rule.customValidator(value);
+      if (customError !== null) {
+        return { valid: false, error: customError };
       }
     }
 

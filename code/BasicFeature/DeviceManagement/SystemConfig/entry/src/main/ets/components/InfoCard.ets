@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,13 +22,24 @@ import { PageConstants } from 'library';
 @Component
 export struct InfoCard {
   /** 卡片标题 */
-  @Prop title: string = '';
+  @Prop title: ResourceStr = '';
   /** 卡片副标题 */
-  @Prop subtitle: string = '';
+  @Prop subtitle: ResourceStr = '';
   /** 是否显示分割线 */
   @Prop showDivider: boolean = true;
   /** 卡片内容构建器 */
   @BuilderParam content: () => void = this.defaultContent;
+
+  /**
+   * 判断副标题是否有效（支持字符串与资源两种类型）。
+   * @returns {boolean} 是否需要展示副标题
+   */
+  private hasSubtitle(): boolean {
+    if (typeof this.subtitle === 'string') {
+      return this.subtitle.length > 0;
+    }
+    return this.subtitle !== undefined;
+  }
 
   /**
    * 默认内容构建器。
@@ -36,7 +47,7 @@ export struct InfoCard {
    */
   @Builder
   defaultContent() {
-    Text('暂无内容')
+    Text($r('app.string.info_card_empty'))
       .fontSize(PageConstants.FONT_SIZE_BODY)
       .fontColor(PageConstants.COLOR_TEXT_HINT)
   }
@@ -51,7 +62,7 @@ export struct InfoCard {
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
           .width('100%')
 
-        if (this.subtitle.length > 0) {
+        if (this.hasSubtitle()) {
           Text(this.subtitle)
             .fontSize(PageConstants.FONT_SIZE_SMALL)
             .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
@@ -76,7 +87,7 @@ export struct InfoCard {
     }
     .width('100%')
     .padding(PageConstants.CARD_PADDING)
-    .backgroundColor(PageConstants.COLOR_SURFACE)
+    .backgroundColor(PageConstants.COLOR_CARD)
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
     .shadow({
       radius: 4,

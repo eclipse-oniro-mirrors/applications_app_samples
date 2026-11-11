@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -99,20 +99,9 @@ export class StorageUtils {
       hilog.warn(DOMAIN, TAG, 'StorageUtils parseStorageSize: empty string');
       return 0;
     }
-    const trimmed: string = str.trim().toUpperCase();
-    let numericPart: string = '';
-    let unitPart: string = '';
-    let foundUnit: boolean = false;
-    for (let i: number = 0; i < trimmed.length; i++) {
-      const ch: string = trimmed.charAt(i);
-      if (!foundUnit && (ch >= '0' && ch <= '9' || ch === '.')) {
-        numericPart += ch;
-      } else {
-        foundUnit = true;
-        unitPart += ch;
-      }
-    }
-    unitPart = unitPart.trim();
+    const parts: string[] = StorageUtils.splitNumberAndUnit(str.trim().toUpperCase());
+    const numericPart: string = parts[0];
+    const unitPart: string = parts[1];
     if (numericPart.length === 0) {
       hilog.warn(DOMAIN, TAG, 'StorageUtils parseStorageSize: no numeric part found');
       return 0;
@@ -122,24 +111,59 @@ export class StorageUtils {
       hilog.warn(DOMAIN, TAG, 'StorageUtils parseStorageSize: invalid numeric value');
       return 0;
     }
-    let multiplier: number = 1;
-    if (unitPart === '' || unitPart === 'B') {
-      multiplier = 1;
-    } else if (unitPart === 'KB' || unitPart === 'K') {
-      multiplier = UNIT_BASE;
-    } else if (unitPart === 'MB' || unitPart === 'M') {
-      multiplier = UNIT_BASE * UNIT_BASE;
-    } else if (unitPart === 'GB' || unitPart === 'G') {
-      multiplier = UNIT_BASE * UNIT_BASE * UNIT_BASE;
-    } else if (unitPart === 'TB' || unitPart === 'T') {
-      multiplier = UNIT_BASE * UNIT_BASE * UNIT_BASE * UNIT_BASE;
-    } else {
-      hilog.warn(DOMAIN, TAG, 'StorageUtils parseStorageSize: unknown unit=%{public}s', unitPart);
-      multiplier = 1;
-    }
+    const multiplier: number = StorageUtils.resolveUnitMultiplier(unitPart);
     const result: number = Math.floor(numericValue * multiplier);
     hilog.debug(DOMAIN, TAG, 'StorageUtils parseStorageSize: result=%{public}s bytes', result.toString());
     return result;
+  }
+
+  /**
+   * 拆分容量字符串的数值部分与单位部分。
+   * @param {string} trimmedUpper - 已去空白并转大写的字符串
+   * @returns {string[]} [数值部分, 单位部分]
+   */
+  private static splitNumberAndUnit(trimmedUpper: string): string[] {
+    let numericPart: string = '';
+    let unitPart: string = '';
+    let foundUnit: boolean = false;
+    for (let i: number = 0; i < trimmedUpper.length; i++) {
+      const ch: string = trimmedUpper.charAt(i);
+      if (!foundUnit && ((ch >= '0' && ch <= '9') || ch === '.')) {
+        numericPart += ch;
+      } else {
+        foundUnit = true;
+        unitPart += ch;
+      }
+    }
+    return [numericPart, unitPart.trim()];
+  }
+
+  /**
+   * 将单位字符串换算为字节倍率，未知单位按 1 处理。
+   * @param {string} unitPart - 单位字符串（已转大写）
+   * @returns {number} 字节倍率
+   */
+  private static resolveUnitMultiplier(unitPart: string): number {
+    switch (unitPart) {
+      case '':
+      case 'B':
+        return 1;
+      case 'KB':
+      case 'K':
+        return UNIT_BASE;
+      case 'MB':
+      case 'M':
+        return UNIT_BASE * UNIT_BASE;
+      case 'GB':
+      case 'G':
+        return UNIT_BASE * UNIT_BASE * UNIT_BASE;
+      case 'TB':
+      case 'T':
+        return UNIT_BASE * UNIT_BASE * UNIT_BASE * UNIT_BASE;
+      default:
+        hilog.warn(DOMAIN, TAG, 'StorageUtils parseStorageSize: unknown unit=%{public}s', unitPart);
+        return 1;
+    }
   }
 
   // ========================================
@@ -176,14 +200,21 @@ export class StorageUtils {
 
   /**
    * 判断存储空间是否不足。
-   * 当可用空间百分比低于阈值时返回 true。
+   * 当可用空间占总容量百分比低于阈值时返回 true。
+   * 非法输入（可用空间为负或总容量非正）返回 false。
    * @param {number} available - 可用空间（字节）
+   * @param {number} total - 总容量（字节）
    * @returns {boolean} 存储空间是否不足
    */
-  static isStorageLow(available: number): boolean {
-    hilog.debug(DOMAIN, TAG, 'StorageUtils isStorageLow: available=%{public}s', available.toString());
-    const totalEstimate: number = StorageUtils.estimateFreeSpace(available);
-    const percent: number = (available / totalEstimate) * 100;
+  static isStorageLow(available: number, total: number): boolean {
+    hilog.debug(DOMAIN, TAG, 'StorageUtils isStorageLow: available=%{public}s, total=%{public}s',
+      available.toString(), total.toString());
+    if (available < 0 || total <= 0) {
+      hilog.warn(DOMAIN, TAG, 'StorageUtils isStorageLow: invalid input, returning false');
+      return false;
+    }
+    const clampedAvailable: number = Math.min(available, total);
+    const percent: number = (clampedAvailable / total) * 100;
     const isLow: boolean = percent < STORAGE_LOW_THRESHOLD_PERCENT;
     hilog.info(DOMAIN, TAG, 'StorageUtils isStorageLow: percent=%{public}s, isLow=%{public}s',
       percent.toFixed(1), isLow.toString());

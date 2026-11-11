@@ -6,7 +6,7 @@
 
 - **测试模块**：`entry/src/ohosTest`
 - **测试套件总数**：54 个（另有 `List.test.ets` 统一注册入口）
-- **测试用例总数**：624 条
+- **测试用例总数**：627 条
 - **测试分类**：9 个类别（CustomConfig、Device、Integration、IntelligentScene、Network、Service、SettingsLite、Utils、Validation）
 - **日志 DOMAIN**：`0xF820`
 - **日志 TAG**：`[Sample_SystemConfig]`
@@ -34,6 +34,12 @@
 | `@tc.size` / `@tc.type` / `@tc.level` | 统一 `MediumTest` / `Function` / `Level 0`（核心路径）或 `Level 1`（边界、异常、高级场景） | — |
 
 每个用例前均有完整元数据注释块（`@tc.number` / `@tc.name` / `@tc.desc` / `@tc.size` / `@tc.type` / `@tc.level`），hilog 日志中的用例名与 `it()` 名称一致。
+
+> **元数据风格统一**：本轮将少数 UI/Service 文件遗留的 `@tc.number:` 冒号风格统一为工程主体的 `@tc.number ` 空格风格（全树空格风格 600+ 处、冒号风格归零），审计正则 `@tc\.number:?\s+` 对两种风格均兼容，此改动为纯注释、无功能影响。
+>
+> **国际化范围**：页面/组件/首页的 UI 展示文案已全部改为 `$r('app.string.*')` 资源引用，`base` 与 `zh_CN` 资源值均为中文以保证区域无关渲染及 UI 用例的中文文本匹配。开发者诊断类日志（ViewModel `addLog` 文本、库内 `getStatusDescription`/`getTypeName` 等动态状态串）保留原状，属面向开发者排障的动态字符串，不纳入资源化范围。
+>
+> **断言参数日志范围**：本轮在回归与新补用例中按「begin + 观测值」模式补充了 hilog 参数日志；未对全树 2600+ 处 `expect()` 逐条包裹，以避免高风险的批量改写与 ArkTS 类型破坏。
 
 ## 测试用例清单
 
@@ -83,18 +89,18 @@
 | IntelligentSceneDndTest | 5 | 免打扰与通知状态查询、多次查询一致性、重置与重新初始化 |
 | IntelligentScenePageUITest | 1 | 情景模式页面查询免打扰状态的真实 UI 行为 |
 
-### 5. Network 网络与权限测试（4 个套件，121 条用例）
+### 5. Network 网络与权限测试（4 个套件，123 条用例）
 
 **测试文件**：`entry/src/ohosTest/ets/test/Network/`
 
 | 套件 | 用例数 | 测试内容 |
 | --- | --- | --- |
-| EncryptionUtilsTest | 10 | base64 编解码、hash、md5、UUID 格式与唯一性 |
+| EncryptionUtilsTest | 12 | base64 编解码、hash、md5、SHA-256、UUID 格式与唯一性、标准测试向量校验 |
 | HttpUtilsTest | 35 | HTTP 请求、状态码、重试、请求头、取消、下载与响应处理 |
 | NetworkUtilsTest | 42 | 网络状态、WiFi 信息、信号等级、类型判断与状态回调 |
 | PermissionUtilsTest | 34 | 权限检查、申请、授权状态与多权限结果聚合 |
 
-### 6. Service 服务层测试（12 个套件，124 条用例）
+### 6. Service 服务层测试（12 个套件，125 条用例）
 
 **测试文件**：`entry/src/ohosTest/ets/test/Service/`
 
@@ -103,7 +109,7 @@
 | CustomConfigServiceTest | 6 | 初始化、渠道获取、模型状态、状态描述与日志 |
 | CustomConfigServiceExtendedTest | 15 | getChannelId 多次调用、状态缓存、边界与异常恢复 |
 | EventServiceTest | 6 | 初始化、观察者管理、事件记录与清除 |
-| EventServiceExtendedTest | 20 | 事件统计、字段完整性、过滤、回调与按时间清除 |
+| EventServiceExtendedTest | 21 | 事件统计、字段完整性、过滤、回调、按时间清除与 hiAppEvent 上报计数不变量 |
 | HistoryClearTest | 5 | 应用内历史清除与页面日志清理 |
 | IntelligentSceneServiceTest | 15 | 免打扰/通知查询、模型状态与历史记录 |
 | IntelligentSceneServiceExtendedTest | 5 | 服务生命周期、模型实例替换与状态缓存 |
@@ -168,7 +174,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --
 
 ```bash
 # 卸载旧版本后，将主 HAP 与测试 HAP 推送到同一目录并安装
-hdc uninstall ohos.samples.systemconfig
+hdc uninstall com.samples.systemconfig
 hdc shell mkdir data/local/tmp/syscfg_test
 hdc file send entry/build/default/outputs/default/entry-default-signed.hap data/local/tmp/syscfg_test
 hdc file send entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap data/local/tmp/syscfg_test
@@ -176,11 +182,11 @@ hdc shell bm install -p data/local/tmp/syscfg_test
 hdc shell rm -rf data/local/tmp/syscfg_test
 
 # 全量执行（unittest 必须为 TestRunner 完整路径）
-hdc shell "aa test -b ohos.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"
+hdc shell "aa test -b com.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"
 
 # 指定套件 / 单条用例
-hdc shell "aa test -b ohos.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s class UtilsMathUtilsTest -s timeout 15000"
-hdc shell "aa test -b ohos.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s class UtilsMathUtilsTest#testUtilsMathUtils0001 -s timeout 15000"
+hdc shell "aa test -b com.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s class UtilsMathUtilsTest -s timeout 15000"
+hdc shell "aa test -b com.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s class UtilsMathUtilsTest#testUtilsMathUtils0001 -s timeout 15000"
 ```
 
 结果以 `OHOS_REPORT_RESULT` 与 `Tests run` 行为准：状态码 `1` 用例开始、`0` 通过、`-2` 断言失败、`-1` 执行异常；`TestFinished-ResultCode: 0` 仅表示 runner 执行完毕，不代表用例全部通过。
@@ -201,16 +207,28 @@ node .qoder/skills/ohos-testcase-supplement/scripts/audit_cases.js entry/src/oho
 | Device | 4 | 44 |
 | Integration | 4 | 24 |
 | IntelligentScene | 4 | 26 |
-| Network | 4 | 121 |
-| Service | 12 | 124 |
+| Network | 4 | 123 |
+| Service | 12 | 125 |
 | SettingsLite | 6 | 31 |
 | Utils | 10 | 145 |
 | Validation | 6 | 80 |
-| **合计** | **54** | **624** |
+| **合计** | **54** | **627** |
 
-### 最新真机验证结果
+### 本轮 PR 整改验证
 
-连续两轮全量运行（每用例超时 15000ms）：
+本轮依据 PR 检视报告修复了 12 项必须修改项并处理了合理的建议修改项，涉及 main（页面/组件国际化、签名配置移除、README 链接、SettingsLiteViewModel finishTrace try/finally）、library（TraceService taskId 配对、SettingsLiteService async/BusinessError、StorageUtils.isStorageLow 低存储分支、EventService 真实 hiAppEvent + write 同步异常防护、EncryptionUtils 真实 cryptoFramework + 空输入摘要短路、DeviceUtils 真实 deviceInfo/display）与 ohosTest（与上述行为变化对齐的回归用例、断言参数日志、@tc 元数据冒号风格统一）。用例总数由 624 增至 627（Network/EncryptionUtilsTest 新增标准测试向量用例 0011/0012、Service/EventServiceExtendedTest 新增 hiAppEvent 上报计数不变量用例 0021）。
+
+本轮整改在开发主机侧完成构建与静态验证：
+
+- **完整构建**：`devecocli build`（entry main）与 `devecocli build --modules entry@ohosTest`（测试 HAP）均 `BUILD SUCCESSFUL`，main / library / ohosTest 三棵源码树全部通过 ArkTS 编译；仅剩告警（`pushUrl`/`getContext` 弃用、`cryptoFramework` 部分 API 系统能力提示、移除签名后 `No signingConfig found for product default`），无编译错误。
+- **用例审计**：`files=55, total=627`，重名、重复编号、元数据问题、命名编号违规、少于 3 条静态断言的用例均为 0。
+- **建议项 C（hilog 英文统一）**：已将 library / entry 全部中文 hilog 诊断日志（含 CommonUtils、DateUtils、Logger、MathUtils、TypeUtils 等 19 处）改为英文并采用 `%{public}` 参数化；面向 UI 展示/用例契约的 ViewModel `addLog` 文案与库内动态状态串按国际化范围保留中文。
+
+真机全量运行尚未在本轮执行（当前主机无连接的目标设备）。构建产物已就绪，**合入前需在目标设备重新安装并执行一次全量 ohosTest 回归**，因本轮改动了 main 源码与库实现，历史真机基线不能直接代表本轮结果。
+
+### 历史真机基线（整改前）
+
+整改前连续两轮全量运行（每用例超时 15000ms，用例总数 624）：
 
 ```
 Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0
@@ -218,8 +236,6 @@ Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0
 ```
 
 审计结果：`files=55, total=624`，重名、重复编号、元数据问题、命名编号违规、少于 3 条静态断言的用例均为 0。
-
-最近一次复验为 2026-11-10 16:30 前后，覆盖 `testErrorHandlingCombination0002/0003`（去掉 try/catch，改由框架直接判定异常）与 `testChannelConfigModel0010`（补强 `markSuccess` 效果与时间戳上界）三处断言整改，单例状态码均为 `1` → `0`，耗时 20–32ms。
 
 ## 已知环境限制与缺陷记录
 
@@ -229,7 +245,7 @@ Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0
 2. **`ChannelConfigModel.markFailed` 不清空 `channelId`**：与 `isSuccess()` 的语义在失败分支下不一致。
 3. **`IntelligentSceneService.initialize()` / `SettingsLiteService.initialize()` 会新建模型实例**：外部持有的旧引用在服务侧已失效，读到的快照不会更新；用例改为通过 `getDoNotDisturbModel()` 取活动实例。
 4. **`IntelligentSceneService.isNotifyAllowedInDoNotDisturb()`** 在进入 SUCCESS 前后可能经历 QUERYING 状态，存在二次 `markSuccess` 的冗余写入。
-5. **`StorageUtils.isStorageLow` 正向低存储分支疑似不可达**：正数输入下的判定公式使该分支难以命中，未通过硬编码宣称覆盖。
+5. **`StorageUtils.isStorageLow` 正向低存储分支**：本轮已修复判定公式使低存储分支在真实参数下可达，用例 `DeviceStorageUtilsTest` 0005 覆盖非法入参、低存储命中与正常不命中三类分支。
 6. **`CustomDialogController` 回调以裸方法传递丢失 `this`**：点击确认弹窗会终止应用，该路径不纳入 UI 用例。
 7. **21 条依赖系统设置目标页或特定权限的用例已删除**：换用标准完整镜像后需补回并重新验收。
 8. **constants 中存在 11 个全工程无引用的死常量**：`PageConstants` 的 `COLOR_CONNECTED`、`COLOR_DISCONNECTED`、`FONT_SIZE_CAPTION`、`NAV_ITEM_HEIGHT`、`PAGE_INDEX`、`STATUS_BAR_HEIGHT`，以及 `SystemConfigConstants` 的 `ERROR_PERMISSION_DENIED`、`EVENT_DOMAIN`、`EVENT_GROUP`、`MAX_RETRY_COUNT`、`REFRESH_INTERVAL_MS`。已在 main、library、ohosTest 三棵树（128 个源文件）独立检索确认零命中。此类死常量不会导致测试变红或审计报错，只能静态发现；经命名特征排查，非 FAModel 并行开发的回滚残留，属历史遗留。

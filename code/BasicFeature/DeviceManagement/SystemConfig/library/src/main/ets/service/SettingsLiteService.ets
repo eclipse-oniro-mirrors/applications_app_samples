@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,11 +14,11 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { SystemConfigConstants } from '../constants/SystemConfigConstants';
 import {
   SettingsItemModel,
   SettingsItemType,
-  SettingsOperationStatus,
   ClickResult,
   ClickCallback
 } from '../model/SettingsItemModel';
@@ -30,8 +30,9 @@ const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
  * 设置信息服务。
- * 封装 @ohos.settingsLite 模块的接口调用，
- * 提供打开 PIN 设置页、NFC 设置页、双击设置页以及查询双击应用回调的能力，
+ * 通过 Want + startAbility 方式打开系统 PIN / NFC / 双击设置页面
+ * （@ohos.settingsLite 为 FA 模型专用接口，Stage 模型下不可直接调用）。
+ * 双击应用归属查询依赖 settingsLite，Stage 运行环境下如实返回不支持错误。
  * 集成日志、追踪和事件上报。
  */
 export class SettingsLiteService {
@@ -75,11 +76,11 @@ export class SettingsLiteService {
 
   /**
    * 打开 PIN 码设置页面。
-   * 使用 startAbility 打开系统设置页面。
+   * 使用 startAbility 打开系统设置页面，await 启动结果后再更新状态。
    * @param {common.UIAbilityContext} context - UIAbility 上下文
-   * @returns {boolean} 是否成功发起打开操作
+   * @returns {Promise<boolean>} 是否成功打开
    */
-  openPinSettingPage(context: common.UIAbilityContext): boolean {
+  async openPinSettingPage(context: common.UIAbilityContext): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService openPinSettingPage: opening PIN settings');
     this.pinModel.markOpening();
 
@@ -88,14 +89,14 @@ export class SettingsLiteService {
         action: 'action.settings.security',
         uri: 'systemui://security/pin'
       };
-      context.startAbility(want);
+      await context.startAbility(want);
       hilog.info(DOMAIN, TAG, 'SettingsLiteService openPinSettingPage: page opened successfully');
       this.pinModel.markSuccess('PIN 设置页面已打开');
       return true;
     } catch (err) {
-      const errObj = err as Record<string, Object>;
-      const errMsg: string = (errObj['message'] as string) ?? 'Unknown error';
-      const errCode: number = (errObj['code'] as number) ?? SystemConfigConstants.ERROR_INTERNAL;
+      const businessErr = err as BusinessError;
+      const errMsg: string = businessErr.message ?? 'Unknown error';
+      const errCode: number = businessErr.code ?? SystemConfigConstants.ERROR_INTERNAL;
       hilog.error(DOMAIN, TAG, 'SettingsLiteService openPinSettingPage: failed, error=%{public}s, code=%{public}d',
         errMsg, errCode);
       this.pinModel.markFailed(errMsg, errCode);
@@ -109,11 +110,11 @@ export class SettingsLiteService {
 
   /**
    * 打开 NFC 设置页面。
-   * 使用 startAbility 打开系统 NFC 设置页面。
+   * 使用 startAbility 打开系统 NFC 设置页面，await 启动结果后再更新状态。
    * @param {common.UIAbilityContext} context - UIAbility 上下文
-   * @returns {boolean} 是否成功发起打开操作
+   * @returns {Promise<boolean>} 是否成功打开
    */
-  openNfcSettingsPage(context: common.UIAbilityContext): boolean {
+  async openNfcSettingsPage(context: common.UIAbilityContext): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService openNfcSettingsPage: opening NFC settings');
     this.nfcModel.markOpening();
 
@@ -122,14 +123,14 @@ export class SettingsLiteService {
         action: 'action.settings.nfc',
         uri: 'systemui://settings/nfc'
       };
-      context.startAbility(want);
+      await context.startAbility(want);
       hilog.info(DOMAIN, TAG, 'SettingsLiteService openNfcSettingsPage: page opened successfully');
       this.nfcModel.markSuccess('NFC 设置页面已打开');
       return true;
     } catch (err) {
-      const errObj = err as Record<string, Object>;
-      const errMsg: string = (errObj['message'] as string) ?? 'Unknown error';
-      const errCode: number = (errObj['code'] as number) ?? SystemConfigConstants.ERROR_INTERNAL;
+      const businessErr = err as BusinessError;
+      const errMsg: string = businessErr.message ?? 'Unknown error';
+      const errCode: number = businessErr.code ?? SystemConfigConstants.ERROR_INTERNAL;
       hilog.error(DOMAIN, TAG, 'SettingsLiteService openNfcSettingsPage: failed, error=%{public}s, code=%{public}d',
         errMsg, errCode);
       this.nfcModel.markFailed(errMsg, errCode);
@@ -143,11 +144,11 @@ export class SettingsLiteService {
 
   /**
    * 打开双击设置页面。
-   * 使用 startAbility 打开系统手势设置页面。
+   * 使用 startAbility 打开系统手势设置页面，await 启动结果后再更新状态。
    * @param {common.UIAbilityContext} context - UIAbility 上下文
-   * @returns {boolean} 是否成功发起打开操作
+   * @returns {Promise<boolean>} 是否成功打开
    */
-  openDoubleClickSettingsPage(context: common.UIAbilityContext): boolean {
+  async openDoubleClickSettingsPage(context: common.UIAbilityContext): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService openDoubleClickSettingsPage: opening double click settings');
     this.doubleClickModel.markOpening();
 
@@ -156,14 +157,14 @@ export class SettingsLiteService {
         action: 'action.settings.gesture',
         uri: 'systemui://settings/gesture'
       };
-      context.startAbility(want);
+      await context.startAbility(want);
       hilog.info(DOMAIN, TAG, 'SettingsLiteService openDoubleClickSettingsPage: page opened successfully');
       this.doubleClickModel.markSuccess('双击设置页面已打开');
       return true;
     } catch (err) {
-      const errObj = err as Record<string, Object>;
-      const errMsg: string = (errObj['message'] as string) ?? 'Unknown error';
-      const errCode: number = (errObj['code'] as number) ?? SystemConfigConstants.ERROR_INTERNAL;
+      const businessErr = err as BusinessError;
+      const errMsg: string = businessErr.message ?? 'Unknown error';
+      const errCode: number = businessErr.code ?? SystemConfigConstants.ERROR_INTERNAL;
       hilog.error(DOMAIN, TAG, 'SettingsLiteService openDoubleClickSettingsPage: failed, error=%{public}s, code=%{public}d',
         errMsg, errCode);
       this.doubleClickModel.markFailed(errMsg, errCode);
@@ -173,27 +174,32 @@ export class SettingsLiteService {
 
   /**
    * 查询双击应用是否为自身。
-   * Stage 模型下此功能不可用，返回模拟结果。
-   * @param {common.UIAbilityContext} context - UIAbility 上下文
+   * settingsLite.isDoubleClickAppForSelf 为 FA 模型专用接口，
+   * Stage 运行环境下不可调用，此处如实回调不支持错误，不返回模拟结果。
+   * @param {common.UIAbilityContext} context - UIAbility 上下文（保留以保持接口一致）
    * @param {function(err: Object | null, cb: ClickCallback): void} callback - 查询结果回调
    */
-  isDoubleClickAppForSelf(context: common.UIAbilityContext, callback: (err: Object | null, cb: ClickCallback) => void): void {
-    hilog.info(DOMAIN, TAG, 'SettingsLiteService isDoubleClickAppForSelf: querying');
+  isDoubleClickAppForSelf(
+    context: common.UIAbilityContext,
+    callback: (err: Object | null, cb: ClickCallback) => void): void {
+    hilog.info(DOMAIN, TAG, 'SettingsLiteService isDoubleClickAppForSelf: not available in Stage model');
     this.doubleClickModel.markQuerying();
 
-    // Stage 模型下 settingsLite.isDoubleClickAppForSelf 不可用
-    // 返回模拟结果用于演示
-    const mockCallback: ClickCallback = {
-      result: ClickResult.NOT_SELF,
-      errorMessage: 'Stage 模型下此功能不可用，返回模拟结果',
-      errorCode: 0
+    const errMsg: string = 'settingsLite.isDoubleClickAppForSelf is only available in FA model';
+    const err: BusinessError = {
+      name: 'SettingsLiteUnsupportedError',
+      message: errMsg,
+      code: SystemConfigConstants.ERROR_INTERNAL
+    };
+    const result: ClickCallback = {
+      result: ClickResult.ERROR,
+      errorMessage: errMsg,
+      errorCode: SystemConfigConstants.ERROR_INTERNAL
     };
 
-    this.doubleClickModel.updateClickResult(mockCallback.result);
-    this.doubleClickModel.markSuccess(`双击查询结果 (模拟): ${mockCallback.result}`);
-    
-    hilog.info(DOMAIN, TAG, 'SettingsLiteService isDoubleClickAppForSelf: returning mock result');
-    callback(null, mockCallback);
+    this.doubleClickModel.updateClickResult(ClickResult.ERROR);
+    this.doubleClickModel.markFailed(errMsg, SystemConfigConstants.ERROR_INTERNAL);
+    callback(err, result);
   }
 
   // ========================================

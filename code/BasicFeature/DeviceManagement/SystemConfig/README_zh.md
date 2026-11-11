@@ -2,13 +2,13 @@
 
 ## 简介
 
-SystemConfig 是一个基于 OpenHarmony Basic Services Kit 的示例应用，展示如何使用 `@ohos.customization.customConfig`、`@ohos.intelligentScene` 和 `@ohos.settingsLite` 接口实现系统配置管理。
+SystemConfig 是一个基于 OpenHarmony Basic Services Kit 的示例应用，展示如何使用 `@ohos.customization.customConfig`、`@ohos.intelligentScene` 接口以及基于 Want 的系统设置页面拉起实现系统配置管理。
 
-本示例使用 [Basic Services Kit（基础服务）](https://gitee.com/openharmony-samples/app-samples/blob/master/applications_app_samples/docs/basic-services-kit.md) 中的相关 API，涵盖以下功能：
+本示例使用 Basic Services Kit（基础服务）中的相关 API，涵盖以下功能：
 
 - **定制配置**：通过 `customConfig.getChannelId()` 获取设备渠道标识符
 - **情景模式**：通过 `intelligentScene` 模块查询免打扰状态和通知允许状态
-- **设置信息**：通过 `settingsLite` 模块打开系统设置页面（PIN、NFC、双击）和查询双击应用状态
+- **设置信息**：通过 `startAbility` + 设置类 Want 打开系统设置页面（PIN、NFC、双击）。`@ohos.settingsLite` 模块本身为 FA 模型专用接口，本 Stage 模型示例无法直接调用，双击应用归属查询如实返回不支持错误，不返回模拟结果
 
 工程采用 Library 模块（`library`）封装 API 接口、服务和工具类，entry 模块负责业务逻辑和页面展示，实现接口复用与业务解耦。
 
@@ -36,7 +36,7 @@ SystemConfig 是一个基于 OpenHarmony Basic Services Kit 的示例应用，�
 ```
 SystemConfig/
 ├── AppScope/                              # 应用全局配置
-│   ├── app.json5                          # 应用配置（bundleName: ohos.samples.systemconfig）
+│   ├── app.json5                          # 应用配置（bundleName: com.samples.systemconfig）
 │   └── resources/                         # 应用全局资源
 ├── library/                               # Library 模块（HAR）—— API 封装层
 │   ├── Index.ets                          # 模块导出入口
@@ -111,7 +111,7 @@ Entry 模块负责业务逻辑和页面展示。
 本示例提供完整的 ohosTest 自动化测试，共 **54 个测试套件、624 条用例**，分为 9 个分类，覆盖服务层、数据模型、工具类、数据校验、网络权限、设备存储、常量、页面导航与多服务集成场景。
 
 - **用例命名**：`it()` 与 `@tc.name` 统一为 `test<Feature><NNNN>`，后四位从 `0001` 起每条自增 1；`@tc.number` 为 `SUB_<MODULE>_<SEQ>`，后四位从 `0100` 起每条自增 100，同一文件内连续编号、全局唯一。
-- **运行方式**：构建并安装 ohosTest HAP 后，执行 `hdc shell "aa test -b ohos.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"` 全量运行。
+- **运行方式**：构建并安装 ohosTest HAP 后，执行 `hdc shell "aa test -b com.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"` 全量运行。
 - **最新结果**：连续两轮全量运行均为 `Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0`。
 
 详细用例清单、命名规范与执行说明见 [ohosTest.md](ohosTest.md)。
@@ -122,26 +122,26 @@ Entry 模块负责业务逻辑和页面展示。
 
 | 权限 | 说明 |
 | --- | --- |
-| [ohos.permission.GET_DONOTDISTURB_STATE](https://gitee.com/openharmony-samples/app-samples/blob/master/applications_app_samples/docs/permissions.md#ohospermissionget_donotdisturb_state) | 查询免打扰状态 |
+| `ohos.permission.GET_DONOTDISTURB_STATE` | 查询免打扰状态 |
 
 ## 依赖
 
-### 其他 Sample 依赖
+### 其余 Sample 依赖
 
-本示例不依赖其他 Sample。
+本示例不依赖其余 Sample。
 
 ### 系统 Kit 依赖
 
 | Kit | 用途 |
 | --- | --- |
-| [BasicServicesKit](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/ohos-customConfig-V5) | customConfig、intelligentScene、hiAppEvent |
-| [PerformanceAnalysisKit](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/hiTraceMeter-V5) | hiTraceMeter 性能追踪、hilog 日志 |
-| [AbilityKit](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/ability-stage-V5) | UIAbility 生命周期 |
-| [ArkUI](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/arkts-state-V5) | 声明式 UI 框架 |
+| [BasicServicesKit](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-basic-services-kit) | customConfig、intelligentScene、hiAppEvent |
+| [PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-performance-analysis-kit) | hiTraceMeter 性能追踪、hilog 日志 |
+| [AbilityKit](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-ability-kit) | UIAbility 生命周期 |
+| [ArkUI](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/ui) | 声明式 UI 框架 |
 
 ## 约束与限制
 
-1. **操作系统**：OpenHarmony / HarmonyOS NEXT
+1. **操作系统**：OpenHarmony 标准系统
 2. **设备要求**：支持系统设置的 OpenHarmony 真机（如 RK3568 开发板）
 3. **API 版本**：API 26（CompileSdkVersion 26，CompatibleSdkVersion 26）
 4. **IDE 版本**：DevEco Studio 5.0 及以上
@@ -153,8 +153,8 @@ Entry 模块负责业务逻辑和页面展示。
 
 ```bash
 # 使用 sparse-checkout 下载当前示例工程
-git clone --filter=sparse --no-checkout https://gitee.com/openharmony-samples/app-samples.git
-cd app-samples
+git clone --filter=sparse --no-checkout https://gitcode.com/openharmony/applications_app_samples.git
+cd applications_app_samples
 git sparse-checkout set code/BasicFeature/DeviceManagement/SystemConfig/
 git checkout
 ```

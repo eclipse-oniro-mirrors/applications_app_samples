@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, expect, it } from '@ohos/hypium';
 import { ChannelConfigJson, ChannelConfigStatus } from 'library';
 import { UiTestSession } from '../Utils/UiTestSupport';
@@ -63,11 +77,11 @@ async function openCustomConfigPage(session: UiTestSession): Promise<void> {
 export default function customConfigPageUITest(): void {
   describe('CustomConfigPageUITest', () => {
     /**
-     * @tc.number: SUB_CUSTOM_CONFIG_PAGE_UI_0100
-     * @tc.name: testCustomConfigPageUI0001
-     * @tc.desc: Verify initial custom config values actions and initialization log.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_CUSTOM_CONFIG_PAGE_UI_0100
+     * @tc.name testCustomConfigPageUI0001
+     * @tc.desc Verify initial custom config values actions and initialization log.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testCustomConfigPageUI0001', 0, async () => {
@@ -95,11 +109,11 @@ export default function customConfigPageUITest(): void {
     });
 
     /**
-     * @tc.number: SUB_CUSTOM_CONFIG_PAGE_UI_0200
-     * @tc.name: testCustomConfigPageUI0002
-     * @tc.desc: Verify channel status badge and result log both match the detail model.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_CUSTOM_CONFIG_PAGE_UI_0200
+     * @tc.name testCustomConfigPageUI0002
+     * @tc.desc Verify channel status badge and result log both match the detail model.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testCustomConfigPageUI0002', 0, async () => {
@@ -144,11 +158,11 @@ export default function customConfigPageUITest(): void {
     });
 
     /**
-     * @tc.number: SUB_CUSTOM_CONFIG_PAGE_UI_0300
-     * @tc.name: testCustomConfigPageUI0003
-     * @tc.desc: Verify detail JSON channel and status match page results.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_CUSTOM_CONFIG_PAGE_UI_0300
+     * @tc.name testCustomConfigPageUI0003
+     * @tc.desc Verify detail JSON channel and status match page results.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testCustomConfigPageUI0003', 0, async () => {
@@ -183,11 +197,11 @@ export default function customConfigPageUITest(): void {
     });
 
     /**
-     * @tc.number: SUB_CUSTOM_CONFIG_PAGE_UI_0400
-     * @tc.name: testCustomConfigPageUI0004
-     * @tc.desc: Verify reset clears prior channel details and operation logs.
-     * @tc.size: MediumTest
-     * @tc.type: Function
+     * @tc.number SUB_CUSTOM_CONFIG_PAGE_UI_0400
+     * @tc.name testCustomConfigPageUI0004
+     * @tc.desc Verify reset clears prior channel details and operation logs.
+     * @tc.size MediumTest
+     * @tc.type Function
      * @tc.level Level 0
      */
     it('testCustomConfigPageUI0004', 0, async () => {

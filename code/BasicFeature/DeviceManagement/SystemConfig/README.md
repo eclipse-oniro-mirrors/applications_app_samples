@@ -2,13 +2,13 @@
 
 ## Introduction
 
-SystemConfig is a sample application based on OpenHarmony Basic Services Kit, demonstrating how to use the `@ohos.customization.customConfig`, `@ohos.intelligentScene`, and `@ohos.settingsLite` APIs for system configuration management.
+SystemConfig is a sample application based on OpenHarmony Basic Services Kit, demonstrating how to use the `@ohos.customization.customConfig`, `@ohos.intelligentScene` APIs and Want-based system settings page launching for system configuration management.
 
-This sample uses APIs from [Basic Services Kit](https://gitee.com/openharmony-samples/app-samples/blob/master/applications_app_samples/docs/basic-services-kit.md), covering the following features:
+This sample uses APIs from the Basic Services Kit, covering the following features:
 
 - **Custom Config**: Retrieve device channel identifier via `customConfig.getChannelId()`
 - **Intelligent Scene**: Query Do Not Disturb status and notification permission via `intelligentScene` module
-- **Settings Lite**: Open system settings pages (PIN, NFC, Double-click) and query double-click app status via `settingsLite` module
+- **Settings Lite**: Open system settings pages (PIN, NFC, Double-click) via `startAbility` with settings Want actions. The `@ohos.settingsLite` module itself is FA-model-only and cannot be called in this Stage-model sample, so the double-click app query honestly reports an unsupported error instead of a mock result
 
 The project uses a Library module (`library`) to encapsulate API interfaces, services, and utility classes, while the Entry module handles business logic and page display, achieving interface reuse and business decoupling.
 
@@ -36,7 +36,7 @@ The project uses a Library module (`library`) to encapsulate API interfaces, ser
 ```
 SystemConfig/
 ├── AppScope/                              # Global app configuration
-│   ├── app.json5                          # App config (bundleName: ohos.samples.systemconfig)
+│   ├── app.json5                          # App config (bundleName: com.samples.systemconfig)
 │   └── resources/                         # Global resources
 ├── library/                               # Library module (HAR) - API encapsulation
 │   ├── Index.ets                          # Module export barrel
@@ -111,7 +111,7 @@ The Entry module handles business logic and page display.
 This sample provides comprehensive ohosTest automation tests: **54 test suites with 624 cases** in 9 categories, covering the service layer, data models, utility classes, validation, network/permissions, device storage, constants, page navigation and multi-service integration scenarios.
 
 - **Case naming**: `it()` and `@tc.name` use `test<Feature><NNNN>`, with the last four digits starting at `0001` and incrementing by 1 per case; `@tc.number` uses `SUB_<MODULE>_<SEQ>`, with the last four digits starting at `0100` and incrementing by 100 per case, numbered consecutively within each file and globally unique.
-- **How to run**: After building and installing the ohosTest HAP, run `hdc shell "aa test -b ohos.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"` for a full run.
+- **How to run**: After building and installing the ohosTest HAP, run `hdc shell "aa test -b com.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"` for a full run.
 - **Latest results**: Two consecutive full runs both report `Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0`.
 
 For the full case list, naming conventions, and execution details, see [ohosTest.md](ohosTest.md).
@@ -122,7 +122,7 @@ This sample requires the following permissions, configured in [entry/src/main/mo
 
 | Permission | Description |
 | --- | --- |
-| [ohos.permission.GET_DONOTDISTURB_STATE](https://gitee.com/openharmony-samples/app-samples/blob/master/applications_app_samples/docs/permissions.md#ohospermissionget_donotdisturb_state) | Query Do Not Disturb state |
+| `ohos.permission.GET_DONOTDISTURB_STATE` | Query Do Not Disturb state |
 
 ## Dependencies
 
@@ -134,14 +134,14 @@ This sample does not depend on other samples.
 
 | Kit | Usage |
 | --- | --- |
-| [BasicServicesKit](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/ohos-customConfig-V5) | customConfig, intelligentScene, hiAppEvent |
-| [PerformanceAnalysisKit](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/hiTraceMeter-V5) | hiTraceMeter tracing, hilog logging |
-| [AbilityKit](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/ability-stage-V5) | UIAbility lifecycle |
-| [ArkUI](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/arkts-state-V5) | Declarative UI framework |
+| [BasicServicesKit](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-basic-services-kit) | customConfig, intelligentScene, hiAppEvent |
+| [PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-performance-analysis-kit) | hiTraceMeter tracing, hilog logging |
+| [AbilityKit](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-ability-kit) | UIAbility lifecycle |
+| [ArkUI](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/ui) | Declarative UI framework |
 
 ## Constraints
 
-1. **OS**: OpenHarmony / HarmonyOS NEXT
+1. **OS**: OpenHarmony Standard System
 2. **Device**: OpenHarmony device with system settings support (e.g., RK3568 development board)
 3. **API Version**: API 26 (CompileSdkVersion 26, CompatibleSdkVersion 26)
 4. **IDE Version**: DevEco Studio 5.0+
@@ -153,8 +153,8 @@ This sample does not depend on other samples.
 
 ```bash
 # Download using sparse-checkout
-git clone --filter=sparse --no-checkout https://gitee.com/openharmony-samples/app-samples.git
-cd app-samples
+git clone --filter=sparse --no-checkout https://gitcode.com/openharmony/applications_app_samples.git
+cd applications_app_samples
 git sparse-checkout set code/BasicFeature/DeviceManagement/SystemConfig/
 git checkout
 ```

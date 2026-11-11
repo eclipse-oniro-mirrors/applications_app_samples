@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Constants, PageConstants } from 'library';
@@ -254,7 +268,7 @@ export default function ConstantsTest(): void {
       hilog.info(DOMAIN, TAG, 'testUtilsConstants0012 begin');
       expect(PageConstants.COLOR_PRIMARY).assertEqual('#007DFF');
       expect(PageConstants.COLOR_BACKGROUND).assertEqual('#F5F5F5');
-      expect(PageConstants.COLOR_SURFACE).assertEqual('#FFFFFF');
+      expect(PageConstants.COLOR_CARD).assertEqual('#FFFFFF');
       expect(PageConstants.COLOR_ERROR).assertEqual('#F44336');
       expect(PageConstants.COLOR_SUCCESS).assertEqual('#4CAF50');
       expect(PageConstants.COLOR_WARNING).assertEqual('#FF9800');
