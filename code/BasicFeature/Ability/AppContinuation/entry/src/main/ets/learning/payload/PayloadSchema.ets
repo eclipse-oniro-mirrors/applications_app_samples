@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 接续载荷的字段目录与行内编码格式。
  *
@@ -109,27 +125,35 @@ export class PayloadField {
 
   /** 说明文本。 */
   public describe(): string {
-    return `${this.name}(${this.label}) v${this.since} ${this.required ? '必填' : '选填'}`;
+    return `${this.name}(${this.label}) v${this.since} ${this.required ? localize('ac_fielddictionary_011') : localize('ac_fielddictionary_012')}`;
   }
 }
 
 const CONFLICT_KINDS: string[] = ['none', 'remoteNewer', 'localNewer', 'bothChanged', 'unknown'];
 
 /** 字段目录。顺序即编码顺序。 */
-export const PAYLOAD_FIELDS: PayloadField[] = [
-  new PayloadField('v', '载荷版本', PayloadKind.INTEGER, true, 1, 4, '1'),
-  new PayloadField('doc', '文档标识', PayloadKind.IDENTIFIER, true, 1, 64, ''),
-  new PayloadField('rev', '修订号', PayloadKind.INTEGER, true, 1, 12, '0'),
-  new PayloadField('title', '标题', PayloadKind.TEXT, false, 1, 64, '未命名'),
-  new PayloadField('body', '正文', PayloadKind.MULTILINE, false, 1, BODY_LIMIT, ''),
-  new PayloadField('cs', '选区起点', PayloadKind.INTEGER, false, 2, 12, '0'),
-  new PayloadField('ce', '选区终点', PayloadKind.INTEGER, false, 2, 12, '0'),
-  new PayloadField('dev', '来源设备', PayloadKind.IDENTIFIER, false, 2, 64, 'unknown'),
-  new PayloadField('at', '写入时间', PayloadKind.INTEGER, false, 2, 20, '0'),
-  new PayloadField('app', '应用版本', PayloadKind.TEXT, false, 3, 32, ''),
-  new PayloadField('ck', '冲突标记', PayloadKind.ENUM, false, 3, 16, 'none', CONFLICT_KINDS),
-  new PayloadField('sig', '校验摘要', PayloadKind.IDENTIFIER, false, 3, 32, '')
+function createPAYLOAD_FIELDS(): PayloadField[] {
+  return [
+  new PayloadField('v', localize('ac_fielddictionary_035'), PayloadKind.INTEGER, true, 1, 4, '1'),
+  new PayloadField('doc', localize('ac_fielddictionary_013'), PayloadKind.IDENTIFIER, true, 1, 64, ''),
+  new PayloadField('rev', localize('ac_fielddictionary_015'), PayloadKind.INTEGER, true, 1, 12, '0'),
+  new PayloadField('title', localize('ac_index_115'), PayloadKind.TEXT, false, 1, 64, localize('ac_payloadschema_007')),
+  new PayloadField('body', localize('ac_index_119'), PayloadKind.MULTILINE, false, 1, BODY_LIMIT, ''),
+  new PayloadField('cs', localize('ac_fielddictionary_021'), PayloadKind.INTEGER, false, 2, 12, '0'),
+  new PayloadField('ce', localize('ac_fielddictionary_023'), PayloadKind.INTEGER, false, 2, 12, '0'),
+  new PayloadField('dev', localize('ac_fielddictionary_025'), PayloadKind.IDENTIFIER, false, 2, 64, 'unknown'),
+  new PayloadField('at', localize('ac_fielddictionary_027'), PayloadKind.INTEGER, false, 2, 20, '0'),
+  new PayloadField('app', localize('ac_fielddictionary_029'), PayloadKind.TEXT, false, 3, 32, ''),
+  new PayloadField('ck', localize('ac_fielddictionary_031'), PayloadKind.ENUM, false, 3, 16, 'none', CONFLICT_KINDS),
+  new PayloadField('sig', localize('ac_fielddictionary_033'), PayloadKind.IDENTIFIER, false, 3, 32, '')
 ];
+}
+
+export const PAYLOAD_FIELDS: PayloadField[] = createPAYLOAD_FIELDS();
+registerLocaleCatalog((): void => {
+  PAYLOAD_FIELDS.splice(0, PAYLOAD_FIELDS.length);
+  createPAYLOAD_FIELDS().forEach((item: PayloadField): void => { PAYLOAD_FIELDS.push(item); });
+});
 
 /** 字段名列表。 */
 export function fieldNames(): string[] {
@@ -184,10 +208,18 @@ export class PayloadMigration {
 }
 
 /** 版本迁移链。 */
-export const PAYLOAD_MIGRATIONS: PayloadMigration[] = [
-  new PayloadMigration(1, 2, '补齐选区、来源设备与写入时间'),
-  new PayloadMigration(2, 3, '补齐应用版本、冲突标记与校验摘要')
+function createPAYLOAD_MIGRATIONS(): PayloadMigration[] {
+  return [
+  new PayloadMigration(1, 2, localize('ac_payloadschema_016')),
+  new PayloadMigration(2, 3, localize('ac_payloadschema_017'))
 ];
+}
+
+export const PAYLOAD_MIGRATIONS: PayloadMigration[] = createPAYLOAD_MIGRATIONS();
+registerLocaleCatalog((): void => {
+  PAYLOAD_MIGRATIONS.splice(0, PAYLOAD_MIGRATIONS.length);
+  createPAYLOAD_MIGRATIONS().forEach((item: PayloadMigration): void => { PAYLOAD_MIGRATIONS.push(item); });
+});
 
 /** 从指定版本升到当前版本需要几步。 */
 export function migrationChain(version: number): PayloadMigration[] {
@@ -212,7 +244,7 @@ export class PayloadAudit {
   public findings: string[] = [];
 
   public summary(): string {
-    return this.ok ? '载荷字段目录自洽' : this.findings.join('；');
+    return this.ok ? localize('ac_payloadschema_018') : this.findings.join('；');
   }
 }
 
@@ -222,33 +254,33 @@ export function auditPayloadSchema(): PayloadAudit {
   const seen: string[] = [];
   PAYLOAD_FIELDS.forEach((field: PayloadField): void => {
     if (seen.indexOf(field.name) >= 0) {
-      audit.findings.push(`字段重名：${field.name}`);
+      audit.findings.push(localize('ac_payloadschema_019', [field.name]));
     }
     seen.push(field.name);
     if (field.since < 1 || field.since > PAYLOAD_VERSION) {
-      audit.findings.push(`字段版本越界：${field.name}`);
+      audit.findings.push(localize('ac_payloadschema_020', [field.name]));
     }
     if (field.kind === PayloadKind.ENUM && field.enumValues.length === 0) {
-      audit.findings.push(`枚举缺少取值：${field.name}`);
+      audit.findings.push(localize('ac_payloadschema_021', [field.name]));
     }
     if (field.kind === PayloadKind.ENUM && field.fallback.length > 0 &&
       field.enumValues.indexOf(field.fallback) < 0) {
-      audit.findings.push(`枚举兜底不在取值内：${field.name}`);
+      audit.findings.push(localize('ac_payloadschema_022', [field.name]));
     }
     if (field.kind === PayloadKind.INTEGER && field.fallback.length > 0 &&
       !/^-?\d+$/.test(field.fallback)) {
-      audit.findings.push(`整型兜底非法：${field.name}`);
+      audit.findings.push(localize('ac_payloadschema_023', [field.name]));
     }
   });
   let expected: number = 1;
   PAYLOAD_MIGRATIONS.forEach((step: PayloadMigration): void => {
     if (step.from !== expected) {
-      audit.findings.push(`迁移链断裂：期望 v${expected}，实际 v${step.from}`);
+      audit.findings.push(localize('ac_payloadschema_024', [expected, step.from]));
     }
     expected = step.to;
   });
   if (expected !== PAYLOAD_VERSION) {
-    audit.findings.push(`迁移链未覆盖当前版本：止于 v${expected}`);
+    audit.findings.push(localize('ac_payloadschema_025', [expected]));
   }
   audit.ok = audit.findings.length === 0;
   return audit;
@@ -256,7 +288,7 @@ export function auditPayloadSchema(): PayloadAudit {
 
 /** 版本说明行，诊断页展示。 */
 export function schemaVersionLines(): string[] {
-  const lines: string[] = [`当前载荷版本 v${PAYLOAD_VERSION}，共 ${PAYLOAD_FIELDS.length} 个字段`];
+  const lines: string[] = [localize('ac_payloadschema_026', [PAYLOAD_VERSION, PAYLOAD_FIELDS.length])];
   PAYLOAD_MIGRATIONS.forEach((step: PayloadMigration): void => {
     lines.push(step.text());
   });

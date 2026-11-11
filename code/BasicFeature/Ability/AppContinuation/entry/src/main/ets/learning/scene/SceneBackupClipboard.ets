@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../../common/LocaleStrings';
 /** Explicit user-requested backup copying. No clipboard read, automatic sync or cleanup is performed. */
 import { pasteboard } from '@kit.BasicServicesKit';
 import { readSceneBackup } from './SceneWorkspaceBackupModel';
@@ -43,25 +59,25 @@ export class SceneBackupClipboard {
   constructor(port: SceneBackupClipboardPort = new NativeSceneBackupClipboard()) { this.port = port; }
 
   public async copy(raw: string): Promise<SceneBackupCopyResult> {
-    if (this.disposed) { return new SceneBackupCopyResult(SceneBackupCopyCode.BLOCKED, '复制入口已释放；未访问剪贴板。'); }
-    if (this.pending) { return new SceneBackupCopyResult(SceneBackupCopyCode.BUSY, '正在等待上次复制完成，请勿重复点击。'); }
+    if (this.disposed) { return new SceneBackupCopyResult(SceneBackupCopyCode.BLOCKED, localize('ac_scenebackupclipboard_001')); }
+    if (this.pending) { return new SceneBackupCopyResult(SceneBackupCopyCode.BUSY, localize('ac_scenebackupclipboard_002')); }
     if (readSceneBackup(raw).workspace === undefined) {
-      return new SceneBackupCopyResult(SceneBackupCopyCode.INVALID, '没有可复制的完整业务备份；未修改剪贴板。');
+      return new SceneBackupCopyResult(SceneBackupCopyCode.INVALID, localize('ac_scenebackupclipboard_003'));
     }
     const generation = ++this.generation;
     this.pending = true;
     try {
       await this.port.writeLocalText(raw);
       if (this.disposed || generation !== this.generation) {
-        return new SceneBackupCopyResult(SceneBackupCopyCode.ABANDONED, '备份复制已完成；原页面已离开，请自行管理剪贴板副本。', true);
+        return new SceneBackupCopyResult(SceneBackupCopyCode.ABANDONED, localize('ac_scenebackupclipboard_004'), true);
       }
-      return new SceneBackupCopyResult(SceneBackupCopyCode.COPIED, '业务备份已复制到本机剪贴板；内容未加密，请妥善保管。', true);
+      return new SceneBackupCopyResult(SceneBackupCopyCode.COPIED, localize('ac_scenebackupclipboard_005'), true);
     } catch (error) {
       // Never echo platform error.message: it may contain the copied body or other private values.
       if (this.disposed || generation !== this.generation) {
-        return new SceneBackupCopyResult(SceneBackupCopyCode.ABANDONED, '原页面已离开，复制结果不再更新该页面。');
+        return new SceneBackupCopyResult(SceneBackupCopyCode.ABANDONED, localize('ac_scenebackupclipboard_006'));
       }
-      return new SceneBackupCopyResult(SceneBackupCopyCode.FAILED, '备份复制失败；业务数据和输入保持不变。');
+      return new SceneBackupCopyResult(SceneBackupCopyCode.FAILED, localize('ac_scenebackupclipboard_007'));
     } finally {
       if (generation === this.generation) { this.pending = false; }
     }

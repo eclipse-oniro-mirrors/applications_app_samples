@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, legacyLabel, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 恢复失败后的继续操作。
  *
@@ -11,23 +27,23 @@
  * 页面只按判定给出按钮，不自行拼建议。
  */
 
-/** 失败类型。 */
+/** 失败类型。取值是稳定标识，显示经 legacyLabel 映射。 */
 export enum RecoveryCase {
-  TARGET_MISSING = '目标页面不存在',
-  VERSION_CHANGED = '内容版本已变化',
-  WRITE_UNCERTAIN = '写入结果不确定',
-  STALE_RECEIPT = '旧回执迟到',
-  NONE = '无失败'
+  TARGET_MISSING = 'targetMissing',
+  VERSION_CHANGED = 'versionChanged',
+  WRITE_UNCERTAIN = 'writeUncertain',
+  STALE_RECEIPT = 'staleReceipt',
+  NONE = 'none'
 }
 
-/** 可执行动作。 */
+/** 可执行动作。取值是稳定标识，显示经 legacyLabel 映射。 */
 export enum RecoveryAction {
-  RETRY = '重试接续',
-  ROLLBACK = '回滚到本机缓存',
-  KEEP_LOCAL = '保留本地内容',
-  EXPORT_THEN_RESET = '先导出再重置',
-  ASK_USER = '交用户决定',
-  NONE = '无需处置'
+  RETRY = 'retry',
+  ROLLBACK = 'rollback',
+  KEEP_LOCAL = 'keepLocal',
+  EXPORT_THEN_RESET = 'exportThenReset',
+  ASK_USER = 'askUser',
+  NONE = 'none'
 }
 
 /** 一条恢复规则。 */
@@ -53,8 +69,8 @@ export class RecoveryRule {
   }
 
   public describe(): string {
-    return `${this.code}｜${this.failure as string} → ${this.action as string}｜` +
-      `${this.lossy ? '可能丢数据' : '不丢数据'}${this.mustReread ? '｜需先读回' : ''}`;
+    return `${this.code}｜${legacyLabel(this.failure as string)} → ${legacyLabel(this.action as string)}｜` +
+      `${this.lossy ? localize('ac_recoveryplan_012') : localize('ac_recoveryplan_013')}${this.mustReread ? localize('ac_recoveryplan_014') : ''}`;
   }
 }
 
@@ -63,31 +79,39 @@ export class RecoveryRule {
  *
  * 原则：凡是"可能已经写进去了"的情况，一律先读回再决定，不允许直接重试写入。
  */
-export const RECOVERY_RULES: RecoveryRule[] = [
+function createRECOVERY_RULES(): RecoveryRule[] {
+  return [
   new RecoveryRule('RC-01', RecoveryCase.TARGET_MISSING, RecoveryAction.ROLLBACK, false, false,
-    '目标页面不存在（可能安装了旧版本）：已把内容回滚到本机缓存，可另存为新文档'),
+    localize('ac_recoveryplan_015')),
   new RecoveryRule('RC-02', RecoveryCase.TARGET_MISSING, RecoveryAction.EXPORT_THEN_RESET, true, false,
-    '目标页面不存在且无本机缓存：先导出再重置，避免内容丢失'),
+    localize('ac_recoveryplan_016')),
   new RecoveryRule('RC-03', RecoveryCase.VERSION_CHANGED, RecoveryAction.KEEP_LOCAL, false, false,
-    '内容版本已变化：保留本机内容，不覆盖对端较新的改动'),
+    localize('ac_recoveryplan_017')),
   new RecoveryRule('RC-04', RecoveryCase.VERSION_CHANGED, RecoveryAction.ASK_USER, false, false,
-    '内容版本已变化且本机也有改动：交用户选择保留哪一侧'),
+    localize('ac_recoveryplan_018')),
   new RecoveryRule('RC-05', RecoveryCase.WRITE_UNCERTAIN, RecoveryAction.RETRY, false, true,
-    '写入结果不确定：先读回磁盘确认实际状态，再决定是否重试'),
+    localize('ac_recoveryplan_019')),
   new RecoveryRule('RC-06', RecoveryCase.WRITE_UNCERTAIN, RecoveryAction.ASK_USER, true, true,
-    '写入结果不确定且读回失败：提示可能已写入一半，交用户决定是否重试'),
+    localize('ac_recoveryplan_020')),
   new RecoveryRule('RC-07', RecoveryCase.STALE_RECEIPT, RecoveryAction.NONE, false, false,
-    '旧回执迟到：直接忽略，不据此改写当前内容'),
+    localize('ac_recoveryplan_021')),
   new RecoveryRule('RC-08', RecoveryCase.STALE_RECEIPT, RecoveryAction.ASK_USER, false, false,
-    '旧回执携带更高修订号：提示用户核验后再决定'),
+    localize('ac_recoveryplan_022')),
   new RecoveryRule('RC-09', RecoveryCase.NONE, RecoveryAction.NONE, false, false, ''),
   new RecoveryRule('RC-10', RecoveryCase.TARGET_MISSING, RecoveryAction.RETRY, false, false,
-    '目标页面不存在但系统声明可用：允许重试一次，仍失败则回滚'),
+    localize('ac_recoveryplan_023')),
   new RecoveryRule('RC-11', RecoveryCase.WRITE_UNCERTAIN, RecoveryAction.EXPORT_THEN_RESET, true, true,
-    '写入不确定且本机内容重要：先导出再重置，保留一份可核对副本'),
+    localize('ac_recoveryplan_024')),
   new RecoveryRule('RC-12', RecoveryCase.VERSION_CHANGED, RecoveryAction.RETRY, false, true,
-    '版本变化后重新拉取对端内容再试一次，拉取失败则不再重试')
+    localize('ac_recoveryplan_025'))
 ];
+}
+
+export const RECOVERY_RULES: RecoveryRule[] = createRECOVERY_RULES();
+registerLocaleCatalog((): void => {
+  RECOVERY_RULES.splice(0, RECOVERY_RULES.length);
+  createRECOVERY_RULES().forEach((item: RecoveryRule): void => { RECOVERY_RULES.push(item); });
+});
 
 function rulesOf(failure: RecoveryCase): RecoveryRule[] {
   return RECOVERY_RULES.filter((rule: RecoveryRule): boolean => rule.failure === failure);
@@ -133,8 +157,8 @@ export class RecoveryDecision {
   }
 
   public describe(): string {
-    return this.actionable() ? `${this.code}｜${this.action as string}｜${this.userText}` :
-      `${this.code}｜无需处置`;
+    return this.actionable() ? `${this.code}｜${legacyLabel(this.action as string)}｜${this.userText}` :
+      localize('ac_recoveryplan_026', [this.code]);
   }
 }
 
@@ -215,8 +239,8 @@ export function actionsOf(failure: RecoveryCase): RecoveryAction[] {
 /** 一句话摘要。 */
 export function recoverySummary(decision: RecoveryDecision): string {
   if (!decision.actionable()) {
-    return '当前没有需要处置的恢复失败';
+    return localize('ac_recoveryplan_027');
   }
-  const risk: string = decision.lossy ? '（可能丢失未保存内容）' : '';
-  return `${decision.action as string}${risk}：${decision.userText}`;
+  const risk: string = decision.lossy ? localize('ac_recoveryplan_028') : '';
+  return `${legacyLabel(decision.action as string)}${risk}：${decision.userText}`;
 }

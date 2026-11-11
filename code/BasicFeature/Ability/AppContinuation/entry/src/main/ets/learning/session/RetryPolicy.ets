@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 接续失败的重试策略。
  *
@@ -22,21 +38,21 @@ export enum RetryReason {
 export function reasonLabel(reason: RetryReason): string {
   switch (reason) {
     case RetryReason.NETWORK:
-      return '网络异常';
+      return localize('ac_retrypolicy_001');
     case RetryReason.TIMEOUT:
-      return '请求超时';
+      return localize('ac_retrypolicy_002');
     case RetryReason.PERMISSION:
-      return '权限不足';
+      return localize('ac_retrypolicy_003');
     case RetryReason.VERSION:
-      return '版本不兼容';
+      return localize('ac_retrypolicy_004');
     case RetryReason.DEVICE_BUSY:
-      return '设备繁忙';
+      return localize('ac_retrypolicy_005');
     case RetryReason.STORAGE:
-      return '存储异常';
+      return localize('ac_retrypolicy_006');
     case RetryReason.PAYLOAD:
-      return '载荷非法';
+      return localize('ac_retrypolicy_007');
     default:
-      return '未知原因';
+      return localize('ac_retrypolicy_008');
   }
 }
 
@@ -52,13 +68,13 @@ export enum Backoff {
 export function backoffLabel(backoff: Backoff): string {
   switch (backoff) {
     case Backoff.NONE:
-      return '不重试';
+      return localize('ac_retrypolicy_009');
     case Backoff.FIXED:
-      return '固定间隔';
+      return localize('ac_retrypolicy_010');
     case Backoff.LINEAR:
-      return '线性递增';
+      return localize('ac_retrypolicy_011');
     default:
-      return '指数退避';
+      return localize('ac_retrypolicy_012');
   }
 }
 
@@ -97,53 +113,61 @@ export class RetryRule {
 
   public text(): string {
     return `${this.ruleId} ${reasonLabel(this.reason)}｜${backoffLabel(this.backoff)}｜` +
-      `最多 ${this.maxAttempts} 次｜${this.baseDelayMs} ms 起`;
+      localize('ac_retrypolicy_013', [this.maxAttempts, this.baseDelayMs]);
   }
 }
 
 /** 规则表。 */
-export const RETRY_RULES: RetryRule[] = [
+function createRETRY_RULES(): RetryRule[] {
+  return [
   new RetryRule('RR-01', RetryReason.NETWORK, Backoff.EXPONENTIAL, 200, 4, 4000, false,
-    '网络抖动按指数退避，最多四次'),
+    localize('ac_retrypolicy_014')),
   new RetryRule('RR-02', RetryReason.NETWORK, Backoff.FIXED, 500, 2, 500, false,
-    '已知弱网环境下改为固定间隔的一次重试'),
+    localize('ac_retrypolicy_015')),
   new RetryRule('RR-03', RetryReason.TIMEOUT, Backoff.LINEAR, 300, 3, 2000, false,
-    '超时按线性递增，避免连续打满'),
+    localize('ac_retrypolicy_016')),
   new RetryRule('RR-04', RetryReason.TIMEOUT, Backoff.NONE, 0, 1, 0, false,
-    '长耗时任务超时后不再自动重试，交由用户决定'),
+    localize('ac_retrypolicy_017')),
   new RetryRule('RR-05', RetryReason.PERMISSION, Backoff.NONE, 0, 1, 0, true,
-    '权限不足必须由用户授权后才能重试'),
+    localize('ac_retrypolicy_018')),
   new RetryRule('RR-06', RetryReason.VERSION, Backoff.NONE, 0, 1, 0, true,
-    '版本不兼容需升级应用或系统'),
+    localize('ac_retrypolicy_019')),
   new RetryRule('RR-07', RetryReason.DEVICE_BUSY, Backoff.FIXED, 800, 3, 800, false,
-    '设备繁忙固定间隔重试三次'),
+    localize('ac_retrypolicy_020')),
   new RetryRule('RR-08', RetryReason.DEVICE_BUSY, Backoff.LINEAR, 400, 2, 1200, false,
-    '轻度繁忙时线性递增两次'),
+    localize('ac_retrypolicy_021')),
   new RetryRule('RR-09', RetryReason.STORAGE, Backoff.FIXED, 1000, 2, 1000, false,
-    '存储写入失败等待一秒后重试'),
+    localize('ac_retrypolicy_022')),
   new RetryRule('RR-10', RetryReason.STORAGE, Backoff.NONE, 0, 1, 0, true,
-    '存储空间不足需用户清理后重试'),
+    localize('ac_retrypolicy_023')),
   new RetryRule('RR-11', RetryReason.PAYLOAD, Backoff.NONE, 0, 1, 0, true,
-    '载荷非法必须修改内容后重试'),
+    localize('ac_retrypolicy_024')),
   new RetryRule('RR-12', RetryReason.UNKNOWN, Backoff.LINEAR, 500, 2, 1000, false,
-    '未知原因只做一次保守重试'),
+    localize('ac_retrypolicy_025')),
   new RetryRule('RR-13', RetryReason.NETWORK, Backoff.EXPONENTIAL, 100, 5, 3200, false,
-    '后台接续场景可多用一次退避'),
+    localize('ac_retrypolicy_026')),
   new RetryRule('RR-14', RetryReason.TIMEOUT, Backoff.EXPONENTIAL, 250, 4, 2000, false,
-    '前台上传场景使用指数退避'),
+    localize('ac_retrypolicy_027')),
   new RetryRule('RR-15', RetryReason.DEVICE_BUSY, Backoff.EXPONENTIAL, 600, 3, 2400, false,
-    '重载设备使用指数退避'),
+    localize('ac_retrypolicy_028')),
   new RetryRule('RR-16', RetryReason.STORAGE, Backoff.LINEAR, 300, 3, 900, false,
-    '临时不可写时线性递增'),
+    localize('ac_retrypolicy_029')),
   new RetryRule('RR-17', RetryReason.UNKNOWN, Backoff.NONE, 0, 1, 0, true,
-    '连续未知失败后停止自动重试'),
+    localize('ac_retrypolicy_030')),
   new RetryRule('RR-18', RetryReason.VERSION, Backoff.NONE, 0, 1, 0, false,
-    '仅记录不重试，由页面提示'),
+    localize('ac_retrypolicy_031')),
   new RetryRule('RR-19', RetryReason.PERMISSION, Backoff.FIXED, 1500, 2, 1500, true,
-    '授权返回后可做一次确认性重试'),
+    localize('ac_retrypolicy_032')),
   new RetryRule('RR-20', RetryReason.PAYLOAD, Backoff.NONE, 0, 1, 0, false,
-    '载荷问题不重试，直接给出校验结论')
+    localize('ac_retrypolicy_033'))
 ];
+}
+
+export const RETRY_RULES: RetryRule[] = createRETRY_RULES();
+registerLocaleCatalog((): void => {
+  RETRY_RULES.splice(0, RETRY_RULES.length);
+  createRETRY_RULES().forEach((item: RetryRule): void => { RETRY_RULES.push(item); });
+});
 
 /** 规则编号。 */
 export function ruleIds(): string[] {
@@ -166,7 +190,7 @@ export function defaultRule(reason: RetryReason): RetryRule {
   if (hit !== undefined) {
     return hit;
   }
-  return new RetryRule('RR-00', RetryReason.UNKNOWN, Backoff.NONE, 0, 1, 0, false, '无匹配规则');
+  return new RetryRule('RR-00', RetryReason.UNKNOWN, Backoff.NONE, 0, 1, 0, false, localize('ac_retrypolicy_034'));
 }
 
 /**
@@ -223,8 +247,8 @@ export class AttemptRecord {
   }
 
   public text(): string {
-    return `第 ${this.attempt} 次｜${reasonLabel(this.reason)}｜等待 ${this.waitedMs} ms｜` +
-      `${this.succeeded ? '成功' : '失败'}`;
+    return localize('ac_retrypolicy_035', [this.attempt, reasonLabel(this.reason), this.waitedMs]) +
+      `${this.succeeded ? localize('ac_index_098') : localize('ac_index_023')}`;
   }
 }
 
@@ -261,8 +285,8 @@ export class RetryTrace {
 
   /** 摘要文本。 */
   public text(): string {
-    const state: string = this.succeeded() ? '已成功' : (this.exhausted() ? '次数用尽' : '仍可重试');
-    return `${this.rule.ruleId}｜${state}｜尝试 ${this.attempts()} 次｜累计等待 ${this.waited()} ms`;
+    const state: string = this.succeeded() ? localize('ac_retrypolicy_038') : (this.exhausted() ? localize('ac_retrypolicy_039') : localize('ac_retrypolicy_040'));
+    return localize('ac_retrypolicy_041', [this.rule.ruleId, state, this.attempts(), this.waited()]);
   }
 
   /** 逐行文本。 */
@@ -296,7 +320,7 @@ export class RetryAudit {
   public findings: string[] = [];
 
   public summary(): string {
-    return this.ok ? '重试规则表自洽' : this.findings.join('；');
+    return this.ok ? localize('ac_retrypolicy_042') : this.findings.join('；');
   }
 }
 
@@ -307,22 +331,22 @@ export function auditRetryRules(): RetryAudit {
   RETRY_RULES.forEach((rule: RetryRule, index: number): void => {
     const expected: string = `RR-${(index + 1).toString().padStart(2, '0')}`;
     if (rule.ruleId !== expected) {
-      audit.findings.push(`编号不连续：期望 ${expected}，实际 ${rule.ruleId}`);
+      audit.findings.push(localize('ac_scenariocatalog_147', [expected, rule.ruleId]));
     }
     if (rule.backoff === Backoff.NONE && rule.maxAttempts !== 1) {
-      audit.findings.push(`不重试却声明多次尝试：${rule.ruleId}`);
+      audit.findings.push(localize('ac_retrypolicy_044', [rule.ruleId]));
     }
     if (rule.backoff !== Backoff.NONE && rule.baseDelayMs <= 0) {
-      audit.findings.push(`可重试但首次延迟为 0：${rule.ruleId}`);
+      audit.findings.push(localize('ac_retrypolicy_045', [rule.ruleId]));
     }
     if (rule.capMs > 0 && rule.capMs < rule.baseDelayMs) {
-      audit.findings.push(`延迟上限小于首次延迟：${rule.ruleId}`);
+      audit.findings.push(localize('ac_retrypolicy_046', [rule.ruleId]));
     }
     if (rule.description.length === 0) {
-      audit.findings.push(`缺少说明：${rule.ruleId}`);
+      audit.findings.push(localize('ac_conflictpolicy_061', [rule.ruleId]));
     }
     if (ids.indexOf(rule.ruleId) < 0) {
-      audit.findings.push(`编号缺失：${rule.ruleId}`);
+      audit.findings.push(localize('ac_retrypolicy_048', [rule.ruleId]));
     }
   });
   const reasons: RetryReason[] = [RetryReason.NETWORK, RetryReason.TIMEOUT,
@@ -330,7 +354,7 @@ export function auditRetryRules(): RetryAudit {
     RetryReason.STORAGE, RetryReason.PAYLOAD, RetryReason.UNKNOWN];
   reasons.forEach((reason: RetryReason): void => {
     if (rulesOf(reason).length === 0) {
-      audit.findings.push(`原因缺少策略：${reasonLabel(reason)}`);
+      audit.findings.push(localize('ac_retrypolicy_049', [reasonLabel(reason)]));
     }
   });
   audit.ok = audit.findings.length === 0;
@@ -350,6 +374,6 @@ export function reasonLines(): string[] {
   return reasons.map((reason: RetryReason): string => {
     const rules: RetryRule[] = rulesOf(reason);
     const retryable: number = rules.filter((rule: RetryRule): boolean => rule.retryable()).length;
-    return `${reasonLabel(reason)}：${rules.length} 条策略，其中可重试 ${retryable} 条`;
+    return localize('ac_retrypolicy_050', [reasonLabel(reason), rules.length, retryable]);
   });
 }

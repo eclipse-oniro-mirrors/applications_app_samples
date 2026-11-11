@@ -1,7 +1,24 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 /** Main workbench for interface calls, text continuation and operation records. */
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { router } from '@kit.ArkUI';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { getLearningController } from '../learning/LearningContext';
 import { SceneWorkspaceBackup } from '../components/SceneWorkspaceBackup';
 import {
@@ -52,8 +69,8 @@ struct Index {
   @State activeTab: number = 1;
   @State private toolsExpanded: boolean = false;
   @State private textActionsExpanded: boolean = false;
-  @State levelFilter: string = '全部';
-  @State operationFilter: string = '全部';
+  @State levelFilter: string = localize('ac_index_001');
+  @State operationFilter: string = localize('ac_index_001');
   @State message: string = '';
   @State environmentExpanded: boolean = false;
   private controller: LearningController | undefined = undefined;
@@ -168,7 +185,7 @@ struct Index {
         this.editor.setTextSelection(this.snapshot.selectionStart, this.snapshot.selectionEnd);
       }
     } catch (error) {
-      this.message = `选择区暂未恢复：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_index_003', [learningError(error as BusinessError)]);
     }
     this.restoringSelection = false;
     if (this.editing) {
@@ -186,7 +203,7 @@ struct Index {
     try {
       controller.updateText(text);
     } catch (error) {
-      this.message = `文本更新未完成：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_index_004', [learningError(error as BusinessError)]);
     } finally {
       this.inputEvent = false;
     }
@@ -202,7 +219,7 @@ struct Index {
     try {
       controller.updateSelection(start, end);
     } catch (error) {
-      this.message = `选择区更新未完成：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_index_005', [learningError(error as BusinessError)]);
     } finally {
       this.inputEvent = false;
     }
@@ -215,7 +232,7 @@ struct Index {
   private invoke(action: string): void {
     const controller = this.controller;
     if (controller === undefined) {
-      this.message = '正在初始化，请稍后重试。';
+      this.message = localize('ac_index_006');
       return;
     }
     this.message = '';
@@ -258,14 +275,14 @@ struct Index {
       }
       this.acceptSnapshot(controller.snapshot());
     } catch (error) {
-      this.message = `操作未完成：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_index_007', [learningError(error as BusinessError)]);
     }
   }
 
   private openBusiness(kind: string, page: string): void {
     const controller = this.controller;
     if (controller === undefined || !controller.openScene(kind)) {
-      this.message = controller === undefined ? 'Ability 正在初始化' : controller.sceneWorkbench.snapshot().error;
+      this.message = controller === undefined ? localize('ac_index_008') : controller.sceneWorkbench.snapshot().error;
       return;
     }
     this.open(page);
@@ -275,11 +292,11 @@ struct Index {
     try {
       this.getUIContext().getRouter().pushUrl({ url: url, params: { id: id } }, (error: BusinessError) => {
         if (error) {
-          this.message = `页面未打开：${learningError(error)}`;
+          this.message = localize('ac_index_009', [learningError(error)]);
         }
       });
     } catch (error) {
-      this.message = `页面不可用：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_index_010', [learningError(error as BusinessError)]);
     }
   }
 
@@ -293,7 +310,7 @@ struct Index {
   private copySummary(): void {
     const controller = this.controller;
     if (controller === undefined) {
-      this.message = '正在初始化，请稍后复制摘要。';
+      this.message = localize('ac_index_011');
       return;
     }
     copyLearningText(controller.diagnosticSummary(), (message: string) => this.feedback(message));
@@ -303,16 +320,16 @@ struct Index {
     try {
       const context = this.getUIContext().getHostContext() as common.UIAbilityContext | undefined;
       if (context === undefined) {
-        this.message = '官方文档暂时无法打开，请稍后重试。';
+        this.message = localize('ac_index_012');
         return;
       }
       const documentationUrl = context.resourceManager.getStringValue($r('app.string.official_doc_url').id);
       context.startAbility({ action: 'ohos.want.action.viewData', uri: documentationUrl })
         .catch((error: BusinessError) => {
-          this.message = `文档打开失败：${learningError(error)}`;
+          this.message = localize('ac_index_013', [learningError(error)]);
         });
     } catch (error) {
-      this.message = `文档打开失败：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_index_013', [learningError(error as BusinessError)]);
     }
   }
 
@@ -321,33 +338,33 @@ struct Index {
       this.invoke('example');
       return;
     }
-    confirmLearningAction(this.getUIContext(), '用示例替换文本？', '将替换当前文本和选择区。',
+    confirmLearningAction(this.getUIContext(), localize('ac_index_015'), localize('ac_index_016'),
       () => this.invoke('example'), (message: string) => this.feedback(message));
   }
 
   private confirmClearText(): void {
     if (this.snapshot.text.length === 0) {
-      this.message = '文本已经为空。';
+      this.message = localize('ac_index_017');
       return;
     }
-    confirmLearningAction(this.getUIContext(), '清空文本？', '将清空文本和选择区，并更新本机保存。',
+    confirmLearningAction(this.getUIContext(), localize('ac_index_018'), localize('ac_index_019'),
       () => this.invoke('clearText'), (message: string) => this.feedback(message));
   }
 
   private confirmClearRecords(): void {
-    confirmLearningAction(this.getUIContext(), '清空记录？', '将清除操作记录，保留当前状态和文本。',
+    confirmLearningAction(this.getUIContext(), localize('ac_index_020'), localize('ac_index_021'),
       () => this.invoke('clearRecords'), (message: string) => this.feedback(message));
   }
 
   private filteredRecords(): OperationRecord[] {
     return this.snapshot.records.filter((record: OperationRecord) => {
-      const levelMatch = this.levelFilter === '全部' ||
-        (this.levelFilter === '失败' && record.level === 'ERROR') ||
-        (this.levelFilter === '警告' && record.level === 'WARN');
-      const operationMatch = this.operationFilter === '全部' ||
+      const levelMatch = this.levelFilter === localize('ac_index_001') ||
+        (this.levelFilter === localize('ac_index_023') && record.level === 'ERROR') ||
+        (this.levelFilter === localize('ac_index_024') && record.level === 'WARN');
+      const operationMatch = this.operationFilter === localize('ac_index_001') ||
         (this.operationFilter === 'ON' && record.operation === 'ON') ||
         (this.operationFilter === 'OFF' && record.operation === 'OFF') ||
-        (this.operationFilter === '系统' && record.operation !== 'ON' && record.operation !== 'OFF');
+        (this.operationFilter === localize('ac_index_026') && record.operation !== 'ON' && record.operation !== 'OFF');
       return levelMatch && operationMatch;
     });
   }
@@ -357,7 +374,7 @@ struct Index {
       return this.message;
     }
     const notice = this.snapshot.notice;
-    if (notice.startsWith('等待 Ability 初始化')) {
+    if (notice.startsWith(localize('ac_index_027'))) {
       return '';
     }
     return notice;
@@ -373,16 +390,16 @@ struct Index {
   private introductionPage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle('应用接续')
-        Text('调用接续接口，保存文本并查看运行结果。')
+        this.pageTitle(localize('ac_index_028'))
+        Text($r('app.string.ac_index_029'))
           .fontSize(15).lineHeight(24).fontColor(LEARNING_MUTED).width('100%');
-        LearningCard({ title: '主要功能' }) {
-          LearningLine({ label: '接口调用', value: '检查运行环境，注册或注销结果监听。' })
-          LearningLine({ label: '文本接续', value: '编辑和保存文本，接续后恢复文本与选择区。' })
-          LearningLine({ label: '调用诊断', value: '查看操作结果、错误信息和过程记录。' })
+        LearningCard({ title: localize('ac_index_030') }) {
+          LearningLine({ label: localize('ac_index_031'), value: localize('ac_index_032') })
+          LearningLine({ label: localize('ac_index_033'), value: localize('ac_index_034') })
+          LearningLine({ label: localize('ac_index_035'), value: localize('ac_index_036') })
         }
-        LearningAction({ label: '开始使用', onTap: () => this.changeTab(1) })
-        LearningAction({ label: '官方文档', secondary: true, onTap: () => this.openOfficialDoc() })
+        LearningAction({ label: localize('ac_index_037'), onTap: () => this.changeTab(1) })
+        LearningAction({ label: localize('ac_index_038'), secondary: true, onTap: () => this.openOfficialDoc() })
       }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
     }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
   }
@@ -391,39 +408,39 @@ struct Index {
   private operationPage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle('接续工作台')
+        this.pageTitle(localize('ac_index_039'))
         Row({ space: 12 }) {
           Text(this.snapshot.sessionState).fontSize(14).lineHeight(21).fontColor(LEARNING_MUTED).layoutWeight(1)
-          Button('查看过程', { type: ButtonType.Normal }).height(44).fontSize(14)
+          Button($r('app.string.ac_index_040'), { type: ButtonType.Normal }).height(44).fontSize(14)
             .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10)
             .onClick(() => this.open('pages/ProcessPage'))
         }.width('100%')
         Row({ space: 8 }) {
-          LearningAction({ label: '笔记', secondary: true, actionEnabled: this.snapshot.canEdit,
+          LearningAction({ label: localize('ac_sceneworkspacebackup_033'), secondary: true, actionEnabled: this.snapshot.canEdit,
             onTap: () => this.openBusiness('note', 'pages/NoteScenePage') }).layoutWeight(1)
-          LearningAction({ label: '阅读', secondary: true, actionEnabled: this.snapshot.canEdit,
+          LearningAction({ label: localize('ac_sceneworkspacebackup_034'), secondary: true, actionEnabled: this.snapshot.canEdit,
             onTap: () => this.openBusiness('reading', 'pages/ReadingScenePage') }).layoutWeight(1)
-          LearningAction({ label: '表单', secondary: true, actionEnabled: this.snapshot.canEdit,
+          LearningAction({ label: localize('ac_sceneworkspacebackup_035'), secondary: true, actionEnabled: this.snapshot.canEdit,
             onTap: () => this.openBusiness('form', 'pages/FormScenePage') }).layoutWeight(1)
         }.width('100%')
         if (this.snapshot.conflictPending) {
           LearningCard({
-            title: this.snapshot.conflictKind === 'document' ? '文档切换冲突' : '版本冲突',
-            subtitle: this.snapshot.conflictAccepted ? '已记录选择，等待快速结果与页面门控' : '接续版本尚未覆盖本机正文'
+            title: this.snapshot.conflictKind === 'document' ? localize('ac_index_044') : localize('ac_index_045'),
+            subtitle: this.snapshot.conflictAccepted ? localize('ac_index_046') : localize('ac_index_047')
           }) {
             Text(this.snapshot.conflictSummary).fontSize(14).fontColor(LEARNING_INK).width('100%')
             if (this.snapshot.conflictAccepted) {
-              Text('接受决定已记录；在系统快速结果与本页面就绪前不会写入。')
+              Text($r('app.string.ac_index_048'))
                 .fontSize(13).fontColor(LEARNING_MUTED).width('100%')
             } else {
-              LearningAction({ label: '接受接续版本', onTap: () => this.invoke('acceptConflict') })
-              LearningAction({ label: '保留本机版本', secondary: true,
+              LearningAction({ label: localize('ac_scenecontinuationstatus_007'), onTap: () => this.invoke('acceptConflict') })
+              LearningAction({ label: localize('ac_index_050'), secondary: true,
                 onTap: () => this.invoke('rejectConflict') })
             }
           }
         }
-        LearningCard({ title: '文本' }) {
-          TextArea({ text: this.snapshot.text, placeholder: '输入文本…', controller: this.editor })
+        LearningCard({ title: localize('ac_index_051') }) {
+          TextArea({ text: this.snapshot.text, placeholder: localize('ac_index_052'), controller: this.editor })
             .width('100%').height(160).fontSize(15).fontColor(LEARNING_INK).backgroundColor('#F5F7FA')
             .borderRadius(12).maxLength(MAX_TEXT_LENGTH).enabled(this.snapshot.canEdit)
             .onChange((text: string) => this.changeText(text))
@@ -434,45 +451,45 @@ struct Index {
             })
             .onAppear(() => this.scheduleSelection());
           LearningLine({
-            label: '长度 / 选择区',
+            label: localize('ac_index_053'),
             value: `${this.snapshot.text.length} / ${MAX_TEXT_LENGTH}  ·  ` +
               `[${this.snapshot.selectionStart}, ${this.snapshot.selectionEnd})`
           })
-          LearningLine({ label: '保存状态', value: this.snapshot.savedTextStatus })
-          LearningAction({ label: '保存本机', actionEnabled: this.snapshot.canEdit, onTap: () => this.invoke('save') })
-          LearningAction({ label: this.textActionsExpanded ? '收起更多操作' : '更多文本操作', secondary: true,
+          LearningLine({ label: localize('ac_index_054'), value: this.snapshot.savedTextStatus })
+          LearningAction({ label: localize('ac_index_055'), actionEnabled: this.snapshot.canEdit, onTap: () => this.invoke('save') })
+          LearningAction({ label: this.textActionsExpanded ? localize('ac_index_056') : localize('ac_index_057'), secondary: true,
             onTap: () => { this.textActionsExpanded = !this.textActionsExpanded; } })
           if (this.textActionsExpanded) {
-            LearningLine({ label: '文档 / 修订',
+            LearningLine({ label: localize('ac_index_058'),
               value: this.snapshot.documentId.length > 0 ?
-                `${this.snapshot.documentId} · r${this.snapshot.revision}` : '首次保存后启用 v2 载荷' })
-            LearningAction({ label: '填入示例', secondary: true, actionEnabled: this.snapshot.canEdit,
+                `${this.snapshot.documentId} · r${this.snapshot.revision}` : localize('ac_index_059') })
+            LearningAction({ label: localize('ac_index_060'), secondary: true, actionEnabled: this.snapshot.canEdit,
               onTap: () => this.confirmExample() })
-            LearningAction({ label: '另存为新文档（保留正文）', secondary: true, actionEnabled: this.snapshot.canEdit,
-              onTap: () => confirmLearningAction(this.getUIContext(), '另存为新文档？', '保存当前内容并从 r1 建立独立身份；旧修订不再沿用。',
+            LearningAction({ label: localize('ac_index_061'), secondary: true, actionEnabled: this.snapshot.canEdit,
+              onTap: () => confirmLearningAction(this.getUIContext(), localize('ac_index_062'), localize('ac_index_063'),
                 () => this.invoke('newDocument'), (message: string) => this.feedback(message)) })
-            LearningAction({ label: '清空文本', secondary: true, actionEnabled: this.snapshot.canEdit,
+            LearningAction({ label: localize('ac_index_064'), secondary: true, actionEnabled: this.snapshot.canEdit,
               onTap: () => this.confirmClearText() })
           }
         }
         SceneWorkspaceBackup({ controller: this.controller })
-        LearningCard({ title: '接续设置' }) {
-          LearningAction({ label: this.toolsExpanded ? '收起设置' : '监听与运行环境', secondary: true,
+        LearningCard({ title: localize('ac_index_065') }) {
+          LearningAction({ label: this.toolsExpanded ? localize('ac_index_066') : localize('ac_index_067'), secondary: true,
             onTap: () => { this.toolsExpanded = !this.toolsExpanded; } })
           if (this.toolsExpanded) {
-            LearningLine({ label: '启动', value: this.snapshot.launchReason })
-            LearningLine({ label: '监听', value: this.snapshot.listenerState })
-            LearningAction({ label: '注册监听 on', actionEnabled: this.snapshot.canRegister,
+            LearningLine({ label: localize('ac_index_068'), value: this.snapshot.launchReason })
+            LearningLine({ label: localize('ac_index_069'), value: this.snapshot.listenerState })
+            LearningAction({ label: localize('ac_index_070'), actionEnabled: this.snapshot.canRegister,
               onTap: () => this.invoke('on') })
-            LearningAction({ label: '注销监听 off', actionEnabled: this.snapshot.canUnregister,
+            LearningAction({ label: localize('ac_index_071'), actionEnabled: this.snapshot.canUnregister,
               secondary: true, onTap: () => this.invoke('off') })
-            LearningAction({ label: '检查环境', secondary: true, onTap: () => this.invoke('environment') })
+            LearningAction({ label: localize('ac_index_072'), secondary: true, onTap: () => this.invoke('environment') })
             if (this.snapshot.environment.length > 0) {
-              LearningAction({ label: this.environmentExpanded ? '收起环境信息' : '查看环境信息', secondary: true,
+              LearningAction({ label: this.environmentExpanded ? localize('ac_calldetailpage_026') : localize('ac_calldetailpage_027'), secondary: true,
                 onTap: () => { this.environmentExpanded = !this.environmentExpanded; } })
               if (this.environmentExpanded) { LearningEnvironment({ items: this.snapshot.environment }) }
             }
-            LearningAction({ label: '申请分布式权限', secondary: true, actionEnabled: this.controller !== undefined,
+            LearningAction({ label: localize('ac_index_075'), secondary: true, actionEnabled: this.controller !== undefined,
               onTap: () => this.invoke('permission') })
           }
         }
@@ -484,26 +501,26 @@ struct Index {
   private diagnosisPage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle('诊断中心')
-        LearningCard({ title: '最近结果' }) {
+        this.pageTitle(localize('ac_index_076'))
+        LearningCard({ title: localize('ac_index_077') }) {
           if (this.snapshot.latestRecord !== undefined) {
-            LearningLine({ label: '结果', value: this.snapshot.latestRecord.result })
+            LearningLine({ label: localize('ac_calldetailpage_009'), value: this.snapshot.latestRecord.result })
             if (this.snapshot.latestRecord.errorCode.length > 0) {
-              LearningLine({ label: '错误码', value: this.snapshot.latestRecord.errorCode })
+              LearningLine({ label: localize('ac_calldetailpage_015'), value: this.snapshot.latestRecord.errorCode })
             }
             LearningAction({
-              label: '查看详情',
+              label: localize('ac_learningui_023'),
               secondary: true,
               onTap: () => this.open('pages/CallDetailPage',
                 this.snapshot.latestRecord === undefined ? '' : this.snapshot.latestRecord.id)
             })
           } else {
-            Text('暂无结果').fontSize(14).fontColor(LEARNING_MUTED).width('100%');
+            Text($r('app.string.ac_index_081')).fontSize(14).fontColor(LEARNING_MUTED).width('100%');
           }
         }
-        LearningCard({ title: '操作记录', subtitle: `${this.snapshot.records.length} 条` }) {
+        LearningCard({ title: localize('ac_calldetailpage_021'), subtitle: localize('ac_index_083', [this.snapshot.records.length]) }) {
           Row({ space: 6 }) {
-            ForEach(['全部', '失败', '警告'], (filter: string) => {
+            ForEach([localize('ac_index_001'), localize('ac_index_023'), localize('ac_index_024')], (filter: string) => {
               Button(filter, { type: ButtonType.Normal }).fontSize(14).height(44).layoutWeight(1).borderRadius(10)
                 .fontColor(this.levelFilter === filter ? '#FFFFFF' : LEARNING_BLUE)
                 .backgroundColor(this.levelFilter === filter ? LEARNING_BLUE : '#EEF4FF')
@@ -511,7 +528,7 @@ struct Index {
             }, (filter: string) => filter)
           }.width('100%');
           Row({ space: 6 }) {
-            ForEach(['全部', 'ON', 'OFF', '系统'], (filter: string) => {
+            ForEach([localize('ac_index_001'), 'ON', 'OFF', localize('ac_index_026')], (filter: string) => {
               Button(filter, { type: ButtonType.Normal }).fontSize(13).height(44).layoutWeight(1).borderRadius(10)
                 .fontColor(this.operationFilter === filter ? '#FFFFFF' : LEARNING_BLUE)
                 .backgroundColor(this.operationFilter === filter ? LEARNING_BLUE : '#EEF4FF')
@@ -519,14 +536,14 @@ struct Index {
             }, (filter: string) => filter)
           }.width('100%');
           if (this.filteredRecords().length === 0) {
-            Text('暂无记录').fontSize(14).fontColor(LEARNING_MUTED).width('100%');
+            Text($r('app.string.ac_index_089')).fontSize(14).fontColor(LEARNING_MUTED).width('100%');
           } else {
             ForEach(this.filteredRecords(), (record: OperationRecord) => {
               LearningRecord({ record: record, onOpen: () => this.open('pages/CallDetailPage', record.id) })
             }, (record: OperationRecord) => record.id)
           }
-          LearningAction({ label: '复制摘要', onTap: () => this.copySummary() })
-          LearningAction({ label: '清空记录', secondary: true, onTap: () => this.confirmClearRecords() })
+          LearningAction({ label: localize('ac_index_090'), onTap: () => this.copySummary() })
+          LearningAction({ label: localize('ac_index_091'), secondary: true, onTap: () => this.confirmClearRecords() })
         }
       }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
     }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
@@ -536,28 +553,28 @@ struct Index {
   private payloadPage() {
     Scroll() {
       Column({ space: 12 }) {
-        LearningDisclosure({ title: '载荷协议', subtitle: this.payloadSummary() }) {
+        LearningDisclosure({ title: localize('ac_index_092'), subtitle: this.payloadSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.payloadFieldLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string) => line)
           }.width('100%')
         }
-        LearningDisclosure({ title: '准入规则', subtitle: this.readinessSummary() }) {
+        LearningDisclosure({ title: localize('ac_index_093'), subtitle: this.readinessSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.readinessLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string) => line)
           }.width('100%')
         }
-        LearningDisclosure({ title: '冲突策略', subtitle: this.conflictSummary() }) {
+        LearningDisclosure({ title: localize('ac_index_094'), subtitle: this.conflictSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.conflictLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string) => line)
           }.width('100%')
         }
-        Button('场景与校验', { type: ButtonType.Normal })
+        Button($r('app.string.ac_index_095'), { type: ButtonType.Normal })
           .width('100%')
           .height(48)
           .fontSize(16)
@@ -565,7 +582,10 @@ struct Index {
           .backgroundColor('#EAF2FF')
           .borderRadius(12)
           .onClick(() => {
-            router.pushUrl({ url: 'pages/ScenarioPage' }).catch(() => {});
+            router.pushUrl({ url: 'pages/ScenarioPage' }).catch((error: BusinessError): void => {
+              hilog.warn(0xF811, '[Sample_AppContinuation]',
+                'ScenarioPage navigation failed, code=%{public}d', error.code);
+            });
           })
       }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
     }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
@@ -573,7 +593,7 @@ struct Index {
 
   private payloadSummary(): string {
     const data: PayloadData = sealPayload(new PayloadData('learning-doc', 3));
-    data.title = '学习记录';
+    data.title = localize('ac_index_141');
     data.body = this.snapshot.text.slice(0, Math.min(this.snapshot.text.length, 256));
     data.cs = this.snapshot.selectionStart;
     data.ce = this.snapshot.selectionEnd;
@@ -583,7 +603,7 @@ struct Index {
     const decoded = decodePayload(encoded);
     const size = sizeOf(data);
     const diff = diffPayloads(data, decoded.data === undefined ? new PayloadData() : decoded.data);
-    return `v${PAYLOAD_VERSION}｜${size.text()}｜解码${decoded.ok() ? '成功' : '失败'}｜${diff.summary()}`;
+    return localize('ac_index_097', [PAYLOAD_VERSION, size.text(), decoded.ok() ? localize('ac_index_098') : localize('ac_index_023'), diff.summary()]);
   }
 
   private payloadFieldLines(): string[] {
@@ -593,8 +613,8 @@ struct Index {
     });
     const audit = auditPayloadSchema();
     lines.push(audit.summary());
-    lines.push(`转义样例：${unescapeValue(escapeValue('a&b=c'))}`);
-    lines.push(`载荷上限 ${PAYLOAD_LIMIT} 字符`);
+    lines.push(localize('ac_index_100', [unescapeValue(escapeValue('a&b=c'))]));
+    lines.push(localize('ac_index_101', [PAYLOAD_LIMIT]));
     return lines;
   }
 
@@ -621,10 +641,10 @@ struct Index {
   private conflictSummary(): string {
     const local: PayloadData = sealPayload(new PayloadData('learning-doc', 3));
     local.body = this.snapshot.text;
-    local.title = this.snapshot.conflictKind.length > 0 ? this.snapshot.conflictKind : '学习记录';
+    local.title = this.snapshot.conflictKind.length > 0 ? this.snapshot.conflictKind : localize('ac_index_141');
     const remote: PayloadData = new PayloadData('learning-doc', Math.max(0, this.snapshot.revision));
     remote.body = this.snapshot.restoredSummary;
-    remote.title = '对端记录';
+    remote.title = localize('ac_index_142');
     const input: ConflictInput = new ConflictInput(local, remote);
     input.localDirty = this.snapshot.conflictAccepted;
     input.remoteDirty = this.snapshot.conflictPending;
@@ -641,35 +661,35 @@ struct Index {
 
   private docWorkspaceLines(): string[] {
     const workspace: DocumentWorkspace = new DocumentWorkspace();
-    const note: DocumentSlot = new DocumentSlot('note-1', DocKind.NOTE, '学习记录');
+    const note: DocumentSlot = new DocumentSlot('note-1', DocKind.NOTE, localize('ac_index_141'));
     note.revision = 3;
     note.ownerApp = 'app.continuation';
     workspace.open(note);
-    const form: DocumentSlot = new DocumentSlot('form-1', DocKind.FORM, '报销单（半填）');
+    const form: DocumentSlot = new DocumentSlot('form-1', DocKind.FORM, localize('ac_index_143'));
     form.revision = 1;
     form.ownerApp = 'app.continuation';
     workspace.open(form);
-    const reading: DocumentSlot = new DocumentSlot('read-1', DocKind.READING, '接口文档阅读进度');
+    const reading: DocumentSlot = new DocumentSlot('read-1', DocKind.READING, localize('ac_index_144'));
     reading.revision = 7;
     workspace.open(reading);
     const lines: string[] = workspaceLines(workspace);
     const reasons: string[] = checkIsolation(note, DocKind.NOTE, 'other.app', 1);
     reasons.forEach((reason: string): void => {
-      lines.push(`隔离校验：${reason}`);
+      lines.push(localize('ac_index_107', [reason]));
     });
-    lines.push(`隔离规则 ${docLines().length} 条｜允许多份的类别 ${multiSlotKinds().length} 类`);
+    lines.push(localize('ac_index_108', [docLines().length, multiSlotKinds().length]));
     return lines;
   }
 
   private demoFormSession(): FormSession {
     const session: FormSession = new FormSession('expense-1');
-    const kind: FormField = new FormField('kind', '类型', true, 8);
+    const kind: FormField = new FormField('kind', localize('ac_index_109'), true, 8);
     session.addField(kind);
-    session.setValue('kind', '采购');
-    const budget: FormField = new FormField('budget', '预算科目', true, 16);
+    session.setValue('kind', localize('ac_index_152'));
+    const budget: FormField = new FormField('budget', localize('ac_index_111'), true, 16);
     budget.visibleWhen = ['budget'];
     session.addField(budget);
-    const remark: FormField = new FormField('remark', '备注', false, 60);
+    const remark: FormField = new FormField('remark', localize('ac_index_112'), false, 60);
     remark.visibleWhen = ['remark'];
     session.addField(remark);
     return session;
@@ -682,8 +702,8 @@ struct Index {
   private demoFormLines(): string[] {
     const session: FormSession = this.demoFormSession();
     const lines: string[] = [];
-    lines.push(`可见字段 ${session.visibleFields().length}｜必填未完成 ${session.blockingFields().length}`);
-    lines.push(`分支规则 ${branchLines().length} 条｜需明细但未满足 ${session.missingRows().length} 个`);
+    lines.push(localize('ac_index_113', [session.visibleFields().length, session.blockingFields().length]));
+    lines.push(localize('ac_index_114', [branchLines().length, session.missingRows().length]));
     branchLines().slice(0, 3).forEach((line: string): void => {
       lines.push(line);
     });
@@ -692,20 +712,20 @@ struct Index {
 
   private demoTriples(): FieldTriple[] {
     const triples: FieldTriple[] = [];
-    const title: FieldTriple = new FieldTriple('title', '标题');
-    title.base = '学习记录';
-    title.local = '学习记录（本地）';
-    title.remote = '学习记录';
+    const title: FieldTriple = new FieldTriple('title', localize('ac_index_115'));
+    title.base = localize('ac_index_141');
+    title.local = localize('ac_index_145');
+    title.remote = localize('ac_index_141');
     triples.push(title);
-    const body: FieldTriple = new FieldTriple('body', '正文');
-    body.base = '第一版';
-    body.local = '第一版';
-    body.remote = '第二版';
+    const body: FieldTriple = new FieldTriple('body', localize('ac_index_119'));
+    body.base = localize('ac_index_146');
+    body.local = localize('ac_index_146');
+    body.remote = localize('ac_index_147');
     triples.push(body);
-    const tags: FieldTriple = new FieldTriple('tags', '标签');
+    const tags: FieldTriple = new FieldTriple('tags', localize('ac_index_123'));
     tags.base = 'a,b';
-    tags.local = 'a,b,本地';
-    tags.remote = 'a,b,对端';
+    tags.local = `a,b,${localize('ac_index_148')}`;
+    tags.remote = `a,b,${localize('ac_index_149')}`;
     triples.push(tags);
     return triples;
   }
@@ -729,7 +749,7 @@ struct Index {
     input.rereadOk = true;
     const lines: string[] = [];
     lines.push(recoverySummary(planRecovery(input)));
-    lines.push(`目标页面缺失可执行动作 ${actionsOf(RecoveryCase.TARGET_MISSING).length} 个`);
+    lines.push(localize('ac_index_126', [actionsOf(RecoveryCase.TARGET_MISSING).length]));
     recoveryLines().slice(0, 5).forEach((line: string): void => {
       lines.push(line);
     });
@@ -740,29 +760,29 @@ struct Index {
   private workspacePage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle('文档工作区')
-        LearningDisclosure({ title: '多文档隔离', subtitle: '笔记 / 表单 / 阅读进度各自独立' }) {
+        this.pageTitle(localize('ac_index_127'))
+        LearningDisclosure({ title: localize('ac_index_128'), subtitle: localize('ac_index_129') }) {
           Column({ space: 8 }) {
             ForEach(this.docWorkspaceLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string, index: number) => `doc-${index}-${line}`)
           }.width('100%')
         }
-        LearningDisclosure({ title: '可中断表单', subtitle: this.demoFormSummary() }) {
+        LearningDisclosure({ title: localize('ac_index_130'), subtitle: this.demoFormSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.demoFormLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string, index: number) => `form-${index}-${line}`)
           }.width('100%')
         }
-        LearningDisclosure({ title: '字段级合并预览', subtitle: '三方取值逐字段确认' }) {
+        LearningDisclosure({ title: localize('ac_index_131'), subtitle: localize('ac_index_132') }) {
           Column({ space: 8 }) {
             ForEach(this.demoMergeLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string, index: number) => `merge-${index}-${line}`)
           }.width('100%')
         }
-        LearningDisclosure({ title: '恢复失败后的继续操作', subtitle: '写入不确定时先读回再决定' }) {
+        LearningDisclosure({ title: localize('ac_index_133'), subtitle: localize('ac_index_134') }) {
           Column({ space: 8 }) {
             ForEach(this.demoRecoveryLines(), (line: string) => {
               LearningLine({ label: line })
@@ -785,16 +805,16 @@ struct Index {
     Column() {
       if (this.noticeText().length > 0) {
         Scroll() {
-          LearningNotice({ title: '提示', message: this.noticeText() })
+          LearningNotice({ title: localize('ac_learningui_017'), message: this.noticeText() })
         }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 4 })
           .constraintSize({ maxHeight: '25%' }).scrollBar(BarState.Auto).align(Alignment.TopStart);
       }
       Tabs({ barPosition: BarPosition.End, index: this.activeTab }) {
-        TabContent() { this.introductionPage() }.tabBar(this.tabLabel('介绍', 0))
-        TabContent() { this.operationPage() }.tabBar(this.tabLabel('工作台', 1))
-        TabContent() { this.diagnosisPage() }.tabBar(this.tabLabel('记录', 2))
-        TabContent() { this.payloadPage() }.tabBar(this.tabLabel('协议', 3))
-        TabContent() { this.workspacePage() }.tabBar(this.tabLabel('示例', 4))
+        TabContent() { this.introductionPage() }.tabBar(this.tabLabel(localize('ac_index_136'), 0))
+        TabContent() { this.operationPage() }.tabBar(this.tabLabel(localize('ac_index_137'), 1))
+        TabContent() { this.diagnosisPage() }.tabBar(this.tabLabel(localize('ac_index_138'), 2))
+        TabContent() { this.payloadPage() }.tabBar(this.tabLabel(localize('ac_index_139'), 3))
+        TabContent() { this.workspacePage() }.tabBar(this.tabLabel(localize('ac_index_140'), 4))
       }
       .layoutWeight(1).width('100%').barHeight(60).barMode(BarMode.Fixed)
       .onChange((index: number) => {

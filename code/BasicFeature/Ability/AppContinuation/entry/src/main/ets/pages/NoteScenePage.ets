@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 import { getLearningController } from '../learning/LearningContext';
 import { ScenePositionTarget } from '../learning/LearningController';
 import { SceneSnapshot } from '../learning/scene/SceneWorkbench';
@@ -80,42 +96,42 @@ struct NoteScenePage {
   build() {
     Scroll() {
       Column({ space: 14 }) {
-        Button('返回工作台', { type: ButtonType.Normal }).height(44).fontSize(14)
+        Button($r('app.string.ac_formscenepage_001'), { type: ButtonType.Normal }).height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10)
           .onClick((): void => { this.backToWorkbench(); })
         if (this.navigationMessage.length > 0) {
           Text(this.navigationMessage).fontSize(14).fontColor('#B42318').width('100%')
         }
-        Text('笔记草稿').fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%')
+        Text($r('app.string.ac_notescenepage_002')).fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%')
         Text(this.view.text()).fontSize(14).fontColor(LEARNING_MUTED).width('100%')
         SceneContinuationStatus()
         Column({ space: 12 }) {
-          TextInput({ text: this.view.noteTitle, placeholder: '标题（最多80字）' }).maxLength(80)
+          TextInput({ text: this.view.noteTitle, placeholder: localize('ac_notescenepage_003') }).maxLength(80)
             .height(48).fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).enabled(this.view.editable)
             .onChange((value: string): void => {
               this.edit(value, this.view.noteBody, this.view.noteSelectionStart, this.view.noteSelectionEnd);
             })
-          TextArea({ text: this.view.noteBody, placeholder: '写下想继续编辑的内容', controller: this.editor })
+          TextArea({ text: this.view.noteBody, placeholder: localize('ac_notescenepage_004'), controller: this.editor })
             .height(220).fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).maxLength(4096)
             .enabled(this.view.editable)
             .onChange((value: string): void => this.edit(this.view.noteTitle, value, value.length, value.length))
             .onTextSelectionChange((start: number, end: number): void => this.selectionChanged(start, end))
             .onAppear((): void => this.restoreSelection())
-          Text(`选区 [${this.view.noteSelectionStart}, ${this.view.noteSelectionEnd})`)
+          Text(localize('ac_notescenepage_005', [this.view.noteSelectionStart, this.view.noteSelectionEnd]))
             .fontSize(12).fontColor(LEARNING_MUTED).width('100%')
         }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
-        Button('保存笔记').width('100%').height(48).fontSize(15).backgroundColor(LEARNING_BLUE).borderRadius(10)
+        Button($r('app.string.ac_notescenepage_006')).width('100%').height(48).fontSize(15).backgroundColor(LEARNING_BLUE).borderRadius(10)
           .enabled(this.view.editable).onClick((): void => { getLearningController()?.sceneWorkbench.saveNote(); })
-        Button('放弃修改', { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
+        Button($r('app.string.ac_notescenepage_007'), { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
           .onClick((): void => { getLearningController()?.sceneWorkbench.discardNote(); this.restoreSelection(); })
         Text(this.view.error.length > 0 ? this.view.error : this.view.notice)
           .fontSize(14).fontColor(LEARNING_INK).width('100%')
-        Button(this.historyExpanded ? '收起历史版本' : `历史版本（${this.history.length}）`, { type: ButtonType.Normal })
+        Button(this.historyExpanded ? localize('ac_notescenepage_008') : localize('ac_notescenepage_009', [this.history.length]), { type: ButtonType.Normal })
           .width('100%').height(44).fontSize(14).fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10)
           .onClick((): void => { this.historyExpanded = !this.historyExpanded; })
         if (this.historyExpanded) {
-          Text('恢复历史会生成新修订。').fontSize(12).fontColor(LEARNING_MUTED).width('100%')
+          Text($r('app.string.ac_notescenepage_010')).fontSize(12).fontColor(LEARNING_MUTED).width('100%')
           ForEach(this.history, (line: string, index: number) => {
             Button(line, { type: ButtonType.Normal }).width('100%').constraintSize({ minHeight: 44 }).fontSize(12)
               .fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10).enabled(this.view.editable)

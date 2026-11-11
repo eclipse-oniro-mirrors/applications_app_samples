@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../../common/LocaleStrings';
 /** Local backup planning over the existing scene workspace JSON. No alternate wire format or storage lives here. */
 import {
   REVISION_LIMIT, SCENE_WORKSPACE_LIMIT, SceneDocument, SceneState, SceneWorkspace,
@@ -69,7 +85,7 @@ export class SceneBackupPreview {
   public active: string = 'note';
   public scenes: SceneBackupSceneSummary[] = [];
   public issues: SceneBackupIssue[] = [];
-  public message: string = '备份格式或业务状态无效。';
+  public message: string = localize('ac_sceneworkspacebackupmodel_001');
 }
 
 export class SceneBackupRestoreResult {
@@ -106,9 +122,9 @@ export function normalizeSceneBackupScope(scope?: string[]): SceneBackupScope {
   const result = new SceneBackupScope(); const kinds: string[] = ['note', 'reading', 'form'];
   if (scope === undefined) { result.ok = true; result.kinds = kinds; return result; }
   if (!Array.isArray(scope) || scope.some((kind: string): boolean => kinds.indexOf(kind) < 0)) {
-    result.message = '恢复范围无效；仅支持笔记、阅读和表单。'; return result;
+    result.message = localize('ac_sceneworkspacebackupmodel_002'); return result;
   }
-  if (scope.length === 0) { result.message = '请至少选择一个恢复场景。'; return result; }
+  if (scope.length === 0) { result.message = localize('ac_sceneworkspacebackup_005'); return result; }
   result.ok = true; result.kinds = kinds.filter((kind: string): boolean => scope.indexOf(kind) >= 0);
   return result;
 }
@@ -131,17 +147,17 @@ interface ComparableWorkspace {
 export function readSceneBackup(raw: Object | undefined): SceneBackupRead {
   const result = new SceneBackupRead();
   if (typeof raw !== 'string' || raw.length === 0) {
-    result.issue = new SceneBackupIssue('workspace', SceneBackupCode.INVALID, '请粘贴完整的业务工作区备份文本。');
+    result.issue = new SceneBackupIssue('workspace', SceneBackupCode.INVALID, localize('ac_sceneworkspacebackupmodel_004'));
     return result;
   }
   if (raw.length > SCENE_WORKSPACE_LIMIT) {
-    result.issue = new SceneBackupIssue('workspace', SceneBackupCode.INVALID, '备份文本超过工作区容量上限；不会截断导入。');
+    result.issue = new SceneBackupIssue('workspace', SceneBackupCode.INVALID, localize('ac_sceneworkspacebackupmodel_005'));
     return result;
   }
   // The production decoder is authoritative for fields, identities, histories and bundled book version.
   const workspace = decodeWorkspace(raw);
   if (workspace === undefined) {
-    result.issue = new SceneBackupIssue('workspace', SceneBackupCode.INVALID, '备份格式、业务字段、历史关系或本地书籍版本无效。');
+    result.issue = new SceneBackupIssue('workspace', SceneBackupCode.INVALID, localize('ac_sceneworkspacebackupmodel_006'));
     return result;
   }
   result.workspace = workspace;
@@ -178,32 +194,32 @@ export function sameBackupWorkspace(left: SceneWorkspace, right: SceneWorkspace)
 export function sceneBackupChangedFields(local: SceneState, incoming: SceneState): string[] {
   const fields: string[] = [];
   if (incoming.kind === 'note') {
-    if (local.note.title !== incoming.note.title) { fields.push('标题'); }
-    if (local.note.body !== incoming.note.body) { fields.push('正文'); }
+    if (local.note.title !== incoming.note.title) { fields.push(localize('ac_index_115')); }
+    if (local.note.body !== incoming.note.body) { fields.push(localize('ac_index_119')); }
     if (local.note.selectionStart !== incoming.note.selectionStart ||
       local.note.selectionEnd !== incoming.note.selectionEnd) {
-      fields.push('选区');
+      fields.push(localize('ac_sceneworkspacebackupmodel_009'));
     }
     if (local.note.savedBody !== incoming.note.savedBody || local.note.savedTitle !== incoming.note.savedTitle ||
       local.note.savedSelectionStart !== incoming.note.savedSelectionStart ||
       local.note.savedSelectionEnd !== incoming.note.savedSelectionEnd) {
-      fields.push('保存基线');
+      fields.push(localize('ac_sceneworkspacebackupmodel_010'));
     }
   } else if (incoming.kind === 'reading') {
     if (local.reading.chapter !== incoming.reading.chapter || local.reading.anchor !== incoming.reading.anchor) {
-      fields.push('章节与段落');
+      fields.push(localize('ac_sceneworkspacebackupmodel_011'));
     }
-    if (JSON.stringify(local.reading.bookmarks) !== JSON.stringify(incoming.reading.bookmarks)) { fields.push('书签'); }
+    if (JSON.stringify(local.reading.bookmarks) !== JSON.stringify(incoming.reading.bookmarks)) { fields.push(localize('ac_sceneworkspacebackupmodel_012')); }
   } else if (incoming.kind === 'form') {
-    if (local.form.name !== incoming.form.name) { fields.push('姓名'); }
-    if (local.form.phone !== incoming.form.phone) { fields.push('手机号'); }
-    if (local.form.address !== incoming.form.address) { fields.push('地址'); }
-    if (local.form.note !== incoming.form.note) { fields.push('备注'); }
+    if (local.form.name !== incoming.form.name) { fields.push(localize('ac_formscenepage_004')); }
+    if (local.form.phone !== incoming.form.phone) { fields.push(localize('ac_formscenepage_005')); }
+    if (local.form.address !== incoming.form.address) { fields.push(localize('ac_formscenepage_006')); }
+    if (local.form.note !== incoming.form.note) { fields.push(localize('ac_index_112')); }
     if (local.form.step !== incoming.form.step || local.form.savedStep !== incoming.form.savedStep) {
-      fields.push('步骤');
+      fields.push(localize('ac_sceneworkspacebackupmodel_017'));
     }
     if (local.form.agreed !== incoming.form.agreed || local.form.confirmed !== incoming.form.confirmed) {
-      fields.push('确认状态');
+      fields.push(localize('ac_sceneworkspacebackupmodel_018'));
     }
   }
   return fields;
@@ -257,25 +273,25 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
     summary.localHistoryCount = historyCount(current, kind);
     summary.incomingHistoryCount = historyCount(incoming, kind);
     if (!summary.selected) {
-      summary.identity = '未选，保留本机'; summary.restoreRevision = summary.localRevision;
+      summary.identity = localize('ac_sceneworkspacebackupmodel_019'); summary.restoreRevision = summary.localRevision;
       summary.restoredHistoryCount = summary.localHistoryCount; preview.scenes.push(summary); continue;
     }
     if (supplied === undefined) {
       supplied = { transferId: 'local', documentId: identity(kind), revision: 0, state: emptyScene(kind) };
       next.documents.push(supplied);
-      summary.identity = '清空并建立空文档';
+      summary.identity = localize('ac_sceneworkspacebackupmodel_020');
       summary.willClear = true;
       preview.willClearKinds.push(kind);
     } else {
       summary.incomingRevision = supplied.revision;
       if (local !== undefined && local.documentId === supplied.documentId) {
-        summary.identity = '同一文档';
+        summary.identity = localize('ac_sceneworkspacebackupmodel_021');
         if (!sameHead(local, supplied)) {
           const base: number = Math.max(local.revision, supplied.revision);
           if (base >= REVISION_LIMIT) {
             preview.code = SceneBackupCode.REVISION_LIMIT;
             preview.issues.push(new SceneBackupIssue(`documents.${kind}.revision`, SceneBackupCode.REVISION_LIMIT,
-              '同一文档恢复需要生成新修订，但修订号已到上限。'));
+              localize('ac_sceneworkspacebackupmodel_022')));
           } else {
             const restored = JSON.parse(JSON.stringify(supplied)) as SceneDocument;
             restored.revision = base + 1; restored.transferId = 'local';
@@ -284,7 +300,7 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
           }
         }
       } else {
-        summary.identity = '替换为备份文档';
+        summary.identity = localize('ac_sceneworkspacebackupmodel_023');
         supplied.transferId = 'local';
       }
     }
@@ -296,7 +312,7 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
     preview.scenes.push(summary);
   }
   if (preview.issues.length > 0) {
-    preview.message = '恢复将超过同身份文档的修订上限；整个工作区均未写入。';
+    preview.message = localize('ac_sceneworkspacebackupmodel_024');
     return plan;
   }
   let memory: SceneWorkspace;
@@ -322,8 +338,8 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
   }
   if (decodeWorkspace(encodeWorkspace(stored)) === undefined ||
     decodeWorkspace(encodeWorkspace(memory)) === undefined) {
-    preview.issues.push(new SceneBackupIssue('workspace', SceneBackupCode.INVALID, '恢复计划超过容量或不符合现有工作区格式。'));
-    preview.message = '恢复计划无法通过完整工作区校验；未写入。';
+    preview.issues.push(new SceneBackupIssue('workspace', SceneBackupCode.INVALID, localize('ac_sceneworkspacebackupmodel_025')));
+    preview.message = localize('ac_sceneworkspacebackupmodel_026');
     return plan;
   }
   preview.active = memory.active;
@@ -331,8 +347,8 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
   preview.requiresDirtyConfirmation = preview.changed && preview.dirtyKinds.length > 0;
   preview.ok = true; preview.code = SceneBackupCode.READY;
   preview.message = preview.changed ? (selected.kinds.length === kinds.length ?
-    '备份已校验；请检查差异后确认整份工作区恢复。' : '备份已校验；仅恢复所选场景，未选场景及其草稿保留。') :
-    '备份与当前所选业务状态一致，无需重复写入。';
+    localize('ac_sceneworkspacebackupmodel_027') : localize('ac_sceneworkspacebackupmodel_028')) :
+    localize('ac_sceneworkspacebackupmodel_029');
   plan.workspace = stored; plan.memory = memory;
   return plan;
 }
@@ -343,26 +359,26 @@ export function sceneBackupPreviewText(preview: SceneBackupPreview): string {
     return [preview.message]
       .concat(preview.issues.map((issue: SceneBackupIssue): string => `${issue.path}：${issue.message}`)).join('\n');
   }
-  const lines: string[] = [preview.message, '范围：只处理所选场景及其历史；不包含原文本学习区。'];
-  lines.push(`本次恢复：${preview.selectedKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
+  const lines: string[] = [preview.message, localize('ac_sceneworkspacebackupmodel_030')];
+  lines.push(localize('ac_sceneworkspacebackupmodel_031', [preview.selectedKinds.map((kind: string): string => sceneLabel(kind)).join('、')]));
   if (preview.retainedKinds.length > 0) {
-    lines.push(`未选保留：${preview.retainedKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
+    lines.push(localize('ac_sceneworkspacebackupmodel_032', [preview.retainedKinds.map((kind: string): string => sceneLabel(kind)).join('、')]));
   }
   preview.scenes.forEach((scene: SceneBackupSceneSummary): void => {
-    if (!scene.selected) { lines.push(`${sceneLabel(scene.kind)}：未选，保留本机身份、保存基线与历史，不导入该场景。`); return; }
+    if (!scene.selected) { lines.push(localize('ac_sceneworkspacebackupmodel_033', [sceneLabel(scene.kind)])); return; }
     lines.push(`${sceneLabel(scene.kind)}：${scene.identity}；r${scene.localRevision} → r${scene.restoreRevision}`);
-    lines.push(`变化项目：${scene.changedFields.length > 0 ? scene.changedFields.join('、') : '业务字段无变化'}；` +
-      `历史 ${scene.localHistoryCount} → ${scene.restoredHistoryCount} 条`);
-    if (scene.willClear) { lines.push('此场景未在备份中提供，确认后将清空本机对应场景。'); }
-    if (scene.incomingHasDraft) { lines.push('笔记保留未保存内容与保存基线，恢复后需继续保存或放弃。'); }
+    lines.push(localize('ac_sceneworkspacebackupmodel_034', [scene.changedFields.length > 0 ? scene.changedFields.join('、') : localize('ac_sceneworkspacebackupmodel_035')]) +
+      localize('ac_sceneworkspacebackupmodel_036', [scene.localHistoryCount, scene.restoredHistoryCount]));
+    if (scene.willClear) { lines.push(localize('ac_sceneworkspacebackupmodel_037')); }
+    if (scene.incomingHasDraft) { lines.push(localize('ac_sceneworkspacebackupmodel_038')); }
   });
   if (preview.requiresDirtyConfirmation) {
-    lines.push(`将替换未保存业务状态：${preview.dirtyKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
+    lines.push(localize('ac_sceneworkspacebackupmodel_039', [preview.dirtyKinds.map((kind: string): string => sceneLabel(kind)).join('、')]));
   }
   if (preview.preservedDirtyKinds.length > 0) {
-    lines.push('未选的未保存草稿仅留在内存，不随本次写盘：' +
+    lines.push(localize('ac_sceneworkspacebackupmodel_040') +
       `${preview.preservedDirtyKinds.map((kind: string): string => sceneLabel(kind)).join('、')}。`);
   }
-  lines.push(`仅所选场景的历史按备份替换；未选历史保留，当前业务上下文为${sceneLabel(preview.active)}。`);
+  lines.push(localize('ac_sceneworkspacebackupmodel_041', [sceneLabel(preview.active)]));
   return lines.join('\n');
 }

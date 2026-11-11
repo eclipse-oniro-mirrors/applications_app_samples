@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, legacyLabel } from '../../common/LocaleStrings';
 /**
  * 字段级合并预览。
  *
@@ -9,12 +25,12 @@
  * 本模块在这种情况下明确降级为"逐字段人工确认"，不猜。
  */
 
-/** 三方取值来源。 */
+/** 三方取值来源。取值是稳定标识，显示经 legacyLabel 映射。 */
 export enum FieldChoice {
-  LOCAL = '采用本地',
-  REMOTE = '采用对端',
-  BASE = '回退基线',
-  MANUAL = '需人工确认'
+  LOCAL = 'local',
+  REMOTE = 'remote',
+  BASE = 'base',
+  MANUAL = 'manual'
 }
 
 /** 单个字段的三方取值。 */
@@ -68,9 +84,9 @@ export class FieldTriple {
   }
 
   public describe(): string {
-    return `${this.label}｜基线 ${this.base.length === 0 ? '(空)' : this.base}｜` +
-      `本地 ${this.local.length === 0 ? '(空)' : this.local}｜` +
-      `对端 ${this.remote.length === 0 ? '(空)' : this.remote}`;
+    return localize('ac_mergeplan_005', [this.label, this.base.length === 0 ? localize('ac_mergeplan_006') : this.base]) +
+      localize('ac_mergeplan_007', [this.local.length === 0 ? localize('ac_mergeplan_006') : this.local]) +
+      localize('ac_mergeplan_009', [this.remote.length === 0 ? localize('ac_mergeplan_006') : this.remote]);
   }
 }
 
@@ -92,8 +108,8 @@ export class FieldDecision {
   }
 
   public describe(): string {
-    return `${this.key}｜${this.choice as string}｜${this.value.length === 0 ? '(空)' : this.value}` +
-      `${this.conflicted ? '｜冲突：' + this.reason : ''}`;
+    return `${this.key}｜${legacyLabel(this.choice as string)}｜${this.value.length === 0 ? localize('ac_mergeplan_006') : this.value}` +
+      `${this.conflicted ? localize('ac_mergeplan_012') + this.reason : ''}`;
   }
 }
 
@@ -149,9 +165,9 @@ export class MergeResult {
 
   public describe(): string {
     if (!this.complete()) {
-      return `还有 ${this.pending.length} 个字段待确认：${this.pending.join('/')}`;
+      return localize('ac_mergeplan_013', [this.pending.length, this.pending.join('/')]);
     }
-    return `已合并 ${this.keys.length} 个字段`;
+    return localize('ac_mergeplan_014', [this.keys.length]);
   }
 }
 
@@ -168,7 +184,7 @@ export function planMerge(triples: FieldTriple[], hasBaseline: boolean): MergePl
     if (!hasBaseline) {
       const manual: FieldDecision = new FieldDecision(triple.key, FieldChoice.MANUAL, triple.local);
       manual.conflicted = triple.local !== triple.remote;
-      manual.reason = '缺少共同基线，无法判断谁改过';
+      manual.reason = localize('ac_mergeplan_015');
       plan.decisions.push(manual);
       return;
     }
@@ -176,7 +192,7 @@ export function planMerge(triples: FieldTriple[], hasBaseline: boolean): MergePl
     if (choice === FieldChoice.MANUAL) {
       const manual: FieldDecision = new FieldDecision(triple.key, FieldChoice.MANUAL, '');
       manual.conflicted = true;
-      manual.reason = '双方都改过且取值不同';
+      manual.reason = localize('ac_mergeplan_016');
       plan.decisions.push(manual);
       return;
     }
@@ -209,15 +225,15 @@ export function previewLines(plan: MergePlan): string[] {
   const lines: string[] = [];
   const conflicts: number = plan.conflictCount();
   if (plan.decisions.length === 0) {
-    lines.push('没有可合并的字段');
+    lines.push(localize('ac_mergeplan_017'));
     return lines;
   }
-  lines.push(`共 ${plan.decisions.length} 个字段｜已定 ${plan.settledCount()}｜冲突 ${conflicts}`);
+  lines.push(localize('ac_mergeplan_018', [plan.decisions.length, plan.settledCount(), conflicts]));
   plan.decisions.forEach((decision: FieldDecision): void => {
     lines.push(decision.describe());
   });
   if (plan.hasManual()) {
-    lines.push('存在待确认字段：确认前不写回任何一侧');
+    lines.push(localize('ac_mergeplan_019'));
   }
   return lines;
 }
@@ -254,6 +270,6 @@ export function tripleStats(triples: FieldTriple[]): string {
     triple.localChanged() && !triple.remoteChanged()).length;
   const remoteOnly: number = triples.filter((triple: FieldTriple): boolean =>
     !triple.localChanged() && triple.remoteChanged()).length;
-  return `字段 ${triples.length}｜仅本地改 ${localOnly}｜仅对端改 ${remoteOnly}｜` +
-    `双方一致 ${converged}｜真冲突 ${conflicts}`;
+  return localize('ac_mergeplan_020', [triples.length, localOnly, remoteOnly]) +
+    localize('ac_mergeplan_021', [converged, conflicts]);
 }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 接续前的准入判定。
  *
@@ -30,19 +46,19 @@ export enum Readiness {
 export function readinessLabel(readiness: Readiness): string {
   switch (readiness) {
     case Readiness.READY:
-      return '可以接续';
+      return localize('ac_continuationrules_001');
     case Readiness.NEED_PERMISSION:
-      return '需要授权';
+      return localize('ac_continuationrules_002');
     case Readiness.NEED_UPGRADE:
-      return '系统版本过低';
+      return localize('ac_continuationrules_003');
     case Readiness.UNSUPPORTED_DEVICE:
-      return '设备形态不支持';
+      return localize('ac_continuationrules_004');
     case Readiness.PAYLOAD_TOO_LARGE:
-      return '载荷过大';
+      return localize('ac_continuationrules_005');
     case Readiness.NO_SESSION:
-      return '没有进行中的会话';
+      return localize('ac_continuationrules_006');
     default:
-      return '无法判断';
+      return localize('ac_conflictpolicy_007');
   }
 }
 
@@ -116,7 +132,7 @@ export class ReadinessRule {
   }
 
   public text(): string {
-    const deviceText: string = this.devices.length === 0 ? '全部形态' :
+    const deviceText: string = this.devices.length === 0 ? localize('ac_continuationrules_008') :
       this.devices.map((device: DeviceClass): string => device as string).join('/');
     return `${this.ruleId}：API ${this.minApi}~${this.maxApi}，${deviceText} -> ` +
       `${readinessLabel(this.readiness)}`;
@@ -134,32 +150,40 @@ const SCREEN_DEVICES: DeviceClass[] = [DeviceClass.PHONE, DeviceClass.TABLET, De
  *
  * 顺序即优先级：低版本与排除形态必须排在通用规则之前。
  */
-export const READINESS_RULES: ReadinessRule[] = [
+function createREADINESS_RULES(): ReadinessRule[] {
+  return [
   new ReadinessRule('CR-01', 0, 8, ALL_DEVICES, false, 0, Readiness.NEED_UPGRADE,
-    'API 9 起才提供 continueManager'),
+    localize('ac_continuationrules_009')),
   new ReadinessRule('CR-02', 9, 11, [DeviceClass.WEARABLE], false, 0,
-    Readiness.UNSUPPORTED_DEVICE, '穿戴形态在 API 12 前不支持接续'),
+    Readiness.UNSUPPORTED_DEVICE, localize('ac_continuationrules_010')),
   new ReadinessRule('CR-03', 9, 11, [DeviceClass.TV], false, 0, Readiness.UNSUPPORTED_DEVICE,
-    'TV 形态在 API 12 前不支持接续'),
+    localize('ac_continuationrules_011')),
   new ReadinessRule('CR-04', 9, 11, SCREEN_DEVICES, true, 2048, Readiness.NEED_PERMISSION,
-    'API 9~11 接续需要分布式数据同步权限'),
+    localize('ac_continuationrules_012')),
   new ReadinessRule('CR-05', 12, 13, [DeviceClass.WEARABLE], false, 1024,
-    Readiness.UNSUPPORTED_DEVICE, '穿戴形态只支持接收，不支持发起'),
+    Readiness.UNSUPPORTED_DEVICE, localize('ac_continuationrules_013')),
   new ReadinessRule('CR-06', 12, 13, [DeviceClass.TV, DeviceClass.PC], true, 4096,
-    Readiness.NEED_PERMISSION, 'API 12~13 大屏设备需要授权'),
+    Readiness.NEED_PERMISSION, localize('ac_continuationrules_014')),
   new ReadinessRule('CR-07', 12, 13, SCREEN_DEVICES, true, 4096, Readiness.NEED_PERMISSION,
-    'API 12~13 手机与平板需要授权'),
+    localize('ac_continuationrules_015')),
   new ReadinessRule('CR-08', 14, 17, [DeviceClass.WEARABLE], false, 2048,
-    Readiness.UNSUPPORTED_DEVICE, '穿戴形态在 API 18 前仍不支持发起'),
+    Readiness.UNSUPPORTED_DEVICE, localize('ac_continuationrules_016')),
   new ReadinessRule('CR-09', 14, 17, KNOWN_DEVICES, true, 6144, Readiness.NEED_PERMISSION,
-    'API 14~17 统一要求授权'),
+    localize('ac_continuationrules_017')),
   new ReadinessRule('CR-10', 18, 26, KNOWN_DEVICES, true, 8192, Readiness.NEED_PERMISSION,
-    'API 18 起全部形态可用，仍需授权'),
+    localize('ac_continuationrules_018')),
   new ReadinessRule('CR-11', 27, 999, KNOWN_DEVICES, true, 8192, Readiness.UNKNOWN,
-    '高于已验证的 API 26，行为未确认'),
+    localize('ac_continuationrules_019')),
   new ReadinessRule('CR-12', 9, 999, [DeviceClass.UNKNOWN], false, 0, Readiness.UNKNOWN,
-    '无法识别设备形态时不假定支持')
+    localize('ac_continuationrules_020'))
 ];
+}
+
+export const READINESS_RULES: ReadinessRule[] = createREADINESS_RULES();
+registerLocaleCatalog((): void => {
+  READINESS_RULES.splice(0, READINESS_RULES.length);
+  createREADINESS_RULES().forEach((item: ReadinessRule): void => { READINESS_RULES.push(item); });
+});
 
 /** 判定结果。 */
 export class ReadinessResult {
@@ -172,20 +196,20 @@ export class ReadinessResult {
 
   /** 结论文本。 */
   public text(): string {
-    const ruleId: string = this.rule === undefined ? '未命中规则' : this.rule.ruleId;
+    const ruleId: string = this.rule === undefined ? localize('ac_conflictpolicy_049') : this.rule.ruleId;
     return `${readinessLabel(this.readiness)}（${ruleId}）`;
   }
 
   /** 提示文本。 */
   public hint(): string {
     if (this.rule === undefined) {
-      return '请补充准入规则';
+      return localize('ac_continuationrules_022');
     }
     if (this.downgradedByPayload) {
-      return `载荷超过 ${this.rule.maxPayload} 字符，请精简正文`;
+      return localize('ac_continuationrules_023', [this.rule.maxPayload]);
     }
     if (this.downgradedByPermission) {
-      return '请在设置中授予分布式数据同步权限';
+      return localize('ac_continuationrules_024');
     }
     return this.rule.hint;
   }
@@ -236,7 +260,7 @@ export class ReadinessAudit {
   public findings: string[] = [];
 
   public summary(): string {
-    return this.ok ? '准入规则表自洽' : this.findings.join('；');
+    return this.ok ? localize('ac_continuationrules_025') : this.findings.join('；');
   }
 }
 
@@ -246,21 +270,21 @@ export function auditReadinessRules(): ReadinessAudit {
   const seen: string[] = [];
   READINESS_RULES.forEach((rule: ReadinessRule): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(`规则编号重复：${rule.ruleId}`);
+      audit.findings.push(localize('ac_conflictpolicy_060', [rule.ruleId]));
     }
     seen.push(rule.ruleId);
     if (rule.maxApi < rule.minApi) {
-      audit.findings.push(`区间非法：${rule.ruleId}`);
+      audit.findings.push(localize('ac_continuationrules_027', [rule.ruleId]));
     }
     if (rule.hint.length === 0) {
-      audit.findings.push(`缺少说明：${rule.ruleId}`);
+      audit.findings.push(localize('ac_conflictpolicy_061', [rule.ruleId]));
     }
   });
   for (let api = 1; api <= 30; api++) {
     const hit: ReadinessRule | undefined = READINESS_RULES.find((rule: ReadinessRule): boolean =>
       rule.matches(new RuleContext(api, DeviceClass.PHONE, true)));
     if (hit === undefined) {
-      audit.findings.push(`API ${api} 无规则覆盖`);
+      audit.findings.push(localize('ac_continuationrules_029', [api]));
     }
   }
   audit.ok = audit.findings.length === 0;

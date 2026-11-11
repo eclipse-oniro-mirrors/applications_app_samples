@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../../common/LocaleStrings';
 /**
  * 接续载荷的编解码。
  *
@@ -55,8 +71,8 @@ export class PayloadData {
 
   /** 一段可读摘要。 */
   public summary(): string {
-    const bodyText: string = this.bodyEmpty() ? '（空正文）' : `${this.body.length} 字`;
-    return `${this.title}｜rev ${this.rev}｜${bodyText}｜选区 ${this.cs}-${this.ce}`;
+    const bodyText: string = this.bodyEmpty() ? localize('ac_payloadcodec_001') : localize('ac_payloadcodec_002', [this.body.length]);
+    return localize('ac_payloadcodec_003', [this.title, this.rev, bodyText, this.cs, this.ce]);
   }
 }
 
@@ -194,10 +210,10 @@ function buildData(map: Map<string, string>, issues: DecodeIssue[]): PayloadData
     const raw: string | undefined = map.get(field.name);
     const value: string = raw === undefined ? '' : raw;
     if (raw === undefined && field.required) {
-      issues.push(new DecodeIssue(field.name, '必填字段缺失'));
+      issues.push(new DecodeIssue(field.name, localize('ac_payloadcodec_004')));
     }
     if (raw !== undefined && !field.accepts(value)) {
-      issues.push(new DecodeIssue(field.name, '取值非法，已用兜底值'));
+      issues.push(new DecodeIssue(field.name, localize('ac_payloadcodec_005')));
     }
     const safe: string = field.coerce(value);
     switch (field.name) {
@@ -246,29 +262,29 @@ export function decodePayload(raw: string): DecodeResult {
   const result: DecodeResult = new DecodeResult();
   result.rawLength = raw.length;
   if (raw.length === 0) {
-    result.issues.push(new DecodeIssue('raw', '空载荷'));
+    result.issues.push(new DecodeIssue('raw', localize('ac_payloadcodec_006')));
     return result;
   }
   if (raw.length > PAYLOAD_LIMIT) {
-    result.issues.push(new DecodeIssue('raw', '超过载荷上限'));
+    result.issues.push(new DecodeIssue('raw', localize('ac_payloadcodec_007')));
     return result;
   }
   const map: Map<string, string> = parsePairs(raw);
   const versionText: string | undefined = map.get('v');
   if (versionText === undefined) {
-    result.issues.push(new DecodeIssue('v', '缺少版本号'));
+    result.issues.push(new DecodeIssue('v', localize('ac_payloadcodec_008')));
     return result;
   }
   const version: number = Number(versionText);
   if (!Number.isFinite(version) || version < 1 || version > PAYLOAD_VERSION) {
-    result.issues.push(new DecodeIssue('v', `不支持的版本 ${versionText}`));
+    result.issues.push(new DecodeIssue('v', localize('ac_payloadcodec_009', [versionText])));
     return result;
   }
   result.version = version;
   result.migrated = version < PAYLOAD_VERSION;
   const data: PayloadData = buildData(map, result.issues);
   if (data.doc.length === 0) {
-    result.issues.push(new DecodeIssue('doc', '文档标识为空，整条载荷丢弃'));
+    result.issues.push(new DecodeIssue('doc', localize('ac_payloadcodec_010')));
     return result;
   }
   result.data = data;
@@ -284,7 +300,7 @@ export class FitResult {
   public droppedChars: number = 0;
 
   public caption(): string {
-    return this.truncated ? `正文截断 ${this.droppedChars} 字` : '未截断';
+    return this.truncated ? localize('ac_payloadcodec_011', [this.droppedChars]) : localize('ac_payloadcodec_012');
   }
 }
 
@@ -350,9 +366,9 @@ export class PayloadDiff {
   /** 摘要文本。 */
   public summary(): string {
     if (!this.changed()) {
-      return '无字段变化';
+      return localize('ac_payloadcodec_013');
     }
-    return `变化 ${this.deltas.length} 个字段：${this.fields().join(',')}`;
+    return localize('ac_payloadcodec_014', [this.deltas.length, this.fields().join(',')]);
   }
 }
 
@@ -392,7 +408,7 @@ export class SizeReport {
   }
 
   public text(): string {
-    return `${this.chars} / ${this.limit} 字符（${this.ratio()}%，${this.bytes} 字节）`;
+    return localize('ac_payloadcodec_015', [this.chars, this.limit, this.ratio(), this.bytes]);
   }
 }
 
@@ -427,10 +443,10 @@ export function auditEncoding(): string[] {
     const probe: PayloadData = sealPayload(new PayloadData('audit-doc', 1));
     const encoded: string = encodePayload(probe);
     if (encoded.indexOf(`${field.name}${VALUE_SEPARATOR}`) < 0 && field.required) {
-      findings.push(`必填字段未编码：${field.name}`);
+      findings.push(localize('ac_payloadcodec_016', [field.name]));
     }
     if (field.kind === PayloadKind.MULTILINE && field.maxLength > BODY_LIMIT) {
-      findings.push(`多行字段上限超过正文上限：${field.name}`);
+      findings.push(localize('ac_payloadcodec_017', [field.name]));
     }
   });
   return findings;

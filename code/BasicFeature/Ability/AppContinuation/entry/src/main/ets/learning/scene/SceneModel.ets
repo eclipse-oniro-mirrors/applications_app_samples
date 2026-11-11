@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /** Production business adapters. This protocol is separate from legacy text and the v3 learning preview. */
 export const SCENE_PAYLOAD_KEY: string = 'com.example.appcontinuation.scene.v1';
 export const SCENE_STORE_KEY: string = 'scene_workspace_v1';
@@ -11,23 +27,31 @@ export interface ReadingChapter {
 }
 
 /** Local bundled reading material, not a transferred file or a fabricated remote URI. */
-export const READING_CHAPTERS: ReadingChapter[] = [
-  { title: '第一章 · 接续与草稿', paragraphs: [
-    '接续把正在处理的业务状态交给另一台设备。业务数据、系统快速结果和窗口加载是不同事实，必须分别观察。',
-    '笔记正文之外，选区和未保存变更也属于上下文。传输成功不表示用户已经确认覆盖本机草稿。',
-    '阅读进度由书籍版本、章节与段落锚点组成。这里的书籍随应用打包，跨端传输的是进度而不是书籍文件。'
+function createREADING_CHAPTERS(): ReadingChapter[] {
+  return [
+  { title: localize('ac_scenemodel_001'), paragraphs: [
+    localize('ac_scenemodel_002'),
+    localize('ac_scenemodel_003'),
+    localize('ac_scenemodel_004')
   ] },
-  { title: '第二章 · 版本与冲突', paragraphs: [
-    '文档标识限定修订号的含义。两个不同文档的修订号不能通过取最大值合并。',
-    '遇到本机未保存内容，应允许用户接受接续版本或保留本机，而不能只因为对端修订更高就静默替换。',
-    '持久化先于页面替换。写入失败后恢复旧值，无法确认回滚时冻结后续写入，避免继续扩大不确定性。'
+  { title: localize('ac_scenemodel_005'), paragraphs: [
+    localize('ac_scenemodel_006'),
+    localize('ac_scenemodel_007'),
+    localize('ac_scenemodel_008')
   ] },
-  { title: '第三章 · 继续操作', paragraphs: [
-    '目标端恢复后仍可编辑、添加书签、切换章节，并再次从系统入口发起接续。',
-    '普通页面加载成功只证明页面容器可用，不证明文本选区或阅读锚点已经定位。定位结果应由实际业务页面报告。',
-    '主机受控测试验证业务规则，SDK构建验证静态契约，真实跨设备效果仍需在获得授权后用系统入口验证。'
+  { title: localize('ac_scenemodel_009'), paragraphs: [
+    localize('ac_scenemodel_010'),
+    localize('ac_scenemodel_011'),
+    localize('ac_scenemodel_012')
   ] }
 ];
+}
+
+export const READING_CHAPTERS: ReadingChapter[] = createREADING_CHAPTERS();
+registerLocaleCatalog((): void => {
+  READING_CHAPTERS.splice(0, READING_CHAPTERS.length);
+  createREADING_CHAPTERS().forEach((item: ReadingChapter): void => { READING_CHAPTERS.push(item); });
+});
 
 export interface NoteDraft {
   title: string;
@@ -225,7 +249,15 @@ class ReadingAdapter implements SceneAdapter {
 }
 
 /** 表单步骤标签。 */
-export const FORM_STEPS: string[] = ['基本信息', '联系方式', '确认提交'];
+function createFORM_STEPS(): string[] {
+  return [localize('ac_scenemodel_013'), localize('ac_scenemodel_014'), localize('ac_scenemodel_015')];
+}
+
+export const FORM_STEPS: string[] = createFORM_STEPS();
+registerLocaleCatalog((): void => {
+  FORM_STEPS.splice(0, FORM_STEPS.length);
+  createFORM_STEPS().forEach((item: string): void => { FORM_STEPS.push(item); });
+});
 
 export function validFormStep(step: number): boolean {
   return Number.isInteger(step) && step >= 0 && step < FORM_STEPS.length;
@@ -235,15 +267,15 @@ export function validFormStep(step: number): boolean {
 export function stepIssues(form: FormDraft, step: number): string[] {
   const issues: string[] = [];
   if (step === 0) {
-    if (form.name.trim().length === 0) { issues.push('请填写姓名'); }
-    if (form.name.length > 40) { issues.push('姓名最多 40 字'); }
-    if (!/^1\d{10}$/.test(form.phone)) { issues.push('手机号需为 11 位且以 1 开头'); }
+    if (form.name.trim().length === 0) { issues.push(localize('ac_scenemodel_016')); }
+    if (form.name.length > 40) { issues.push(localize('ac_scenemodel_017')); }
+    if (!/^1\d{10}$/.test(form.phone)) { issues.push(localize('ac_scenemodel_018')); }
   } else if (step === 1) {
-    if (form.address.trim().length === 0) { issues.push('请填写地址'); }
-    if (form.address.length > 100) { issues.push('地址最多 100 字'); }
+    if (form.address.trim().length === 0) { issues.push(localize('ac_scenemodel_019')); }
+    if (form.address.length > 100) { issues.push(localize('ac_scenemodel_020')); }
   } else {
-    if (!form.agreed) { issues.push('需要确认信息无误'); }
-    if (form.note.length > 200) { issues.push('备注最多 200 字'); }
+    if (!form.agreed) { issues.push(localize('ac_scenemodel_021')); }
+    if (form.note.length > 200) { issues.push(localize('ac_scenemodel_022')); }
   }
   return issues;
 }
@@ -295,8 +327,8 @@ function adapter(kind: string): SceneAdapter | undefined {
 }
 
 export function sceneLabel(kind: string): string {
-  return kind === 'note' ? '笔记草稿' : kind === 'reading' ? '阅读进度' :
-    kind === 'form' ? '表单草稿' : '原文本';
+  return kind === 'note' ? localize('ac_notescenepage_002') : kind === 'reading' ? localize('ac_readingscenepage_002') :
+    kind === 'form' ? localize('ac_formscenepage_002') : localize('ac_scenemodel_026');
 }
 
 export function encodeScene(document: SceneDocument): string {
@@ -314,7 +346,7 @@ export function encodeScene(document: SceneDocument): string {
 }
 
 export function decodeScene(raw: Object | undefined): SceneRead {
-  const rejected: SceneRead = { value: undefined, reason: '业务载荷类型或长度无效。' };
+  const rejected: SceneRead = { value: undefined, reason: localize('ac_scenemodel_027') };
   if (typeof raw !== 'string' || raw.length === 0 || raw.length > SCENE_LIMIT) { return rejected; }
   let parsed: Object | null = null;
   try { parsed = JSON.parse(raw as string) as Object; } catch (error) { return rejected; }
@@ -325,11 +357,11 @@ export function decodeScene(raw: Object | undefined): SceneRead {
     typeof bag['revision'] !== 'number' || !Number.isInteger(bag['revision'] as number) ||
     (bag['revision'] as number) < 0 || (bag['revision'] as number) > REVISION_LIMIT ||
     typeof bag['scene'] !== 'string') {
-    rejected.reason = '业务协议版本、场景、身份或修订号无效。'; return rejected;
+    rejected.reason = localize('ac_scenemodel_028'); return rejected;
   }
   const selected = adapter(bag['scene'] as string);
   const state = selected === undefined || bag['state'] === undefined ? undefined : selected.read(bag['state']);
-  if (state === undefined) { rejected.reason = '业务状态不符合笔记/阅读适配器的校验或本地书籍版本不匹配。'; return rejected; }
+  if (state === undefined) { rejected.reason = localize('ac_scenemodel_029'); return rejected; }
   return { value: { transferId: bag['transferId'] as string, documentId: bag['documentId'] as string,
     revision: bag['revision'] as number, state: state }, reason: '' };
 }

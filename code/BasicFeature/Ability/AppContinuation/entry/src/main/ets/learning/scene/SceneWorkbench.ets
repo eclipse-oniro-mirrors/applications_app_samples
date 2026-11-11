@@ -1,4 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /** Ability-owned business workspace. No SDK continuation listener or system-result shortcut lives here. */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 import {
@@ -11,6 +27,7 @@ import {
   SceneBackupCode, SceneBackupExport, SceneBackupPlan, SceneBackupPreview, SceneBackupRestoreResult,
   normalizeSceneBackupScope, planSceneBackup, readSceneBackup
 } from './SceneWorkspaceBackupModel';
+import { localize } from '../../common/LocaleStrings';
 
 export interface SceneStorePort {
   getSync(key: string, defaultValue: string): Object;
@@ -67,9 +84,13 @@ export class SceneSnapshot {
   public error: string = '';
   public text(): string {
     return this.active === 'reading' ?
-      `阅读 r${this.revision}｜第 ${this.readingChapter + 1} 章 第 ${this.readingAnchor + 1} 段` :
-      this.active === 'form' ? `表单 r${this.revision}｜${this.formStepLabel}｜${this.formDirty ? '未保存' : '已保留草稿'}` :
-        `笔记 r${this.revision}｜${this.noteDirty ? '有未保存修改' : '已保存'}`;
+      localize('ac_sceneworkbench_001', [this.revision, this.readingChapter + 1, this.readingAnchor + 1]) :
+      this.active === 'form' ?
+        localize('ac_sceneworkbench_002',
+          [this.revision, this.formStepLabel,
+            this.formDirty ? localize('ac_sceneworkbench_003') : localize('ac_sceneworkbench_004')]) :
+        localize('ac_sceneworkbench_005',
+          [this.revision, this.noteDirty ? localize('ac_sceneworkbench_006') : localize('ac_sceneworkbench_007')]);
   }
 }
 
@@ -106,19 +127,19 @@ export class SceneWorkbench {
       const raw = store.getSync(SCENE_STORE_KEY, '');
       if (typeof raw !== 'string') {
         this.frozen = true;
-        this.error = '场景存档类型无效，已冻结写入';
+        this.error = localize('ac_sceneworkbench_008');
       } else if (raw.length > 0) {
         this.durableRaw = raw;
         const decoded = decodeWorkspace(raw);
         if (decoded === undefined) {
           this.frozen = true;
-          this.error = '场景存档损坏，保留原值并冻结写入';
+          this.error = localize('ac_sceneworkbench_009');
         } else {
           this.workspace = decoded;
           this.durable = cloneWorkspace(decoded);
         }
       }
-    } catch (error) { this.frozen = true; this.error = '场景存储读取失败，磁盘状态未知，已冻结写入'; }
+    } catch (error) { this.frozen = true; this.error = localize('ac_sceneworkbench_010'); }
     ['note', 'reading', 'form'].forEach((kind: string): void => { this.ensureDocument(kind); });
     if (this.workspace.active === 'text') { this.workspace.active = 'note'; }
   }
@@ -132,7 +153,19 @@ export class SceneWorkbench {
     this.pendingBackup = undefined;
     if (this.backupResumeAllowed && !this.hasDirtyWork()) { this.backupResumeAllowed = false; }
     if (this.disposed) { return; }
-    this.listeners.forEach((listener: () => void): void => { try { listener(); } catch (error) {} });
+    // A failing subscriber must not block the remaining listeners; diagnostics stay best-effort.
+    this.listeners.forEach((listener: () => void): void => {
+      try {
+        listener();
+      } catch (error) {
+        try {
+          hilog.warn(0xF811, '[Sample_AppContinuation]', 'Scene listener failed: %{public}s',
+            (error as Error).message);
+        } catch (logError) {
+          // Logging is optional here and must never replace the listener isolation above.
+        }
+      }
+    });
   }
   public setLocked(value: boolean): void { this.locked = value; this.publish(); }
   public dispose(): void {
@@ -173,9 +206,9 @@ export class SceneWorkbench {
 
   /** Validate the entire staged root before touching the cache; compensate any put/flush failure. */
   private write(next: SceneWorkspace): boolean {
-    if (this.frozen || this.disposed) { return this.reject('场景存储已冻结；请重新进入 Ability 检查存档'); }
+    if (this.frozen || this.disposed) { return this.reject(localize('ac_sceneworkbench_011')); }
     const raw = encodeWorkspace(next);
-    if (decodeWorkspace(raw) === undefined) { return this.reject('待保存的场景工作区校验失败或容量超限'); }
+    if (decodeWorkspace(raw) === undefined) { return this.reject(localize('ac_sceneworkbench_012')); }
     try {
       this.store.putSync(SCENE_STORE_KEY, raw);
       this.store.flushSync();
@@ -191,10 +224,10 @@ export class SceneWorkbench {
           this.store.putSync(SCENE_STORE_KEY, this.durableRaw);
         }
         this.store.flushSync();
-        this.error = '场景保存失败，已补偿回原存档；编辑、修订与历史保持原样';
+        this.error = localize('ac_sceneworkbench_013');
       } catch (rollbackError) {
         this.frozen = true;
-        this.error = '场景保存及补偿失败，磁盘状态未知；已冻结后续写入，当前编辑保留';
+        this.error = localize('ac_sceneworkbench_014');
       }
       return false;
     }
@@ -213,14 +246,14 @@ export class SceneWorkbench {
       this.workspace.documents.push(item);
     });
     this.workspace.active = document.state.kind;
-    this.notice = `已持久化 ${document.state.kind} r${document.revision}`;
+    this.notice = localize('ac_sceneworkbench_015', [String(document.state.kind), String(document.revision)]);
     this.publish();
     return true;
   }
   private save(kind: string, confirmNote: boolean = false, confirmForm: boolean = false): boolean {
     if (!this.editable()) { return false; }
     const next = this.document(kind);
-    if (next.revision >= REVISION_LIMIT) { return this.reject('修订号已到上限，请另存为新文档'); }
+    if (next.revision >= REVISION_LIMIT) { return this.reject(localize('ac_sceneworkbench_016')); }
     if (confirmNote) {
       next.state.note.savedBody = next.state.note.body; next.state.note.savedTitle = next.state.note.title;
       next.state.note.savedSelectionStart = next.state.note.selectionStart;
@@ -263,9 +296,9 @@ export class SceneWorkbench {
   }
   public open(kind: string, preserveBackupDrafts: boolean = false): boolean {
     if (!this.editable()) { return false; }
-    if (['note', 'reading', 'form'].indexOf(kind) < 0) { return this.reject('未知场景'); }
+    if (['note', 'reading', 'form'].indexOf(kind) < 0) { return this.reject(localize('ac_sceneworkbench_017')); }
     if (kind !== this.workspace.active && this.hasDirtyWork() && !(preserveBackupDrafts && this.backupResumeAllowed)) {
-      return this.reject('有未保存修改，请先保存或放弃后切换');
+      return this.reject(localize('ac_sceneworkbench_018'));
     }
     this.workspace.active = kind; this.error = ''; this.publish(); return true;
   }
@@ -273,7 +306,7 @@ export class SceneWorkbench {
     if (!this.editable()) { return false; }
     if (title.length > 80 || body.length > 4096 || !validUnicode(title) || !validUnicode(body) ||
       !selectionBoundary(body, start) || !selectionBoundary(body, end) || start > end) {
-      return this.reject('标题、正文或选区无效');
+      return this.reject(localize('ac_sceneworkbench_019'));
     }
     const note = this.ensureDocument('note').state.note;
     note.title = title; note.body = body; note.selectionStart = start; note.selectionEnd = end;
@@ -289,7 +322,7 @@ export class SceneWorkbench {
   }
   public gotoParagraph(chapter: number, anchor: number): boolean {
     if (!this.editable()) { return false; }
-    if (!validReadingPosition(chapter, anchor)) { return this.reject('章节或段落不存在'); }
+    if (!validReadingPosition(chapter, anchor)) { return this.reject(localize('ac_sceneworkbench_020')); }
     const reading = this.ensureDocument('reading').state.reading;
     reading.chapter = chapter; reading.anchor = anchor; this.error = ''; this.publish(); return true;
   }
@@ -305,14 +338,14 @@ export class SceneWorkbench {
     if (!this.editable()) { return false; }
     const reading = this.ensureDocument('reading').state.reading;
     if (reading.bookmarks.length >= 20 || reading.bookmarks.some((item: ReadingBookmark): boolean =>
-      item.chapter === reading.chapter && item.anchor === reading.anchor)) { return this.reject('书签重复或已达上限'); }
+      item.chapter === reading.chapter && item.anchor === reading.anchor)) { return this.reject(localize('ac_sceneworkbench_021')); }
     reading.bookmarks.push({ chapter: reading.chapter, anchor: reading.anchor });
     this.error = ''; this.publish(); return true;
   }
   public removeBookmark(index: number): boolean {
     if (!this.editable()) { return false; }
     const bookmarks = this.ensureDocument('reading').state.reading.bookmarks;
-    if (!Number.isInteger(index) || index < 0 || index >= bookmarks.length) { return this.reject('书签不存在'); }
+    if (!Number.isInteger(index) || index < 0 || index >= bookmarks.length) { return this.reject(localize('ac_sceneworkbench_022')); }
     bookmarks.splice(index, 1); this.error = ''; this.publish(); return true;
   }
   public saveReading(): boolean { return this.save('reading'); }
@@ -324,7 +357,7 @@ export class SceneWorkbench {
     limits.set('address', 100);
     limits.set('note', 200);
     const limit: number | undefined = limits.get(field);
-    if (limit === undefined || value.length > limit || !validUnicode(value)) { return this.reject('字段名、长度或Unicode无效'); }
+    if (limit === undefined || value.length > limit || !validUnicode(value)) { return this.reject(localize('ac_sceneworkbench_023')); }
     const form = this.ensureDocument('form').state.form;
     if (field === 'name') {
       form.name = value;
@@ -339,7 +372,7 @@ export class SceneWorkbench {
   }
   public gotoFormStep(step: number): boolean {
     if (!this.editable()) { return false; }
-    if (!validFormStep(step)) { return this.reject('步骤不存在'); }
+    if (!validFormStep(step)) { return this.reject(localize('ac_sceneworkbench_024')); }
     const form = this.ensureDocument('form').state.form;
     for (let previous: number = 0; previous < step; previous++) {
       const issues = stepIssues(form, previous);
@@ -357,7 +390,7 @@ export class SceneWorkbench {
   /** Draft schema permits partial values; completion is a separate whole-form validation. */
   public saveForm(): boolean { return this.save('form'); }
   public confirmForm(): boolean {
-    if (formIssues(this.document('form').state.form).length > 0) { return this.reject('整表校验尚未通过，不能确认完成'); }
+    if (formIssues(this.document('form').state.form).length > 0) { return this.reject(localize('ac_sceneworkbench_025')); }
     return this.save('form', false, true);
   }
   public payloadOf(kind: string = ''): string {
@@ -369,9 +402,9 @@ export class SceneWorkbench {
   }
   public conflictReason(incoming: SceneDocument): string {
     const local = this.document(incoming.state.kind);
-    if (this.hasDirtyWork()) { return '本机有未保存业务状态；请选择接续版本或保留本机。'; }
+    if (this.hasDirtyWork()) { return localize('ac_sceneworkbench_026'); }
     if (local.documentId === incoming.documentId && incoming.revision <= local.revision &&
-      JSON.stringify(local.state) !== JSON.stringify(incoming.state)) { return '同文档旧修订或同号不同状态，需明确选择。'; }
+      JSON.stringify(local.state) !== JSON.stringify(incoming.state)) { return localize('ac_sceneworkbench_027'); }
     return '';
   }
   /** Called only by LearningController after its candidate/quick/window/business-position gates. */
@@ -381,7 +414,7 @@ export class SceneWorkbench {
     const local = this.document(incoming.state.kind);
     if (accepted) {
       const base = local.documentId === next.documentId ? Math.max(local.revision, next.revision) : next.revision;
-      if (base >= REVISION_LIMIT) { return this.reject('接受冲突将超过修订上限；未写入'); }
+      if (base >= REVISION_LIMIT) { return this.reject(localize('ac_sceneworkbench_028')); }
       next.revision = base + 1;
     }
     return this.persistDocument(next);
@@ -398,30 +431,30 @@ export class SceneWorkbench {
   public restoreHistory(index: number, kind: string = ''): boolean {
     if (!this.editable()) { return false; }
     const history = this.historyDocuments(kind);
-    if (!Number.isInteger(index) || index < 0 || index >= history.length) { return this.reject('历史不存在'); }
+    if (!Number.isInteger(index) || index < 0 || index >= history.length) { return this.reject(localize('ac_sceneworkbench_029')); }
     const next = history[index];
     const current = this.document(next.state.kind);
     if (current.documentId !== next.documentId || current.revision >= REVISION_LIMIT) {
-      return this.reject('历史身份不匹配或修订已达上限');
+      return this.reject(localize('ac_sceneworkbench_030'));
     }
     next.revision = current.revision + 1; next.transferId = 'local'; return this.persistDocument(next);
   }
   /** Export a coherent copy of current editing state; never save or normalize a user's draft. */
   public backupSnapshot(): SceneBackupExport {
     const exported = new SceneBackupExport();
-    if (!this.editable()) { exported.message = '当前业务正在恢复或已释放，暂不能生成备份。'; return exported; }
+    if (!this.editable()) { exported.message = localize('ac_sceneworkbench_031'); return exported; }
     try {
       const raw = encodeWorkspace(cloneWorkspace(this.workspace));
       if (readSceneBackup(raw).workspace === undefined) {
-        exported.message = '当前内存工作区无法通过正式格式校验，未生成不完整备份。';
+        exported.message = localize('ac_sceneworkbench_032');
         return exported;
       }
       exported.ok = true; exported.raw = raw; exported.chars = raw.length; exported.epoch = this.backupEpoch;
       exported.documentCount = this.workspace.documents.length; exported.historyCount = this.workspace.history.length;
       exported.containsDirty = this.hasDirtyWork(); exported.frozen = this.frozen;
-      exported.message = this.frozen ? '已生成当前内存救援副本；原存档仍冻结，未修复或覆盖磁盘。' :
-        '已生成当前业务备份，包含未保存内容与历史；原文本学习区不在备份范围。';
-    } catch (error) { exported.message = '无法生成完整业务备份；当前编辑未改变。'; }
+      exported.message = this.frozen ? localize('ac_sceneworkbench_033') :
+        localize('ac_sceneworkbench_034');
+    } catch (error) { exported.message = localize('ac_sceneworkbench_035'); }
     return exported;
   }
 
@@ -434,11 +467,11 @@ export class SceneWorkbench {
     this.pendingBackup = undefined;
     const rejected = new SceneBackupPreview();
     if (!this.editable()) {
-      rejected.code = SceneBackupCode.BLOCKED; rejected.message = '当前业务正在恢复或已释放，暂不能预览恢复。';
+      rejected.code = SceneBackupCode.BLOCKED; rejected.message = localize('ac_sceneworkbench_036');
       return rejected;
     }
     if (this.frozen) {
-      rejected.code = SceneBackupCode.FROZEN; rejected.message = '场景存储已冻结；可导出内存救援副本，不能导入写入。';
+      rejected.code = SceneBackupCode.FROZEN; rejected.message = localize('ac_sceneworkbench_037');
       return rejected;
     }
     const read = readSceneBackup(raw);
@@ -459,8 +492,8 @@ export class SceneWorkbench {
 
   /** A single compensated scene-root transaction. The legacy text Preferences is not touched. */
   public restoreBackup(token: string, confirmDirty: boolean, scope?: string[]): SceneBackupRestoreResult {
-    if (!this.editable()) { return new SceneBackupRestoreResult(SceneBackupCode.BLOCKED, '当前业务正在恢复或已释放，不能执行本地恢复。'); }
-    if (this.frozen) { return new SceneBackupRestoreResult(SceneBackupCode.FROZEN, '场景存储已冻结；当前编辑保留，未继续写入。'); }
+    if (!this.editable()) { return new SceneBackupRestoreResult(SceneBackupCode.BLOCKED, localize('ac_sceneworkbench_038')); }
+    if (this.frozen) { return new SceneBackupRestoreResult(SceneBackupCode.FROZEN, localize('ac_sceneworkbench_039')); }
     const selected = normalizeSceneBackupScope(scope);
     if (!selected.ok) {
       this.pendingBackup = undefined;
@@ -469,18 +502,18 @@ export class SceneWorkbench {
     const plan = this.pendingBackup;
     if (plan === undefined || plan.workspace === undefined || plan.memory === undefined ||
       plan.preview.token !== token || plan.preview.epoch !== this.backupEpoch) {
-      return new SceneBackupRestoreResult(SceneBackupCode.STALE, '恢复预览已过期，请重新校验并预览。');
+      return new SceneBackupRestoreResult(SceneBackupCode.STALE, localize('ac_sceneworkspacebackup_016'));
     }
     if (selected.kinds.join(',') !== plan.preview.selectedKinds.join(',')) {
       this.pendingBackup = undefined;
-      return new SceneBackupRestoreResult(SceneBackupCode.STALE, '恢复范围已变化，请按新范围重新预览。');
+      return new SceneBackupRestoreResult(SceneBackupCode.STALE, localize('ac_sceneworkbench_041'));
     }
     if (plan.preview.requiresDirtyConfirmation && !confirmDirty) {
-      return new SceneBackupRestoreResult(SceneBackupCode.DIRTY_REQUIRED, '请明确确认替换未保存业务修改后再恢复。');
+      return new SceneBackupRestoreResult(SceneBackupCode.DIRTY_REQUIRED, localize('ac_sceneworkbench_042'));
     }
     this.pendingBackup = undefined;
     if (!plan.preview.changed) {
-      return new SceneBackupRestoreResult(SceneBackupCode.UNCHANGED, '业务工作区未变化，无需重复恢复。');
+      return new SceneBackupRestoreResult(SceneBackupCode.UNCHANGED, localize('ac_sceneworkbench_043'));
     }
     this.backupBusy = true;
     const next = cloneWorkspace(plan.workspace);
@@ -497,7 +530,7 @@ export class SceneWorkbench {
     }
     this.workspace = cloneWorkspace(plan.memory);
     this.backupResumeAllowed = selected.kinds.length < 3 && this.hasDirtyWork();
-    this.notice = selected.kinds.length === 3 ? '本地业务工作区已恢复。' : '所选业务场景已恢复；未选场景保留。';
+    this.notice = selected.kinds.length === 3 ? localize('ac_sceneworkbench_044') : localize('ac_sceneworkbench_045');
     this.publish();
     return new SceneBackupRestoreResult(SceneBackupCode.RESTORED, this.notice, true);
   }

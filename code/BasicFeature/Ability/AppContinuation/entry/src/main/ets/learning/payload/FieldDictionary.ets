@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /**
  * 载荷字段字典。
  *
@@ -22,17 +38,17 @@ export enum FieldRole {
 export function roleLabel(role: FieldRole): string {
   switch (role) {
     case FieldRole.IDENTITY:
-      return '标识';
+      return localize('ac_fielddictionary_001');
     case FieldRole.CONTENT:
-      return '内容';
+      return localize('ac_fielddictionary_002');
     case FieldRole.POSITION:
-      return '位置';
+      return localize('ac_fielddictionary_003');
     case FieldRole.CONTEXT:
-      return '上下文';
+      return localize('ac_fielddictionary_004');
     case FieldRole.INTEGRITY:
-      return '完整性';
+      return localize('ac_fielddictionary_005');
     default:
-      return '派生';
+      return localize('ac_fielddictionary_006');
   }
 }
 
@@ -48,11 +64,11 @@ export enum FieldUnit {
 export function unitLabel(unit: FieldUnit): string {
   switch (unit) {
     case FieldUnit.CHARS:
-      return '字符';
+      return localize('ac_fielddictionary_007');
     case FieldUnit.COUNT:
-      return '个';
+      return localize('ac_fielddictionary_008');
     case FieldUnit.MILLIS:
-      return '毫秒';
+      return localize('ac_fielddictionary_009');
     default:
       return '';
   }
@@ -87,55 +103,63 @@ export class FieldDoc {
   }
 
   public text(): string {
-    const limit: string = this.maxLength > 0 ? `≤${this.maxLength}` : '不限';
+    const limit: string = this.maxLength > 0 ? `≤${this.maxLength}` : localize('ac_fielddictionary_010');
     return `${this.key} ${this.label}｜${roleLabel(this.role)}｜${limit}｜` +
-      `${this.required ? '必填' : '选填'}`;
+      `${this.required ? localize('ac_fielddictionary_011') : localize('ac_fielddictionary_012')}`;
   }
 }
 
 /** 字段字典。派生字段不参与编码，只用于展示与统计。 */
-export const FIELD_DOCS: FieldDoc[] = [
-  new FieldDoc('doc', '文档标识', FieldRole.IDENTITY, FieldUnit.NONE, true, 64,
-    '缺失则整条载荷丢弃'),
-  new FieldDoc('rev', '修订号', FieldRole.IDENTITY, FieldUnit.COUNT, true, 12,
-    '缺失按 0 处理'),
-  new FieldDoc('title', '标题', FieldRole.CONTENT, FieldUnit.CHARS, false, 64,
-    '缺失显示为未命名'),
-  new FieldDoc('body', '正文', FieldRole.CONTENT, FieldUnit.CHARS, false, 4096,
-    '缺失按空正文处理'),
-  new FieldDoc('cs', '选区起点', FieldRole.POSITION, FieldUnit.COUNT, false, 12,
-    '缺失按 0 处理'),
-  new FieldDoc('ce', '选区终点', FieldRole.POSITION, FieldUnit.COUNT, false, 12,
-    '缺失按 0 处理'),
-  new FieldDoc('dev', '来源设备', FieldRole.CONTEXT, FieldUnit.NONE, false, 64,
-    '缺失显示为 unknown'),
-  new FieldDoc('at', '写入时间', FieldRole.CONTEXT, FieldUnit.MILLIS, false, 20,
-    '缺失显示为未记录时间'),
-  new FieldDoc('app', '应用版本', FieldRole.CONTEXT, FieldUnit.NONE, false, 32,
-    '缺失按空串处理'),
-  new FieldDoc('ck', '冲突标记', FieldRole.INTEGRITY, FieldUnit.NONE, false, 16,
-    '缺失按 none 处理'),
-  new FieldDoc('sig', '校验摘要', FieldRole.INTEGRITY, FieldUnit.NONE, false, 32,
-    '缺失表示未校验'),
-  new FieldDoc('v', '载荷版本', FieldRole.IDENTITY, FieldUnit.COUNT, true, 4,
-    '缺失视为不可解析', false),
-  new FieldDoc('bodyLength', '正文长度', FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
-    '由正文计算', true),
-  new FieldDoc('selectionLength', '选区长度', FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
-    '由选区计算', true),
-  new FieldDoc('payloadSize', '编码体积', FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
-    '由编码结果计算', true),
-  new FieldDoc('remainChars', '剩余容量', FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
-    '由上限与编码体积计算', true),
-  new FieldDoc('ageMinutes', '写入时长', FieldRole.DERIVED, FieldUnit.MILLIS, false, 0,
-    '由写入时间计算', true),
-  new FieldDoc('conflictText', '冲突说明', FieldRole.DERIVED, FieldUnit.NONE, false, 0,
-    '由冲突标记映射', true),
-  new FieldDoc('revisionGap', '修订差距', FieldRole.DERIVED, FieldUnit.COUNT, false, 0,
-    '与对端修订号比较得出', true),
-  new FieldDoc('tagCount', '标签数量', FieldRole.DERIVED, FieldUnit.COUNT, false, 0,
-    '由正文中的标签计算', false)
+function createFIELD_DOCS(): FieldDoc[] {
+  return [
+  new FieldDoc('doc', localize('ac_fielddictionary_013'), FieldRole.IDENTITY, FieldUnit.NONE, true, 64,
+    localize('ac_fielddictionary_014')),
+  new FieldDoc('rev', localize('ac_fielddictionary_015'), FieldRole.IDENTITY, FieldUnit.COUNT, true, 12,
+    localize('ac_fielddictionary_016')),
+  new FieldDoc('title', localize('ac_index_115'), FieldRole.CONTENT, FieldUnit.CHARS, false, 64,
+    localize('ac_fielddictionary_018')),
+  new FieldDoc('body', localize('ac_index_119'), FieldRole.CONTENT, FieldUnit.CHARS, false, 4096,
+    localize('ac_fielddictionary_020')),
+  new FieldDoc('cs', localize('ac_fielddictionary_021'), FieldRole.POSITION, FieldUnit.COUNT, false, 12,
+    localize('ac_fielddictionary_016')),
+  new FieldDoc('ce', localize('ac_fielddictionary_023'), FieldRole.POSITION, FieldUnit.COUNT, false, 12,
+    localize('ac_fielddictionary_016')),
+  new FieldDoc('dev', localize('ac_fielddictionary_025'), FieldRole.CONTEXT, FieldUnit.NONE, false, 64,
+    localize('ac_fielddictionary_026')),
+  new FieldDoc('at', localize('ac_fielddictionary_027'), FieldRole.CONTEXT, FieldUnit.MILLIS, false, 20,
+    localize('ac_fielddictionary_028')),
+  new FieldDoc('app', localize('ac_fielddictionary_029'), FieldRole.CONTEXT, FieldUnit.NONE, false, 32,
+    localize('ac_fielddictionary_030')),
+  new FieldDoc('ck', localize('ac_fielddictionary_031'), FieldRole.INTEGRITY, FieldUnit.NONE, false, 16,
+    localize('ac_fielddictionary_032')),
+  new FieldDoc('sig', localize('ac_fielddictionary_033'), FieldRole.INTEGRITY, FieldUnit.NONE, false, 32,
+    localize('ac_fielddictionary_034')),
+  new FieldDoc('v', localize('ac_fielddictionary_035'), FieldRole.IDENTITY, FieldUnit.COUNT, true, 4,
+    localize('ac_fielddictionary_036'), false),
+  new FieldDoc('bodyLength', localize('ac_fielddictionary_037'), FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
+    localize('ac_fielddictionary_038'), true),
+  new FieldDoc('selectionLength', localize('ac_fielddictionary_039'), FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
+    localize('ac_fielddictionary_040'), true),
+  new FieldDoc('payloadSize', localize('ac_fielddictionary_041'), FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
+    localize('ac_fielddictionary_042'), true),
+  new FieldDoc('remainChars', localize('ac_fielddictionary_043'), FieldRole.DERIVED, FieldUnit.CHARS, false, 0,
+    localize('ac_fielddictionary_044'), true),
+  new FieldDoc('ageMinutes', localize('ac_fielddictionary_045'), FieldRole.DERIVED, FieldUnit.MILLIS, false, 0,
+    localize('ac_fielddictionary_046'), true),
+  new FieldDoc('conflictText', localize('ac_fielddictionary_047'), FieldRole.DERIVED, FieldUnit.NONE, false, 0,
+    localize('ac_fielddictionary_048'), true),
+  new FieldDoc('revisionGap', localize('ac_fielddictionary_049'), FieldRole.DERIVED, FieldUnit.COUNT, false, 0,
+    localize('ac_fielddictionary_050'), true),
+  new FieldDoc('tagCount', localize('ac_fielddictionary_051'), FieldRole.DERIVED, FieldUnit.COUNT, false, 0,
+    localize('ac_fielddictionary_052'), false)
 ];
+}
+
+export const FIELD_DOCS: FieldDoc[] = createFIELD_DOCS();
+registerLocaleCatalog((): void => {
+  FIELD_DOCS.splice(0, FIELD_DOCS.length);
+  createFIELD_DOCS().forEach((item: FieldDoc): void => { FIELD_DOCS.push(item); });
+});
 
 /** 字段键列表。 */
 export function docKeys(): string[] {
@@ -173,15 +197,15 @@ export function missingSchemaKeys(): string[] {
 export function conflictText(marker: string): string {
   switch (marker) {
     case 'none':
-      return '无冲突';
+      return localize('ac_conflictpolicy_001');
     case 'remoteNewer':
-      return '对端更新';
+      return localize('ac_conflictpolicy_002');
     case 'localNewer':
-      return '本机更新';
+      return localize('ac_conflictpolicy_003');
     case 'bothChanged':
-      return '两端都改过';
+      return localize('ac_conflictpolicy_004');
     default:
-      return '无法判断';
+      return localize('ac_conflictpolicy_007');
   }
 }
 
@@ -203,7 +227,7 @@ export function valueOfKey(data: PayloadData, key: string): string {
     case 'dev':
       return data.dev;
     case 'at':
-      return data.at <= 0 ? '未记录时间' : data.at.toString();
+      return data.at <= 0 ? localize('ac_fielddictionary_058') : data.at.toString();
     case 'app':
       return data.app;
     case 'ck':
@@ -221,7 +245,7 @@ export function valueOfKey(data: PayloadData, key: string): string {
     case 'remainChars':
       return Math.max(0, 8192 - (data.body.length + data.title.length)).toString();
     case 'ageMinutes':
-      return data.at <= 0 ? '未知' : Math.floor(Date.now() - data.at > 0 ?
+      return data.at <= 0 ? localize('ac_continueclient_015') : Math.floor(Date.now() - data.at > 0 ?
         (Date.now() - data.at) / 60000 : 0).toString();
     case 'conflictText':
       return conflictText(data.ck);
@@ -238,11 +262,11 @@ export function valueOfKey(data: PayloadData, key: string): string {
 export function describeValue(data: PayloadData, key: string): string {
   const doc: FieldDoc | undefined = docOf(key);
   if (doc === undefined) {
-    return `${key}：未定义字段`;
+    return localize('ac_fielddictionary_060', [key]);
   }
   const value: string = valueOfKey(data, key);
   if (value.length === 0) {
-    return `${doc.label}：（空）`;
+    return localize('ac_fielddictionary_061', [doc.label]);
   }
   const unit: string = unitLabel(doc.unit);
   return `${doc.label}：${value}${unit.length > 0 ? unit : ''}`;
@@ -254,7 +278,7 @@ export class DictionaryAudit {
   public findings: string[] = [];
 
   public summary(): string {
-    return this.ok ? '字段字典自洽' : this.findings.join('；');
+    return this.ok ? localize('ac_fielddictionary_062') : this.findings.join('；');
   }
 }
 
@@ -264,24 +288,24 @@ export function auditDictionary(): DictionaryAudit {
   const keys: string[] = [];
   FIELD_DOCS.forEach((doc: FieldDoc): void => {
     if (keys.indexOf(doc.key) >= 0) {
-      audit.findings.push(`字段重复：${doc.key}`);
+      audit.findings.push(localize('ac_fielddictionary_063', [doc.key]));
     }
     keys.push(doc.key);
     if (doc.label.length === 0) {
-      audit.findings.push(`缺少标签：${doc.key}`);
+      audit.findings.push(localize('ac_fielddictionary_064', [doc.key]));
     }
     if (doc.required && doc.missingHint.length === 0) {
-      audit.findings.push(`必填字段缺少缺失说明：${doc.key}`);
+      audit.findings.push(localize('ac_fielddictionary_065', [doc.key]));
     }
     if (doc.maxLength < 0) {
-      audit.findings.push(`长度上限为负：${doc.key}`);
+      audit.findings.push(localize('ac_fielddictionary_066', [doc.key]));
     }
   });
   missingSchemaKeys().forEach((key: string): void => {
-    audit.findings.push(`字典缺少字段：${key}`);
+    audit.findings.push(localize('ac_fielddictionary_067', [key]));
   });
   if (requiredDocs().length === 0) {
-    audit.findings.push('缺少必填字段说明');
+    audit.findings.push(localize('ac_fielddictionary_068'));
   }
   audit.ok = audit.findings.length === 0;
   return audit;
@@ -297,5 +321,5 @@ export function roleLines(): string[] {
   const roles: FieldRole[] = [FieldRole.IDENTITY, FieldRole.CONTENT, FieldRole.POSITION,
     FieldRole.CONTEXT, FieldRole.INTEGRITY, FieldRole.DERIVED];
   return roles.map((role: FieldRole): string =>
-    `${roleLabel(role)}：${docsOfRole(role).length} 个字段`);
+    localize('ac_fielddictionary_069', [roleLabel(role), docsOfRole(role).length]));
 }

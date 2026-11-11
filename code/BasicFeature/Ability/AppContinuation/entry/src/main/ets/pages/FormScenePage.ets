@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 import { getLearningController } from '../learning/LearningContext';
 import { SceneSnapshot } from '../learning/scene/SceneWorkbench';
 import { ScenePageSession } from '../learning/scene/ScenePageSession';
@@ -36,13 +52,13 @@ struct FormScenePage {
   build() {
     Scroll() {
       Column({ space: 14 }) {
-        Button('返回工作台', { type: ButtonType.Normal }).height(44).fontSize(14)
+        Button($r('app.string.ac_formscenepage_001'), { type: ButtonType.Normal }).height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10)
           .onClick((): void => { this.backToWorkbench(); })
         if (this.navigationMessage.length > 0) {
           Text(this.navigationMessage).fontSize(14).fontColor('#B42318').width('100%')
         }
-        Text('表单草稿').fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%')
+        Text($r('app.string.ac_formscenepage_002')).fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%')
         Text(this.view.text()).fontSize(14).fontColor(LEARNING_MUTED).width('100%')
         SceneContinuationStatus()
         Row({ space: 8 }) {
@@ -55,21 +71,21 @@ struct FormScenePage {
           }, (label: string) => label)
         }.width('100%')
         Column({ space: 12 }) {
-          Text(`步骤 ${this.view.formStep + 1}：${this.view.formStepLabel}`).fontSize(16).fontWeight(FontWeight.Medium)
+          Text(localize('ac_formscenepage_003', [this.view.formStep + 1, this.view.formStepLabel])).fontSize(16).fontWeight(FontWeight.Medium)
             .fontColor(LEARNING_INK).width('100%')
           if (this.view.formStep === 0) {
-            TextInput({ text: this.view.formName, placeholder: '姓名' }).maxLength(40)
+            TextInput({ text: this.view.formName, placeholder: localize('ac_formscenepage_004') }).maxLength(40)
               .height(48).fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).enabled(this.view.editable)
               .onChange((value: string): void => this.edit('name', value))
-            TextInput({ text: this.view.formPhone, placeholder: '手机号' }).maxLength(20)
+            TextInput({ text: this.view.formPhone, placeholder: localize('ac_formscenepage_005') }).maxLength(20)
               .height(48).fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).enabled(this.view.editable)
               .onChange((value: string): void => this.edit('phone', value))
           } else if (this.view.formStep === 1) {
-            TextArea({ text: this.view.formAddress, placeholder: '地址' }).height(120).maxLength(100)
+            TextArea({ text: this.view.formAddress, placeholder: localize('ac_formscenepage_006') }).height(120).maxLength(100)
               .fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).enabled(this.view.editable)
               .onChange((value: string): void => this.edit('address', value))
           } else {
-            TextArea({ text: this.view.formNote, placeholder: '备注（可留空）' }).height(100).maxLength(200)
+            TextArea({ text: this.view.formNote, placeholder: localize('ac_formscenepage_007') }).height(100).maxLength(200)
               .fontSize(15).backgroundColor(LEARNING_BG).borderRadius(10).enabled(this.view.editable)
               .onChange((value: string): void => this.edit('note', value))
             Row({ space: 8 }) {
@@ -80,7 +96,7 @@ struct FormScenePage {
                     getLearningController()?.sceneWorkbench.setFormAgreed(value);
                   }
                 })
-              Text('确认以上信息无误').fontSize(14).fontColor(LEARNING_INK)
+              Text($r('app.string.ac_formscenepage_008')).fontSize(14).fontColor(LEARNING_INK)
             }.width('100%')
           }
         }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
@@ -89,23 +105,23 @@ struct FormScenePage {
               this.positionRendered();
             }
           })
-        Text(`本步校验：${this.view.formStepIssues.length > 0 ? this.view.formStepIssues.join('；') : '通过'}`)
+        Text(localize('ac_formscenepage_009', [this.view.formStepIssues.length > 0 ? this.view.formStepIssues.join('；') : localize('ac_formscenepage_010')]))
           .fontSize(13).fontColor(LEARNING_INK).width('100%')
-        Text(`整表待完善 ${this.view.formIssues.length} 项`).fontSize(12).fontColor(LEARNING_MUTED).width('100%')
+        Text(localize('ac_formscenepage_011', [this.view.formIssues.length])).fontSize(12).fontColor(LEARNING_MUTED).width('100%')
         Row({ space: 10 }) {
-          Button('上一步', { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
+          Button($r('app.string.ac_formscenepage_012'), { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
             .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
             .onClick((): void => { getLearningController()?.sceneWorkbench.previousFormStep(); })
-          Button('下一步', { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
+          Button($r('app.string.ac_formscenepage_013'), { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
             .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
             .onClick((): void => { getLearningController()?.sceneWorkbench.nextFormStep(); })
         }.width('100%')
-        Button('保存草稿').width('100%').height(48).fontSize(15).backgroundColor(LEARNING_BLUE).borderRadius(10)
+        Button($r('app.string.ac_formscenepage_014')).width('100%').height(48).fontSize(15).backgroundColor(LEARNING_BLUE).borderRadius(10)
           .enabled(this.view.editable).onClick((): void => { getLearningController()?.sceneWorkbench.saveForm(); })
-        Button('校验并确认完成', { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
+        Button($r('app.string.ac_formscenepage_015'), { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
           .onClick((): void => { getLearningController()?.sceneWorkbench.confirmForm(); })
-        Text(this.view.formConfirmed ? '已确认完成（仅本地示例，不发送服务器）' : '尚未确认完成')
+        Text(this.view.formConfirmed ? localize('ac_formscenepage_016') : localize('ac_formscenepage_017'))
           .fontSize(13).fontColor(LEARNING_INK).width('100%')
         Text(this.view.error.length > 0 ? this.view.error : this.view.notice)
           .fontSize(14).fontColor(LEARNING_INK).width('100%')
