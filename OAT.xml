@@ -275,6 +275,13 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/VideoPlayer.tgz" desc="Provided by code/Solutions/Media/MultiMedia"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/CameraPage-1.0.0.tgz" desc="Provided by code/Solutions/Media/MultiMedia"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AVRecorder/lib/VideoRecorder-1.0.0.tgz" desc="Provided by code/BasicFeature/Media/AVRecorder"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/background.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/foreground.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/background.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/foreground.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/startIcon.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/ohosTest/resources/base/media/startIcon.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/screenshots/main_page.png" desc="Provided by PhotoPickerAndSendable screenshots"/>
 				<filteritem type="filepath" name="code/SystemFeature/FileManagement/MediaCollections/screenshots/devices/drm_play_page.png" desc="Provided by code/SystemFeature/FileManagement/FileManager/MediaCollections"/>
 				<filteritem type="filepath" name="code/SystemFeature/FileManagement/MediaCollections/screenshots/devices/drm_playlist.png" desc="Provided by code/SystemFeature/FileManagement/FileManager/MediaCollections"/>
 				<filteritem type="filepath" name="code/SystemFeature/FileManagement/MediaCollections/screenshots/devices/video.png" desc="Provided by code/SystemFeature/FileManagement/FileManager/MediaCollections"/>
@@ -2593,6 +2600,13 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/Solutions/Shopping/OrangeShopping/libs/ohos-notification-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/VideoPlayer.tgz" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AVRecorder/lib/VideoRecorder-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/ohosTest/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/screenshots/main_page.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Connectivity/VPN/lib/VPNFoundation-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/UI/ArkTsComponentCollection/ComponentCollection/lib/DragEvent-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
 				<filteritem type="filepath" name="code/UI/TabContentTouchHotZone/casesfeature/tabcontentoverflow/src/main/resources/rawfile/tabcontentoverflow_play_video.MP4" desc="二进制文件，无需添加License头"/>
@@ -2666,6 +2680,13 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/Solutions/Shopping/OrangeShopping/libs/ohos-video-component-1.0.5.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/VideoPlayer.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AVRecorder/lib/VideoRecorder-1.0.0.tgz" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/ohosTest/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Connectivity/VPN/lib/VPNFoundation-1.0.0.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/UI/ArkTsComponentCollection/ComponentCollection/lib/DragEvent-1.0.0.tgz" desc="二进制文件，无需添加版权头"/>
 				<filteritem type="filepath" name="code/UI/TabContentTouchHotZone/casesfeature/tabcontentoverflow/src/main/resources/rawfile/tabcontentoverflow_play_video.MP4" desc="二进制文件，无需添加版权头"/>
