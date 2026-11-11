@@ -19,6 +19,10 @@
     {
       "name": "back_button",
       "value": "click to back"
+    },
+    {
+      "name": "hello_world",
+      "value": "HelloWorld"
     }
   ]
 }
