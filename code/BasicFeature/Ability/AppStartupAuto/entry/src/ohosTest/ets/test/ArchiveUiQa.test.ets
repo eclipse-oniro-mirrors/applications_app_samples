@@ -7,7 +7,9 @@ import { archiveQaClick, archiveQaInput, archiveQaNode, archiveQaText, currentAr
 
 export default function archiveUiQaTests(): void {
   describe('ArchiveUiQa', (): void => {
-    afterEach(async (): Promise<void> => { await finishArchiveUiQa(); });
+    afterEach(async (): Promise<void> => {
+      await finishArchiveUiQa();
+    });
 
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0100
@@ -51,7 +53,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0300
      * @tc.name testArchiveUiQa0003
-     * @tc.desc A known failed save displays failure, keeps the committed archive empty, and allows an explicit retrying save.
+     * @tc.desc A known failed save displays failure, keeps the committed archive empty,
+     * and allows an explicit retrying save.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -73,7 +76,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0400
      * @tc.name testArchiveUiQa0004
-     * @tc.desc Source filtering updates scope statistics and clears details when a previously selected row leaves the visible range.
+     * @tc.desc Source filtering updates scope statistics and clears details
+     * when a previously selected row leaves the visible range.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -81,8 +85,11 @@ export default function archiveUiQaTests(): void {
     it('testArchiveUiQa0004', 0, async (): Promise<void> => {
       const driver = await launchArchiveUiQa('seeded');
       const fixture = currentArchiveUiQa();
-      const failure = fixture.repository.snapshot().rows.find((row): boolean => row.record.outcome === QueryOutcome.FAILURE);
-      if (failure === undefined) { throw new Error('Production archive did not contain the seeded failure'); }
+      const failure = fixture.repository.snapshot().rows.find(
+        (row): boolean => row.record.outcome === QueryOutcome.FAILURE);
+      if (failure === undefined) {
+        throw new Error('Production archive did not contain the seeded failure');
+      }
       await archiveQaClick(driver, `archive-row-${failure.archiveId}`);
       expect((await archiveQaText(driver, 'archive-details')).indexOf('16000050') >= 0).assertTrue();
       await archiveQaClick(driver, 'archive-source-manual');
@@ -95,7 +102,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0500
      * @tc.name testArchiveUiQa0005
-     * @tc.desc Real search input finds an exact error code and an unmatched scope disables copying without changing stored evidence.
+     * @tc.desc Real search input finds an exact error code and an unmatched scope disables copying
+     * without changing stored evidence.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -114,7 +122,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0600
      * @tc.name testArchiveUiQa0006
-     * @tc.desc Automatic capture is opt-in: cancelling its real confirmation writes nothing, while confirming enables later production capture.
+     * @tc.desc Automatic capture is opt-in: cancelling its real confirmation writes nothing,
+     * while confirming enables later production capture.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -170,7 +179,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0800
      * @tc.name testArchiveUiQa0008
-     * @tc.desc Confirmed production cleanup removes the aged record but retains the recent protected evidence and live records.
+     * @tc.desc Confirmed production cleanup removes the aged record
+     * but retains the recent protected evidence and live records.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -191,7 +201,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0900
      * @tc.name testArchiveUiQa0009
-     * @tc.desc New evidence arriving after cleanup preview makes its confirmation stale rather than deleting from a changed revision.
+     * @tc.desc New evidence arriving after cleanup preview makes its confirmation stale
+     * rather than deleting from a changed revision.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -213,7 +224,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_1000
      * @tc.name testArchiveUiQa0010
-     * @tc.desc Actual clear confirmation empties durable evidence without clearing live history or enabling empty-range copy.
+     * @tc.desc Actual clear confirmation empties durable evidence
+     * without clearing live history or enabling empty-range copy.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -234,7 +246,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_1100
      * @tc.name testArchiveUiQa0011
-     * @tc.desc Copy waits for its isolated clipboard acknowledgment and exports redacted current-scope evidence, not raw errors.
+     * @tc.desc Copy waits for its isolated clipboard acknowledgment
+     * and exports redacted current-scope evidence, not raw errors.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -249,7 +262,9 @@ export default function archiveUiQaTests(): void {
       expect(fixture.clipboard.texts[0].indexOf('qa-private-error-detail')).assertEqual(-1);
       fixture.release();
       const notice = await driver.waitForComponent(ON.text('脱敏归档已复制'), 3000);
-      if (notice === undefined || notice === null) { throw new Error('Copy acknowledgment was not rendered'); }
+      if (notice === undefined || notice === null) {
+        throw new Error('Copy acknowledgment was not rendered');
+      }
       expect(await archiveQaText(driver, 'archive-notice')).assertEqual('脱敏归档已复制');
       expect(fixture.storage.writes).assertEqual(1);
     });
@@ -257,7 +272,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_1200
      * @tc.name testArchiveUiQa0012
-     * @tc.desc A rejected clipboard promise restores real action availability and displays failure without a storage write.
+     * @tc.desc A rejected clipboard promise restores real action availability
+     * and displays failure without a storage write.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
@@ -266,7 +282,9 @@ export default function archiveUiQaTests(): void {
       const driver = await launchArchiveUiQa('copyFailure');
       await archiveQaClick(driver, 'archive-copy');
       const notice = await driver.waitForComponent(ON.text('复制失败，请重试'), 3000);
-      if (notice === undefined || notice === null) { throw new Error('Rejected clipboard status was not rendered'); }
+      if (notice === undefined || notice === null) {
+        throw new Error('Rejected clipboard status was not rendered');
+      }
       expect(await archiveQaText(driver, 'archive-notice')).assertEqual('复制失败，请重试');
       expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertTrue();
       expect(currentArchiveUiQa().storage.writes).assertEqual(1);
@@ -276,7 +294,8 @@ export default function archiveUiQaTests(): void {
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_1300
      * @tc.name testArchiveUiQa0013
-     * @tc.desc A failed archive read gates destructive actions and the actual retry entry recovers without replacing the original database.
+     * @tc.desc A failed archive read gates destructive actions and the actual retry entry recovers
+     * without replacing the original database.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2

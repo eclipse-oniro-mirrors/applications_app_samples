@@ -16,12 +16,20 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0001', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const copy = new SceneBackupClipboard(port); const raw = backupRaw('长正文'.repeat(300));
+      const port = new BackupClipboardPort();
+      const copy = new SceneBackupClipboard(port);
+      const raw = backupRaw('长正文'.repeat(300));
       const pending = copy.copy(raw); const written = readSceneBackup(port.writes[0]).workspace as SceneWorkspace;
-      expect(findScene(written, 'note')?.state.note.body).assertEqual('长正文'.repeat(300)); expect(port.replies.length).assertEqual(1);
-      const competing = await copy.copy(backupRaw('另一个副本')); expect(competing.code).assertEqual(SceneBackupCopyCode.BUSY); expect(port.writes.length).assertEqual(1);
+      expect(findScene(written, 'note')?.state.note.body).assertEqual('长正文'.repeat(300));
+      expect(port.replies.length).assertEqual(1);
+      const competing = await copy.copy(backupRaw('另一个副本'));
+      expect(competing.code).assertEqual(SceneBackupCopyCode.BUSY);
+      expect(port.writes.length).assertEqual(1);
       port.replies[0].succeed(); const result = await pending;
-      expect(result.code).assertEqual(SceneBackupCopyCode.COPIED); expect(result.copied).assertTrue(); expect(result.message.indexOf('未加密') >= 0).assertTrue(); copy.dispose();
+      expect(result.code).assertEqual(SceneBackupCopyCode.COPIED);
+      expect(result.copied).assertTrue();
+      expect(result.message.indexOf('未加密') >= 0).assertTrue();
+      copy.dispose();
     });
 
     /**
@@ -33,12 +41,18 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0002', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const copy = new SceneBackupClipboard(port); const pending = copy.copy(backupRaw());
+      const port = new BackupClipboardPort();
+      const copy = new SceneBackupClipboard(port);
+      const pending = copy.copy(backupRaw());
       port.replies[0].fail('13812345678 私密正文地址'); const failed = await pending;
-      expect(failed.code).assertEqual(SceneBackupCopyCode.FAILED); expect(failed.copied).assertFalse(); expect(failed.message.indexOf('13812345678')).assertEqual(-1);
+      expect(failed.code).assertEqual(SceneBackupCopyCode.FAILED);
+      expect(failed.copied).assertFalse();
+      expect(failed.message.indexOf('13812345678')).assertEqual(-1);
       const retry = copy.copy(backupRaw('第二次主动复制')); port.replies[1].succeed(); const completed = await retry;
       expect(completed.code).assertEqual(SceneBackupCopyCode.COPIED); expect(port.writes.length).assertEqual(2);
-      const root = readSceneBackup(port.writes[1]).workspace as SceneWorkspace; expect(findScene(root, 'note')?.state.note.body).assertEqual('第二次主动复制'); copy.dispose();
+      const root = readSceneBackup(port.writes[1]).workspace as SceneWorkspace;
+      expect(findScene(root, 'note')?.state.note.body).assertEqual('第二次主动复制');
+      copy.dispose();
     });
 
     /**
@@ -50,10 +64,20 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0003', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const copy = new SceneBackupClipboard(port); port.throwBeforePromise = true;
-      const failed = await copy.copy(backupRaw()); expect(failed.code).assertEqual(SceneBackupCopyCode.FAILED); expect(failed.message.indexOf('private clipboard')).assertEqual(-1);
-      port.throwBeforePromise = false; const retry = copy.copy(backupRaw('恢复复制')); port.replies[0].succeed(); const result = await retry;
-      expect(result.copied).assertTrue(); expect(port.writes.length).assertEqual(2); expect(port.replies.length).assertEqual(1); copy.dispose();
+      const port = new BackupClipboardPort();
+      const copy = new SceneBackupClipboard(port);
+      port.throwBeforePromise = true;
+      const failed = await copy.copy(backupRaw());
+      expect(failed.code).assertEqual(SceneBackupCopyCode.FAILED);
+      expect(failed.message.indexOf('private clipboard')).assertEqual(-1);
+      port.throwBeforePromise = false;
+      const retry = copy.copy(backupRaw('恢复复制'));
+      port.replies[0].succeed();
+      const result = await retry;
+      expect(result.copied).assertTrue();
+      expect(port.writes.length).assertEqual(2);
+      expect(port.replies.length).assertEqual(1);
+      copy.dispose();
     });
 
     /**
@@ -65,11 +89,15 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0004', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const copy = new SceneBackupClipboard(port); const pending = copy.copy(backupRaw());
+      const port = new BackupClipboardPort();
+      const copy = new SceneBackupClipboard(port);
+      const pending = copy.copy(backupRaw());
       copy.dispose(); port.replies[0].fail('私密地址秘密电话 13812345678'); const abandoned = await pending;
       expect(abandoned.code).assertEqual(SceneBackupCopyCode.ABANDONED); expect(abandoned.copied).assertFalse();
-      expect(abandoned.message.indexOf('13812345678')).assertEqual(-1); expect(abandoned.message.indexOf('私密地址')).assertEqual(-1);
-      expect((await copy.copy(backupRaw())).code).assertEqual(SceneBackupCopyCode.BLOCKED); expect(port.writes.length).assertEqual(1);
+      expect(abandoned.message.indexOf('13812345678')).assertEqual(-1);
+      expect(abandoned.message.indexOf('私密地址')).assertEqual(-1);
+      expect((await copy.copy(backupRaw())).code).assertEqual(SceneBackupCopyCode.BLOCKED);
+      expect(port.writes.length).assertEqual(1);
     });
 
     /**
@@ -81,9 +109,15 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0005', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const copy = new SceneBackupClipboard(port); const result = await copy.copy('{private-invalid-body');
-      expect(result.code).assertEqual(SceneBackupCopyCode.INVALID); expect(port.writes.length).assertEqual(0); expect(port.replies.length).assertEqual(0);
-      expect(result.message.indexOf('private-invalid-body')).assertEqual(-1); expect(result.copied).assertFalse(); copy.dispose();
+      const port = new BackupClipboardPort();
+      const copy = new SceneBackupClipboard(port);
+      const result = await copy.copy('{private-invalid-body');
+      expect(result.code).assertEqual(SceneBackupCopyCode.INVALID);
+      expect(port.writes.length).assertEqual(0);
+      expect(port.replies.length).assertEqual(0);
+      expect(result.message.indexOf('private-invalid-body')).assertEqual(-1);
+      expect(result.copied).assertFalse();
+      copy.dispose();
     });
 
     /**
@@ -95,11 +129,19 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0006', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const old = new SceneBackupClipboard(port); old.dispose(); const blocked = await old.copy(backupRaw());
+      const port = new BackupClipboardPort();
+      const old = new SceneBackupClipboard(port);
+      old.dispose();
+      const blocked = await old.copy(backupRaw());
       expect(blocked.code).assertEqual(SceneBackupCopyCode.BLOCKED); expect(port.writes.length).assertEqual(0);
-      const current = new SceneBackupClipboard(port); const pending = current.copy(backupRaw('新实例副本')); port.replies[0].succeed(); const result = await pending;
+      const current = new SceneBackupClipboard(port);
+      const pending = current.copy(backupRaw('新实例副本'));
+      port.replies[0].succeed();
+      const result = await pending;
       expect(result.copied).assertTrue(); const root = readSceneBackup(port.writes[0]).workspace as SceneWorkspace;
-      expect(findScene(root, 'note')?.state.note.body).assertEqual('新实例副本'); expect(port.writes.length).assertEqual(1); current.dispose();
+      expect(findScene(root, 'note')?.state.note.body).assertEqual('新实例副本');
+      expect(port.writes.length).assertEqual(1);
+      current.dispose();
     });
 
     /**
@@ -111,10 +153,17 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0007', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const copy = new SceneBackupClipboard(port); const pending = copy.copy(backupRaw('已交端口副本')); copy.dispose(); port.replies[0].succeed();
+      const port = new BackupClipboardPort();
+      const copy = new SceneBackupClipboard(port);
+      const pending = copy.copy(backupRaw('已交端口副本'));
+      copy.dispose();
+      port.replies[0].succeed();
       const result = await pending;
-      expect(result.code).assertEqual(SceneBackupCopyCode.ABANDONED); expect(result.copied).assertTrue(); expect(result.message.indexOf('自行管理') >= 0).assertTrue();
-      expect(port.writes.length).assertEqual(1); const root = readSceneBackup(port.writes[0]).workspace as SceneWorkspace;
+      expect(result.code).assertEqual(SceneBackupCopyCode.ABANDONED);
+      expect(result.copied).assertTrue();
+      expect(result.message.indexOf('自行管理') >= 0).assertTrue();
+      expect(port.writes.length).assertEqual(1);
+      const root = readSceneBackup(port.writes[0]).workspace as SceneWorkspace;
       expect(findScene(root, 'note')?.state.note.body).assertEqual('已交端口副本');
     });
 
@@ -127,14 +176,19 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0008', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const f = new BackupFixture(backupRaw('保存基线'), new SceneBackupClipboard(port));
+      const port = new BackupClipboardPort();
+      const f = new BackupFixture(backupRaw('保存基线'), new SceneBackupClipboard(port));
       try {
-        const exported = f.controller.sceneBackupSnapshot(); f.controller.sceneWorkbench.editNote('新标题', '刚发生的编辑', 0, 2);
+        const exported = f.controller.sceneBackupSnapshot();
+        f.controller.sceneWorkbench.editNote('新标题', '刚发生的编辑', 0, 2);
         const result = await f.controller.copySceneBackup(exported);
         expect(result.code).assertEqual(SceneBackupCopyCode.BLOCKED); expect(port.writes.length).assertEqual(0);
-        expect(f.controller.sceneWorkbench.snapshot().noteBody).assertEqual('刚发生的编辑'); expect(f.controller.sceneWorkbench.snapshot().noteSavedBody).assertEqual('保存基线');
+        expect(f.controller.sceneWorkbench.snapshot().noteBody).assertEqual('刚发生的编辑');
+        expect(f.controller.sceneWorkbench.snapshot().noteSavedBody).assertEqual('保存基线');
         expect(f.store.putCalls).assertEqual(0);
-      } finally { f.release(); }
+      } finally {
+        f.release();
+      }
     });
 
     /**
@@ -148,12 +202,18 @@ export default function sceneBackupClipboardCases(): void {
     it('testContinuationBackupClipboard0009', 0, async (): Promise<void> => {
       const port = new BackupClipboardPort(); const f = new BackupFixture('{损坏磁盘', new SceneBackupClipboard(port));
       try {
-        f.controller.sceneWorkbench.editNote('救援', '仍在内存的正文', 0, 3); const exported = f.controller.sceneBackupSnapshot(); const pending = f.controller.copySceneBackup(exported);
-        port.replies[0].succeed(); const result = await pending; const root = readSceneBackup(port.writes[0]).workspace as SceneWorkspace;
+        f.controller.sceneWorkbench.editNote('救援', '仍在内存的正文', 0, 3);
+        const exported = f.controller.sceneBackupSnapshot();
+        const pending = f.controller.copySceneBackup(exported);
+        port.replies[0].succeed();
+        const result = await pending;
+        const root = readSceneBackup(port.writes[0]).workspace as SceneWorkspace;
         expect(result.copied).assertTrue(); expect(findScene(root, 'note')?.state.note.body).assertEqual('仍在内存的正文');
         expect(f.controller.previewSceneBackup(backupRaw()).code).assertEqual(SceneBackupCode.FROZEN);
         expect(f.store.stored()).assertEqual('{损坏磁盘'); expect(f.store.putCalls).assertEqual(0);
-      } finally { f.release(); }
+      } finally {
+        f.release();
+      }
     });
 
     /**
@@ -165,14 +225,21 @@ export default function sceneBackupClipboardCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupClipboard0010', 0, async (): Promise<void> => {
-      const port = new BackupClipboardPort(); const f = new BackupFixture(backupRaw('生成时正文'), new SceneBackupClipboard(port));
+      const port = new BackupClipboardPort();
+      const f = new BackupFixture(backupRaw('生成时正文'), new SceneBackupClipboard(port));
       try {
         const exported = f.controller.sceneBackupSnapshot(); const pending = f.controller.copySceneBackup(exported);
-        f.controller.sceneWorkbench.editNote('后来修改', '复制期间的新正文', 0, 2); port.replies[0].succeed(); const result = await pending;
+        f.controller.sceneWorkbench.editNote('后来修改', '复制期间的新正文', 0, 2);
+        port.replies[0].succeed();
+        const result = await pending;
         expect(result.copied).assertTrue(); expect(result.message.indexOf('当前工作区已有变化') >= 0).assertTrue();
-        const root = readSceneBackup(port.writes[0]).workspace as SceneWorkspace; expect(findScene(root, 'note')?.state.note.body).assertEqual('生成时正文');
-        expect(f.controller.sceneWorkbench.snapshot().noteBody).assertEqual('复制期间的新正文'); expect(f.store.putCalls).assertEqual(0);
-      } finally { f.release(); }
+        const root = readSceneBackup(port.writes[0]).workspace as SceneWorkspace;
+        expect(findScene(root, 'note')?.state.note.body).assertEqual('生成时正文');
+        expect(f.controller.sceneWorkbench.snapshot().noteBody).assertEqual('复制期间的新正文');
+        expect(f.store.putCalls).assertEqual(0);
+      } finally {
+        f.release();
+      }
     });
   });
 }

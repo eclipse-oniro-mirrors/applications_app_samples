@@ -18,10 +18,13 @@ export default function sceneBackupLifecycleCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupLifecycle0001', 0, (): void => {
-      const store = new BackupStore(); const work = new SceneWorkbench(store); const first = work.previewBackup(backupRaw('第一份'));
+      const store = new BackupStore();
+      const work = new SceneWorkbench(store);
+      const first = work.previewBackup(backupRaw('第一份'));
       const second = work.previewBackup(backupRaw('第二份')); const stale = work.restoreBackup(first.token, true);
       expect(stale.code).assertEqual(SceneBackupCode.STALE); expect(store.putCalls).assertEqual(0);
-      expect(work.restoreBackup(second.token, true).ok).assertTrue(); expect(work.document('note').state.note.body).assertEqual('第二份');
+      expect(work.restoreBackup(second.token, true).ok).assertTrue();
+      expect(work.document('note').state.note.body).assertEqual('第二份');
       expect(work.document('form').state.form.name).assertEqual('备份用户'); work.dispose();
     });
 
@@ -34,11 +37,17 @@ export default function sceneBackupLifecycleCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupLifecycle0002', 0, (): void => {
-      const store = new BackupStore(backupRaw('本机', 3)); const work = new SceneWorkbench(store); const view = work.previewBackup(backupRaw('正式候选', 2)); const token = view.token;
+      const store = new BackupStore(backupRaw('本机', 3));
+      const work = new SceneWorkbench(store);
+      const view = work.previewBackup(backupRaw('正式候选', 2));
+      const token = view.token;
       view.token = 'tampered-token'; view.scenes[0].restoreRevision = 999; view.willClearKinds.push('note');
-      expect(work.restoreBackup(view.token, true).code).assertEqual(SceneBackupCode.STALE); expect(store.putCalls).assertEqual(0);
+      expect(work.restoreBackup(view.token, true).code).assertEqual(SceneBackupCode.STALE);
+      expect(store.putCalls).assertEqual(0);
       expect(work.restoreBackup(token, true).ok).assertTrue(); expect(work.document('note').revision).assertEqual(4);
-      expect(work.document('note').state.note.body).assertEqual('正式候选'); expect(work.document('form').state.form.name).assertEqual('备份用户'); work.dispose();
+      expect(work.document('note').state.note.body).assertEqual('正式候选');
+      expect(work.document('form').state.form.name).assertEqual('备份用户');
+      work.dispose();
     });
 
     /**
@@ -50,9 +59,14 @@ export default function sceneBackupLifecycleCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupLifecycle0003', 0, (): void => {
-      const store = new BackupStore(backupRaw('已保存')); const work = new SceneWorkbench(store); const exported = work.backupSnapshot(); const preview = work.previewBackup(backupRaw('旧候选'));
+      const store = new BackupStore(backupRaw('已保存'));
+      const work = new SceneWorkbench(store);
+      const exported = work.backupSnapshot();
+      const preview = work.previewBackup(backupRaw('旧候选'));
       work.editNote('最新草稿', '刚输入不能丢', 0, 3); const result = work.restoreBackup(preview.token, true);
-      expect(result.code).assertEqual(SceneBackupCode.STALE); expect(work.isBackupCurrent(exported.epoch)).assertFalse(); expect(work.snapshot().noteBody).assertEqual('刚输入不能丢');
+      expect(result.code).assertEqual(SceneBackupCode.STALE);
+      expect(work.isBackupCurrent(exported.epoch)).assertFalse();
+      expect(work.snapshot().noteBody).assertEqual('刚输入不能丢');
       expect(work.snapshot().noteSavedBody).assertEqual('已保存'); expect(store.putCalls).assertEqual(0); work.dispose();
     });
 
@@ -71,9 +85,12 @@ export default function sceneBackupLifecycleCases(): void {
         expect(f.controller.restoreSceneBackup(preview.token, true).code).assertEqual(SceneBackupCode.BLOCKED);
         expect(f.controller.previewSceneBackup(backupRaw()).code).assertEqual(SceneBackupCode.BLOCKED);
         expect(f.controller.snapshot().sessionActive).assertTrue(); expect(f.native.onCallbacks.length).assertEqual(1);
-        f.controller.stopLocalWait(); expect(f.controller.restoreSceneBackup(preview.token, true).code).assertEqual(SceneBackupCode.STALE);
+        f.controller.stopLocalWait();
+        expect(f.controller.restoreSceneBackup(preview.token, true).code).assertEqual(SceneBackupCode.STALE);
         expect(f.store.putCalls).assertEqual(0);
-      } finally { f.release(); }
+      } finally {
+        f.release();
+      }
     });
 
     /**
@@ -85,9 +102,16 @@ export default function sceneBackupLifecycleCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupLifecycle0005', 0, (): void => {
-      const raw = backupRaw('保存基线'); const store = new BackupStore(raw); const work = new SceneWorkbench(store); work.editNote('草稿', '取消后还在', 0, 2);
-      const preview = work.previewBackup(backupRaw('不要恢复')); work.cancelBackupPreview(); const result = work.restoreBackup(preview.token, true);
-      expect(result.code).assertEqual(SceneBackupCode.STALE); expect(work.snapshot().noteBody).assertEqual('取消后还在'); expect(work.snapshot().noteDirty).assertTrue();
+      const raw = backupRaw('保存基线');
+      const store = new BackupStore(raw);
+      const work = new SceneWorkbench(store);
+      work.editNote('草稿', '取消后还在', 0, 2);
+      const preview = work.previewBackup(backupRaw('不要恢复'));
+      work.cancelBackupPreview();
+      const result = work.restoreBackup(preview.token, true);
+      expect(result.code).assertEqual(SceneBackupCode.STALE);
+      expect(work.snapshot().noteBody).assertEqual('取消后还在');
+      expect(work.snapshot().noteDirty).assertTrue();
       expect(store.stored()).assertEqual(raw); expect(store.putCalls).assertEqual(0); work.dispose();
     });
 
@@ -100,11 +124,19 @@ export default function sceneBackupLifecycleCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupLifecycle0006', 0, (): void => {
-      const aStore = new BackupStore(); const bStore = new BackupStore(); const a = new SceneWorkbench(aStore); const b = new SceneWorkbench(bStore);
+      const aStore = new BackupStore();
+      const bStore = new BackupStore();
+      const a = new SceneWorkbench(aStore);
+      const b = new SceneWorkbench(bStore);
       const first = a.previewBackup(backupRaw('A候选')); const second = b.previewBackup(backupRaw('B候选'));
-      expect(b.restoreBackup(first.token, true).code).assertEqual(SceneBackupCode.STALE); expect(bStore.putCalls).assertEqual(0);
-      expect(b.restoreBackup(second.token, true).ok).assertTrue(); expect(b.document('note').state.note.body).assertEqual('B候选');
-      expect(a.document('note').state.note.body).assertEqual(''); expect(aStore.putCalls).assertEqual(0); a.dispose(); b.dispose();
+      expect(b.restoreBackup(first.token, true).code).assertEqual(SceneBackupCode.STALE);
+      expect(bStore.putCalls).assertEqual(0);
+      expect(b.restoreBackup(second.token, true).ok).assertTrue();
+      expect(b.document('note').state.note.body).assertEqual('B候选');
+      expect(a.document('note').state.note.body).assertEqual('');
+      expect(aStore.putCalls).assertEqual(0);
+      a.dispose();
+      b.dispose();
     });
 
     /**
@@ -117,10 +149,20 @@ export default function sceneBackupLifecycleCases(): void {
      */
     it('testContinuationBackupLifecycle0007', 0, (): void => {
       const f = new BackupFixture(backupRaw('本机私密内容')); let calls: number = 0;
-      f.controller.subscribe((): void => { calls++; }); const preview = f.controller.previewSceneBackup(backupRaw('候选')); const before = calls; f.release();
-      const result = f.controller.restoreSceneBackup(preview.token, true); const exported = f.controller.sceneBackupSnapshot();
-      expect(result.code).assertEqual(SceneBackupCode.BLOCKED); expect(exported.ok).assertFalse(); expect(exported.raw).assertEqual('');
-      expect(calls).assertEqual(before); expect(f.store.putCalls).assertEqual(0); expect(f.controller.sceneWorkbench.document('note').state.note.body).assertEqual('本机私密内容');
+      f.controller.subscribe((): void => {
+        calls++;
+      });
+      const preview = f.controller.previewSceneBackup(backupRaw('候选'));
+      const before = calls;
+      f.release();
+      const result = f.controller.restoreSceneBackup(preview.token, true);
+      const exported = f.controller.sceneBackupSnapshot();
+      expect(result.code).assertEqual(SceneBackupCode.BLOCKED);
+      expect(exported.ok).assertFalse();
+      expect(exported.raw).assertEqual('');
+      expect(calls).assertEqual(before);
+      expect(f.store.putCalls).assertEqual(0);
+      expect(f.controller.sceneWorkbench.document('note').state.note.body).assertEqual('本机私密内容');
     });
 
     /**
@@ -134,12 +176,24 @@ export default function sceneBackupLifecycleCases(): void {
     it('testContinuationBackupLifecycle0008', 0, (): void => {
       const f = new BackupFixture();
       try {
-        f.controller.updateText('文本已保存'); f.controller.saveText(); const disk = f.store.stored(STORE_KEY); const id = f.controller.snapshot().documentId;
-        f.controller.updateText('文本未保存编辑'); const preview = f.controller.previewSceneBackup(backupRaw()); const result = f.controller.restoreSceneBackup(preview.token, true);
-        expect(result.ok).assertTrue(); expect(f.controller.snapshot().text).assertEqual('文本未保存编辑'); expect(f.controller.snapshot().documentId).assertEqual(id);
-        expect(f.store.stored(STORE_KEY)).assertEqual(disk); expect(f.controller.snapshot().committed).assertFalse(); expect(f.controller.snapshot().sessionActive).assertFalse();
-        expect(f.native.onCallbacks.length).assertEqual(0); expect(f.controller.sceneWorkbench.document('form').state.form.address).assertEqual('备份地址');
-      } finally { f.release(); }
+        f.controller.updateText('文本已保存');
+        f.controller.saveText();
+        const disk = f.store.stored(STORE_KEY);
+        const id = f.controller.snapshot().documentId;
+        f.controller.updateText('文本未保存编辑');
+        const preview = f.controller.previewSceneBackup(backupRaw());
+        const result = f.controller.restoreSceneBackup(preview.token, true);
+        expect(result.ok).assertTrue();
+        expect(f.controller.snapshot().text).assertEqual('文本未保存编辑');
+        expect(f.controller.snapshot().documentId).assertEqual(id);
+        expect(f.store.stored(STORE_KEY)).assertEqual(disk);
+        expect(f.controller.snapshot().committed).assertFalse();
+        expect(f.controller.snapshot().sessionActive).assertFalse();
+        expect(f.native.onCallbacks.length).assertEqual(0);
+        expect(f.controller.sceneWorkbench.document('form').state.form.address).assertEqual('备份地址');
+      } finally {
+        f.release();
+      }
     });
 
     /**
@@ -153,14 +207,23 @@ export default function sceneBackupLifecycleCases(): void {
     it('testContinuationBackupLifecycle0009', 0, (): void => {
       const f = new BackupFixture();
       try {
-        f.controller.updateText('原文本身份正文'); f.controller.saveText(); const textId = f.controller.snapshot().documentId; f.controller.openScene('note');
-        const preview = f.controller.previewSceneBackup(backupRaw()); f.controller.restoreSceneBackup(preview.token, true);
-        expect(f.controller.snapshot().documentId).assertEqual('backup-note'); expect(f.controller.snapshot().revision).assertEqual(3);
+        f.controller.updateText('原文本身份正文');
+        f.controller.saveText();
+        const textId = f.controller.snapshot().documentId;
+        f.controller.openScene('note');
+        const preview = f.controller.previewSceneBackup(backupRaw());
+        f.controller.restoreSceneBackup(preview.token, true);
+        expect(f.controller.snapshot().documentId).assertEqual('backup-note');
+        expect(f.controller.snapshot().revision).assertEqual(3);
         f.controller.activateText(); const parameters: Record<string, Object> = {};
         expect(f.controller.buildContinuation(parameters)).assertEqual(AbilityConstant.OnContinueResult.AGREE);
         const payload = JSON.parse(parameters[TEXT_PAYLOAD_KEY] as string) as Record<string, Object>;
-        expect(payload['documentId']).assertEqual(textId); expect(payload['revision']).assertEqual(1); expect(payload['text']).assertEqual('原文本身份正文');
-      } finally { f.release(); }
+        expect(payload['documentId']).assertEqual(textId);
+        expect(payload['revision']).assertEqual(1);
+        expect(payload['text']).assertEqual('原文本身份正文');
+      } finally {
+        f.release();
+      }
     });
 
     /**
@@ -174,12 +237,19 @@ export default function sceneBackupLifecycleCases(): void {
     it('testContinuationBackupLifecycle0010', 0, (): void => {
       const f = new BackupFixture('{坏scene原档');
       try {
-        f.controller.sceneWorkbench.editNote('救援题', '内存救援正文', 0, 3); const exported = f.controller.sceneBackupSnapshot();
-        expect(exported.ok).assertTrue(); expect(exported.frozen).assertTrue(); expect(f.controller.previewSceneBackup(backupRaw()).code).assertEqual(SceneBackupCode.FROZEN);
-        f.controller.updateText('文本仍可独立保存'); f.controller.saveText(); const text = JSON.parse(f.store.stored(STORE_KEY) as string) as Record<string, Object>;
+        f.controller.sceneWorkbench.editNote('救援题', '内存救援正文', 0, 3);
+        const exported = f.controller.sceneBackupSnapshot();
+        expect(exported.ok).assertTrue();
+        expect(exported.frozen).assertTrue();
+        expect(f.controller.previewSceneBackup(backupRaw()).code).assertEqual(SceneBackupCode.FROZEN);
+        f.controller.updateText('文本仍可独立保存');
+        f.controller.saveText();
+        const text = JSON.parse(f.store.stored(STORE_KEY) as string) as Record<string, Object>;
         expect(text['text']).assertEqual('文本仍可独立保存'); expect(f.store.stored()).assertEqual('{坏scene原档');
         expect(f.controller.sceneWorkbench.snapshot().storageFrozen).assertTrue();
-      } finally { f.release(); }
+      } finally {
+        f.release();
+      }
     });
 
     /**
@@ -191,11 +261,21 @@ export default function sceneBackupLifecycleCases(): void {
      * @tc.level Level 2
      */
     it('testContinuationBackupLifecycle0011', 0, (): void => {
-      const store = new BackupStore(backupRaw('本机', 3)); const work = new SceneWorkbench(store); const preview = work.previewBackup(backupRaw('恢复', 2)); const nested: SceneBackupCode[] = [];
-      const stop = work.subscribe((): void => { nested.push(work.restoreBackup(preview.token, true).code); });
+      const store = new BackupStore(backupRaw('本机', 3));
+      const work = new SceneWorkbench(store);
+      const preview = work.previewBackup(backupRaw('恢复', 2));
+      const nested: SceneBackupCode[] = [];
+      const stop = work.subscribe((): void => {
+        nested.push(work.restoreBackup(preview.token, true).code);
+      });
       const result = work.restoreBackup(preview.token, true); stop();
-      expect(result.ok).assertTrue(); expect(nested[0]).assertEqual(SceneBackupCode.STALE); expect(store.putCalls).assertEqual(1);
-      expect(work.document('note').revision).assertEqual(4); expect(work.historyDocuments('note').length).assertEqual(1); expect(work.snapshot().noteBody).assertEqual('恢复'); work.dispose();
+      expect(result.ok).assertTrue();
+      expect(nested[0]).assertEqual(SceneBackupCode.STALE);
+      expect(store.putCalls).assertEqual(1);
+      expect(work.document('note').revision).assertEqual(4);
+      expect(work.historyDocuments('note').length).assertEqual(1);
+      expect(work.snapshot().noteBody).assertEqual('恢复');
+      work.dispose();
     });
   });
 }

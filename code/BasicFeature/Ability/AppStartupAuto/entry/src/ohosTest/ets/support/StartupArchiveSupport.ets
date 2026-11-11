@@ -9,22 +9,22 @@ let archiveMemoryIdentity: number = 0;
 
 /** An I/O fixture only: all validation, mutation and search stay in production. */
 export class ArchiveMemoryData {
-  value: ArchiveDocument = new ArchiveDocument();
-  key: string = `archive-memory-${++archiveMemoryIdentity}`;
+  public value: ArchiveDocument = new ArchiveDocument();
+  public key: string = `archive-memory-${++archiveMemoryIdentity}`;
 }
 
 export class ArchiveMemoryStorage implements ArchiveStorage {
-  data: ArchiveMemoryData;
-  reads: number = 0;
-  writes: number = 0;
-  closes: number = 0;
-  closed: boolean = false;
-  failRead: boolean = false;
-  failBefore: boolean = false;
-  failAfter: boolean = false;
-  failConfirmation: boolean = false;
-  holdWrites: boolean = false;
-  attempts: ArchiveDocument[] = [];
+  public data: ArchiveMemoryData;
+  public reads: number = 0;
+  public writes: number = 0;
+  public closes: number = 0;
+  public closed: boolean = false;
+  public failRead: boolean = false;
+  public failBefore: boolean = false;
+  public failAfter: boolean = false;
+  public failConfirmation: boolean = false;
+  public holdWrites: boolean = false;
+  public attempts: ArchiveDocument[] = [];
   private releases: (() => void)[] = [];
   constructor(data: ArchiveMemoryData = new ArchiveMemoryData()) { this.data = data; }
   identity(): string { return this.data.key; }
@@ -66,10 +66,10 @@ export function archiveSample(id: number, timestamp: number,
 }
 
 export class StartupArchiveFixture {
-  clock: ManualQueryClock = new ManualQueryClock();
-  api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
-  store: ArchiveMemoryStorage;
-  repository: StartupArchiveRepository;
+  public clock: ManualQueryClock = new ManualQueryClock();
+  public api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
+  public store: ArchiveMemoryStorage;
+  public repository: StartupArchiveRepository;
   public service: AutoStartupService;
   constructor(store: ArchiveMemoryStorage = new ArchiveMemoryStorage()) {
     this.store = store;

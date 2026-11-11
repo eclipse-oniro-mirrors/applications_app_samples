@@ -1,6 +1,11 @@
 import { describe, expect, it } from '@ohos/hypium';
 import { SceneWorkbench } from '../../../main/ets/learning/scene/SceneWorkbench';
-import { REVISION_LIMIT, emptyWorkspace, encodeWorkspace, stageScene } from '../../../main/ets/learning/scene/SceneModel';
+import {
+  REVISION_LIMIT,
+  emptyWorkspace,
+  encodeWorkspace,
+  stageScene
+} from '../../../main/ets/learning/scene/SceneModel';
 import { WaveSceneStore, fillWaveForm, waveNote, waveReading } from '../support/ContinuationWaveOneFixtures';
 
 export default function continuationWorkbenchWaveOne(): void {
@@ -19,7 +24,8 @@ export default function continuationWorkbenchWaveOne(): void {
       work.editNote('标题', 'A😀BC', 3, 4);
       expect(work.snapshot().noteDirty).assertTrue(); expect(work.open('reading')).assertFalse();
       work.discardNote();
-      expect(work.snapshot().noteSelectionStart).assertEqual(1); expect(work.snapshot().noteSelectionEnd).assertEqual(3);
+      expect(work.snapshot().noteSelectionStart).assertEqual(1);
+      expect(work.snapshot().noteSelectionEnd).assertEqual(3);
       expect(work.open('reading')).assertTrue(); expect(store.stored()).assertEqual(raw);
       work.dispose();
     });
@@ -38,7 +44,8 @@ export default function continuationWorkbenchWaveOne(): void {
       work.editNote('新题', 'A😀BC', 1, 3); const dirty = work.hasDirtyWork(); const saved = work.saveNote();
       const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
       expect(dirty).assertTrue(); expect(saved).assertTrue(); expect(reopened.snapshot().noteTitle).assertEqual('新题');
-      expect(reopened.snapshot().noteSavedBody).assertEqual('A😀BC'); expect(reopened.snapshot().noteSelectionEnd).assertEqual(3);
+      expect(reopened.snapshot().noteSavedBody).assertEqual('A😀BC');
+      expect(reopened.snapshot().noteSelectionEnd).assertEqual(3);
       expect(work.historyDocuments()[0].state.note.title).assertEqual('原题');
       work.dispose(); reopened.dispose();
     });
@@ -124,11 +131,18 @@ export default function continuationWorkbenchWaveOne(): void {
      */
     it('testContinuationWorkbenchWaveOne0007', 0, (): void => {
       const store = new WaveSceneStore(); const work = new SceneWorkbench(store); work.open('reading');
-      work.addBookmark(); work.gotoParagraph(1, 1); work.addBookmark(); work.gotoParagraph(2, 2); work.addBookmark(); work.saveReading();
+      work.addBookmark();
+      work.gotoParagraph(1, 1);
+      work.addBookmark();
+      work.gotoParagraph(2, 2);
+      work.addBookmark();
+      work.saveReading();
       expect(work.removeBookmark(1)).assertTrue(); expect(work.snapshot().readingDirty).assertTrue();
       work.saveReading(); const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
-      expect(reopened.snapshot().bookmarks.length).assertEqual(2); expect(reopened.snapshot().bookmarks[0].chapter).assertEqual(0);
-      expect(reopened.snapshot().bookmarks[1].chapter).assertEqual(2); expect(work.historyDocuments()[0].state.reading.bookmarks.length).assertEqual(3);
+      expect(reopened.snapshot().bookmarks.length).assertEqual(2);
+      expect(reopened.snapshot().bookmarks[0].chapter).assertEqual(0);
+      expect(reopened.snapshot().bookmarks[1].chapter).assertEqual(2);
+      expect(work.historyDocuments()[0].state.reading.bookmarks.length).assertEqual(3);
       work.dispose(); reopened.dispose();
     });
 
@@ -143,7 +157,9 @@ export default function continuationWorkbenchWaveOne(): void {
     it('testContinuationWorkbenchWaveOne0008', 0, (): void => {
       const store = new WaveSceneStore(); const work = new SceneWorkbench(store); work.open('reading');
       work.gotoParagraph(2, 1); work.addBookmark(); work.saveReading();
-      expect(work.removeBookmark(-1)).assertFalse(); expect(work.removeBookmark(0.5)).assertFalse(); expect(work.removeBookmark(1)).assertFalse();
+      expect(work.removeBookmark(-1)).assertFalse();
+      expect(work.removeBookmark(0.5)).assertFalse();
+      expect(work.removeBookmark(1)).assertFalse();
       expect(work.snapshot().bookmarks[0].anchor).assertEqual(1); expect(store.putCalls).assertEqual(1);
       expect(work.removeBookmark(0)).assertTrue(); expect(work.snapshot().error).assertEqual('');
       work.saveReading(); const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
@@ -175,11 +191,16 @@ export default function continuationWorkbenchWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationWorkbenchWaveOne0010', 0, (): void => {
-      const store = new WaveSceneStore(); const work = new SceneWorkbench(store); work.open('form'); fillWaveForm(work); work.confirmForm();
+      const store = new WaveSceneStore();
+      const work = new SceneWorkbench(store);
+      work.open('form');
+      fillWaveForm(work);
+      work.confirmForm();
       expect(work.setFormField('address', '新地址二号')).assertTrue(); expect(work.snapshot().formConfirmed).assertFalse();
       expect(work.snapshot().formDirty).assertTrue(); work.saveForm();
       const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
-      expect(reopened.snapshot().formAddress).assertEqual('新地址二号'); expect(reopened.snapshot().formConfirmed).assertFalse();
+      expect(reopened.snapshot().formAddress).assertEqual('新地址二号');
+      expect(reopened.snapshot().formConfirmed).assertFalse();
       expect(work.historyDocuments()[0].state.form.confirmed).assertTrue(); work.dispose(); reopened.dispose();
     });
 
@@ -192,7 +213,11 @@ export default function continuationWorkbenchWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationWorkbenchWaveOne0011', 0, (): void => {
-      const store = new WaveSceneStore(); const work = new SceneWorkbench(store); work.open('form'); fillWaveForm(work); work.confirmForm();
+      const store = new WaveSceneStore();
+      const work = new SceneWorkbench(store);
+      work.open('form');
+      fillWaveForm(work);
+      work.confirmForm();
       work.setFormAgreed(false); expect(work.confirmForm()).assertFalse(); expect(store.putCalls).assertEqual(1);
       expect(work.snapshot().formStepIssues.join('|')).assertEqual('需要确认信息无误'); work.saveForm();
       const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
@@ -209,10 +234,20 @@ export default function continuationWorkbenchWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationWorkbenchWaveOne0012', 0, (): void => {
-      const work = new SceneWorkbench(new WaveSceneStore()); work.open('form'); fillWaveForm(work); work.saveForm(); work.setFormField('name', '');
-      expect(work.gotoFormStep(0)).assertTrue(); expect(work.nextFormStep()).assertFalse(); expect(work.snapshot().formStep).assertEqual(0);
-      work.setFormField('name', '重新填写'); expect(work.gotoFormStep(2)).assertTrue(); expect(work.previousFormStep()).assertTrue();
-      expect(work.snapshot().formStep).assertEqual(1); expect(work.snapshot().formName).assertEqual('重新填写'); work.dispose();
+      const work = new SceneWorkbench(new WaveSceneStore());
+      work.open('form');
+      fillWaveForm(work);
+      work.saveForm();
+      work.setFormField('name', '');
+      expect(work.gotoFormStep(0)).assertTrue();
+      expect(work.nextFormStep()).assertFalse();
+      expect(work.snapshot().formStep).assertEqual(0);
+      work.setFormField('name', '重新填写');
+      expect(work.gotoFormStep(2)).assertTrue();
+      expect(work.previousFormStep()).assertTrue();
+      expect(work.snapshot().formStep).assertEqual(1);
+      expect(work.snapshot().formName).assertEqual('重新填写');
+      work.dispose();
     });
 
     /**
@@ -224,10 +259,18 @@ export default function continuationWorkbenchWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationWorkbenchWaveOne0013', 0, (): void => {
-      const store = new WaveSceneStore(); const work = new SceneWorkbench(store); work.open('form'); fillWaveForm(work); work.saveForm();
-      expect(work.gotoFormStep(-1)).assertFalse(); expect(work.gotoFormStep(1.5)).assertFalse(); expect(work.gotoFormStep(3)).assertFalse();
+      const store = new WaveSceneStore();
+      const work = new SceneWorkbench(store);
+      work.open('form');
+      fillWaveForm(work);
+      work.saveForm();
+      expect(work.gotoFormStep(-1)).assertFalse();
+      expect(work.gotoFormStep(1.5)).assertFalse();
+      expect(work.gotoFormStep(3)).assertFalse();
       expect(work.snapshot().formStep).assertEqual(2); expect(store.putCalls).assertEqual(1);
-      expect(work.previousFormStep()).assertTrue(); expect(work.snapshot().formStepLabel).assertEqual('联系方式'); work.dispose();
+      expect(work.previousFormStep()).assertTrue();
+      expect(work.snapshot().formStepLabel).assertEqual('联系方式');
+      work.dispose();
     });
 
     /**
@@ -239,9 +282,15 @@ export default function continuationWorkbenchWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationWorkbenchWaveOne0014', 0, (): void => {
-      const store = new WaveSceneStore(); const work = new SceneWorkbench(store); work.open('form'); fillWaveForm(work); work.confirmForm();
-      expect(work.setFormField('unknown', '误填')).assertFalse(); expect(work.setFormField('phone', '1'.repeat(21))).assertFalse();
-      expect(work.setFormField('address', '址'.repeat(101))).assertFalse(); expect(work.setFormField('note', '\uDC00')).assertFalse();
+      const store = new WaveSceneStore();
+      const work = new SceneWorkbench(store);
+      work.open('form');
+      fillWaveForm(work);
+      work.confirmForm();
+      expect(work.setFormField('unknown', '误填')).assertFalse();
+      expect(work.setFormField('phone', '1'.repeat(21))).assertFalse();
+      expect(work.setFormField('address', '址'.repeat(101))).assertFalse();
+      expect(work.setFormField('note', '\uDC00')).assertFalse();
       expect(work.snapshot().formConfirmed).assertTrue(); expect(work.snapshot().formPhone).assertEqual('13800138000');
       expect(work.snapshot().formDirty).assertFalse(); expect(store.putCalls).assertEqual(1); work.dispose();
     });
@@ -258,8 +307,11 @@ export default function continuationWorkbenchWaveOne(): void {
       const store = new WaveSceneStore(); const work = new SceneWorkbench(store);
       work.editNote('甲', '甲正文', 0, 1); work.saveNote(); work.editNote('乙', '乙正文', 1, 2); work.saveNote();
       work.editNote('草稿', '待保留', 0, 2); const raw = store.stored();
-      expect(work.restoreHistory(-1)).assertFalse(); expect(work.restoreHistory(0.5)).assertFalse(); expect(work.restoreHistory(1)).assertFalse();
-      expect(work.snapshot().noteBody).assertEqual('待保留'); expect(work.historyDocuments()[0].state.note.body).assertEqual('甲正文');
+      expect(work.restoreHistory(-1)).assertFalse();
+      expect(work.restoreHistory(0.5)).assertFalse();
+      expect(work.restoreHistory(1)).assertFalse();
+      expect(work.snapshot().noteBody).assertEqual('待保留');
+      expect(work.historyDocuments()[0].state.note.body).assertEqual('甲正文');
       expect(store.stored()).assertEqual(raw); expect(work.snapshot().revision).assertEqual(2); work.dispose();
     });
 
@@ -278,7 +330,8 @@ export default function continuationWorkbenchWaveOne(): void {
       const history = work.historyDocuments(); history[0].state.reading.anchor = 2;
       const snapshot = work.snapshot(); snapshot.bookmarks.splice(0, 2);
       expect(work.document('reading').state.reading.bookmarks[0].chapter).assertEqual(0);
-      expect(work.historyDocuments()[0].state.reading.anchor).assertEqual(0); expect(work.snapshot().bookmarks.length).assertEqual(2);
+      expect(work.historyDocuments()[0].state.reading.anchor).assertEqual(0);
+      expect(work.snapshot().bookmarks.length).assertEqual(2);
       expect(work.hasDirtyWork()).assertFalse(); expect(store.putCalls).assertEqual(2); work.dispose();
     });
 
@@ -293,10 +346,15 @@ export default function continuationWorkbenchWaveOne(): void {
     it('testContinuationWorkbenchWaveOne0017', 0, (): void => {
       const store = new WaveSceneStore(); const work = new SceneWorkbench(store);
       work.editNote('本机标题', '本机草稿', 0, 2); const local = work.document('note');
-      const incoming = waveNote('preview-doc', 8, '远端保存正文'); incoming.state.note.body = '远端未保存'; incoming.state.note.selectionEnd = 2;
+      const incoming = waveNote('preview-doc', 8, '远端保存正文');
+      incoming.state.note.body = '远端未保存';
+      incoming.state.note.selectionEnd = 2;
       const preview = work.snapshot(incoming);
-      expect(preview.noteBody).assertEqual('远端未保存'); expect(preview.noteDirty).assertTrue(); expect(preview.revision).assertEqual(8);
-      expect(work.snapshot().noteTitle).assertEqual('本机标题'); expect(work.document('note').documentId).assertEqual(local.documentId);
+      expect(preview.noteBody).assertEqual('远端未保存');
+      expect(preview.noteDirty).assertTrue();
+      expect(preview.revision).assertEqual(8);
+      expect(work.snapshot().noteTitle).assertEqual('本机标题');
+      expect(work.document('note').documentId).assertEqual(local.documentId);
       expect(store.putCalls).assertEqual(0); work.dispose();
     });
 
@@ -310,12 +368,17 @@ export default function continuationWorkbenchWaveOne(): void {
      */
     it('testContinuationWorkbenchWaveOne0018', 0, (): void => {
       const root = stageScene(emptyWorkspace(), waveNote('same-doc', 2), 'note');
-      const store = new WaveSceneStore(encodeWorkspace(root)); const work = new SceneWorkbench(store); const incoming = work.document('note');
+      const store = new WaveSceneStore(encodeWorkspace(root));
+      const work = new SceneWorkbench(store);
+      const incoming = work.document('note');
       incoming.transferId = 'new-delivery';
       expect(work.conflictReason(incoming)).assertEqual(''); expect(work.commitIncoming(incoming, false)).assertTrue();
       expect(work.snapshot().revision).assertEqual(2); expect(work.historyDocuments().length).assertEqual(0);
       const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
-      expect(reopened.document('note').transferId).assertEqual('new-delivery'); expect(reopened.hasDirtyWork()).assertFalse(); work.dispose(); reopened.dispose();
+      expect(reopened.document('note').transferId).assertEqual('new-delivery');
+      expect(reopened.hasDirtyWork()).assertFalse();
+      work.dispose();
+      reopened.dispose();
     });
 
     /**
@@ -328,7 +391,9 @@ export default function continuationWorkbenchWaveOne(): void {
      */
     it('testContinuationWorkbenchWaveOne0019', 0, (): void => {
       const root = stageScene(emptyWorkspace(), waveNote('old-doc', 7, '本机已保存'), 'note');
-      const store = new WaveSceneStore(encodeWorkspace(root)); const work = new SceneWorkbench(store); const incoming = waveNote('old-doc', 3, '远端旧正文');
+      const store = new WaveSceneStore(encodeWorkspace(root));
+      const work = new SceneWorkbench(store);
+      const incoming = waveNote('old-doc', 3, '远端旧正文');
       expect(work.conflictReason(incoming)).assertEqual('同文档旧修订或同号不同状态，需明确选择。');
       expect(work.commitIncoming(incoming, true)).assertTrue(); expect(work.snapshot().revision).assertEqual(8);
       expect(work.snapshot().noteBody).assertEqual('远端旧正文'); expect(work.historyDocuments()[0].revision).assertEqual(7);
@@ -345,11 +410,17 @@ export default function continuationWorkbenchWaveOne(): void {
      */
     it('testContinuationWorkbenchWaveOne0020', 0, (): void => {
       const root = stageScene(emptyWorkspace(), waveNote('newer-doc', 2, '本机基线'), 'note');
-      const store = new WaveSceneStore(encodeWorkspace(root)); const work = new SceneWorkbench(store); const incoming = waveNote('newer-doc', 9, '新修订内容');
+      const store = new WaveSceneStore(encodeWorkspace(root));
+      const work = new SceneWorkbench(store);
+      const incoming = waveNote('newer-doc', 9, '新修订内容');
       expect(work.conflictReason(incoming)).assertEqual(''); expect(work.commitIncoming(incoming, false)).assertTrue();
       const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
-      expect(reopened.snapshot().revision).assertEqual(9); expect(reopened.snapshot().noteSavedBody).assertEqual('新修订内容');
-      expect(reopened.historyDocuments()[0].revision).assertEqual(2); expect(work.hasDirtyWork()).assertFalse(); work.dispose(); reopened.dispose();
+      expect(reopened.snapshot().revision).assertEqual(9);
+      expect(reopened.snapshot().noteSavedBody).assertEqual('新修订内容');
+      expect(reopened.historyDocuments()[0].revision).assertEqual(2);
+      expect(work.hasDirtyWork()).assertFalse();
+      work.dispose();
+      reopened.dispose();
     });
 
     /**
@@ -361,14 +432,18 @@ export default function continuationWorkbenchWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationWorkbenchWaveOne0021', 0, (): void => {
-      let root = stageScene(emptyWorkspace(), waveNote('old-note', 1), 'note'); root = stageScene(root, waveNote('old-note', 2), 'note');
-      root = stageScene(root, waveReading('keep-reading', 1), 'reading'); root = stageScene(root, waveReading('keep-reading', 2, 1, 1), 'reading');
+      let root = stageScene(emptyWorkspace(), waveNote('old-note', 1), 'note');
+      root = stageScene(root, waveNote('old-note', 2), 'note');
+      root = stageScene(root, waveReading('keep-reading', 1), 'reading');
+      root = stageScene(root, waveReading('keep-reading', 2, 1, 1), 'reading');
       const store = new WaveSceneStore(encodeWorkspace(root)); const work = new SceneWorkbench(store);
       expect(work.commitIncoming(waveNote('replacement-note', 1, '独立文档'), true)).assertTrue();
       expect(work.document('note').revision).assertEqual(2); expect(work.historyDocuments().length).assertEqual(1);
-      expect(work.historyDocuments()[0].documentId).assertEqual('keep-reading'); expect(work.document('reading').state.reading.anchor).assertEqual(1);
+      expect(work.historyDocuments()[0].documentId).assertEqual('keep-reading');
+      expect(work.document('reading').state.reading.anchor).assertEqual(1);
       const reopened = new SceneWorkbench(new WaveSceneStore(store.stored()));
-      expect(reopened.document('note').documentId).assertEqual('replacement-note'); expect(reopened.historyDocuments()[0].revision).assertEqual(1);
+      expect(reopened.document('note').documentId).assertEqual('replacement-note');
+      expect(reopened.historyDocuments()[0].revision).assertEqual(1);
       work.dispose(); reopened.dispose();
     });
 
@@ -381,10 +456,13 @@ export default function continuationWorkbenchWaveOne(): void {
      * @tc.level Level 2
      */
     it('testContinuationWorkbenchWaveOne0022', 0, (): void => {
-      const store = new WaveSceneStore(); const work = new SceneWorkbench(store); const incoming = waveNote('limit-doc', REVISION_LIMIT, '上限正文');
+      const store = new WaveSceneStore();
+      const work = new SceneWorkbench(store);
+      const incoming = waveNote('limit-doc', REVISION_LIMIT, '上限正文');
       expect(work.commitIncoming(incoming, false)).assertTrue(); const raw = store.stored();
       work.editNote('上限后草稿', '仍可编辑', 0, 1); expect(work.saveNote()).assertFalse();
-      expect(work.snapshot().revision).assertEqual(REVISION_LIMIT); expect(work.snapshot().noteSavedBody).assertEqual('上限正文');
+      expect(work.snapshot().revision).assertEqual(REVISION_LIMIT);
+      expect(work.snapshot().noteSavedBody).assertEqual('上限正文');
       expect(store.stored()).assertEqual(raw); expect(work.snapshot().noteBody).assertEqual('仍可编辑'); work.dispose();
     });
   });

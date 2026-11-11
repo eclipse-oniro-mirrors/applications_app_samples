@@ -3,7 +3,7 @@ import { AutoStartupApi, QueryClock } from '../../../main/ets/autostart/AutoStar
 import { AutoStartupService } from '../../../main/ets/autostart/AutoStartupService';
 
 export class TestBusinessError extends Error implements BusinessError {
-  code: number;
+  public code: number;
 
   constructor(code: number, message: string) {
     super(message);
@@ -13,7 +13,7 @@ export class TestBusinessError extends Error implements BusinessError {
 }
 
 class PendingQuery {
-  readonly promise: Promise<boolean>;
+  public readonly promise: Promise<boolean>;
   public resolve: (value: boolean) => void = (): void => {};
   public reject: (error: BusinessError) => void = (): void => {};
 
@@ -26,11 +26,11 @@ class PendingQuery {
 }
 
 export class ControlledAutoStartupApi implements AutoStartupApi {
-  supported: boolean = true;
-  probeError: TestBusinessError | null = null;
-  queryError: TestBusinessError | null = null;
-  probeCalls: number = 0;
-  queryCalls: number = 0;
+  public supported: boolean = true;
+  public probeError: TestBusinessError | null = null;
+  public queryError: TestBusinessError | null = null;
+  public probeCalls: number = 0;
+  public queryCalls: number = 0;
   private requests: PendingQuery[] = [];
 
   isAutoStartupSupported(): boolean {
@@ -79,9 +79,9 @@ export class ControlledAutoStartupApi implements AutoStartupApi {
 }
 
 class ScheduledCallback {
-  readonly id: number;
-  readonly dueAt: number;
-  readonly callback: () => void;
+  public readonly id: number;
+  public readonly dueAt: number;
+  public readonly callback: () => void;
 
   constructor(id: number, dueAt: number, callback: () => void) {
     this.id = id;
@@ -147,8 +147,8 @@ export class ManualQueryClock implements QueryClock {
 }
 
 export class AutoStartupFixture {
-  readonly api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
-  readonly clock: ManualQueryClock = new ManualQueryClock();
+  public readonly api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
+  public readonly clock: ManualQueryClock = new ManualQueryClock();
   public readonly service: AutoStartupService = new AutoStartupService(this.api, this.clock);
 }
 

@@ -11,35 +11,46 @@ import { RuntimeProbePort } from '../../../main/ets/autostart/diagnostics/Diagno
 import { ControlledAutoStartupApi, ManualQueryClock, TestBusinessError, flushMicrotasks } from '../support/TestSupport';
 
 class FlowStore implements HistoryStorage {
-  value: string = '';
-  failRead: boolean = false;
-  failWrite: boolean = false;
-  hold: boolean = false;
-  reads: number = 0;
-  writes: number = 0;
+  public value: string = '';
+  public failRead: boolean = false;
+  public failWrite: boolean = false;
+  public hold: boolean = false;
+  public reads: number = 0;
+  public writes: number = 0;
   private releaseWrite: (() => void) | undefined = undefined;
   read(): string {
     this.reads++;
-    if (this.failRead) { throw new Error('controlled read failure'); }
+    if (this.failRead) {
+      throw new Error('controlled read failure');
+    }
     return this.value;
   }
   async write(value: string): Promise<void> {
     this.writes++;
-    if (this.hold) { await new Promise<void>((resolve): void => { this.releaseWrite = resolve; }); }
-    if (this.failWrite) { throw new Error('controlled write failure'); }
+    if (this.hold) {
+      await new Promise<void>((resolve): void => {
+        this.releaseWrite = resolve;
+      });
+    }
+    if (this.failWrite) {
+      throw new Error('controlled write failure');
+    }
     this.value = value;
   }
   release(): void {
     this.hold = false;
-    if (this.releaseWrite !== undefined) { this.releaseWrite(); this.releaseWrite = undefined; }
+    if (this.releaseWrite !== undefined) {
+      this.releaseWrite();
+      this.releaseWrite = undefined;
+    }
   }
 }
 class FlowFixture {
-  api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
-  clock: ManualQueryClock = new ManualQueryClock();
-  history: FlowStore = new FlowStore();
-  revisit: FlowStore = new FlowStore();
-  service: AutoStartupService;
+  public api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
+  public clock: ManualQueryClock = new ManualQueryClock();
+  public history: FlowStore = new FlowStore();
+  public revisit: FlowStore = new FlowStore();
+  public service: AutoStartupService;
   constructor() {
     this.service = new AutoStartupService(this.api, this.clock, this.history);
     this.service.attachRevisit(this.revisit);
@@ -52,7 +63,9 @@ class FlowFixture {
   }
   async arm(): Promise<string> {
     await this.sample(false, RefreshSource.INITIAL);
-    if (!this.service.beginRevisit()) { throw new Error('Expected successful arm'); }
+    if (!this.service.beginRevisit()) {
+      throw new Error('Expected successful arm');
+    }
     return this.service.revisitSnapshot().sessionId;
   }
   async save(): Promise<void> {
@@ -72,14 +85,22 @@ function row(id: number, time: number, source: RefreshSource, outcome: QueryOutc
 export default function serviceFlowsTest(): void {
   describe('AutoStartupProductionFlows', (): void => {
     let fixtures: FlowFixture[] = [];
-    const create = (): FlowFixture => { const fixture = new FlowFixture(); fixtures.push(fixture); return fixture; };
-    beforeEach((): void => { fixtures = []; });
+    const create = (): FlowFixture => {
+      const fixture = new FlowFixture();
+      fixtures.push(fixture);
+      return fixture;
+    };
+    beforeEach((): void => {
+      fixtures = [];
+    });
     afterEach(async (): Promise<void> => {
       fixtures.forEach((fixture: FlowFixture): void => {
         fixture.revisit.release(); fixture.history.release(); fixture.service.dispose(); fixture.api.finishPending();
       });
       await flushMicrotasks();
-      for (const fixture of fixtures) { await fixture.save(); }
+      for (const fixture of fixtures) {
+        await fixture.save();
+      }
     });
 
     /**
@@ -215,8 +236,11 @@ export default function serviceFlowsTest(): void {
 
     it('testAutoStartupProductionFlows0006', 0, async (): Promise<void> => {
       const f = create(); await f.arm(); f.service.onBackground(); await f.save();
-      const next = create(); next.clock.advance(REVISIT_TIMEOUT_MS + f.clock.now() - next.clock.now()); next.revisit.value = f.revisit.value;
-      next.service.attachRevisit(next.revisit); expect(next.service.revisitSnapshot().stage).assertEqual(RevisitStage.EXPIRED);
+      const next = create();
+      next.clock.advance(REVISIT_TIMEOUT_MS + f.clock.now() - next.clock.now());
+      next.revisit.value = f.revisit.value;
+      next.service.attachRevisit(next.revisit);
+      expect(next.service.revisitSnapshot().stage).assertEqual(RevisitStage.EXPIRED);
       next.service.onForeground(); next.api.resolveNext(true); await flushMicrotasks();
       const archived = next.service.revisitArchive()[0];
       expect(archived.stage).assertEqual(RevisitStage.EXPIRED); expect(archived.after).assertEqual(undefined);
@@ -303,9 +327,12 @@ export default function serviceFlowsTest(): void {
         f.service.cancelRevisit(); f.clock.advance(1);
       }
       await f.save(); const archive = f.service.revisitArchive();
-      expect(archive.length).assertEqual(REVISIT_ARCHIVE_LIMIT); expect(archive[0].sessionId).assertEqual(ids[ids.length - 1]);
+      expect(archive.length).assertEqual(REVISIT_ARCHIVE_LIMIT);
+      expect(archive[0].sessionId).assertEqual(ids[ids.length - 1]);
       expect(archive.find((item: RevisitSession): boolean => item.sessionId === ids[0])).assertEqual(undefined);
-      if (archive[0].before !== undefined) { archive[0].before.result = 'mutated'; }
+      if (archive[0].before !== undefined) {
+        archive[0].before.result = 'mutated';
+      }
       expect(f.service.revisitArchive()[0].before?.result).assertEqual('未开启');
       const decoded = new RevisitTracker(); decoded.restore(f.revisit.value, f.clock.now());
       expect(decoded.archived().length).assertEqual(REVISIT_ARCHIVE_LIMIT);
@@ -326,7 +353,9 @@ export default function serviceFlowsTest(): void {
       const f = create(); await f.sample(false, RefreshSource.INITIAL); f.service.beginRevisit();
       f.revisit.failRead = true; f.service.attachRevisit(f.revisit); await f.save();
       expect(f.service.revisitReadBlocked()).assertTrue(); expect(f.revisit.writes).assertEqual(0);
-      const external = new RevisitTracker(); external.begin(undefined, 2, f.clock.now() - 1); external.cancel(f.clock.now());
+      const external = new RevisitTracker();
+      external.begin(undefined, 2, f.clock.now() - 1);
+      external.cancel(f.clock.now());
       f.revisit.value = external.serialize(); const actual = f.revisit.value;
       f.revisit.failRead = false; f.service.retryRevisitRead(); await f.save();
       expect(f.revisit.value).assertEqual(actual); expect(f.revisit.writes).assertEqual(0);
@@ -376,7 +405,8 @@ export default function serviceFlowsTest(): void {
       expect(scope.records.length).assertEqual(2); expect(scope.summary.total).assertEqual(2);
       expect(scope.summary.failure).assertEqual(0); expect(scope.latestValid?.id).assertEqual(4);
       expect(scope.comparison.beforeId).assertEqual(2); expect(scope.comparison.afterId).assertEqual(4);
-      expect(scope.exportText.indexOf('#1 |')).assertEqual(-1); expect(scope.exportText.indexOf('#3 |')).assertEqual(-1);
+      expect(scope.exportText.indexOf('#1 |')).assertEqual(-1);
+      expect(scope.exportText.indexOf('#3 |')).assertEqual(-1);
       scope.records[0].result = 'mutated'; expect(f.service.records()[0].result).assertEqual('已开启');
     });
 
@@ -465,7 +495,9 @@ export default function serviceFlowsTest(): void {
       for (let index = 0; index < REVISIT_ATTEMPT_LIMIT + 1; index++) {
         f.api.rejectNext(new TestBusinessError(16000050, 'controlled'));
         await flushMicrotasks();
-        if (index < REVISIT_ATTEMPT_LIMIT) { f.service.retryRevisitQuery(); }
+        if (index < REVISIT_ATTEMPT_LIMIT) {
+          f.service.retryRevisitQuery();
+        }
       }
       expect(f.service.revisitSnapshot().attempts.length).assertEqual(REVISIT_ATTEMPT_LIMIT);
       const calls = f.api.queryCalls;

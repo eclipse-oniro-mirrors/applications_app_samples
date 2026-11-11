@@ -58,11 +58,11 @@ class ManualClock implements QueryClock {
 
 /** 记录调用的假采集器。 */
 class RecordingTelemetry implements StartupTelemetry {
-  beginCount: number = 0;
-  endCount: number = 0;
-  eventCount: number = 0;
-  lastOperation: string = '';
-  lastOutcome: string = '';
+  public beginCount: number = 0;
+  public endCount: number = 0;
+  public eventCount: number = 0;
+  public lastOperation: string = '';
+  public lastOutcome: string = '';
 
   begin(operation: string, _id: number): void {
     this.beginCount++;
@@ -84,7 +84,7 @@ class RecordingTelemetry implements StartupTelemetry {
 
 /** 任意入口都抛异常的采集器，用于验证隔离边界。 */
 class ThrowingTelemetry implements StartupTelemetry {
-  calls: number = 0;
+  public calls: number = 0;
 
   begin(_operation: string, _id: number): void {
     this.calls++;

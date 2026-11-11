@@ -5,34 +5,45 @@ import { QueryOutcome, QueryPhase, QueryRecord, RefreshSource } from '../../../m
 import { ControlledAutoStartupApi, ManualQueryClock, flushMicrotasks } from '../support/TestSupport';
 
 class RecoveryStore implements HistoryStorage {
-  value: string = '';
-  reads: number = 0;
-  writes: string[] = [];
-  failRead: boolean = false;
-  failWrite: boolean = false;
-  hold: boolean = false;
+  public value: string = '';
+  public reads: number = 0;
+  public writes: string[] = [];
+  public failRead: boolean = false;
+  public failWrite: boolean = false;
+  public hold: boolean = false;
   private releaseWrite: (() => void) | undefined = undefined;
   read(): string {
     this.reads++;
-    if (this.failRead) { throw new Error('read blocked'); }
+    if (this.failRead) {
+      throw new Error('read blocked');
+    }
     return this.value;
   }
   async write(value: string): Promise<void> {
     this.writes.push(value);
-    if (this.hold) { await new Promise<void>((resolve): void => { this.releaseWrite = resolve; }); }
-    if (this.failWrite) { throw new Error('write blocked'); }
+    if (this.hold) {
+      await new Promise<void>((resolve): void => {
+        this.releaseWrite = resolve;
+      });
+    }
+    if (this.failWrite) {
+      throw new Error('write blocked');
+    }
     this.value = value;
   }
   release(): void {
     this.hold = false;
-    if (this.releaseWrite !== undefined) { this.releaseWrite(); this.releaseWrite = undefined; }
+    if (this.releaseWrite !== undefined) {
+      this.releaseWrite();
+      this.releaseWrite = undefined;
+    }
   }
 }
 class RecoveryFixture {
-  api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
-  clock: ManualQueryClock = new ManualQueryClock();
-  store: RecoveryStore = new RecoveryStore();
-  service: AutoStartupService;
+  public api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
+  public clock: ManualQueryClock = new ManualQueryClock();
+  public store: RecoveryStore = new RecoveryStore();
+  public service: AutoStartupService;
   constructor(blocked: boolean = false) {
     this.store.failRead = blocked;
     this.service = new AutoStartupService(this.api, this.clock, this.store);
@@ -43,7 +54,9 @@ class RecoveryFixture {
     this.api.resolveNext(value);
     await flushMicrotasks();
   }
-  rows(): QueryRecord[] { return parseHistory(this.store.value, this.clock.now()).records; }
+  rows(): QueryRecord[] {
+    return parseHistory(this.store.value, this.clock.now()).records;
+  }
 }
 function recoveryRow(id: number, timestamp: number): QueryRecord {
   const row = new QueryRecord();
@@ -95,7 +108,8 @@ export default function startupRecoveryB2Test(): void {
      */
     it('testStartupRecoveryBatchTwo0002', 0, async (): Promise<void> => {
       const f = create(true); await f.sample(true);
-      f.store.value = serializeHistory([recoveryRow(1, f.clock.now() - 10), recoveryRow(9, f.clock.now() - 20)], f.clock.now());
+      f.store.value = serializeHistory([
+        recoveryRow(1, f.clock.now() - 10), recoveryRow(9, f.clock.now() - 20)], f.clock.now());
       f.store.failRead = false; f.service.retryHistoryRead(); await f.service.whenSaved();
       expect(f.rows().map((row: QueryRecord): number => row.id).join(',')).assertEqual('1,10,9');
       expect(f.service.records()[0].result).assertEqual('已开启');
@@ -169,7 +183,9 @@ export default function startupRecoveryB2Test(): void {
     it('testStartupRecoveryBatchTwo0006', 0, async (): Promise<void> => {
       const f = create(true); await f.sample(true);
       const stored: QueryRecord[] = [];
-      for (let i = 0; i < 20; i++) { stored.push(recoveryRow(100 + i, f.clock.now() - i - 1)); }
+      for (let i = 0; i < 20; i++) {
+        stored.push(recoveryRow(100 + i, f.clock.now() - i - 1));
+      }
       f.store.value = serializeHistory(stored, f.clock.now()); f.store.failRead = false;
       f.service.retryHistoryRead(); await f.service.whenSaved();
       expect(f.rows().length).assertEqual(20);
@@ -262,7 +278,8 @@ export default function startupRecoveryB2Test(): void {
      */
     it('testStartupRecoveryBatchTwo0011', 0, async (): Promise<void> => {
       const f = create(); f.store.hold = true; f.store.failWrite = true; await f.sample(true);
-      const other = new RecoveryStore(); other.value = serializeHistory([recoveryRow(60, f.clock.now())], f.clock.now());
+      const other = new RecoveryStore();
+      other.value = serializeHistory([recoveryRow(60, f.clock.now())], f.clock.now());
       f.service.attachHistory(other); f.store.release(); await f.service.whenSaved();
       expect(f.service.historyNotice()).assertEqual('');
       expect(f.service.records()[0].id).assertEqual(60);

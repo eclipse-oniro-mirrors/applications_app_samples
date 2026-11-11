@@ -9,14 +9,20 @@ import { StartupArchiveFixture, archiveFailureCode, archiveSample } from '../sup
 import { flushMicrotasks } from '../support/TestSupport';
 
 class ArchiveClipboardCapture implements ArchiveClipboardPort {
-  texts: string[] = [];
-  fail: boolean = false;
-  hold: boolean = false;
-  releases: (() => void)[] = [];
+  public texts: string[] = [];
+  public fail: boolean = false;
+  public hold: boolean = false;
+  public releases: (() => void)[] = [];
   async writeText(text: string): Promise<void> {
     this.texts.push(text);
-    if (this.hold) { await new Promise<void>((resolve): void => { this.releases.push(resolve); }); }
-    if (this.fail) { throw new Error('controlled clipboard failure'); }
+    if (this.hold) {
+      await new Promise<void>((resolve): void => {
+        this.releases.push(resolve);
+      });
+    }
+    if (this.fail) {
+      throw new Error('controlled clipboard failure');
+    }
   }
 }
 
@@ -27,8 +33,12 @@ export default function startupArchiveRepositoryTests(): void {
       const fixture = new StartupArchiveFixture(); fixtures.push(fixture); await fixture.open(); return fixture;
     };
     afterEach(async (): Promise<void> => {
-      fixtures.forEach((fixture: StartupArchiveFixture): void => { fixture.store.release(); });
-      for (const fixture of fixtures) { await fixture.dispose(); }
+      fixtures.forEach((fixture: StartupArchiveFixture): void => {
+        fixture.store.release();
+      });
+      for (const fixture of fixtures) {
+        await fixture.dispose();
+      }
       fixtures.splice(0, fixtures.length);
     });
 
@@ -136,7 +146,9 @@ export default function startupArchiveRepositoryTests(): void {
       const query = new ArchiveQuery(); query.source = RefreshSource.MANUAL; query.outcome = QueryOutcome.FAILURE;
       expect(f.repository.view(query).matchedTotal).assertEqual(0);
       expect(f.repository.view(query).dayLines.join(',')).assertEqual('');
-      expect(archiveFailureCode((): void => { f.repository.exportText(query); })).assertEqual('EMPTY');
+      expect(archiveFailureCode((): void => {
+        f.repository.exportText(query);
+      })).assertEqual('EMPTY');
       expect(f.repository.snapshot().rows[1].record.source).assertEqual(RefreshSource.SETTINGS);
     });
 
@@ -169,7 +181,8 @@ export default function startupArchiveRepositoryTests(): void {
     it('testStartupArchiveRepositoryWaveThree0008', 0, async (): Promise<void> => {
       const f = await create(); const midnight = new Date(2026, 10, 7, 0, 0, 0).getTime();
       f.clock.advance(midnight + 3600000 - f.clock.now());
-      await f.repository.save([archiveSample(1, midnight - 1), archiveSample(2, midnight), archiveSample(3, midnight + 1)]);
+      await f.repository.save([
+        archiveSample(1, midnight - 1), archiveSample(2, midnight), archiveSample(3, midnight + 1)]);
       const query = new ArchiveQuery(); query.day = dayKeyOf(midnight, localOffsetMinutes(f.clock.now()));
       const view = f.repository.view(query);
       expect(view.rows.map((row): number => row.record.id).join(',')).assertEqual('3,2');
@@ -188,7 +201,9 @@ export default function startupArchiveRepositoryTests(): void {
      */
     it('testStartupArchiveRepositoryWaveThree0009', 0, async (): Promise<void> => {
       const f = await create(); const records: QueryRecord[] = [];
-      for (let index = 1; index <= 51; index++) { records.push(archiveSample(index, f.clock.now() - index)); }
+      for (let index = 1; index <= 51; index++) {
+        records.push(archiveSample(index, f.clock.now() - index));
+      }
       await f.repository.save(records); const query = new ArchiveQuery(); query.page = 1;
       const view = f.repository.view(query);
       expect(view.rows[0].archiveId).assertEqual(51);
@@ -208,7 +223,9 @@ export default function startupArchiveRepositoryTests(): void {
      */
     it('testStartupArchiveRepositoryWaveThree0010', 0, async (): Promise<void> => {
       const f = await create(); const records: QueryRecord[] = [];
-      for (let index = 1; index <= ARCHIVE_MAX_ENTRIES; index++) { records.push(archiveSample(index, f.clock.now() - index)); }
+      for (let index = 1; index <= ARCHIVE_MAX_ENTRIES; index++) {
+        records.push(archiveSample(index, f.clock.now() - index));
+      }
       const initial = await f.repository.save(records);
       const rejected = await f.repository.save([archiveSample(999, f.clock.now())]);
       expect(initial.added).assertEqual(ARCHIVE_MAX_ENTRIES);
@@ -268,7 +285,8 @@ export default function startupArchiveRepositoryTests(): void {
       expect(result.code).assertEqual(ArchiveActionCode.BLOCKED);
       expect(f.repository.snapshot().rows.length).assertEqual(0);
       expect(f.store.data.value.rows[0].record.id).assertEqual(1);
-      expect((await f.repository.save([archiveSample(2, f.clock.now() + 1)])).code).assertEqual(ArchiveActionCode.BLOCKED);
+      expect((await f.repository.save([archiveSample(2, f.clock.now() + 1)])).code)
+        .assertEqual(ArchiveActionCode.BLOCKED);
       f.store.failRead = false; f.store.failAfter = false;
       await f.repository.reload(); const repeated = await f.repository.save([row]);
       expect(repeated.duplicates).assertEqual(1);
@@ -323,7 +341,8 @@ export default function startupArchiveRepositoryTests(): void {
      */
     it('testStartupArchiveRepositoryWaveThree0016', 0, async (): Promise<void> => {
       const f = await create(); const age = (defaultRetentionPolicy().maxDays + 3) * DAY_MS;
-      await f.repository.save([archiveSample(1, f.clock.now()), archiveSample(2, f.clock.now() - age, QueryOutcome.TIMEOUT, '等待超时')]);
+      await f.repository.save([archiveSample(1, f.clock.now()),
+        archiveSample(2, f.clock.now() - age, QueryOutcome.TIMEOUT, '等待超时')]);
       const plan = f.repository.previewCleanup(); await f.repository.save([archiveSample(3, f.clock.now() + 1)]);
       const result = await f.repository.applyCleanup(plan);
       expect(result.code).assertEqual(ArchiveActionCode.STALE);

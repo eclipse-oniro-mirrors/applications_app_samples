@@ -10,8 +10,8 @@ import { AutoStartupFixture, flushMicrotasks, ManualQueryClock, TestBusinessErro
 
 // A rejected native promise need not carry a BusinessError payload.
 class EmptyRejectionApi implements AutoStartupApi {
-  probeCalls: number = 0;
-  queryCalls: number = 0;
+  public probeCalls: number = 0;
+  public queryCalls: number = 0;
 
   isAutoStartupSupported(): boolean {
     this.probeCalls++;
@@ -54,7 +54,9 @@ export default function autoStartupAdditionalTest(): void {
     it('testAutoStartupAdditionalBranches0001', 0, async () => {
       const f = fixture;
       let notifications: number = 0;
-      f.service.subscribe((): void => { notifications++; });
+      f.service.subscribe((): void => {
+        notifications++;
+      });
       f.service.refresh(RefreshSource.INITIAL);
       expect(notifications).assertEqual(1);
       f.service.dispose();
@@ -100,7 +102,9 @@ export default function autoStartupAdditionalTest(): void {
       f.service.refresh(RefreshSource.SETTINGS);
       f.service.dispose();
       let notifications: number = 0;
-      const unsubscribe = f.service.subscribe((): void => { notifications++; });
+      const unsubscribe = f.service.subscribe((): void => {
+        notifications++;
+      });
       f.service.refresh(RefreshSource.INITIAL);
       f.service.refresh(RefreshSource.MANUAL);
       expect(f.api.queryCalls).assertEqual(1);
@@ -315,7 +319,9 @@ export default function autoStartupAdditionalTest(): void {
         throwingCalls++;
         throw new Error('page callback failure');
       });
-      const unsubscribeObserver = f.service.subscribe((): void => { observerCalls++; });
+      const unsubscribeObserver = f.service.subscribe((): void => {
+        observerCalls++;
+      });
       f.service.refresh(RefreshSource.INITIAL);
       expect(throwingCalls).assertEqual(1);
       expect(observerCalls).assertEqual(1);
@@ -357,11 +363,17 @@ export default function autoStartupAdditionalTest(): void {
         removeSecond();
         if (!added) {
           added = true;
-          removeAdded = f.service.subscribe((): void => { addedCalls++; });
+          removeAdded = f.service.subscribe((): void => {
+            addedCalls++;
+          });
         }
       });
-      removeSecond = f.service.subscribe((): void => { removedCalls++; });
-      const duplicate = (): void => { duplicateCalls++; };
+      removeSecond = f.service.subscribe((): void => {
+        removedCalls++;
+      });
+      const duplicate = (): void => {
+        duplicateCalls++;
+      };
       const removeDuplicateOne = f.service.subscribe(duplicate);
       const removeDuplicateTwo = f.service.subscribe(duplicate);
       f.service.clearRecords();

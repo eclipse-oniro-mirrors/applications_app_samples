@@ -2,7 +2,8 @@ import { afterEach, describe, expect, it } from '@ohos/hypium';
 import { AutoStartupService } from '../../../main/ets/autostart/AutoStartupService';
 import { NativeStatusSnapshot, SharedAutoStartupApi } from '../../../main/ets/autostart/AutoStartupRuntime';
 import { QueryOutcome, QueryPhase, RefreshSource, SupportState } from '../../../main/ets/autostart/AutoStartupTypes';
-import { AutoStartupProbePort, CapabilityDiagnostic, ProbeStage } from '../../../main/ets/autostart/diagnostics/CapabilityProbe';
+import { AutoStartupProbePort, CapabilityDiagnostic,
+  ProbeStage } from '../../../main/ets/autostart/diagnostics/CapabilityProbe';
 import { RuntimeProbePort } from '../../../main/ets/autostart/diagnostics/DiagnosticRuntime';
 import { CapabilityQuery, DeviceForm, SystemFlavor } from '../../../main/ets/autostart/rules/CapabilityMatrix';
 import { StartupTelemetry } from '../../../main/ets/autostart/Telemetry';
@@ -10,9 +11,9 @@ import { ControlledAutoStartupApi, ManualQueryClock, TestBusinessError, flushMic
 
 // Only platform responses and time are controlled here; all coordination is production code.
 class ProbeGate {
-  promise: Promise<boolean>;
-  resolve: (value: boolean) => void = (): void => {};
-  reject: (error: Object | null) => void = (): void => {};
+  public promise: Promise<boolean>;
+  public resolve: (value: boolean) => void = (): void => {};
+  public reject: (error: Object | null) => void = (): void => {};
   constructor() {
     this.promise = new Promise<boolean>((resolve, reject): void => {
       this.resolve = resolve;
@@ -21,80 +22,100 @@ class ProbeGate {
   }
 }
 class GatedProbePort implements AutoStartupProbePort {
-  abilityCalls: number = 0;
-  statusCalls: number = 0;
-  abilityError: Error | undefined = undefined;
-  statusError: Error | undefined = undefined;
+  public abilityCalls: number = 0;
+  public statusCalls: number = 0;
+  public abilityError: Error | undefined = undefined;
+  public statusError: Error | undefined = undefined;
   private abilities: ProbeGate[] = [];
   private statuses: ProbeGate[] = [];
   isSupported(): Promise<boolean> {
     this.abilityCalls++;
-    if (this.abilityError !== undefined) { throw this.abilityError; }
+    if (this.abilityError !== undefined) {
+      throw this.abilityError;
+    }
     const gate = new ProbeGate(); this.abilities.push(gate); return gate.promise;
   }
   isEnabledForSelf(): Promise<boolean> {
     this.statusCalls++;
-    if (this.statusError !== undefined) { throw this.statusError; }
+    if (this.statusError !== undefined) {
+      throw this.statusError;
+    }
     const gate = new ProbeGate(); this.statuses.push(gate); return gate.promise;
   }
   ability(value: boolean): void {
     const gate = this.abilities.shift();
-    if (gate === undefined) { throw new Error('No pending ability response'); }
+    if (gate === undefined) {
+      throw new Error('No pending ability response');
+    }
     gate.resolve(value);
   }
   status(value: boolean): void {
     const gate = this.statuses.shift();
-    if (gate === undefined) { throw new Error('No pending status response'); }
+    if (gate === undefined) {
+      throw new Error('No pending status response');
+    }
     gate.resolve(value);
   }
   rejectAbility(error: Object | null): void {
     const gate = this.abilities.shift();
-    if (gate === undefined) { throw new Error('No pending ability rejection'); }
+    if (gate === undefined) {
+      throw new Error('No pending ability rejection');
+    }
     gate.reject(error);
   }
   rejectStatus(error: Object | null): void {
     const gate = this.statuses.shift();
-    if (gate === undefined) { throw new Error('No pending status rejection'); }
+    if (gate === undefined) {
+      throw new Error('No pending status rejection');
+    }
     gate.reject(error);
   }
   finish(): void {
-    this.abilities.forEach((gate: ProbeGate): void => { gate.resolve(false); });
-    this.statuses.forEach((gate: ProbeGate): void => { gate.resolve(false); });
+    this.abilities.forEach((gate: ProbeGate): void => {
+      gate.resolve(false);
+    });
+    this.statuses.forEach((gate: ProbeGate): void => {
+      gate.resolve(false);
+    });
     this.abilities = []; this.statuses = [];
   }
 }
 class NumericProbeFailure {
-  code: number = 16000050;
-  message: number = 42;
+  public code: number = 16000050;
+  public message: number = 42;
 }
 class ProbeTrace implements StartupTelemetry {
-  starts: string[] = [];
-  ends: string[] = [];
-  throws: boolean = false;
+  public starts: string[] = [];
+  public ends: string[] = [];
+  public throws: boolean = false;
   begin(operation: string, id: number): void {
     this.starts.push(`${operation}:${id}`);
-    if (this.throws) { throw new Error('Trace begin unavailable'); }
+    if (this.throws) {
+      throw new Error('Trace begin unavailable');
+    }
   }
   end(operation: string, id: number, outcome: string): void {
     this.ends.push(`${operation}:${id}:${outcome}`);
-    if (this.throws) { throw new Error('Trace end unavailable'); }
+    if (this.throws) {
+      throw new Error('Trace end unavailable');
+    }
   }
   event(_operation: string, _id: number, _outcome: string): void {}
 }
 class DiagnosticFixture {
-  clock: ManualQueryClock = new ManualQueryClock();
-  port: GatedProbePort = new GatedProbePort();
-  trace: ProbeTrace = new ProbeTrace();
-  diagnostic: CapabilityDiagnostic = new CapabilityDiagnostic(this.port,
+  public clock: ManualQueryClock = new ManualQueryClock();
+  public port: GatedProbePort = new GatedProbePort();
+  public trace: ProbeTrace = new ProbeTrace();
+  public diagnostic: CapabilityDiagnostic = new CapabilityDiagnostic(this.port,
     (): number => this.clock.now(), 3000, this.clock, this.trace);
 }
 class SharedFixture {
-  clock: ManualQueryClock = new ManualQueryClock();
-  api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
-  shared: SharedAutoStartupApi = new SharedAutoStartupApi(this.api, this.clock);
-  trace: ProbeTrace = new ProbeTrace();
-  service: AutoStartupService = new AutoStartupService(this.shared, this.clock, undefined, this.trace);
-  diagnostic: CapabilityDiagnostic;
+  public clock: ManualQueryClock = new ManualQueryClock();
+  public api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
+  public shared: SharedAutoStartupApi = new SharedAutoStartupApi(this.api, this.clock);
+  public trace: ProbeTrace = new ProbeTrace();
+  public service: AutoStartupService = new AutoStartupService(this.shared, this.clock, undefined, this.trace);
+  public diagnostic: CapabilityDiagnostic;
   constructor(timeout: number = 3000) {
     this.diagnostic = new CapabilityDiagnostic(new RuntimeProbePort(this.shared),
       (): number => this.clock.now(), timeout, this.clock, this.trace);
@@ -205,7 +226,11 @@ export default function startupNativeCoordinationWaveOneTest(): void {
     it('testStartupNativeCoordinationWaveOne0004', 0, async (): Promise<void> => {
       const f = sharedFixture(); const error = new TestBusinessError(801, 'sync unsupported');
       f.api.queryError = error; const failures: Object[] = [];
-      try { f.shared.getAutoStartupStatusForSelf(); } catch (caught) { failures.push(caught as Object); }
+      try {
+        f.shared.getAutoStartupStatusForSelf();
+      } catch (caught) {
+        failures.push(caught as Object);
+      }
       expect(failures[0] === error).assertTrue();
       expect(f.shared.nativeStatus().pending).assertFalse();
       expect(f.shared.nativeStatus().finishedAt).assertEqual(f.clock.now());
@@ -246,7 +271,11 @@ export default function startupNativeCoordinationWaveOneTest(): void {
       const f = sharedFixture(); const status = f.shared.getAutoStartupStatusForSelf();
       const error = new TestBusinessError(16000050, 'capability unavailable'); f.api.probeError = error;
       const failures: Object[] = [];
-      try { f.shared.isAutoStartupSupported(); } catch (caught) { failures.push(caught as Object); }
+      try {
+        f.shared.isAutoStartupSupported();
+      } catch (caught) {
+        failures.push(caught as Object);
+      }
       expect(failures[0] === error).assertTrue();
       expect(f.shared.nativeStatus().pending).assertTrue();
       expect(f.shared.nativeStatus().requestId).assertEqual(1);
@@ -285,7 +314,10 @@ export default function startupNativeCoordinationWaveOneTest(): void {
      */
     it('testStartupNativeCoordinationWaveOne0008', 0, async (): Promise<void> => {
       const f = sharedFixture(); let badCalls = 0; const observed: string[] = [];
-      const offBad = f.shared.subscribe((): void => { badCalls++; throw new Error('observer failed'); });
+      const offBad = f.shared.subscribe((): void => {
+        badCalls++;
+        throw new Error('observer failed');
+      });
       const offGood = f.shared.subscribe((): void => {
         const state = f.shared.nativeStatus(); observed.push(`${state.pending}:${state.joins}`);
       });
@@ -306,8 +338,12 @@ export default function startupNativeCoordinationWaveOneTest(): void {
      */
     it('testStartupNativeCoordinationWaveOne0009', 0, async (): Promise<void> => {
       const f = sharedFixture(); let removed = 0; const retained: boolean[] = [];
-      const off = f.shared.subscribe((): void => { removed++; });
-      const offRetained = f.shared.subscribe((): void => { retained.push(f.shared.nativeStatus().pending); });
+      const off = f.shared.subscribe((): void => {
+        removed++;
+      });
+      const offRetained = f.shared.subscribe((): void => {
+        retained.push(f.shared.nativeStatus().pending);
+      });
       const request = f.shared.getAutoStartupStatusForSelf(); off(); off();
       f.shared.getAutoStartupStatusForSelf(); f.api.resolveNext(false); await request;
       expect(removed).assertEqual(1);
@@ -328,7 +364,9 @@ export default function startupNativeCoordinationWaveOneTest(): void {
       const f = sharedFixture(); const next: Promise<boolean>[] = [];
       const off = f.shared.subscribe((): void => {
         const state = f.shared.nativeStatus();
-        if (!state.pending && state.requestId === 1) { next.push(f.shared.getAutoStartupStatusForSelf()); }
+        if (!state.pending && state.requestId === 1) {
+          next.push(f.shared.getAutoStartupStatusForSelf());
+        }
       });
       const first = f.shared.getAutoStartupStatusForSelf(); f.api.resolveNext(true);
       expect(await first).assertTrue();
@@ -691,8 +729,13 @@ export default function startupNativeCoordinationWaveOneTest(): void {
      */
     it('testStartupNativeCoordinationWaveOne0028', 0, async (): Promise<void> => {
       const f = diagnosticFixture(); let badCalls = 0; const observed: ProbeStage[] = [];
-      const offBad = f.diagnostic.subscribe((): void => { badCalls++; throw new Error('diagnostic observer'); });
-      const off = f.diagnostic.subscribe((): void => { observed.push(f.diagnostic.reportSnapshot().status.stage); });
+      const offBad = f.diagnostic.subscribe((): void => {
+        badCalls++;
+        throw new Error('diagnostic observer');
+      });
+      const off = f.diagnostic.subscribe((): void => {
+        observed.push(f.diagnostic.reportSnapshot().status.stage);
+      });
       const request = f.diagnostic.runStatusProbe(); f.port.status(true);
       expect((await request).stage).assertEqual(ProbeStage.SUCCEEDED);
       expect(observed.join(',')).assertEqual('running,succeeded,succeeded');
@@ -890,7 +933,8 @@ export default function startupNativeCoordinationWaveOneTest(): void {
      */
     it('testStartupNativeCoordinationWaveOne0038', 0, async (): Promise<void> => {
       const f = sharedFixture(); f.service.refresh(RefreshSource.INITIAL);
-      const diagnostic = f.diagnostic.runStatusProbe(); f.api.rejectNext(new TestBusinessError(801, 'status unavailable'));
+      const diagnostic = f.diagnostic.runStatusProbe();
+      f.api.rejectNext(new TestBusinessError(801, 'status unavailable'));
       expect((await diagnostic).stage).assertEqual(ProbeStage.UNSUPPORTED); await flushMicrotasks();
       expect(f.service.snapshot().support).assertEqual(SupportState.SUPPORTED);
       expect(f.service.snapshot().phase).assertEqual(QueryPhase.UNSUPPORTED);

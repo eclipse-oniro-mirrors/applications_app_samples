@@ -10,11 +10,11 @@ import {
 } from '../support/TestSupport';
 
 class MemoryHistoryStorage implements HistoryStorage {
-  value: string = '';
-  readCount: number = 0;
-  writeCount: number = 0;
-  failRead: boolean = false;
-  failWrite: boolean = false;
+  public value: string = '';
+  public readCount: number = 0;
+  public writeCount: number = 0;
+  public failRead: boolean = false;
+  public failWrite: boolean = false;
 
   read(): string {
     this.readCount++;
@@ -34,10 +34,10 @@ class MemoryHistoryStorage implements HistoryStorage {
 }
 
 class HistoryFixture {
-  readonly api = new AutoStartupFixture().api;
-  readonly clock: ManualQueryClock = new ManualQueryClock();
-  readonly storage: MemoryHistoryStorage = new MemoryHistoryStorage();
-  readonly service: AutoStartupService;
+  public readonly api = new AutoStartupFixture().api;
+  public readonly clock: ManualQueryClock = new ManualQueryClock();
+  public readonly storage: MemoryHistoryStorage = new MemoryHistoryStorage();
+  public readonly service: AutoStartupService;
 
   constructor() {
     this.service = new AutoStartupService(this.api, this.clock, this.storage);

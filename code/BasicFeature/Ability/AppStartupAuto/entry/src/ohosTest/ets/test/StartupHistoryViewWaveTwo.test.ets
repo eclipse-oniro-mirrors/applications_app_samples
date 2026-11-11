@@ -16,8 +16,8 @@ function viewRow(id: number, timestamp: number, outcome: QueryOutcome, result: s
 }
 
 class RangeBoundaryInput {
-  preset: RangePreset;
-  width: number;
+  public preset: RangePreset;
+  public width: number;
   constructor(preset: RangePreset, width: number) {
     this.preset = preset; this.width = width;
   }

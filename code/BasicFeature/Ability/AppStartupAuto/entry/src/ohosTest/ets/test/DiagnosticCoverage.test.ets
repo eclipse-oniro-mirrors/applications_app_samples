@@ -15,12 +15,12 @@ import {
 } from '../../../main/ets/autostart/rules/CapabilityMatrix';
 
 class CountingPort implements AutoStartupProbePort {
-  supportCalls: number = 0;
-  statusCalls: number = 0;
-  support: boolean = true;
-  status: boolean = true;
-  supportError: Object | null = null;
-  statusError: Object | null = null;
+  public supportCalls: number = 0;
+  public statusCalls: number = 0;
+  public support: boolean = true;
+  public status: boolean = true;
+  public supportError: Object | null = null;
+  public statusError: Object | null = null;
 
   async isSupported(): Promise<boolean> {
     this.supportCalls++;
@@ -40,7 +40,7 @@ class CountingPort implements AutoStartupProbePort {
 }
 
 class FakeBusinessError extends Error {
-  code: number;
+  public code: number;
 
   constructor(code: number, message: string) {
     super(message);

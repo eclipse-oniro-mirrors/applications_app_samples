@@ -2,13 +2,17 @@ import { afterEach, describe, expect, it } from '@ohos/hypium';
 import {
   ArchiveActionCode, ArchiveStage, ARCHIVE_MAX_ENTRIES, ARCHIVE_PENDING_LIMIT
 } from '../../../main/ets/autostart/archive/StartupArchive';
-import { QueryOutcome, QueryPhase, QueryRecord, QueryRecordSink, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
+import { QueryOutcome, QueryPhase, QueryRecord, QueryRecordSink,
+  RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
 import { ArchiveMemoryStorage, StartupArchiveFixture, archiveSample } from '../support/StartupArchiveSupport';
 import { TestBusinessError, flushMicrotasks } from '../support/TestSupport';
 
 class ThrowingArchiveSink implements QueryRecordSink {
-  calls: number = 0;
-  capture(_record: QueryRecord): void { this.calls++; throw new Error('controlled sink failure'); }
+  public calls: number = 0;
+  capture(_record: QueryRecord): void {
+    this.calls++;
+    throw new Error('controlled sink failure');
+  }
 }
 
 export default function startupArchiveCaptureTests(): void {
@@ -19,8 +23,12 @@ export default function startupArchiveCaptureTests(): void {
       await fixture.open(); fixture.service.attachRecordSink(fixture.repository); return fixture;
     };
     afterEach(async (): Promise<void> => {
-      fixtures.forEach((fixture: StartupArchiveFixture): void => { fixture.store.release(); });
-      for (const fixture of fixtures) { await fixture.dispose(); }
+      fixtures.forEach((fixture: StartupArchiveFixture): void => {
+        fixture.store.release();
+      });
+      for (const fixture of fixtures) {
+        await fixture.dispose();
+      }
       fixtures.splice(0, fixtures.length);
     });
 
@@ -34,7 +42,9 @@ export default function startupArchiveCaptureTests(): void {
      */
     it('testStartupArchiveCaptureWaveThree0001', 0, async (): Promise<void> => {
       const f = await create();
-      for (let index = 0; index < 21; index++) { await f.sample(true); }
+      for (let index = 0; index < 21; index++) {
+        await f.sample(true);
+      }
       expect(f.service.records()[0].id).assertEqual(21);
       expect(f.service.records()[19].id).assertEqual(2);
       expect(f.repository.snapshot().rows.length).assertEqual(0);
@@ -53,7 +63,9 @@ export default function startupArchiveCaptureTests(): void {
     it('testStartupArchiveCaptureWaveThree0002', 0, async (): Promise<void> => {
       const f = await create(); await f.sample(false); await f.sample(true);
       await f.repository.setAutomatic(true, f.service.records());
-      for (let index = 0; index < 21; index++) { await f.sample(index % 2 === 0); }
+      for (let index = 0; index < 21; index++) {
+        await f.sample(index % 2 === 0);
+      }
       expect(f.repository.snapshot().rows.length).assertEqual(23);
       expect(f.service.records()[19].id).assertEqual(4);
       expect(f.repository.snapshot().rows.some((row): boolean => row.record.id === 1)).assertTrue();
@@ -196,7 +208,8 @@ export default function startupArchiveCaptureTests(): void {
       expect(f.repository.snapshot().paused).assertTrue();
       await f.repository.retryPending();
       expect(f.repository.snapshot().rows.length).assertEqual(ARCHIVE_PENDING_LIMIT);
-      expect(f.repository.snapshot().rows.some((row): boolean => row.record.id === ARCHIVE_PENDING_LIMIT + 1)).assertFalse();
+      expect(f.repository.snapshot().rows.some((row): boolean => row.record.id === ARCHIVE_PENDING_LIMIT + 1))
+        .assertFalse();
     });
 
     /**
@@ -316,7 +329,10 @@ export default function startupArchiveCaptureTests(): void {
       const f = await create(); await f.repository.save([archiveSample(9, f.clock.now())]);
       await f.repository.close(); let attempts = 0;
       f.repository.setConnector(async (): Promise<ArchiveMemoryStorage> => {
-        attempts++; if (attempts === 1) { throw new Error('connection temporarily unavailable'); }
+        attempts++;
+        if (attempts === 1) {
+          throw new Error('connection temporarily unavailable');
+        }
         return new ArchiveMemoryStorage(f.store.data);
       });
       expect(await f.repository.reload()).assertFalse();
@@ -336,8 +352,12 @@ export default function startupArchiveCaptureTests(): void {
      */
     it('testStartupArchiveCaptureWaveThree0016', 0, async (): Promise<void> => {
       const f = await create(); const states: ArchiveStage[] = [];
-      const bad = f.repository.subscribe((): void => { throw new Error('observer failed'); });
-      const off = f.repository.subscribe((): void => { states.push(f.repository.snapshot().stage); });
+      const bad = f.repository.subscribe((): void => {
+        throw new Error('observer failed');
+      });
+      const off = f.repository.subscribe((): void => {
+        states.push(f.repository.snapshot().stage);
+      });
       await f.repository.save([archiveSample(1, f.clock.now())]);
       expect(states.indexOf(ArchiveStage.WRITING) >= 0).assertTrue();
       expect(states.indexOf(ArchiveStage.READY) >= 0).assertTrue();
@@ -357,7 +377,9 @@ export default function startupArchiveCaptureTests(): void {
      */
     it('testStartupArchiveCaptureWaveThree0017', 0, async (): Promise<void> => {
       const f = await create(); const records: QueryRecord[] = [];
-      for (let index = 1; index <= ARCHIVE_MAX_ENTRIES; index++) { records.push(archiveSample(index, f.clock.now() - index)); }
+      for (let index = 1; index <= ARCHIVE_MAX_ENTRIES; index++) {
+        records.push(archiveSample(index, f.clock.now() - index));
+      }
       await f.repository.save(records); await f.repository.setAutomatic(true);
       f.repository.capture(archiveSample(999, f.clock.now())); await f.repository.whenIdle();
       expect(f.repository.snapshot().paused).assertTrue();

@@ -7,7 +7,8 @@ import { defaultRetentionPolicy, RetentionPolicy } from '../../../main/ets/autos
 import { ARCHIVE_MAX_BYTES, ARCHIVE_MAX_ENTRIES, ARCHIVE_PAGE_SIZE, ARCHIVE_SCHEMA, ArchiveAction, ArchiveActionCode,
   ArchiveCleanup, ArchiveDocument, ArchiveQuery, ArchivedQuery, ArchiveStage, ArchiveView,
   StartupArchiveRepository, encodeArchive } from '../../../main/ets/autostart/archive/StartupArchive';
-import { ARCHIVE_STATE_TABLE, StartupArchiveRdbStorage } from '../../../main/ets/autostart/archive/StartupArchiveRdbStorage';
+import { ARCHIVE_STATE_TABLE,
+  StartupArchiveRdbStorage } from '../../../main/ets/autostart/archive/StartupArchiveRdbStorage';
 import { ArchiveNativeQaFixture, ArchiveNativeSqlImage, archiveNativeFailure,
   archiveNativeQaRecord, withArchiveNativeQa } from '../support/ArchiveNativeQaSupport';
 
@@ -58,7 +59,8 @@ export default function archiveNativeQaTests(): void {
         expect(action.added).assertEqual(2);
         const reopened: StartupArchiveRepository = await f.reopen();
         expect(reopened.view().rows.map((row: ArchivedQuery): number => row.archiveId).join(',')).assertEqual('2,1');
-        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('1,1');
+        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('1,1');
         expect(reopened.view().rows[0].record.errorCode).assertEqual('timeout-qa');
         expect(reopened.view().rows[1].record.timestamp).assertEqual(first.timestamp);
       });
@@ -140,7 +142,8 @@ export default function archiveNativeQaTests(): void {
         await repository.whenIdle();
         const reopened: StartupArchiveRepository = await f.reopen();
         expect(reopened.snapshot().automatic).assertTrue();
-        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('1,2');
+        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('1,2');
         expect(reopened.snapshot().rows[0].record.errorMessage).assertEqual('');
         const image: ArchiveNativeSqlImage = await f.image();
         expect(image.payload.includes('qa-private-platform-detail')).assertFalse();
@@ -261,7 +264,8 @@ export default function archiveNativeQaTests(): void {
         expect(last.rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('2,1');
         expect(last.page).assertEqual(1);
         expect(last.pageCount).assertEqual(2);
-        expect(first.rows.some((row: ArchivedQuery): boolean => row.archiveId === last.rows[0].archiveId)).assertFalse();
+        expect(first.rows.some((row: ArchivedQuery): boolean => row.archiveId === last.rows[0].archiveId))
+          .assertFalse();
         expect((await f.image()).revision).assertEqual(1);
       });
     });
@@ -316,7 +320,8 @@ export default function archiveNativeQaTests(): void {
         expect(repository.snapshot().revision).assertEqual(revision);
         expect((await repository.applyCleanup(plan)).removed).assertEqual(1);
         const reopened: StartupArchiveRepository = await f.reopen();
-        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('2,3');
+        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('2,3');
         expect(reopened.previewCleanup().preview.deleteCount).assertEqual(0);
         expect((await f.image()).revision).assertEqual(revision + 1);
       });
@@ -342,12 +347,14 @@ export default function archiveNativeQaTests(): void {
         expect(action.success).assertFalse();
         expect(action.code).assertEqual(ArchiveActionCode.STALE);
         const reopened: StartupArchiveRepository = await f.reopen();
-        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('1,2,3');
+        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('1,2,3');
         expect(reopened.snapshot().revision).assertEqual(2);
         const newPlan: ArchiveCleanup = reopened.previewCleanup();
         expect((await reopened.applyCleanup(newPlan)).removed).assertEqual(1);
         const confirmed: StartupArchiveRepository = await f.reopen();
-        expect(confirmed.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('2,3');
+        expect(confirmed.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('2,3');
       });
     });
 
@@ -398,7 +405,9 @@ export default function archiveNativeQaTests(): void {
         const good: ArchiveNativeSqlImage = await f.image();
         await f.seedRaw(good.payload, good.revision + 1, 'qa-mismatched-operation');
         const storage: StartupArchiveRdbStorage = await f.openStorage();
-        expect(await archiveNativeFailure(async (): Promise<void> => { await storage.load(); })).assertEqual('INVALID');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await storage.load();
+        })).assertEqual('INVALID');
         const candidate: ArchiveDocument = new ArchiveDocument();
         candidate.revision = good.revision + 2;
         candidate.operationId = 'must-not-overwrite-mismatch';
@@ -456,7 +465,9 @@ export default function archiveNativeQaTests(): void {
         await f.withClosedDatabase(async (store: relationalStore.RdbStore): Promise<void> => {
           store.version = ARCHIVE_SCHEMA + 7;
         });
-        expect(await archiveNativeFailure(async (): Promise<void> => { await f.openStorage(); })).assertEqual('SCHEMA');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await f.openStorage();
+        })).assertEqual('SCHEMA');
         const after: ArchiveNativeSqlImage = await f.image();
         expect(after.version).assertEqual(ARCHIVE_SCHEMA + 7);
         expect(after.payload).assertEqual(before.payload);
@@ -478,8 +489,12 @@ export default function archiveNativeQaTests(): void {
         const broken: string = '{"schema":1,"revision":';
         await f.seedRaw(broken, 8, 'broken-json-qa');
         const storage: StartupArchiveRdbStorage = await f.openStorage();
-        expect(await archiveNativeFailure(async (): Promise<void> => { await storage.load(); })).assertEqual('INVALID');
-        expect(await archiveNativeFailure(async (): Promise<void> => { await storage.load(); })).assertEqual('INVALID');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await storage.load();
+        })).assertEqual('INVALID');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await storage.load();
+        })).assertEqual('INVALID');
         const beforeRepair: ArchiveNativeSqlImage = await f.image();
         expect(beforeRepair.payload).assertEqual(broken);
         const restored: ArchiveDocument = new ArchiveDocument();
@@ -536,7 +551,9 @@ export default function archiveNativeQaTests(): void {
         const candidate: ArchiveDocument = new ArchiveDocument();
         candidate.revision = 2;
         candidate.operationId = 'qa-revision-gap';
-        expect(await archiveNativeFailure(async (): Promise<void> => { await storage.commit(0, candidate); })).assertEqual('REVISION');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await storage.commit(0, candidate);
+        })).assertEqual('REVISION');
         expect((await storage.load()).revision).assertEqual(0);
         candidate.revision = 1;
         candidate.operationId = 'qa-valid-next-revision';
@@ -569,7 +586,9 @@ export default function archiveNativeQaTests(): void {
         await left.commit(0, first);
         stale.revision = 1;
         stale.operationId = 'qa-stale-writer';
-        expect(await archiveNativeFailure(async (): Promise<void> => { await right.commit(0, stale); })).assertEqual('CONFLICT');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await right.commit(0, stale);
+        })).assertEqual('CONFLICT');
         const refreshed: ArchiveDocument = await right.load();
         expect(refreshed.operationId).assertEqual('qa-first-writer');
         expect(refreshed.automatic).assertTrue();
@@ -602,8 +621,12 @@ export default function archiveNativeQaTests(): void {
         const second: ArchiveDocument = new ArchiveDocument();
         second.revision = 1;
         second.operationId = 'qa-queued-second';
-        const a: Promise<string> = archiveNativeFailure(async (): Promise<void> => { await storage.commit(0, first); });
-        const b: Promise<string> = archiveNativeFailure(async (): Promise<void> => { await storage.commit(0, second); });
+        const a: Promise<string> = archiveNativeFailure(async (): Promise<void> => {
+          await storage.commit(0, first);
+        });
+        const b: Promise<string> = archiveNativeFailure(async (): Promise<void> => {
+          await storage.commit(0, second);
+        });
         expect(await a).assertEqual('');
         expect(await b).assertEqual('CONFLICT');
         const loaded: ArchiveDocument = await storage.load();
@@ -664,10 +687,14 @@ export default function archiveNativeQaTests(): void {
         candidate.automatic = true;
         const pending: Promise<void> = storage.commit(0, candidate);
         const closing: Promise<void> = storage.close();
-        expect(await archiveNativeFailure(async (): Promise<void> => { await storage.load(); })).assertEqual('CLOSED');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await storage.load();
+        })).assertEqual('CLOSED');
         await pending;
         await closing;
-        expect(await archiveNativeFailure(async (): Promise<void> => { await storage.commit(0, candidate); })).assertEqual('CLOSED');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await storage.commit(0, candidate);
+        })).assertEqual('CLOSED');
         await storage.close();
         const reopened: StartupArchiveRepository = await f.reopen();
         expect(reopened.snapshot().revision).assertEqual(1);
@@ -693,8 +720,8 @@ export default function archiveNativeQaTests(): void {
           await store.executeSql('CREATE TABLE qa_archive_transaction_audit (marker TEXT NOT NULL)');
           // FAIL intentionally does not undo prior trigger changes; the production transaction must.
           await store.executeSql(`CREATE TRIGGER qa_archive_fail BEFORE INSERT ON ${ARCHIVE_STATE_TABLE} ` +
-            "BEGIN INSERT INTO qa_archive_transaction_audit(marker) VALUES ('must-roll-back'); " +
-            "SELECT RAISE(FAIL, 'qa-intentional-transaction-failure'); END");
+            'BEGIN INSERT INTO qa_archive_transaction_audit(marker) VALUES (\'must-roll-back\'); ' +
+            'SELECT RAISE(FAIL, \'qa-intentional-transaction-failure\'); END');
         });
         const writer: StartupArchiveRepository = await f.repository();
         const failed: ArchiveAction = await writer.save([archiveNativeQaRecord(2, f.time + 1)]);
@@ -707,18 +734,24 @@ export default function archiveNativeQaTests(): void {
         expect(after.revision).assertEqual(before.revision);
         const auditCounts: number[] = [];
         await f.withClosedDatabase(async (store: relationalStore.RdbStore): Promise<void> => {
-          const rows: relationalStore.ResultSet = await store.querySql('SELECT COUNT(*) AS total FROM qa_archive_transaction_audit');
+          const rows: relationalStore.ResultSet = await store.querySql(
+            'SELECT COUNT(*) AS total FROM qa_archive_transaction_audit');
           try {
-            if (!rows.goToFirstRow()) { throw new Error('Missing QA audit count'); }
+            if (!rows.goToFirstRow()) {
+              throw new Error('Missing QA audit count');
+            }
             auditCounts.push(rows.getLong(rows.getColumnIndex('total')));
-          } finally { rows.close(); }
+          } finally {
+            rows.close();
+          }
           await store.executeSql('DROP TRIGGER qa_archive_fail');
         });
         expect(auditCounts[0]).assertEqual(0);
         const retry: StartupArchiveRepository = await f.repository();
         expect((await retry.save([archiveNativeQaRecord(2, f.time + 1)])).success).assertTrue();
         const reopened: StartupArchiveRepository = await f.reopen();
-        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('1,2');
+        expect(reopened.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('1,2');
         expect(reopened.snapshot().revision).assertEqual(before.revision + 1);
       });
     });
@@ -745,7 +778,8 @@ export default function archiveNativeQaTests(): void {
           expect((await right.image()).count).assertEqual(1);
         });
         const survivor: StartupArchiveRepository = await left.reopen();
-        expect(survivor.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('101');
+        expect(survivor.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('101');
         expect(survivor.snapshot().revision).assertEqual(1);
       });
     });
@@ -763,7 +797,7 @@ export default function archiveNativeQaTests(): void {
         await repository.setAutomatic(true);
         await f.withClosedDatabase(async (store: relationalStore.RdbStore): Promise<void> => {
           await store.executeSql(`CREATE TRIGGER qa_pending_fail BEFORE INSERT ON ${ARCHIVE_STATE_TABLE} ` +
-            "BEGIN SELECT RAISE(ABORT, 'qa-pending-write-failure'); END");
+            'BEGIN SELECT RAISE(ABORT, \'qa-pending-write-failure\'); END');
         });
         try {
           expect(await repository.attach(await f.openStorage())).assertTrue();
@@ -821,7 +855,9 @@ export default function archiveNativeQaTests(): void {
         const oversized: string = canonical + ' '.repeat(ARCHIVE_MAX_BYTES);
         await f.seedRaw(oversized, document.revision, document.operationId);
         const storage: StartupArchiveRdbStorage = await f.openStorage();
-        expect(await archiveNativeFailure(async (): Promise<void> => { await storage.load(); })).assertEqual('CAPACITY');
+        expect(await archiveNativeFailure(async (): Promise<void> => {
+          await storage.load();
+        })).assertEqual('CAPACITY');
         const image: ArchiveNativeSqlImage = await f.image();
         expect(image.payload).assertEqual(oversized);
         expect(image.revision).assertEqual(2);

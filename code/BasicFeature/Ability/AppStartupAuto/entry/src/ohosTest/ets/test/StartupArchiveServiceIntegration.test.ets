@@ -5,7 +5,8 @@ import {
 } from '../../../main/ets/autostart/archive/StartupArchive';
 import { RevisitStage } from '../../../main/ets/autostart/revisit/RevisitTracker';
 import { flushMicrotasks } from '../support/TestSupport';
-import { ServiceArchiveIntegrationFixture, withServiceArchiveIntegration } from '../support/StartupArchiveServiceIntegrationSupport';
+import { ServiceArchiveIntegrationFixture,
+  withServiceArchiveIntegration } from '../support/StartupArchiveServiceIntegrationSupport';
 
 // NativeOnly: actual private RDB, controlled autoStartup API responses, no system setter/clipboard.
 export default function startupArchiveServiceIntegrationTests(): void {
@@ -115,7 +116,8 @@ export default function startupArchiveServiceIntegrationTests(): void {
         expect(f.repository.snapshot().pending).assertEqual(1);
         expect(f.repository.snapshot().rejectedCaptures).assertEqual(1);
         await f.recoverArchiveWrites(); await f.repository.retryPending();
-        expect(f.repository.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(',')).assertEqual('1');
+        expect(f.repository.snapshot().rows.map((row: ArchivedQuery): number => row.record.id).join(','))
+          .assertEqual('1');
         const manual = await f.repository.save(f.service.records());
         expect(manual.added).assertEqual(1);
         expect(manual.duplicates).assertEqual(1);
@@ -240,7 +242,9 @@ export default function startupArchiveServiceIntegrationTests(): void {
     it('testStartupArchiveServiceIntegration0009', 0, async (): Promise<void> => {
       await withServiceArchiveIntegration(async (f: ServiceArchiveIntegrationFixture): Promise<void> => {
         await f.repository.setAutomatic(true); await f.query(true, RefreshSource.INITIAL);
-        const before = await f.image(); const future = JSON.parse(before.payload) as ArchiveDocument; future.schema = 99;
+        const before = await f.image();
+        const future = JSON.parse(before.payload) as ArchiveDocument;
+        future.schema = 99;
         const invalid = JSON.stringify(future);
         await f.replaceDocument(invalid, before.revision, before.operation, true);
         expect(f.repository.snapshot().stage).assertEqual(ArchiveStage.BLOCKED);
@@ -270,7 +274,9 @@ export default function startupArchiveServiceIntegrationTests(): void {
     it('testStartupArchiveServiceIntegration0010', 0, async (): Promise<void> => {
       await withServiceArchiveIntegration(async (f: ServiceArchiveIntegrationFixture): Promise<void> => {
         await f.repository.setAutomatic(true); const gate = await f.gateStorage(); gate.hold = true;
-        for (let index = 1; index <= 25; index++) { await f.query(index % 2 === 0, RefreshSource.MANUAL, false); }
+        for (let index = 1; index <= 25; index++) {
+          await f.query(index % 2 === 0, RefreshSource.MANUAL, false);
+        }
         expect(f.service.records()[19].id).assertEqual(6);
         expect(f.repository.snapshot().pending).assertEqual(ARCHIVE_PENDING_LIMIT);
         expect(f.repository.snapshot().paused).assertTrue();

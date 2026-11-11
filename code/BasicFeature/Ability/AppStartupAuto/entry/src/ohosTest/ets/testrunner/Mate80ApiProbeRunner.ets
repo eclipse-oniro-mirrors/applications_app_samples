@@ -3,11 +3,11 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 
 class ApiProbeResult {
-  api: string;
-  success: boolean;
-  value: boolean | null;
-  code: string;
-  message: string;
+  public api: string;
+  public success: boolean;
+  public value: boolean | null;
+  public code: string;
+  public message: string;
   public durationMillis: number;
 
   constructor(api: string, success: boolean, value: boolean | null,

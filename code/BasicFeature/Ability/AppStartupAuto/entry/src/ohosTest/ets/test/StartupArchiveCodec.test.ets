@@ -80,9 +80,15 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0004', 0, (): void => {
-      expect(archiveFailureCode((): void => { decodeArchive('{broken'); })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => { decodeArchive('null'); })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => { decodeArchive('[]'); })).assertEqual('SCHEMA');
+      expect(archiveFailureCode((): void => {
+        decodeArchive('{broken');
+      })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        decodeArchive('null');
+      })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        decodeArchive('[]');
+      })).assertEqual('SCHEMA');
     });
 
     /**
@@ -96,9 +102,15 @@ export default function startupArchiveCodecTests(): void {
     it('testStartupArchiveCodecWaveThree0005', 0, (): void => {
       const future = codecDocument(); future.schema = 2;
       const obsolete = codecDocument(); obsolete.schema = 0;
-      expect(archiveFailureCode((): void => { encodeArchive(future); })).assertEqual('SCHEMA');
-      expect(archiveFailureCode((): void => { encodeArchive(obsolete); })).assertEqual('SCHEMA');
-      expect(archiveFailureCode((): void => { decodeArchive('{"schema":1}'); })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(future);
+      })).assertEqual('SCHEMA');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(obsolete);
+      })).assertEqual('SCHEMA');
+      expect(archiveFailureCode((): void => {
+        decodeArchive('{"schema":1}');
+      })).assertEqual('INVALID');
     });
 
     /**
@@ -115,9 +127,15 @@ export default function startupArchiveCodecTests(): void {
       const duplicateEvidence = codecDocument(); duplicateEvidence.nextId = 9;
       duplicateEvidence.rows.push(new ArchivedQuery(8, duplicateEvidence.rows[0].record.clone(), 1700000000004));
       const sequence = codecDocument(); sequence.nextId = 7;
-      expect(archiveFailureCode((): void => { encodeArchive(duplicateId); })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => { encodeArchive(duplicateEvidence); })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => { encodeArchive(sequence); })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(duplicateId);
+      })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(duplicateEvidence);
+      })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(sequence);
+      })).assertEqual('INVALID');
     });
 
     /**
@@ -132,9 +150,15 @@ export default function startupArchiveCodecTests(): void {
       const privateData = codecDocument(); privateData.rows[0].record.errorMessage = 'raw private error';
       const badSource = codecDocument(); badSource.rows[0].record.source = 'invalid' as RefreshSource;
       const unknownTime = codecDocument(); unknownTime.rows[0].record.timestamp = 0;
-      expect(archiveFailureCode((): void => { encodeArchive(privateData); })).assertEqual('PRIVACY');
-      expect(archiveFailureCode((): void => { encodeArchive(badSource); })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => { encodeArchive(unknownTime); })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(privateData);
+      })).assertEqual('PRIVACY');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(badSource);
+      })).assertEqual('INVALID');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(unknownTime);
+      })).assertEqual('INVALID');
     });
 
     /**
@@ -171,7 +195,9 @@ export default function startupArchiveCodecTests(): void {
       expect(decoded.rows[ARCHIVE_MAX_ENTRIES - 1].archiveId).assertEqual(ARCHIVE_MAX_ENTRIES);
       document.nextId++;
       document.rows.push(new ArchivedQuery(ARCHIVE_MAX_ENTRIES + 1, archiveSample(999, 1700000009999), 1700000010000));
-      expect(archiveFailureCode((): void => { encodeArchive(document); })).assertEqual('CAPACITY');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(document);
+      })).assertEqual('CAPACITY');
     });
 
     /**
@@ -190,8 +216,12 @@ export default function startupArchiveCodecTests(): void {
         record.statusResult = '录'.repeat(200); record.errorCode = '码'.repeat(64);
         document.rows.push(new ArchivedQuery(index, record, 1700000001000));
       }
-      expect(archiveFailureCode((): void => { encodeArchive(document); })).assertEqual('CAPACITY');
-      expect(archiveFailureCode((): void => { decodeArchive('证'.repeat(ARCHIVE_MAX_BYTES)); })).assertEqual('CAPACITY');
+      expect(archiveFailureCode((): void => {
+        encodeArchive(document);
+      })).assertEqual('CAPACITY');
+      expect(archiveFailureCode((): void => {
+        decodeArchive('证'.repeat(ARCHIVE_MAX_BYTES));
+      })).assertEqual('CAPACITY');
       expect(decodeArchive(encodeArchive(codecDocument())).rows[0].record.errorCode).assertEqual('16000050');
     });
 
@@ -209,9 +239,12 @@ export default function startupArchiveCodecTests(): void {
       const later = first.clone(); later.timestamp++;
       const changed = first.clone(); changed.result = '未开启'; changed.statusResult = 'false';
       const saved = new ArchivedQuery(1, archiveRecord(first), 1700000001000);
-      expect(saved.evidenceKey()).assertEqual(new ArchivedQuery(2, archiveRecord(repeated), 1700000001001).evidenceKey());
-      expect(saved.evidenceKey() === new ArchivedQuery(3, archiveRecord(later), 1700000001002).evidenceKey()).assertFalse();
-      expect(saved.evidenceKey() === new ArchivedQuery(4, archiveRecord(changed), 1700000001003).evidenceKey()).assertFalse();
+      expect(saved.evidenceKey()).assertEqual(
+        new ArchivedQuery(2, archiveRecord(repeated), 1700000001001).evidenceKey());
+      expect(saved.evidenceKey() === new ArchivedQuery(3, archiveRecord(later), 1700000001002).evidenceKey())
+        .assertFalse();
+      expect(saved.evidenceKey() === new ArchivedQuery(4, archiveRecord(changed), 1700000001003).evidenceKey())
+        .assertFalse();
     });
   });
 }
