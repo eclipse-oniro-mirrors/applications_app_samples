@@ -27,6 +27,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const ERR_NO_SUCH_FILE: number = 13900002;
 const ERR_FILE_EXISTS: number = 13900015;
@@ -53,6 +54,18 @@ function threw(action: () => void): boolean {
   }
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Robustness_DirectoryErrorMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function directoryErrorMatrixTest() {
   describe('directoryErrorMatrixTest', () => {
     beforeAll(() => {
@@ -76,6 +89,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDirectoryError0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDirectoryError0001');
       const dir: string = directoryFor('exists');
       try {
         fileIo.mkdirSync(dir);
@@ -86,6 +100,8 @@ export default function directoryErrorMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testDirectoryError0001');
     })
 
     /**
@@ -97,11 +113,14 @@ export default function directoryErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDirectoryError0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDirectoryError0002');
       const dir: string = directoryFor('missing');
       expect(codeOf(() => {
         fileIo.rmdirSync(dir);
       })).assertEqual(ERR_NO_SUCH_FILE);
       expect(pathExists(dir)).assertFalse();
+    
+      logEnd('testDirectoryError0002');
     })
 
     /**
@@ -113,6 +132,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDirectoryError0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDirectoryError0003');
       const dir: string = directoryFor('open_as_file');
       try {
         fileIo.mkdirSync(dir);
@@ -127,6 +147,8 @@ export default function directoryErrorMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testDirectoryError0003');
     })
 
     /**
@@ -138,6 +160,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDirectoryError0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDirectoryError0004');
       const dir: string = directoryFor('unlink_dir');
       try {
         fileIo.mkdirSync(dir);
@@ -149,6 +172,8 @@ export default function directoryErrorMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testDirectoryError0004');
     })
 
     /**
@@ -160,6 +185,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDirectoryError0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDirectoryError0005');
       const file: string = pathInFiles(uniqueName('avs_derr_list', '.txt'));
       try {
         writeTextFile(file, 'not-a-directory');
@@ -173,6 +199,8 @@ export default function directoryErrorMatrixTest() {
       } finally {
         removeQuietly(file);
       }
+    
+      logEnd('testDirectoryError0005');
     })
 
     /**
@@ -184,6 +212,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDirectoryError0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDirectoryError0006');
       const dir: string = directoryFor('copy_source');
       const target: string = pathInFiles(uniqueName('avs_derr_copy', '.txt'));
       try {
@@ -198,6 +227,8 @@ export default function directoryErrorMatrixTest() {
         removeDirQuietly(dir);
         removeQuietly(target);
       }
+    
+      logEnd('testDirectoryError0006');
     })
 
     /**
@@ -209,6 +240,7 @@ export default function directoryErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testDirectoryError0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDirectoryError0007');
       const dir: string = directoryFor('control');
       const file: string = pathInFiles(uniqueName('avs_derr_control', '.txt'));
       try {
@@ -222,6 +254,8 @@ export default function directoryErrorMatrixTest() {
         removeDirQuietly(dir);
         removeQuietly(file);
       }
+    
+      logEnd('testDirectoryError0007');
     })
   });
 }

@@ -46,7 +46,7 @@ export default function Performance01Test() {
      * @tc.level     Level 2
      */
     it('testPerformance01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0001 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0001 begin');
       const start: number = Date.now();
       const player: media.AVPlayer = await media.createAVPlayer();
       await player.release();
@@ -67,7 +67,7 @@ export default function Performance01Test() {
      * @tc.level     Level 2
      */
     it('testPerformance01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0002 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0002 begin');
       const queryCount: number = 100;
       const start: number = Date.now();
       for (let i = 0; i < queryCount; i++) {
@@ -91,7 +91,7 @@ export default function Performance01Test() {
      * @tc.level     Level 2
      */
     it('testPerformance01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0003 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0003 begin');
       const volumeManager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const start: number = Date.now();
       const volume: number = volumeManager.getVolumeByStream(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -111,7 +111,7 @@ export default function Performance01Test() {
      * @tc.level     Level 2
      */
     it('testPerformance01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0004 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPerformance01Chapter0004 begin');
       const defaultDisplay: display.Display = display.getDefaultDisplaySync();
       const loopCount: number = 10000;
       let heightPx: string = '';

@@ -27,6 +27,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const ERR_NO_SUCH_FILE: number = 13900002;
 const ERR_FILE_EXISTS: number = 13900015;
@@ -49,6 +50,18 @@ function errorMessageOf(action: () => void): string {
     return businessError.message;
   }
   return '';
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Robustness_FileErrorMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileErrorMatrixTest() {
@@ -74,12 +87,15 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0001');
       const missing: string = pathInFiles(uniqueName('avs_err_stat', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.statSync(missing);
       });
       expect(code).assertEqual(ERR_NO_SUCH_FILE);
       expect(pathExists(missing)).assertFalse();
+    
+      logEnd('testFileError0001');
     })
 
     /**
@@ -91,12 +107,15 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0002');
       const missing: string = pathInFiles(uniqueName('avs_err_unlink', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.unlinkSync(missing);
       });
       expect(code).assertEqual(ERR_NO_SUCH_FILE);
       expect(pathExists(missing)).assertFalse();
+    
+      logEnd('testFileError0002');
     })
 
     /**
@@ -108,12 +127,15 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0003');
       const missing: string = pathInFiles(uniqueName('avs_err_open', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.openSync(missing, fileIo.OpenMode.READ_ONLY);
       });
       expect(code).assertEqual(ERR_NO_SUCH_FILE);
       expect(pathExists(missing)).assertFalse();
+    
+      logEnd('testFileError0003');
     })
 
     /**
@@ -125,6 +147,7 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0004');
       const dir: string = `${appContext().filesDir}/${uniqueName('avs_err_mkdir', '')}`;
       try {
         fileIo.mkdirSync(dir);
@@ -136,6 +159,8 @@ export default function fileErrorMatrixTest() {
       } finally {
         removeDirQuietly(dir);
       }
+    
+      logEnd('testFileError0004');
     })
 
     /**
@@ -147,12 +172,15 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0005');
       const dir: string = `${appContext().filesDir}/${uniqueName('avs_err_rmdir', '')}`;
       const code: number = errorCodeOf(() => {
         fileIo.rmdirSync(dir);
       });
       expect(code).assertEqual(ERR_NO_SUCH_FILE);
       expect(pathExists(dir)).assertFalse();
+    
+      logEnd('testFileError0005');
     })
 
     /**
@@ -164,12 +192,15 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0006');
       const missing: string = pathInFiles(uniqueName('avs_err_truncate', '.txt'));
       const code: number = errorCodeOf(() => {
         fileIo.truncateSync(missing, 1);
       });
       expect(code).assertEqual(ERR_NO_SUCH_FILE);
       expect(pathExists(missing)).assertFalse();
+    
+      logEnd('testFileError0006');
     })
 
     /**
@@ -181,6 +212,7 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0007');
       const missing: string = pathInFiles(uniqueName('avs_err_message', '.txt'));
       const message: string = errorMessageOf(() => {
         fileIo.statSync(missing);
@@ -188,6 +220,8 @@ export default function fileErrorMatrixTest() {
       expect(message.length).assertLarger(0);
       expect(message.indexOf('No such file') >= 0 || message.toLowerCase().indexOf('not found') >= 0)
         .assertTrue();
+    
+      logEnd('testFileError0007');
     })
 
     /**
@@ -199,6 +233,7 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0008');
       const missing: string = pathInFiles(uniqueName('avs_err_access', '.txt'));
       let accessible: boolean = true;
       try {
@@ -208,6 +243,8 @@ export default function fileErrorMatrixTest() {
       }
       expect(accessible).assertFalse();
       expect(pathExists(missing)).assertFalse();
+    
+      logEnd('testFileError0008');
     })
 
     /**
@@ -219,6 +256,7 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0009');
       const path: string = pathInFiles(uniqueName('avs_err_existing', '.txt'));
       try {
         writeTextFile(path, 'existing');
@@ -230,6 +268,8 @@ export default function fileErrorMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileError0009');
     })
 
     /**
@@ -241,6 +281,7 @@ export default function fileErrorMatrixTest() {
      * @tc.level     Level 2
      */
     it('testFileError0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileError0010');
       const missing: string = pathInFiles(uniqueName('avs_err_stable', '.txt'));
       for (let i = 0; i < 5; i++) {
         const code: number = errorCodeOf(() => {
@@ -248,6 +289,8 @@ export default function fileErrorMatrixTest() {
         });
         expect(code).assertEqual(ERR_NO_SUCH_FILE);
       }
+    
+      logEnd('testFileError0010');
     })
   });
 }

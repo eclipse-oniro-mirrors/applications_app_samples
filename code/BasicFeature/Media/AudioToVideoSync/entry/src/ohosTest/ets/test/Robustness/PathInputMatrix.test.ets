@@ -17,6 +17,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 function throws(action: () => void): boolean {
   try {
@@ -25,6 +26,18 @@ function throws(action: () => void): boolean {
   } catch (error) {
     return true;
   }
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Robustness_PathInputMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function pathInputMatrixTest() {
@@ -47,10 +60,13 @@ export default function pathInputMatrixTest() {
      * @tc.desc      Verify opening an empty path fails instead of creating an entry
      */
     it('testPathInput0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPathInput0001');
       const failed: boolean = throws(() => {
         fileIo.openSync('', fileIo.OpenMode.READ_ONLY);
       });
       expect(failed).assertTrue();
+    
+      logEnd('testPathInput0001');
     })
 
     /**
@@ -59,6 +75,7 @@ export default function pathInputMatrixTest() {
      * @tc.desc      Verify an over-long file name fails and leaves no entry behind
      */
     it('testPathInput0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPathInput0002');
       const longName: string = repeatPayload(300, 'n') + '.txt';
       const path: string = pathInFiles(longName);
       const failed: boolean = throws(() => {
@@ -67,6 +84,8 @@ export default function pathInputMatrixTest() {
       expect(failed).assertTrue();
       expect(pathExists(path)).assertFalse();
       removeQuietly(path);
+    
+      logEnd('testPathInput0002');
     })
 
     /**
@@ -75,6 +94,7 @@ export default function pathInputMatrixTest() {
      * @tc.desc      Verify a file name with spaces works end to end
      */
     it('testPathInput0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPathInput0003');
       const name: string = uniqueName('avs path space', '.txt');
       const path: string = pathInFiles(name);
       try {
@@ -84,6 +104,8 @@ export default function pathInputMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testPathInput0003');
     })
 
     /**
@@ -92,6 +114,7 @@ export default function pathInputMatrixTest() {
      * @tc.desc      Verify a CJK file name works end to end
      */
     it('testPathInput0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPathInput0004');
       const name: string = uniqueName('音画文件', '.txt');
       const path: string = pathInFiles(name);
       try {
@@ -101,6 +124,8 @@ export default function pathInputMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testPathInput0004');
     })
 
     /**
@@ -109,6 +134,7 @@ export default function pathInputMatrixTest() {
      * @tc.desc      Verify a path containing a current-directory segment resolves correctly
      */
     it('testPathInput0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPathInput0005');
       const name: string = uniqueName('avs_dot_path', '.txt');
       const path: string = `${appContext().filesDir}/./${name}`;
       try {
@@ -119,6 +145,8 @@ export default function pathInputMatrixTest() {
         removeQuietly(`${appContext().filesDir}/${name}`);
         removeQuietly(path);
       }
+    
+      logEnd('testPathInput0005');
     })
 
     /**
@@ -127,6 +155,7 @@ export default function pathInputMatrixTest() {
      * @tc.desc      Verify a name containing several consecutive dots is still addressable
      */
     it('testPathInput0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testPathInput0006');
       const name: string = uniqueName('avs...dots', '.txt');
       const path: string = pathInFiles(name);
       try {
@@ -137,6 +166,8 @@ export default function pathInputMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testPathInput0006');
     })
   });
 }

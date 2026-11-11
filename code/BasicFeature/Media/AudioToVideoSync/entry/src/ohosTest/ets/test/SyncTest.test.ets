@@ -49,7 +49,7 @@ export default function Sync01Test() {
      * @tc.level     Level 2
      */
     it('testSync01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0001 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0001 begin');
       const firstTick: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const secondTick: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       hilog.info(DOMAIN, TAG, '%{public}s', `${TAG}: uptime ${firstTick} -> ${secondTick}`);
@@ -67,7 +67,7 @@ export default function Sync01Test() {
      * @tc.level     Level 2
      */
     it('testSync01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0002 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0002 begin');
       const uptimeStart: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const wallStart: number = Date.now();
       for (let i = 0; i < 1000; i++) {
@@ -92,7 +92,7 @@ export default function Sync01Test() {
      * @tc.level     Level 2
      */
     it('testSync01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0003 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0003 begin');
       const start: number = Date.now();
       await new Promise<void>((resolve) => {
         setTimeout(() => {
@@ -115,7 +115,7 @@ export default function Sync01Test() {
      * @tc.level     Level 2
      */
     it('testSync01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0004 start');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSync01Chapter0004 begin');
       const tasks: Promise<void>[] = [];
       for (let i = 0; i < 3; i++) {
         tasks.push(new Promise<void>((resolve) => {

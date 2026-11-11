@@ -15,11 +15,24 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const LOOPS: number = 50;
 
 function targetFor(label: string): string {
   return pathInFiles(uniqueName(`avs_loop_${label}`, '.txt'));
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Stability_FileIoLoopMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function fileIoLoopMatrixTest() {
@@ -42,6 +55,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.desc      Verify fifty write and read cycles keep the exact payload and size
      */
     it('testFileLoop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileLoop0001');
       const path: string = targetFor('rw');
       const payload: string = repeatPayload(256, 'loop');
       try {
@@ -53,6 +67,8 @@ export default function fileIoLoopMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileLoop0001');
     })
 
     /**
@@ -61,6 +77,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.desc      Verify fifty create and delete cycles leave no entry behind
      */
     it('testFileLoop0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileLoop0002');
       for (let i = 0; i < LOOPS; i++) {
         const path: string = targetFor(`create_${i}`);
         writeTextFile(path, `${i}`);
@@ -68,6 +85,8 @@ export default function fileIoLoopMatrixTest() {
         fileIo.unlinkSync(path);
         expect(fileIo.accessSync(path)).assertFalse();
       }
+    
+      logEnd('testFileLoop0002');
     })
 
     /**
@@ -76,6 +95,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.desc      Verify fifty append operations grow the file by one byte each time
      */
     it('testFileLoop0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileLoop0003');
       const path: string = targetFor('append');
       try {
         writeTextFile(path, '');
@@ -88,6 +108,8 @@ export default function fileIoLoopMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileLoop0003');
     })
 
     /**
@@ -96,6 +118,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.desc      Verify fifty truncate cycles always end at the requested size
      */
     it('testFileLoop0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileLoop0004');
       const path: string = targetFor('truncate');
       try {
         writeTextFile(path, repeatPayload(1024, 't'));
@@ -107,6 +130,8 @@ export default function fileIoLoopMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileLoop0004');
     })
 
     /**
@@ -115,6 +140,7 @@ export default function fileIoLoopMatrixTest() {
      * @tc.desc      Verify fifty independent paths keep distinct content without cross talk
      */
     it('testFileLoop0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileLoop0005');
       const paths: string[] = [];
       try {
         for (let i = 0; i < LOOPS; i++) {
@@ -130,6 +156,8 @@ export default function fileIoLoopMatrixTest() {
           removeQuietly(paths[i]);
         }
       }
+    
+      logEnd('testFileLoop0005');
     })
   });
 }

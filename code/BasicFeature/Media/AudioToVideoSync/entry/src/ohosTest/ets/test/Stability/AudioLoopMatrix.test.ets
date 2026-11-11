@@ -7,6 +7,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const CREATE_ROUNDS: number = 30;
 const START_ROUNDS: number = 20;
@@ -36,6 +37,18 @@ async function createFor(): Promise<audio.AudioRenderer> {
   return renderer;
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Stability_AudioLoopMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function audioLoopMatrixTest() {
   describe('audioLoopMatrixTest', () => {
     beforeAll(() => {
@@ -56,11 +69,14 @@ export default function audioLoopMatrixTest() {
      * @tc.desc      Verify thirty create and release cycles all end released
      */
     it('testAudioLoop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLoop0001');
       for (let i = 0; i < CREATE_ROUNDS; i++) {
         const renderer: audio.AudioRenderer = await createFor();
         await renderer.release();
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testAudioLoop0001');
     })
 
     /**
@@ -69,6 +85,7 @@ export default function audioLoopMatrixTest() {
      * @tc.desc      Verify twenty start and stop cycles keep the running and stopped states
      */
     it('testAudioLoop0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLoop0002');
       const renderer: audio.AudioRenderer = await createFor();
       try {
         for (let i = 0; i < START_ROUNDS; i++) {
@@ -81,6 +98,8 @@ export default function audioLoopMatrixTest() {
         await renderer.release();
       }
       expect(renderer.state).assertEqual(4);
+    
+      logEnd('testAudioLoop0002');
     })
 
     /**
@@ -89,6 +108,7 @@ export default function audioLoopMatrixTest() {
      * @tc.desc      Verify ten pause and resume cycles keep the paused and running states
      */
     it('testAudioLoop0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLoop0003');
       const renderer: audio.AudioRenderer = await createFor();
       try {
         await renderer.start();
@@ -101,6 +121,8 @@ export default function audioLoopMatrixTest() {
       } finally {
         await renderer.release();
       }
+    
+      logEnd('testAudioLoop0003');
     })
 
     /**
@@ -109,12 +131,15 @@ export default function audioLoopMatrixTest() {
      * @tc.desc      Verify repeated create and release leaves no renderer running
      */
     it('testAudioLoop0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioLoop0004');
       for (let i = 0; i < 10; i++) {
         const renderer: audio.AudioRenderer = await createFor();
         await renderer.start();
         await renderer.release();
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testAudioLoop0004');
     })
   });
 }
