@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-/** 第三层页面：自动恢复不保证覆盖到深层级，本页由首页按路径快照补推。 */
+/** 第三层页面：自动恢复不保证覆盖到深层级，本页由首页按保存的页面路径补齐。 */
 @Component
 export struct DeepPage {
   build() {
@@ -22,7 +22,7 @@ export struct DeepPage {
         Text('第三层页面')
           .fontSize(20)
           .fontWeight(FontWeight.Bold)
-        Text('系统自动恢复不保证覆盖到深层级；本页位于第 3 层，恢复时由首页按保存的路径快照补推。')
+        Text('系统自动恢复不保证覆盖到深层级；本页位于第 3 层，恢复时由首页按保存的页面路径补齐。')
           .fontSize(14)
           .fontColor(Color.Gray)
       }

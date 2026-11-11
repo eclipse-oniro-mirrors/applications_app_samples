@@ -25,10 +25,10 @@ const BLOB_EXPIRE_MS = 7 * 24 * 60 * 60 * 1000; // 与系统备份数据 7 天�
 
 // [Start restore_launch]
 /**
- * 三信号合判是否恢复启动：系统键为 true（全版本可靠）/ want.parameters 中存在
- * 恢复键（仅恢复启动时由系统带回）/ launchReason 为 APP_RECOVERY（API版本26.0.0 起
- * 可信；之前版本从系统设置强行停止后的再次启动也会被误标，不能单独采信）。
- * restoreKeys：onSaveState 写入 want.parameters 的全部键名。
+ * 组合判断是否恢复启动：恢复重启标记为 true（全版本可靠）/ want.parameters 中
+ * 存在 onSaveState() 保存的数据（仅恢复启动时由系统带回）/ launchReason 为
+ * APP_RECOVERY（API版本26.0.0 起可信，之前版本不能单独采信）。
+ * restoreKeys：onSaveState() 写入 want.parameters 的全部键名。
  */
 export function isRestoreLaunch(want: Want, launchParam: AbilityConstant.LaunchParam,
   restoreKeys: string[]): boolean {
@@ -42,7 +42,7 @@ export function isRestoreLaunch(want: Want, launchParam: AbilityConstant.LaunchP
 // [End restore_launch]
 
 // [Start blob_save]
-/** 超大数据落盘：数据本体写入沙箱文件，返回文件名，want.parameters 只保存文件名。 */
+/** 超大数据保存到文件：数据本体写入沙箱文件，返回文件名，want.parameters 只保存文件名。 */
 export function saveBlob(context: common.Context, key: string, data: string): string {
   const fileName = BLOB_FILE_PREFIX + key + '.txt';
   const file = context.filesDir + '/' + fileName;
@@ -57,7 +57,7 @@ export function saveBlob(context: common.Context, key: string, data: string): st
 // [End blob_save]
 
 // [Start blob_load]
-/** 按文件名读回落盘数据；读不到（如设备重启后不还原）返回 null，调用方按空数据降级。 */
+/** 按文件名读回保存到文件的数据；读不到（如设备重启后不还原）返回 null，调用方按空数据降级。 */
 export function loadBlob(context: common.Context, fileName: string): string | null {
   try {
     const file = context.filesDir + '/' + fileName;
@@ -73,7 +73,7 @@ export function loadBlob(context: common.Context, fileName: string): string | nu
 }
 // [End blob_load]
 
-/** 非恢复启动时清理超过 7 天的历史落盘文件。 */
+/** 非恢复启动时清理超过 7 天的历史数据文件。 */
 export function cleanupBlob(context: common.Context): void {
   try {
     const names = fs.listFileSync(context.filesDir);
