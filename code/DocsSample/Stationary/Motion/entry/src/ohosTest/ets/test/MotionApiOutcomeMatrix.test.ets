@@ -137,7 +137,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
   describe('MotionApiOutcomeMatrixTest', () => {
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0110
+     * @tc.number    SUB_MOTION_OUTCOME_0100
      * @tc.name      testMotionOutcome0001
      * @tc.desc      Verify operating subscribe with callback yields one valid outcome (step #1)
      * @tc.type      Function
@@ -153,7 +153,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0120
+     * @tc.number    SUB_MOTION_OUTCOME_0200
      * @tc.name      testMotionOutcome0002
      * @tc.desc      Verify operating unsubscribe with callback yields one valid outcome (step #2)
      * @tc.type      Function
@@ -169,7 +169,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0130
+     * @tc.number    SUB_MOTION_OUTCOME_0300
      * @tc.name      testMotionOutcome0003
      * @tc.desc      Verify operating unsubscribe without callback yields one valid outcome (step #3)
      * @tc.type      Function
@@ -185,7 +185,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0140
+     * @tc.number    SUB_MOTION_OUTCOME_0400
      * @tc.name      testMotionOutcome0004
      * @tc.desc      Verify holding subscribe with callback yields one valid outcome (step #4)
      * @tc.type      Function
@@ -201,7 +201,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0150
+     * @tc.number    SUB_MOTION_OUTCOME_0500
      * @tc.name      testMotionOutcome0005
      * @tc.desc      Verify holding unsubscribe with callback yields one valid outcome (step #5)
      * @tc.type      Function
@@ -217,7 +217,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0160
+     * @tc.number    SUB_MOTION_OUTCOME_0600
      * @tc.name      testMotionOutcome0006
      * @tc.desc      Verify holding unsubscribe without callback yields one valid outcome (step #6)
      * @tc.type      Function
@@ -233,7 +233,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0170
+     * @tc.number    SUB_MOTION_OUTCOME_0700
      * @tc.name      testMotionOutcome0007
      * @tc.desc      Verify recent operating status query yields one valid outcome (step #7)
      * @tc.type      Function
@@ -249,7 +249,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0180
+     * @tc.number    SUB_MOTION_OUTCOME_0800
      * @tc.name      testMotionOutcome0008
      * @tc.desc      Verify operating subscribe repeated as a single isolated step yields one valid outcome (step #8)
      * @tc.type      Function
@@ -265,7 +265,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0190
+     * @tc.number    SUB_MOTION_OUTCOME_0900
      * @tc.name      testMotionOutcome0009
      * @tc.desc      Verify operating subscribe with callback yields one valid outcome (step #9)
      * @tc.type      Function
@@ -281,7 +281,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0200
+     * @tc.number    SUB_MOTION_OUTCOME_1000
      * @tc.name      testMotionOutcome0010
      * @tc.desc      Verify operating unsubscribe with callback yields one valid outcome (step #10)
      * @tc.type      Function
@@ -297,7 +297,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0210
+     * @tc.number    SUB_MOTION_OUTCOME_1100
      * @tc.name      testMotionOutcome0011
      * @tc.desc      Verify operating unsubscribe without callback yields one valid outcome (step #11)
      * @tc.type      Function
@@ -313,7 +313,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0220
+     * @tc.number    SUB_MOTION_OUTCOME_1200
      * @tc.name      testMotionOutcome0012
      * @tc.desc      Verify holding subscribe with callback yields one valid outcome (step #12)
      * @tc.type      Function
@@ -329,7 +329,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0230
+     * @tc.number    SUB_MOTION_OUTCOME_1300
      * @tc.name      testMotionOutcome0013
      * @tc.desc      Verify holding unsubscribe with callback yields one valid outcome (step #13)
      * @tc.type      Function
@@ -345,7 +345,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0240
+     * @tc.number    SUB_MOTION_OUTCOME_1400
      * @tc.name      testMotionOutcome0014
      * @tc.desc      Verify holding unsubscribe without callback yields one valid outcome (step #14)
      * @tc.type      Function
@@ -361,7 +361,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0250
+     * @tc.number    SUB_MOTION_OUTCOME_1500
      * @tc.name      testMotionOutcome0015
      * @tc.desc      Verify recent operating status query yields one valid outcome (step #15)
      * @tc.type      Function
@@ -377,7 +377,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0260
+     * @tc.number    SUB_MOTION_OUTCOME_1600
      * @tc.name      testMotionOutcome0016
      * @tc.desc      Verify operating subscribe repeated as a single isolated step yields one valid outcome (step #16)
      * @tc.type      Function
@@ -393,7 +393,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0270
+     * @tc.number    SUB_MOTION_OUTCOME_1700
      * @tc.name      testMotionOutcome0017
      * @tc.desc      Verify operating subscribe with callback yields one valid outcome (step #17)
      * @tc.type      Function
@@ -409,7 +409,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0280
+     * @tc.number    SUB_MOTION_OUTCOME_1800
      * @tc.name      testMotionOutcome0018
      * @tc.desc      Verify operating unsubscribe with callback yields one valid outcome (step #18)
      * @tc.type      Function
@@ -425,7 +425,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0290
+     * @tc.number    SUB_MOTION_OUTCOME_1900
      * @tc.name      testMotionOutcome0019
      * @tc.desc      Verify operating unsubscribe without callback yields one valid outcome (step #19)
      * @tc.type      Function
@@ -441,7 +441,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0300
+     * @tc.number    SUB_MOTION_OUTCOME_2000
      * @tc.name      testMotionOutcome0020
      * @tc.desc      Verify holding subscribe with callback yields one valid outcome (step #20)
      * @tc.type      Function
@@ -457,7 +457,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0310
+     * @tc.number    SUB_MOTION_OUTCOME_2100
      * @tc.name      testMotionOutcome0021
      * @tc.desc      Verify holding unsubscribe with callback yields one valid outcome (step #21)
      * @tc.type      Function
@@ -473,7 +473,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0320
+     * @tc.number    SUB_MOTION_OUTCOME_2200
      * @tc.name      testMotionOutcome0022
      * @tc.desc      Verify holding unsubscribe without callback yields one valid outcome (step #22)
      * @tc.type      Function
@@ -489,7 +489,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0330
+     * @tc.number    SUB_MOTION_OUTCOME_2300
      * @tc.name      testMotionOutcome0023
      * @tc.desc      Verify recent operating status query yields one valid outcome (step #23)
      * @tc.type      Function
@@ -505,7 +505,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0340
+     * @tc.number    SUB_MOTION_OUTCOME_2400
      * @tc.name      testMotionOutcome0024
      * @tc.desc      Verify operating subscribe repeated as a single isolated step yields one valid outcome (step #24)
      * @tc.type      Function
@@ -521,7 +521,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0350
+     * @tc.number    SUB_MOTION_OUTCOME_2500
      * @tc.name      testMotionOutcome0025
      * @tc.desc      Verify operating subscribe with callback yields one valid outcome (step #25)
      * @tc.type      Function
@@ -537,7 +537,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0360
+     * @tc.number    SUB_MOTION_OUTCOME_2600
      * @tc.name      testMotionOutcome0026
      * @tc.desc      Verify operating unsubscribe with callback yields one valid outcome (step #26)
      * @tc.type      Function
@@ -553,7 +553,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0370
+     * @tc.number    SUB_MOTION_OUTCOME_2700
      * @tc.name      testMotionOutcome0027
      * @tc.desc      Verify operating unsubscribe without callback yields one valid outcome (step #27)
      * @tc.type      Function
@@ -569,7 +569,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0380
+     * @tc.number    SUB_MOTION_OUTCOME_2800
      * @tc.name      testMotionOutcome0028
      * @tc.desc      Verify holding subscribe with callback yields one valid outcome (step #28)
      * @tc.type      Function
@@ -585,7 +585,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0390
+     * @tc.number    SUB_MOTION_OUTCOME_2900
      * @tc.name      testMotionOutcome0029
      * @tc.desc      Verify holding unsubscribe with callback yields one valid outcome (step #29)
      * @tc.type      Function
@@ -601,7 +601,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0400
+     * @tc.number    SUB_MOTION_OUTCOME_3000
      * @tc.name      testMotionOutcome0030
      * @tc.desc      Verify holding unsubscribe without callback yields one valid outcome (step #30)
      * @tc.type      Function
@@ -617,7 +617,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0410
+     * @tc.number    SUB_MOTION_OUTCOME_3100
      * @tc.name      testMotionOutcome0031
      * @tc.desc      Verify recent operating status query yields one valid outcome (step #31)
      * @tc.type      Function
@@ -633,7 +633,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0420
+     * @tc.number    SUB_MOTION_OUTCOME_3200
      * @tc.name      testMotionOutcome0032
      * @tc.desc      Verify operating subscribe repeated as a single isolated step yields one valid outcome (step #32)
      * @tc.type      Function
@@ -649,7 +649,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0430
+     * @tc.number    SUB_MOTION_OUTCOME_3300
      * @tc.name      testMotionOutcome0033
      * @tc.desc      Verify operating subscribe with callback yields one valid outcome (step #33)
      * @tc.type      Function
@@ -665,7 +665,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0440
+     * @tc.number    SUB_MOTION_OUTCOME_3400
      * @tc.name      testMotionOutcome0034
      * @tc.desc      Verify operating unsubscribe with callback yields one valid outcome (step #34)
      * @tc.type      Function
@@ -681,7 +681,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0450
+     * @tc.number    SUB_MOTION_OUTCOME_3500
      * @tc.name      testMotionOutcome0035
      * @tc.desc      Verify operating unsubscribe without callback yields one valid outcome (step #35)
      * @tc.type      Function
@@ -697,7 +697,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0460
+     * @tc.number    SUB_MOTION_OUTCOME_3600
      * @tc.name      testMotionOutcome0036
      * @tc.desc      Verify holding subscribe with callback yields one valid outcome (step #36)
      * @tc.type      Function
@@ -713,7 +713,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0470
+     * @tc.number    SUB_MOTION_OUTCOME_3700
      * @tc.name      testMotionOutcome0037
      * @tc.desc      Verify holding unsubscribe with callback yields one valid outcome (step #37)
      * @tc.type      Function
@@ -729,7 +729,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0480
+     * @tc.number    SUB_MOTION_OUTCOME_3800
      * @tc.name      testMotionOutcome0038
      * @tc.desc      Verify holding unsubscribe without callback yields one valid outcome (step #38)
      * @tc.type      Function
@@ -745,7 +745,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0490
+     * @tc.number    SUB_MOTION_OUTCOME_3900
      * @tc.name      testMotionOutcome0039
      * @tc.desc      Verify recent operating status query yields one valid outcome (step #39)
      * @tc.type      Function
@@ -761,7 +761,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0500
+     * @tc.number    SUB_MOTION_OUTCOME_4000
      * @tc.name      testMotionOutcome0040
      * @tc.desc      Verify operating subscribe repeated as a single isolated step yields one valid outcome (step #40)
      * @tc.type      Function
@@ -777,7 +777,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0510
+     * @tc.number    SUB_MOTION_OUTCOME_4100
      * @tc.name      testMotionOutcome0041
      * @tc.desc      Verify onOperating then offOperating each yield a valid outcome (pair #1)
      * @tc.type      Function
@@ -791,7 +791,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0520
+     * @tc.number    SUB_MOTION_OUTCOME_4200
      * @tc.name      testMotionOutcome0042
      * @tc.desc      Verify offOperating then onOperating each yield a valid outcome (pair #2)
      * @tc.type      Function
@@ -805,7 +805,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0530
+     * @tc.number    SUB_MOTION_OUTCOME_4300
      * @tc.name      testMotionOutcome0043
      * @tc.desc      Verify onOperating then onOperating each yield a valid outcome (pair #3)
      * @tc.type      Function
@@ -819,7 +819,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0540
+     * @tc.number    SUB_MOTION_OUTCOME_4400
      * @tc.name      testMotionOutcome0044
      * @tc.desc      Verify offOperating then offOperating each yield a valid outcome (pair #4)
      * @tc.type      Function
@@ -833,7 +833,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0550
+     * @tc.number    SUB_MOTION_OUTCOME_4500
      * @tc.name      testMotionOutcome0045
      * @tc.desc      Verify onHolding then offHolding each yield a valid outcome (pair #5)
      * @tc.type      Function
@@ -847,7 +847,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0560
+     * @tc.number    SUB_MOTION_OUTCOME_4600
      * @tc.name      testMotionOutcome0046
      * @tc.desc      Verify offHolding then onHolding each yield a valid outcome (pair #6)
      * @tc.type      Function
@@ -861,7 +861,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0570
+     * @tc.number    SUB_MOTION_OUTCOME_4700
      * @tc.name      testMotionOutcome0047
      * @tc.desc      Verify onHolding then onHolding each yield a valid outcome (pair #7)
      * @tc.type      Function
@@ -875,7 +875,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0580
+     * @tc.number    SUB_MOTION_OUTCOME_4800
      * @tc.name      testMotionOutcome0048
      * @tc.desc      Verify offHolding then offHolding each yield a valid outcome (pair #8)
      * @tc.type      Function
@@ -889,7 +889,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0590
+     * @tc.number    SUB_MOTION_OUTCOME_4900
      * @tc.name      testMotionOutcome0049
      * @tc.desc      Verify onOperating then offOperating each yield a valid outcome (pair #9)
      * @tc.type      Function
@@ -903,7 +903,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0600
+     * @tc.number    SUB_MOTION_OUTCOME_5000
      * @tc.name      testMotionOutcome0050
      * @tc.desc      Verify offOperating then onOperating each yield a valid outcome (pair #10)
      * @tc.type      Function
@@ -917,7 +917,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0610
+     * @tc.number    SUB_MOTION_OUTCOME_5100
      * @tc.name      testMotionOutcome0051
      * @tc.desc      Verify onOperating then onOperating each yield a valid outcome (pair #11)
      * @tc.type      Function
@@ -931,7 +931,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0620
+     * @tc.number    SUB_MOTION_OUTCOME_5200
      * @tc.name      testMotionOutcome0052
      * @tc.desc      Verify offOperating then offOperating each yield a valid outcome (pair #12)
      * @tc.type      Function
@@ -945,7 +945,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0630
+     * @tc.number    SUB_MOTION_OUTCOME_5300
      * @tc.name      testMotionOutcome0053
      * @tc.desc      Verify onHolding then offHolding each yield a valid outcome (pair #13)
      * @tc.type      Function
@@ -959,7 +959,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0640
+     * @tc.number    SUB_MOTION_OUTCOME_5400
      * @tc.name      testMotionOutcome0054
      * @tc.desc      Verify offHolding then onHolding each yield a valid outcome (pair #14)
      * @tc.type      Function
@@ -973,7 +973,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0650
+     * @tc.number    SUB_MOTION_OUTCOME_5500
      * @tc.name      testMotionOutcome0055
      * @tc.desc      Verify onHolding then onHolding each yield a valid outcome (pair #15)
      * @tc.type      Function
@@ -987,7 +987,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0660
+     * @tc.number    SUB_MOTION_OUTCOME_5600
      * @tc.name      testMotionOutcome0056
      * @tc.desc      Verify offHolding then offHolding each yield a valid outcome (pair #16)
      * @tc.type      Function
@@ -1001,7 +1001,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0670
+     * @tc.number    SUB_MOTION_OUTCOME_5700
      * @tc.name      testMotionOutcome0057
      * @tc.desc      Verify onOperating then offOperating each yield a valid outcome (pair #17)
      * @tc.type      Function
@@ -1015,7 +1015,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0680
+     * @tc.number    SUB_MOTION_OUTCOME_5800
      * @tc.name      testMotionOutcome0058
      * @tc.desc      Verify offOperating then onOperating each yield a valid outcome (pair #18)
      * @tc.type      Function
@@ -1029,7 +1029,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0690
+     * @tc.number    SUB_MOTION_OUTCOME_5900
      * @tc.name      testMotionOutcome0059
      * @tc.desc      Verify onOperating then onOperating each yield a valid outcome (pair #19)
      * @tc.type      Function
@@ -1043,7 +1043,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0700
+     * @tc.number    SUB_MOTION_OUTCOME_6000
      * @tc.name      testMotionOutcome0060
      * @tc.desc      Verify offOperating then offOperating each yield a valid outcome (pair #20)
      * @tc.type      Function
@@ -1057,7 +1057,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0710
+     * @tc.number    SUB_MOTION_OUTCOME_6100
      * @tc.name      testMotionOutcome0061
      * @tc.desc      Verify onHolding then offHolding each yield a valid outcome (pair #21)
      * @tc.type      Function
@@ -1071,7 +1071,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0720
+     * @tc.number    SUB_MOTION_OUTCOME_6200
      * @tc.name      testMotionOutcome0062
      * @tc.desc      Verify offHolding then onHolding each yield a valid outcome (pair #22)
      * @tc.type      Function
@@ -1085,7 +1085,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0730
+     * @tc.number    SUB_MOTION_OUTCOME_6300
      * @tc.name      testMotionOutcome0063
      * @tc.desc      Verify onHolding then onHolding each yield a valid outcome (pair #23)
      * @tc.type      Function
@@ -1099,7 +1099,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0740
+     * @tc.number    SUB_MOTION_OUTCOME_6400
      * @tc.name      testMotionOutcome0064
      * @tc.desc      Verify offHolding then offHolding each yield a valid outcome (pair #24)
      * @tc.type      Function
@@ -1113,7 +1113,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0750
+     * @tc.number    SUB_MOTION_OUTCOME_6500
      * @tc.name      testMotionOutcome0065
      * @tc.desc      Verify onOperating then offOperating each yield a valid outcome (pair #25)
      * @tc.type      Function
@@ -1127,7 +1127,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0760
+     * @tc.number    SUB_MOTION_OUTCOME_6600
      * @tc.name      testMotionOutcome0066
      * @tc.desc      Verify offOperating then onOperating each yield a valid outcome (pair #26)
      * @tc.type      Function
@@ -1141,7 +1141,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0770
+     * @tc.number    SUB_MOTION_OUTCOME_6700
      * @tc.name      testMotionOutcome0067
      * @tc.desc      Verify onOperating then onOperating each yield a valid outcome (pair #27)
      * @tc.type      Function
@@ -1155,7 +1155,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0780
+     * @tc.number    SUB_MOTION_OUTCOME_6800
      * @tc.name      testMotionOutcome0068
      * @tc.desc      Verify offOperating then offOperating each yield a valid outcome (pair #28)
      * @tc.type      Function
@@ -1169,7 +1169,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0790
+     * @tc.number    SUB_MOTION_OUTCOME_6900
      * @tc.name      testMotionOutcome0069
      * @tc.desc      Verify onHolding then offHolding each yield a valid outcome (pair #29)
      * @tc.type      Function
@@ -1183,7 +1183,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0800
+     * @tc.number    SUB_MOTION_OUTCOME_7000
      * @tc.name      testMotionOutcome0070
      * @tc.desc      Verify offHolding then onHolding each yield a valid outcome (pair #30)
      * @tc.type      Function
@@ -1197,7 +1197,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0810
+     * @tc.number    SUB_MOTION_OUTCOME_7100
      * @tc.name      testMotionOutcome0071
      * @tc.desc      Verify onHolding then onHolding each yield a valid outcome (pair #31)
      * @tc.type      Function
@@ -1211,7 +1211,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0820
+     * @tc.number    SUB_MOTION_OUTCOME_7200
      * @tc.name      testMotionOutcome0072
      * @tc.desc      Verify offHolding then offHolding each yield a valid outcome (pair #32)
      * @tc.type      Function
@@ -1225,7 +1225,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0830
+     * @tc.number    SUB_MOTION_OUTCOME_7300
      * @tc.name      testMotionOutcome0073
      * @tc.desc      Verify mixed sequence onOperating-onHolding-offOperating yields valid outcomes (triple #1)
      * @tc.type      Function
@@ -1239,7 +1239,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0840
+     * @tc.number    SUB_MOTION_OUTCOME_7400
      * @tc.name      testMotionOutcome0074
      * @tc.desc      Verify mixed sequence onHolding-onOperating-offHolding yields valid outcomes (triple #2)
      * @tc.type      Function
@@ -1253,7 +1253,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0850
+     * @tc.number    SUB_MOTION_OUTCOME_7500
      * @tc.name      testMotionOutcome0075
      * @tc.desc      Verify mixed sequence offOperating-offHolding-query yields valid outcomes (triple #3)
      * @tc.type      Function
@@ -1267,7 +1267,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0860
+     * @tc.number    SUB_MOTION_OUTCOME_7600
      * @tc.name      testMotionOutcome0076
      * @tc.desc      Verify mixed sequence onOperating-query-offOperating yields valid outcomes (triple #4)
      * @tc.type      Function
@@ -1281,7 +1281,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0870
+     * @tc.number    SUB_MOTION_OUTCOME_7700
      * @tc.name      testMotionOutcome0077
      * @tc.desc      Verify mixed sequence onHolding-query-offHolding yields valid outcomes (triple #5)
      * @tc.type      Function
@@ -1295,7 +1295,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0880
+     * @tc.number    SUB_MOTION_OUTCOME_7800
      * @tc.name      testMotionOutcome0078
      * @tc.desc      Verify mixed sequence query-onOperating-onHolding yields valid outcomes (triple #6)
      * @tc.type      Function
@@ -1309,7 +1309,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0890
+     * @tc.number    SUB_MOTION_OUTCOME_7900
      * @tc.name      testMotionOutcome0079
      * @tc.desc      Verify mixed sequence onOperating-onHolding-offOperating yields valid outcomes (triple #7)
      * @tc.type      Function
@@ -1323,7 +1323,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0900
+     * @tc.number    SUB_MOTION_OUTCOME_8000
      * @tc.name      testMotionOutcome0080
      * @tc.desc      Verify mixed sequence onHolding-onOperating-offHolding yields valid outcomes (triple #8)
      * @tc.type      Function
@@ -1337,7 +1337,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0910
+     * @tc.number    SUB_MOTION_OUTCOME_8100
      * @tc.name      testMotionOutcome0081
      * @tc.desc      Verify mixed sequence offOperating-offHolding-query yields valid outcomes (triple #9)
      * @tc.type      Function
@@ -1351,7 +1351,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0920
+     * @tc.number    SUB_MOTION_OUTCOME_8200
      * @tc.name      testMotionOutcome0082
      * @tc.desc      Verify mixed sequence onOperating-query-offOperating yields valid outcomes (triple #10)
      * @tc.type      Function
@@ -1365,7 +1365,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0930
+     * @tc.number    SUB_MOTION_OUTCOME_8300
      * @tc.name      testMotionOutcome0083
      * @tc.desc      Verify mixed sequence onHolding-query-offHolding yields valid outcomes (triple #11)
      * @tc.type      Function
@@ -1379,7 +1379,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0940
+     * @tc.number    SUB_MOTION_OUTCOME_8400
      * @tc.name      testMotionOutcome0084
      * @tc.desc      Verify mixed sequence query-onOperating-onHolding yields valid outcomes (triple #12)
      * @tc.type      Function
@@ -1393,7 +1393,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0950
+     * @tc.number    SUB_MOTION_OUTCOME_8500
      * @tc.name      testMotionOutcome0085
      * @tc.desc      Verify mixed sequence onOperating-onHolding-offOperating yields valid outcomes (triple #13)
      * @tc.type      Function
@@ -1407,7 +1407,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0960
+     * @tc.number    SUB_MOTION_OUTCOME_8600
      * @tc.name      testMotionOutcome0086
      * @tc.desc      Verify mixed sequence onHolding-onOperating-offHolding yields valid outcomes (triple #14)
      * @tc.type      Function
@@ -1421,7 +1421,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0970
+     * @tc.number    SUB_MOTION_OUTCOME_8700
      * @tc.name      testMotionOutcome0087
      * @tc.desc      Verify mixed sequence offOperating-offHolding-query yields valid outcomes (triple #15)
      * @tc.type      Function
@@ -1435,7 +1435,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0980
+     * @tc.number    SUB_MOTION_OUTCOME_8800
      * @tc.name      testMotionOutcome0088
      * @tc.desc      Verify mixed sequence onOperating-query-offOperating yields valid outcomes (triple #16)
      * @tc.type      Function
@@ -1449,7 +1449,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_0990
+     * @tc.number    SUB_MOTION_OUTCOME_8900
      * @tc.name      testMotionOutcome0089
      * @tc.desc      Verify mixed sequence onHolding-query-offHolding yields valid outcomes (triple #17)
      * @tc.type      Function
@@ -1463,7 +1463,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1000
+     * @tc.number    SUB_MOTION_OUTCOME_9000
      * @tc.name      testMotionOutcome0090
      * @tc.desc      Verify mixed sequence query-onOperating-onHolding yields valid outcomes (triple #18)
      * @tc.type      Function
@@ -1477,7 +1477,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1010
+     * @tc.number    SUB_MOTION_OUTCOME_9100
      * @tc.name      testMotionOutcome0091
      * @tc.desc      Verify mixed sequence onOperating-onHolding-offOperating yields valid outcomes (triple #19)
      * @tc.type      Function
@@ -1491,7 +1491,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1020
+     * @tc.number    SUB_MOTION_OUTCOME_9200
      * @tc.name      testMotionOutcome0092
      * @tc.desc      Verify mixed sequence onHolding-onOperating-offHolding yields valid outcomes (triple #20)
      * @tc.type      Function
@@ -1505,7 +1505,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1030
+     * @tc.number    SUB_MOTION_OUTCOME_9300
      * @tc.name      testMotionOutcome0093
      * @tc.desc      Verify mixed sequence offOperating-offHolding-query yields valid outcomes (triple #21)
      * @tc.type      Function
@@ -1519,7 +1519,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1040
+     * @tc.number    SUB_MOTION_OUTCOME_9400
      * @tc.name      testMotionOutcome0094
      * @tc.desc      Verify mixed sequence onOperating-query-offOperating yields valid outcomes (triple #22)
      * @tc.type      Function
@@ -1533,7 +1533,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1050
+     * @tc.number    SUB_MOTION_OUTCOME_9500
      * @tc.name      testMotionOutcome0095
      * @tc.desc      Verify mixed sequence onHolding-query-offHolding yields valid outcomes (triple #23)
      * @tc.type      Function
@@ -1547,7 +1547,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1060
+     * @tc.number    SUB_MOTION_OUTCOME_9600
      * @tc.name      testMotionOutcome0096
      * @tc.desc      Verify mixed sequence query-onOperating-onHolding yields valid outcomes (triple #24)
      * @tc.type      Function
@@ -1561,7 +1561,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1070
+     * @tc.number    SUB_MOTION_OUTCOME_9700
      * @tc.name      testMotionOutcome0097
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #1)
      * @tc.type      Function
@@ -1576,7 +1576,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1080
+     * @tc.number    SUB_MOTION_OUTCOME_9800
      * @tc.name      testMotionOutcome0098
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #2)
      * @tc.type      Function
@@ -1591,7 +1591,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1090
+     * @tc.number    SUB_MOTION_OUTCOME_9900
      * @tc.name      testMotionOutcome0099
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #3)
      * @tc.type      Function
@@ -1606,7 +1606,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1100
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0100
      * @tc.name      testMotionOutcome0100
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #4)
      * @tc.type      Function
@@ -1621,7 +1621,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1110
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0200
      * @tc.name      testMotionOutcome0101
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #5)
      * @tc.type      Function
@@ -1636,7 +1636,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1120
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0300
      * @tc.name      testMotionOutcome0102
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #6)
      * @tc.type      Function
@@ -1651,7 +1651,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1130
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0400
      * @tc.name      testMotionOutcome0103
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #7)
      * @tc.type      Function
@@ -1666,7 +1666,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1140
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0500
      * @tc.name      testMotionOutcome0104
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #8)
      * @tc.type      Function
@@ -1681,7 +1681,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1150
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0600
      * @tc.name      testMotionOutcome0105
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #9)
      * @tc.type      Function
@@ -1696,7 +1696,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1160
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0700
      * @tc.name      testMotionOutcome0106
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #10)
      * @tc.type      Function
@@ -1711,7 +1711,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1170
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0800
      * @tc.name      testMotionOutcome0107
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #11)
      * @tc.type      Function
@@ -1726,7 +1726,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1180
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_0900
      * @tc.name      testMotionOutcome0108
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #12)
      * @tc.type      Function
@@ -1741,7 +1741,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1190
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1000
      * @tc.name      testMotionOutcome0109
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #13)
      * @tc.type      Function
@@ -1756,7 +1756,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1200
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1100
      * @tc.name      testMotionOutcome0110
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #14)
      * @tc.type      Function
@@ -1771,7 +1771,7 @@ export default function MotionApiOutcomeMatrixTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1210
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1200
      * @tc.name      testMotionOutcome0111
      * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #15)
      * @tc.type      Function
@@ -1785,9 +1785,520 @@ export default function MotionApiOutcomeMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0111 end');
     });
 
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1300
+     * @tc.name      testMotionOutcome0112
+     * @tc.desc      Verify multiple callbacks on one event do not leak invalid outcomes (case #16)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0112 begin');
+      const outcomes: CallOutcome[] = [onHolding(), offHolding(), offAllHolding()];
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0112 end');
+    });
 
     /**
-     * @tc.number    SUB_MOTION_OUTCOME_1500
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1400
+     * @tc.name      testMotionOutcome0113
+     * @tc.desc      Verify 1 consecutive status queries never produce an undocumented error (run #1)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL1
+     */
+    it('testMotionOutcome0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0113 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 1; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0113 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1500
+     * @tc.name      testMotionOutcome0114
+     * @tc.desc      Verify 2 consecutive status queries never produce an undocumented error (run #2)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL1
+     */
+    it('testMotionOutcome0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0114 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 2; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0114 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1600
+     * @tc.name      testMotionOutcome0115
+     * @tc.desc      Verify 3 consecutive status queries never produce an undocumented error (run #3)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL1
+     */
+    it('testMotionOutcome0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0115 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 3; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0115 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1700
+     * @tc.name      testMotionOutcome0116
+     * @tc.desc      Verify 4 consecutive status queries never produce an undocumented error (run #4)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL1
+     */
+    it('testMotionOutcome0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0116 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 4; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0116 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1800
+     * @tc.name      testMotionOutcome0117
+     * @tc.desc      Verify 5 consecutive status queries never produce an undocumented error (run #5)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL1
+     */
+    it('testMotionOutcome0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0117 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 5; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0117 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_1900
+     * @tc.name      testMotionOutcome0118
+     * @tc.desc      Verify 6 consecutive status queries never produce an undocumented error (run #6)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL1
+     */
+    it('testMotionOutcome0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0118 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 6; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0118 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2000
+     * @tc.name      testMotionOutcome0119
+     * @tc.desc      Verify 1 consecutive status queries never produce an undocumented error (run #7)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0119 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 1; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0119 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2100
+     * @tc.name      testMotionOutcome0120
+     * @tc.desc      Verify 2 consecutive status queries never produce an undocumented error (run #8)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0120 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 2; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0120 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2200
+     * @tc.name      testMotionOutcome0121
+     * @tc.desc      Verify 3 consecutive status queries never produce an undocumented error (run #9)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0121 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 3; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0121 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2300
+     * @tc.name      testMotionOutcome0122
+     * @tc.desc      Verify 4 consecutive status queries never produce an undocumented error (run #10)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0122 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 4; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0122 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2400
+     * @tc.name      testMotionOutcome0123
+     * @tc.desc      Verify 5 consecutive status queries never produce an undocumented error (run #11)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0123 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 5; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0123 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2500
+     * @tc.name      testMotionOutcome0124
+     * @tc.desc      Verify 6 consecutive status queries never produce an undocumented error (run #12)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0124 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 6; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0124 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2600
+     * @tc.name      testMotionOutcome0125
+     * @tc.desc      Verify 1 consecutive status queries never produce an undocumented error (run #13)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0125 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 1; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0125 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2700
+     * @tc.name      testMotionOutcome0126
+     * @tc.desc      Verify 2 consecutive status queries never produce an undocumented error (run #14)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0126 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 2; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0126 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2800
+     * @tc.name      testMotionOutcome0127
+     * @tc.desc      Verify 3 consecutive status queries never produce an undocumented error (run #15)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0127 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 3; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0127 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_2900
+     * @tc.name      testMotionOutcome0128
+     * @tc.desc      Verify 4 consecutive status queries never produce an undocumented error (run #16)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0128 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 4; i++) {
+        outcomes.push(query());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0128 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3000
+     * @tc.name      testMotionOutcome0129
+     * @tc.desc      Verify 2 operating subscribe/unsubscribe cycles stay valid (cycle #1)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0129 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 2; i++) {
+        outcomes.push(onOperating());
+        outcomes.push(offOperating());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0129 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3100
+     * @tc.name      testMotionOutcome0130
+     * @tc.desc      Verify 3 holding subscribe/unsubscribe cycles stay valid (cycle #2)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0130 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 3; i++) {
+        outcomes.push(onHolding());
+        outcomes.push(offHolding());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0130 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3200
+     * @tc.name      testMotionOutcome0131
+     * @tc.desc      Verify 4 operating subscribe/unsubscribe cycles stay valid (cycle #3)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0131 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 4; i++) {
+        outcomes.push(onOperating());
+        outcomes.push(offOperating());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0131 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3300
+     * @tc.name      testMotionOutcome0132
+     * @tc.desc      Verify 5 holding subscribe/unsubscribe cycles stay valid (cycle #4)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0132 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 5; i++) {
+        outcomes.push(onHolding());
+        outcomes.push(offHolding());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0132 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3400
+     * @tc.name      testMotionOutcome0133
+     * @tc.desc      Verify 6 operating subscribe/unsubscribe cycles stay valid (cycle #5)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0133 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 6; i++) {
+        outcomes.push(onOperating());
+        outcomes.push(offOperating());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0133 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3500
+     * @tc.name      testMotionOutcome0134
+     * @tc.desc      Verify 2 holding subscribe/unsubscribe cycles stay valid (cycle #6)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0134 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 2; i++) {
+        outcomes.push(onHolding());
+        outcomes.push(offHolding());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0134 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3600
+     * @tc.name      testMotionOutcome0135
+     * @tc.desc      Verify 3 operating subscribe/unsubscribe cycles stay valid (cycle #7)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0135 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 3; i++) {
+        outcomes.push(onOperating());
+        outcomes.push(offOperating());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0135 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3700
+     * @tc.name      testMotionOutcome0136
+     * @tc.desc      Verify 4 holding subscribe/unsubscribe cycles stay valid (cycle #8)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0136 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 4; i++) {
+        outcomes.push(onHolding());
+        outcomes.push(offHolding());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0136 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3800
+     * @tc.name      testMotionOutcome0137
+     * @tc.desc      Verify 5 operating subscribe/unsubscribe cycles stay valid (cycle #9)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0137 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 5; i++) {
+        outcomes.push(onOperating());
+        outcomes.push(offOperating());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0137 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_3900
+     * @tc.name      testMotionOutcome0138
+     * @tc.desc      Verify 6 holding subscribe/unsubscribe cycles stay valid (cycle #10)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0138 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 6; i++) {
+        outcomes.push(onHolding());
+        outcomes.push(offHolding());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0138 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_4000
+     * @tc.name      testMotionOutcome0139
+     * @tc.desc      Verify 2 operating subscribe/unsubscribe cycles stay valid (cycle #11)
+     * @tc.type      Function
+     * @tc.size      SmallTest
+     * @tc.level     LEVEL2
+     */
+    it('testMotionOutcome0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0139 begin');
+      const outcomes: CallOutcome[] = [];
+      for (let i = 0; i < 2; i++) {
+        outcomes.push(onOperating());
+        outcomes.push(offOperating());
+      }
+      expect(isSequenceValid(outcomes)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionOutcome0139 end');
+    });
+
+    /**
+     * @tc.number    SUB_MOTION_OUTCOME_ONE_4100
      * @tc.name      testMotionOutcome0140
      * @tc.desc      Verify 3 holding subscribe/unsubscribe cycles stay valid (cycle #12)
      * @tc.type      Function

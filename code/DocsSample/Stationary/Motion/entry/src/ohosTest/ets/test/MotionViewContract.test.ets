@@ -243,7 +243,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1100
+     * @tc.number    SUB_MOTION_VIEW_1000
      * @tc.name      testMotionView0011
      * @tc.desc      Verify initial status message is the bare motion token
      * @tc.type      Function
@@ -260,7 +260,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1200
+     * @tc.number    SUB_MOTION_VIEW_1100
      * @tc.name      testMotionView0012
      * @tc.desc      Verify five action methods follow lower camel case naming
      * @tc.type      Function
@@ -282,7 +282,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1300
+     * @tc.number    SUB_MOTION_VIEW_1200
      * @tc.name      testMotionView0013
      * @tc.desc      Verify action methods are unique and each starts with a known verb
      * @tc.type      Function
@@ -305,7 +305,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1400
+     * @tc.number    SUB_MOTION_VIEW_1300
      * @tc.name      testMotionView0014
      * @tc.desc      Verify result texts are prefixed with the motion namespace and suffixed with the handler name
      * @tc.type      Function
@@ -327,7 +327,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1500
+     * @tc.number    SUB_MOTION_VIEW_1400
      * @tc.name      testMotionView0015
      * @tc.desc      Verify result texts are mutually distinct and never collide with the initial message
      * @tc.type      Function
@@ -344,7 +344,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1600
+     * @tc.number    SUB_MOTION_VIEW_1500
      * @tc.name      testMotionView0016
      * @tc.desc      Verify each button position maps to the same index in ids, labels, texts and handlers
      * @tc.type      Function
@@ -361,7 +361,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1700
+     * @tc.number    SUB_MOTION_VIEW_1600
      * @tc.name      testMotionView0017
      * @tc.desc      Verify two documented motion events back the two subscribe handlers
      * @tc.type      Function
@@ -379,7 +379,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1800
+     * @tc.number    SUB_MOTION_VIEW_1700
      * @tc.name      testMotionView0018
      * @tc.desc      Verify exactly one query action exists and it is the get-prefixed handler
      * @tc.type      Function
@@ -396,7 +396,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_1900
+     * @tc.number    SUB_MOTION_VIEW_1800
      * @tc.name      testMotionView0019
      * @tc.desc      Verify button label order matches the documented action order in build()
      * @tc.type      Function
@@ -413,7 +413,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_2000
+     * @tc.number    SUB_MOTION_VIEW_1900
      * @tc.name      testMotionView0020
      * @tc.desc      Verify handler order pairs subscribe before unsubscribe for each hand
      * @tc.type      Function
@@ -435,7 +435,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_2200
+     * @tc.number    SUB_MOTION_VIEW_2000
      * @tc.name      testMotionView0022
      * @tc.desc      Verify every result text names a handler that actually exists
      * @tc.type      Function
@@ -457,7 +457,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_2300
+     * @tc.number    SUB_MOTION_VIEW_2100
      * @tc.name      testMotionView0023
      * @tc.desc      Verify status text content length stays within the single-line display budget
      * @tc.type      Function
@@ -477,7 +477,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_2400
+     * @tc.number    SUB_MOTION_VIEW_2200
      * @tc.name      testMotionView0024
      * @tc.desc      Verify all result texts share a single space separator after the motion token
      * @tc.type      Function
@@ -499,7 +499,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_2500
+     * @tc.number    SUB_MOTION_VIEW_2300
      * @tc.name      testMotionView0025
      * @tc.desc      Verify subscribe and unsubscribe results differ only by the unsubscribe prefix
      * @tc.type      Function
@@ -519,7 +519,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_2600
+     * @tc.number    SUB_MOTION_VIEW_2400
      * @tc.name      testMotionView0026
      * @tc.desc      Verify operating-hand texts outnumber holding-hand texts
      * @tc.type      Function
@@ -537,7 +537,7 @@ export default function MotionViewContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_VIEW_2700
+     * @tc.number    SUB_MOTION_VIEW_2500
      * @tc.name      testMotionView0027
      * @tc.desc      Verify the two event names align with the two subscribe handler suffixes
      * @tc.type      Function

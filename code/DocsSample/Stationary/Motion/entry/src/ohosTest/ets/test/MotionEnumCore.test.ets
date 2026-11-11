@@ -160,7 +160,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_0800
+     * @tc.number    SUB_MOTION_ENUM_CORE_0700
      * @tc.name      testMotionEnumCore0008
      * @tc.desc      Verify OperatingHandStatus values form a contiguous 0-based sequence
      * @tc.type      Function
@@ -179,7 +179,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_0900
+     * @tc.number    SUB_MOTION_ENUM_CORE_0800
      * @tc.name      testMotionEnumCore0009
      * @tc.desc      Verify neutral state sorts below both hand-operated states
      * @tc.type      Function
@@ -198,7 +198,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1000
+     * @tc.number    SUB_MOTION_ENUM_CORE_0900
      * @tc.name      testMotionEnumCore0010
      * @tc.desc      Verify left and right hand states are distinguishable by expression
      * @tc.type      Function
@@ -216,7 +216,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1100
+     * @tc.number    SUB_MOTION_ENUM_CORE_1000
      * @tc.name      testMotionEnumCore0011
      * @tc.desc      Verify every documented OperatingHandStatus value is reachable by name lookup
      * @tc.type      Function
@@ -238,7 +238,7 @@ export default function MotionEnumCoreTest(): void {
       logEnd('testMotionEnumCore0011');
     });
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1300
+     * @tc.number    SUB_MOTION_ENUM_CORE_1100
      * @tc.name      testMotionEnumCore0013
      * @tc.desc      Verify HoldingHandStatus.NOT_HELD equals 0 and is an integer
      * @tc.type      Function
@@ -256,7 +256,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1400
+     * @tc.number    SUB_MOTION_ENUM_CORE_1200
      * @tc.name      testMotionEnumCore0014
      * @tc.desc      Verify HoldingHandStatus.LEFT_HAND_HELD equals 1 and is an integer
      * @tc.type      Function
@@ -274,7 +274,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1500
+     * @tc.number    SUB_MOTION_ENUM_CORE_1300
      * @tc.name      testMotionEnumCore0015
      * @tc.desc      Verify HoldingHandStatus.RIGHT_HAND_HELD equals 2 and is an integer
      * @tc.type      Function
@@ -292,7 +292,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1600
+     * @tc.number    SUB_MOTION_ENUM_CORE_1400
      * @tc.name      testMotionEnumCore0016
      * @tc.desc      Verify HoldingHandStatus.BOTH_HANDS_HELD equals 3 and is an integer
      * @tc.type      Function
@@ -310,7 +310,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1700
+     * @tc.number    SUB_MOTION_ENUM_CORE_1500
      * @tc.name      testMotionEnumCore0017
      * @tc.desc      Verify HoldingHandStatus.UNKNOWN_STATUS equals 16 as a sentinel above the normal range
      * @tc.type      Function
@@ -328,7 +328,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1800
+     * @tc.number    SUB_MOTION_ENUM_CORE_1600
      * @tc.name      testMotionEnumCore0018
      * @tc.desc      Verify HoldingHandStatus exposes exactly five members
      * @tc.type      Function
@@ -345,7 +345,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_1900
+     * @tc.number    SUB_MOTION_ENUM_CORE_1700
      * @tc.name      testMotionEnumCore0019
      * @tc.desc      Verify HoldingHandStatus members are pairwise distinct
      * @tc.type      Function
@@ -368,7 +368,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_2000
+     * @tc.number    SUB_MOTION_ENUM_CORE_1800
      * @tc.name      testMotionEnumCore0020
      * @tc.desc      Verify HoldingHandStatus values are all non-negative integers
      * @tc.type      Function
@@ -390,7 +390,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_2300
+     * @tc.number    SUB_MOTION_ENUM_CORE_1900
      * @tc.name      testMotionEnumCore0023
      * @tc.desc      Verify HoldingHandStatus normal states 0..3 are contiguous
      * @tc.type      Function
@@ -418,7 +418,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_2500
+     * @tc.number    SUB_MOTION_ENUM_CORE_2000
      * @tc.name      testMotionEnumCore0025
      * @tc.desc      Verify every documented HoldingHandStatus value resolves by name lookup
      * @tc.type      Function
@@ -441,7 +441,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_2600
+     * @tc.number    SUB_MOTION_ENUM_CORE_2100
      * @tc.name      testMotionEnumCore0026
      * @tc.desc      Verify HoldingHandStatus sentinel is not reachable by the contiguous normal range
      * @tc.type      Function
@@ -459,7 +459,7 @@ export default function MotionEnumCoreTest(): void {
     });
 
     /**
-     * @tc.number    SUB_MOTION_ENUM_CORE_2800
+     * @tc.number    SUB_MOTION_ENUM_CORE_2200
      * @tc.name      testMotionEnumCore0028
      * @tc.desc      Verify HoldingHandStatus has more members than OperatingHandStatus
      * @tc.type      Function
