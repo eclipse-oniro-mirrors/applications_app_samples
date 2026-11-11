@@ -74,7 +74,7 @@ import subtitleSafeFileIoTailSecondTest from './SubtitleSafeFileIoTailSecond.tes
 import playerContractSafeCoreTest from './PlayerContractSafeCore.test';
 import playerContractSafeTailTest from './PlayerContractSafeTail.test';
 
-export default function testsuite() {
+export default function testsuite(): void {
   abilityTest();
   subtitleTimeExpandedTest();
   subtitleCueExpandedTest();

@@ -23,7 +23,7 @@ const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 
 
-export default function fileDescriptorTruncateBehaviorTest() {
+export default function fileDescriptorTruncateBehaviorTest(): void {
   describe('fileDescriptorTruncateBehaviorTest', () => {
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_FINAL_FD_0001

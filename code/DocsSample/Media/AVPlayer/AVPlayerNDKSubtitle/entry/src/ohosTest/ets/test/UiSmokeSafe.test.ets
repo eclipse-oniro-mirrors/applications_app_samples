@@ -23,7 +23,7 @@ const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 
 
-export default function uiSmokeSafeTest() {
+export default function uiSmokeSafeTest(): void {
   describe('uiSmokeSafeTest', () => {
   beforeAll(async () => {
     await abilityDelegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
