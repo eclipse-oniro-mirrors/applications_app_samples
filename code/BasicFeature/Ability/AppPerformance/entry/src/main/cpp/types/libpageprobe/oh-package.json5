@@ -1,0 +1,6 @@
+{
+  "name": "libpageprobe.so",
+  "version": "1.0.0",
+  "description": "Read-only file page residency measurement for tests",
+  "types": "./index.d.ts"
+}

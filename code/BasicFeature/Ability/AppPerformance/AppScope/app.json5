@@ -1,0 +1,11 @@
+{
+  "app": {
+    "bundleName": "com.example.appperformance",
+    "vendor": "example",
+    "versionCode": 2000000,
+    "versionName": "2.0.0",
+    "buildVersion": "1",
+    "icon": "$media:app_icon_performance",
+    "label": "$string:app_name"
+  }
+}

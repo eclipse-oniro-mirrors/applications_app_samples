@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.5.0)
+project(pageprobe)
+add_library(pageprobe SHARED pageprobe.cpp)
+target_compile_features(pageprobe PRIVATE cxx_std_17)
+target_link_libraries(pageprobe PUBLIC libace_napi.z.so)
