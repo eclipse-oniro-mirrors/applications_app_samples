@@ -59,6 +59,8 @@ struct TranscodeOptions {
     int32_t keyFrameIntervalMs = 2000;
     int32_t audioSampleRate = 0;
     int32_t audioChannels = 0;
+    int32_t audioOutputChannels = 0;
+    int32_t audioSourceLayout = TRANSCODE_SOURCE_AUDIO_LAYOUT_UNSPECIFIED;
     int64_t audioBitrate = 128000;
     int32_t audioResampler = 0;
     bool deepValidation = false;
@@ -98,6 +100,7 @@ struct TranscodeSnapshot {
     std::string sourceMime;
     std::vector<std::string> audioTracks;
     std::vector<int32_t> audioTrackIds;
+    int32_t selectedAudioChannels = 0;
     std::vector<std::string> subtitleTracks;
     int64_t minBitrate = 0;
     int64_t maxBitrate = 0;

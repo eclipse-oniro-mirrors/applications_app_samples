@@ -19,6 +19,7 @@
 #include <cmath>
 #include <multimedia/player_framework/native_avcodec_base.h>
 #include <multimedia/player_framework/native_averrors.h>
+#include <multimedia/native_audio_channel_layout.h>
 
 namespace {
 constexpr int64_t PCM_TIMESTAMP_TOLERANCE_US = 2000;
@@ -26,7 +27,8 @@ constexpr int32_t PCM_TIMESTAMP_FRAME_TOLERANCE = 2;
 constexpr int32_t AAC_SAMPLES = 1024;
 constexpr int32_t PCM_BYTES = 2;
 constexpr int64_t AAC_BITRATE = 128000;
-constexpr int32_t MAX_CHANNELS = 2;
+constexpr int32_t MAX_SOURCE_CHANNELS = 6;
+constexpr int32_t MAX_OUTPUT_CHANNELS = 2;
 constexpr int32_t MAX_SAMPLE_RATE = 96000;
 constexpr int64_t US_PER_SECOND = 1000000;
 constexpr int32_t SYNC_MODE_ENABLED = 1;
@@ -58,11 +60,13 @@ bool ConfigureDecoderFormat(OH_AVFormat *source, bool asynchronous)
         OH_AVFormat_SetIntValue(source, OH_MD_KEY_ENABLE_SYNC_MODE, asynchronous ? 0 : SYNC_MODE_ENABLED);
 }
 
-bool ConfigureEncoderFormat(OH_AVFormat *encoded, int64_t bitrate, bool asynchronous)
+bool ConfigureEncoderFormat(OH_AVFormat *encoded, int32_t channels, int64_t bitrate, bool asynchronous)
 {
     return OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_ENABLE_SYNC_MODE, asynchronous ? 0 : SYNC_MODE_ENABLED) &&
         OH_AVFormat_SetLongValue(encoded, OH_MD_KEY_BITRATE, bitrate) &&
+        OH_AVFormat_SetLongValue(encoded, OH_MD_KEY_CHANNEL_LAYOUT,
+            channels == 1 ? CH_LAYOUT_MONO : CH_LAYOUT_STEREO) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_PROFILE, AAC_PROFILE_LC) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AAC_IS_ADTS, ADTS_DISABLED);
 }
@@ -85,20 +89,27 @@ int64_t TranscodeAudioPipeline::TargetBitrate()
     return AAC_BITRATE;
 }
 
-bool TranscodeAudioPipeline::ReadSourceFormat(OH_AVFormat *source, const char *&mime)
+bool TranscodeAudioPipeline::ReadSourceFormat(OH_AVFormat *source, const char *&mime, int32_t sourceLayout)
 {
     if (!OH_AVFormat_GetStringValue(source, OH_MD_KEY_CODEC_MIME, &mime) || mime == nullptr ||
         !OH_AVFormat_GetIntValue(source, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels_) ||
         !OH_AVFormat_GetIntValue(source, OH_MD_KEY_AUD_SAMPLE_RATE, &sampleRate_) ||
-        channels_ < 1 || channels_ > MAX_CHANNELS || sampleRate_ <= 0 || sampleRate_ > MAX_SAMPLE_RATE) {
-        return error_("AAC transcode requires a valid mono/stereo audio track", -1);
+        channels_ < 1 || channels_ > MAX_SOURCE_CHANNELS || sampleRate_ <= 0 || sampleRate_ > MAX_SAMPLE_RATE) {
+        return error_("AAC transcode requires a valid mono, stereo or 5.1 audio track", -1);
     }
+    if (channels_ > MAX_OUTPUT_CHANNELS && (channels_ != MAX_SOURCE_CHANNELS ||
+        (sourceLayout != TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1 &&
+            sourceLayout != TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1_BACK))) {
+        return error_("AAC downmix requires an explicit 5.1 or 5.1-back source layout", -1);
+    }
+    sourceLayout_ = sourceLayout;
     return true;
 }
 
 bool TranscodeAudioPipeline::ConfigureFormats(OH_AVFormat *source, OH_AVFormat *encoded)
 {
-    if (!ConfigureDecoderFormat(source, asynchronous_) || !ConfigureEncoderFormat(encoded, bitrate_, asynchronous_)) {
+    if (!ConfigureDecoderFormat(source, asynchronous_) ||
+        !ConfigureEncoderFormat(encoded, targetChannels_, bitrate_, asynchronous_)) {
         return error_("Build audio decoder/AAC encoder format", -1);
     }
     if (asynchronous_) {
@@ -133,7 +144,7 @@ bool TranscodeAudioPipeline::StartCodecs()
 
 bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track,
     int64_t rangeStartUs, int64_t rangeEndUs, int32_t targetRate, int32_t targetChannels, int64_t bitrate, bool lowPass,
-    bool asynchronous)
+    bool asynchronous, int32_t sourceLayout)
 {
     asynchronous_ = asynchronous;
     demuxer_ = demuxer;
@@ -141,11 +152,17 @@ bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxe
     rangeStartUs_ = rangeStartUs;
     rangeEndUs_ = rangeEndUs;
     const char *mime = nullptr;
-    if (!ReadSourceFormat(source, mime)) { return false; }
+    if (!ReadSourceFormat(source, mime, sourceLayout)) { return false; }
     targetRate_ = targetRate == 0 ? sampleRate_ : targetRate;
-    targetChannels_ = targetChannels == 0 ? channels_ : targetChannels;
+    targetChannels_ = targetChannels == 0 ? std::min(channels_, MAX_OUTPUT_CHANNELS) : targetChannels;
     bitrate_ = bitrate;
-    if (!converter_.Configure(sampleRate_, targetRate_, channels_, targetChannels_, lowPass)) {
+    int64_t nativeSourceLayout = CH_LAYOUT_UNKNOWN;
+    if (sourceLayout_ == TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1) {
+        nativeSourceLayout = CH_LAYOUT_5POINT1;
+    } else if (sourceLayout_ == TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1_BACK) {
+        nativeSourceLayout = CH_LAYOUT_5POINT1_BACK;
+    }
+    if (!converter_.Configure(sampleRate_, targetRate_, channels_, targetChannels_, lowPass, nativeSourceLayout)) {
         return error_("Invalid PCM conversion configuration", -1);
     }
     decoder_ = OH_AudioCodec_CreateByMime(mime, false);

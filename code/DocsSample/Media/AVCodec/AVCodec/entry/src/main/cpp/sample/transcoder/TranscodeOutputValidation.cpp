@@ -76,8 +76,8 @@ void TranscodeJob::ValidateOutputAudioMetadata(OH_AVFormat *format, int32_t audi
             if (key == OH_MD_KEY_AUD_SAMPLE_RATE && options_.audioSampleRate > 0) {
                 expected = options_.audioSampleRate;
             }
-            if (key == OH_MD_KEY_AUD_CHANNEL_COUNT && options_.audioChannels > 0) {
-                expected = options_.audioChannels;
+            if (key == OH_MD_KEY_AUD_CHANNEL_COUNT && options_.audioOutputChannels > 0) {
+                expected = options_.audioOutputChannels;
             }
         }
         if (!OH_AVFormat_GetIntValue(format, key, &actual) || actual != expected) {

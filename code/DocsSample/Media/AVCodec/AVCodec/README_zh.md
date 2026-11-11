@@ -329,9 +329,11 @@ Buffer 编码在提交编码器输入前换算 PTS，Surface 编码和原码流�
 
 元数据或抽样解码差异记为警告，不删除结构有效的文件；结果卡片、TXT 和会话报告都保留明细。不编造缺失的源元数据，缺少轨道起点也不代表已确认同步。可选抽样只覆盖三个时间点，不重新解码整段码流，不证明逐帧完整性或完整音画同步。失败、取消清理未完成文件。导出时复制到系统对话框授权的 URI，不申请全量图库写权限；导出失败保留应用内副本，可再次重试。
 
-PQ/HLG、HDR10、HDR Vivid 和 HEVC Main 10 重编码均明确拒绝。当前链路无法验证 10-bit Surface 协商，也不能保证色彩及 HDR 元数据完整保留；codec 声明支持某个 profile 并不足以证明转换安全。预览不模拟 HDR 色彩处理。无法确认 HEVC profile 时同样拒绝，不按 SDR 处理。SDR 输入依据色彩描述和设备能力检查。原码流转封装适用前文单独列出的限制。编解码器及 Surface 组合支持仍以设备和 Native `Configure()` 结果为准。
+PQ/HLG、HDR10、HDR Vivid、BT.2020 10/12-bit 传递特性和 HEVC Main 10 重编码均明确拒绝。当前链路无法验证高位深 Surface 协商，也不能保证色彩及 HDR 元数据完整保留；codec 声明支持某个 profile 并不足以证明转换安全。预览不模拟 HDR 色彩处理。无法确认 HEVC profile 时同样拒绝，不按 SDR 处理。SDR 输入依据色彩描述和设备能力检查。原码流转封装适用前文单独列出的限制。编解码器及 Surface 组合支持仍以设备和 Native `Configure()` 结果为准。
 
 `tests/native/TranscodeFrameProcessorTest.cpp` 覆盖横竖尺寸、两侧不同的 stride/sliceHeight、色度顺序、灰度、短 Buffer 校验和同尺寸快路径。`TranscodeDiagnosticsTest.cpp` 检查有界采样和等待计时；`TranscodeAudioPipelineTest.cpp` 用模拟 codec 检查 PCM 拼帧、背压、输出格式事件、首包、尾帧补零、EOS 和失败回收。`tests/host/TranscodeModels.test.cjs` 检查预检请求覆盖、任务互斥、取消、文件清理和报告。上述检查不代替真机 codec 调度、播放观感、文件管理或图库导出验证。
+
+音频管线测试还会检查用户声明的5.1侧环绕/后环绕顺序、混音系数，以及六声道源未选择布局时的拒绝行为。
 
 <a id="transcode-diagnostics"></a>
 
@@ -362,7 +364,7 @@ PQ/HLG、HDR10、HDR Vivid 和 HEVC Main 10 重编码均明确拒绝。当前链
 
 普通重编码默认保留首条音轨，也可选择一个指定轨道；转封装支持保留首条、指定单条或全部音轨。列表显示轨道号、MIME、声道数和采样率。无音频模式不创建音频 codec，也不向 MP4 加音轨。源文件包含字幕时，会在分析和结果报告中标记；当前 MP4 muxer API 不支持写入字幕轨，成品不会包含字幕。
 
-保留原轨直接转封装压缩样本。转AAC使用独立的音频解码器和编码器，两者均采用选定的同步或异步调度，解码输出为交错 S16LE PCM。输出采样率可跟随源或选择 44.1/48 kHz，声道可跟随源或选择单/双声道，码率可选 64、128、192 kbps。默认保留源布局和 128 kbps；能力检查使用选定的输出参数。设备不支持，或解码实际布局与请求不符时明确失败，不隐式改参数。
+保留原轨直接转封装压缩样本。转AAC使用独立的音频解码器和编码器，两者均采用选定的同步或异步调度，解码输出为交错S16LE PCM。输出采样率可跟随源或选择44.1/48 kHz；输出声道在支持时跟随源，也可选择单/双声道。六声道输入默认输出双声道，并要求用户声明源音频是5.1侧环绕还是5.1后环绕。SDK用于编码器配置的声道布局字段不能可靠证明源文件中的声道顺序，因此不会仅凭声道数推断布局；用户选择代表明确声明的假设，不代表系统已验证解码顺序。缺少该选择或遇到其他多声道布局时，会在启动codec前失败。码率可选64、128、192 kbps。能力检查使用最终输出参数，设备不支持或解码实际PCM格式不符合要求时明确失败。
 
 “编解码调度”同时控制视频和AAC链路。音频使用独立的`TranscodeCodecCallbacks`，不会把视频事件与音频事件混入同一队列。回调只保存借用的Buffer和索引，业务处理仍由转码工作线程推进。
 
@@ -375,7 +377,7 @@ PQ/HLG、HDR10、HDR Vivid 和 HEVC Main 10 重编码均明确拒绝。当前链
 
 两种模式共用PCM拼帧、重采样、时间戳、首包保留和封装逻辑，获取Buffer的方式分别展示。格式变化事件按顺序消费；回调错误保留解码端或编码端来源。失败或取消先关闭事件队列，再停止、销毁音频codec，上下文一直保留到Destroy返回，拒绝晚到回调。画面预览仍使用同步解码，原码流转封装不创建codec。
 
-解码器每次输出的 PCM 长度不必等于 AAC 帧长。`TranscodePcmConverter.h` 可选快速线性插值或[低通降采样](#transcode-sampling)，转换状态跨 Buffer 保留。双声道转单声道取均值，单声道转双声道复制采样；只支持交错 S16LE 的单／双声道，不处理任意多声道混音。
+解码器每次输出的PCM长度不必等于AAC帧长。`TranscodePcmConverter.h`可选快速线性插值或[低通降采样](#transcode-sampling)，转换状态跨Buffer保留。单声道转双声道复制采样，双声道转单声道取均值。对于用户声明的5.1 PCM，中心和左右环绕声以-3 dB混入左右声道，LFE不参与混音，结果裁剪到S16LE范围后再重采样。布局选择保存在队列任务参数中，切换源文件或音轨时清空，并写入会话配置摘要。转换器支持交错S16LE单声道、双声道和两种标准5.1排列，不处理任意多声道混音。
 
 `TranscodeAudioPipeline` 最多借用一个解码输出，并保留一帧每声道 1024 采样点的 AAC-LC 拼帧区。输出 PTS 从第一个保留的 PCM 时间戳和整数输出采样时钟计算，避免逐包取整累积误差。源 PCM 时间戳跳变超过 2 ms 与两个源采样间隔中的较大值时明确失败，不悄悄压缩间隙。EOS 用末采样保持补齐重采样的小数尾部，再为不足一帧的 AAC 输入补零；额外静音仍小于一帧，随后单独送空 EOS，继续排空编码输出。
 
@@ -2589,7 +2591,7 @@ Surface 直连保留原始尺寸，不开放像素缩放、灰度和区间裁切
 | 转码尺寸与过滤 | `sizeIndex` → `longEdge`，`resizeMode`，`quality.filter` → `scalingFilter` | 尺寸计算、`TranscodeFrames::Process()` 或 GPU `PlanGeometry()` | Buffer 支持最近邻／双线性／面积；GPU 支持最近邻／双线性；直连保留原尺寸 |
 | 帧率上限 | `quality.frameRate` → `frameRateLimit`：0/24/30/60/120 | `DropFrame()` 按 PTS 分桶，`OutputFrameRate()` 限制编码请求帧率 | 0 跟随源，不做插帧；编码设置和实际输出计数分开观察 |
 | 码率与关键帧 | `bitrateIndex` → bit/s，`bitrateMode` → VBR/CBR，关键帧选项 → ms | `OH_MD_KEY_BITRATE`、`OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE`、`OH_MD_KEY_I_FRAME_INTERVAL` | 能力预检和 Configure 都检查；目标码率不保证每个短窗口都相同 |
-| AAC 输出布局 | `quality.audioRate/audioChannels/audioBitrate` → 请求中的 Hz、声道数、bit/s | `TranscodeAudioPipeline::Configure()` 与流式 PCM 转换 | 仅 AAC 转换使用；采样率 0、声道 0 跟随源，当前转换限单/双声道 S16LE |
+| AAC 输出布局 | `quality.audioRate/audioChannels/audioBitrate/audioSourceLayout` → Hz、输出声道、码率及六声道源顺序声明 | `TranscodeAudioPipeline::Configure()` 与流式 PCM 转换 | 仅AAC转换使用；采样率0跟随源，声道0在支持时跟随源；六声道输入必须显式声明5.1顺序，输出仍为单/双声道 |
 | 选定区间 | 页面秒数字符串 → `startTimeMs/endTimeMs` → Native 微秒 | Seek 到前一同步帧、过滤范围外画面、排空真实 EOS、重排 PTS | Buffer／GPU 支持，原码流转封装处理整段 |
 
 <a id="diagnostic-definitions"></a>

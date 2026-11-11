@@ -14,17 +14,22 @@
  */
 #ifndef AVCODEC_TRANSCODE_PCM_CONVERTER_H
 #define AVCODEC_TRANSCODE_PCM_CONVERTER_H
+#include <algorithm>
 #include <array>
+#include <cmath>
 #include <cstdint>
 #include <limits>
 #include <vector>
+#include <multimedia/native_audio_channel_layout.h>
 #include "TranscodeLowPassResampler.h"
 
 // Linear interpolation retains two source sample frames, including across decoder Buffer boundaries.
 class TranscodePcmConverter {
     static constexpr int32_t pcmSampleBytes = 2;
     static constexpr int32_t pcmSampleBitsPerByte = 8;
-    static constexpr int32_t pcmChannelLimit = 2;
+    static constexpr int32_t pcmChannelLimit = 6;
+    static constexpr int32_t pcmOutputChannelLimit = 2;
+    static constexpr int32_t pcmFivePointOneChannelCount = 6;
     static constexpr int32_t pcmMonoChannelCount = 1;
     static constexpr int32_t pcmSampleRateLimit = 96000;
     static constexpr int32_t pcmSignedSampleMidpoint = 1 << (pcmSampleBytes * pcmSampleBitsPerByte - 1);
@@ -32,11 +37,13 @@ class TranscodePcmConverter {
 
 public:
     bool Configure(int32_t sourceRate, int32_t targetRate, int32_t sourceChannels, int32_t targetChannels,
-        bool lowPass = false)
+        bool lowPass = false, int64_t sourceLayout = CH_LAYOUT_UNKNOWN)
     {
         if (sourceRate <= 0 || sourceRate > pcmSampleRateLimit || targetRate <= 0 ||
             targetRate > pcmSampleRateLimit || sourceChannels < 1 || sourceChannels > pcmChannelLimit ||
-            targetChannels < 1 || targetChannels > pcmChannelLimit) {
+            targetChannels < 1 || targetChannels > pcmOutputChannelLimit ||
+            (sourceChannels > pcmOutputChannelLimit &&
+                (sourceChannels != pcmFivePointOneChannelCount || !IsSupportedFivePointOneLayout(sourceLayout)))) {
             return false;
         }
         sourceRate_ = sourceRate;
@@ -66,13 +73,13 @@ public:
     void Push(const uint8_t *sample)
     {
         previous_ = current_;
-        int32_t left = Read(sample);
-        int32_t right = sourceChannels_ == pcmChannelLimit ? Read(sample + pcmSampleBytes) : left;
-        current_[0] = targetChannels_ == pcmMonoChannelCount ?
-            (left + right) / pcmChannelLimit : left;
-        current_[1] = right;
+        const auto stereo = ReadStereo(sample);
+        current_[0] = targetChannels_ == pcmMonoChannelCount ? (stereo[0] + stereo[1]) / pcmOutputChannelLimit :
+            stereo[0];
+        current_[1] = stereo[1];
         if (filtered_) {
-            lowPass_.Push(current_);
+            const std::array<int32_t, pcmOutputChannelLimit> filteredFrame {current_[0], current_[1]};
+            lowPass_.Push(filteredFrame);
             return;
         }
         ++inputs_;
@@ -107,6 +114,39 @@ public:
     }
     int64_t Count() const { return filtered_ ? lowPass_.Count() : count_; }
 private:
+    static bool IsSupportedFivePointOneLayout(int64_t layout)
+    {
+        return layout == static_cast<int64_t>(CH_LAYOUT_5POINT1) ||
+            layout == static_cast<int64_t>(CH_LAYOUT_5POINT1_BACK);
+    }
+
+    std::array<int32_t, pcmOutputChannelLimit> ReadStereo(const uint8_t *sample) const
+    {
+        if (sourceChannels_ == 1) {
+            const int32_t mono = Read(sample);
+            return {mono, mono};
+        }
+        if (sourceChannels_ == pcmOutputChannelLimit) {
+            return {Read(sample), Read(sample + pcmSampleBytes)};
+        }
+        const int32_t left = Read(sample);
+        const int32_t right = Read(sample + pcmSampleBytes);
+        const int32_t center = Read(sample + pcmSampleBytes * 2);
+        const int32_t surroundLeft = Read(sample + pcmSampleBytes * 4);
+        const int32_t surroundRight = Read(sample + pcmSampleBytes * 5);
+        constexpr double CENTER_SURROUND_GAIN = 0.7071067811865476;
+        const double mixedLeft = left + (center + surroundLeft) * CENTER_SURROUND_GAIN;
+        const double mixedRight = right + (center + surroundRight) * CENTER_SURROUND_GAIN;
+        return {Clamp(mixedLeft), Clamp(mixedRight)};
+    }
+
+    static int32_t Clamp(double value)
+    {
+        return static_cast<int32_t>(std::clamp(std::lround(value),
+            static_cast<long>(std::numeric_limits<int16_t>::min()),
+            static_cast<long>(std::numeric_limits<int16_t>::max())));
+    }
+
     static void Append(std::vector<uint8_t> &output, int32_t value)
     {
         const uint16_t sample = static_cast<uint16_t>(static_cast<int16_t>(value));
