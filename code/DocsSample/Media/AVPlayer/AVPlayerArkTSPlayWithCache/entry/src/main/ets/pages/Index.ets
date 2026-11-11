@@ -128,7 +128,7 @@ struct Index {
     });
     // [Start createMediaSource3]
     // 设置mediaSource，应用按需设置URL
-    let url = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+    let url = '';
     // [End createMediaSource3]
     await this.preDownload(url);
   }

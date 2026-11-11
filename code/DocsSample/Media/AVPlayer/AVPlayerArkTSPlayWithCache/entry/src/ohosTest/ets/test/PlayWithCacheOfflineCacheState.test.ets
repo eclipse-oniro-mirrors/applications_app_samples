@@ -50,14 +50,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -69,14 +69,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -88,14 +88,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -107,14 +107,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -126,14 +126,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -145,14 +145,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -164,14 +164,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -183,14 +183,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -202,14 +202,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -221,14 +221,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -240,14 +240,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -259,14 +259,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -278,14 +278,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -297,14 +297,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -316,14 +316,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -335,14 +335,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -354,14 +354,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -373,14 +373,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -392,14 +392,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -411,14 +411,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -430,14 +430,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -449,14 +449,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -468,14 +468,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -487,14 +487,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -506,14 +506,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -525,14 +525,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -544,14 +544,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -563,14 +563,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -582,14 +582,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -601,14 +601,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -620,14 +620,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -639,14 +639,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -658,14 +658,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -677,14 +677,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -696,14 +696,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -715,14 +715,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -734,14 +734,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -753,14 +753,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -772,14 +772,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -791,14 +791,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -810,14 +810,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -829,14 +829,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -848,14 +848,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -867,14 +867,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -886,14 +886,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -905,14 +905,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -924,14 +924,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -943,14 +943,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -962,14 +962,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -981,14 +981,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1000,14 +1000,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1019,14 +1019,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1038,14 +1038,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1057,14 +1057,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1076,14 +1076,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1095,14 +1095,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1114,14 +1114,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1133,14 +1133,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1152,14 +1152,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1171,14 +1171,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1190,14 +1190,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1209,14 +1209,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1228,14 +1228,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1247,14 +1247,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1266,14 +1266,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1285,14 +1285,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1304,14 +1304,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1323,14 +1323,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1342,14 +1342,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1361,14 +1361,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1380,14 +1380,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1399,14 +1399,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1418,14 +1418,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1437,14 +1437,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 0; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1456,14 +1456,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1475,14 +1475,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 1; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1494,14 +1494,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1513,14 +1513,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/playlist.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 2; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/playlist.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1532,14 +1532,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8';
+      const url: string = 'https://sample.test/media/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = true;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(false);
-      expect(cacheKey).assertEqual('cache:https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/media/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
     /**
@@ -1551,14 +1551,14 @@ export default function playWithCacheOfflineCacheStateTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheState0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const url: string = 'https://example.com/cache/master.m3u8';
+      const url: string = 'https://sample.test/cache/playlist.m3u8';
       const cacheKey: string = `cache:${url}`;
       let enabled: boolean = false;
       for (let index: number = 0; index < 3; index++) {
         enabled = !enabled;
       }
       expect(enabled).assertEqual(true);
-      expect(cacheKey).assertEqual('cache:https://example.com/cache/master.m3u8');
+      expect(cacheKey).assertEqual('cache:https://sample.test/cache/playlist.m3u8');
       expect(url.endsWith('.m3u8')).assertTrue();
     })
   });

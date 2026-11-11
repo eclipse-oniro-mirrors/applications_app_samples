@@ -49,4 +49,4 @@
 | MediaSourceStateGuardCore | 状态-操作允许矩阵 | 80 |
 | MediaSourceQueuePriorityCore | 优先级与顺序稳定性 | 80 |
 
-以上自动化用例合计约 **3,106** 条，可执行 `aa test -b com.samples.avplayerarktsmediasource -m entry_test -s unittest OpenHarmonyTestRunner -s class <ClassName>` 按套件运行。
+以上自动化用例合计约 **3,106** 条，可在 DevEco Studio 或 OpenHarmonyTestRunner 中按套件运行。

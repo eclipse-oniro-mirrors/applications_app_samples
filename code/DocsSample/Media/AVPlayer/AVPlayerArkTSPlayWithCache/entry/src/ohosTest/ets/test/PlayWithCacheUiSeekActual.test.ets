@@ -171,7 +171,7 @@ export default function playWithCacheUiSeekActualTest(): void {
     /**
      * @tc.number    SUB_AVPLAYER_ARKTS_CACHE_EXT_UISEEK2_0007
      * @tc.name      testExtCacheUiSeek0007
-     * @tc.desc      video surface is present.
+     * @tc.desc      current time text is present.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2

@@ -56,7 +56,7 @@ ohos.permission.GET_WIFI_INFO：允许应用获取Wi-Fi信息和使用P2P能力�
 
 1. 本示例支持标准系统上运行，支持设备：RK3568;
 
-2. 本示例支持HarmonyOS SDK 26.0.0 Release，原样包含OpenHarmony SDK Ohos_sdk_public 26.0.0.105 (API Version 26.0.0 Release)，版本号：26.0.0.105;
+2. 本示例支持OpenHarmony SDK 26.0.0 Release (API Version 26.0.0 Release)，版本号：26.0.0.105;
    
 3. 本示例已支持使DevEco Studio 26.0.0 Release (构建版本：26.0.0.851，构建 2026年10月28日)编译运行
 

@@ -54,4 +54,4 @@
 | PlayWithCacheFileIoIntegration | 真实缓存文件写入、读取、大小与删除 | 12 |
 | PlayWithCachePlaybackIntegration | 真实播放控件、seek、暂停恢复与倍速 | 12 |
 
-以上自动化用例合计约 **2,452** 条，可执行 `aa test -b com.samples.avplayerarktsplaywithcache -m entry_test -s unittest OpenHarmonyTestRunner -s class <ClassName>` 按套件运行。
+以上自动化用例合计约 **2,452** 条，可在 DevEco Studio 或 OpenHarmonyTestRunner 中按套件运行。
