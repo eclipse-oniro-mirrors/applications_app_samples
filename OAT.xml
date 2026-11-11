@@ -2566,6 +2566,12 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
+				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/AppScope/resources/base/media/background.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
+				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/AppScope/resources/base/media/foreground.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
+				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/base/media/background.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
+				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
+				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
+				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/screenshots/main_page.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
@@ -2637,11 +2643,13 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/service.png" desc="Provided by code/SystemFeature/IPC"/>
                 <filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/fingerprint.png" desc="Provided by code/SystemFeature/IPC"/>
                 <filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/permission.png" desc="Provided by code/SystemFeature/IPC"/>
+                <filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/rawfile/sample_contacts.vcf" desc="示例VCF数据文件，vCard格式不支持注释，无需添加License头"/>
 			</filefilter>
             <filefilter name="copyrightPolicyFilter" desc="Copyright文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/rawfile/sample_contacts.vcf" desc="示例VCF数据文件，vCard格式不支持注释，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorfile.js" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorfile.ts" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filename" name="hvigor-config.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>

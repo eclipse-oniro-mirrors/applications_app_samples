@@ -1,0 +1,70 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Zhang;Wei;;;
+FN:Zhang Wei
+ORG:Harmony Devices Co., Ltd.
+TITLE:Senior Engineer
+TEL;TYPE=CELL:+86 138 0000 1234
+TEL;TYPE=WORK:+86 10 8888 6666
+EMAIL;TYPE=INTERNET:zhang.wei@example.com
+ADR;TYPE=WORK:;;No. 88 Keji Road;Shenzhen;Guangdong;518000;China
+URL:https://www.example.com/zhangwei
+NOTE:Leads the ArkTS sample maintenance team.
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Li;Na;;;
+FN:Li Na
+ORG:Harmony Devices Co., Ltd.
+TITLE:Product Manager
+TEL;TYPE=CELL:+86 139 0000 5678
+EMAIL;TYPE=INTERNET:li.na@example.com
+NOTE:Owns the contact and vCard feature roadmap.
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Chen;Hao;;;
+FN:Chen Hao
+ORG:Blue Ocean Studio
+TITLE:Designer
+TEL;TYPE=CELL:+86 137 0000 9012
+TEL;TYPE=HOME:+86 21 6666 3333
+EMAIL;TYPE=INTERNET:chen.hao@example.com
+ADR;TYPE=HOME:;;Building 6, Lane 200;Shanghai;Shanghai;200000;China
+URL:https://www.example.com/chenhao
+NOTE:Focuses on accessibility and one-many design.
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Wang;Fang;;;
+FN:Wang Fang
+ORG:North Star Logistics
+TITLE:Operations Lead
+TEL;TYPE=CELL:+86 136 0000 2468
+EMAIL;TYPE=INTERNET:wang.fang@example.com
+ADR;TYPE=WORK:;;No. 5 Harbor Street;Qingdao;Shandong;266000;China
+NOTE:Handles cross-region delivery planning.
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Smith;Alice;;;
+FN:Alice Smith
+ORG:Open Source Community
+TITLE:Community Manager
+TEL;TYPE=CELL:+1 415 555 0100
+EMAIL;TYPE=INTERNET:alice.smith@example.com
+URL:https://www.example.com/alice
+NOTE:Coordinates sample contributions and review checklists.
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Liu;Yang;;;
+FN:Liu Yang
+ORG:Harmony Devices Co., Ltd.
+TITLE:Test Architect
+TEL;TYPE=CELL:+86 135 0000 1357
+TEL;TYPE=WORK:+86 755 1234 5678
+EMAIL;TYPE=INTERNET:liu.yang@example.com
+ADR;TYPE=WORK:;;No. 18 Software Park;Shenzhen;Guangdong;518057;China
+NOTE:Builds the UI automation suite for this sample.
+END:VCARD

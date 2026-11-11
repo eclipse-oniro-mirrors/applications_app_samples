@@ -1,0 +1,12 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "vCard contact management feature interfaces.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hypium": "1.0.25"
+  }
+}
