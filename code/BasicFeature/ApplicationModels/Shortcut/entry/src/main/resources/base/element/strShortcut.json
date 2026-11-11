@@ -1,0 +1,1792 @@
+{
+  "string": [
+    {
+      "name": "shortcut_text_0263",
+      "value": "Has tag"
+    },
+    {
+      "name": "shortcut_text_0264",
+      "value": "Merge"
+    },
+    {
+      "name": "shortcut_text_0265",
+      "value": "merge %1$s, clean %2$s, "
+    },
+    {
+      "name": "shortcut_text_0266",
+      "value": "Merged chain: %1$s | %2$s nodes"
+    },
+    {
+      "name": "shortcut_text_0267",
+      "value": "Verification complete. Only verified failures can be retried; unknown results are not replayed."
+    },
+    {
+      "name": "shortcut_text_0268",
+      "value": "Verify status"
+    },
+    {
+      "name": "shortcut_text_0269",
+      "value": "Candidate document is inconsistent"
+    },
+    {
+      "name": "shortcut_text_0270",
+      "value": "Candidate document is inconsistent; no write performed"
+    },
+    {
+      "name": "shortcut_text_0271",
+      "value": "Candidate document exceeds the 8 MiB budget"
+    },
+    {
+      "name": "shortcut_text_0272",
+      "value": "Ignored extra parameter: %1$s"
+    },
+    {
+      "name": "shortcut_text_0273",
+      "value": "Ignore unknown parameters"
+    },
+    {
+      "name": "shortcut_text_0274",
+      "value": "Ignored unknown parameter: %1$s"
+    },
+    {
+      "name": "shortcut_text_0276",
+      "value": "Restore the three sample tasks for %1$s?"
+    },
+    {
+      "name": "shortcut_text_0277",
+      "value": "Restore: %1$s · %2$s attempts"
+    },
+    {
+      "name": "shortcut_text_0279",
+      "value": "Restore daily samples"
+    },
+    {
+      "name": "shortcut_text_0281",
+      "value": "Restore all"
+    },
+    {
+      "name": "shortcut_text_0282",
+      "value": "Restore shortcut settings"
+    },
+    {
+      "name": "shortcut_text_0283",
+      "value": "Restore the last draft; expire after 10 minutes"
+    },
+    {
+      "name": "shortcut_text_0284",
+      "value": "Restoring the last draft requires its ID"
+    },
+    {
+      "name": "shortcut_text_0285",
+      "value": "Restore settings"
+    },
+    {
+      "name": "shortcut_text_0286",
+      "value": "Restore settings preview"
+    },
+    {
+      "name": "shortcut_text_0287",
+      "value": "Return to pending"
+    },
+    {
+      "name": "shortcut_text_0288",
+      "value": "Restore detail page"
+    },
+    {
+      "name": "shortcut_text_0290",
+      "value": "Read-back mismatch"
+    },
+    {
+      "name": "shortcut_text_0291",
+      "value": "Read-back failed: %1$s"
+    },
+    {
+      "name": "shortcut_text_0292",
+      "value": "Read-back did not return visibility"
+    },
+    {
+      "name": "shortcut_text_0293",
+      "value": "Read-back did not return this shortcut"
+    },
+    {
+      "name": "shortcut_text_0294",
+      "value": "Read-back matched"
+    },
+    {
+      "name": "shortcut_text_0295",
+      "value": "Review today's progress"
+    },
+    {
+      "name": "shortcut_text_0297",
+      "value": "Trash item changed. Please review it again."
+    },
+    {
+      "name": "shortcut_text_0302",
+      "value": "Trash sequence limit reached"
+    },
+    {
+      "name": "shortcut_text_0305",
+      "value": "Trash is full. Clean it up first."
+    },
+    {
+      "name": "shortcut_text_0306",
+      "value": "Session changed; the old operation will not update this page"
+    },
+    {
+      "name": "shortcut_text_0307",
+      "value": "Meeting notes template"
+    },
+    {
+      "name": "shortcut_text_0308",
+      "value": "Topic:\nTime:\nParticipants:\n\nDiscussion:\n\nDecisions:\n\nFollow-up: Owner / Due date"
+    },
+    {
+      "name": "shortcut_text_0309",
+      "value": "Not enough active-note slots: need %1$s, available %2$s"
+    },
+    {
+      "name": "shortcut_text_0311",
+      "value": "Basic information"
+    },
+    {
+      "name": "shortcut_text_0312",
+      "value": "Due soon"
+    },
+    {
+      "name": "shortcut_text_0313",
+      "value": "Record a complete continuation process"
+    },
+    {
+      "name": "shortcut_text_0314",
+      "value": "Continue editing"
+    },
+    {
+      "name": "shortcut_text_0315",
+      "value": "Check shortcut support"
+    },
+    {
+      "name": "shortcut_text_0316",
+      "value": "Check failed"
+    },
+    {
+      "name": "shortcut_text_0317",
+      "value": "Checking"
+    },
+    {
+      "name": "shortcut_text_0318",
+      "value": "Search for Work matched %1$s items"
+    },
+    {
+      "name": "shortcut_text_0319",
+      "value": "Search also compares lowercase values"
+    },
+    {
+      "name": "shortcut_text_0320",
+      "value": "Search data is consistent"
+    },
+    {
+      "name": "shortcut_text_0322",
+      "value": "Suggested unpins: %1$s"
+    },
+    {
+      "name": "shortcut_text_0324",
+      "value": "API completed, visible=%1$s"
+    },
+    {
+      "name": "shortcut_text_0325",
+      "value": "Continuation learning notes"
+    },
+    {
+      "name": "shortcut_text_0326",
+      "value": "Duplicate node ID: %1$s.%2$s"
+    },
+    {
+      "name": "shortcut_text_0327",
+      "value": "Result: %1$s"
+    },
+    {
+      "name": "shortcut_text_0328",
+      "value": "Truncate to 24"
+    },
+    {
+      "name": "shortcut_text_0329",
+      "value": "Due in more than 24 hours"
+    },
+    {
+      "name": "shortcut_text_0330",
+      "value": "Due within 24 hours"
+    },
+    {
+      "name": "shortcut_text_0331",
+      "value": "Due time is in the past"
+    },
+    {
+      "name": "shortcut_text_0332",
+      "value": "Resolution: %1$s"
+    },
+    {
+      "name": "shortcut_text_0333",
+      "value": "Parsing example: %1$s"
+    },
+    {
+      "name": "shortcut_text_0334",
+      "value": "Today's tasks"
+    },
+    {
+      "name": "shortcut_text_0335",
+      "value": "Today's list has three tasks, including one overdue task."
+    },
+    {
+      "name": "shortcut_text_0336",
+      "value": "Today's tasks shortcut"
+    },
+    {
+      "name": "shortcut_text_0337",
+      "value": "Today"
+    },
+    {
+      "name": "shortcut_text_0338",
+      "value": "Notify only"
+    },
+    {
+      "name": "shortcut_text_0339",
+      "value": "Keep a single tag unchanged"
+    },
+    {
+      "name": "shortcut_text_0340",
+      "value": "Retry only verified failures. Confirmed, unknown, and unexecuted items are not rewritten."
+    },
+    {
+      "name": "shortcut_text_0341",
+      "value": "Recent notes"
+    },
+    {
+      "name": "shortcut_text_0342",
+      "value": "Process recovery"
+    },
+    {
+      "name": "shortcut_text_0343",
+      "value": "Enter %1$s"
+    },
+    {
+      "name": "shortcut_text_0344",
+      "value": "Move to Due soon"
+    },
+    {
+      "name": "shortcut_text_0345",
+      "value": "In progress"
+    },
+    {
+      "name": "shortcut_text_0346",
+      "value": "Exact"
+    },
+    {
+      "name": "shortcut_text_0347",
+      "value": "Static"
+    },
+    {
+      "name": "shortcut_text_0348",
+      "value": "Old draft"
+    },
+    {
+      "name": "shortcut_text_0349",
+      "value": "An earlier setting request is still pending. Do not write again; verify later."
+    },
+    {
+      "name": "shortcut_text_0350",
+      "value": "An earlier setting request is still pending. Verify first; do not write again."
+    },
+    {
+      "name": "shortcut_text_0351",
+      "value": "Old text: %1$s lines"
+    },
+    {
+      "name": "shortcut_text_0352",
+      "value": "Start"
+    },
+    {
+      "name": "shortcut_text_0353",
+      "value": "Start processing"
+    },
+    {
+      "name": "shortcut_text_0355",
+      "value": "Restorable: %1$s"
+    },
+    {
+      "name": "shortcut_text_0358",
+      "value": "Visibility verification"
+    },
+    {
+      "name": "shortcut_text_0359",
+      "value": "Allowed"
+    },
+    {
+      "name": "shortcut_text_0361",
+      "value": "Eligible"
+    },
+    {
+      "name": "shortcut_text_0363",
+      "value": "Empty tags are not indexed"
+    },
+    {
+      "name": "shortcut_text_0364",
+      "value": "Empty query matched %1$s items"
+    },
+    {
+      "name": "shortcut_text_0365",
+      "value": "Shortcuts"
+    },
+    {
+      "name": "shortcut_text_0366",
+      "value": "Invalid shortcut parameter version"
+    },
+    {
+      "name": "shortcut_text_0367",
+      "value": "Invalid shortcut action or filter"
+    },
+    {
+      "name": "shortcut_text_0368",
+      "value": "Shortcut details"
+    },
+    {
+      "name": "shortcut_text_0369",
+      "value": "Manage shortcuts"
+    },
+    {
+      "name": "shortcut_text_0370",
+      "value": "Shortcut routing"
+    },
+    {
+      "name": "shortcut_text_0371",
+      "value": "Source"
+    },
+    {
+      "name": "shortcut_text_0373",
+      "value": "No matching rule for source %1$s"
+    },
+    {
+      "name": "shortcut_text_0374",
+      "value": "Empty source is relabeled as unknown"
+    },
+    {
+      "name": "shortcut_text_0375",
+      "value": "No rules for source: %1$s"
+    },
+    {
+      "name": "shortcut_text_0376",
+      "value": "No cases for category: %1$s"
+    },
+    {
+      "name": "shortcut_text_0377",
+      "value": "Cold start"
+    },
+    {
+      "name": "shortcut_text_0379",
+      "value": "History version does not exist"
+    },
+    {
+      "name": "shortcut_text_0380",
+      "value": "Skip exception dates and use the next valid date"
+    },
+    {
+      "name": "shortcut_text_0381",
+      "value": "Non-consecutive chain IDs: expected %1$s, got %2$s"
+    },
+    {
+      "name": "shortcut_text_0382",
+      "value": "Duplicate chain ID: %1$s"
+    },
+    {
+      "name": "shortcut_text_0383",
+      "value": "Missing chain name: %1$s"
+    },
+    {
+      "name": "shortcut_text_0386",
+      "value": "Route table is consistent"
+    },
+    {
+      "name": "shortcut_text_0387",
+      "value": "Duplicate route: %1$s"
+    },
+    {
+      "name": "shortcut_text_0388",
+      "value": "No due date"
+    },
+    {
+      "name": "shortcut_text_0389",
+      "value": "No content to compare"
+    },
+    {
+      "name": "shortcut_text_0390",
+      "value": "No searchable terms"
+    },
+    {
+      "name": "shortcut_text_0392",
+      "value": "No matching tasks"
+    },
+    {
+      "name": "shortcut_text_0393",
+      "value": "No matching resources"
+    },
+    {
+      "name": "shortcut_text_0395",
+      "value": "No changes to keep"
+    },
+    {
+      "name": "shortcut_text_0396",
+      "value": "No expired trash items"
+    },
+    {
+      "name": "shortcut_text_0397",
+      "value": "Daily planning checklist"
+    },
+    {
+      "name": "shortcut_text_0398",
+      "value": "Daily"
+    },
+    {
+      "name": "shortcut_text_0399",
+      "value": "Monthly"
+    },
+    {
+      "name": "shortcut_text_0400",
+      "value": "Weekly"
+    },
+    {
+      "name": "shortcut_text_0401",
+      "value": "No sign-in required"
+    },
+    {
+      "name": "shortcut_text_0402",
+      "value": "Tomorrow"
+    },
+    {
+      "name": "shortcut_text_0403",
+      "value": "Matched %1$s items"
+    },
+    {
+      "name": "shortcut_text_0404",
+      "value": "Module"
+    },
+    {
+      "name": "shortcut_text_0405",
+      "value": "Visible by default"
+    },
+    {
+      "name": "shortcut_text_0406",
+      "value": "Target %1$s"
+    },
+    {
+      "name": "shortcut_text_0407",
+      "value": "Target Ability"
+    },
+    {
+      "name": "shortcut_text_0408",
+      "value": "Target: show"
+    },
+    {
+      "name": "shortcut_text_0409",
+      "value": "Target: hide"
+    },
+    {
+      "name": "shortcut_text_0410",
+      "value": "Target bundle"
+    },
+    {
+      "name": "shortcut_text_0411",
+      "value": "Target module"
+    },
+    {
+      "name": "shortcut_text_0412",
+      "value": "Unknown target page: %1$s"
+    },
+    {
+      "name": "shortcut_text_0413",
+      "value": "Content"
+    },
+    {
+      "name": "shortcut_text_0414",
+      "value": "Content is identical"
+    },
+    {
+      "name": "shortcut_text_0415",
+      "value": "Content unchanged"
+    },
+    {
+      "name": "shortcut_text_0416",
+      "value": "Batch sequence limit reached; nothing executed"
+    },
+    {
+      "name": "shortcut_text_0417",
+      "value": "Could not read the batch journal. It will not be overwritten or replayed. Try reading again."
+    },
+    {
+      "name": "shortcut_text_0418",
+      "value": "Could not save the batch journal; stopped. Reload and verify first. Do not blindly retry."
+    },
+    {
+      "name": "shortcut_text_0419",
+      "value": "Batch finished. See individual results below. Unknown is not failure; compensation is not atomic."
+    },
+    {
+      "name": "shortcut_text_0420",
+      "value": "Batch history (%1$s)"
+    },
+    {
+      "name": "shortcut_text_0421",
+      "value": "Verify unknown batch results"
+    },
+    {
+      "name": "shortcut_text_0422",
+      "value": "Verify before batch preview"
+    },
+    {
+      "name": "shortcut_text_0423",
+      "value": "Invalid batch action"
+    },
+    {
+      "name": "shortcut_text_0424",
+      "value": "Batch management"
+    },
+    {
+      "name": "shortcut_text_0427",
+      "value": "Batch setting preview"
+    },
+    {
+      "name": "shortcut_text_0429",
+      "value": "Normal"
+    },
+    {
+      "name": "shortcut_text_0430",
+      "value": "Expected visible=%1$s, read-back visible=%2$s"
+    },
+    {
+      "name": "shortcut_text_0431",
+      "value": "Keep all other items unchanged; no implicit changes"
+    },
+    {
+      "name": "shortcut_text_0432",
+      "value": "Launch parameters"
+    },
+    {
+      "name": "shortcut_text_0433",
+      "value": "Duplicate transition ID: %1$s"
+    },
+    {
+      "name": "shortcut_text_0434",
+      "value": "Transition has identical source and target states: %1$s"
+    },
+    {
+      "name": "shortcut_text_0438",
+      "value": "Clear history"
+    },
+    {
+      "name": "shortcut_text_0439",
+      "value": "Clean up"
+    },
+    {
+      "name": "shortcut_text_0443",
+      "value": "Review the preview before confirming. Items with unknown original values cannot be restored precisely."
+    },
+    {
+      "name": "shortcut_text_0444",
+      "value": "Enter a title or content"
+    },
+    {
+      "name": "shortcut_text_0445",
+      "value": "Enter a task"
+    },
+    {
+      "name": "shortcut_text_0446",
+      "value": "Save or cancel editing first"
+    },
+    {
+      "name": "shortcut_text_0447",
+      "value": "Resolve your current unsaved changes first"
+    },
+    {
+      "name": "shortcut_text_0448",
+      "value": "Verify the storage result first"
+    },
+    {
+      "name": "shortcut_text_0449",
+      "value": "Check support first"
+    },
+    {
+      "name": "shortcut_text_0450",
+      "value": "Choose whether to keep or discard edits to the target note first"
+    },
+    {
+      "name": "shortcut_text_0451",
+      "value": "Select 1 to 50 trash items"
+    },
+    {
+      "name": "shortcut_text_0454",
+      "value": "Remove favorite"
+    },
+    {
+      "name": "shortcut_text_0456",
+      "value": "Unpin"
+    },
+    {
+      "name": "shortcut_text_0457",
+      "value": "Remove the # prefix"
+    },
+    {
+      "name": "shortcut_text_0458",
+      "value": "Trim leading and trailing whitespace"
+    },
+    {
+      "name": "shortcut_text_0459",
+      "value": "Last year's resources"
+    },
+    {
+      "name": "shortcut_text_0460",
+      "value": "Deduplicate normalized values"
+    },
+    {
+      "name": "shortcut_text_0461",
+      "value": "All"
+    },
+    {
+      "name": "shortcut_text_0463",
+      "value": "All shortcuts"
+    },
+    {
+      "name": "shortcut_text_0464",
+      "value": "All shortcuts are visible"
+    },
+    {
+      "name": "shortcut_text_0465",
+      "value": "Show all"
+    },
+    {
+      "name": "shortcut_text_0466",
+      "value": "Retry blocked by permission, capability, or invalid-ID errors. Fix the conditions and create a new preview."
+    },
+    {
+      "name": "shortcut_text_0467",
+      "value": "Missing parameters: %1$s"
+    },
+    {
+      "name": "shortcut_text_0469",
+      "value": "Missing required parameter: %1$s"
+    },
+    {
+      "name": "shortcut_text_0470",
+      "value": "Missing title: %1$s"
+    },
+    {
+      "name": "shortcut_text_0471",
+      "value": "Missing parameter: %1$s"
+    },
+    {
+      "name": "shortcut_text_0472",
+      "value": "Missing target route: %1$s"
+    },
+    {
+      "name": "shortcut_text_0473",
+      "value": "Missing description: %1$s"
+    },
+    {
+      "name": "shortcut_text_0474",
+      "value": "Default · Visible"
+    },
+    {
+      "name": "shortcut_text_0475",
+      "value": "Verify again after confirmation"
+    },
+    {
+      "name": "shortcut_text_0476",
+      "value": "State changed after confirmation; nothing executed. Create a new preview."
+    },
+    {
+      "name": "shortcut_text_0479",
+      "value": "Confirm batch settings"
+    },
+    {
+      "name": "shortcut_text_0480",
+      "value": "Confirm settings"
+    },
+    {
+      "name": "shortcut_text_0482",
+      "value": "Execute"
+    },
+    {
+      "name": "shortcut_text_0483",
+      "value": "Warm start"
+    },
+    {
+      "name": "shortcut_text_0484",
+      "value": "Task"
+    },
+    {
+      "name": "shortcut_text_0485",
+      "value": "Invalid date"
+    },
+    {
+      "name": "shortcut_text_0486",
+      "value": "Date changed. Please select again."
+    },
+    {
+      "name": "shortcut_text_0487",
+      "value": "Shortcut does not exist"
+    },
+    {
+      "name": "shortcut_text_0488",
+      "value": "Entry rule table is consistent"
+    },
+    {
+      "name": "shortcut_text_0489",
+      "value": "Shortcut information"
+    },
+    {
+      "name": "shortcut_text_0490",
+      "value": "Entry intents"
+    },
+    {
+      "name": "shortcut_text_0492",
+      "value": "Filter chains"
+    },
+    {
+      "name": "shortcut_text_0493",
+      "value": "Filter chains are consistent"
+    },
+    {
+      "name": "shortcut_text_0494",
+      "value": "Delete"
+    },
+    {
+      "name": "shortcut_text_0495",
+      "value": "Removed: %1$s"
+    },
+    {
+      "name": "shortcut_text_0497",
+      "value": "The previous write did not take effect. You may try the action again."
+    },
+    {
+      "name": "shortcut_text_0498",
+      "value": "Not checked"
+    },
+    {
+      "name": "shortcut_text_0499",
+      "value": "Device not supported"
+    },
+    {
+      "name": "shortcut_text_0500",
+      "value": "Device and more"
+    },
+    {
+      "name": "shortcut_text_0501",
+      "value": "Set: %1$s · %2$s attempts; "
+    },
+    {
+      "name": "shortcut_text_0502",
+      "value": "Read back after setting: %1$s"
+    },
+    {
+      "name": "shortcut_text_0503",
+      "value": "Setting failed"
+    },
+    {
+      "name": "shortcut_text_0504",
+      "value": "Setting"
+    },
+    {
+      "name": "shortcut_text_0505",
+      "value": "Deep link"
+    },
+    {
+      "name": "shortcut_text_0506",
+      "value": "Deep link opens notes"
+    },
+    {
+      "name": "shortcut_text_0507",
+      "value": "Deep link opens tasks"
+    },
+    {
+      "name": "shortcut_text_0508",
+      "value": "Deep link opens invocation history"
+    },
+    {
+      "name": "shortcut_text_0509",
+      "value": "Deep link opens the rule center"
+    },
+    {
+      "name": "shortcut_text_0510",
+      "value": "Deep-link details require sign-in and an ID"
+    },
+    {
+      "name": "shortcut_text_0511",
+      "value": "Create preview"
+    },
+    {
+      "name": "shortcut_text_0513",
+      "value": "Failed"
+    },
+    {
+      "name": "shortcut_text_0514",
+      "value": "Failed (verified below target)"
+    },
+    {
+      "name": "shortcut_text_0515",
+      "value": "Example entry: %1$s"
+    },
+    {
+      "name": "shortcut_text_0516",
+      "value": "Favorites"
+    },
+    {
+      "name": "shortcut_text_0517",
+      "value": "Frequently used saved resources, filterable by tag."
+    },
+    {
+      "name": "shortcut_text_0518",
+      "value": "Collection rule table is consistent"
+    },
+    {
+      "name": "shortcut_text_0519",
+      "value": "Favorites shortcut"
+    },
+    {
+      "name": "shortcut_text_0520",
+      "value": "Favorite resource does not exist"
+    },
+    {
+      "name": "shortcut_text_0521",
+      "value": "Favorite example"
+    },
+    {
+      "name": "shortcut_text_0522",
+      "value": "Collection governance"
+    },
+    {
+      "name": "shortcut_text_0523",
+      "value": "Saved resources"
+    },
+    {
+      "name": "shortcut_text_0525",
+      "value": "Collapse"
+    },
+    {
+      "name": "shortcut_text_0526",
+      "value": "Manual deletion"
+    },
+    {
+      "name": "shortcut_text_0527",
+      "value": "Keep manually pinned items pinned"
+    },
+    {
+      "name": "shortcut_text_0528",
+      "value": "Manually pinned"
+    },
+    {
+      "name": "shortcut_text_0529",
+      "value": "Home"
+    },
+    {
+      "name": "shortcut_text_0530",
+      "value": "Book / Article:\nAuthor:\nReading date:\n\nExcerpts:\n\nMy thoughts:\n\nNext action:"
+    },
+    {
+      "name": "shortcut_text_0531",
+      "value": "Data changed. Create a new preview."
+    },
+    {
+      "name": "shortcut_text_0532",
+      "value": "Numeric operator lacks a threshold: %1$s.%2$s"
+    },
+    {
+      "name": "shortcut_text_0533",
+      "value": "Refresh"
+    },
+    {
+      "name": "shortcut_text_0534",
+      "value": "Refresh shortcuts"
+    },
+    {
+      "name": "shortcut_text_0536",
+      "value": "Refresh the list and try again"
+    },
+    {
+      "name": "shortcut_text_0537",
+      "value": "Refreshing"
+    },
+    {
+      "name": "shortcut_text_0538",
+      "value": "Both versions changed: %1$s"
+    },
+    {
+      "name": "shortcut_text_0542",
+      "value": "Host Ability"
+    },
+    {
+      "name": "shortcut_text_0543",
+      "value": "Capture an idea"
+    },
+    {
+      "name": "shortcut_text_0544",
+      "value": "Selected shortcuts changed. Select again."
+    },
+    {
+      "name": "shortcut_text_0545",
+      "value": "Selected items cannot be processed together. Create a new preview."
+    },
+    {
+      "name": "shortcut_text_0546",
+      "value": "Selected items changed"
+    },
+    {
+      "name": "shortcut_text_0547",
+      "value": "Selected items changed; nothing executed"
+    },
+    {
+      "name": "shortcut_text_0548",
+      "value": "Add"
+    },
+    {
+      "name": "shortcut_text_0549",
+      "value": "Item does not exist or has changed"
+    },
+    {
+      "name": "shortcut_text_0550",
+      "value": "Notification"
+    },
+    {
+      "name": "shortcut_text_0551",
+      "value": "Notification opens history"
+    },
+    {
+      "name": "shortcut_text_0552",
+      "value": "Notification opens favorites"
+    },
+    {
+      "name": "shortcut_text_0553",
+      "value": "Notification opens task details"
+    },
+    {
+      "name": "shortcut_text_0554",
+      "value": "Same source and titles differing only in whitespace are duplicates"
+    },
+    {
+      "name": "shortcut_text_0555",
+      "value": "Merge favorites with the same source and title"
+    },
+    {
+      "name": "shortcut_text_0556",
+      "value": "Duplicate source and title"
+    },
+    {
+      "name": "shortcut_text_0557",
+      "value": "Duplicate tags in one note"
+    },
+    {
+      "name": "shortcut_text_0558",
+      "value": "Synonyms are explicitly declared, never inferred"
+    },
+    {
+      "name": "shortcut_text_0559",
+      "value": "Convert to lowercase"
+    },
+    {
+      "name": "shortcut_text_0560",
+      "value": "Icon"
+    },
+    {
+      "name": "shortcut_text_0561",
+      "value": "Icon resource ID"
+    },
+    {
+      "name": "shortcut_text_0562",
+      "value": "Defer"
+    },
+    {
+      "name": "shortcut_text_0563",
+      "value": "Automatically abandon after deferral expires"
+    },
+    {
+      "name": "shortcut_text_0564",
+      "value": "Defer until later"
+    },
+    {
+      "name": "shortcut_text_0566",
+      "value": "Complete"
+    },
+    {
+      "name": "shortcut_text_0568",
+      "value": "Completed item needs processing again"
+    },
+    {
+      "name": "shortcut_text_0569",
+      "value": "Completed tasks no longer show overdue reminders"
+    },
+    {
+      "name": "shortcut_text_0570",
+      "value": "Complete an important task"
+    },
+    {
+      "name": "shortcut_text_0571",
+      "value": "Identical"
+    },
+    {
+      "name": "shortcut_text_0572",
+      "value": "Is false"
+    },
+    {
+      "name": "shortcut_text_0573",
+      "value": "Is true"
+    },
+    {
+      "name": "shortcut_text_0574",
+      "value": "Not due"
+    },
+    {
+      "name": "shortcut_text_0575",
+      "value": "Not returned"
+    },
+    {
+      "name": "shortcut_text_0577",
+      "value": "Unresolved: %1$s"
+    },
+    {
+      "name": "shortcut_text_0578",
+      "value": "Unknown shortcut falls back to the rule center"
+    },
+    {
+      "name": "shortcut_text_0579",
+      "value": "Unknown deep link falls back to invocation history"
+    },
+    {
+      "name": "shortcut_text_0580",
+      "value": "Not provided"
+    },
+    {
+      "name": "shortcut_text_0581",
+      "value": "Unfinished"
+    },
+    {
+      "name": "shortcut_text_0582",
+      "value": "Unknown"
+    },
+    {
+      "name": "shortcut_text_0583",
+      "value": "Unknown (verify first)"
+    },
+    {
+      "name": "shortcut_text_0584",
+      "value": "Unknown source"
+    },
+    {
+      "name": "shortcut_text_0585",
+      "value": "Unknown source: %1$s"
+    },
+    {
+      "name": "shortcut_text_0586",
+      "value": "Unknown sources fall back to the rule center"
+    },
+    {
+      "name": "shortcut_text_0587",
+      "value": "Unknown route: %1$s"
+    },
+    {
+      "name": "shortcut_text_0588",
+      "value": "Unknown route falls back to: %1$s"
+    },
+    {
+      "name": "shortcut_text_0589",
+      "value": "Not executed"
+    },
+    {
+      "name": "shortcut_text_0590",
+      "value": "Not pinned"
+    },
+    {
+      "name": "shortcut_text_0591",
+      "value": "Text too long; treated as different"
+    },
+    {
+      "name": "shortcut_text_0592",
+      "value": "Line limit exceeded; treated as a complete replacement"
+    },
+    {
+      "name": "shortcut_text_0593",
+      "value": "Text operator lacks a value: %1$s.%2$s"
+    },
+    {
+      "name": "shortcut_text_0594",
+      "value": "Document"
+    },
+    {
+      "name": "shortcut_text_0595",
+      "value": "Duplicate document ID: %1$s"
+    },
+    {
+      "name": "shortcut_text_0596",
+      "value": "No parameters"
+    },
+    {
+      "name": "shortcut_text_0597",
+      "value": "No changes"
+    },
+    {
+      "name": "shortcut_text_0598",
+      "value": "No due date"
+    },
+    {
+      "name": "shortcut_text_0599",
+      "value": "No due date %1$s | Completed %2$s"
+    },
+    {
+      "name": "shortcut_text_0600",
+      "value": "Undated tasks do not participate in overdue sorting"
+    },
+    {
+      "name": "shortcut_text_0601",
+      "value": "No matches"
+    },
+    {
+      "name": "shortcut_text_0602",
+      "value": "No governance needed"
+    },
+    {
+      "name": "shortcut_text_0603",
+      "value": "Show"
+    },
+    {
+      "name": "shortcut_text_0604",
+      "value": "Showing %1$s / %2$s"
+    },
+    {
+      "name": "shortcut_text_0605",
+      "value": "Show shortcut"
+    },
+    {
+      "name": "shortcut_text_0606",
+      "value": "Visibility batch"
+    },
+    {
+      "name": "shortcut_text_0607",
+      "value": "Common suffix: %1$s"
+    },
+    {
+      "name": "shortcut_text_0608",
+      "value": "Common prefix: %1$s"
+    },
+    {
+      "name": "shortcut_text_0609",
+      "value": "Detail shortcuts require noteId"
+    },
+    {
+      "name": "shortcut_text_0610",
+      "value": "Less than"
+    },
+    {
+      "name": "shortcut_text_0611",
+      "value": "Widget"
+    },
+    {
+      "name": "shortcut_text_0612",
+      "value": "Widget opens tasks"
+    },
+    {
+      "name": "shortcut_text_0613",
+      "value": "Widget opens favorites"
+    },
+    {
+      "name": "shortcut_text_0614",
+      "value": "Widget creates a note"
+    },
+    {
+      "name": "shortcut_text_0615",
+      "value": "Productivity"
+    },
+    {
+      "name": "shortcut_text_0617",
+      "value": "Write result unconfirmed. Reload and verify first."
+    },
+    {
+      "name": "shortcut_text_0620",
+      "value": "New text: %1$s lines"
+    },
+    {
+      "name": "shortcut_text_0621",
+      "value": "Added %1$s lines, removed %2$s lines, %3$s unchanged"
+    },
+    {
+      "name": "shortcut_text_0622",
+      "value": "Added: %1$s"
+    },
+    {
+      "name": "shortcut_text_0623",
+      "value": "Add a task (up to 60 characters)"
+    },
+    {
+      "name": "shortcut_text_0624",
+      "value": "Changes will be saved for the selected date"
+    },
+    {
+      "name": "shortcut_text_0625",
+      "value": "Action needed"
+    },
+    {
+      "name": "shortcut_text_0626",
+      "value": "Sign-in required"
+    },
+    {
+      "name": "shortcut_text_0628",
+      "value": "Sign in before continuing"
+    },
+    {
+      "name": "shortcut_text_0632",
+      "value": "Optional"
+    },
+    {
+      "name": "shortcut_text_0633",
+      "value": "Selection contains duplicate trash IDs"
+    },
+    {
+      "name": "shortcut_text_0634",
+      "value": "Select shortcuts to adjust"
+    },
+    {
+      "name": "shortcut_text_0635",
+      "value": "Learning"
+    },
+    {
+      "name": "shortcut_text_0636",
+      "value": "Learning notes"
+    },
+    {
+      "name": "shortcut_text_0637",
+      "value": "Deferral does not hide existing overdue status"
+    },
+    {
+      "name": "shortcut_text_0638",
+      "value": "Still not due after deferral"
+    },
+    {
+      "name": "shortcut_text_0639",
+      "value": "Still overdue after deferral"
+    },
+    {
+      "name": "shortcut_text_0640",
+      "value": "Deferral sets a new due time"
+    },
+    {
+      "name": "shortcut_text_0641",
+      "value": "Could not open the page. Please try again."
+    },
+    {
+      "name": "shortcut_text_0642",
+      "value": "Navigation"
+    },
+    {
+      "name": "shortcut_text_0643",
+      "value": "Keep all favorites saved within one month"
+    },
+    {
+      "name": "shortcut_text_0644",
+      "value": "Content organized within the past hour"
+    },
+    {
+      "name": "shortcut_text_0650",
+      "value": "The 30-day retention period has expired; cannot restore"
+    },
+    {
+      "name": "shortcut_text_0651",
+      "value": "Read"
+    },
+    {
+      "name": "shortcut_text_0652",
+      "value": "Abandoned"
+    },
+    {
+      "name": "shortcut_text_0653",
+      "value": "Editing changes discarded"
+    },
+    {
+      "name": "shortcut_text_0656",
+      "value": "Expired; restoration is not allowed"
+    },
+    {
+      "name": "shortcut_text_0657",
+      "value": "Restored"
+    },
+    {
+      "name": "shortcut_text_0658",
+      "value": "Restored %1$s items"
+    },
+    {
+      "name": "shortcut_text_0659",
+      "value": "Restored %1$s/%2$s, %3$s; stopped"
+    },
+    {
+      "name": "shortcut_text_0660",
+      "value": "Tasks restored"
+    },
+    {
+      "name": "shortcut_text_0661",
+      "value": "Daily samples restored"
+    },
+    {
+      "name": "shortcut_text_0662",
+      "value": "Historical version restored"
+    },
+    {
+      "name": "shortcut_text_0663",
+      "value": "Returned to today"
+    },
+    {
+      "name": "shortcut_text_0664",
+      "value": "Restored %1$s notes"
+    },
+    {
+      "name": "shortcut_text_0665",
+      "value": "Permanently deleted %1$s notes"
+    },
+    {
+      "name": "shortcut_text_0667",
+      "value": "Editing content cleared"
+    },
+    {
+      "name": "shortcut_text_0668",
+      "value": "Cleaned up %1$s expired notes"
+    },
+    {
+      "name": "shortcut_text_0669",
+      "value": "Editing canceled"
+    },
+    {
+      "name": "shortcut_text_0670",
+      "value": "Batch preview canceled"
+    },
+    {
+      "name": "shortcut_text_0671",
+      "value": "Favorite removed"
+    },
+    {
+      "name": "shortcut_text_0672",
+      "value": "Move to trash canceled"
+    },
+    {
+      "name": "shortcut_text_0673",
+      "value": "Confirmed"
+    },
+    {
+      "name": "shortcut_text_0674",
+      "value": "Already at this historical version"
+    },
+    {
+      "name": "shortcut_text_0675",
+      "value": "Added to favorites"
+    },
+    {
+      "name": "shortcut_text_0676",
+      "value": "Submitted; verification pending"
+    },
+    {
+      "name": "shortcut_text_0677",
+      "value": "Stopped"
+    },
+    {
+      "name": "shortcut_text_0678",
+      "value": "Deferred"
+    },
+    {
+      "name": "shortcut_text_0679",
+      "value": "Completed"
+    },
+    {
+      "name": "shortcut_text_0680",
+      "value": "Completed %1$s / %2$s"
+    },
+    {
+      "name": "shortcut_text_0681",
+      "value": "Completed but reopened"
+    },
+    {
+      "name": "shortcut_text_0682",
+      "value": "Completed item"
+    },
+    {
+      "name": "shortcut_text_0683",
+      "value": "Visible"
+    },
+    {
+      "name": "shortcut_text_0685",
+      "value": "Moved to trash"
+    },
+    {
+      "name": "shortcut_text_0686",
+      "value": "Hidden"
+    },
+    {
+      "name": "shortcut_text_0687",
+      "value": "Permanently deleted; cannot be restored"
+    },
+    {
+      "name": "shortcut_text_0688",
+      "value": "Overdue"
+    },
+    {
+      "name": "shortcut_text_0689",
+      "value": "Pinned"
+    },
+    {
+      "name": "shortcut_text_0690",
+      "value": "Later"
+    },
+    {
+      "name": "shortcut_text_0691",
+      "value": "Hide"
+    },
+    {
+      "name": "shortcut_text_0692",
+      "value": "Hide shortcut"
+    },
+    {
+      "name": "shortcut_text_0693",
+      "value": "App clone index"
+    },
+    {
+      "name": "shortcut_text_0694",
+      "value": "In-app"
+    },
+    {
+      "name": "shortcut_text_0695",
+      "value": "English letter case differs"
+    },
+    {
+      "name": "shortcut_text_0702",
+      "value": "Negative priority: %1$s"
+    },
+    {
+      "name": "shortcut_text_0704",
+      "value": "Valid"
+    },
+    {
+      "name": "shortcut_text_0705",
+      "value": "Invalid expiration: %1$s"
+    },
+    {
+      "name": "shortcut_text_0706",
+      "value": "Overdue %1$s | Due soon %2$s | Not due %3$s | "
+    },
+    {
+      "name": "shortcut_text_0707",
+      "value": "Show overdue days as an absolute value"
+    },
+    {
+      "name": "shortcut_text_0708",
+      "value": "Days overdue: %1$s"
+    },
+    {
+      "name": "shortcut_text_0709",
+      "value": "Matches the storage limit"
+    },
+    {
+      "name": "shortcut_text_0710",
+      "value": "Preview sequence limit reached"
+    },
+    {
+      "name": "shortcut_text_0711",
+      "value": "Preview expired. Create a new preview."
+    },
+    {
+      "name": "shortcut_text_0712",
+      "value": "Negative threshold: %1$s"
+    },
+    {
+      "name": "shortcut_text_0713",
+      "value": "Original batch did not execute; no compensation"
+    },
+    {
+      "name": "shortcut_text_0714",
+      "value": "Original setting unknown"
+    },
+    {
+      "name": "shortcut_text_0715",
+      "value": "Original visibility is unknown; precise restoration is impossible"
+    },
+    {
+      "name": "shortcut_text_0716",
+      "value": "Reading"
+    },
+    {
+      "name": "shortcut_text_0717",
+      "value": "Reading excerpt template"
+    },
+    {
+      "name": "shortcut_text_0719",
+      "value": "No parameters"
+    },
+    {
+      "name": "shortcut_text_0720",
+      "value": "No tasks yet"
+    },
+    {
+      "name": "shortcut_text_0721",
+      "value": "No invocation history"
+    },
+    {
+      "name": "shortcut_text_0722",
+      "value": "No shortcuts"
+    },
+    {
+      "name": "shortcut_text_0724",
+      "value": "No batch history"
+    },
+    {
+      "name": "shortcut_text_0725",
+      "value": "Summary is empty; consider completing it"
+    },
+    {
+      "name": "shortcut_text_0726",
+      "value": "Empty summary with a valid title: keep and suggest completion"
+    },
+    {
+      "name": "shortcut_text_0727",
+      "value": "Expand"
+    },
+    {
+      "name": "shortcut_text_0728",
+      "value": "Expand  ›"
+    },
+    {
+      "name": "shortcut_text_0729",
+      "value": "The prefix can be added again for display"
+    },
+    {
+      "name": "shortcut_text_0730",
+      "value": "Collapse into one separator"
+    },
+    {
+      "name": "shortcut_text_0731",
+      "value": "A sample note demonstrating local search."
+    },
+    {
+      "name": "shortcut_text_0732",
+      "value": "Organize"
+    },
+    {
+      "name": "shortcut_text_0733",
+      "value": "Organize today's tasks"
+    },
+    {
+      "name": "shortcut_text_0734",
+      "value": "Organize today's tasks and favorites"
+    },
+    {
+      "name": "shortcut_text_0735",
+      "value": "Organize today's plan"
+    },
+    {
+      "name": "shortcut_text_0736",
+      "value": "Organize favorite tags"
+    },
+    {
+      "name": "shortcut_text_0739",
+      "value": "Display normally"
+    },
+    {
+      "name": "shortcut_text_0740",
+      "value": "Body summary"
+    },
+    {
+      "name": "shortcut_text_0741",
+      "value": "Saving. Please wait."
+    },
+    {
+      "name": "shortcut_text_0742",
+      "value": "Editing a note"
+    },
+    {
+      "name": "shortcut_text_0743",
+      "value": "Viewing tasks for %1$s"
+    },
+    {
+      "name": "shortcut_text_0744",
+      "value": "Querying"
+    },
+    {
+      "name": "shortcut_text_0745",
+      "value": "Reading"
+    },
+    {
+      "name": "shortcut_text_0746",
+      "value": "Reading shortcuts"
+    },
+    {
+      "name": "shortcut_text_0747",
+      "value": "Restoring %1$s/%2$s"
+    },
+    {
+      "name": "shortcut_text_0748",
+      "value": "Applying settings"
+    },
+    {
+      "name": "shortcut_text_0749",
+      "value": "Supported"
+    },
+    {
+      "name": "shortcut_text_0750",
+      "value": "Start directly"
+    },
+    {
+      "name": "shortcut_text_0751",
+      "value": "Complete directly"
+    },
+    {
+      "name": "shortcut_text_0752",
+      "value": "Keep only one"
+    },
+    {
+      "name": "shortcut_text_0753",
+      "value": "Favorites only: off"
+    },
+    {
+      "name": "shortcut_text_0754",
+      "value": "Favorites only: on"
+    },
+    {
+      "name": "shortcut_text_0756",
+      "value": "Only local changes: %1$s"
+    },
+    {
+      "name": "shortcut_text_0758",
+      "value": "Keep at least one task"
+    },
+    {
+      "name": "shortcut_text_0759",
+      "value": "Pin"
+    },
+    {
+      "name": "shortcut_text_0760",
+      "value": "%1$s pin actions"
+    },
+    {
+      "name": "shortcut_text_0761",
+      "value": "If more than three items are pinned, unpin the earliest"
+    },
+    {
+      "name": "shortcut_text_0762",
+      "value": "Unpin items when they are cleaned up"
+    },
+    {
+      "name": "shortcut_text_0763",
+      "value": "Pinned resources"
+    },
+    {
+      "name": "shortcut_text_0764",
+      "value": "Current occurrence of repeating task completed"
+    },
+    {
+      "name": "shortcut_text_0765",
+      "value": "Repeating task falls on an exception date"
+    },
+    {
+      "name": "shortcut_text_0766",
+      "value": "Next occurrence: %1$s"
+    },
+    {
+      "name": "shortcut_text_0767",
+      "value": "Next occurrence not set"
+    },
+    {
+      "name": "shortcut_text_0768",
+      "value": "Duplicate favorite"
+    },
+    {
+      "name": "shortcut_text_0769",
+      "value": "Reset tags"
+    },
+    {
+      "name": "shortcut_text_0770",
+      "value": "reset tags %1$s, confirmation needed %2$s"
+    },
+    {
+      "name": "shortcut_text_0771",
+      "value": "Verify before retry or compensation preview"
+    },
+    {
+      "name": "shortcut_text_0772",
+      "value": "Retry failed items"
+    },
+    {
+      "name": "shortcut_text_0773",
+      "value": "Retry preview"
+    },
+    {
+      "name": "shortcut_text_0774",
+      "value": "Query again"
+    },
+    {
+      "name": "shortcut_text_0775",
+      "value": "Reopen"
+    },
+    {
+      "name": "shortcut_text_0776",
+      "value": "Recalculate using current time after reopening"
+    },
+    {
+      "name": "shortcut_text_0779",
+      "value": "Reload batches"
+    },
+    {
+      "name": "shortcut_text_0780",
+      "value": "Reload failed; duplicate writes remain blocked"
+    },
+    {
+      "name": "shortcut_text_0781",
+      "value": "Pick up again"
+    },
+    {
+      "name": "shortcut_text_0782",
+      "value": "Check again"
+    },
+    {
+      "name": "shortcut_text_0783",
+      "value": "Restore %1$s items individually"
+    },
+    {
+      "name": "shortcut_text_0784",
+      "value": "State"
+    },
+    {
+      "name": "shortcut_text_0785",
+      "value": "State has no outgoing transition: %1$s"
+    },
+    {
+      "name": "shortcut_text_0786",
+      "value": "State unknown"
+    },
+    {
+      "name": "shortcut_text_0787",
+      "value": "Desktop shortcut"
+    },
+    {
+      "name": "shortcut_text_0788",
+      "value": "Desktop shortcuts"
+    },
+    {
+      "name": "shortcut_text_0789",
+      "value": "Resources"
+    },
+    {
+      "name": "shortcut_text_0790",
+      "value": "Custom"
+    },
+    {
+      "name": "shortcut_text_0791",
+      "value": "Latest %1$s records"
+    },
+    {
+      "name": "shortcut_text_0792",
+      "value": "Updated within the last day"
+    },
+    {
+      "name": "shortcut_text_0793",
+      "value": "code=not provided; no error details"
+    }
+  ]
+}
