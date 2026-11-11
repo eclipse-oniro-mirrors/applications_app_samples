@@ -48,7 +48,7 @@ class CameraService {
   private avRecorder: media.AVRecorder | undefined = undefined;
   private session: camera.PhotoSession | camera.VideoSession | undefined = undefined;
   private context: Context | undefined = undefined;
-  private surfaceId: string = "";
+  private surfaceId: string = '';
   private cameraDeviceIndex: number = 0;
   private curCameraDevice: camera.CameraDevice | undefined = undefined;
   private isRecording: boolean = false;
