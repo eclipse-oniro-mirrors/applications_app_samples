@@ -7,12 +7,25 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { paceTurn } from '../Shared/TestPace';
 import { CommonConstants } from '../../../../main/ets/common/CommonConstants';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const WIDTHS: number[] = [320, 360, 480, 720, 1080, 1920];
 const DENSITIES: number[] = [1, 1.5, 2, 3];
 
 function heightOf(width: number): number {
   return width * CommonConstants.DEFAULT_HEIGHT / CommonConstants.DEFAULT_WIDTH;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Validation_CompatibilityMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function compatibilityMatrixTest() {
@@ -35,6 +48,7 @@ export default function compatibilityMatrixTest() {
      * @tc.desc      Verify every width and density pair keeps the viewport ratio and vp round trip
      */
     it('testCompatibility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testCompatibility0001');
       for (let i = 0; i < WIDTHS.length; i++) {
         for (let j = 0; j < DENSITIES.length; j++) {
           const widthVp: number = WIDTHS[i] / DENSITIES[j];
@@ -43,6 +57,8 @@ export default function compatibilityMatrixTest() {
           expect(widthVp).assertLarger(0);
         }
       }
+    
+      logEnd('testCompatibility0001');
     })
 
     /**
@@ -51,6 +67,7 @@ export default function compatibilityMatrixTest() {
      * @tc.desc      Verify the viewport height is strictly increasing across the width ladder
      */
     it('testCompatibility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testCompatibility0002');
       let previous: number = -1;
       for (let i = 0; i < WIDTHS.length; i++) {
         const height: number = heightOf(WIDTHS[i]);
@@ -58,6 +75,8 @@ export default function compatibilityMatrixTest() {
         previous = height;
       }
       expect(previous).assertLarger(0);
+    
+      logEnd('testCompatibility0002');
     })
 
     /**
@@ -66,11 +85,14 @@ export default function compatibilityMatrixTest() {
      * @tc.desc      Verify doubling the width at each density doubles the derived height
      */
     it('testCompatibility0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testCompatibility0003');
       const bases: number[] = [320, 360, 480, 720];
       for (let i = 0; i < bases.length; i++) {
         expect(heightOf(bases[i] * 2)).assertClose(heightOf(bases[i]) * 2, 1e-9);
       }
       expect(CommonConstants.DEFAULT_HEIGHT * 16).assertEqual(CommonConstants.DEFAULT_WIDTH * 9);
+    
+      logEnd('testCompatibility0003');
     })
   });
 }

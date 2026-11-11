@@ -7,6 +7,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { util } from '@kit.ArkTS';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const UUID_LENGTH: number = 36;
 const BINARY_UUID_LENGTH: number = 16;
@@ -19,6 +20,18 @@ function bytesOf(text: string): Uint8Array {
 
 function base64(): util.Base64Helper {
   return new util.Base64Helper();
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Utils_UuidBase64Matrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function uuidBase64MatrixTest() {
@@ -41,11 +54,14 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify a generated UUID has the canonical thirty-six character shape
      */
     it('testUuid0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUuid0001');
       const value: string = util.generateRandomUUID(false);
       expect(value.length).assertEqual(UUID_LENGTH);
       for (let i = 0; i < HYPHEN_POSITIONS.length; i++) {
         expect(value.charAt(HYPHEN_POSITIONS[i])).assertEqual('-');
       }
+    
+      logEnd('testUuid0001');
     })
 
     /**
@@ -54,10 +70,13 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify the generated UUID is a version four RFC 4122 identifier
      */
     it('testUuid0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUuid0002');
       const value: string = util.generateRandomUUID(false);
       expect(value.charAt(14)).assertEqual('4');
       expect('89ab'.indexOf(value.charAt(19).toLowerCase()) >= 0).assertTrue();
       expect(UUID_PATTERN.test(value)).assertTrue();
+    
+      logEnd('testUuid0002');
     })
 
     /**
@@ -66,11 +85,14 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify one hundred generated UUIDs are all unique
      */
     it('testUuid0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUuid0003');
       const seen: Set<string> = new Set<string>();
       for (let i = 0; i < 100; i++) {
         seen.add(util.generateRandomUUID(false));
       }
       expect(seen.size).assertEqual(100);
+    
+      logEnd('testUuid0003');
     })
 
     /**
@@ -79,11 +101,14 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify the cached and uncached UUID generators both produce valid identifiers
      */
     it('testUuid0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUuid0004');
       const cached: string = util.generateRandomUUID(true);
       const uncached: string = util.generateRandomUUID(false);
       expect(UUID_PATTERN.test(cached)).assertTrue();
       expect(UUID_PATTERN.test(uncached)).assertTrue();
       expect(cached === uncached).assertFalse();
+    
+      logEnd('testUuid0004');
     })
 
     /**
@@ -92,6 +117,7 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify a binary UUID contains exactly sixteen bytes
      */
     it('testUuid0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUuid0005');
       const binary: Uint8Array = util.generateRandomBinaryUUID(false);
       expect(binary.length).assertEqual(BINARY_UUID_LENGTH);
       let nonZero: number = 0;
@@ -101,6 +127,8 @@ export default function uuidBase64MatrixTest() {
         }
       }
       expect(nonZero).assertLarger(0);
+    
+      logEnd('testUuid0005');
     })
 
     /**
@@ -109,6 +137,7 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify fifty binary UUIDs are all unique
      */
     it('testUuid0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUuid0006');
       const seen: Set<string> = new Set<string>();
       for (let i = 0; i < 50; i++) {
         const binary: Uint8Array = util.generateRandomBinaryUUID(false);
@@ -119,6 +148,8 @@ export default function uuidBase64MatrixTest() {
         seen.add(key);
       }
       expect(seen.size).assertEqual(50);
+    
+      logEnd('testUuid0006');
     })
 
     /**
@@ -127,11 +158,14 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify the binary UUID version nibble is four
      */
     it('testUuid0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testUuid0007');
       const binary: Uint8Array = util.generateRandomBinaryUUID(false);
       expect(binary[6] >= 64).assertTrue();
       expect(binary[6] <= 79).assertTrue();
       expect(binary[8] >= 128).assertTrue();
       expect(binary[8] <= 191).assertTrue();
+    
+      logEnd('testUuid0007');
     })
 
     /**
@@ -140,7 +174,10 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify encoding abc yields the canonical YWJj string
      */
     it('testBase64_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testBase64_0001');
       expect(base64().encodeToStringSync(bytesOf('abc'))).assertEqual('YWJj');
+    
+      logEnd('testBase64_0001');
     })
 
     /**
@@ -149,11 +186,14 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify decoding YWJj restores the three ASCII bytes
      */
     it('testBase64_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testBase64_0002');
       const decoded: Uint8Array = base64().decodeSync('YWJj');
       expect(decoded.length).assertEqual(3);
       expect(decoded[0]).assertEqual(97);
       expect(decoded[1]).assertEqual(98);
       expect(decoded[2]).assertEqual(99);
+    
+      logEnd('testBase64_0002');
     })
 
     /**
@@ -162,9 +202,12 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify hello encodes to the canonical base64 string with padding
      */
     it('testBase64_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testBase64_0003');
       const encoded: string = base64().encodeToStringSync(bytesOf('hello'));
       expect(encoded).assertEqual('aGVsbG8=');
       expect(encoded.endsWith('=')).assertTrue();
+    
+      logEnd('testBase64_0003');
     })
 
     /**
@@ -173,6 +216,7 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify base64 round-trips payloads of several sizes
      */
     it('testBase64_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testBase64_0004');
       const sizes: number[] = [1, 3, 16, 256];
       for (let i = 0; i < sizes.length; i++) {
         let text: string = '';
@@ -184,6 +228,8 @@ export default function uuidBase64MatrixTest() {
         expect(decoded.length).assertEqual(sizes[i]);
         expect(util.TextDecoder.create('utf-8').decodeToString(decoded)).assertEqual(text);
       }
+    
+      logEnd('testBase64_0004');
     })
 
     /**
@@ -192,12 +238,15 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify the asynchronous base64 round-trip matches the synchronous one
      */
     it('testBase64_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testBase64_0005');
       const helper: util.Base64Helper = base64();
       const text: string = 'async-encode';
       const encoded: string = await helper.encodeToString(bytesOf(text));
       expect(encoded).assertEqual(helper.encodeToStringSync(bytesOf(text)));
       const decoded: Uint8Array = await helper.decode(encoded);
       expect(util.TextDecoder.create('utf-8').decodeToString(decoded)).assertEqual(text);
+    
+      logEnd('testBase64_0005');
     })
 
     /**
@@ -206,6 +255,7 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify binary boundary bytes survive a base64 round-trip
      */
     it('testBase64_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testBase64_0006');
       const source: Uint8Array = new Uint8Array([0, 1, 127, 128, 254, 255]);
       const encoded: string = base64().encodeToStringSync(source);
       const decoded: Uint8Array = base64().decodeSync(encoded);
@@ -213,6 +263,8 @@ export default function uuidBase64MatrixTest() {
       for (let i = 0; i < source.length; i++) {
         expect(decoded[i]).assertEqual(source[i]);
       }
+    
+      logEnd('testBase64_0006');
     })
 
     /**
@@ -221,11 +273,14 @@ export default function uuidBase64MatrixTest() {
      * @tc.desc      Verify encoded output length is a multiple of four for the basic alphabet
      */
     it('testBase64_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testBase64_0007');
       const samples: string[] = ['a', 'ab', 'abc', 'abcd', 'abcde'];
       for (let i = 0; i < samples.length; i++) {
         const encoded: string = base64().encodeToStringSync(bytesOf(samples[i]));
         expect(encoded.length % 4).assertEqual(0);
       }
+    
+      logEnd('testBase64_0007');
     })
   });
 }

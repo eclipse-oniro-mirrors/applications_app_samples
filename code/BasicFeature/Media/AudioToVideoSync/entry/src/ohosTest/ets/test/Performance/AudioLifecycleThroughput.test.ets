@@ -17,6 +17,7 @@ import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { paceTurn } from '../Shared/TestPace';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const CREATE_START_STOP_RELEASE_ROUNDS: number = 20;
 const CREATE_BUDGET_MS: number = 20000;
@@ -53,6 +54,18 @@ async function createFor(usage: audio.StreamUsage): Promise<audio.AudioRenderer>
   return renderer;
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Performance_AudioLifecycleThroughput]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function audioLifecycleThroughputTest() {
   describe('audioLifecycleThroughputTest', () => {
     beforeAll(() => {
@@ -76,6 +89,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.level     Level 2
      */
     it('testAudioThroughput0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioThroughput0001');
       const start: number = Date.now();
       for (let i = 0; i < CREATE_START_STOP_RELEASE_ROUNDS; i++) {
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -89,6 +103,8 @@ export default function audioLifecycleThroughputTest() {
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(CREATE_BUDGET_MS);
+    
+      logEnd('testAudioThroughput0001');
     })
 
     /**
@@ -100,6 +116,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.level     Level 2
      */
     it('testAudioThroughput0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioThroughput0002');
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
       const start: number = Date.now();
       try {
@@ -115,6 +132,8 @@ export default function audioLifecycleThroughputTest() {
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(START_PAUSE_BUDGET_MS);
+    
+      logEnd('testAudioThroughput0002');
     })
 
     /**
@@ -126,6 +145,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.level     Level 2
      */
     it('testAudioThroughput0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioThroughput0003');
       const start: number = Date.now();
       for (let i = 0; i < USAGES.length; i++) {
         const renderer: audio.AudioRenderer = await createFor(USAGES[i]);
@@ -142,6 +162,8 @@ export default function audioLifecycleThroughputTest() {
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(20000);
+    
+      logEnd('testAudioThroughput0003');
     })
 
     /**
@@ -153,6 +175,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.level     Level 2
      */
     it('testAudioThroughput0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAudioThroughput0004');
       for (let i = 0; i < 5; i++) {
         const start: number = Date.now();
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
@@ -164,6 +187,8 @@ export default function audioLifecycleThroughputTest() {
         expect(cost).assertLess(10000);
         expect(renderer.state).assertEqual(4);
       }
+    
+      logEnd('testAudioThroughput0004');
     })
   });
 }

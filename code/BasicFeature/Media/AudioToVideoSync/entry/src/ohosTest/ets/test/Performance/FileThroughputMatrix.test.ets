@@ -15,6 +15,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const ROUNDS: number = 20;
 const BUDGET_MS: number = 20000;
@@ -38,6 +39,18 @@ function roundTrip(size: number, label: string): number {
   }
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Performance_FileThroughputMatrix]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function fileThroughputMatrixTest() {
   describe('fileThroughputMatrixTest', () => {
     beforeAll(() => {
@@ -58,9 +71,12 @@ export default function fileThroughputMatrixTest() {
      * @tc.desc      Verify twenty write and read cycles of a 64 byte file stay within budget
      */
     it('testFileThroughput0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileThroughput0001');
       const cost: number = roundTrip(64, '64');
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(BUDGET_MS);
+    
+      logEnd('testFileThroughput0001');
     })
 
     /**
@@ -69,9 +85,12 @@ export default function fileThroughputMatrixTest() {
      * @tc.desc      Verify twenty write and read cycles of a 1 KB file stay within budget
      */
     it('testFileThroughput0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileThroughput0002');
       const cost: number = roundTrip(1024, '1024');
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(BUDGET_MS);
+    
+      logEnd('testFileThroughput0002');
     })
 
     /**
@@ -80,9 +99,12 @@ export default function fileThroughputMatrixTest() {
      * @tc.desc      Verify twenty write and read cycles of an 8 KB file stay within budget
      */
     it('testFileThroughput0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileThroughput0003');
       const cost: number = roundTrip(8192, '8192');
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(BUDGET_MS);
+    
+      logEnd('testFileThroughput0003');
     })
 
     /**
@@ -91,6 +113,7 @@ export default function fileThroughputMatrixTest() {
      * @tc.desc      Verify the larger payload does not report a smaller size after the last write
      */
     it('testFileThroughput0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testFileThroughput0004');
       const path: string = targetFor('final');
       try {
         writeTextFile(path, repeatPayload(64, 'a'));
@@ -101,6 +124,8 @@ export default function fileThroughputMatrixTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testFileThroughput0004');
     })
   });
 }

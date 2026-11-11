@@ -18,6 +18,7 @@ import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hyp
 import { display } from '@kit.ArkUI';
 import { paceTurn } from '../Shared/TestPace';
 import { assertFiniteNumber } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const BASE_DPI: number = 160;
 const MIN_DENSITY: number = 0.5;
@@ -47,6 +48,18 @@ function isPortraitOrientation(orientation: number): boolean {
     orientation === display.Orientation.PORTRAIT_INVERTED;
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Validation_DisplayMetricContract]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function displayMetricContractTest() {
   describe('displayMetricContractTest', () => {
     beforeAll(() => {
@@ -70,6 +83,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0001');
       const target: display.Display = defaultDisplay();
       expect(target.width).assertLarger(0);
       expect(target.height).assertLarger(0);
@@ -77,6 +91,8 @@ export default function displayMetricContractTest() {
       expect(Number.isInteger(target.height)).assertTrue();
       expect(Number.isSafeInteger(target.width)).assertTrue();
       expect(Number.isSafeInteger(target.height)).assertTrue();
+    
+      logEnd('testDisplayMetric0001');
     })
 
     /**
@@ -88,12 +104,15 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0002');
       const first: display.Display = defaultDisplay();
       const second: display.Display = defaultDisplay();
       expect(Number.isInteger(first.id)).assertTrue();
       expect(first.id).assertLargerOrEqual(0);
       expect(second.id).assertEqual(first.id);
       expect(first.id).assertLess(1024);
+    
+      logEnd('testDisplayMetric0002');
     })
 
     /**
@@ -105,11 +124,14 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0003');
       const target: display.Display = defaultDisplay();
       expect(target.name.length).assertLarger(0);
       expect(target.name.trim().length).assertLarger(0);
       expect(target.name.indexOf('\n')).assertEqual(-1);
       expect(target.name.indexOf('\t')).assertEqual(-1);
+    
+      logEnd('testDisplayMetric0003');
     })
 
     /**
@@ -121,6 +143,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0004');
       const target: display.Display = defaultDisplay();
       expect(typeof target.alive).assertEqual('boolean');
       expect(target.alive).assertTrue();
@@ -133,6 +156,8 @@ export default function displayMetricContractTest() {
       ];
       expect(known.indexOf(target.state) >= 0).assertTrue();
       expect(target.state).assertLargerOrEqual(display.DisplayState.STATE_UNKNOWN);
+    
+      logEnd('testDisplayMetric0004');
     })
 
     /**
@@ -144,11 +169,14 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0005');
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.densityPixels, 'densityPixels');
       expect(target.densityPixels).assertLargerOrEqual(MIN_DENSITY);
       expect(target.densityPixels).assertLessOrEqual(MAX_DENSITY);
       expect(target.densityPixels).assertLarger(0);
+    
+      logEnd('testDisplayMetric0005');
     })
 
     /**
@@ -160,11 +188,14 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0006');
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.scaledDensity, 'scaledDensity');
       expect(target.scaledDensity).assertLargerOrEqual(MIN_DENSITY);
       expect(target.scaledDensity).assertLessOrEqual(MAX_DENSITY);
       expect(target.scaledDensity).assertLarger(0);
+    
+      logEnd('testDisplayMetric0006');
     })
 
     /**
@@ -176,6 +207,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0007');
       const target: display.Display = defaultDisplay();
       expect(target.densityDPI).assertLarger(0);
       expect(Number.isInteger(target.densityDPI)).assertTrue();
@@ -183,6 +215,8 @@ export default function displayMetricContractTest() {
       expect(target.densityDPI).assertClose(expected, 1);
       expect(target.densityDPI).assertLargerOrEqual(BASE_DPI * MIN_DENSITY - 1);
       expect(target.densityDPI).assertLessOrEqual(BASE_DPI * MAX_DENSITY + 1);
+    
+      logEnd('testDisplayMetric0007');
     })
 
     /**
@@ -194,6 +228,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0008');
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.xDPI, 'xDPI');
       assertFiniteNumber(target.yDPI, 'yDPI');
@@ -201,6 +236,8 @@ export default function displayMetricContractTest() {
       expect(target.yDPI).assertLarger(0);
       expect(target.xDPI).assertLessOrEqual(MAX_DENSITY * BASE_DPI * 2);
       expect(target.yDPI).assertLessOrEqual(MAX_DENSITY * BASE_DPI * 2);
+    
+      logEnd('testDisplayMetric0008');
     })
 
     /**
@@ -212,6 +249,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0009');
       const target: display.Display = defaultDisplay();
       assertFiniteNumber(target.refreshRate, 'refreshRate');
       expect(target.refreshRate).assertLargerOrEqual(MIN_REFRESH_RATE);
@@ -220,6 +258,8 @@ export default function displayMetricContractTest() {
       expect(frameInterval).assertLarger(0);
       expect(frameInterval).assertLessOrEqual(1000);
       expect(frameInterval).assertClose(1000 / target.refreshRate, 1e-9);
+    
+      logEnd('testDisplayMetric0009');
     })
 
     /**
@@ -231,11 +271,14 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0010');
       const target: display.Display = defaultDisplay();
       expect(isValidRotation(target.rotation)).assertTrue();
       expect(target.rotation % ROTATION_STEP).assertEqual(0);
       expect(target.rotation).assertLargerOrEqual(0);
       expect(target.rotation).assertLess(360);
+    
+      logEnd('testDisplayMetric0010');
     })
 
     /**
@@ -247,11 +290,14 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0011');
       const target: display.Display = defaultDisplay();
       expect(isValidOrientation(target.orientation)).assertTrue();
       expect(Number.isInteger(target.orientation)).assertTrue();
       expect(target.orientation).assertLargerOrEqual(0);
       expect(target.orientation).assertLessOrEqual(3);
+    
+      logEnd('testDisplayMetric0011');
     })
 
     /**
@@ -263,6 +309,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0012');
       const target: display.Display = defaultDisplay();
       expect(isValidOrientation(target.orientation)).assertTrue();
       expect(isValidRotation(target.rotation)).assertTrue();
@@ -273,6 +320,8 @@ export default function displayMetricContractTest() {
       } else {
         expect(target.height).assertLargerOrEqual(target.width);
       }
+    
+      logEnd('testDisplayMetric0012');
     })
 
     /**
@@ -284,6 +333,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0013');
       const target: display.Display = defaultDisplay();
       const area: number = target.width * target.height;
       const rebuilt: number = target.height * target.width;
@@ -293,6 +343,8 @@ export default function displayMetricContractTest() {
       expect(Number.isSafeInteger(area)).assertTrue();
       expect(area).assertLarger(diagonal);
       expect(area).assertLess((target.width + target.height) * (target.width + target.height));
+    
+      logEnd('testDisplayMetric0013');
     })
 
     /**
@@ -304,6 +356,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0014');
       const first: display.Display = defaultDisplay();
       for (let i = 0; i < 50; i++) {
         const current: display.Display = defaultDisplay();
@@ -312,6 +365,8 @@ export default function displayMetricContractTest() {
         expect(current.densityPixels).assertEqual(first.densityPixels);
         expect(current.refreshRate).assertEqual(first.refreshRate);
       }
+    
+      logEnd('testDisplayMetric0014');
     })
 
     /**
@@ -323,6 +378,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0015');
       const target: display.Display = defaultDisplay();
       const widthVp: number = target.width / target.densityPixels;
       const heightVp: number = target.height / target.densityPixels;
@@ -332,6 +388,8 @@ export default function displayMetricContractTest() {
       expect(heightVp).assertLarger(0);
       expect(widthVp).assertClose(target.width / target.densityPixels, 1e-9);
       expect(heightVp).assertClose(target.height / target.densityPixels, 1e-9);
+    
+      logEnd('testDisplayMetric0015');
     })
 
     /**
@@ -343,6 +401,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0016');
       const target: display.Display = defaultDisplay();
       const widthVp: number = target.width / target.densityPixels;
       const heightVp: number = target.height / target.densityPixels;
@@ -350,6 +409,8 @@ export default function displayMetricContractTest() {
       expect(heightVp * target.densityPixels).assertClose(target.height, 0.001);
       expect(widthVp * target.densityPixels).assertLargerOrEqual(target.width - 0.001);
       expect(heightVp * target.densityPixels).assertLargerOrEqual(target.height - 0.001);
+    
+      logEnd('testDisplayMetric0016');
     })
 
     /**
@@ -361,6 +422,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0017');
       const target: display.Display = defaultDisplay();
       const portrait: boolean = isPortraitOrientation(target.orientation);
       const longSide: number = Math.max(target.width, target.height);
@@ -375,6 +437,8 @@ export default function displayMetricContractTest() {
         expect(target.width).assertEqual(longSide);
         expect(target.height).assertEqual(shortSide);
       }
+    
+      logEnd('testDisplayMetric0017');
     })
 
     /**
@@ -386,6 +450,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0018');
       const target: display.Display = defaultDisplay();
       const ratio: number = target.height / target.width;
       assertFiniteNumber(ratio, 'aspect-ratio');
@@ -393,6 +458,8 @@ export default function displayMetricContractTest() {
       expect(ratio).assertLess(5);
       expect(ratio).assertClose(target.height / target.width, 1e-9);
       expect(1 / ratio).assertClose(target.width / target.height, 1e-9);
+    
+      logEnd('testDisplayMetric0018');
     })
 
     /**
@@ -404,6 +471,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0019');
       const target: display.Display = defaultDisplay();
       const width: number = target.width;
       const height: number = target.height;
@@ -415,6 +483,8 @@ export default function displayMetricContractTest() {
         expect(target.densityPixels).assertEqual(density);
         expect(target.rotation).assertEqual(rotation);
       }
+    
+      logEnd('testDisplayMetric0019');
     })
 
     /**
@@ -426,6 +496,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0020');
       const target: display.Display = defaultDisplay();
       const diagonal: number = Math.sqrt(target.width * target.width + target.height * target.height);
       assertFiniteNumber(diagonal, 'diagonal');
@@ -433,6 +504,8 @@ export default function displayMetricContractTest() {
       expect(diagonal).assertLarger(target.width);
       expect(diagonal).assertLarger(target.height);
       expect(diagonal).assertLess(target.width + target.height);
+    
+      logEnd('testDisplayMetric0020');
     })
 
     /**
@@ -444,12 +517,15 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0021');
       const target: display.Display = defaultDisplay();
       const viewportHeight: number = target.width * 9 / 16;
       expect(viewportHeight).assertLarger(0);
       expect(viewportHeight).assertLess(target.height + 1);
       expect(target.availableHeight).assertLargerOrEqual(0);
       expect(target.availableWidth).assertLargerOrEqual(0);
+    
+      logEnd('testDisplayMetric0021');
     })
 
     /**
@@ -461,11 +537,14 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0022');
       const target: display.Display = defaultDisplay();
       const densityFromDpi: number = target.densityDPI / BASE_DPI;
       expect(densityFromDpi).assertClose(target.densityPixels, 0.05);
       expect(densityFromDpi).assertLargerOrEqual(MIN_DENSITY - 0.05);
       expect(densityFromDpi).assertLessOrEqual(MAX_DENSITY + 0.05);
+    
+      logEnd('testDisplayMetric0022');
     })
 
     /**
@@ -477,12 +556,15 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0023');
       const target: display.Display = defaultDisplay();
       const interval: number = Math.round(1000 / target.refreshRate);
       expect(interval).assertLargerOrEqual(1);
       expect(interval).assertLessOrEqual(1000);
       expect(Number.isInteger(interval)).assertTrue();
       expect(interval * target.refreshRate).assertClose(1000, target.refreshRate * 0.5 + 1);
+    
+      logEnd('testDisplayMetric0023');
     })
 
     /**
@@ -494,6 +576,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0024');
       const first: display.Display = defaultDisplay();
       const second: display.Display = defaultDisplay();
       expect(typeof first.availableWidth).assertEqual('number');
@@ -502,6 +585,8 @@ export default function displayMetricContractTest() {
       expect(second.availableHeight).assertEqual(first.availableHeight);
       expect(Number.isFinite(first.availableWidth)).assertTrue();
       expect(Number.isFinite(first.availableHeight)).assertTrue();
+    
+      logEnd('testDisplayMetric0024');
     })
 
     /**
@@ -513,6 +598,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0025');
       const target: display.Display = defaultDisplay();
       const byDpi: number = target.densityDPI / BASE_DPI;
       const byPixels: number = target.densityPixels;
@@ -522,6 +608,8 @@ export default function displayMetricContractTest() {
       expect(byScaled).assertLarger(0);
       expect(byDpi).assertClose(byPixels, 0.05);
       expect(byScaled).assertClose(byPixels, 0.05);
+    
+      logEnd('testDisplayMetric0025');
     })
 
     /**
@@ -533,11 +621,14 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0026');
       const target: display.Display = defaultDisplay();
       expect(target.state === display.DisplayState.STATE_UNKNOWN).assertFalse();
       expect(target.state).assertLargerOrEqual(display.DisplayState.STATE_OFF);
       expect(target.state).assertLessOrEqual(4);
       expect(target.alive).assertTrue();
+    
+      logEnd('testDisplayMetric0026');
     })
 
     /**
@@ -549,12 +640,15 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0027');
       const target: display.Display = defaultDisplay();
       const widthVp: number = target.width / target.scaledDensity;
       expect(Number.isFinite(widthVp)).assertTrue();
       expect(widthVp).assertLarger(0);
       expect(widthVp * target.scaledDensity).assertClose(target.width, 0.01);
       expect(widthVp).assertClose(target.width / target.scaledDensity, 1e-9);
+    
+      logEnd('testDisplayMetric0027');
     })
 
     /**
@@ -566,6 +660,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0028');
       const base: display.Display = defaultDisplay();
       for (let i = 0; i < 30; i++) {
         const current: display.Display = defaultDisplay();
@@ -574,6 +669,8 @@ export default function displayMetricContractTest() {
         expect(isValidOrientation(current.orientation)).assertTrue();
         expect(isValidRotation(current.rotation)).assertTrue();
       }
+    
+      logEnd('testDisplayMetric0028');
     })
 
     /**
@@ -585,6 +682,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0029');
       const first: display.Display = defaultDisplay();
       const second: display.Display = defaultDisplay();
       expect(second.name).assertEqual(first.name);
@@ -593,6 +691,8 @@ export default function displayMetricContractTest() {
       expect(second.height).assertEqual(first.height);
       expect(second.availableWidth).assertEqual(first.availableWidth);
       expect(second.availableHeight).assertEqual(first.availableHeight);
+    
+      logEnd('testDisplayMetric0029');
     })
 
     /**
@@ -604,6 +704,7 @@ export default function displayMetricContractTest() {
      * @tc.level     Level 2
      */
     it('testDisplayMetric0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testDisplayMetric0030');
       const target: display.Display = defaultDisplay();
       const widthVpRounded: number = Math.round(target.width / target.densityPixels);
       expect(widthVpRounded).assertLarger(0);
@@ -612,6 +713,8 @@ export default function displayMetricContractTest() {
         target.densityPixels * 0.5 + 1);
       expect(widthVpRounded).assertClose(target.width / target.densityPixels,
         1 / target.densityPixels);
+    
+      logEnd('testDisplayMetric0030');
     })
   });
 }

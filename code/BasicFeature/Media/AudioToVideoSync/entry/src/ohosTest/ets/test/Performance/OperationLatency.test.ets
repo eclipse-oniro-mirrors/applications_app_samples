@@ -30,6 +30,7 @@ import {
   uniqueName,
   writeTextFile
 } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DISPLAY_QUERIES: number = 1000;
 const DISPLAY_BUDGET_MS: number = 3000;
@@ -44,6 +45,18 @@ const VIEWPORT_BUDGET_MS: number = 500;
 
 function viewportHeight(width: number): number {
   return width * CommonConstants.DEFAULT_HEIGHT / CommonConstants.DEFAULT_WIDTH;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Performance_OperationLatency]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
 }
 
 export default function operationLatencyTest() {
@@ -69,6 +82,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testOperationLatency0001');
       const start: number = Date.now();
       let sample: display.Display = display.getDefaultDisplaySync();
       for (let i = 0; i < DISPLAY_QUERIES; i++) {
@@ -78,6 +92,8 @@ export default function operationLatencyTest() {
       expect(sample.width).assertLarger(0);
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(DISPLAY_BUDGET_MS);
+    
+      logEnd('testOperationLatency0001');
     })
 
     /**
@@ -89,6 +105,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testOperationLatency0002');
       const path: string = pathInFiles(uniqueName('avs_perf_file', '.txt'));
       const payload: string = repeatPayload(64, 'perf');
       try {
@@ -104,6 +121,8 @@ export default function operationLatencyTest() {
       } finally {
         removeQuietly(path);
       }
+    
+      logEnd('testOperationLatency0002');
     })
 
     /**
@@ -115,6 +134,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testOperationLatency0003');
       const streamInfo: audio.AudioStreamInfo = {
         samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000,
         channels: audio.AudioChannel.CHANNEL_2,
@@ -137,6 +157,8 @@ export default function operationLatencyTest() {
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(AUDIO_BUDGET_MS);
+    
+      logEnd('testOperationLatency0003');
     })
 
     /**
@@ -148,6 +170,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testOperationLatency0004');
       const start: number = Date.now();
       for (let i = 0; i < MEDIA_ROUNDS; i++) {
         const player: media.AVPlayer = await media.createAVPlayer();
@@ -157,6 +180,8 @@ export default function operationLatencyTest() {
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(MEDIA_BUDGET_MS);
+    
+      logEnd('testOperationLatency0004');
     })
 
     /**
@@ -168,6 +193,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testOperationLatency0005');
       const screen: display.Display = display.getDefaultDisplaySync();
       let accumulator: number = 0;
       const start: number = Date.now();
@@ -178,6 +204,8 @@ export default function operationLatencyTest() {
       expect(accumulator).assertLarger(0);
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(VIEWPORT_BUDGET_MS);
+    
+      logEnd('testOperationLatency0005');
     })
 
     /**
@@ -189,6 +217,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testOperationLatency0006');
       const start: number = Date.now();
       const seen: Set<string> = new Set<string>();
       for (let i = 0; i < 500; i++) {
@@ -198,6 +227,8 @@ export default function operationLatencyTest() {
       expect(seen.size).assertEqual(500);
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(2000);
+    
+      logEnd('testOperationLatency0006');
     })
 
     /**
@@ -209,6 +240,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testOperationLatency0007');
       const path: string = pathInFiles(uniqueName('avs_perf_single', '.txt'));
       const start: number = Date.now();
       try {
@@ -220,6 +252,8 @@ export default function operationLatencyTest() {
       const cost: number = Date.now() - start;
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(2000);
+    
+      logEnd('testOperationLatency0007');
     })
 
     /**
@@ -231,6 +265,7 @@ export default function operationLatencyTest() {
      * @tc.level     Level 2
      */
     it('testOperationLatency0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testOperationLatency0008');
       const before: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       let accumulator: number = 0;
       for (let i = 0; i < 100000; i++) {
@@ -240,6 +275,8 @@ export default function operationLatencyTest() {
       expect(accumulator).assertLarger(0);
       expect(after).assertLargerOrEqual(before);
       expect(after - before).assertLess(2000);
+    
+      logEnd('testOperationLatency0008');
     })
   });
 }

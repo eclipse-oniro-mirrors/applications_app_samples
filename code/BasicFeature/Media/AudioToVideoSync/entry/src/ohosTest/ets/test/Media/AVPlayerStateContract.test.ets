@@ -19,6 +19,7 @@ import { media } from '@kit.MediaKit';
 import { application, common } from '@kit.AbilityKit';
 import { paceTurn } from '../Shared/TestPace';
 import { appContext } from '../Shared/TestSupport';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const RAW_NAME: string = 'test.mp4';
 const TEST_MODULE: string = 'entry_test';
@@ -82,6 +83,18 @@ async function createInitialized(): Promise<media.AVPlayer> {
   return player;
 }
 
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_Media_AVPlayerStateContract]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
 export default function avPlayerStateContractTest() {
   describe('avPlayerStateContractTest', () => {
     beforeAll(() => {
@@ -105,6 +118,7 @@ export default function avPlayerStateContractTest() {
      * @tc.level     Level 2
      */
     it('testAVPlayerState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAVPlayerState0001');
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         expect(player.state).assertEqual('idle');
@@ -113,6 +127,8 @@ export default function avPlayerStateContractTest() {
       } finally {
         await player.release();
       }
+    
+      logEnd('testAVPlayerState0001');
     })
 
     /**
@@ -124,9 +140,12 @@ export default function avPlayerStateContractTest() {
      * @tc.level     Level 2
      */
     it('testAVPlayerState0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAVPlayerState0002');
       const player: media.AVPlayer = await media.createAVPlayer();
       await player.release();
       expect(player.state).assertEqual('released');
+    
+      logEnd('testAVPlayerState0002');
     })
 
     /**
@@ -138,6 +157,7 @@ export default function avPlayerStateContractTest() {
      * @tc.level     Level 2
      */
     it('testAVPlayerState0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAVPlayerState0003');
       const first: media.AVPlayer = await media.createAVPlayer();
       const second: media.AVPlayer = await media.createAVPlayer();
       try {
@@ -150,6 +170,8 @@ export default function avPlayerStateContractTest() {
       }
       expect(first.state).assertEqual('released');
       expect(second.state).assertEqual('released');
+    
+      logEnd('testAVPlayerState0003');
     })
 
     /**
@@ -161,6 +183,7 @@ export default function avPlayerStateContractTest() {
      * @tc.level     Level 2
      */
     it('testAVPlayerState0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAVPlayerState0004');
       const players: media.AVPlayer[] = [];
       for (let i = 0; i < 4; i++) {
         players.push(await media.createAVPlayer());
@@ -179,6 +202,8 @@ export default function avPlayerStateContractTest() {
       for (let i = 0; i < players.length; i++) {
         expect(players[i].state).assertEqual('released');
       }
+    
+      logEnd('testAVPlayerState0004');
     })
 
     /**
@@ -190,6 +215,7 @@ export default function avPlayerStateContractTest() {
      * @tc.level     Level 2
      */
     it('testAVPlayerState0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAVPlayerState0009');
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         expect(player.loop).assertFalse();
@@ -197,6 +223,8 @@ export default function avPlayerStateContractTest() {
       } finally {
         await player.release();
       }
+    
+      logEnd('testAVPlayerState0009');
     })
 
     /**
@@ -208,6 +236,7 @@ export default function avPlayerStateContractTest() {
      * @tc.level     Level 2
      */
     it('testAVPlayerState0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAVPlayerState0010');
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         expect(player.surfaceId === undefined || player.surfaceId === '').assertTrue();
@@ -215,6 +244,8 @@ export default function avPlayerStateContractTest() {
       } finally {
         await player.release();
       }
+    
+      logEnd('testAVPlayerState0010');
     })
 
     /**
@@ -226,6 +257,7 @@ export default function avPlayerStateContractTest() {
      * @tc.level     Level 2
      */
     it('testAVPlayerState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logBegin('testAVPlayerState0012');
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         for (let i = 0; i < 100; i++) {
@@ -234,6 +266,8 @@ export default function avPlayerStateContractTest() {
       } finally {
         await player.release();
       }
+    
+      logEnd('testAVPlayerState0012');
     })
   });
 }
