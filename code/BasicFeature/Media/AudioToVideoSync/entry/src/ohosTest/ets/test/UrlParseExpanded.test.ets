@@ -15,6 +15,19 @@
 import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, it, expect } from '@ohos/hypium';
 import { url } from '@kit.ArkTS';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_UrlParseExpanded]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
 
 export default function urlParseExpandedTest() {
   describe('urlParseExpandedTest', () => {
@@ -27,6 +40,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0001');
       const source: string = 'https://example.com/p0?k=0&x=1#f0';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -34,6 +48,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('0');
       expect(parsed.hash).assertEqual('#f0');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0001');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0002
@@ -44,6 +60,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0002');
       const source: string = 'https://example.com/p1?k=1&x=1#f1';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -51,6 +68,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('1');
       expect(parsed.hash).assertEqual('#f1');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0002');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0003
@@ -61,6 +80,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0003');
       const source: string = 'https://example.com/p2?k=2&x=1#f2';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -68,6 +88,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('2');
       expect(parsed.hash).assertEqual('#f2');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0003');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0004
@@ -78,6 +100,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0004');
       const source: string = 'https://example.com/p3?k=3&x=1#f3';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -85,6 +108,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('3');
       expect(parsed.hash).assertEqual('#f3');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0004');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0005
@@ -95,6 +120,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0005');
       const source: string = 'https://example.com/p4?k=4&x=1#f4';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -102,6 +128,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('4');
       expect(parsed.hash).assertEqual('#f4');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0005');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0006
@@ -112,6 +140,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0006');
       const source: string = 'https://example.com/p5?k=5&x=1#f5';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -119,6 +148,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('5');
       expect(parsed.hash).assertEqual('#f5');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0006');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0007
@@ -129,6 +160,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0007');
       const source: string = 'https://example.com/p6?k=6&x=1#f6';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -136,6 +168,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('6');
       expect(parsed.hash).assertEqual('#f6');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0007');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0008
@@ -146,6 +180,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0008');
       const source: string = 'https://example.com/p7?k=7&x=1#f7';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -153,6 +188,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('7');
       expect(parsed.hash).assertEqual('#f7');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0008');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0009
@@ -163,6 +200,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0009');
       const source: string = 'https://example.com/p8?k=8&x=1#f8';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -170,6 +208,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('8');
       expect(parsed.hash).assertEqual('#f8');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0009');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0010
@@ -180,6 +220,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0010');
       const source: string = 'https://example.com/p9?k=9&x=1#f9';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -187,6 +228,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('9');
       expect(parsed.hash).assertEqual('#f9');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0010');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0011
@@ -197,6 +240,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0011');
       const source: string = 'https://example.com/p10?k=10&x=1#f10';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -204,6 +248,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('10');
       expect(parsed.hash).assertEqual('#f10');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0011');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0012
@@ -214,6 +260,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0012');
       const source: string = 'https://example.com/p11?k=11&x=1#f11';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -221,6 +268,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('11');
       expect(parsed.hash).assertEqual('#f11');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0012');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0013
@@ -231,6 +280,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0013');
       const source: string = 'https://example.com/p12?k=12&x=1#f12';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -238,6 +288,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('12');
       expect(parsed.hash).assertEqual('#f12');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0013');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0014
@@ -248,6 +300,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0014');
       const source: string = 'https://example.com/p13?k=13&x=1#f13';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -255,6 +308,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('13');
       expect(parsed.hash).assertEqual('#f13');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0014');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0015
@@ -265,6 +320,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0015');
       const source: string = 'https://example.com/p14?k=14&x=1#f14';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -272,6 +328,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('14');
       expect(parsed.hash).assertEqual('#f14');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0015');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0016
@@ -282,6 +340,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0016');
       const source: string = 'https://example.com/p15?k=15&x=1#f15';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -289,6 +348,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('15');
       expect(parsed.hash).assertEqual('#f15');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0016');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0017
@@ -299,6 +360,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0017');
       const source: string = 'https://example.com/p16?k=16&x=1#f16';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -306,6 +368,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('16');
       expect(parsed.hash).assertEqual('#f16');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0017');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0018
@@ -316,6 +380,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0018');
       const source: string = 'https://example.com/p17?k=17&x=1#f17';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -323,6 +388,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('17');
       expect(parsed.hash).assertEqual('#f17');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0018');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0019
@@ -333,6 +400,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0019');
       const source: string = 'https://example.com/p18?k=18&x=1#f18';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -340,6 +408,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('18');
       expect(parsed.hash).assertEqual('#f18');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0019');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0020
@@ -350,6 +420,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0020');
       const source: string = 'https://example.com/p19?k=19&x=1#f19';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -357,6 +428,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('19');
       expect(parsed.hash).assertEqual('#f19');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0020');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0021
@@ -367,6 +440,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0021');
       const source: string = 'https://example.com/p20?k=20&x=1#f20';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -374,6 +448,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('20');
       expect(parsed.hash).assertEqual('#f20');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0021');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0022
@@ -384,6 +460,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0022');
       const source: string = 'https://example.com/p21?k=21&x=1#f21';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -391,6 +468,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('21');
       expect(parsed.hash).assertEqual('#f21');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0022');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0023
@@ -401,6 +480,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0023');
       const source: string = 'https://example.com/p22?k=22&x=1#f22';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -408,6 +488,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('22');
       expect(parsed.hash).assertEqual('#f22');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0023');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0024
@@ -418,6 +500,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0024');
       const source: string = 'https://example.com/p23?k=23&x=1#f23';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -425,6 +508,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('23');
       expect(parsed.hash).assertEqual('#f23');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0024');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0025
@@ -435,6 +520,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0025');
       const source: string = 'https://example.com/p24?k=24&x=1#f24';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -442,6 +528,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('24');
       expect(parsed.hash).assertEqual('#f24');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0025');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0026
@@ -452,6 +540,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0026');
       const source: string = 'https://example.com/p25?k=25&x=1#f25';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -459,6 +548,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('25');
       expect(parsed.hash).assertEqual('#f25');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0026');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0027
@@ -469,6 +560,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0027');
       const source: string = 'https://example.com/p26?k=26&x=1#f26';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -476,6 +568,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('26');
       expect(parsed.hash).assertEqual('#f26');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0027');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0028
@@ -486,6 +580,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0028');
       const source: string = 'https://example.com/p27?k=27&x=1#f27';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -493,6 +588,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('27');
       expect(parsed.hash).assertEqual('#f27');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0028');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0029
@@ -503,6 +600,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0029');
       const source: string = 'https://example.com/p28?k=28&x=1#f28';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -510,6 +608,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('28');
       expect(parsed.hash).assertEqual('#f28');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0029');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0030
@@ -520,6 +620,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0030');
       const source: string = 'https://example.com/p29?k=29&x=1#f29';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -527,6 +628,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('29');
       expect(parsed.hash).assertEqual('#f29');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0030');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0031
@@ -537,6 +640,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0031');
       const source: string = 'https://example.com/p30?k=30&x=1#f30';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -544,6 +648,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('30');
       expect(parsed.hash).assertEqual('#f30');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0031');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0032
@@ -554,6 +660,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0032');
       const source: string = 'https://example.com/p31?k=31&x=1#f31';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -561,6 +668,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('31');
       expect(parsed.hash).assertEqual('#f31');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0032');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0033
@@ -571,6 +680,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0033');
       const source: string = 'https://example.com/p32?k=32&x=1#f32';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -578,6 +688,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('32');
       expect(parsed.hash).assertEqual('#f32');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0033');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0034
@@ -588,6 +700,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0034');
       const source: string = 'https://example.com/p33?k=33&x=1#f33';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -595,6 +708,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('33');
       expect(parsed.hash).assertEqual('#f33');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0034');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0035
@@ -605,6 +720,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0035');
       const source: string = 'https://example.com/p34?k=34&x=1#f34';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -612,6 +728,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('34');
       expect(parsed.hash).assertEqual('#f34');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0035');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0036
@@ -622,6 +740,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0036');
       const source: string = 'https://example.com/p35?k=35&x=1#f35';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -629,6 +748,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('35');
       expect(parsed.hash).assertEqual('#f35');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0036');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0037
@@ -639,6 +760,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0037');
       const source: string = 'https://example.com/p36?k=36&x=1#f36';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -646,6 +768,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('36');
       expect(parsed.hash).assertEqual('#f36');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0037');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0038
@@ -656,6 +780,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0038');
       const source: string = 'https://example.com/p37?k=37&x=1#f37';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -663,6 +788,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('37');
       expect(parsed.hash).assertEqual('#f37');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0038');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0039
@@ -673,6 +800,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0039');
       const source: string = 'https://example.com/p38?k=38&x=1#f38';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -680,6 +808,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('38');
       expect(parsed.hash).assertEqual('#f38');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0039');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0040
@@ -690,6 +820,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0040');
       const source: string = 'https://example.com/p39?k=39&x=1#f39';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -697,6 +828,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('39');
       expect(parsed.hash).assertEqual('#f39');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0040');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0041
@@ -707,6 +840,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0041');
       const source: string = 'https://example.com/p40?k=40&x=1#f40';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -714,6 +848,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('40');
       expect(parsed.hash).assertEqual('#f40');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0041');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0042
@@ -724,6 +860,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0042');
       const source: string = 'https://example.com/p41?k=41&x=1#f41';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -731,6 +868,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('41');
       expect(parsed.hash).assertEqual('#f41');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0042');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0043
@@ -741,6 +880,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0043');
       const source: string = 'https://example.com/p42?k=42&x=1#f42';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -748,6 +888,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('42');
       expect(parsed.hash).assertEqual('#f42');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0043');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0044
@@ -758,6 +900,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0044');
       const source: string = 'https://example.com/p43?k=43&x=1#f43';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -765,6 +908,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('43');
       expect(parsed.hash).assertEqual('#f43');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0044');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0045
@@ -775,6 +920,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0045');
       const source: string = 'https://example.com/p44?k=44&x=1#f44';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -782,6 +928,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('44');
       expect(parsed.hash).assertEqual('#f44');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0045');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0046
@@ -792,6 +940,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0046');
       const source: string = 'https://example.com/p45?k=45&x=1#f45';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -799,6 +948,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('45');
       expect(parsed.hash).assertEqual('#f45');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0046');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0047
@@ -809,6 +960,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0047');
       const source: string = 'https://example.com/p46?k=46&x=1#f46';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -816,6 +968,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('46');
       expect(parsed.hash).assertEqual('#f46');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0047');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0048
@@ -826,6 +980,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0048');
       const source: string = 'https://example.com/p47?k=47&x=1#f47';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -833,6 +988,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('47');
       expect(parsed.hash).assertEqual('#f47');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0048');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0049
@@ -843,6 +1000,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0049');
       const source: string = 'https://example.com/p48?k=48&x=1#f48';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -850,6 +1008,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('48');
       expect(parsed.hash).assertEqual('#f48');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0049');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0050
@@ -860,6 +1020,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0050');
       const source: string = 'https://example.com/p49?k=49&x=1#f49';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -867,6 +1028,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('49');
       expect(parsed.hash).assertEqual('#f49');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0050');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0051
@@ -877,6 +1040,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0051');
       const source: string = 'https://example.com/p50?k=50&x=1#f50';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -884,6 +1048,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('50');
       expect(parsed.hash).assertEqual('#f50');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0051');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0052
@@ -894,6 +1060,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0052');
       const source: string = 'https://example.com/p51?k=51&x=1#f51';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -901,6 +1068,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('51');
       expect(parsed.hash).assertEqual('#f51');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0052');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0053
@@ -911,6 +1080,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0053');
       const source: string = 'https://example.com/p52?k=52&x=1#f52';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -918,6 +1088,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('52');
       expect(parsed.hash).assertEqual('#f52');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0053');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0054
@@ -928,6 +1100,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0054');
       const source: string = 'https://example.com/p53?k=53&x=1#f53';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -935,6 +1108,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('53');
       expect(parsed.hash).assertEqual('#f53');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0054');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0055
@@ -945,6 +1120,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0055');
       const source: string = 'https://example.com/p54?k=54&x=1#f54';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -952,6 +1128,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('54');
       expect(parsed.hash).assertEqual('#f54');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0055');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0056
@@ -962,6 +1140,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0056');
       const source: string = 'https://example.com/p55?k=55&x=1#f55';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -969,6 +1148,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('55');
       expect(parsed.hash).assertEqual('#f55');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0056');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0057
@@ -979,6 +1160,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0057');
       const source: string = 'https://example.com/p56?k=56&x=1#f56';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -986,6 +1168,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('56');
       expect(parsed.hash).assertEqual('#f56');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0057');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0058
@@ -996,6 +1180,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0058');
       const source: string = 'https://example.com/p57?k=57&x=1#f57';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1003,6 +1188,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('57');
       expect(parsed.hash).assertEqual('#f57');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0058');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0059
@@ -1013,6 +1200,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0059');
       const source: string = 'https://example.com/p58?k=58&x=1#f58';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1020,6 +1208,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('58');
       expect(parsed.hash).assertEqual('#f58');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0059');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0060
@@ -1030,6 +1220,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0060');
       const source: string = 'https://example.com/p59?k=59&x=1#f59';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1037,6 +1228,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('59');
       expect(parsed.hash).assertEqual('#f59');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0060');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0061
@@ -1047,6 +1240,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0061');
       const source: string = 'https://example.com/p60?k=60&x=1#f60';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1054,6 +1248,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('60');
       expect(parsed.hash).assertEqual('#f60');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0061');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0062
@@ -1064,6 +1260,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0062');
       const source: string = 'https://example.com/p61?k=61&x=1#f61';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1071,6 +1268,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('61');
       expect(parsed.hash).assertEqual('#f61');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0062');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0063
@@ -1081,6 +1280,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0063');
       const source: string = 'https://example.com/p62?k=62&x=1#f62';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1088,6 +1288,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('62');
       expect(parsed.hash).assertEqual('#f62');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0063');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0064
@@ -1098,6 +1300,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0064');
       const source: string = 'https://example.com/p63?k=63&x=1#f63';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1105,6 +1308,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('63');
       expect(parsed.hash).assertEqual('#f63');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0064');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0065
@@ -1115,6 +1320,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0065');
       const source: string = 'https://example.com/p64?k=64&x=1#f64';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1122,6 +1328,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('64');
       expect(parsed.hash).assertEqual('#f64');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0065');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0066
@@ -1132,6 +1340,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0066');
       const source: string = 'https://example.com/p65?k=65&x=1#f65';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1139,6 +1348,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('65');
       expect(parsed.hash).assertEqual('#f65');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0066');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0067
@@ -1149,6 +1360,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0067');
       const source: string = 'https://example.com/p66?k=66&x=1#f66';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1156,6 +1368,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('66');
       expect(parsed.hash).assertEqual('#f66');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0067');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0068
@@ -1166,6 +1380,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0068');
       const source: string = 'https://example.com/p67?k=67&x=1#f67';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1173,6 +1388,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('67');
       expect(parsed.hash).assertEqual('#f67');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0068');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0069
@@ -1183,6 +1400,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0069');
       const source: string = 'https://example.com/p68?k=68&x=1#f68';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1190,6 +1408,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('68');
       expect(parsed.hash).assertEqual('#f68');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0069');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0070
@@ -1200,6 +1420,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0070');
       const source: string = 'https://example.com/p69?k=69&x=1#f69';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1207,6 +1428,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('69');
       expect(parsed.hash).assertEqual('#f69');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0070');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0071
@@ -1217,6 +1440,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0071');
       const source: string = 'https://example.com/p70?k=70&x=1#f70';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1224,6 +1448,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('70');
       expect(parsed.hash).assertEqual('#f70');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0071');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0072
@@ -1234,6 +1460,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0072');
       const source: string = 'https://example.com/p71?k=71&x=1#f71';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1241,6 +1468,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('71');
       expect(parsed.hash).assertEqual('#f71');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0072');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0073
@@ -1251,6 +1480,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0073');
       const source: string = 'https://example.com/p72?k=72&x=1#f72';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1258,6 +1488,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('72');
       expect(parsed.hash).assertEqual('#f72');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0073');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0074
@@ -1268,6 +1500,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0074');
       const source: string = 'https://example.com/p73?k=73&x=1#f73';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1275,6 +1508,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('73');
       expect(parsed.hash).assertEqual('#f73');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0074');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0075
@@ -1285,6 +1520,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0075');
       const source: string = 'https://example.com/p74?k=74&x=1#f74';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1292,6 +1528,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('74');
       expect(parsed.hash).assertEqual('#f74');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0075');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0076
@@ -1302,6 +1540,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0076');
       const source: string = 'https://example.com/p75?k=75&x=1#f75';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1309,6 +1548,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('75');
       expect(parsed.hash).assertEqual('#f75');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0076');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0077
@@ -1319,6 +1560,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0077');
       const source: string = 'https://example.com/p76?k=76&x=1#f76';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1326,6 +1568,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('76');
       expect(parsed.hash).assertEqual('#f76');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0077');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0078
@@ -1336,6 +1580,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0078');
       const source: string = 'https://example.com/p77?k=77&x=1#f77';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1343,6 +1588,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('77');
       expect(parsed.hash).assertEqual('#f77');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0078');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0079
@@ -1353,6 +1600,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0079');
       const source: string = 'https://example.com/p78?k=78&x=1#f78';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1360,6 +1608,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('78');
       expect(parsed.hash).assertEqual('#f78');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0079');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0080
@@ -1370,6 +1620,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0080');
       const source: string = 'https://example.com/p79?k=79&x=1#f79';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1377,6 +1628,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('79');
       expect(parsed.hash).assertEqual('#f79');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0080');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0081
@@ -1387,6 +1640,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0081');
       const source: string = 'https://example.com/p80?k=80&x=1#f80';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1394,6 +1648,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('80');
       expect(parsed.hash).assertEqual('#f80');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0081');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0082
@@ -1404,6 +1660,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0082');
       const source: string = 'https://example.com/p81?k=81&x=1#f81';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1411,6 +1668,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('81');
       expect(parsed.hash).assertEqual('#f81');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0082');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0083
@@ -1421,6 +1680,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0083');
       const source: string = 'https://example.com/p82?k=82&x=1#f82';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1428,6 +1688,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('82');
       expect(parsed.hash).assertEqual('#f82');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0083');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0084
@@ -1438,6 +1700,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0084');
       const source: string = 'https://example.com/p83?k=83&x=1#f83';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1445,6 +1708,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('83');
       expect(parsed.hash).assertEqual('#f83');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0084');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0085
@@ -1455,6 +1720,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0085');
       const source: string = 'https://example.com/p84?k=84&x=1#f84';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1462,6 +1728,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('84');
       expect(parsed.hash).assertEqual('#f84');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0085');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0086
@@ -1472,6 +1740,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0086');
       const source: string = 'https://example.com/p85?k=85&x=1#f85';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1479,6 +1748,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('85');
       expect(parsed.hash).assertEqual('#f85');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0086');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0087
@@ -1489,6 +1760,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0087');
       const source: string = 'https://example.com/p86?k=86&x=1#f86';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1496,6 +1768,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('86');
       expect(parsed.hash).assertEqual('#f86');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0087');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0088
@@ -1506,6 +1780,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0088');
       const source: string = 'https://example.com/p87?k=87&x=1#f87';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1513,6 +1788,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('87');
       expect(parsed.hash).assertEqual('#f87');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0088');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0089
@@ -1523,6 +1800,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0089');
       const source: string = 'https://example.com/p88?k=88&x=1#f88';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1530,6 +1808,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('88');
       expect(parsed.hash).assertEqual('#f88');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0089');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0090
@@ -1540,6 +1820,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0090');
       const source: string = 'https://example.com/p89?k=89&x=1#f89';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1547,6 +1828,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('89');
       expect(parsed.hash).assertEqual('#f89');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0090');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0091
@@ -1557,6 +1840,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0091');
       const source: string = 'https://example.com/p90?k=90&x=1#f90';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1564,6 +1848,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('90');
       expect(parsed.hash).assertEqual('#f90');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0091');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0092
@@ -1574,6 +1860,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0092');
       const source: string = 'https://example.com/p91?k=91&x=1#f91';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1581,6 +1868,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('91');
       expect(parsed.hash).assertEqual('#f91');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0092');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0093
@@ -1591,6 +1880,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0093');
       const source: string = 'https://example.com/p92?k=92&x=1#f92';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1598,6 +1888,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('92');
       expect(parsed.hash).assertEqual('#f92');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0093');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0094
@@ -1608,6 +1900,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0094');
       const source: string = 'https://example.com/p93?k=93&x=1#f93';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1615,6 +1908,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('93');
       expect(parsed.hash).assertEqual('#f93');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0094');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0095
@@ -1625,6 +1920,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0095');
       const source: string = 'https://example.com/p94?k=94&x=1#f94';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1632,6 +1928,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('94');
       expect(parsed.hash).assertEqual('#f94');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0095');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0096
@@ -1642,6 +1940,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0096');
       const source: string = 'https://example.com/p95?k=95&x=1#f95';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1649,6 +1948,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('95');
       expect(parsed.hash).assertEqual('#f95');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0096');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0097
@@ -1659,6 +1960,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0097');
       const source: string = 'https://example.com/p96?k=96&x=1#f96';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1666,6 +1968,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('96');
       expect(parsed.hash).assertEqual('#f96');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0097');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0098
@@ -1676,6 +1980,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0098');
       const source: string = 'https://example.com/p97?k=97&x=1#f97';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1683,6 +1988,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('97');
       expect(parsed.hash).assertEqual('#f97');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0098');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0099
@@ -1693,6 +2000,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0099');
       const source: string = 'https://example.com/p98?k=98&x=1#f98';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1700,6 +2008,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('98');
       expect(parsed.hash).assertEqual('#f98');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0099');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLP_0100
@@ -1710,6 +2020,7 @@ export default function urlParseExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlP0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlP0100');
       const source: string = 'https://example.com/p99?k=99&x=1#f99';
       const parsed: url.URL = new url.URL(source);
       expect(parsed.hostname).assertEqual('example.com');
@@ -1717,6 +2028,8 @@ export default function urlParseExpandedTest() {
       expect(parsed.searchParams.get('k')).assertEqual('99');
       expect(parsed.hash).assertEqual('#f99');
       expect(parsed.href).assertEqual(source);
+    
+      logEnd('testExpUrlP0100');
     })
   })
 }

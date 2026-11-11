@@ -15,6 +15,25 @@
 import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+
+function getTestDir(): string {
+  return abilityDelegatorRegistry.getAbilityDelegator().getAppContext().filesDir;
+}
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_FileOpenModeExpanded]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
 
 export default function fileOpenModeExpandedTest() {
   describe('fileOpenModeExpandedTest', () => {
@@ -27,6 +46,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0001');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -39,6 +59,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0001');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0002
@@ -49,6 +81,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0002');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -61,6 +94,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0002');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0003
@@ -71,6 +116,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0003');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -83,6 +129,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0003');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0004
@@ -93,6 +151,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0004');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -105,6 +164,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0004');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0005
@@ -115,6 +186,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0005');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -127,6 +199,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0005');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0006
@@ -137,6 +221,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0006');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -149,6 +234,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0006');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0007
@@ -159,6 +256,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0007');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -171,6 +269,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0007');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0008
@@ -181,6 +291,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0008');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -193,6 +304,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0008');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0009
@@ -203,6 +326,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0009');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -215,6 +339,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0009');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0010
@@ -225,6 +361,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0010');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -237,6 +374,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0010');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0011
@@ -247,6 +396,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0011');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -259,6 +409,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0011');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0012
@@ -269,6 +431,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0012');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -281,6 +444,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0012');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0013
@@ -291,6 +466,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0013');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -303,6 +479,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0013');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0014
@@ -313,6 +501,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0014');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -325,6 +514,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0014');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0015
@@ -335,6 +536,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0015');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -347,6 +549,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0015');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0016
@@ -357,6 +571,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0016');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -369,6 +584,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0016');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0017
@@ -379,6 +606,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0017');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -391,6 +619,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0017');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0018
@@ -401,6 +641,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0018');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -413,6 +654,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0018');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0019
@@ -423,6 +676,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0019');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -435,6 +689,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0019');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0020
@@ -445,6 +711,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0020');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -457,6 +724,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0020');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0021
@@ -467,6 +746,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0021');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -479,6 +759,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0021');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0022
@@ -489,6 +781,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0022');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -501,6 +794,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0022');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0023
@@ -511,6 +816,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0023');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -523,6 +829,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0023');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0024
@@ -533,6 +851,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0024');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -545,6 +864,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0024');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0025
@@ -555,6 +886,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0025');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -567,6 +899,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0025');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0026
@@ -577,6 +921,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0026');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -589,6 +934,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0026');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0027
@@ -599,6 +956,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0027');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -611,6 +969,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0027');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0028
@@ -621,6 +991,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0028');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -633,6 +1004,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0028');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0029
@@ -643,6 +1026,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0029');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -655,6 +1039,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0029');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0030
@@ -665,6 +1061,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0030');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -677,6 +1074,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0030');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0031
@@ -687,6 +1096,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0031');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -699,6 +1109,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0031');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0032
@@ -709,6 +1131,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0032');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -721,6 +1144,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0032');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0033
@@ -731,6 +1166,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0033');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -743,6 +1179,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0033');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0034
@@ -753,6 +1201,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0034');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -765,6 +1214,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0034');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0035
@@ -775,6 +1236,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0035');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -787,6 +1249,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0035');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0036
@@ -797,6 +1271,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0036');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -809,6 +1284,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0036');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0037
@@ -819,6 +1306,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0037');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -831,6 +1319,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0037');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0038
@@ -841,6 +1341,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0038');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -853,6 +1354,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0038');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0039
@@ -863,6 +1376,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0039');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -875,6 +1389,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0039');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0040
@@ -885,6 +1411,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0040');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -897,6 +1424,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0040');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0041
@@ -907,6 +1446,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0041');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -919,6 +1459,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0041');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0042
@@ -929,6 +1481,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0042');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -941,6 +1494,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0042');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0043
@@ -951,6 +1516,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0043');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -963,6 +1529,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0043');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0044
@@ -973,6 +1551,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0044');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -985,6 +1564,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0044');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0045
@@ -995,6 +1586,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0045');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1007,6 +1599,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0045');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0046
@@ -1017,6 +1621,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0046');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1029,6 +1634,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0046');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0047
@@ -1039,6 +1656,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0047');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1051,6 +1669,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0047');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0048
@@ -1061,6 +1691,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0048');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1073,6 +1704,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0048');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0049
@@ -1083,6 +1726,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0049');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1095,6 +1739,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0049');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0050
@@ -1105,6 +1761,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0050');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1117,6 +1774,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0050');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0051
@@ -1127,6 +1796,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0051');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1139,6 +1809,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0051');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0052
@@ -1149,6 +1831,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0052');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1161,6 +1844,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0052');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0053
@@ -1171,6 +1866,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0053');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1183,6 +1879,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0053');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0054
@@ -1193,6 +1901,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0054');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1205,6 +1914,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0054');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0055
@@ -1215,6 +1936,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0055');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1227,6 +1949,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0055');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0056
@@ -1237,6 +1971,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0056');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1249,6 +1984,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0056');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0057
@@ -1259,6 +2006,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0057');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1271,6 +2019,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0057');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0058
@@ -1281,6 +2041,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0058');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1293,6 +2054,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0058');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0059
@@ -1303,6 +2076,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0059');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1315,6 +2089,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0059');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0060
@@ -1325,6 +2111,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0060');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1337,6 +2124,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0060');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0061
@@ -1347,6 +2146,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0061');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1359,6 +2159,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0061');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0062
@@ -1369,6 +2181,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0062');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1381,6 +2194,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0062');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0063
@@ -1391,6 +2216,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0063');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1403,6 +2229,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0063');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0064
@@ -1413,6 +2251,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0064');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1425,6 +2264,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0064');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0065
@@ -1435,6 +2286,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0065');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1447,6 +2299,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0065');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0066
@@ -1457,6 +2321,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0066');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1469,6 +2334,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0066');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0067
@@ -1479,6 +2356,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0067');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1491,6 +2369,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0067');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0068
@@ -1501,6 +2391,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0068');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1513,6 +2404,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0068');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0069
@@ -1523,6 +2426,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0069');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1535,6 +2439,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0069');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0070
@@ -1545,6 +2461,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0070');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1557,6 +2474,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0070');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0071
@@ -1567,6 +2496,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0071');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1579,6 +2509,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0071');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0072
@@ -1589,6 +2531,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0072');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1601,6 +2544,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0072');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0073
@@ -1611,6 +2566,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0073');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1623,6 +2579,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0073');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0074
@@ -1633,6 +2601,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0074');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1645,6 +2614,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0074');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0075
@@ -1655,6 +2636,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0075');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1667,6 +2649,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0075');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0076
@@ -1677,6 +2671,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0076');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1689,6 +2684,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(true);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0076');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0077
@@ -1699,6 +2706,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0077');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1711,6 +2719,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0077');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0078
@@ -1721,6 +2741,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0078');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1733,6 +2754,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0078');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0079
@@ -1743,6 +2776,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0079');
       let mode: number = 0;
       if (true) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1755,6 +2789,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0079');
     })
     /**
      * @tc.number    SUB_AVS_PROJ_MODE_0080
@@ -1765,6 +2811,7 @@ export default function fileOpenModeExpandedTest() {
      * @tc.level     Level 2
      */
     it('testProjOpenMode0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testProjOpenMode0080');
       let mode: number = 0;
       if (false) {
         mode = mode | fileIo.OpenMode.READ_ONLY;
@@ -1777,6 +2824,18 @@ export default function fileOpenModeExpandedTest() {
       }
       expect((mode & fileIo.OpenMode.CREATE) === fileIo.OpenMode.CREATE).assertEqual(false);
       expect(typeof mode).assertEqual('number');
+          const __tmpPath: string = getTestDir() + '/tmp_' + Date.now()
+        + '_' + Math.floor(Math.random() * 100000) + '.bin';
+      let __openMode: number = mode | fileIo.OpenMode.CREATE;
+      if ((__openMode & (fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.READ_WRITE)) === 0) {
+        __openMode = __openMode | fileIo.OpenMode.READ_WRITE;
+      }
+      const __tmpFile: fileIo.File = fileIo.openSync(__tmpPath, __openMode);
+      expect(fileIo.accessSync(__tmpPath)).assertTrue();
+      fileIo.closeSync(__tmpFile);
+      fileIo.unlinkSync(__tmpPath);
+
+      logEnd('testProjOpenMode0080');
     })
   })
 }

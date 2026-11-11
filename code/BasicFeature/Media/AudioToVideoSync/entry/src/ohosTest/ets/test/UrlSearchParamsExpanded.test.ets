@@ -15,6 +15,19 @@
 import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, it, expect } from '@ohos/hypium';
 import { url } from '@kit.ArkTS';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AudioToVideoSync_UrlSearchParamsExpanded]';
+
+function logBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
+function logEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
 
 export default function urlSearchParamsExpandedTest() {
   describe('urlSearchParamsExpandedTest', () => {
@@ -27,6 +40,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0001');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '0');
       query.append('k', 'extra');
@@ -34,6 +48,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0001');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0002
@@ -44,6 +60,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0002');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '1');
       query.append('k', 'extra');
@@ -51,6 +68,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0002');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0003
@@ -61,6 +80,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0003');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '2');
       query.append('k', 'extra');
@@ -68,6 +88,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0003');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0004
@@ -78,6 +100,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0004');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '3');
       query.append('k', 'extra');
@@ -85,6 +108,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0004');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0005
@@ -95,6 +120,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0005');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '4');
       query.append('k', 'extra');
@@ -102,6 +128,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0005');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0006
@@ -112,6 +140,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0006');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '5');
       query.append('k', 'extra');
@@ -119,6 +148,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0006');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0007
@@ -129,6 +160,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0007');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '6');
       query.append('k', 'extra');
@@ -136,6 +168,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0007');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0008
@@ -146,6 +180,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0008');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '7');
       query.append('k', 'extra');
@@ -153,6 +188,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0008');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0009
@@ -163,6 +200,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0009');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '8');
       query.append('k', 'extra');
@@ -170,6 +208,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0009');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0010
@@ -180,6 +220,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0010');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '9');
       query.append('k', 'extra');
@@ -187,6 +228,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0010');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0011
@@ -197,6 +240,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0011');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '10');
       query.append('k', 'extra');
@@ -204,6 +248,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0011');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0012
@@ -214,6 +260,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0012');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '11');
       query.append('k', 'extra');
@@ -221,6 +268,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0012');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0013
@@ -231,6 +280,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0013');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '12');
       query.append('k', 'extra');
@@ -238,6 +288,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0013');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0014
@@ -248,6 +300,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0014');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '13');
       query.append('k', 'extra');
@@ -255,6 +308,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0014');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0015
@@ -265,6 +320,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0015');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '14');
       query.append('k', 'extra');
@@ -272,6 +328,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0015');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0016
@@ -282,6 +340,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0016');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '15');
       query.append('k', 'extra');
@@ -289,6 +348,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0016');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0017
@@ -299,6 +360,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0017');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '16');
       query.append('k', 'extra');
@@ -306,6 +368,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0017');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0018
@@ -316,6 +380,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0018');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '17');
       query.append('k', 'extra');
@@ -323,6 +388,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0018');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0019
@@ -333,6 +400,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0019');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '18');
       query.append('k', 'extra');
@@ -340,6 +408,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0019');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0020
@@ -350,6 +420,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0020');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '19');
       query.append('k', 'extra');
@@ -357,6 +428,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0020');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0021
@@ -367,6 +440,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0021');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '20');
       query.append('k', 'extra');
@@ -374,6 +448,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0021');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0022
@@ -384,6 +460,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0022');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '21');
       query.append('k', 'extra');
@@ -391,6 +468,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0022');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0023
@@ -401,6 +480,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0023');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '22');
       query.append('k', 'extra');
@@ -408,6 +488,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0023');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0024
@@ -418,6 +500,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0024');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '23');
       query.append('k', 'extra');
@@ -425,6 +508,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0024');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0025
@@ -435,6 +520,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0025');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '24');
       query.append('k', 'extra');
@@ -442,6 +528,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0025');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0026
@@ -452,6 +540,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0026');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '25');
       query.append('k', 'extra');
@@ -459,6 +548,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0026');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0027
@@ -469,6 +560,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0027');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '26');
       query.append('k', 'extra');
@@ -476,6 +568,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0027');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0028
@@ -486,6 +580,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0028');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '27');
       query.append('k', 'extra');
@@ -493,6 +588,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0028');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0029
@@ -503,6 +600,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0029');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '28');
       query.append('k', 'extra');
@@ -510,6 +608,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0029');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0030
@@ -520,6 +620,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0030');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '29');
       query.append('k', 'extra');
@@ -527,6 +628,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0030');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0031
@@ -537,6 +640,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0031');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '30');
       query.append('k', 'extra');
@@ -544,6 +648,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0031');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0032
@@ -554,6 +660,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0032');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '31');
       query.append('k', 'extra');
@@ -561,6 +668,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0032');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0033
@@ -571,6 +680,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0033');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '32');
       query.append('k', 'extra');
@@ -578,6 +688,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0033');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0034
@@ -588,6 +700,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0034');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '33');
       query.append('k', 'extra');
@@ -595,6 +708,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0034');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0035
@@ -605,6 +720,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0035');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '34');
       query.append('k', 'extra');
@@ -612,6 +728,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0035');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0036
@@ -622,6 +740,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0036');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '35');
       query.append('k', 'extra');
@@ -629,6 +748,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0036');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0037
@@ -639,6 +760,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0037');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '36');
       query.append('k', 'extra');
@@ -646,6 +768,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0037');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0038
@@ -656,6 +780,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0038');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '37');
       query.append('k', 'extra');
@@ -663,6 +788,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0038');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0039
@@ -673,6 +800,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0039');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '38');
       query.append('k', 'extra');
@@ -680,6 +808,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0039');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0040
@@ -690,6 +820,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0040');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '39');
       query.append('k', 'extra');
@@ -697,6 +828,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0040');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0041
@@ -707,6 +840,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0041');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '40');
       query.append('k', 'extra');
@@ -714,6 +848,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0041');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0042
@@ -724,6 +860,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0042');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '41');
       query.append('k', 'extra');
@@ -731,6 +868,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0042');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0043
@@ -741,6 +880,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0043');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '42');
       query.append('k', 'extra');
@@ -748,6 +888,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0043');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0044
@@ -758,6 +900,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0044');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '43');
       query.append('k', 'extra');
@@ -765,6 +908,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0044');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0045
@@ -775,6 +920,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0045');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '44');
       query.append('k', 'extra');
@@ -782,6 +928,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0045');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0046
@@ -792,6 +940,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0046');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '45');
       query.append('k', 'extra');
@@ -799,6 +948,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0046');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0047
@@ -809,6 +960,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0047');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '46');
       query.append('k', 'extra');
@@ -816,6 +968,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0047');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0048
@@ -826,6 +980,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0048');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '47');
       query.append('k', 'extra');
@@ -833,6 +988,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0048');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0049
@@ -843,6 +1000,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0049');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '48');
       query.append('k', 'extra');
@@ -850,6 +1008,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0049');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0050
@@ -860,6 +1020,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0050');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '49');
       query.append('k', 'extra');
@@ -867,6 +1028,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0050');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0051
@@ -877,6 +1040,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0051');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '50');
       query.append('k', 'extra');
@@ -884,6 +1048,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0051');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0052
@@ -894,6 +1060,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0052');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '51');
       query.append('k', 'extra');
@@ -901,6 +1068,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0052');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0053
@@ -911,6 +1080,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0053');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '52');
       query.append('k', 'extra');
@@ -918,6 +1088,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0053');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0054
@@ -928,6 +1100,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0054');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '53');
       query.append('k', 'extra');
@@ -935,6 +1108,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0054');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0055
@@ -945,6 +1120,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0055');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '54');
       query.append('k', 'extra');
@@ -952,6 +1128,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0055');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0056
@@ -962,6 +1140,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0056');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '55');
       query.append('k', 'extra');
@@ -969,6 +1148,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0056');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0057
@@ -979,6 +1160,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0057');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '56');
       query.append('k', 'extra');
@@ -986,6 +1168,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0057');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0058
@@ -996,6 +1180,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0058');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '57');
       query.append('k', 'extra');
@@ -1003,6 +1188,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0058');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0059
@@ -1013,6 +1200,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0059');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '58');
       query.append('k', 'extra');
@@ -1020,6 +1208,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0059');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0060
@@ -1030,6 +1220,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0060');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '59');
       query.append('k', 'extra');
@@ -1037,6 +1228,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0060');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0061
@@ -1047,6 +1240,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0061');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '60');
       query.append('k', 'extra');
@@ -1054,6 +1248,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0061');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0062
@@ -1064,6 +1260,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0062');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '61');
       query.append('k', 'extra');
@@ -1071,6 +1268,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0062');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0063
@@ -1081,6 +1280,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0063');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '62');
       query.append('k', 'extra');
@@ -1088,6 +1288,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0063');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0064
@@ -1098,6 +1300,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0064');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '63');
       query.append('k', 'extra');
@@ -1105,6 +1308,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0064');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0065
@@ -1115,6 +1320,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0065');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '64');
       query.append('k', 'extra');
@@ -1122,6 +1328,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0065');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0066
@@ -1132,6 +1340,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0066');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '65');
       query.append('k', 'extra');
@@ -1139,6 +1348,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0066');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0067
@@ -1149,6 +1360,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0067');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '66');
       query.append('k', 'extra');
@@ -1156,6 +1368,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0067');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0068
@@ -1166,6 +1380,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0068');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '67');
       query.append('k', 'extra');
@@ -1173,6 +1388,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0068');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0069
@@ -1183,6 +1400,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0069');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '68');
       query.append('k', 'extra');
@@ -1190,6 +1408,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0069');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0070
@@ -1200,6 +1420,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0070');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '69');
       query.append('k', 'extra');
@@ -1207,6 +1428,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0070');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0071
@@ -1217,6 +1440,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0071');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '70');
       query.append('k', 'extra');
@@ -1224,6 +1448,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0071');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0072
@@ -1234,6 +1460,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0072');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '71');
       query.append('k', 'extra');
@@ -1241,6 +1468,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0072');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0073
@@ -1251,6 +1480,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0073');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '72');
       query.append('k', 'extra');
@@ -1258,6 +1488,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0073');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0074
@@ -1268,6 +1500,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0074');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '73');
       query.append('k', 'extra');
@@ -1275,6 +1508,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0074');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0075
@@ -1285,6 +1520,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0075');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '74');
       query.append('k', 'extra');
@@ -1292,6 +1528,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0075');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0076
@@ -1302,6 +1540,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0076');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '75');
       query.append('k', 'extra');
@@ -1309,6 +1548,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0076');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0077
@@ -1319,6 +1560,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0077');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '76');
       query.append('k', 'extra');
@@ -1326,6 +1568,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0077');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0078
@@ -1336,6 +1580,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0078');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '77');
       query.append('k', 'extra');
@@ -1343,6 +1588,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0078');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0079
@@ -1353,6 +1600,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0079');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '78');
       query.append('k', 'extra');
@@ -1360,6 +1608,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0079');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0080
@@ -1370,6 +1620,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0080');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '79');
       query.append('k', 'extra');
@@ -1377,6 +1628,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0080');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0081
@@ -1387,6 +1640,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0081');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '80');
       query.append('k', 'extra');
@@ -1394,6 +1648,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0081');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0082
@@ -1404,6 +1660,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0082');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '81');
       query.append('k', 'extra');
@@ -1411,6 +1668,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0082');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0083
@@ -1421,6 +1680,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0083');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '82');
       query.append('k', 'extra');
@@ -1428,6 +1688,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0083');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0084
@@ -1438,6 +1700,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0084');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '83');
       query.append('k', 'extra');
@@ -1445,6 +1708,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0084');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0085
@@ -1455,6 +1720,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0085');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '84');
       query.append('k', 'extra');
@@ -1462,6 +1728,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0085');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0086
@@ -1472,6 +1740,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0086');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '85');
       query.append('k', 'extra');
@@ -1479,6 +1748,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0086');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0087
@@ -1489,6 +1760,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0087');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '86');
       query.append('k', 'extra');
@@ -1496,6 +1768,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0087');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0088
@@ -1506,6 +1780,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0088');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '87');
       query.append('k', 'extra');
@@ -1513,6 +1788,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0088');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0089
@@ -1523,6 +1800,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0089');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '88');
       query.append('k', 'extra');
@@ -1530,6 +1808,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0089');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0090
@@ -1540,6 +1820,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0090');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '89');
       query.append('k', 'extra');
@@ -1547,6 +1828,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0090');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0091
@@ -1557,6 +1840,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0091');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '90');
       query.append('k', 'extra');
@@ -1564,6 +1848,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0091');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0092
@@ -1574,6 +1860,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0092');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '91');
       query.append('k', 'extra');
@@ -1581,6 +1868,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0092');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0093
@@ -1591,6 +1880,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0093');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '92');
       query.append('k', 'extra');
@@ -1598,6 +1888,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0093');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0094
@@ -1608,6 +1900,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0094');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '93');
       query.append('k', 'extra');
@@ -1615,6 +1908,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0094');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0095
@@ -1625,6 +1920,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0095');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '94');
       query.append('k', 'extra');
@@ -1632,6 +1928,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0095');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0096
@@ -1642,6 +1940,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0096');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '95');
       query.append('k', 'extra');
@@ -1649,6 +1948,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0096');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0097
@@ -1659,6 +1960,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0097');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '96');
       query.append('k', 'extra');
@@ -1666,6 +1968,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0097');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0098
@@ -1676,6 +1980,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0098');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '97');
       query.append('k', 'extra');
@@ -1683,6 +1988,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0098');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0099
@@ -1693,6 +2000,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0099');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '98');
       query.append('k', 'extra');
@@ -1700,6 +2008,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0099');
     })
     /**
      * @tc.number    SUB_AVS_EXP_URLS_0100
@@ -1710,6 +2020,7 @@ export default function urlSearchParamsExpandedTest() {
      * @tc.level     Level 2
      */
     it('testExpUrlS0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      logBegin('testExpUrlS0100');
       const query: url.URLSearchParams = new url.URLSearchParams();
       query.append('k', '99');
       query.append('k', 'extra');
@@ -1717,6 +2028,8 @@ export default function urlSearchParamsExpandedTest() {
       expect(query.getAll('k').length).assertEqual(2);
       expect(query.has('k')).assertTrue();
       expect(query.has('missing')).assertFalse();
+    
+      logEnd('testExpUrlS0100');
     })
   })
 }
