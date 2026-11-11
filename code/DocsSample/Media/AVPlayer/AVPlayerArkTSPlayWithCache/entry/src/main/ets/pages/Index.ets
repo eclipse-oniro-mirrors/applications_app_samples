@@ -27,10 +27,6 @@ const SURFACE_H = 1.78; // 表面高比例
 const SET_INTERVAL = 100; // interval间隔时间
 const TIME_ONE = 60000;
 const TIME_TWO = 1000;
-const SPEED_ZERO = 0;
-const SPEED_ONE = 1;
-const SPEED_TWO = 2;
-const SPEED_THREE = 3;
 const SPEED_COUNT = 4;
 let innerEventFalse: emitter.InnerEvent = {
   eventId: 1,

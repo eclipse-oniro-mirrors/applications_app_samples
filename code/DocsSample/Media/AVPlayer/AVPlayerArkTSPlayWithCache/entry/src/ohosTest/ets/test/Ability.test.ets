@@ -18,7 +18,7 @@ import { UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG = '[Sample_AVPlayerArkTSPlayWithCache]';
-const DOMAIN = 0x0000;
+const DOMAIN = 0xF811;
 const DELAY_UI_READY = 3000;
 const DELAY_STATE_SWITCH = 1000;
 const DELAY_PAUSE_CHECK = 2000;
@@ -77,9 +77,9 @@ async function ensurePlaying(driver: Driver): Promise<void> {
     const pausedButton = await driver.findComponent(ON.id('play'));
     await pausedButton.click();
     await driver.delayMs(DELAY_STATE_SWITCH);
-hilog.info(DOMAIN, TAG, '%{public}s', 'ensurePlaying: app was paused, resumed playing');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'ensurePlaying: app was paused, resumed playing');
   } catch (error) {
-hilog.info(DOMAIN, TAG, '%{public}s', `ensurePlaying: app is already playing, ${JSON.stringify(error)}`);
+    hilog.info(DOMAIN, TAG, '%{public}s', `ensurePlaying: app is already playing, ${JSON.stringify(error)}`);
   }
 }
 
@@ -113,7 +113,7 @@ export default function abilityTest(): void {
           await ensurePlaying(driver);
           await driver.assertComponentExist(ON.id('pause'));
         } catch (error) {
-hilog.error(DOMAIN, TAG, '%{public}s', `test0001 failed, error: ${JSON.stringify(error)}`);
+          hilog.error(DOMAIN, TAG, '%{public}s', `test0001 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();
@@ -140,7 +140,7 @@ hilog.error(DOMAIN, TAG, '%{public}s', `test0001 failed, error: ${JSON.stringify
           await ensurePlaying(driver);
           const first: number = await readCurrentTime(driver);
           const second: number = await waitForTimeAdvance(driver, first);
-hilog.info(DOMAIN, TAG, '%{public}s', `test0002 play time first: ${first}, second: ${second}`);
+          hilog.info(DOMAIN, TAG, '%{public}s', `test0002 play time first: ${first}, second: ${second}`);
           expect(second).assertLargerOrEqual(first);
           expect(second).assertLargerOrEqual(0);
           await driver.assertComponentExist(ON.id('pause'));
@@ -153,7 +153,7 @@ hilog.info(DOMAIN, TAG, '%{public}s', `test0002 play time first: ${first}, secon
           await driver.delayMs(DELAY_STATE_SWITCH);
           await driver.assertComponentExist(ON.id('pause'));
         } catch (error) {
-hilog.error(DOMAIN, TAG, '%{public}s', `test0002 failed, error: ${JSON.stringify(error)}`);
+          hilog.error(DOMAIN, TAG, '%{public}s', `test0002 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();
@@ -189,13 +189,13 @@ hilog.error(DOMAIN, TAG, '%{public}s', `test0002 failed, error: ${JSON.stringify
           const point = await slider.getBoundsCenter();
           await driver.drag(point.x - DRAG_LEFT_OFFSET, point.y, point.x + DRAG_RIGHT_OFFSET, point.y, 800);
           const after: number = await waitForTimeAdvance(driver, before);
-hilog.info(DOMAIN, TAG, '%{public}s', `test0003 seek time before: ${before}, after: ${after}`);
+          hilog.info(DOMAIN, TAG, '%{public}s', `test0003 seek time before: ${before}, after: ${after}`);
           expect(after).assertLargerOrEqual(0);
           expect(after).assertLargerOrEqual(before);
           const pausedButton = await driver.findComponent(ON.id('play'));
           await pausedButton.click();
         } catch (error) {
-hilog.error(DOMAIN, TAG, '%{public}s', `test0003 failed, error: ${JSON.stringify(error)}`);
+          hilog.error(DOMAIN, TAG, '%{public}s', `test0003 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();
@@ -229,11 +229,11 @@ hilog.error(DOMAIN, TAG, '%{public}s', `test0003 failed, error: ${JSON.stringify
           const before: number = await readCurrentTime(driver);
           await driver.delayMs(DELAY_PAUSE_CHECK);
           const after: number = await readCurrentTime(driver);
-hilog.info(DOMAIN, TAG, '%{public}s', `test0004 pause time before: ${before}, after: ${after}`);
+          hilog.info(DOMAIN, TAG, '%{public}s', `test0004 pause time before: ${before}, after: ${after}`);
           expect(after).assertLargerOrEqual(before);
           expect(after).assertLargerOrEqual(0);
         } catch (error) {
-hilog.error(DOMAIN, TAG, '%{public}s', `test0004 failed, error: ${JSON.stringify(error)}`);
+          hilog.error(DOMAIN, TAG, '%{public}s', `test0004 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();

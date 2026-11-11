@@ -12,12 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it as hypiumIt, expect as hypiumExpect, beforeAll, beforeEach, TestType, Size, Level, Assert } from '@ohos/hypium';
+import { describe, it as hypiumIt, expect as hypiumExpect, beforeAll, beforeEach, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
 
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const driver: Driver = Driver.create();
 const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
 
@@ -32,7 +32,7 @@ function parseTimeToSeconds(text: string): number {
 
 async function resetSpeedToDefault(): Promise<void> {
   for (let index: number = 0; index < 4; index++) {
-    const button = await driver.findComponent(ON.id('Speed'));
+    const button: Component = await driver.findComponent(ON.id('Speed'));
     const text: string = (await button.getText()).trim();
     if (text === '1.0X') {
       return;
@@ -43,7 +43,7 @@ async function resetSpeedToDefault(): Promise<void> {
 }
 
 
-const TAG: string = '[Sample_playWithCacheUiSpeed]';
+const TAG: string = '[Sample_PlayWithCacheUiSpeed]';
 const DOMAIN: number = 0xF813;
 
 function it(name: string, filter: number, func: () => void | Promise<void>): void {
@@ -57,7 +57,20 @@ function it(name: string, filter: number, func: () => void | Promise<void>): voi
   });
 }
 
-function expect(actual: string | number | boolean | Object | null | undefined): Assert {
+interface ExpectAssert {
+  assertEqual(expectValue: string | number | boolean | Object | null | undefined): void;
+  assertTrue(): void;
+  assertFalse(): void;
+  assertLarger(expectValue: number): void;
+  assertLargerOrEqual(expectValue: number): void;
+  assertLess(expectValue: number): void;
+  assertLessOrEqual(expectValue: number): void;
+  assertClose(expectValue: number, precision: number): void;
+  assertUndefined(): void;
+  assertFail(): void;
+}
+
+function expect(actual: string | number | boolean | Object | null | undefined): ExpectAssert {
   hilog.info(DOMAIN, TAG, '%{public}s', 'actual: ' + String(actual));
   return hypiumExpect(actual);
 }
@@ -84,12 +97,7 @@ export default function playWithCacheUiSpeedTest(): void {
      */
     it('testExtCacheUiSpeed0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
-      for (let index: number = 0; index < 0; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
-        await button.click();
-        await driver.delayMs(500);
-      }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.0X');
     })
     /**
@@ -103,11 +111,11 @@ export default function playWithCacheUiSpeedTest(): void {
     it('testExtCacheUiSpeed0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
       for (let index: number = 0; index < 1; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
+        const button: Component = await driver.findComponent(ON.id('Speed'));
         await button.click();
         await driver.delayMs(500);
       }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.25X');
     })
     /**
@@ -121,11 +129,11 @@ export default function playWithCacheUiSpeedTest(): void {
     it('testExtCacheUiSpeed0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
       for (let index: number = 0; index < 2; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
+        const button: Component = await driver.findComponent(ON.id('Speed'));
         await button.click();
         await driver.delayMs(500);
       }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.75X');
     })
     /**
@@ -139,11 +147,11 @@ export default function playWithCacheUiSpeedTest(): void {
     it('testExtCacheUiSpeed0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
       for (let index: number = 0; index < 3; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
+        const button: Component = await driver.findComponent(ON.id('Speed'));
         await button.click();
         await driver.delayMs(500);
       }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('2.0X');
     })
     /**
@@ -157,11 +165,11 @@ export default function playWithCacheUiSpeedTest(): void {
     it('testExtCacheUiSpeed0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await resetSpeedToDefault();
       for (let index: number = 0; index < 4; index++) {
-        const button = await driver.findComponent(ON.id('Speed'));
+        const button: Component = await driver.findComponent(ON.id('Speed'));
         await button.click();
         await driver.delayMs(500);
       }
-      const result = await driver.findComponent(ON.id('Speed'));
+      const result: Component = await driver.findComponent(ON.id('Speed'));
       expect((await result.getText()).trim()).assertEqual('1.0X');
     })
     /**
@@ -173,7 +181,7 @@ export default function playWithCacheUiSpeedTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheUiSpeed0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      let button = await driver.findComponent(ON.id('pause'));
+      let button: Component = await driver.findComponent(ON.id('pause'));
       if (button === null || button === undefined) {
         button = await driver.findComponent(ON.id('play'));
       }
@@ -189,9 +197,9 @@ export default function playWithCacheUiSpeedTest(): void {
      */
     it('testExtCacheUiSpeed0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await driver.assertComponentExist(ON.id('Slider'));
-      const slider = await driver.findComponent(ON.id('Slider'));
+      const slider: Component = await driver.findComponent(ON.id('Slider'));
       expect(slider !== null && slider !== undefined).assertTrue();
-      const durationText = await driver.findComponent(ON.id('durationTimeText'));
+      const durationText: Component = await driver.findComponent(ON.id('durationTimeText'));
       expect((await durationText.getText()).length).assertLarger(0);
     })
     /**
