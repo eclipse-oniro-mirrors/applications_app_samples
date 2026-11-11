@@ -801,10 +801,10 @@ export default function dataModelsEnumAndConstantsTest(): void {
          */
         it('testConst0013', 0, (done: Function) => {
             runCase('testConst0013', async (): Promise<void> => {
-                expect(DataStoreConstants.Hilog_DOMAIN).assertEqual(0xF811);
-                expect(DataStoreConstants.Hilog_DOMAIN > 0).assertTrue();
-                expect(DataStoreConstants.Hilog_TAG.length > 0).assertTrue();
-                expect(DataStoreConstants.Hilog_TAG.indexOf('SendableDataStore') >= 0).assertTrue();
+                expect(DataStoreConstants.HILOG_DOMAIN).assertEqual(0xF811);
+                expect(DataStoreConstants.HILOG_DOMAIN > 0).assertTrue();
+                expect(DataStoreConstants.HILOG_TAG.length > 0).assertTrue();
+                expect(DataStoreConstants.HILOG_TAG.indexOf('SendableDataStore') >= 0).assertTrue();
             }, done);
         });
 
