@@ -15,6 +15,55 @@
 
 import abilityTest from './Ability.test';
 
+import builderContextCoreTest from './BuilderContextCore.test';
+import builderContextExtendedTest from './BuilderContextExtended.test';
+import builderContextAdvancedTest from './BuilderContextAdvanced.test';
+import builderContextTailTest from './BuilderContextTail.test';
+import dataSourceListenerCoreTest from './DataSourceListenerCore.test';
+import dataSourceListenerExtendedTest from './DataSourceListenerExtended.test';
+import dataSourceListenerAdvancedTest from './DataSourceListenerAdvanced.test';
+import dataSourceListenerTailTest from './DataSourceListenerTail.test';
+import colorDataCoreTest from './ColorDataCore.test';
+import colorDataExtendedTest from './ColorDataExtended.test';
+import colorDataAdvancedTest from './ColorDataAdvanced.test';
+import colorDataTailTest from './ColorDataTail.test';
+import friendMomentDataCoreTest from './FriendMomentDataCore.test';
+import friendMomentDataExtendedTest from './FriendMomentDataExtended.test';
+import friendMomentDataAdvancedTest from './FriendMomentDataAdvanced.test';
+import friendMomentDataTailTest from './FriendMomentDataTail.test';
+import constantsDataCoreTest from './ConstantsDataCore.test';
+import constantsDataExtendedTest from './ConstantsDataExtended.test';
+import constantsDataAdvancedTest from './ConstantsDataAdvanced.test';
+import constantsDataTailTest from './ConstantsDataTail.test';
+import modelContractCoreTest from './ModelContractCore.test';
+import modelContractExtendedTest from './ModelContractExtended.test';
+import modelContractAdvancedTest from './ModelContractAdvanced.test';
+import modelContractTailTest from './ModelContractTail.test';
+
 export default function testsuite() {
   abilityTest();
+  builderContextCoreTest();
+  builderContextExtendedTest();
+  builderContextAdvancedTest();
+  builderContextTailTest();
+  dataSourceListenerCoreTest();
+  dataSourceListenerExtendedTest();
+  dataSourceListenerAdvancedTest();
+  dataSourceListenerTailTest();
+  colorDataCoreTest();
+  colorDataExtendedTest();
+  colorDataAdvancedTest();
+  colorDataTailTest();
+  friendMomentDataCoreTest();
+  friendMomentDataExtendedTest();
+  friendMomentDataAdvancedTest();
+  friendMomentDataTailTest();
+  constantsDataCoreTest();
+  constantsDataExtendedTest();
+  constantsDataAdvancedTest();
+  constantsDataTailTest();
+  modelContractCoreTest();
+  modelContractExtendedTest();
+  modelContractAdvancedTest();
+  modelContractTailTest();
 }
