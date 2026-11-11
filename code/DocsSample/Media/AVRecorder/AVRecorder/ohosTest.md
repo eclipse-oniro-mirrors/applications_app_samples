@@ -78,8 +78,11 @@ hdc shell aa test -b com.demo.avrecorder01 -m entry_test \
 | AVRecorderPageSettingsCore | 页面采样率、分辨率、声道与状态 | 76 |
 | AVRecorderFileOutputMatrix | 输出文件命名、大小与时长矩阵 | 80 |
 | AVRecorderUiContracts | 页面、按钮与设置控件契约 | 40 |
+| AVRecorderServiceIntegration | 真实 AVRecorder 创建、配置与释放 | 60 |
+| AVRecorderCameraIntegration | CameraService/NDK 实际初始化与 profile 选择 | 60 |
+| AVRecorderErrorPaths | 未初始化、重复关闭、非法配置路径 | 80 |
 
-新增 2,043 条，工程测试用例合计约 **2,059** 条。
+新增 2,243 条，工程测试用例合计约 **2,259** 条。
 
 ## 已知限制
 

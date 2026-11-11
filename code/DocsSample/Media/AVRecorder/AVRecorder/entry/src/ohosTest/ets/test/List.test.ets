@@ -55,6 +55,10 @@ import avRecorderPageSettingsCoreTest from './AVRecorderPageSettingsCore.test';
 import avRecorderFileOutputMatrixTest from './AVRecorderFileOutputMatrix.test';
 import avRecorderUiContractsTest from './AVRecorderUiContracts.test';
 
+import avRecorderServiceIntegrationTest from './AVRecorderServiceIntegration.test';
+import avRecorderCameraIntegrationTest from './AVRecorderCameraIntegration.test';
+import avRecorderErrorPathsTest from './AVRecorderErrorPaths.test';
+
 export default function testsuite(): void {
   abilityTest();
   avRecorderDateTimeCoreTest();
@@ -90,4 +94,7 @@ export default function testsuite(): void {
   avRecorderPageSettingsCoreTest();
   avRecorderFileOutputMatrixTest();
   avRecorderUiContractsTest();
+  avRecorderServiceIntegrationTest();
+  avRecorderCameraIntegrationTest();
+  avRecorderErrorPathsTest();
 }
