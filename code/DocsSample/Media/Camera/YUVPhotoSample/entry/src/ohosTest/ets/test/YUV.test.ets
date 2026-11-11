@@ -50,7 +50,7 @@ async function grantPermissions(driver: Driver): Promise<number> {
   for (let i = 0; i < 10 && missCount < 2; i++) {
     let allow: Component | undefined = undefined;
     try {
-      allow = await driver.waitForComponent(ON.text('允许', MatchPattern.CONTAINS), 2000);
+      allow = await driver.waitForComponent(ON.text('允许', MatchPattern.CONTAINS), 1000);
     } catch (error) {
       allow = undefined;
     }
@@ -61,7 +61,7 @@ async function grantPermissions(driver: Driver): Promise<number> {
     missCount = 0;
     await allow.click();
     count++;
-    await sleep(400);
+    await sleep(300);
   }
   return count;
 }
@@ -118,7 +118,10 @@ export default function yuvTest() {
   describe('YUVTest', () => {
     beforeAll(async () => {
       log('beforeAll start');
-      await startApp();
+      const driver: Driver = await startApp();
+      await sleep(500);
+      const granted: number = await grantPermissions(driver);
+      log('beforeAll granted: ' + granted);
       await sleep(500);
       log('beforeAll end');
     });
@@ -135,8 +138,6 @@ export default function yuvTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          const granted: number = await grantPermissions(driver);
-          log('batch B granted: ' + granted);
           const ready: Component = await driver.waitForComponent(ON.id('TakePicture'), 5000);
           log('take picture ready: ' + (ready !== undefined));
           expect(await ready.getId()).assertEqual('TakePicture');
