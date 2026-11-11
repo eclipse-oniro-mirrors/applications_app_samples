@@ -1195,7 +1195,8 @@ class CameraService {
       Logger.error(TAG, `stopVideo err: ${err.code}`);
     }
     Logger.info(TAG, 'stopVideo End of call');
-  }// [End camera_video_stop]
+  }
+  // [End camera_video_stop]
 
   /**
    * 闪光灯。
