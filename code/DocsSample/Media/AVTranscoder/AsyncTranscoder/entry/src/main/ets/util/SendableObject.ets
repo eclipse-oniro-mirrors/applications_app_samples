@@ -16,7 +16,7 @@
 import { sendableContextManager } from '@kit.AbilityKit';
 
 
-// 发送的参数必须加上@Sendable标注。
+//发送的参数必须加上@Sendable标注。
 @Sendable
 export class SendableObject {
   constructor(sendableContext: sendableContextManager.SendableContext, data: string = '') {
