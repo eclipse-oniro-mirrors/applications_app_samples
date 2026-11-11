@@ -17,6 +17,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from '../../utils/Logger';
 import { DataBackupManager } from '../DataBackupManager';
 import { StoreType } from '../../models/DataModels';
+import { ResultText } from '../../utils/ResultText';
 
 @Entry
 @Component
@@ -112,7 +113,9 @@ struct DataBackupHome {
           this.buttonRow($r('app.string.verify_integrity'),
             (): void => this.runSync((): string => this.manager.verifyBackupIntegrity('pref_backup_1')),
             $r('app.string.total_size'),
-            (): void => this.runSync((): string => `totalSize=${this.manager.getTotalBackupSize()}`))
+            (): void => this.runSync((): string =>
+              ResultText.ofArgs($r('app.string.result_backup_total_size'), [this.manager.getTotalBackupSize()],
+                `totalSize=${this.manager.getTotalBackupSize()}`)))
 
           this.sectionTitle($r('app.string.section_backup_auto'))
           this.buttonRow($r('app.string.set_auto_backup'),

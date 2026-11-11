@@ -100,16 +100,16 @@ struct DataEncryptionHome {
             (): void => this.runSync((): string => this.manager.encrypt('Hello Sendable Data!')),
             $r('app.string.decrypt_text'),
             (): void => this.runSync((): string => {
-              const encrypted = this.manager.encrypt('TestDecrypt');
-              const hexPart = encrypted.split(': ')[1];
+              const encrypted: string = this.manager.encrypt('TestDecrypt');
+              const hexPart: string = encrypted.split(': ')[1];
               return this.manager.decrypt(hexPart);
             }))
           this.buttonRow($r('app.string.encrypt_sync'),
             (): void => this.runSync((): string => this.manager.encryptSync('Sync encrypted')),
             $r('app.string.decrypt_sync'),
             (): void => this.runSync((): string => {
-              const enc = this.manager.encryptSync('SyncDecrypt');
-              const hex = enc.split(': ')[1];
+              const enc: string = this.manager.encryptSync('SyncDecrypt');
+              const hex: string = enc.split(': ')[1];
               return this.manager.decryptSync(hex);
             }))
 
@@ -118,7 +118,7 @@ struct DataEncryptionHome {
             (): void => this.runSync((): string => this.manager.computeHash('sample data')),
             $r('app.string.verify_hash'),
             (): void => this.runSync((): string => {
-              const hash = this.manager.computeHash('verify me');
+              const hash: string = this.manager.computeHash('verify me');
               return this.manager.verifyHash('verify me', hash);
             }))
 

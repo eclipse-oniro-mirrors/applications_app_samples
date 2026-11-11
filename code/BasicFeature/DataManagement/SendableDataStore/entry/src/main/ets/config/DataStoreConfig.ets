@@ -23,6 +23,7 @@ import {
   LogLevel
 } from '../models/DataModels';
 import { Logger } from '../utils/Logger';
+import { ResultText } from '../utils/ResultText';
 
 /**
  * Feature flag entry.
@@ -110,7 +111,7 @@ export class DataStoreConfig {
     if (DataStoreConfig.currentConfig === null) {
       DataStoreConfig.currentConfig = DataStoreConfig.getDefaultConfig();
     }
-    const config = DataStoreConfig.currentConfig;
+    const config: StoreConfig = DataStoreConfig.currentConfig;
     const loaded: StoreConfig = {
       name: config.name,
       storeType: config.storeType,
@@ -151,7 +152,7 @@ export class DataStoreConfig {
   }
 
   static getConfigValue(key: string): string | null {
-    const value = DataStoreConfig.configValues.get(key);
+    const value: string | undefined = DataStoreConfig.configValues.get(key);
     if (value === undefined) {
       return null;
     }
@@ -167,7 +168,7 @@ export class DataStoreConfig {
   }
 
   static getAllConfigValues(): Map<string, string> {
-    const copy = new Map<string, string>();
+    const copy: Map<string, string> = new Map<string, string>();
     DataStoreConfig.configValues.forEach((val: string, key: string) => {
       copy.set(key, val);
     });
@@ -175,7 +176,7 @@ export class DataStoreConfig {
   }
 
   static isFeatureEnabled(feature: string): boolean {
-    const flag = DataStoreConfig.featureFlags.get(feature);
+    const flag: FeatureFlag | undefined = DataStoreConfig.featureFlags.get(feature);
     if (flag === undefined) {
       return false;
     }
@@ -243,16 +244,20 @@ export class DataStoreConfig {
   }
 
   static getConfigSummary(): string {
-    const config = DataStoreConfig.currentConfig;
+    const config: StoreConfig | null = DataStoreConfig.currentConfig;
     if (config === null) {
-      return 'No configuration loaded';
+      return ResultText.of($r('app.string.result_config_none'), 'No configuration loaded');
     }
-    const enabledFlags = DataStoreConfig.getEnabledFeatureFlags();
-    return `Config: ${config.name} [${config.storeType}] ` +
-      `Security=${config.securityLevel} Encryption=${config.encryptionMode} ` +
-      `AutoBackup=${config.autoBackup} MaxRetries=${config.maxRetries} ` +
-      `SyncMode=${config.syncMode} Debug=${config.debugMode} ` +
-      `Features=${enabledFlags.length}/${DataStoreConfig.featureFlags.size}`;
+    const enabledFlags: FeatureFlag[] = DataStoreConfig.getEnabledFeatureFlags();
+    return ResultText.ofArgs($r('app.string.result_config_summary'),
+      [config.name, String(config.storeType), String(config.securityLevel), String(config.encryptionMode),
+        String(config.autoBackup), config.maxRetries, String(config.syncMode), String(config.debugMode),
+        enabledFlags.length, DataStoreConfig.featureFlags.size],
+      `Config: ${config.name} [${config.storeType}] ` +
+        `Security=${config.securityLevel} Encryption=${config.encryptionMode} ` +
+        `AutoBackup=${config.autoBackup} MaxRetries=${config.maxRetries} ` +
+        `SyncMode=${config.syncMode} Debug=${config.debugMode} ` +
+        `Features=${enabledFlags.length}/${DataStoreConfig.featureFlags.size}`);
   }
 
   static validateConfig(config: StoreConfig): boolean {

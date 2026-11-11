@@ -17,6 +17,7 @@ import { DataValidator } from '../utils/DataValidator';
 import { DataStoreConstants } from '../constants/DataStoreConstants';
 import { DeviceInfo, SyncStatus, ConflictRecord, ConflictPolicy, SyncMode } from '../models/DataModels';
 import { Logger } from '../utils/Logger';
+import { ResultText } from '../utils/ResultText';
 
 const MAX_DEVICES: number = 32;
 const MAX_CONFLICTS: number = 100;
@@ -65,20 +66,20 @@ export class DistributedDataManager {
     this.deleteCount = 0;
     this.queryCount = 0;
     this.createdAt = Date.now();
-    return 'Distributed data manager initialized';
+    return ResultText.of($r('app.string.result_distributed_initialized'), 'Distributed data manager initialized');
   }
 
   put(key: string, value: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'put failed: invalid key';
+      return ResultText.of($r('app.string.result_distributed_put_invalid_key'), 'put failed: invalid key');
     }
     if (!DataValidator.isValidValue(value)) {
-      return 'put failed: invalid value';
+      return ResultText.of($r('app.string.result_distributed_put_invalid_value'), 'put failed: invalid value');
     }
-    const existIdx = this.findLocalKeyIndex(key);
+    const existIdx: number = this.findLocalKeyIndex(key);
     if (existIdx >= 0) {
       const newData: string[] = [];
-      for (let i = 0; i < this.localDataCount; i++) {
+      for (let i: number = 0; i < this.localDataCount; i++) {
         if (i === existIdx) {
           newData.push(value);
         } else {
@@ -87,11 +88,12 @@ export class DistributedDataManager {
       }
       this.localData = newData;
       this.updateCount++;
-      return `put updated: ${key}=${value}`;
+      return ResultText.ofArgs($r('app.string.result_distributed_put_updated'), [key, value],
+        `put updated: ${key}=${value}`);
     }
     const newKeys: string[] = [];
     const newValues: string[] = [];
-    for (let i = 0; i < this.localDataCount; i++) {
+    for (let i: number = 0; i < this.localDataCount; i++) {
       newKeys.push(this.localKeys[i]);
       newValues.push(this.localData[i]);
     }
@@ -101,32 +103,36 @@ export class DistributedDataManager {
     this.localData = newValues;
     this.localDataCount++;
     this.insertCount++;
-    return `put inserted: ${key}=${value}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_put_inserted'), [key, value],
+      `put inserted: ${key}=${value}`);
   }
 
   get(key: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'get failed: invalid key';
+      return ResultText.of($r('app.string.result_distributed_get_invalid_key'), 'get failed: invalid key');
     }
-    const idx = this.findLocalKeyIndex(key);
+    const idx: number = this.findLocalKeyIndex(key);
     if (idx < 0) {
-      return `get: key '${key}' not found`;
+      return ResultText.ofArgs($r('app.string.result_distributed_get_not_found'), [key],
+        `get: key '${key}' not found`);
     }
     this.queryCount++;
-    return `get('${key}'): ${this.localData[idx]}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_get_value'), [key, this.localData[idx]],
+      `get('${key}'): ${this.localData[idx]}`);
   }
 
   delete(key: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'delete failed: invalid key';
+      return ResultText.of($r('app.string.result_distributed_delete_invalid_key'), 'delete failed: invalid key');
     }
-    const idx = this.findLocalKeyIndex(key);
+    const idx: number = this.findLocalKeyIndex(key);
     if (idx < 0) {
-      return `delete: key '${key}' not found`;
+      return ResultText.ofArgs($r('app.string.result_distributed_delete_not_found'), [key],
+        `delete: key '${key}' not found`);
     }
     const newKeys: string[] = [];
     const newValues: string[] = [];
-    for (let i = 0; i < this.localDataCount; i++) {
+    for (let i: number = 0; i < this.localDataCount; i++) {
       if (i !== idx) {
         newKeys.push(this.localKeys[i]);
         newValues.push(this.localData[i]);
@@ -136,7 +142,8 @@ export class DistributedDataManager {
     this.localData = newValues;
     this.localDataCount--;
     this.deleteCount++;
-    return `delete completed: '${key}'`;
+    return ResultText.ofArgs($r('app.string.result_distributed_delete_completed'), [key],
+      `delete completed: '${key}'`);
   }
 
   has(key: string): boolean {
@@ -148,19 +155,23 @@ export class DistributedDataManager {
 
   getAllKeys(): string {
     this.queryCount++;
-    return `Keys: [${this.localKeys.join(', ')}] (${this.localDataCount} entries)`;
+    return ResultText.ofArgs($r('app.string.result_distributed_keys'), [this.localKeys.join(', '), this.localDataCount],
+      `Keys: [${this.localKeys.join(', ')}] (${this.localDataCount} entries)`);
   }
 
   registerDevice(deviceId: string, deviceName: string, deviceType: string): string {
     if (!DataValidator.isValidDeviceId(deviceId)) {
-      return 'registerDevice failed: invalid device ID';
+      return ResultText.of($r('app.string.result_distributed_register_invalid_id'),
+        'registerDevice failed: invalid device ID');
     }
     if (this.deviceCount >= MAX_DEVICES) {
-      return `registerDevice failed: max devices reached (${MAX_DEVICES})`;
+      return ResultText.ofArgs($r('app.string.result_distributed_register_max_reached'), [MAX_DEVICES],
+        `registerDevice failed: max devices reached (${MAX_DEVICES})`);
     }
-    const existIdx = this.findDeviceIndex(deviceId);
+    const existIdx: number = this.findDeviceIndex(deviceId);
     if (existIdx >= 0) {
-      return `registerDevice failed: device '${deviceId}' already registered`;
+      return ResultText.ofArgs($r('app.string.result_distributed_register_exists'), [deviceId],
+        `registerDevice failed: device '${deviceId}' already registered`);
     }
     const syncStatus: SyncStatus = {
       lastSyncTime: 0,
@@ -179,63 +190,72 @@ export class DistributedDataManager {
       syncStatus: syncStatus
     };
     const newDevices: DeviceInfo[] = [];
-    for (let i = 0; i < this.deviceCount; i++) {
+    for (let i: number = 0; i < this.deviceCount; i++) {
       newDevices.push(this.devices[i]);
     }
     newDevices.push(device);
     this.devices = newDevices;
     this.deviceCount++;
-    return `registerDevice completed: ${deviceId} (${deviceName}, ${deviceType})`;
+    return ResultText.ofArgs($r('app.string.result_distributed_register_completed'), [deviceId, deviceName, deviceType],
+      `registerDevice completed: ${deviceId} (${deviceName}, ${deviceType})`);
   }
 
   unregisterDevice(deviceId: string): string {
     if (!DataValidator.isValidDeviceId(deviceId)) {
-      return 'unregisterDevice failed: invalid device ID';
+      return ResultText.of($r('app.string.result_distributed_unregister_invalid_id'),
+        'unregisterDevice failed: invalid device ID');
     }
-    const idx = this.findDeviceIndex(deviceId);
+    const idx: number = this.findDeviceIndex(deviceId);
     if (idx < 0) {
-      return `unregisterDevice failed: device '${deviceId}' not found`;
+      return ResultText.ofArgs($r('app.string.result_distributed_unregister_not_found'), [deviceId],
+        `unregisterDevice failed: device '${deviceId}' not found`);
     }
     const newDevices: DeviceInfo[] = [];
-    for (let i = 0; i < this.deviceCount; i++) {
+    for (let i: number = 0; i < this.deviceCount; i++) {
       if (i !== idx) {
         newDevices.push(this.devices[i]);
       }
     }
     this.devices = newDevices;
     this.deviceCount--;
-    return `unregisterDevice completed: '${deviceId}'`;
+    return ResultText.ofArgs($r('app.string.result_distributed_unregister_completed'), [deviceId],
+      `unregisterDevice completed: '${deviceId}'`);
   }
 
   listDevices(): string {
     if (this.deviceCount === 0) {
-      return 'listDevices: no devices registered';
+      return ResultText.of($r('app.string.result_distributed_list_devices_empty'), 'listDevices: no devices registered');
     }
     const result: string[] = [];
-    for (let i = 0; i < this.deviceCount; i++) {
-      const d = this.devices[i];
+    for (let i: number = 0; i < this.deviceCount; i++) {
+      const d: DeviceInfo = this.devices[i];
       result.push(`${d.deviceId}:${d.deviceName}:${d.deviceType}:${d.isConnected}`);
     }
-    return `Devices: [${result.join(', ')}] (${this.deviceCount} devices)`;
+    return ResultText.ofArgs($r('app.string.result_distributed_list_devices'), [result.join(', '), this.deviceCount],
+      `Devices: [${result.join(', ')}] (${this.deviceCount} devices)`);
   }
 
   getDeviceInfo(deviceId: string): string {
-    const idx = this.findDeviceIndex(deviceId);
+    const idx: number = this.findDeviceIndex(deviceId);
     if (idx < 0) {
-      return `getDeviceInfo: device '${deviceId}' not found`;
+      return ResultText.ofArgs($r('app.string.result_distributed_device_info_not_found'), [deviceId],
+        `getDeviceInfo: device '${deviceId}' not found`);
     }
-    const d = this.devices[idx];
-    return `DeviceInfo: id=${d.deviceId}, name=${d.deviceName}, type=${d.deviceType}, ` +
-      `connected=${d.isConnected}, lastSeen=${d.lastSeen}`;
+    const d: DeviceInfo = this.devices[idx];
+    return ResultText.ofArgs($r('app.string.result_distributed_device_info'),
+      [d.deviceId, d.deviceName, d.deviceType, String(d.isConnected), d.lastSeen],
+      `DeviceInfo: id=${d.deviceId}, name=${d.deviceName}, type=${d.deviceType}, ` +
+        `connected=${d.isConnected}, lastSeen=${d.lastSeen}`);
   }
 
   setDeviceConnected(deviceId: string, connected: boolean): string {
-    const idx = this.findDeviceIndex(deviceId);
+    const idx: number = this.findDeviceIndex(deviceId);
     if (idx < 0) {
-      return `setDeviceConnected failed: device '${deviceId}' not found`;
+      return ResultText.ofArgs($r('app.string.result_distributed_set_connected_not_found'), [deviceId],
+        `setDeviceConnected failed: device '${deviceId}' not found`);
     }
     const newDevices: DeviceInfo[] = [];
-    for (let i = 0; i < this.deviceCount; i++) {
+    for (let i: number = 0; i < this.deviceCount; i++) {
       if (i === idx) {
         const updated: DeviceInfo = {
           deviceId: this.devices[i].deviceId,
@@ -251,41 +271,48 @@ export class DistributedDataManager {
       }
     }
     this.devices = newDevices;
-    return `setDeviceConnected: ${deviceId} = ${connected}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_set_connected'), [deviceId, String(connected)],
+      `setDeviceConnected: ${deviceId} = ${connected}`);
   }
 
   async sync(): Promise<string> {
     if (this.isSyncing) {
-      return 'sync failed: sync already in progress';
+      return ResultText.of($r('app.string.result_distributed_sync_in_progress'), 'sync failed: sync already in progress');
     }
     if (this.deviceCount === 0) {
-      return 'sync failed: no devices to sync with';
+      return ResultText.of($r('app.string.result_distributed_sync_no_devices'), 'sync failed: no devices to sync with');
     }
     this.isSyncing = true;
     this.syncCount++;
-    let syncedCount = 0;
-    for (let i = 0; i < this.deviceCount; i++) {
+    let syncedCount: number = 0;
+    for (let i: number = 0; i < this.deviceCount; i++) {
       if (this.devices[i].isConnected) {
         syncedCount++;
       }
     }
     this.lastSyncTime = Date.now();
     this.isSyncing = false;
-    return `sync completed: ${syncedCount}/${this.deviceCount} devices synced at ${this.lastSyncTime}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_sync_completed'),
+      [syncedCount, this.deviceCount, this.lastSyncTime],
+      `sync completed: ${syncedCount}/${this.deviceCount} devices synced at ${this.lastSyncTime}`);
   }
 
   syncStatus(): string {
-    return `SyncStatus: mode=${this.syncMode}, syncing=${this.isSyncing}, ` +
-      `lastSync=${this.lastSyncTime}, syncCount=${this.syncCount}, ` +
-      `devices=${this.deviceCount}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_sync_status'),
+      [String(this.syncMode), String(this.isSyncing), this.lastSyncTime, this.syncCount, this.deviceCount],
+      `SyncStatus: mode=${this.syncMode}, syncing=${this.isSyncing}, ` +
+        `lastSync=${this.lastSyncTime}, syncCount=${this.syncCount}, ` +
+        `devices=${this.deviceCount}`);
   }
 
   setSyncMode(mode: SyncMode): string {
     if (!DataValidator.isValidSyncMode(mode)) {
-      return `setSyncMode failed: invalid mode '${mode}'`;
+      return ResultText.ofArgs($r('app.string.result_distributed_sync_mode_invalid'), [String(mode)],
+        `setSyncMode failed: invalid mode '${mode}'`);
     }
     this.syncMode = mode;
-    return `setSyncMode: ${mode}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_sync_mode_set'), [String(mode)],
+      `setSyncMode: ${mode}`);
   }
 
   getSyncMode(): SyncMode {
@@ -294,10 +321,12 @@ export class DistributedDataManager {
 
   setConflictPolicy(policy: ConflictPolicy): string {
     if (!DataValidator.isValidConflictPolicy(policy)) {
-      return `setConflictPolicy failed: invalid policy '${policy}'`;
+      return ResultText.ofArgs($r('app.string.result_distributed_policy_invalid'), [String(policy)],
+        `setConflictPolicy failed: invalid policy '${policy}'`);
     }
     this.conflictPolicy = policy;
-    return `setConflictPolicy: ${policy}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_policy_set'), [String(policy)],
+      `setConflictPolicy: ${policy}`);
   }
 
   getConflictPolicy(): ConflictPolicy {
@@ -305,12 +334,13 @@ export class DistributedDataManager {
   }
 
   resolveConflict(key: string, resolution: ConflictPolicy): string {
-    const idx = this.findConflictIndex(key);
+    const idx: number = this.findConflictIndex(key);
     if (idx < 0) {
-      return `resolveConflict failed: no conflict for key '${key}'`;
+      return ResultText.ofArgs($r('app.string.result_distributed_resolve_not_found'), [key],
+        `resolveConflict failed: no conflict for key '${key}'`);
     }
     const newConflicts: ConflictRecord[] = [];
-    for (let i = 0; i < this.conflictCount; i++) {
+    for (let i: number = 0; i < this.conflictCount; i++) {
       if (i === idx) {
         const resolved: ConflictRecord = {
           key: this.conflicts[i].key,
@@ -328,36 +358,39 @@ export class DistributedDataManager {
       }
     }
     this.conflicts = newConflicts;
-    return `resolveConflict: '${key}' resolved with ${resolution}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_resolve_completed'), [key, String(resolution)],
+      `resolveConflict: '${key}' resolved with ${resolution}`);
   }
 
   getConflicts(): string {
     if (this.conflictCount === 0) {
-      return 'getConflicts: no conflicts';
+      return ResultText.of($r('app.string.result_distributed_conflicts_empty'), 'getConflicts: no conflicts');
     }
     const result: string[] = [];
-    for (let i = 0; i < this.conflictCount; i++) {
-      const c = this.conflicts[i];
-      const status = c.resolved ? 'RESOLVED' : 'PENDING';
+    for (let i: number = 0; i < this.conflictCount; i++) {
+      const c: ConflictRecord = this.conflicts[i];
+      const status: string = c.resolved ? 'RESOLVED' : 'PENDING';
       result.push(`${c.key}:${c.localValue}vs${c.remoteValue}:${status}`);
     }
-    return `Conflicts: [${result.join(', ')}] (${this.conflictCount} total)`;
+    return ResultText.ofArgs($r('app.string.result_distributed_conflicts'), [result.join(', '), this.conflictCount],
+      `Conflicts: [${result.join(', ')}] (${this.conflictCount} total)`);
   }
 
   getUnresolvedConflicts(): string {
     const result: string[] = [];
-    for (let i = 0; i < this.conflictCount; i++) {
+    for (let i: number = 0; i < this.conflictCount; i++) {
       if (!this.conflicts[i].resolved) {
-        const c = this.conflicts[i];
+        const c: ConflictRecord = this.conflicts[i];
         result.push(`${c.key}:${c.localValue}vs${c.remoteValue}`);
       }
     }
-    return `Unresolved: [${result.join(', ')}] (${result.length} pending)`;
+    return ResultText.ofArgs($r('app.string.result_distributed_unresolved'), [result.join(', '), result.length],
+      `Unresolved: [${result.join(', ')}] (${result.length} pending)`);
   }
 
   getConnectedDevices(): number {
-    let count = 0;
-    for (let i = 0; i < this.deviceCount; i++) {
+    let count: number = 0;
+    for (let i: number = 0; i < this.deviceCount; i++) {
       if (this.devices[i].isConnected) {
         count++;
       }
@@ -366,10 +399,13 @@ export class DistributedDataManager {
   }
 
   getStatistics(): string {
-    return `Distributed Statistics: dataCount=${this.localDataCount}, devices=${this.deviceCount}, ` +
-      `conflicts=${this.conflictCount}, syncs=${this.syncCount}, inserts=${this.insertCount}, ` +
-      `updates=${this.updateCount}, deletes=${this.deleteCount}, queries=${this.queryCount}, ` +
-      `syncMode=${this.syncMode}, policy=${this.conflictPolicy}`;
+    return ResultText.ofArgs($r('app.string.result_distributed_statistics'),
+      [this.localDataCount, this.deviceCount, this.conflictCount, this.syncCount, this.insertCount,
+        this.updateCount, this.deleteCount, this.queryCount, String(this.syncMode), String(this.conflictPolicy)],
+      `Distributed Statistics: dataCount=${this.localDataCount}, devices=${this.deviceCount}, ` +
+        `conflicts=${this.conflictCount}, syncs=${this.syncCount}, inserts=${this.insertCount}, ` +
+        `updates=${this.updateCount}, deletes=${this.deleteCount}, queries=${this.queryCount}, ` +
+        `syncMode=${this.syncMode}, policy=${this.conflictPolicy}`);
   }
 
   resetStatistics(): string {
@@ -378,7 +414,7 @@ export class DistributedDataManager {
     this.updateCount = 0;
     this.deleteCount = 0;
     this.queryCount = 0;
-    return 'Distributed statistics reset';
+    return ResultText.of($r('app.string.result_distributed_stats_reset'), 'Distributed statistics reset');
   }
 
   isInitialized(): boolean {
@@ -407,7 +443,7 @@ export class DistributedDataManager {
   }
 
   private findLocalKeyIndex(key: string): number {
-    for (let i = 0; i < this.localDataCount; i++) {
+    for (let i: number = 0; i < this.localDataCount; i++) {
       if (this.localKeys[i] === key) {
         return i;
       }
@@ -416,7 +452,7 @@ export class DistributedDataManager {
   }
 
   private findDeviceIndex(deviceId: string): number {
-    for (let i = 0; i < this.deviceCount; i++) {
+    for (let i: number = 0; i < this.deviceCount; i++) {
       if (this.devices[i].deviceId === deviceId) {
         return i;
       }
@@ -425,7 +461,7 @@ export class DistributedDataManager {
   }
 
   private findConflictIndex(key: string): number {
-    for (let i = 0; i < this.conflictCount; i++) {
+    for (let i: number = 0; i < this.conflictCount; i++) {
       if (this.conflicts[i].key === key) {
         return i;
       }

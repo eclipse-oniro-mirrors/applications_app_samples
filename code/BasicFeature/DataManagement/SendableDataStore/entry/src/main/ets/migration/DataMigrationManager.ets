@@ -17,6 +17,7 @@ import { DataValidator } from '../utils/DataValidator';
 import { DataStoreConstants } from '../constants/DataStoreConstants';
 import { MigrationStatus, VersionEntry } from '../models/DataModels';
 import { Logger } from '../utils/Logger';
+import { ResultText } from '../utils/ResultText';
 
 const INITIAL_VERSION: number = 1;
 const MAX_VERSION_STEPS: number = 20;
@@ -44,7 +45,8 @@ export class DataMigrationManager {
 
   initialize(startVersion: number): string {
     if (!DataValidator.isValidVersion(startVersion)) {
-      return `initialize failed: invalid version ${startVersion}`;
+      return ResultText.ofArgs($r('app.string.result_migration_initialize_invalid_version'), [startVersion],
+        `initialize failed: invalid version ${startVersion}`);
     }
     this.currentVersion = startVersion;
     this.targetVersion = startVersion;
@@ -58,7 +60,8 @@ export class DataMigrationManager {
     this.successCount = 0;
     this.failCount = 0;
     this.addLog(`Migration manager initialized at version ${startVersion}`);
-    return `Migration manager initialized: version=${startVersion}`;
+    return ResultText.ofArgs($r('app.string.result_migration_initialized'), [startVersion],
+      `Migration manager initialized: version=${startVersion}`);
   }
 
   getCurrentVersion(): number {
@@ -74,18 +77,23 @@ export class DataMigrationManager {
   }
 
   getStatusString(): string {
-    return `Migration status: version=${this.currentVersion}, target=${this.targetVersion}, status=${this.status}`;
+    return ResultText.ofArgs($r('app.string.result_migration_status'),
+      [this.currentVersion, this.targetVersion, String(this.status)],
+      `Migration status: version=${this.currentVersion}, target=${this.targetVersion}, status=${this.status}`);
   }
 
   registerMigrationStep(fromVersion: number, toVersion: number, description: string): string {
     if (!DataValidator.isValidVersion(fromVersion) || !DataValidator.isValidVersion(toVersion)) {
-      return 'registerMigrationStep failed: invalid version numbers';
+      return ResultText.of($r('app.string.result_migration_register_invalid_versions'),
+        'registerMigrationStep failed: invalid version numbers');
     }
     if (fromVersion >= toVersion) {
-      return 'registerMigrationStep failed: toVersion must be greater than fromVersion';
+      return ResultText.of($r('app.string.result_migration_register_order'),
+        'registerMigrationStep failed: toVersion must be greater than fromVersion');
     }
     if (this.historyCount >= MAX_VERSION_STEPS) {
-      return `registerMigrationStep failed: max steps reached (${MAX_VERSION_STEPS})`;
+      return ResultText.ofArgs($r('app.string.result_migration_register_max_steps'), [MAX_VERSION_STEPS],
+        `registerMigrationStep failed: max steps reached (${MAX_VERSION_STEPS})`);
     }
     const entry: VersionEntry = {
       version: toVersion,
@@ -94,39 +102,44 @@ export class DataMigrationManager {
       success: false
     };
     const newHistory: VersionEntry[] = [];
-    for (let i = 0; i < this.historyCount; i++) {
+    for (let i: number = 0; i < this.historyCount; i++) {
       newHistory.push(this.versionHistory[i]);
     }
     newHistory.push(entry);
     this.versionHistory = newHistory;
     this.historyCount++;
     this.addLog(`Registered migration step: v${fromVersion} -> v${toVersion} (${description})`);
-    return `registerMigrationStep completed: v${fromVersion} -> v${toVersion}`;
+    return ResultText.ofArgs($r('app.string.result_migration_register_completed'), [fromVersion, toVersion],
+      `registerMigrationStep completed: v${fromVersion} -> v${toVersion}`);
   }
 
   async migrate(targetVersion: number): Promise<string> {
     if (!DataValidator.isValidVersion(targetVersion)) {
-      return `migrate failed: invalid target version ${targetVersion}`;
+      return ResultText.ofArgs($r('app.string.result_migration_migrate_invalid_version'), [targetVersion],
+        `migrate failed: invalid target version ${targetVersion}`);
     }
     if (targetVersion <= this.currentVersion) {
-      return `migrate failed: target ${targetVersion} must be > current ${this.currentVersion}`;
+      return ResultText.ofArgs($r('app.string.result_migration_migrate_target_order'),
+        [targetVersion, this.currentVersion],
+        `migrate failed: target ${targetVersion} must be > current ${this.currentVersion}`);
     }
     if (this.status === MigrationStatus.IN_PROGRESS) {
-      return 'migrate failed: migration already in progress';
+      return ResultText.of($r('app.string.result_migration_migrate_in_progress'),
+        'migrate failed: migration already in progress');
     }
     this.targetVersion = targetVersion;
     this.status = MigrationStatus.IN_PROGRESS;
     this.migrationStartTime = Date.now();
     this.addLog(`Migration started: v${this.currentVersion} -> v${targetVersion}`);
 
-    let stepsApplied = 0;
-    for (let i = 0; i < this.historyCount; i++) {
-      const entry = this.versionHistory[i];
+    let stepsApplied: number = 0;
+    for (let i: number = 0; i < this.historyCount; i++) {
+      const entry: VersionEntry = this.versionHistory[i];
       if (entry.version <= targetVersion && entry.version > this.currentVersion) {
         try {
           this.addLog(`Applying step to v${entry.version}: ${entry.description}`);
           const updatedHistory: VersionEntry[] = [];
-          for (let j = 0; j < this.historyCount; j++) {
+          for (let j: number = 0; j < this.historyCount; j++) {
             if (j === i) {
               const updated: VersionEntry = {
                 version: this.versionHistory[j].version,
@@ -148,7 +161,9 @@ export class DataMigrationManager {
           this.failCount++;
           this.migrationEndTime = Date.now();
           this.addLog(`Migration failed at v${entry.version}: ${(e as Error).message}`);
-          return `migrate failed at step v${entry.version}: ${(e as Error).message}`;
+          return ResultText.ofArgs($r('app.string.result_migration_migrate_failed_step'),
+            [entry.version, (e as Error).message],
+            `migrate failed at step v${entry.version}: ${(e as Error).message}`);
         }
       }
     }
@@ -157,26 +172,30 @@ export class DataMigrationManager {
     this.status = MigrationStatus.COMPLETED;
     this.migrationEndTime = Date.now();
     this.addLog(`Migration completed: v${targetVersion}, ${stepsApplied} steps applied`);
-    return `migrate completed: v${this.currentVersion}, ${stepsApplied} steps applied in ${this.getDuration()}ms`;
+    return ResultText.ofArgs($r('app.string.result_migration_migrate_completed'),
+      [this.currentVersion, stepsApplied, this.getDuration()],
+      `migrate completed: v${this.currentVersion}, ${stepsApplied} steps applied in ${this.getDuration()}ms`);
   }
 
   migrateSync(targetVersion: number): string {
     if (!DataValidator.isValidVersion(targetVersion)) {
-      return `migrateSync failed: invalid target version`;
+      return ResultText.of($r('app.string.result_migration_migrate_sync_invalid_version'),
+        `migrateSync failed: invalid target version`);
     }
     if (targetVersion <= this.currentVersion) {
-      return `migrateSync failed: target must be > current`;
+      return ResultText.of($r('app.string.result_migration_migrate_sync_target_order'),
+        `migrateSync failed: target must be > current`);
     }
     this.targetVersion = targetVersion;
     this.status = MigrationStatus.IN_PROGRESS;
     this.migrationStartTime = Date.now();
     this.addLog(`Sync migration started: v${this.currentVersion} -> v${targetVersion}`);
 
-    let stepsApplied = 0;
-    for (let i = 0; i < this.historyCount; i++) {
+    let stepsApplied: number = 0;
+    for (let i: number = 0; i < this.historyCount; i++) {
       if (this.versionHistory[i].version <= targetVersion && this.versionHistory[i].version > this.currentVersion) {
         const updatedHistory: VersionEntry[] = [];
-        for (let j = 0; j < this.historyCount; j++) {
+        for (let j: number = 0; j < this.historyCount; j++) {
           if (j === i) {
             const updated: VersionEntry = {
               version: this.versionHistory[j].version,
@@ -200,26 +219,33 @@ export class DataMigrationManager {
     this.status = MigrationStatus.COMPLETED;
     this.migrationEndTime = Date.now();
     this.addLog(`Sync migration completed: v${targetVersion}`);
-    return `migrateSync completed: v${this.currentVersion}, ${stepsApplied} steps`;
+    return ResultText.ofArgs($r('app.string.result_migration_migrate_sync_completed'),
+      [this.currentVersion, stepsApplied],
+      `migrateSync completed: v${this.currentVersion}, ${stepsApplied} steps`);
   }
 
   rollback(targetVersion: number): string {
     if (!DataValidator.isValidVersion(targetVersion)) {
-      return 'rollback failed: invalid target version';
+      return ResultText.of($r('app.string.result_migration_rollback_invalid_version'),
+        'rollback failed: invalid target version');
     }
     if (targetVersion >= this.currentVersion) {
-      return 'rollback failed: target must be < current version';
+      return ResultText.of($r('app.string.result_migration_rollback_target_order'),
+        'rollback failed: target must be < current version');
     }
     if (this.status === MigrationStatus.IN_PROGRESS) {
-      return 'rollback failed: migration in progress';
+      return ResultText.of($r('app.string.result_migration_rollback_in_progress'),
+        'rollback failed: migration in progress');
     }
     this.addLog(`Rollback started: v${this.currentVersion} -> v${targetVersion}`);
-    const previousVersion = this.currentVersion;
+    const previousVersion: number = this.currentVersion;
     this.currentVersion = targetVersion;
     this.status = MigrationStatus.ROLLED_BACK;
     this.migrationEndTime = Date.now();
     this.addLog(`Rollback completed: v${previousVersion} -> v${targetVersion}`);
-    return `rollback completed: v${previousVersion} -> v${targetVersion}`;
+    return ResultText.ofArgs($r('app.string.result_migration_rollback_completed'),
+      [previousVersion, targetVersion],
+      `rollback completed: v${previousVersion} -> v${targetVersion}`);
   }
 
   getMigrationStrategy(): string {
@@ -227,18 +253,20 @@ export class DataMigrationManager {
     strategies.push(`current=v${this.currentVersion}`);
     strategies.push(`auto=${this.autoMigrate}`);
     strategies.push(`registeredSteps=${this.historyCount}`);
-    for (let i = 0; i < this.historyCount; i++) {
-      const entry = this.versionHistory[i];
-      const applied = entry.appliedAt > 0 ? 'applied' : 'pending';
+    for (let i: number = 0; i < this.historyCount; i++) {
+      const entry: VersionEntry = this.versionHistory[i];
+      const applied: string = entry.appliedAt > 0 ? 'applied' : 'pending';
       strategies.push(`step:v${entry.version}:${entry.description}:${applied}`);
     }
-    return `Strategy: [${strategies.join(', ')}]`;
+    return ResultText.ofArgs($r('app.string.result_migration_strategy'), [strategies.join(', ')],
+      `Strategy: [${strategies.join(', ')}]`);
   }
 
   setAutoMigrate(enabled: boolean): string {
     this.autoMigrate = enabled;
     this.addLog(`Auto-migrate set to ${enabled}`);
-    return `setAutoMigrate: ${enabled}`;
+    return ResultText.ofArgs($r('app.string.result_migration_set_auto_migrate'), [String(enabled)],
+      `setAutoMigrate: ${enabled}`);
   }
 
   isAutoMigrate(): boolean {
@@ -247,37 +275,42 @@ export class DataMigrationManager {
 
   getVersionHistory(): string {
     if (this.historyCount === 0) {
-      return 'Version history: empty';
+      return ResultText.of($r('app.string.result_migration_history_empty'), 'Version history: empty');
     }
     const result: string[] = [];
-    for (let i = 0; i < this.historyCount; i++) {
-      const entry = this.versionHistory[i];
-      const status = entry.success ? 'OK' : 'PENDING';
+    for (let i: number = 0; i < this.historyCount; i++) {
+      const entry: VersionEntry = this.versionHistory[i];
+      const status: string = entry.success ? 'OK' : 'PENDING';
       result.push(`v${entry.version}:${entry.description}:${status}`);
     }
-    return `Version history: [${result.join(', ')}]`;
+    return ResultText.ofArgs($r('app.string.result_migration_history'), [result.join(', ')],
+      `Version history: [${result.join(', ')}]`);
   }
 
   getMigrationLog(): string {
     if (this.logCount === 0) {
-      return 'Migration log: empty';
+      return ResultText.of($r('app.string.result_migration_log_empty'), 'Migration log: empty');
     }
-    return `Migration log: ${this.logCount} entries`;
+    return ResultText.ofArgs($r('app.string.result_migration_log'), [this.logCount],
+      `Migration log: ${this.logCount} entries`);
   }
 
   getMigrationLogEntries(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < this.logCount; i++) {
+    for (let i: number = 0; i < this.logCount; i++) {
       result.push(this.migrationLog[i]);
     }
     return result;
   }
 
   getStatistics(): string {
-    const duration = this.migrationEndTime > 0 ? this.migrationEndTime - this.migrationStartTime : 0;
-    return `Migration Statistics: version=${this.currentVersion}, status=${this.status}, ` +
-      `steps=${this.historyCount}, success=${this.successCount}, fail=${this.failCount}, ` +
-      `autoMigrate=${this.autoMigrate}, lastDuration=${duration}ms`;
+    const duration: number = this.migrationEndTime > 0 ? this.migrationEndTime - this.migrationStartTime : 0;
+    return ResultText.ofArgs($r('app.string.result_migration_statistics'),
+      [this.currentVersion, String(this.status), this.historyCount, this.successCount, this.failCount,
+        String(this.autoMigrate), duration],
+      `Migration Statistics: version=${this.currentVersion}, status=${this.status}, ` +
+        `steps=${this.historyCount}, success=${this.successCount}, fail=${this.failCount}, ` +
+        `autoMigrate=${this.autoMigrate}, lastDuration=${duration}ms`);
   }
 
   isInitialized(): boolean {
@@ -303,7 +336,7 @@ export class DataMigrationManager {
   private addLog(message: string): void {
     if (this.logCount < 1000) {
       const newLog: string[] = [];
-      for (let i = 0; i < this.logCount; i++) {
+      for (let i: number = 0; i < this.logCount; i++) {
         newLog.push(this.migrationLog[i]);
       }
       newLog.push(`[${Date.now()}] ${message}`);

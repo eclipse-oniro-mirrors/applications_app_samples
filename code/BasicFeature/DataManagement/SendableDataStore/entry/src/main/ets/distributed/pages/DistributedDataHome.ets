@@ -15,6 +15,7 @@
 
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from '../../utils/Logger';
+import { ResultText } from '../../utils/ResultText';
 import { DistributedDataManager } from '../DistributedDataManager';
 import { SyncMode, ConflictPolicy } from '../../models/DataModels';
 
@@ -90,7 +91,8 @@ struct DistributedDataHome {
             $r('app.string.delete_data'),
             (): void => this.runSync((): string => this.manager.delete('user_name')))
           this.buttonRow($r('app.string.has_data'),
-            (): void => this.runSync((): string => `has('user_name')=${this.manager.has('user_name')}`),
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_dist_has'),
+              [String(this.manager.has('user_name'))], `has('user_name')=${this.manager.has('user_name')}`)),
             $r('app.string.get_all_keys'),
             (): void => this.runSync((): string => this.manager.getAllKeys()))
 
@@ -108,7 +110,8 @@ struct DistributedDataHome {
           this.buttonRow($r('app.string.set_offline'),
             (): void => this.runSync((): string => this.manager.setDeviceConnected('dev_002', false)),
             $r('app.string.connected_count'),
-            (): void => this.runSync((): string => `connected=${this.manager.getConnectedDevices()}`))
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_dist_connected'),
+              [this.manager.getConnectedDevices()], `connected=${this.manager.getConnectedDevices()}`)))
 
           this.sectionTitle($r('app.string.section_dist_sync'))
           this.buttonRow($r('app.string.sync_data'),
@@ -118,7 +121,8 @@ struct DistributedDataHome {
           this.buttonRow($r('app.string.set_sync_mode'),
             (): void => this.runSync((): string => this.manager.setSyncMode(SyncMode.REAL_TIME)),
             $r('app.string.get_sync_mode'),
-            (): void => this.runSync((): string => `syncMode=${this.manager.getSyncMode()}`))
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_dist_sync_mode'),
+              [String(this.manager.getSyncMode())], `syncMode=${this.manager.getSyncMode()}`)))
 
           this.sectionTitle($r('app.string.section_dist_conflict'))
           this.buttonRow($r('app.string.set_conflict_policy'),

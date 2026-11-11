@@ -16,6 +16,7 @@
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from '../../utils/Logger';
+import { ResultText } from '../../utils/ResultText';
 import { SendablePreferencesHelper } from '../SendablePreferencesHelper';
 
 @Entry
@@ -25,7 +26,7 @@ struct SendablePreferencesHome {
   private helper: SendablePreferencesHelper | null = null;
 
   aboutToAppear(): void {
-    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     this.helper = new SendablePreferencesHelper(context, (message: string): void => {
       this.result = message;
     });
@@ -260,8 +261,8 @@ struct SendablePreferencesHome {
           this.buttonRow($r('app.string.reinitialize_sync'),
             (): void => this.runSync((): string => this.getHelper().reinitializeSync()),
             $r('app.string.check_initialized'),
-            (): void => this.runSync((): string =>
-              `isInitialized=${this.getHelper().isInitialized()}`))
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_prefs_initialized'),
+              [String(this.getHelper().isInitialized())], `isInitialized=${this.getHelper().isInitialized()}`)))
 
           this.sectionTitle($r('app.string.section_cache'))
           this.buttonRow($r('app.string.remove_cache_async'),

@@ -17,6 +17,7 @@ import { DataValidator } from '../utils/DataValidator';
 import { DataStoreConstants } from '../constants/DataStoreConstants';
 import { EncryptionConfig, EncryptionMode, HashAlgorithm } from '../models/DataModels';
 import { Logger } from '../utils/Logger';
+import { ResultText } from '../utils/ResultText';
 
 const DEFAULT_KEY_LENGTH: number = 256;
 const DEFAULT_IV_LENGTH: number = 16;
@@ -57,18 +58,23 @@ export class DataEncryptionManager {
     this.decryptCount = 0;
     this.hashCount = 0;
     this.createdAt = Date.now();
-    return `Encryption manager initialized: mode=${mode}, algorithm=${algorithm}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_initialized'),
+      [String(mode), String(algorithm)],
+      `Encryption manager initialized: mode=${mode}, algorithm=${algorithm}`);
   }
 
   configure(config: EncryptionConfig): string {
     if (!DataValidator.isValidEncryptionMode(config.mode)) {
-      return 'configure failed: invalid encryption mode';
+      return ResultText.of($r('app.string.result_encryption_configure_invalid_mode'),
+        'configure failed: invalid encryption mode');
     }
     if (!DataValidator.isValidHashAlgorithm(config.hashAlgorithm)) {
-      return 'configure failed: invalid hash algorithm';
+      return ResultText.of($r('app.string.result_encryption_configure_invalid_hash'),
+        'configure failed: invalid hash algorithm');
     }
     if (config.keyLength < MIN_KEY_LENGTH || config.keyLength > MAX_KEY_LENGTH) {
-      return `configure failed: keyLength ${config.keyLength} out of range`;
+      return ResultText.ofArgs($r('app.string.result_encryption_configure_key_length'), [config.keyLength],
+        `configure failed: keyLength ${config.keyLength} out of range`);
     }
     this.encryptionMode = config.mode;
     this.hashAlgorithm = config.hashAlgorithm;
@@ -76,28 +82,34 @@ export class DataEncryptionManager {
     this.ivLength = config.ivLength;
     this.autoEncrypt = config.autoEncrypt;
     this.createdAt = Date.now();
-    return `configure completed: mode=${config.mode}, keyLen=${config.keyLength}, auto=${config.autoEncrypt}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_configure_completed'),
+      [String(config.mode), config.keyLength, String(config.autoEncrypt)],
+      `configure completed: mode=${config.mode}, keyLen=${config.keyLength}, auto=${config.autoEncrypt}`);
   }
 
   generateKey(): string {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let key = '';
-    const effectiveLength = Math.floor(this.keyLength / 8);
-    const genLength = effectiveLength > 0 ? effectiveLength : 32;
-    for (let i = 0; i < genLength && i < 128; i++) {
-      const idx = Math.floor(Math.random() * chars.length);
+    const chars: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let key: string = '';
+    const effectiveLength: number = Math.floor(this.keyLength / 8);
+    const genLength: number = effectiveLength > 0 ? effectiveLength : 32;
+    for (let i: number = 0; i < genLength && i < 128; i++) {
+      const idx: number = Math.floor(Math.random() * chars.length);
       key += chars.charAt(idx);
     }
     this.encryptionKey = key;
     this.keyGenerated = true;
-    return `generateKey completed: length=${key.length}, mode=${this.encryptionMode}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_generate_key_completed'),
+      [key.length, String(this.encryptionMode)],
+      `generateKey completed: length=${key.length}, mode=${this.encryptionMode}`);
   }
 
   getKey(): string {
     if (!this.keyGenerated) {
-      return 'getKey failed: no key generated';
+      return ResultText.of($r('app.string.result_encryption_get_key_failed'), 'getKey failed: no key generated');
     }
-    return `Key: ${this.encryptionKey.substring(0, 8)}...${this.encryptionKey.substring(this.encryptionKey.length - 4)}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_key'),
+      [this.encryptionKey.substring(0, 8), this.encryptionKey.substring(this.encryptionKey.length - 4)],
+      `Key: ${this.encryptionKey.substring(0, 8)}...${this.encryptionKey.substring(this.encryptionKey.length - 4)}`);
   }
 
   getKeyLength(): number {
@@ -106,62 +118,70 @@ export class DataEncryptionManager {
 
   setKey(key: string): string {
     if (key.length < MIN_KEY_LENGTH) {
-      return `setKey failed: key too short (${key.length} < ${MIN_KEY_LENGTH})`;
+      return ResultText.ofArgs($r('app.string.result_encryption_set_key_too_short'), [key.length, MIN_KEY_LENGTH],
+        `setKey failed: key too short (${key.length} < ${MIN_KEY_LENGTH})`);
     }
     this.encryptionKey = key;
     this.keyGenerated = true;
-    return `setKey completed: length=${key.length}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_set_key_completed'), [key.length],
+      `setKey completed: length=${key.length}`);
   }
 
   encrypt(plainText: string): string {
     if (!this.keyGenerated) {
-      return 'encrypt failed: no encryption key';
+      return ResultText.of($r('app.string.result_encryption_encrypt_no_key'), 'encrypt failed: no encryption key');
     }
     if (this.encryptionMode === EncryptionMode.NONE) {
-      return 'encrypt failed: encryption mode is NONE';
+      return ResultText.of($r('app.string.result_encryption_encrypt_mode_none'),
+        'encrypt failed: encryption mode is NONE');
     }
     if (plainText.length === 0) {
-      return 'encrypt failed: empty plaintext';
+      return ResultText.of($r('app.string.result_encryption_encrypt_empty'), 'encrypt failed: empty plaintext');
     }
     if (plainText.length > DataStoreConstants.MAX_VALUE_LENGTH) {
-      return `encrypt failed: text exceeds max length`;
+      return ResultText.of($r('app.string.result_encryption_encrypt_exceeds_max'),
+        `encrypt failed: text exceeds max length`);
     }
-    let encrypted = '';
-    for (let i = 0; i < plainText.length; i++) {
-      const charCode = plainText.charCodeAt(i);
-      const keyChar = this.encryptionKey.charCodeAt(i % this.encryptionKey.length);
-      const shifted = (charCode + keyChar) % 65536;
+    let encrypted: string = '';
+    for (let i: number = 0; i < plainText.length; i++) {
+      const charCode: number = plainText.charCodeAt(i);
+      const keyChar: number = this.encryptionKey.charCodeAt(i % this.encryptionKey.length);
+      const shifted: number = (charCode + keyChar) % 65536;
       encrypted += shifted.toString(16).padStart(4, '0');
     }
     this.encryptCount++;
     this.lastEncryptTime = Date.now();
-    return `encrypt(${this.encryptionMode}): ${encrypted}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_encrypt'), [String(this.encryptionMode), encrypted],
+      `encrypt(${this.encryptionMode}): ${encrypted}`);
   }
 
   decrypt(cipherHex: string): string {
     if (!this.keyGenerated) {
-      return 'decrypt failed: no encryption key';
+      return ResultText.of($r('app.string.result_encryption_decrypt_no_key'), 'decrypt failed: no encryption key');
     }
     if (this.encryptionMode === EncryptionMode.NONE) {
-      return 'decrypt failed: encryption mode is NONE';
+      return ResultText.of($r('app.string.result_encryption_decrypt_mode_none'),
+        'decrypt failed: encryption mode is NONE');
     }
     if (cipherHex.length === 0 || cipherHex.length % 4 !== 0) {
-      return 'decrypt failed: invalid ciphertext format';
+      return ResultText.of($r('app.string.result_encryption_decrypt_invalid_format'),
+        'decrypt failed: invalid ciphertext format');
     }
-    let decrypted = '';
+    let decrypted: string = '';
     const hexPairs: string[] = [];
-    for (let i = 0; i < cipherHex.length; i += 4) {
+    for (let i: number = 0; i < cipherHex.length; i += 4) {
       hexPairs.push(cipherHex.substring(i, i + 4));
     }
-    for (let i = 0; i < hexPairs.length; i++) {
-      const hexVal = parseInt(hexPairs[i], 16);
-      const keyChar = this.encryptionKey.charCodeAt(i % this.encryptionKey.length);
-      const original = (hexVal - keyChar + 65536) % 65536;
+    for (let i: number = 0; i < hexPairs.length; i++) {
+      const hexVal: number = parseInt(hexPairs[i], 16);
+      const keyChar: number = this.encryptionKey.charCodeAt(i % this.encryptionKey.length);
+      const original: number = (hexVal - keyChar + 65536) % 65536;
       decrypted += String.fromCharCode(original);
     }
     this.decryptCount++;
     this.lastDecryptTime = Date.now();
-    return `decrypt(${this.encryptionMode}): ${decrypted}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_decrypt'), [String(this.encryptionMode), decrypted],
+      `decrypt(${this.encryptionMode}): ${decrypted}`);
   }
 
   encryptSync(plainText: string): string {
@@ -174,16 +194,16 @@ export class DataEncryptionManager {
 
   computeHash(data: string): string {
     if (data.length === 0) {
-      return 'computeHash failed: empty data';
+      return ResultText.of($r('app.string.result_encryption_hash_empty'), 'computeHash failed: empty data');
     }
-    let hash = 0;
-    for (let i = 0; i < data.length; i++) {
-      const char = data.charCodeAt(i);
+    let hash: number = 0;
+    for (let i: number = 0; i < data.length; i++) {
+      const char: number = data.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
-    const absHash = Math.abs(hash);
-    let hashStr = '';
+    const absHash: number = Math.abs(hash);
+    let hashStr: string = '';
     switch (this.hashAlgorithm) {
       case HashAlgorithm.SHA_256:
         hashStr = `sha256_${absHash.toString(16).padStart(8, '0')}`;
@@ -198,21 +218,25 @@ export class DataEncryptionManager {
         hashStr = `unknown_${absHash.toString(16)}`;
     }
     this.hashCount++;
-    return `computeHash(${this.hashAlgorithm}): ${hashStr}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_hash'), [String(this.hashAlgorithm), hashStr],
+      `computeHash(${this.hashAlgorithm}): ${hashStr}`);
   }
 
   verifyHash(data: string, expectedHash: string): string {
-    const computed = this.computeHash(data);
-    const match = computed === expectedHash;
-    return `verifyHash: ${match ? 'MATCH' : 'MISMATCH'}`;
+    const computed: string = this.computeHash(data);
+    const match: boolean = computed === expectedHash;
+    return ResultText.ofArgs($r('app.string.result_encryption_verify_hash'), [match ? 'MATCH' : 'MISMATCH'],
+      `verifyHash: ${match ? 'MATCH' : 'MISMATCH'}`);
   }
 
   setEncryptionMode(mode: EncryptionMode): string {
     if (!DataValidator.isValidEncryptionMode(mode)) {
-      return `setEncryptionMode failed: invalid mode '${mode}'`;
+      return ResultText.ofArgs($r('app.string.result_encryption_set_mode_invalid'), [String(mode)],
+        `setEncryptionMode failed: invalid mode '${mode}'`);
     }
     this.encryptionMode = mode;
-    return `setEncryptionMode: ${mode}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_set_mode'), [String(mode)],
+      `setEncryptionMode: ${mode}`);
   }
 
   getEncryptionMode(): EncryptionMode {
@@ -221,10 +245,12 @@ export class DataEncryptionManager {
 
   setHashAlgorithm(algorithm: HashAlgorithm): string {
     if (!DataValidator.isValidHashAlgorithm(algorithm)) {
-      return `setHashAlgorithm failed: invalid algorithm '${algorithm}'`;
+      return ResultText.ofArgs($r('app.string.result_encryption_set_hash_invalid'), [String(algorithm)],
+        `setHashAlgorithm failed: invalid algorithm '${algorithm}'`);
     }
     this.hashAlgorithm = algorithm;
-    return `setHashAlgorithm: ${algorithm}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_set_hash'), [String(algorithm)],
+      `setHashAlgorithm: ${algorithm}`);
   }
 
   getHashAlgorithm(): HashAlgorithm {
@@ -233,7 +259,8 @@ export class DataEncryptionManager {
 
   setAutoEncrypt(enabled: boolean): string {
     this.autoEncrypt = enabled;
-    return `setAutoEncrypt: ${enabled}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_set_auto_encrypt'), [String(enabled)],
+      `setAutoEncrypt: ${enabled}`);
   }
 
   isAutoEncrypt(): boolean {
@@ -241,14 +268,20 @@ export class DataEncryptionManager {
   }
 
   getEncryptionConfig(): string {
-    return `EncryptionConfig: mode=${this.encryptionMode}, keyLen=${this.keyLength}, ` +
-      `ivLen=${this.ivLength}, hash=${this.hashAlgorithm}, autoEncrypt=${this.autoEncrypt}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_config'),
+      [String(this.encryptionMode), this.keyLength, this.ivLength, String(this.hashAlgorithm),
+        String(this.autoEncrypt)],
+      `EncryptionConfig: mode=${this.encryptionMode}, keyLen=${this.keyLength}, ` +
+        `ivLen=${this.ivLength}, hash=${this.hashAlgorithm}, autoEncrypt=${this.autoEncrypt}`);
   }
 
   getStatistics(): string {
-    return `Encryption Statistics: mode=${this.encryptionMode}, hash=${this.hashAlgorithm}, ` +
-      `keyGenerated=${this.keyGenerated}, encrypts=${this.encryptCount}, decrypts=${this.decryptCount}, ` +
-      `hashes=${this.hashCount}, autoEncrypt=${this.autoEncrypt}, createdAt=${this.createdAt}`;
+    return ResultText.ofArgs($r('app.string.result_encryption_statistics'),
+      [String(this.encryptionMode), String(this.hashAlgorithm), String(this.keyGenerated), this.encryptCount,
+        this.decryptCount, this.hashCount, String(this.autoEncrypt), this.createdAt],
+      `Encryption Statistics: mode=${this.encryptionMode}, hash=${this.hashAlgorithm}, ` +
+        `keyGenerated=${this.keyGenerated}, encrypts=${this.encryptCount}, decrypts=${this.decryptCount}, ` +
+        `hashes=${this.hashCount}, autoEncrypt=${this.autoEncrypt}, createdAt=${this.createdAt}`);
   }
 
   resetStatistics(): string {
@@ -257,7 +290,7 @@ export class DataEncryptionManager {
     this.hashCount = 0;
     this.lastEncryptTime = 0;
     this.lastDecryptTime = 0;
-    return 'Encryption statistics reset';
+    return ResultText.of($r('app.string.result_encryption_statistics_reset'), 'Encryption statistics reset');
   }
 
   isInitialized(): boolean {

@@ -17,9 +17,11 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from '../utils/Logger';
+import { ResultText } from '../utils/ResultText';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    ResultText.init(this.context);
     Logger.info('Ability onCreate');
   }
 

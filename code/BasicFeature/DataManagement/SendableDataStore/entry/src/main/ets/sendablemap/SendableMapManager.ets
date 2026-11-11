@@ -17,6 +17,7 @@ import { DataValidator } from '../utils/DataValidator';
 import { DataStoreConstants } from '../constants/DataStoreConstants';
 import { MapEntry, DataType } from '../models/DataModels';
 import { Logger } from '../utils/Logger';
+import { ResultText } from '../utils/ResultText';
 
 const DEFAULT_MAP_CAPACITY: number = 64;
 
@@ -41,7 +42,8 @@ export class SendableMapManager {
 
   initialize(capacity: number): string {
     if (!DataValidator.isValidCapacity(capacity, DataStoreConstants.MAX_MAP_SIZE)) {
-      return `initialize failed: invalid capacity ${capacity}`;
+      return ResultText.ofArgs($r('app.string.result_map_initialize_invalid_capacity'), [capacity],
+        `initialize failed: invalid capacity ${capacity}`);
     }
     this.keys = [];
     this.values = [];
@@ -50,24 +52,28 @@ export class SendableMapManager {
     this.mapSize = 0;
     this.createdAt = Date.now();
     this.updatedAt = this.createdAt;
-    return `Map initialized with capacity=${capacity}`;
+    return ResultText.ofArgs($r('app.string.result_map_initialized'), [capacity],
+      `Map initialized with capacity=${capacity}`);
   }
 
   putString(key: string, value: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'putString failed: invalid key';
+      return ResultText.of($r('app.string.result_map_put_string_invalid_key'), 'putString failed: invalid key');
     }
-    const existIdx = this.findKeyIndex(key);
+    const existIdx: number = this.findKeyIndex(key);
     if (existIdx >= 0) {
       this.values[existIdx] = value;
       this.dataTypes[existIdx] = DataType.STRING;
       this.timestamps[existIdx] = Date.now();
       this.writeCount++;
       this.updatedAt = Date.now();
-      return `putString updated: ${key}=${value}`;
+      return ResultText.ofArgs($r('app.string.result_map_put_string_updated'), [key, value],
+        `putString updated: ${key}=${value}`);
     }
     if (this.mapSize >= DataStoreConstants.MAX_MAP_SIZE) {
-      return `putString failed: map is full (${this.mapSize}/${DataStoreConstants.MAX_MAP_SIZE})`;
+      return ResultText.ofArgs($r('app.string.result_map_put_string_full'),
+        [this.mapSize, DataStoreConstants.MAX_MAP_SIZE],
+        `putString failed: map is full (${this.mapSize}/${DataStoreConstants.MAX_MAP_SIZE})`);
     }
     this.keys.push(key);
     this.values.push(value);
@@ -76,28 +82,31 @@ export class SendableMapManager {
     this.mapSize++;
     this.writeCount++;
     this.updatedAt = Date.now();
-    return `putString completed: ${key}=${value}`;
+    return ResultText.ofArgs($r('app.string.result_map_put_string_completed'), [key, value],
+      `putString completed: ${key}=${value}`);
   }
 
   putNumber(key: string, value: number): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'putNumber failed: invalid key';
+      return ResultText.of($r('app.string.result_map_put_number_invalid_key'), 'putNumber failed: invalid key');
     }
     if (!DataValidator.isNumber(value)) {
-      return 'putNumber failed: invalid number value';
+      return ResultText.of($r('app.string.result_map_put_number_invalid_value'),
+        'putNumber failed: invalid number value');
     }
-    const valueStr = value.toString();
-    const existIdx = this.findKeyIndex(key);
+    const valueStr: string = value.toString();
+    const existIdx: number = this.findKeyIndex(key);
     if (existIdx >= 0) {
       this.values[existIdx] = valueStr;
       this.dataTypes[existIdx] = DataType.NUMBER;
       this.timestamps[existIdx] = Date.now();
       this.writeCount++;
       this.updatedAt = Date.now();
-      return `putNumber updated: ${key}=${value}`;
+      return ResultText.ofArgs($r('app.string.result_map_put_number_updated'), [key, String(value)],
+        `putNumber updated: ${key}=${value}`);
     }
     if (this.mapSize >= DataStoreConstants.MAX_MAP_SIZE) {
-      return `putNumber failed: map is full`;
+      return ResultText.of($r('app.string.result_map_put_number_full'), 'putNumber failed: map is full');
     }
     this.keys.push(key);
     this.values.push(valueStr);
@@ -106,25 +115,27 @@ export class SendableMapManager {
     this.mapSize++;
     this.writeCount++;
     this.updatedAt = Date.now();
-    return `putNumber completed: ${key}=${value}`;
+    return ResultText.ofArgs($r('app.string.result_map_put_number_completed'), [key, String(value)],
+      `putNumber completed: ${key}=${value}`);
   }
 
   putBoolean(key: string, value: boolean): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'putBoolean failed: invalid key';
+      return ResultText.of($r('app.string.result_map_put_boolean_invalid_key'), 'putBoolean failed: invalid key');
     }
-    const valueStr = value ? 'true' : 'false';
-    const existIdx = this.findKeyIndex(key);
+    const valueStr: string = value ? 'true' : 'false';
+    const existIdx: number = this.findKeyIndex(key);
     if (existIdx >= 0) {
       this.values[existIdx] = valueStr;
       this.dataTypes[existIdx] = DataType.BOOLEAN;
       this.timestamps[existIdx] = Date.now();
       this.writeCount++;
       this.updatedAt = Date.now();
-      return `putBoolean updated: ${key}=${value}`;
+      return ResultText.ofArgs($r('app.string.result_map_put_boolean_updated'), [key, String(value)],
+        `putBoolean updated: ${key}=${value}`);
     }
     if (this.mapSize >= DataStoreConstants.MAX_MAP_SIZE) {
-      return `putBoolean failed: map is full`;
+      return ResultText.of($r('app.string.result_map_put_boolean_full'), 'putBoolean failed: map is full');
     }
     this.keys.push(key);
     this.values.push(valueStr);
@@ -133,27 +144,31 @@ export class SendableMapManager {
     this.mapSize++;
     this.writeCount++;
     this.updatedAt = Date.now();
-    return `putBoolean completed: ${key}=${value}`;
+    return ResultText.ofArgs($r('app.string.result_map_put_boolean_completed'), [key, String(value)],
+      `putBoolean completed: ${key}=${value}`);
   }
 
   get(key: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'get failed: invalid key';
+      return ResultText.of($r('app.string.result_map_get_invalid_key'), 'get failed: invalid key');
     }
-    const idx = this.findKeyIndex(key);
+    const idx: number = this.findKeyIndex(key);
     if (idx < 0) {
-      return `get: key '${key}' not found`;
+      return ResultText.ofArgs($r('app.string.result_map_get_not_found'), [key],
+        `get: key '${key}' not found`);
     }
     this.readCount++;
     this.updatedAt = Date.now();
-    return `get('${key}'): value=${this.values[idx]}, type=${this.dataTypes[idx]}`;
+    return ResultText.ofArgs($r('app.string.result_map_get_value'),
+      [key, this.values[idx], String(this.dataTypes[idx])],
+      `get('${key}'): value=${this.values[idx]}, type=${this.dataTypes[idx]}`);
   }
 
   getValue(key: string): string {
     if (!DataValidator.isValidKey(key)) {
       return '';
     }
-    const idx = this.findKeyIndex(key);
+    const idx: number = this.findKeyIndex(key);
     if (idx < 0) {
       return '';
     }
@@ -163,37 +178,45 @@ export class SendableMapManager {
 
   getWithType(key: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'getWithType failed: invalid key';
+      return ResultText.of($r('app.string.result_map_get_with_type_invalid_key'),
+        'getWithType failed: invalid key');
     }
-    const idx = this.findKeyIndex(key);
+    const idx: number = this.findKeyIndex(key);
     if (idx < 0) {
-      return `getWithType: key '${key}' not found`;
+      return ResultText.ofArgs($r('app.string.result_map_get_with_type_not_found'), [key],
+        `getWithType: key '${key}' not found`);
     }
     this.readCount++;
-    return `getWithType('${key}'): {value=${this.values[idx]}, type=${this.dataTypes[idx]}, ts=${this.timestamps[idx]}}`;
+    return ResultText.ofArgs($r('app.string.result_map_get_with_type_value'),
+      [key, this.values[idx], String(this.dataTypes[idx]), this.timestamps[idx]],
+      `getWithType('${key}'): {value=${this.values[idx]}, type=${this.dataTypes[idx]}, ` +
+        `ts=${this.timestamps[idx]}}`);
   }
 
   remove(key: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'remove failed: invalid key';
+      return ResultText.of($r('app.string.result_map_remove_invalid_key'), 'remove failed: invalid key');
     }
-    const idx = this.findKeyIndex(key);
+    const idx: number = this.findKeyIndex(key);
     if (idx < 0) {
-      return `remove: key '${key}' not found`;
+      return ResultText.ofArgs($r('app.string.result_map_remove_not_found'), [key],
+        `remove: key '${key}' not found`);
     }
     this.removeAtIndex(idx);
     this.deleteCount++;
     this.updatedAt = Date.now();
-    return `remove completed: '${key}'`;
+    return ResultText.ofArgs($r('app.string.result_map_remove_completed'), [key],
+      `remove completed: '${key}'`);
   }
 
   has(key: string): string {
     if (!DataValidator.isValidKey(key)) {
-      return 'has failed: invalid key';
+      return ResultText.of($r('app.string.result_map_has_invalid_key'), 'has failed: invalid key');
     }
-    const found = this.findKeyIndex(key) >= 0;
+    const found: boolean = this.findKeyIndex(key) >= 0;
     this.readCount++;
-    return `has('${key}'): ${found}`;
+    return ResultText.ofArgs($r('app.string.result_map_has_value'), [key, String(found)],
+      `has('${key}'): ${found}`);
   }
 
   hasKey(key: string): boolean {
@@ -205,17 +228,18 @@ export class SendableMapManager {
 
   putAll(entries: MapEntry[]): string {
     if (entries.length === 0) {
-      return 'putAll failed: empty entries';
+      return ResultText.of($r('app.string.result_map_put_all_empty'), 'putAll failed: empty entries');
     }
     if (entries.length > DataStoreConstants.MAX_BATCH_SIZE) {
-      return `putAll failed: batch size ${entries.length} exceeds max`;
+      return ResultText.ofArgs($r('app.string.result_map_put_all_exceeds_max'), [entries.length],
+        `putAll failed: batch size ${entries.length} exceeds max`);
     }
-    let successCount = 0;
-    for (let i = 0; i < entries.length; i++) {
-      const entry = entries[i];
+    let successCount: number = 0;
+    for (let i: number = 0; i < entries.length; i++) {
+      const entry: MapEntry = entries[i];
       if (DataValidator.isValidKey(entry.key)) {
-        const valueStr = entry.value !== null ? entry.value.toString() : 'null';
-        const existIdx = this.findKeyIndex(entry.key);
+        const valueStr: string = entry.value !== null ? entry.value.toString() : 'null';
+        const existIdx: number = this.findKeyIndex(entry.key);
         if (existIdx >= 0) {
           this.values[existIdx] = valueStr;
           this.dataTypes[existIdx] = entry.dataType;
@@ -234,16 +258,17 @@ export class SendableMapManager {
     }
     this.writeCount += successCount;
     this.updatedAt = Date.now();
-    return `putAll completed: ${successCount}/${entries.length} entries`;
+    return ResultText.ofArgs($r('app.string.result_map_put_all_completed'), [successCount, entries.length],
+      `putAll completed: ${successCount}/${entries.length} entries`);
   }
 
   getAll(targetKeys: string[]): string {
     if (targetKeys.length === 0) {
-      return 'getAll failed: empty keys';
+      return ResultText.of($r('app.string.result_map_get_all_empty'), 'getAll failed: empty keys');
     }
     const results: string[] = [];
-    for (let i = 0; i < targetKeys.length; i++) {
-      const idx = this.findKeyIndex(targetKeys[i]);
+    for (let i: number = 0; i < targetKeys.length; i++) {
+      const idx: number = this.findKeyIndex(targetKeys[i]);
       if (idx >= 0) {
         results.push(`${targetKeys[i]}=${this.values[idx]}`);
       } else {
@@ -251,16 +276,17 @@ export class SendableMapManager {
       }
     }
     this.readCount += targetKeys.length;
-    return `getAll: [${results.join(', ')}]`;
+    return ResultText.ofArgs($r('app.string.result_map_get_all'), [results.join(', ')],
+      `getAll: [${results.join(', ')}]`);
   }
 
   removeAll(targetKeys: string[]): string {
     if (targetKeys.length === 0) {
-      return 'removeAll failed: empty keys';
+      return ResultText.of($r('app.string.result_map_remove_all_empty'), 'removeAll failed: empty keys');
     }
-    let removedCount = 0;
-    for (let i = 0; i < targetKeys.length; i++) {
-      const idx = this.findKeyIndex(targetKeys[i]);
+    let removedCount: number = 0;
+    for (let i: number = 0; i < targetKeys.length; i++) {
+      const idx: number = this.findKeyIndex(targetKeys[i]);
       if (idx >= 0) {
         this.removeAtIndex(idx);
         removedCount++;
@@ -268,7 +294,8 @@ export class SendableMapManager {
     }
     this.deleteCount += removedCount;
     this.updatedAt = Date.now();
-    return `removeAll completed: ${removedCount}/${targetKeys.length} keys removed`;
+    return ResultText.ofArgs($r('app.string.result_map_remove_all_completed'), [removedCount, targetKeys.length],
+      `removeAll completed: ${removedCount}/${targetKeys.length} keys removed`);
   }
 
   clear(): string {
@@ -278,31 +305,34 @@ export class SendableMapManager {
     this.timestamps = [];
     this.mapSize = 0;
     this.updatedAt = Date.now();
-    return 'Map cleared';
+    return ResultText.of($r('app.string.result_map_cleared'), 'Map cleared');
   }
 
   allKeys(): string {
     this.readCount++;
-    return `Keys: [${this.keys.join(', ')}] (${this.mapSize} keys)`;
+    return ResultText.ofArgs($r('app.string.result_map_keys'), [this.keys.join(', '), this.mapSize],
+      `Keys: [${this.keys.join(', ')}] (${this.mapSize} keys)`);
   }
 
   allValues(): string {
     this.readCount++;
-    return `Values: [${this.values.join(', ')}] (${this.mapSize} values)`;
+    return ResultText.ofArgs($r('app.string.result_map_values'), [this.values.join(', '), this.mapSize],
+      `Values: [${this.values.join(', ')}] (${this.mapSize} values)`);
   }
 
   allEntries(): string {
     this.readCount++;
     const entries: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       entries.push(`{${this.keys[i]}:${this.values[i]}:${this.dataTypes[i]}}`);
     }
-    return `Entries: [${entries.join(', ')}]`;
+    return ResultText.ofArgs($r('app.string.result_map_entries'), [entries.join(', ')],
+      `Entries: [${entries.join(', ')}]`);
   }
 
   getKeysArray(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       result.push(this.keys[i]);
     }
     return result;
@@ -310,7 +340,7 @@ export class SendableMapManager {
 
   getValuesArray(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       result.push(this.values[i]);
     }
     return result;
@@ -318,41 +348,47 @@ export class SendableMapManager {
 
   filterByType(targetType: DataType): string {
     const result: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       if (this.dataTypes[i] === targetType) {
         result.push(`${this.keys[i]}=${this.values[i]}`);
       }
     }
     this.readCount += this.mapSize;
-    return `filterByType(${targetType}): [${result.join(', ')}] (${result.length} matches)`;
+    return ResultText.ofArgs($r('app.string.result_map_filter_by_type'),
+      [String(targetType), result.join(', '), result.length],
+      `filterByType(${targetType}): [${result.join(', ')}] (${result.length} matches)`);
   }
 
   filterByKeyPrefix(prefix: string): string {
     if (!DataValidator.isValidKey(prefix)) {
-      return 'filterByKeyPrefix failed: invalid prefix';
+      return ResultText.of($r('app.string.result_map_filter_by_key_prefix_invalid'),
+        'filterByKeyPrefix failed: invalid prefix');
     }
     const result: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       if (this.keys[i].indexOf(prefix) === 0) {
         result.push(`${this.keys[i]}=${this.values[i]}`);
       }
     }
     this.readCount += this.mapSize;
-    return `filterByKeyPrefix('${prefix}'): [${result.join(', ')}] (${result.length} matches)`;
+    return ResultText.ofArgs($r('app.string.result_map_filter_by_key_prefix'),
+      [prefix, result.join(', '), result.length],
+      `filterByKeyPrefix('${prefix}'): [${result.join(', ')}] (${result.length} matches)`);
   }
 
   forEach(): string {
     const result: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       result.push(`[${this.keys[i]}]=${this.values[i]}`);
     }
     this.readCount += this.mapSize;
-    return `forEach: ${result.join(', ')}`;
+    return ResultText.ofArgs($r('app.string.result_map_for_each'), [result.join(', ')],
+      `forEach: ${result.join(', ')}`);
   }
 
   toJSONObject(): string {
     const parts: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       parts.push(`"${this.keys[i]}":"${this.values[i]}"`);
     }
     return `{${parts.join(',')}}`;
@@ -360,7 +396,7 @@ export class SendableMapManager {
 
   toJSONTyped(): string {
     const parts: string[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       parts.push(`"${this.keys[i]}":{"value":"${this.values[i]}","type":"${this.dataTypes[i]}","ts":${this.timestamps[i]}}`);
     }
     return `{${parts.join(',')}}`;
@@ -371,16 +407,18 @@ export class SendableMapManager {
   }
 
   getStatistics(): string {
-    return `Map Statistics: size=${this.mapSize}, reads=${this.readCount}, ` +
-      `writes=${this.writeCount}, deletes=${this.deleteCount}, ` +
-      `createdAt=${this.createdAt}, updatedAt=${this.updatedAt}`;
+    return ResultText.ofArgs($r('app.string.result_map_statistics'),
+      [this.mapSize, this.readCount, this.writeCount, this.deleteCount, this.createdAt, this.updatedAt],
+      `Map Statistics: size=${this.mapSize}, reads=${this.readCount}, ` +
+        `writes=${this.writeCount}, deletes=${this.deleteCount}, ` +
+        `createdAt=${this.createdAt}, updatedAt=${this.updatedAt}`);
   }
 
   resetStatistics(): string {
     this.readCount = 0;
     this.writeCount = 0;
     this.deleteCount = 0;
-    return 'Map statistics reset';
+    return ResultText.of($r('app.string.result_map_statistics_reset'), 'Map statistics reset');
   }
 
   isInitialized(): boolean {
@@ -402,7 +440,7 @@ export class SendableMapManager {
   }
 
   private findKeyIndex(key: string): number {
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       if (this.keys[i] === key) {
         return i;
       }
@@ -415,7 +453,7 @@ export class SendableMapManager {
     const newValues: string[] = [];
     const newDataTypes: DataType[] = [];
     const newTimestamps: number[] = [];
-    for (let i = 0; i < this.mapSize; i++) {
+    for (let i: number = 0; i < this.mapSize; i++) {
       if (i !== idx) {
         newKeys.push(this.keys[i]);
         newValues.push(this.values[i]);

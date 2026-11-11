@@ -126,6 +126,6 @@ export class DataStoreConstants {
   static readonly BACKUP_META_FILE: string = 'backup_meta.json';
   static readonly MIGRATION_LOG_FILE: string = 'migration_log.json';
 
-  static readonly Hilog_DOMAIN: number = 0xF811;
-  static readonly Hilog_TAG: string = '[Sample_SendableDataStore]';
+  static readonly HILOG_DOMAIN: number = 0xF811;
+  static readonly HILOG_TAG: string = '[Sample_SendableDataStore]';
 }
