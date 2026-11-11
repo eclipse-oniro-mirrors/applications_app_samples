@@ -35,43 +35,43 @@ const DEFAULT_IFACE: string = 'wlan0';
 @ObservedV2
 export class AppDetailViewModel {
   // UID of the target application.
-  @Trace uid: number = 0;
+  @Trace public uid: number = 0;
   // Display name resolved from the caller, the bundle manager or the app list.
-  @Trace appName: string = '';
+  @Trace public appName: string = '';
   // Application icon decoded from the app list, undefined while loading or when unavailable.
-  @Trace appIcon: image.PixelMap | undefined = undefined;
+  @Trace public appIcon: image.PixelMap | undefined = undefined;
   // Bundle name resolved the same way; empty means unknown.
-  @Trace bundleName: string = '';
+  @Trace public bundleName: string = '';
   // Whether the per-UID access policy query succeeded.
-  @Trace accessLoaded: boolean = false;
+  @Trace public accessLoaded: boolean = false;
   // Whether the UID may use Wi-Fi networks.
-  @Trace allowWiFi: boolean = false;
+  @Trace public allowWiFi: boolean = false;
   // Whether the UID may use cellular networks.
-  @Trace allowCellular: boolean = false;
+  @Trace public allowCellular: boolean = false;
   // Whether the UID policy query succeeded.
-  @Trace uidLoaded: boolean = false;
+  @Trace public uidLoaded: boolean = false;
   // UID policy kind reported by the system.
-  @Trace uidPolicy: policy.NetUidPolicy = policy.NetUidPolicy.NET_POLICY_NONE;
+  @Trace public uidPolicy: policy.NetUidPolicy = policy.NetUidPolicy.NET_POLICY_NONE;
   // Whether the UID may use metered networks.
-  @Trace meteredAllowed: boolean = false;
+  @Trace public meteredAllowed: boolean = false;
   // Whether the UID may use the default interface.
-  @Trace ifaceAllowed: boolean = false;
+  @Trace public ifaceAllowed: boolean = false;
   // Whether the background policy query succeeded.
-  @Trace bgLoaded: boolean = false;
+  @Trace public bgLoaded: boolean = false;
   // Background policy kind reported by the system.
-  @Trace bgPolicy: policy.NetBackgroundPolicy = policy.NetBackgroundPolicy.NET_BACKGROUND_POLICY_NONE;
+  @Trace public bgPolicy: policy.NetBackgroundPolicy = policy.NetBackgroundPolicy.NET_BACKGROUND_POLICY_NONE;
   // Whether the trust list query succeeded.
-  @Trace trustlistLoaded: boolean = false;
+  @Trace public trustlistLoaded: boolean = false;
   // Whether the UID is in the device idle trust list.
-  @Trace inIdleTrustlist: boolean = false;
+  @Trace public inIdleTrustlist: boolean = false;
   // Whether the UID is in the power save trust list.
-  @Trace inPowerTrustlist: boolean = false;
+  @Trace public inPowerTrustlist: boolean = false;
   // Whether a query or apply action is running.
-  @Trace busy: boolean = false;
+  @Trace public busy: boolean = false;
   // Whether the last call proved the system APIs are available.
-  @Trace systemAvailable: boolean = false;
+  @Trace public systemAvailable: boolean = false;
   // Log entries shown in the shared log panel.
-  @Trace logs: LogEntry[] = [];
+  @Trace public logs: LogEntry[] = [];
 
   // Monotonic sequence for log entry ids.
   private logSeq: number = 0;

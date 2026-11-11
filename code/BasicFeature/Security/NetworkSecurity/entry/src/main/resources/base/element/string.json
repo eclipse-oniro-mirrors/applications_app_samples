@@ -89,6 +89,16 @@
       "name": "ns_perm_get_bundle_info_privileged_reason",
       "value": "创建跨应用模块上下文，用于解析应用名称与图标。",
       "description": "GET_BUNDLE_INFO_PRIVILEGED 权限申请原因"
+    },
+    {
+      "name": "ns_sec_probe_allowed_url",
+      "value": "http://www.example.com",
+      "description": "允许明文探测的完整地址，域名须与 network_config.json 的允许规则一致"
+    },
+    {
+      "name": "ns_sec_probe_denied_url",
+      "value": "http://www.iana.org",
+      "description": "禁止明文探测的完整地址，域名须与 network_config.json 的禁止规则一致"
     }
   ]
 }

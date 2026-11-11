@@ -141,9 +141,9 @@ export class DateUtils {
     // Compare local year, month and day so boundaries follow the device.
     const firstMoment: Date = new Date(first);
     const secondMoment: Date = new Date(second);
-    const result: boolean = firstMoment.getFullYear() === secondMoment.getFullYear()
-      && firstMoment.getMonth() === secondMoment.getMonth()
-      && firstMoment.getDate() === secondMoment.getDate();
+    const result: boolean = firstMoment.getFullYear() === secondMoment.getFullYear() &&
+      firstMoment.getMonth() === secondMoment.getMonth() &&
+      firstMoment.getDate() === secondMoment.getDate();
     Logger.exit(tag, 'result: ' + result.toString());
     Logger.endTrace('NetworkSecurity.utils.isSameDay', 1);
     return result;

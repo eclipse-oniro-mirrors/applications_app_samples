@@ -18,7 +18,7 @@
  */
 @ComponentV2
 export struct SectionCard {
-  // Prefix used to build the accessibility ids of the inner components.
+  // Prefix used to build the component ids of the inner components.
   @Param idPrefix: string = 'id_section';
   // Title text shown at the card top.
   @Param title: ResourceStr = '';

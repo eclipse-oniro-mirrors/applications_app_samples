@@ -158,7 +158,7 @@ export default function numericMatrixCryptoTest() {
     /**
      * @tc.number    SUB_NETWORKSECURITY_NUMERIC_CRYPTO_0700
      * @tc.name      testNumCrypto0007
-     * @tc.desc      Verify md5 renders the widely published digest of the literal password sample value.
+     * @tc.desc      Verify md5 renders the fixed expected digest of the eight-character ASCII sample.
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 0
@@ -166,14 +166,11 @@ export default function numericMatrixCryptoTest() {
     it('testNumCrypto0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const TAG: string = 'testNumCrypto0007';
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
-      // The literal password sample has a well known published vector.
-      const digest: string = await CryptoUtils.md5('password');
-      // The digest matches the published password vector exactly.
-      expect(digest).assertEqual('5f4dcc3b5aa765d61d8327deb882cf99');
-      // The width of the password digest is the standard thirty two characters.
+      const digest: string = await CryptoUtils.md5('testdata');
+      expect(digest).assertEqual('ef654c40ab4f1747fc699915d4f70902');
       expect(digest.length).assertEqual(32);
       // A longer variant with one digit appended must hash differently.
-      expect(await CryptoUtils.md5('password1')).not().assertEqual(digest);
+      expect(await CryptoUtils.md5('testdata1')).not().assertEqual(digest);
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
     });
 
@@ -452,7 +449,7 @@ export default function numericMatrixCryptoTest() {
     /**
      * @tc.number    SUB_NETWORKSECURITY_NUMERIC_CRYPTO_2000
      * @tc.name      testNumCrypto0020
-     * @tc.desc      Verify sha256 renders the widely published digest of the literal password sample and reacts to appended digits.
+     * @tc.desc      Verify sha256 renders the fixed expected digest of the eight-character ASCII sample and reacts to appended digits.
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 1
@@ -460,14 +457,11 @@ export default function numericMatrixCryptoTest() {
     it('testNumCrypto0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const TAG: string = 'testNumCrypto0020';
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
-      // The literal password sample has a well known published vector.
-      const digest: string = await CryptoUtils.sha256('password');
-      // The digest matches the published password vector exactly.
-      expect(digest).assertEqual('5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');
-      // The width of the password digest is the standard sixty four characters.
+      const digest: string = await CryptoUtils.sha256('testdata');
+      expect(digest).assertEqual('810ff2fb242a5dee4220f2cb0e6a519891fb67f2f828a6cab4ef8894633b1f50');
       expect(digest.length).assertEqual(64);
       // A longer variant with one digit appended must hash differently.
-      expect(await CryptoUtils.sha256('password1')).not().assertEqual(digest);
+      expect(await CryptoUtils.sha256('testdata1')).not().assertEqual(digest);
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
     });
 
@@ -763,7 +757,7 @@ export default function numericMatrixCryptoTest() {
       // Three ascending bytes cover padded and two digit renders together.
       const bytes: Uint8Array = new Uint8Array([1, 2, 3]);
       const result: string = CryptoUtils.bytesToHex(bytes);
-      // The joined render places every pair in byte order.
+      // The joined render arranges every pair in byte order.
       expect(result).assertEqual('010203');
       // Three bytes render exactly six characters.
       expect(result.length).assertEqual(6);
@@ -1637,7 +1631,7 @@ export default function numericMatrixCryptoTest() {
     it('testNumCrypto0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       const TAG: string = 'testNumCrypto0071';
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
-      // The alternating pattern places zero and two hundred fifty five in turn.
+      // The alternating pattern arranges zero and two hundred fifty five in turn.
       const bytes: Uint8Array = new Uint8Array([0, 255, 0, 255]);
       const result: string = CryptoUtils.bytesToHex(bytes);
       // The render spells the repeated 00ff sequence.

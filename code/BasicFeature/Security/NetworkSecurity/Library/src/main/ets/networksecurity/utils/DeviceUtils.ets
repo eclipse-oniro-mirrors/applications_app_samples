@@ -29,7 +29,7 @@ const DENSITY_UNKNOWN: number = 0;
 export class DeviceUtils {
   /**
    * Return the device brand name.
-   * @returns the brand, for example HUAWEI.
+   * @returns the device brand name.
    */
   static getBrand(): string {
     const tag: string = '[DeviceUtils#getBrand]';

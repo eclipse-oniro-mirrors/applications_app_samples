@@ -35,7 +35,7 @@ export struct MainPage {
    * Build one bottom tab bar item that highlights the selected tab.
    * @param title tab title resource.
    * @param index tab index used for the selected-state comparison.
-   * @param idValue accessibility id of the tab item.
+   * @param idValue component id of the tab item.
    */
   @Builder
   tabBarItem(title: ResourceStr, index: number, idValue: string) {
@@ -55,7 +55,7 @@ export struct MainPage {
    * Build one clickable side navigation item used by the tablet layout.
    * @param title navigation title resource.
    * @param index navigation index used for the selected-state comparison.
-   * @param idValue accessibility id of the navigation item.
+   * @param idValue component id of the navigation item.
    */
   @Builder
   navItem(title: ResourceStr, index: number, idValue: string) {

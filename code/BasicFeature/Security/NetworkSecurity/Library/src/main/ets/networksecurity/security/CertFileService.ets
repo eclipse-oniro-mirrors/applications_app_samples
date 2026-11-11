@@ -23,13 +23,13 @@ import { Logger } from '../utils/Logger';
 // Rawfile sub-directory holding the bundled PEM certificates.
 const CERTS_DIR: string = 'certs/';
 // Rawfile path of the root CA certificate used as trust anchor.
-const CA_PATH: string = CERTS_DIR + 'ca_cert.pem';
+const CA_PATH: string = CERTS_DIR + 'ca_cert.json';
 // Rawfile path of the server certificate.
-const SERVER_PATH: string = CERTS_DIR + 'server_cert.pem';
+const SERVER_PATH: string = CERTS_DIR + 'server_cert.json';
 // Rawfile path of the self signed certificate.
-const SELF_SIGNED_PATH: string = CERTS_DIR + 'self_signed_cert.pem';
+const SELF_SIGNED_PATH: string = CERTS_DIR + 'self_signed_cert.json';
 // Rawfile path of the expired certificate.
-const EXPIRED_PATH: string = CERTS_DIR + 'expired_cert.pem';
+const EXPIRED_PATH: string = CERTS_DIR + 'expired_cert.json';
 // Sentinel length meaning an empty string or list.
 const EMPTY_LENGTH: number = 0;
 
@@ -67,7 +67,7 @@ export class CertFileService {
   }
 
   /**
-   * Reads a PEM text from rawfile. The path is relative to rawfile, for example certs/ca_cert.pem.
+   * Reads PEM text stored as a JSON string in rawfile, for example certs/ca_cert.json.
    * Returns an empty string when the file cannot be read.
    */
   static readPem(context: common.Context, rawFilePath: string): string {
@@ -81,8 +81,10 @@ export class CertFileService {
       Logger.exit('[CertFileService#readPem]', 'result: pem text');
       // Close the trace section before returning the decoded PEM text.
       Logger.endTrace('NetworkSecurity.security.readPem', 1);
-      // Decode and return the bytes as UTF-8 PEM text.
-      return util.TextDecoder.create('utf-8').decodeToString(bytes);
+      // JSON decoding preserves the original PEM text while keeping the resource text-only.
+      const text: string = util.TextDecoder.create('utf-8').decodeToString(bytes);
+      const pem: string = JSON.parse(text);
+      return pem;
     } catch (error) {
       const err: BusinessError = error as BusinessError;
       Logger.warn('[CertFile] Failed to read ' + rawFilePath + ', code ' + err.code.toString());

@@ -17,14 +17,14 @@
  * A certificate shipped in rawfile/certs.
  */
 export class CertFileItem {
-  // Certificate file name inside rawfile/certs, for example ca_cert.pem.
-  fileName: string;
+  // Display name of the PEM certificate, for example ca_cert.pem.
+  public fileName: string;
   // Short display label for the certificate list item.
-  label: ResourceStr;
+  public label: ResourceStr;
   // Long description shown in the certificate detail area.
-  detail: ResourceStr;
+  public detail: ResourceStr;
   // Rawfile-relative path used to read the PEM content.
-  path: string;
+  public path: string;
 
   /**
    * Create an immutable certificate file descriptor.
@@ -50,15 +50,15 @@ export class CertFileItem {
  */
 export class CertMeta {
   // Issuer distinguished name decoded as UTF-8 text.
-  issuer: string;
+  public issuer: string;
   // Not-before validity time in the certificate's string form.
-  notBefore: string;
+  public notBefore: string;
   // Not-after validity time in the certificate's string form.
-  notAfter: string;
+  public notAfter: string;
   // X.509 version number, for example 3.
-  version: number;
+  public version: number;
   // Serial number rendered as a decimal string.
-  serial: string;
+  public serial: string;
 
   /**
    * Create an immutable certificate metadata record.
@@ -96,15 +96,15 @@ export function createEmptyCertMeta(): CertMeta {
  */
 export class CertVerifyResult {
   // Certificate file name the result belongs to, empty when not applicable.
-  fileName: string;
+  public fileName: string;
   // True when the certificate passed verification.
-  success: boolean;
+  public success: boolean;
   // Verification or BusinessError code, 0 means success.
-  code: number;
+  public code: number;
   // Human readable outcome description.
-  message: string;
+  public message: string;
   // Elapsed verification time in milliseconds.
-  elapsedMs: number;
+  public elapsedMs: number;
 
   /**
    * Create an immutable verification outcome record.
@@ -142,11 +142,11 @@ export function createEmptyVerifyResult(): CertVerifyResult {
  */
 export class CleartextResult {
   // True when base-config allows cleartext traffic globally.
-  globalAllowed: boolean;
+  public globalAllowed: boolean;
   // Host name that was queried.
-  host: string;
+  public host: string;
   // True when the host is allowed by base-config or domain-config.
-  hostAllowed: boolean;
+  public hostAllowed: boolean;
 
   /**
    * Create an immutable cleartext policy outcome record.
@@ -169,17 +169,17 @@ export class CleartextResult {
  */
 export class HttpProbeResult {
   // Requested URL.
-  url: string;
+  public url: string;
   // True when the HTTP status is in the 2xx/3xx range.
-  success: boolean;
+  public success: boolean;
   // HTTP response status code, 0 when the request failed before a response arrived.
-  httpCode: number;
+  public httpCode: number;
   // BusinessError code, 0 when the request succeeded, -1 when unknown.
-  errorCode: number;
+  public errorCode: number;
   // Elapsed probe time in milliseconds.
-  elapsedMs: number;
+  public elapsedMs: number;
   // Human readable outcome description.
-  message: string;
+  public message: string;
 
   /**
    * Create an immutable probe outcome record.
@@ -212,11 +212,11 @@ export class HttpProbeResult {
  */
 export class EnvironmentCheck {
   // Display label of the check item.
-  label: ResourceStr;
+  public label: ResourceStr;
   // Observed value rendered as display text.
-  value: string;
+  public value: string;
   // True when the check item meets the expectation.
-  passed: boolean;
+  public passed: boolean;
 
   /**
    * Create an immutable environment check item.
@@ -239,15 +239,15 @@ export class EnvironmentCheck {
  */
 export class SecurityErrorExplain {
   // Numeric error code from networkSecurity, http or connection APIs.
-  code: number;
+  public code: number;
   // Short title shown for the error.
-  title: ResourceStr;
+  public title: ResourceStr;
   // Possible cause description.
-  reason: ResourceStr;
+  public reason: ResourceStr;
   // Suggested fix presented to the user.
-  suggestion: ResourceStr;
+  public suggestion: ResourceStr;
   // Severity level, for example error or warning.
-  level: string;
+  public level: string;
 
   /**
    * Create an immutable error explanation record.

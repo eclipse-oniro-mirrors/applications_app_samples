@@ -36,7 +36,7 @@ const NO_EVENT_UID: number = -1;
  */
 export class PolicyEventError extends Error {
   // BusinessError code carried by the wrapped error.
-  code: number;
+  public code: number;
 
   /**
    * Build a wrapped error that keeps the original BusinessError code.

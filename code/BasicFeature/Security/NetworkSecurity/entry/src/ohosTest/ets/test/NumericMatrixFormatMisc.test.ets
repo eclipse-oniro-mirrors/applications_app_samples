@@ -953,7 +953,7 @@ export default function numericMatrixFormatTest() {
     /**
      * @tc.number    SUB_NETWORKSECURITY_NUMERIC_FORMAT_4400
      * @tc.name      testNumFormat0044
-     * @tc.desc      Verify joinNumbers places each separator right after the previous element text.
+     * @tc.desc      Verify joinNumbers inserts each separator right after the previous element text.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0

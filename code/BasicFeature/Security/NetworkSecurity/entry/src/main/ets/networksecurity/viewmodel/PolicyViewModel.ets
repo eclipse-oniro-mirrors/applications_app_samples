@@ -51,28 +51,28 @@ export enum UidPolicyMode {
 @ObservedV2
 export class PolicyViewModel {
   // Latest network access policy view.
-  @Trace access: AccessPolicyView = new AccessPolicyView(false, false, false, '');
+  @Trace public access: AccessPolicyView = new AccessPolicyView(false, false, false, '');
   // Latest background policy view.
-  @Trace background: BackgroundView =
+  @Trace public background: BackgroundView =
     new BackgroundView(false, policy.NetBackgroundPolicy.NET_BACKGROUND_POLICY_NONE, 0, false);
   // UID text of the trust list card, filled by the picker or typed manually.
-  @Trace trustlistUid: string = '';
+  @Trace public trustlistUid: string = '';
   // Latest quota policy summary.
-  @Trace quota: QuotaSummary = new QuotaSummary([], false, '');
+  @Trace public quota: QuotaSummary = new QuotaSummary([], false, '');
   // Latest trust list view.
-  @Trace trustlist: TrustlistView = new TrustlistView([], [], false);
+  @Trace public trustlist: TrustlistView = new TrustlistView([], [], false);
   // Policy events captured by the listeners, newest first.
-  @Trace events: PolicyEventItem[] = [];
+  @Trace public events: PolicyEventItem[] = [];
   // Log entries shown in the shared log panel.
-  @Trace logs: LogEntry[] = [];
+  @Trace public logs: LogEntry[] = [];
   // Whether a policy action is running.
-  @Trace busy: boolean = false;
+  @Trace public busy: boolean = false;
   // Whether the last call proved the system APIs are available.
-  @Trace systemAvailable: boolean = false;
+  @Trace public systemAvailable: boolean = false;
   // UID of this application.
-  @Trace selfUid: number = 0;
+  @Trace public selfUid: number = 0;
   // Whether the policy event listeners are attached.
-  @Trace eventListening: boolean = false;
+  @Trace public eventListening: boolean = false;
 
   // Ability context bound by the page, null before bind().
   private context: common.UIAbilityContext | null = null;

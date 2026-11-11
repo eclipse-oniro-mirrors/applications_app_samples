@@ -20,7 +20,7 @@ import { LogEntry } from '../model/LogTypes';
  */
 @ComponentV2
 export struct LogPanel {
-  // Prefix used to build the accessibility ids of the inner components.
+  // Prefix used to build the component ids of the inner components.
   @Param idPrefix: string = 'id_log';
   // Log entries to render, newest first.
   @Param logs: LogEntry[] = [];

@@ -26,10 +26,6 @@ const PROBE_LIMIT: number = 4;
 const DEFAULT_HOST: string = 'www.example.com';
 // Host name used by the certificate chain verification demo.
 const CHAIN_HOST: string = 'netsecurity.sample.com';
-// URL allowed by the network policy, used by the allowed probe.
-const PROBE_ALLOWED_URL: string = 'http://www.example.com';
-// URL denied by the network policy, used by the denied probe.
-const PROBE_DENIED_URL: string = 'http://www.iana.org';
 // Index of the bundled CA certificate in the file list.
 const CA_INDEX: number = 0;
 // Index of the bundled server certificate in the file list.
@@ -45,27 +41,27 @@ const EMPTY_LENGTH: number = 0;
 @ObservedV2
 export class SecurityViewModel {
   // Latest environment check results.
-  @Trace checks: EnvironmentCheck[] = [];
+  @Trace public checks: EnvironmentCheck[] = [];
   // Built-in certificate file descriptors loaded from rawfile.
-  @Trace certFiles: CertFileItem[] = [];
+  @Trace public certFiles: CertFileItem[] = [];
   // Index of the certificate selected on the page.
-  @Trace selectedIndex: number = DEFAULT_SELECTED_INDEX;
+  @Trace public selectedIndex: number = DEFAULT_SELECTED_INDEX;
   // Parsed metadata of the selected certificate.
-  @Trace meta: CertMeta = createEmptyCertMeta();
+  @Trace public meta: CertMeta = createEmptyCertMeta();
   // Whether the certificate metadata finished parsing.
-  @Trace metaLoaded: boolean = false;
+  @Trace public metaLoaded: boolean = false;
   // Latest certificate verification result.
-  @Trace lastResult: CertVerifyResult = createEmptyVerifyResult();
+  @Trace public lastResult: CertVerifyResult = createEmptyVerifyResult();
   // Latest cleartext policy query result.
-  @Trace cleartext: CleartextResult = new CleartextResult(false, '', false);
+  @Trace public cleartext: CleartextResult = new CleartextResult(false, '', false);
   // Host name typed into the cleartext input.
-  @Trace hostInput: string = DEFAULT_HOST;
+  @Trace public hostInput: string = DEFAULT_HOST;
   // Recent HTTP probe results, newest first.
-  @Trace probeResults: HttpProbeResult[] = [];
+  @Trace public probeResults: HttpProbeResult[] = [];
   // Log entries shown in the shared log panel.
-  @Trace logs: LogEntry[] = [];
+  @Trace public logs: LogEntry[] = [];
   // Whether an async demo action is running.
-  @Trace busy: boolean = false;
+  @Trace public busy: boolean = false;
 
   // Ability context bound by the page, null before bind().
   private context: common.Context | null = null;
@@ -296,7 +292,7 @@ export class SecurityViewModel {
     Logger.enter('[SecurityViewModel#probeAllowed]');
     Logger.beginTrace('NetworkSecurity.entry.probeAllowed', 1);
     // Run the probe against the allowed URL.
-    await this.probe(PROBE_ALLOWED_URL);
+    await this.probe($r('app.string.ns_sec_probe_allowed_url'));
     Logger.endTrace('NetworkSecurity.entry.probeAllowed', 1);
     Logger.exit('[SecurityViewModel#probeAllowed]');
   }
@@ -308,7 +304,7 @@ export class SecurityViewModel {
     Logger.enter('[SecurityViewModel#probeDenied]');
     Logger.beginTrace('NetworkSecurity.entry.probeDenied', 1);
     // Run the probe against the denied URL.
-    await this.probe(PROBE_DENIED_URL);
+    await this.probe($r('app.string.ns_sec_probe_denied_url'));
     Logger.endTrace('NetworkSecurity.entry.probeDenied', 1);
     Logger.exit('[SecurityViewModel#probeDenied]');
   }
@@ -371,15 +367,15 @@ export class SecurityViewModel {
 
   /**
    * Run one HTTP probe and keep the newest results at the head of the list.
-   * @param url URL to probe.
+   * @param urlResource string resource containing the URL to probe.
    */
-  private async probe(url: string): Promise<void> {
-    // Skip while another probe or verification is running.
-    if (this.busy) {
+  private async probe(urlResource: Resource): Promise<void> {
+    if (this.busy || this.context === null) {
       return;
     }
     this.busy = true;
     try {
+      const url: string = this.context.resourceManager.getStringSync(urlResource.id);
       // Send the HTTP request and wait for the result.
       const result: HttpProbeResult = await HttpProbeService.probe(url);
       // Build the next list with the new result at the head.

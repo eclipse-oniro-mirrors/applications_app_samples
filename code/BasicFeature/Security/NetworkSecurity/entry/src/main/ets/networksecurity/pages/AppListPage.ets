@@ -33,7 +33,7 @@ export class NsNav {
   // Stack bound by MainPage, null until the main page has appeared.
   private static stack: NavPathStack | null = null;
   // Parameter of the latest AppDetailPage push, read by the detail page builder.
-  static detail: AppDetailParam | undefined = undefined;
+  public static detail: AppDetailParam | undefined = undefined;
 
   /**
    * Bind the navigation stack of the main page.

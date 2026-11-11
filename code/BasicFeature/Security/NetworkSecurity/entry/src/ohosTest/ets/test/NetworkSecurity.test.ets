@@ -564,7 +564,7 @@ export default function networkSecurityTest() {
           await sleepMs(DRAIN_RETRY_INTERVAL_MS);
         }
       }
-      // Reaching here means the service stayed busy; the next case will surface the failure itself.
+      // Reaching here means the service stayed busy; the next case will reveal the failure itself.
     });
 
     /**

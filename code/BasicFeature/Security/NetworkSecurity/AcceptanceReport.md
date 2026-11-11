@@ -61,5 +61,5 @@
 
 ## 7. 遗留说明
 
-- 本轮只修改不构建；建议后续在 Full SDK + system_basic 签名环境下执行一次 `hvigorw assembleHap` 与 `aa test` 验证编译与用例可运行性
+- 本轮只修改不构建；建议后续在 Full SDK + system_basic 签名环境下执行一次 `hvigorw assembleHap` 与 设备端自动化测试（Ability Assistant 测试子命令） 验证编译与用例可运行性
 - FileDevice 与 NetHttp 中的文件读写/网络形状契约用例依赖设备沙箱路径与本地网络状态查询，离线环境可运行；真实网络探测类用例按降级提示判定

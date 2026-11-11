@@ -20,13 +20,13 @@ import { policy } from '@kit.NetworkKit';
  */
 export class AccessPolicyView {
   // Whether applications are allowed to use Wi-Fi networks.
-  allowWiFi: boolean;
+  public allowWiFi: boolean;
   // Whether applications are allowed to use cellular networks.
-  allowCellular: boolean;
+  public allowCellular: boolean;
   // Whether the query succeeded; false means the fields hold degraded values.
-  loaded: boolean;
+  public loaded: boolean;
   // Failure message for the UI, empty on success.
-  message: ResourceStr;
+  public message: ResourceStr;
 
   /**
    * Build a view of the public network access policy.
@@ -52,13 +52,13 @@ export class AccessPolicyView {
  */
 export class BackgroundView {
   // Whether the background policy query succeeded.
-  allowed: boolean;
+  public allowed: boolean;
   // Global background policy kind reported by the system.
-  policy: policy.NetBackgroundPolicy;
+  public policy: policy.NetBackgroundPolicy;
   // Application UID the policy was queried for.
-  uid: number;
+  public uid: number;
   // Whether the per-UID query succeeded; false means degraded values.
-  loaded: boolean;
+  public loaded: boolean;
 
   /**
    * Build a view of the background policy for one UID.
@@ -84,17 +84,17 @@ export class BackgroundView {
  */
 export class UidPolicyView {
   // Application UID the policy belongs to.
-  uid: number;
+  public uid: number;
   // UID policy kind reported by the system.
-  policy: policy.NetUidPolicy;
+  public policy: policy.NetUidPolicy;
   // Whether the UID may use metered networks.
-  meteredAllowed: boolean;
+  public meteredAllowed: boolean;
   // Network interface name used for the per-interface check.
-  iface: string;
+  public iface: string;
   // Whether the per-interface check succeeded.
-  ifaceAllowed: boolean;
+  public ifaceAllowed: boolean;
   // Whether all queries succeeded; false means degraded values.
-  loaded: boolean;
+  public loaded: boolean;
 
   /**
    * Build a view of one UID policy.
@@ -127,15 +127,15 @@ export class UidPolicyView {
  */
 export class QuotaView {
   // Traffic volume in bytes that triggers the warning reminder.
-  warningBytes: number;
+  public warningBytes: number;
   // Traffic volume in bytes that triggers the hard limit.
-  limitBytes: number;
+  public limitBytes: number;
   // Whether the policy applies to metered (cellular) networks.
-  metered: boolean;
+  public metered: boolean;
   // Action taken when the limit is reached.
-  limitAction: policy.LimitAction;
+  public limitAction: policy.LimitAction;
   // Period length code, for example 'M1' for one month.
-  periodDuration: string;
+  public periodDuration: string;
 
   /**
    * Build a view of one quota policy item.
@@ -165,11 +165,11 @@ export class QuotaView {
  */
 export class QuotaSummary {
   // Quota item views in system order.
-  items: QuotaView[];
+  public items: QuotaView[];
   // Whether the query succeeded.
-  loaded: boolean;
+  public loaded: boolean;
   // Failure message for the UI, empty on success.
-  message: ResourceStr;
+  public message: ResourceStr;
 
   /**
    * Build a summary of a quota policy query.
@@ -192,11 +192,11 @@ export class QuotaSummary {
  */
 export class TrustlistView {
   // UIDs allowed to use the network in device idle mode.
-  deviceIdle: number[];
+  public deviceIdle: number[];
   // UIDs allowed to use the network in power save mode.
-  powerSave: number[];
+  public powerSave: number[];
   // Whether the query succeeded.
-  loaded: boolean;
+  public loaded: boolean;
 
   /**
    * Build a view of both trust lists.
@@ -219,15 +219,15 @@ export class TrustlistView {
  */
 export class PolicyEventItem {
   // Stable unique id used as the Repeat key.
-  id: number;
+  public id: number;
   // Event tag such as 'UidPolicyChange'.
-  type: string;
+  public type: string;
   // Translated English text of the event.
-  text: string;
+  public text: string;
   // Local receive time formatted for display.
-  time: string;
+  public time: string;
   // UID carried by the event payload, undefined when the payload has no UID.
-  uid?: number;
+  public uid?: number;
 
   /**
    * Build one displayable policy event.
@@ -253,15 +253,15 @@ export class PolicyEventItem {
  */
 export class ErrorExplain {
   // BusinessError code this entry explains.
-  code: number;
+  public code: number;
   // Short localized title of the error.
-  title: ResourceStr;
+  public title: ResourceStr;
   // Localized root cause of the error.
-  reason: ResourceStr;
+  public reason: ResourceStr;
   // Localized suggested fix for the error.
-  suggestion: ResourceStr;
+  public suggestion: ResourceStr;
   // Severity, either 'error' or 'warning'.
-  level: string;
+  public level: string;
 
   /**
    * Build one error explanation entry.

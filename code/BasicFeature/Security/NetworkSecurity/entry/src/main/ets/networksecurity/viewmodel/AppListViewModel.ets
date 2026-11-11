@@ -24,15 +24,15 @@ import { AppInfoItem, AppListService, AppListView, Logger } from 'library';
 @ObservedV2
 export class AppListViewModel {
   // Loaded application items shown by the list.
-  @Trace items: AppInfoItem[] = [];
+  @Trace public items: AppInfoItem[] = [];
   // Search keyword typed by the user; empty means no filtering.
-  @Trace keyword: string = '';
+  @Trace public keyword: string = '';
   // Whether a load action is running.
-  @Trace busy: boolean = false;
+  @Trace public busy: boolean = false;
   // Whether the last load succeeded; false shows the degraded hint.
-  @Trace loaded: boolean = false;
+  @Trace public loaded: boolean = false;
   // Localized degradation message shown by the page, empty on success.
-  @Trace message: ResourceStr = '';
+  @Trace public message: ResourceStr = '';
 
   /**
    * Filtered items recomputed from the loaded list and the keyword.

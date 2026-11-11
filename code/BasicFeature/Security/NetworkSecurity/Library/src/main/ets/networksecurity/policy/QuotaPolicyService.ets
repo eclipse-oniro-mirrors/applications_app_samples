@@ -79,7 +79,7 @@ export class QuotaPolicyService {
     Logger.enter('[QuotaPolicyService#read]');
     try {
       // Query the full quota policy list from the system.
-      const items: Array<policy.NetQuotaPolicy> = await policy.getNetQuotaPolicies();
+      const items: policy.NetQuotaPolicy[] = await policy.getNetQuotaPolicies();
       // Collect per-item views for the UI list.
       const views: QuotaView[] = [];
       // Walk the policy items in order to keep the list stable.

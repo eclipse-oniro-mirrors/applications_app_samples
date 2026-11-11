@@ -81,7 +81,7 @@ export default function viewModelGuardsLogicTest() {
     /**
      * @tc.number    SUB_NETWORKSECURITY_LOGIC_VMGUARD_0300
      * @tc.name      testVmGuard0003
-     * @tc.desc      Verify selectCert ignores negative, zero and oversized indexes when the certificate list is still empty.
+     * @tc.desc      Verify selectCert ignores invalid indexes and HTTP probes skip before the context is bound.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0
@@ -98,6 +98,10 @@ export default function viewModelGuardsLogicTest() {
       expect(viewModel.selectedIndex).assertEqual(DEFAULT_SELECTED_INDEX);
       expect(viewModel.metaLoaded).assertFalse();
       expect(viewModel.certFiles.length).assertEqual(0);
+      await viewModel.probeAllowed();
+      await viewModel.probeDenied();
+      expect(viewModel.probeResults.length).assertEqual(0);
+      expect(viewModel.logs.length).assertEqual(0);
       // The guard never enters the busy state.
       expect(viewModel.busy).assertFalse();
     });
@@ -322,7 +326,7 @@ export default function viewModelGuardsLogicTest() {
       const itemPay: AppInfoItem = new AppInfoItem(10100, 'com.demo.androidpay', 'Pay', undefined);
       const itemStore: AppInfoItem = new AppInfoItem(10101, 'com.demo.shop', 'AndroidStore', undefined);
       const itemCloud: AppInfoItem = new AppInfoItem(10102, 'com.demo.androidcloud', 'CloudBox', undefined);
-      const itemMarket: AppInfoItem = new AppInfoItem(10103, 'com.demo.market', 'Bazaar', undefined);
+      const itemMarket: AppInfoItem = new AppInfoItem(10103, 'com.demo.market', 'Storefront', undefined);
       const seededItems: AppInfoItem[] = [itemPay, itemStore, itemCloud, itemMarket];
       viewModel.items = seededItems;
       // Act with an upper-case keyword that only exists in lower-case fields.
@@ -341,9 +345,9 @@ export default function viewModelGuardsLogicTest() {
       }
       expect(marketShown).assertFalse();
       // A second upper-case keyword hits only the display name of the last row.
-      viewModel.filter('BAZAAR');
+      viewModel.filter('STOREFRONT');
       expect(viewModel.filtered.length).assertEqual(1);
-      expect(viewModel.filtered[0].appName).assertEqual('Bazaar');
+      expect(viewModel.filtered[0].appName).assertEqual('Storefront');
       expect(viewModel.filtered[0].bundleName).assertEqual('com.demo.market');
     });
 

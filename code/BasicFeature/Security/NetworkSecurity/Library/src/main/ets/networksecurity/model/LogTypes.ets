@@ -18,15 +18,15 @@
  */
 export class LogEntry {
   // Monotonic id used as the list key.
-  id: number;
+  public id: number;
   // Record time formatted as hh:mm:ss.
-  time: string;
+  public time: string;
   // Demo tag that identifies the source section.
-  tag: string;
+  public tag: string;
   // Human-readable detail text.
-  text: string;
+  public text: string;
   // Log level, one of info, warn or error.
-  level: string;
+  public level: string;
 
   /**
    * Build one immutable log entry.

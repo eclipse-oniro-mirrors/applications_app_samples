@@ -77,10 +77,10 @@ NetworkSecurity/
 |   |--- src/main/resources
 |   |   |--- base/profile/network_config.json     // 明文 HTTP 与信任锚策略
 |   |   |--- rawfile/certs
-|   |   |   |--- ca_cert.pem                      // 根 CA 证书
-|   |   |   |--- server_cert.pem                  // 服务器证书
-|   |   |   |--- self_signed_cert.pem             // 自签名证书
-|   |   |   |--- expired_cert.pem                 // 过期证书
+|   |   |   |--- ca_cert.json                     // 根 CA 证书 PEM 文本
+|   |   |   |--- server_cert.json                 // 服务器证书 PEM 文本
+|   |   |   |--- self_signed_cert.json            // 自签名证书 PEM 文本
+|   |   |   |--- expired_cert.json                // 过期证书 PEM 文本
 |   |--- src/ohosTest/ets/test
 |   |   |--- NetworkSecurity.test.ets             // UI 自动化用例
 |   |   |--- List.test.ets                        // 测试入口
@@ -124,8 +124,8 @@ NetworkSecurity/
 
 ### 特性封装（Library）
 
-- 证书校验：[CertVerifyService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertVerifyService.ets) 封装 networkSecurity.certVerificationSync、networkSecurity.certVerification 与 networkSecurity.verifyCertChain。同步与异步校验把 PEM 文本包装为 CertBlob（CERT_TYPE_PEM），返回码 0 表示通过，其他返回码或 BusinessError 的错误码写入 CertVerifyResult；链校验返回解析后的证书链长度与主机名。三个方法都用 Date.now 记录耗时，结果中包含 elapsedMs。
-- 证书读取与解析：[CertFileService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertFileService.ets) 使用 resourceManager.getRawFileContentSync 读取 rawfile 中的 PEM，再通过 util.TextDecoder 解码为字符串；解析时用 cert.createX509Cert 创建 X509Cert，读取 getIssuerName、getNotBeforeTime、getNotAfterTime、getVersion 与 getSerialNumber。
+- 证书校验：[CertVerifyService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertVerifyService.ets) 封装 networkSecurity.certVerificationSync、networkSecurity.certVerification 与 networkSecurity.verifyCertChain。同步与异步校验把 PEM 文本包装为 CertBlob（CERT_TYPE_PEM），返回码 0 表示通过，非零返回码或 BusinessError 的错误码写入 CertVerifyResult；链校验返回解析后的证书链长度与主机名。三个方法都用 Date.now 记录耗时，结果中包含 elapsedMs。
+- 证书读取与解析：[CertFileService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CertFileService.ets) 使用 resourceManager.getRawFileContentSync 读取 rawfile 中的 JSON 文本，通过 util.TextDecoder 解码后用 JSON.parse 还原 PEM 字符串；解析时用 cert.createX509Cert 创建 X509Cert，读取 getIssuerName、getNotBeforeTime、getNotAfterTime、getVersion 与 getSerialNumber。
 - 明文策略查询：[CleartextService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/CleartextService.ets) 封装 networkSecurity.isCleartextPermitted 与 networkSecurity.isCleartextPermittedByHostName；主机名为空时跳过查询，平台调用失败时记录日志并返回 false，不向页面抛异常。
 - HTTP 探测：[HttpProbeService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/HttpProbeService.ets) 通过 http.createHttp().request 发起 GET 请求，连接与读取超时均为 10 秒，200 至 399 视为成功；捕获 BusinessError 后单独识别 2300997，返回“明文流量被网络安全策略拦截”的说明，请求对象在 finally 中调用 destroy 释放。
 - 网络环境自检：[EnvironmentService.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/Library/src/main/ets/networksecurity/security/EnvironmentService.ets) 使用 connection.getDefaultNetSync 获取默认网络，用 connection.getNetCapabilitiesSync 读取承载类型，用 connection.getConnectionProperties 读取 MTU 与 DNS 数量，再追加全局明文开关与按主机名查询两项检查，共六项。
@@ -155,9 +155,9 @@ NetworkSecurity/
 
 [network_config.json](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/BasicFeature/NetworkSecurity/entry/src/main/resources/base/profile/network_config.json) 描述示例期望的网络安全配置：base-config 的 cleartextTrafficPermitted 为 false，即默认禁止明文 HTTP，信任锚指向 /etc/security/certificates；domain-config 中 example.com 及其子域允许明文，iana.org 及其子域禁止明文。页面的明文查询与 HTTP 探测结果以设备实际生效的策略为准，配置内容与设备策略不一致时以设备为准。
 
-四个内置证书位于 entry/src/main/resources/rawfile/certs：
+四个内置证书位于 entry/src/main/resources/rawfile/certs，每份 .json 文件保存一个完整 PEM 字符串，JSON.parse 后恢复原始证书文本。页面仍以 .pem 名称标识证书，校验 API 的 PEM 编码方式不变。探测地址配置在 entry/src/main/resources/base/element/string.json 的 ns_sec_probe_allowed_url 与 ns_sec_probe_denied_url 中，修改域名时须同步核对 network_config.json 的明文规则。
 
-| 文件 | 主体 | 用途 |
+| 证书显示名称 | 主体 | 用途 |
 | --- | --- | --- |
 | ca_cert.pem | Network Security Sample Root CA | 自签名根证书，作为服务器证书与过期证书的信任锚 |
 | server_cert.pem | netsecurity.sample.com | 由根 CA 签发，SAN 包含 netsecurity.sample.com，用于演示链校验与主机名校验 |

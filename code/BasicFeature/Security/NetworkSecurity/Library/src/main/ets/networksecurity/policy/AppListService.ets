@@ -48,8 +48,8 @@ export class AppListService {
       }
       // WITH_APPLICATION fills appInfo, and WITH_HAP_MODULE fills hapModulesInfo, which carries
       // the entry module name needed for the cross-package context.
-      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION
-        | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE;
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE;
       // Query every installed bundle of the current user; errors propagate to the catch.
       const infos: bundleManager.BundleInfo[] = await bundleManager.getAllBundleInfo(flags);
       // Map every bundle info into the displayable item list with safe label fallbacks.
@@ -226,8 +226,8 @@ export class AppListService {
     const appInfo: bundleManager.ApplicationInfo | undefined = info.appInfo;
     // Prefer a plain-text label; a resource descriptor such as $string:app_name is not a name.
     let appName: string = bundleName;
-    if (appInfo !== undefined && appInfo.label !== undefined && appInfo.label.length > 0
-      && !appInfo.label.startsWith('$')) {
+    if (appInfo !== undefined && appInfo.label !== undefined && appInfo.label.length > 0 &&
+      !appInfo.label.startsWith('$')) {
       appName = appInfo.label;
     }
     // Keep the UID from the application info; 0 means the field was not populated.

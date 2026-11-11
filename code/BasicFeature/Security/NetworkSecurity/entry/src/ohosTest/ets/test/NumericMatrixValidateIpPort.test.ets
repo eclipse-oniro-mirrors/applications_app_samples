@@ -133,7 +133,7 @@ export default function numericMatrixValidateIpPortTest() {
     it('testNumValIpPort0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       const TAG: string = 'testNumValIpPort0006';
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
-      // 10.0.0.1 places a small octet next to three boundary-zero octets.
+      // 10.0.0.1 mixes small octets with two boundary-zero octets.
       expect(ValidateUtils.isValidIPv4('10.0.0.1')).assertTrue();
       // 10.255.255.254 mixes zero, ceiling and near-ceiling octets.
       expect(ValidateUtils.isValidIPv4('10.255.255.254')).assertTrue();

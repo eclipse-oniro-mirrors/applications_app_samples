@@ -1157,7 +1157,7 @@ export default function numericMatrixCollectionTest() {
     /**
      * @tc.number    SUB_NETWORKSECURITY_NUMERIC_COLLECT_5000
      * @tc.name      testNumCollect0050
-     * @tc.desc      Verify groupBy places every element of a single-group input into one ordered bucket.
+     * @tc.desc      Verify groupBy groups every element of a single-group input into one ordered bucket.
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1

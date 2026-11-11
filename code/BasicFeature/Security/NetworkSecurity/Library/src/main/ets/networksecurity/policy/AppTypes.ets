@@ -20,13 +20,13 @@ import { image } from '@kit.ImageKit';
  */
 export class AppInfoItem {
   // Application UID assigned by the system.
-  uid: number;
+  public uid: number;
   // Bundle name of the application.
-  bundleName: string;
+  public bundleName: string;
   // Display label resolved from the application info, falls back to the bundle name.
-  appName: string;
+  public appName: string;
   // Icon pixels decoded from the application package, undefined when the resolution failed.
-  icon: image.PixelMap | undefined;
+  public icon: image.PixelMap | undefined;
 
   /**
    * Build one displayable application item.
@@ -52,11 +52,11 @@ export class AppInfoItem {
  */
 export class AppListView {
   // Installed application items in system order.
-  items: AppInfoItem[];
+  public items: AppInfoItem[];
   // Whether the query succeeded; false means the list degrades to empty.
-  loaded: boolean;
+  public loaded: boolean;
   // Plain failure detail for logs, empty on success.
-  message: string;
+  public message: string;
 
   /**
    * Build one app list view.

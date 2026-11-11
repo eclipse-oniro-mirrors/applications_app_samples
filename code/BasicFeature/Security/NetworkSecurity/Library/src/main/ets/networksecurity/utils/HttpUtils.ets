@@ -106,8 +106,8 @@ export class HttpUtils {
   static async httpPost(url: string, body: string, timeoutMs: number = DEFAULT_TIMEOUT_MS,
     retryCount: number = DEFAULT_RETRY_COUNT): Promise<HttpCallResult> {
     const tag: string = '[HttpUtils#httpPost]';
-    Logger.enter(tag, 'url: ' + url + ', bodyChars: ' + body.length.toString()
-      + ', timeout: ' + timeoutMs.toString() + ', retry: ' + retryCount.toString());
+    Logger.enter(tag, 'url: ' + url + ', bodyChars: ' + body.length.toString() +
+      ', timeout: ' + timeoutMs.toString() + ', retry: ' + retryCount.toString());
     Logger.beginTrace('NetworkSecurity.utils.httpPost', 1);
     // POST shares the retry engine; only method and extraData differ.
     const options: http.HttpRequestOptions = {

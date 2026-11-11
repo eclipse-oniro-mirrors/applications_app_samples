@@ -18,7 +18,7 @@
  */
 @ComponentV2
 export struct SwitchRow {
-  // Prefix used to build the accessibility ids of the inner components.
+  // Prefix used to build the component ids of the inner components.
   @Param idPrefix: string = 'id_switch';
   // Primary label text shown on the left.
   @Param label: ResourceStr = '';
