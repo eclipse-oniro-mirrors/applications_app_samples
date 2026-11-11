@@ -57,7 +57,7 @@ interface MockReleaseResource {
 
 interface CameraModelPrivateApi {
   izDistributedCapture: boolean;
-  photoOutput?: MockPhotoOutput;
+  photoOutPut?: MockPhotoOutput;
   cameraInput?: MockCloseResource;
   previewOutput?: MockReleaseResource;
   capSession?: MockReleaseResource;
@@ -88,7 +88,7 @@ function getCameraModel(): CameraModelPrivateApi {
  */
 function resetCameraModelState(model: CameraModelPrivateApi): void {
   model.izDistributedCapture = false;
-  model.photoOutput = undefined;
+  model.photoOutPut = undefined;
   model.cameraInput = undefined;
   model.previewOutput = undefined;
   model.capSession = undefined;
@@ -214,7 +214,7 @@ export default function CameraModelTest(): void {
         }
       };
 
-      model.photoOutput = photoOutput;
+      model.photoOutPut = photoOutput;
       model.izDistributedCapture = true;
 
       model.takePicture('distributed-surface');
@@ -250,7 +250,7 @@ export default function CameraModelTest(): void {
         }
       };
 
-      model.photoOutput = photoOutput;
+      model.photoOutPut = photoOutput;
       model.izDistributedCapture = false;
       model.takePicture('local-surface');
 
@@ -262,7 +262,7 @@ export default function CameraModelTest(): void {
     it('CameraModel_TakePicture_LocalBranchWithoutPhotoOutputStaysSafe_010', 0, () => {
       // 业务背景：初始化失败或资源释放后，photoOutput 可能为空。
       // 现状实现选择静默返回，因此测试要确保这个分支不会抛异常。
-      model.photoOutput = undefined;
+      model.photoOutPut = undefined;
       model.izDistributedCapture = false;
 
       model.takePicture('safe-surface');
@@ -325,7 +325,7 @@ export default function CameraModelTest(): void {
       };
       model.cameraInput = inputResource;
       model.previewOutput = previewResource;
-      model.photoOutput = photoOutput;
+      model.photoOutPut = photoOutput;
       model.capSession = sessionResource;
 
       await model.releaseCamera();
@@ -348,7 +348,7 @@ export default function CameraModelTest(): void {
           order.push('preview');
         }
       };
-      model.photoOutput = undefined;
+      model.photoOutPut = undefined;
       let sessionResource: MockReleaseResource = {
         release: async (): Promise<void> => {
           order.push('session');

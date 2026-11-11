@@ -60,7 +60,7 @@ export default class CameraService {
   private camerasArray: Array<camera.CameraDevice> = undefined;
   private cameraInput: camera.CameraInput = undefined;
   private previewOutput: camera.PreviewOutput = undefined;
-  private photoOutput: camera.PhotoOutput = undefined;
+  private photoOutPut: camera.PhotoOutput = undefined;
   private capSession: camera.CaptureSession = undefined;
   private videoOutput: camera.VideoOutput = undefined;
   private capability: camera.CameraOutputCapability = undefined;
@@ -243,7 +243,7 @@ export default class CameraService {
     Logger.info(TAG, 'createPreviewOutput');
     let rSurfaceId = await this.receiver.getReceivingSurfaceId();
     let photoProfile = this.capability.photoProfiles[0];
-    this.photoOutput = this.cameraMgr.createPhotoOutput(
+    this.photoOutPut = this.cameraMgr.createPhotoOutput(
       photoProfile,
       rSurfaceId
     );
@@ -253,7 +253,7 @@ export default class CameraService {
     Logger.info(TAG, 'beginConfig');
     this.capSession.addInput(this.cameraInput);
     this.capSession.addOutput(this.previewOutput);
-    this.capSession.addOutput(this.photoOutput);
+    this.capSession.addOutput(this.photoOutPut);
     await this.capSession.commitConfig();
     await this.capSession.start();
     Logger.info(TAG, 'captureSession start');
@@ -283,7 +283,7 @@ export default class CameraService {
       },
       mirror: false,
     };
-    await this.photoOutput.capture(photoSettings);
+    await this.photoOutPut.capture(photoSettings);
     Logger.info(TAG, 'takePicture done');
   }
 
@@ -299,9 +299,9 @@ export default class CameraService {
     Logger.info(TAG, 'startVideo 3');
     if (this.currentMode === cameraMode.modePhoto) {
       this.currentMode = cameraMode.modeVideo;
-      if (this.photoOutput) {
-        this.capSession.removeOutput(this.photoOutput);
-        this.photoOutput.release();
+      if (this.photoOutPut) {
+        this.capSession.removeOutput(this.photoOutPut);
+        this.photoOutPut.release();
       }
     } else {
       if (this.videoOutput) {
@@ -410,8 +410,8 @@ export default class CameraService {
     if (this.previewOutput) {
       await this.previewOutput.release();
     }
-    if (this.photoOutput) {
-      await this.photoOutput.release();
+    if (this.photoOutPut) {
+      await this.photoOutPut.release();
     }
     if (this.videoOutput) {
       await this.videoOutput.release();

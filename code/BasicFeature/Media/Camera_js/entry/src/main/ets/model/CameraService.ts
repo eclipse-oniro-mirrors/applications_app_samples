@@ -75,7 +75,7 @@ class CameraService {
   private cameraOutputCapability: camera.CameraOutputCapability | undefined = undefined;
   private cameraInput: camera.CameraInput | undefined = undefined;
   private previewOutput: camera.PreviewOutput | undefined = undefined;
-  private photoOutput: camera.PhotoOutput | undefined = undefined;
+  private photoOutPut: camera.PhotoOutput | undefined = undefined;
   private photoSession: camera.PhotoSession | undefined = undefined;
   private videoSession: camera.VideoSession | undefined = undefined;
   private portraitSession: camera.PortraitPhotoSession | undefined = undefined;
@@ -454,11 +454,11 @@ class CameraService {
         // 监听录像事件
         this.onVideoOutputChange();
       }
-      // 创建photoOutput输出对象
+      // 创建photoOutPut输出对象
       let mSurfaceId = await this.mReceiver.getReceivingSurfaceId();
       this.createPhotoOutputFn(this.photoProfileObj, mSurfaceId);
       // 拍照监听事件
-      this.photoOutputCallBack();
+      this.photoOutPutCallBack();
       // 创建cameraInput输出对象
       this.createCameraInputFn(this.cameras[cameraDeviceIndex]);
       // 打开相机
@@ -726,7 +726,7 @@ class CameraService {
    * 是否支持镜像
    */
   isMirrorSupportedFn(): void {
-    let isSupported = this.photoOutput.isMirrorSupported();
+    let isSupported = this.photoOutPut.isMirrorSupported();
     Logger.info(TAG, `isMirrorSupported success Bol: ${JSON.stringify(isSupported)}`);
   }
 
@@ -791,7 +791,7 @@ class CameraService {
       mirror: cameraConfig.mirrorBol
     };
     Logger.debug(TAG, `takePicture photoSettings:${JSON.stringify(photoSettings)}`);
-    await this.photoOutput.capture(photoSettings);
+    await this.photoOutPut.capture(photoSettings);
     Logger.info(TAG, 'takePicture end');
   }
 
@@ -1060,14 +1060,14 @@ class CameraService {
       }
 
     }
-    if (this.photoOutput) {
+    if (this.photoOutPut) {
       try {
-        await this.photoOutput.release();
+        await this.photoOutPut.release();
       } catch (error) {
         let err = error as BusinessError;
-        Logger.error(TAG, `photoOutput release fail: error: ${JSON.stringify(err)}`);
+        Logger.error(TAG, `photoOutPut release fail: error: ${JSON.stringify(err)}`);
       } finally {
-        this.photoOutput = null;
+        this.photoOutPut = null;
       }
     }
     if (this.videoOutput) {
@@ -1203,18 +1203,18 @@ class CameraService {
   }
 
   /**
-   * 创建photoOutput输出对象
+   * 创建photoOutPut输出对象
    */
   createPhotoOutputFn(photoProfileObj: camera.Profile, surfaceId: string): void {
     Logger.info(TAG, `createPhotoOutputFn photoProfiles: ${JSON.stringify(photoProfileObj)} ,captureMode: ${this.captureMode}, surfaceId: ${surfaceId}`);
     switch (this.captureMode) {
       case CaptureMode.OLD_CAPTURE:
-        this.photoOutput = this.cameraManager.createPhotoOutput(photoProfileObj, surfaceId);
+        this.photoOutPut = this.cameraManager.createPhotoOutput(photoProfileObj, surfaceId);
         break;
       case CaptureMode.NEW_CAPTURE:
       case CaptureMode.NEW_DEFERRED_PHOTO:
-        this.photoOutput = this.cameraManager.createPhotoOutput(photoProfileObj);
-        if (this.photoOutput == null) {
+        this.photoOutPut = this.cameraManager.createPhotoOutput(photoProfileObj);
+        if (this.photoOutPut == null) {
           Logger.error(TAG, 'createPhotoOutputFn createPhotoOutput failed');
         }
         break;
@@ -1306,8 +1306,8 @@ class CameraService {
       this.photoSession.addInput(this.cameraInput);
       // 把previewOutput加入到会话
       this.photoSession.addOutput(this.previewOutput);
-      // 把photoOutput加入到会话
-      this.photoSession.addOutput(this.photoOutput);
+      // 把photoOutPut加入到会话
+      this.photoSession.addOutput(this.photoOutPut);
       // 把depthDataOutput加入到会话
       if (this.depthDataOutput) {
         this.photoSession.addOutput(this.depthDataOutput);
@@ -1348,7 +1348,7 @@ class CameraService {
       this.videoSession.addInput(this.cameraInput);
       // 把previewOutput加入到会话
       this.videoSession.addOutput(this.previewOutput);
-      // 把photoOutput加入到会话
+      // 把photoOutPut加入到会话
       this.videoSession.addOutput(this.videoOutput);
       // 提交配置信息
       await this.videoSession.commitConfig();
@@ -1382,8 +1382,8 @@ class CameraService {
       this.portraitSession.addInput(this.cameraInput);
       // 把previewOutput加入到会话
       this.portraitSession.addOutput(this.previewOutput);
-      // 把photoOutput加入到会话
-      this.portraitSession.addOutput(this.photoOutput);
+      // 把photoOutPut加入到会话
+      this.portraitSession.addOutput(this.photoOutPut);
       if (this.captureMode === CaptureMode.NEW_DEFERRED_PHOTO) {
         if (this.isDeferredImageDeliverySupported(camera.DeferredDeliveryImageType.PHOTO)) {
           this.deferImageDeliveryFor(camera.DeferredDeliveryImageType.PHOTO);
@@ -1430,8 +1430,8 @@ class CameraService {
       this.nightSession.addInput(this.cameraInput);
       // 把previewOutput加入到会话
       this.nightSession.addOutput(this.previewOutput);
-      // 把photoOutput加入到会话
-      this.nightSession.addOutput(this.photoOutput);
+      // 把photoOutPut加入到会话
+      this.nightSession.addOutput(this.photoOutPut);
       if (this.captureMode === CaptureMode.NEW_DEFERRED_PHOTO) {
         if (this.isDeferredImageDeliverySupported(camera.DeferredDeliveryImageType.PHOTO)) {
           this.deferImageDeliveryFor(camera.DeferredDeliveryImageType.PHOTO);
@@ -1574,25 +1574,25 @@ class CameraService {
   /**
    * 监听拍照事件
    */
-  photoOutputCallBack(): void {
+  photoOutPutCallBack(): void {
     // 监听拍照开始
-    this.photoOutput.on('captureStart', (err: BusinessError, captureId: number): void => {
-      Logger.info(TAG, `photoOutputCallBack captureStart captureId success: ${captureId}`);
+    this.photoOutPut.on('captureStart', (err: BusinessError, captureId: number): void => {
+      Logger.info(TAG, `photoOutPutCallBack captureStart captureId success: ${captureId}`);
     });
     // 监听拍照帧输出捕获
     // 获取时间戳转化异常
-    this.photoOutput.on('frameShutter', (err: BusinessError, frameShutterInfo: camera.FrameShutterInfo): void => {
-      Logger.info(TAG, `photoOutputCallBack frameShutter captureId: ${frameShutterInfo.captureId}, timestamp: ${frameShutterInfo.timestamp}`);
+    this.photoOutPut.on('frameShutter', (err: BusinessError, frameShutterInfo: camera.FrameShutterInfo): void => {
+      Logger.info(TAG, `photoOutPutCallBack frameShutter captureId: ${frameShutterInfo.captureId}, timestamp: ${frameShutterInfo.timestamp}`);
     });
     // 监听拍照结束
-    this.photoOutput.on('captureEnd', (err: BusinessError, captureEndInfo: camera.CaptureEndInfo): void => {
-      Logger.info(TAG, `photoOutputCallBack captureEnd captureId: ${captureEndInfo.captureId}, frameCount: ${captureEndInfo.frameCount}`);
+    this.photoOutPut.on('captureEnd', (err: BusinessError, captureEndInfo: camera.CaptureEndInfo): void => {
+      Logger.info(TAG, `photoOutPutCallBack captureEnd captureId: ${captureEndInfo.captureId}, frameCount: ${captureEndInfo.frameCount}`);
     });
-    this.photoOutput.on('error', (data: BusinessError): void => {
-      Logger.info(TAG, `photoOutput data: ${JSON.stringify(data)}`);
+    this.photoOutPut.on('error', (data: BusinessError): void => {
+      Logger.info(TAG, `photoOutPut data: ${JSON.stringify(data)}`);
     });
-    this.photoOutput.on('photoAvailable', (err: BusinessError, photo: camera.Photo): void => {
-      Logger.info(TAG, 'photoOutputCallBack photoAvailable 3');
+    this.photoOutPut.on('photoAvailable', (err: BusinessError, photo: camera.Photo): void => {
+      Logger.info(TAG, 'photoOutPutCallBack photoAvailable 3');
       if (err) {
         Logger.info(TAG, `photoAvailable error: ${JSON.stringify(err)}.`);
         return;
@@ -1616,12 +1616,12 @@ class CameraService {
       });
       photo.release();
     });
-    this.photoOutput.on('deferredPhotoProxyAvailable', (err: BusinessError, proxyObj: camera.DeferredPhotoProxy): void => {
+    this.photoOutPut.on('deferredPhotoProxyAvailable', (err: BusinessError, proxyObj: camera.DeferredPhotoProxy): void => {
       if (err) {
         Logger.info(TAG, `deferredPhotoProxyAvailable error: ${JSON.stringify(err)}.`);
         return;
       }
-      Logger.info(TAG, 'photoOutputCallBack deferredPhotoProxyAvailable');
+      Logger.info(TAG, 'photoOutPutCallBack deferredPhotoProxyAvailable');
       proxyObj.getThumbnail().then((thumbnail: image.PixelMap) => {
         AppStorage.setOrCreate('proxyThumbnail', thumbnail);
       });
@@ -1743,7 +1743,7 @@ class CameraService {
    * 查询是否支持二阶段
    */
   isDeferredImageDeliverySupported(deferredType: camera.DeferredDeliveryImageType): boolean {
-    let res: boolean = this.photoOutput.isDeferredImageDeliverySupported(deferredType);
+    let res: boolean = this.photoOutPut.isDeferredImageDeliverySupported(deferredType);
     Logger.info(TAG, `isDeferredImageDeliverySupported deferredType:${deferredType} res: ${res}`);
     return res;
   }
@@ -1752,7 +1752,7 @@ class CameraService {
    * 查询是否已使能二阶段
    */
   isDeferredImageDeliveryEnabled(deferredType: camera.DeferredDeliveryImageType): boolean {
-    let res: boolean = this.photoOutput.isDeferredImageDeliveryEnabled(deferredType);
+    let res: boolean = this.photoOutPut.isDeferredImageDeliveryEnabled(deferredType);
     Logger.info(TAG, `isDeferredImageDeliveryEnabled deferredType:${deferredType} res: ${res}`);
   }
 
@@ -1761,7 +1761,7 @@ class CameraService {
    */
   deferImageDeliveryFor(deferredType: camera.DeferredDeliveryImageType): void {
     Logger.info(TAG, `deferImageDeliveryFor type: ${deferredType}`);
-    this.photoOutput.deferImageDelivery(deferredType);
+    this.photoOutPut.deferImageDelivery(deferredType);
   }
 
 }
