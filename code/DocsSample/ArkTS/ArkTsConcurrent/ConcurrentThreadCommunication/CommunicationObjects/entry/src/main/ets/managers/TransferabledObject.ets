@@ -43,7 +43,7 @@ struct Index {
         }
       }).catch((e: BusinessError) => {
         this.message = 'failed';
- 	      console.error(`taskpool execute loadPixelMap failed. Code: ${e.code}, message: ${e.message}`);
+        console.error(`taskpool execute loadPixelMap failed. Code: ${e.code}, message: ${e.message}`);
       });
     }).catch(() => {
       this.message = 'failed';
