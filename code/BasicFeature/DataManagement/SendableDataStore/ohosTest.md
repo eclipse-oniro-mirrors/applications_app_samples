@@ -218,15 +218,21 @@ entry/src/ohosTest/
 
 ### 环境准备
 
-1. 使用支持 OpenHarmony API version 26 的 DevEco Studio 和构建工具链。
+1. 使用支持 OpenHarmony API version 26 的 DevEco Studio 和 hvigor 构建工具链。
 2. 连接标准系统真机，确认 `hdc list targets` 或 `devecocli device list` 能看到设备。
-3. 在工程中完成 `entry` 和 `entry@ohosTest` 的构建。已配置 DevEco CLI 时可执行：
+
+### 编译验证
+
+在工程根目录依次构建主 HAP 和测试 HAP：
 
 ```bash
-devecocli build
+cd code/BasicFeature/DataManagement/SendableDataStore
+hvigorw assembleHap --no-daemon
+hvigorw --mode module -p product=default -p module=entry@ohosTest assembleHap --no-daemon
+# BUILD SUCCESSFUL
 ```
 
-HAP 通常输出到 `entry/build/default/outputs/default/`，实际文件名以构建结果为准。安装前需确认主 HAP 和测试 HAP 使用兼容签名。
+HAP 通常输出到 `entry/build/default/outputs/default/`，实际文件名以构建结果为准。安装前需确认主 HAP 和测试 HAP 使用兼容签名。已配置 DevEco CLI 时也可使用 `devecocli build` 完成同样的构建。
 
 ### 运行语言环境约束
 
@@ -250,18 +256,13 @@ hdc shell param get persist.sys.locale
 ```bash
 hdc install entry/build/default/outputs/default/entry-default-signed.hap
 hdc install entry/build/default/outputs/default/entry_test-default-signed.hap
-hdc shell aa start -a EntryAbility -b com.samples.sendabledatastore
 ```
+
+安装完成后可直接在设备桌面启动应用，或在 DevEco Studio 中选择 `entry` 运行配置启动（模块 `entry`，Ability `EntryAbility`，包名 `com.samples.sendabledatastore`）。
 
 ### 执行全量测试
 
-本工程已验证过的测试入口参数为：
-
-```bash
-hdc shell aa test -b com.samples.sendabledatastore -m entry_test -p entry_test
-```
-
-其中 `-b` 为应用包名，`-m` 为测试模块名，`-p` 为测试包路径。缺少 `-m entry_test` 时，测试框架可能提示未指定模块名。
+在 DevEco Studio 中选择 `entry@ohosTest` 运行配置执行全量用例，执行前先按“运行语言环境约束”一节确认设备语言。本工程已验证的测试入口参数为：应用包名 `com.samples.sendabledatastore`，测试模块名 `entry_test`，测试包名 `entry_test`。缺少测试模块名 `entry_test` 时，测试框架可能提示未指定模块名。
 
 ### 日志收集
 
