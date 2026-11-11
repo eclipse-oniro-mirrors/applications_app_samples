@@ -1,86 +1,429 @@
 {
   "string": [
-    { "name": "module_desc", "value": "系统负载入口模块", "description": "入口模块描述" },
-    { "name": "EntryAbility_desc", "value": "展示系统负载融合档位", "description": "入口组件描述" },
-    { "name": "EntryAbility_label", "value": "系统负载", "description": "入口组件名称" },
-    { "name": "system_load_title", "value": "系统负载", "description": "页面标题" },
-    { "name": "system_load_subtitle", "value": "性能功耗热融合档位", "description": "页面副标题" },
-    { "name": "local_data", "value": "本机信息", "description": "本机数据来源" },
-    { "name": "mock_data", "value": "模拟数据", "description": "模拟数据来源" },
-    { "name": "mock_fallback", "value": "本机接口不可用，当前展示模拟数据", "description": "回退数据来源" },
-    { "name": "refresh", "value": "刷新", "description": "刷新按钮" },
-    { "name": "mock_previous", "value": "上一档位", "description": "上一模拟档位按钮" },
-    { "name": "mock_next", "value": "下一档位", "description": "下一模拟档位按钮" },
-    { "name": "data_source", "value": "数据来源：", "description": "数据来源标签" },
-    { "name": "listener_status", "value": "变化监听：", "description": "监听状态标签" },
-    { "name": "listening", "value": "已注册", "description": "监听已注册状态" },
-    { "name": "not_listening", "value": "未注册", "description": "监听未注册状态" },
-    { "name": "level_name_unavailable", "value": "--", "description": "初始档位名称" },
-    { "name": "level_value_unavailable", "value": "--", "description": "不可用档位数值" },
-    { "name": "level_name_unknown", "value": "UNKNOWN", "description": "未知档位名称" },
-    { "name": "level_name_low", "value": "LOW", "description": "LOW 档位名称" },
-    { "name": "level_value_low", "value": "Level 0", "description": "LOW 档位数值" },
-    { "name": "level_name_normal", "value": "NORMAL", "description": "NORMAL 档位名称" },
-    { "name": "level_value_normal", "value": "Level 1", "description": "NORMAL 档位数值" },
-    { "name": "level_name_medium", "value": "MEDIUM", "description": "MEDIUM 档位名称" },
-    { "name": "level_value_medium", "value": "Level 2", "description": "MEDIUM 档位数值" },
-    { "name": "level_name_high", "value": "HIGH", "description": "HIGH 档位名称" },
-    { "name": "level_value_high", "value": "Level 3", "description": "HIGH 档位数值" },
-    { "name": "level_name_overheated", "value": "OVERHEATED", "description": "OVERHEATED 档位名称" },
-    { "name": "level_value_overheated", "value": "Level 4", "description": "OVERHEATED 档位数值" },
-    { "name": "level_name_warning", "value": "WARNING", "description": "WARNING 档位名称" },
-    { "name": "level_value_warning", "value": "Level 5", "description": "WARNING 档位数值" },
-    { "name": "level_name_emergency", "value": "EMERGENCY", "description": "EMERGENCY 档位名称" },
-    { "name": "level_value_emergency", "value": "Level 6", "description": "EMERGENCY 档位数值" },
-    { "name": "level_name_escape", "value": "ESCAPE", "description": "ESCAPE 档位名称" },
-    { "name": "level_value_escape", "value": "Level 7", "description": "ESCAPE 档位数值" },
-    { "name": "level_unavailable", "value": "系统负载档位不可用", "description": "未知档位说明" },
-    { "name": "level_low", "value": "设备温度和负载较低，无高负载场景。", "description": "低负载档位说明" },
-    { "name": "level_normal", "value": "温度和负载正常但接近中等状态，无感知业务应降低规格和负载。", "description": "正常档位说明" },
-    { "name": "level_medium", "value": "温度或负载稍高，无感知业务应暂停或延迟运行。", "description": "中等档位说明" },
-    { "name": "level_high", "value": "设备发热明显或负载较高，无感知业务应停止，非关键业务应降低负载。", "description": "高负载档位说明" },
-    { "name": "level_overheated", "value": "设备发热严重或负载较重，非关键业务应停止，前台关键业务应降低负载。", "description": "过热档位说明" },
-    { "name": "level_warning", "value": "即将进入紧急状态，应停止所有非关键业务并将关键业务降至最低规格。", "description": "警告档位说明" },
-    { "name": "level_emergency", "value": "设备进入紧急状态，功能受限，仅保留基础功能可用。", "description": "紧急档位说明" },
-    { "name": "level_escape", "value": "即将进入热逃生状态，业务应保存重要数据并准备强制停止。", "description": "热逃生档位说明" },
-    { "name": "recommendation_title", "value": "应用调度建议", "description": "调度建议标题" },
-    { "name": "recommendation_unavailable", "value": "重新查询档位后再调度业务。", "description": "档位不可用建议" },
-    { "name": "recommendation_low", "value": "前台和后台业务可正常运行。", "description": "LOW 调度建议" },
-    { "name": "recommendation_normal", "value": "降低后台并发，减少非紧急任务。", "description": "NORMAL 调度建议" },
-    { "name": "recommendation_medium", "value": "延迟后台任务，降低动画或刷新频率。", "description": "MEDIUM 调度建议" },
-    { "name": "recommendation_high", "value": "停止非关键后台业务，降低处理规格。", "description": "HIGH 调度建议" },
-    { "name": "recommendation_overheated", "value": "仅保留必要前台业务，暂停其他任务。", "description": "OVERHEATED 调度建议" },
-    { "name": "recommendation_warning", "value": "将资源占用降至最低，并保存重要应用状态。", "description": "WARNING 调度建议" },
-    { "name": "recommendation_emergency", "value": "停止可选业务，仅保留基础用户功能。", "description": "EMERGENCY 调度建议" },
-    { "name": "recommendation_escape", "value": "立即保存数据，并准备应对应用终止。", "description": "ESCAPE 调度建议" },
-    { "name": "listener_controls", "value": "监听接口验证", "description": "监听控制区标题" },
-    { "name": "primary_listener", "value": "主监听器：", "description": "主监听器标签" },
-    { "name": "secondary_listener", "value": "副监听器：", "description": "副监听器标签" },
-    { "name": "register_primary", "value": "注册主监听", "description": "注册主监听按钮" },
-    { "name": "unregister_primary", "value": "注销主监听", "description": "注销主监听按钮" },
-    { "name": "register_secondary", "value": "注册副监听", "description": "注册副监听按钮" },
-    { "name": "unregister_secondary", "value": "注销副监听", "description": "注销副监听按钮" },
-    { "name": "unregister_all", "value": "注销全部监听", "description": "注销全部监听按钮" },
-    { "name": "operation_status", "value": "最近操作：", "description": "操作状态标签" },
-    { "name": "operation_ready", "value": "就绪", "description": "初始操作状态" },
-    { "name": "operation_local_loaded", "value": "本机档位加载成功", "description": "本机查询成功" },
-    { "name": "operation_local_unavailable", "value": "本机接口不可用，已回退到模拟数据", "description": "本机查询失败" },
-    { "name": "operation_mock_selected", "value": "已选择模拟数据", "description": "选择模拟数据" },
-    { "name": "operation_mock_level_changed", "value": "模拟档位已切换", "description": "模拟档位切换" },
-    { "name": "operation_mock_refreshed", "value": "模拟档位已刷新", "description": "模拟档位刷新" },
-    { "name": "primary_registered", "value": "主监听器注册成功", "description": "主监听注册成功" },
-    { "name": "primary_unregistered", "value": "主监听器注销成功", "description": "主监听注销成功" },
-    { "name": "secondary_registered", "value": "副监听器注册成功", "description": "副监听注册成功" },
-    { "name": "secondary_unregistered", "value": "副监听器注销成功", "description": "副监听注销成功" },
-    { "name": "all_unregistered", "value": "全部监听器注销成功", "description": "全部注销成功" },
-    { "name": "primary_already_registered", "value": "主监听器已注册", "description": "主监听防重复提示" },
-    { "name": "secondary_already_registered", "value": "副监听器已注册", "description": "副监听防重复提示" },
-    { "name": "primary_not_registered", "value": "主监听器未注册", "description": "主监听未注册提示" },
-    { "name": "secondary_not_registered", "value": "副监听器未注册", "description": "副监听未注册提示" },
-    { "name": "no_listeners", "value": "当前没有已注册监听器", "description": "无监听器提示" },
-    { "name": "operation_failed", "value": "操作失败，错误码：%d", "description": "操作失败" },
-    { "name": "primary_callback_count", "value": "主监听回调次数：%d", "description": "主监听回调次数" },
-    { "name": "secondary_callback_count", "value": "副监听回调次数：%d", "description": "副监听回调次数" },
-    { "name": "callback_history", "value": "最近回调记录", "description": "回调记录标签" }
+    {
+      "name": "module_desc",
+      "value": "系统负载入口模块",
+      "description": "入口模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "展示系统负载融合档位",
+      "description": "入口组件描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "系统负载",
+      "description": "入口组件名称"
+    },
+    {
+      "name": "system_load_title",
+      "value": "系统负载",
+      "description": "页面标题"
+    },
+    {
+      "name": "system_load_subtitle",
+      "value": "性能功耗热融合档位",
+      "description": "页面副标题"
+    },
+    {
+      "name": "local_data",
+      "value": "本机信息",
+      "description": "本机数据来源"
+    },
+    {
+      "name": "mock_data",
+      "value": "模拟数据",
+      "description": "模拟数据来源"
+    },
+    {
+      "name": "mock_fallback",
+      "value": "本机接口不可用，当前展示模拟数据",
+      "description": "回退数据来源"
+    },
+    {
+      "name": "refresh",
+      "value": "刷新",
+      "description": "刷新按钮"
+    },
+    {
+      "name": "mock_previous",
+      "value": "上一档位",
+      "description": "上一模拟档位按钮"
+    },
+    {
+      "name": "mock_next",
+      "value": "下一档位",
+      "description": "下一模拟档位按钮"
+    },
+    {
+      "name": "data_source",
+      "value": "数据来源：",
+      "description": "数据来源标签"
+    },
+    {
+      "name": "listener_status",
+      "value": "变化监听：",
+      "description": "监听状态标签"
+    },
+    {
+      "name": "listening",
+      "value": "已注册",
+      "description": "监听已注册状态"
+    },
+    {
+      "name": "not_listening",
+      "value": "未注册",
+      "description": "监听未注册状态"
+    },
+    {
+      "name": "level_name_unavailable",
+      "value": "--",
+      "description": "初始档位名称"
+    },
+    {
+      "name": "level_value_unavailable",
+      "value": "--",
+      "description": "不可用档位数值"
+    },
+    {
+      "name": "level_name_unknown",
+      "value": "UNKNOWN",
+      "description": "未知档位名称"
+    },
+    {
+      "name": "level_name_low",
+      "value": "LOW",
+      "description": "LOW 档位名称"
+    },
+    {
+      "name": "level_value_low",
+      "value": "Level 0",
+      "description": "LOW 档位数值"
+    },
+    {
+      "name": "level_name_normal",
+      "value": "NORMAL",
+      "description": "NORMAL 档位名称"
+    },
+    {
+      "name": "level_value_normal",
+      "value": "Level 1",
+      "description": "NORMAL 档位数值"
+    },
+    {
+      "name": "level_name_medium",
+      "value": "MEDIUM",
+      "description": "MEDIUM 档位名称"
+    },
+    {
+      "name": "level_value_medium",
+      "value": "Level 2",
+      "description": "MEDIUM 档位数值"
+    },
+    {
+      "name": "level_name_high",
+      "value": "HIGH",
+      "description": "HIGH 档位名称"
+    },
+    {
+      "name": "level_value_high",
+      "value": "Level 3",
+      "description": "HIGH 档位数值"
+    },
+    {
+      "name": "level_name_overheated",
+      "value": "OVERHEATED",
+      "description": "OVERHEATED 档位名称"
+    },
+    {
+      "name": "level_value_overheated",
+      "value": "Level 4",
+      "description": "OVERHEATED 档位数值"
+    },
+    {
+      "name": "level_name_warning",
+      "value": "WARNING",
+      "description": "WARNING 档位名称"
+    },
+    {
+      "name": "level_value_warning",
+      "value": "Level 5",
+      "description": "WARNING 档位数值"
+    },
+    {
+      "name": "level_name_emergency",
+      "value": "EMERGENCY",
+      "description": "EMERGENCY 档位名称"
+    },
+    {
+      "name": "level_value_emergency",
+      "value": "Level 6",
+      "description": "EMERGENCY 档位数值"
+    },
+    {
+      "name": "level_name_escape",
+      "value": "ESCAPE",
+      "description": "ESCAPE 档位名称"
+    },
+    {
+      "name": "level_value_escape",
+      "value": "Level 7",
+      "description": "ESCAPE 档位数值"
+    },
+    {
+      "name": "level_unavailable",
+      "value": "系统负载档位不可用",
+      "description": "未知档位说明"
+    },
+    {
+      "name": "level_low",
+      "value": "设备温度和负载较低，无高负载场景。",
+      "description": "低负载档位说明"
+    },
+    {
+      "name": "level_normal",
+      "value": "温度和负载正常但接近中等状态，无感知业务应降低规格和负载。",
+      "description": "正常档位说明"
+    },
+    {
+      "name": "level_medium",
+      "value": "温度或负载稍高，无感知业务应暂停或延迟运行。",
+      "description": "中等档位说明"
+    },
+    {
+      "name": "level_high",
+      "value": "设备发热明显或负载较高，无感知业务应停止，非关键业务应降低负载。",
+      "description": "高负载档位说明"
+    },
+    {
+      "name": "level_overheated",
+      "value": "设备发热严重或负载较重，非关键业务应停止，前台关键业务应降低负载。",
+      "description": "过热档位说明"
+    },
+    {
+      "name": "level_warning",
+      "value": "即将进入紧急状态，应停止所有非关键业务并将关键业务降至最低规格。",
+      "description": "警告档位说明"
+    },
+    {
+      "name": "level_emergency",
+      "value": "设备进入紧急状态，功能受限，仅保留基础功能可用。",
+      "description": "紧急档位说明"
+    },
+    {
+      "name": "level_escape",
+      "value": "即将进入热逃生状态，业务应保存重要数据并准备强制停止。",
+      "description": "热逃生档位说明"
+    },
+    {
+      "name": "recommendation_title",
+      "value": "应用调度建议",
+      "description": "调度建议标题"
+    },
+    {
+      "name": "recommendation_unavailable",
+      "value": "重新查询档位后再调度业务。",
+      "description": "档位不可用建议"
+    },
+    {
+      "name": "recommendation_low",
+      "value": "前台和后台业务可正常运行。",
+      "description": "LOW 调度建议"
+    },
+    {
+      "name": "recommendation_normal",
+      "value": "降低后台并发，减少非紧急任务。",
+      "description": "NORMAL 调度建议"
+    },
+    {
+      "name": "recommendation_medium",
+      "value": "延迟后台任务，降低动画或刷新频率。",
+      "description": "MEDIUM 调度建议"
+    },
+    {
+      "name": "recommendation_high",
+      "value": "停止非关键后台业务，降低处理规格。",
+      "description": "HIGH 调度建议"
+    },
+    {
+      "name": "recommendation_overheated",
+      "value": "仅保留必要前台业务，暂停其他任务。",
+      "description": "OVERHEATED 调度建议"
+    },
+    {
+      "name": "recommendation_warning",
+      "value": "将资源占用降至最低，并保存重要应用状态。",
+      "description": "WARNING 调度建议"
+    },
+    {
+      "name": "recommendation_emergency",
+      "value": "停止可选业务，仅保留基础用户功能。",
+      "description": "EMERGENCY 调度建议"
+    },
+    {
+      "name": "recommendation_escape",
+      "value": "立即保存数据，并准备应对应用终止。",
+      "description": "ESCAPE 调度建议"
+    },
+    {
+      "name": "listener_controls",
+      "value": "监听接口验证",
+      "description": "监听控制区标题"
+    },
+    {
+      "name": "primary_listener",
+      "value": "主监听器：",
+      "description": "主监听器标签"
+    },
+    {
+      "name": "secondary_listener",
+      "value": "副监听器：",
+      "description": "副监听器标签"
+    },
+    {
+      "name": "register_primary",
+      "value": "注册主监听",
+      "description": "注册主监听按钮"
+    },
+    {
+      "name": "unregister_primary",
+      "value": "注销主监听",
+      "description": "注销主监听按钮"
+    },
+    {
+      "name": "register_secondary",
+      "value": "注册副监听",
+      "description": "注册副监听按钮"
+    },
+    {
+      "name": "unregister_secondary",
+      "value": "注销副监听",
+      "description": "注销副监听按钮"
+    },
+    {
+      "name": "unregister_all",
+      "value": "注销全部监听",
+      "description": "注销全部监听按钮"
+    },
+    {
+      "name": "operation_status",
+      "value": "最近操作：",
+      "description": "操作状态标签"
+    },
+    {
+      "name": "operation_ready",
+      "value": "就绪",
+      "description": "初始操作状态"
+    },
+    {
+      "name": "operation_local_loaded",
+      "value": "本机档位加载成功",
+      "description": "本机查询成功"
+    },
+    {
+      "name": "operation_local_unavailable",
+      "value": "本机接口不可用，已回退到模拟数据",
+      "description": "本机查询失败"
+    },
+    {
+      "name": "operation_mock_selected",
+      "value": "已选择模拟数据",
+      "description": "选择模拟数据"
+    },
+    {
+      "name": "operation_mock_level_changed",
+      "value": "模拟档位已切换",
+      "description": "模拟档位切换"
+    },
+    {
+      "name": "operation_mock_refreshed",
+      "value": "模拟档位已刷新",
+      "description": "模拟档位刷新"
+    },
+    {
+      "name": "primary_registered",
+      "value": "主监听器注册成功",
+      "description": "主监听注册成功"
+    },
+    {
+      "name": "primary_unregistered",
+      "value": "主监听器注销成功",
+      "description": "主监听注销成功"
+    },
+    {
+      "name": "secondary_registered",
+      "value": "副监听器注册成功",
+      "description": "副监听注册成功"
+    },
+    {
+      "name": "secondary_unregistered",
+      "value": "副监听器注销成功",
+      "description": "副监听注销成功"
+    },
+    {
+      "name": "all_unregistered",
+      "value": "全部监听器注销成功",
+      "description": "全部注销成功"
+    },
+    {
+      "name": "primary_already_registered",
+      "value": "主监听器已注册",
+      "description": "主监听防重复提示"
+    },
+    {
+      "name": "secondary_already_registered",
+      "value": "副监听器已注册",
+      "description": "副监听防重复提示"
+    },
+    {
+      "name": "primary_not_registered",
+      "value": "主监听器未注册",
+      "description": "主监听未注册提示"
+    },
+    {
+      "name": "secondary_not_registered",
+      "value": "副监听器未注册",
+      "description": "副监听未注册提示"
+    },
+    {
+      "name": "no_listeners",
+      "value": "当前没有已注册监听器",
+      "description": "无监听器提示"
+    },
+    {
+      "name": "operation_failed",
+      "value": "操作失败，错误码：%d",
+      "description": "操作失败"
+    },
+    {
+      "name": "primary_callback_count",
+      "value": "主监听回调次数：%d",
+      "description": "主监听回调次数"
+    },
+    {
+      "name": "secondary_callback_count",
+      "value": "副监听回调次数：%d",
+      "description": "副监听回调次数"
+    },
+    {
+      "name": "callback_history_empty",
+      "value": "--",
+      "description": "空回调记录"
+    },
+    {
+      "name": "primary_callback_record",
+      "value": "主监听：档位 %d",
+      "description": "主监听回调历史记录"
+    },
+    {
+      "name": "secondary_callback_record",
+      "value": "副监听：档位 %d",
+      "description": "副监听回调历史记录"
+    },
+    {
+      "name": "callback_history",
+      "value": "最近回调记录",
+      "description": "回调记录标签"
+    }
   ]
 }

@@ -346,12 +346,12 @@ export default function utilsTest() {
       logger.info(`${BUNDLE}testDateUtilsGetWeekDay0015, begin`);
       // 2026年1月15日是星期四
       const date = new Date(2026, 0, 15);
-      const weekDay = DateUtils.getWeekDay(date);
-      expect(weekDay.length > 0).assertTrue();
+      const weekDay = DateUtils.getWeekDay(date, 'zh-CN');
+      expect(weekDay).assertEqual('星期四');
       expect(typeof weekDay).assertEqual('string');
-      // 验证是有效的星期名称
-      const validWeekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-      expect(validWeekDays.includes(weekDay)).assertTrue();
+      // 验证同一日期可使用英文语言环境
+      const englishWeekDay = DateUtils.getWeekDay(date, 'en-US');
+      expect(englishWeekDay).assertEqual('Thursday');
       logger.info(`${BUNDLE}getWeekDay_0001, end`);
     });
   });
@@ -483,11 +483,11 @@ export default function utilsTest() {
       // 测试邮箱校验
       const emailResult = ValidationUtils.validate('test@example.com', ValidationRule.EMAIL);
       expect(emailResult.valid).assertTrue();
-      expect(emailResult.message !== undefined).assertTrue();
-      // 测试必填校验
+      expect(emailResult.rule).assertEqual(ValidationRule.EMAIL);
+      // 测试必填校验并验证调用方可根据规则映射本地化消息
       const requiredResult = ValidationUtils.validate('', ValidationRule.REQUIRED);
       expect(requiredResult.valid).assertFalse();
-      expect(requiredResult.message !== undefined).assertTrue();
+      expect(requiredResult.rule).assertEqual(ValidationRule.REQUIRED);
       logger.info(`${BUNDLE}validate_0001, end`);
     });
 

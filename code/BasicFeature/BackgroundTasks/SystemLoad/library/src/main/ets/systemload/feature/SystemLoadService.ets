@@ -18,16 +18,11 @@ import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { logger } from '../utils/Logger';
 
 /**
- * 系统负载回调函数类型定义
- * @param level - 系统负载级别枚举值
+ * Callback invoked when the system load level changes.
+ * @param level - System load level enum value.
  */
 type SystemLoadCallback = (level: systemLoad.SystemLoadLevel) => void;
 
-/**
- * 系统负载错误类
- * 继承自Error，用于封装系统负载API调用失败时的错误信息
- * 保留原始BusinessError的code和message
- */
 class SystemLoadError extends Error {
   public code: number;
   constructor(code: number, message: string) {
@@ -38,165 +33,159 @@ class SystemLoadError extends Error {
 }
 
 /**
- * 系统负载服务类
- * 封装OpenHarmony系统负载API，提供统一的调用接口
- * 支持获取当前系统负载级别、注册/注销负载变化监听器
- * 
+ * Provides static wrappers for the OpenHarmony system load APIs.
+ * Supports querying the current level and registering or unregistering listeners.
+ *
  * @remarks
- * 该类为静态工具类，不需要实例化
- * 所有方法均为静态方法，可直接通过类名调用
- * 
+ * This class does not need to be instantiated. All methods can be called directly on the class.
+ *
  * @example
  * ```typescript
- * // 获取当前系统负载
+ * // Get the current system load level.
  * const level = await SystemLoadService.getLocalLevel();
- * 
- * // 注册监听器
+ *
+ * // Register a listener.
  * SystemLoadService.onSystemLoadChange((level) => {
- *   logger.info('SystemLoadService', '系统负载变化: %{public}s', level.toString());
+ *   logger.info(`System load changed: ${level}`);
  * });
  * ```
  */
 export class SystemLoadService {
-  /** 日志标签 */
+  /** Log tag. */
   private static readonly TAG: string = 'SystemLoadService';
-  /** Trace名称 */
+  /** Trace name. */
   private static readonly TRACE_NAME: string = 'SystemLoadService';
 
   /**
-   * 获取当前系统负载级别
-   * 异步调用系统API获取实时的系统负载状态
-   * 
-   * @returns Promise<systemLoad.SystemLoadLevel> 系统负载级别枚举值
-   * @throws {BusinessError} 当系统API调用失败时抛出异常
-   * 
+   * Gets the current system load level asynchronously.
+   *
+   * @returns Promise<systemLoad.SystemLoadLevel> The current system load level.
+   * @throws {BusinessError} Throws the original error when the SDK API call fails.
+   *
    * @remarks
-   * 返回值对应8个负载级别：
-   * - LOW (0): 低负载
-   * - NORMAL (1): 正常负载
-   * - MEDIUM (2): 中等负载
-   * - HIGH (3): 高负载
-   * - OVERHEATED (4): 过热
-   * - WARNING (5): 警告
-   * - EMERGENCY (6): 紧急
-   * - ESCAPE (7): 逃逸
+   * The return value corresponds to one of eight load levels:
+   * - LOW (0): Low load
+   * - NORMAL (1): Normal load
+   * - MEDIUM (2): Medium load
+   * - HIGH (3): High load
+   * - OVERHEATED (4): Overheated
+   * - WARNING (5): Warning
+   * - EMERGENCY (6): Emergency
+   * - ESCAPE (7): Escape
    */
   static async getLocalLevel(): Promise<systemLoad.SystemLoadLevel> {
-    // 记录方法入口日志
+    // Log method entry.
     logger.info(`${SystemLoadService.TAG} getLocalLevel() called`);
-    // 开始性能追踪
+    // Start performance tracing.
     hiTraceMeter.startTrace(SystemLoadService.TRACE_NAME, 10001);
     try {
-      // 调用系统API获取负载级别
+      // Query the system load level.
       const level: systemLoad.SystemLoadLevel = await systemLoad.getLevel();
-      // 记录获取结果
+      // Log the query result.
       logger.info(`${SystemLoadService.TAG} getLocalLevel() result: ${level}`);
       return level;
     } catch (error) {
-      // 记录异常日志
+      // Log the query failure and preserve the original SDK error.
       const err = error as BusinessError;
       logger.error(`${SystemLoadService.TAG} getLocalLevel() failed: code=${err.code}, message=${err.message}`);
       throw new SystemLoadError(err.code, err.message);
     } finally {
-      // 结束性能追踪
+      // Finish performance tracing.
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10001);
     }
   }
 
   /**
-   * 注册系统负载变化监听器
-   * 当系统负载级别发生变化时，回调函数将被触发
-   * 
-   * @param callback - 负载变化回调函数，接收SystemLoadLevel参数
-   * @throws {BusinessError} 当callback参数无效时抛出401错误
-   * 
+   * Registers a listener that is invoked when the system load level changes.
+   *
+   * @param callback - Callback that receives the updated SystemLoadLevel.
+   * @throws {BusinessError} Throws the original SDK error, including error 401 for an invalid callback.
+   *
    * @remarks
-   * - 同一回调函数可重复注册，但只会触发一次
-   * - 回调函数在系统负载变化时异步执行
-   * - 建议在页面销毁时注销监听器，避免内存泄漏
+   * - Registering the same callback repeatedly is idempotent.
+   * - The callback is invoked asynchronously when the system load changes.
+   * - Unregister listeners when the page is destroyed to avoid memory leaks.
    */
   static onSystemLoadChange(callback: SystemLoadCallback): void {
-    // 记录方法入口日志
+    // Log method entry.
     logger.info(`${SystemLoadService.TAG} onSystemLoadChange() called`);
-    // 开始性能追踪
+    // Start performance tracing.
     hiTraceMeter.startTrace(SystemLoadService.TRACE_NAME, 10002);
     try {
-      // 调用系统API注册监听器
+      // Register the listener with the system API.
       systemLoad.on('systemLoadChange', callback);
-      // 记录注册成功
+      // Log successful registration.
       logger.info(`${SystemLoadService.TAG} onSystemLoadChange() registered successfully`);
     } catch (error) {
-      // 记录注册失败
+      // Log the registration failure and preserve the original SDK error.
       const err = error as BusinessError;
       logger.error(`${SystemLoadService.TAG} onSystemLoadChange() failed: code=${err.code}, message=${err.message}`);
       throw new SystemLoadError(err.code, err.message);
     } finally {
-      // 结束性能追踪
+      // Finish performance tracing.
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10002);
     }
   }
 
   /**
-   * 注销指定的系统负载变化监听器
-   * 注销后，该回调函数将不再接收负载变化通知
-   * 
-   * @param callback - 需要注销的回调函数
-   * @throws {BusinessError} 当callback未注册或无效时抛出401错误
-   * 
+   * Unregisters a specific system load listener so it no longer receives change notifications.
+   *
+   * @param callback - Callback to unregister.
+   * @throws {BusinessError} Throws the original SDK error, including error 401 for an invalid or unregistered callback.
+   *
    * @remarks
-   * - 只能注销已注册的回调函数
-   * - 注销未注册的回调会抛出401参数错误
-   * - 建议成对使用onSystemLoadChange和offSystemLoadChange
+   * - Only a registered callback can be unregistered.
+   * - Unregistering an unregistered callback throws error 401.
+   * - Pair onSystemLoadChange with offSystemLoadChange during listener cleanup.
    */
   static offSystemLoadChange(callback: SystemLoadCallback): void {
-    // 记录方法入口日志
+    // Log method entry.
     logger.info(`${SystemLoadService.TAG} offSystemLoadChange() called`);
-    // 开始性能追踪
+    // Start performance tracing.
     hiTraceMeter.startTrace(SystemLoadService.TRACE_NAME, 10003);
     try {
-      // 调用系统API注销监听器
+      // Unregister the listener with the system API.
       systemLoad.off('systemLoadChange', callback);
-      // 记录注销成功
+      // Log successful unregistration.
       logger.info(`${SystemLoadService.TAG} offSystemLoadChange() unregistered successfully`);
     } catch (error) {
-      // 记录注销失败
+      // Log the unregistration failure and preserve the original SDK error.
       const err = error as BusinessError;
       logger.error(`${SystemLoadService.TAG} offSystemLoadChange() failed: code=${err.code}, message=${err.message}`);
       throw new SystemLoadError(err.code, err.message);
     } finally {
-      // 结束性能追踪
+      // Finish performance tracing.
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10003);
     }
   }
 
   /**
-   * 注销所有系统负载变化监听器
-   * 一次性移除所有已注册的监听器
-   * 
-   * @throws {BusinessError} 当没有已注册的监听器时抛出401错误
-   * 
+   * Unregisters all system load listeners in one operation.
+   *
+   * @throws {BusinessError} Throws the original SDK error, including error 401 when no listeners are registered.
+   *
    * @remarks
-   * - 该方法会移除所有通过onSystemLoadChange注册的监听器
-   * - 如果没有已注册的监听器，调用会抛出401错误
-   * - 适用于页面销毁时的批量清理操作
+   * - Removes all listeners registered through onSystemLoadChange.
+   * - Throws error 401 if no listeners are registered.
+   * - Suitable for batch cleanup when a page is destroyed.
    */
   static offAllSystemLoadChange(): void {
-    // 记录方法入口日志
+    // Log method entry.
     logger.info(`${SystemLoadService.TAG} offAllSystemLoadChange() called`);
-    // 开始性能追踪
+    // Start performance tracing.
     hiTraceMeter.startTrace(SystemLoadService.TRACE_NAME, 10004);
     try {
-      // 调用系统API注销所有监听器
+      // Unregister all listeners with the system API.
       systemLoad.off('systemLoadChange');
-      // 记录注销成功
+      // Log successful unregistration.
       logger.info(`${SystemLoadService.TAG} offAllSystemLoadChange() all unregistered successfully`);
     } catch (error) {
-      // 记录注销失败
+      // Log the unregistration failure and preserve the original SDK error.
       const err = error as BusinessError;
       logger.error(`${SystemLoadService.TAG} offAllSystemLoadChange() failed: code=${err.code}, message=${err.message}`);
       throw new SystemLoadError(err.code, err.message);
     } finally {
-      // 结束性能追踪
+      // Finish performance tracing.
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10004);
     }
   }

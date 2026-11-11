@@ -4,7 +4,7 @@
 
 本示例使用 [Basic Services Kit 的 systemLoad 接口](https://docs.openharmony.cn/pages/api-cn/arkui-ts/ts-basic-services-apis-systemload.md) 展示系统性能、功耗和热状态融合档位，覆盖 `getLevel()`、监听注册、指定回调注销以及注销全部回调。
 
-示例采用 ArkTS 和 Stage 模型，普通应用无需特殊权限即可运行。本机接口数据与八档模拟数据明确区分，页面同时展示监听状态、回调次数、最近回调记录和操作结果。
+示例采用 ArkTS 和 Stage 模型，SystemLoad 页面及 systemLoad 接口本身不需要申请权限。为保留的可选工具类声明的权限详见[相关权限](#相关权限)。本机接口数据与八档模拟数据明确区分，页面同时展示监听状态、回调次数、最近回调记录和操作结果。
 
 ## 效果预览
 
@@ -109,7 +109,13 @@ SystemLoad
 
 ## 相关权限
 
-systemLoad 接口不需要申请权限。
+systemLoad 接口和 `SystemLoadPage` 不需要申请权限。HAR 库模块、应用模块和测试模块仅为保留的可选工具类声明以下权限，SystemLoad 页面不会调用这些工具类：
+
+- `ohos.permission.GET_NETWORK_INFO`：供 `NetworkUtils` 查询网络可用性和网络能力。
+- `ohos.permission.READ_PASTEBOARD`：供 `ClipboardUtils` 中读取剪贴板数据的方法使用，写入剪贴板不需要此权限。
+- `ohos.permission.sec.ACCESS_UDID`：仅供 `DeviceUtils.getUdid()` 使用。该权限属于受限权限，面向获得授权的系统应用，声明后不代表普通三方应用一定能够获得授权。无法获取 UDID 时，工具类会捕获异常并返回 `unknown`。
+
+`PermissionUtils` 是通用的权限检查和请求辅助类，调用方仍需声明并获取其调用接口所需的权限。systemLoad 接口本身不依赖上述任何可选工具类权限。
 
 ## 依赖
 

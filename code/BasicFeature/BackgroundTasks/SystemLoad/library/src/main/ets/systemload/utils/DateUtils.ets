@@ -16,7 +16,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 /** 日志域ID */
-const DOMAIN: number = 0xFF00;
+const DOMAIN: number = 0xF811;
 /** 日志标签 */
 const TAG: string = 'DateUtils';
 
@@ -33,8 +33,8 @@ const TAG: string = 'DateUtils';
  * // 格式化当前日期
  * const formatted = DateUtils.format(new Date(), 'yyyy-MM-dd HH:mm:ss');
  * 
- * // 获取相对时间描述
- * const relative = DateUtils.getRelativeTime(pastDate);  // '3小时前'
+ * // 获取指定语言环境的相对时间描述
+ * const relative = DateUtils.getRelativeTime(pastDate, new Date(), 'zh-CN');  // '3小时前'
  * ```
  */
 export class DateUtils {
@@ -46,33 +46,6 @@ export class DateUtils {
   public static readonly TIME_FORMAT: string = 'HH:mm:ss';
   /** 简短日期格式 */
   public static readonly SHORT_FORMAT: string = 'yyyyMMdd';
-
-  /** 星期名称映射 */
-  private static readonly WEEK_DAYS: Map<number, string> = new Map([
-    [0, '星期日'],
-    [1, '星期一'],
-    [2, '星期二'],
-    [3, '星期三'],
-    [4, '星期四'],
-    [5, '星期五'],
-    [6, '星期六']
-  ]);
-
-  /** 月份名称映射 */
-  private static readonly MONTHS: Map<number, string> = new Map([
-    [0, '一月'],
-    [1, '二月'],
-    [2, '三月'],
-    [3, '四月'],
-    [4, '五月'],
-    [5, '六月'],
-    [6, '七月'],
-    [7, '八月'],
-    [8, '九月'],
-    [9, '十月'],
-    [10, '十一月'],
-    [11, '十二月']
-  ]);
 
   /**
    * 格式化日期
@@ -152,17 +125,18 @@ export class DateUtils {
 
   /**
    * 获取相对时间描述
-   * 返回类似'刚刚'、'5分钟前'、'3小时前'等相对时间描述
+   * 返回符合目标语言习惯的相对时间描述
    * 
    * @param date - 待比较的日期
    * @param baseDate - 基准日期，默认为当前时间
-   * @returns string 相对时间描述字符串
+   * @param locale - 语言环境，默认为系统语言环境
+   * @returns string 本地化相对时间描述字符串
    */
-  static getRelativeTime(date: Date, baseDate: Date = new Date()): string {
+  static getRelativeTime(date: Date, baseDate: Date = new Date(), locale?: string): string {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'getRelativeTime() called');
     // 检查日期有效性
-    if (!date || isNaN(date.getTime())) {
+    if (!date || isNaN(date.getTime()) || !baseDate || isNaN(baseDate.getTime())) {
       return '';
     }
     // 计算时间差（毫秒）
@@ -176,27 +150,28 @@ export class DateUtils {
     const WEEK = 7 * DAY;
     const MONTH = 30 * DAY;
     const YEAR = 365 * DAY;
-    // 根据时间差返回相对描述
+    const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
+    // 根据时间差返回本地化相对描述
     if (absDiff < MINUTE) {
-      return '刚刚';
+      return formatter.format(0, 'second');
     } else if (absDiff < HOUR) {
       const minutes = Math.floor(absDiff / MINUTE);
-      return diff > 0 ? `${minutes}分钟前` : `${minutes}分钟后`;
+      return formatter.format(diff > 0 ? -minutes : minutes, 'minute');
     } else if (absDiff < DAY) {
       const hours = Math.floor(absDiff / HOUR);
-      return diff > 0 ? `${hours}小时前` : `${hours}小时后`;
+      return formatter.format(diff > 0 ? -hours : hours, 'hour');
     } else if (absDiff < WEEK) {
       const days = Math.floor(absDiff / DAY);
-      return diff > 0 ? `${days}天前` : `${days}天后`;
+      return formatter.format(diff > 0 ? -days : days, 'day');
     } else if (absDiff < MONTH) {
       const weeks = Math.floor(absDiff / WEEK);
-      return diff > 0 ? `${weeks}周前` : `${weeks}周后`;
+      return formatter.format(diff > 0 ? -weeks : weeks, 'week');
     } else if (absDiff < YEAR) {
       const months = Math.floor(absDiff / MONTH);
-      return diff > 0 ? `${months}个月前` : `${months}个月后`;
+      return formatter.format(diff > 0 ? -months : months, 'month');
     } else {
       const years = Math.floor(absDiff / YEAR);
-      return diff > 0 ? `${years}年前` : `${years}年后`;
+      return formatter.format(diff > 0 ? -years : years, 'year');
     }
   }
 
@@ -245,38 +220,40 @@ export class DateUtils {
 
   /**
    * 获取星期名称
-   * 返回指定日期的星期名称（如：星期一）
+   * 返回指定日期在目标语言环境下的星期名称
    * 
    * @param date - 日期对象
-   * @returns string 星期名称
+   * @param locale - 语言环境，默认为系统语言环境
+   * @returns string 本地化星期名称
    */
-  static getWeekDay(date: Date): string {
+  static getWeekDay(date: Date, locale?: string): string {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'getWeekDay() called');
     // 检查日期有效性
     if (!date || isNaN(date.getTime())) {
       return '';
     }
-    // 返回星期名称
-    return DateUtils.WEEK_DAYS.get(date.getDay()) || '';
+    // 返回本地化星期名称
+    return new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(date);
   }
 
   /**
    * 获取月份名称
-   * 返回指定日期的月份名称（如：一月）
+   * 返回指定日期在目标语言环境下的月份名称
    * 
    * @param date - 日期对象
-   * @returns string 月份名称
+   * @param locale - 语言环境，默认为系统语言环境
+   * @returns string 本地化月份名称
    */
-  static getMonthName(date: Date): string {
+  static getMonthName(date: Date, locale?: string): string {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'getMonthName() called');
     // 检查日期有效性
     if (!date || isNaN(date.getTime())) {
       return '';
     }
-    // 返回月份名称
-    return DateUtils.MONTHS.get(date.getMonth()) || '';
+    // 返回本地化月份名称
+    return new Intl.DateTimeFormat(locale, { month: 'long' }).format(date);
   }
 
   /**

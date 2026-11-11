@@ -17,7 +17,7 @@ import { deviceInfo } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 /** 日志域ID */
-const DOMAIN: number = 0xFF00;
+const DOMAIN: number = 0xF811;
 /** 日志标签 */
 const TAG: string = 'DeviceUtils';
 
@@ -52,7 +52,7 @@ export class DeviceInfo {
  * ```typescript
  * // 获取设备信息
  * const info = DeviceUtils.getDeviceInfo();
- * hilog.info(0xFF00, 'DeviceUtils', '设备型号: %{public}s', info.model);
+ * hilog.info(0xF811, 'DeviceUtils', '设备型号: %{public}s', info.model);
  * 
  * // 判断是否为平板
  * const isTablet = DeviceUtils.isTablet();

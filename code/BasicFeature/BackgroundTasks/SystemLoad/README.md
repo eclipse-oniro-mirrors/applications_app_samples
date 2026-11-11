@@ -4,7 +4,7 @@
 
 This sample demonstrates the system performance, power, and thermal level using the [systemLoad API in the Basic Services Kit](https://docs.openharmony.cn/pages/api-cn/arkui-ts/ts-basic-services-apis-systemload.md). It covers `getLevel()`, listener registration, targeted unregistration, and unregistering all callbacks.
 
-The sample is written in ArkTS using the Stage model and runs as a normal application without requiring any special permissions. Local API data and eight-level mock data are kept clearly separate. The page displays listener state, callback counts, recent callback records, and operation results.
+The sample is written in ArkTS using the Stage model. The SystemLoad page and the systemLoad API require no permissions. Permissions declared for the retained optional utility library are described in [Permissions](#permissions). Local API data and eight-level mock data are kept clearly separate. The page displays listener state, callback counts, recent callback records, and operation results.
 
 ## Preview
 
@@ -105,7 +105,13 @@ The real tests call system APIs directly and make no assumptions about a fixed d
 
 ## Permissions
 
-The systemLoad API requires no permissions.
+The systemLoad API and `SystemLoadPage` require no permissions. The library, application, and test modules declare the following permissions only for the retained optional utility classes; the SystemLoad page does not invoke these utilities:
+
+- `ohos.permission.GET_NETWORK_INFO`: Used by `NetworkUtils` to query network availability and capabilities.
+- `ohos.permission.READ_PASTEBOARD`: Used by `ClipboardUtils` methods that read clipboard data. Clipboard write operations do not require this permission.
+- `ohos.permission.sec.ACCESS_UDID`: Used only by `DeviceUtils.getUdid()`. This is a restricted permission for authorized system applications; declaring it does not guarantee authorization for a normal third-party application. If the UDID is unavailable, the utility catches the error and returns `unknown`.
+
+`PermissionUtils` is a generic permission check and request helper. Callers must declare and obtain any permissions required by the APIs they invoke. None of these optional utility permissions are required by the systemLoad API itself.
 
 ## Dependencies
 

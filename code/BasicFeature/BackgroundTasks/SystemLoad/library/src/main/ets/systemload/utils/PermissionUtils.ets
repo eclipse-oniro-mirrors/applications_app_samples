@@ -17,7 +17,7 @@ import { abilityAccessCtrl, common, bundleManager, Permissions, PermissionReques
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 /** 日志域ID */
-const DOMAIN: number = 0xFF00;
+const DOMAIN: number = 0xF811;
 /** 日志标签 */
 const TAG: string = 'PermissionUtils';
 

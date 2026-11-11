@@ -16,7 +16,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 /** 日志域ID */
-const DOMAIN: number = 0xFF00;
+const DOMAIN: number = 0xF811;
 /** 日志标签 */
 const TAG: string = 'ValidationUtils';
 
@@ -56,9 +56,7 @@ export enum ValidationRule {
 export class ValidationResult {
   /** 是否通过校验 */
   public valid: boolean = false;
-  /** 错误消息 */
-  public message: string = '';
-  /** 校验规则 */
+  /** 校验规则，调用方可据此映射本地化错误消息 */
   public rule: ValidationRule = ValidationRule.REQUIRED;
 }
 
@@ -387,62 +385,48 @@ export class ValidationUtils {
     hilog.debug(DOMAIN, TAG, `validate() called with rule: ${rule}`);
     // 根据规则进行校验
     let valid = false;
-    let message = '';
     switch (rule) {
       case ValidationRule.REQUIRED:
         valid = value !== null && value !== undefined && value.length > 0;
-        message = valid ? '' : '该字段为必填项';
         break;
       case ValidationRule.EMAIL:
         valid = ValidationUtils.isEmail(value);
-        message = valid ? '' : '邮箱格式不正确';
         break;
       case ValidationRule.PHONE:
         valid = ValidationUtils.isPhone(value);
-        message = valid ? '' : '手机号格式不正确';
         break;
       case ValidationRule.URL:
         valid = ValidationUtils.isUrl(value);
-        message = valid ? '' : 'URL格式不正确';
         break;
       case ValidationRule.ID_CARD:
         valid = ValidationUtils.isIdCard(value);
-        message = valid ? '' : '身份证号格式不正确';
         break;
       case ValidationRule.USERNAME:
         valid = ValidationUtils.isUsername(value);
-        message = valid ? '' : '用户名格式不正确（4-16位字母数字下划线）';
         break;
       case ValidationRule.PASSWORD:
         valid = ValidationUtils.isStrongPassword(value);
-        message = valid ? '' : '密码强度不足（至少8位，包含大小写字母和数字）';
         break;
       case ValidationRule.NUMBER:
         valid = ValidationUtils.isNumber(value);
-        message = valid ? '' : '不是有效的数字';
         break;
       case ValidationRule.INTEGER:
         valid = ValidationUtils.isInteger(value);
-        message = valid ? '' : '不是有效的整数';
         break;
       case ValidationRule.ALPHA:
         valid = ValidationUtils.isAlpha(value);
-        message = valid ? '' : '只能包含字母';
         break;
       case ValidationRule.ALPHANUMERIC:
         valid = ValidationUtils.isAlphanumeric(value);
-        message = valid ? '' : '只能包含字母和数字';
         break;
       default:
         valid = false;
-        message = '未知的校验规则';
     }
-    // 返回校验结果
+    // 返回校验结果，展示文案由调用方根据规则进行本地化
     const result: ValidationResult = new ValidationResult();
     result.valid = valid;
-    result.message = message;
     result.rule = rule;
-    hilog.info(DOMAIN, TAG, `validate() result: valid=${result.valid}, message=${result.message}`);
+    hilog.info(DOMAIN, TAG, `validate() result: valid=${result.valid}, rule=${result.rule}`);
     return result;
   }
 
@@ -510,7 +494,7 @@ export class ValidationUtils {
     for (let i: number = 0; i < keys.length; i++) {
       const result: ValidationResult | undefined = results.get(keys[i]);
       if (result && !result.valid) {
-        hilog.info(DOMAIN, TAG, `getFirstError() found: ${result.message}`);
+        hilog.info(DOMAIN, TAG, `getFirstError() found rule: ${result.rule}`);
         return result;
       }
     }

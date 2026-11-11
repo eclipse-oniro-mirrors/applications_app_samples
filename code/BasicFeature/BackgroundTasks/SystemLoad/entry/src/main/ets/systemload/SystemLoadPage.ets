@@ -28,7 +28,7 @@ export struct SystemLoadPage {
   @State private listenerText: Resource = $r('app.string.not_listening');
   @State private secondaryListenerText: Resource = $r('app.string.not_listening');
   @State private operationText: ResourceStr = $r('app.string.operation_ready');
-  @State private callbackHistory: string = '--';
+  @State private callbackHistory: ResourceStr = $r('app.string.callback_history_empty');
   @State private primaryCallbackCount: number = 0;
   @State private secondaryCallbackCount: number = 0;
   @State private isMock: boolean = false;
@@ -148,11 +148,24 @@ export struct SystemLoadPage {
   }
 
   private recordCallback(listener: string, level: systemLoad.SystemLoadLevel): void {
-    this.callbackRecords.unshift(`${listener}: Level ${level}`);
-    if (this.callbackRecords.length > 6) {
-      this.callbackRecords.pop();
+    const recordResourceId: number = listener === 'P' ?
+      $r('app.string.primary_callback_record').id : $r('app.string.secondary_callback_record').id;
+    const context = this.getUIContext().getHostContext();
+    if (!context) {
+      logger.error('Failed to record callback: host context is unavailable');
+      return;
     }
-    this.callbackHistory = this.callbackRecords.join('\n');
+    try {
+      const record = context.resourceManager.getStringSync(recordResourceId, level);
+      this.callbackRecords.unshift(record);
+      if (this.callbackRecords.length > 6) {
+        this.callbackRecords.pop();
+      }
+      this.callbackHistory = this.callbackRecords.join('\n');
+    } catch (error) {
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to load callback record, code: ${err.code}, message: ${err.message}`);
+    }
   }
 
   private setOperationError(error: BusinessError): void {

@@ -13,29 +13,29 @@
  * limitations under the License.
  */
 
-// 核心服务导出
+// Core service exports
 export { SystemLoadService } from './src/main/ets/systemload/feature/SystemLoadService';
 
-// 日志工具导出
+// Logger export
 export { logger } from './src/main/ets/systemload/utils/Logger';
 
-// 基础工具类导出
+// Basic utility exports
 export { StringUtils } from './src/main/ets/systemload/utils/StringUtils';
 export { DateUtils } from './src/main/ets/systemload/utils/DateUtils';
 
-// 设备与存储工具类导出
+// Device and storage utility exports
 export { DeviceUtils, DeviceInfo } from './src/main/ets/systemload/utils/DeviceUtils';
 export { StorageUtils, StorageOptions, StorageEntry } from './src/main/ets/systemload/utils/StorageUtils';
 
-// 网络、权限与加密工具类导出
+// Network, permission, and cryptography utility exports
 export { NetworkUtils, NetworkStatus } from './src/main/ets/systemload/utils/NetworkUtils';
 export { PermissionUtils, PermissionStatus, PermissionRequestResults } from './src/main/ets/systemload/utils/PermissionUtils';
 export { CryptoUtils, CryptoAlgorithm, CryptoResult } from './src/main/ets/systemload/utils/CryptoUtils';
 
-// 校验、随机与剪贴板工具类导出
+// Validation, random, and clipboard utility exports
 export { ValidationUtils, ValidationRule, ValidationResult, ValidationEntry } from './src/main/ets/systemload/utils/ValidationUtils';
 export { RandomUtils, RandomOptions } from './src/main/ets/systemload/utils/RandomUtils';
 export { ClipboardUtils, ClipboardDataType, ClipboardContent } from './src/main/ets/systemload/utils/ClipboardUtils';
 
-// 应用事件工具类导出
+// Application event utility exports
 export { AppEventUtils, EventType, EventDomain, EventData } from './src/main/ets/systemload/utils/AppEventUtils';
