@@ -36,7 +36,7 @@ export default function abilityTest(): void {
      */
     it('testAVPlayerNATIVESubtitleStart0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-      console.info(TAG, 'testAVPlayerNATIVESubtitleStart0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAVPlayerNATIVESubtitleStart0001 begin');
 
       try {
         await abilityDelegator.startAbility({
@@ -52,7 +52,7 @@ export default function abilityTest(): void {
       const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
       done();
-      console.info(TAG, 'testAVPlayerNATIVESubtitleStart0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAVPlayerNATIVESubtitleStart0001 end');
     })
 
     /**

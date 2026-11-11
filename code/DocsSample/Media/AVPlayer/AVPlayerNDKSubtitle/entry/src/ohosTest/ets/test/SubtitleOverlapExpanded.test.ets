@@ -12,10 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, it as hypiumIt, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 
-export default function subtitleOverlapExpandedTest() {
+
+const TAG: string = '[Sample_SubtitleOverlapExpanded]';
+const DOMAIN: number = 0xF811;
+
+function it(name: string, filter: number, func: () => void): void {
+  hypiumIt(name, filter, async () => {
+    hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+    try {
+      await func();
+    } finally {
+      hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+    }
+  });
+}
+
+export default function subtitleOverlapExpandedTest(): void {
   describe('subtitleOverlapExpandedTest', () => {
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_MORE_OVL_0001

@@ -12,7 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, it as hypiumIt, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { fileIo } from '@kit.CoreFileKit';
 import { util } from '@kit.ArkTS';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
@@ -20,7 +21,22 @@ import { abilityDelegatorRegistry } from '@kit.TestKit';
 const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 
-export default function SubtitleFileBehaviorExpandedCoreTest() {
+
+const TAG: string = '[Sample_SubtitleFileBehaviorExpandedCore]';
+const DOMAIN: number = 0xF811;
+
+function it(name: string, filter: number, func: () => void): void {
+  hypiumIt(name, filter, async () => {
+    hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+    try {
+      await func();
+    } finally {
+      hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+    }
+  });
+}
+
+export default function SubtitleFileBehaviorExpandedCoreTest(): void {
   describe('SubtitleFileBehaviorExpandedCoreTest', () => {
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_BEH_FILE_0001

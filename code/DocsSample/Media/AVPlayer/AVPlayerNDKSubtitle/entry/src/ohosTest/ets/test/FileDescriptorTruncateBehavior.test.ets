@@ -54,7 +54,6 @@ export default function fileDescriptorTruncateBehaviorTest() {
         hilog.info(DOMAIN, TAG, '%{public}s', 'assert read size for: ' + path);
         expect(fileIo.readSync(readFile.fd, readBuffer)).assertEqual(100);
         fileIo.closeSync(readFile);
-        hilog.info(DOMAIN, TAG, '%{public}s', 'assert truncated size for: ' + path);
         hilog.info(DOMAIN, TAG, '%{public}s', 'assert final size for: ' + path);
         expect(fileIo.statSync(path).size).assertEqual(100);
       } finally {

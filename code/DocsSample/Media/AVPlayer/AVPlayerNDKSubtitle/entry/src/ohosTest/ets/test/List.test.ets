@@ -35,8 +35,8 @@ import subtitleOverlapExpandedTest from './SubtitleOverlapExpanded.test';
 import subtitleWrapExpandedTest from './SubtitleWrapExpanded.test';
 import seekBoundaryExpandedTest from './SeekBoundaryExpanded.test';
 import speedCycleExpandedTest from './SpeedCycleExpanded.test';
-import PlayerStateMatrixExpandedCoreTest from './PlayerStateMatrixExpandedCore.test';
-import PlayerStateMatrixExpandedTailTest from './PlayerStateMatrixExpandedTail.test';
+import playerStateMatrixExpandedCoreTest from './PlayerStateMatrixExpandedCore.test';
+import playerStateMatrixExpandedTailTest from './PlayerStateMatrixExpandedTail.test';
 import nativeErrorContractExpandedTest from './NativeErrorContractExpanded.test';
 import mediaMetadataExpandedTest from './MediaMetadataExpanded.test';
 import playbackLimitsExpandedTest from './PlaybackLimitsExpanded.test';
@@ -44,8 +44,8 @@ import playbackLimitsExpandedTest from './PlaybackLimitsExpanded.test';
 
 import subtitleCueTimelineExpandedTest from './SubtitleCueTimelineExpanded.test';
 
-import SubtitleFileBehaviorExpandedCoreTest from './SubtitleFileBehaviorExpandedCore.test';
-import SubtitleFileBehaviorExpandedTailTest from './SubtitleFileBehaviorExpandedTail.test';
+import subtitleFileBehaviorExpandedCoreTest from './SubtitleFileBehaviorExpandedCore.test';
+import subtitleFileBehaviorExpandedTailTest from './SubtitleFileBehaviorExpandedTail.test';
 import mediaResourceBehaviorExpandedTest from './MediaResourceBehaviorExpanded.test';
 
 
@@ -65,12 +65,12 @@ import subtitleSafeStateCoreTest from './SubtitleSafeStateCore.test';
 import subtitleSafeStateTailTest from './SubtitleSafeStateTail.test';
 import subtitleSafeBoundaryCoreTest from './SubtitleSafeBoundaryCore.test';
 import subtitleSafeBoundaryTailTest from './SubtitleSafeBoundaryTail.test';
-import SubtitleSafeFileIoCoreFirstTest from './SubtitleSafeFileIoCoreFirst.test';
-import SubtitleSafeFileIoCoreSecondTest from './SubtitleSafeFileIoCoreSecond.test';
-import SubtitleSafeFileIoMiddleFirstTest from './SubtitleSafeFileIoMiddleFirst.test';
-import SubtitleSafeFileIoMiddleSecondTest from './SubtitleSafeFileIoMiddleSecond.test';
-import SubtitleSafeFileIoTailFirstTest from './SubtitleSafeFileIoTailFirst.test';
-import SubtitleSafeFileIoTailSecondTest from './SubtitleSafeFileIoTailSecond.test';
+import subtitleSafeFileIoCoreFirstTest from './SubtitleSafeFileIoCoreFirst.test';
+import subtitleSafeFileIoCoreSecondTest from './SubtitleSafeFileIoCoreSecond.test';
+import subtitleSafeFileIoMiddleFirstTest from './SubtitleSafeFileIoMiddleFirst.test';
+import subtitleSafeFileIoMiddleSecondTest from './SubtitleSafeFileIoMiddleSecond.test';
+import subtitleSafeFileIoTailFirstTest from './SubtitleSafeFileIoTailFirst.test';
+import subtitleSafeFileIoTailSecondTest from './SubtitleSafeFileIoTailSecond.test';
 import playerContractSafeCoreTest from './PlayerContractSafeCore.test';
 import playerContractSafeTailTest from './PlayerContractSafeTail.test';
 
@@ -95,14 +95,14 @@ export default function testsuite() {
   subtitleWrapExpandedTest();
   seekBoundaryExpandedTest();
   speedCycleExpandedTest();
-  PlayerStateMatrixExpandedCoreTest();
-  PlayerStateMatrixExpandedTailTest();
+  playerStateMatrixExpandedCoreTest();
+  playerStateMatrixExpandedTailTest();
   nativeErrorContractExpandedTest();
   mediaMetadataExpandedTest();
   playbackLimitsExpandedTest();
   subtitleCueTimelineExpandedTest();
-  SubtitleFileBehaviorExpandedCoreTest();
-  SubtitleFileBehaviorExpandedTailTest();
+  subtitleFileBehaviorExpandedCoreTest();
+  subtitleFileBehaviorExpandedTailTest();
   mediaResourceBehaviorExpandedTest();
   fileDescriptorTruncateBehaviorTest();
   subtitlePipeline8wTest();
@@ -118,12 +118,12 @@ export default function testsuite() {
   subtitleSafeStateTailTest();
   subtitleSafeBoundaryCoreTest();
   subtitleSafeBoundaryTailTest();
-  SubtitleSafeFileIoCoreFirstTest();
-  SubtitleSafeFileIoCoreSecondTest();
-  SubtitleSafeFileIoMiddleFirstTest();
-  SubtitleSafeFileIoMiddleSecondTest();
-  SubtitleSafeFileIoTailFirstTest();
-  SubtitleSafeFileIoTailSecondTest();
+  subtitleSafeFileIoCoreFirstTest();
+  subtitleSafeFileIoCoreSecondTest();
+  subtitleSafeFileIoMiddleFirstTest();
+  subtitleSafeFileIoMiddleSecondTest();
+  subtitleSafeFileIoTailFirstTest();
+  subtitleSafeFileIoTailSecondTest();
   playerContractSafeCoreTest();
   playerContractSafeTailTest();
 }

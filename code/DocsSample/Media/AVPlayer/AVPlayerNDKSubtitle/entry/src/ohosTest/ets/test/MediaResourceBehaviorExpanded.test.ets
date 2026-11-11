@@ -12,7 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeAll, it as hypiumIt, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { application, common } from '@kit.AbilityKit';
 
@@ -56,7 +57,22 @@ function subtitleBytes(): Uint8Array {
 
 
 
-export default function mediaResourceBehaviorExpandedTest() {
+
+const TAG: string = '[Sample_MediaResourceBehaviorExpanded]';
+const DOMAIN: number = 0xF811;
+
+function it(name: string, filter: number, func: () => void): void {
+  hypiumIt(name, filter, async () => {
+    hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+    try {
+      await func();
+    } finally {
+      hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+    }
+  });
+}
+
+export default function mediaResourceBehaviorExpandedTest(): void {
   describe('mediaResourceBehaviorExpandedTest', () => {
   beforeAll(async () => {
     if (moduleContext === null) {

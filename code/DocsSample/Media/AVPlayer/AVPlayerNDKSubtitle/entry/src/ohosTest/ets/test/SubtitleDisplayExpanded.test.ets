@@ -12,10 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, it as hypiumIt, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 
-export default function subtitleDisplayExpandedTest() {
+
+const TAG: string = '[Sample_SubtitleDisplayExpanded]';
+const DOMAIN: number = 0xF811;
+
+function it(name: string, filter: number, func: () => void): void {
+  hypiumIt(name, filter, async () => {
+    hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+    try {
+      await func();
+    } finally {
+      hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+    }
+  });
+}
+
+export default function subtitleDisplayExpandedTest(): void {
   describe('subtitleDisplayExpandedTest', () => {
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_EXP_DSP_0001
