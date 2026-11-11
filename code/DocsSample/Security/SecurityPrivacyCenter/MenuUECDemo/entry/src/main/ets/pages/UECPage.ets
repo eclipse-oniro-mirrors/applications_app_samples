@@ -14,7 +14,7 @@ struct UECPage {
   build() {
     Row() {
       Column() {
-        Button("click to back")
+        Button('click to back')
           .onClick(() => {
             try {
               this.session.sendData({ 'action': 'exit' })
