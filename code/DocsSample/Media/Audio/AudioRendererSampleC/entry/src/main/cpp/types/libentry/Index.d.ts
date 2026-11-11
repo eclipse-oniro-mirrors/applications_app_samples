@@ -8,3 +8,7 @@ export const workgroupprocess: () => string;
 export const registcallback1: () => string;
 export const registcallback2: () => string;
 export const CreateAudioRender02: () => string;
+export const CheckUltraFastPlaybackSupported: () => string;
+export const CreateUltraFastAudioRender: () => string;
+export const GetUltraFastStatus: () => string;
+export const DestroyUltraAudioRender: () => string;
