@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 import { router } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { getLearningController } from '../learning/LearningContext';
@@ -41,8 +57,8 @@ struct ScenarioPage {
 
   private samplePayload(): PayloadData {
     const data: PayloadData = new PayloadData('scenario-doc', 3);
-    data.title = '场景示例';
-    data.body = '第一行示例内容\n第二行示例内容';
+    data.title = localize('ac_index_150');
+    data.body = localize('ac_index_151');
     data.cs = 2;
     data.ce = 8;
     data.dev = 'local-device';
@@ -61,7 +77,7 @@ struct ScenarioPage {
     deviceCoverageLines().forEach((line: string): void => {
       lines.push(line);
     });
-    lines.push(`高风险场景 ${highRiskScenarios().length} 个`);
+    lines.push(localize('ac_scenariopage_003', [highRiskScenarios().length]));
     this.scenarioLinesState = lines;
     this.stepLinesState = scenarioStepLines();
 
@@ -70,19 +86,19 @@ struct ScenarioPage {
       validator.push(line);
     });
     validator.push(auditValidator().summary());
-    validator.push(`字段规则 ${FIELD_RULES.length} 条，跨字段规则 ${CROSS_RULES.length} 条`);
+    validator.push(localize('ac_scenariopage_004', [FIELD_RULES.length, CROSS_RULES.length]));
     this.validatorLinesState = validator;
 
     const sample: PayloadData = this.samplePayload();
     const result = validate(sample, Date.now());
     const sampleLines: string[] = [];
-    sampleLines.push(`载荷版本 v${PAYLOAD_VERSION}，示例编码 ${encodePayload(sample).length} 字符`);
+    sampleLines.push(localize('ac_scenariopage_005', [PAYLOAD_VERSION, encodePayload(sample).length]));
     sampleLines.push(sizeOf(sample).text());
-    sampleLines.push(`校验结论：${result.headline()}`);
+    sampleLines.push(localize('ac_scenariopage_006', [result.headline()]));
     result.violations.forEach((violation): void => {
       sampleLines.push(violation.text());
     });
-    sampleLines.push(`场景总数 ${SCENARIO_CATALOG.length}，形态 ${PayloadShape.NOTE as string} 起`);
+    sampleLines.push(localize('ac_scenariopage_007', [SCENARIO_CATALOG.length, PayloadShape.NOTE as string]));
     this.sampleLinesState = sampleLines;
 
     const dictionary: string[] = dictionaryLines();
@@ -93,7 +109,7 @@ struct ScenarioPage {
       (key: string): void => {
         dictionary.push(describeValue(sample, key));
       });
-    dictionary.push(`字典字段 ${FIELD_DOCS.length} 个，缺失映射 ${missingSchemaKeys().length} 个`);
+    dictionary.push(localize('ac_scenariopage_008', [FIELD_DOCS.length, missingSchemaKeys().length]));
     dictionary.push(auditDictionary().summary());
     this.dictionaryLinesState = dictionary;
 
@@ -105,8 +121,8 @@ struct ScenarioPage {
       retry.push(line);
     });
     const network = defaultRule(RetryReason.NETWORK);
-    retry.push(`网络退避：第 1 次 ${delayOf(network, 1)} ms，第 2 次 ${delayOf(network, 2)} ms，` +
-      `累计 ${totalWait(network)} ms`);
+    retry.push(localize('ac_scenariopage_009', [delayOf(network, 1), delayOf(network, 2)]) +
+      localize('ac_scenariopage_010', [totalWait(network)]));
     const trace = simulate(network, 3);
     retry.push(trace.text());
     trace.lines().forEach((line: string): void => {
@@ -124,17 +140,17 @@ struct ScenarioPage {
   private openBusiness(kind: string, page: string): void {
     this.navigationMessage = '';
     const controller = getLearningController();
-    if (controller === undefined) { this.navigationMessage = '运行对象尚未初始化。'; return; }
+    if (controller === undefined) { this.navigationMessage = localize('ac_scenariopage_011'); return; }
     try {
       if (!controller.openScene(kind)) {
         const error = controller.sceneWorkbench.snapshot().error;
-        this.navigationMessage = controller.snapshot().canEdit && error.length > 0 ? error : '当前不能切换业务场景。';
+        this.navigationMessage = controller.snapshot().canEdit && error.length > 0 ? error : localize('ac_scenariopage_012');
         return;
       }
       router.pushUrl({ url: page }).catch((error: BusinessError): void => {
-        this.navigationMessage = `页面未打开：${learningError(error)}`;
+        this.navigationMessage = localize('ac_index_009', [learningError(error)]);
       });
-    } catch (error) { this.navigationMessage = `页面未打开：${learningError(error as BusinessError)}`; }
+    } catch (error) { this.navigationMessage = localize('ac_index_009', [learningError(error as BusinessError)]); }
   }
 
   @Builder
@@ -151,7 +167,7 @@ struct ScenarioPage {
   build() {
     Scroll() {
       Column({ space: 14 }) {
-        Button('‹ 返回', { type: ButtonType.Normal })
+        Button($r('app.string.ac_scenariopage_015'), { type: ButtonType.Normal })
           .height(44).fontSize(14)
           .fontColor('#2563EB')
           .backgroundColor('#EEF4FF')
@@ -159,7 +175,7 @@ struct ScenarioPage {
           .padding({ left: 14, right: 14, top: 10, bottom: 10 })
           .onClick(() => router.back())
 
-        Text('场景与校验')
+        Text($r('app.string.ac_index_095'))
           .fontSize(26)
           .fontWeight(FontWeight.Bold)
           .fontColor('#182238')
@@ -170,7 +186,7 @@ struct ScenarioPage {
           .width('100%')
 
         Row({ space: 10 }) {
-          Button('打开笔记场景', { type: ButtonType.Normal })
+          Button($r('app.string.ac_scenariopage_017'), { type: ButtonType.Normal })
             .layoutWeight(1)
             .height(44)
             .fontSize(14)
@@ -178,7 +194,7 @@ struct ScenarioPage {
             .backgroundColor('#2563EB')
             .borderRadius(10)
             .enabled(this.canOpenBusiness()).onClick(() => { this.openBusiness('note', 'pages/NoteScenePage'); })
-          Button('打开阅读场景', { type: ButtonType.Normal })
+          Button($r('app.string.ac_scenariopage_018'), { type: ButtonType.Normal })
             .layoutWeight(1)
             .height(44)
             .fontSize(14)
@@ -189,7 +205,7 @@ struct ScenarioPage {
         }
         .width('100%')
 
-        Button('打开表单场景', { type: ButtonType.Normal })
+        Button($r('app.string.ac_scenariopage_019'), { type: ButtonType.Normal })
           .width('100%')
           .height(44)
           .fontSize(14)
@@ -201,12 +217,12 @@ struct ScenarioPage {
         if (this.navigationMessage.length > 0) {
           Text(this.navigationMessage).fontSize(14).fontColor('#B42318').width('100%')
         }
-        this.card('场景目录', this.scenarioLinesState)
-        this.card('执行步骤', this.stepLinesState)
-        this.card('校验规则', this.validatorLinesState)
-        this.card('示例载荷校验', this.sampleLinesState)
-        this.card('字段字典', this.dictionaryLinesState)
-        this.card('重试策略', this.retryLinesState)
+        this.card(localize('ac_scenariopage_020'), this.scenarioLinesState)
+        this.card(localize('ac_scenariopage_021'), this.stepLinesState)
+        this.card(localize('ac_scenariopage_022'), this.validatorLinesState)
+        this.card(localize('ac_scenariopage_023'), this.sampleLinesState)
+        this.card(localize('ac_scenariopage_024'), this.dictionaryLinesState)
+        this.card(localize('ac_scenariopage_025'), this.retryLinesState)
       }
       .width('100%')
       .padding({ left: 20, right: 20, top: 16, bottom: 28 })

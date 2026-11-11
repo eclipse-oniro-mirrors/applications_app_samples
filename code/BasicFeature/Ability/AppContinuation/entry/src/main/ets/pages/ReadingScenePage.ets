@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 import { getLearningController } from '../learning/LearningContext';
 import { SceneSnapshot } from '../learning/scene/SceneWorkbench';
 import { ScenePageSession } from '../learning/scene/ScenePageSession';
@@ -43,13 +59,13 @@ struct ReadingScenePage {
   build() {
     Scroll() {
       Column({ space: 14 }) {
-        Button('返回工作台', { type: ButtonType.Normal }).height(44).fontSize(14)
+        Button($r('app.string.ac_formscenepage_001'), { type: ButtonType.Normal }).height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10)
           .onClick((): void => { this.backToWorkbench(); })
         if (this.navigationMessage.length > 0) {
           Text(this.navigationMessage).fontSize(14).fontColor('#B42318').width('100%')
         }
-        Text('阅读进度').fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%')
+        Text($r('app.string.ac_readingscenepage_002')).fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%')
         Text(this.view.text()).fontSize(14).fontColor(LEARNING_MUTED).width('100%')
         SceneContinuationStatus()
         Column({ space: 12 }) {
@@ -61,25 +77,25 @@ struct ReadingScenePage {
                 this.positionRendered();
               }
             })
-          Text(`第 ${this.view.readingAnchor + 1}/${this.view.readingParagraphCount} 段`)
+          Text(localize('ac_readingscenepage_003', [this.view.readingAnchor + 1, this.view.readingParagraphCount]))
             .fontSize(12).fontColor(LEARNING_MUTED).width('100%')
         }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
         Row({ space: 10 }) {
-          Button('上一段', { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
+          Button($r('app.string.ac_readingscenepage_004'), { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
             .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
             .onClick((): void => { getLearningController()?.sceneWorkbench.previousParagraph(); })
-          Button('下一段', { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
+          Button($r('app.string.ac_readingscenepage_005'), { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
             .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
             .onClick((): void => { getLearningController()?.sceneWorkbench.nextParagraph(); })
         }.width('100%')
-        Button('保存进度与书签').width('100%').height(48).fontSize(15).backgroundColor(LEARNING_BLUE).borderRadius(10)
+        Button($r('app.string.ac_readingscenepage_006')).width('100%').height(48).fontSize(15).backgroundColor(LEARNING_BLUE).borderRadius(10)
           .enabled(this.view.editable).onClick((): void => { getLearningController()?.sceneWorkbench.saveReading(); })
-        Button('加书签', { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
+        Button($r('app.string.ac_readingscenepage_007'), { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
           .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10).enabled(this.view.editable)
           .onClick((): void => { getLearningController()?.sceneWorkbench.addBookmark(); })
         Text(this.view.error.length > 0 ? this.view.error : this.view.notice)
           .fontSize(14).fontColor(LEARNING_INK).width('100%')
-        Button(this.chaptersExpanded ? '收起目录' : '章节目录', { type: ButtonType.Normal })
+        Button(this.chaptersExpanded ? localize('ac_readingscenepage_008') : localize('ac_readingscenepage_009'), { type: ButtonType.Normal })
           .width('100%').height(44).fontSize(14).fontColor(LEARNING_BLUE).backgroundColor('#FFFFFF').borderRadius(10)
           .onClick((): void => { this.chaptersExpanded = !this.chaptersExpanded; })
         if (this.chaptersExpanded) {
@@ -90,15 +106,15 @@ struct ReadingScenePage {
               .onClick((): void => this.jump(index, 0))
           }, (chapter: ReadingChapter) => chapter.title)
         }
-        Text(`书签（${this.view.bookmarks.length}）`).fontSize(16).fontWeight(FontWeight.Medium)
+        Text(localize('ac_readingscenepage_010', [this.view.bookmarks.length])).fontSize(16).fontWeight(FontWeight.Medium)
           .fontColor(LEARNING_INK).width('100%')
         ForEach(this.view.bookmarks, (bookmark: ReadingBookmark, index: number) => {
           Row({ space: 10 }) {
-            Button(`第${bookmark.chapter + 1}章 第${bookmark.anchor + 1}段`, { type: ButtonType.Normal })
+            Button(localize('ac_readingscenepage_011', [bookmark.chapter + 1, bookmark.anchor + 1]), { type: ButtonType.Normal })
               .layoutWeight(1).height(44).fontSize(14).fontColor(LEARNING_BLUE)
               .backgroundColor('#FFFFFF').borderRadius(10)
               .enabled(this.view.editable).onClick((): void => this.jump(bookmark.chapter, bookmark.anchor))
-            Button('删除', { type: ButtonType.Normal }).height(44).fontSize(14)
+            Button($r('app.string.ac_readingscenepage_012'), { type: ButtonType.Normal }).height(44).fontSize(14)
               .fontColor('#B42318').backgroundColor('#FEF3F2').borderRadius(10).enabled(this.view.editable)
               .onClick((): void => { getLearningController()?.sceneWorkbench.removeBookmark(index); })
           }.width('100%')

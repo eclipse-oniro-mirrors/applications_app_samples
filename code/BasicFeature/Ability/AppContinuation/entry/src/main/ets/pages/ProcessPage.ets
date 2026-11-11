@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localize } from '../common/LocaleStrings';
 /** Live continuation signals. Navigation never disposes the Ability-scoped controller. */
 import { BusinessError } from '@kit.BasicServicesKit';
 import { getLearningController } from '../learning/LearningContext';
@@ -61,20 +77,20 @@ struct ProcessPage {
   }
 
   private confirmStop(): void {
-    confirmLearningAction(this.getUIContext(), '停止本地等待？',
-      '结束当前等待并清理监听？',
+    confirmLearningAction(this.getUIContext(), localize('ac_processpage_001'),
+      localize('ac_processpage_002'),
       () => {
         const controller = this.controller;
         if (controller === undefined) {
-          this.message = '运行对象正在初始化，请稍后重试。';
+          this.message = localize('ac_processpage_003');
           return;
         }
         try {
           controller.stopLocalWait();
           this.snapshot = controller.snapshot();
-          this.message = '已停止本地等待，监听清理结果见诊断。';
+          this.message = localize('ac_processpage_004');
         } catch (error) {
-          this.message = `停止请求未完成：${learningError(error as BusinessError)}`;
+          this.message = localize('ac_processpage_005', [learningError(error as BusinessError)]);
         }
       }, (message: string) => this.feedback(message));
   }
@@ -102,11 +118,11 @@ struct ProcessPage {
       },
         (error: BusinessError) => {
           if (error) {
-            this.message = `未打开本轮诊断：${learningError(error)}`;
+            this.message = localize('ac_processpage_006', [learningError(error)]);
           }
         });
     } catch (error) {
-      this.message = `本轮诊断导航不可用：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_processpage_007', [learningError(error as BusinessError)]);
     }
   }
 
@@ -118,51 +134,51 @@ struct ProcessPage {
         this.openTab(1);
       }
     } catch (error) {
-      this.message = `返回失败：${learningError(error as BusinessError)}`;
+      this.message = localize('ac_calldetailpage_004', [learningError(error as BusinessError)]);
     }
   }
 
   build() {
     Scroll() {
       Column({ space: 16 }) {
-        LearningHeader({ title: '接续过程' })
-        LearningNotice({ title: '提示', message: this.message.length > 0 ? this.message : this.snapshot.notice })
-        LearningCard({ title: '当前状态' }) {
-          LearningLine({ label: '接续', value: this.snapshot.sessionState })
-          LearningLine({ label: '启动', value: this.snapshot.launchReason })
-          LearningLine({ label: '监听', value: this.snapshot.listenerState })
+        LearningHeader({ title: localize('ac_processpage_009') })
+        LearningNotice({ title: localize('ac_learningui_017'), message: this.message.length > 0 ? this.message : this.snapshot.notice })
+        LearningCard({ title: localize('ac_processpage_011') }) {
+          LearningLine({ label: localize('ac_processpage_012'), value: this.snapshot.sessionState })
+          LearningLine({ label: localize('ac_index_068'), value: this.snapshot.launchReason })
+          LearningLine({ label: localize('ac_index_069'), value: this.snapshot.listenerState })
         }
-        LearningCard({ title: '恢复进度' }) {
-          LearningLine({ label: '快速拉起', value: this.snapshot.quickResult })
-          LearningLine({ label: '业务数据', value: this.snapshot.dataState })
-          LearningLine({ label: '窗口', value: this.snapshot.windowState })
-          LearningLine({ label: '实际业务定位', value: this.snapshot.businessPositionState })
-          LearningLine({ label: '状态恢复', value: this.snapshot.committed ? '已完成' : '尚未提交' })
+        LearningCard({ title: localize('ac_processpage_015') }) {
+          LearningLine({ label: localize('ac_processpage_016'), value: this.snapshot.quickResult })
+          LearningLine({ label: localize('ac_processpage_017'), value: this.snapshot.dataState })
+          LearningLine({ label: localize('ac_processpage_018'), value: this.snapshot.windowState })
+          LearningLine({ label: localize('ac_processpage_019'), value: this.snapshot.businessPositionState })
+          LearningLine({ label: localize('ac_processpage_020'), value: this.snapshot.committed ? localize('ac_processpage_021') : localize('ac_processpage_022') })
           if (this.snapshot.sessionActive && this.controller?.positionTarget() !== undefined) {
-            LearningAction({ label: '重试实际业务页定位', onTap: () => this.controller?.retryBusinessPosition() })
+            LearningAction({ label: localize('ac_processpage_023'), onTap: () => this.controller?.retryBusinessPosition() })
           }
           if (this.snapshot.conflictPending) {
             Text(this.snapshot.conflictSummary).fontSize(14).width('100%')
-            LearningAction({ label: this.snapshot.conflictAccepted ? '已接受，等待所有门控' : '接受接续版本',
+            LearningAction({ label: this.snapshot.conflictAccepted ? localize('ac_processpage_024') : localize('ac_scenecontinuationstatus_007'),
               actionEnabled: !this.snapshot.conflictAccepted, onTap: () => this.controller?.acceptConflict() })
-            LearningAction({ label: '保留本机并取消', secondary: true, onTap: () => this.controller?.rejectConflict() })
+            LearningAction({ label: localize('ac_processpage_026'), secondary: true, onTap: () => this.controller?.rejectConflict() })
           }
           if (this.snapshot.restoredSummary.length > 0) {
-            LearningLine({ label: '恢复摘要', value: this.snapshot.restoredSummary })
+            LearningLine({ label: localize('ac_processpage_027'), value: this.snapshot.restoredSummary })
           }
         }
-        LearningCard({ title: '事件记录' }) {
-          LearningAction({ label: this.eventsExpanded ? '收起事件' : `查看事件（${this.sessionEvents().length}）`,
+        LearningCard({ title: localize('ac_processpage_028') }) {
+          LearningAction({ label: this.eventsExpanded ? localize('ac_processpage_029') : localize('ac_processpage_030', [this.sessionEvents().length]),
             secondary: true, onTap: () => { this.eventsExpanded = !this.eventsExpanded; } })
           if (this.eventsExpanded) {
             LearningEvents({ events: this.sessionEvents() })
           }
         }
-        LearningAction({ label: '停止等待', actionEnabled: this.snapshot.canStop, secondary: true,
+        LearningAction({ label: localize('ac_processpage_031'), actionEnabled: this.snapshot.canStop, secondary: true,
           onTap: () => this.confirmStop() })
-        LearningAction({ label: '查看诊断', onTap: () => this.openSessionDiagnostic() })
-        LearningAction({ label: '返回调用', secondary: true, onTap: () => this.openTab(1) })
-        LearningAction({ label: '返回', secondary: true, onTap: () => this.back() })
+        LearningAction({ label: localize('ac_processpage_032'), onTap: () => this.openSessionDiagnostic() })
+        LearningAction({ label: localize('ac_calldetailpage_030'), secondary: true, onTap: () => this.openTab(1) })
+        LearningAction({ label: localize('ac_calldetailpage_031'), secondary: true, onTap: () => this.back() })
       }
       .width('100%').padding({ left: 20, right: 20, top: 8, bottom: 28 });
     }

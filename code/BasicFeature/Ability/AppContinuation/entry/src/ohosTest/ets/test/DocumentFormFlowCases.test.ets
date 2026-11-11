@@ -1,4 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { describe, expect, it } from '@ohos/hypium';
+import { localize } from '../../../main/ets/common/LocaleStrings';
 import {
   DOC_RULES, DocKind, DocumentSlot, DocumentWorkspace, WorkspaceAudit, checkIsolation, docLines,
   multiSlotKinds, workspaceLines
@@ -590,7 +606,7 @@ export default function documentFormFlowCasesTest(): void {
       expect(session.archive()).assertTrue();
       expect(session.currentStage()).assertEqual(FormStage.ARCHIVED);
       expect(session.reopen()).assertFalse();
-      expect(formSummary(session).indexOf('已归档') >= 0).assertTrue();
+      expect(formSummary(session).indexOf(localize('ac_documentworkspace_004')) >= 0).assertTrue();
     });
 
     /**
@@ -804,7 +820,7 @@ export default function documentFormFlowCasesTest(): void {
       session.setValue('amount', '100');
       expect(formSummary(session).indexOf('可提交') >= 0).assertTrue();
       session.review();
-      expect(formSummary(session).indexOf('待确认') >= 0).assertTrue();
+      expect(formSummary(session).indexOf(localize('ac_formsession_006')) >= 0).assertTrue();
     });
 
     /**

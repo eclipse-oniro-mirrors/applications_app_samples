@@ -1,4 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { describe, expect, it } from '@ohos/hypium';
+import { localize } from '../../../main/ets/common/LocaleStrings';
 import {
   FieldChoice, FieldDecision, FieldTriple, MergePlan, MergeResult, applyMerge, conflictKeys,
   planMerge, previewLines, resolveAll, tripleStats
@@ -265,7 +281,7 @@ export default function mergeRecoveryMatrixCasesTest(): void {
       decision.reason = '双方都改过且取值不同';
       expect(decision.describe()).assertEqual(
         'group｜需人工确认｜(空)｜冲突：双方都改过且取值不同');
-      expect(decision.describe().indexOf('需人工确认') > 0).assertTrue();
+      expect(decision.describe().indexOf(localize('ac_mergeplan_004')) > 0).assertTrue();
       expect(decision.conflicted).assertTrue();
       expect(decision.reason).assertEqual('双方都改过且取值不同');
       expect(decision.choice).assertEqual(FieldChoice.MANUAL);
