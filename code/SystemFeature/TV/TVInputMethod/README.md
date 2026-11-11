@@ -4,6 +4,12 @@
 
 本示例为 OpenHarmony TV 场景下的输入法应用，基于 Stage 模型实现 `inputMethod` ExtensionAbility、英文/数字/符号/中文拼音（26 键与 9 键）键盘、候选词选词栏、预上屏与遥控器焦点导航等能力。项目主体为 `entry` 模块，拼音解码依托 C++ 引擎 `libime_pinyin` 与 Worker 线程，可用于大屏输入场景的功能参考。
 
+### 效果预览
+
+|                  英文键盘                   |                  二级菜单                   |                 光标/选择导航                  |                  输入法预览页                   |
+| :---------------------------------------: | :---------------------------------------: | :---------------------------------------: | :---------------------------------------: |
+| ![main](screenshots/devices/main.svg) | ![menu](screenshots/devices/menu.svg) | ![edit](screenshots/devices/edit.svg) | ![preview](screenshots/devices/preview.svg) |
+
 使用说明：
 
 1. 安装后在系统输入法列表中将当前输入法切换为 kikaInput。
