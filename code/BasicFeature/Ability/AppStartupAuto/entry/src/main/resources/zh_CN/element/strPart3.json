@@ -1,0 +1,1220 @@
+{
+  "string": [
+    {
+      "name": "startup_text_0894",
+      "value": "返回后："
+    },
+    {
+      "name": "startup_text_0895",
+      "value": "重试返回后查询"
+    },
+    {
+      "name": "startup_text_0896",
+      "value": "取消本轮回访"
+    },
+    {
+      "name": "startup_text_0897",
+      "value": "收起回访详情 −"
+    },
+    {
+      "name": "startup_text_0898",
+      "value": "回访详情 +"
+    },
+    {
+      "name": "startup_text_0899",
+      "value": "阶段："
+    },
+    {
+      "name": "startup_text_0900",
+      "value": "离开："
+    },
+    {
+      "name": "startup_text_0901",
+      "value": "；返回："
+    },
+    {
+      "name": "startup_text_0902",
+      "value": "回查关联ID："
+    },
+    {
+      "name": "startup_text_0903",
+      "value": "收起存储操作 −"
+    },
+    {
+      "name": "startup_text_0904",
+      "value": "存储与恢复 +"
+    },
+    {
+      "name": "startup_text_0905",
+      "value": "重试保存"
+    },
+    {
+      "name": "startup_text_0906",
+      "value": "重试读取回访"
+    },
+    {
+      "name": "startup_text_0907",
+      "value": "放弃未读/损坏回访存档"
+    },
+    {
+      "name": "startup_text_0908",
+      "value": "放弃原回访存档？"
+    },
+    {
+      "name": "startup_text_0909",
+      "value": "仅重置本应用私有回访。读取失败时建议先重试，确认后原存档将被替换。"
+    },
+    {
+      "name": "startup_text_0910",
+      "value": "放弃并重置"
+    },
+    {
+      "name": "startup_text_0911",
+      "value": "收起回访归档 −"
+    },
+    {
+      "name": "startup_text_0912",
+      "value": "回访归档 · "
+    },
+    {
+      "name": "startup_text_0913",
+      "value": " 轮 +"
+    },
+    {
+      "name": "startup_text_0914",
+      "value": "保留最多10轮、30天；每轮最多5条回查尝试。"
+    },
+    {
+      "name": "startup_text_0915",
+      "value": "暂无已结束回访"
+    },
+    {
+      "name": "startup_text_0916",
+      "value": "当前范围无有效成功样本"
+    },
+    {
+      "name": "startup_text_0917",
+      "value": "当前范围最近有效："
+    },
+    {
+      "name": "startup_text_0918",
+      "value": "结果筛选："
+    },
+    {
+      "name": "startup_text_0919",
+      "value": "来源筛选："
+    },
+    {
+      "name": "startup_text_0920",
+      "value": "时间范围："
+    },
+    {
+      "name": "startup_text_0921",
+      "value": "筛选和比较选择已重置"
+    },
+    {
+      "name": "startup_text_0922",
+      "value": "当前范围为空，没有可导出的记录；全量导出有独立入口"
+    },
+    {
+      "name": "startup_text_0923",
+      "value": "全量历史"
+    },
+    {
+      "name": "startup_text_0924",
+      "value": "当前筛选范围"
+    },
+    {
+      "name": "startup_text_0925",
+      "value": "全量"
+    },
+    {
+      "name": "startup_text_0926",
+      "value": "当前范围"
+    },
+    {
+      "name": "startup_text_0927",
+      "value": "脱敏历史已复制"
+    },
+    {
+      "name": "startup_text_0928",
+      "value": "复制失败，请点击同一导出按钮重试；存储未改变"
+    },
+    {
+      "name": "startup_text_0929",
+      "value": "清空历史记录"
+    },
+    {
+      "name": "startup_text_0930",
+      "value": "清空已保存的查询历史？该操作只影响本应用的历史记录。"
+    },
+    {
+      "name": "startup_text_0931",
+      "value": "清空"
+    },
+    {
+      "name": "startup_text_0932",
+      "value": "已请求清空；写入失败时页面会保留提示"
+    },
+    {
+      "name": "startup_text_0933",
+      "value": "已请求重试保存"
+    },
+    {
+      "name": "startup_text_0934",
+      "value": "已请求重新读取历史"
+    },
+    {
+      "name": "startup_text_0935",
+      "value": "查询历史"
+    },
+    {
+      "name": "startup_text_0936",
+      "value": " 条记录 · "
+    },
+    {
+      "name": "startup_text_0937",
+      "value": "收起筛选 −"
+    },
+    {
+      "name": "startup_text_0938",
+      "value": "筛选 +"
+    },
+    {
+      "name": "startup_text_0939",
+      "value": "导出当前范围"
+    },
+    {
+      "name": "startup_text_0940",
+      "value": "结果"
+    },
+    {
+      "name": "startup_text_0941",
+      "value": "来源"
+    },
+    {
+      "name": "startup_text_0942",
+      "value": "时间"
+    },
+    {
+      "name": "startup_text_0943",
+      "value": "重置筛选"
+    },
+    {
+      "name": "startup_text_0944",
+      "value": "存储与更多操作 +"
+    },
+    {
+      "name": "startup_text_0945",
+      "value": "重试读取"
+    },
+    {
+      "name": "startup_text_0946",
+      "value": "全量脱敏导出（忽略筛选）"
+    },
+    {
+      "name": "startup_text_0947",
+      "value": "收起已保存归档 −"
+    },
+    {
+      "name": "startup_text_0948",
+      "value": "已保存归档 +"
+    },
+    {
+      "name": "startup_text_0949",
+      "value": "记录"
+    },
+    {
+      "name": "startup_text_0950",
+      "value": "已选为前"
+    },
+    {
+      "name": "startup_text_0951",
+      "value": "选为前"
+    },
+    {
+      "name": "startup_text_0952",
+      "value": "已选为后"
+    },
+    {
+      "name": "startup_text_0953",
+      "value": "选为后"
+    },
+    {
+      "name": "startup_text_0954",
+      "value": "详情"
+    },
+    {
+      "name": "startup_text_0955",
+      "value": "当前范围记录详情（本机）"
+    },
+    {
+      "name": "startup_text_0956",
+      "value": "当前范围前后比较"
+    },
+    {
+      "name": "startup_text_0957",
+      "value": "收起统计与预览 −"
+    },
+    {
+      "name": "startup_text_0958",
+      "value": "统计、比较与导出预览 +"
+    },
+    {
+      "name": "startup_text_0959",
+      "value": "当前范围汇总"
+    },
+    {
+      "name": "startup_text_0960",
+      "value": "导出预览"
+    },
+    {
+      "name": "startup_text_0961",
+      "value": " 条 · 成功 "
+    },
+    {
+      "name": "startup_text_0962",
+      "value": " · 失败 "
+    },
+    {
+      "name": "startup_text_0963",
+      "value": " · 超时 "
+    },
+    {
+      "name": "startup_text_0964",
+      "value": " · 未知 "
+    },
+    {
+      "name": "startup_text_0965",
+      "value": " · 最近有效 #"
+    },
+    {
+      "name": "startup_text_0966",
+      "value": " · 无有效样本"
+    },
+    {
+      "name": "startup_text_0967",
+      "value": " 条将过期"
+    },
+    {
+      "name": "startup_text_0968",
+      "value": "；复制失败，请重试"
+    },
+    {
+      "name": "startup_text_0969",
+      "value": "等待系统响应"
+    },
+    {
+      "name": "startup_text_0970",
+      "value": "重试"
+    },
+    {
+      "name": "startup_text_0971",
+      "value": "重新检测"
+    },
+    {
+      "name": "startup_text_0972",
+      "value": "刷新状态"
+    },
+    {
+      "name": "startup_text_0973",
+      "value": "自启状态"
+    },
+    {
+      "name": "startup_text_0974",
+      "value": "系统响应等待中"
+    },
+    {
+      "name": "startup_text_0975",
+      "value": "设备支持："
+    },
+    {
+      "name": "startup_text_0976",
+      "value": "最近查询："
+    },
+    {
+      "name": "startup_text_0977",
+      "value": "上次查询："
+    },
+    {
+      "name": "startup_text_0978",
+      "value": "诊断报告"
+    },
+    {
+      "name": "startup_text_0979",
+      "value": "需要调整设置？"
+    },
+    {
+      "name": "startup_text_0980",
+      "value": "按指引手动设置，返回后回查"
+    },
+    {
+      "name": "startup_text_0981",
+      "value": "如何设置"
+    },
+    {
+      "name": "startup_text_0982",
+      "value": "收起设备指引 −"
+    },
+    {
+      "name": "startup_text_0983",
+      "value": "设备指引 +"
+    },
+    {
+      "name": "startup_text_0984",
+      "value": "调用详情 −"
+    },
+    {
+      "name": "startup_text_0985",
+      "value": "调用详情 +"
+    },
+    {
+      "name": "startup_text_0986",
+      "value": "查看状态，按需手动设置"
+    },
+    {
+      "name": "startup_text_0987",
+      "value": "查询记录 · "
+    },
+    {
+      "name": "startup_text_0988",
+      "value": "条"
+    },
+    {
+      "name": "startup_text_0989",
+      "value": "历史管理 · 筛选 / 比较 / 导出"
+    },
+    {
+      "name": "startup_format_0d5355a338a3",
+      "value": "；另有 {0} 条仅计入统计"
+    },
+    {
+      "name": "startup_format_4c160f6faab0",
+      "value": "{0}：共 {1} 条（有效 {2}），成功率 {3}%{4}"
+    },
+    {
+      "name": "startup_format_5becf8ede620",
+      "value": "（另有 {0} 条仅计入统计）"
+    },
+    {
+      "name": "startup_format_f23e7dd3feb5",
+      "value": "{0}：共 {1} 条，返回 {2} 条样本{3}"
+    },
+    {
+      "name": "startup_format_c60eb1c36812",
+      "value": "最多 {0} 天｜每日 {1} 条样本｜最近 {2} 条有效样本｜趋势 {3} 天"
+    },
+    {
+      "name": "startup_format_87340c616f4c",
+      "value": "没有该日期的记录（索引窗口 {0} 至 {1}）"
+    },
+    {
+      "name": "startup_format_7f4ce3f8ef8c",
+      "value": "当天只保留最近 {0} 条样本"
+    },
+    {
+      "name": "startup_format_badb09226b3e",
+      "value": "归档为空：{0} 条记录无效，{1} 条超出索引窗口"
+    },
+    {
+      "name": "startup_format_4e8f06ff022c",
+      "value": "归档为空：{0} 条记录均未通过字段校验"
+    },
+    {
+      "name": "startup_format_ffbe500521b4",
+      "value": "归档为空：{0} 条记录全部超出 {1} 天索引窗口"
+    },
+    {
+      "name": "startup_format_d9ea97bffe96",
+      "value": "｜窗口外 {0} 条"
+    },
+    {
+      "name": "startup_format_e4959e4e3e98",
+      "value": "归档索引｜{0} 天｜{1} 条｜有效 {2} 条{3}"
+    },
+    {
+      "name": "startup_format_20dde70a31c3",
+      "value": "已忽略 {0} 条未通过字段校验的记录"
+    },
+    {
+      "name": "startup_format_3b7d59634326",
+      "value": "已丢弃 {0} 条超出 {1} 天索引窗口的记录"
+    },
+    {
+      "name": "startup_format_f3fe95db8d15",
+      "value": "（涉及 {0} 个日期）"
+    },
+    {
+      "name": "startup_format_db4cf06a8240",
+      "value": "每日最多保留 {0} 条样本，其余只计入统计"
+    },
+    {
+      "name": "startup_format_05715f360e67",
+      "value": "趋势数据不足：只有 {0} 个有效样本日（至少需要 2 个）"
+    },
+    {
+      "name": "startup_format_df91d0fbb511",
+      "value": "{0} → {1}｜成功率 {2}% → {3}%"
+    },
+    {
+      "name": "startup_format_2fbfec3cf39a",
+      "value": "｜{0}（{1}{2} 个百分点）"
+    },
+    {
+      "name": "startup_format_c130b6f1be3e",
+      "value": "条数上限 {0}｜天数上限 {1} 天｜失败样本额外 {2} 天"
+    },
+    {
+      "name": "startup_format_0578a9fa4203",
+      "value": "最多保留 {0} 条，超出部分按时间从旧到新清理"
+    },
+    {
+      "name": "startup_format_15112b27191a",
+      "value": "最多保留 {0} 天，更早的记录按天数清理"
+    },
+    {
+      "name": "startup_format_dc5d80660073",
+      "value": "失败样本额外保留 {0} 天（实际 {1} 天），用于排查"
+    },
+    {
+      "name": "startup_format_9fdbaf9a38b9",
+      "value": "保留 {0} 条，删除 {1} 条"
+    },
+    {
+      "name": "startup_format_3df62be81a01",
+      "value": "（按天数 {0} 条，按条数 {1} 条）"
+    },
+    {
+      "name": "startup_format_7e901017c73d",
+      "value": "其余 {0} 条从略"
+    },
+    {
+      "name": "startup_format_d4b6a332589a",
+      "value": "条数上限越界：{0}"
+    },
+    {
+      "name": "startup_format_1dce782ee99c",
+      "value": "天数上限越界：{0}"
+    },
+    {
+      "name": "startup_format_45877e0e8c45",
+      "value": "失败样本额外天数越界：{0}"
+    },
+    {
+      "name": "startup_format_12dfec4921dc",
+      "value": "年龄 {0} 天已超过 {1} 天，但作为最近有效样本豁免"
+    },
+    {
+      "name": "startup_format_07f9b1860c52",
+      "value": "年龄 {0} 天超过 {1} 天"
+    },
+    {
+      "name": "startup_format_b777fa58943b",
+      "value": "失败样本在 {0} 天基础上多保留 {1} 天"
+    },
+    {
+      "name": "startup_format_f67f452272bb",
+      "value": "年龄 {0}/{1} 天，且在 {2} 条以内"
+    },
+    {
+      "name": "startup_format_33f68c0d4b7a",
+      "value": "超出条数上限 {0}，按时间从旧到新清理"
+    },
+    {
+      "name": "startup_format_f819ef1fad54",
+      "value": "天数上限 {0} 天"
+    },
+    {
+      "name": "startup_format_17b0f2c979e6",
+      "value": "；失败样本额外 {0} 天（共 {1} 天）"
+    },
+    {
+      "name": "startup_format_e6bc0515c1ce",
+      "value": "条数上限 {0} 条，超出部分按时间从旧到新清理"
+    },
+    {
+      "name": "startup_format_ff117be8a6d8",
+      "value": "最近有效样本 #{0} 本应被清理，已豁免保留"
+    },
+    {
+      "name": "startup_format_de566cf45f13",
+      "value": "最近有效样本 #{0} 已保留（不受天数/条数规则影响）"
+    },
+    {
+      "name": "startup_format_c7d82a01c26c",
+      "value": "{0} 条记录时间未知，已保留且不参与天数/条数计算"
+    },
+    {
+      "name": "startup_format_b913919d50b3",
+      "value": "清理完成：删除 {0} 条，保留 {1} 条"
+    },
+    {
+      "name": "startup_format_8a010c72ad3d",
+      "value": "预览中 {0} 条待删记录在执行时已不存在"
+    },
+    {
+      "name": "startup_format_dbf76dc97a16",
+      "value": "预览之后新增 {0} 条记录，未纳入本次清理，已保留"
+    },
+    {
+      "name": "startup_format_75f491c7eb20",
+      "value": "已读取 {0} 条归档；不保存原始错误说明"
+    },
+    {
+      "name": "startup_format_c43d1828a91b",
+      "value": "；另有 {0} 条待确认，请明确重试保存"
+    },
+    {
+      "name": "startup_format_f7ccf2ca0b28",
+      "value": "已提交清理，删除 {0} 条"
+    },
+    {
+      "name": "startup_format_22ba0b71e4be",
+      "value": "{0}：{1} 条"
+    },
+    {
+      "name": "startup_format_78064061fa94",
+      "value": "范围 {0} 条｜成功 {1}｜失败 {2}｜"
+    },
+    {
+      "name": "startup_format_f6b100802a6e",
+      "value": "不支持 {0}｜超时 {1}｜未知 {2}"
+    },
+    {
+      "name": "startup_format_018291987880",
+      "value": "已保存 {0} 条，重复 {1} 条；不保存原始错误说明"
+    },
+    {
+      "name": "startup_format_b7b21312ad6e",
+      "value": "已清理 {0} 条超过 30 天的历史记录"
+    },
+    {
+      "name": "startup_format_4ad3605744e9",
+      "value": "已迁移旧版历史；{0}"
+    },
+    {
+      "name": "startup_format_82d647b9bd61",
+      "value": "生成时间：{0}"
+    },
+    {
+      "name": "startup_format_7098fbdcbc1f",
+      "value": "记录数：{0}"
+    },
+    {
+      "name": "startup_format_7ee4ac31499d",
+      "value": "支持 {0} | "
+    },
+    {
+      "name": "startup_format_1f33ac9b39f7",
+      "value": "状态 {0} | 错误码 {1} | {2} ms"
+    },
+    {
+      "name": "startup_format_02faa2b6c007",
+      "value": "  说明：{0}"
+    },
+    {
+      "name": "startup_format_a1a8020de465",
+      "value": "系统不支持（{0}）"
+    },
+    {
+      "name": "startup_format_db1f6db77389",
+      "value": "调用失败（{0}）"
+    },
+    {
+      "name": "startup_format_43dd26b0d62d",
+      "value": "能力 {0}｜状态 {1}"
+    },
+    {
+      "name": "startup_format_ffabbad46b71",
+      "value": "{0}｜{1}｜{2}｜权重 {3}"
+    },
+    {
+      "name": "startup_format_321ea355c0bc",
+      "value": "{0} {1}｜必需 {2}｜"
+    },
+    {
+      "name": "startup_format_87fca9c8d4da",
+      "value": "可选 {0}"
+    },
+    {
+      "name": "startup_format_160909d76e1e",
+      "value": "缺少 {0}"
+    },
+    {
+      "name": "startup_format_3b39889b9d5a",
+      "value": "{0} {1}｜{2}｜置信度 {3}%"
+    },
+    {
+      "name": "startup_format_6101256e6fa0",
+      "value": "规则编号重复：{0}"
+    },
+    {
+      "name": "startup_format_6d97c27e58d7",
+      "value": "编号不连续：期望 {0}，实际 {1}"
+    },
+    {
+      "name": "startup_format_15bb22ea4ee5",
+      "value": "缺少必需证据：{0}"
+    },
+    {
+      "name": "startup_format_156c0ae5433c",
+      "value": "必需证据不存在：{0}.{1}"
+    },
+    {
+      "name": "startup_format_7618fbd73324",
+      "value": "可选证据不存在：{0}.{1}"
+    },
+    {
+      "name": "startup_format_fd45f3b16c0e",
+      "value": "证据重复归类：{0}.{1}"
+    },
+    {
+      "name": "startup_format_b3d5698e1ce2",
+      "value": "缺少说明：{0}"
+    },
+    {
+      "name": "startup_format_cb7bf9935b55",
+      "value": "结论缺少证据链：{0}"
+    },
+    {
+      "name": "startup_format_5c2ba0ac6074",
+      "value": "复现：{0}；判定：{1}；处置：{2}"
+    },
+    {
+      "name": "startup_format_5f0a9f432572",
+      "value": "共 {0} 条，阻断 {1} 条，严重 {2} 条，"
+    },
+    {
+      "name": "startup_format_aea3aa4d9ff5",
+      "value": "可自愈 {0} 条"
+    },
+    {
+      "name": "startup_format_daba46044ae2",
+      "value": "编号重复：{0}"
+    },
+    {
+      "name": "startup_format_66ea333bee9f",
+      "value": "缺少现象：{0}"
+    },
+    {
+      "name": "startup_format_31569c094481",
+      "value": "缺少判定依据：{0}"
+    },
+    {
+      "name": "startup_format_420fc3713114",
+      "value": "缺少处置动作：{0}"
+    },
+    {
+      "name": "startup_format_c64da49b4fc9",
+      "value": "缺少归属：{0}"
+    },
+    {
+      "name": "startup_format_72b8ae4cc35b",
+      "value": "编号数量异常：{0}"
+    },
+    {
+      "name": "startup_format_78b78fe493cb",
+      "value": "下一步 {0}"
+    },
+    {
+      "name": "startup_format_c91c3f2c5b3d",
+      "value": "进度 {0}%｜完成 {1}、跳过 {2}｜{3}"
+    },
+    {
+      "name": "startup_format_ef4d5ad604f9",
+      "value": "缺少标题：{0}"
+    },
+    {
+      "name": "startup_format_b42894e8985d",
+      "value": "耗时为负：{0}"
+    },
+    {
+      "name": "startup_format_951b582f14c1",
+      "value": "依赖不存在：{0} -> {1}"
+    },
+    {
+      "name": "startup_format_03ab37bee2e6",
+      "value": "依赖自身：{0}"
+    },
+    {
+      "name": "startup_format_d6efb65bc501",
+      "value": "依赖顺序错误：{0} -> {1}"
+    },
+    {
+      "name": "startup_format_2a1d9519d00a",
+      "value": "{0} 小时"
+    },
+    {
+      "name": "startup_format_376dc4cad94c",
+      "value": "{0} 条"
+    },
+    {
+      "name": "startup_format_01a5c9de151b",
+      "value": "共 {0} 条：近期 {1}、近周 {2}、"
+    },
+    {
+      "name": "startup_format_e0a771771672",
+      "value": "归档 {0}、待清理 {1}"
+    },
+    {
+      "name": "startup_format_d5b63804af14",
+      "value": "清理 {0} 条需要用户确认"
+    },
+    {
+      "name": "startup_format_7e7a7271ae8f",
+      "value": "{0}：无记录"
+    },
+    {
+      "name": "startup_format_3fec0c502890",
+      "value": "{0}：{1} 条 -> "
+    },
+    {
+      "name": "startup_format_a8ed44fb7399",
+      "value": "年龄上限非单调：{0}"
+    },
+    {
+      "name": "startup_format_4eafba5aa3e9",
+      "value": "条数上限非单调：{0}"
+    },
+    {
+      "name": "startup_format_b7c0be2242fe",
+      "value": "兜底档数量异常：{0}"
+    },
+    {
+      "name": "startup_format_a4b39299cf78",
+      "value": "{0}：{1} 条规则"
+    },
+    {
+      "name": "startup_format_6e141419ecdd",
+      "value": "{0} 之后"
+    },
+    {
+      "name": "startup_format_57eeec9dc80a",
+      "value": "｜错误 {0}"
+    },
+    {
+      "name": "startup_format_e969226f1a2f",
+      "value": "共 {0} 条｜成功 {1}｜失败 {2}｜不支持 {3}｜"
+    },
+    {
+      "name": "startup_format_206a2001625d",
+      "value": "超时 {0}｜未知 {1}"
+    },
+    {
+      "name": "startup_format_1cecab3cb6e9",
+      "value": "最近有效 #{0}｜"
+    },
+    {
+      "name": "startup_format_b2b597c47173",
+      "value": "最新 {0}｜"
+    },
+    {
+      "name": "startup_format_b0b0be8a0458",
+      "value": "最早 {0}"
+    },
+    {
+      "name": "startup_format_2a33f02d1080",
+      "value": "{0} 条将在一天内到期"
+    },
+    {
+      "name": "startup_format_88e71f9c4642",
+      "value": "只有一条样本 #{0}（{1}）"
+    },
+    {
+      "name": "startup_format_e500751111fc",
+      "value": "前 #{0} {1}（{2}）"
+    },
+    {
+      "name": "startup_format_200e5ad30abf",
+      "value": "后 #{0} {1}（{2}）"
+    },
+    {
+      "name": "startup_format_571b5157a65d",
+      "value": "间隔 {0} ms"
+    },
+    {
+      "name": "startup_format_18192b9a2e30",
+      "value": "…（共 {0} 行）"
+    },
+    {
+      "name": "startup_format_ebb315835379",
+      "value": "结果：{0}；能力：{1}；状态：{2}"
+    },
+    {
+      "name": "startup_format_aba600cee97e",
+      "value": "错误码：{0}"
+    },
+    {
+      "name": "startup_format_ddbcea641f8d",
+      "value": "本机错误说明：{0}"
+    },
+    {
+      "name": "startup_format_f18cae145e7e",
+      "value": "间隔 {0} 分钟｜每日 {1} 次｜"
+    },
+    {
+      "name": "startup_format_b28e8c06c8b6",
+      "value": "总计 {0} 次｜静默 {1}:00-{2}:00"
+    },
+    {
+      "name": "startup_format_92c3b7d5b31e",
+      "value": "今日 {0} 次｜累计 {1} 次"
+    },
+    {
+      "name": "startup_format_af181b1c3000",
+      "value": "累计提醒已达 {0} 次"
+    },
+    {
+      "name": "startup_format_7badf32cc18c",
+      "value": "今日提醒已达 {0} 次"
+    },
+    {
+      "name": "startup_format_c2f506b218d0",
+      "value": "距上次提醒不足 {0} 分钟"
+    },
+    {
+      "name": "startup_format_af02ae4037f5",
+      "value": "静默时段 {0}:00 至次日 {1}:00"
+    },
+    {
+      "name": "startup_format_b1724131f5c6",
+      "value": "{0}｜API {1}~{2}｜最多 {3} 次｜"
+    },
+    {
+      "name": "startup_format_94488c103af8",
+      "value": "已申请 {0} 次，请前往系统设置开启"
+    },
+    {
+      "name": "startup_format_0b1a69c1018e",
+      "value": "规则重复：{0}"
+    },
+    {
+      "name": "startup_format_94cc653b44b9",
+      "value": "区间非法：{0}"
+    },
+    {
+      "name": "startup_format_16333e169681",
+      "value": "缺少文案：{0}"
+    },
+    {
+      "name": "startup_format_4435339e60fa",
+      "value": "申请策略与次数冲突：{0}"
+    },
+    {
+      "name": "startup_format_b82568a32a62",
+      "value": "API {0} 无规则覆盖"
+    },
+    {
+      "name": "startup_format_96ba822bb5e5",
+      "value": "{0}｜共 {1} 步，其中必做 {2} 步"
+    },
+    {
+      "name": "startup_format_6982eb6fc0cd",
+      "value": "{0} 手动指引（不推断设备能力）"
+    },
+    {
+      "name": "startup_format_281a18257fa1",
+      "value": "无法比较：{0}"
+    },
+    {
+      "name": "startup_format_c9944c764225",
+      "value": "状态已变化：{0} → {1}"
+    },
+    {
+      "name": "startup_format_d4a54bda281d",
+      "value": "状态未变化（仍为 {0}）"
+    },
+    {
+      "name": "startup_format_76f9984881c9",
+      "value": "离开前样本不可比（{0}）"
+    },
+    {
+      "name": "startup_format_37b386bb4012",
+      "value": "返回后样本不可比（{0}）"
+    },
+    {
+      "name": "startup_format_0fd646867503",
+      "value": "当前阶段 {0} 不接受离开事件"
+    },
+    {
+      "name": "startup_format_8bc74e078a5a",
+      "value": "当前阶段 {0} 不接受返回事件"
+    },
+    {
+      "name": "startup_format_8b42835338f8",
+      "value": "当前阶段 {0} 不接受回查事件"
+    },
+    {
+      "name": "startup_format_360de0970f87",
+      "value": "session {0}｜{1}｜指引版本 {2}"
+    },
+    {
+      "name": "startup_format_7b971e5c43f8",
+      "value": "创建 {0}｜后台 {1}｜前台 {2}"
+    },
+    {
+      "name": "startup_format_ffcd03352e3d",
+      "value": "终止/最后回查 {0}｜取消 {1}"
+    },
+    {
+      "name": "startup_format_39a7ab3f3050",
+      "value": "离开前 {0}"
+    },
+    {
+      "name": "startup_format_80fe90e6fd9e",
+      "value": "返回后 {0}"
+    },
+    {
+      "name": "startup_format_3ce3e8a0287e",
+      "value": "回查尝试 {0}｜错误码 {1}｜{2} ms"
+    },
+    {
+      "name": "startup_format_448e841d4196",
+      "value": "成功 {0}｜失败 {1}｜不支持 {2}｜"
+    },
+    {
+      "name": "startup_format_c7d0d7a0f3e9",
+      "value": "文案键重复：{0}"
+    },
+    {
+      "name": "startup_format_776c349a3174",
+      "value": "文案为空：{0}"
+    },
+    {
+      "name": "startup_format_d6c1777f81e2",
+      "value": "长度上限非法：{0}"
+    },
+    {
+      "name": "startup_format_8fe38e8fdb7d",
+      "value": "文案超长：{0}"
+    },
+    {
+      "name": "startup_format_3c6f74b8ebe9",
+      "value": "模板为空：{0}"
+    },
+    {
+      "name": "startup_format_7e26987afdaa",
+      "value": "占位符不闭合：{0}"
+    },
+    {
+      "name": "startup_format_a9d5643f0d1f",
+      "value": "占位符解析不一致：{0}"
+    },
+    {
+      "name": "startup_format_7547051850cf",
+      "value": "{0}：{1}（{2} 个占位符）"
+    },
+    {
+      "name": "startup_format_66f93fe5e906",
+      "value": "{0} 分钟前"
+    },
+    {
+      "name": "startup_format_6504a911f9e1",
+      "value": "{0} 小时前"
+    },
+    {
+      "name": "startup_format_09f12da9a77f",
+      "value": "{0} 天前"
+    },
+    {
+      "name": "startup_format_4e2bb6c8a095",
+      "value": "错误信息：{0}"
+    },
+    {
+      "name": "startup_format_d7d2b72b0fc1",
+      "value": "结果分类：{0}"
+    },
+    {
+      "name": "startup_format_ff376b73126d",
+      "value": "耗时：{0} ms"
+    },
+    {
+      "name": "startup_format_6d031965ef02",
+      "value": "归档 #{0}｜原查询 #{1}\n"
+    },
+    {
+      "name": "startup_format_250354fd74be",
+      "value": "确认清空 {0} 条已保存归档？live历史不受影响。"
+    },
+    {
+      "name": "startup_format_106ca484f859",
+      "value": "状态 {0}｜自动 {1}｜"
+    },
+    {
+      "name": "startup_format_0a37325a996c",
+      "value": "待保存 {0}｜{1}"
+    },
+    {
+      "name": "startup_format_4d47b0140922",
+      "value": "已保存 {0} 条｜当前范围 {1} 条｜{2}/1048576 字节"
+    },
+    {
+      "name": "startup_format_0d580d1b7775",
+      "value": "#{0}｜原查询 #{1}｜{2}"
+    },
+    {
+      "name": "startup_format_fe5608d9043b",
+      "value": "{0} 条用户可见文案"
+    },
+    {
+      "name": "startup_format_08cb0b931b1d",
+      "value": "自启独立诊断（实际API，不是开机拉起证据）\nAPI等级 {0}\n"
+    },
+    {
+      "name": "startup_format_c3f33b9111c0",
+      "value": "设备形态 {0}\n能力 {1} {2}\n"
+    },
+    {
+      "name": "startup_format_c5c55bd3cded",
+      "value": "状态 {0} {1}\n"
+    },
+    {
+      "name": "startup_format_54a96c164202",
+      "value": "阶段 {0}；返回 {1}"
+    },
+    {
+      "name": "startup_format_62510b4d60c0",
+      "value": "错误码 {0}；耗时 {1} ms"
+    },
+    {
+      "name": "startup_format_39b4fd76be2a",
+      "value": "查询历史：私有存储，最多{0}条、30天；格式{1}，错误信息上限{2}。"
+    },
+    {
+      "name": "startup_format_08ea3219d621",
+      "value": "归属分布：{0}"
+    },
+    {
+      "name": "startup_format_e69a71fbd7c2",
+      "value": "层分布：{0}"
+    },
+    {
+      "name": "startup_format_dc531a6cf5e6",
+      "value": "优先项 {0} 条"
+    },
+    {
+      "name": "startup_format_23a6d544d29a",
+      "value": "可行链：{0}"
+    },
+    {
+      "name": "startup_format_8b98ce0363db",
+      "value": "支持结论：{0}"
+    },
+    {
+      "name": "startup_format_aef3ff20682d",
+      "value": "失败结论：{0}"
+    },
+    {
+      "name": "startup_format_0e00c374dbc8",
+      "value": "证据 {0} 条，链规则 {1} 条"
+    },
+    {
+      "name": "startup_format_336f0852ca33",
+      "value": "必做 {0} 步，可跳过 {1} 步，"
+    },
+    {
+      "name": "startup_format_0b70d84ddd7a",
+      "value": "预计 {0} 秒"
+    },
+    {
+      "name": "startup_format_6457ea597395",
+      "value": "当前步骤：{0}"
+    },
+    {
+      "name": "startup_format_b331ac27728f",
+      "value": "阻塞步骤 {0} 个"
+    },
+    {
+      "name": "startup_format_32e57d9ce315",
+      "value": "已复制 {0} 字符"
+    },
+    {
+      "name": "startup_format_23553164b8f3",
+      "value": "目录 {0} 条｜历史 {1} 条"
+    },
+    {
+      "name": "startup_format_cae88552bad3",
+      "value": "离开前：{0}"
+    },
+    {
+      "name": "startup_format_9fb76b9f4a57",
+      "value": "返回后：{0}"
+    },
+    {
+      "name": "startup_format_84f8745990cf",
+      "value": "阶段：{0}"
+    },
+    {
+      "name": "startup_format_1c36bcd4e70d",
+      "value": "离开：{0}；返回：{1}"
+    },
+    {
+      "name": "startup_format_27777b5cb3c1",
+      "value": "回查关联ID：{0}"
+    },
+    {
+      "name": "startup_format_a75b195995bb",
+      "value": "回访归档 · {0} 轮 +"
+    },
+    {
+      "name": "startup_format_c13c67ff9a02",
+      "value": "当前范围最近有效：{0}"
+    },
+    {
+      "name": "startup_format_928a140542fd",
+      "value": "结果筛选：{0}"
+    },
+    {
+      "name": "startup_format_5e01e113b688",
+      "value": "来源筛选：{0}"
+    },
+    {
+      "name": "startup_format_80619f799169",
+      "value": "时间范围：{0}"
+    },
+    {
+      "name": "startup_format_d13ec67220c6",
+      "value": "{0}脱敏历史已复制"
+    },
+    {
+      "name": "startup_format_f81a5f60798c",
+      "value": "{0} 条记录 · {1}"
+    },
+    {
+      "name": "startup_format_d4162659f392",
+      "value": "共 {0} 条 · 成功 {1} · 失败 {2} · "
+    },
+    {
+      "name": "startup_format_b655c0b469bb",
+      "value": "不支持 {0} · 超时 {1} · 未知 {2}"
+    },
+    {
+      "name": "startup_format_417aa7fb9d0c",
+      "value": " · 最近有效 #{0}"
+    },
+    {
+      "name": "startup_format_9665e649878d",
+      "value": " · {0} 条将过期"
+    },
+    {
+      "name": "startup_format_420bf171a18b",
+      "value": "{0}；复制失败，请重试"
+    },
+    {
+      "name": "startup_format_0d8bc32738eb",
+      "value": "设备支持：{0}"
+    },
+    {
+      "name": "startup_format_20c4cde090c1",
+      "value": "最近查询：{0}"
+    },
+    {
+      "name": "startup_format_880313dd233b",
+      "value": "上次查询：{0} "
+    },
+    {
+      "name": "startup_format_7c478eee9f7b",
+      "value": "查询记录 · {0}条"
+    }
+  ]
+}
