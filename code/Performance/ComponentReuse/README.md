@@ -94,9 +94,9 @@
 
 1. 本示例仅支持标准系统上运行。
 
-2. 本示例为Stage模型，支持API20版本SDK。
+2. 本示例为Stage模型，支持API20版本SDK，当前已升级至API 26版本SDK（SDK版本号(API Version 26)）。
 
-3. 本示例需要使用DevEco Studio 6.0.0 Release及以上版本才可编译运行。
+3. 本示例需要使用DevEco Studio 6.0.0 Release及以上版本才可编译运行，当前已升级至DevEco Studio 26.0.0 Release及以上版本。
 
 ### 下载
 
