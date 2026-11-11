@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it as hypiumIt, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, it as hypiumIt, expect as hypiumExpect, TestType, Size, Level, Assert } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { fileIo } from '@kit.CoreFileKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
@@ -34,6 +34,11 @@ function it(name: string, filter: number, func: () => void): void {
   });
 }
 
+
+function expect(actual: string | number | boolean | Object | null | undefined): Assert {
+  hilog.info(DOMAIN, TAG, '%{public}s', 'actual: ' + String(actual));
+  return hypiumExpect(actual);
+}
 export default function SubtitleSafeFileIoCoreFirstTest(): void {
   describe('SubtitleSafeFileIoCoreFirstTest', () => {
     /**
