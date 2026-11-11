@@ -13,3 +13,4 @@
 /.signing
 /signature
 /scripts
+/oh-package-lock.json5
