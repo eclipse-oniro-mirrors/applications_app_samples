@@ -67,7 +67,7 @@ export class DataValidator {
     if (key.length > DataStoreConstants.MAX_KEY_LENGTH) {
       return false;
     }
-    const invalidPattern = new RegExp('[\\x00-\\x1F]');
+    const invalidPattern: RegExp = new RegExp('[\\x00-\\x1F]');
     if (invalidPattern.test(key)) {
       return false;
     }
@@ -110,7 +110,7 @@ export class DataValidator {
     if (name.length === 0 || name.length > 64) {
       return false;
     }
-    const validPattern = new RegExp('^[a-zA-Z][a-zA-Z0-9_]*$');
+    const validPattern: RegExp = new RegExp('^[a-zA-Z][a-zA-Z0-9_]*$');
     return validPattern.test(name);
   }
 
@@ -121,7 +121,7 @@ export class DataValidator {
     if (name.length === 0 || name.length > 128) {
       return false;
     }
-    const validPattern = new RegExp('^[a-zA-Z_][a-zA-Z0-9_]*$');
+    const validPattern: RegExp = new RegExp('^[a-zA-Z_][a-zA-Z0-9_]*$');
     return validPattern.test(name);
   }
 
@@ -132,14 +132,14 @@ export class DataValidator {
     if (sql.length === 0) {
       return false;
     }
-    const trimmed = sql.trim();
-    const dangerousPatterns = [
+    const trimmed: string = sql.trim();
+    const dangerousPatterns: RegExp[] = [
       new RegExp('DROP\\s+DATABASE', 'i'),
       new RegExp('DROP\\s+TABLE', 'i'),
       new RegExp('ALTER\\s+DATABASE', 'i'),
       new RegExp('TRUNCATE', 'i')
     ];
-    for (let i = 0; i < dangerousPatterns.length; i++) {
+    for (let i: number = 0; i < dangerousPatterns.length; i++) {
       if (dangerousPatterns[i].test(trimmed)) {
         return false;
       }
@@ -208,7 +208,7 @@ export class DataValidator {
     if (deviceId.length === 0 || deviceId.length > 128) {
       return false;
     }
-    const validPattern = new RegExp('^[a-zA-Z0-9_-]+$');
+    const validPattern: RegExp = new RegExp('^[a-zA-Z0-9_-]+$');
     return validPattern.test(deviceId);
   }
 

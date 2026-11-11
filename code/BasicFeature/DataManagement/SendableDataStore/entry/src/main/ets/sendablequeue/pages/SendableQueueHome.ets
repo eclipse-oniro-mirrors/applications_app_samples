@@ -15,6 +15,7 @@
 
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from '../../utils/Logger';
+import { ResultText } from '../../utils/ResultText';
 import { SendableQueueManager } from '../SendableQueueManager';
 
 @Entry
@@ -97,9 +98,11 @@ struct SendableQueueHome {
             $r('app.string.peek_at'),
             (): void => this.runSync((): string => this.manager.peekAt(0)))
           this.buttonRow($r('app.string.queue_size'),
-            (): void => this.runSync((): string => `size=${this.manager.size()}`),
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_queue_size'),
+              [this.manager.size()], `size=${this.manager.size()}`)),
             $r('app.string.queue_empty'),
-            (): void => this.runSync((): string => `isEmpty=${this.manager.isEmpty()}`))
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_queue_empty'),
+              [String(this.manager.isEmpty())], `isEmpty=${this.manager.isEmpty()}`)))
 
           this.sectionTitle($r('app.string.section_queue_batch'))
           this.buttonRow($r('app.string.drain_queue'),

@@ -17,6 +17,7 @@ import { common } from '@kit.AbilityKit';
 import { relationalStore } from '@kit.ArkData';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from '../../utils/Logger';
+import { ResultText } from '../../utils/ResultText';
 import { SendableRdbHelper } from '../SendableRdbHelper';
 import { TableSchema, SchemaField, DataType } from '../../models/DataModels';
 
@@ -27,7 +28,7 @@ struct SendableRelationalStoreHome {
   private helper: SendableRdbHelper | null = null;
 
   aboutToAppear(): void {
-    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     this.helper = new SendableRdbHelper(context);
   }
 
@@ -135,8 +136,9 @@ struct SendableRelationalStoreHome {
           this.buttonRow($r('app.string.list_tables'),
             (): void => this.runSync((): string => this.getHelper().listTables()),
             $r('app.string.has_table'),
-            (): void => this.runSync((): string =>
-              `hasTable('extra_table')=${this.getHelper().hasTable('extra_table')}`))
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_rdb_has_table'),
+              [String(this.getHelper().hasTable('extra_table'))],
+              `hasTable('extra_table')=${this.getHelper().hasTable('extra_table')}`)))
 
           this.sectionTitle($r('app.string.section_crud'))
           this.buttonRow($r('app.string.batch_insert'),
@@ -156,25 +158,25 @@ struct SendableRelationalStoreHome {
             $r('app.string.update_row'),
             (): void => this.runAsync((): Promise<string> => {
               const bucket: relationalStore.ValuesBucket = { age: 99 };
-              const pred = new relationalStore.RdbPredicates('sendable_sample');
+              const pred: relationalStore.RdbPredicates = new relationalStore.RdbPredicates('sendable_sample');
               pred.equalTo('name', 'batch_user_1');
               return this.getHelper().update('sendable_sample', bucket, pred);
             }))
           this.buttonRow($r('app.string.update_row_sync'),
             (): void => this.runSync((): string => {
               const bucket: relationalStore.ValuesBucket = { active: false };
-              const pred = new relationalStore.RdbPredicates('sendable_sample');
+              const pred: relationalStore.RdbPredicates = new relationalStore.RdbPredicates('sendable_sample');
               pred.equalTo('name', 'batch_user_2');
               return this.getHelper().updateSync('sendable_sample', bucket, pred);
             }),
             $r('app.string.delete_row'),
             (): void => this.runAsync((): Promise<string> => {
-              const pred = new relationalStore.RdbPredicates('sendable_sample');
+              const pred: relationalStore.RdbPredicates = new relationalStore.RdbPredicates('sendable_sample');
               pred.equalTo('name', 'batch_user_3');return this.getHelper().deleteByPredicates('sendable_sample', pred);
             }))
           this.buttonRow($r('app.string.delete_row_sync'),
             (): void => this.runSync((): string => {
-              const pred = new relationalStore.RdbPredicates('sendable_sample');
+              const pred: relationalStore.RdbPredicates = new relationalStore.RdbPredicates('sendable_sample');
               pred.equalTo('name', 'batch_user_3');
               return this.getHelper().deleteByPredicatesSync('sendable_sample', pred);
             }),
@@ -199,9 +201,10 @@ struct SendableRelationalStoreHome {
           this.buttonRow($r('app.string.rollback_transaction'),
             (): void => this.runAsync((): Promise<string> => this.getHelper().rollbackTransaction()),
             $r('app.string.check_rdb_initialized'),
-            (): void => this.runSync((): string =>
+            (): void => this.runSync((): string => ResultText.ofArgs($r('app.string.result_page_rdb_tx_state'),
+              [String(this.getHelper().isInitialized()), String(this.getHelper().isTransactionActive())],
               `isInitialized=${this.getHelper().isInitialized()}, ` +
-              `transactionActive=${this.getHelper().isTransactionActive()}`))
+              `transactionActive=${this.getHelper().isTransactionActive()}`)))
 
           this.sectionTitle($r('app.string.section_sql'))
           this.buttonRow($r('app.string.execute_raw_sql'),

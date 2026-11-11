@@ -14,20 +14,18 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
-
-const DOMAIN: number = 0xF811;
-const TAG: string = '[Sample_SendableDataStore]';
+import { DataStoreConstants } from '../constants/DataStoreConstants';
 
 export class Logger {
   static info(message: string): void {
-    hilog.info(DOMAIN, TAG, '%{public}s', message);
+    hilog.info(DataStoreConstants.HILOG_DOMAIN, DataStoreConstants.HILOG_TAG, '%{public}s', message);
   }
 
   static warn(message: string): void {
-    hilog.warn(DOMAIN, TAG, '%{public}s', message);
+    hilog.warn(DataStoreConstants.HILOG_DOMAIN, DataStoreConstants.HILOG_TAG, '%{public}s', message);
   }
 
   static error(message: string): void {
-    hilog.error(DOMAIN, TAG, '%{public}s', message);
+    hilog.error(DataStoreConstants.HILOG_DOMAIN, DataStoreConstants.HILOG_TAG, '%{public}s', message);
   }
 }

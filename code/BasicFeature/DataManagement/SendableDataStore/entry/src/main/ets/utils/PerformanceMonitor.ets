@@ -14,6 +14,7 @@
  */
 
 import { Logger } from './Logger';
+import { ResultText } from './ResultText';
 
 /**
  * Timer entry for tracking operation durations.
@@ -58,8 +59,8 @@ export class PerformanceMonitor {
   private static timers: Map<string, TimerEntry> = new Map();
   private static memorySnapshots: MemorySnapshot[] = [];
   private static operationStats: Map<string, OperationStats> = new Map();
-  private static maxMemorySnapshots = 100;
-  private static maxTimers = 500;
+  private static maxMemorySnapshots: number = 100;
+  private static maxTimers: number = 500;
 
   static startTimer(label: string): void {
     if (PerformanceMonitor.timers.size > PerformanceMonitor.maxTimers) {
@@ -76,7 +77,7 @@ export class PerformanceMonitor {
   }
 
   static stopTimer(label: string): number {
-    const entry = PerformanceMonitor.timers.get(label);
+    const entry: TimerEntry | undefined = PerformanceMonitor.timers.get(label);
     if (entry === undefined) {
       Logger.warn(`Timer '${label}' not found`);
       return 0;
@@ -93,7 +94,7 @@ export class PerformanceMonitor {
   }
 
   static getElapsed(label: string): number {
-    const entry = PerformanceMonitor.timers.get(label);
+    const entry: TimerEntry | undefined = PerformanceMonitor.timers.get(label);
     if (entry === undefined) {
       return 0;
     }
@@ -104,7 +105,7 @@ export class PerformanceMonitor {
   }
 
   static isTimerRunning(label: string): boolean {
-    const entry = PerformanceMonitor.timers.get(label);
+    const entry: TimerEntry | undefined = PerformanceMonitor.timers.get(label);
     if (entry === undefined) {
       return false;
     }
@@ -120,7 +121,7 @@ export class PerformanceMonitor {
   }
 
   static getActiveTimerCount(): number {
-    let count = 0;
+    let count: number = 0;
     PerformanceMonitor.timers.forEach((entry: TimerEntry, key: string) => {
       if (entry.isRunning) {
         count++;
@@ -171,8 +172,8 @@ export class PerformanceMonitor {
 
   static getMemorySnapshots(): MemorySnapshot[] {
     const result: MemorySnapshot[] = [];
-    for (let i = 0; i < PerformanceMonitor.memorySnapshots.length; i++) {
-      const snap = PerformanceMonitor.memorySnapshots[i];
+    for (let i: number = 0; i < PerformanceMonitor.memorySnapshots.length; i++) {
+      const snap: MemorySnapshot = PerformanceMonitor.memorySnapshots[i];
       const copy: MemorySnapshot = {
         label: snap.label,
         timestamp: snap.timestamp,
@@ -188,8 +189,8 @@ export class PerformanceMonitor {
     if (PerformanceMonitor.memorySnapshots.length < 2) {
       return 0;
     }
-    const last = PerformanceMonitor.memorySnapshots[PerformanceMonitor.memorySnapshots.length - 1];
-    const first = PerformanceMonitor.memorySnapshots[0];
+    const last: MemorySnapshot = PerformanceMonitor.memorySnapshots[PerformanceMonitor.memorySnapshots.length - 1];
+    const first: MemorySnapshot = PerformanceMonitor.memorySnapshots[0];
     return last.usedMemory - first.usedMemory;
   }
 
@@ -198,7 +199,7 @@ export class PerformanceMonitor {
   }
 
   static recordOperation(name: string, duration: number, success: boolean): void {
-    let stats = PerformanceMonitor.operationStats.get(name);
+    let stats: OperationStats | undefined = PerformanceMonitor.operationStats.get(name);
     if (stats === undefined) {
       stats = {
         name: name,
@@ -229,7 +230,7 @@ export class PerformanceMonitor {
   }
 
   static getAverageTime(name: string): number {
-    const stats = PerformanceMonitor.operationStats.get(name);
+    const stats: OperationStats | undefined = PerformanceMonitor.operationStats.get(name);
     if (stats === undefined) {
       return 0;
     }
@@ -240,7 +241,7 @@ export class PerformanceMonitor {
   }
 
   static getMinTime(name: string): number {
-    const stats = PerformanceMonitor.operationStats.get(name);
+    const stats: OperationStats | undefined = PerformanceMonitor.operationStats.get(name);
     if (stats === undefined) {
       return 0;
     }
@@ -251,7 +252,7 @@ export class PerformanceMonitor {
   }
 
   static getMaxTime(name: string): number {
-    const stats = PerformanceMonitor.operationStats.get(name);
+    const stats: OperationStats | undefined = PerformanceMonitor.operationStats.get(name);
     if (stats === undefined) {
       return 0;
     }
@@ -259,7 +260,7 @@ export class PerformanceMonitor {
   }
 
   static getLastTime(name: string): number {
-    const stats = PerformanceMonitor.operationStats.get(name);
+    const stats: OperationStats | undefined = PerformanceMonitor.operationStats.get(name);
     if (stats === undefined) {
       return 0;
     }
@@ -283,7 +284,7 @@ export class PerformanceMonitor {
   }
 
   static getTotalOperationCount(): number {
-    let total = 0;
+    let total: number = 0;
     PerformanceMonitor.operationStats.forEach((stats: OperationStats, key: string) => {
       total += stats.totalCount;
     });
@@ -291,7 +292,7 @@ export class PerformanceMonitor {
   }
 
   static getSuccessRate(name: string): number {
-    const stats = PerformanceMonitor.operationStats.get(name);
+    const stats: OperationStats | undefined = PerformanceMonitor.operationStats.get(name);
     if (stats === undefined) {
       return 0;
     }
@@ -314,23 +315,28 @@ export class PerformanceMonitor {
   }
 
   static formatStats(name: string): string {
-    const stats = PerformanceMonitor.operationStats.get(name);
+    const stats: OperationStats | undefined = PerformanceMonitor.operationStats.get(name);
     if (stats === undefined) {
-      return `No stats for operation '${name}'`;
+      return ResultText.ofArgs($r('app.string.result_perf_no_stats'), [name],
+        `No stats for operation '${name}'`);
     }
-    const avg = PerformanceMonitor.getAverageTime(name);
-    const successRate = PerformanceMonitor.getSuccessRate(name);
-    return `Operation: ${name}\n` +
-      `  Total: ${stats.totalCount}, Success: ${stats.successCount}, Failure: ${stats.failureCount}\n` +
-      `  Avg: ${avg.toFixed(2)}ms, Min: ${PerformanceMonitor.getMinTime(name)}ms, ` +
-      `Max: ${PerformanceMonitor.getMaxTime(name)}ms, Last: ${stats.lastDuration}ms\n` +
-      `  Success Rate: ${(successRate * 100).toFixed(1)}%`;
+    const avg: number = PerformanceMonitor.getAverageTime(name);
+    const successRate: number = PerformanceMonitor.getSuccessRate(name);
+    return ResultText.ofArgs($r('app.string.result_perf_operation_stats'),
+      [name, stats.totalCount, stats.successCount, stats.failureCount, avg.toFixed(2),
+        PerformanceMonitor.getMinTime(name), PerformanceMonitor.getMaxTime(name), stats.lastDuration,
+        (successRate * 100).toFixed(1)],
+      `Operation: ${name}\n` +
+        `  Total: ${stats.totalCount}, Success: ${stats.successCount}, Failure: ${stats.failureCount}\n` +
+        `  Avg: ${avg.toFixed(2)}ms, Min: ${PerformanceMonitor.getMinTime(name)}ms, ` +
+        `Max: ${PerformanceMonitor.getMaxTime(name)}ms, Last: ${stats.lastDuration}ms\n` +
+        `  Success Rate: ${(successRate * 100).toFixed(1)}%`);
   }
 
   static formatAllStats(): string {
-    let result = '';
-    const names = PerformanceMonitor.getAllOperationNames();
-    for (let i = 0; i < names.length; i++) {
+    let result: string = '';
+    const names: string[] = PerformanceMonitor.getAllOperationNames();
+    for (let i: number = 0; i < names.length; i++) {
       result += PerformanceMonitor.formatStats(names[i]);
       if (i < names.length - 1) {
         result += '\n---\n';
@@ -346,11 +352,15 @@ export class PerformanceMonitor {
   }
 
   static getSummary(): string {
-    return `PerformanceMonitor Summary:\n` +
-      `  Timers: ${PerformanceMonitor.getTotalTimerCount()} total, ` +
-      `${PerformanceMonitor.getActiveTimerCount()} active\n` +
-      `  Memory Snapshots: ${PerformanceMonitor.memorySnapshots.length}\n` +
-      `  Operations: ${PerformanceMonitor.getOperationCount()} types, ` +
-      `${PerformanceMonitor.getTotalOperationCount()} total`;
+    return ResultText.ofArgs($r('app.string.result_perf_summary'),
+      [PerformanceMonitor.getTotalTimerCount(), PerformanceMonitor.getActiveTimerCount(),
+        PerformanceMonitor.memorySnapshots.length, PerformanceMonitor.getOperationCount(),
+        PerformanceMonitor.getTotalOperationCount()],
+      `PerformanceMonitor Summary:\n` +
+        `  Timers: ${PerformanceMonitor.getTotalTimerCount()} total, ` +
+        `${PerformanceMonitor.getActiveTimerCount()} active\n` +
+        `  Memory Snapshots: ${PerformanceMonitor.memorySnapshots.length}\n` +
+        `  Operations: ${PerformanceMonitor.getOperationCount()} types, ` +
+        `${PerformanceMonitor.getTotalOperationCount()} total`);
   }
 }

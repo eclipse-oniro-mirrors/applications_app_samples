@@ -15,6 +15,7 @@
 
 import { DataStoreConstants } from '../constants/DataStoreConstants';
 import { Logger } from './Logger';
+import { ResultText } from './ResultText';
 
 /**
  * Error severity levels.
@@ -68,7 +69,7 @@ export interface RetryPolicy {
  */
 export class ErrorHandling {
   private static errorHistory: ErrorEntry[] = [];
-  private static maxHistorySize = 1000;
+  private static maxHistorySize: number = 1000;
 
   static classifyError(errorCode: number): ErrorCategory {
     if (errorCode === DataStoreConstants.ERROR_NOT_INITIALIZED ||
@@ -192,8 +193,8 @@ export class ErrorHandling {
     if (attempt < 0) {
       return 0;
     }
-    let delay = policy.initialDelay;
-    for (let i = 0; i < attempt; i++) {
+    let delay: number = policy.initialDelay;
+    for (let i: number = 0; i < attempt; i++) {
       delay = delay * policy.backoffMultiplier;
       if (delay > policy.maxDelay) {
         delay = policy.maxDelay;
@@ -209,15 +210,15 @@ export class ErrorHandling {
     onRetry: ((attempt: number, error: Error) => void) | null
   ): Promise<T> {
     let lastError: Error | null = null;
-    for (let attempt = 0; attempt <= policy.maxRetries; attempt++) {
+    for (let attempt: number = 0; attempt <= policy.maxRetries; attempt++) {
       try {
-        const result = await operation();
+        const result: T = await operation();
         return result;
       } catch (error) {
         lastError = error as Error;
         ErrorHandling.logError('executeWithRetry', DataStoreConstants.ERROR_NETWORK, lastError.message);
         if (attempt < policy.maxRetries) {
-          const delay = ErrorHandling.calculateRetryDelay(policy, attempt);
+          const delay: number = ErrorHandling.calculateRetryDelay(policy, attempt);
           if (onRetry !== null) {
             onRetry(attempt + 1, lastError);
           }
@@ -242,9 +243,9 @@ export class ErrorHandling {
   }
 
   static logError(context: string, errorCode: number, message: string): void {
-    const category = ErrorHandling.classifyError(errorCode);
-    const severity = ErrorHandling.getErrorSeverity(errorCode);
-    const retryable = ErrorHandling.isRetryable(errorCode);
+    const category: ErrorCategory = ErrorHandling.classifyError(errorCode);
+    const severity: ErrorSeverity = ErrorHandling.getErrorSeverity(errorCode);
+    const retryable: boolean = ErrorHandling.isRetryable(errorCode);
     const entry: ErrorEntry = {
       errorCode: errorCode,
       category: category,
@@ -257,7 +258,7 @@ export class ErrorHandling {
     if (ErrorHandling.errorHistory.length > ErrorHandling.maxHistorySize) {
       ErrorHandling.errorHistory.shift();
     }
-    const logMessage = `Error[${errorCode}] ${severity} ${category} ${retryable ? 'retryable' : 'fatal'}: ${context} - ${message}`;
+    const logMessage: string = `Error[${errorCode}] ${severity} ${category} ${retryable ? 'retryable' : 'fatal'}: ${context} - ${message}`;
     if (severity === ErrorSeverity.CRITICAL || severity === ErrorSeverity.HIGH) {
       Logger.error(logMessage);
     } else {
@@ -299,8 +300,8 @@ export class ErrorHandling {
 
   static getErrorHistory(): ErrorEntry[] {
     const copy: ErrorEntry[] = [];
-    for (let i = 0; i < ErrorHandling.errorHistory.length; i++) {
-      const entry = ErrorHandling.errorHistory[i];
+    for (let i: number = 0; i < ErrorHandling.errorHistory.length; i++) {
+      const entry: ErrorEntry = ErrorHandling.errorHistory[i];
       const newEntry: ErrorEntry = {
         errorCode: entry.errorCode,
         category: entry.category,
@@ -316,7 +317,7 @@ export class ErrorHandling {
 
   static getErrorsByCategory(category: ErrorCategory): ErrorEntry[] {
     const result: ErrorEntry[] = [];
-    for (let i = 0; i < ErrorHandling.errorHistory.length; i++) {
+    for (let i: number = 0; i < ErrorHandling.errorHistory.length; i++) {
       if (ErrorHandling.errorHistory[i].category === category) {
         result.push(ErrorHandling.errorHistory[i]);
       }
@@ -326,7 +327,7 @@ export class ErrorHandling {
 
   static getErrorsBySeverity(severity: ErrorSeverity): ErrorEntry[] {
     const result: ErrorEntry[] = [];
-    for (let i = 0; i < ErrorHandling.errorHistory.length; i++) {
+    for (let i: number = 0; i < ErrorHandling.errorHistory.length; i++) {
       if (ErrorHandling.errorHistory[i].severity === severity) {
         result.push(ErrorHandling.errorHistory[i]);
       }
@@ -336,7 +337,7 @@ export class ErrorHandling {
 
   static getRetryableErrors(): ErrorEntry[] {
     const result: ErrorEntry[] = [];
-    for (let i = 0; i < ErrorHandling.errorHistory.length; i++) {
+    for (let i: number = 0; i < ErrorHandling.errorHistory.length; i++) {
       if (ErrorHandling.errorHistory[i].retryable) {
         result.push(ErrorHandling.errorHistory[i]);
       }
@@ -345,10 +346,10 @@ export class ErrorHandling {
   }
 
   static getRecentErrors(count: number): ErrorEntry[] {
-    const actual = Math.min(count, ErrorHandling.errorHistory.length);
+    const actual: number = Math.min(count, ErrorHandling.errorHistory.length);
     const result: ErrorEntry[] = [];
-    const start = ErrorHandling.errorHistory.length - actual;
-    for (let i = ErrorHandling.errorHistory.length - 1; i >= start; i--) {
+    const start: number = ErrorHandling.errorHistory.length - actual;
+    for (let i: number = ErrorHandling.errorHistory.length - 1; i >= start; i--) {
       result.push(ErrorHandling.errorHistory[i]);
     }
     return result;
@@ -359,8 +360,8 @@ export class ErrorHandling {
   }
 
   static getErrorCountByCategory(category: ErrorCategory): number {
-    let count = 0;
-    for (let i = 0; i < ErrorHandling.errorHistory.length; i++) {
+    let count: number = 0;
+    for (let i: number = 0; i < ErrorHandling.errorHistory.length; i++) {
       if (ErrorHandling.errorHistory[i].category === category) {
         count++;
       }
@@ -369,8 +370,8 @@ export class ErrorHandling {
   }
 
   static getErrorCountBySeverity(severity: ErrorSeverity): number {
-    let count = 0;
-    for (let i = 0; i < ErrorHandling.errorHistory.length; i++) {
+    let count: number = 0;
+    for (let i: number = 0; i < ErrorHandling.errorHistory.length; i++) {
       if (ErrorHandling.errorHistory[i].severity === severity) {
         count++;
       }
@@ -390,13 +391,16 @@ export class ErrorHandling {
   }
 
   static formatError(entry: ErrorEntry): string {
-    return `Error[${entry.errorCode}] ${entry.severity} ${entry.category} ` +
-      `${entry.retryable ? 'retryable' : 'fatal'} at ${new Date(entry.timestamp).toISOString()}: ${entry.message}`;
+    return ResultText.ofArgs($r('app.string.result_error_format'),
+      [entry.errorCode, String(entry.severity), String(entry.category),
+        entry.retryable ? 'retryable' : 'fatal', new Date(entry.timestamp).toISOString(), entry.message],
+      `Error[${entry.errorCode}] ${entry.severity} ${entry.category} ` +
+        `${entry.retryable ? 'retryable' : 'fatal'} at ${new Date(entry.timestamp).toISOString()}: ${entry.message}`);
   }
 
   static formatAllErrors(): string {
-    let result = '';
-    for (let i = 0; i < ErrorHandling.errorHistory.length; i++) {
+    let result: string = '';
+    for (let i: number = 0; i < ErrorHandling.errorHistory.length; i++) {
       result += ErrorHandling.formatError(ErrorHandling.errorHistory[i]);
       if (i < ErrorHandling.errorHistory.length - 1) {
         result += '\n';
