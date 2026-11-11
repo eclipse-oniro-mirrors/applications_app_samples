@@ -3,8 +3,8 @@ import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.Ab
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
-const DOMAIN = 0x0000;
-const TAG = 'SPC_EntryAbility';
+const DOMAIN = 0xF811;
+const TAG = 'menuuiabilitydemo_EntryAbility';
 
 export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {

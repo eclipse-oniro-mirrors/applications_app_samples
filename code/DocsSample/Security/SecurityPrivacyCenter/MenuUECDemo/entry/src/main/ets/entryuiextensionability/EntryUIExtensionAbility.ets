@@ -2,8 +2,8 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { UIExtensionAbility, UIExtensionContentSession, Want } from '@kit.AbilityKit';
 
-const DOMAIN = 0x0000;
-const TAG: string = 'SPC_EntryUIExtensionAbility'
+const DOMAIN = 0xF811;
+const TAG: string = 'menuuecdemo_EntryUIExtensionAbility';
 
 export default class EntryUIExtensionAbility extends UIExtensionAbility {
   onSessionCreate(want: Want, session: UIExtensionContentSession) {

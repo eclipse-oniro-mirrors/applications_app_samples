@@ -15,6 +15,10 @@
     {
       "name": "main_title",
       "value": "MenuUECDemo"
+    },
+    {
+      "name": "back_button",
+      "value": "click to back"
     }
   ]
 }

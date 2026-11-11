@@ -2,8 +2,8 @@
 import { UIExtensionContentSession } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN = 0x0000;
-const TAG: string = 'SPC_UECPage'
+const DOMAIN = 0xF811;
+const TAG: string = '[menuuecdemo_UECPage]'
 
 @Entry
 @Component
@@ -14,7 +14,7 @@ struct UECPage {
   build() {
     Row() {
       Column() {
-        Button('click to back')
+        Button($r('app.string.back_button'))
           .onClick(() => {
             try {
               this.session.sendData({ 'action': 'exit' })

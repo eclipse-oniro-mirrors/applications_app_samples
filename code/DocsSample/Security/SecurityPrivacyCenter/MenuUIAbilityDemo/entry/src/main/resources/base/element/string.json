@@ -14,7 +14,15 @@
     },
     {
       "name": "main_title",
-      "value": "UIAbility 接入Demo"
+      "value": "UIAbility access Demo"
+    },
+    {
+      "name": "hello_world",
+      "value": "HelloWorld"
+    },
+    {
+      "name": "back_button_title",
+      "value": "click to back"
     }
   ]
 }
