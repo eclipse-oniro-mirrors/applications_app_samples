@@ -739,7 +739,7 @@ struct AvrcpPage {
             })
             .enabled(this.state.currentPage > 1)
             .margin({ right: 10 })
-          Text($r('app.string.p_page_of_fmt', this.state.currentPage.toString(), this.getTotalPages(this.filterDevices()).length).toString())
+          Text($r('app.string.p_page_of_fmt', this.state.currentPage.toString(), this.getTotalPages(this.filterDevices().length).toString()))
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Button('>')
             .onClick(() => {
