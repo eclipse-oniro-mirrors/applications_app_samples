@@ -1,0 +1,1796 @@
+{
+  "string": [
+    {
+      "name": "ac_scenariocatalog_099",
+      "value": "在穿戴尝试触发接续"
+    },
+    {
+      "name": "ac_scenariocatalog_100",
+      "value": "按不支持处理并提示在手机上操作"
+    },
+    {
+      "name": "ac_scenariocatalog_101",
+      "value": "两台手机之间接续"
+    },
+    {
+      "name": "ac_scenariocatalog_103",
+      "value": "两台设备均已授权"
+    },
+    {
+      "name": "ac_scenariocatalog_104",
+      "value": "在 A 编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_106",
+      "value": "在 B 确认"
+    },
+    {
+      "name": "ac_scenariocatalog_107",
+      "value": "B 上内容与 A 一致"
+    },
+    {
+      "name": "ac_scenariocatalog_108",
+      "value": "两端同时编辑触发冲突"
+    },
+    {
+      "name": "ac_scenariocatalog_110",
+      "value": "两端都有未提交改动"
+    },
+    {
+      "name": "ac_scenariocatalog_111",
+      "value": "两端各自编辑"
+    },
+    {
+      "name": "ac_scenariocatalog_113",
+      "value": "出现冲突确认，不静默覆盖"
+    },
+    {
+      "name": "ac_scenariocatalog_114",
+      "value": "接续过程中设备离线"
+    },
+    {
+      "name": "ac_scenariocatalog_117",
+      "value": "断开网络"
+    },
+    {
+      "name": "ac_scenariocatalog_118",
+      "value": "失败可重试，界面不丢失本机内容"
+    },
+    {
+      "name": "ac_scenariocatalog_119",
+      "value": "载荷超过上限时的截断接续"
+    },
+    {
+      "name": "ac_scenariocatalog_121",
+      "value": "正文超过载荷上限"
+    },
+    {
+      "name": "ac_scenariocatalog_122",
+      "value": "在手机输入超长正文"
+    },
+    {
+      "name": "ac_scenariocatalog_124",
+      "value": "接收端拿到截断后的正文并给出提示"
+    },
+    {
+      "name": "ac_scenariocatalog_125",
+      "value": "接收端应用版本过低"
+    },
+    {
+      "name": "ac_scenariocatalog_126",
+      "value": "两端版本不一致"
+    },
+    {
+      "name": "ac_scenariocatalog_127",
+      "value": "从高版本接续到低版本"
+    },
+    {
+      "name": "ac_scenariocatalog_128",
+      "value": "低版本按兼容字段降级处理"
+    },
+    {
+      "name": "ac_scenariocatalog_129",
+      "value": "取消接续后状态可恢复"
+    },
+    {
+      "name": "ac_scenariocatalog_132",
+      "value": "在接收端取消"
+    },
+    {
+      "name": "ac_scenariocatalog_133",
+      "value": "发起端回到空闲态且可再次发起"
+    },
+    {
+      "name": "ac_scenariocatalog_134",
+      "value": "重复触发接续只保留一次"
+    },
+    {
+      "name": "ac_scenariocatalog_136",
+      "value": "连续触发两次接续"
+    },
+    {
+      "name": "ac_scenariocatalog_137",
+      "value": "只处理一次，第二次被拒绝并提示"
+    },
+    {
+      "name": "ac_scenariocatalog_138",
+      "value": "接续完成后回到前台刷新结果"
+    },
+    {
+      "name": "ac_scenariocatalog_140",
+      "value": "完成一次接续"
+    },
+    {
+      "name": "ac_scenariocatalog_141",
+      "value": "切后台再回前台"
+    },
+    {
+      "name": "ac_scenariocatalog_142",
+      "value": "结果与时间线一致"
+    },
+    {
+      "name": "ac_scenariocatalog_143",
+      "value": "共 {0} 个场景、{1} 个步骤：高 {2}、中 {3}、"
+    },
+    {
+      "name": "ac_scenariocatalog_144",
+      "value": "低 {0}"
+    },
+    {
+      "name": "ac_scenariocatalog_145",
+      "value": "场景目录自洽"
+    },
+    {
+      "name": "ac_scenariocatalog_146",
+      "value": "编号重复：{0}"
+    },
+    {
+      "name": "ac_scenariocatalog_147",
+      "value": "编号不连续：期望 {0}，实际 {1}"
+    },
+    {
+      "name": "ac_scenariocatalog_148",
+      "value": "缺少步骤：{0}"
+    },
+    {
+      "name": "ac_scenariocatalog_149",
+      "value": "缺少成功判据：{0}"
+    },
+    {
+      "name": "ac_scenariocatalog_150",
+      "value": "缺少前置条件：{0}"
+    },
+    {
+      "name": "ac_scenariocatalog_151",
+      "value": "设备类型未确定：{0}"
+    },
+    {
+      "name": "ac_scenariocatalog_152",
+      "value": "{0}：{1} 个场景"
+    },
+    {
+      "name": "ac_scenariocatalog_153",
+      "value": "{0}：发起 {1}，接收 {2}"
+    },
+    {
+      "name": "ac_learningcontroller_001",
+      "value": "接续载荷缺失或 JSON 字符串类型错误。"
+    },
+    {
+      "name": "ac_learningcontroller_002",
+      "value": "载荷序列化长度超出应用策略边界。"
+    },
+    {
+      "name": "ac_learningcontroller_003",
+      "value": "载荷 JSON 解析失败。"
+    },
+    {
+      "name": "ac_learningcontroller_004",
+      "value": "载荷根节点必须为对象。"
+    },
+    {
+      "name": "ac_learningcontroller_005",
+      "value": "载荷版本、页面或接续标签不受支持。"
+    },
+    {
+      "name": "ac_learningcontroller_006",
+      "value": "正文必须不超过 4096 个 UTF-16 单元且具有合法代理对。"
+    },
+    {
+      "name": "ac_learningcontroller_007",
+      "value": "选区须为正文内有序整数边界，并保持代理对完整。"
+    },
+    {
+      "name": "ac_learningcontroller_008",
+      "value": "v2 载荷缺少合法的文档标识或修订号。"
+    },
+    {
+      "name": "ac_learningcontroller_009",
+      "value": "同一 Want 同时携带文本与业务命名空间，拒绝歧义候选。"
+    },
+    {
+      "name": "ac_learningcontroller_010",
+      "value": "正在注销，最多等待 8 秒"
+    },
+    {
+      "name": "ac_learningcontroller_011",
+      "value": "已注册；等待真实系统事件"
+    },
+    {
+      "name": "ac_learningcontroller_012",
+      "value": "注销等待超时，可重新注册或注销"
+    },
+    {
+      "name": "ac_learningcontroller_013",
+      "value": "监听未启用，可重新注册或注销"
+    },
+    {
+      "name": "ac_learningcontroller_016",
+      "value": "开始"
+    },
+    {
+      "name": "ac_learningcontroller_018",
+      "value": "[业务场景平台消息已隐藏]"
+    },
+    {
+      "name": "ac_learningcontroller_019",
+      "value": "[正文已隐藏]"
+    },
+    {
+      "name": "ac_learningcontroller_020",
+      "value": "[正文片段已隐藏]"
+    },
+    {
+      "name": "ac_learningcontroller_021",
+      "value": "16300501：相关系统服务（System Ability）工作异常；请排查权限、互信、网络与系统服务状态。"
+    },
+    {
+      "name": "ac_learningcontroller_022",
+      "value": "平台错误码 {0}；请结合当前事件阶段与环境信息排查。"
+    },
+    {
+      "name": "ac_learningcontroller_023",
+      "value": "平台消息已脱敏，可在详情查看。"
+    },
+    {
+      "name": "ac_learningcontroller_024",
+      "value": "核对本次事件阶段、公开环境和系统接续入口。"
+    },
+    {
+      "name": "ac_learningcontroller_025",
+      "value": "接续接口学习：尚无操作记录。"
+    },
+    {
+      "name": "ac_learningcontroller_026",
+      "value": "接续接口学习 · 脱敏诊断"
+    },
+    {
+      "name": "ac_learningcontroller_027",
+      "value": "操作：{0}｜{1}"
+    },
+    {
+      "name": "ac_learningcontroller_028",
+      "value": "结果：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_029",
+      "value": "阶段：{0}；级别：{1}"
+    },
+    {
+      "name": "ac_learningcontroller_030",
+      "value": "开始：{0}；结束：{1}"
+    },
+    {
+      "name": "ac_learningcontroller_031",
+      "value": "尚未结束"
+    },
+    {
+      "name": "ac_learningcontroller_032",
+      "value": "耗时：{0} ms"
+    },
+    {
+      "name": "ac_learningcontroller_033",
+      "value": "平台错误码：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_034",
+      "value": "无"
+    },
+    {
+      "name": "ac_learningcontroller_035",
+      "value": "原始数字状态：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_036",
+      "value": "未提供"
+    },
+    {
+      "name": "ac_learningcontroller_037",
+      "value": "事实：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_038",
+      "value": "解释：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_039",
+      "value": "限制：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_040",
+      "value": "建议：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_041",
+      "value": "本次事件："
+    },
+    {
+      "name": "ac_learningcontroller_042",
+      "value": "环境采样时间：操作开始时；相关检查项：对端在线、互信与系统接续入口。"
+    },
+    {
+      "name": "ac_learningcontroller_043",
+      "value": "检查本机公开环境"
+    },
+    {
+      "name": "ac_learningcontroller_044",
+      "value": "读取本机公共信息和本应用权限。"
+    },
+    {
+      "name": "ac_learningcontroller_045",
+      "value": "设备系统 API"
+    },
+    {
+      "name": "ac_learningcontroller_046",
+      "value": "已读取"
+    },
+    {
+      "name": "ac_learningcontroller_047",
+      "value": "设备系统 API 属性读数；接续接口自 API 18 提供。"
+    },
+    {
+      "name": "ac_learningcontroller_048",
+      "value": "设备类型"
+    },
+    {
+      "name": "ac_learningcontroller_050",
+      "value": "公开的设备类型。"
+    },
+    {
+      "name": "ac_learningcontroller_051",
+      "value": "设备系统版本"
+    },
+    {
+      "name": "ac_learningcontroller_053",
+      "value": "公开的系统版本字符串。"
+    },
+    {
+      "name": "ac_learningcontroller_054",
+      "value": "公共系统信息"
+    },
+    {
+      "name": "ac_learningcontroller_056",
+      "value": "读取失败"
+    },
+    {
+      "name": "ac_learningcontroller_057",
+      "value": "公共信息读取失败，平台错误码 {0}。"
+    },
+    {
+      "name": "ac_learningcontroller_058",
+      "value": "Mission 系统能力"
+    },
+    {
+      "name": "ac_learningcontroller_059",
+      "value": "声明支持"
+    },
+    {
+      "name": "ac_learningcontroller_060",
+      "value": "未声明支持"
+    },
+    {
+      "name": "ac_learningcontroller_061",
+      "value": "已检查"
+    },
+    {
+      "name": "ac_learningcontroller_062",
+      "value": "受限"
+    },
+    {
+      "name": "ac_learningcontroller_063",
+      "value": "canIUse 查询本机 Mission 系统能力声明。"
+    },
+    {
+      "name": "ac_learningcontroller_066",
+      "value": "无法确认"
+    },
+    {
+      "name": "ac_learningcontroller_067",
+      "value": "公共能力查询失败。"
+    },
+    {
+      "name": "ac_learningcontroller_068",
+      "value": "分布式数据同步权限"
+    },
+    {
+      "name": "ac_learningcontroller_069",
+      "value": "已授权"
+    },
+    {
+      "name": "ac_learningcontroller_070",
+      "value": "未授权"
+    },
+    {
+      "name": "ac_learningcontroller_072",
+      "value": "检查本应用分布式数据同步权限的授权状态。"
+    },
+    {
+      "name": "ac_learningcontroller_076",
+      "value": "请按需由用户主动申请。"
+    },
+    {
+      "name": "ac_learningcontroller_077",
+      "value": "对端在线 / 互信 / 系统接续入口"
+    },
+    {
+      "name": "ac_learningcontroller_079",
+      "value": "未验证"
+    },
+    {
+      "name": "ac_learningcontroller_080",
+      "value": "请通过系统接续入口检查对端在线与互信状态。"
+    },
+    {
+      "name": "ac_learningcontroller_081",
+      "value": "读取本机公共属性、Mission 能力声明和本应用授权状态。"
+    },
+    {
+      "name": "ac_learningcontroller_082",
+      "value": "相关条件：对端在线、网络、账号/互信与系统接续入口。"
+    },
+    {
+      "name": "ac_learningcontroller_083",
+      "value": "打开系统接续入口，检查对端与互信状态后发起接续。"
+    },
+    {
+      "name": "ac_learningcontroller_084",
+      "value": "本机环境检查完成"
+    },
+    {
+      "name": "ac_learningcontroller_085",
+      "value": "环境快照"
+    },
+    {
+      "name": "ac_learningcontroller_086",
+      "value": "权限申请进行中，请等待结果。"
+    },
+    {
+      "name": "ac_learningcontroller_087",
+      "value": "用户主动申请权限"
+    },
+    {
+      "name": "ac_learningcontroller_088",
+      "value": "响应用户点击，申请分布式数据同步权限。"
+    },
+    {
+      "name": "ac_learningcontroller_089",
+      "value": "用户点击了权限申请。"
+    },
+    {
+      "name": "ac_learningcontroller_090",
+      "value": "权限接口异步返回；授权结果数字 {0}。"
+    },
+    {
+      "name": "ac_learningcontroller_091",
+      "value": "缺失"
+    },
+    {
+      "name": "ac_learningcontroller_092",
+      "value": "后续检查项：对端互信、系统接续入口与接续结果。"
+    },
+    {
+      "name": "ac_learningcontroller_093",
+      "value": "权限已授权"
+    },
+    {
+      "name": "ac_learningcontroller_094",
+      "value": "权限未获授权或结果缺失"
+    },
+    {
+      "name": "ac_learningcontroller_095",
+      "value": "权限异步结果"
+    },
+    {
+      "name": "ac_learningcontroller_096",
+      "value": "权限已授权，可重新检查环境并在系统入口发起接续。"
+    },
+    {
+      "name": "ac_learningcontroller_097",
+      "value": "权限未获授权，请按系统说明在设置中处理。"
+    },
+    {
+      "name": "ac_learningcontroller_098",
+      "value": "权限申请异步失败"
+    },
+    {
+      "name": "ac_learningcontroller_099",
+      "value": "权限异步错误"
+    },
+    {
+      "name": "ac_learningcontroller_100",
+      "value": "权限同步调用"
+    },
+    {
+      "name": "ac_learningcontroller_101",
+      "value": "已提交申请，等待用户与平台异步结果。"
+    },
+    {
+      "name": "ac_learningcontroller_102",
+      "value": "权限申请同步抛出异常"
+    },
+    {
+      "name": "ac_learningcontroller_103",
+      "value": "权限同步异常"
+    },
+    {
+      "name": "ac_learningcontroller_104",
+      "value": "正在监听、注销或接续，请先完成当前操作。"
+    },
+    {
+      "name": "ac_learningcontroller_105",
+      "value": "手动注册 prepareContinue 观察"
+    },
+    {
+      "name": "ac_learningcontroller_106",
+      "value": "注册监听，观察系统 prepareContinue 事件。"
+    },
+    {
+      "name": "ac_learningcontroller_107",
+      "value": "手动注册后等待 prepareContinue 事件；接续由系统入口发起。"
+    },
+    {
+      "name": "ac_learningcontroller_108",
+      "value": "观察期为 15 秒，记录收到的系统事件。"
+    },
+    {
+      "name": "ac_learningcontroller_109",
+      "value": "未收到系统事件（应用 15 秒观察策略）"
+    },
+    {
+      "name": "ac_learningcontroller_110",
+      "value": "观察期结束"
+    },
+    {
+      "name": "ac_learningcontroller_111",
+      "value": "观察期内未收到平台结果。"
+    },
+    {
+      "name": "ac_learningcontroller_112",
+      "value": "15 秒观察期内未收到系统事件；已结束本地等待并申请注销。"
+    },
+    {
+      "name": "ac_learningcontroller_113",
+      "value": "ON 同步调用"
+    },
+    {
+      "name": "ac_learningcontroller_114",
+      "value": "本地槽策略阻止调用，无平台异常消息。"
+    },
+    {
+      "name": "ac_learningcontroller_115",
+      "value": "未建立可用监听"
+    },
+    {
+      "name": "ac_learningcontroller_116",
+      "value": "ON 同步失败"
+    },
+    {
+      "name": "ac_learningcontroller_117",
+      "value": "注册失败，可再次点击注册监听。"
+    },
+    {
+      "name": "ac_learningcontroller_118",
+      "value": "快速结果监听建立失败，本轮恢复已结束。"
+    },
+    {
+      "name": "ac_learningcontroller_120",
+      "value": "ON 异步通知"
+    },
+    {
+      "name": "ac_learningcontroller_121",
+      "value": "收到真实通知，原始数字状态 {0}；详细说明见已脱敏结果字段。"
+    },
+    {
+      "name": "ac_learningcontroller_122",
+      "value": "本次通知归属手动探针观察。"
+    },
+    {
+      "name": "ac_learningcontroller_123",
+      "value": "收到成功状态通知"
+    },
+    {
+      "name": "ac_learningcontroller_124",
+      "value": "收到未知状态，请查看原始数字状态"
+    },
+    {
+      "name": "ac_learningcontroller_125",
+      "value": "收到平台失败或异步错误通知"
+    },
+    {
+      "name": "ac_learningcontroller_126",
+      "value": "探针通知完成"
+    },
+    {
+      "name": "ac_learningcontroller_127",
+      "value": "探针已收到系统事件，可在操作详情查看结果。"
+    },
+    {
+      "name": "ac_learningcontroller_128",
+      "value": "成功（原始状态 0）"
+    },
+    {
+      "name": "ac_learningcontroller_129",
+      "value": "未知（原始状态 {0}）"
+    },
+    {
+      "name": "ac_learningcontroller_130",
+      "value": "异步错误（错误码 {0}）"
+    },
+    {
+      "name": "ac_learningcontroller_131",
+      "value": "失败（原始状态 {0}）"
+    },
+    {
+      "name": "ac_learningcontroller_132",
+      "value": "系统快速通知状态未知，本轮文本提交已停止。"
+    },
+    {
+      "name": "ac_learningcontroller_133",
+      "value": "获取快速结果发生异步错误；未提交文本。"
+    },
+    {
+      "name": "ac_learningcontroller_134",
+      "value": "系统报告快速启动失败；未提交文本。"
+    },
+    {
+      "name": "ac_learningcontroller_135",
+      "value": "快速结果"
+    },
+    {
+      "name": "ac_learningcontroller_136",
+      "value": "接续进行中；如需结束，请点击停止本地等待并确认。"
+    },
+    {
+      "name": "ac_learningcontroller_137",
+      "value": "用户结束本地探针观察"
+    },
+    {
+      "name": "ac_learningcontroller_138",
+      "value": "用户注销"
+    },
+    {
+      "name": "ac_learningcontroller_140",
+      "value": "注销独立监听槽"
+    },
+    {
+      "name": "ac_learningcontroller_141",
+      "value": "立刻停用本地 sink，并通过独立回调观察平台注销完成。"
+    },
+    {
+      "name": "ac_learningcontroller_142",
+      "value": "第三参数为独立的注销完成回调。"
+    },
+    {
+      "name": "ac_learningcontroller_143",
+      "value": "注销结果由独立完成回调返回。"
+    },
+    {
+      "name": "ac_learningcontroller_144",
+      "value": "注销等待超时（8 秒）"
+    },
+    {
+      "name": "ac_learningcontroller_145",
+      "value": "OFF 未确认"
+    },
+    {
+      "name": "ac_learningcontroller_146",
+      "value": "未收到注销完成回调；已结束本次等待，恢复操作入口。"
+    },
+    {
+      "name": "ac_learningcontroller_147",
+      "value": "可重新注册或重试注销。"
+    },
+    {
+      "name": "ac_learningcontroller_148",
+      "value": "平台已明确确认注销成功"
+    },
+    {
+      "name": "ac_learningcontroller_149",
+      "value": "注销回调状态未知"
+    },
+    {
+      "name": "ac_learningcontroller_150",
+      "value": "注销失败或异步错误"
+    },
+    {
+      "name": "ac_learningcontroller_151",
+      "value": "OFF 异步完成"
+    },
+    {
+      "name": "ac_learningcontroller_152",
+      "value": "独立完成回调原始数字状态 {0}。"
+    },
+    {
+      "name": "ac_learningcontroller_154",
+      "value": "注销成功，可重新注册。"
+    },
+    {
+      "name": "ac_learningcontroller_155",
+      "value": "注销结果异常，可重新注册或重试注销。"
+    },
+    {
+      "name": "ac_learningcontroller_156",
+      "value": "OFF 同步调用"
+    },
+    {
+      "name": "ac_learningcontroller_159",
+      "value": "注销失败，可重新注册或重试注销。"
+    },
+    {
+      "name": "ac_learningcontroller_160",
+      "value": "注销同步失败或被槽策略阻止"
+    },
+    {
+      "name": "ac_learningcontroller_161",
+      "value": "OFF 同步失败"
+    },
+    {
+      "name": "ac_learningcontroller_162",
+      "value": "编辑校验失败：正文最多 4096 个 UTF-16 单元，代理对须保持完整。"
+    },
+    {
+      "name": "ac_learningcontroller_163",
+      "value": "本地有未保存编辑"
+    },
+    {
+      "name": "ac_learningcontroller_164",
+      "value": "选区校验失败：请使用正文内有序整数边界，并保持代理对完整。"
+    },
+    {
+      "name": "ac_learningcontroller_166",
+      "value": "春日的早晨，阳光洒在窗边。\n这是一段用于文本接续的示例内容。🌱"
+    },
+    {
+      "name": "ac_learningcontroller_167",
+      "value": "保存当前文本"
+    },
+    {
+      "name": "ac_learningcontroller_168",
+      "value": "写入本学习运行时独立的 Preferences。"
+    },
+    {
+      "name": "ac_learningcontroller_169",
+      "value": "修订号已达上限，拒绝继续递增，未写入存储。"
+    },
+    {
+      "name": "ac_learningcontroller_170",
+      "value": "修订号已达上限；未写入"
+    },
+    {
+      "name": "ac_learningcontroller_171",
+      "value": "文档修订号达到上限，请新建文档后再保存。"
+    },
+    {
+      "name": "ac_learningcontroller_172",
+      "value": "修订号上限阻止保存"
+    },
+    {
+      "name": "ac_learningcontroller_173",
+      "value": "修订边界"
+    },
+    {
+      "name": "ac_learningcontroller_174",
+      "value": "文档修订号 {0}；文档标识已建立。"
+    },
+    {
+      "name": "ac_learningcontroller_175",
+      "value": "已持久化到独立 Preferences"
+    },
+    {
+      "name": "ac_learningcontroller_176",
+      "value": "当前文本与选区已保存。"
+    },
+    {
+      "name": "ac_learningcontroller_177",
+      "value": "保存失败；当前编辑仍保留"
+    },
+    {
+      "name": "ac_learningcontroller_178",
+      "value": "文本保存成功"
+    },
+    {
+      "name": "ac_learningcontroller_179",
+      "value": "文本保存失败"
+    },
+    {
+      "name": "ac_learningcontroller_180",
+      "value": "持久化"
+    },
+    {
+      "name": "ac_learningcontroller_181",
+      "value": "另存为新文档"
+    },
+    {
+      "name": "ac_learningcontroller_182",
+      "value": "保留当前内容与选区，建立独立修订历史。"
+    },
+    {
+      "name": "ac_learningcontroller_183",
+      "value": "已另存为新文档 r1"
+    },
+    {
+      "name": "ac_learningcontroller_184",
+      "value": "新文档已保存；正文和选区保持不变。"
+    },
+    {
+      "name": "ac_learningcontroller_185",
+      "value": "新文档保存成功"
+    },
+    {
+      "name": "ac_learningcontroller_186",
+      "value": "新建失败；旧身份保留"
+    },
+    {
+      "name": "ac_learningcontroller_188",
+      "value": "清空并保存文本"
+    },
+    {
+      "name": "ac_learningcontroller_189",
+      "value": "先持久化空文本，成功后才替换页面正文。"
+    },
+    {
+      "name": "ac_learningcontroller_190",
+      "value": "修订号已达上限，拒绝清空写入。"
+    },
+    {
+      "name": "ac_learningcontroller_191",
+      "value": "修订号已达上限；未清空"
+    },
+    {
+      "name": "ac_learningcontroller_192",
+      "value": "文档修订号达到上限，请新建文档后再清空。"
+    },
+    {
+      "name": "ac_learningcontroller_193",
+      "value": "修订号上限阻止清空"
+    },
+    {
+      "name": "ac_learningcontroller_195",
+      "value": "空文本已持久化"
+    },
+    {
+      "name": "ac_learningcontroller_196",
+      "value": "已清空并保存"
+    },
+    {
+      "name": "ac_learningcontroller_197",
+      "value": "清空失败；保留原文"
+    },
+    {
+      "name": "ac_learningcontroller_199",
+      "value": "文本与选区已清空并保存。"
+    },
+    {
+      "name": "ac_learningcontroller_200",
+      "value": "独立存储类型无效；未恢复正文"
+    },
+    {
+      "name": "ac_learningcontroller_201",
+      "value": "独立存储尚无文本"
+    },
+    {
+      "name": "ac_learningcontroller_202",
+      "value": "独立存储内容无效；未恢复正文"
+    },
+    {
+      "name": "ac_learningcontroller_203",
+      "value": "已读取本学习运行时的独立文本"
+    },
+    {
+      "name": "ac_learningcontroller_204",
+      "value": "独立 Preferences 不可用（错误码 {0}）"
+    },
+    {
+      "name": "ac_learningcontroller_205",
+      "value": "存储回滚未能确认；停止后续写入以保护原文。请结束本 Ability 后重新检查存储。"
+    },
+    {
+      "name": "ac_learningcontroller_206",
+      "value": "独立 Preferences 不可用；当前原文已保留。"
+    },
+    {
+      "name": "ac_learningcontroller_207",
+      "value": "独立 Preferences 写入并同步 flush 返回成功。"
+    },
+    {
+      "name": "ac_learningcontroller_208",
+      "value": "持久化失败，已回滚存储；页面原文与选区已保留。"
+    },
+    {
+      "name": "ac_learningcontroller_209",
+      "value": "持久化失败且回滚未能确认；页面原文仍保留，后续写入已停止，磁盘状态未知。"
+    },
+    {
+      "name": "ac_learningcontroller_210",
+      "value": "系统 PREPARE_CONTINUATION（10）"
+    },
+    {
+      "name": "ac_learningcontroller_211",
+      "value": "系统 CONTINUATION（3）"
+    },
+    {
+      "name": "ac_learningcontroller_212",
+      "value": "普通启动 / 其他原因（{0}）"
+    },
+    {
+      "name": "ac_learningcontroller_213",
+      "value": "重复启动信号"
+    },
+    {
+      "name": "ac_learningcontroller_214",
+      "value": "当前接续轮次进行中，重复 PREPARE 已忽略。"
+    },
+    {
+      "name": "ac_learningcontroller_215",
+      "value": "上一快速轮次已关闭，迟到数据已忽略；请通过新的系统 PREPARE 事件启动接续，或重新进入应用。"
+    },
+    {
+      "name": "ac_learningcontroller_216",
+      "value": "已忽略结束轮次的重复接续标签。"
+    },
+    {
+      "name": "ac_learningcontroller_217",
+      "value": "真实系统接续到达；结束手动观察并隔离旧监听"
+    },
+    {
+      "name": "ac_learningcontroller_218",
+      "value": "让位真实接续"
+    },
+    {
+      "name": "ac_learningcontroller_219",
+      "value": "系统快速接续恢复"
+    },
+    {
+      "name": "ac_learningcontroller_220",
+      "value": "系统普通接续恢复"
+    },
+    {
+      "name": "ac_learningcontroller_221",
+      "value": "根据系统 launchReason 建轮；有效候选先持久化，再一次提交正文与选区。"
+    },
+    {
+      "name": "ac_learningcontroller_222",
+      "value": "系统启动原因 PREPARE_CONTINUATION（10）。"
+    },
+    {
+      "name": "ac_learningcontroller_223",
+      "value": "系统启动原因 CONTINUATION（3）。"
+    },
+    {
+      "name": "ac_learningcontroller_224",
+      "value": "各阶段应用等待上限：15 秒。"
+    },
+    {
+      "name": "ac_learningcontroller_225",
+      "value": "通知按本地监听代次归属，业务候选按接续标签去重。"
+    },
+    {
+      "name": "ac_learningcontroller_226",
+      "value": "等待业务候选；窗口容器与业务定位分别确认"
+    },
+    {
+      "name": "ac_learningcontroller_227",
+      "value": "等待真实系统快速结果"
+    },
+    {
+      "name": "ac_learningcontroller_228",
+      "value": "普通 CONTINUATION：等待业务数据与页面"
+    },
+    {
+      "name": "ac_learningcontroller_229",
+      "value": "等待有效业务载荷"
+    },
+    {
+      "name": "ac_learningcontroller_230",
+      "value": "快速接续：独立等待结果 / 数据 / 页面"
+    },
+    {
+      "name": "ac_learningcontroller_231",
+      "value": "普通接续：等待数据与页面"
+    },
+    {
+      "name": "ac_learningcontroller_232",
+      "value": "接续处理中。"
+    },
+    {
+      "name": "ac_learningcontroller_233",
+      "value": "等待上一轮监听操作结束"
+    },
+    {
+      "name": "ac_learningcontroller_234",
+      "value": "等待监听槽"
+    },
+    {
+      "name": "ac_learningcontroller_235",
+      "value": "上一轮监听操作进行中，结束后注册本轮监听。"
+    },
+    {
+      "name": "ac_learningcontroller_237",
+      "value": "载荷校验失败"
+    },
+    {
+      "name": "ac_learningcontroller_238",
+      "value": "候选校验失败"
+    },
+    {
+      "name": "ac_learningcontroller_239",
+      "value": "已结束轮次的重复接续标签已拒收。"
+    },
+    {
+      "name": "ac_learningcontroller_240",
+      "value": "重复标签"
+    },
+    {
+      "name": "ac_learningcontroller_241",
+      "value": "重复数据"
+    },
+    {
+      "name": "ac_learningcontroller_242",
+      "value": "已忽略重复候选，继续当前阶段等待。"
+    },
+    {
+      "name": "ac_learningcontroller_243",
+      "value": "同轮收到冲突的业务候选；已拒收候选并保留原文。"
+    },
+    {
+      "name": "ac_learningcontroller_244",
+      "value": "候选冲突"
+    },
+    {
+      "name": "ac_learningcontroller_245",
+      "value": "业务候选待定位：需实际选区/段落/步骤回执"
+    },
+    {
+      "name": "ac_learningcontroller_246",
+      "value": "原文本有未保存内容；切换业务前需明确选择。"
+    },
+    {
+      "name": "ac_learningcontroller_247",
+      "value": "业务候选完整校验通过；等待系统信号及实际定位"
+    },
+    {
+      "name": "ac_learningcontroller_248",
+      "value": "业务候选校验"
+    },
+    {
+      "name": "ac_learningcontroller_249",
+      "value": "业务类型 {0}；身份与状态已完整校验。"
+    },
+    {
+      "name": "ac_learningcontroller_250",
+      "value": "本机业务页有未保存状态；切回原文本前需明确选择。"
+    },
+    {
+      "name": "ac_learningcontroller_251",
+      "value": "本机存在未保存编辑；接续 r{0}、本机 r{1}。"
+    },
+    {
+      "name": "ac_learningcontroller_252",
+      "value": "无论对端修订更高或使用旧 v1，均须明确选择；尚未覆盖。"
+    },
+    {
+      "name": "ac_learningcontroller_254",
+      "value": "接续版本 r{0}，本机 r{1}；"
+    },
+    {
+      "name": "ac_learningcontroller_255",
+      "value": "同一文档修订较旧或同号不同内容，未覆盖本机正文。"
+    },
+    {
+      "name": "ac_learningcontroller_257",
+      "value": "文档切换"
+    },
+    {
+      "name": "ac_learningcontroller_258",
+      "value": "接续文档 {0} 将替换本机文档 {1}；修订号按接续值重置。"
+    },
+    {
+      "name": "ac_learningcontroller_259",
+      "value": "完整候选已校验；尚未提交"
+    },
+    {
+      "name": "ac_learningcontroller_260",
+      "value": "正文/选区/版本/页面完整校验通过；正文长度 {0} 个 UTF-16 单元。"
+    },
+    {
+      "name": "ac_learningcontroller_261",
+      "value": "候选校验"
+    },
+    {
+      "name": "ac_learningcontroller_262",
+      "value": "完整候选校验通过，等待其余信号。"
+    },
+    {
+      "name": "ac_learningcontroller_263",
+      "value": "候选校验通过，等待冲突选择"
+    },
+    {
+      "name": "ac_learningcontroller_264",
+      "value": "检测到"
+    },
+    {
+      "name": "ac_learningcontroller_267",
+      "value": "，请选择接受接续内容或保留本机版本。"
+    },
+    {
+      "name": "ac_learningcontroller_270",
+      "value": "页面已就绪"
+    },
+    {
+      "name": "ac_learningcontroller_271",
+      "value": "页面窗口"
+    },
+    {
+      "name": "ac_learningcontroller_272",
+      "value": "业务定位"
+    },
+    {
+      "name": "ac_learningcontroller_273",
+      "value": "等待{0}（应用本阶段 15 秒策略）"
+    },
+    {
+      "name": "ac_learningcontroller_274",
+      "value": "等待{0}"
+    },
+    {
+      "name": "ac_learningcontroller_275",
+      "value": "本阶段应用等待上限 15 秒，到期结束本地等待。"
+    },
+    {
+      "name": "ac_learningcontroller_277",
+      "value": "未收到可用的系统快速结果通知"
+    },
+    {
+      "name": "ac_learningcontroller_279",
+      "value": "未收到完整有效的业务载荷"
+    },
+    {
+      "name": "ac_learningcontroller_281",
+      "value": "未收到实际业务选区/段落/步骤定位回执"
+    },
+    {
+      "name": "ac_learningcontroller_282",
+      "value": "未收到显式页面加载成功信号"
+    },
+    {
+      "name": "ac_learningcontroller_283",
+      "value": "{0}；本阶段 15 秒等待已到期，本地恢复已结束。"
+    },
+    {
+      "name": "ac_learningcontroller_284",
+      "value": "{0}超时"
+    },
+    {
+      "name": "ac_learningcontroller_285",
+      "value": "版本冲突：等待用户选择"
+    },
+    {
+      "name": "ac_learningcontroller_286",
+      "value": "冲突接受后的修订号将超过上限，未写入存储。"
+    },
+    {
+      "name": "ac_learningcontroller_287",
+      "value": "修订上限"
+    },
+    {
+      "name": "ac_learningcontroller_288",
+      "value": "冲突提交"
+    },
+    {
+      "name": "ac_learningcontroller_289",
+      "value": "快速结果与页面均已就绪，按 r{0} 持久化用户选择的接续版本。"
+    },
+    {
+      "name": "ac_learningcontroller_291",
+      "value": "所有必要信号就绪；先持久化候选，成功前保持页面原文。"
+    },
+    {
+      "name": "ac_learningcontroller_292",
+      "value": "场景持久化失败"
+    },
+    {
+      "name": "ac_learningcontroller_293",
+      "value": "业务状态已原子持久化并提交"
+    },
+    {
+      "name": "ac_learningcontroller_294",
+      "value": "本轮已提交（业务定位回执与所有系统信号齐备）"
+    },
+    {
+      "name": "ac_learningcontroller_295",
+      "value": "{0} r{1}；实际定位已确认；未传输文件。"
+    },
+    {
+      "name": "ac_learningcontroller_296",
+      "value": "业务状态恢复完成，可继续操作并再次从系统入口接续。"
+    },
+    {
+      "name": "ac_learningcontroller_297",
+      "value": "业务场景恢复成功"
+    },
+    {
+      "name": "ac_learningcontroller_298",
+      "value": "已提交"
+    },
+    {
+      "name": "ac_learningcontroller_299",
+      "value": "候选修订号超过上限，未写入存储，原文保留。"
+    },
+    {
+      "name": "ac_learningcontroller_301",
+      "value": "恢复持久化失败；原文保留"
+    },
+    {
+      "name": "ac_learningcontroller_302",
+      "value": "持久化失败"
+    },
+    {
+      "name": "ac_learningcontroller_303",
+      "value": "接续文本已持久化"
+    },
+    {
+      "name": "ac_learningcontroller_304",
+      "value": "业务数据已提交"
+    },
+    {
+      "name": "ac_learningcontroller_305",
+      "value": "已恢复文本及选区；文档 {0} "
+    },
+    {
+      "name": "ac_learningcontroller_306",
+      "value": "旧版无标识"
+    },
+    {
+      "name": "ac_learningcontroller_307",
+      "value": "r{0}；正文 {1} 个 UTF-16 单元，选区 "
+    },
+    {
+      "name": "ac_learningcontroller_308",
+      "value": "本轮已提交（本地业务恢复成功）"
+    },
+    {
+      "name": "ac_learningcontroller_309",
+      "value": "文本与选区恢复完成，数据已保存。"
+    },
+    {
+      "name": "ac_learningcontroller_310",
+      "value": "页面已显式加载，所有本轮必要信号齐备，持久化成功后一次提交。"
+    },
+    {
+      "name": "ac_learningcontroller_311",
+      "value": "本地业务恢复成功"
+    },
+    {
+      "name": "ac_learningcontroller_313",
+      "value": "已确认接受；等待快速结果与页面就绪"
+    },
+    {
+      "name": "ac_learningcontroller_314",
+      "value": "已记录冲突选择；所有必要信号就绪后才会写入存储。"
+    },
+    {
+      "name": "ac_learningcontroller_315",
+      "value": "冲突选择"
+    },
+    {
+      "name": "ac_learningcontroller_316",
+      "value": "用户接受接续版本；提交仍需快速结果与页面就绪。"
+    },
+    {
+      "name": "ac_learningcontroller_317",
+      "value": "已保留本机版本"
+    },
+    {
+      "name": "ac_learningcontroller_318",
+      "value": "已保留本机正文；接续版本未写入。"
+    },
+    {
+      "name": "ac_learningcontroller_319",
+      "value": "本机版本保留"
+    },
+    {
+      "name": "ac_learningcontroller_320",
+      "value": "用户选择保留本机版本"
+    },
+    {
+      "name": "ac_learningcontroller_322",
+      "value": "本地恢复结束：{0}"
+    },
+    {
+      "name": "ac_learningcontroller_323",
+      "value": "本轮本地等待已结束，当前原文保留。"
+    },
+    {
+      "name": "ac_learningcontroller_324",
+      "value": "保留当前原文；解决对应结果、数据、页面或存储问题后，从新的真实系统流程重试。"
+    },
+    {
+      "name": "ac_learningcontroller_325",
+      "value": "用户"
+    },
+    {
+      "name": "ac_learningcontroller_326",
+      "value": "系统接续在途或运行时已释放，暂不能生成本地备份。"
+    },
+    {
+      "name": "ac_learningcontroller_327",
+      "value": "系统接续在途或运行时已释放，暂不能预览本地恢复。"
+    },
+    {
+      "name": "ac_learningcontroller_328",
+      "value": "系统接续在途或运行时已释放，未执行本地恢复。"
+    },
+    {
+      "name": "ac_learningcontroller_329",
+      "value": "备份已过期或当前不能复制，请重新生成业务备份。"
+    },
+    {
+      "name": "ac_learningcontroller_330",
+      "value": "已复制生成时的业务备份；当前工作区已有变化，如需最新副本请重新生成。"
+    },
+    {
+      "name": "ac_learningcontroller_331",
+      "value": "业务定位已获实际页面回执"
+    },
+    {
+      "name": "ac_learningcontroller_332",
+      "value": "业务定位失败，候选未提交；可重试定位或停止"
+    },
+    {
+      "name": "ac_learningcontroller_333",
+      "value": "业务页已离开；候选未提交，可重试定位或取消"
+    },
+    {
+      "name": "ac_learningcontroller_334",
+      "value": "重新等待实际业务页定位回执"
+    },
+    {
+      "name": "ac_learningcontroller_335",
+      "value": "源端提供活动业务状态"
+    },
+    {
+      "name": "ac_learningcontroller_336",
+      "value": "发送真实笔记、阅读或表单草稿；不声称迁移文件。"
+    },
+    {
+      "name": "ac_learningcontroller_337",
+      "value": "恢复在途，拒绝发起新接续"
+    },
+    {
+      "name": "ac_learningcontroller_338",
+      "value": "源端门控"
+    },
+    {
+      "name": "ac_learningcontroller_339",
+      "value": "活动业务 {0}；独立schema校验通过；序列化长度 {1}。"
+    },
+    {
+      "name": "ac_learningcontroller_340",
+      "value": "已提供活动业务载荷"
+    },
+    {
+      "name": "ac_learningcontroller_341",
+      "value": "源端参数完成"
+    },
+    {
+      "name": "ac_learningcontroller_342",
+      "value": "业务序列化或参数写入失败，拒绝接续"
+    },
+    {
+      "name": "ac_learningcontroller_343",
+      "value": "源端校验"
+    },
+    {
+      "name": "ac_learningcontroller_344",
+      "value": "源端提供独立文本载荷"
+    },
+    {
+      "name": "ac_learningcontroller_345",
+      "value": "向系统 Want 写入新版本文本载荷与显式页面恢复策略。"
+    },
+    {
+      "name": "ac_learningcontroller_346",
+      "value": "拒绝：本地恢复在途或正文/选区不合法"
+    },
+    {
+      "name": "ac_learningcontroller_348",
+      "value": "已写入版本化独立文本载荷；正文长度 {0} 个 UTF-16 单元。"
+    },
+    {
+      "name": "ac_learningcontroller_349",
+      "value": "SUPPORT_CONTINUE_PAGE_STACK_KEY=false；目标端由入口显式加载固定页面。"
+    },
+    {
+      "name": "ac_learningcontroller_350",
+      "value": "源端返回 AGREE；后续进度由目标端记录。"
+    },
+    {
+      "name": "ac_learningcontroller_351",
+      "value": "已提供参数并同意系统接续"
+    },
+    {
+      "name": "ac_learningcontroller_353",
+      "value": "源端参数写入错误消息已脱敏。"
+    },
+    {
+      "name": "ac_learningcontroller_354",
+      "value": "参数写入失败；拒绝接续"
+    },
+    {
+      "name": "ac_learningcontroller_355",
+      "value": "源端同步错误"
+    },
+    {
+      "name": "ac_learningcontroller_357",
+      "value": "页面就绪"
+    },
+    {
+      "name": "ac_learningcontroller_358",
+      "value": "显式页面加载完成信号已收到。"
+    },
+    {
+      "name": "ac_learningcontroller_359",
+      "value": "页面未就绪 / 已离开"
+    },
+    {
+      "name": "ac_learningcontroller_360",
+      "value": "新窗口代次，等待新的实际定位回执"
+    },
+    {
+      "name": "ac_learningcontroller_361",
+      "value": "显式页面加载失败"
+    },
+    {
+      "name": "ac_learningcontroller_362",
+      "value": "页面加载失败，原文已保留。"
+    },
+    {
+      "name": "ac_learningcontroller_363",
+      "value": "页面加载失败"
+    },
+    {
+      "name": "ac_learningcontroller_364",
+      "value": "页面加载失败，请返回重试。"
+    },
+    {
+      "name": "ac_learningcontroller_365",
+      "value": "用户已停止本地等待，当前原文保留。"
+    },
+    {
+      "name": "ac_learningcontroller_366",
+      "value": "用户停止"
+    },
+    {
+      "name": "ac_learningcontroller_367",
+      "value": "用户已停止本地观察"
+    },
+    {
+      "name": "ac_learningcontroller_369",
+      "value": "本地等待已停止，正在注销监听，最多等待 8 秒。"
+    },
+    {
+      "name": "ac_learningcontroller_370",
+      "value": "本地等待已停止，可重新注册或注销。"
+    },
+    {
+      "name": "ac_learningcontroller_371",
+      "value": "已清除已完成记录与事件，保留在途操作记录以接收后续回调。"
+    },
+    {
+      "name": "ac_learningcontroller_372",
+      "value": "已清除记录与事件。"
+    },
+    {
+      "name": "ac_conflictpolicy_001",
+      "value": "无冲突"
+    },
+    {
+      "name": "ac_conflictpolicy_002",
+      "value": "对端更新"
+    },
+    {
+      "name": "ac_conflictpolicy_003",
+      "value": "本机更新"
+    },
+    {
+      "name": "ac_conflictpolicy_004",
+      "value": "两端都改过"
+    },
+    {
+      "name": "ac_conflictpolicy_005",
+      "value": "仅对端有内容"
+    },
+    {
+      "name": "ac_conflictpolicy_006",
+      "value": "仅本机有内容"
+    },
+    {
+      "name": "ac_conflictpolicy_007",
+      "value": "无法判断"
+    },
+    {
+      "name": "ac_conflictpolicy_008",
+      "value": "保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_009",
+      "value": "采用对端"
+    },
+    {
+      "name": "ac_conflictpolicy_010",
+      "value": "合并并偏向本机"
+    },
+    {
+      "name": "ac_conflictpolicy_011",
+      "value": "合并并偏向对端"
+    },
+    {
+      "name": "ac_conflictpolicy_012",
+      "value": "追加对端内容"
+    },
+    {
+      "name": "ac_conflictpolicy_013",
+      "value": "询问用户"
+    },
+    {
+      "name": "ac_conflictpolicy_014",
+      "value": "丢弃对端"
+    },
+    {
+      "name": "ac_conflictpolicy_015",
+      "value": "{0} {1}｜本地{2}"
+    },
+    {
+      "name": "ac_conflictpolicy_016",
+      "value": "脏"
+    },
+    {
+      "name": "ac_conflictpolicy_017",
+      "value": "净"
+    },
+    {
+      "name": "ac_conflictpolicy_018",
+      "value": "｜远端{0} -> {1}"
+    },
+    {
+      "name": "ac_conflictpolicy_021",
+      "value": "两端一致，保持本机内容不变"
+    },
+    {
+      "name": "ac_conflictpolicy_022",
+      "value": "本机有未提交改动，对端无变化，保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_023",
+      "value": "对端带来新内容，采用对端"
+    },
+    {
+      "name": "ac_conflictpolicy_024",
+      "value": "两端都标记改动但内容一致，交给用户确认"
+    },
+    {
+      "name": "ac_conflictpolicy_025",
+      "value": "本机为空，直接采用对端"
+    },
+    {
+      "name": "ac_conflictpolicy_026",
+      "value": "本机被清空但对端有内容，采用对端"
+    },
+    {
+      "name": "ac_conflictpolicy_027",
+      "value": "本机为空且对端有新内容，采用对端"
+    },
+    {
+      "name": "ac_conflictpolicy_028",
+      "value": "两端都有改动且本机为空，合并并偏向对端"
+    },
+    {
+      "name": "ac_conflictpolicy_029",
+      "value": "对端为空，保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_030",
+      "value": "对端为空且本机有改动，保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_031",
+      "value": "对端送来空载荷，合并并偏向本机"
+    },
+    {
+      "name": "ac_conflictpolicy_032",
+      "value": "两端都标记改动但对端为空，合并并偏向本机"
+    },
+    {
+      "name": "ac_conflictpolicy_033",
+      "value": "对端修订号更高且本机无改动，采用对端"
+    },
+    {
+      "name": "ac_conflictpolicy_034",
+      "value": "对端修订号更高但本机有未提交改动，合并并偏向本机"
+    },
+    {
+      "name": "ac_conflictpolicy_035",
+      "value": "对端修订号更高且确实是新改动，采用对端"
+    },
+    {
+      "name": "ac_conflictpolicy_036",
+      "value": "两端都有改动且对端修订号更高，交给用户确认"
+    },
+    {
+      "name": "ac_conflictpolicy_037",
+      "value": "本机修订号更高，保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_038",
+      "value": "本机修订号更高且有改动，保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_039",
+      "value": "本机修订号更高但对端带来新改动，合并并偏向对端"
+    },
+    {
+      "name": "ac_conflictpolicy_040",
+      "value": "两端都改过且本机修订号更高，交给用户确认"
+    },
+    {
+      "name": "ac_conflictpolicy_041",
+      "value": "内容不同但都没有改动标记，交给用户确认"
+    },
+    {
+      "name": "ac_conflictpolicy_042",
+      "value": "仅本机改动，合并并偏向本机"
+    },
+    {
+      "name": "ac_conflictpolicy_043",
+      "value": "仅对端改动，合并并偏向对端"
+    },
+    {
+      "name": "ac_conflictpolicy_044",
+      "value": "两端都改过，必须确认"
+    },
+    {
+      "name": "ac_conflictpolicy_045",
+      "value": "文档标识不一致且两端都改过，交给用户确认"
+    },
+    {
+      "name": "ac_conflictpolicy_046",
+      "value": "文档标识不一致，丢弃对端以免覆盖本机"
+    },
+    {
+      "name": "ac_conflictpolicy_047",
+      "value": "文档标识不一致但本机有改动，保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_048",
+      "value": "文档标识不一致，交给用户确认"
+    },
+    {
+      "name": "ac_conflictpolicy_049",
+      "value": "未命中规则"
+    },
+    {
+      "name": "ac_conflictpolicy_050",
+      "value": "{0}｜{1} 条说明"
+    },
+    {
+      "name": "ac_conflictpolicy_051",
+      "value": "保留本机内容"
+    },
+    {
+      "name": "ac_conflictpolicy_052",
+      "value": "采用对端内容"
+    },
+    {
+      "name": "ac_conflictpolicy_053",
+      "value": "对端内容已丢弃"
+    },
+    {
+      "name": "ac_conflictpolicy_054",
+      "value": "对端内容追加在末尾"
+    },
+    {
+      "name": "ac_conflictpolicy_055",
+      "value": "合并去重后 {0} 行"
+    },
+    {
+      "name": "ac_conflictpolicy_056",
+      "value": "本机在前"
+    },
+    {
+      "name": "ac_conflictpolicy_057",
+      "value": "对端在前"
+    },
+    {
+      "name": "ac_conflictpolicy_058",
+      "value": "等待用户选择，暂保留本机"
+    },
+    {
+      "name": "ac_conflictpolicy_059",
+      "value": "冲突规则表自洽"
+    },
+    {
+      "name": "ac_conflictpolicy_060",
+      "value": "规则编号重复：{0}"
+    },
+    {
+      "name": "ac_conflictpolicy_061",
+      "value": "缺少说明：{0}"
+    },
+    {
+      "name": "ac_conflictpolicy_062",
+      "value": "缺少组合：{0}/{1}/{2}"
+    },
+    {
+      "name": "ac_fielddictionary_001",
+      "value": "标识"
+    },
+    {
+      "name": "ac_fielddictionary_002",
+      "value": "内容"
+    },
+    {
+      "name": "ac_fielddictionary_003",
+      "value": "位置"
+    },
+    {
+      "name": "ac_fielddictionary_004",
+      "value": "上下文"
+    },
+    {
+      "name": "ac_fielddictionary_005",
+      "value": "完整性"
+    },
+    {
+      "name": "ac_fielddictionary_006",
+      "value": "派生"
+    },
+    {
+      "name": "ac_fielddictionary_007",
+      "value": "字符"
+    },
+    {
+      "name": "ac_fielddictionary_008",
+      "value": "个"
+    },
+    {
+      "name": "ac_fielddictionary_009",
+      "value": "毫秒"
+    },
+    {
+      "name": "ac_fielddictionary_010",
+      "value": "不限"
+    },
+    {
+      "name": "ac_fielddictionary_011",
+      "value": "必填"
+    },
+    {
+      "name": "ac_fielddictionary_012",
+      "value": "选填"
+    },
+    {
+      "name": "ac_fielddictionary_013",
+      "value": "文档标识"
+    }
+  ]
+}
