@@ -31,6 +31,7 @@
 // [StartExclude CreateWorkgroup]
 #include <cstdint>
 #include <sstream>
+#include <atomic>
 
 // 全局变量 - 用于主要功能
 // [Start Render_CreateStreamType]
@@ -345,15 +346,15 @@ napi_value getLatencyMode(napi_env env, napi_callback_info info)
 napi_value DestroyUltraAudioRender(napi_env env, napi_callback_info info)
 {
     std::stringstream ss;
-    if (g_ultraBuilder) {
-        // [Start Render_Destroy]
-        OH_AudioStreamBuilder_Destroy(g_ultraBuilder);
-        // [End Render_Destroy]
-        ss << "销毁超低时延播放流成功";
-    }
     if (g_ultraAudioRenderer) {
         OH_AudioRenderer_Stop(g_ultraAudioRenderer);
         OH_AudioRenderer_Release(g_ultraAudioRenderer);
+    }
+    if (g_ultraBuilder) {
+        // [Start Render_UltraDestroy]
+        OH_AudioStreamBuilder_Destroy(g_ultraBuilder);
+        // [End Render_UltraDestroy]
+        ss << "销毁超低时延播放流成功";
     }
     g_ultraAudioRenderer = nullptr;
     g_ultraBuilder = nullptr;
@@ -407,7 +408,7 @@ napi_value CheckUltraFastPlaybackSupported(napi_env env, napi_callback_info info
  
     std::stringstream ss;
     ss << "超低时延播放支持: " << (supported ? "是" : "否") << "\n";
-    if (!supported){
+    if (!supported) {
         ss << "错误码: " << result << "\n";
     }
     ss << "采样率: " << streamInfo.samplingRate << "\n";
@@ -425,6 +426,7 @@ napi_value CreateUltraFastAudioRender(napi_env env, napi_callback_info info)
 {
     // 重复创建前先释放上一次的播放流。
     if (g_ultraAudioRenderer) {
+        OH_AudioRenderer_Stop(g_ultraAudioRenderer);
         OH_AudioRenderer_Release(g_ultraAudioRenderer);
         g_ultraAudioRenderer = nullptr;
     }
@@ -457,10 +459,10 @@ napi_value CreateUltraFastAudioRender(napi_env env, napi_callback_info info)
     // 配置写入音频数据回调函数。
     OH_AudioStreamBuilder_SetRendererWriteDataCallback(g_ultraBuilder, UltraMyOnWriteData_New, nullptr);
  
-    // [Start Render_SetUltrFastLatencyMode]
+    // [Start Render_SetUltraFastLatencyMode]
     OH_AudioStream_LatencyMode latencyMode = AUDIOSTREAM_LATENCY_MODE_ULTRA_FAST;
     OH_AudioStreamBuilder_SetLatencyMode(g_ultraBuilder, latencyMode);
-    // [End Render_SetUltrFastLatencyMode]
+    // [End Render_SetUltraFastLatencyMode]
  
     // [Start Render_SetRendererUltraFastStatusChangeCallback]
     OH_AudioStreamBuilder_SetRendererFastStatusChangeCallback(g_ultraBuilder, MyOnUltraFastStatusChange, nullptr);
@@ -699,8 +701,8 @@ static napi_value Init(napi_env env, napi_value exports)
         {"CreateAudioRender02", nullptr, CreateAudioRender02, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"CheckUltraFastPlaybackSupported", nullptr, CheckUltraFastPlaybackSupported, nullptr, nullptr, nullptr,
             napi_default, nullptr},
-        {"CreateUltraFastAudioRender", nullptr, CreateUltraFastAudioRender, nullptr, nullptr, nullptr
-             napi_default, nullptr},
+        {"CreateUltraFastAudioRender", nullptr, CreateUltraFastAudioRender, nullptr, nullptr, nullptr,
+            napi_default, nullptr},
         {"GetUltraFastStatus", nullptr, GetUltraFastStatus, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"DestroyUltraAudioRender", nullptr, DestroyUltraAudioRender, nullptr, nullptr, nullptr, napi_default, nullptr},
     };
