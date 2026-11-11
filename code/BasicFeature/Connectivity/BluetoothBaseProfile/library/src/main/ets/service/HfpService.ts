@@ -615,10 +615,10 @@ export class HfpService {
 
   /**
    * @method holdCall
-   * @description Places the current active call on hold.
+   * @description Puts the current active call on hold.
    * Sends the AT+CHLD=2 command to hold the active call.
    *
-   * @returns {Promise<boolean>} True if the call was placed on hold successfully.
+   * @returns {Promise<boolean>} True if the call was put on hold successfully.
    */
   async holdCall(): Promise<boolean> {
     hiTraceMeter.startTrace(`${this.serviceName}_holdCall`, 0);

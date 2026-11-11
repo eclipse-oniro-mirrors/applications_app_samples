@@ -18,7 +18,15 @@ import { BluetoothConstants, BluetoothConnectionState } from '../constants/Bluet
 
 const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
-/** * JSON representation of AvrcpModel. */export interface AvrcpJson {  state: string;  deviceId: string;  lastUpdateTime: number;}
+
+/**
+ * JSON representation of AvrcpModel.
+ */
+export interface AvrcpJson {
+  state: string;
+  deviceId: string;
+  lastUpdateTime: number;
+}
 
 /**
  * AVRCP音视频遥控连接状态枚举。

@@ -94,21 +94,21 @@ library/src/main/ets/
 
 ### 签名配置
 
-根目录 [build-profile.json5](build-profile.json5) 中的 `signingConfigs.material` 属于**开发者本地配置**，仅保留了原作者机器上的绝对路径、密钥库与加密口令作为形状参考。任何使用者在真机或模拟器上运行本工程前，都必须在本地重新生成签名材料；**切勿**将个人的 `keyPassword`、`storePassword` 与绝对路径再次提交回仓库。
+根目录 [build-profile.json5](build-profile.json5) 中的 `signingConfigs.material` 属于**开发者本地配置**，仅保留了原作者机器上的本机路径、密钥库与加密口令作为形状参考。任何使用者在真机或模拟器上运行本工程前，都必须在本地重新生成签名材料；**切勿**将个人的 `keyPassword`、`storePassword` 与本机路径再次提交回仓库。
 
 方式一 —— DevEco Studio 自动生成（推荐）：
 
 1. 使用 DevEco Studio 26.0 及以上版本打开本工程。
 2. 选择 **File > Project Structure > Project > Signing Configs**。
 3. 勾选 **Automatically generate signature**。
-   - 由于本工程的 `runtimeOS` 为 **OpenHarmony**，请点击 **Sign In** 使用华为开发者账号登录（或采用方式二生成的 OpenHarmony 本地根 CA），DevEco 会在 `~/.ohos/config/openharmony/`（Windows：`C:\Users\<你>\.ohos\config\openharmony\`）下生成 `default_BluetoothBaseProfile_*.p12 / .cer / .p7b`。
+   - 由于本工程的 `runtimeOS` 为 **OpenHarmony**，请点击 **Sign In** 使用华为开发者账号登录（或采用方式二生成的 OpenHarmony 本地根 CA），DevEco 会在 `~/.ohos/config/openharmony/`（Windows：`C:\Users\<用户名>\.ohos\config\openharmony\`）下生成 `default_BluetoothBaseProfile_*.p12 / .cer / .p7b`。
 4. 点击 **OK / Apply**，DevEco 会自动把本地路径与口令回写到 `build-profile.json5` 的 `signingConfigs` 段中。
 5. 正常构建安装即可：**Build > Build Hap(s)/APP(s)**，或 `devecocli build`。
 
 方式二 —— 命令行 `hap-sign-tool`（无 IDE，适合 CI）：
 
 1. 在 OpenHarmony SDK 中定位签名工具：`<sdk>/default/openharmony/toolchains/hap-sign-tool.jar`，需要 Java 8 及以上。
-2. 首次使用需准备 OpenHarmony 根 CA（每机一次）。既可以从 OpenHarmony 官方的应用签名页下载测试根 CA，也可以用 `hap-sign-tool` 自行生成：
+2. OpenHarmony 根 CA 需提前准备（每台机器一次）。既可以从 OpenHarmony 官方的应用签名页下载测试根 CA，也可以用 `hap-sign-tool` 自行生成：
 
    ```
    java -jar hap-sign-tool.jar generate-keypair -keyFile oh-test-root.key -keyPwd ******

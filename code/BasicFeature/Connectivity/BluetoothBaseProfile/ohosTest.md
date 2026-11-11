@@ -1715,7 +1715,7 @@ hdc shell "aa test -b com.samples.bluetoothbaseprofile -m entry_test -s unittest
 4. `HttpUtils` 的请求/响应拦截器只有注册与清理入口，没有任何请求管线会调用它们（注册后 `onRequest`/`onResponse` 恒不执行）。
 5. `Constants.isValidMacAddress` 实际使用蓝牙冒号式正则 `BLUETOOTH_ADDRESS_REGEX`，短横分隔与混用分隔均返回 false，与方法名和 `MAC_ADDRESS_REGEX` 语义不一致。
 6. `DeviceUtils.getMemoryInfo` 因内部 `totalMem = 0` 恒返回 `Unknown`；`getStorageInfo` 恒返回 `Available`；`supportsBluetooth`/`supportsBle` 恒返回 true。
-7. `StorageUtils` 的容量淘汰按插入顺序选取首个访问计数最小项，不是严格 LRU；`getStats` 返回的对象类型未在 `library/Index.ets` 导出。
+7. `StorageUtils` 的容量淘汰按插入顺序选取第一个访问计数最小项，不是严格 LRU；`getStats` 返回的对象类型未在 `library/Index.ets` 导出。
 8. `HttpUtils`、`EncryptionUtils`、`PermissionUtils`、`PreferenceUtils`、`StorageUtils`、`DeviceUtils` 的多个返回类型接口（`HttpRequestConfig`、`PreferenceChangeListener`、`NetworkCallback`、`DeviceInfo`、`CacheStats` 等）未从 `library/Index.ets` 导出，测试侧只能使用类型推断或结构性兼容写法。
 9. `FormatUtils.truncate` 与 `StringUtils.truncate` 在后缀长度超过 `maxLen` 时直接返回后缀本身（`truncate('ab', 1)` 返回 `...`），结果长度反而大于请求的最大长度。
 10. `FormValidator.validate` 对 `required: false` 的字段在值为空时跳过 `customValidator`，因此缺省可选字段不会产生任何错误项（`errors.size` 只统计实际填写的非法值）。

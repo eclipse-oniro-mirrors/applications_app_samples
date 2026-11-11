@@ -869,7 +869,7 @@ export class HfpProfileManager {
 
   /**
    * @method holdCall
-   * @description Places the current call on hold.
+   * @description Puts the current call on hold.
    * @returns {Promise<boolean>} True if call was held.
    */
   async holdCall(): Promise<boolean> {

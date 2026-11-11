@@ -18,7 +18,15 @@ import { BluetoothConstants, BluetoothConnectionState } from '../constants/Bluet
 
 const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
-/** * JSON representation of HidModel. */export interface HidJson {  state: string;  deviceId: string;  lastUpdateTime: number;}
+
+/**
+ * JSON representation of HidModel.
+ */
+export interface HidJson {
+  state: string;
+  deviceId: string;
+  lastUpdateTime: number;
+}
 
 /**
  * HID人机交互连接状态枚举。

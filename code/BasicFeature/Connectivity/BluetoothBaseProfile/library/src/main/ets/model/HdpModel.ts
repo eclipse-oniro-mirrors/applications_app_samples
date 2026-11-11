@@ -18,7 +18,15 @@ import { BluetoothConstants, BluetoothConnectionState } from '../constants/Bluet
 
 const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
-/** * JSON representation of HdpModel. */export interface HdpJson {  state: string;  deviceId: string;  lastUpdateTime: number;}
+
+/**
+ * JSON representation of HdpModel.
+ */
+export interface HdpJson {
+  state: string;
+  deviceId: string;
+  lastUpdateTime: number;
+}
 
 /**
  * HDP健康设备连接状态枚举。

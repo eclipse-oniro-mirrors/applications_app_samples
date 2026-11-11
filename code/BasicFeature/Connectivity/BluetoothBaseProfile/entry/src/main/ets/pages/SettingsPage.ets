@@ -20,8 +20,8 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 class InfoItem {
-  label: string = '';
-  value: string = '';
+  public label: string = '';
+  public value: string = '';
 }
 
 /**

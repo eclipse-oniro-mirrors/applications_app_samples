@@ -18,7 +18,15 @@ import { BluetoothConstants, BluetoothConnectionState } from '../constants/Bluet
 
 const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
-/** * JSON representation of PanModel. */export interface PanJson {  state: string;  deviceId: string;  lastUpdateTime: number;}
+
+/**
+ * JSON representation of PanModel.
+ */
+export interface PanJson {
+  state: string;
+  deviceId: string;
+  lastUpdateTime: number;
+}
 
 /**
  * PAN个人局域网连接状态枚举。

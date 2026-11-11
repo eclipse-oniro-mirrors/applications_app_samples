@@ -18,7 +18,15 @@ import { BluetoothConstants, BluetoothConnectionState } from '../constants/Bluet
 
 const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
-/** * JSON representation of PbapModel. */export interface PbapJson {  state: string;  deviceId: string;  lastUpdateTime: number;}
+
+/**
+ * JSON representation of PbapModel.
+ */
+export interface PbapJson {
+  state: string;
+  deviceId: string;
+  lastUpdateTime: number;
+}
 
 /**
  * PBAP电话本连接状态枚举。
