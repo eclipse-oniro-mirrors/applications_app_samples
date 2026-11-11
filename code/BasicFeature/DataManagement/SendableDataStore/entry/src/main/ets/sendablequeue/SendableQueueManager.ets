@@ -329,7 +329,8 @@ export class SendableQueueManager {
   toArray(): string {
     const result: string[] = [];
     for (let i: number = 0; i < this.queueSize; i++) {
-      result.push(`{id:${this.items[i].id},data:${this.items[i].data},p:${this.items[i].priority},type:${this.items[i].dataType}}`);
+      result.push(`{id:${this.items[i].id},data:${this.items[i].data},` +
+        `p:${this.items[i].priority},type:${this.items[i].dataType}}`);
     }
     return `[${result.join(',')}]`;
   }

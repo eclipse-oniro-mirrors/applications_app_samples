@@ -85,8 +85,10 @@ export class SendableRdbHelper {
 
   convertValues(): string {
     const source: sendableRelationalStore.NonSendableValues = ['Sendable', 26, true, null];
-    const sendableValues: collections.Array<sendableRelationalStore.ValueType> = sendableRelationalStore.toSendableValues(source);
-    const normalValues: sendableRelationalStore.NonSendableValues = sendableRelationalStore.fromSendableValues(sendableValues);
+    const sendableValues: collections.Array<sendableRelationalStore.ValueType> =
+      sendableRelationalStore.toSendableValues(source);
+    const normalValues: sendableRelationalStore.NonSendableValues =
+      sendableRelationalStore.fromSendableValues(sendableValues);
     return ResultText.ofArgs($r('app.string.result_rdb_convert_values'),
       [sendableValues.length, JSON.stringify(normalValues)],
       `toSendableValues length=${sendableValues.length}; fromSendableValues=${JSON.stringify(normalValues)}`);
@@ -103,7 +105,8 @@ export class SendableRdbHelper {
       status: relationalStore.AssetStatus.ASSET_NORMAL
     };
     const sendableAsset: sendableRelationalStore.Asset = sendableRelationalStore.toSendableAsset(source);
-    const normalAsset: sendableRelationalStore.NonSendableAsset = sendableRelationalStore.fromSendableAsset(sendableAsset);
+    const normalAsset: sendableRelationalStore.NonSendableAsset =
+      sendableRelationalStore.fromSendableAsset(sendableAsset);
     return ResultText.ofArgs($r('app.string.result_rdb_convert_asset'),
       [sendableAsset.name, JSON.stringify(normalAsset)],
       `toSendableAsset name=${sendableAsset.name}; fromSendableAsset=${JSON.stringify(normalAsset)}`);
@@ -224,7 +227,8 @@ export class SendableRdbHelper {
     let successCount: number = 0;
     const rowIds: number[] = [];
     for (let i: number = 0; i < buckets.length; i++) {
-      const sendableBucket: sendableRelationalStore.ValuesBucket = sendableRelationalStore.toSendableValuesBucket(buckets[i]);
+      const sendableBucket: sendableRelationalStore.ValuesBucket =
+        sendableRelationalStore.toSendableValuesBucket(buckets[i]);
       try {
         const rowId: number = instance.insertSync(tableName, sendableBucket);
         rowIds.push(rowId);
@@ -240,7 +244,8 @@ export class SendableRdbHelper {
       `batchInsert into '${tableName}': ${successCount}/${buckets.length} rows inserted, ids=[${rowIds.join(',')}]`);
   }
 
-  async update(tableName: string, bucket: relationalStore.ValuesBucket, predicate: relationalStore.RdbPredicates): Promise<string> {
+  async update(tableName: string, bucket: relationalStore.ValuesBucket,
+    predicate: relationalStore.RdbPredicates): Promise<string> {
     if (!DataValidator.isValidTableName(tableName)) {
       return ResultText.ofArgs($r('app.string.result_rdb_update_invalid_name'), [tableName],
         `update failed: invalid table name '${tableName}'`);
@@ -255,7 +260,8 @@ export class SendableRdbHelper {
       `update '${tableName}': ${rowCount} rows updated`);
   }
 
-  updateSync(tableName: string, bucket: relationalStore.ValuesBucket, predicate: relationalStore.RdbPredicates): string {
+  updateSync(tableName: string, bucket: relationalStore.ValuesBucket,
+    predicate: relationalStore.RdbPredicates): string {
     if (!DataValidator.isValidTableName(tableName)) {
       return ResultText.ofArgs($r('app.string.result_rdb_update_sync_invalid_name'), [tableName],
         `updateSync failed: invalid table name '${tableName}'`);
@@ -439,7 +445,8 @@ export class SendableRdbHelper {
 
   executeRawSQLSync(sql: string): string {
     if (!DataValidator.isValidSQL(sql)) {
-      return ResultText.of($r('app.string.result_rdb_execute_sync_invalid_sql'), 'executeRawSQLSync failed: invalid SQL');
+      return ResultText.of($r('app.string.result_rdb_execute_sync_invalid_sql'),
+        'executeRawSQLSync failed: invalid SQL');
     }
     const instance: relationalStore.RdbStore = this.getInstance();
     instance.executeSync(sql);

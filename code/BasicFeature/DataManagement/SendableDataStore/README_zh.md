@@ -2,18 +2,18 @@
 
 ### 介绍
 
-本示例基于Stage模型和ArkTS语言，使用[@ohos.data.sendablePreferences](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-sendablePreferences.md)、[@ohos.data.sendableRelationalStore](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-sendableRelationalStore.md)和[@ohos.util.Sendable](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkts/js-apis-sendable.md)提供的接口，展示共享首选项、共享关系型数据库及Sendable数据结构的使用方法。
+本示例基于Stage模型和ArkTS语言，使用[@ohos.data.sendablePreferences](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-sendablePreferences.md)、[@ohos.data.sendableRelationalStore](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-sendableRelationalStore.md)和[@ohos.util.Sendable](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkts/js-apis-sendable.md)提供的接口，展示Shared Preferences、Shared Relational Store及Sendable数据结构的使用方法。
 
 SendableDataStore涵盖以下核心功能模块：
-- **数据存储**：Shared Preferences（共享首选项）和 Shared Relational Store（共享关系型数据库）
+- **数据存储**：Shared Preferences 和 Shared Relational Store
 - **数据集合**：Sendable Array、Sendable Map、Sendable Queue、Sendable Record
 - **高级功能**：数据迁移、数据备份、数据加密、分布式数据管理
 
 ### 效果预览
 
-| 主页 | 共享首选项 |
+| 主页 | Shared Preferences |
 |------|------------|
-| ![主页](screenshots/dataStore_index.svg) | ![共享首选项](screenshots/share.svg) |
+| ![主页](screenshots/dataStore_index.svg) | ![Shared Preferences](screenshots/share.svg) |
 
 ### 使用说明
 
@@ -38,9 +38,9 @@ entry/src/main/ets/
 |---pages
 |   |---Index.ets                              // 主入口页面，按分区展示所有功能入口
 |---sendablepreferences
-|   |---SendablePreferencesHelper.ets           // 共享首选项管理器（异步/同步API封装）
+|   |---SendablePreferencesHelper.ets           // Shared Preferences 管理器（异步/同步API封装）
 |   |---pages
-|       |---SendablePreferencesHome.ets        // 共享首选项操作页面
+|       |---SendablePreferencesHome.ets        // Shared Preferences 操作页面
 |---sendablerelationalstore
 |   |---SendableRdbHelper.ets                  // 共享关系型数据库管理器
 |   |---pages
@@ -104,7 +104,7 @@ entry/src/ohosTest/ets/
 |   |---PreferencesRdbUITest.test.ets          // [UI] Preferences/RDB UI测试（17）
 |   |---SendableArrayTest.test.ets             // [Sendable] 数组测试（36）
 |   |---SendableMapTest.test.ets               // [Sendable] 映射测试（26）
-|   |---SendablePreferencesTest.test.ets       // [Sendable] 首选项测试（68）
+|   |---SendablePreferencesTest.test.ets       // [Sendable] Preferences 测试（68）
 |   |---SendableQueueTest.test.ets             // [Sendable] 队列测试（26）
 |   |---SendableRdbTest.test.ets               // [Sendable] 数据库测试（39）
 |   |---SendableRecordTest.test.ets            // [Sendable] 记录测试（26）
@@ -118,7 +118,7 @@ entry/src/ohosTest/ets/
 |   |---ErrorHandlingTest.test.ets             // [工具] 错误处理测试（35）
 |   |---LoggerTest.test.ets                    // [工具] 日志测试（4）
 |   |---PerformanceMonitorTest.test.ets        // [工具] 性能监控测试（26）
-|   |---PreferencesDeepTest.test.ets           // [深度] 首选项深度测试（120）
+|   |---PreferencesDeepTest.test.ets           // [深度] Preferences 深度测试（120）
 |   |---RdbDeepTest.test.ets                   // [深度] 数据库深度测试（120）
 |   |---EncryptionDeepTest.test.ets            // [深度] 加密深度测试（118）
 |   |---DistributedDeepTest.test.ets           // [深度] 分布式深度测试（120）
@@ -134,7 +134,7 @@ entry/src/ohosTest/ets/
 
 ### 具体实现
 
-* 共享首选项通过`@kit.ArkData`中的`sendablePreferences`调用。[SendablePreferencesHome.ets](entry/src/main/ets/sendablepreferences/pages/SendablePreferencesHome.ets)封装了`getPreferences`/`getPreferencesSync`初始化、异步/同步读写、多键操作、类型化操作、前缀操作、版本管理、事件订阅和缓存管理等完整API，通过[SendablePreferencesHelper.ets](entry/src/main/ets/sendablepreferences/SendablePreferencesHelper.ets)管理实例生命周期。
+* Shared Preferences通过`@kit.ArkData`中的`sendablePreferences`调用。[SendablePreferencesHome.ets](entry/src/main/ets/sendablepreferences/pages/SendablePreferencesHome.ets)封装了`getPreferences`/`getPreferencesSync`初始化、异步/同步读写、多键操作、类型化操作、前缀操作、版本管理、事件订阅和缓存管理等完整API，通过[SendablePreferencesHelper.ets](entry/src/main/ets/sendablepreferences/SendablePreferencesHelper.ets)管理实例生命周期。
 * 共享关系型数据库通过`@kit.ArkData`中的`sendableRelationalStore`调用。[SendableRelationalStoreHome.ets](entry/src/main/ets/sendablerelationalstore/pages/SendableRelationalStoreHome.ets)封装了RDB建库建表、Sendable数据转换、多表操作、扩展CRUD、事务管理和原生SQL执行，通过[SendableRdbHelper.ets](entry/src/main/ets/sendablerelationalstore/SendableRdbHelper.ets)管理数据库实例。
 * Sendable数据结构（Array、Map、Queue、Record）通过`@kit.ArkTS`中的Sendable集合调用，各Manager类封装了创建、操作、搜索、转换和统计功能。
 * 数据迁移通过[DataMigrationManager.ets](entry/src/main/ets/migration/DataMigrationManager.ets)实现Schema版本管理、迁移步骤执行和回滚。

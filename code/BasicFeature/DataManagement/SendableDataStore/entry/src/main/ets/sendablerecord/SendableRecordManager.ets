@@ -245,7 +245,8 @@ export class SendableRecordManager {
       return ResultText.ofArgs($r('app.string.result_record_validate_missing'), [missing.join(', ')],
         `validateRequired: MISSING [${missing.join(', ')}]`);
     }
-    return ResultText.of($r('app.string.result_record_validate_ok'), 'validateRequired: all required fields are present');
+    return ResultText.of($r('app.string.result_record_validate_ok'),
+      'validateRequired: all required fields are present');
   }
 
   resetField(fieldName: string): string {
@@ -283,10 +284,12 @@ export class SendableRecordManager {
 
   addNestedRecord(name: string, value: string): string {
     if (!DataValidator.isValidKey(name)) {
-      return ResultText.of($r('app.string.result_record_add_nested_invalid_name'), 'addNestedRecord failed: invalid name');
+      return ResultText.of($r('app.string.result_record_add_nested_invalid_name'),
+        'addNestedRecord failed: invalid name');
     }
     if (this.nestedCount >= DataStoreConstants.MAX_RECORD_FIELDS) {
-      return ResultText.of($r('app.string.result_record_add_nested_max'), `addNestedRecord failed: max nested records reached`);
+      return ResultText.of($r('app.string.result_record_add_nested_max'),
+        'addNestedRecord failed: max nested records reached');
     }
     const existIdx: number = this.findNestedIndex(name);
     if (existIdx >= 0) {
@@ -371,7 +374,8 @@ export class SendableRecordManager {
     const fields: string[] = [];
     for (let i: number = 0; i < this.fieldCount; i++) {
       const req: string = this.fieldRequired[i] ? 'true' : 'false';
-      fields.push(`{"name":"${this.fieldNames[i]}","type":"${this.fieldTypes[i]}","required":${req},"default":"${this.fieldDefaults[i]}"}`);
+      fields.push(`{"name":"${this.fieldNames[i]}","type":"${this.fieldTypes[i]}",` +
+        `"required":${req},"default":"${this.fieldDefaults[i]}"}`);
     }
     return `{"record":"${this.recordName}","fields":[${fields.join(',')}],"createdAt":${this.createdAt}}`;
   }

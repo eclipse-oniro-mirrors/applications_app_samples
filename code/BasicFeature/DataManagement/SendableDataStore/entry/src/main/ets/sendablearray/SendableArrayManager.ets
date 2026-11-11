@@ -78,7 +78,8 @@ export class SendableArrayManager {
 
   createFromArray(values: number[]): string {
     if (values.length === 0) {
-      return ResultText.of($r('app.string.result_array_create_from_array_empty'), 'createFromArray failed: empty input');
+      return ResultText.of($r('app.string.result_array_create_from_array_empty'),
+        'createFromArray failed: empty input');
     }
     if (values.length > MAX_RESIZE_CAPACITY) {
       return ResultText.ofArgs($r('app.string.result_array_create_from_array_exceeds_max'), [values.length],
@@ -181,7 +182,8 @@ export class SendableArrayManager {
 
   swapElements(i: number, j: number): string {
     if (this.dataType === DataType.NULL) {
-      return ResultText.of($r('app.string.result_array_swap_not_initialized'), 'swapElements failed: array not initialized');
+      return ResultText.of($r('app.string.result_array_swap_not_initialized'),
+        'swapElements failed: array not initialized');
     }
     if (!DataValidator.isValidIndex(i, this.capacity) || !DataValidator.isValidIndex(j, this.capacity)) {
       return ResultText.ofArgs($r('app.string.result_array_swap_invalid_index'), [i, j],
@@ -252,7 +254,8 @@ export class SendableArrayManager {
 
   reverseArray(): string {
     if (this.dataType === DataType.NULL) {
-      return ResultText.of($r('app.string.result_array_reverse_not_initialized'), 'reverseArray failed: array not initialized');
+      return ResultText.of($r('app.string.result_array_reverse_not_initialized'),
+        'reverseArray failed: array not initialized');
     }
     if (this.dataType === DataType.NUMBER) {
       for (let i: number = 0; i < Math.floor(this.capacity / 2); i++) {

@@ -258,7 +258,8 @@ export class ErrorHandling {
     if (ErrorHandling.errorHistory.length > ErrorHandling.maxHistorySize) {
       ErrorHandling.errorHistory.shift();
     }
-    const logMessage: string = `Error[${errorCode}] ${severity} ${category} ${retryable ? 'retryable' : 'fatal'}: ${context} - ${message}`;
+    const logMessage: string = `Error[${errorCode}] ${severity} ${category} ` +
+      `${retryable ? 'retryable' : 'fatal'}: ${context} - ${message}`;
     if (severity === ErrorSeverity.CRITICAL || severity === ErrorSeverity.HIGH) {
       Logger.error(logMessage);
     } else {

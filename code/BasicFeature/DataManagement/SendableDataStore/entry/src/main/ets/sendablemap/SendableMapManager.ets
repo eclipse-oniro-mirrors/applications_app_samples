@@ -397,7 +397,8 @@ export class SendableMapManager {
   toJSONTyped(): string {
     const parts: string[] = [];
     for (let i: number = 0; i < this.mapSize; i++) {
-      parts.push(`"${this.keys[i]}":{"value":"${this.values[i]}","type":"${this.dataTypes[i]}","ts":${this.timestamps[i]}}`);
+      parts.push(`"${this.keys[i]}":{"value":"${this.values[i]}","type":"${this.dataTypes[i]}",` +
+        `"ts":${this.timestamps[i]}}`);
     }
     return `{${parts.join(',')}}`;
   }

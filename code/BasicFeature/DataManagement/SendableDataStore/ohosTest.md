@@ -2,7 +2,7 @@
 
 ## 验证范围
 
-本工程使用 Stage 模型. ArkTS. Hypium 1.0.6 和 OpenHarmony API version 26 SDK。测试覆盖应用启动. 首页导航. 共享首选项. 共享关系型数据库. Sendable Array/Map/Queue/Record. 数据迁移. 数据备份. 数据加密. 分布式数据管理以及配置和工具模块。
+本工程使用 Stage 模型. ArkTS. Hypium 1.0.6 和 OpenHarmony API version 26 SDK。测试覆盖应用启动. 首页导航. Shared Preferences. Shared Relational Store. Sendable Array/Map/Queue/Record. 数据迁移. 数据备份. 数据加密. 分布式数据管理以及配置和工具模块。
 
 当前源码静态统计口径如下：
 
@@ -14,7 +14,7 @@
 
 用户已确认真机全量测试结果为 **1599/1599 通过**。本次工作仅整理文档和核对源码统计，未重新构建或执行测试。下文 `Pass*` 均引用该用户确认结果，不表示本次新增了测试执行日志。测试结果集中记录在“构建验证与执行说明”章节的结果记录表中。该结果产生于结果文案资源化改造之前，执行环境要求见“运行语言环境约束”。
 
-分布式同步. 数据加密. 备份恢复和迁移回滚等用例验证的是当前 Sample 暴露的接口行为及页面状态，不等同于多设备互联. 安全强度或第三方兼容性认证。
+分布式同步. 数据加密. 备份恢复和迁移回滚等用例验证的是当前 Sample 暴露的接口行为及页面状态，不等同于对多设备互联. 安全强度或第三方兼容性的评测结论。
 
 ## 测试工程结构
 
@@ -26,14 +26,14 @@ entry/src/ohosTest/
 |   |   |---List.test.ets                     // 33 个测试套件的导入和挂载入口
 |   |   |---AbilityTest.test.ets              // 应用启动与首页入口测试
 |   |   |---IndexAndNavigationTest.test.ets   // 首页导航和返回测试
-|   |   |---PreferencesRdbUITest.test.ets     // 首选项和关系型数据库页面 UI 测试
+|   |   |---PreferencesRdbUITest.test.ets     // Preferences 和关系型数据库页面 UI 测试
 |   |   |---CollectionPagesUITest.test.ets    // Sendable 集合页面 UI 测试
 |   |   |---AdvancedPagesUITest.test.ets      // 高级功能页面 UI 测试
 |   |   |---Sendable*Test.test.ets            // Sendable 数据类型接口测试
 |   |   |---Data*Test.test.ets                // 功能模块. 配置和模型测试
 |   |   |---*DeepTest.test.ets                // 接口深度和状态组合测试
 |   |   |---*BoundaryTest.test.ets            // 端到端和边界场景测试
-|   |   |---其他套件文件                       // 完整清单见下文章节
+|   |   |---其余套件文件                       // 完整清单见下文章节
 |   |---testkit
 |   |   |---SharedDriver.ets                  // UI Driver. 断言. 导航和日志公共封装
 |   |---testability
@@ -81,14 +81,14 @@ entry/src/ohosTest/
 | DistributedDataTest | 功能模块 | DistributedDataTest.test.ets | 28 | 分布式 CRUD. 设备管理. 同步和冲突处理 |
 | AbilityTest | 基础设施 | AbilityTest.test.ets | 3 | 应用启动. 首页功能入口和页面加载 |
 | IndexAndNavigationTest | UI | IndexAndNavigationTest.test.ets | 10 | 十个功能入口的跳转. 标题断言和返回首页 |
-| SendablePreferencesTest | Sendable 数据类型 | SendablePreferencesTest.test.ets | 68 | 首选项初始化. 读写. 持久化. 事件和缓存管理 |
+| SendablePreferencesTest | Sendable 数据类型 | SendablePreferencesTest.test.ets | 68 | Preferences 初始化. 读写. 持久化. 事件和缓存管理 |
 | SendableRdbTest | Sendable 数据类型 | SendableRdbTest.test.ets | 39 | RDB 建库建表. CRUD. 事务. 查询和 SQL |
 | ErrorHandlingTest | 配置和工具 | ErrorHandlingTest.test.ets | 35 | 错误对象. 错误码. 异常处理和恢复 |
 | PerformanceMonitorTest | 配置和工具 | PerformanceMonitorTest.test.ets | 26 | 性能计时. 统计. 阈值和状态管理 |
 | DataStoreConfigTest | 配置和工具 | DataStoreConfigTest.test.ets | 20 | 默认配置. 配置更新. 校验和重置 |
 | LoggerTest | 配置和工具 | LoggerTest.test.ets | 4 | 日志级别和日志接口调用 |
 | DataModelsEnumAndConstantsTest | 配置和工具 | DataModelsEnumAndConstantsTest.test.ets | 39 | 数据模型. 枚举值和常量定义 |
-| PreferencesRdbUITest | UI | PreferencesRdbUITest.test.ets | 17 | 首选项和 RDB 页面按钮. 结果区域及滚动操作 |
+| PreferencesRdbUITest | UI | PreferencesRdbUITest.test.ets | 17 | Preferences 和 RDB 页面按钮. 结果区域及滚动操作 |
 | CollectionPagesUITest | UI | CollectionPagesUITest.test.ets | 20 | Array/Map/Queue/Record 页面交互 |
 | AdvancedPagesUITest | UI | AdvancedPagesUITest.test.ets | 20 | 迁移. 备份. 加密和分布式页面交互 |
 | E2EWorkflowAndBoundaryTest | 边界和补充 | E2EWorkflowAndBoundaryTest.test.ets | 24 | 跨模块工作流. 状态连续性和边界组合 |
@@ -96,7 +96,7 @@ entry/src/ohosTest/
 | BatchCapacityGuardTest | 边界和补充 | BatchCapacityGuardTest.test.ets | 25 | 批量操作规模. 容量保护和重复操作 |
 | ManagerMethodGapTest | 边界和补充 | ManagerMethodGapTest.test.ets | 40 | Manager 方法补充. 调用组合和状态检查 |
 | SupplementaryCoverageTest | 边界和补充 | SupplementaryCoverageTest.test.ets | 72 | 核心 Manager 未覆盖分支和补充场景 |
-| PreferencesDeepTest | 深度 | PreferencesDeepTest.test.ets | 120 | 首选项接口深度. 同步异步组合和状态检查 |
+| PreferencesDeepTest | 深度 | PreferencesDeepTest.test.ets | 120 | Preferences 接口深度. 同步异步组合和状态检查 |
 | RdbDeepTest | 深度 | RdbDeepTest.test.ets | 120 | RDB 接口深度. 数据转换和事务组合 |
 | EncryptionDeepTest | 深度 | EncryptionDeepTest.test.ets | 118 | 加解密和密钥接口深度及异常组合 |
 | DistributedDeepTest | 深度 | DistributedDeepTest.test.ets | 120 | 分布式接口深度. 同步状态和冲突组合 |
@@ -139,7 +139,7 @@ entry/src/ohosTest/
 
 ## 用例归档表
 
-下表按套件归档全部 1599 条用例。“用例名称”列出首个用例作为定位示例，括号内为该文件包含的用例总数。每条用例的 `@tc.number`. 详细描述和断言以对应源码为准。
+下表按套件归档全部 1599 条用例。“用例名称”列出第一条用例作为定位示例，括号内为该文件包含的用例总数。每条用例的 `@tc.number`. 详细描述和断言以对应源码为准。
 
 通用预置条件：设备正常运行，已安装被测 HAP 和测试 HAP；UI 用例需成功拉起 `EntryAbility`，接口用例需完成 `TestAbility` Context 注入。`Pass*` 的含义见“验证范围”。
 
@@ -156,7 +156,7 @@ entry/src/ohosTest/
 | 09 | testDistributedData0001 等 28 条 | 分布式数据 | Distributed Manager 可用 | CRUD. 设备. 同步和冲突输入 | 数据状态. 设备状态和冲突处理结果符合预期 | 是 | Pass* |
 | 10 | testAbility0001 等 3 条 | 应用启动 | 已安装应用和测试 HAP | 启动 EntryAbility | 首页加载，十个功能入口可检查 | 是 | Pass* |
 | 11 | testNavigation0001 等 10 条 | 首页导航 | 位于应用首页 | 依次点击十个功能入口并返回 | 目标页面标题可见，返回后首页入口可见 | 是 | Pass* |
-| 12 | testSendablePreferences0001 等 68 条 | 共享首选项 | Preferences Helper 可用 | 初始化. 读写. flush. 订阅和删除 | 存储值. 事件. 计数和生命周期状态符合预期 | 是 | Pass* |
+| 12 | testSendablePreferences0001 等 68 条 | Shared Preferences | Preferences Helper 可用 | 初始化. 读写. flush. 订阅和删除 | 存储值. 事件. 计数和生命周期状态符合预期 | 是 | Pass* |
 | 13 | testSendableRdb0001 等 39 条 | 共享关系型数据库 | RDB Helper 可用 | 建表. CRUD. 事务和 SQL | 数据行. 查询结果. 事务状态符合预期 | 是 | Pass* |
 | 14 | testErrorHandling0001 等 35 条 | 错误处理 | 错误处理工具可用 | 各类错误码. 异常和恢复输入 | 错误信息和恢复行为符合预期 | 是 | Pass* |
 | 15 | testPerformanceMonitor0001 等 26 条 | 性能监控 | Performance Monitor 可用 | 开始. 结束. 统计和阈值操作 | 计时记录. 统计值和状态符合预期 | 是 | Pass* |
@@ -171,7 +171,7 @@ entry/src/ohosTest/
 | 24 | testBatchGuard0001 等 25 条 | 批量容量保护 | 相关 Manager 可用 | 批量. 上限附近和重复输入 | 容量保护和返回状态符合预期 | 是 | Pass* |
 | 25 | testMgrGap0001 等 40 条 | Manager 方法补充 | 相关 Manager 可用 | 补充方法及调用顺序组合 | 返回值和内部状态符合各用例断言 | 是 | Pass* |
 | 26 | testSuppArray0001 等 72 条 | 补充覆盖 | 相关 Manager 可用 | 未覆盖分支和异常组合 | 补充路径结果符合各用例断言 | 是 | Pass* |
-| 27 | testDeepPref0001 等 120 条 | 首选项深度 | 每条用例清理持久化数据 | 同步异步. 生命周期和状态组合 | 首选项数据. 计数和状态符合预期 | 是 | Pass* |
+| 27 | testDeepPref0001 等 120 条 | Preferences 深度 | 每条用例清理持久化数据 | 同步异步. 生命周期和状态组合 | Preferences 数据. 计数和状态符合预期 | 是 | Pass* |
 | 28 | testDeepRdb0001 等 120 条 | RDB 深度 | 测试数据库可创建 | CRUD. 转换. 查询和事务组合 | 数据和事务状态符合预期 | 是 | Pass* |
 | 29 | testDeepEnc0001 等 118 条 | 加密深度 | Encryption Manager 可用 | 密钥. 明文. 密文和异常组合 | 加解密和密钥状态符合预期 | 是 | Pass* |
 | 30 | testDeepDist0001 等 120 条 | 分布式深度 | Distributed Manager 可用 | 设备. 同步. 冲突和异常组合 | 分布式状态和结果符合预期 | 是 | Pass* |
@@ -316,7 +316,7 @@ devecocli log --bundle-name com.samples.sendabledatastore --tail 200
 |---|---|
 | 应用生命周期 | EntryAbility 启动. 首页加载和功能入口检查 |
 | 页面导航 | 十个功能入口的进入和返回 |
-| 数据存储 | 共享首选项和共享关系型数据库的同步异步接口 |
+| 数据存储 | Shared Preferences 和 Shared Relational Store 的同步异步接口 |
 | Sendable 集合 | Array. Map. Queue. Record 的主要操作 |
 | 高级功能 | 迁移. 备份. 加密和分布式 Manager 及页面 |
 | 公共能力 | 配置. 模型. 校验. 日志. 性能和错误处理 |

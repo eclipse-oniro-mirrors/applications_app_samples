@@ -224,7 +224,8 @@ export class DistributedDataManager {
 
   listDevices(): string {
     if (this.deviceCount === 0) {
-      return ResultText.of($r('app.string.result_distributed_list_devices_empty'), 'listDevices: no devices registered');
+      return ResultText.of($r('app.string.result_distributed_list_devices_empty'),
+        'listDevices: no devices registered');
     }
     const result: string[] = [];
     for (let i: number = 0; i < this.deviceCount; i++) {
@@ -277,7 +278,8 @@ export class DistributedDataManager {
 
   async sync(): Promise<string> {
     if (this.isSyncing) {
-      return ResultText.of($r('app.string.result_distributed_sync_in_progress'), 'sync failed: sync already in progress');
+      return ResultText.of($r('app.string.result_distributed_sync_in_progress'),
+        'sync failed: sync already in progress');
     }
     if (this.deviceCount === 0) {
       return ResultText.of($r('app.string.result_distributed_sync_no_devices'), 'sync failed: no devices to sync with');
