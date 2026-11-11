@@ -419,7 +419,9 @@ export class BluetoothConnectionManager {
       if (profiles) {
         for (const profile of profiles) {
           const result: boolean = await this.disconnectDevice(deviceId, profile);
-          if (result) count++;
+          if (result) {
+            count++;
+          }
         }
       }
     }
@@ -500,7 +502,9 @@ export class BluetoothConnectionManager {
    */
   isDeviceConnectedWithProfile(deviceId: string, profile: BluetoothProfileType): boolean {
     const profiles: BluetoothProfileType[] | undefined = this.deviceProfiles.get(deviceId);
-    if (!profiles) return false;
+    if (!profiles) {
+      return false;
+    }
     return profiles.indexOf(profile) !== -1;
   }
 
@@ -587,7 +591,9 @@ export class BluetoothConnectionManager {
    * Periodically checks connection health and stability.
    */
   startMonitoring(): void {
-    if (this.isMonitoring) return;
+    if (this.isMonitoring) {
+      return;
+    }
     this.isMonitoring = true;
     hilog.info(DOMAIN, TAG, 'BluetoothConnectionManager startMonitoring: started');
     this.monitoringTimer = setInterval(() => {
@@ -599,7 +605,9 @@ export class BluetoothConnectionManager {
    * Stop connection monitoring.
    */
   stopMonitoring(): void {
-    if (!this.isMonitoring) return;
+    if (!this.isMonitoring) {
+      return;
+    }
     this.isMonitoring = false;
     if (this.monitoringTimer !== -1) {
       clearInterval(this.monitoringTimer);
@@ -659,7 +667,9 @@ export class BluetoothConnectionManager {
    */
   private isRateLimited(deviceId: string): boolean {
     const attempts: number[] | undefined = this.connectionAttempts.get(deviceId);
-    if (!attempts || attempts.length === 0) return false;
+    if (!attempts || attempts.length === 0) {
+      return false;
+    }
     const now: number = Date.now();
     const recentAttempts: number[] = attempts.filter((t: number) => now - t < 10000);
     return recentAttempts.length >= 5;
@@ -818,13 +828,19 @@ export class BluetoothConnectionManager {
         totalDisconnections++;
         if (record.duration > 0) {
           totalDuration += record.duration;
-          if (record.duration > longestDuration) longestDuration = record.duration;
-          if (record.duration < shortestDuration) shortestDuration = record.duration;
+          if (record.duration > longestDuration) {
+            longestDuration = record.duration;
+          }
+          if (record.duration < shortestDuration) {
+            shortestDuration = record.duration;
+          }
         }
       } else {
         totalFailures++;
       }
-      if (record.isAutoReconnect) totalAutoReconnects++;
+      if (record.isAutoReconnect) {
+        totalAutoReconnects++;
+      }
       totalRssi += Math.abs(record.rssi);
     }
 

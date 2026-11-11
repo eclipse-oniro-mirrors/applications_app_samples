@@ -1261,7 +1261,9 @@ export class HfpService {
    * @private
    */
   private notifyCallCallbacks(): void {
-    if (!this.currentCall) return;
+    if (!this.currentCall) {
+      return;
+    }
     for (const callback of this.callCallbacks) {
       try {
         callback(this.currentCall);
@@ -1277,7 +1279,9 @@ export class HfpService {
    * @private
    */
   private notifyAudioCallbacks(): void {
-    if (!this.audioConfig) return;
+    if (!this.audioConfig) {
+      return;
+    }
     for (const callback of this.audioCallbacks) {
       try {
         callback(this.audioConfig);

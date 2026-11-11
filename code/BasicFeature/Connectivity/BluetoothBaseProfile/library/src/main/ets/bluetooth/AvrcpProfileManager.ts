@@ -785,12 +785,24 @@ export class AvrcpProfileManager {
 
     // Calculate health score
     let healthScore = 100;
-    if (this.statistics.errorRate > 10) healthScore -= 20;
-    if (this.statistics.errorRate > 30) healthScore -= 20;
-    if (this.statistics.connectionSuccessRate < 80) healthScore -= 20;
-    if (this.statistics.connectionSuccessRate < 50) healthScore -= 20;
-    if (this.operationQueue.length > this.config.maxQueueSize * 0.8) healthScore -= 10;
-    if (this.lastError) healthScore -= 10;
+    if (this.statistics.errorRate > 10) {
+      healthScore -= 20;
+    }
+    if (this.statistics.errorRate > 30) {
+      healthScore -= 20;
+    }
+    if (this.statistics.connectionSuccessRate < 80) {
+      healthScore -= 20;
+    }
+    if (this.statistics.connectionSuccessRate < 50) {
+      healthScore -= 20;
+    }
+    if (this.operationQueue.length > this.config.maxQueueSize * 0.8) {
+      healthScore -= 10;
+    }
+    if (this.lastError) {
+      healthScore -= 10;
+    }
 
     this.statistics.healthScore = Math.max(0, healthScore);
     this.statistics.isHealthy = this.statistics.healthScore >= this.config.minHealthScoreThreshold;

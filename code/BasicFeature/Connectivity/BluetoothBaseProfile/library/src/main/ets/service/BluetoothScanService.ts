@@ -171,7 +171,9 @@ export class BluetoothScanService {
    * @returns {BluetoothDeviceModel[]} 过滤后的设备列表
    */
   filterDevicesByName(keyword: string): BluetoothDeviceModel[] {
-    if (!keyword) return [...this.discoveredDevices];
+    if (!keyword) {
+      return [...this.discoveredDevices];
+    }
     const lower: string = keyword.toLowerCase();
     return this.discoveredDevices.filter((d: BluetoothDeviceModel) =>
       d.deviceName.toLowerCase().indexOf(lower) !== -1);
@@ -224,7 +226,9 @@ export class BluetoothScanService {
     const hex: string = '0123456789ABCDEF';
     let mac: string = '';
     for (let i: number = 0; i < 6; i++) {
-      if (i > 0) mac += ':';
+      if (i > 0) {
+        mac += ':';
+      }
       mac += hex.charAt(Math.floor(Math.random() * 16));
       mac += hex.charAt(Math.floor(Math.random() * 16));
     }

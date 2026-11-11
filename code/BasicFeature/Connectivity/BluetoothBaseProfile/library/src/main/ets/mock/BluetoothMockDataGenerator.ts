@@ -96,7 +96,9 @@ export class BluetoothMockDataGenerator {
     const hex: string = '0123456789ABCDEF';
     let mac: string = '';
     for (let i: number = 0; i < 6; i++) {
-      if (i > 0) mac += ':';
+      if (i > 0) {
+        mac += ':';
+      }
       mac += hex.charAt(Math.floor(Math.random() * 16));
       mac += hex.charAt(Math.floor(Math.random() * 16));
     }

@@ -1348,7 +1348,9 @@ export class A2dpService {
    * @private
    */
   private notifyPlaybackCallbacks(): void {
-    if (!this.playbackInfo) return;
+    if (!this.playbackInfo) {
+      return;
+    }
     for (const callback of this.playbackCallbacks) {
       try {
         callback(this.playbackInfo);
