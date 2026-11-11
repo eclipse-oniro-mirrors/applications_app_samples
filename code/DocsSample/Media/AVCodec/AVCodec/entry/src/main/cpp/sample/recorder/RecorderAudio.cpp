@@ -150,7 +150,7 @@ void Recorder::AudioEncOutputAsyncThread()
 // [Start Recorder::AudioEncInputSyncThread]
 void Recorder::AudioEncInputSyncThread()
 {
-    while (true) {
+    while (isStarted_ && !isEos_.load()) {
         CHECK_AND_BREAK_LOG(isStarted_, "Audio encoder sync thread out");
         // 收到EOS后停止提交新输入，但输出线程仍会继续排空已编码样本。
         if (isEos_.load()) {
@@ -189,7 +189,7 @@ void Recorder::AudioEncInputSyncThread()
 // [Start Recorder::AudioEncOutputSyncThread]
 void Recorder::AudioEncOutputSyncThread()
 {
-    while (true) {
+    while (isStarted_) {
         CHECK_AND_BREAK_LOG(isStarted_, "Audio encoder output thread out");
         CodecBufferInfo bufferInfo;
         int32_t errCode = audioEncoder_->GetOutputBuffer(bufferInfo, TIMEOUT_US);

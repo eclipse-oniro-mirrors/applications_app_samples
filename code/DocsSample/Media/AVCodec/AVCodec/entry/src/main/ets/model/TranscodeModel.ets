@@ -567,16 +567,22 @@ export class TranscodeModel {
   async loadHistory(ui: UIContext): Promise<void> {
     const context = ui.getHostContext();
     if (context === undefined) { return; }
-    try { await this.historyState.load(context.filesDir + '/transcodes'); }
-    catch (error) { this.notice = JSON.stringify(error); }
+    try {
+      await this.historyState.load(context.filesDir + '/transcodes');
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    }
   }
 
   async loadMoreHistory(ui: UIContext): Promise<void> {
     const context = ui.getHostContext();
     if (context === undefined || this.busy || this.queueRunning || this.exporting || this.picking ||
       this.inspecting) { return; }
-    try { await this.historyState.load(context.filesDir + '/transcodes', true); }
-    catch (error) { this.notice = JSON.stringify(error); }
+    try {
+      await this.historyState.load(context.filesDir + '/transcodes', true);
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    }
   }
 
   private async refreshHistory(directory: string): Promise<void> { await this.historyState.refresh(directory); }

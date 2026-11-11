@@ -17,7 +17,10 @@ export class PlaybackControlsController {
   private timer: number = -1;
 
   clear(): void {
-    if (this.timer >= 0) { clearTimeout(this.timer); this.timer = -1; }
+    if (this.timer >= 0) {
+      clearTimeout(this.timer);
+      this.timer = -1;
+    }
   }
 
   schedule(delayMs: number, shouldRetain: () => boolean, canHide: () => boolean, hide: () => void): void {
@@ -25,8 +28,11 @@ export class PlaybackControlsController {
     this.timer = setTimeout((): void => {
       this.timer = -1;
       // 面板打开时保留承载控件，避免锚点销毁导致面板关闭。
-      if (shouldRetain()) { this.schedule(delayMs, shouldRetain, canHide, hide); }
-      else if (canHide()) { hide(); }
+      if (shouldRetain()) {
+        this.schedule(delayMs, shouldRetain, canHide, hide);
+      } else if (canHide()) {
+        hide();
+      }
     }, delayMs);
   }
 }

@@ -240,11 +240,18 @@ bool TranscodeAudioPipeline::DecodeSync(bool &advanced)
 // [Start transcode_audio_decode_async]
 bool TranscodeAudioPipeline::DecodeAsync(bool &advanced)
 {
-    if (decodedDone_ || pcm_ != nullptr) { return true; }
+    if (decodedDone_ || pcm_ != nullptr) {
+        return true;
+    }
     TranscodeCodecBuffer output;
     const int32_t result = callbacks_.Take(false, false, output);
-    if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
-    if (result == AV_ERR_STREAM_CHANGED) { advanced = true; return ValidatePcm(); }
+    if (result == AV_ERR_TRY_AGAIN_LATER) {
+        return true;
+    }
+    if (result == AV_ERR_STREAM_CHANGED) {
+        advanced = true;
+        return ValidatePcm();
+    }
     if (!Check(result, "Read asynchronous decoded PCM")) { return false; }
     pcm_ = output.buffer;
     pcmIndex_ = output.index;
@@ -447,11 +454,19 @@ bool TranscodeAudioPipeline::DrainSync(OH_AVMuxer *muxer, int32_t muxTrack, bool
 // [Start transcode_audio_drain_async]
 bool TranscodeAudioPipeline::DrainAsync(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced)
 {
-    if (outputDone_ || (ready_ && muxer == nullptr)) { return true; }
+    if (outputDone_ || (ready_ && muxer == nullptr)) {
+        return true;
+    }
     TranscodeCodecBuffer output;
     const int32_t result = callbacks_.Take(true, false, output);
-    if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
-    if (result == AV_ERR_STREAM_CHANGED) { ready_ = true; advanced = true; return true; }
+    if (result == AV_ERR_TRY_AGAIN_LATER) {
+        return true;
+    }
+    if (result == AV_ERR_STREAM_CHANGED) {
+        ready_ = true;
+        advanced = true;
+        return true;
+    }
     if (!Check(result, "Read asynchronous AAC output")) { return false; }
     return WriteOutput(output.index, output.buffer, muxer, muxTrack, advanced);
 }
