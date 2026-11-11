@@ -10,7 +10,7 @@
 
 ## 效果预览
 
-以下为 HUAWEI MateBook Pro 上运行本示例同源代码的实机截图，调试使用独立 `print_ndk_demo` 工程的既有签名；Sample 工程仍保持未签名。
+以下为2026-10-21在 HUAWEI MateBook Pro 上运行本示例同源代码的实机截图，尚未包含后来补回的默认参数打印入口。调试使用独立 `print_ndk_demo` 工程的既有签名；Sample 工程仍保持未签名。
 
 | 首页打印设置 | 打印机选择 | 系统 PDF 预览 |
 | --- | --- | --- |
@@ -26,10 +26,13 @@
    | --- | --- | --- |
    | 系统预览打印（PDF） | 选择内置 `printDemo.pdf` | 在系统预览界面选择打印机并调整设置；页面中的纸张、份数、边距等设置不传入该入口 |
    | 直接打印 / 状态回调打印 | 内置 `printSample.jpg` 或 `printDemo.pdf` | 等待发现结果，点击“添加打印机”连接目标打印机，再设置页面中的打印参数 |
+   | 默认参数打印（首台已添加打印机） | 当前选择的内置 JPEG 或 PDF | 使用查询列表中的第一台已添加打印机及其默认参数，不使用页面选机和设置 |
 
 2. 点击对应打印按钮，查看“操作结果”。选择 JPEG 后点击系统预览会提示选择 PDF，不会自动替换文件。此示例直接复制现有 PDF，未演示 JPEG 转 PDF 或根据布局属性重新生成文档。
 3. API 返回 `code=0` 表示调用成功。预览的 `writeCode` 是文件生成结果（0 成功、1 失败）；预览 `state=0/5/6` 是预览销毁，不能当作打印成功。预览状态 `1/2/3/4` 与 API 24 状态回调的 `0/1/2/3` 分别表示成功、失败、取消、阻塞，两套数值不要混用。实际出纸应在打印机上确认。
 4. API 工作台提供生命周期、监听、发现、列表、详情和打印管理接口入口。退出页面时释放本示例持有的监听、回调和文件描述符。
+
+“默认参数打印”保留原有的 `OH_Print_QueryPrinterList -> OH_Print_QueryPrinterInfo -> OH_Print_StartPrintJob` 流程。使用前应确认首台已添加打印机是期望的目标；列表首项不一定是系统默认打印机。该入口读取 `defaultValue` 的纸张、介质、色彩、单双面、分辨率、边距、方向、质量及扩展参数；默认份数为0时使用1份，不强制启用无边距。查询失败或列表为空时不提交任务，列表和详情资源均会释放，文件由调用方在 `finally` 中关闭。此入口只报告提交返回码，不提供任务状态回调。
 
 ### 纸张类型和打印机列表
 
@@ -40,11 +43,13 @@
 
 ### 打印机属性操作
 
-属性区域演示查询、更新和恢复接口的调用。查询 Key 和更新 Key 不一定相同，应先按目标系统的属性定义及支持情况选择输入，可参考 [打印 C API 属性接口](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/capi-ohprint-h.md#oh_print_queryprinterproperties)。初始 Key `defaultPageSizeId` 用于更新默认纸张，Value 应取自目标打印机实际支持的纸张 ID；不能据此认定同名 Key 一定可以查询。更新后应通过目标系统支持的查询方式或打印机设置界面检查实际值。
+查询 Key 与更新 Key 分开输入。查询初始 Key 为 `printerPreference`，更新初始 Key 为 `defaultPageSizeId`；示例 Value 为 `ISO_A4`，实际应使用目标打印机支持的纸张 ID。
 
-查询返回非空数组时，页面显示第一项的值；数组为空或调用失败时保留页面原值，并显示返回码。Native 封装的 `PrinterPropertiesResult.properties` 始终是数组，参数错误或查询失败时为空数组。未选择打印机时页面提示 `24300005`；直接调用 Native 查询时，空打印机 ID 等无效参数返回 `401`。
+页面显示查询返回码和完整数组，不覆盖待更新的 Value。原查询无结果时，兼容读取 `OH_Print_QueryPrinterInfo.defaultValue` 中的纸张、介质、颜色、单双面、方向和质量，并标注来源；不是所有厂商属性。Native 返回结构的 `properties` 始终是数组，失败时为空。
 
-“恢复属性”入口演示 `OH_Print_RestorePrinterProperties` 的调用及返回值，实际支持范围由目标系统实现决定。查询 `code=0` 但结果为空，不代表读到了属性；更新或恢复返回 `code=0` 也应核对实际属性值，不能仅凭返回码认定已生效。
+“恢复属性”保存本次选机时的快照，通过 `OH_Print_UpdatePrinterProperties` 恢复当前 Key，不调用已观察到的系统空实现；不是出厂默认值，也不恢复其他 Key。同一打印机的信息变化不会覆盖快照，切换打印机会重新采集。无快照时明确提示，不执行恢复。
+
+更新和兼容恢复仍需系统允许写入，成功返回后还会回读核验；`verified=false` 不能视为生效。当前实测系统检查 `MANAGE_PRINT_JOB`，仅声明 `PRINT` 的应用被拒绝（服务端 201，C API 返回 24300005），两项仍为遗留。未增加权限或签名，不改为应用内设置冒充系统首选项。完整问题表见 [测试记录](ohosTest.md)。
 
 ## 工程目录
 
@@ -71,7 +76,7 @@ entry/src/main
 
 ## 具体实现
 
-- [Index.ets](entry/src/main/ets/pages/Index.ets)：初始化和释放打印服务，处理发现/连接回调，维护页面状态，并调用三种打印入口。
+- [Index.ets](entry/src/main/ets/pages/Index.ets)：初始化和释放打印服务，处理发现/连接回调，维护页面状态，并调用系统预览、自定义参数直接打印、默认参数打印和状态回调打印入口。
 - [PrintSettings.ets](entry/src/main/ets/print/components/PrintSettings.ets) 和 [PrinterDialog.ets](entry/src/main/ets/print/dialogs/PrinterDialog.ets)：分别提供打印参数设置、响应式打印机列表；纸张类型经 [PrintModels.ets](entry/src/main/ets/print/model/PrintModels.ets) 组装进请求。
 - [napi_init.cpp](entry/src/main/cpp/napi_init.cpp)：解析 ArkTS 参数、调用 Print C API，通过线程安全函数回传事件，并管理查询结果和文件描述符的释放。`BuildPrintJob` 将纸张类型等参数写入 `Print_PrintJob`。
 - [PrintFileUtils.ets](entry/src/main/ets/print/utils/PrintFileUtils.ets)：把内置文件写入应用沙箱并打开为只读文件；调用方在 `finally` 中关闭文件。系统预览由 Native 复制文件描述符，以便在异步布局回调中写入 PDF。

@@ -22,6 +22,15 @@ export interface PageSize {
   height: number;
 }
 
+export interface PrinterDefaults {
+  defaultPageSizeId: string;
+  defaultMediaType: string;
+  defaultColorMode: number;
+  defaultDuplexMode: number;
+  defaultOrientation: number;
+  defaultPrintQuality: number;
+}
+
 export interface PrinterInfo {
   printerId: string;
   printerName: string;
@@ -31,6 +40,7 @@ export interface PrinterInfo {
   copySupported: number;
   isOnline: boolean;
   pageSizes: PageSize[];
+  defaultValue?: PrinterDefaults;
 }
 
 export interface PrintJob {
@@ -113,5 +123,6 @@ export function nativeStartPrintByNative(jobName: string, sourceFd: number, cont
   callback: NativePrintEventCallback): number;
 export function nativeStartPrintJob(printJob: PrintJob, pageSize: PageSize, margin: Margin,
   printOption: PrintOption): number;
+export function nativeStartPrintJobWithDefaultSettings(fd: number, documentFormat: string): number;
 export function nativeStartPrintWithJobStateCallback(printJob: PrintJob, pageSize: PageSize, margin: Margin,
   printOption: PrintOption, callback: PrintJobStateEventCallback): number;

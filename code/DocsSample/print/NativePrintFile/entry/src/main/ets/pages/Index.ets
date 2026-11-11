@@ -54,9 +54,12 @@ struct Index {
   @State orientationMode: number = 0;
   @State printQuality: number = 4;
   @State mediaType: string = 'stationery';
+  @State propertyQueryKey: string = 'printerPreference';
   @State propertyKey: string = 'defaultPageSizeId';
-  @State propertyValue: string = 'iso_a4_210x297mm';
+  @State propertyValue: string = 'ISO_A4';
   @State operationResult: string = '';
+  private snapshotPrinterId: string = '';
+  private originalProperties: PrintPropertyModel[] = [];
   private printerDialogController: CustomDialogController = new CustomDialogController({
     builder: PrinterDialog({
       printers: $discoveredPrinters,
@@ -154,6 +157,15 @@ struct Index {
 
   // [Start print_native_discovery_ets]
   private startDiscovery(): void {
+    const addedPrinters: nativePrint.PrinterIdListResult = nativePrint.nativeQueryPrinterList();
+    if (addedPrinters.code === 0) {
+      for (const printerId of addedPrinters.printerIds) {
+        const result: nativePrint.PrinterInfoResult = nativePrint.nativeQueryPrinterInfo(printerId);
+        if (result.code === 0 && result.printerInfo !== undefined) {
+          this.upsertPrinter(PrinterInfoModel.fromNative(result.printerInfo));
+        }
+      }
+    }
     const code: number = nativePrint.nativeStartPrinterDiscovery(
       (event: number, printerInfo: nativePrint.PrinterInfo): void => {
         this.handleDiscoveryEvent(event, PrinterInfoModel.fromNative(printerInfo));
@@ -163,6 +175,13 @@ struct Index {
 
   private handleDiscoveryEvent(event: number, printer: PrinterInfoModel): void {
     if (event === DiscoveryEvent.LOST) {
+      if (this.selectedPrinter.printerId === printer.printerId) {
+        const result: nativePrint.PrinterInfoResult = nativePrint.nativeQueryPrinterInfo(printer.printerId);
+        if (result.code === 0 && result.printerInfo !== undefined) {
+          this.selectPrinter(PrinterInfoModel.fromNative(result.printerInfo));
+          return;
+        }
+      }
       this.removePrinter(printer.printerId);
       return;
     }
@@ -171,7 +190,9 @@ struct Index {
       return;
     }
     if (event === DiscoveryEvent.CONNECTING) {
-      this.operationResult = this.getResourceText($r('app.string.connecting')) + ': ' + printer.printerName;
+      if (this.selectedPrinter.printerId !== printer.printerId) {
+        this.operationResult = this.getResourceText($r('app.string.connecting')) + ': ' + printer.printerName;
+      }
       return;
     }
     if (event === DiscoveryEvent.CONNECTED) {
@@ -182,6 +203,17 @@ struct Index {
   }
 
   private connectPrinter(printer: PrinterInfoModel): void {
+    const addedPrinters: nativePrint.PrinterIdListResult = nativePrint.nativeQueryPrinterList();
+    if (addedPrinters.code === 0 && addedPrinters.printerIds.includes(printer.printerId)) {
+      const existing: nativePrint.PrinterInfoResult = nativePrint.nativeQueryPrinterInfo(printer.printerId);
+      if (existing.code === 0 && existing.printerInfo !== undefined) {
+        const addedPrinter: PrinterInfoModel = PrinterInfoModel.fromNative(existing.printerInfo);
+        this.upsertPrinter(addedPrinter);
+        this.selectPrinter(addedPrinter);
+        this.setCodeResult('OH_Print_QueryPrinterInfo (added)', existing.code);
+        return;
+      }
+    }
     const code: number = nativePrint.nativeConnectPrinter(printer.printerId);
     this.setCodeResult('OH_Print_ConnectPrinter', code);
     if (code !== 0) {
@@ -205,6 +237,15 @@ struct Index {
 
   private selectPrinter(printer: PrinterInfoModel): void {
     const keepPageSize: boolean = this.selectedPrinter.printerId === printer.printerId;
+    if (!keepPageSize || this.snapshotPrinterId.length === 0) {
+      this.snapshotPrinterId = '';
+      this.originalProperties = [];
+      const result: nativePrint.PrinterInfoResult = nativePrint.nativeQueryPrinterInfo(printer.printerId);
+      if (result.code === 0 && result.printerInfo !== undefined && result.printerInfo.defaultValue !== undefined) {
+        this.originalProperties = this.propertiesFromDefaults(result.printerInfo.defaultValue);
+        this.snapshotPrinterId = printer.printerId;
+      }
+    }
     const selectedPageSizeId: string = this.selectedPageSize.id;
     this.selectedPrinter = printer;
     if (printer.pageSizes.length === 0) {
@@ -317,6 +358,31 @@ struct Index {
   }
   // [End print_native_start_job_ets]
 
+  // [Start print_native_default_job_ets]
+  private async startDefaultPrint(): Promise<void> {
+    const context: Context | undefined = this.getContext();
+    if (context === undefined) {
+      this.setCodeResult('OH_Print_StartPrintJob(defaults)', 401);
+      return;
+    }
+    const documentFormat: string = this.selectedDocumentFormat;
+    let file: fileIo.File | undefined = undefined;
+    try {
+      file = await PrintFileUtils.openSample(context, this.selectedFileName);
+      if (file === undefined) {
+        this.operationResult = this.getResourceText($r('app.string.open_file_failed'));
+        return;
+      }
+      const code: number = nativePrint.nativeStartPrintJobWithDefaultSettings(file.fd, documentFormat);
+      this.setCodeResult('OH_Print_StartPrintJob(defaults)', code);
+    } catch {
+      this.operationResult = this.getResourceText($r('app.string.open_file_failed'));
+    } finally {
+      PrintFileUtils.close(file);
+    }
+  }
+  // [End print_native_default_job_ets]
+
   // [Start print_native_job_state_ets]
   private async startPrintWithStateCallback(): Promise<void> {
     if (this.selectedPrinter.printerId.length === 0) {
@@ -366,7 +432,8 @@ struct Index {
     if (result.code === 0 && result.printerInfo !== undefined) {
       this.selectPrinter(PrinterInfoModel.fromNative(result.printerInfo));
     }
-    this.setCodeResult('OH_Print_QueryPrinterInfo', result.code);
+    this.operationResult = 'OH_Print_QueryPrinterInfo code=' + result.code.toString() + ', info=' +
+      JSON.stringify(result.printerInfo);
   }
 
   private queryPrinterProperties(): void {
@@ -375,11 +442,51 @@ struct Index {
       return;
     }
     const result: nativePrint.PrinterPropertiesResult =
-      nativePrint.nativeQueryPrinterProperties(this.selectedPrinter.printerId, [this.propertyKey]);
-    if (result.code === 0 && result.properties.length > 0) {
-      this.propertyValue = result.properties[0].value;
+      nativePrint.nativeQueryPrinterProperties(this.selectedPrinter.printerId, [this.propertyQueryKey]);
+    this.operationResult = 'OH_Print_QueryPrinterProperties code=' + result.code.toString() + ', properties=' +
+      JSON.stringify(result.properties);
+    if (result.properties.length === 0) {
+      const info: nativePrint.PrinterInfoResult = nativePrint.nativeQueryPrinterInfo(this.selectedPrinter.printerId);
+      if (info.code === 0 && info.printerInfo !== undefined && info.printerInfo.defaultValue !== undefined) {
+        const properties: PrintPropertyModel[] = this.propertiesFromDefaults(info.printerInfo.defaultValue)
+          .filter((property: PrintPropertyModel): boolean => this.propertyQueryKey === 'printerPreference' ||
+            property.key === this.propertyQueryKey);
+        this.operationResult += '\ncompatibility: OH_Print_QueryPrinterInfo.defaultValue, properties=' +
+          JSON.stringify(properties);
+      } else {
+        this.operationResult += '\ncompatibility: OH_Print_QueryPrinterInfo code=' + info.code.toString();
+      }
     }
-    this.setCodeResult('OH_Print_QueryPrinterProperties', result.code);
+  }
+
+  private propertiesFromDefaults(defaults: nativePrint.PrinterDefaults): PrintPropertyModel[] {
+    return [
+      new PrintPropertyModel('defaultPageSizeId', defaults.defaultPageSizeId),
+      new PrintPropertyModel('defaultMediaType', defaults.defaultMediaType),
+      new PrintPropertyModel('defaultColorMode', defaults.defaultColorMode.toString()),
+      new PrintPropertyModel('defaultDuplexMode', defaults.defaultDuplexMode.toString()),
+      new PrintPropertyModel('defaultOrientation', defaults.defaultOrientation.toString()),
+      new PrintPropertyModel('defaultPrintQuality', defaults.defaultPrintQuality.toString())
+    ];
+  }
+
+  private updatePropertyAndVerify(property: PrintPropertyModel, operation: string): void {
+    const code: number = nativePrint.nativeUpdatePrinterProperties(this.selectedPrinter.printerId, [property]);
+    this.setCodeResult(operation + ' ' + property.key + '=' + property.value +
+      ': OH_Print_UpdatePrinterProperties', code);
+    if (code !== 0) {
+      return;
+    }
+    const info: nativePrint.PrinterInfoResult = nativePrint.nativeQueryPrinterInfo(this.selectedPrinter.printerId);
+    if (info.code !== 0 || info.printerInfo === undefined || info.printerInfo.defaultValue === undefined) {
+      this.operationResult += '\nreadback unavailable, OH_Print_QueryPrinterInfo code=' + info.code.toString();
+      return;
+    }
+    const properties: PrintPropertyModel[] = this.propertiesFromDefaults(info.printerInfo.defaultValue);
+    const actual: PrintPropertyModel | undefined = properties.find((item: PrintPropertyModel): boolean =>
+      item.key === property.key);
+    this.operationResult += '\nverified=' + (actual !== undefined && actual.value === property.value).toString() +
+      ', expected=' + property.value + ', actual=' + (actual === undefined ? 'unsupported key' : actual.value);
   }
 
   private updatePrinterProperties(): void {
@@ -388,8 +495,7 @@ struct Index {
       return;
     }
     const property: PrintPropertyModel = new PrintPropertyModel(this.propertyKey, this.propertyValue);
-    const code: number = nativePrint.nativeUpdatePrinterProperties(this.selectedPrinter.printerId, [property]);
-    this.setCodeResult('OH_Print_UpdatePrinterProperties', code);
+    this.updatePropertyAndVerify(property, 'update');
   }
 
   private restorePrinterProperties(): void {
@@ -397,9 +503,13 @@ struct Index {
       this.setCodeResult('OH_Print_RestorePrinterProperties', INVALID_PRINTER_ERROR);
       return;
     }
-    const code: number = nativePrint.nativeRestorePrinterProperties(this.selectedPrinter.printerId,
-      [this.propertyKey]);
-    this.setCodeResult('OH_Print_RestorePrinterProperties', code);
+    const original: PrintPropertyModel | undefined = this.originalProperties.find(
+      (property: PrintPropertyModel): boolean => property.key === this.propertyKey);
+    if (this.snapshotPrinterId !== this.selectedPrinter.printerId || original === undefined) {
+      this.operationResult = this.getResourceText($r('app.string.property_snapshot_missing'));
+      return;
+    }
+    this.updatePropertyAndVerify(original, 'compatibility restore (selection snapshot)');
   }
 
   private initService(): void {
@@ -565,7 +675,32 @@ struct Index {
             this.startPrintWithStateCallback();
           })
 
+        Text($r('app.string.default_print_scope'))
+          .fontColor($r('app.color.text_secondary'))
+          .width('100%')
+        Button($r('app.string.default_print'))
+          .id('print_defaults')
+          .width('100%')
+          .onClick(() => {
+            this.startDefaultPrint();
+          })
+
         this.SectionTitle($r('app.string.property_workbench'))
+        Text($r('app.string.property_compat_scope'))
+          .id('property_compat_scope')
+          .fontSize(14)
+          .fontColor($r('app.color.text_secondary'))
+          .width('100%')
+        Text($r('app.string.query_property'))
+          .width('100%')
+        TextInput({ text: this.propertyQueryKey, placeholder: $r('app.string.property_key') })
+          .id('query_property_key')
+          .width('100%')
+          .onChange((value: string) => {
+            this.propertyQueryKey = value;
+          })
+        Text($r('app.string.update_property'))
+          .width('100%')
         TextInput({ text: this.propertyKey, placeholder: $r('app.string.property_key') })
           .id('property_key')
           .onChange((value: string) => {
@@ -625,7 +760,8 @@ struct Index {
         Text(this.operationResult)
           .id('operation_result')
           .width('100%')
-          .height(80)
+          .constraintSize({ minHeight: 80 })
+          .copyOption(CopyOptions.LocalDevice)
           .padding(12)
           .fontSize(14)
           .backgroundColor($r('app.color.card_background'))

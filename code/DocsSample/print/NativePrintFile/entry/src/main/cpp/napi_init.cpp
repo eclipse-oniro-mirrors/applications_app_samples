@@ -633,6 +633,16 @@ napi_value NativeQueryPrinterInfo(napi_env env, napi_callback_info info)
     if (code == PRINT_ERROR_NONE && printerInfo != nullptr) {
         PrinterInfoData ownedInfo = CopyPrinterInfo(printerInfo);
         value = CreatePrinterInfo(env, ownedInfo);
+        const Print_DefaultValue &defaults = printerInfo->defaultValue;
+        napi_value defaultValue = nullptr;
+        napi_create_object(env, &defaultValue);
+        SetProperty(env, defaultValue, "defaultPageSizeId", CreateString(env, SafeString(defaults.defaultPageSizeId)));
+        SetProperty(env, defaultValue, "defaultMediaType", CreateString(env, SafeString(defaults.defaultMediaType)));
+        SetProperty(env, defaultValue, "defaultColorMode", CreateUint32(env, defaults.defaultColorMode));
+        SetProperty(env, defaultValue, "defaultDuplexMode", CreateUint32(env, defaults.defaultDuplexMode));
+        SetProperty(env, defaultValue, "defaultOrientation", CreateUint32(env, defaults.defaultOrientation));
+        SetProperty(env, defaultValue, "defaultPrintQuality", CreateUint32(env, defaults.defaultPrintQuality));
+        SetProperty(env, value, "defaultValue", defaultValue);
     } else if (code == PRINT_ERROR_NONE) {
         code = PRINT_ERROR_GENERIC_FAILURE;
     }
@@ -893,6 +903,63 @@ napi_value NativeStartPrintJob(napi_env env, napi_callback_info info)
 }
 // [End print_native_start_job_cpp]
 
+// [Start print_native_default_job_cpp]
+napi_value NativeStartPrintJobWithDefaultSettings(napi_env env, napi_callback_info info)
+{
+    size_t count = 2;
+    napi_value args[2] = {nullptr};
+    int32_t fd = -1;
+    std::string documentFormat;
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 2 ||
+        napi_get_value_int32(env, args[0], &fd) != napi_ok || fd < 0 ||
+        !GetString(env, args[1], documentFormat) ||
+        (documentFormat != "application/pdf" && documentFormat != "image/jpeg")) {
+        return CreateInt32(env, PRINT_ERROR_INVALID_PARAMETER);
+    }
+    Print_StringList printerList = {};
+    Print_ErrorCode code = OH_Print_QueryPrinterList(&printerList);
+    if (code != PRINT_ERROR_NONE || printerList.list == nullptr || printerList.count == 0 ||
+        printerList.list[0] == nullptr || printerList.list[0][0] == '\0') {
+        OH_Print_ReleasePrinterList(&printerList);
+        return CreateInt32(env, code == PRINT_ERROR_NONE ? PRINT_ERROR_INVALID_PRINTER : code);
+    }
+    Print_PrinterInfo *printerInfo = nullptr;
+    code = OH_Print_QueryPrinterInfo(printerList.list[0], &printerInfo);
+    OH_Print_ReleasePrinterList(&printerList);
+    if (code != PRINT_ERROR_NONE || printerInfo == nullptr) {
+        if (printerInfo != nullptr) {
+            OH_Print_ReleasePrinterInfo(printerInfo);
+        }
+        return CreateInt32(env, code == PRINT_ERROR_NONE ? PRINT_ERROR_GENERIC_FAILURE : code);
+    }
+    const Print_DefaultValue &defaults = printerInfo->defaultValue;
+    uint32_t fdList[] = {static_cast<uint32_t>(fd)};
+    char jobName[] = "NativePrintFileDefaults";
+    Print_PrintJob job = {};
+    job.jobName = jobName;
+    job.fdList = fdList;
+    job.fdListCount = 1;
+    job.printerId = printerInfo->printerId;
+    job.copyNumber = defaults.defaultCopies == 0 ? 1 : defaults.defaultCopies;
+    job.paperSource = defaults.defaultPaperSource;
+    job.mediaType = defaults.defaultMediaType;
+    job.pageSizeId = defaults.defaultPageSizeId;
+    job.colorMode = defaults.defaultColorMode;
+    job.duplexMode = defaults.defaultDuplexMode;
+    job.resolution = defaults.defaultResolution;
+    job.printMargin = defaults.defaultMargin;
+    job.borderless = false;
+    job.orientationMode = defaults.defaultOrientation;
+    job.printQuality = defaults.defaultPrintQuality;
+    job.documentFormat = ParseDocumentFormat(documentFormat);
+    job.advancedOptions = defaults.otherDefaultValues;
+    LOGI("Print with printer defaults, printerId=%{public}s", SafeString(job.printerId).c_str());
+    code = OH_Print_StartPrintJob(&job);
+    OH_Print_ReleasePrinterInfo(printerInfo);
+    return CreateInt32(env, code);
+}
+// [End print_native_default_job_cpp]
+
 void CallPrintJobStateEventJs(napi_env env, napi_value callback, void *, void *data)
 {
     PrintJobStateEventData *eventData = static_cast<PrintJobStateEventData *>(data);
@@ -988,6 +1055,8 @@ static napi_value Init(napi_env env, napi_value exports)
         {"nativeStartPrintByNative", nullptr, NativeStartPrintByNative, nullptr, nullptr, nullptr, napi_default,
             nullptr},
         {"nativeStartPrintJob", nullptr, NativeStartPrintJob, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"nativeStartPrintJobWithDefaultSettings", nullptr, NativeStartPrintJobWithDefaultSettings, nullptr, nullptr,
+            nullptr, napi_default, nullptr},
         {"nativeStartPrintWithJobStateCallback", nullptr, NativeStartPrintWithJobStateCallback, nullptr, nullptr,
             nullptr, napi_default, nullptr},
     };
