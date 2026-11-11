@@ -71,7 +71,7 @@ export class DefaultConfigSeeder {
     }
 
     AppLogger.info(SCOPE, `seed enter: importing ${CONFIG_FILE}`);
-    hiTraceMeter.startTrace(CONFIG_SEED_TRACE_NAME, CONFIG_SEED_TRACE_TASK_ID); // Open the MeetingScene.ConfigSeed span for the whole import.
+    hiTraceMeter.startTrace(CONFIG_SEED_TRACE_NAME, CONFIG_SEED_TRACE_TASK_ID);
     try {
       const context: common.Context = AppDatabase.getContext();
       const bytes: Uint8Array = await context.resourceManager.getRawFileContent(CONFIG_FILE);

@@ -38,7 +38,7 @@ export class IrCapabilityProbe {
    */
   static async probe(): Promise<IrCapability> {
     AppLogger.info(SCOPE, 'probe enter: querying infrared emitter capability');
-    hiTraceMeter.startTrace(PROBE_TRACE_NAME, PROBE_TRACE_TASK_ID); // Open the MeetingScene.IrProbe span around the hardware queries.
+    hiTraceMeter.startTrace(PROBE_TRACE_NAME, PROBE_TRACE_TASK_ID);
     try {
       const hasEmitter: boolean = await infraredEmitter.hasIrEmitter();
       if (!hasEmitter) {

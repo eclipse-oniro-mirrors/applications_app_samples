@@ -45,7 +45,7 @@ export class SendLogDao {
       'scene_run_id': log.sceneRunId
     };
     await AppDatabase.getStore().insert(TABLE, values);
-    AppLogger.info(SCOPE, `insert: id=${log.id}, deviceId=${log.deviceId}, result=${log.result}`);
+    AppLogger.info(SCOPE, 'insert: id=' + log.id + ', result=' + log.result);
   }
 
   /** Lists the newest send-log rows bounded by the given limit. */

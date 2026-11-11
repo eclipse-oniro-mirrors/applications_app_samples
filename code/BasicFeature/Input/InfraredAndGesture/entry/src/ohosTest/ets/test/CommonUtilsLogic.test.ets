@@ -1728,8 +1728,8 @@ export default function commonUtilsLogicTest() {
     it('testCommonUtils0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const TAG: string = 'testCommonUtils0079';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
-      const sha1: string = await SecurityUtils.sha1Hex('abc');
-      expect(sha1).assertEqual('a9993e364706816aba3e25717850c26c9cd0d89d');
+      const sha1: string = await SecurityUtils.sha1Hex('abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq');
+      expect(sha1).assertEqual('84983e441c3bd26ebaae4aa1f95129e5e54670f1');
       expect(sha1.length).assertEqual(40);
       const md5: string = await SecurityUtils.md5Hex('abc');
       expect(md5).assertEqual('900150983cd24fb0d6963f7d28e17f72');

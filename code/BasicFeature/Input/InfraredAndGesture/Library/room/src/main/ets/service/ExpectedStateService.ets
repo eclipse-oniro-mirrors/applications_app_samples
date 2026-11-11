@@ -82,19 +82,19 @@ export class ExpectedStateService {
    * always wins over scene-derived state.
    */
   static async applyKey(deviceId: string, semantic: KeySemantic): Promise<DeviceExpectedState> {
-    AppLogger.info(SCOPE, `applyKey enter: deviceId=${deviceId}, semantic=${semantic}`);
+    AppLogger.info(SCOPE, 'applyKey enter: semantic=' + semantic);
     const current: DeviceExpectedState = await ExpectedStateService.loadOrDefault(deviceId);
     const next: DeviceExpectedState =
       ExpectedStateService.nextState(current, semantic, Date.now());
     await ExpectedStateDao.upsert(next);
-    AppLogger.info(SCOPE, `applyKey done: deviceId=${deviceId}, power=${next.power}, level=${next.level}`);
+    AppLogger.info(SCOPE, 'applyKey done: power=' + next.power + ', level=' + next.level.toString());
     return next;
   }
 
   /** Overwrites the expected state as a manual user correction. */
   static async correct(deviceId: string, power: PowerState,
     level: number): Promise<DeviceExpectedState> {
-    AppLogger.info(SCOPE, `correct enter: deviceId=${deviceId}, power=${power}, level=${level}`);
+    AppLogger.info(SCOPE, 'correct enter: power=' + power + ', level=' + level.toString());
     const current: DeviceExpectedState = await ExpectedStateService.loadOrDefault(deviceId);
     const next: DeviceExpectedState = new DeviceExpectedState();
     next.deviceId = deviceId;
@@ -103,7 +103,7 @@ export class ExpectedStateService {
     next.source = StateSource.MANUAL;
     next.updatedAt = Date.now();
     await ExpectedStateDao.upsert(next);
-    AppLogger.info(SCOPE, `correct done: deviceId=${deviceId}, source=MANUAL, level=${next.level}`);
+    AppLogger.info(SCOPE, 'correct done: source=MANUAL, level=' + next.level.toString());
     return next;
   }
 

@@ -138,7 +138,7 @@ export class IrSendQueue {
   /** Runs one job end to end: dequeue log, per-step frames, progress events and cleanup. */
   private async run(job: SendJob, ticketId: string): Promise<void> {
     AppLogger.info(SCOPE, `run start (dequeue): ticketId=${ticketId}, totalSteps=${job.steps.length}, sceneRunId=${job.sceneRunId}`);
-    hiTraceMeter.startTrace(SEND_TASK_TRACE_NAME, SEND_TASK_TRACE_TASK_ID); // Open the MeetingScene.IrSendTask span for this single task flow.
+    hiTraceMeter.startTrace(SEND_TASK_TRACE_NAME, SEND_TASK_TRACE_TASK_ID);
     try {
       // Yield once so the job is still running when enqueue returns.
       await IrSendQueue.delay(0);
@@ -150,7 +150,8 @@ export class IrSendQueue {
           break;
         }
         const step: SendStep = job.steps[i];
-        AppLogger.info(SCOPE, `step sending: ticketId=${ticketId}, step=${i}, deviceId=${step.deviceId}, keyId=${step.keyId}, frames=${step.frames.length}`);
+        AppLogger.info(SCOPE, 'step sending: ticketId=' + ticketId + ', step=' + i.toString() +
+          ', frames=' + step.frames.length.toString());
         this.notify(ticketId,
           this.buildProgress(job, step, i, totalSteps, SendState.PENDING, TransmitResultCode.UNKNOWN));
         this.notify(ticketId,

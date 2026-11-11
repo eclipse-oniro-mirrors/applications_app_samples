@@ -96,7 +96,7 @@ export class AppDatabase {
   static async init(context: common.Context): Promise<void> {
     AppDatabase.appContext = context;
     AppLogger.info(SCOPE, `db init enter: name=${AppConstants.DB_NAME}, version=${AppConstants.DB_VERSION}`);
-    hiTraceMeter.startTrace(DB_INIT_TRACE_NAME, DB_INIT_TRACE_TASK_ID); // Open the MeetingScene.DbInit span for the whole bootstrap.
+    hiTraceMeter.startTrace(DB_INIT_TRACE_NAME, DB_INIT_TRACE_TASK_ID);
     try {
       const config: relationalStore.StoreConfig = {
         name: AppConstants.DB_NAME,

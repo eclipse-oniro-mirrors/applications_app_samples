@@ -89,7 +89,7 @@ export class ConfigPackageService {
   static async export(roomIds: string[]): Promise<ConfigExportResult> {
     const result: ConfigExportResult = new ConfigExportResult();
     AppLogger.info(SCOPE, `export enter: roomIds=${roomIds.length}`);
-    hiTraceMeter.startTrace(CONFIG_EXPORT_TRACE_NAME, CONFIG_EXPORT_TRACE_TASK_ID); // Open the MeetingScene.ConfigExport span for this export.
+    hiTraceMeter.startTrace(CONFIG_EXPORT_TRACE_NAME, CONFIG_EXPORT_TRACE_TASK_ID);
     try {
       const allRooms: Room[] = await RoomDao.list();
       const rooms: Room[] = [];
@@ -185,7 +185,7 @@ export class ConfigPackageService {
   static async import(filePath: string): Promise<ConfigImportReport> {
     const report: ConfigImportReport = new ConfigImportReport();
     AppLogger.info(SCOPE, `import enter: file=${filePath}`);
-    hiTraceMeter.startTrace(CONFIG_IMPORT_TRACE_NAME, CONFIG_IMPORT_TRACE_TASK_ID); // Open the MeetingScene.ConfigImport span for this import.
+    hiTraceMeter.startTrace(CONFIG_IMPORT_TRACE_NAME, CONFIG_IMPORT_TRACE_TASK_ID);
     try {
       return await ConfigPackageService.importInner(report, filePath);
     } finally {

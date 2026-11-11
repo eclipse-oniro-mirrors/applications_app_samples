@@ -29,8 +29,6 @@ const DB_MIGRATE_TRACE_TASK_ID: number = 4602;
 const MIGRATION_BACKUP_DIR: string = 'backup';
 /** Database file extension used for migration backup copies. */
 const DB_FILE_EXT: string = '.db';
-/** System tables excluded from the emptiness check of a fresh database. */
-const SYSTEM_TABLE_NAMES: string[] = ['android_metadata', 'sqlite_sequence'];
 
 /**
  * Brings an existing RDB store to the schema version expected by this app
@@ -65,7 +63,7 @@ export class SchemaMigration {
     result.fromVersion = fromVersion;
     result.toVersion = AppConstants.DB_VERSION;
     AppLogger.info(SCOPE, `migrate enter: from=${fromVersion}, to=${AppConstants.DB_VERSION}`);
-    hiTraceMeter.startTrace(DB_MIGRATE_TRACE_NAME, DB_MIGRATE_TRACE_TASK_ID); // Open the MeetingScene.DbMigrate span for this migration run.
+    hiTraceMeter.startTrace(DB_MIGRATE_TRACE_NAME, DB_MIGRATE_TRACE_TASK_ID);
     try {
       if (fromVersion === AppConstants.DB_VERSION) {
         result.ok = true;
@@ -119,12 +117,8 @@ export class SchemaMigration {
 
   /** Checks whether the store contains no user tables (fresh database). */
   private static async isEmpty(store: relationalStore.RdbStore): Promise<boolean> {
-    const excluded: string = SYSTEM_TABLE_NAMES
-      .map((name: string): string => `'${name}'`)
-      .join(', ');
     const resultSet: relationalStore.ResultSet = await store.querySql(
-      `SELECT COUNT(*) AS cnt FROM sqlite_master WHERE type = 'table' ` +
-      `AND name NOT IN (${excluded})`);
+      'SELECT COUNT(*) AS cnt FROM sqlite_schema WHERE type = ? AND name <> ?', ['table', 'sqlite_sequence']);
     let count: number = 0;
     if (resultSet.goToNextRow()) {
       count = resultSet.getLong(resultSet.getColumnIndex('cnt'));

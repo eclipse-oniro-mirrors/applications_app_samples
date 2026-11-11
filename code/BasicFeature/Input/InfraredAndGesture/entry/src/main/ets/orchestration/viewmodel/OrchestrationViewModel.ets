@@ -230,7 +230,7 @@ export class OrchestrationViewModel {
   /** Update an existing device's editable fields and reload the device list. */
   async updateDevice(device: Device, name: string, type: DeviceType,
     brand: string, model: string): Promise<boolean> {
-    AppLogger.info(SCOPE, `updateDevice enter, deviceId: ${device.id}, name: ${name}`);
+    AppLogger.info(SCOPE, 'updateDevice enter');
     return await this.guard('Save device', async (): Promise<void> => {
       device.name = name;
       device.type = type;
@@ -240,27 +240,27 @@ export class OrchestrationViewModel {
       await DeviceDao.update(device);
       this.devices = await DeviceDao.listByRoom(this.roomId);
       this.statusText = StringResources.get($r('app.string.msg_device_saved'));
-      AppLogger.info(SCOPE, `device updated, id: ${device.id}`);
+      AppLogger.info(SCOPE, 'device updated');
     });
   }
 
   /** Remove a device and its bound keys, then clear the selection panel. */
   async removeDevice(deviceId: string): Promise<boolean> {
-    AppLogger.info(SCOPE, `removeDevice enter, deviceId: ${deviceId}`);
+    AppLogger.info(SCOPE, 'removeDevice enter');
     const ok: boolean = await this.guard('Delete device', async (): Promise<void> => {
       await DeviceDao.remove(deviceId);
       this.devices = await DeviceDao.listByRoom(this.roomId);
       this.selectedDeviceId = '';
       this.keys = [];
       this.statusText = StringResources.get($r('app.string.msg_device_deleted_with_keys'));
-      AppLogger.info(SCOPE, `device removed, id: ${deviceId}`);
+      AppLogger.info(SCOPE, 'device removed');
     });
     return ok;
   }
 
   /** Select a device and load its bound keys. */
   async selectDevice(deviceId: string): Promise<void> {
-    AppLogger.info(SCOPE, `selectDevice enter, deviceId: ${deviceId}`);
+    AppLogger.info(SCOPE, 'selectDevice enter');
     this.selectedDeviceId = deviceId;
     this.keys = [];
     await this.guard('Load device keys', async (): Promise<void> => {
@@ -322,7 +322,7 @@ export class OrchestrationViewModel {
 
   /** Unbinding clears only the IR code and keeps the key so scene steps stay valid. */
   async unbindKey(keyId: string): Promise<boolean> {
-    AppLogger.info(SCOPE, `unbindKey enter, keyId: ${keyId}`);
+    AppLogger.info(SCOPE, 'unbindKey enter');
     const ok: boolean = await this.guard('Unbind key', async (): Promise<void> => {
       const key: RoomKey | undefined = await KeyDao.get(keyId);
       if (key === undefined) {

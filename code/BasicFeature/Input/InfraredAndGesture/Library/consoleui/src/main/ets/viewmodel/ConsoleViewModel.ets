@@ -240,7 +240,7 @@ export class ConsoleViewModel {
 
   /** Applies a manual expected-state correction and refreshes the matching device view. */
   async correctExpected(deviceId: string, power: PowerState): Promise<void> {
-    AppLogger.info(LOG_SCOPE, `Correcting expected state, deviceId=${deviceId}, power=${power}`);
+    AppLogger.info(LOG_SCOPE, 'Correcting expected state, power=' + power);
     // A sequence of -1 marks the correction as manual rather than scene driven.
     const next: DeviceExpectedState =
       await ExpectedStateService.correct(deviceId, power, MANUAL_CORRECT_STEP_INDEX);
@@ -248,9 +248,9 @@ export class ConsoleViewModel {
     if (target !== undefined) {
       target.expected = next;
     } else {
-      AppLogger.warn(LOG_SCOPE, `Device view not found for correction, deviceId=${deviceId}`);
+      AppLogger.warn(LOG_SCOPE, 'Device view not found for correction');
     }
-    AppLogger.info(LOG_SCOPE, `Expected state corrected, deviceId=${deviceId}, power=${power}`);
+    AppLogger.info(LOG_SCOPE, 'Expected state corrected, power=' + power);
   }
 
   /** Validates and executes the given scene, returning the run result for the caller. */
@@ -312,7 +312,7 @@ export class ConsoleViewModel {
       allMeta.push(meta);
 
       if (key === undefined) {
-        AppLogger.warn(LOG_SCOPE, `Scene step key missing, sceneId=${sceneId}, keyId=${sceneStep.keyId}`);
+        AppLogger.warn(LOG_SCOPE, 'Scene step key missing, sceneId=' + sceneId);
         view.state = SendState.FAILED;
         view.message = StringResources.get($r('app.string.msg_scene_key_missing'));
         continue;
@@ -320,7 +320,7 @@ export class ConsoleViewModel {
       meta.semantic = key.semantic;
       const code: IrCode | undefined = await IrCodeDao.get(key.irCodeId);
       if (code === undefined) {
-        AppLogger.warn(LOG_SCOPE, `Scene step IR code missing, sceneId=${sceneId}, keyId=${key.id}`);
+        AppLogger.warn(LOG_SCOPE, 'Scene step IR code missing, sceneId=' + sceneId);
         view.state = SendState.FAILED;
         view.message = StringResources.get($r('app.string.msg_ir_code_missing'));
         continue;
@@ -330,7 +330,7 @@ export class ConsoleViewModel {
         code.frequencyHz > 0 ? code.frequencyHz : AppConstants.DEFAULT_FREQUENCY_HZ;
       const compiled: IrCompileResult = IrCodeCompiler.compile(code);
       if (!compiled.ok) {
-        AppLogger.warn(LOG_SCOPE, `Scene step compile failed, sceneId=${sceneId}, keyId=${key.id}`);
+        AppLogger.warn(LOG_SCOPE, 'Scene step compile failed, sceneId=' + sceneId);
         view.state = SendState.FAILED;
         view.message = compiled.message.length > 0 ? compiled.message :
           StringResources.get($r('app.string.msg_ir_compile_failed'));
@@ -484,10 +484,10 @@ export class ConsoleViewModel {
 
   /** Sends the primary key of the given device as a manual resend and updates expected state. */
   async resendDevice(deviceId: string): Promise<TransmitResult> {
-    AppLogger.info(LOG_SCOPE, `Manual resend requested, deviceId=${deviceId}`);
+    AppLogger.info(LOG_SCOPE, 'Manual resend requested');
     const result: TransmitResult = new TransmitResult();
     if (this.readOnly) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend rejected, read-only mode, deviceId=${deviceId}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend rejected, read-only mode');
       result.code = TransmitResultCode.NO_EMITTER;
       result.durationMs = 0;
       result.message = StringResources.get($r('app.string.msg_read_only_send'));
@@ -495,7 +495,7 @@ export class ConsoleViewModel {
       return result;
     }
     if (this.running || this.queue.isBusy()) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend rejected, sender busy, deviceId=${deviceId}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend rejected, sender busy');
       result.code = TransmitResultCode.BUSY;
       result.durationMs = 0;
       result.message = TransmitErrorMapper.toUserText(TransmitResultCode.BUSY);
@@ -504,13 +504,13 @@ export class ConsoleViewModel {
 
     const deviceView: DeviceView | undefined = this.findDeviceView(deviceId);
     if (deviceView === undefined) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend device missing, deviceId=${deviceId}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend device missing');
       result.code = TransmitResultCode.PARAM_ERROR;
       result.message = StringResources.get($r('app.string.msg_device_missing'));
       return result;
     }
     if (deviceView.primaryKeyId.length === 0) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend has no primary key, deviceId=${deviceId}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend has no primary key');
       result.code = TransmitResultCode.PARAM_ERROR;
       result.message = StringResources.get($r('app.string.msg_device_no_keys'));
       return result;
@@ -518,14 +518,14 @@ export class ConsoleViewModel {
 
     const key: RoomKey | undefined = await KeyDao.get(deviceView.primaryKeyId);
     if (key === undefined) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend key missing, deviceId=${deviceId}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend key missing');
       result.code = TransmitResultCode.PARAM_ERROR;
       result.message = StringResources.get($r('app.string.msg_key_missing'));
       return result;
     }
     const code: IrCode | undefined = await IrCodeDao.get(key.irCodeId);
     if (code === undefined) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend IR code missing, keyId=${key.id}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend IR code missing');
       result.code = TransmitResultCode.PARAM_ERROR;
       result.message = StringResources.get($r('app.string.msg_ir_code_missing'));
       return result;
@@ -535,7 +535,7 @@ export class ConsoleViewModel {
       code.frequencyHz > 0 ? code.frequencyHz : AppConstants.DEFAULT_FREQUENCY_HZ;
     const compiled: IrCompileResult = IrCodeCompiler.compile(code);
     if (!compiled.ok) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend compile failed, keyId=${key.id}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend compile failed');
       result.code = TransmitResultCode.PARAM_ERROR;
       result.durationMs = 0;
       result.message = compiled.message.length > 0 ?
@@ -560,7 +560,7 @@ export class ConsoleViewModel {
     const startedAt: number = Date.now();
     const ticket: SendTicket = this.queue.enqueue(job);
     if (!ticket.accepted) {
-      AppLogger.warn(LOG_SCOPE, `Manual resend enqueue rejected, deviceId=${deviceId}`);
+      AppLogger.warn(LOG_SCOPE, 'Manual resend enqueue rejected');
       this.queue.offProgress(this.resendListener);
       result.code = TransmitResultCode.BUSY;
       result.durationMs = 0;
@@ -575,7 +575,7 @@ export class ConsoleViewModel {
     result.durationMs = Date.now() - startedAt;
     result.message = TransmitErrorMapper.toUserText(result.code);
     AppLogger.info(LOG_SCOPE,
-      `Manual resend finished, deviceId=${deviceId}, code=${result.code}, durationMs=${result.durationMs}`);
+      'Manual resend finished, code=' + result.code + ', durationMs=' + result.durationMs.toString());
 
     // Persist one send log row for the manual resend.
     const log: SendLog = new SendLog();
@@ -601,7 +601,7 @@ export class ConsoleViewModel {
       if (target !== undefined) {
         target.expected = next;
       }
-      AppLogger.info(LOG_SCOPE, `Expected state updated after resend, deviceId=${deviceId}`);
+      AppLogger.info(LOG_SCOPE, 'Expected state updated after resend');
     }
     return result;
   }

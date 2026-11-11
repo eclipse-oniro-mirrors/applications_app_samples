@@ -37,7 +37,7 @@ export class KeyDao {
       'sort_order': key.sortOrder
     };
     await AppDatabase.getStore().insert(TABLE, values);
-    AppLogger.info(SCOPE, `insert: id=${key.id}, deviceId=${key.deviceId}, semantic=${key.semantic}`);
+    AppLogger.info(SCOPE, 'insert: semantic=' + key.semantic);
   }
 
   /** Updates the editable fields of an existing key row. */
@@ -52,7 +52,7 @@ export class KeyDao {
     const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE);
     predicates.equalTo('id', key.id);
     await AppDatabase.getStore().update(values, predicates);
-    AppLogger.info(SCOPE, `update: id=${key.id}, irCodeId=${key.irCodeId}`);
+    AppLogger.info(SCOPE, 'update: irCodeId=' + key.irCodeId);
   }
 
   /** Deletes one key row. */
@@ -60,7 +60,7 @@ export class KeyDao {
     const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE);
     predicates.equalTo('id', keyId);
     await AppDatabase.getStore().delete(predicates);
-    AppLogger.info(SCOPE, `remove: id=${keyId}`);
+    AppLogger.info(SCOPE, 'remove');
   }
 
   /** Fetches one key by id, or undefined when it does not exist. */

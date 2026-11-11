@@ -741,7 +741,7 @@ export default function irCompilerLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCOMPILER_0121
      * @tc.name      testIrCompiler0022
-     * @tc.desc      Verify SONY data is emitted LSB first: data value one places a long mark at the
+     * @tc.desc      Verify SONY data is emitted LSB first: data value one produces a long mark at the
      *               first data bit and short marks for all remaining bits.
      * @tc.require   NA
      * @tc.size      SmallTest

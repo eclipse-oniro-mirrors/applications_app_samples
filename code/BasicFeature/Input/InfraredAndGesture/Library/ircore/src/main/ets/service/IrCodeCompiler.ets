@@ -127,7 +127,7 @@ export class IrCodeCompiler {
 
   /** Compiles a RAW payload of space separated microsecond values into frames. */
   private static compileRaw(payload: string): IrCompileResult {
-    hiTraceMeter.startTrace(RAW_TRACE_NAME, RAW_TRACE_TASK_ID); // Open the MeetingScene.IrCompileRaw span for this compile.
+    hiTraceMeter.startTrace(RAW_TRACE_NAME, RAW_TRACE_TASK_ID);
     try {
       // Accept comma and semicolon separators by normalizing them to spaces.
       const tokens: string[] = payload.replace(/,/g, ' ').replace(/;/g, ' ').split(' ');
@@ -170,7 +170,7 @@ export class IrCodeCompiler {
    * header, 8-bit address, inverse address, 8-bit command, inverse command, stop mark.
    */
   private static compileNec(payload: string): IrCompileResult {
-    hiTraceMeter.startTrace(NEC_TRACE_NAME, NEC_TRACE_TASK_ID); // Open the MeetingScene.IrCompileNec span for this compile.
+    hiTraceMeter.startTrace(NEC_TRACE_NAME, NEC_TRACE_TASK_ID);
     try {
       const pair: number[] | undefined = IrCodeCompiler.parsePair(payload);
       if (pair === undefined) {
@@ -187,9 +187,9 @@ export class IrCodeCompiler {
       // NEC frame layout: header mark/space, address, ~address, command, ~command, stop mark.
       const pattern: number[] = [NEC_HEADER_MARK_US, NEC_HEADER_SPACE_US];
       IrCodeCompiler.appendNecByte(pattern, address);
-      IrCodeCompiler.appendNecByte(pattern, (~address) & NEC_BYTE_MASK); // NEC sends the inverted address for verification.
+      IrCodeCompiler.appendNecByte(pattern, (~address) & NEC_BYTE_MASK);
       IrCodeCompiler.appendNecByte(pattern, command);
-      IrCodeCompiler.appendNecByte(pattern, (~command) & NEC_BYTE_MASK); // NEC sends the inverted command for verification.
+      IrCodeCompiler.appendNecByte(pattern, (~command) & NEC_BYTE_MASK);
       pattern.push(NEC_UNIT_US);
 
       return IrCodeCompiler.ok([IrCodeCompiler.buildFrame(0, pattern)]);
@@ -200,7 +200,7 @@ export class IrCodeCompiler {
 
   /** Compiles a SONY payload "data,bits" into a 12/15/20-bit SIRC frame, LSB first. */
   private static compileSony(payload: string): IrCompileResult {
-    hiTraceMeter.startTrace(SONY_TRACE_NAME, SONY_TRACE_TASK_ID); // Open the MeetingScene.IrCompileSony span for this compile.
+    hiTraceMeter.startTrace(SONY_TRACE_NAME, SONY_TRACE_TASK_ID);
     try {
       const pair: number[] | undefined = IrCodeCompiler.parsePair(payload);
       if (pair === undefined) {
@@ -234,7 +234,7 @@ export class IrCodeCompiler {
 
   /** Compiles an RC5 payload "address,command" into a 14-bit Manchester encoded frame. */
   private static compileRc5(payload: string): IrCompileResult {
-    hiTraceMeter.startTrace(RC5_TRACE_NAME, RC5_TRACE_TASK_ID); // Open the MeetingScene.IrCompileRc5 span for this compile.
+    hiTraceMeter.startTrace(RC5_TRACE_NAME, RC5_TRACE_TASK_ID);
     try {
       const pair: number[] | undefined = IrCodeCompiler.parsePair(payload);
       if (pair === undefined) {

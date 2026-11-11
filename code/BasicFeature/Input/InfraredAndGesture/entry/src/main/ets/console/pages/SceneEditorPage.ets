@@ -83,7 +83,6 @@ struct SceneEditorPage {
     this.init();
   }
 
-  /** Load rooms; failures surface as a localized status text. */
   private async init(): Promise<void> {
     await this.runAction(async (): Promise<void> => {
       this.rooms = await RoomDao.list();

@@ -59,7 +59,7 @@ export class IrTransmitter {
     // Fall back to the default carrier when the caller passes a non-positive frequency.
     const frequency: number = frequencyHz > 0 ? frequencyHz : AppConstants.DEFAULT_FREQUENCY_HZ;
     const startedAt: number = Date.now();
-    hiTraceMeter.startTrace(TRANSMIT_TRACE_NAME, TRANSMIT_TRACE_TASK_ID); // Open the MeetingScene.IrTransmit span around the native transmit call.
+    hiTraceMeter.startTrace(TRANSMIT_TRACE_NAME, TRANSMIT_TRACE_TASK_ID);
     let result: TransmitResult = new TransmitResult();
     try {
       AppLogger.info(SCOPE, `transmit call begin: frequencyHz=${frequency}, patternLength=${pattern.length}`);

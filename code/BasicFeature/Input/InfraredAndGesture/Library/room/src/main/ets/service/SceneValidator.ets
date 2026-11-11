@@ -102,7 +102,7 @@ export class SceneValidator {
    */
   static async validate(sceneId: string): Promise<SceneValidation> {
     AppLogger.info(SCOPE, `validate enter: sceneId=${sceneId}`);
-    hiTraceMeter.startTrace(SCENE_VALIDATE_TRACE_NAME, SCENE_VALIDATE_TRACE_TASK_ID); // Open the MeetingScene.SceneValidate span for this validation.
+    hiTraceMeter.startTrace(SCENE_VALIDATE_TRACE_NAME, SCENE_VALIDATE_TRACE_TASK_ID);
     try {
       const scene: Scene | undefined = await SceneDao.get(sceneId);
       if (scene === undefined) {

@@ -35,7 +35,8 @@ export class ExpectedStateDao {
     };
     await AppDatabase.getStore().insert(
       TABLE, values, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
-    AppLogger.info(SCOPE, `upsert: deviceId=${state.deviceId}, power=${state.power}, level=${state.level}, source=${state.source}`);
+    AppLogger.info(SCOPE, 'upsert: power=' + state.power + ', level=' + state.level.toString() +
+      ', source=' + state.source);
   }
 
   /** Fetches the expected state of one device, or undefined when unset. */

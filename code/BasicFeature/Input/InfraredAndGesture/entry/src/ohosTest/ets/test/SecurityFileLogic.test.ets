@@ -63,8 +63,8 @@ const LONG_TEXT_LEN: number = 256;
 
 /** Known SHA-256 digest of the three byte text 'abc'. */
 const KNOWN_SHA256_ABC: string = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad';
-/** Known SHA-1 digest of the three byte text 'abc'. */
-const KNOWN_SHA1_ABC: string = 'a9993e364706816aba3e25717850c26c9cd0d89d';
+const SHA1_STANDARD_INPUT: string = 'abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq';
+const KNOWN_SHA1_STANDARD: string = '84983e441c3bd26ebaae4aa1f95129e5e54670f1';
 /** Known MD5 digest of the three byte text 'abc'. */
 const KNOWN_MD5_ABC: string = '900150983cd24fb0d6963f7d28e17f72';
 
@@ -486,7 +486,7 @@ export default function securityFileLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_SECFILE_0112
      * @tc.name      testSecurityFile0013
-     * @tc.desc      Verify the known SHA-1 digest of 'abc' matches the published constant
+     * @tc.desc      Verify the SHA-1 digest of the 56-byte standard input matches the known constant
      *               and carries the expected lower-case hex length.
      * @tc.require   NA
      * @tc.size      SmallTest
@@ -496,12 +496,12 @@ export default function securityFileLogicTest() {
     it('testSecurityFile0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const TAG: string = 'testSecurityFile0013';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
-      const digest: string = await SecurityUtils.sha1Hex('abc');
-      expect(digest).assertEqual(KNOWN_SHA1_ABC);
+      const digest: string = await SecurityUtils.sha1Hex(SHA1_STANDARD_INPUT);
+      expect(digest).assertEqual(KNOWN_SHA1_STANDARD);
       expect(digest.length).assertEqual(SHA1_HEX_LEN);
       expect(LOWER_HEX_REGEX.test(digest)).assertTrue();
-      const viaCore: string = await SecurityUtils.digestHex('abc', DigestAlgorithm.SHA1);
-      expect(viaCore).assertEqual(KNOWN_SHA1_ABC);
+      const viaCore: string = await SecurityUtils.digestHex(SHA1_STANDARD_INPUT, DigestAlgorithm.SHA1);
+      expect(viaCore).assertEqual(KNOWN_SHA1_STANDARD);
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
     });
 
@@ -667,7 +667,7 @@ export default function securityFileLogicTest() {
       expect(sha256 === md5).assertFalse();
       expect(sha1 === md5).assertFalse();
       expect(sha256.startsWith(KNOWN_SHA256_ABC.substring(0, 8))).assertTrue();
-      expect(sha1.startsWith(KNOWN_SHA1_ABC.substring(0, 8))).assertTrue();
+      expect(sha1.startsWith('a9993e36')).assertTrue();
       expect(md5.startsWith(KNOWN_MD5_ABC.substring(0, 8))).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
     });

@@ -33,7 +33,7 @@ export class DeviceDao {
   /** Inserts one device row. */
   static async insert(device: Device): Promise<void> {
     await AppDatabase.getStore().insert(TABLE, DeviceDao.toValues(device));
-    AppLogger.info(SCOPE, `insert: id=${device.id}, roomId=${device.roomId}, type=${device.type}`);
+    AppLogger.info(SCOPE, 'insert: type=' + device.type);
   }
 
   /** Updates the editable fields of an existing device row. */
@@ -51,7 +51,7 @@ export class DeviceDao {
     const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE);
     predicates.equalTo('id', device.id);
     await AppDatabase.getStore().update(values, predicates);
-    AppLogger.info(SCOPE, `update: id=${device.id}, name=${device.name}`);
+    AppLogger.info(SCOPE, 'update');
   }
 
   /**
@@ -82,11 +82,11 @@ export class DeviceDao {
       predicates.equalTo('id', deviceId);
       await store.delete(predicates);
       store.commit();
-      AppLogger.info(SCOPE, `remove: id=${deviceId}`);
+      AppLogger.info(SCOPE, 'remove');
     } catch (error) {
       store.rollBack();
       const detail: string = error instanceof Error ? error.message : 'Failed to delete device';
-      AppLogger.error(SCOPE, `remove rolled back: id=${deviceId}, reason=${detail}`);
+      AppLogger.error(SCOPE, 'remove rolled back: reason=' + detail);
       throw new Error(detail);
     }
   }

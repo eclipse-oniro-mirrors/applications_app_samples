@@ -13,12 +13,6 @@
  * limitations under the License.
  */
 
-/**
- * Public surface of the room data module: domain types, the relational
- * database bootstrap, DAOs for every table and the service helpers that
- * layer validation, seeding, expected states and config packages on top.
- */
-
 // Domain model types and label helpers.
 export {
   DeviceType,

@@ -14,7 +14,7 @@
 使用到的系统能力如下：
 
 - [@kit.InputKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-input-kit/Readme-CN.md)：`infraredEmitter` 红外发射。
-- [@kit.ArkData](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/Readme-CN.md)：`relationalStore` 关系型数据库，`preferences` 轻量级首选项。
+- [@kit.ArkData](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/Readme-CN.md)：`relationalStore` 关系型数据库，`preferences` 轻量级键值对存储。
 - [@kit.CoreFileKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/Readme-CN.md)：配置包文件的读写与目录管理。
 - [@kit.AbilityKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md)：UIAbility 生命周期与上下文。
 - [@kit.PerformanceAnalysisKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md)：`hilog` 日志输出与 `hiTraceMeter` 性能打点。
@@ -88,14 +88,14 @@ InfraredAndGesture
 - [IrTransmitter.ets](Library/ircore/src/main/ets/service/IrTransmitter.ets)：调用 `infraredEmitter.transmit()` 完成发送，并统一转换错误码。
 - [IrLibraryRepository.ets](Library/ircore/src/main/ets/data/IrLibraryRepository.ets)：加载并检索 `Library/ircore/src/main/resources/rawfile/ir-library` 下的开源红外码库，按品牌与型号定位红外码。
 
-码型编译（`MeetingScene.IrCompileRaw` 等），串行发送（`MeetingScene.IrSendTask`），发射调用（`MeetingScene.IrTransmit`）与能力探测（`MeetingScene.IrProbe`）均使用 `hiTraceMeter` 的 `startTrace`/`finishTrace` 打点，可用 DevEco Profiler 抓取调用耗时。
+码型编译（`MeetingScene.IrCompileRaw` 等），串行发送（`MeetingScene.IrSendTask`），发射调用（`MeetingScene.IrTransmit`）与能力探测（`MeetingScene.IrProbe`）均使用 `hiTraceMeter` 的 `startTrace`/`finishTrace` 打点，可用 DevEco Studio 的性能分析工具采集调用耗时。
 
 ### 房间与场景数据
 
 数据层封装在 `room` 模块：
 
 - [AppDatabase.ets](Library/room/src/main/ets/data/AppDatabase.ets)：使用 `relationalStore.getRdbStore()` 创建数据库，执行建表与版本迁移。
-- [DefaultConfigSeeder.ets](Library/room/src/main/ets/data/DefaultConfigSeeder.ets)：首次启动时从 `rawfile/default-config.json` 导入演示房间，设备，键位与场景。
+- [DefaultConfigSeeder.ets](Library/room/src/main/ets/data/DefaultConfigSeeder.ets)：数据库中尚无房间时，从 `rawfile/default-config.json` 导入演示房间，设备，键位与场景。
 - [SceneValidator.ets](Library/room/src/main/ets/service/SceneValidator.ets)：校验场景步骤引用的设备，键位与红外码是否存在。
 - [ExpectedStateService.ets](Library/room/src/main/ets/service/ExpectedStateService.ets)：根据键位语义推进设备预期状态，手动校正的状态不会被场景覆盖。
 - [ConfigPackageService.ets](Library/room/src/main/ets/service/ConfigPackageService.ets)：将房间配置导出为 JSON 配置包，并支持导入与备份。

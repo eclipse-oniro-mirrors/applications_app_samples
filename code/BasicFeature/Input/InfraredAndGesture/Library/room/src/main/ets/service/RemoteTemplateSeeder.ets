@@ -63,7 +63,7 @@ export class RemoteTemplateSeeder {
    * number created.
    */
   static async applyTemplate(deviceId: string, templateId: string): Promise<number> {
-    AppLogger.info(SCOPE, `applyTemplate enter: deviceId=${deviceId}, templateId=${templateId}`);
+    AppLogger.info(SCOPE, 'applyTemplate enter: templateId=' + templateId);
     const template: RemoteTemplate | undefined =
       await RemoteTemplateDao.get(templateId);
     if (template === undefined) {
@@ -72,7 +72,7 @@ export class RemoteTemplateSeeder {
     }
     const device: Device | undefined = await DeviceDao.get(deviceId);
     if (device === undefined) {
-      AppLogger.warn(SCOPE, `applyTemplate rejected: device not found, deviceId=${deviceId}`);
+      AppLogger.warn(SCOPE, 'applyTemplate rejected: device not found');
       throw new Error('Device does not exist');
     }
 
@@ -101,7 +101,7 @@ export class RemoteTemplateSeeder {
       used.push(semantic);
       created++;
     }
-    AppLogger.info(SCOPE, `applyTemplate done: deviceId=${deviceId}, created=${created}`);
+    AppLogger.info(SCOPE, 'applyTemplate done: created=' + created.toString());
     return created;
   }
 
