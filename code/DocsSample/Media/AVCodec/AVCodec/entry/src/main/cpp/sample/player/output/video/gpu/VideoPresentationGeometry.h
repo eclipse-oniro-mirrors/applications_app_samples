@@ -45,9 +45,9 @@ struct FitRegionRequest {
 };
 
 /**
- * 根据当前 acquired NativeBuffer 的分配尺寸和 codec 的有效内容尺寸生成纹理矩阵。
- * NativeBuffer 公共配置只有 width/height/stride，没有独立 crop API；视频内容约定从
- * Buffer 左上角开始，矩阵同时完成有效区域裁剪和 Y 轴翻转。输入 UV 使用 Vulkan
+ * 根据当前acquired NativeBuffer的分配尺寸和codec的有效内容尺寸生成纹理矩阵。
+ * NativeBuffer公共配置只有width/height/stride，没有独立crop API；视频内容约定从
+ * Buffer左上角开始，矩阵同时完成有效区域裁剪和Y轴翻转。输入UV使用Vulkan
  * 顶点约定的左上角 (0, 1)，输出坐标使用源图左上角为 (0, 0) 的约定。
  */
 bool BuildContentCropMatrix(int32_t bufferWidth, int32_t bufferHeight, int32_t contentWidth,
@@ -59,6 +59,6 @@ bool CalculateFitRegion(const FitRegionRequest &request, Region &region);
 
 std::array<float, MATRIX_ELEMENT_COUNT> RotateTextureMatrix(
     const std::array<float, MATRIX_ELEMENT_COUNT> &bufferMatrix, int32_t clockwiseRotation);
-} // VideoPresentationGeometry 命名空间
+} // VideoPresentationGeometry命名空间
 
 #endif // AVCODEC_SAMPLE_VIDEO_PRESENTATION_GEOMETRY_H

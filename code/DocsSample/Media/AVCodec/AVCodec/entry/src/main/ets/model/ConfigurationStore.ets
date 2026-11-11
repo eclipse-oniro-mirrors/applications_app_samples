@@ -23,7 +23,7 @@ export interface ConfigurationSnapshot {
   dump: number[];
 }
 
-// 只保存可复用的设置，不保存文件描述符、媒体 URI、音轨索引和运行中状态。
+// 只保存可复用的设置，不保存文件描述符、媒体URI、音轨索引和运行中状态。
 export class ConfigurationStore {
   private static store: preferences.Preferences | undefined = undefined;
   private static opening: Promise<void> | undefined = undefined;

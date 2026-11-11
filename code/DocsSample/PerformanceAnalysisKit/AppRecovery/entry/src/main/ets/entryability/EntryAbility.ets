@@ -13,30 +13,22 @@
  * limitations under the License.
  */
 
-// [Start import_h]
-// [Start import_appRecovery_h]
 // [Start import_save_h]
+// [Start import_appRecovery_h]
 import {
   appRecovery,
-// [StartExclude import_appRecovery_h]
+  // [StartExclude import_appRecovery_h]
   AbilityConstant,
   errorManager,
-// [StartExclude import_save_h]
   UIAbility,
   Want,
-  wantConstant,
-// [EndExclude import_save_h]
-// [EndExclude import_appRecovery_h]
+  wantConstant
+  // [EndExclude import_appRecovery_h]
 } from '@kit.AbilityKit';
-// [End import_save_h]
 // [End import_appRecovery_h]
-// [End import_h]
-
-// [Start import_hilog_h]
 import { hilog } from '@kit.PerformanceAnalysisKit';
-// [End import_hilog_h]
-
 import { window } from '@kit.ArkUI';
+// [End import_save_h]
 
 // [Start domain_h]
 const DOMAIN = 0x0000;

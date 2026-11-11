@@ -15,8 +15,8 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0x0000; // 此处使用自行申请的应用代码号
-const PREFIX: string = '[Sample_DevelopingFileManagerApplication]'; // 应用log标签
+const DOMAIN: number = 0x0000; // use the application domain ID applied by yourself
+const PREFIX: string = '[Sample_DevelopingFileManagerApplication]'; // application log tag
 
 export class Logger {
   private domain: number;

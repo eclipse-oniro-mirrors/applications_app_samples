@@ -17,6 +17,7 @@ import { LocalizedText } from '../common/LocalizedText';
 import player, { DeviceCodecCapability } from 'libplayer.so';
 import { CameraDataModel } from './CameraDataModel';
 import { RecorderPreprocessModel } from './RecorderPreprocessModel';
+import { CommonConstants as Const } from '../common/CommonConstants';
 
 export class ConfigurationFeedback {
   static playback(runMode: number, apiVersion: number): string {
@@ -41,6 +42,13 @@ export class ConfigurationFeedback {
 
   static recordingConstraint(data: CameraDataModel, apiVersion: number): string {
     const special: boolean = data.preprocMode !== 0 || data.dropToFrameRate > 0 || data.enableDualOutput;
+    const bufferResolution: boolean =
+      (data.cameraWidth === Const.VIDEO_WIDTH_720P && data.cameraHeight === Const.VIDEO_HEIGHT_720P) ||
+      (data.cameraWidth === Const.VIDEO_WIDTH_1080P && data.cameraHeight === Const.VIDEO_HEIGHT_1080P);
+    if (data.bufferInput && (apiVersion < Const.RECORDER_BUFFER_MIN_API || data.isHDRVivid !== 0 ||
+      data.frameRate !== Const.RECORDER_BUFFER_FRAME_RATE || special || !bufferResolution)) {
+      return LocalizedText.get($r('app.string.recorder_buffer_requirements'));
+    }
     if (special && apiVersion < 26) {
       return LocalizedText.get($r('app.string.configuration_api26_required'));
     }
@@ -86,7 +94,8 @@ export class ConfigurationFeedback {
           return (index === 0 ? LocalizedText.get($r('app.string.configuration_primary_prefix')) : LocalizedText.get($r('app.string.configuration_secondary_prefix'))) + reason + LocalizedText.get($r('app.string.configuration_actual_configure'));
         }
       }
-      return LocalizedText.get($r('app.string.configuration_combination_passed'));
+      return LocalizedText.get(data.bufferInput ? $r('app.string.recorder_buffer_capability_hint') :
+        $r('app.string.configuration_combination_passed'));
     } catch (_error) {
       return LocalizedText.get($r('app.string.configuration_query_failed'));
     }

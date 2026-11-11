@@ -40,6 +40,8 @@ export interface TranscodeRequest {
   audioBitrate?: number;
   audioResampler?: number;
   previewTimeMs?: number;
+  deepValidation?: boolean;
+  remuxAllAudioTracks?: boolean;
 }
 
 export interface TranscodeMeasurement {
@@ -84,12 +86,14 @@ export interface TranscodeStatus {
   sourceMime: string;
   audioTracks: string[];
   audioTrackIds: number[];
+  subtitleTracks?: string[];
   minBitrate: number;
   maxBitrate: number;
   audioBytes: number;
   audioMode: number;
   outputDurationUs?: number;
   outputValidation?: string;
+  sampleValidation?: string;
   expectedDurationUs?: number;
   validationNotes?: string[];
   previewWidth?: number;

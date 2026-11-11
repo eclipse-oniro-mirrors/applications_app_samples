@@ -47,7 +47,7 @@ struct AsyncCallbackInfo {
 
 void DealCallBack(napi_env env, void *data)
 {
-    // 此回调运行在 JS 线程。NativeInit/NativeStop* 已结束后才能读取并销毁异步上下文。
+    // 此回调运行在JS线程。NativeInit/NativeStop* 已结束后才能读取并销毁异步上下文。
     auto *asyncCallbackInfo = static_cast<AsyncCallbackInfo *>(data);
     if (asyncCallbackInfo == nullptr) {
         return;
@@ -71,13 +71,13 @@ void DealCallBack(napi_env env, void *data)
     if (status == napi_ok) {
         (void)napi_resolve_deferred(asyncCallbackInfo->env, asyncCallbackInfo->deferred, obj);
     } else {
-        // 构造 Response 失败时仍需结束 Promise，避免 ArkTS 一直等待异步任务。
+        // 构造Response失败时仍需结束Promise，避免ArkTS一直等待异步任务。
         napi_value failure;
         if (napi_get_boolean(env, false, &failure) == napi_ok) {
             (void)napi_resolve_deferred(asyncCallbackInfo->env, asyncCallbackInfo->deferred, failure);
         }
     }
-    // 异步工作项必须先于 AsyncCallbackInfo 释放，二者均不再被后续回调使用。
+    // 异步工作项必须先于AsyncCallbackInfo释放，二者均不再被后续回调使用。
     if (asyncCallbackInfo->asyncWork != nullptr) {
         (void)napi_delete_async_work(env, asyncCallbackInfo->asyncWork);
     }
@@ -86,7 +86,7 @@ void DealCallBack(napi_env env, void *data)
 
 void ResolveAsyncWorkFailure(napi_env env, AsyncCallbackInfo *asyncCallbackInfo)
 {
-    // 工作项未入队时不会再有完成回调，当前路径负责结束 Promise 并释放全部上下文。
+    // 工作项未入队时不会再有完成回调，当前路径负责结束Promise并释放全部上下文。
     napi_value failure;
     if (napi_get_boolean(env, false, &failure) == napi_ok) {
         (void)napi_resolve_deferred(asyncCallbackInfo->env, asyncCallbackInfo->deferred, failure);
@@ -109,7 +109,7 @@ void OutputIdCallBack(AsyncCallbackInfo *asyncCallbackInfo, std::string outputId
 
 void NativeInit(void *data)
 {
-    // 执行回调位于 NAPI 工作线程，不能直接操作 ArkTS 对象，只将结果写入异步上下文。
+    // 执行回调位于NAPI工作线程，不能直接操作ArkTS对象，只将结果写入异步上下文。
     auto *asyncCallbackInfo = static_cast<AsyncCallbackInfo *>(data);
     int32_t ret = Recorder::GetInstance().Init(asyncCallbackInfo->sampleInfo);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
@@ -119,11 +119,12 @@ void NativeInit(void *data)
     }
 
     uint64_t id = 0;
-    ret = OH_NativeWindow_GetSurfaceId(asyncCallbackInfo->sampleInfo.video.window, &id);
+    id = Recorder::GetInstance().GetCameraInputSurfaceId();
+    ret = id != 0 ? AVCODEC_SAMPLE_ERR_OK : AVCODEC_SAMPLE_ERR_ERROR;
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Get encoder output id failed, ret: %{public}d, window: %{public}p", ret,
             asyncCallbackInfo->sampleInfo.video.window);
-        // Init 已成功但无法把输出 Surface 交给 ArkTS 时，不能保留这次未启动会话的回调上下文。
+        // Init已成功但无法把输出Surface交给ArkTS时，不能保留这次未启动会话的回调上下文。
         (void)Recorder::GetInstance().StopEnd();
         SetCallBackResult(asyncCallbackInfo, ret);
         return;
@@ -146,7 +147,7 @@ static AsyncCallbackInfo* CreateAsyncInfo(napi_env env, napi_deferred deferred, 
 
 static bool StartAsyncWork(napi_env env, AsyncCallbackInfo *asyncInfo, napi_async_execute_callback execute)
 {
-    // NAPI 将 asyncInfo 原样传给执行与完成回调，因此在任务结束前不得释放或复用该对象。
+    // NAPI将asyncInfo原样传给执行与完成回调，因此在任务结束前不得释放或复用该对象。
     napi_value resourceName;
     napi_status status = napi_create_string_latin1(env, "recorder", NAPI_AUTO_LENGTH, &resourceName);
     if (status != napi_ok) {
@@ -283,7 +284,7 @@ napi_value RecorderNative::Start(napi_env env, napi_callback_info info)
 
 void NativeStopStart(void *data)
 {
-    // 工作线程仅记录原生停止结果；Promise 的解析和对象销毁由完成回调处理。
+    // 工作线程仅记录原生停止结果；Promise的解析和对象销毁由完成回调处理。
     auto *asyncCallbackInfo = static_cast<AsyncCallbackInfo *>(data);
     int32_t ret = Recorder::GetInstance().StopStart();
     SetCallBackResult(asyncCallbackInfo, ret == AVCODEC_SAMPLE_ERR_OK ? 0 : -1);

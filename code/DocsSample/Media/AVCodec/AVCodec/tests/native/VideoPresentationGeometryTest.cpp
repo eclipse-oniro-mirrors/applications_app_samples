@@ -73,7 +73,7 @@ constexpr Matrix BUFFER_VERTICAL_FLIP = {
     0.0F, 0.0F, 1.0F, 0.0F,
     0.0F, 1.0F, 0.0F, 1.0F
 };
-// 顺序为屏幕左上、右上、左下、右下。输入沿用 Vulkan 正向 viewport 的基础 UV。
+// 顺序为屏幕左上、右上、左下、右下。输入沿用Vulkan正向viewport的基础UV。
 constexpr Corners SCREEN_BASE_UV = { Point { 0.0F, 1.0F }, Point { 1.0F, 1.0F },
     Point { 0.0F, 0.0F }, Point { 1.0F, 0.0F } };
 
@@ -162,7 +162,7 @@ void ExpectCorners(const Matrix &matrix, const Corners &expected)
 
 void TestClockwiseTextureRotation()
 {
-    // 期望值使用源图左上角为 (0, 0) 的坐标。顺时针 90 度时，屏幕左上应读取源图左下。
+    // 期望值使用源图左上角为 (0, 0) 的坐标。顺时针90度时，屏幕左上应读取源图左下。
     const Corners zero = { Point { 0.0F, 0.0F }, Point { 1.0F, 0.0F },
         Point { 0.0F, 1.0F }, Point { 1.0F, 1.0F } };
     const Corners clockwise90 = { Point { 0.0F, 1.0F }, Point { 0.0F, 0.0F },
@@ -207,7 +207,7 @@ void TestAcquiredBufferContentCrop()
 
 void TestCropIsAppliedAfterRotation()
 {
-    // 非正方形裁剪范围可检出 M*R 被误写成 R*M 的问题；旋转后仍应落在同一有效图像范围。
+    // 非正方形裁剪范围可检出M*R被误写成R*M的问题；旋转后仍应落在同一有效图像范围。
     constexpr Matrix cropAndFlip = {
         0.5F, 0.0F, 0.0F, 0.0F,
         0.0F, -0.75F, 0.0F, 0.0F,

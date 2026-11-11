@@ -13,8 +13,50 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import AVRecorderLogic01Test from './AVRecorderLogicTest01.test';
+import dateTimeUtilMatrixTest from './DateTimeUtilMatrix.test';
+import cameraProfileSelectTest from './CameraProfileSelect.test';
+import recorderFileDeviceTest from './RecorderFileDevice.test';
+import recorderPrepareGuardTest from './RecorderPrepareGuard.test';
+import dateTimeEdgeTest from './DateTimeEdge.test';
+import cameraSelectionEdgeTest from './CameraSelectionEdge.test';
+import recorderFileMatrixTest from './RecorderFileMatrix.test';
+import recorderServiceLifecycleTest from './RecorderServiceLifecycle.test';
+import dateTimeOracleTest from './DateTimeOracle.test';
+import cameraSelectionInvariantTest from './CameraSelectionInvariant.test';
+import recorderFileSequenceTest from './RecorderFileSequence.test';
+import recorderServicePairTest from './RecorderServicePair.test';
+import dateTimeFillWideTableTest from './DateTimeFillWideTable.test';
+import shownTimerTableTest from './ShownTimerTable.test';
+import dateTimeClockTableTest from './DateTimeClockTable.test';
+import concatDateTableTest from './ConcatDateTable.test';
+import concatTimeTableTest from './ConcatTimeTable.test';
+import cameraProfileTableTest from './CameraProfileTable.test';
+import dateTimeExtremeTableTest from './DateTimeExtremeTable.test';
+import recorderFileContractTest from './RecorderFileContract.test';
+import recorderServiceSequenceTest from './RecorderServiceSequence.test';
 
 export default function testsuite() {
-  abilityTest();
+  AVRecorderLogic01Test();
+  dateTimeUtilMatrixTest();
+  cameraProfileSelectTest();
+  recorderFileDeviceTest();
+  recorderPrepareGuardTest();
+  dateTimeEdgeTest();
+  cameraSelectionEdgeTest();
+  recorderFileMatrixTest();
+  recorderServiceLifecycleTest();
+  dateTimeOracleTest();
+  cameraSelectionInvariantTest();
+  recorderFileSequenceTest();
+  recorderServicePairTest();
+  dateTimeFillWideTableTest();
+  shownTimerTableTest();
+  dateTimeClockTableTest();
+  concatDateTableTest();
+  concatTimeTableTest();
+  cameraProfileTableTest();
+  dateTimeExtremeTableTest();
+  recorderFileContractTest();
+  recorderServiceSequenceTest();
 }
