@@ -1,0 +1,1796 @@
+{
+  "string": [
+    {
+      "name": "ac_scenariocatalog_099",
+      "value": "Try to trigger continuation on the wearable"
+    },
+    {
+      "name": "ac_scenariocatalog_100",
+      "value": "Report unsupported operation and prompt use of the phone"
+    },
+    {
+      "name": "ac_scenariocatalog_101",
+      "value": "Continue between two phones"
+    },
+    {
+      "name": "ac_scenariocatalog_103",
+      "value": "Both devices authorized"
+    },
+    {
+      "name": "ac_scenariocatalog_104",
+      "value": "Edit on A"
+    },
+    {
+      "name": "ac_scenariocatalog_106",
+      "value": "Confirm on B"
+    },
+    {
+      "name": "ac_scenariocatalog_107",
+      "value": "Content on B matches A"
+    },
+    {
+      "name": "ac_scenariocatalog_108",
+      "value": "Simultaneous edits on both devices cause a conflict"
+    },
+    {
+      "name": "ac_scenariocatalog_110",
+      "value": "Both devices have uncommitted edits"
+    },
+    {
+      "name": "ac_scenariocatalog_111",
+      "value": "Edit separately on both devices"
+    },
+    {
+      "name": "ac_scenariocatalog_113",
+      "value": "Show conflict confirmation; never overwrite silently"
+    },
+    {
+      "name": "ac_scenariocatalog_114",
+      "value": "A device goes offline during continuation"
+    },
+    {
+      "name": "ac_scenariocatalog_117",
+      "value": "Disconnect the network"
+    },
+    {
+      "name": "ac_scenariocatalog_118",
+      "value": "Failure can be retried without losing local content"
+    },
+    {
+      "name": "ac_scenariocatalog_119",
+      "value": "Truncate oversized content for continuation"
+    },
+    {
+      "name": "ac_scenariocatalog_121",
+      "value": "Text exceeds the payload limit"
+    },
+    {
+      "name": "ac_scenariocatalog_122",
+      "value": "Enter oversized text on the phone"
+    },
+    {
+      "name": "ac_scenariocatalog_124",
+      "value": "Recipient receives truncated text with a notice"
+    },
+    {
+      "name": "ac_scenariocatalog_125",
+      "value": "Recipient app version is too old"
+    },
+    {
+      "name": "ac_scenariocatalog_126",
+      "value": "App versions differ"
+    },
+    {
+      "name": "ac_scenariocatalog_127",
+      "value": "Continue from a newer app to an older app"
+    },
+    {
+      "name": "ac_scenariocatalog_128",
+      "value": "Older app falls back to compatible fields"
+    },
+    {
+      "name": "ac_scenariocatalog_129",
+      "value": "State can recover after cancellation"
+    },
+    {
+      "name": "ac_scenariocatalog_132",
+      "value": "Cancel on the recipient"
+    },
+    {
+      "name": "ac_scenariocatalog_133",
+      "value": "Sender returns to idle and can initiate again"
+    },
+    {
+      "name": "ac_scenariocatalog_134",
+      "value": "Handle duplicate continuation triggers once"
+    },
+    {
+      "name": "ac_scenariocatalog_136",
+      "value": "Trigger continuation twice in a row"
+    },
+    {
+      "name": "ac_scenariocatalog_137",
+      "value": "Handle once; reject the second request with a notice"
+    },
+    {
+      "name": "ac_scenariocatalog_138",
+      "value": "Refresh results when returning to the foreground"
+    },
+    {
+      "name": "ac_scenariocatalog_140",
+      "value": "Complete a continuation"
+    },
+    {
+      "name": "ac_scenariocatalog_141",
+      "value": "Move to the background, then return"
+    },
+    {
+      "name": "ac_scenariocatalog_142",
+      "value": "Result matches the timeline"
+    },
+    {
+      "name": "ac_scenariocatalog_143",
+      "value": "{0} scenarios, {1} steps: high {2}, medium {3}, "
+    },
+    {
+      "name": "ac_scenariocatalog_144",
+      "value": "low {0}"
+    },
+    {
+      "name": "ac_scenariocatalog_145",
+      "value": "Scenario catalog is consistent"
+    },
+    {
+      "name": "ac_scenariocatalog_146",
+      "value": "Duplicate ID: {0}"
+    },
+    {
+      "name": "ac_scenariocatalog_147",
+      "value": "Non-contiguous IDs: expected {0}, found {1}"
+    },
+    {
+      "name": "ac_scenariocatalog_148",
+      "value": "No steps: {0}"
+    },
+    {
+      "name": "ac_scenariocatalog_149",
+      "value": "No success criterion: {0}"
+    },
+    {
+      "name": "ac_scenariocatalog_150",
+      "value": "No prerequisites: {0}"
+    },
+    {
+      "name": "ac_scenariocatalog_151",
+      "value": "Unknown device type: {0}"
+    },
+    {
+      "name": "ac_scenariocatalog_152",
+      "value": "{0}: {1} scenarios"
+    },
+    {
+      "name": "ac_scenariocatalog_153",
+      "value": "{0}: sends {1}, receives {2}"
+    },
+    {
+      "name": "ac_learningcontroller_001",
+      "value": "Missing continuation payload or invalid JSON string type."
+    },
+    {
+      "name": "ac_learningcontroller_002",
+      "value": "Serialized payload length exceeds application policy."
+    },
+    {
+      "name": "ac_learningcontroller_003",
+      "value": "Payload JSON parsing failed."
+    },
+    {
+      "name": "ac_learningcontroller_004",
+      "value": "Payload root must be an object."
+    },
+    {
+      "name": "ac_learningcontroller_005",
+      "value": "Unsupported payload version, page or transfer tag."
+    },
+    {
+      "name": "ac_learningcontroller_006",
+      "value": "Body must contain at most 4096 UTF-16 units with valid surrogate pairs."
+    },
+    {
+      "name": "ac_learningcontroller_007",
+      "value": "Selection must use ordered integer boundaries within the body and preserve surrogate pairs."
+    },
+    {
+      "name": "ac_learningcontroller_008",
+      "value": "v2 payload lacks a valid document ID or revision."
+    },
+    {
+      "name": "ac_learningcontroller_009",
+      "value": "The same Want contains both text and business namespaces; ambiguous candidate rejected."
+    },
+    {
+      "name": "ac_learningcontroller_010",
+      "value": "Unregistering; waiting up to 8 seconds"
+    },
+    {
+      "name": "ac_learningcontroller_011",
+      "value": "Registered; waiting for a real system event"
+    },
+    {
+      "name": "ac_learningcontroller_012",
+      "value": "Unregistration timed out; register again or unregister"
+    },
+    {
+      "name": "ac_learningcontroller_013",
+      "value": "Listener inactive; register again or unregister"
+    },
+    {
+      "name": "ac_learningcontroller_016",
+      "value": "Start"
+    },
+    {
+      "name": "ac_learningcontroller_018",
+      "value": "[Business scene platform message hidden]"
+    },
+    {
+      "name": "ac_learningcontroller_019",
+      "value": "[Body hidden]"
+    },
+    {
+      "name": "ac_learningcontroller_020",
+      "value": "[Body fragment hidden]"
+    },
+    {
+      "name": "ac_learningcontroller_021",
+      "value": "16300501: a related System Ability is malfunctioning. Check permission, trust, network and system service state."
+    },
+    {
+      "name": "ac_learningcontroller_022",
+      "value": "Platform error code {0}. Diagnose using the current event phase and environment."
+    },
+    {
+      "name": "ac_learningcontroller_023",
+      "value": "Platform message is redacted; view it in details."
+    },
+    {
+      "name": "ac_learningcontroller_024",
+      "value": "Check the event phase, public environment and system continuation entry."
+    },
+    {
+      "name": "ac_learningcontroller_025",
+      "value": "Continuation API guide: no operation records."
+    },
+    {
+      "name": "ac_learningcontroller_026",
+      "value": "Continuation API guide · Redacted diagnostics"
+    },
+    {
+      "name": "ac_learningcontroller_027",
+      "value": "Operation: {0} | {1}"
+    },
+    {
+      "name": "ac_learningcontroller_028",
+      "value": "Result: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_029",
+      "value": "Phase: {0}; level: {1}"
+    },
+    {
+      "name": "ac_learningcontroller_030",
+      "value": "Started: {0}; ended: {1}"
+    },
+    {
+      "name": "ac_learningcontroller_031",
+      "value": "Not ended yet"
+    },
+    {
+      "name": "ac_learningcontroller_032",
+      "value": "Duration: {0} ms"
+    },
+    {
+      "name": "ac_learningcontroller_033",
+      "value": "Platform error code: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_034",
+      "value": "None"
+    },
+    {
+      "name": "ac_learningcontroller_035",
+      "value": "Raw numeric state: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_036",
+      "value": "Not provided"
+    },
+    {
+      "name": "ac_learningcontroller_037",
+      "value": "Facts: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_038",
+      "value": "Explanation: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_039",
+      "value": "Limits: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_040",
+      "value": "Recommendations: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_041",
+      "value": "Events:"
+    },
+    {
+      "name": "ac_learningcontroller_042",
+      "value": "Environment sampled when the operation started. Check peer availability, trust and the system continuation entry."
+    },
+    {
+      "name": "ac_learningcontroller_043",
+      "value": "Inspect public local environment"
+    },
+    {
+      "name": "ac_learningcontroller_044",
+      "value": "Read public local information and this app’s permissions."
+    },
+    {
+      "name": "ac_learningcontroller_045",
+      "value": "Device system API"
+    },
+    {
+      "name": "ac_learningcontroller_046",
+      "value": "Read"
+    },
+    {
+      "name": "ac_learningcontroller_047",
+      "value": "Device API property. Continuation interfaces are available from API 18."
+    },
+    {
+      "name": "ac_learningcontroller_048",
+      "value": "Device type"
+    },
+    {
+      "name": "ac_learningcontroller_050",
+      "value": "Public device type."
+    },
+    {
+      "name": "ac_learningcontroller_051",
+      "value": "Device system version"
+    },
+    {
+      "name": "ac_learningcontroller_053",
+      "value": "Public system version string."
+    },
+    {
+      "name": "ac_learningcontroller_054",
+      "value": "Public system information"
+    },
+    {
+      "name": "ac_learningcontroller_056",
+      "value": "Read failed"
+    },
+    {
+      "name": "ac_learningcontroller_057",
+      "value": "Unable to read public information; platform error code {0}."
+    },
+    {
+      "name": "ac_learningcontroller_058",
+      "value": "Mission system capability"
+    },
+    {
+      "name": "ac_learningcontroller_059",
+      "value": "Support declared"
+    },
+    {
+      "name": "ac_learningcontroller_060",
+      "value": "Support not declared"
+    },
+    {
+      "name": "ac_learningcontroller_061",
+      "value": "Checked"
+    },
+    {
+      "name": "ac_learningcontroller_062",
+      "value": "Limited"
+    },
+    {
+      "name": "ac_learningcontroller_063",
+      "value": "canIUse queries the local Mission capability declaration."
+    },
+    {
+      "name": "ac_learningcontroller_066",
+      "value": "Unconfirmed"
+    },
+    {
+      "name": "ac_learningcontroller_067",
+      "value": "Public capability query failed."
+    },
+    {
+      "name": "ac_learningcontroller_068",
+      "value": "Distributed data sync permission"
+    },
+    {
+      "name": "ac_learningcontroller_069",
+      "value": "Granted"
+    },
+    {
+      "name": "ac_learningcontroller_070",
+      "value": "Not granted"
+    },
+    {
+      "name": "ac_learningcontroller_072",
+      "value": "Check this app’s distributed data sync permission."
+    },
+    {
+      "name": "ac_learningcontroller_076",
+      "value": "Let the user request permission explicitly when needed."
+    },
+    {
+      "name": "ac_learningcontroller_077",
+      "value": "Peer online / trust / system continuation entry"
+    },
+    {
+      "name": "ac_learningcontroller_079",
+      "value": "Not verified"
+    },
+    {
+      "name": "ac_learningcontroller_080",
+      "value": "Use the system continuation entry to check peer availability and trust."
+    },
+    {
+      "name": "ac_learningcontroller_081",
+      "value": "Read public local properties, Mission capability and this app’s permission state."
+    },
+    {
+      "name": "ac_learningcontroller_082",
+      "value": "Other conditions: peer availability, network, account/trust and system continuation entry."
+    },
+    {
+      "name": "ac_learningcontroller_083",
+      "value": "Open the system continuation entry, check the peer and trust, then initiate continuation."
+    },
+    {
+      "name": "ac_learningcontroller_084",
+      "value": "Local environment check complete"
+    },
+    {
+      "name": "ac_learningcontroller_085",
+      "value": "Environment snapshot"
+    },
+    {
+      "name": "ac_learningcontroller_086",
+      "value": "Permission request in progress; wait for the result."
+    },
+    {
+      "name": "ac_learningcontroller_087",
+      "value": "User-requested permission"
+    },
+    {
+      "name": "ac_learningcontroller_088",
+      "value": "Request distributed data sync permission in response to a user click."
+    },
+    {
+      "name": "ac_learningcontroller_089",
+      "value": "User clicked the permission request."
+    },
+    {
+      "name": "ac_learningcontroller_090",
+      "value": "Permission API returned asynchronously; authorization result: {0}."
+    },
+    {
+      "name": "ac_learningcontroller_091",
+      "value": "Missing"
+    },
+    {
+      "name": "ac_learningcontroller_092",
+      "value": "Next checks: peer trust, system continuation entry and continuation result."
+    },
+    {
+      "name": "ac_learningcontroller_093",
+      "value": "Permission granted"
+    },
+    {
+      "name": "ac_learningcontroller_094",
+      "value": "Permission denied or result missing"
+    },
+    {
+      "name": "ac_learningcontroller_095",
+      "value": "Asynchronous permission result"
+    },
+    {
+      "name": "ac_learningcontroller_096",
+      "value": "Permission granted. Recheck the environment and initiate through the system entry."
+    },
+    {
+      "name": "ac_learningcontroller_097",
+      "value": "Permission not granted. Follow system instructions in Settings."
+    },
+    {
+      "name": "ac_learningcontroller_098",
+      "value": "Asynchronous permission request failed"
+    },
+    {
+      "name": "ac_learningcontroller_099",
+      "value": "Asynchronous permission error"
+    },
+    {
+      "name": "ac_learningcontroller_100",
+      "value": "Synchronous permission call"
+    },
+    {
+      "name": "ac_learningcontroller_101",
+      "value": "Request submitted; waiting for user and platform results."
+    },
+    {
+      "name": "ac_learningcontroller_102",
+      "value": "Permission request threw synchronously"
+    },
+    {
+      "name": "ac_learningcontroller_103",
+      "value": "Synchronous permission exception"
+    },
+    {
+      "name": "ac_learningcontroller_104",
+      "value": "Listening, unregistering or continuing. Finish the current operation first."
+    },
+    {
+      "name": "ac_learningcontroller_105",
+      "value": "Manually observe prepareContinue"
+    },
+    {
+      "name": "ac_learningcontroller_106",
+      "value": "Register to observe system prepareContinue events."
+    },
+    {
+      "name": "ac_learningcontroller_107",
+      "value": "Wait for prepareContinue after manual registration; initiate continuation through the system entry."
+    },
+    {
+      "name": "ac_learningcontroller_108",
+      "value": "Observe and record system events for 15 seconds."
+    },
+    {
+      "name": "ac_learningcontroller_109",
+      "value": "No system event received (application 15-second observation policy)"
+    },
+    {
+      "name": "ac_learningcontroller_110",
+      "value": "Observation ended"
+    },
+    {
+      "name": "ac_learningcontroller_111",
+      "value": "No platform result arrived during observation."
+    },
+    {
+      "name": "ac_learningcontroller_112",
+      "value": "No system event arrived in 15 seconds. Local waiting ended and unregistration was requested."
+    },
+    {
+      "name": "ac_learningcontroller_113",
+      "value": "Synchronous ON call"
+    },
+    {
+      "name": "ac_learningcontroller_114",
+      "value": "Local slot policy blocked the call; no platform exception message."
+    },
+    {
+      "name": "ac_learningcontroller_115",
+      "value": "No usable listener established"
+    },
+    {
+      "name": "ac_learningcontroller_116",
+      "value": "Synchronous ON failure"
+    },
+    {
+      "name": "ac_learningcontroller_117",
+      "value": "Registration failed. Click register again."
+    },
+    {
+      "name": "ac_learningcontroller_118",
+      "value": "Quick-result listener setup failed; this restoration session ended."
+    },
+    {
+      "name": "ac_learningcontroller_120",
+      "value": "Asynchronous ON notification"
+    },
+    {
+      "name": "ac_learningcontroller_121",
+      "value": "Real notification received; raw numeric state {0}. See redacted result fields for details."
+    },
+    {
+      "name": "ac_learningcontroller_122",
+      "value": "This notification belongs to manual probe observation."
+    },
+    {
+      "name": "ac_learningcontroller_123",
+      "value": "Success-state notification received"
+    },
+    {
+      "name": "ac_learningcontroller_124",
+      "value": "Unknown state received; inspect the raw numeric state"
+    },
+    {
+      "name": "ac_learningcontroller_125",
+      "value": "Platform failure or asynchronous error notification received"
+    },
+    {
+      "name": "ac_learningcontroller_126",
+      "value": "Probe notification completed"
+    },
+    {
+      "name": "ac_learningcontroller_127",
+      "value": "Probe received a system event. View the result in operation details."
+    },
+    {
+      "name": "ac_learningcontroller_128",
+      "value": "Success (raw state 0)"
+    },
+    {
+      "name": "ac_learningcontroller_129",
+      "value": "Unknown (raw state {0})"
+    },
+    {
+      "name": "ac_learningcontroller_130",
+      "value": "Asynchronous error (code {0})"
+    },
+    {
+      "name": "ac_learningcontroller_131",
+      "value": "Failure (raw state {0})"
+    },
+    {
+      "name": "ac_learningcontroller_132",
+      "value": "System quick-result state is unknown; text commit stopped for this session."
+    },
+    {
+      "name": "ac_learningcontroller_133",
+      "value": "Asynchronous error while obtaining the quick result; text was not committed."
+    },
+    {
+      "name": "ac_learningcontroller_134",
+      "value": "System reported quick-start failure; text was not committed."
+    },
+    {
+      "name": "ac_learningcontroller_135",
+      "value": "Quick result"
+    },
+    {
+      "name": "ac_learningcontroller_136",
+      "value": "Continuation is in progress. To end it, select Stop local waiting and confirm."
+    },
+    {
+      "name": "ac_learningcontroller_137",
+      "value": "User ended local probe observation"
+    },
+    {
+      "name": "ac_learningcontroller_138",
+      "value": "User unregistration"
+    },
+    {
+      "name": "ac_learningcontroller_140",
+      "value": "Unregister the independent listener slot"
+    },
+    {
+      "name": "ac_learningcontroller_141",
+      "value": "Disable the local sink immediately and observe platform unregistration through a separate callback."
+    },
+    {
+      "name": "ac_learningcontroller_142",
+      "value": "The third parameter is an independent unregistration completion callback."
+    },
+    {
+      "name": "ac_learningcontroller_143",
+      "value": "Unregistration result arrives through its independent completion callback."
+    },
+    {
+      "name": "ac_learningcontroller_144",
+      "value": "Unregistration timed out (8 seconds)"
+    },
+    {
+      "name": "ac_learningcontroller_145",
+      "value": "OFF unconfirmed"
+    },
+    {
+      "name": "ac_learningcontroller_146",
+      "value": "No unregistration completion callback arrived. This wait ended and operation controls are available again."
+    },
+    {
+      "name": "ac_learningcontroller_147",
+      "value": "Register again or retry unregistration."
+    },
+    {
+      "name": "ac_learningcontroller_148",
+      "value": "Platform explicitly confirmed successful unregistration"
+    },
+    {
+      "name": "ac_learningcontroller_149",
+      "value": "Unknown unregistration callback state"
+    },
+    {
+      "name": "ac_learningcontroller_150",
+      "value": "Unregistration failed or asynchronous error"
+    },
+    {
+      "name": "ac_learningcontroller_151",
+      "value": "OFF asynchronous completion"
+    },
+    {
+      "name": "ac_learningcontroller_152",
+      "value": "Independent completion callback raw numeric state: {0}."
+    },
+    {
+      "name": "ac_learningcontroller_154",
+      "value": "Unregistered successfully. You can register again."
+    },
+    {
+      "name": "ac_learningcontroller_155",
+      "value": "Unexpected unregistration result. Register again or retry unregistration."
+    },
+    {
+      "name": "ac_learningcontroller_156",
+      "value": "Synchronous OFF call"
+    },
+    {
+      "name": "ac_learningcontroller_159",
+      "value": "Unregistration failed. Register again or retry unregistration."
+    },
+    {
+      "name": "ac_learningcontroller_160",
+      "value": "Unregistration failed synchronously or was blocked by slot policy"
+    },
+    {
+      "name": "ac_learningcontroller_161",
+      "value": "Synchronous OFF failure"
+    },
+    {
+      "name": "ac_learningcontroller_162",
+      "value": "Edit validation failed: body must have at most 4096 UTF-16 units with complete surrogate pairs."
+    },
+    {
+      "name": "ac_learningcontroller_163",
+      "value": "Local unsaved edits"
+    },
+    {
+      "name": "ac_learningcontroller_164",
+      "value": "Selection validation failed: use ordered integer boundaries within the body and preserve surrogate pairs."
+    },
+    {
+      "name": "ac_learningcontroller_166",
+      "value": "Sunlight falls by the window on a spring morning.\nThis sample text is used for continuation. 🌱"
+    },
+    {
+      "name": "ac_learningcontroller_167",
+      "value": "Save current text"
+    },
+    {
+      "name": "ac_learningcontroller_168",
+      "value": "Write to this learning runtime’s independent Preferences."
+    },
+    {
+      "name": "ac_learningcontroller_169",
+      "value": "Revision limit reached. Refusing to increment further; nothing written."
+    },
+    {
+      "name": "ac_learningcontroller_170",
+      "value": "Revision limit reached; not written"
+    },
+    {
+      "name": "ac_learningcontroller_171",
+      "value": "Document revision limit reached. Create a new document before saving."
+    },
+    {
+      "name": "ac_learningcontroller_172",
+      "value": "Revision limit blocked saving"
+    },
+    {
+      "name": "ac_learningcontroller_173",
+      "value": "Revision boundary"
+    },
+    {
+      "name": "ac_learningcontroller_174",
+      "value": "Document revision {0}; document identity established."
+    },
+    {
+      "name": "ac_learningcontroller_175",
+      "value": "Persisted to independent Preferences"
+    },
+    {
+      "name": "ac_learningcontroller_176",
+      "value": "Current text and selection saved."
+    },
+    {
+      "name": "ac_learningcontroller_177",
+      "value": "Save failed; current edits retained"
+    },
+    {
+      "name": "ac_learningcontroller_178",
+      "value": "Text saved successfully"
+    },
+    {
+      "name": "ac_learningcontroller_179",
+      "value": "Text save failed"
+    },
+    {
+      "name": "ac_learningcontroller_180",
+      "value": "Persistence"
+    },
+    {
+      "name": "ac_learningcontroller_181",
+      "value": "Save as a new document"
+    },
+    {
+      "name": "ac_learningcontroller_182",
+      "value": "Keep current content and selection with an independent revision history."
+    },
+    {
+      "name": "ac_learningcontroller_183",
+      "value": "Saved as a new document at r1"
+    },
+    {
+      "name": "ac_learningcontroller_184",
+      "value": "New document saved; text and selection are unchanged."
+    },
+    {
+      "name": "ac_learningcontroller_185",
+      "value": "New document saved successfully"
+    },
+    {
+      "name": "ac_learningcontroller_186",
+      "value": "Creation failed; old identity retained"
+    },
+    {
+      "name": "ac_learningcontroller_188",
+      "value": "Clear and save text"
+    },
+    {
+      "name": "ac_learningcontroller_189",
+      "value": "Persist empty text before replacing the page body."
+    },
+    {
+      "name": "ac_learningcontroller_190",
+      "value": "Revision limit reached; refusing the clear write."
+    },
+    {
+      "name": "ac_learningcontroller_191",
+      "value": "Revision limit reached; not cleared"
+    },
+    {
+      "name": "ac_learningcontroller_192",
+      "value": "Document revision limit reached. Create a new document before clearing."
+    },
+    {
+      "name": "ac_learningcontroller_193",
+      "value": "Revision limit blocked clearing"
+    },
+    {
+      "name": "ac_learningcontroller_195",
+      "value": "Empty text persisted"
+    },
+    {
+      "name": "ac_learningcontroller_196",
+      "value": "Cleared and saved"
+    },
+    {
+      "name": "ac_learningcontroller_197",
+      "value": "Clear failed; original text retained"
+    },
+    {
+      "name": "ac_learningcontroller_199",
+      "value": "Text and selection cleared and saved."
+    },
+    {
+      "name": "ac_learningcontroller_200",
+      "value": "Invalid independent storage type; text not restored"
+    },
+    {
+      "name": "ac_learningcontroller_201",
+      "value": "No text in independent storage"
+    },
+    {
+      "name": "ac_learningcontroller_202",
+      "value": "Invalid independent storage content; text not restored"
+    },
+    {
+      "name": "ac_learningcontroller_203",
+      "value": "Read this learning runtime’s independent text"
+    },
+    {
+      "name": "ac_learningcontroller_204",
+      "value": "Independent Preferences unavailable (error code {0})"
+    },
+    {
+      "name": "ac_learningcontroller_205",
+      "value": "Storage rollback could not be confirmed. Further writes stopped to protect the original. End this Ability and inspect storage again."
+    },
+    {
+      "name": "ac_learningcontroller_206",
+      "value": "Independent Preferences unavailable; original text retained."
+    },
+    {
+      "name": "ac_learningcontroller_207",
+      "value": "Independent Preferences write and synchronous flush returned successfully."
+    },
+    {
+      "name": "ac_learningcontroller_208",
+      "value": "Persistence failed and storage was rolled back; page text and selection retained."
+    },
+    {
+      "name": "ac_learningcontroller_209",
+      "value": "Persistence failed and rollback is unconfirmed. Page text retained; further writes stopped and disk state is unknown."
+    },
+    {
+      "name": "ac_learningcontroller_210",
+      "value": "System PREPARE_CONTINUATION (10)"
+    },
+    {
+      "name": "ac_learningcontroller_211",
+      "value": "System CONTINUATION (3)"
+    },
+    {
+      "name": "ac_learningcontroller_212",
+      "value": "Normal launch / other reason ({0})"
+    },
+    {
+      "name": "ac_learningcontroller_213",
+      "value": "Duplicate launch signal"
+    },
+    {
+      "name": "ac_learningcontroller_214",
+      "value": "Continuation session is already in progress; duplicate PREPARE ignored."
+    },
+    {
+      "name": "ac_learningcontroller_215",
+      "value": "Previous quick session is closed; late data ignored. Start a new system PREPARE continuation or re-enter the app."
+    },
+    {
+      "name": "ac_learningcontroller_216",
+      "value": "Repeated transfer tag from an ended session ignored."
+    },
+    {
+      "name": "ac_learningcontroller_217",
+      "value": "Real system continuation arrived; ending manual observation and isolating the old listener"
+    },
+    {
+      "name": "ac_learningcontroller_218",
+      "value": "Yield to real continuation"
+    },
+    {
+      "name": "ac_learningcontroller_219",
+      "value": "System quick-continuation restoration"
+    },
+    {
+      "name": "ac_learningcontroller_220",
+      "value": "System normal-continuation restoration"
+    },
+    {
+      "name": "ac_learningcontroller_221",
+      "value": "Create a session from system launchReason. Persist the validated candidate before committing text and selection together."
+    },
+    {
+      "name": "ac_learningcontroller_222",
+      "value": "System launch reason PREPARE_CONTINUATION (10)."
+    },
+    {
+      "name": "ac_learningcontroller_223",
+      "value": "System launch reason CONTINUATION (3)."
+    },
+    {
+      "name": "ac_learningcontroller_224",
+      "value": "Application wait limit per phase: 15 seconds."
+    },
+    {
+      "name": "ac_learningcontroller_225",
+      "value": "Notifications belong to the local listener generation; business candidates are deduplicated by transfer tag."
+    },
+    {
+      "name": "ac_learningcontroller_226",
+      "value": "Waiting for business candidate; window container and business position are confirmed separately"
+    },
+    {
+      "name": "ac_learningcontroller_227",
+      "value": "Waiting for a real system quick result"
+    },
+    {
+      "name": "ac_learningcontroller_228",
+      "value": "Normal CONTINUATION: waiting for business data and page"
+    },
+    {
+      "name": "ac_learningcontroller_229",
+      "value": "Waiting for valid business payload"
+    },
+    {
+      "name": "ac_learningcontroller_230",
+      "value": "Quick continuation: independently waiting for result / data / page"
+    },
+    {
+      "name": "ac_learningcontroller_231",
+      "value": "Normal continuation: waiting for data and page"
+    },
+    {
+      "name": "ac_learningcontroller_232",
+      "value": "Processing continuation."
+    },
+    {
+      "name": "ac_learningcontroller_233",
+      "value": "Waiting for the previous listener operation to finish"
+    },
+    {
+      "name": "ac_learningcontroller_234",
+      "value": "Waiting for listener slot"
+    },
+    {
+      "name": "ac_learningcontroller_235",
+      "value": "Previous listener operation is in progress. Register this session’s listener after it ends."
+    },
+    {
+      "name": "ac_learningcontroller_237",
+      "value": "Payload validation failed"
+    },
+    {
+      "name": "ac_learningcontroller_238",
+      "value": "Candidate validation failed"
+    },
+    {
+      "name": "ac_learningcontroller_239",
+      "value": "Repeated transfer tag from an ended session rejected."
+    },
+    {
+      "name": "ac_learningcontroller_240",
+      "value": "Duplicate tag"
+    },
+    {
+      "name": "ac_learningcontroller_241",
+      "value": "Duplicate data"
+    },
+    {
+      "name": "ac_learningcontroller_242",
+      "value": "Duplicate candidate ignored; continuing to wait in the current phase."
+    },
+    {
+      "name": "ac_learningcontroller_243",
+      "value": "Conflicting business candidate received in the same session. Candidate rejected and original content retained."
+    },
+    {
+      "name": "ac_learningcontroller_244",
+      "value": "Candidate conflict"
+    },
+    {
+      "name": "ac_learningcontroller_245",
+      "value": "Business candidate needs positioning: actual selection/paragraph/step receipt required"
+    },
+    {
+      "name": "ac_learningcontroller_246",
+      "value": "Original text has unsaved content. An explicit choice is required before changing business context."
+    },
+    {
+      "name": "ac_learningcontroller_247",
+      "value": "Business candidate fully validated; waiting for system signals and actual positioning"
+    },
+    {
+      "name": "ac_learningcontroller_248",
+      "value": "Business candidate validation"
+    },
+    {
+      "name": "ac_learningcontroller_249",
+      "value": "Business type {0}; identity and state fully validated."
+    },
+    {
+      "name": "ac_learningcontroller_250",
+      "value": "Local business page has unsaved state. An explicit choice is required before returning to original text."
+    },
+    {
+      "name": "ac_learningcontroller_251",
+      "value": "Local unsaved edits exist; incoming r{0}, local r{1}. "
+    },
+    {
+      "name": "ac_learningcontroller_252",
+      "value": "An explicit choice is required even with a higher remote revision or legacy v1. Nothing overwritten."
+    },
+    {
+      "name": "ac_learningcontroller_254",
+      "value": "Incoming r{0}, local r{1}; "
+    },
+    {
+      "name": "ac_learningcontroller_255",
+      "value": "The same document has an older revision or different content at the same revision. Local text was not overwritten."
+    },
+    {
+      "name": "ac_learningcontroller_257",
+      "value": "Document switch"
+    },
+    {
+      "name": "ac_learningcontroller_258",
+      "value": "Incoming document {0} will replace local document {1}; revision resets to the incoming value."
+    },
+    {
+      "name": "ac_learningcontroller_259",
+      "value": "Complete candidate validated; not committed"
+    },
+    {
+      "name": "ac_learningcontroller_260",
+      "value": "Body/selection/version/page fully validated; body length {0} UTF-16 units."
+    },
+    {
+      "name": "ac_learningcontroller_261",
+      "value": "Candidate validation"
+    },
+    {
+      "name": "ac_learningcontroller_262",
+      "value": "Complete candidate validated; waiting for other signals."
+    },
+    {
+      "name": "ac_learningcontroller_263",
+      "value": "Candidate validated; waiting for conflict choice"
+    },
+    {
+      "name": "ac_learningcontroller_264",
+      "value": "Detected "
+    },
+    {
+      "name": "ac_learningcontroller_267",
+      "value": "; choose to accept incoming content or keep the local version."
+    },
+    {
+      "name": "ac_learningcontroller_270",
+      "value": "Page ready"
+    },
+    {
+      "name": "ac_learningcontroller_271",
+      "value": "Page window"
+    },
+    {
+      "name": "ac_learningcontroller_272",
+      "value": "Business positioning"
+    },
+    {
+      "name": "ac_learningcontroller_273",
+      "value": "Waiting for {0} (application 15-second phase policy)"
+    },
+    {
+      "name": "ac_learningcontroller_274",
+      "value": "Waiting for {0}"
+    },
+    {
+      "name": "ac_learningcontroller_275",
+      "value": "Application wait limit for this phase is 15 seconds; local waiting ends at expiry."
+    },
+    {
+      "name": "ac_learningcontroller_277",
+      "value": "No usable system quick-result notification received"
+    },
+    {
+      "name": "ac_learningcontroller_279",
+      "value": "No complete valid business payload received"
+    },
+    {
+      "name": "ac_learningcontroller_281",
+      "value": "No actual business selection/paragraph/step positioning receipt received"
+    },
+    {
+      "name": "ac_learningcontroller_282",
+      "value": "No explicit successful page-load signal received"
+    },
+    {
+      "name": "ac_learningcontroller_283",
+      "value": "{0}; the 15-second phase wait expired and local restoration ended."
+    },
+    {
+      "name": "ac_learningcontroller_284",
+      "value": "{0} timeout"
+    },
+    {
+      "name": "ac_learningcontroller_285",
+      "value": "Version conflict: waiting for user choice"
+    },
+    {
+      "name": "ac_learningcontroller_286",
+      "value": "Accepting the conflict would exceed the revision limit; nothing written."
+    },
+    {
+      "name": "ac_learningcontroller_287",
+      "value": "Revision limit"
+    },
+    {
+      "name": "ac_learningcontroller_288",
+      "value": "Conflict commit"
+    },
+    {
+      "name": "ac_learningcontroller_289",
+      "value": "Quick result and page are ready. Persisting the user-selected incoming version at r{0}."
+    },
+    {
+      "name": "ac_learningcontroller_291",
+      "value": "All required signals are ready. Persist the candidate first; keep page content until success."
+    },
+    {
+      "name": "ac_learningcontroller_292",
+      "value": "Scene persistence failed"
+    },
+    {
+      "name": "ac_learningcontroller_293",
+      "value": "Business state atomically persisted and committed"
+    },
+    {
+      "name": "ac_learningcontroller_294",
+      "value": "Session committed (business positioning receipt and all system signals received)"
+    },
+    {
+      "name": "ac_learningcontroller_295",
+      "value": "{0} r{1}; actual position confirmed; no files transferred."
+    },
+    {
+      "name": "ac_learningcontroller_296",
+      "value": "Business state restored. Continue working and initiate continuation again through the system entry."
+    },
+    {
+      "name": "ac_learningcontroller_297",
+      "value": "Business scene restored successfully"
+    },
+    {
+      "name": "ac_learningcontroller_298",
+      "value": "Committed"
+    },
+    {
+      "name": "ac_learningcontroller_299",
+      "value": "Candidate revision exceeds the limit. Nothing written; original retained."
+    },
+    {
+      "name": "ac_learningcontroller_301",
+      "value": "Restore persistence failed; original retained"
+    },
+    {
+      "name": "ac_learningcontroller_302",
+      "value": "Persistence failed"
+    },
+    {
+      "name": "ac_learningcontroller_303",
+      "value": "Incoming text persisted"
+    },
+    {
+      "name": "ac_learningcontroller_304",
+      "value": "Business data committed"
+    },
+    {
+      "name": "ac_learningcontroller_305",
+      "value": "Text and selection restored; document {0} "
+    },
+    {
+      "name": "ac_learningcontroller_306",
+      "value": "Legacy, no identity"
+    },
+    {
+      "name": "ac_learningcontroller_307",
+      "value": "r{0}; body {1} UTF-16 units, selection "
+    },
+    {
+      "name": "ac_learningcontroller_308",
+      "value": "Session committed (local business restoration successful)"
+    },
+    {
+      "name": "ac_learningcontroller_309",
+      "value": "Text and selection restored and saved."
+    },
+    {
+      "name": "ac_learningcontroller_310",
+      "value": "Page explicitly loaded and all session signals received; committed once after successful persistence."
+    },
+    {
+      "name": "ac_learningcontroller_311",
+      "value": "Local business restoration successful"
+    },
+    {
+      "name": "ac_learningcontroller_313",
+      "value": "Acceptance confirmed; waiting for quick result and page readiness"
+    },
+    {
+      "name": "ac_learningcontroller_314",
+      "value": "Conflict choice recorded. Storage is written only when all necessary signals are ready."
+    },
+    {
+      "name": "ac_learningcontroller_315",
+      "value": "Conflict choice"
+    },
+    {
+      "name": "ac_learningcontroller_316",
+      "value": "User accepted the incoming version; commit still requires quick result and page readiness."
+    },
+    {
+      "name": "ac_learningcontroller_317",
+      "value": "Local version retained"
+    },
+    {
+      "name": "ac_learningcontroller_318",
+      "value": "Local body retained; incoming version not written."
+    },
+    {
+      "name": "ac_learningcontroller_319",
+      "value": "Local version retained"
+    },
+    {
+      "name": "ac_learningcontroller_320",
+      "value": "User chose to keep the local version"
+    },
+    {
+      "name": "ac_learningcontroller_322",
+      "value": "Local restoration ended: {0}"
+    },
+    {
+      "name": "ac_learningcontroller_323",
+      "value": "Local waiting for this session ended; current original retained."
+    },
+    {
+      "name": "ac_learningcontroller_324",
+      "value": "Keep the original. Resolve the result, data, page or storage issue and retry through a new real system flow."
+    },
+    {
+      "name": "ac_learningcontroller_325",
+      "value": "User"
+    },
+    {
+      "name": "ac_learningcontroller_326",
+      "value": "System continuation is in progress or runtime was released. Cannot generate a local backup now."
+    },
+    {
+      "name": "ac_learningcontroller_327",
+      "value": "System continuation is in progress or runtime was released. Cannot preview local restoration now."
+    },
+    {
+      "name": "ac_learningcontroller_328",
+      "value": "System continuation is in progress or runtime was released. Local restoration was not performed."
+    },
+    {
+      "name": "ac_learningcontroller_329",
+      "value": "Backup is stale or copying is unavailable. Generate a new business backup."
+    },
+    {
+      "name": "ac_learningcontroller_330",
+      "value": "Copied the backup as it was generated. Workspace has since changed; regenerate for the latest copy."
+    },
+    {
+      "name": "ac_learningcontroller_331",
+      "value": "Actual page receipt confirms business positioning"
+    },
+    {
+      "name": "ac_learningcontroller_332",
+      "value": "Business positioning failed; candidate not committed. Retry positioning or stop"
+    },
+    {
+      "name": "ac_learningcontroller_333",
+      "value": "Business page left; candidate not committed. Retry positioning or cancel"
+    },
+    {
+      "name": "ac_learningcontroller_334",
+      "value": "Waiting again for actual business-page positioning receipt"
+    },
+    {
+      "name": "ac_learningcontroller_335",
+      "value": "Sender provides active business state"
+    },
+    {
+      "name": "ac_learningcontroller_336",
+      "value": "Send actual note, reading or form drafts; do not claim file migration."
+    },
+    {
+      "name": "ac_learningcontroller_337",
+      "value": "Restoration in progress; refusing a new continuation"
+    },
+    {
+      "name": "ac_learningcontroller_338",
+      "value": "Sender gate"
+    },
+    {
+      "name": "ac_learningcontroller_339",
+      "value": "Active business {0}; independent schema validated; serialized length {1}."
+    },
+    {
+      "name": "ac_learningcontroller_340",
+      "value": "Active business payload provided"
+    },
+    {
+      "name": "ac_learningcontroller_341",
+      "value": "Sender parameters ready"
+    },
+    {
+      "name": "ac_learningcontroller_342",
+      "value": "Business serialization or parameter write failed; continuation rejected"
+    },
+    {
+      "name": "ac_learningcontroller_343",
+      "value": "Sender validation"
+    },
+    {
+      "name": "ac_learningcontroller_344",
+      "value": "Sender provides independent text payload"
+    },
+    {
+      "name": "ac_learningcontroller_345",
+      "value": "Write versioned text payload and explicit page-restoration policy into the system Want."
+    },
+    {
+      "name": "ac_learningcontroller_346",
+      "value": "Rejected: local restoration in progress or invalid text/selection"
+    },
+    {
+      "name": "ac_learningcontroller_348",
+      "value": "Versioned independent text payload written; body length {0} UTF-16 units."
+    },
+    {
+      "name": "ac_learningcontroller_349",
+      "value": "SUPPORT_CONTINUE_PAGE_STACK_KEY=false; entry explicitly loads a fixed page on the recipient."
+    },
+    {
+      "name": "ac_learningcontroller_350",
+      "value": "Sender returns AGREE; subsequent progress is recorded by the recipient."
+    },
+    {
+      "name": "ac_learningcontroller_351",
+      "value": "Parameters provided; system continuation agreed"
+    },
+    {
+      "name": "ac_learningcontroller_353",
+      "value": "Sender parameter-write error message redacted."
+    },
+    {
+      "name": "ac_learningcontroller_354",
+      "value": "Parameter write failed; continuation rejected"
+    },
+    {
+      "name": "ac_learningcontroller_355",
+      "value": "Sender synchronous error"
+    },
+    {
+      "name": "ac_learningcontroller_357",
+      "value": "Page ready"
+    },
+    {
+      "name": "ac_learningcontroller_358",
+      "value": "Explicit page-load completion signal received."
+    },
+    {
+      "name": "ac_learningcontroller_359",
+      "value": "Page not ready / left"
+    },
+    {
+      "name": "ac_learningcontroller_360",
+      "value": "New window generation; waiting for a new actual positioning receipt"
+    },
+    {
+      "name": "ac_learningcontroller_361",
+      "value": "Explicit page load failed"
+    },
+    {
+      "name": "ac_learningcontroller_362",
+      "value": "Page load failed; original retained."
+    },
+    {
+      "name": "ac_learningcontroller_363",
+      "value": "Page load failed"
+    },
+    {
+      "name": "ac_learningcontroller_364",
+      "value": "Page load failed. Go back and retry."
+    },
+    {
+      "name": "ac_learningcontroller_365",
+      "value": "User stopped local waiting; current original retained."
+    },
+    {
+      "name": "ac_learningcontroller_366",
+      "value": "User stop"
+    },
+    {
+      "name": "ac_learningcontroller_367",
+      "value": "User stopped local observation"
+    },
+    {
+      "name": "ac_learningcontroller_369",
+      "value": "Local waiting stopped. Unregistering listener, up to 8 seconds."
+    },
+    {
+      "name": "ac_learningcontroller_370",
+      "value": "Local waiting stopped; register again or unregister."
+    },
+    {
+      "name": "ac_learningcontroller_371",
+      "value": "Completed records and events cleared. In-flight operation records retained for subsequent callbacks."
+    },
+    {
+      "name": "ac_learningcontroller_372",
+      "value": "Records and events cleared."
+    },
+    {
+      "name": "ac_conflictpolicy_001",
+      "value": "No conflict"
+    },
+    {
+      "name": "ac_conflictpolicy_002",
+      "value": "Remote is newer"
+    },
+    {
+      "name": "ac_conflictpolicy_003",
+      "value": "Local is newer"
+    },
+    {
+      "name": "ac_conflictpolicy_004",
+      "value": "Both changed"
+    },
+    {
+      "name": "ac_conflictpolicy_005",
+      "value": "Remote content only"
+    },
+    {
+      "name": "ac_conflictpolicy_006",
+      "value": "Local content only"
+    },
+    {
+      "name": "ac_conflictpolicy_007",
+      "value": "Unable to determine"
+    },
+    {
+      "name": "ac_conflictpolicy_008",
+      "value": "Keep local"
+    },
+    {
+      "name": "ac_conflictpolicy_009",
+      "value": "Use remote"
+    },
+    {
+      "name": "ac_conflictpolicy_010",
+      "value": "Merge, prefer local"
+    },
+    {
+      "name": "ac_conflictpolicy_011",
+      "value": "Merge, prefer remote"
+    },
+    {
+      "name": "ac_conflictpolicy_012",
+      "value": "Append remote content"
+    },
+    {
+      "name": "ac_conflictpolicy_013",
+      "value": "Ask the user"
+    },
+    {
+      "name": "ac_conflictpolicy_014",
+      "value": "Discard remote"
+    },
+    {
+      "name": "ac_conflictpolicy_015",
+      "value": "{0} {1} | Local {2}"
+    },
+    {
+      "name": "ac_conflictpolicy_016",
+      "value": "dirty"
+    },
+    {
+      "name": "ac_conflictpolicy_017",
+      "value": "clean"
+    },
+    {
+      "name": "ac_conflictpolicy_018",
+      "value": " | Remote {0} → {1}"
+    },
+    {
+      "name": "ac_conflictpolicy_021",
+      "value": "Both sides match; keep local content unchanged"
+    },
+    {
+      "name": "ac_conflictpolicy_022",
+      "value": "Local has uncommitted edits and remote is unchanged; keep local"
+    },
+    {
+      "name": "ac_conflictpolicy_023",
+      "value": "Remote brings new content; use remote"
+    },
+    {
+      "name": "ac_conflictpolicy_024",
+      "value": "Both sides are marked changed but content matches; ask the user"
+    },
+    {
+      "name": "ac_conflictpolicy_025",
+      "value": "Local is empty; use remote"
+    },
+    {
+      "name": "ac_conflictpolicy_026",
+      "value": "Local was cleared but remote has content; use remote"
+    },
+    {
+      "name": "ac_conflictpolicy_027",
+      "value": "Local is empty and remote brings new content; use remote"
+    },
+    {
+      "name": "ac_conflictpolicy_028",
+      "value": "Both changed and local is empty; merge and prefer remote"
+    },
+    {
+      "name": "ac_conflictpolicy_029",
+      "value": "Remote is empty; keep local"
+    },
+    {
+      "name": "ac_conflictpolicy_030",
+      "value": "Remote is empty and local changed; keep local"
+    },
+    {
+      "name": "ac_conflictpolicy_031",
+      "value": "Remote supplied an empty payload; merge and prefer local"
+    },
+    {
+      "name": "ac_conflictpolicy_032",
+      "value": "Both sides are marked changed but remote is empty; merge and prefer local"
+    },
+    {
+      "name": "ac_conflictpolicy_033",
+      "value": "Remote revision is newer and local is unchanged; use remote"
+    },
+    {
+      "name": "ac_conflictpolicy_034",
+      "value": "Remote revision is newer but local has uncommitted edits; merge and prefer local"
+    },
+    {
+      "name": "ac_conflictpolicy_035",
+      "value": "Remote revision is newer and represents new changes; use remote"
+    },
+    {
+      "name": "ac_conflictpolicy_036",
+      "value": "Both changed and remote revision is newer; ask the user"
+    },
+    {
+      "name": "ac_conflictpolicy_037",
+      "value": "Local revision is newer; keep local"
+    },
+    {
+      "name": "ac_conflictpolicy_038",
+      "value": "Local revision is newer and changed; keep local"
+    },
+    {
+      "name": "ac_conflictpolicy_039",
+      "value": "Local revision is newer but remote brings new changes; merge and prefer remote"
+    },
+    {
+      "name": "ac_conflictpolicy_040",
+      "value": "Both changed and local revision is newer; ask the user"
+    },
+    {
+      "name": "ac_conflictpolicy_041",
+      "value": "Content differs but neither side is marked changed; ask the user"
+    },
+    {
+      "name": "ac_conflictpolicy_042",
+      "value": "Only local changed; merge and prefer local"
+    },
+    {
+      "name": "ac_conflictpolicy_043",
+      "value": "Only remote changed; merge and prefer remote"
+    },
+    {
+      "name": "ac_conflictpolicy_044",
+      "value": "Both changed; confirmation required"
+    },
+    {
+      "name": "ac_conflictpolicy_045",
+      "value": "Document identities differ and both changed; ask the user"
+    },
+    {
+      "name": "ac_conflictpolicy_046",
+      "value": "Document identities differ; discard remote to avoid overwriting local"
+    },
+    {
+      "name": "ac_conflictpolicy_047",
+      "value": "Document identities differ and local changed; keep local"
+    },
+    {
+      "name": "ac_conflictpolicy_048",
+      "value": "Document identities differ; ask the user"
+    },
+    {
+      "name": "ac_conflictpolicy_049",
+      "value": "No matching rule"
+    },
+    {
+      "name": "ac_conflictpolicy_050",
+      "value": "{0} | {1} notes"
+    },
+    {
+      "name": "ac_conflictpolicy_051",
+      "value": "Local content retained"
+    },
+    {
+      "name": "ac_conflictpolicy_052",
+      "value": "Remote content used"
+    },
+    {
+      "name": "ac_conflictpolicy_053",
+      "value": "Remote content discarded"
+    },
+    {
+      "name": "ac_conflictpolicy_054",
+      "value": "Remote content appended"
+    },
+    {
+      "name": "ac_conflictpolicy_055",
+      "value": "{0} lines after merging and deduplication"
+    },
+    {
+      "name": "ac_conflictpolicy_056",
+      "value": "Local first"
+    },
+    {
+      "name": "ac_conflictpolicy_057",
+      "value": "Remote first"
+    },
+    {
+      "name": "ac_conflictpolicy_058",
+      "value": "Waiting for user choice; keeping local for now"
+    },
+    {
+      "name": "ac_conflictpolicy_059",
+      "value": "Conflict rules are consistent"
+    },
+    {
+      "name": "ac_conflictpolicy_060",
+      "value": "Duplicate rule ID: {0}"
+    },
+    {
+      "name": "ac_conflictpolicy_061",
+      "value": "Missing description: {0}"
+    },
+    {
+      "name": "ac_conflictpolicy_062",
+      "value": "Missing combination: {0}/{1}/{2}"
+    },
+    {
+      "name": "ac_fielddictionary_001",
+      "value": "Identity"
+    },
+    {
+      "name": "ac_fielddictionary_002",
+      "value": "Content"
+    },
+    {
+      "name": "ac_fielddictionary_003",
+      "value": "Position"
+    },
+    {
+      "name": "ac_fielddictionary_004",
+      "value": "Context"
+    },
+    {
+      "name": "ac_fielddictionary_005",
+      "value": "Integrity"
+    },
+    {
+      "name": "ac_fielddictionary_006",
+      "value": "Derived"
+    },
+    {
+      "name": "ac_fielddictionary_007",
+      "value": "characters"
+    },
+    {
+      "name": "ac_fielddictionary_008",
+      "value": "items"
+    },
+    {
+      "name": "ac_fielddictionary_009",
+      "value": "milliseconds"
+    },
+    {
+      "name": "ac_fielddictionary_010",
+      "value": "Unlimited"
+    },
+    {
+      "name": "ac_fielddictionary_011",
+      "value": "Required"
+    },
+    {
+      "name": "ac_fielddictionary_012",
+      "value": "Optional"
+    },
+    {
+      "name": "ac_fielddictionary_013",
+      "value": "Document ID"
+    }
+  ]
+}
