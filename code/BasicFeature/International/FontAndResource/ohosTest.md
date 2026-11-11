@@ -41,13 +41,13 @@
 | 用例编号 | 测试文件 | 用例名称 | 用例数 | 测试步骤 | 预期结果 |
 | --- | --- | --- | ---: | --- | --- |
 | OHOS-FILE-001 | [ClipboardUtil.test.ets](entry/src/ohosTest/ets/test/ClipboardUtil.test.ets) | 剪贴板读写、覆盖与清理 | 13 | 写入 ASCII、中文、空串、单字符及长文本后读取；重复往返、连续覆盖和清理，并检查异步返回类型。 | 写入返回布尔值，读取返回字符串；写入成功时内容与输入一致，往返匹配数等于成功数；清理后仅检查字符串类型和非负长度。 |
-| OHOS-FILE-002 | [DateArithmeticMatrix.test.ets](entry/src/ohosTest/ets/test/DateArithmeticMatrix.test.ets) | 日期运算矩阵 | 4 | 对月末、闰日和年末日期执行正负天数偏移，比较星期、同日状态及不同时间单位的间隔。 | 偏移日期、星期和同日结果符合表值；秒、分、小时、一天的间隔分别为 1000、60000、3600000、86400000 毫秒。 |
+| OHOS-FILE-002 | [DateArithmeticMatrix.test.ets](entry/src/ohosTest/ets/test/DateArithmeticMatrix.test.ets) | 日期运算矩阵 | 4 | 对月末、闰日和年底的日期执行正负天数偏移，比较星期、同日状态及不同时间单位的间隔。 | 偏移日期、星期和同日结果符合表值；秒、分、小时、一天的间隔分别为 1000、60000、3600000、86400000 毫秒。 |
 | OHOS-FILE-003 | [DateArithmeticSweep.test.ets](entry/src/ohosTest/ets/test/DateArithmeticSweep.test.ets) | 日期运算多输入扫描 | 4 | 从固定日期执行多组正负偏移，扫描星期、分钟间隔及不同时间的同日比较。 | 偏移和间隔等于固定预期；星期一为 0、星期日为 6；同日判断不受时分秒影响。 |
 | OHOS-FILE-004 | [DateDataMatrix.test.ets](entry/src/ohosTest/ets/test/DateDataMatrix.test.ets) | 日期大数据矩阵与定时器让出 | 5 | 检查套件初始化中的零延迟定时器标记；遍历日期、时间、组合格式及日期偏移四张表，各 500 行。 | 定时器标记为真；四张表长度均为 500，日期时间文本和偏移结果逐项等于表中预期。 |
 | OHOS-FILE-005 | [DateDurationMatrix.test.ets](entry/src/ohosTest/ets/test/DateDurationMatrix.test.ets) | 毫秒时长分段格式 | 4 | 格式化不足一秒、秒、分钟、小时及超过一天的毫秒数。 | 不足一秒输出 `0s`，分钟和小时采用固定组合格式；一天和两天分别输出 `24h 0m 0s`、`48h 0m 0s`。 |
 | OHOS-FILE-006 | [DateFormatSweep.test.ets](entry/src/ohosTest/ets/test/DateFormatSweep.test.ets) | 日期时间格式与纪元扫描 | 4 | 遍历 2000—2004 年的 60 组日期，比较日期、时间及组合格式；转换七个固定纪元毫秒值。 | 各格式等于固定字符串；纪元结果匹配 UTC+8 预期，例如 0 对应 `1970-01-01 08:00:00`。 |
 | OHOS-FILE-007 | [DateFormattedMatrix.test.ets](entry/src/ohosTest/ets/test/DateFormattedMatrix.test.ets) | 日期补零与时间戳重建 | 4 | 检查十组日期的日期、时间及组合格式，并用 `new Date(source.getTime())` 重建日期后再次格式化。 | 各字段补零且与固定文本一致；时间戳重建后的日历日期不变。 |
-| OHOS-FILE-008 | [DateUtils.test.ets](entry/src/ohosTest/ets/test/DateUtils.test.ets) | 日期工具基础契约 | 9 | 检查时间单位、日期时间格式、纪元转换、时长、正反时间差、同日、跨月偏移及星期。 | 单位常量和格式匹配预期，时间差取绝对值；偏移不修改原日期，星期索引符合约定。 |
+| OHOS-FILE-008 | [DateUtils.test.ets](entry/src/ohosTest/ets/test/DateUtils.test.ets) | 日期工具基础契约 | 9 | 检查时间单位、日期时间格式、纪元转换、时长、正反时间差、同日、跨月偏移及星期。 | 单位常量和格式匹配预期，时间差按较晚时间减去较早时间计算；偏移不修改原日期，星期索引符合约定。 |
 | OHOS-FILE-009 | [DateUtilsAdvanced.test.ets](entry/src/ohosTest/ets/test/DateUtilsAdvanced.test.ets) | 日期边界与扩展契约 | 22 | 遍历月份、小时、毫秒及星期矩阵，检查当前时间、纪元重建、时长、午夜、闰日、跨年和偏移往返。 | 格式、补零和边界值符合断言；当前时间满足范围与非递减要求；偏移保持时间字段和原对象，往返恢复原时间戳。 |
 | OHOS-FILE-010 | [DeviceUtils.test.ets](entry/src/ohosTest/ets/test/DeviceUtils.test.ets) | 设备信息、API 门槛与摘要 | 27 | 对照平台设备字段，检查 API 门槛、设备类型、重复读取、可打印字符及摘要拼接。 | 字段类型、非空、平台映射和稳定性符合断言；API 为 1—100 的整数，门槛结果等于大小比较；摘要按市场名称、设备类型、系统名称和 API 拼接，长度小于 1024。 |
 | OHOS-FILE-011 | [DigestDataMatrix.test.ets](entry/src/ohosTest/ets/test/DigestDataMatrix.test.ets) | 中文载荷摘要大数据矩阵 | 3 | 分别遍历 MD5、SHA1、SHA256 的 200 行中文混合载荷表，等待摘要完成后比对。 | 三张表各 200 行；摘要逐项等于固定值，长度分别为 32、40、64。 |
@@ -100,7 +100,7 @@
 | OHOS-FILE-058 | [TextTransformMatrix.test.ets](entry/src/ohosTest/ets/test/TextTransformMatrix.test.ets) | 文本转换与截断矩阵 | 5 | 反转文本、转换首字母与 kebab/camel 命名，并比较短、长和边界文本截断。 | 各转换匹配固定文本；仅实际截断时追加后缀。 |
 | OHOS-FILE-059 | [TextTransformSweep.test.ets](entry/src/ohosTest/ets/test/TextTransformSweep.test.ets) | 文本转换多输入扫描 | 4 | 扫描 ASCII 和基本多文种平面文本的反转、首字母大写及 kebab/camel 转换。 | 反转、首字母及分隔符处理逐项等于固定预期；不将该范围扩展为代理对或字素簇验证。 |
 | OHOS-FILE-060 | [TextValidationSweep.test.ets](entry/src/ohosTest/ets/test/TextValidationSweep.test.ets) | 常见格式校验扫描 | 8 | 遍历合法与非法手机号、邮箱、IPv4 和十六进制颜色输入。 | 各布尔判定与固定预期一致，指定越界、错误宽度和畸形格式被拒绝。 |
-| OHOS-FILE-061 | [TraceUtil.test.ets](entry/src/ohosTest/ets/test/TraceUtil.test.ets) | 性能打点返回值与异常契约 | 14 | 成对调用开始/结束，检查同步/异步包装返回值、嵌套、连续任务 ID、计数标记、空/长名称和抛错后的后续调用。 | 任务 ID 满足 0 至小于 999 的整数断言，包装返回值保持不变；同步抛错和异步拒绝传播到调用者，后续调用正常，标记调用完成；不验证 Profiler 时间线内容。 |
+| OHOS-FILE-061 | [TraceUtil.test.ets](entry/src/ohosTest/ets/test/TraceUtil.test.ets) | 性能打点返回值与异常契约 | 14 | 成对调用开始/结束，检查同步/异步包装返回值、嵌套、连续任务 ID、计数标记、空/长名称和抛错后的后续调用。 | 任务 ID 满足 0 至小于 999 的整数断言，包装返回值保持不变；同步抛错和异步拒绝传播到调用者，后续调用正常，标记调用完成；不验证性能分析工具展示的时间线内容。 |
 | OHOS-FILE-062 | [ValidateUtils.test.ets](entry/src/ohosTest/ets/test/ValidateUtils.test.ets) | 格式校验基础契约 | 9 | 检查手机号、邮箱、IPv4、颜色、数字、ASCII 字母、18 位证件格式及长度边界。 | 合法和非法表值判定符合预期；IPv4 拒绝大于 255 和前导零，颜色接受 3/6/8 位，证件末位允许数字或大写 X；长度上下界包含端点。 |
 | OHOS-FILE-063 | [ValidateUtilsAdvanced.test.ets](entry/src/ohosTest/ets/test/ValidateUtilsAdvanced.test.ets) | 格式校验边界与交叉矩阵 | 11 | 扫描手机号前缀、IPv4 八位组边界、颜色宽度、数字/字母、证件格式、共享输入和正常/零宽/反向长度范围。 | 各格式与长度判定逐项符合固定矩阵，指定非法前缀、前导零、错误字符和错误宽度被拒绝。 |
 | OHOS-FILE-064 | [ValidationCharacterMatrix.test.ets](entry/src/ohosTest/ets/test/ValidationCharacterMatrix.test.ets) | 字符类别与长度矩阵 | 4 | 输入纯数字、ASCII 字母、混合文本、证件格式及端点长度。 | 数字和字母校验拒绝空串及混合字符；证件格式和末位字符符合断言，长度范围包含上下界。 |
