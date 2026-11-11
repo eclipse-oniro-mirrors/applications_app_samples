@@ -20,7 +20,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 const TAG: string = '[Sample_MediaMetadataExpanded]';
 const DOMAIN: number = 0xF811;
 
-function it(name: string, filter: number, func: () => void): void {
+function it(name: string, filter: number, func: () => void | Promise<void>): void {
   hypiumIt(name, filter, async () => {
     hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
     try {

@@ -22,7 +22,13 @@ export default function abilityTest(): void {
   const DOMAIN = 0xF811;
   const driver = Driver.create();
   const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-  const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+  const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
+  const DELAY_UI_SETTLE: number = 3000;
+  const DELAY_PLAY_SETTLE: number = 2000;
+  const DELAY_SHORT_SETTLE: number = 1000;
+  const DELAY_EXIT_SETTLE: number = 8000;
+  const DRAG_DURATION: number = 800;
+  const DRAG_OFFSET: number = 50;
 
   describe('AVPlayerNATIVESubtitleTest', () => {
 
@@ -44,11 +50,11 @@ export default function abilityTest(): void {
           abilityName: 'EntryAbility'
         });
       } catch (exception) {
-        hilog.error(DOMAIN, TAG, `testAVPlayerNATIVESubtitleStart0001 exception = ${JSON.stringify(exception)}`);
+        hilog.error(DOMAIN, TAG, '%{public}s', `testAVPlayerNATIVESubtitleStart0001 exception = ${JSON.stringify(exception)}`);
         expect().assertFail();
       }
 
-      await driver.delayMs(3000);
+      await driver.delayMs(DELAY_UI_SETTLE);
       const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
       done();
@@ -65,28 +71,28 @@ export default function abilityTest(): void {
      */
     it('testAVPlayerNATIVESubtitleSlider0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleSlider0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAVPlayerNATIVESubtitleSlider0002 begin');
 
-      await driver.delayMs(2000);
+      await driver.delayMs(DELAY_PLAY_SETTLE);
       await driver.assertComponentExist(ON.type('Image'));
       const stack: Component = await driver.findComponent(ON.type('Image'));
       const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
 
       await stack.click();
-      await driver.delayMs(3000);
+      await driver.delayMs(DELAY_UI_SETTLE);
 
       await driver.assertComponentExist(ON.id('Slider'));
-      const Slider: Component = await driver.findComponent(ON.id('Slider'));
-      const point = await Slider.getBoundsCenter();
-      await driver.drag(point.x - 50, point.y, point.x + 50, point.y, 800);
-      await driver.delayMs(1000);
+      const slider: Component = await driver.findComponent(ON.id('Slider'));
+      const point = await slider.getBoundsCenter();
+      await driver.drag(point.x - DRAG_OFFSET, point.y, point.x + DRAG_OFFSET, point.y, DRAG_DURATION);
+      await driver.delayMs(DELAY_SHORT_SETTLE);
 
       await stack.click();
-      await driver.delayMs(1000);
+      await driver.delayMs(DELAY_SHORT_SETTLE);
 
       done();
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleSlider0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAVPlayerNATIVESubtitleSlider0002 end');
     })
 
     /**
@@ -99,18 +105,18 @@ export default function abilityTest(): void {
      */
     it('testAVPlayerNATIVESubtitleExit0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleExit0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAVPlayerNATIVESubtitleExit0003 begin');
 
-      await driver.delayMs(8000);
+      await driver.delayMs(DELAY_EXIT_SETTLE);
       await driver.assertComponentExist(ON.type('Image'));
       const stack: Component = await driver.findComponent(ON.type('Image'));
       const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
       await stack.click();
-      await driver.delayMs(2000);
+      await driver.delayMs(DELAY_PLAY_SETTLE);
 
       done();
-      hilog.info(DOMAIN, TAG, 'testAVPlayerNATIVESubtitleExit0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAVPlayerNATIVESubtitleExit0003 end');
     })
   })
 }

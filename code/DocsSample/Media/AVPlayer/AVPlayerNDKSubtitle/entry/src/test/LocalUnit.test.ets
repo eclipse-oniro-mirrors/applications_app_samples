@@ -14,7 +14,7 @@
  */
 import { describe } from '@ohos/hypium';
 
-export default function localUnitTest() {
+export default function localUnitTest(): void {
   describe('localUnitTest', () => {
   });
 }

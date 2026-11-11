@@ -20,7 +20,7 @@ const TAG: string = '[Sample_UiSmokeSafe]';
 const DOMAIN: number = 0xF811;
 const driver: Driver = Driver.create();
 const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
 
 
 export default function uiSmokeSafeTest(): void {
@@ -147,7 +147,7 @@ export default function uiSmokeSafeTest(): void {
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0007
      * @tc.name      testSafeUiSmoke0007
-     * @tc.desc      UI smoke check 7 finds VideoView.
+     * @tc.desc      UI smoke check 7 rechecks VideoView later in the smoke sequence.
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
@@ -166,7 +166,7 @@ export default function uiSmokeSafeTest(): void {
     /**
      * @tc.number    SUB_AVPLAYER_NATIVE_SUBTITLE_SAFE_UI_0008
      * @tc.name      testSafeUiSmoke0008
-     * @tc.desc      UI smoke check 8 finds Slider.
+     * @tc.desc      UI smoke check 8 rechecks Slider later in the smoke sequence.
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
