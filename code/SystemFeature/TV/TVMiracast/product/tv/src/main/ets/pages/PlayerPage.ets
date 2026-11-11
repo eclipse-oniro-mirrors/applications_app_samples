@@ -533,7 +533,7 @@ struct PlayerPage {
   private connectService() {
     Log.info(TAG, 'connectService');
     let want: Want = {
-      bundleName: 'com.samples.miracast',
+      bundleName: 'com.samples.miracastplayer',
       abilityName: 'ServiceExtTvAbility'
     };
 

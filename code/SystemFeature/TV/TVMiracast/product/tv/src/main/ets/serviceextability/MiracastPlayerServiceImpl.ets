@@ -228,7 +228,7 @@ export default class MiracastPlayerServiceImpl extends MiracastPlayerServiceStub
 
   private startPlayerPage(device: Cast.CastRemoteDevice) {
     let want: Want = {
-      bundleName: 'com.samples.miracast',
+      bundleName: 'com.samples.miracastplayer',
       abilityName: 'TvAbility',
       parameters: {
         'startPlayer': true,

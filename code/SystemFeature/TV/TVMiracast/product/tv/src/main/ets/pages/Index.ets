@@ -99,7 +99,7 @@ struct Index {
     this.isConnecting = true;
     Log.info(TAG, 'connectService');
     let want: Want = {
-      bundleName: 'com.samples.miracast',
+      bundleName: 'com.samples.miracastplayer',
       abilityName: 'ServiceExtTvAbility'
     };
     let options: common.ConnectOptions = {

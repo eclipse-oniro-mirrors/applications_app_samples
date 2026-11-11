@@ -14,7 +14,7 @@
  */
 {
   "app": {
-    "bundleName": "com.samples.miracast",
+    "bundleName": "com.samples.miracastplayer",
     "vendor": "ohos",
     "versionCode": 1000000,
     "versionName": "1.0.0",

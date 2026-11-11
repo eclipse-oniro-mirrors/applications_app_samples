@@ -187,7 +187,7 @@ export const STABLE_ROUNDS: number = 1;
 
 export const STABLE_TOLERANCE: number = 3;
 
-export const BUNDLE_NAME: string = 'com.samples.miracast';
+export const BUNDLE_NAME: string = 'com.samples.miracastplayer';
 
 
 // ===== 压力测试轮次 =====
