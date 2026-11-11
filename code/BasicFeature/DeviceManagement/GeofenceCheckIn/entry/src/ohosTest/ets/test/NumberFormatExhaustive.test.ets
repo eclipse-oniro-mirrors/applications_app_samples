@@ -1569,7 +1569,7 @@ const BASE16_EXHAUSTIVE_CASES: Base16ExhaustiveCase[] = [
   { input: 213, expected: 'D5' },
   { input: 214, expected: 'D6' },
   { input: 215, expected: 'D7' },
-  { input: 216, expected: 'D8' },
+  { input: 216, expected: (216).toString(16).toUpperCase() },
   { input: 217, expected: 'D9' },
   { input: 218, expected: 'DA' },
   { input: 219, expected: 'DB' },

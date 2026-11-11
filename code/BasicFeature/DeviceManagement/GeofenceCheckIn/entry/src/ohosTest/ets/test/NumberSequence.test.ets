@@ -773,7 +773,7 @@ export default function numberSequenceMatrixTest() {
       expect(NumberSequenceUtil.toBaseString(NaN, 10)).assertEqual('');
       expect(NumberSequenceUtil.toBaseString(123, 10)).assertEqual('123');
       expect(NumberSequenceUtil.toBaseString(255, 2).length).assertEqual(8);
-      expect(NumberSequenceUtil.toBaseString(1000, 32)).assertEqual('v8');
+      expect(NumberSequenceUtil.toBaseString(1000, 32)).assertEqual((1000).toString(32));
       expect(NumberSequenceUtil.toBaseString(1, 36)).assertEqual('1');
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
     });

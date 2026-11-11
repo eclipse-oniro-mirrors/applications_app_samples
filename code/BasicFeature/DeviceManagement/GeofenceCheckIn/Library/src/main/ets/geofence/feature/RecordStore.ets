@@ -43,9 +43,9 @@ const ENABLED_VALUE: number = 1;
 // Database value meaning the fence switch is off.
 const DISABLED_VALUE: number = 0;
 // Columns read from the configuration table.
-const CONFIG_COLUMNS: Array<string> = ['name', 'latitude', 'longitude', 'radius', 'fence_id', 'enabled', 'updated_at'];
+const CONFIG_COLUMNS: string[] = ['name', 'latitude', 'longitude', 'radius', 'fence_id', 'enabled', 'updated_at'];
 // Columns read from the record table.
-const RECORD_COLUMNS: Array<string> = ['id', 'enter_time', 'exit_time', 'duration_ms'];
+const RECORD_COLUMNS: string[] = ['id', 'enter_time', 'exit_time', 'duration_ms'];
 // SQL that creates the configuration table when it does not exist yet.
 const CREATE_CONFIG_SQL: string = 'CREATE TABLE IF NOT EXISTS fence_config (' +
   'id INTEGER PRIMARY KEY, name TEXT NOT NULL, latitude REAL NOT NULL, longitude REAL NOT NULL, ' +
@@ -306,9 +306,9 @@ export class RecordStore {
    * @param limit maximum number of records to return
    * @returns the records ordered from newest to oldest
    */
-  static async getRecords(context: common.Context, limit: number = MAX_RECORDS): Promise<Array<CheckInRecord>> {
+  static async getRecords(context: common.Context, limit: number = MAX_RECORDS): Promise<CheckInRecord[]> {
     // Collect the mapped rows in a fresh list.
-    const records: Array<CheckInRecord> = [];
+    const records: CheckInRecord[] = [];
     // Open the shared database handle.
     const store: relationalStore.RdbStore = await RecordStore.getStore(context);
     // Order the rows from newest to oldest and cap the result size.

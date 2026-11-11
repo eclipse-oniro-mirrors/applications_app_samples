@@ -37,7 +37,7 @@ const SIZE_UNKNOWN: number = -1;
  */
 export class FileSecurityError extends Error {
   // System error code carried over from the underlying BusinessError.
-  readonly code: number;
+  public readonly code: number;
 
   /**
    * Create a FileSecurityError from a system error code and message.
@@ -95,7 +95,6 @@ export class FileSecurityUtil {
       return content;
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#readTextFile: read failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -124,7 +123,6 @@ export class FileSecurityUtil {
       Logger.debug('FileSecurityUtil#writeTextFile: write finished');
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#writeTextFile: write failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -145,7 +143,6 @@ export class FileSecurityUtil {
       Logger.debug('FileSecurityUtil#deleteFile: delete finished');
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#deleteFile: delete failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -167,7 +164,6 @@ export class FileSecurityUtil {
       Logger.debug('FileSecurityUtil#copyFile: copy finished');
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#copyFile: copy failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -189,7 +185,6 @@ export class FileSecurityUtil {
       Logger.debug('FileSecurityUtil#renameFile: rename finished');
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#renameFile: rename failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -257,7 +252,6 @@ export class FileSecurityUtil {
       Logger.debug('FileSecurityUtil#makeDir: make directory finished');
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#makeDir: make directory failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -276,7 +270,6 @@ export class FileSecurityUtil {
       return await FileSecurityUtil.digestWithMd(input, ALG_NAME_MD5);
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#computeMd5: md5 digest failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -295,7 +288,6 @@ export class FileSecurityUtil {
       return await FileSecurityUtil.digestWithMd(input, ALG_NAME_SHA256);
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#computeSha256: sha256 digest failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -318,7 +310,6 @@ export class FileSecurityUtil {
       return helper.encodeToStringSync(FileSecurityUtil.stringToUtf8Bytes(input));
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#base64Encode: encode failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -341,7 +332,6 @@ export class FileSecurityUtil {
       return helper.decodeSync(encoded);
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#base64Decode: decode failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }
@@ -377,7 +367,6 @@ export class FileSecurityUtil {
       return FileSecurityUtil.bytesToHex(data.data);
     } catch (err) {
       const e: BusinessError = err as BusinessError;
-      // Surface the failure to the caller after logging the error details.
       Logger.error('FileSecurityUtil#generateRandomHex: generate failed, code: ' + e.code + ', message: ' + e.message);
       throw new FileSecurityError(e.code, e.message);
     }

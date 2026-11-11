@@ -57,41 +57,41 @@ let traceTaskIdCounter: number = 0;
 @ObservedV2
 export class GeofenceViewModel {
   // Fence name entered by the user.
-  @Trace name: string = '';
+  @Trace public name: string = '';
   // Latitude input text entered by the user.
-  @Trace latitudeText: string = '';
+  @Trace public latitudeText: string = '';
   // Longitude input text entered by the user.
-  @Trace longitudeText: string = '';
+  @Trace public longitudeText: string = '';
   // Radius input text entered by the user.
-  @Trace radiusText: string = DEFAULT_RADIUS.toString();
+  @Trace public radiusText: string = DEFAULT_RADIUS.toString();
   // Whether the fence is currently enabled in the system.
-  @Trace enabled: boolean = false;
+  @Trace public enabled: boolean = false;
   // Whether a configuration has been saved at least once.
-  @Trace hasConfig: boolean = false;
+  @Trace public hasConfig: boolean = false;
   // System identifier of the registered fence.
-  @Trace fenceId: number = INVALID_FENCE_ID;
+  @Trace public fenceId: number = INVALID_FENCE_ID;
   // Whether a fence operation is currently in progress.
-  @Trace busy: boolean = false;
+  @Trace public busy: boolean = false;
   // Number of check-ins recorded today.
-  @Trace todayCount: number = 0;
+  @Trace public todayCount: number = 0;
   // Total time inside the fence today, in milliseconds.
-  @Trace todayDurationMs: number = 0;
+  @Trace public todayDurationMs: number = 0;
   // Stored check-in records shown in the history list.
-  @Trace records: Array<CheckInRecord> = [];
+  @Trace public records: CheckInRecord[] = [];
   // Transient banner message shown on the configuration card.
-  @Trace message: string = '';
+  @Trace public message: string = '';
   // Whether the current banner message describes an error.
-  @Trace messageIsError: boolean = false;
+  @Trace public messageIsError: boolean = false;
   // Whether foreground location permission is granted.
-  @Trace foregroundGranted: boolean = false;
+  @Trace public foregroundGranted: boolean = false;
   // Whether background location permission is granted.
-  @Trace backgroundGranted: boolean = false;
+  @Trace public backgroundGranted: boolean = false;
   // Whether notifications are enabled for the app.
-  @Trace notificationEnabled: boolean = false;
+  @Trace public notificationEnabled: boolean = false;
   // Whether the system location service switch is on.
-  @Trace locationEnabled: boolean = false;
+  @Trace public locationEnabled: boolean = false;
   // Whether the device supports geofence capabilities.
-  @Trace capabilitySupported: boolean = false;
+  @Trace public capabilitySupported: boolean = false;
   // Cached copy of the last saved or enabled fence configuration.
   private config: FenceConfig = createDefaultConfig();
 
@@ -149,7 +149,6 @@ export class GeofenceViewModel {
         const granted: boolean = await GeofenceFeature.requestForegroundPermissions(context);
         if (!granted) {
           Logger.warn('GeofenceViewModel#launch: foreground location permission denied');
-          // Surface a denial message so the user knows why actions will fail.
           this.setMessage(context, $r('app.string.gc_msg_permission_denied'), true);
         }
       }

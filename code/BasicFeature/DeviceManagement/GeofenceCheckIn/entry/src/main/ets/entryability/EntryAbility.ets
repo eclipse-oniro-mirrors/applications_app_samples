@@ -73,7 +73,6 @@ export default class EntryAbility extends UIAbility {
       // Load the Index page as the root content of the window.
       windowStage.loadContent('pages/Index', (error: BusinessError) => {
         if (error.code) {
-          // Surface the failure code and message when page loading fails.
           Logger.error('EntryAbility#onWindowStageCreate: loadContent failed: ' + error.code + ', ' + error.message);
           return;
         }

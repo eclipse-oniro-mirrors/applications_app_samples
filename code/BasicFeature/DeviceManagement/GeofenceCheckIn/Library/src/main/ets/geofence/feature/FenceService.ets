@@ -42,12 +42,12 @@ const PERMISSION_APPROXIMATELY_LOCATION: Permissions = 'ohos.permission.APPROXIM
 // Background location permission required for fence events in background.
 const PERMISSION_LOCATION_IN_BACKGROUND: Permissions = 'ohos.permission.LOCATION_IN_BACKGROUND';
 // Foreground permissions requested together in one dialog.
-const FOREGROUND_PERMISSIONS: Array<Permissions> = [
+const FOREGROUND_PERMISSIONS: Permissions[] = [
   PERMISSION_APPROXIMATELY_LOCATION,
   PERMISSION_LOCATION
 ];
 // Background permissions requested on the settings page.
-const BACKGROUND_PERMISSIONS: Array<Permissions> = [PERMISSION_LOCATION_IN_BACKGROUND];
+const BACKGROUND_PERMISSIONS: Permissions[] = [PERMISSION_LOCATION_IN_BACKGROUND];
 // Timeout of one current location request in milliseconds.
 const CURRENT_LOCATION_TIMEOUT_MS: number = 10000;
 
@@ -171,7 +171,7 @@ export class FenceService {
     const manager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
     // Background permission can only be granted on the settings page.
     return manager.requestPermissionOnSetting(context, BACKGROUND_PERMISSIONS)
-      .then((statuses: Array<abilityAccessCtrl.GrantStatus>): boolean => {
+      .then((statuses: abilityAccessCtrl.GrantStatus[]): boolean => {
         // The single permission counts as granted when the status list confirms it.
         const granted: boolean = statuses.length > 0 &&
           statuses[0] === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED;
@@ -244,7 +244,7 @@ export class FenceService {
       return Promise.resolve(unsupported);
     }
     // Subscribe to both enter and exit transition events.
-    const transitionEvents: Array<geoLocationManager.GeofenceTransitionEvent> = [
+    const transitionEvents: geoLocationManager.GeofenceTransitionEvent[] = [
       geoLocationManager.GeofenceTransitionEvent.GEOFENCE_TRANSITION_EVENT_ENTER,
       geoLocationManager.GeofenceTransitionEvent.GEOFENCE_TRANSITION_EVENT_EXIT
     ];
