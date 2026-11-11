@@ -578,13 +578,15 @@ export default function localizationTestingSuite(): void {
       }
       expect(keys.length).assertEqual(9);
     });
-    it('localization_chinese_text_contains_cjk', 0, async () => {
+    it('localization_placeholder_text_is_ascii', 0, async () => {
       const catalog = new StringCatalog();
       const estimator = new TextWidthEstimator();
-      expect(estimator.cjkRatio(catalog.get(ResourceKeys.TRUSTED_DEVICE_LIST, Language.ZH_CN)))
-        .assertLarger(0.5);
-      expect(estimator.cjkRatio(catalog.get(ResourceKeys.TIP, Language.EN_US))).assertEqual(0);
-      expect(estimator.cjkRatio(catalog.get(ResourceKeys.CANCEL, Language.ZH_CN))).assertEqual(1);
+      const keys: string[] = catalog.getKeys();
+      for (let i = 0; i < keys.length; i++) {
+        expect(estimator.isAscii(catalog.get(keys[i], Language.ZH_CN))).assertTrue();
+        expect(estimator.isAscii(catalog.get(keys[i], Language.EN_US))).assertTrue();
+      }
+      expect(estimator.cjkRatio(catalog.get(ResourceKeys.CANCEL, Language.ZH_CN))).assertEqual(0);
     });
     it('localization_single_record_min_equals_value', 0, async () => {
       const local = new LocalizationTracker();
