@@ -4,10 +4,10 @@
 
 本示例演示基于 Location Kit 的 GNSS 地理围栏实现自动签到与签退，代码拆分为可复用的 Library 特性模块和 entry 场景模块。
 
-- 使用 [@kit.LocationKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-location-kit/Readme-CN.md) 中的 geoLocationManager 添加和删除 GNSS 地理围栏，并通过 FenceExtensionAbility 接收围栏进出事件。
-- 使用 [@kit.ArkData](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/Readme-CN.md) 中的 relationalStore 保存围栏参数和签到记录，供应用进程与围栏扩展进程共同读写。
-- 使用 [@kit.NotificationKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/Readme-CN.md) 发布签到和签退通知，点击通知回到应用主界面。
-- 使用 [@kit.AbilityKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md) 中的 abilityAccessCtrl 申请前台定位权限，并引导用户开启后台定位权限和通知权限。
+- 使用 [@kit.LocationKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-location-kit/Readme-CN.md) 中的 geoLocationManager 添加和删除 GNSS 地理围栏，并通过 FenceExtensionAbility 接收围栏进出事件。
+- 使用 [@kit.ArkData](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/Readme-CN.md) 中的 relationalStore 保存围栏参数和签到记录，供应用进程与围栏扩展进程共同读写。
+- 使用 [@kit.NotificationKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/Readme-CN.md) 发布签到和签退通知，点击通知回到应用主界面。
+- 使用 [@kit.AbilityKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md) 中的 abilityAccessCtrl 申请前台定位权限，并引导用户开启后台定位权限和通知权限。
 
 主要功能如下：
 
@@ -20,8 +20,7 @@
 
 ## 效果预览
 
-<img src="screenshots/geofence_phone.png" alt="手机端围栏设置" width="320" height="569"/>
-<img src="screenshots/geofence_tablet.png" alt="平板端双栏布局" width="640" height="360"/>
+<img src="screenshots/main_page.png" alt="首页" width="320" height="569"/>
 
 ### 使用说明
 
@@ -74,7 +73,7 @@ GeofenceCheckIn/
 
 地理围栏签到能力的封装位于 Library 模块，对场景层以静态类的方式开放，入口文件为 [GeofenceFeature.ets](Library/src/main/ets/geofence/GeofenceFeature.ets)，统一导出在 [Index.ets](Library/Index.ets)。
 
-- 围栏注册与权限：在 [FenceService.ets](Library/src/main/ets/geofence/feature/FenceService.ets) 中调用 geoLocationManager.addGnssGeofence 注册圆形围栏，通过 fenceExtensionAbilityName 指定围栏扩展，通过 removeGnssGeofence 删除围栏；使用 abilityAccessCtrl.requestPermissionsFromUser 申请前台定位权限，requestPermissionOnSetting 引导后台定位权限。接口说明参考 [@ohos.geoLocationManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-location-kit/js-apis-geoLocationManager.md)。
+- 围栏注册与权限：在 [FenceService.ets](Library/src/main/ets/geofence/feature/FenceService.ets) 中调用 geoLocationManager.addGnssGeofence 注册圆形围栏，通过 fenceExtensionAbilityName 指定围栏扩展，通过 removeGnssGeofence 删除围栏；使用 abilityAccessCtrl.requestPermissionsFromUser 申请前台定位权限，requestPermissionOnSetting 引导后台定位权限。接口说明参考 [@ohos.geoLocationManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-location-kit/js-apis-geoLocationManager.md)。
 - 签到记录：在 [CheckInService.ets](Library/src/main/ets/geofence/feature/CheckInService.ets) 中把进入、离开事件转换为幂等的签到、签退操作，进入事件在已存在未签退记录时忽略，离开事件在无未签退记录时忽略，避免回调和扩展重复写入。
 - 数据持久化：在 [RecordStore.ets](Library/src/main/ets/geofence/feature/RecordStore.ets) 中使用 relationalStore 建立 fence_config 与 check_in_record 两张表，应用进程与 FenceExtensionAbility 进程通过同一数据库文件共享围栏参数和签到记录。
 - 通知：在 [NotificationService.ets](Library/src/main/ets/geofence/feature/NotificationService.ets) 中发布 BasicText 通知，通过 WantAgent 设置点击通知回到 EntryAbility。
@@ -130,6 +129,6 @@ UI 自动化用例说明与执行结果参见 [TestReport.md](TestReport.md)。
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/DeviceManagement/GeofenceCheckIn/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
