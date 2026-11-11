@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +16,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { A2dpProfileManager } from 'library';
+import { A2dpManagerStatistics, ManagerHealthStatus, ManagerFilterCriteria, OperationHistoryEntry } from 'library';
 import { A2dpModel } from 'library';
 import { BluetoothConstants, BluetoothConnectionState } from 'library';
 import { PageConstants } from 'library';
@@ -31,15 +32,15 @@ interface A2dpPageState {
   connectionState: BluetoothConnectionState;
   model: A2dpModel | null;
   connectedDevices: string[];
-  operationHistory: ESObject[];
-  statistics: ESObject | null;
-  healthStatus: ESObject | null;
+  operationHistory: OperationHistoryEntry[];
+  statistics: A2dpManagerStatistics | null;
+  healthStatus: ManagerHealthStatus | null;
   errorMessage: string;
   showAdvancedOptions: boolean;
   currentTabIndex: number;
   searchKeyword: string;
   sortOrder: string;
-  filterCriteria: ESObject;
+  filterCriteria: ManagerFilterCriteria;
   currentPage: number;
   itemsPerPage: number;
   totalItems: number;
@@ -107,7 +108,7 @@ struct A2dpPage {
     currentTabIndex: 0,
     searchKeyword: '',
     sortOrder: 'name',
-    filterCriteria: {} as ESObject,
+    filterCriteria: {},
     currentPage: 1,
     itemsPerPage: 10,
     totalItems: 0
@@ -443,19 +444,19 @@ struct A2dpPage {
   build() {
     Column() {
       Row() {
-        Text('Advanced Audio Distribution Profile')
+        Text($r('app.string.title_a2dp_full'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(FontWeight.Bold)
           .fontColor('#FFFFFF')
         Blank()
-        Button('Refresh')
+        Button($r('app.string.p_btn_refresh'))
           .onClick(() => {
             this.handleRefresh();
           })
           .backgroundColor('#007DFF')
           .fontColor('#FFFFFF')
           .margin({ right: 10 })
-        Button('Connect')
+        Button($r('app.string.p_btn_connect'))
           .onClick(() => {
             this.showConnectDialog = true;
           })
@@ -469,7 +470,7 @@ struct A2dpPage {
 
       Column() {
         Row() {
-          Text('Connection Status')
+          Text($r('app.string.p_connection_status'))
             .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
             .fontWeight(FontWeight.Medium)
           Blank()
@@ -481,7 +482,7 @@ struct A2dpPage {
         .margin({ bottom: 10 })
 
         Row() {
-          Text('Connected Devices:')
+          Text($r('app.string.p_connected_devices_label'))
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Text(this.state.connectedDevices.length.toString())
             .fontSize(PageConstants.FONT_SIZE_BODY)
@@ -492,9 +493,9 @@ struct A2dpPage {
 
         if (this.state.healthStatus) {
           Row() {
-            Text('Health Score:')
+            Text($r('app.string.p_health_score_label'))
               .fontSize(PageConstants.FONT_SIZE_BODY)
-            Text(((this.state.healthStatus as ESObject).healthScore).toString() + '/100')
+            Text(((this.state.healthStatus as ManagerHealthStatus).healthScore).toString() + '/100')
               .fontSize(PageConstants.FONT_SIZE_BODY)
               .fontWeight(FontWeight.Bold)
               .margin({ left: 10 })
@@ -513,32 +514,32 @@ struct A2dpPage {
         TabContent() {
           this.OverviewTab()
         }
-        .tabBar('Overview')
+        .tabBar($r('app.string.p_tab_overview'))
 
         TabContent() {
           this.DevicesTab()
         }
-        .tabBar('Devices')
+        .tabBar($r('app.string.p_tab_devices'))
 
         TabContent() {
           this.OperationsTab()
         }
-        .tabBar('Operations')
+        .tabBar($r('app.string.p_tab_operations'))
 
         TabContent() {
           this.HistoryTab()
         }
-        .tabBar('History')
+        .tabBar($r('app.string.p_tab_history'))
 
         TabContent() {
           this.StatisticsTab()
         }
-        .tabBar('Statistics')
+        .tabBar($r('app.string.p_tab_statistics'))
 
         TabContent() {
           this.SettingsTab()
         }
-        .tabBar('Settings')
+        .tabBar($r('app.string.p_tab_settings'))
       }
       .onChange((index: number) => {
         this.state.currentTabIndex = index;
@@ -565,25 +566,25 @@ struct A2dpPage {
 
       if (this.showConnectDialog) {
         Column() {
-          Text('Connect to Device')
+          Text($r('app.string.p_connect_to_device'))
             .fontSize(PageConstants.FONT_SIZE_TITLE)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
-          TextInput({ placeholder: 'Enter Device ID' })
+          TextInput({ placeholder: $r('app.string.p_enter_device_id') })
             .onChange((value: string) => {
               this.connectDeviceId = value;
             })
             .width('100%')
             .margin({ bottom: 15 })
           Row() {
-            Button('Cancel')
+            Button($r('app.string.p_btn_cancel'))
               .onClick(() => {
                 this.showConnectDialog = false;
                 this.connectDeviceId = '';
               })
               .backgroundColor('#999999')
               .margin({ right: 10 })
-            Button('Connect')
+            Button($r('app.string.p_btn_connect'))
               .onClick(() => {
                 this.handleConnectDevice();
               })
@@ -609,23 +610,23 @@ struct A2dpPage {
   OverviewTab() {
     Scroll() {
       Column() {
-        Text('Overview')
+        Text($r('app.string.p_tab_overview'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 20 })
 
         Grid() {
           GridItem() {
-            this.StatCard('Connected Devices', this.state.connectedDevices.length.toString(), '#007DFF')
+            this.StatCard($r('app.string.p_connected_devices'), this.state.connectedDevices.length.toString(), '#007DFF')
           }
           GridItem() {
-            this.StatCard('Operations', this.state.operationHistory.length.toString(), '#00C853')
+            this.StatCard($r('app.string.p_tab_operations'), this.state.operationHistory.length.toString(), '#00C853')
           }
           GridItem() {
-            this.StatCard('Health Score', this.state.healthStatus ? ((this.state.healthStatus as ESObject).healthScore).toString() : 'N/A', '#FF6B35')
+            this.StatCard($r('app.string.p_health_score'), this.state.healthStatus ? ((this.state.healthStatus as ManagerHealthStatus).healthScore).toString() : 'N/A', '#FF6B35')
           }
           GridItem() {
-            this.StatCard('Status', this.getConnectionStateLabel(this.state.connectionState), '#9C27B0')
+            this.StatCard($r('app.string.p_status'), this.getConnectionStateLabel(this.state.connectionState), '#9C27B0')
           }
         }
         .columnsTemplate('1fr 1fr')
@@ -635,13 +636,13 @@ struct A2dpPage {
         .height(200)
         .margin({ bottom: 20 })
 
-        Text('Recent Activity')
+        Text($r('app.string.p_recent_activity'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
 
         List() {
-          ForEach(this.state.operationHistory.slice(-5).reverse(), (item: ESObject) => {
+          ForEach(this.state.operationHistory.slice(-5).reverse(), (item: OperationHistoryEntry) => {
             ListItem() {
               Row() {
                 Text(item.operation)
@@ -674,7 +675,7 @@ struct A2dpPage {
   DevicesTab() {
     Column() {
       Row() {
-        TextInput({ placeholder: 'Search devices...' })
+        TextInput({ placeholder: $r('app.string.p_search_devices') })
           .onChange((value: string) => {
             this.state.searchKeyword = value;
           })
@@ -697,20 +698,20 @@ struct A2dpPage {
       .padding(10)
 
       Row() {
-        Text('Sort by:')
+        Text($r('app.string.p_sort_by'))
           .fontSize(PageConstants.FONT_SIZE_CAPTION)
           .margin({ right: 10 })
-        Button('Name')
+        Button($r('app.string.p_btn_name'))
           .onClick(() => this.handleSortChange('name'))
           .fontSize(PageConstants.FONT_SIZE_CAPTION)
           .height(30)
           .margin({ right: 5 })
-        Button('RSSI')
+        Button($r('app.string.p_rssi'))
           .onClick(() => this.handleSortChange('rssi'))
           .fontSize(PageConstants.FONT_SIZE_CAPTION)
           .height(30)
           .margin({ right: 5 })
-        Button('Battery')
+        Button($r('app.string.p_battery'))
           .onClick(() => this.handleSortChange('battery'))
           .fontSize(PageConstants.FONT_SIZE_CAPTION)
           .height(30)
@@ -738,7 +739,7 @@ struct A2dpPage {
             })
             .enabled(this.state.currentPage > 1)
             .margin({ right: 10 })
-          Text('Page ' + this.state.currentPage.toString() + ' of ' + this.getTotalPages(this.filterDevices().length).toString())
+          Text($r('app.string.p_page_of_fmt', this.state.currentPage.toString(), this.getTotalPages(this.filterDevices()).length).toString())
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Button('>')
             .onClick(() => {
@@ -762,17 +763,17 @@ struct A2dpPage {
   OperationsTab() {
     Scroll() {
       Column() {
-        Text('Operations')
+        Text($r('app.string.p_tab_operations'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 20 })
 
-        Text('Quick Actions')
+        Text($r('app.string.p_quick_actions'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
 
-        Button('Connect Device')
+        Button($r('app.string.p_connect_device'))
           .onClick(() => {
             this.showConnectDialog = true;
           })
@@ -782,7 +783,7 @@ struct A2dpPage {
           .fontColor('#FFFFFF')
           .margin({ bottom: 10 })
 
-        Button('Disconnect All')
+        Button($r('app.string.p_disconnect_all'))
           .onClick(async () => {
             for (const deviceId of this.state.connectedDevices) {
               await this.manager.disconnect(deviceId);
@@ -795,7 +796,7 @@ struct A2dpPage {
           .fontColor('#FFFFFF')
           .margin({ bottom: 10 })
 
-        Button('Reset Manager')
+        Button($r('app.string.p_reset_manager'))
           .onClick(() => {
             this.handleReset();
           })
@@ -805,12 +806,12 @@ struct A2dpPage {
           .fontColor('#FFFFFF')
           .margin({ bottom: 20 })
 
-        Text('Advanced Audio Distribution Profile Operations')
+        Text($r('app.string.p_a2dp_ops_title'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
 
-        Text('Profile-specific operations will be displayed here based on the A2dp capabilities.')
+        Text($r('app.string.p_ops_hint_a2dp'))
           .fontSize(PageConstants.FONT_SIZE_BODY)
           .fontColor('#666666')
       }
@@ -824,7 +825,7 @@ struct A2dpPage {
   @Builder
   HistoryTab() {
     Column() {
-      Text('Operation History')
+      Text($r('app.string.p_operation_history'))
         .fontSize(PageConstants.FONT_SIZE_TITLE)
         .fontWeight(FontWeight.Bold)
         .margin({ bottom: 20 })
@@ -876,56 +877,56 @@ struct A2dpPage {
   StatisticsTab() {
     Scroll() {
       Column() {
-        Text('Statistics')
+        Text($r('app.string.p_tab_statistics'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 20 })
 
         if (this.state.statistics) {
-          Text('Connection Statistics')
+          Text($r('app.string.p_connection_statistics'))
             .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow('Total Connection Attempts', ((this.state.statistics as ESObject).totalConnectionAttempts || 0).toString())
-          this.StatRow('Successful Connections', ((this.state.statistics as ESObject).successfulConnections || 0).toString())
-          this.StatRow('Failed Connections', ((this.state.statistics as ESObject).failedConnections || 0).toString())
-          this.StatRow('Success Rate', ((this.state.statistics as ESObject).connectionSuccessRate || 0).toString() + '%')
+          this.StatRow($r('app.string.p_total_conn_attempts'), ((this.state.statistics as A2dpManagerStatistics).totalConnectionAttempts || 0).toString())
+          this.StatRow($r('app.string.p_successful_connections'), ((this.state.statistics as A2dpManagerStatistics).successfulConnections || 0).toString())
+          this.StatRow($r('app.string.p_failed_connections'), ((this.state.statistics as A2dpManagerStatistics).failedConnections || 0).toString())
+          this.StatRow($r('app.string.p_success_rate'), ((this.state.statistics as A2dpManagerStatistics).connectionSuccessRate || 0).toString() + '%')
 
           Divider().margin({ top: 20, bottom: 20 })
 
-          Text('Operation Statistics')
+          Text($r('app.string.p_operation_statistics'))
             .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow('Total Operations', ((this.state.statistics as ESObject).totalOperations || 0).toString())
-          this.StatRow('Successful Operations', ((this.state.statistics as ESObject).successfulOperations || 0).toString())
-          this.StatRow('Failed Operations', ((this.state.statistics as ESObject).failedOperations || 0).toString())
-          this.StatRow('Operation Success Rate', ((this.state.statistics as ESObject).operationSuccessRate || 0).toString() + '%')
+          this.StatRow($r('app.string.p_total_operations'), ((this.state.statistics as A2dpManagerStatistics).totalOperations || 0).toString())
+          this.StatRow($r('app.string.p_successful_operations'), ((this.state.statistics as A2dpManagerStatistics).successfulOperations || 0).toString())
+          this.StatRow($r('app.string.p_failed_operations'), ((this.state.statistics as A2dpManagerStatistics).failedOperations || 0).toString())
+          this.StatRow($r('app.string.p_operation_success_rate'), ((this.state.statistics as A2dpManagerStatistics).operationSuccessRate || 0).toString() + '%')
 
           Divider().margin({ top: 20, bottom: 20 })
 
-          Text('Performance Metrics')
+          Text($r('app.string.p_performance_metrics'))
             .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow('Uptime', this.formatDuration((this.state.statistics as ESObject).uptimeMs || 0))
-          this.StatRow('Operations/Minute', ((this.state.statistics as ESObject).operationsPerMinute || 0).toFixed(2))
-          this.StatRow('Error Rate', ((this.state.statistics as ESObject).errorRate || 0).toString() + '%')
+          this.StatRow($r('app.string.p_uptime'), this.formatDuration((this.state.statistics as A2dpManagerStatistics).uptimeMs || 0))
+          this.StatRow($r('app.string.p_operations_per_minute'), ((this.state.statistics as A2dpManagerStatistics).operationsPerMinute || 0).toFixed(2))
+          this.StatRow($r('app.string.p_error_rate'), ((this.state.statistics as A2dpManagerStatistics).errorRate || 0).toString() + '%')
         }
 
         if (this.state.healthStatus) {
           Divider().margin({ top: 20, bottom: 20 })
 
-          Text('Health Status')
+          Text($r('app.string.p_health_status'))
             .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow('Health Score', ((this.state.healthStatus as ESObject).healthScore || 0).toString() + '/100')
-          this.StatRow('Status', (this.state.healthStatus as ESObject).isHealthy ? 'Healthy' : 'Unhealthy')
+          this.StatRow($r('app.string.p_health_score'), ((this.state.healthStatus as ManagerHealthStatus).healthScore || 0).toString() + '/100')
+          this.StatRow($r('app.string.p_status'), (this.state.healthStatus as ManagerHealthStatus).isHealthy ? 'Healthy' : 'Unhealthy')
         }
       }
       .width('100%')
@@ -939,18 +940,18 @@ struct A2dpPage {
   SettingsTab() {
     Scroll() {
       Column() {
-        Text('Settings')
+        Text($r('app.string.p_tab_settings'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 20 })
 
-        Text('Connection Settings')
+        Text($r('app.string.p_connection_settings'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
 
         Row() {
-          Text('Auto-Refresh')
+          Text($r('app.string.p_auto_refresh'))
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Blank()
           Toggle({ type: ToggleType.Switch, isOn: this.autoRefreshEnabled })
@@ -970,7 +971,7 @@ struct A2dpPage {
         .margin({ bottom: 10 })
 
         Row() {
-          Text('Refresh Interval (ms)')
+          Text($r('app.string.p_refresh_interval_ms'))
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Blank()
           Text(this.autoRefreshInterval.toString())
@@ -985,13 +986,13 @@ struct A2dpPage {
 
         Divider().margin({ top: 20, bottom: 20 })
 
-        Text('Display Settings')
+        Text($r('app.string.p_display_settings'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
 
         Row() {
-          Text('Items Per Page')
+          Text($r('app.string.p_items_per_page'))
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Blank()
           Text(this.state.itemsPerPage.toString())
@@ -1005,7 +1006,7 @@ struct A2dpPage {
         .margin({ bottom: 10 })
 
         Row() {
-          Text('Show Advanced Options')
+          Text($r('app.string.p_show_advanced_options'))
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Blank()
           Toggle({ type: ToggleType.Switch, isOn: this.state.showAdvancedOptions })
@@ -1021,12 +1022,12 @@ struct A2dpPage {
 
         Divider().margin({ top: 20, bottom: 20 })
 
-        Text('Manager Configuration')
+        Text($r('app.string.p_manager_configuration'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
 
-        Button('View Configuration')
+        Button($r('app.string.p_view_configuration'))
           .onClick(() => {
             const config = this.manager.getConfig();
             this.showToastMessage('Config: ' + JSON.stringify(config));
@@ -1037,7 +1038,7 @@ struct A2dpPage {
           .fontColor('#FFFFFF')
           .margin({ bottom: 10 })
 
-        Button('Reset to Defaults')
+        Button($r('app.string.p_reset_to_defaults'))
           .onClick(() => {
             this.manager.setConfig({});
             this.showToastMessage('Configuration reset');
@@ -1055,7 +1056,7 @@ struct A2dpPage {
   }
 
   @Builder
-  StatCard(title: string, value: string, color: string) {
+  StatCard(title: ResourceStr, value: string, color: string) {
     Column() {
       Text(title)
         .fontSize(PageConstants.FONT_SIZE_CAPTION)
@@ -1087,10 +1088,10 @@ struct A2dpPage {
           .fontColor('#999999')
           .margin({ top: 2 })
         Row() {
-          Text('RSSI: ' + device.rssi.toString() + 'dBm')
+          Text($r('app.string.p_rssi_fmt', device.rssi.toString() + ' dBm'))
             .fontSize(PageConstants.FONT_SIZE_CAPTION)
             .fontColor('#666666')
-          Text('Battery: ' + device.batteryLevel.toString() + '%')
+          Text($r('app.string.p_battery_fmt', device.batteryLevel.toString() + '%'))
             .fontSize(PageConstants.FONT_SIZE_CAPTION)
             .fontColor('#666666')
             .margin({ left: 15 })
@@ -1120,7 +1121,7 @@ struct A2dpPage {
   }
 
   @Builder
-  StatRow(label: string, value: string) {
+  StatRow(label: ResourceStr, value: string) {
     Row() {
       Text(label)
         .fontSize(PageConstants.FONT_SIZE_BODY)

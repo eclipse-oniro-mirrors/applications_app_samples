@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,10 +15,10 @@
 
 import { router } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { PageConstants } from 'library';
+import { PageConstants, BluetoothConstants } from 'library';
 
-const TAG: string = '[Sample_BluetoothBaseProfile]';
-const DOMAIN: number = 0xF830;
+const TAG: string = BluetoothConstants.TAG;
+const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
  * Navigation item data interface.
@@ -58,7 +58,7 @@ struct Index {
     Column() {
       // Title bar
       Row() {
-        Text(PageConstants.TITLE_INDEX)
+        Text($r('app.string.title_index'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
@@ -71,12 +71,12 @@ struct Index {
 
       // App info card
       Column() {
-        Text('Bluetooth BaseProfile Sample')
+        Text($r('app.string.index_app_name'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
           .margin({ bottom: 8 })
-        Text('Demonstrates Bluetooth BaseProfile APIs including A2DP, HFP, HID, PAN, PBAP, MAP, AVRCP, and HDP.')
+        Text($r('app.string.index_subtitle'))
           .fontSize(PageConstants.FONT_SIZE_BODY)
           .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
           .width('100%')
@@ -85,7 +85,7 @@ struct Index {
             .fontSize(PageConstants.FONT_SIZE_SMALL)
             .fontColor(PageConstants.COLOR_TEXT_HINT)
             .margin({ right: 16 })
-          Text('BundleName: ohos.samples.bluetoothbaseprofile')
+          Text('BundleName: com.samples.bluetoothbaseprofile')
             .fontSize(PageConstants.FONT_SIZE_SMALL)
             .fontColor(PageConstants.COLOR_TEXT_HINT)
         }
