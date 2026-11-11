@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, recordValueLabel } from '../autostart/text/LocalizedText';
+
 import { QueryRecord } from '../autostart/AutoStartupTypes';
 import { outcomeLabel } from '../autostart/AutoStartupHistory';
 import { ApiCallDetails } from './ApiCallDetails';
@@ -6,7 +23,7 @@ import { formatQueryTime, sourceLabel } from './QueryPresentation';
 @Component
 export struct QueryRecordsSheet {
   @Prop records: QueryRecord[] = [];
-  @Prop filter: string = '全部';
+  @Prop filter: string = 'all';
   @Prop notice: string = '';
   @Prop summary: string = '';
   onFilter: (filter: string) => void = () => {};
@@ -17,14 +34,14 @@ export struct QueryRecordsSheet {
 
   private confirmClear(): void {
     AlertDialog.show({
-      title: '清空查询记录？',
-      message: '清空本机查询历史，已保存归档不受影响。',
+      title: localText('startup_text_0767'),
+      message: localText('startup_text_0768'),
       primaryButton: {
-        value: '取消',
+        value: localText('startup_text_0769'),
         action: () => {}
       },
       secondaryButton: {
-        value: '确认',
+        value: localText('startup_text_0770'),
         action: () => {
           this.expandedRecordId = -1;
           this.onClear();
@@ -46,16 +63,16 @@ export struct QueryRecordsSheet {
             .fontSize(14)
             .fontColor($r('app.color.text_secondary'))
             .width('100%')
-          Text(record.result)
+          Text(recordValueLabel(record.result))
             .fontSize(18)
             .fontWeight(FontWeight.Medium)
             .fontColor($r('app.color.text_primary'))
             .width('100%')
-          Text(`结果分类：${outcomeLabel(record.outcome as string)}`)
+          Text(formatResource('startup_format_d7d2b72b0fc1', [String(outcomeLabel(record.outcome as string))]))
             .fontSize(13)
             .fontColor($r('app.color.text_secondary'))
             .width('100%')
-          Text(this.expandedRecordId === record.id ? '收起详情 −' : '查看详情 +')
+          Text(this.expandedRecordId === record.id ? localText('startup_text_0772') : localText('startup_text_0773'))
             .fontSize(13)
             .fontColor($r('app.color.accent_color'))
             .width('100%')
@@ -79,7 +96,7 @@ export struct QueryRecordsSheet {
           errorCode: record.errorCode,
           errorMessage: record.errorMessage
         })
-        Text(`耗时：${record.durationMillis} ms`)
+        Text(formatResource('startup_format_ff376b73126d', [String(record.durationMillis)]))
           .fontSize(13)
           .fontColor($r('app.color.text_secondary'))
           .width('100%')
@@ -95,12 +112,12 @@ export struct QueryRecordsSheet {
   build() {
     Column({ space: 16 }) {
       Row({ space: 16 }) {
-        Text('查询记录')
+        Text(localText('startup_text_0775'))
           .fontSize(24)
           .fontWeight(FontWeight.Bold)
           .fontColor($r('app.color.text_primary'))
           .layoutWeight(1)
-        Button('关闭', { type: ButtonType.Normal })
+        Button(localText('startup_text_0776'), { type: ButtonType.Normal })
           .fontSize(14)
           .fontColor($r('app.color.accent_color'))
           .backgroundColor($r('app.color.accent_soft'))
@@ -110,7 +127,7 @@ export struct QueryRecordsSheet {
       }
       .width('100%')
 
-      Button('清空记录', { type: ButtonType.Normal })
+      Button(localText('startup_text_0777'), { type: ButtonType.Normal })
         .fontSize(14)
         .fontColor($r('app.color.text_secondary'))
         .backgroundColor($r('app.color.page_background'))
@@ -140,8 +157,8 @@ export struct QueryRecordsSheet {
       }
 
       Row({ space: 8 }) {
-        ForEach(['全部', '成功', '失败', '不支持'], (label: string) => {
-          Button(label, { type: ButtonType.Normal })
+        ForEach(['all', 'success', 'failure', 'unsupported'], (label: string) => {
+          Button(label === 'all' ? localText('startup_text_0181') : outcomeLabel(label), { type: ButtonType.Normal })
             .fontSize(14)
             .height(44)
             .layoutWeight(1)
@@ -154,7 +171,7 @@ export struct QueryRecordsSheet {
       .width('100%')
 
       Row({ space: 12 }) {
-        Button('脱敏导出', { type: ButtonType.Normal })
+        Button(localText('startup_text_0778'), { type: ButtonType.Normal })
           .fontSize(13)
           .fontColor($r('app.color.accent_color'))
           .backgroundColor($r('app.color.accent_soft'))
@@ -163,7 +180,7 @@ export struct QueryRecordsSheet {
           .layoutWeight(1)
           .enabled(this.records.length > 0)
           .onClick(() => this.onExport())
-        Text(`${this.records.length} 条`)
+        Text(formatResource('startup_format_376dc4cad94c', [String(this.records.length)]))
           .fontSize(14)
           .fontColor($r('app.color.text_secondary'))
       }
@@ -172,7 +189,7 @@ export struct QueryRecordsSheet {
       Scroll() {
         Column({ space: 12 }) {
           if (this.records.length === 0) {
-            Text('暂无查询记录')
+            Text(localText('startup_text_0779'))
               .fontSize(18)
               .fontColor($r('app.color.text_secondary'))
               .padding({ top: 40, bottom: 40 })

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../autostart/text/LocalizedText';
+
 import { deviceInfo, pasteboard } from '@kit.BasicServicesKit';
 import { router } from '@kit.ArkUI';
 import { autoStartupService } from '../autostart/AutoStartupService';
@@ -34,9 +51,9 @@ struct DiagnosticPage {
    */
   private rebuildSections(): void {
     const hour: number = new Date().getHours();
-    const quiet: string = inQuietHours(hour, DEFAULT_REMINDER) ? '处于免打扰时段' : '不在免打扰时段';
+    const quiet: string = inQuietHours(hour, DEFAULT_REMINDER) ? localText('startup_text_0828') : localText('startup_text_0829');
     this.permissionLinesState = permissionLines().slice(0, 6).concat(policySeries());
-    this.messageLinesState = [`${userFacingCount()} 条用户可见文案`, quiet, quietText(DEFAULT_REMINDER)]
+    this.messageLinesState = [formatResource('startup_format_fe5608d9043b', [String(userFacingCount())]), quiet, quietText(DEFAULT_REMINDER)]
       .concat(messageLines().slice(0, 4));
     this.retentionLinesState = describePolicy(defaultRetentionPolicy());
   }
@@ -55,14 +72,14 @@ struct DiagnosticPage {
   }
   private copyReport(): void {
     // No model/serial/account, raw platform message, permission assertion or illustrative schema.
-    const content = `自启独立诊断（实际API，不是开机拉起证据）\nAPI等级 ${deviceInfo.sdkApiVersion}\n` +
-      `设备形态 ${deviceInfo.deviceType}\n能力 ${this.report.ability.stage} ${this.report.ability.value}\n` +
-      `状态 ${this.report.status.stage} ${this.report.status.value}\n` + autoStartupService.exportHistory();
+    const content = formatResource('startup_format_08cb0b931b1d', [String(deviceInfo.sdkApiVersion)]) +
+      formatResource('startup_format_c3f33b9111c0', [String(deviceInfo.deviceType), String(this.report.ability.stage), String(this.report.ability.value)]) +
+      formatResource('startup_format_c5c55bd3cded', [String(this.report.status.stage), String(this.report.status.value)]) + autoStartupService.exportHistory();
     try {
       pasteboard.getSystemPasteboard().setData(pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, content))
-        .then((): void => { this.notice = '脱敏报告已复制'; })
-        .catch((): void => { this.notice = '导出失败，请点击复制重试；查询结果未改变'; });
-    } catch (_) { this.notice = '导出失败，请点击复制重试；查询结果未改变'; }
+        .then((): void => { this.notice = localText('startup_text_0834'); })
+        .catch((): void => { this.notice = localText('startup_text_0835'); });
+    } catch (_) { this.notice = localText('startup_text_0835'); }
   }
   @Builder
   private linesCard(title: string, lines: string[]) {
@@ -71,7 +88,7 @@ struct DiagnosticPage {
       ForEach(lines, (line: string) => {
         Text(line).fontSize(14).fontColor($r('app.color.text_secondary')).width('100%')
       }, (line: string, index: number) => `${index}-${line}`)
-      if (lines.length === 0) { Text('暂无内容').fontSize(14) }
+      if (lines.length === 0) { Text(localText('startup_text_0836')).fontSize(14) }
     }.width('100%').padding(16).alignItems(HorizontalAlign.Start)
       .backgroundColor($r('app.color.card_background')).borderRadius(16)
   }
@@ -80,10 +97,10 @@ struct DiagnosticPage {
   private resultCard(title: string, result: ProbeResult) {
     Column({ space: 8 }) {
       Text(title).fontSize(17).fontWeight(FontWeight.Medium).fontColor($r('app.color.text_primary'))
-      Text(result.conclusion || '尚未检测').fontSize(15).fontColor($r('app.color.text_primary')).width('100%')
-      Text(`阶段 ${result.stage}；返回 ${result.value === null ? '未获取' : String(result.value)}`)
+      Text(result.conclusion || localText('startup_text_0837')).fontSize(15).fontColor($r('app.color.text_primary')).width('100%')
+      Text(formatResource('startup_format_54a96c164202', [String(result.stage), String(result.value === null ? localText('startup_text_0556') : String(result.value))]))
         .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
-      Text(`错误码 ${result.errorCode || '无'}；耗时 ${result.elapsedMillis} ms`)
+      Text(formatResource('startup_format_62510b4d60c0', [String(result.errorCode || localText('startup_text_0524')), String(result.elapsedMillis)]))
         .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
       if (result.errorMessage.length > 0) {
         Text(result.errorMessage).fontSize(14).fontColor($r('app.color.error_color'))
@@ -94,33 +111,33 @@ struct DiagnosticPage {
   build() {
     Scroll() {
       Column({ space: 16 }) {
-        Button('‹ 返回', { type: ButtonType.Normal }).height(44).fontSize(14)
+        Button(localText('startup_text_0842'), { type: ButtonType.Normal }).height(44).fontSize(14)
           .fontColor($r('app.color.accent_color')).backgroundColor(Color.Transparent).padding(0)
           .onClick(() => router.back())
-        Text('独立API诊断').fontSize(26).fontWeight(FontWeight.Bold).fontColor($r('app.color.text_primary'))
-        Text('分别检查设备能力与本应用状态，不申请额外权限。')
+        Text(localText('startup_text_0843')).fontSize(26).fontWeight(FontWeight.Bold).fontColor($r('app.color.text_primary'))
+        Text(localText('startup_text_0844'))
           .fontSize(14).fontColor($r('app.color.text_secondary')).width('100%')
-        Button('检测设备能力', { type: ButtonType.Normal }).width('100%').height(48).fontSize(15)
+        Button(localText('startup_text_0845'), { type: ButtonType.Normal }).width('100%').height(48).fontSize(15)
           .fontColor(Color.White).backgroundColor($r('app.color.accent_color')).borderRadius(12)
           .enabled(!this.running).onClick(() => this.run(true))
-        this.resultCard('设备能力', this.report.ability)
-        Button('查询本应用状态', { type: ButtonType.Normal }).width('100%').height(44).fontSize(15)
+        this.resultCard(localText('startup_text_0846'), this.report.ability)
+        Button(localText('startup_text_0847'), { type: ButtonType.Normal }).width('100%').height(44).fontSize(15)
           .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft')).borderRadius(12)
           .enabled(!this.running).onClick(() => this.run(false))
-        this.resultCard('本应用状态', this.report.status)
+        this.resultCard(localText('startup_text_0848'), this.report.status)
         if (this.running) {
-          Text('正在查询，请等待系统响应。').fontSize(14).fontColor($r('app.color.accent_color'))
+          Text(localText('startup_text_0849')).fontSize(14).fontColor($r('app.color.accent_color'))
         }
         if (this.report.advice.length > 0) {
           Text(this.report.advice).fontSize(14).fontColor($r('app.color.text_secondary')).width('100%')
         }
-        Button('复制脱敏诊断报告 / 失败重试', { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
+        Button(localText('startup_text_0850'), { type: ButtonType.Normal }).width('100%').height(44).fontSize(14)
           .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.card_background')).borderRadius(12)
           .onClick(() => this.copyReport())
         if (this.notice.length > 0) {
           Text(this.notice).fontSize(14).fontColor($r('app.color.warning_color')).width('100%')
         }
-        Button(this.showReference ? '收起诊断说明与策略 −' : '诊断说明与策略 +', { type: ButtonType.Normal })
+        Button(this.showReference ? localText('startup_text_0851') : localText('startup_text_0852'), { type: ButtonType.Normal })
           .width('100%').height(44).fontSize(14).fontColor($r('app.color.text_secondary'))
           .backgroundColor($r('app.color.card_background')).borderRadius(12)
           .onClick(() => { this.showReference = !this.showReference; })
@@ -128,17 +145,17 @@ struct DiagnosticPage {
           Column({ space: 12 }) {
             Text(`API ${deviceInfo.sdkApiVersion} · ${deviceInfo.deviceType} · ${deviceInfo.osFullName}`)
               .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
-            Text('能力检测为false表示设备不支持，不等于自启未开启；状态以各接口实际返回为准。')
+            Text(localText('startup_text_0853'))
               .fontSize(14).fontColor($r('app.color.text_secondary')).width('100%')
-            Text('这里只查询、不自动修改设置；查询结果不证明实际开机拉起。以下为参考策略，不代表已授权或已发送通知。')
+            Text(localText('startup_text_0854'))
               .fontSize(14).fontColor($r('app.color.text_secondary')).width('100%')
-            Text(`查询历史：私有存储，最多${HISTORY_LIMIT}条、30天；格式${HISTORY_SCHEMA}，错误信息上限${HISTORY_MESSAGE_LIMIT}。`)
+            Text(formatResource('startup_format_39b4fd76be2a', [String(HISTORY_LIMIT), String(HISTORY_SCHEMA), String(HISTORY_MESSAGE_LIMIT)]))
               .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
           }.width('100%').padding(16).backgroundColor($r('app.color.card_background')).borderRadius(16)
             .alignItems(HorizontalAlign.Start)
-          this.linesCard('权限申请策略', this.permissionLinesState)
-          this.linesCard('文案与提醒时段', this.messageLinesState)
-          this.linesCard('存档保留策略', this.retentionLinesState)
+          this.linesCard(localText('startup_text_0858'), this.permissionLinesState)
+          this.linesCard(localText('startup_text_0859'), this.messageLinesState)
+          this.linesCard(localText('startup_text_0860'), this.retentionLinesState)
         }
       }.width('100%').padding({ left: 20, right: 20, top: 20, bottom: 28 }).alignItems(HorizontalAlign.Start)
     }.width('100%').height('100%').align(Alignment.TopStart).backgroundColor($r('app.color.page_background'))

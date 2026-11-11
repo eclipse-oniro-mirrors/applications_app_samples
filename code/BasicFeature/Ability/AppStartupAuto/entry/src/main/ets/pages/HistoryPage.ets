@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../autostart/text/LocalizedText';
+
 import { pasteboard } from '@kit.BasicServicesKit';
 import { StartupArchivePanel } from '../components/StartupArchivePanel';
 import { promptAction, router } from '@kit.ArkUI';
@@ -20,7 +37,7 @@ struct HistoryPage {
   @State private dayText: string[] = [];
   @State private exportText: string[] = [];
   @State private notice: string = '';
-  @State private rangeText: string = '全部时间';
+  @State private rangeText: string = localText('startup_text_0512');
   private unsubscribe: (() => void) | undefined = undefined;
   private lastExport: string = '';
   private scope: HistoryScope = new HistoryScope();
@@ -59,8 +76,8 @@ struct HistoryPage {
     this.summaryText = summaryLines(this.scope.summary);
     this.comparisonText = this.scope.comparisonText;
     this.dayText = dayCountLines(this.records);
-    this.latestText = this.scope.latestValid === undefined ? '当前范围无有效成功样本' :
-      `当前范围最近有效：${describeRecord(this.scope.latestValid)}`;
+    this.latestText = this.scope.latestValid === undefined ? localText('startup_text_0916') :
+      formatResource('startup_format_c13c67ff9a02', [String(describeRecord(this.scope.latestValid))]);
     this.details = detailLines(this.records.find((row: QueryRecord): boolean => row.id === this.selectedDetail));
     this.storageNotice = autoStartupService.historyNotice();
     this.exportText = exportPreview(this.lastExport);
@@ -68,19 +85,19 @@ struct HistoryPage {
 
   private chooseOutcome(value: string): void {
     this.filter.outcome = value;
-    this.notice = `结果筛选：${this.filter.text()}`;
+    this.notice = formatResource('startup_format_928a140542fd', [String(this.filter.text())]);
     this.refresh();
   }
 
   private chooseSource(value: string): void {
     this.filter.source = value;
-    this.notice = `来源筛选：${this.filter.text()}`;
+    this.notice = formatResource('startup_format_5e01e113b688', [String(this.filter.text())]);
     this.refresh();
   }
 
   private chooseRange(preset: RangePreset): void {
     this.filter.preset = preset;
-    this.notice = `时间范围：${this.filter.text()}`;
+    this.notice = formatResource('startup_format_80619f799169', [String(this.filter.text())]);
     this.refresh();
   }
 
@@ -89,37 +106,37 @@ struct HistoryPage {
     this.selectedBefore = 0;
     this.selectedAfter = 0;
     this.selectedDetail = 0;
-    this.notice = '筛选和比较选择已重置';
+    this.notice = localText('startup_text_0921');
     this.refresh();
   }
 
   private exportHistory(all: boolean = false): void {
     const text: string = all ? autoStartupService.exportHistory() : this.scope.exportText;
     if (!all && this.records.length === 0) {
-      this.notice = '当前范围为空，没有可导出的记录；全量导出有独立入口';
+      this.notice = localText('startup_text_0922');
       return;
     }
-    this.lastExport = `${all ? '全量历史' : '当前筛选范围'}\n${text}`;
+    this.lastExport = `${all ? localText('startup_text_0923') : localText('startup_text_0924')}\n${text}`;
     this.exportText = exportPreview(this.lastExport);
     try {
       const data = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, this.lastExport);
       pasteboard.getSystemPasteboard().setData(data).then((): void => {
-        this.notice = `${all ? '全量' : '当前范围'}脱敏历史已复制`;
-      }).catch((): void => { this.notice = '复制失败，请点击同一导出按钮重试；存储未改变'; });
-    } catch (_) { this.notice = '复制失败，请点击同一导出按钮重试；存储未改变'; }
+        this.notice = formatResource('startup_format_d13ec67220c6', [String(all ? localText('startup_text_0925') : localText('startup_text_0926'))]);
+      }).catch((): void => { this.notice = localText('startup_text_0928'); });
+    } catch (_) { this.notice = localText('startup_text_0928'); }
   }
 
   private confirmClear(): void {
     this.getUIContext().showAlertDialog({
-      title: '清空历史记录',
-      message: '清空已保存的查询历史？该操作只影响本应用的历史记录。',
-      primaryButton: { value: '取消', action: (): void => {} },
+      title: localText('startup_text_0929'),
+      message: localText('startup_text_0930'),
+      primaryButton: { value: localText('startup_text_0769'), action: (): void => {} },
       secondaryButton: {
-        value: '清空',
+        value: localText('startup_text_0931'),
         action: (): void => {
           autoStartupService.clearRecords();
           this.lastExport = '';
-          this.notice = '已请求清空；写入失败时页面会保留提示';
+          this.notice = localText('startup_text_0932');
           this.refresh();
         }
       }
@@ -128,13 +145,13 @@ struct HistoryPage {
 
   private retryPersistence(): void {
     autoStartupService.retryPersistence();
-    this.notice = '已请求重试保存';
+    this.notice = localText('startup_text_0933');
     this.refresh();
   }
 
   private retryRead(): void {
     autoStartupService.retryHistoryRead();
-    this.notice = '已请求重新读取历史';
+    this.notice = localText('startup_text_0934');
     this.refresh();
   }
 
@@ -169,24 +186,24 @@ struct HistoryPage {
   build() {
     Scroll() {
       Column({ space: 16 }) {
-        Button('‹ 返回', { type: ButtonType.Normal }).height(44).fontSize(14)
+        Button(localText('startup_text_0842'), { type: ButtonType.Normal }).height(44).fontSize(14)
           .fontColor($r('app.color.accent_color')).backgroundColor(Color.Transparent).padding(0)
           .onClick((): void => { router.back(); })
-        Text('查询历史').fontSize(26).fontWeight(FontWeight.Bold).fontColor($r('app.color.text_primary')).width('100%')
-        Text(`${this.records.length} 条记录 · ${this.filter.text()}`)
+        Text(localText('startup_text_0935')).fontSize(26).fontWeight(FontWeight.Bold).fontColor($r('app.color.text_primary')).width('100%')
+        Text(formatResource('startup_format_f81a5f60798c', [String(this.records.length), String(this.filter.text())]))
           .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
         Row({ space: 12 }) {
-          Button(this.showFilters ? '收起筛选 −' : '筛选 +', { type: ButtonType.Normal })
+          Button(this.showFilters ? localText('startup_text_0937') : localText('startup_text_0938'), { type: ButtonType.Normal })
             .layoutWeight(1).height(44).fontSize(14).fontColor($r('app.color.accent_color'))
             .backgroundColor($r('app.color.card_background')).borderRadius(12)
             .onClick(() => { this.showFilters = !this.showFilters; })
-          Button('导出当前范围', { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
+          Button(localText('startup_text_0939'), { type: ButtonType.Normal }).layoutWeight(1).height(44).fontSize(14)
             .fontColor(Color.White).backgroundColor($r('app.color.accent_color')).borderRadius(12)
             .onClick((): void => this.exportHistory())
         }.width('100%')
         if (this.showFilters) {
           Column({ space: 8 }) {
-            Text('结果').fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
+            Text(localText('startup_text_0940')).fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
             Flex({ wrap: FlexWrap.Wrap }) {
               ForEach(OUTCOME_OPTIONS, (option: OutcomeOption) => {
                 this.chip(option.label, this.filter.outcome === option.value, (): void => {
@@ -194,7 +211,7 @@ struct HistoryPage {
                 })
               }, (option: OutcomeOption) => `outcome-${option.value}`)
             }.width('100%')
-            Text('来源').fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
+            Text(localText('startup_text_0941')).fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
             Flex({ wrap: FlexWrap.Wrap }) {
               ForEach(SOURCE_OPTIONS, (option: SourceOption) => {
                 this.chip(option.label, this.filter.source === option.value, (): void => {
@@ -202,7 +219,7 @@ struct HistoryPage {
                 })
               }, (option: SourceOption) => `source-${option.value}`)
             }.width('100%')
-            Text('时间').fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
+            Text(localText('startup_text_0942')).fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
             Flex({ wrap: FlexWrap.Wrap }) {
               ForEach(RANGE_OPTIONS, (option: RangeOption) => {
                 this.chip(option.label, this.filter.preset === option.preset, (): void => {
@@ -210,7 +227,7 @@ struct HistoryPage {
                 })
               }, (option: RangeOption) => `range-${option.preset}`)
             }.width('100%')
-            Button('重置筛选').height(44).fontSize(14).onClick((): void => this.resetFilter())
+            Button(localText('startup_text_0943')).height(44).fontSize(14).onClick((): void => this.resetFilter())
           }.width('100%').padding(16).backgroundColor($r('app.color.card_background')).borderRadius(16)
             .alignItems(HorizontalAlign.Start)
         }
@@ -220,52 +237,52 @@ struct HistoryPage {
         if (this.notice.length > 0) {
           Text(this.notice).fontSize(14).fontColor($r('app.color.accent_color')).width('100%')
         }
-        Button(this.showHistoryTools ? '收起存储操作 −' : '存储与更多操作 +', { type: ButtonType.Normal })
+        Button(this.showHistoryTools ? localText('startup_text_0903') : localText('startup_text_0944'), { type: ButtonType.Normal })
           .height(44).width('100%').fontSize(14).fontColor($r('app.color.text_secondary'))
           .backgroundColor($r('app.color.card_background')).borderRadius(12)
           .onClick(() => { this.showHistoryTools = !this.showHistoryTools; })
         if (this.showHistoryTools || this.storageNotice.length > 0) {
           Column({ space: 12 }) {
             Row({ space: 12 }) {
-              Button('重试读取').layoutWeight(1).height(44).fontSize(14).onClick((): void => this.retryRead())
-              Button('重试保存').layoutWeight(1).height(44).fontSize(14).onClick((): void => this.retryPersistence())
+              Button(localText('startup_text_0945')).layoutWeight(1).height(44).fontSize(14).onClick((): void => this.retryRead())
+              Button(localText('startup_text_0905')).layoutWeight(1).height(44).fontSize(14).onClick((): void => this.retryPersistence())
             }.width('100%')
-            Button('全量脱敏导出（忽略筛选）').height(44).fontSize(14).onClick((): void => this.exportHistory(true))
-            Button('清空').height(44).fontSize(14).fontColor($r('app.color.error_color'))
+            Button(localText('startup_text_0946')).height(44).fontSize(14).onClick((): void => this.exportHistory(true))
+            Button(localText('startup_text_0931')).height(44).fontSize(14).fontColor($r('app.color.error_color'))
               .onClick((): void => this.confirmClear())
           }.width('100%').padding(16).backgroundColor($r('app.color.card_background')).borderRadius(16)
         }
-        Button(this.showArchive ? '收起已保存归档 −' : '已保存归档 +', { type: ButtonType.Normal })
+        Button(this.showArchive ? localText('startup_text_0947') : localText('startup_text_0948'), { type: ButtonType.Normal })
           .height(44).width('100%').fontSize(14).fontColor($r('app.color.accent_color'))
           .backgroundColor($r('app.color.card_background')).borderRadius(12)
           .onClick(() => { this.showArchive = !this.showArchive; })
         if (this.showArchive) { StartupArchivePanel({ liveRecords: this.records }) }
         Text(this.latestText).fontSize(13).fontColor($r('app.color.text_secondary')).width('100%')
-        if (this.records.length === 0) { this.card('记录', this.recordText) }
+        if (this.records.length === 0) { this.card(localText('startup_text_0949'), this.recordText) }
         ForEach(this.records, (record: QueryRecord) => {
           Column({ space: 12 }) {
             Text(describeRecord(record)).fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
             Row({ space: 8 }) {
-              Button(this.selectedBefore === record.id ? '已选为前' : '选为前').height(44).fontSize(13).layoutWeight(1)
+              Button(this.selectedBefore === record.id ? localText('startup_text_0950') : localText('startup_text_0951')).height(44).fontSize(13).layoutWeight(1)
                 .onClick((): void => { this.selectedBefore = record.id; this.refresh(); })
-              Button(this.selectedAfter === record.id ? '已选为后' : '选为后').height(44).fontSize(13).layoutWeight(1)
+              Button(this.selectedAfter === record.id ? localText('startup_text_0952') : localText('startup_text_0953')).height(44).fontSize(13).layoutWeight(1)
                 .onClick((): void => { this.selectedAfter = record.id; this.refresh(); })
-              Button('详情').height(44).fontSize(13).layoutWeight(1)
+              Button(localText('startup_text_0954')).height(44).fontSize(13).layoutWeight(1)
                 .onClick((): void => { this.selectedDetail = record.id; this.refresh(); })
             }.width('100%')
           }.width('100%').padding(16).backgroundColor($r('app.color.card_background')).borderRadius(16)
         }, (record: QueryRecord): string => String(record.id))
-        if (this.selectedDetail > 0) { this.card('当前范围记录详情（本机）', this.details) }
-        if (this.selectedBefore > 0 || this.selectedAfter > 0) { this.card('当前范围前后比较', this.comparisonText) }
-        Button(this.showAnalysis ? '收起统计与预览 −' : '统计、比较与导出预览 +', { type: ButtonType.Normal })
+        if (this.selectedDetail > 0) { this.card(localText('startup_text_0955'), this.details) }
+        if (this.selectedBefore > 0 || this.selectedAfter > 0) { this.card(localText('startup_text_0956'), this.comparisonText) }
+        Button(this.showAnalysis ? localText('startup_text_0957') : localText('startup_text_0958'), { type: ButtonType.Normal })
           .height(44).width('100%').fontSize(14).fontColor($r('app.color.text_secondary'))
           .backgroundColor($r('app.color.card_background')).borderRadius(12)
           .onClick(() => { this.showAnalysis = !this.showAnalysis; })
         if (this.showAnalysis) {
-          this.card('当前范围汇总', this.summaryText)
-          if (this.selectedBefore === 0 && this.selectedAfter === 0) { this.card('当前范围前后比较', this.comparisonText) }
-          this.card('按日期分布', this.dayText)
-          this.card('导出预览', this.exportText)
+          this.card(localText('startup_text_0959'), this.summaryText)
+          if (this.selectedBefore === 0 && this.selectedAfter === 0) { this.card(localText('startup_text_0956'), this.comparisonText) }
+          this.card(localText('startup_text_0827'), this.dayText)
+          this.card(localText('startup_text_0960'), this.exportText)
         }
       }.width('100%').padding({ left: 20, right: 20, top: 20, bottom: 28 }).alignItems(HorizontalAlign.Start)
     }.width('100%').height('100%').backgroundColor($r('app.color.page_background')).scrollBar(BarState.Auto)

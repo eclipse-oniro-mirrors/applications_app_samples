@@ -1,5 +1,23 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../autostart/text/LocalizedText';
+
 import { promptAction, router } from '@kit.ArkUI';
-import { deviceInfo, pasteboard } from '@kit.BasicServicesKit';
+import { BusinessError, deviceInfo, pasteboard } from '@kit.BasicServicesKit';
+import { reportFailure } from '../autostart/SampleLogger';
 import { autoStartupService } from '../autostart/AutoStartupService';
 import { QueryPhase, QueryRecord, QuerySnapshot, RefreshSource } from '../autostart/AutoStartupTypes';
 import { CapabilityQuery, DeviceForm, SystemFlavor } from '../autostart/rules/CapabilityMatrix';
@@ -16,13 +34,20 @@ struct Index {
   @State private showRecords: boolean = false;
   @State private showCallDetails: boolean = false;
   @State private showGuidanceSteps: boolean = false;
-  @State private historyFilter: string = '全部';
+  @State private historyFilter: string = 'all';
   @State private historyNotice: string = '';
   @State private historySummary: string = '';
   @State private guidanceTitle: string = '';
   @State private guidanceCaption: string = '';
   @State private guidanceSteps: string[] = [];
   private unsubscribe: () => void = () => {};
+
+  /** Navigate with a recorded, non-fatal diagnostic instead of swallowing the failure. */
+  private openPage(url: string): void {
+    router.pushUrl({ url: url }).catch((error: BusinessError): void => {
+      reportFailure(`Open page ${url} (code ${error.code})`);
+    });
+  }
 
   aboutToAppear(): void {
     this.unsubscribe();
@@ -72,11 +97,11 @@ struct Index {
 
   private refreshHistorySummary(): void {
     const summary = autoStartupService.historySummary();
-    this.historySummary = summary.total === 0 ? '暂无历史记录' :
-      `共 ${summary.total} 条 · 成功 ${summary.success} · 失败 ${summary.failure} · ` +
-      `不支持 ${summary.unsupported} · 超时 ${summary.timeout} · 未知 ${summary.unknown}` +
-      (summary.latestValidId >= 0 ? ` · 最近有效 #${summary.latestValidId}` : ' · 无有效样本') +
-      (summary.expiringSoon > 0 ? ` · ${summary.expiringSoon} 条将过期` : '');
+    this.historySummary = summary.total === 0 ? localText('startup_text_0520') :
+      formatResource('startup_format_d4162659f392', [String(summary.total), String(summary.success), String(summary.failure)]) +
+      formatResource('startup_format_b655c0b469bb', [String(summary.unsupported), String(summary.timeout), String(summary.unknown)]) +
+      (summary.latestValidId >= 0 ? formatResource('startup_format_417aa7fb9d0c', [String(summary.latestValidId)]) : localText('startup_text_0966')) +
+      (summary.expiringSoon > 0 ? formatResource('startup_format_9665e649878d', [String(summary.expiringSoon)]) : '');
   }
 
   private changeFilter(filter: string): void {
@@ -90,13 +115,13 @@ struct Index {
     try {
       pasteboard.getSystemPasteboard().setData(pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text))
         .then(() => {
-          promptAction.showToast({ message: '脱敏历史已复制' });
+          promptAction.showToast({ message: localText('startup_text_0927') });
         })
         .catch(() => {
-          promptAction.showToast({ message: '复制失败，请重试' });
+          promptAction.showToast({ message: localText('startup_text_0154') });
         });
     } catch (_) {
-      this.historyNotice = this.historyNotice.length > 0 ? `${this.historyNotice}；复制失败，请重试` : '复制失败，请重试';
+      this.historyNotice = this.historyNotice.length > 0 ? formatResource('startup_format_420bf171a18b', [String(this.historyNotice)]) : localText('startup_text_0154');
     }
   }
 
@@ -116,16 +141,16 @@ struct Index {
 
   private refreshLabel(): string {
     if (this.query.pending) {
-      return this.query.phase === QueryPhase.TIMEOUT ? '等待系统响应' : '正在查询';
+      return this.query.phase === QueryPhase.TIMEOUT ? localText('startup_text_0969') : localText('startup_text_0761');
     }
     switch (this.query.phase) {
       case QueryPhase.FAILED:
       case QueryPhase.TIMEOUT:
-        return '重试';
+        return localText('startup_text_0970');
       case QueryPhase.UNSUPPORTED:
-        return '重新检测';
+        return localText('startup_text_0971');
       default:
-        return '刷新状态';
+        return localText('startup_text_0972');
     }
   }
 
@@ -143,7 +168,7 @@ struct Index {
   @Builder
   private statusCard() {
     Column({ space: 18 }) {
-      Text('自启状态')
+      Text(localText('startup_text_0973'))
         .fontSize(16)
         .fontColor($r('app.color.text_secondary'))
       Text(statusLabel(this.query))
@@ -159,7 +184,7 @@ struct Index {
           .color($r('app.color.accent_color'))
       }
       if (this.query.phase === QueryPhase.TIMEOUT && this.query.pending) {
-        Text('系统响应等待中')
+        Text(localText('startup_text_0974'))
           .fontSize(16)
           .fontColor($r('app.color.text_secondary'))
           .width('100%')
@@ -168,17 +193,17 @@ struct Index {
       Divider().color($r('app.color.line_color'))
       Column({ space: 8 }) {
         if (this.query.phase !== QueryPhase.UNSUPPORTED) {
-          Text(`设备支持：${supportLabel(this.query.support)}`)
+          Text(formatResource('startup_format_0d8bc32738eb', [String(supportLabel(this.query.support))]))
             .fontSize(14)
             .fontColor($r('app.color.text_secondary'))
             .width('100%')
         }
-        Text(`最近查询：${this.lastQueryTime()}`)
+        Text(formatResource('startup_format_20c4cde090c1', [String(this.lastQueryTime())]))
           .fontSize(16)
           .fontColor($r('app.color.text_secondary'))
           .width('100%')
         if (this.showLastResult()) {
-          Text(`上次查询：${this.query.lastValue === true ? '已开启' : '未开启'} ` +
+          Text(formatResource('startup_format_880313dd233b', [String(this.query.lastValue === true ? localText('startup_text_0168') : localText('startup_text_0169'))]) +
             formatQueryTime(this.query.lastSampleTime))
             .fontSize(16)
             .fontColor($r('app.color.text_secondary'))
@@ -207,14 +232,14 @@ struct Index {
   @Builder
   private toolsCard() {
     Row({ space: 12 }) {
-      Button('诊断报告', { type: ButtonType.Normal })
+      Button(localText('startup_text_0978'), { type: ButtonType.Normal })
         .fontSize(14).fontColor($r('app.color.text_secondary'))
         .layoutWeight(1).height(44).backgroundColor($r('app.color.card_background')).borderRadius(12)
-        .onClick(() => { router.pushUrl({ url: 'pages/DiagnosticPage' }).catch(() => {}); })
-      Button('故障与归档', { type: ButtonType.Normal })
+        .onClick(() => { this.openPage('pages/DiagnosticPage'); })
+      Button(localText('startup_text_0880'), { type: ButtonType.Normal })
         .fontSize(14).fontColor($r('app.color.text_secondary'))
         .layoutWeight(1).height(44).backgroundColor($r('app.color.card_background')).borderRadius(12)
-        .onClick(() => { router.pushUrl({ url: 'pages/FaultPage' }).catch(() => {}); })
+        .onClick(() => { this.openPage('pages/FaultPage'); })
     }.width('100%')
   }
 
@@ -223,17 +248,17 @@ struct Index {
     Column({ space: 8 }) {
       Row({ space: 12 }) {
         Column({ space: 4 }) {
-          Text('需要调整设置？').fontSize(16).fontWeight(FontWeight.Medium)
+          Text(localText('startup_text_0979')).fontSize(16).fontWeight(FontWeight.Medium)
             .fontColor($r('app.color.text_primary')).width('100%')
-          Text('按指引手动设置，返回后回查').fontSize(13)
+          Text(localText('startup_text_0980')).fontSize(13)
             .fontColor($r('app.color.text_secondary')).width('100%')
         }.layoutWeight(1).alignItems(HorizontalAlign.Start)
-        Button('如何设置', { type: ButtonType.Normal })
+        Button(localText('startup_text_0981'), { type: ButtonType.Normal })
           .fontSize(14).height(44).fontColor($r('app.color.accent_color'))
           .backgroundColor($r('app.color.accent_soft')).borderRadius(12)
-          .onClick(() => { router.pushUrl({ url: 'pages/GuidancePage' }).catch(() => {}); })
+          .onClick(() => { this.openPage('pages/GuidancePage'); })
       }.width('100%')
-      Button(this.showGuidanceSteps ? '收起设备指引 −' : '设备指引 +', { type: ButtonType.Normal })
+      Button(this.showGuidanceSteps ? localText('startup_text_0982') : localText('startup_text_0983'), { type: ButtonType.Normal })
         .height(44).fontSize(13).fontColor($r('app.color.text_secondary'))
         .backgroundColor(Color.Transparent).constraintSize({ minHeight: 44 }).padding(0)
         .onClick(() => { this.showGuidanceSteps = !this.showGuidanceSteps; })
@@ -254,7 +279,7 @@ struct Index {
   private callDetailsCard() {
     Column({ space: 18 }) {
       Button({ type: ButtonType.Normal }) {
-        Text(this.showCallDetails ? '调用详情 −' : '调用详情 +')
+        Text(this.showCallDetails ? localText('startup_text_0984') : localText('startup_text_0985'))
           .fontSize(17)
           .fontColor($r('app.color.text_secondary'))
           .width('100%')
@@ -299,12 +324,12 @@ struct Index {
     Scroll() {
       Column({ space: 16 }) {
         Column({ space: 10 }) {
-          Text('开机自启')
+          Text(localText('startup_text_0718'))
             .fontSize(26)
             .fontWeight(FontWeight.Bold)
             .fontColor($r('app.color.text_primary'))
             .width('100%')
-          Text('查看状态，按需手动设置')
+          Text(localText('startup_text_0986'))
             .fontSize(14)
             .fontColor($r('app.color.text_secondary'))
             .width('100%')
@@ -317,7 +342,7 @@ struct Index {
         this.guidanceCard()
 
         Button({ type: ButtonType.Normal }) {
-          Text(`查询记录 · ${this.queryRecords.length}条`)
+          Text(formatResource('startup_format_7c478eee9f7b', [String(this.queryRecords.length)]))
             .fontSize(16)
             .fontColor($r('app.color.text_primary'))
             .width('100%')
@@ -330,7 +355,7 @@ struct Index {
         .onClick(() => this.showRecords = true)
 
         Button({ type: ButtonType.Normal }) {
-          Text('历史管理 · 筛选 / 比较 / 导出')
+          Text(localText('startup_text_0989'))
             .fontSize(16)
             .fontColor($r('app.color.text_secondary'))
             .width('100%')
@@ -341,7 +366,7 @@ struct Index {
         .backgroundColor($r('app.color.card_background'))
         .borderRadius(16)
         .onClick(() => {
-          router.pushUrl({ url: 'pages/HistoryPage' }).catch(() => {});
+          this.openPage('pages/HistoryPage');
         })
         this.toolsCard()
         this.callDetailsCard()

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, registerTextRefresh } from './LocalizedText';
+
 /**
  * 文案目录。
  *
@@ -62,23 +79,30 @@ export class MessageEntry {
 }
 
 /** 固定文案表。 */
-export const MESSAGES: MessageEntry[] = [
-  new MessageEntry(MessageKey.APP_TITLE, '开机自启', 16),
-  new MessageEntry(MessageKey.STATUS_ON, '已开启开机自启', 24),
-  new MessageEntry(MessageKey.STATUS_OFF, '未开启开机自启', 24),
-  new MessageEntry(MessageKey.STATUS_UNKNOWN, '暂时无法确定当前状态', 32),
-  new MessageEntry(MessageKey.QUERY_FAILED, '查询失败，可重试一次', 32),
-  new MessageEntry(MessageKey.UNSUPPORTED, '当前设备或系统不支持该能力', 40),
-  new MessageEntry(MessageKey.NEED_SETTINGS, '请前往系统设置中修改', 32),
-  new MessageEntry(MessageKey.NEED_PERMISSION, '需要授予权限后才能继续', 32),
-  new MessageEntry(MessageKey.EXPORT_EMPTY, '没有可导出的记录', 24),
-  new MessageEntry(MessageKey.EXPORT_DONE, '已生成导出内容', 24),
-  new MessageEntry(MessageKey.HISTORY_EMPTY, '还没有查询记录', 24),
-  new MessageEntry(MessageKey.SELF_CHECK_DONE, '自检已完成', 24),
-  new MessageEntry(MessageKey.GUIDANCE_TITLE, '设置指引', 16),
-  new MessageEntry(MessageKey.ONBOARDING_TITLE, '使用引导', 16),
-  new MessageEntry(MessageKey.REMINDER_TITLE, '开启提醒', 16)
+function createMESSAGES(): MessageEntry[] {
+  return [
+  new MessageEntry(MessageKey.APP_TITLE, localText('startup_text_0718'), 16),
+  new MessageEntry(MessageKey.STATUS_ON, localText('startup_text_0719'), 24),
+  new MessageEntry(MessageKey.STATUS_OFF, localText('startup_text_0720'), 24),
+  new MessageEntry(MessageKey.STATUS_UNKNOWN, localText('startup_text_0721'), 32),
+  new MessageEntry(MessageKey.QUERY_FAILED, localText('startup_text_0722'), 32),
+  new MessageEntry(MessageKey.UNSUPPORTED, localText('startup_text_0723'), 40),
+  new MessageEntry(MessageKey.NEED_SETTINGS, localText('startup_text_0724'), 32),
+  new MessageEntry(MessageKey.NEED_PERMISSION, localText('startup_text_0725'), 32),
+  new MessageEntry(MessageKey.EXPORT_EMPTY, localText('startup_text_0726'), 24),
+  new MessageEntry(MessageKey.EXPORT_DONE, localText('startup_text_0727'), 24),
+  new MessageEntry(MessageKey.HISTORY_EMPTY, localText('startup_text_0728'), 24),
+  new MessageEntry(MessageKey.SELF_CHECK_DONE, localText('startup_text_0729'), 24),
+  new MessageEntry(MessageKey.GUIDANCE_TITLE, localText('startup_text_0730'), 16),
+  new MessageEntry(MessageKey.ONBOARDING_TITLE, localText('startup_text_0731'), 16),
+  new MessageEntry(MessageKey.REMINDER_TITLE, localText('startup_text_0732'), 16)
 ];
+}
+export const MESSAGES: MessageEntry[] = createMESSAGES();
+registerTextRefresh((): void => {
+  MESSAGES.splice(0, MESSAGES.length);
+  createMESSAGES().forEach((item: MessageEntry): void => { MESSAGES.push(item); });
+});
 
 /** 模板文案：用 {name} 占位。 */
 export class TemplateEntry {
@@ -135,15 +159,22 @@ export function extractPlaceholders(template: string): string[] {
 }
 
 /** 模板表。 */
-export const TEMPLATES: TemplateEntry[] = [
-  new TemplateEntry('historyCount', '共 {count} 条记录，最近一次在 {time}'),
+function createTEMPLATES(): TemplateEntry[] {
+  return [
+  new TemplateEntry('historyCount', localText('startup_text_0733')),
   new TemplateEntry('capabilitySummary', '{verdict}（API {api}，{form}）'),
-  new TemplateEntry('permissionAsk', '已申请 {asked} 次，最多 {max} 次'),
-  new TemplateEntry('reminderWait', '距离下次可提醒还有 {minutes} 分钟'),
-  new TemplateEntry('exportSummary', '{format} 格式，{rows} 行，{size} 字节'),
-  new TemplateEntry('onboardingProgress', '第 {current} 步，共 {total} 步（{percent}%）'),
-  new TemplateEntry('checkResult', '{passed} 项通过，{warned} 项提醒，{failed} 项不通过')
+  new TemplateEntry('permissionAsk', localText('startup_text_0734')),
+  new TemplateEntry('reminderWait', localText('startup_text_0735')),
+  new TemplateEntry('exportSummary', localText('startup_text_0736')),
+  new TemplateEntry('onboardingProgress', localText('startup_text_0737')),
+  new TemplateEntry('checkResult', localText('startup_text_0738'))
 ];
+}
+export const TEMPLATES: TemplateEntry[] = createTEMPLATES();
+registerTextRefresh((): void => {
+  TEMPLATES.splice(0, TEMPLATES.length);
+  createTEMPLATES().forEach((item: TemplateEntry): void => { TEMPLATES.push(item); });
+});
 
 /** 取固定文案；未知键返回空条目而不是抛错。 */
 export function messageOf(key: MessageKey): MessageEntry {
@@ -193,7 +224,7 @@ export class MessageAudit {
 
   summary(): string {
     if (this.ok) {
-      return '文案表自洽';
+      return localText('startup_text_0739');
     }
     return this.findings.join('；');
   }
@@ -204,30 +235,30 @@ export function auditMessages(): MessageAudit {
   const seen: string[] = [];
   MESSAGES.forEach((entry: MessageEntry): void => {
     if (seen.indexOf(entry.key) >= 0) {
-      audit.findings.push(`文案键重复：${entry.key as string}`);
+      audit.findings.push(formatResource('startup_format_c7d0d7a0f3e9', [String(entry.key as string)]));
     }
     seen.push(entry.key);
     if (entry.text.length === 0) {
-      audit.findings.push(`文案为空：${entry.key as string}`);
+      audit.findings.push(formatResource('startup_format_776c349a3174', [String(entry.key as string)]));
     }
     if (entry.maxLength <= 0) {
-      audit.findings.push(`长度上限非法：${entry.key as string}`);
+      audit.findings.push(formatResource('startup_format_d6c1777f81e2', [String(entry.key as string)]));
     }
     if (entry.overflow()) {
-      audit.findings.push(`文案超长：${entry.key as string}`);
+      audit.findings.push(formatResource('startup_format_8fe38e8fdb7d', [String(entry.key as string)]));
     }
   });
   TEMPLATES.forEach((entry: TemplateEntry): void => {
     if (entry.template.length === 0) {
-      audit.findings.push(`模板为空：${entry.key}`);
+      audit.findings.push(formatResource('startup_format_3c6f74b8ebe9', [String(entry.key)]));
     }
     const openCount: number = entry.template.split('{').length - 1;
     const closeCount: number = entry.template.split('}').length - 1;
     if (openCount !== closeCount) {
-      audit.findings.push(`占位符不闭合：${entry.key}`);
+      audit.findings.push(formatResource('startup_format_7e26987afdaa', [String(entry.key)]));
     }
     if (entry.placeholders.length !== openCount) {
-      audit.findings.push(`占位符解析不一致：${entry.key}`);
+      audit.findings.push(formatResource('startup_format_a9d5643f0d1f', [String(entry.key)]));
     }
   });
   audit.ok = audit.findings.length === 0;
@@ -246,7 +277,7 @@ export function messageLines(): string[] {
 /** 模板摘要行。 */
 export function templateLines(): string[] {
   return TEMPLATES.map((entry: TemplateEntry): string =>
-    `${entry.key}：${entry.template}（${entry.placeholders.length} 个占位符）`);
+    formatResource('startup_format_7547051850cf', [String(entry.key), String(entry.template), String(entry.placeholders.length)]));
 }
 
 /** 面向用户文案总数。 */

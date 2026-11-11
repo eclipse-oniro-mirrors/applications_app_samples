@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 自启查询与设置过程中的错误解释表。
  *
@@ -51,55 +68,62 @@ export class ErrorEntry {
 }
 
 /** OpenHarmony 通用错误码。本示例不编造自启专属错误码。 */
-export const ERROR_CATALOG: ErrorEntry[] = [
-  new ErrorEntry('0', 'OK', '操作成功。', ErrorOwner.APP, RetryAdvice.NO_RETRY, false, false,
-    '调用返回成功不代表系统已实际生效，仍需回读状态确认。'),
-  new ErrorEntry('201', 'PERMISSION_DENIED', '缺少所需权限，无法继续。', ErrorOwner.USER,
+function createERROR_CATALOG(): ErrorEntry[] {
+  return [
+  new ErrorEntry('0', 'OK', localText('startup_text_0685'), ErrorOwner.APP, RetryAdvice.NO_RETRY, false, false,
+    localText('startup_text_0686')),
+  new ErrorEntry('201', 'PERMISSION_DENIED', localText('startup_text_0687'), ErrorOwner.USER,
     RetryAdvice.RETRY_AFTER_ACTION, false, true,
-    '权限校验失败；确认 ohos.permission 声明已生效且用户已授予。'),
-  new ErrorEntry('202', 'NOT_SYSTEM_APP', '当前应用不是系统应用。', ErrorOwner.SYSTEM,
+    localText('startup_text_0688')),
+  new ErrorEntry('202', 'NOT_SYSTEM_APP', localText('startup_text_0689'), ErrorOwner.SYSTEM,
     RetryAdvice.NO_RETRY, true, false,
-    '该接口仅对系统应用开放，三方应用应改用公开接口或引导用户手动设置。'),
-  new ErrorEntry('401', 'PARAMETER_ERROR', '请求参数不合法。', ErrorOwner.APP,
+    localText('startup_text_0690')),
+  new ErrorEntry('401', 'PARAMETER_ERROR', localText('startup_text_0691'), ErrorOwner.APP,
     RetryAdvice.RETRY_SAME, false, false,
-    '检查入参类型、取值范围与必填项，不要重试同样的非法参数。'),
-  new ErrorEntry('801', 'CAPABILITY_NOT_SUPPORTED', '当前设备不支持该能力。', ErrorOwner.SYSTEM,
+    localText('startup_text_0692')),
+  new ErrorEntry('801', 'CAPABILITY_NOT_SUPPORTED', localText('startup_text_0693'), ErrorOwner.SYSTEM,
     RetryAdvice.NO_RETRY, true, false,
-    '设备能力缺失，属于不支持而非失败；不应展示"重试"按钮。'),
-  new ErrorEntry('16000001', 'INVALID_PARAMETER', '参数无效。', ErrorOwner.APP,
+    localText('startup_text_0694')),
+  new ErrorEntry('16000001', 'INVALID_PARAMETER', localText('startup_text_0695'), ErrorOwner.APP,
     RetryAdvice.RETRY_SAME, false, false,
-    'Ability 层参数校验失败；核对 want、bundleName 与请求码。'),
-  new ErrorEntry('16000011', 'CONTEXT_INVALID', '上下文已失效。', ErrorOwner.APP,
+    localText('startup_text_0696')),
+  new ErrorEntry('16000011', 'CONTEXT_INVALID', localText('startup_text_0697'), ErrorOwner.APP,
     RetryAdvice.RETRY_AFTER_ACTION, false, false,
-    'Ability 已销毁或上下文未初始化，需在有效生命周期内重新发起。'),
-  new ErrorEntry('16000050', 'INTERNAL_ERROR', '系统内部错误。', ErrorOwner.SYSTEM,
+    localText('startup_text_0698')),
+  new ErrorEntry('16000050', 'INTERNAL_ERROR', localText('startup_text_0699'), ErrorOwner.SYSTEM,
     RetryAdvice.RETRY_LATER, false, false,
-    '内部错误通常可重试一次；连续失败应记录日志并停止重试。'),
-  new ErrorEntry('16000053', 'NOT_TOP_ABILITY', '目标不是前台 Ability。', ErrorOwner.APP,
+    localText('startup_text_0700')),
+  new ErrorEntry('16000053', 'NOT_TOP_ABILITY', localText('startup_text_0701'), ErrorOwner.APP,
     RetryAdvice.RETRY_AFTER_ACTION, false, false,
-    '跳转设置页需在可见状态下发起。'),
-  new ErrorEntry('16000060', 'ABILITY_NOT_FOUND', '未找到目标 Ability。', ErrorOwner.SYSTEM,
+    localText('startup_text_0702')),
+  new ErrorEntry('16000060', 'ABILITY_NOT_FOUND', localText('startup_text_0703'), ErrorOwner.SYSTEM,
     RetryAdvice.NO_RETRY, true, false,
-    '系统设置页不存在或名称不匹配，应保留手动指引。'),
-  new ErrorEntry('401001', 'TEXT_TOO_LONG', '文本超出上限。', ErrorOwner.APP,
+    localText('startup_text_0704')),
+  new ErrorEntry('401001', 'TEXT_TOO_LONG', localText('startup_text_0705'), ErrorOwner.APP,
     RetryAdvice.NO_RETRY, false, false,
-    '错误信息写入前必须截断，避免二次失败。'),
-  new ErrorEntry('401002', 'FIELD_EMPTY', '必填字段为空。', ErrorOwner.APP,
+    localText('startup_text_0706')),
+  new ErrorEntry('401002', 'FIELD_EMPTY', localText('startup_text_0707'), ErrorOwner.APP,
     RetryAdvice.NO_RETRY, false, false,
-    '空值不应进入持久化层。'),
-  new ErrorEntry('STORAGE_READ', 'STORAGE_READ_FAILED', '读取本地记录失败。', ErrorOwner.APP,
+    localText('startup_text_0708')),
+  new ErrorEntry('STORAGE_READ', 'STORAGE_READ_FAILED', localText('startup_text_0709'), ErrorOwner.APP,
     RetryAdvice.RETRY_AFTER_ACTION, false, false,
-    '存档损坏时应保留空列表并提示，不要写入覆盖。'),
-  new ErrorEntry('STORAGE_WRITE', 'STORAGE_WRITE_FAILED', '写入本地记录失败。', ErrorOwner.APP,
+    localText('startup_text_0710')),
+  new ErrorEntry('STORAGE_WRITE', 'STORAGE_WRITE_FAILED', localText('startup_text_0711'), ErrorOwner.APP,
     RetryAdvice.RETRY_LATER, false, false,
-    '写入失败不得改变内存中的既有记录。'),
-  new ErrorEntry('TIMEOUT', 'QUERY_TIMEOUT', '查询超时。', ErrorOwner.ENVIRONMENT,
+    localText('startup_text_0712')),
+  new ErrorEntry('TIMEOUT', 'QUERY_TIMEOUT', localText('startup_text_0713'), ErrorOwner.ENVIRONMENT,
     RetryAdvice.RETRY_LATER, false, false,
-    '超时是可重试状态，不等于不支持；记录应标记 timeout 而非 failure。'),
-  new ErrorEntry('UNKNOWN', 'UNKNOWN', '未知结果。', ErrorOwner.APP,
+    localText('startup_text_0714')),
+  new ErrorEntry('UNKNOWN', 'UNKNOWN', localText('startup_text_0715'), ErrorOwner.APP,
     RetryAdvice.RETRY_LATER, false, false,
-    '未知结果不计入成功或失败，单独统计。')
+    localText('startup_text_0716'))
 ];
+}
+export const ERROR_CATALOG: ErrorEntry[] = createERROR_CATALOG();
+registerTextRefresh((): void => {
+  ERROR_CATALOG.splice(0, ERROR_CATALOG.length);
+  createERROR_CATALOG().forEach((item: ErrorEntry): void => { ERROR_CATALOG.push(item); });
+});
 
 /** 查表；未知码返回 UNKNOWN 条目而不是抛错。 */
 export function describeError(code: string): ErrorEntry {
@@ -179,8 +203,8 @@ export class ErrorTally {
   }
 
   summary(): string {
-    return `成功 ${this.succeeded}｜失败 ${this.failed}｜不支持 ${this.unsupported}｜` +
-      `超时 ${this.timeout}｜未知 ${this.unknown}`;
+    return formatResource('startup_format_448e841d4196', [String(this.succeeded), String(this.failed), String(this.unsupported)]) +
+      formatResource('startup_format_206a2001625d', [String(this.timeout), String(this.unknown)]);
   }
 }
 

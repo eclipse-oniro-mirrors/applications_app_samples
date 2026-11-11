@@ -1,21 +1,38 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { ConfigurationConstant, UIAbility } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { setTextResolver } from '../autostart/text/LocalizedText';
 import { autoStartupService } from '../autostart/AutoStartupService';
 import { PreferencesHistoryStorage } from '../autostart/AutoStartupRuntime';
 import { capabilityDiagnostic } from '../autostart/diagnostics/DiagnosticRuntime';
 import { startupArchiveRepository } from '../autostart/archive/StartupArchive';
 import { StartupArchiveRdbStorage } from '../autostart/archive/StartupArchiveRdbStorage';
 
-const DOMAIN: number = 0x1A00;
-const TAG: string = 'AppStartupAuto';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AppStartupAuto]';
 let archiveLifecycle: Promise<void> = Promise.resolve();
 
 export default class EntryAbility extends UIAbility {
   private archiveGeneration: number = 0;
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
+    setTextResolver((key: string): string => this.context.resourceManager.getStringByNameSync(key));
     const archiveGeneration = ++this.archiveGeneration;
     autoStartupService.attachRecordSink(startupArchiveRepository);
     archiveLifecycle = archiveLifecycle.then(async (): Promise<void> => {

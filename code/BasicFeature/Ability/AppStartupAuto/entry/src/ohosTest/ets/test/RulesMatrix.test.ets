@@ -1,9 +1,25 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /**
  * 能力矩阵、错误目录、状态机与回访规则的矩阵用例。
  *
  * 所有断言都引用主代码导出的规则表与函数，测试内不复制业务常量。
  */
-import { describe, expect, it } from '@ohos/hypium';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import {
   CAPABILITY_RULES, CapabilityEvaluation, CapabilityQuery, CapabilityVerdict, DeviceForm,
   SystemFlavor, canSetInApp, evaluateCapability, isDefinitelyUnsupported, needsSettingsGuidance,

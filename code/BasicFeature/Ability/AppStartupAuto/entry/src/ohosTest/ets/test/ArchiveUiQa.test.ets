@@ -1,9 +1,25 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // 待集中验证：当前仅静态对齐正式组件/SDK，未执行本套件或任何中间门禁。
-import { afterEach, describe, expect, it } from '@ohos/hypium';
+import { afterEach, describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { ON } from '@kit.TestKit';
 import { QueryOutcome, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
-import { archiveQaClick, archiveQaInput, archiveQaNode, archiveQaText, currentArchiveUiQa,
-  finishArchiveUiQa, launchArchiveUiQa } from '../support/ArchiveUiQaSupport';
+import { archiveQaClick, archiveQaExpected, archiveQaInput, archiveQaNode, archiveQaText,
+  currentArchiveUiQa, finishArchiveUiQa, launchArchiveUiQa } from '../support/ArchiveUiQaSupport';
 
 export default function archiveUiQaTests(): void {
   describe('ArchiveUiQa', (): void => {
@@ -24,7 +40,9 @@ export default function archiveUiQaTests(): void {
       expect(await archiveQaText(driver, 'archive-empty')).assertEqual('当前范围没有已保存归档');
       expect(await (await archiveQaNode(driver, 'archive-save')).isEnabled()).assertFalse();
       expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertFalse();
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual('范围 0 条｜成功 0｜失败 0｜不支持 0｜超时 0｜未知 0');
+      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
+        archiveQaExpected('startup_format_78064061fa94', ['0', '0', '0']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
       expect(currentArchiveUiQa().storage.writes).assertEqual(0);
     });
 
@@ -45,7 +63,9 @@ export default function archiveUiQaTests(): void {
       expect(fixture.repository.snapshot().rows.length).assertEqual(0);
       fixture.release();
       await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual('范围 2 条｜成功 1｜失败 1｜不支持 0｜超时 0｜未知 0');
+      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
+        archiveQaExpected('startup_format_78064061fa94', ['2', '1', '1']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
       expect(fixture.storage.document.rows[1].record.errorMessage).assertEqual('');
       expect(fixture.liveRecords[1].errorMessage).assertEqual('qa-private-error-detail');
     });
@@ -93,7 +113,9 @@ export default function archiveUiQaTests(): void {
       await archiveQaClick(driver, `archive-row-${failure.archiveId}`);
       expect((await archiveQaText(driver, 'archive-details')).indexOf('16000050') >= 0).assertTrue();
       await archiveQaClick(driver, 'archive-source-manual');
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual('范围 1 条｜成功 1｜失败 0｜不支持 0｜超时 0｜未知 0');
+      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
+        archiveQaExpected('startup_format_78064061fa94', ['1', '1', '0']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
       expect(await archiveQaText(driver, 'archive-details')).assertEqual('请选择已保存归档查看详情');
       expect(fixture.storage.document.rows.length).assertEqual(2);
       expect(fixture.storage.writes).assertEqual(1);
@@ -111,7 +133,9 @@ export default function archiveUiQaTests(): void {
     it('testArchiveUiQa0005', 0, async (): Promise<void> => {
       const driver = await launchArchiveUiQa('seeded');
       await archiveQaInput(driver, 'archive-search', '16000050');
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual('范围 1 条｜成功 0｜失败 1｜不支持 0｜超时 0｜未知 0');
+      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
+        archiveQaExpected('startup_format_78064061fa94', ['1', '0', '1']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
       await archiveQaInput(driver, 'archive-search', 'no-match');
       expect(await archiveQaText(driver, 'archive-empty')).assertEqual('当前范围没有已保存归档');
       expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertFalse();
@@ -142,7 +166,9 @@ export default function archiveUiQaTests(): void {
       await fixture.repository.whenIdle();
       expect(await archiveQaText(driver, 'archive-auto')).assertEqual('停用自动归档');
       expect(fixture.storage.document.automatic).assertTrue();
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual('范围 3 条｜成功 1｜失败 1｜不支持 1｜超时 0｜未知 0');
+      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
+        archiveQaExpected('startup_format_78064061fa94', ['3', '1', '1']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['1', '0', '0']));
     });
 
     /**
@@ -191,11 +217,14 @@ export default function archiveUiQaTests(): void {
       await archiveQaClick(driver, 'archive-clean-preview');
       await archiveQaClick(driver, 'archive-clean-confirm');
       await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('已提交清理，删除 1 条');
+      expect(await archiveQaText(driver, 'archive-notice')).assertEqual(
+        archiveQaExpected('startup_format_f7ccf2ca0b28', ['1']));
       expect(fixture.storage.document.rows[0].record.id).assertEqual(101);
       expect(fixture.liveRecords.length).assertEqual(2);
       expect(fixture.storage.writes).assertEqual(2);
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual('范围 1 条｜成功 1｜失败 0｜不支持 0｜超时 0｜未知 0');
+      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
+        archiveQaExpected('startup_format_78064061fa94', ['1', '1', '0']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
     });
 
     /**

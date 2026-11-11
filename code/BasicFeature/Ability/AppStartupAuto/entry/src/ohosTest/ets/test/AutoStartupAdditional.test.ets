@@ -1,4 +1,20 @@
-import { afterEach, beforeEach, describe, expect, it } from '@ohos/hypium';
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { afterEach, beforeEach, describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { AutoStartupApi } from '../../../main/ets/autostart/AutoStartupRuntime';
 import { AutoStartupService } from '../../../main/ets/autostart/AutoStartupService';
@@ -232,7 +248,7 @@ export default function autoStartupAdditionalTest(): void {
       expect(timedOut.lastValue).assertFalse();
       expect(timedOut.lastSampleTime).assertEqual(successful.sampleTime);
       expect(timedOut.pending).assertTrue();
-      expect(timedOut.errorMessage).assertEqual('系统响应等待超时');
+      expect(timedOut.errorMessage).assertEqual('Timed out waiting for the system response');
       f.clock.advance(3000);
       f.api.rejectNext(new TestBusinessError(801, 'arrived after timeout'));
       await flushMicrotasks();

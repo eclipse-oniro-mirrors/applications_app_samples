@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { localText, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 开机自启能力矩阵。
  *
@@ -106,9 +123,9 @@ export class CapabilityRule {
   }
 
   describe(): string {
-    const formText: string = this.forms.length === 0 ? '全部形态' :
+    const formText: string = this.forms.length === 0 ? localText('startup_text_0652') :
       this.forms.map((form: DeviceForm): string => form as string).join('/');
-    const flavorText: string = this.flavors.length === 0 ? '全部系统' :
+    const flavorText: string = this.flavors.length === 0 ? localText('startup_text_0653') :
       this.flavors.map((flavor: SystemFlavor): string => flavor as string).join('/');
     return `${this.ruleId}：API ${this.minApi}~${this.maxApi}，${formText}，${flavorText}`;
   }
@@ -126,80 +143,87 @@ const PHONE_TABLET: DeviceForm[] = [DeviceForm.PHONE, DeviceForm.TABLET];
  * 规则顺序即优先级：先命中先返回。低版本、排除形态和未知系统的规则必须排在
  * 通用规则之前，否则会被通用规则吞掉。
  */
-export const CAPABILITY_RULES: CapabilityRule[] = [
+function createCAPABILITY_RULES(): CapabilityRule[] {
+  return [
   new CapabilityRule('CM-0001', 0, 8, ALL_FORMS, ALL_FLAVORS,
     CapabilityVerdict.NEED_SYSTEM_UPDATE,
-    'API 9 起才开放 autoStartupManager，低于 9 一律视为系统不支持。',
-    '当前系统版本过低，无法使用开机自启设置。', false),
+    localText('startup_text_0654'),
+    localText('startup_text_0655'), false),
   new CapabilityRule('CM-0002', 9, 11, [DeviceForm.WEARABLE], ALL_FLAVORS,
     CapabilityVerdict.DEVICE_EXCLUDED,
-    '穿戴形态在 API 12 前不开放自启设置入口。',
-    '当前设备形态暂不支持开机自启。', false),
+    localText('startup_text_0656'),
+    localText('startup_text_0657'), false),
   new CapabilityRule('CM-0003', 9, 11, [DeviceForm.TV], ALL_FLAVORS,
     CapabilityVerdict.DEVICE_EXCLUDED,
-    'TV 形态在 API 12 前不开放自启设置入口。',
-    '当前设备形态暂不支持开机自启。', false),
+    localText('startup_text_0658'),
+    localText('startup_text_0657'), false),
   new CapabilityRule('CM-0004', 9, 11, PHONE_TABLET, [SystemFlavor.OPEN_HARMONY],
     CapabilityVerdict.SUPPORTED,
-    'OpenHarmony API 9~11 仅开放状态查询，设置需跳系统页面。',
-    '可以查看开机自启状态；开启需在系统设置中操作。', false),
+    localText('startup_text_0659'),
+    localText('startup_text_0660'), false),
   new CapabilityRule('CM-0005', 9, 11, PHONE_TABLET, [SystemFlavor.COMMERCIAL],
     CapabilityVerdict.NEED_PERMISSION,
-    '商用发行版 API 9~11 查询状态需已授予自启相关权限。',
-    '需要授予权限后才能查看开机自启状态。', true),
+    localText('startup_text_0661'),
+    localText('startup_text_0662'), true),
   new CapabilityRule('CM-0006', 12, 13, [DeviceForm.WEARABLE], ALL_FLAVORS,
     CapabilityVerdict.DEVICE_EXCLUDED,
-    '穿戴形态自 API 12 起只开放查询，不开放设置。',
-    '当前设备可以查看状态，但不能在应用内开启。', false),
+    localText('startup_text_0663'),
+    localText('startup_text_0664'), false),
   new CapabilityRule('CM-0007', 12, 13, [DeviceForm.TV], [SystemFlavor.OPEN_HARMONY],
     CapabilityVerdict.SUPPORTED,
-    'OpenHarmony API 12 起 TV 形态开放查询与设置。',
-    '可以查看并设置开机自启。', false),
+    localText('startup_text_0665'),
+    localText('startup_text_0666'), false),
   new CapabilityRule('CM-0008', 12, 13, [DeviceForm.TV], [SystemFlavor.COMMERCIAL],
     CapabilityVerdict.NEED_PERMISSION,
-    '商用发行版 TV 形态设置自启需系统签名权限。',
-    '当前设备需要额外授权才能设置开机自启。', true),
+    localText('startup_text_0667'),
+    localText('startup_text_0668'), true),
   new CapabilityRule('CM-0009', 12, 13, PHONE_TABLET, [SystemFlavor.OPEN_HARMONY],
     CapabilityVerdict.SUPPORTED,
-    'OpenHarmony API 12~13 手机与平板开放查询与设置。',
-    '可以查看并设置开机自启。', false),
+    localText('startup_text_0669'),
+    localText('startup_text_0666'), false),
   new CapabilityRule('CM-0010', 12, 13, PHONE_TABLET, [SystemFlavor.COMMERCIAL],
     CapabilityVerdict.NEED_PERMISSION,
-    '商用发行版手机与平板需要用户授予自启权限。',
-    '需要授予权限后才能设置开机自启。', true),
+    localText('startup_text_0670'),
+    localText('startup_text_0671'), true),
   new CapabilityRule('CM-0011', 14, 17, [DeviceForm.WEARABLE], ALL_FLAVORS,
     CapabilityVerdict.DEVICE_EXCLUDED,
-    '穿戴形态在 API 18 前不开放设置，仅提供查询。',
-    '当前设备可以查看状态，但不能在应用内开启。', false),
+    localText('startup_text_0672'),
+    localText('startup_text_0664'), false),
   new CapabilityRule('CM-0012', 14, 17, [DeviceForm.TV], ALL_FLAVORS,
     CapabilityVerdict.SUPPORTED,
-    'API 14~17 TV 形态开放查询与设置。',
-    '可以查看并设置开机自启。', false),
+    localText('startup_text_0673'),
+    localText('startup_text_0666'), false),
   new CapabilityRule('CM-0013', 14, 17, PHONE_TABLET, ALL_FLAVORS,
     CapabilityVerdict.SUPPORTED,
-    'API 14~17 手机与平板开放查询与设置。',
-    '可以查看并设置开机自启。', false),
+    localText('startup_text_0674'),
+    localText('startup_text_0666'), false),
   new CapabilityRule('CM-0014', 18, 26, ALL_FORMS, ALL_FLAVORS,
     CapabilityVerdict.SUPPORTED,
-    'API 18 起全部形态开放查询与设置。',
-    '可以查看并设置开机自启。', false),
+    localText('startup_text_0675'),
+    localText('startup_text_0666'), false),
   new CapabilityRule('CM-0015', 27, 999, ALL_FORMS, ALL_FLAVORS,
     CapabilityVerdict.UNKNOWN,
-    '高于已验证的 API 26，接口行为未确认，按未知处理。',
-    '当前系统版本尚未验证，结果仅供参考。', false),
+    localText('startup_text_0676'),
+    localText('startup_text_0677'), false),
   new CapabilityRule('CM-0016', 9, 11, ALL_FORMS, [SystemFlavor.UNKNOWN],
     CapabilityVerdict.UNKNOWN,
-    'API 9~11 无法识别系统发行版，按未知处理，不假定支持。',
-    '暂时无法判断当前系统的自启能力。', false),
+    localText('startup_text_0678'),
+    localText('startup_text_0679'), false),
   new CapabilityRule('CM-0017', 12, 17, ALL_FORMS, [SystemFlavor.UNKNOWN],
     CapabilityVerdict.UNKNOWN,
-    'API 12~17 无法识别系统发行版，按未知处理，不假定支持。',
-    '暂时无法判断当前系统的自启能力。', false),
+    localText('startup_text_0680'),
+    localText('startup_text_0679'), false),
   new CapabilityRule('CM-0018', 9, 999, [DeviceForm.UNKNOWN], ALL_FLAVORS,
     CapabilityVerdict.UNKNOWN,
-    '无法识别设备形态时不假定支持，只展示手动指引。',
-    '暂时无法判断当前设备的自启能力。', false)
+    localText('startup_text_0681'),
+    localText('startup_text_0682'), false)
 ];
+}
+export const CAPABILITY_RULES: CapabilityRule[] = createCAPABILITY_RULES();
+registerTextRefresh((): void => {
+  CAPABILITY_RULES.splice(0, CAPABILITY_RULES.length);
+  createCAPABILITY_RULES().forEach((item: CapabilityRule): void => { CAPABILITY_RULES.push(item); });
+});
 
 /** 判定结果。带命中的规则，便于诊断页展示依据。 */
 export class CapabilityEvaluation {
@@ -212,16 +236,16 @@ export class CapabilityEvaluation {
   public downgradedByEntry: boolean = false;
 
   summary(): string {
-    const ruleId: string = this.rule === undefined ? '未命中规则' : this.rule.ruleId;
+    const ruleId: string = this.rule === undefined ? localText('startup_text_0683') : this.rule.ruleId;
     return `${this.verdict as string}（${ruleId}）`;
   }
 
   developerHint(): string {
-    return this.rule === undefined ? '请补充能力矩阵规则' : this.rule.developerHint;
+    return this.rule === undefined ? localText('startup_text_0684') : this.rule.developerHint;
   }
 
   userHint(): string {
-    return this.rule === undefined ? '暂时无法判断当前设备的自启能力。' : this.rule.userHint;
+    return this.rule === undefined ? localText('startup_text_0682') : this.rule.userHint;
   }
 }
 

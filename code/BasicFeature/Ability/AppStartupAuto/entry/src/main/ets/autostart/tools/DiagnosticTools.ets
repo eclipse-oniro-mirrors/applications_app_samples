@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, recordValueLabel, registerTextRefresh } from '../text/LocalizedText';
+
 /**
  * 诊断与导出用的小工具集合。
  *
@@ -49,7 +66,7 @@ export function clockText(timestamp: number): string {
 /** 把时间戳格式化为 MM-dd HH:mm。 */
 export function dateTimeText(timestamp: number): string {
   if (!Number.isFinite(timestamp) || timestamp <= 0) {
-    return '未知时间';
+    return localText('startup_text_0748');
   }
   const date: Date = new Date(timestamp);
   const month: string = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -60,25 +77,25 @@ export function dateTimeText(timestamp: number): string {
 /** 相对时间：刚刚 / N 分钟前 / N 小时前 / N 天前。 */
 export function relativeText(timestamp: number, now: number): string {
   if (!Number.isFinite(timestamp) || timestamp <= 0) {
-    return '时间未知';
+    return localText('startup_text_0749');
   }
   const delta: number = Math.max(0, now - timestamp);
   if (delta < 60 * 1000) {
-    return '刚刚';
+    return localText('startup_text_0750');
   }
   if (delta < 60 * 60 * 1000) {
-    return `${Math.floor(delta / 60000)} 分钟前`;
+    return formatResource('startup_format_66f93fe5e906', [String(Math.floor(delta / 60000))]);
   }
   if (delta < 24 * 60 * 60 * 1000) {
-    return `${Math.floor(delta / 3600000)} 小时前`;
+    return formatResource('startup_format_6504a911f9e1', [String(Math.floor(delta / 3600000))]);
   }
-  return `${Math.floor(delta / 86400000)} 天前`;
+  return formatResource('startup_format_09f12da9a77f', [String(Math.floor(delta / 86400000))]);
 }
 
 /** 时长文本：毫秒以下保留整数，超过 1 秒用秒。 */
 export function durationText(millis: number): string {
   if (!Number.isFinite(millis) || millis < 0) {
-    return '未知耗时';
+    return localText('startup_text_0754');
   }
   if (millis < 1000) {
     return `${Math.round(millis)} ms`;
@@ -90,15 +107,15 @@ export function durationText(millis: number): string {
 export function outcomeLabel(outcome: QueryOutcome): string {
   switch (outcome) {
     case QueryOutcome.SUCCESS:
-      return '成功';
+      return localText('startup_text_0001');
     case QueryOutcome.FAILURE:
-      return '失败';
+      return localText('startup_text_0002');
     case QueryOutcome.UNSUPPORTED:
-      return '不支持';
+      return localText('startup_text_0003');
     case QueryOutcome.TIMEOUT:
-      return '超时';
+      return localText('startup_text_0004');
     default:
-      return '未知';
+      return localText('startup_text_0005');
   }
 }
 
@@ -106,15 +123,15 @@ export function outcomeLabel(outcome: QueryOutcome): string {
 export function sourceLabel(source: RefreshSource): string {
   switch (source) {
     case RefreshSource.INITIAL:
-      return '首次进入';
+      return localText('startup_text_0006');
     case RefreshSource.MANUAL:
-      return '手动刷新';
+      return localText('startup_text_0007');
     case RefreshSource.FOREGROUND:
-      return '返回前台';
+      return localText('startup_text_0008');
     case RefreshSource.SETTINGS:
-      return '设置后查询';
+      return localText('startup_text_0009');
     default:
-      return '未标注';
+      return localText('startup_text_0010');
   }
 }
 
@@ -162,7 +179,8 @@ export function selectForExport(records: QueryRecord[]): QueryRecord[] {
   return valid.slice(0, EXPORT_ROW_LIMIT);
 }
 
-const CSV_HEADER: string = 'id,时间,来源,结果,结论,错误码,耗时(ms)';
+let CSV_HEADER: string = localText('startup_text_0755');
+registerTextRefresh((): void => { CSV_HEADER = localText('startup_text_0755'); });
 
 function csvCell(value: string): string {
   const safe: string = value.replace(/"/g, '""');
@@ -181,7 +199,7 @@ export function toCsv(records: QueryRecord[]): string {
       dateTimeText(record.timestamp),
       csvCell(sourceLabel(record.source)),
       csvCell(outcomeLabel(record.outcome)),
-      csvCell(record.result.length === 0 ? '未获取' : record.result),
+      csvCell(record.result.length === 0 ? localText('startup_text_0556') : recordValueLabel(record.result)),
       record.errorCode.length === 0 ? '-' : record.errorCode,
       Math.max(0, Math.round(record.durationMillis)).toString()
     ].join(','));
@@ -191,11 +209,11 @@ export function toCsv(records: QueryRecord[]): string {
 
 /** 导出 Markdown 表格，便于贴到问题单。 */
 export function toMarkdown(records: QueryRecord[]): string {
-  const lines: string[] = ['| # | 时间 | 来源 | 结果 | 结论 | 错误码 |',
+  const lines: string[] = [localText('startup_text_0756'),
     '|---:|---|---|---|---|---|'];
   selectForExport(records).forEach((record: QueryRecord): void => {
     lines.push(`| ${record.id} | ${dateTimeText(record.timestamp)} | ${sourceLabel(record.source)} | ` +
-      `${outcomeLabel(record.outcome)} | ${record.result.length === 0 ? '未获取' : record.result} | ` +
+      `${outcomeLabel(record.outcome)} | ${record.result.length === 0 ? localText('startup_text_0556') : recordValueLabel(record.result)} | ` +
       `${record.errorCode.length === 0 ? '-' : record.errorCode} |`);
   });
   return lines.join('\n');

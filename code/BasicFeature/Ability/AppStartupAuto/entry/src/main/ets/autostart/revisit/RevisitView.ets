@@ -1,24 +1,41 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText, recordSourceLabel, recordValueLabel } from '../text/LocalizedText';
+
 import { QueryRecord } from '../AutoStartupTypes';
 import { RevisitSession } from './RevisitTracker';
 import { dateTimeText } from '../tools/DiagnosticTools';
 
 function sample(record: QueryRecord | undefined): string {
-  return record === undefined ? '无' :
-    `query #${record.id}｜${record.source}｜${record.outcome}｜${record.result}｜${dateTimeText(record.timestamp)}`;
+  return record === undefined ? localText('startup_text_0524') :
+    `query #${record.id}｜${recordSourceLabel(record.source)}｜${record.outcome}｜${recordValueLabel(record.result)}｜${dateTimeText(record.timestamp)}`;
 }
 
 /** Local terminal facts, never inferred system-setting visits or boot-start evidence. */
 export function revisitDetails(session: RevisitSession | undefined): string[] {
-  if (session === undefined) { return ['尚无选定的终止回访']; }
+  if (session === undefined) { return [localText('startup_text_0640')]; }
   const lines: string[] = [
-    `session ${session.sessionId}｜${session.stage}｜指引版本 ${session.guidanceRevision}`,
-    `创建 ${dateTimeText(session.createdAt)}｜后台 ${dateTimeText(session.leftAt)}｜前台 ${dateTimeText(session.returnedAt)}`,
-    `终止/最后回查 ${dateTimeText(session.recheckedAt)}｜取消 ${session.cancelled}`,
-    `离开前 ${sample(session.before)}`, `返回后 ${sample(session.after)}`, session.conclusion,
-    '这些事实只证明应用前后台和查询结果，不证明用户进入设置、修改开关或实际开机拉起。'
+    formatResource('startup_format_360de0970f87', [String(session.sessionId), String(session.stage), String(session.guidanceRevision)]),
+    formatResource('startup_format_7b971e5c43f8', [String(dateTimeText(session.createdAt)), String(dateTimeText(session.leftAt)), String(dateTimeText(session.returnedAt))]),
+    formatResource('startup_format_ffcd03352e3d', [String(dateTimeText(session.recheckedAt)), String(session.cancelled)]),
+    formatResource('startup_format_39a7ab3f3050', [String(sample(session.before))]), formatResource('startup_format_80fe90e6fd9e', [String(sample(session.after))]), session.conclusion,
+    localText('startup_text_0649')
   ];
   session.attempts.forEach((record: QueryRecord): void => {
-    lines.push(`回查尝试 ${sample(record)}｜错误码 ${record.errorCode || '无'}｜${record.durationMillis} ms`);
+    lines.push(formatResource('startup_format_3ce3e8a0287e', [String(sample(record)), String(record.errorCode || localText('startup_text_0524')), String(record.durationMillis)]));
   });
   return lines;
 }

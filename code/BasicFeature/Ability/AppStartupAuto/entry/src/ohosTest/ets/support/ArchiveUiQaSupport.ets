@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /** Test I/O ports only. All archive validation, filtering, planning and persistence sequencing are production. */
 import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 import { QueryOutcome, QueryRecord, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
@@ -130,6 +145,19 @@ export async function archiveQaNode(driver: Driver, id: string): Promise<Compone
   if (component === undefined || component === null) { throw new Error(`Missing archive control: ${id}`); }
   return component;
 }
+/**
+ * Resolve an expected UI string from the same resources the panel uses, so assertions do
+ * not assume a particular device language. args follow the {0}/{1} placeholder order.
+ */
+export function archiveQaExpected(key: string, args: string[] = []): string {
+  const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+  const template: string = context.resourceManager.getStringByNameSync(key);
+  return template.replace(/\{(\d+)\}/g, (match: string, index: string): string => {
+    const position = Number(index);
+    return position < args.length ? args[position] : match;
+  });
+}
+
 export async function archiveQaText(driver: Driver, id: string): Promise<string> {
   return (await archiveQaNode(driver, id)).getText();
 }

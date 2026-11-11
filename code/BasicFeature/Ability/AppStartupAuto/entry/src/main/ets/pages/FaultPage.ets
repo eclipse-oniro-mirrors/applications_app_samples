@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../autostart/text/LocalizedText';
+
 import { pasteboard } from '@kit.BasicServicesKit';
 import { promptAction, router } from '@kit.ArkUI';
 import { autoStartupService } from '../autostart/AutoStartupService';
@@ -40,7 +57,7 @@ struct FaultPage {
   }
 
   private records(): QueryRecord[] {
-    return autoStartupService.records('全部');
+    return autoStartupService.records('all');
   }
 
   private archiveRecords(): ArchiveRecord[] {
@@ -59,19 +76,19 @@ struct FaultPage {
       FaultOwner.ENVIRONMENT];
     const ownerParts: string[] = owners.map((owner: FaultOwner): string =>
       `${ownerLabel(owner)} ${faultsOfOwner(owner).length}`);
-    lines.push(`归属分布：${ownerParts.join(' / ')}`);
+    lines.push(formatResource('startup_format_08ea3219d621', [String(ownerParts.join(' / '))]));
     const layers: CheckLayer[] = [CheckLayer.CAPABILITY, CheckLayer.PERMISSION,
       CheckLayer.QUERY, CheckLayer.STORAGE, CheckLayer.UI];
     const layerParts: string[] = layers.map((layer: CheckLayer): string =>
       `${layerLabel(layer)} ${faultsOfLayer(layer).length}`);
-    lines.push(`层分布：${layerParts.join(' / ')}`);
+    lines.push(formatResource('startup_format_e69a71fbd7c2', [String(layerParts.join(' / '))]));
     this.faultLinesState = lines;
 
     const actions: string[] = [];
     planActions(faultIds()).forEach((action): void => {
       actions.push(action.text());
     });
-    actions.push(`优先项 ${criticalFaults().length} 条`);
+    actions.push(formatResource('startup_format_dc531a6cf5e6', [String(criticalFaults().length)]));
     this.actionLines = actions;
 
     const report: CompactionReport = buildCompaction(this.archiveRecords(), Date.now());
@@ -96,13 +113,13 @@ struct FaultPage {
     chainLines().forEach((line: string): void => {
       evidence.push(line);
     });
-    evidence.push(`可行链：${feasibleCounts(evidenceIds()).join(' /')}`);
+    evidence.push(formatResource('startup_format_23a6d544d29a', [String(feasibleCounts(evidenceIds()).join(' /'))]));
     const supported = bestChain(Conclusion.SUPPORTED, ['EV-01', 'EV-10', 'EV-11', 'EV-07']);
-    evidence.push(`支持结论：${supported === undefined ? '无' : supported.text()}`);
+    evidence.push(formatResource('startup_format_8b98ce0363db', [String(supported === undefined ? localText('startup_text_0524') : supported.text())]));
     const failed = bestChain(Conclusion.FAILED, ['EV-06', 'EV-08']);
-    evidence.push(`失败结论：${failed === undefined ? '无' : failed.text()}`);
+    evidence.push(formatResource('startup_format_aef3ff20682d', [String(failed === undefined ? localText('startup_text_0524') : failed.text())]));
     evidence.push(auditChains().summary());
-    evidence.push(`证据 ${evidenceIds().length} 条，链规则 ${CHAIN_RULES.length} 条`);
+    evidence.push(formatResource('startup_format_0e00c374dbc8', [String(evidenceIds().length), String(CHAIN_RULES.length)]));
     this.evidenceLinesState = evidence;
 
     const flow: OnboardingFlow = new OnboardingFlow();
@@ -110,16 +127,16 @@ struct FaultPage {
     flow.complete('OB-02');
     flow.skip('OB-19');
     const onboarding: string[] = [flow.text()];
-    onboarding.push(`必做 ${mandatorySteps().length} 步，可跳过 ${skippableSteps().length} 步，` +
-      `预计 ${totalSeconds()} 秒`);
+    onboarding.push(formatResource('startup_format_336f0852ca33', [String(mandatorySteps().length), String(skippableSteps().length)]) +
+      formatResource('startup_format_0b70d84ddd7a', [String(totalSeconds())]));
     groupProgressLines(flow).forEach((line: string): void => {
       onboarding.push(line);
     });
     stepLines().forEach((line: string): void => {
       onboarding.push(line);
     });
-    onboarding.push(`当前步骤：${flow.current() === undefined ? '无' : flow.current()?.stepId}`);
-    onboarding.push(`阻塞步骤 ${flow.blocked().length} 个`);
+    onboarding.push(formatResource('startup_format_6457ea597395', [String(flow.current() === undefined ? localText('startup_text_0524') : flow.current()?.stepId)]));
+    onboarding.push(formatResource('startup_format_b331ac27728f', [String(flow.blocked().length)]));
     onboarding.push(auditOnboarding().summary());
     this.onboardingLines = onboarding;
   }
@@ -131,14 +148,14 @@ struct FaultPage {
     try {
       const data = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, content);
       pasteboard.getSystemPasteboard().setData(data).then(() => {
-        this.notice = `已复制 ${content.length} 字符`;
+        this.notice = formatResource('startup_format_32e57d9ce315', [String(content.length)]);
         promptAction.showToast({ message: this.notice });
       }).catch(() => {
-        this.notice = '复制失败，请重试';
+        this.notice = localText('startup_text_0154');
         promptAction.showToast({ message: this.notice });
       });
     } catch (_) {
-      this.notice = '复制失败，请重试';
+      this.notice = localText('startup_text_0154');
     }
   }
 
@@ -154,7 +171,7 @@ struct FaultPage {
       }.width('100%').height(44).padding(0).backgroundColor(Color.Transparent)
         .onClick(() => { this.expandedSection = this.expandedSection === title ? '' : title; })
       if (this.expandedSection === title) {
-        if (title === '故障目录') {
+        if (title === localText('startup_text_0879')) {
           Text(this.headline).fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
         }
         ForEach(lines, (line: string) => {
@@ -168,7 +185,7 @@ struct FaultPage {
   build() {
     Scroll() {
       Column({ space: 16 }) {
-        Button('‹ 返回', { type: ButtonType.Normal })
+        Button(localText('startup_text_0842'), { type: ButtonType.Normal })
           .fontSize(17)
           .fontColor($r('app.color.accent_color'))
           .backgroundColor($r('app.color.accent_soft'))
@@ -177,16 +194,16 @@ struct FaultPage {
           .onClick(() => router.back())
 
         Column({ space: 8 }) {
-          Text('故障与归档')
+          Text(localText('startup_text_0880'))
             .fontSize(26)
             .fontWeight(FontWeight.Bold)
             .fontColor($r('app.color.text_primary'))
             .width('100%')
-          Text('按需展开排查参考，不作为本机故障检测结果。')
+          Text(localText('startup_text_0881'))
             .fontSize(14)
             .fontColor($r('app.color.text_secondary'))
             .width('100%')
-          Text(`目录 ${FAULT_CATALOG.length} 条｜历史 ${this.records().length} 条`)
+          Text(formatResource('startup_format_23553164b8f3', [String(FAULT_CATALOG.length), String(this.records().length)]))
             .fontSize(14)
             .fontColor($r('app.color.text_secondary'))
             .width('100%')
@@ -194,14 +211,14 @@ struct FaultPage {
         .width('100%')
         .alignItems(HorizontalAlign.Start)
 
-        this.card('故障目录', this.faultLinesState)
-        this.card('处置顺序', this.actionLines)
-        this.card('归档与保留', this.archiveLines)
-        this.card('结论证据链', this.evidenceLinesState)
-        this.card('引导步骤', this.onboardingLines)
+        this.card(localText('startup_text_0879'), this.faultLinesState)
+        this.card(localText('startup_text_0884'), this.actionLines)
+        this.card(localText('startup_text_0885'), this.archiveLines)
+        this.card(localText('startup_text_0886'), this.evidenceLinesState)
+        this.card(localText('startup_text_0887'), this.onboardingLines)
 
         Button({ type: ButtonType.Normal }) {
-          Text('复制全部')
+          Text(localText('startup_text_0888'))
             .fontSize(16)
             .fontColor(Color.White)
             .width('100%')
