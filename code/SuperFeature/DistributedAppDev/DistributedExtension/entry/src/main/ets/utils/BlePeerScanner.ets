@@ -50,7 +50,7 @@ export class BlePeerScanner {
   private source: string;
   private peers: BlePeer[] = [];
   private scanning: boolean = false;
-  private listener: ((results: Array<ble.ScanResult>) => void) | null = null;
+  private listener: ((results: ble.ScanResult[]) => void) | null = null;
   public onUpdate: ((peers: BlePeer[]) => void) | null = null;
   public onError: ((code: number, message: string) => void) | null = null;
 
@@ -75,14 +75,14 @@ export class BlePeerScanner {
       return;
     }
     this.peers = [];
-    const listener = (results: Array<ble.ScanResult>): void => {
+    const listener = (results: ble.ScanResult[]): void => {
       this.merge(results, maxPeers);
     };
     try {
       ble.on('BLEDeviceFind', listener);
       // 实测：空数组 filters 会被 napi 层拒掉（401 Invalid parameter）；d.ts 写明「不过滤传 null」，
       // 而 ArkTS 不接受 null 实参，因此改传一个字段全空的 ScanFilter——字段全为可选，等价于不做字段过滤
-      const filters: Array<ble.ScanFilter> = [{}];
+      const filters: ble.ScanFilter[] = [{}];
       ble.startBLEScan(filters);
       this.listener = listener;
       this.scanning = true;
@@ -117,7 +117,7 @@ export class BlePeerScanner {
     }
   }
 
-  private merge(results: Array<ble.ScanResult>, maxPeers: number): void {
+  private merge(results: ble.ScanResult[], maxPeers: number): void {
     let changed = false;
     for (let i = 0; i < results.length; i++) {
       const item = results[i];

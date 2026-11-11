@@ -61,7 +61,7 @@ export class BtPeerScanner {
   private peers: BtPeer[] = [];
   private finding: boolean = false;
   private timer: number = -1;
-  private listener: ((addrs: Array<string>) => void) | null = null;
+  private listener: ((addrs: string[]) => void) | null = null;
   public onUpdate: ((peers: BtPeer[]) => void) | null = null;
   public onError: ((code: number, message: string) => void) | null = null;
 
@@ -80,7 +80,7 @@ export class BtPeerScanner {
   /** 读系统里的已配对设备；只查记录，不触发扫描，失败时把系统码透给页面 */
   loadPaired(): void {
     try {
-      const addrs: Array<string> = connection.getPairedDevices();
+      const addrs: string[] = connection.getPairedDevices();
       for (let i = 0; i < addrs.length; i++) {
         this.upsert(addrs[i], true);
       }
@@ -96,7 +96,7 @@ export class BtPeerScanner {
     if (this.finding) {
       return;
     }
-    const listener = (addrs: Array<string>): void => {
+    const listener = (addrs: string[]): void => {
       this.mergeFound(addrs, maxPeers);
     };
     try {
@@ -160,7 +160,7 @@ export class BtPeerScanner {
     }
   }
 
-  private mergeFound(addrs: Array<string>, maxPeers: number): void {
+  private mergeFound(addrs: string[], maxPeers: number): void {
     let changed = false;
     for (let i = 0; i < addrs.length; i++) {
       const addr = addrs[i];

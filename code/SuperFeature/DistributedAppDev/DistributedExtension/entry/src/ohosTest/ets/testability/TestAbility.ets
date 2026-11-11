@@ -29,7 +29,7 @@ const ON_DESTROY_ERROR: number = -2;
  * 本工程 66 个测试文件、3016 条用例，hypium 每注册一条都会 `console.info` 一行（`stress length`），
  * 在设备上要写 3016 次 hilog，实测独占 8 s 且期间不回到事件循环。AAFWK 从 ForegroundLifecycle
  * 开始计时，5 s 内收不到前台完成就判 LIFECYCLE_TIMEOUT 并回收测试进程（报告里是 App died）。
- * 所以注册不能放在 onCreate/onForeground 里同步做，否则前台永远走不完；
+ * 所以注册不能放在 onCreate/onForeground 里同步做，否则前台流程走不完；
  * 用 setTimeout 排到前台完成之后再执行，前台计时已经结束，不再受这段长占用影响。
  */
 const REGISTER_DELAY_MS: number = 1000;
@@ -45,7 +45,12 @@ export default class TestAbility extends UIAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
-    hilog.info(DOMAIN, TAG, '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
+    try {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'want param:' + JSON.stringify(want));
+    } catch (error) {
+      hilog.warn(DOMAIN, TAG, '%{public}s', 'want param cannot be serialized');
+      hilog.warn(DOMAIN, TAG, '%{public}s', String(error));
+    }
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {

@@ -309,7 +309,7 @@ git checkout master
   已配对的经典蓝牙设备。没有对端时页面只能演示参数校验与失败分支。
 - `DISTRIBUTED_DATASYNC` 与 `ACCESS_BLUETOOTH` 都是 user_grant 权限，第一次运行需在首页点「申请两个权限」
   完成授权，未授权时接口返回 201 或抛无错误码异常。
-- 本示例不做网络请求、不写数据库，除上述两个权限外不申请其他权限。
+- 本示例不做网络请求、不写数据库，除上述两个权限外不再申请权限。
 
 ## 构建、签名与安装
 
@@ -418,7 +418,7 @@ Project Structure → Signing Configs 面板里手工选 `signature/app-chain.pe
 用例串行执行，单例超时 5 s，含设备真调用与 UI 冒烟，整套约 2 分钟，运行配置里的总超时建议不低于 30 分钟。
 
 构建测试包前确认 `entry/src/ohosTest/module.json5` 里声明了 `TestAbility`：本工程带 `ets/testrunner/OpenHarmonyTestRunner.ets`，
-hvigor 会判定测试模板已手写而跳过注入，漏写时产物 `abilities` 为空，`aa test` 找不到 `entry_test/TestAbility` 会一直干等到超时
+hvigor 会判定测试模板已手写而跳过注入，漏写时产物 `abilities` 为空，测试命令找不到 `entry_test/TestAbility` 会一直干等到超时
 （判定规则与验证方法见 [ohosTest.md](ohosTest.md) 第三节第 5 小节）。
 
 结果（连续两轮，单次执行）：
@@ -539,7 +539,7 @@ OHOS_REPORT_RESULT: stream=Tests run: 3016, Failure: 0, Error: 0, Pass: 3016, Ig
 | 文件 | 条数 | 维度 | 覆盖内容 |
 | --- | --- | --- | --- |
 | `DistributedPerfBudget.test.ets` | 30 | 性能 | 编码、裁剪、日志、状态机、校验器、目录检索的耗时上界（2 s 宽松门限）加结果精确断言；循环规模压在百次级，避免整套占用越过 6 s |
-| `DistributedStabilityLoop.test.ets` | 30 | 稳定性 | 同一流循环 20 轮：日志容量挤占与顺序、清空后重建、两条状态机终点、编解码往返全等、过滤顺序、入参不被修改 |
+| `DistributedStabilityLoop.test.ets` | 30 | 稳定性 | 相同流程循环 20 轮：日志容量挤占与顺序、清空后重建、两条状态机终点、编解码往返全等、过滤顺序、入参不被修改 |
 | `DistributedInputGuard.test.ets` | 30 | 安全 / 非法输入 | MAC 与 UUID 的合法与非法样本表、关键字里的正则元字符按字面量、UTF-8 截断与非法首字节、异常对象五种形态、各类兜底文案 |
 | `DistributedCompatMatrix.test.ets` | 30 | 兼容 / 常量 | 路由 key 与枚举、文档页 / 入口函数 / 接口名、权限名、三档载荷上限的递增关系、16 个状态值连续、五种语言文本的字节数 |
 | `DistributedTextContract.test.ets` | 30 | 国际化 / 文案 | 16 个状态名与建议、19 个登记码给 19 条互异建议、四个通道阶段与协同结果文案、`undefined` / `null` / 换行不漏到界面、`（未提供）` 占位 |
@@ -614,7 +614,7 @@ UI 冒烟依赖应用在前台且停在首页：连跑多轮时若上一轮把�
 | 状态 | 链路 8 × 8、通道 4 × 5 转移表逐格断言，加脚本化多步序列 |
 | 数据 | 编码 1~4 字节区间上下界、裁剪上限网格、日志容量与过滤网格 |
 | 性能 | 六类操作各一组耗时上界，只拦「退化成秒级」的回归 |
-| 稳定性 | 同一流循环 20 轮，断言无状态残留、结果逐轮全等 |
+| 稳定性 | 相同流程循环 20 轮，断言无状态残留、结果逐轮全等 |
 | 安全 | 非法 MAC / UUID / 关键字 / 字节流 / 异常对象，断言不抛未捕获异常 |
 | 兼容 | 枚举值、常量关系、多语言文本字节数、三档布局无关的纯计算 |
 | 恢复 | 失败 → 重试 → 回退 → 再成功的完整路径 |

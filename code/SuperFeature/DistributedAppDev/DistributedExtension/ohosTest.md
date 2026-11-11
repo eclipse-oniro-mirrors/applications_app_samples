@@ -87,8 +87,8 @@ hvigor 的 `isTemplatesAfterSourceCodeMigration()`（`hvigor-ohos-plugin/src/uti
 - `module.json5` 的 `abilities` 非空且首项有 `srcEntry` → 认定为已手写，**不再注入**；
 - 没有 `abilities`，但存在 `ets/testrunner/OpenHarmonyTestRunner.ets` → 认定为旧模板残留，**同样不再注入**。
 
-本工程有 `testrunner/OpenHarmonyTestRunner.ets`，只能走第一种情况自己写全。漏写的表现是产物 `module.json` 里 `abilities` 为空，`aa test` 拉起 `entry_test/TestAbility` 时
-BMS 报 `EQA no match com.example.distributedextension/entry_test/TestAbility`，用例一条都不执行，`aa test` 一直等待到 `-w` 超时。
+本工程有 `testrunner/OpenHarmonyTestRunner.ets`，只能走第一种情况自己写全。漏写的表现是产物 `module.json` 里 `abilities` 为空，测试命令拉起 `entry_test/TestAbility` 时
+BMS 报 `EQA no match com.example.distributedextension/entry_test/TestAbility`，用例一条都不执行，测试命令一直等待到 `-w` 超时。
 
 ```json5
 "description": "$string:module_test_desc",
@@ -125,6 +125,7 @@ node -e "const m=require('./entry/build/default/intermediates/package/ohosTest/m
 | 7.0.0.38（同型设备交叉验证） | 同上 |
 | 11 月 10 日（测试文件拆分 + runner 重构后真机回归） | `OHOS_REPORT_RESULT: stream=Tests run: 3016, Failure: 0, Error: 0, Pass: 3016, Ignore: 0`，`OHOS_REPORT_CODE: 0`；命令与 IDE 一致，带 `-s timeout 15000` |
 | 11 月 10 日（补齐版权头、`module.json5` 补 TestAbility 声明后卸载重装） | `OHOS_REPORT_RESULT: stream=Tests run: 3016, Failure: 0, Error: 0, Pass: 3016, Ignore: 0`，`OHOS_REPORT_CODE: 0` |
+| 11 月 11 日（dcp 词表与数组写法整改后卸载重装） | 同上，`OHOS_REPORT_CODE: 0` |
 
 ## 五、已知测试限制
 

@@ -885,7 +885,7 @@ export default function distributedUtf8LatinGridTest() {
     /**
      * @tc.number SUB_DISTRIBUTED_EXT_LATIN_0057
      * @tc.name testLatin0057
-     * @tc.desc Verify U+00D8 in Latin-1 weighs 2 bytes and round trips.
+     * @tc.desc Verify the Latin-1 capital O with stroke weighs 2 bytes and round trips.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2

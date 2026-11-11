@@ -265,7 +265,7 @@ export default function distributedUtf8MalformedGridTest() {
     /**
      * @tc.number SUB_DISTRIBUTED_EXT_MALFORMED_1700
      * @tc.name testMalformed0017
-     * @tc.desc Verify decoding skips or stops correctly when a surrogate half inside UTF-8 decodes to U+D800.
+     * @tc.desc Verify decoding skips or stops correctly when a surrogate half inside UTF-8 decodes to a lone surrogate.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2

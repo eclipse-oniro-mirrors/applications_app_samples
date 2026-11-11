@@ -794,7 +794,7 @@ export default function distributedUtf8FourByteGridTest() {
     /**
      * @tc.number SUB_DISTRIBUTED_EXT_FOURBYTE_0051
      * @tc.name testFourByte0051
-     * @tc.desc Verify U+D8000 in astral planes weighs 4 bytes and round trips.
+     * @tc.desc Verify astral plane code point 884736 weighs 4 bytes and round trips.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2

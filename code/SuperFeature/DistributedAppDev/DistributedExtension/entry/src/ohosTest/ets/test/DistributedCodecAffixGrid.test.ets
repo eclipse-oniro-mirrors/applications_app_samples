@@ -337,7 +337,7 @@ export default function distributedCodecAffixGridTest() {
      * @tc.level Level 2
      */
     it('testAffix0021', 0, () => {
-      const text: string = 'aDb';
+      const text: string = 'aQb';
       expect(utf8Length(text)).assertEqual(3);
       expect(decodeUtf8(encodeUtf8(text))).assertEqual(text);
       expect(utf8Length(text) - 1).assertEqual(2);

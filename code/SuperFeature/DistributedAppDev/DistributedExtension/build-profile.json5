@@ -39,21 +39,7 @@
         "name": "release"
       }
     ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "OpenHarmony",
-        "material": {
-          "certpath": "C:\\Users\\mfwangs\\.ohos\\config\\default_DistributedExtension_wQMaWPh4pt1OVEUHg4jfCj3W_YqUcyehmuCpZ4WIxl4=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001A2C18CB8E9FCC31B92B6A711114FA4CBA52F2E3E99A7FB883168DF670FA1084034D2692978AB4",
-          "profile": "C:\\Users\\mfwangs\\.ohos\\config\\default_DistributedExtension_wQMaWPh4pt1OVEUHg4jfCj3W_YqUcyehmuCpZ4WIxl4=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\mfwangs\\.ohos\\config\\default_DistributedExtension_wQMaWPh4pt1OVEUHg4jfCj3W_YqUcyehmuCpZ4WIxl4=.p12",
-          "storePassword": "0000001AF36250A05D71044AF764EA22B96DC733030CB65D56AD0026545A5A3320D41E2967D280C0D77F"
-        }
-      }
-    ]
+    "signingConfigs": []
   },
   "modules": [
     {
