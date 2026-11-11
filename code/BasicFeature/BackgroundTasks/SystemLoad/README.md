@@ -8,6 +8,8 @@ The sample is written in ArkTS using the Stage model. The SystemLoad page and th
 
 ## Preview
 
+![SystemLoad home page](screenshots/system_load.svg)
+
 The home page displays the level name, numeric value, description, and an application scheduling suggestion. Listener controls and callback records are shown below the level card. The appearance may vary depending on the device and system version.
 
 ## Usage

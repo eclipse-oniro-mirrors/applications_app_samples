@@ -8,6 +8,8 @@
 
 ## 效果预览
 
+![SystemLoad home page](screenshots/system_load.svg)
+
 应用首页展示档位名称、数值、含义及应用调度建议，档位卡片下方提供监听控制和回调记录。真机效果图需在设备上运行后获取。
 
 ## 使用说明

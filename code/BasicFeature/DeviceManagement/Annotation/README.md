@@ -8,7 +8,9 @@ The ArkTS Stage sample runs as a normal application on an emulator or a local de
 
 ## Preview
 
-The home page displays the runtime API version, the annotation starting version, the demo function API version, suppression rules and demo results. Capture a device screenshot after running the sample on a device.
+![Annotation home page](screenshots/device_info.svg)
+
+The home page displays the runtime API version, the annotation starting version, the demo function API version, suppression rules and demo results.
 
 ## Usage
 
