@@ -4,15 +4,15 @@
 
 本示例演示媒体库的三种典型用法，分别对应三套接口：
 
-1. [@ohos.file.photoAccessHelper](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-library-kit/js-apis-photoAccessHelper.md)：调用 `PhotoViewPicker` 打开系统全屏相册选择器，选中的文件通过 URI 授权交给应用，无需申请媒体读权限即可使用。
-2. [@ohos.file.RecentPhotoComponent](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-library-kit/ohos-file-RecentPhotoComponent.md)：展示最近照片入口，支持时间范围、照片来源筛选与自动刷新。
-3. [@ohos.file.sendablePhotoAccessHelper](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-library-kit/js-apis-sendablePhotoAccessHelper.md)：可跨线程传递的 PhotoAccessHelper，配合 TaskPool 在工作线程中读取选择器授权的 URI，完成压缩、裁剪、旋转、滤镜与加水印。
+1. [@ohos.file.photoAccessHelper](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-library-kit/js-apis-photoAccessHelper.md)：调用 `PhotoViewPicker` 打开系统全屏相册选择器，选中的文件通过 URI 授权交给应用，无需申请媒体读权限即可使用。
+2. [@ohos.file.RecentPhotoComponent](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-library-kit/ohos-file-RecentPhotoComponent.md)：展示最近照片入口，支持时间范围、照片来源筛选与自动刷新。
+3. [@ohos.file.sendablePhotoAccessHelper](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-library-kit/js-apis-sendablePhotoAccessHelper.md)：可跨线程传递的 PhotoAccessHelper，配合 TaskPool 在工作线程中读取选择器授权的 URI，完成压缩、裁剪、旋转、滤镜与加水印。
 
 示例由五个场景组成：相册选择、最近照片、全量图库、跨线程编辑、沙箱缓存。
 
 ## 效果预览
 
-> 请使用真机运行后截图，建议放入 `screenshots/` 目录（最多 4 张），例如首页、相册选择、跨线程编辑、沙箱缓存。
+<img src="screenshots/main_page.png" alt="主页面" width="320" height="569"/>
 
 ### 使用说明
 
@@ -77,7 +77,7 @@ Library/src/main/ets/
 
 ## 相关权限
 
-* [ohos.permission.READ_IMAGEVIDEO](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/restricted-permissions.md#ohospermissionread_imagevideo)：读取用户公共目录的图片与视频。该权限级别为 system_basic，授权方式为用户授权，且属于受限权限，需要配置 ACL 签名后才能申请。
+* [ohos.permission.READ_IMAGEVIDEO](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/restricted-permissions.md#ohospermissionread_imagevideo)：读取用户公共目录的图片与视频。该权限级别为 system_basic，授权方式为用户授权，且属于受限权限，需要配置 ACL 签名后才能申请。
 
 ## 依赖
 
@@ -88,7 +88,7 @@ Library/src/main/ets/
 1. 本示例仅支持标准系统上运行，支持设备为 RK3568，Phone 和 Tablet。
 2. 本示例仅支持 API 26 版本 SDK，SDK 版本号为 26.0.0。
 3. 本示例需要使用 DevEco Studio 6.0.0 Release 及以上版本编译运行。
-4. 「全量图库」场景涉及受限权限 `ohos.permission.READ_IMAGEVIDEO`，该权限级别为 system_basic，需要在签名证书的 ACL 中声明。普通签名安装会报 9568289，可按[特殊权限配置方法](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)配置 ACL 后再安装运行；只想调试其余四个场景时，可临时移除 module.json5 中的权限声明，此时全量图库会停留在权限说明卡片。
+4. 「全量图库」场景涉及受限权限 `ohos.permission.READ_IMAGEVIDEO`，该权限级别为 system_basic，需要在签名证书的 ACL 中声明。普通签名安装会报 9568289，可按[特殊权限配置方法](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)配置 ACL 后再安装运行；只想调试其余四个场景时，可临时移除 module.json5 中的权限声明，此时全量图库会停留在权限说明卡片。
 5. 本示例原本规划用内嵌的 `PhotoPickerComponent` 承载「相册选择」场景，但实测部分系统镜像（如 API 26 Beta1 的 RK3568）上内嵌宫格只能渲染，点按和滑动均无响应：扩展进程 `com.ohos.photos:sysPicker/photoPicker` 的窗口没有注册为系统输入窗口，触摸事件落到宿主窗口后没有投递目标。该问题在系统侧，应用无法规避，因此该场景改为调用系统全屏选择器 `PhotoViewPicker`，选择结果同样以 URI 授权的方式交付，不需要媒体读权限。
 6. 部分系统镜像上 `getRecentPhotoInfo` 与 `RecentPhotoComponent` 与文档不一致：组件创建后立即回调 `onError` 且不再上报查询结果，接口带 `RecentPhotoOptions` 调用抛出无错误码的 `Constructor is false`、不带参数调用返回 `401 input parmaeter invalid`（原文拼写如此），调用期间媒体库服务无任何日志，说明异常发生在接口实现层。因此「最近照片」场景保留组件与接口的完整用法，同时用 `getAssets` 查同时间窗内最新一条媒体作为兜底卡片；兜底路径依赖 `ohos.permission.READ_IMAGEVIDEO`。
 
@@ -100,6 +100,6 @@ Library/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Media/PhotoPickerAndSendable/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

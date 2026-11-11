@@ -1,5 +1,17 @@
 # PhotoPickerAndSendable 测试用例归档
 
+## 测试环境
+
+| 项目 | 说明                                                                           |
+| --- |------------------------------------------------------------------------------|
+| 设备型号 | dayu200（RK3568）真机                                                            |
+| 应用包名 | com.samples.photopickerandsendable                                                            |
+| 系统 | OpenHarmony 7.1.0.22                                                         |
+| SDK | `compatibleSdkVersion` / `targetSdkVersion` 均为 `26.0.0`                      |
+| 测试框架 | `@ohos/hypium` + `OpenHarmonyTestRunner`（模块名 `entry_test`）                   |
+| 签名 | DevEco 自动签名（debugKey），安装包与测试包同一套证书                                           |
+| 权限 | ohos.permission.READ_IMAGEVIDEO                                              |
+
 ## 用例表
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
