@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ShortcutDetailPage",
+    "pages/ActivityPage",
+    "pages/NotePage",
+    "pages/TodoPage",
+    "pages/CollectionPage",
+    "pages/RuleCenterPage"
+  ]
+}

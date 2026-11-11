@@ -1,0 +1,57 @@
+{
+  "shortcuts": [
+    {
+      "shortcutId": "sc.note.new",
+      "label": "$string:shortcut_note_new",
+      "icon": "$media:shortcut_note",
+      "visible": true,
+      "wants": [
+        {
+          "bundleName": "com.example.shortcut",
+          "moduleName": "entry",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "sc.version": "1",
+            "sc.action": "note.new"
+          }
+        }
+      ]
+    },
+    {
+      "shortcutId": "sc.todo.today",
+      "label": "$string:shortcut_todo_today",
+      "icon": "$media:shortcut_todo",
+      "visible": true,
+      "wants": [
+        {
+          "bundleName": "com.example.shortcut",
+          "moduleName": "entry",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "sc.version": "1",
+            "sc.action": "todo.list",
+            "sc.filter": "todayOpen"
+          }
+        }
+      ]
+    },
+    {
+      "shortcutId": "sc.collection.saved",
+      "label": "$string:shortcut_collection_saved",
+      "icon": "$media:shortcut_collection",
+      "visible": true,
+      "wants": [
+        {
+          "bundleName": "com.example.shortcut",
+          "moduleName": "entry",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "sc.version": "1",
+            "sc.action": "collection.list",
+            "sc.filter": "saved"
+          }
+        }
+      ]
+    }
+  ]
+}

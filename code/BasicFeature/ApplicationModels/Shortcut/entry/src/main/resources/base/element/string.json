@@ -1,0 +1,10 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "管理快捷入口" },
+    { "name": "EntryAbility_desc", "value": "便签、待办与收藏资料" },
+    { "name": "EntryAbility_label", "value": "快捷方式" },
+    { "name": "shortcut_note_new", "value": "新建便签" },
+    { "name": "shortcut_todo_today", "value": "今日待办" },
+    { "name": "shortcut_collection_saved", "value": "收藏资料" }
+  ]
+}
