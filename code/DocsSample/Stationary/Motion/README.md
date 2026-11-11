@@ -44,12 +44,19 @@ entry/src/
          └── test
              ├── List.test.ets                       // 测试套件注册入口
              ├── MotionApiContract.test.ets          // 接口与枚举契约
+             ├── MotionEnumCore.test.ets             // 枚举取值与成员集合
+             ├── MotionApiShapeCore.test.ets         // 接口形态与返回值
              ├── MotionApiRobust.test.ets            // 运行时错误语义
              ├── MotionApiInterleave.test.ets        // 订阅/取消交错矩阵
+             ├── MotionApiOutcomeMatrix.test.ets     // 调用结果矩阵
+             ├── MotionApiBoundary.test.ets          // 入参边界矩阵
+             ├── MotionViewContract.test.ets         // 控件与文案对应关系
              ├── MotionUiMatrix.test.ets             // 单动作与文案映射
              ├── MotionUiSequenceMatrix.test.ets     // 有序对/三元组序列
              ├── MotionUiRepeat.test.ets             // 重复与交替点击
              ├── MotionUiLabel.test.ets              // 按钮与状态文案
+             ├── MotionUiSupplement.test.ets         // 补充交互与稳定态
+             ├── MotionStateTransition.test.ets      // 状态迁移矩阵
              └── MotionLifecycle.test.ets            // 重复拉起恢复
 ```
 

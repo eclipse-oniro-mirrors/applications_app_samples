@@ -7,9 +7,9 @@
 本文档说明 `Motion` 自动化测试的分层结构、用例组织、覆盖重点与质量门禁，用于代码评审、测试审计与后续扩展。
 
 - 测试代码位于 `entry/src/ohosTest/ets/test/`。
-- `List.test.ets` 注册 **15 个套件、500 条用例**，支持 `-s class <套件名>` 单套件过滤。
-- 测试代码约 **10,058 行**，断言 **682** 条（assertEqual 345 / assertTrue 327 / assertFalse 10）。
-- 每条用例均以 `hilog.info(... '<case> begin')` 开始、`hilog.info(... '<case> end')` 结束，日志域名 `0xF815`，TAG 形如 `[Sample_<Suite>Test]`。
+- `List.test.ets` 注册 **15 个套件、460 条用例**，支持 `-s class <套件名>` 单套件过滤。
+- 测试代码约 **9,380 行**，断言 **878** 条（assertEqual 443 / assertTrue 425 / assertFalse 10）。
+- 每条用例均以 `hilog.info(... '<case> begin')` 开始、`hilog.info(... '<case> end')` 结束，日志域名 `0xF815`，TAG 形如 `[Sample_<Suite>Test]`，共 460 组 begin/end。
 
 ## 1.1 测试结论的边界（先读这一节）
 
@@ -120,12 +120,12 @@
 | 指标 | 当前值 |
 |---|---:|
 | 注册套件 | 15 |
-| 用例总数 | 500 |
+| 用例总数 | 460 |
 | 测试文件 | 16（15 个套件 + `List.test.ets`） |
-| 测试代码行数 | 10,058 |
-| 断言总数 | 682（assertEqual 345 / assertTrue 327 / assertFalse 10） |
-| 用例数 / 断言数 | 1.36 |
-| 每条用例 begin/end 日志 | 500 / 500 |
+| 测试代码行数 | 9,380 |
+| 断言总数 | 878（assertEqual 443 / assertTrue 425 / assertFalse 10） |
+| 用例数 / 断言数 | 1.91 |
+| 每条用例 begin/end 日志 | 460 / 460 |
 | 超过 120 字符的行 | 0 |
 
 ### 5.3 运行与限制
@@ -142,13 +142,13 @@
 | 分组 | 套件 | 用例数 | 断言数 | 职责 |
 |---|---|---:|---:|---|
 | API 行为 | `MotionApiContract` | 6 | 19 | 函数暴露性、两个枚举文档取值与成员集合 |
-| 枚举取值 | `MotionEnumCore` | 28 | 66 | 每个枚举成员的取值/类型/整数性，以及成员集合与唯一性 |
+| 枚举取值 | `MotionEnumCore` | 22 | 53 | 每个枚举成员的取值/类型/整数性，以及成员集合与唯一性 |
 | API 形态 | `MotionApiShapeCore` | 20 | 47 | 事件名常量、on/off/查询返回值形态、错误码白名单与自有属性 |
 | API 健壮 | `MotionApiRobust` | 7 | 16 | 订阅/取消/查询只允许成功或 201/801，非法异常计 0 |
 | API 交错 | `MotionApiInterleave` | 16 | 34 | 两事件 × 8 种 3 步 on/off 序列 |
-| API 结果矩阵 | `MotionApiOutcomeMatrix` | 140 | 4 | 单动作/两动作/三动作/多回调/连查/循环的合法终态计数 |
-| API 边界 | `MotionApiBoundary` | 99 | 98 | 文档事件名、近似错误名、重复回调、枚举边界、错误对象形态 |
-| 视图对应关系 | `MotionViewContract` | 27 | 58 | 控件 id、按钮文案、结果文案与处理函数的静态对应关系 |
+| API 结果矩阵 | `MotionApiOutcomeMatrix` | 140 | 184 | 单动作/两动作/三动作/多回调/连查/循环的合法终态计数 |
+| API 边界 | `MotionApiBoundary` | 67 | 138 | 文档事件名、近似错误名、重复回调、枚举边界、错误对象形态 |
+| 视图对应关系 | `MotionViewContract` | 25 | 53 | 控件 id、按钮文案、结果文案与处理函数的静态对应关系 |
 | UI 单动作 | `MotionUiMatrix` | 10 | 26 | 控件存在、五按钮文案映射、幂等、整轮操作 |
 | UI 序列 | `MotionUiSequenceMatrix` | 85 | 170 | 全量有序对（25）+ 全量有序三元组（60） |
 | UI 重复 | `MotionUiRepeat` | 11 | 27 | 单按钮重复 3/8 次、两按钮交替 5 轮 |
@@ -156,9 +156,9 @@
 | UI 补充 | `MotionUiSupplement` | 20 | 41 | 按钮逐个可用性、id 与文案对应、连续点击稳定态 |
 | 状态迁移 | `MotionStateTransition` | 21 | 42 | 动作排列后的文案迁移与不回归初值 |
 | 重启恢复 | `MotionLifecycle` | 6 | 17 | 重复拉起 3 次、动作后拉起、拉起后动作 |
-| **合计** | **15** | **500** | **682** | |
+| **合计** | **15** | **460** | **878** | |
 
-> 原 `Ability`（`AppTest`）套件未注册：其 6 条断言与 `MotionUiMatrix` 的控件存在/文案映射用例重复，且使用旧式 `it(name, 0, done)` 写法与错误的 `@tc.level Level 2` 标记。
+> 原 `Ability.test.ets`（`AppTest`）旧文件已随本次清理删除：其断言与 `MotionUiMatrix` 的控件存在/文案映射用例重复，且使用旧式 `it(name, 0, done)` 写法与错误的 `@tc.level Level 2` 标记。
 
 ## 7. 结论
 
@@ -168,7 +168,7 @@
 
 ### 测试环境
 
-- 设备：支持运动感知的手机或模拟器（bundle `com.samples.motion`，`deviceTypes: default`）。
+- 设备：支持运动感知的手机、平板或模拟器（bundle `com.samples.motion`，测试模块 `deviceTypes: default + tablet`）。
 - 测试目录：`entry/src/ohosTest/ets/test/`。
 - 用例格式：`@tc.number` / `@tc.name` / `@tc.desc` / `@tc.size` / `@tc.type` / `@tc.level`。
 

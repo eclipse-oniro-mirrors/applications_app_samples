@@ -8,7 +8,7 @@
 
 - 测试代码位于 `entry/src/ohosTest/ets/test/`。
 - `List.test.ets` 注册 **19 个套件、529 条用例**。
-- 测试代码共 **11,081 行**（非空行 **10,347 行**），断言 **680** 条（assertEqual 338 / assertTrue 332 / assertFalse 10）。
+- 测试代码共 **10,708 行**（非空行 **9,997 行**），断言 **674** 条（assertEqual 333 / assertTrue 331 / assertFalse 10）。
 
 ## 2. 测试设计原则
 
@@ -40,7 +40,7 @@
 - `@tc.number`：`前缀_0100`、`_0200`、`_0300`…（步长 100，最大 9900）；超过 99 条时启用新段 `前缀_ONE_0100`、`_ONE_0200`…
 - `@tc.name`：`test<语义>0001`、`0002`、`0003`…（步长 1）。
 - `it()` 第二个参数统一使用 `TestType.FUNCTION | Size.<SIZE> | Level.<LEVEL>`，与 `@tc.size/@tc.type/@tc.level` 对应。
-- `List.test.ets` 只注册当前有效套件；`Ability.test.ets` 与 `_legacy_backup` 为未注册旧文件。
+- `List.test.ets` 只注册当前有效套件；旧的 `Ability.test.ets` 与 `_legacy_backup/` 已在本次清理中删除。
 
 
 ## 3. 测试对象拆解
@@ -106,10 +106,10 @@
 |---|---:|
 | 注册套件 | 19 |
 | 用例总数 | 529 |
-| 测试文件 | 21（含 `List.test.ets` 与 `StationaryUiSupport.ets`） |
-| 测试代码行数 | 11,081 |
-| 有效代码行数 | 10,347 |
-| 断言总数 | 680（assertEqual 338 / assertTrue 332 / assertFalse 10） |
+| 测试文件 | 21（19 个套件 + `List.test.ets` + `StationaryUiSupport.ets`） |
+| 测试代码行数 | 10,708 |
+| 有效代码行数 | 9,997 |
+| 断言总数 | 674（assertEqual 333 / assertTrue 331 / assertFalse 10） |
 | 超过 120 字符的行 | 0 |
 
 每个用例都首尾输出 `begin`/`end` 日志，且至少包含两条断言（或调用带断言的复用助手）
@@ -129,7 +129,7 @@
 
 | 分组 | 套件 | 用例数 | 职责 |
 |---|---|---:|---|
-| 安装声明 | `StationaryManifest` | 5 | 入口 Ability 唯一且导出、备份扩展唯一且不导出、只声明 default 设备类型、模块归属运行包 |
+| 安装声明 | `StationaryManifest` | 5 | 入口 Ability 唯一且导出、备份扩展唯一且不导出、entry 模块只声明 default（ohosTest 模块已扩 default+tablet）、模块归属运行包 |
 | API 行为 | `StationaryApiContract` | 9 | 函数暴露性、两个枚举取值/唯一性、类型字面量与响应结构 |
 | API 健壮 | `StationaryApiRobust` | 17 | 订阅/一次性获取/取消只允许成功或 201/401/801；省略回调、报告周期上下界、relativeStill 重复查询、重复取消、同一回调重复注册 |
 | API 交错 | `StationaryApiInterleave` | 20 | still on/off 三连 8 种组合 + once 混排 + relativeStill 全事件与省略回调 |
@@ -149,8 +149,8 @@
 | 运行上下文 | `StationaryAppContext` | 11 | 包名与版本、entry 模块唯一性、EntryAbility 与 deviceTypes、备份扩展注册、Ability 归属、前台 Ability、窗口尺寸、缓存目录 |
 | **合计** | **19** | **529** | |
 
-> 原 `Ability.test.ets`（同为 `describe('AppTest')` 的旧副本）已从注册表中移除，避免同名 describe 被注册两次；
-> `abilityTest.test.ets` 现为唯一入口，describe 更名为 `StationaryAppTest`（启动、订阅、取消订阅、获取四项，已改为环境自适应断言）。
+> 原 `Ability.test.ets` 与 `_legacy_backup/` 旧副本已在本次清理中删除；`StationaryAppTest`
+> （启动、订阅、取消订阅、获取四项，已改为环境自适应断言）为唯一应用级入口。
 
 ## 7. 结论
 
@@ -162,7 +162,7 @@
 
 ### 测试环境
 
-- 设备：支持静止感知的手机或模拟器（bundle `com.samples.stationary`，`deviceTypes: default`）。
+- 设备：支持静止感知的手机、平板或模拟器（bundle `com.samples.stationary`，测试模块 `deviceTypes: default + tablet`，entry 模块仍为 `default`）。
 - 测试目录：`entry/src/ohosTest/ets/test/`。
 - 用例格式：`@tc.number` / `@tc.name` / `@tc.desc` / `@tc.size` / `@tc.type` / `@tc.level`。
 

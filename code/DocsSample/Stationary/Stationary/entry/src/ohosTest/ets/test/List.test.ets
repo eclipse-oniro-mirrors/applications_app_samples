@@ -32,10 +32,8 @@ import stationaryPerfTest from './StationaryPerf.test';
 import stationaryLifecycleTest from './StationaryLifecycle.test';
 import stationaryAbilityContractTest from './StationaryAbilityContract.test';
 import stationaryAppContextTest from './StationaryAppContext.test';
-import abilityTest from './Ability.test';
 
 export default function testsuite() {
-  abilityTest();
   StationaryAppTest();
   stationEnumCoreTest();
   stationApiShapeCoreTest();
