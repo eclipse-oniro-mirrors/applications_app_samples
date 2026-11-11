@@ -15,6 +15,12 @@
 
 import abilityTest from './Ability.test';
 import abilityTest from './abilityTest.test';
+import stationEnumCoreTest from './StationaryEnumCore.test';
+import stationApiShapeCoreTest from './StationaryApiShapeCore.test';
+import stationApiOutcomeMatrixTest from './StationaryApiOutcomeMatrix.test';
+import stationApiBoundaryTest from './StationaryApiBoundary.test';
+import stationViewContractTest from './StationaryViewContract.test';
+import stationStateTransitionTest from './StationaryStateTransition.test';
 import stationaryManifestTest from './StationaryManifest.test';
 import stationaryApiContractTest from './StationaryApiContract.test';
 import stationaryApiRobustTest from './StationaryApiRobust.test';
@@ -30,6 +36,12 @@ import stationaryAppContextTest from './StationaryAppContext.test';
 
 export default function testsuite() {
   abilityTest();
+  stationEnumCoreTest();
+  stationApiShapeCoreTest();
+  stationApiOutcomeMatrixTest();
+  stationApiBoundaryTest();
+  stationViewContractTest();
+  stationStateTransitionTest();
   stationaryManifestTest();
   stationaryApiContractTest();
   stationaryApiRobustTest();

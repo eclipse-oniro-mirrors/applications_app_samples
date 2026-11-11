@@ -12,8 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { stationary } from '@kit.MultimodalAwarenessKit';
+
+const DOMAIN: number = 0xF812;
+const TAG: string = 'Sample_Stationary';
 
 function allInRange(values: number[]): boolean {
   for (const value of values) {
@@ -30,6 +34,15 @@ function allInRange(values: number[]): boolean {
  * 校验对外暴露的订阅/一次性获取/取消订阅能力存在，以及设备状态类型、
  * 事件枚举与状态枚举的取值、唯一性和整数范围，不依赖设备是否支持静止感知。
  */
+
+function caseEnd(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+}
+
+function caseBegin(name: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+}
+
 export default function StationaryApiContractTest() {
   describe('StationaryApiContractTest', () => {
     /**
@@ -41,9 +54,11 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryApi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      caseBegin('testStationaryApi0001');
       expect(typeof stationary.on).assertEqual('function');
       expect(typeof stationary.once).assertEqual('function');
       expect(typeof stationary.off).assertEqual('function');
+      caseEnd('testStationaryApi0001');
     });
 
     /**
@@ -55,9 +70,11 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryApi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      caseBegin('testStationaryApi0002');
       expect(stationary.ActivityEvent.ENTER).assertEqual(1);
       expect(stationary.ActivityEvent.EXIT).assertEqual(2);
       expect(stationary.ActivityEvent.ENTER_EXIT).assertEqual(3);
+      caseEnd('testStationaryApi0002');
     });
 
     /**
@@ -69,6 +86,7 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryApi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      caseBegin('testStationaryApi0003');
       const values: number[] = [
         stationary.ActivityEvent.ENTER,
         stationary.ActivityEvent.EXIT,
@@ -77,6 +95,7 @@ export default function StationaryApiContractTest() {
       expect(values.length).assertEqual(3);
       expect(new Set<number>(values).size).assertEqual(3);
       expect(allInRange(values)).assertTrue();
+      caseEnd('testStationaryApi0003');
     });
 
     /**
@@ -88,8 +107,10 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryApi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      caseBegin('testStationaryApi0004');
       expect(stationary.ActivityState.ENTER).assertEqual(1);
       expect(stationary.ActivityState.EXIT).assertEqual(2);
+      caseEnd('testStationaryApi0004');
     });
 
     /**
@@ -101,6 +122,7 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testStationaryApi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      caseBegin('testStationaryApi0005');
       const values: number[] = [
         stationary.ActivityState.ENTER,
         stationary.ActivityState.EXIT
@@ -108,6 +130,7 @@ export default function StationaryApiContractTest() {
       expect(values.length).assertEqual(2);
       expect(new Set<number>(values).size).assertEqual(2);
       expect(allInRange(values)).assertTrue();
+      caseEnd('testStationaryApi0005');
     });
 
     /**
@@ -119,10 +142,12 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryApi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryApi0006');
       expect(Number(stationary.ActivityState.ENTER))
         .assertEqual(Number(stationary.ActivityEvent.ENTER));
       expect(Number(stationary.ActivityState.EXIT))
         .assertEqual(Number(stationary.ActivityEvent.EXIT));
+      caseEnd('testStationaryApi0006');
     });
 
     /**
@@ -134,12 +159,14 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryApi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryApi0007');
       expect(Number(stationary.ActivityEvent.ENTER_EXIT)).assertEqual(
         Number(stationary.ActivityEvent.ENTER) | Number(stationary.ActivityEvent.EXIT));
       expect(Number(stationary.ActivityEvent.EXIT) >
         Number(stationary.ActivityEvent.ENTER)).assertTrue();
       expect(Number(stationary.ActivityEvent.ENTER_EXIT) >
         Number(stationary.ActivityEvent.EXIT)).assertTrue();
+      caseEnd('testStationaryApi0007');
     });
 
     /**
@@ -151,11 +178,13 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryApi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryApi0008');
       const still: stationary.ActivityType = 'still';
       const relativeStill: stationary.ActivityType = 'relativeStill';
       expect(still).assertEqual('still');
       expect(relativeStill).assertEqual('relativeStill');
       expect(new Set<string>([still, relativeStill]).size).assertEqual(2);
+      caseEnd('testStationaryApi0008');
     });
 
     /**
@@ -167,11 +196,13 @@ export default function StationaryApiContractTest() {
      * @tc.level LEVEL1
      */
     it('testStationaryApi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      caseBegin('testStationaryApi0009');
       const entering: stationary.ActivityResponse = { state: stationary.ActivityState.ENTER };
       const exiting: stationary.ActivityResponse = { state: stationary.ActivityState.EXIT };
       expect(entering.state).assertEqual(stationary.ActivityState.ENTER);
       expect(exiting.state).assertEqual(stationary.ActivityState.EXIT);
       expect(Number(entering.state) !== Number(exiting.state)).assertTrue();
+      caseEnd('testStationaryApi0009');
     });
   });
 }
