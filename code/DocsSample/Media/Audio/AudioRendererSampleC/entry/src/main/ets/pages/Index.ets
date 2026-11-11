@@ -291,26 +291,26 @@ struct audiosession {
             .onClick(async () => {
               try {
                 let result = await testNapi.GetUltraFastStatus();
-                this.message = '获取低时延状态成功';
+                this.message = '获取低时延流状态成功';
                 this.updateNapiLog(result);
               } catch (err) {
-                this.message = '获取低时延状态失败';
+                this.message = '获取低时延流状态失败';
                 this.updateNapiLog('错误: ' + JSON.stringify(err));
               }
             })
 
-          // 销毁超低时延播放按钮
-          Button('销毁超低时延播放')
+          // 销毁超低时延播放流按钮
+          Button('销毁超低时延播放流')
             .width('90%')
             .height(30)
             .margin({ bottom: 12 })
             .onClick(async () => {
               try {
                 let result = await testNapi.DestroyUltraAudioRender();
-                this.message = '销毁超低时延播放成功';
+                this.message = '销毁超低时延播放流成功';
                 this.updateNapiLog(result);
               } catch (err) {
-                this.message = '销毁超低时延播放失败';
+                this.message = '销毁超低时延播放流失败';
                 this.updateNapiLog('错误: ' + JSON.stringify(err));
               }
             })
