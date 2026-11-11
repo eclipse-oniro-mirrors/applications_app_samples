@@ -30,10 +30,14 @@ export default class EntryAbility extends UIAbility {
     // 获取router事件中传递的targetPage参数
     hilog.info(DOMAIN_NUMBER, TAG, `Ability onCreate, Want params: ${(want?.parameters?.params as string)}`);
     if (want?.parameters?.params) {
-      // want.parameters.params 对应 postCardAction() 中 params 内容
-      let params: Record<string, Object> = JSON.parse(want.parameters.params as string);
-      this.selectPage = params.targetPage as string;
-      hilog.info(DOMAIN_NUMBER, TAG, `onCreate selectPage: ${this.selectPage}`);
+      try {
+        // want.parameters.params 对应 postCardAction() 中 params 内容
+        let params: Record<string, Object> = JSON.parse(want.parameters.params as string);
+        this.selectPage = params.targetPage as string;
+        hilog.info(DOMAIN_NUMBER, TAG, `onCreate selectPage: ${this.selectPage}`);
+      } catch (err) {
+        hilog.error(DOMAIN_NUMBER, TAG, `onCreate catch error, code: ${err.code}, message: ${err.message}`);
+      }
     }
   }
 
@@ -41,10 +45,14 @@ export default class EntryAbility extends UIAbility {
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN_NUMBER, TAG, `Ability onNewWant, Want params: ${(want?.parameters?.params as string)}`);
     if (want?.parameters?.params) {
-      // want.parameters.params 对应 postCardAction() 中 params 内容
-      let params: Record<string, Object> = JSON.parse(want.parameters.params as string);
-      this.selectPage = params.targetPage as string;
-      hilog.info(DOMAIN_NUMBER, TAG, `onNewWant selectPage: ${this.selectPage}`);
+      try {
+        // want.parameters.params 对应 postCardAction() 中 params 内容
+        let params: Record<string, Object> = JSON.parse(want.parameters.params as string);
+        this.selectPage = params.targetPage as string;
+        hilog.info(DOMAIN_NUMBER, TAG, `onNewWant selectPage: ${this.selectPage}`);
+      } catch (err) {
+        hilog.error(DOMAIN_NUMBER, TAG, `onNewWant catch error, code: ${err.code}, message: ${err.message}`);
+      }
     }
     if (this.currentWindowStage !== null) {
       this.onWindowStageCreate(this.currentWindowStage);

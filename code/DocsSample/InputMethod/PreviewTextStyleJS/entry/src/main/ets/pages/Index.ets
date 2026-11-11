@@ -13,47 +13,11 @@
  * limitations under the License.
  */
 
-import { common } from '@kit.AbilityKit';
-import { inputMethod } from '@kit.IMEKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { PreviewEditor } from '../components/PreviewEditor';
 
 @Entry
 @Component
 struct Index {
-  @State private settingsStatus: ResourceStr = '';
-  private showSettingsMessage(): void {
-    this.getUIContext().showAlertDialog({
-      title: $r('app.string.settings'),
-      message: this.settingsStatus,
-      confirm: {
-        value: $r('app.string.confirm'),
-        action: (): void => {}
-      }
-    });
-  }
-
-  private async openSettings(): Promise<void> {
-    try {
-      const element = inputMethod.getSystemInputMethodConfigAbility();
-      if (element.bundleName.length === 0 || element.abilityName.length === 0) {
-        const current = inputMethod.getCurrentInputMethod();
-        this.settingsStatus = current.name === 'com.samples.previewstylejs' ?
-          $r('app.string.ime_enabled_hint') :
-          $r('app.string.settings_unavailable_hint');
-        this.showSettingsMessage();
-        return;
-      }
-      const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      await context.startAbility({ bundleName: element.bundleName, abilityName: element.abilityName });
-      this.settingsStatus = $r('app.string.select_ime_hint');
-    } catch (error) {
-      const detail = error as BusinessError;
-      this.settingsStatus = $r('app.string.settings_open_failed', detail.code);
-      this.showSettingsMessage();
-    }
-  }
-
   build() {
     Column({ space: 6 }) {
       Row({ space: 8 }) {
@@ -62,14 +26,6 @@ struct Index {
           .fontWeight(FontWeight.Medium)
           .layoutWeight(1)
           .maxLines(1)
-        Button($r('app.string.settings'))
-          .fontSize(12)
-          .height(32)
-          .width(96)
-          .id('openInputMethodSettings')
-          .onClick((): void => {
-            this.openSettings();
-          })
       }
       .width('100%')
       .height(36)
@@ -77,13 +33,6 @@ struct Index {
       Scroll() {
         Column({ space: 8 }) {
           PreviewEditor()
-          if (this.settingsStatus !== '') {
-            Text(this.settingsStatus)
-              .id('inputMethodSettingsStatus')
-              .fontSize(12)
-              .width('100%')
-              .padding({ left: 12, right: 12 })
-          }
           Text($r('app.string.page_hint'))
             .fontSize(12)
             .fontColor($r('app.color.text_secondary'))

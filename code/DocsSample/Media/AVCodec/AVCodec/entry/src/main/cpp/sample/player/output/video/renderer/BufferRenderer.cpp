@@ -76,7 +76,7 @@ int32_t NormalizeRotation(int32_t rotation)
 
 int32_t GetWindowTransform(int32_t rotation)
 {
-    // OH_MD_KEY_ROTATION 使用顺时针角度，而 NativeBuffer 变换使用逆时针角度。
+    // OH_MD_KEY_ROTATION使用顺时针角度，而NativeBuffer变换使用逆时针角度。
     // 显式区分这两种元数据约定，避免竖屏码流横置显示。
     switch (NormalizeRotation(rotation)) {
         case ROTATION_90_DEGREES:
@@ -126,9 +126,9 @@ int32_t ToGraphicPixelFormat(OH_AVPixelFormat pixelFormat, bool tenBitOutput)
 bool IsTenBitOutput(const SampleInfo &sampleInfo, const CodecUserData &context, OH_AVBuffer *buffer)
 {
     (void)context;
-    // 行跨度描述行对齐而不是像素位深。特别是已对齐的窄幅 8-bit 帧，行跨度也可能大于可见宽度的两倍。
-    // 若误判为 P010，窗口会使用 10-bit 格式且每行复制两倍字节，导致绿屏或 Buffer 送显失败。
-    // HEVC profile 和解码后 HDR 元数据才是该 Buffer 模式路径可用的可靠判断依据。
+    // 行跨度描述行对齐而不是像素位深。特别是已对齐的窄幅8-bit帧，行跨度也可能大于可见宽度的两倍。
+    // 若误判为P010，窗口会使用10-bit格式且每行复制两倍字节，导致绿屏或Buffer送显失败。
+    // HEVC profile和解码后HDR元数据才是该Buffer模式路径可用的可靠判断依据。
     return IsTenBitHevcOutput(sampleInfo.video) || HdrMetadataHelper::IsHdrVivid(buffer);
 }
 
@@ -344,7 +344,7 @@ bool GetFittedFrame(int32_t sourceWidth, int32_t sourceHeight, int32_t targetWid
         static_cast<int32_t>(sourceHeight * scale) & EVEN_ALIGNMENT_MASK);
     frame.width = std::min(frame.width, targetWidth & EVEN_ALIGNMENT_MASK);
     frame.height = std::min(frame.height, targetHeight & EVEN_ALIGNMENT_MASK);
-    // YUV420 要求坐标为偶数，同时画面仍须居中。
+    // YUV420要求坐标为偶数，同时画面仍须居中。
     // 将剩余空间的一半向下取整为偶数偏移量。
     frame.left = ((targetWidth - frame.width) / YUV420_SAMPLE_RATIO) & ~1;
     frame.top = ((targetHeight - frame.height) / YUV420_SAMPLE_RATIO) & ~1;
@@ -373,8 +373,8 @@ bool ResolveWindowGeometry(const NativeXComponentSample::PluginManager::PluginWi
     const int32_t sourceHeight = videoDecContext.height > 0 ? videoDecContext.height : sampleInfo.video.videoHeight;
     const int32_t normalizedRotation = NormalizeRotation(sampleInfo.video.rotation);
     if (isYuv420Sp && normalizedRotation == 0) {
-        // 无旋转的 NV12/P010 帧保留解码尺寸，避免逐像素 CPU 缩放；NativeWindow 按 FIT 将帧交给合成器缩放。
-        // 这样 4K HDR 只需按行复制 Y、UV 平面，旋转视频仍走现有 CPU 变换路径。
+        // 无旋转的NV12/P010帧保留解码尺寸，避免逐像素CPU缩放；NativeWindow按FIT将帧交给合成器缩放。
+        // 这样4K HDR只需按行复制Y、UV平面，旋转视频仍走现有CPU变换路径。
         geometry.width = sourceWidth;
         geometry.height = sourceHeight;
         return geometry.width > 0 && geometry.height > 0;
@@ -690,7 +690,7 @@ public:
         : window_(window), buffer_(buffer) {}
     ~NativeWindowBufferGuard()
     {
-        // Flush 成功会清空 buffer_；其他返回路径由析构函数 Abort，将窗口 Buffer 归还队列。
+        // Flush成功会清空buffer_；其他返回路径由析构函数Abort，将窗口Buffer归还队列。
         Abort();
     }
 
@@ -767,8 +767,8 @@ bool HasValidSourceLayout(const CodecBufferInfo &bufferInfo, const SampleInfo &s
 
 void BufferRenderer::Reset()
 {
-    // Buffer 模式自行处理容器旋转变换。几何信息、格式和 usage 刻意留给下一个生产者：
-    // 在 Surface 解码器 Configure() 前修改它们，可能干扰 codec 服务与生产者的协商。
+    // Buffer模式自行处理容器旋转变换。几何信息、格式和usage刻意留给下一个生产者：
+    // 在Surface解码器Configure() 前修改它们，可能干扰codec服务与生产者的协商。
     auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
     if (windowConfigured_ && windowLease && window_ == windowLease.GetWindow() &&
         windowGeneration_ == windowLease.GetGeneration() && windowTransform_ != NATIVEBUFFER_ROTATE_NONE) {
@@ -801,7 +801,7 @@ bool BufferRenderer::ConfigureWindow(const NativeXComponentSample::PluginManager
     const uint64_t windowGeneration = geometry.generation;
     const int32_t width = geometry.width;
     const int32_t height = geometry.height;
-    // CPU Buffer 拷贝已处理旋转，因此 NativeWindow 不能再次应用该变换。
+    // CPU Buffer拷贝已处理旋转，因此NativeWindow不能再次应用该变换。
     const int32_t windowTransform = geometry.transform;
 
     if (windowConfigured_ && window_ == window && windowWidth_ == width &&
@@ -810,8 +810,8 @@ bool BufferRenderer::ConfigureWindow(const NativeXComponentSample::PluginManager
         return true;
     }
 
-    // OH_MD_KEY_ROTATION 中的容器旋转为顺时针方向，NativeWindow 变换值为逆时针方向，
-    // 因此由 GetWindowTransform 执行文档规定的转换。
+    // OH_MD_KEY_ROTATION中的容器旋转为顺时针方向，NativeWindow变换值为逆时针方向，
+    // 因此由GetWindowTransform执行文档规定的转换。
     CHECK_AND_RETURN_RET_LOG(ApplyWindowConfiguration(window, width, height, graphicPixelFormat, windowTransform),
         false, "Apply buffer window configuration failed");
 
@@ -853,8 +853,8 @@ bool BufferRenderer::CopyToWindowBuffer(const WindowBufferCopyContext& context)
                 "%{public}dx%{public}d, rotation=%{public}d", copyConfig.width, copyConfig.height,
                 context.dstConfig.width, context.dstConfig.height, rotation);
         }
-        // XComponent 决定送显 Surface 的尺寸，解码帧可能与之不同，通常在这里以信箱模式显示。
-        // 不能逐帧重配窗口：这会反复切换 Buffer 队列，并在 4K HDR 内容上阻塞 codec 输出回调。
+        // XComponent决定送显Surface的尺寸，解码帧可能与之不同，通常在这里以信箱模式显示。
+        // 不能逐帧重配窗口：这会反复切换Buffer队列，并在4K HDR内容上阻塞codec输出回调。
         return CopyYuv420SpScaled(copyConfig, context.dstConfig, context.tenBitOutput, rotation);
     }
 
@@ -921,8 +921,8 @@ BufferRenderer::NativeBufferCopyResult BufferRenderer::PrepareNativeBuffer(OHNat
             preparation.dstConfig.format, expectedFormat);
         return NativeBufferCopyResult::RETRY;
     }
-    // OpenGL 或 Vulkan 路径使用过的窗口，在 Buffer 模式接管后可能立即返回旧的仅 GPU 队列槽位。
-    // 映射这种槽位也许成功，但部分设备写入会触发故障。应等待带 CPU 写权限的 Buffer 模式槽位，
+    // OpenGL或Vulkan路径使用过的窗口，在Buffer模式接管后可能立即返回旧的仅GPU队列槽位。
+    // 映射这种槽位也许成功，但部分设备写入会触发故障。应等待带CPU写权限的Buffer模式槽位，
     // 而不是拷贝到已经失效的分配中。
     if ((preparation.dstConfig.usage & CPU_WRITE_USAGE) == 0) {
         CloseFence(fenceFd);
@@ -959,7 +959,7 @@ BufferRenderer::NativeBufferCopyResult BufferRenderer::CopyMappedNativeBuffer(
         AVCODEC_SAMPLE_LOGE("Map native window buffer failed, ret: %{public}d", ret);
         return NativeBufferCopyResult::FAILED;
     }
-    // 映射地址只在 MapPlanes 与 Unmap 之间有效，像素复制必须在此作用域内完成。
+    // 映射地址只在MapPlanes与Unmap之间有效，像素复制必须在此作用域内完成。
     LogMappedNativeBufferPlanes(dstPlanes);
     auto *dstAddr = static_cast<uint8_t *>(mappedAddr);
     const WindowBufferCopyContext windowCopyContext = {dstAddr, preparation.dstConfig, dstPlanes, renderContext.srcAddr,
@@ -970,8 +970,8 @@ BufferRenderer::NativeBufferCopyResult BufferRenderer::CopyMappedNativeBuffer(
         AVCODEC_SAMPLE_LOGE("Copy or unmap native window buffer failed, unmapRet: %{public}d", unmapRet);
         return NativeBufferCopyResult::FAILED;
     }
-    // BufferRenderer 复制解码器像素时不做色彩转换。必须保留源元数据，
-    // 以免回退路径把 HDR 像素错误标记为 BT.709。
+    // BufferRenderer复制解码器像素时不做色彩转换。必须保留源元数据，
+    // 以免回退路径把HDR像素错误标记为BT.709。
     const bool metadataCopied = HdrMetadataHelper::CopyToNativeBuffer(renderContext.bufferInfo.buffer,
         preparation.nativeBuffer);
     if (!metadataCopied &&
@@ -1026,7 +1026,7 @@ bool BufferRenderer::Render(CodecBufferInfo& bufferInfo, const SampleInfo& sampl
     const bool tenBitOutput = IsTenBitOutput(sampleInfo, videoDecContext, bufferInfo.buffer);
     CHECK_AND_RETURN_RET_LOG(HasValidSourceLayout(bufferInfo, sampleInfo, videoDecContext, pixelFormat,
         tenBitOutput), false, "Decoded buffer layout exceeds its capacity");
-    // 先完成 offset 和容量校验，再计算首地址；异常 Buffer 不能参与指针运算。
+    // 先完成offset和容量校验，再计算首地址；异常Buffer不能参与指针运算。
     uint8_t *srcAddr = GetBufferDataAddr(bufferInfo);
     CHECK_AND_RETURN_RET_LOG(srcAddr != nullptr, false, "Decoded buffer address is null");
     int32_t graphicPixelFormat = ToGraphicPixelFormat(pixelFormat, tenBitOutput);

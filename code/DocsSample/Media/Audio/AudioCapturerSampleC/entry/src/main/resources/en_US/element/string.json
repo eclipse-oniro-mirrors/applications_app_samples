@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "query_ultra_fast_recording_support",
+      "value": "Query ultra-fast recording support"
+    },
+    {
+      "name": "create_ultra_fast_recording_stream",
+      "value": "Create ultra-fast recording stream"
+    },
+    {
+      "name": "query_ultra_fast_stream_status",
+      "value": "Query ultra-fast stream status"
+    },
+    {
+      "name": "stop_ultra_fast_recording_stream",
+      "value": "Stop ultra-fast recording stream"
+    }
+  ]
+}

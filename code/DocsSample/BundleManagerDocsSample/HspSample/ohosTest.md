@@ -1,6 +1,45 @@
-# HspSample 测试用例归档
+# HspSample 测试说明
 
-## 用例表
+## 自动化测试概览
+
+当前 ohosTest 共 **500 条用例**，测试代码 **11,750 行**：
+
+| 套件 | 用例数 | 职责 |
+|---|---:|---|
+| `HspResourceResolutionTest` | 8 | HSP 模块上下文下的字符串、图片、媒体与 Drawable 资源真实解析 |
+| `HspNativeNumericEdgeTest` | 8 | native 乘法的分数、极值、Infinity 与 NaN 边界 |
+| `HspArithmeticNumericEdgeTest` | 8 | 算术接口的浮点误差、安全整数、溢出与特殊值边界 |
+| `HspUiPageTest` | 4 | 首页元素、HSP 子页文案、返回入口与结果状态切换 |
+| `ActsAbilityTest` | 7 | 首页 UI、HSP 资源、native 方法、路由跳转与返回 |
+| `HspArithmeticMatrixTest` | 60 | `add` / `minus` 算术矩阵 |
+| `HspNativeMethodMatrixTest` | 30 | `nativeMulti` native 方法矩阵 |
+| `HspResourceContractTest` | 10 | `ResManager` 图片和描述资源契约 |
+| `HspLibraryApiTest` | 20 | HSP 导出接口组合与类型校验 |
+| `HspArithmeticExtraTest` | 40 | 算术边界补充 |
+| `HspNativeExtraTest` | 20 | native 方法补充 |
+| `HspResourceExtraTest` | 10 | HSP 资源补充 |
+| `HspLibraryEdgeTest` | 3 | 接口组合边界 |
+| `HspArithmeticExtra2Test` | 25 | 算术结合律补充 |
+| `HspNativeExtra2Test` | 15 | native 乘法补充 |
+| `HspResourceExtra2Test` | 10 | 资源对象补充 |
+| `HspArithmeticExtra3Test` | 25 | 算术矩阵最终补充 |
+| `HspNativeExtra3Test` | 15 | native 乘法最终补充 |
+| `HspResourceExtra3Test` | 10 | 资源契约最终补充 |
+| `HspNumericResidualTest` | 10 | 非数、负零、下溢、上溢和安全整数边界 |
+| `HspLogResidualTest` | 6 | 日志空串、Unicode、长文本和导出函数类型 |
+| `HspBulkNumericResidualTest` | 46 | 算术与 native 乘法批量数值组合 |
+| `HspBulkNumericResidual2Test` | 70 | 算术与 native 乘法批量数值补充 |
+| `HspBulkNumericResidual3Test` | 40 | 算术与 native 乘法批量数值补充二 |
+
+质量门禁：
+
+- 用例名统一 `testHspXxxNNNN`；
+- `@tc.number`、`@tc.name`、`@tc.desc`、`@tc.type`、`@tc.size`、`@tc.level` 全量存在；
+- 用例名和编号全局唯一；
+- 每条用例至少 3 个断言；
+- 全量执行结果：**500/500 通过**（需先拉起应用，连续两轮 `Failure: 0`）。
+
+## 手工用例表
 
 | 测试功能                 | 预置条件     | 输入                                                            | 预期输出                                                   |是否自动|测试结果|
 |----------------------|----------|---------------------------------------------------------------|--------------------------------------------------------|--------------------------------|--------------------------------|

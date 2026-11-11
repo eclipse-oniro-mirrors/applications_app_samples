@@ -15,9 +15,7 @@
 
 import { BusinessError, request } from '@kit.BasicServicesKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-
-import { bundleManager } from '@kit.AbilityKit';
-import { abilityAccessCtrl, Context, PermissionRequestResult, common } from '@kit.AbilityKit';
+import { common } from '@kit.AbilityKit';
 import { logger } from '../../utils/Logger';
 
 const TAG: string = 'MediaDownload';
@@ -26,49 +24,6 @@ class MediaDownload {
   // [Start media_user_file_download]
   async mediaFileAgentTask(url: string, callback: (progress: number, isSuccess: boolean) => void,
     context: common.UIAbilityContext) {
-    let bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
-    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_METADATA;
-    // 获取应用程序的accessTokenID。
-    let tokenID = -1;
-    try {
-      await bundleManager.getBundleInfoForSelf(bundleFlags).then((data) => {
-        logger.info(TAG, `Request getBundleInfoForSelf successfully. Data: ${JSON.stringify(data)}`);
-        tokenID = data.appInfo.accessTokenId;
-      }).catch((err: BusinessError) => {
-        logger.error(TAG, `GetBundleInfoForSelf failed, code=${err.code}, message=${err.message}`);
-      });
-    } catch (err) {
-      let message = (err as BusinessError).message;
-      logger.error(`GetBundleInfoForSelf failed: ${message}`);
-    }
-
-    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    let grant = true;
-    // 校验应用是否授予权限。使用Promise异步回调。
-    await atManager.checkAccessToken(tokenID, 'ohos.permission.WRITE_IMAGEVIDEO')
-      .then((data: abilityAccessCtrl.GrantStatus) => {
-        logger.info(TAG, `Request checkAccessToken success, data->${JSON.stringify(data)}`);
-        if (data != abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
-          grant = false;
-        }
-      })
-      .catch((err: BusinessError) => {
-        logger.error(TAG, `CheckAccessToken fail, code=${err.code}, message=${err.message}`);
-      });
-
-    if (!grant) {
-      // 用于UIAbility拉起弹框请求用户授权。使用callback异步回调。
-      await atManager.requestPermissionsFromUser(context, ['ohos.permission.WRITE_IMAGEVIDEO'])
-        .then((data: PermissionRequestResult) => {
-          logger.info(TAG, `Request grant: ${JSON.stringify(data)}`);
-          logger.info(TAG, `Request grant permissions: ${data.permissions}`);
-          logger.info(TAG, `Request grant authResults: ${data.authResults}`);
-          logger.info(TAG, `Request grant dialogShownResults: ${data.dialogShownResults}`);
-        }).catch((err: BusinessError) => {
-          logger.error(TAG, `Grant error, code=${err.code}, message=${err.message}`);
-        });
-    }
-
     try {
       let photoType: photoAccessHelper.PhotoType = photoAccessHelper.PhotoType.IMAGE;
       let extension: string = 'jpg';

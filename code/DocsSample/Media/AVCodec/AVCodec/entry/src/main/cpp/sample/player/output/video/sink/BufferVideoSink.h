@@ -26,7 +26,7 @@ public:
     void BeginPlayback() override
     {
         // 前一个流可能在共享窗口上留下不同的尺寸或变换信息。
-        // 新流的首个解码 Buffer 到达后再据此重新配置窗口。
+        // 新流的首个解码Buffer到达后再据此重新配置窗口。
         renderer_.Reset();
     }
 

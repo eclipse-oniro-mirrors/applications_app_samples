@@ -20,14 +20,14 @@
 #include "sample_info.h"
 
 namespace CodecCapability {
-// 根据 MIME、编码/解码方向和软硬件类别查询当前设备能力；返回值由系统管理，不能释放或长期保存。
+// 根据MIME、编码/解码方向和软硬件类别查询当前设备能力；返回值由系统管理，不能释放或长期保存。
 OH_AVCapability *GetCapability(const std::string &mime, bool isEncoder, int32_t codecType,
     const std::string &codecName = "");
-// 校验视频尺寸、帧率、像素格式及编码参数，在 Configure 前筛掉不支持的配置。
+// 校验视频尺寸、帧率、像素格式及编码参数，在Configure前筛掉不支持的配置。
 bool ValidateVideoConfiguration(const SampleInfo &sampleInfo, bool isEncoder);
 // 校验低时延、解码序输出等可选视频能力；未请求任何可选能力时直接通过。
 bool ValidateVideoFeatureConfiguration(const SampleInfo &sampleInfo);
-// 校验音频编码参数；解码器的容器格式能力可能不完整，因此最终结果仍以 Configure 为准。
+// 校验音频编码参数；解码器的容器格式能力可能不完整，因此最终结果仍以Configure为准。
 bool ValidateAudioConfiguration(const SampleInfo &sampleInfo, bool isEncoder);
 } // 编解码能力查询命名空间
 

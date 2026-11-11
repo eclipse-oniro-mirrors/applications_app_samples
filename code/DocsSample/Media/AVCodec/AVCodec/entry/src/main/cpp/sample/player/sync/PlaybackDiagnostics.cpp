@@ -87,7 +87,7 @@ void PlaybackDiagnostics::BeginSeek(Clock::time_point startedAt, int64_t targetU
     seekTargetUs_ = targetUs;
     AppendEvent("seek.begin", targetUs);
     seekStartedAt_ = startedAt;
-    // 此时旧输出线程尚未退出，不能把最后提交的旧帧记作本次 Seek 的首帧。
+    // 此时旧输出线程尚未退出，不能把最后提交的旧帧记作本次Seek的首帧。
     waitingSeekOutput_ = false;
     info_.seekRebuildUs = -1;
     info_.seekFirstOutputUs = -1;

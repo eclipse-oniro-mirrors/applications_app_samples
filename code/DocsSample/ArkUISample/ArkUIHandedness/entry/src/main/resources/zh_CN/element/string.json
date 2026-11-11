@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "弹窗跟手"
+    },
+    {
+      "name": "follow_anchor_title",
+      "value": "指向性跟手（FOLLOW_ANCHOR）"
+    },
+    {
+      "name": "follow_grip_hand_title",
+      "value": "智感握姿跟手（FOLLOW_GRIP_HAND）"
+    },
+    {
+      "name": "no_follow_title",
+      "value": "不跟手（NONE）"
+    },
+    {
+      "name": "alert_dialog_entry",
+      "value": "AlertDialog"
+    },
+    {
+      "name": "bind_sheet_entry",
+      "value": "bindSheet"
+    }
+  ]
+}

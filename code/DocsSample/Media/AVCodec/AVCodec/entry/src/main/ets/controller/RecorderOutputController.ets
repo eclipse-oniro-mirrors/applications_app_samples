@@ -49,14 +49,17 @@ export class RecorderOutputController {
         dumpPrefix + '_secondary' + dumpExtension : '';
       data.primaryDumpPath = primaryDump;
       data.secondaryDumpPath = secondaryDump;
-      // 所有值在启动前形成快照；后续界面选项变化不会改动已经入队的 Native 初始化任务。
+      // 所有值在启动前形成快照；后续界面选项变化不会改动已经入队的Native初始化任务。
       const plan = RecorderPreprocessModel.forCamera(data);
       const options: RecorderOptions = {
         video: {
           mime: data.videoCodecMime ?? Const.MIME_VIDEO_AVC, codecName: data.videoCodecName,
           width: data.cameraWidth, height: data.cameraHeight, frameRate: data.frameRate,
           bitrate: data.bitRate, pixelFormat: data.format, bitrateMode: data.bitrateMode,
-          iFrameInterval: data.iFrameInterval, hdrVivid: data.isHDRVivid !== 0, synchronous: data.isSync !== 0
+        iFrameInterval: data.iFrameInterval,
+        hdrVivid: data.isHDRVivid !== 0,
+        synchronous: data.isSync !== 0,
+          bufferInput: data.bufferInput
         },
         audio: {
           sampleRate: data.audioSampleRate, channelCount: data.audioChannelCount,

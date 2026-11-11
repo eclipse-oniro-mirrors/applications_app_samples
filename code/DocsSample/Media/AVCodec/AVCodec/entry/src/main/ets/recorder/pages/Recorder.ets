@@ -77,6 +77,11 @@ struct Recorder {
     } catch (error) {
       this.session.mark('camera.failed', 'prepare_failed');
       this.compact = LocalizedText.get($r('app.string.recorder_start_failed'));
+      if (this.data.bufferInput) {
+        this.getUIContext().getPromptAction().showToast({
+          message: LocalizedText.get($r('app.string.recorder_buffer_combination_unavailable')), duration: 5000
+        });
+      }
       Logger.error('Recorder', JSON.stringify(error));
       await this.finish(true);
     }

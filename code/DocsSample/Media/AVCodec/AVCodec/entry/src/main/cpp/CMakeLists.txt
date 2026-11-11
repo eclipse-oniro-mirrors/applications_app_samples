@@ -45,6 +45,8 @@ set(BASE_LIBRARY
     libnative_media_avmuxer.so
     libohaudio.so
     libdl.so
+    libnative_drm.so
+    libnative_media_avcencinfo.so
 )
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           sample/player/napi/DeviceCodecCapabilityNative.cpp
@@ -86,6 +88,9 @@ add_library(recorder SHARED sample/recorder/RecorderNative.cpp
                             sample/recorder/RecorderOptionsParser.cpp
                             sample/recorder/Recorder.cpp
                             sample/recorder/RecorderVideoSession.cpp
+                            sample/recorder/RecorderVideoInput.cpp
+                            sample/recorder/RecorderFrameReceiver.cpp
+                            sample/recorder/RecorderFrameCopy.cpp
                             capabilities/muxer.cpp
                             capabilities/codec_capability.cpp
                             capabilities/video_encoder.cpp
@@ -104,7 +109,7 @@ if(AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID)
 endif()
 
 target_link_libraries(player PUBLIC ${BASE_LIBRARY})
-target_link_libraries(recorder PUBLIC ${BASE_LIBRARY})
+target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} libimage_receiver.so libohimage.so)
 
 add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
                               sample/transcoder/TranscodeAudioPipeline.cpp
@@ -113,6 +118,7 @@ add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
                               sample/transcoder/TranscodeCodecIO.cpp
                               sample/transcoder/TranscodeInspection.cpp
                               sample/transcoder/TranscodeOutputValidation.cpp
+                              sample/transcoder/TranscodeSampleValidator.cpp
                               sample/transcoder/TranscodeTimeRange.cpp
                               sample/transcoder/TranscodeOperations.cpp
                               sample/transcoder/TranscodeGpuProcessor.cpp

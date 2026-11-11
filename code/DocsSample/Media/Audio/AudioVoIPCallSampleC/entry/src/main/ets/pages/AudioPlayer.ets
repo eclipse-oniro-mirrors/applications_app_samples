@@ -19,8 +19,8 @@ import { audio } from '@kit.AudioKit';
 import { router } from  '@kit.ArkUI';
 // [Start background_task]
 import { BusinessError } from '@kit.BasicServicesKit';
-import { backgroundTaskManager } from '@kit.BackgroundTasksKit'
-import { wantAgent, WantAgent } from '@kit.AbilityKit'
+import { backgroundTaskManager } from '@kit.BackgroundTasksKit';
+import { wantAgent, WantAgent } from '@kit.AbilityKit';
 // [StartExclude background_task]
 export class AudioPlayer {
   private  player: media.AVPlayer | null = null;

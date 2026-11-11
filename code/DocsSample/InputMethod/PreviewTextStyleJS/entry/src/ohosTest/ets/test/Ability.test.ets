@@ -15,15 +15,14 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
-import { inputMethod } from '@kit.IMEKit';
 import { describe, expect, it } from '@ohos/hypium';
 import { BUNDLE, DOMAIN, TAG } from '../TestLog';
 
-const WAIT_MS = 5000;
+const WAIT_MS = 20000;
 const OPEN_EDITOR = `${BUNDLE}_OpenPreviewEditor_001`;
 const JS_PREVIEW = `${BUNDLE}_SendAndFinishJsPreview_002`;
 const C_PREVIEW = `${BUNDLE}_SendAndFinishCPreview_003`;
-const SETTINGS = `${BUNDLE}_OpenInputMethodSettings_004`;
+const SETTINGS_REMOVED = `${BUNDLE}_VerifySettingsEntryRemoved_004`;
 
 async function openSample(): Promise<Driver> {
   await abilityDelegatorRegistry.getAbilityDelegator().startAbility({
@@ -52,27 +51,15 @@ async function verifyPreview(driver: Driver, editorId: string, attachId: string)
   hilog.info(DOMAIN, TAG, 'Assert received text matches the preview resource');
   expect(await received.getText()).assertEqual(expected);
   expect(initial === expected).assertFalse();
+  const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+  const screenshotName = editorId === 'jsPreviewEditor' ? 'Sample-Run-JS.png' : 'Sample-Run-C.png';
+  const captured = await driver.screenCap(context.cacheDir + '/' + screenshotName);
+  hilog.info(DOMAIN, TAG, 'Assert preview screenshot is captured');
+  expect(captured).assertTrue();
   await (await find(driver, 'previewFinish')).click();
   const committed = await find(driver, editorId, expected);
   hilog.info(DOMAIN, TAG, 'Assert finished preview text is retained');
   expect(await committed.getText()).assertEqual(expected);
-}
-
-async function verifySettings(driver: Driver): Promise<void> {
-  const settings = inputMethod.getSystemInputMethodConfigAbility();
-  const unavailable = settings.bundleName.length === 0 || settings.abilityName.length === 0;
-  await (await find(driver, 'openInputMethodSettings')).click();
-  if (!unavailable) {
-    const settingsWindow = await driver.findWindow({ bundleName: settings.bundleName });
-    hilog.info(DOMAIN, TAG, 'Assert system input method settings window is visible');
-    expect(settingsWindow !== null).assertTrue();
-    return;
-  }
-  const resources = abilityDelegatorRegistry.getAbilityDelegator().getAppContext()
-    .createModuleContext('entry').resourceManager;
-  const current = inputMethod.getCurrentInputMethod();
-  const key = current.name === BUNDLE ? 'ime_enabled_hint' : 'settings_unavailable_hint';
-  await find(driver, 'inputMethodSettingsStatus', resources.getStringByNameSync(key));
 }
 
 async function runCase(name: string, action: () => Promise<void>): Promise<void> {
@@ -111,10 +98,14 @@ export default function abilityTest(): void {
         await find(driver, 'jsPreviewEditor');
       });
     });
-    // 004: Check the settings window or the fallback when the system has no settings entry.
-    it(SETTINGS, 0, async () => {
-      await runCase(SETTINGS, async () => {
-        await verifySettings(await openSample());
+    // 004: Verify that the editor page does not expose an input method settings entry.
+    it(SETTINGS_REMOVED, 0, async () => {
+      await runCase(SETTINGS_REMOVED, async () => {
+        const driver = await openSample();
+        await find(driver, 'jsPreviewEditor');
+        const settings = await driver.findComponent(ON.id('openInputMethodSettings'));
+        hilog.info(DOMAIN, TAG, 'Assert input method settings entry is absent');
+        expect(settings === null).assertTrue();
       });
     });
   });

@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI';
-
 @Entry
 @Component
 struct Index {
@@ -22,48 +20,48 @@ struct Index {
     Row() {
       Column({ space: 60 }) {
         Button($r('app.string.switchPageButton1'))
-          .width('80%') // 按钮宽度占屏幕宽度80%
-          .height('10%') // 按钮高度占屏幕高度10%
-          .fontSize($r('app.float.size_25')) // 按钮字体大小为25
-          .borderRadius($r('app.float.size_25')) // 按钮圆角半径为25
-          .backgroundColor($r('app.color.whiteColor')) // 按钮背景颜色为白色
+          .width('80%') // button width takes 80% of screen width
+          .height('10%') // button height takes 10% of screen height
+          .fontSize($r('app.float.size_25')) // button font size is 25
+          .borderRadius($r('app.float.size_25')) // button corner radius is 25
+          .backgroundColor($r('app.color.whiteColor')) // button background color is white
           .shadow({
-            radius: $r('app.float.size_10'), // 阴影半径为10
-            color: $r('app.color.grayColor'), // 阴影颜色为灰色
-            offsetX: $r('app.float.size_15'), // 阴影水平偏移量为15
-            offsetY: $r('app.float.size_15') // 阴影垂直偏移量为15
+            radius: $r('app.float.size_10'), // shadow radius is 10
+            color: $r('app.color.grayColor'), // shadow color is gray
+            offsetX: $r('app.float.size_15'), // shadow horizontal offset is 15
+            offsetY: $r('app.float.size_15') // shadow vertical offset is 15
           })
-          .fontColor($r('app.color.blackColor')) // 按钮字体颜色为黑色
+          .fontColor($r('app.color.blackColor')) // button font color is black
           .onClick(() => {
-            router.pushUrl({
+            this.getUIContext().getRouter().pushUrl({
               url: 'filemanager/pages/FileManagerApplication',
             })
           })
         Button($r('app.string.switchPageButton2'))
-          .width('80%') // 按钮宽度占屏幕宽度80%
-          .height('10%') // 按钮高度占屏幕高度10%
-          .fontSize($r('app.float.size_25')) // 按钮字体大小为25
-          .borderRadius($r('app.float.size_25')) // 按钮圆角半径为25
-          .backgroundColor($r('app.color.whiteColor')) // 按钮背景颜色为白色
+          .width('80%') // button width takes 80% of screen width
+          .height('10%') // button height takes 10% of screen height
+          .fontSize($r('app.float.size_25')) // button font size is 25
+          .borderRadius($r('app.float.size_25')) // button corner radius is 25
+          .backgroundColor($r('app.color.whiteColor')) // button background color is white
           .shadow({
-            radius: $r('app.float.size_10'), // 阴影半径为10
-            color: $r('app.color.grayColor'), // 阴影颜色为灰色
-            offsetX: $r('app.float.size_15'), // 阴影水平偏移量为15
-            offsetY: $r('app.float.size_15') // 阴影垂直偏移量为15
+            radius: $r('app.float.size_10'), // shadow radius is 10
+            color: $r('app.color.grayColor'), // shadow color is gray
+            offsetX: $r('app.float.size_15'), // shadow horizontal offset is 15
+            offsetY: $r('app.float.size_15') // shadow vertical offset is 15
           })
-          .fontColor($r('app.color.blackColor')) // 按钮字体颜色为黑色
+          .fontColor($r('app.color.blackColor')) // button font color is black
           .onClick(() => {
-            router.pushUrl({
+            this.getUIContext().getRouter().pushUrl({
               url: 'filemanager/pages/ListeningForDeviceOnline',
             })
           })
 
       }
-      .width('100%') // 外层列布局宽度占满屏幕
-      .height('100%') // 外层列布局高度占满屏幕
-      .alignItems(HorizontalAlign.Center) // 水平居中对齐
-      .justifyContent(FlexAlign.Center) // 垂直居中对齐
-      .backgroundColor($r('app.color.lightGrayColor')) // 背景颜色为浅灰色
+      .width('100%') // outer column width fills the screen
+      .height('100%') // outer column height fills the screen
+      .alignItems(HorizontalAlign.Center) // align items horizontally centered
+      .justifyContent(FlexAlign.Center) // justify content vertically centered
+      .backgroundColor($r('app.color.lightGrayColor')) // background color is light gray
     }
   }
 }

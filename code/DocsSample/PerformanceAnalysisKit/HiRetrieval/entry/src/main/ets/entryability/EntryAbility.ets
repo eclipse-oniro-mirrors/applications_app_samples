@@ -15,7 +15,10 @@
 
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+// [Start hiretrieval_import_sample_code]
+import { BusinessError } from '@kit.BasicServicesKit';
 import { hiRetrieval } from '@kit.PerformanceAnalysisKit';
+// [End hiretrieval_import_sample_code]
 import { window } from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;

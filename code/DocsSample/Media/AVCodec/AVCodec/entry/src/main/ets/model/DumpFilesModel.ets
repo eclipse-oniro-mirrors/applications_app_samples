@@ -45,7 +45,7 @@ export class DumpFilesModel {
       throw new Error(LocalizedText.get($r('app.string.dump_media_busy')));
     }
     try {
-      // 不接受 UI 缓存中的任意路径。确认后重新从应用 filesDir 扫描并按会话匹配。
+      // 不接受UI缓存中的任意路径。确认后重新从应用filesDir扫描并按会话匹配。
       const sessions = await DumpFilesModel.sessions(directory);
       const session = sessions.find((item: DumpSessionEntry): boolean => item.id === sessionId);
       if (session === undefined) {
@@ -167,7 +167,7 @@ export class DumpFilesModel {
     for (const entry of session.files) {
       bytes += (await fileIo.stat(entry.path)).size;
     }
-    // ZIP 不再复制一份源数据目录；无压缩打包，避免大体积裸帧占满 ArkTS 堆或长时间压缩。
+    // ZIP不再复制一份源数据目录；无压缩打包，避免大体积裸帧占满ArkTS堆或长时间压缩。
     const available: number = await DumpFilesModel.freeBytes(context.cacheDir);
     if (available < bytes + DumpFilesModel.EXPORT_RESERVE_BYTES) {
       throw new Error(LocalizedText.get($r('app.string.dump_archive_space')));
@@ -183,7 +183,7 @@ export class DumpFilesModel {
       try {
         await fileIo.unlink(archive);
       } catch (_error) {
-        // 打包未产生文件时无需清理；不删除用户原始 Dump。
+        // 打包未产生文件时无需清理；不删除用户原始Dump。
       }
     }
   }
@@ -214,7 +214,7 @@ export class DumpFilesModel {
     try {
       source = await fileIo.open(path, fileIo.OpenMode.READ_ONLY);
       target = await fileIo.open(destination, fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
-      // 原生异步复制不把整份 4K 裸帧数据读入 ArkTS 堆；也不占用解码输出线程。
+      // 原生异步复制不把整份4K裸帧数据读入ArkTS堆；也不占用解码输出线程。
       await fileIo.copyFile(source.fd, target.fd);
     } finally {
       try {

@@ -126,7 +126,7 @@ export class SeekPreviewController {
         }
         this.model.seekPreviewRotation = previewRotation;
       } catch (error) {
-        // 预览旋转信息缺失时按 0° 生成。
+        // 预览旋转信息缺失时按0° 生成。
         Logger.info(TAG, 'Seek preview rotation unavailable: ' + JSON.stringify(error));
         this.model.seekPreviewRotation = 0;
       }
@@ -150,7 +150,7 @@ export class SeekPreviewController {
         throw new Error('Image generator returned an empty preview frame');
       }
       fetchedFrame = frame;
-      // 生成器已应用旋转，不能再次旋转 PixelMap。
+      // 生成器已应用旋转，不能再次旋转PixelMap。
       // 同一次拖动中先显示已取到的帧，再处理最新位置，避免连续移动时始终没有预览。
       if (!this.model.isSeeking || !this.model.seekPreviewVisible ||
         generation !== this.seekPreviewGeneration || source !== this.getSource()) {

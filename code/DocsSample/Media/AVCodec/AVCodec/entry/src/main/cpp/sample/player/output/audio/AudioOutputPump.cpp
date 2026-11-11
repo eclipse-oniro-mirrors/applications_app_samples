@@ -48,7 +48,7 @@ bool AudioOutputPump::ReleaseOutputBuffer(const CodecBufferInfo &bufferInfo, con
     if (bufferInfo.buffer == nullptr) {
         return true;
     }
-    // 输出 Buffer 一旦交给解码器复用，不能再读取 buffer 指针或属性。
+    // 输出Buffer一旦交给解码器复用，不能再读取buffer指针或属性。
     const int32_t ret = decoder_.FreeOutputBuffer(bufferInfo.bufferIndex, false);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
         return true;
@@ -82,7 +82,7 @@ bool AudioOutputPump::EnqueueOutput(CodecBufferInfo &bufferInfo)
     }
     source += bufferInfo.attr.offset;
 
-    // renderQueue 由解码输出线程写入、音频渲染回调读取；复制期间加锁，防止读取半个 PCM Buffer。
+    // renderQueue由解码输出线程写入、音频渲染回调读取；复制期间加锁，防止读取半个PCM Buffer。
     std::unique_lock<std::mutex> lock(context_.outputMutex);
     for (int32_t i = 0; i < bufferInfo.attr.size; i++) {
         context_.renderQueue.push(source[i]);
@@ -97,11 +97,11 @@ bool AudioOutputPump::HandleOutputBuffer(CodecBufferInfo &bufferInfo, bool dumpO
     AVCODEC_SAMPLE_LOGW("Output count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
         context_.outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
     if (outputPrepareCallback_ && !outputPrepareCallback_(bufferInfo)) {
-        // 当前帧不送往渲染器时也必须归还 codec Buffer，否则后续输出回调会停住。
+        // 当前帧不送往渲染器时也必须归还codec Buffer，否则后续输出回调会停住。
         return ReleaseOutputBuffer(bufferInfo, "discard audio output") && running_ && !playbackFailed_;
     }
     if (!EnqueueOutput(bufferInfo)) {
-        // PCM 未进入渲染队列，后续回调也不会接管该索引，须在此处归还。
+        // PCM未进入渲染队列，后续回调也不会接管该索引，须在此处归还。
         (void)ReleaseOutputBuffer(bufferInfo, "enqueue audio output failed");
         return false;
     }
@@ -113,7 +113,7 @@ bool AudioOutputPump::HandleOutputBuffer(CodecBufferInfo &bufferInfo, bool dumpO
         (void)ReleaseOutputBuffer(bufferInfo, "audio output callback is empty");
         return false;
     }
-    // 输出回调负责将正常 PCM Buffer 归还给解码器；其返回后不能再次释放同一索引。
+    // 输出回调负责将正常PCM Buffer归还给解码器；其返回后不能再次释放同一索引。
     return outputCallback_(bufferInfo);
 }
 
@@ -147,7 +147,7 @@ bool AudioOutputPump::ProcessSyncOutput()
     CodecBufferInfo bufferInfo;
     int32_t errCode = decoder_.GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
     if (errCode == AVCODEC_SAMPLE_ERR_END) {
-        // 同步解码器已在 GetOutputBuffer() 内归还 EOS 索引，此处不能重复释放。
+        // 同步解码器已在GetOutputBuffer() 内归还EOS索引，此处不能重复释放。
         AVCODEC_SAMPLE_LOGI("Audio decoder reached EOS");
         return false;
     }

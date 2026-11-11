@@ -72,7 +72,7 @@ void Recorder::CaptureEncoderDescription(bool primary)
     }
     std::string description = EncoderOutputSnapshot(encoder, primary ? "primary" : "secondary");
     description += "; actualCodecName=not reported";
-    // 输出描述不等同于码流解析。未读取码流的尺寸和 HDR 元数据时，不把请求配置当作实测结论。
+    // 输出描述不等同于码流解析。未读取码流的尺寸和HDR元数据时，不把请求配置当作实测结论。
     description += "; bitstream size/HDR=not verified";
     (primary ? primaryStats_ : secondaryStats_).ConfigureDescription(
         DescribeCodecRequest(primary ? sampleInfo_ : secondarySampleInfo_, true), description,
@@ -82,7 +82,7 @@ void Recorder::CaptureEncoderDescription(bool primary)
 int32_t Recorder::UpdateVideoParameters(const std::string &sessionId, bool primary, int64_t bitrate,
     bool requestKeyFrame)
 {
-    // 与 Init/Release 共用生命周期锁。异步请求还需匹配会话，防止旧页面请求落到新编码器上。
+    // 与Init/Release共用生命周期锁。异步请求还需匹配会话，防止旧页面请求落到新编码器上。
     std::lock_guard<std::mutex> lock(mutex_);
     if (!isStarted_.load() || isStopping_.load() || isEos_.load() ||
         sessionId != sampleInfo_.output.sessionId) {
@@ -105,13 +105,13 @@ int32_t Recorder::UpdateVideoParameters(const std::string &sessionId, bool prima
         "; result=" + std::to_string(ret);
     sessionReport_.Change(update);
     AVCODEC_SAMPLE_LOGI("Session %{public}s update: %{public}s", sessionId.c_str(), update.c_str());
-    // 返回成功只表示编码器接受参数；实际码率仍由输出字节数和 PTS 统计，关键帧以输出 flags 为准。
+    // 返回成功只表示编码器接受参数；实际码率仍由输出字节数和PTS统计，关键帧以输出flags为准。
     return ret;
 }
 
 int32_t Recorder::InitializeSession(SampleInfo &sampleInfo)
 {
-    // 本次录制会话独占封装器、编码器和采集器，失败时由 ReleaseThread 回收已创建的资源。
+    // 本次录制会话独占封装器、编码器和采集器，失败时由ReleaseThread回收已创建的资源。
     audioEncoder_ = std::make_unique<AudioEncoder>();
     audioCapturer_ = std::make_unique<AudioCapturer>();
     videoEncoder_ = std::make_unique<VideoEncoder>();
@@ -195,7 +195,7 @@ int32_t Recorder::StartVideoPipeline()
 
 int32_t Recorder::StartVideoMuxers()
 {
-    // 先启动 Muxer，确保首个编码输出到达时容器轨道已可写。
+    // 先启动Muxer，确保首个编码输出到达时容器轨道已可写。
     int32_t ret = muxer_->Start();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Muxer start failed");
@@ -257,13 +257,13 @@ int32_t Recorder::CreateVideoEncoder()
             videoEncoder_->CreateByName(sampleInfo_.codec.codecName));
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
 
-    // Config 失败时先销毁 codec，再回收临时上下文，避免已注册回调借用悬空指针。
+    // Config失败时先销毁codec，再回收临时上下文，避免已注册回调借用悬空指针。
     std::unique_ptr<CodecUserData> context = std::make_unique<CodecUserData>();
     context->sampleInfo = &sampleInfo_;
     context->failureDetails = &failure_;
-    ret = videoEncoder_->Config(sampleInfo_, context.get());
+    ret = videoEncoder_->Config(sampleInfo_, context.get(), !sampleInfo_.video.bufferInput);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        // 配置可能已经创建输出 Surface，销毁 codec 后才能归还窗口引用。
+        // 配置可能已经创建输出Surface，销毁codec后才能归还窗口引用。
         (void)videoEncoder_->Release();
         if (sampleInfo_.video.window != nullptr) {
             OH_NativeWindow_DestroyNativeWindow(sampleInfo_.video.window);
@@ -272,6 +272,12 @@ int32_t Recorder::CreateVideoEncoder()
         return ret;
     }
     encContext_ = context.release();
+
+    if (sampleInfo_.video.bufferInput) {
+        frameReceiver_ = std::make_unique<RecorderFrameReceiver>();
+        CHECK_AND_RETURN_RET_LOG(frameReceiver_->Create(sampleInfo_.video.videoWidth, sampleInfo_.video.videoHeight),
+            AVCODEC_SAMPLE_ERR_ERROR, "Create camera frame receiver failed; check image receiver stage logs");
+    }
 
     if (sampleInfo_.output.enableDualOutput) {
         secondaryEncContext_ = new CodecUserData();
@@ -288,7 +294,7 @@ int32_t Recorder::CreateVideoEncoder()
             secondaryEncContext_ = nullptr;
             return ret;
         }
-        // 副编码器共享主路输入 Surface，不再向 ArkTS 暴露第二个 CameraKit VideoOutput。
+        // 副编码器共享主路输入Surface，不再向ArkTS暴露第二个CameraKit VideoOutput。
     }
 
     return AVCODEC_SAMPLE_ERR_OK;
@@ -306,7 +312,7 @@ int32_t Recorder::InitializeSecondaryMuxer()
             sampleInfo_.output.secondaryVideoWidth : sampleInfo_.video.videoWidth;
         const int32_t secondaryHeight = sampleInfo_.output.secondaryVideoHeight > 0 ?
             sampleInfo_.output.secondaryVideoHeight : sampleInfo_.video.videoHeight;
-        // Configure 的宽高仍描述共享的 CameraKit 源帧；副路输出尺寸由自己的降采样 Key 指定。
+        // Configure的宽高仍描述共享的CameraKit源帧；副路输出尺寸由自己的降采样Key指定。
         // 主路裁剪不能隐式传到副路；副路单独按源尺寸或降采样尺寸输出。
         secondaryInfo.video.preprocMode = VIDEO_PREPROC_NONE;
         if (secondaryWidth != sampleInfo_.video.videoWidth || secondaryHeight != sampleInfo_.video.videoHeight) {

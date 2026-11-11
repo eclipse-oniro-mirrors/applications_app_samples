@@ -64,10 +64,14 @@ export class MediaControlCenter {
     const fileName = this.songList[this.musicIndex].src;
     this.mediaControlCenterHandle.loadSongAssent(this.songRawFileDescriptor, fileName);
 
-    Logger.info(TAG, `get duration is ${this.getDuration()}`);
-    AppStorage.setOrCreate('totalTime', MediaTools.msToCountdownTime(this.getDuration()));
-    AppStorage.setOrCreate('totalMsTime', this.getDuration());
-    AppStorage.setOrCreate('progressMax', this.getDuration());
+    let duration: number = this.getDuration();
+    if (duration <= 0) {
+      Logger.error(TAG, `invalid song duration: ${duration}, src: ${fileName}`);
+    }
+    Logger.info(TAG, `get duration is ${duration}`);
+    AppStorage.setOrCreate('totalTime', MediaTools.msToCountdownTime(duration));
+    AppStorage.setOrCreate('totalMsTime', duration);
+    AppStorage.setOrCreate('progressMax', duration);
   }
 
   // [End loadSongAssent]

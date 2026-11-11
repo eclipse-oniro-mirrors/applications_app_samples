@@ -104,7 +104,7 @@ export class PlaybackHistoryModel {
       return;
     }
     try {
-      // 调用 flush 后断点数据才会落盘。
+      // 调用flush后断点数据才会落盘。
       await this.prefs.put(HISTORY_KEY, JSON.stringify(this.entries));
       await this.prefs.flush();
     } catch {

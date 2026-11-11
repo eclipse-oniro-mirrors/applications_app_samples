@@ -21,31 +21,29 @@
 
 ```
 CloudDisk
-├──entry/src/main
-│  ├──cpp
-│  │  ├──common
-│  │  │  ├──logger_common.h            // 日志公共头文件
-│  │  │  ├──napi_object_parser.h        // NAPI对象解析公共头文件
-│  │  │  └──utils.h                    // 工具公共头文件
-│  │  ├──types
-│  │  │  └──libentry
-│  │  │     ├──Index.d.ts              // NAPI接口类型声明
-│  │  │     └──oh-package.json5
-│  │  ├──CMakeLists.txt                // CMake脚本文件
-│  │  └──napi_init.cpp                 // NAPI函数封装，实现网盘服务底座全部能力
-│  ├──ets
-│  │  ├──common
-│  │  │  └──Utils.ets                  // 公共工具类
-│  │  ├──entryability
-│  │  │  └──EntryAbility.ets           // 程序入口类
-│  │  ├──entrybackupability
-│  │  │  └──EntryBackupAbility.ets     // 备份恢复ExtensionAbility
-│  │  └──pages
-│  │     ├──Index.ets                  // 主界面，同步根管理 + 占位符与水合
-│  │     ├──OperationLog.ets           // 历史操作记录查询页面
-│  │     ├──SetFileSyncStates.ets      // 设置文件同步状态页面
-│  │     └──GetFileSyncStates.ets      // 查询文件同步状态页面
-│  ├──resources                        // 资源文件目录
+├── entry/src/main
+│   ├── cpp
+│   │   ├── common
+│   │   │   ├── cloud_disk_api_26_1_compat.h    // API 26.1 兼容头文件
+│   │   │   ├── logger_common.h                 // 日志公共头文件
+│   │   │   ├── napi_object_parser.h            // NAPI 对象解析公共头文件
+│   │   │   └── utils.h                         // 工具公共头文件
+│   │   ├── types/libentry
+│   │   │   ├── Index.d.ts                      // NAPI 接口类型声明
+│   │   │   └── oh-package.json5
+│   │   ├── CMakeLists.txt                      // CMake 脚本
+│   │   └── napi_init.cpp                       // NAPI 函数封装
+│   ├── ets
+│   │   ├── common/Utils.ets                    // 公共工具
+│   │   ├── entryability/EntryAbility.ets       // 程序入口
+│   │   ├── entrybackupability/EntryBackupAbility.ets
+│   │   └── pages
+│   │       ├── Index.ets                       // 同步根管理与占位符
+│   │       ├── OperationLog.ets                // 操作记录查询
+│   │       ├── SetFileSyncStates.ets           // 设置同步状态
+│   │       └── GetFileSyncStates.ets           // 查询同步状态
+│   └── resources                               // 资源文件目录
+└── entry/src/ohosTest                          // 自动化测试
 ```
 
 ## 具体实现
@@ -64,13 +62,17 @@ CloudDisk
 
 ## 约束与限制
 
-1. 本示例仅支持API版本26.0.1 Release及以上版本运行，支持设备：PC/2in1。
+1. 本示例仅支持API版本26.0.0 Release及以上版本运行，支持设备：default（标准设备）。
 
-2. 本示例为Stage模型，支持API版本26.0.1 Release及以上版本SDK。
+2. 本示例为 Stage 模型，支持 API 26 版本 SDK（26.0.0）。
 
 3. 本示例需要使用DevEco Studio 26.0.0 Release及以上版本才可编译运行。
 
 4. 本示例依赖系统预置文件管理器应用，注册同步根后文件管理器侧边栏展示网盘入口。
+
+### 测试
+
+自动化测试说明及用例清单见 [./ohosTest.md](./ohosTest.md)。
 
 ## 下载
 

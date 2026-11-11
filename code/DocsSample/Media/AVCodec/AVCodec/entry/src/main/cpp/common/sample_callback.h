@@ -21,9 +21,9 @@
 #include <ohaudio/native_audiostreambuilder.h>
 #include "sample_info.h"
 
-// 音视频接口以静态函数形式回调，userData 必须是调用方持有的 CodecUserData。
-// 释放顺序应为：先标记 isDestroyed，再停止并销毁 codec/AudioRenderer、等待工作线程退出，最后释放 userData；
-// 回调只借用该指针，不负责 delete。
+// 音视频接口以静态函数形式回调，userData必须是调用方持有的CodecUserData。
+// 释放顺序应为：先标记isDestroyed，再停止并销毁codec/AudioRenderer、等待工作线程退出，最后释放userData；
+// 回调只借用该指针，不负责delete。
 class SampleCallback {
 public:
     static int32_t OnRenderWriteData(OH_AudioRenderer *renderer, void *userData, void *buffer, int32_t length);

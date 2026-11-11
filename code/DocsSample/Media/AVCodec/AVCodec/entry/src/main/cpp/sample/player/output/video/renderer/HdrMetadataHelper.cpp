@@ -69,9 +69,9 @@ bool IsHdrVividNativeBuffer(OH_NativeBuffer *nativeBuffer)
         return false;
     }
 
-    // HDR Vivid 的类型字段来自解码后的 NativeBuffer，已经足以确认当前帧的
+    // HDR Vivid的类型字段来自解码后的NativeBuffer，已经足以确认当前帧的
     // 色彩类型。动态元数据在部分硬解路径中由显示服务维护，不一定会复制到
-    // 应用可读的 NativeBuffer；不能因为该字段为空而把真实 HDR 帧判成 SDR。
+    // 应用可读的NativeBuffer；不能因为该字段为空而把真实HDR帧判成SDR。
     return true;
 }
 
@@ -81,8 +81,8 @@ bool SetNativeWindowMetadata(OHNativeWindow *window, OH_NativeBuffer_ColorSpace 
     if (window == nullptr) {
         return false;
     }
-    // native-window 接口接收字节数组，而 OH_HDR_METADATA_TYPE 的载荷是完整的
-    // OH_NativeBuffer_MetadataType 枚举值，不能只写入一个枚举字节。
+    // native-window接口接收字节数组，而OH_HDR_METADATA_TYPE的载荷是完整的
+    // OH_NativeBuffer_MetadataType枚举值，不能只写入一个枚举字节。
     const int32_t colorSpaceRet = OH_NativeWindow_SetColorSpace(window, colorSpace);
     const int32_t metadataRet = OH_NativeWindow_SetMetadataValue(window, OH_HDR_METADATA_TYPE,
         static_cast<int32_t>(sizeof(metadataType)), reinterpret_cast<uint8_t *>(&metadataType));

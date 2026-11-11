@@ -292,6 +292,8 @@ void StyledStringBase::CreateStyledStringWithBackgroundColorStyle(ArkUI_NodeHand
     OH_ArkUI_BackgroundColorStyle_SetColor(backgroundColorStyle, COLOR_YELLOW);
     OH_ArkUI_BackgroundColorStyle_SetRadius(backgroundColorStyle, BACKGROUND_RADIUS, BACKGROUND_RADIUS,
                                             BACKGROUND_RADIUS, BACKGROUND_RADIUS);
+    OH_ArkUI_BackgroundColorStyle_SetBorderWidth(backgroundColorStyle, 2.0f);
+    OH_ArkUI_BackgroundColorStyle_SetBorderColor(backgroundColorStyle, COLOR_RED);
 
     OH_ArkUI_SpanStyle *spanStyle = OH_ArkUI_SpanStyle_Create();
     OH_ArkUI_SpanStyle_SetStart(spanStyle, 0);

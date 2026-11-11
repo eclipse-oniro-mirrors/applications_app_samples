@@ -63,7 +63,7 @@ export class RecorderLaunchController {
       await RecorderOutputController.open(context, data);
       initialized = true;
       if (route) { await ui.getRouter().pushUrl({ url: 'recorder/pages/Recorder', params: data }); }
-      // 路由成功后，Recorder 页面负责在 Native 完成收尾后关闭这两个 fd。
+      // 路由成功后，Recorder页面负责在Native完成收尾后关闭这两个fd。
       transferred = true;
     } catch (error) {
       Logger.error('RecorderLaunch', JSON.stringify(error));

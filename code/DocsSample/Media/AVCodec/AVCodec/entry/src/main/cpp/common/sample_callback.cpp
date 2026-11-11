@@ -56,7 +56,7 @@ void SetRendererVolume(OH_AudioRenderer *renderer, float volume, const char *rea
 
 size_t DrainRenderQueue(CodecUserData *codecUserData, uint8_t *destination, int32_t length)
 {
-    // 调用方已持有 outputMutex。destination 属于 AudioRenderer，仅在本次回调内可写。
+    // 调用方已持有outputMutex。destination属于AudioRenderer，仅在本次回调内可写。
     size_t index = 0;
     while (!codecUserData->renderQueue.empty() && index < static_cast<size_t>(length)) {
         destination[index] = codecUserData->renderQueue.front();
@@ -197,7 +197,7 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
         return -1;
     }
 
-    // AudioRenderer 分配 buffer 并在回调返回后回收；此处只能同步填充，不能交给其他线程或缓存其地址。
+    // AudioRenderer分配buffer并在回调返回后回收；此处只能同步填充，不能交给其他线程或缓存其地址。
     auto *dest = static_cast<uint8_t *>(buffer);
     std::unique_lock<std::mutex> lock(codecUserData->outputMutex);
     const size_t index = DrainRenderQueue(codecUserData, dest, length);
@@ -369,11 +369,11 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
 static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
 {
     int32_t layerID = -1;
-    // 该能力依赖 API 26 Native SDK 中的 OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID。
-    // 若编译找不到该 Key，请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可在cmake中将
-    // AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID 设为 OFF。
+    // 该能力依赖API 26 Native SDK中的OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID。
+    // 若编译找不到该Key，请确认SDK路径并清理CMake缓存；兼容旧SDK时可在cmake中将
+    // AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID设为OFF。
 #ifdef AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID
-    // 参数对象由接口创建，读取完时域层信息后立即销毁，不能随 Buffer 一起跨线程保存。
+    // 参数对象由接口创建，读取完时域层信息后立即销毁，不能随Buffer一起跨线程保存。
     OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
     if (format != nullptr) {
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID, &layerID);

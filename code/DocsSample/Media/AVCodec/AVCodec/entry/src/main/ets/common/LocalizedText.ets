@@ -16,7 +16,7 @@
 import { resourceManager } from '@kit.LocalizationKit';
 import Logger from './utils/Logger';
 
-// Ability 创建时绑定应用资源；每次读取都交给资源管理器，不缓存某种语言的文本。
+// Ability创建时绑定应用资源；每次读取都交给资源管理器，不缓存某种语言的文本。
 export class LocalizedText {
   private static resources: resourceManager.ResourceManager | undefined = undefined;
 

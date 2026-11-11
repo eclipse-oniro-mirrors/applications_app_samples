@@ -89,11 +89,11 @@ struct Index {
     let data = new rpc.MessageSequence();
     let reply = new rpc.MessageSequence();
 
-    // 向驱动发送信息"Hello"
-    hilog.info(DOMAIN, 'testTag', `communicateWithRemote, message=${this.message}`);
-    data.writeString(this.message);
-
     try {
+      // 向驱动发送信息"Hello"
+      hilog.info(DOMAIN, 'testTag', `communicateWithRemote, message=${this.message}`);
+      data.writeString(this.message);
+
       await this.remote.sendMessageRequest(REQUEST_CODE, data, reply, option);
       // 获取驱动返回信息"Hello world"
       this.message = reply.readString();

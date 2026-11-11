@@ -11,6 +11,22 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "query_ultra_fast_recording_support",
+      "value": "查询超低时延录制支持"
+    },
+    {
+      "name": "create_ultra_fast_recording_stream",
+      "value": "创建超低时延录制流"
+    },
+    {
+      "name": "query_ultra_fast_stream_status",
+      "value": "查询超低时延流状态"
+    },
+    {
+      "name": "stop_ultra_fast_recording_stream",
+      "value": "停止超低时延录制流"
     }
   ]
 }

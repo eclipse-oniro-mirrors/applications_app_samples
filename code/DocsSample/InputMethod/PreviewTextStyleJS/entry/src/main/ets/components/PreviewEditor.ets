@@ -66,7 +66,7 @@ export struct PreviewEditor {
   };
 
   // [Start preview_style_js_receive]
-  // 保留同一回调对象，用于解绑时取消本编辑器的订阅。
+  // 保留同一回调对象，用于解绑时取消本编辑框的订阅。
   private styledCallback: inputMethod.SetPreviewTextWithStyleCallback =
     (text: string, range: inputMethod.Range, style: inputMethod.PreviewTextStyle): void => {
       if (!this.alive || !this.listening) {
@@ -89,7 +89,7 @@ export struct PreviewEditor {
       return;
     }
     this.getUIContext().runScopedTask((): void => {
-      // 本示例使用当前预上屏范围；旧回调不覆盖同一请求已经收到的样式。
+      // setPreviewText事件回调不覆盖同一请求已经收到的样式。
       if (text === this.styledText && range.start === this.styledRangeStart &&
         range.end === this.styledRangeEnd && this.previewStart >= 0) {
         return;
@@ -155,7 +155,7 @@ export struct PreviewEditor {
       await this.disconnectEditor();
       return;
     }
-    // These callbacks require an established editor connection.
+    // 以下编辑回调需要在编辑框绑定成功后注册。
     this.controller.on('getTextIndexAtCursor', this.cursorCallback);
     this.cursorListening = true;
     this.controller.on('insertText', this.insertCallback);
@@ -188,7 +188,7 @@ export struct PreviewEditor {
   }
 
   private removeListeners(): void {
-    // Remove only handlers registered for this connection, before detaching it.
+    // 解绑前仅移除本次连接注册的回调。
     if (this.attached) {
       if (this.cursorListening) {
         this.controller.off('getTextIndexAtCursor', this.cursorCallback);

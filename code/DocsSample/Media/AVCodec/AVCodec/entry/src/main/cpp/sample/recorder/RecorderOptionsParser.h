@@ -19,7 +19,7 @@
 #include "napi/native_api.h"
 #include "sample_config.h"
 
-// 仅在 JS 线程解析对象；全部字段验证后才交给异步初始化任务。
+// 仅在JS线程解析对象；全部字段验证后才交给异步初始化任务。
 bool ParseRecorderOptions(napi_env env, napi_value options, SampleInfo &sampleInfo);
 
 #endif

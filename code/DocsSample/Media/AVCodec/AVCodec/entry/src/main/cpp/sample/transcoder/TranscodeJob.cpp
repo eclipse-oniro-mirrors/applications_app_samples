@@ -88,28 +88,48 @@ bool TranscodeJob::ReadTracks(int32_t trackCount)
         if (track == nullptr || !OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_TRACK_TYPE, &type)) {
             continue;
         }
-        if (type == MEDIA_TYPE_AUD) {
+        if (type == MEDIA_TYPE_AUD && !ReadAudioTrack(index, track.get())) {
+            return false;
+        }
+        if (type == MEDIA_TYPE_SUBTITLE) {
             const char *mime = nullptr;
-            int32_t channels = 0;
-            int32_t rate = 0;
             OH_AVFormat_GetStringValue(track.get(), OH_MD_KEY_CODEC_MIME, &mime);
-            OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, &channels);
-            OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_AUD_SAMPLE_RATE, &rate);
             std::lock_guard<std::mutex> lock(snapshotMutex_);
-            snapshot_.audioTrackIds.push_back(index + 1);
-            snapshot_.audioTracks.push_back(std::to_string(index) + " · " +
-                (mime == nullptr ? "?" : mime) + " · " + std::to_string(channels) + " ch · " +
-                std::to_string(rate) + " Hz");
+            snapshot_.subtitleTracks.push_back(std::to_string(index) + " · " + (mime == nullptr ? "?" : mime));
         }
         if (type == MEDIA_TYPE_VID && videoTrack_ < 0) {
             videoTrack_ = index;
             videoFormat_ = std::move(track);
-        } else if (type == MEDIA_TYPE_AUD && audioTrack_ < 0 && options_.audioMode != AUDIO_MODE_NONE &&
+        } else if (type == MEDIA_TYPE_AUD && audioTrack_ < 0 &&
+            (options_.audioMode != AUDIO_MODE_NONE || (options_.remuxOnly && options_.remuxAllAudioTracks)) &&
             (options_.audioTrack == 0 || options_.audioTrack == index + 1)) {
             audioTrack_ = index;
             audioFormat_ = std::move(track);
         }
     }
+    return true;
+}
+
+bool TranscodeJob::ReadAudioTrack(int32_t index, OH_AVFormat *track)
+{
+    const char *mime = nullptr;
+    int32_t channels = 0;
+    int32_t rate = 0;
+    OH_AVFormat_GetStringValue(track, OH_MD_KEY_CODEC_MIME, &mime);
+    OH_AVFormat_GetIntValue(track, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels);
+    OH_AVFormat_GetIntValue(track, OH_MD_KEY_AUD_SAMPLE_RATE, &rate);
+    if (options_.remuxOnly && options_.remuxAllAudioTracks) {
+        Format remuxFormat(OH_AVSource_GetTrackFormat(source_, index), OH_AVFormat_Destroy);
+        if (remuxFormat == nullptr) {
+            return Fail("Read remux audio track format");
+        }
+        remuxAudioSourceTracks_.push_back(index);
+        remuxAudioFormats_.push_back(std::move(remuxFormat));
+    }
+    std::lock_guard<std::mutex> lock(snapshotMutex_);
+    snapshot_.audioTrackIds.push_back(index + 1);
+    snapshot_.audioTracks.push_back(std::to_string(index) + " · " +
+        (mime == nullptr ? "?" : mime) + " · " + std::to_string(channels) + " ch · " + std::to_string(rate) + " Hz");
     return true;
 }
 
@@ -120,13 +140,23 @@ bool TranscodeJob::ValidateSourceColor()
     int32_t profile = 0;
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_TRANSFER_CHARACTERISTICS, &transfer);
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_VIDEO_IS_HDR_VIVID, &hdr);
-    OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_PROFILE, &profile);
+    const bool hasProfile = OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_PROFILE, &profile);
     const char *sourceMime = nullptr;
     OH_AVFormat_GetStringValue(videoFormat_.get(), OH_MD_KEY_CODEC_MIME, &sourceMime);
     const bool hevc = sourceMime != nullptr && std::string(sourceMime) == OH_AVCODEC_MIMETYPE_VIDEO_HEVC;
-    if (hdr != 0 || transfer == TRANSFER_CHARACTERISTIC_HLG || transfer == TRANSFER_CHARACTERISTIC_PQ ||
-        (hevc && profile != HEVC_PROFILE_MAIN)) {
-        return Fail("HDR input requires tone mapping or metadata preservation; this transcode path supports SDR");
+    if (hevc && !hasProfile) {
+        return Fail("Cannot determine the HEVC profile; refusing input with unverified bit depth");
+    }
+    if (hdr != 0) {
+        return Fail("HDR Vivid input is not transcoded: dynamic metadata preservation is unavailable");
+    }
+    if (transfer == TRANSFER_CHARACTERISTIC_HLG || transfer == TRANSFER_CHARACTERISTIC_PQ ||
+        profile == HEVC_PROFILE_MAIN_10_HDR10 || profile == HEVC_PROFILE_MAIN_10_HDR10_PLUS) {
+        return Fail("PQ/HLG or HDR10 input is not transcoded: HDR metadata preservation is unavailable");
+    }
+    if (hevc && profile != HEVC_PROFILE_MAIN) {
+        return Fail("HEVC Main 10 and other non-Main profiles are not transcoded "
+            "until 10-bit Surface and color metadata are verified");
     }
     if (options_.gpu) {
         for (const char *key : {OH_MD_KEY_COLOR_PRIMARIES, OH_MD_KEY_TRANSFER_CHARACTERISTICS,
@@ -233,6 +263,7 @@ bool TranscodeJob::ReadVideoProperties()
 
 bool TranscodeJob::ValidateSelectedAudioTrack()
 {
+    if (options_.remuxOnly && options_.remuxAllAudioTracks) { return true; }
     if (options_.audioMode != AUDIO_MODE_NONE && options_.audioTrack > 0 && audioTrack_ < 0) {
         return Fail("Selected audio track is unavailable");
     }
@@ -244,6 +275,17 @@ bool TranscodeJob::InitializeDemuxer()
     demuxer_ = OH_AVDemuxer_CreateWithSource(source_);
     if (demuxer_ == nullptr || !Check(OH_AVDemuxer_SelectTrackByID(demuxer_, videoTrack_), "Select video track")) {
         return Fail("Create demuxer or select video track");
+    }
+    if (options_.remuxOnly && options_.remuxAllAudioTracks) {
+        for (const int32_t track : remuxAudioSourceTracks_) {
+            if (!Check(OH_AVDemuxer_SelectTrackByID(demuxer_, track), "Select remux audio track")) { return false; }
+        }
+        audioDone_ = remuxAudioSourceTracks_.empty();
+        if (!audioDone_) {
+            audioBuffer_ = OH_AVBuffer_Create(AUDIO_BUFFER_BYTES);
+            if (audioBuffer_ == nullptr) { return Fail("Create remux audio buffer"); }
+        }
+        return true;
     }
     if (audioTrack_ >= 0) {
         if (!Check(OH_AVDemuxer_SelectTrackByID(demuxer_, audioTrack_), "Select original audio track")) {
@@ -288,7 +330,7 @@ bool TranscodeJob::ConfigureEncoderFormat()
         !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_I_FRAME_INTERVAL, options_.keyFrameIntervalMs)) {
         return Fail("Build video encoder format");
     }
-    // 透传 SDR 的颜色描述；旋转保存为 MP4 元数据，不让解码器先转一次、播放器再转一次。
+    // 透传SDR的颜色描述；旋转保存为MP4元数据，不让解码器先转一次、播放器再转一次。
     for (const char *key : {OH_MD_KEY_COLOR_PRIMARIES, OH_MD_KEY_TRANSFER_CHARACTERISTICS,
                             OH_MD_KEY_MATRIX_COEFFICIENTS, OH_MD_KEY_RANGE_FLAG}) {
         int32_t component = 0;
@@ -343,12 +385,12 @@ bool TranscodeJob::StartMuxer()
     if (muxStarted_) {
         return true;
     }
-    // 等编码器报告实际输出描述后再加轨；不能拿源文件的 AVC/HEVC 配置来描述新编码的码流。
+    // 等编码器报告实际输出描述后再加轨；不能拿源文件的AVC/HEVC配置来描述新编码的码流。
     Format format(OH_VideoEncoder_GetOutputDescription(encoder_), OH_AVFormat_Destroy);
     if (format == nullptr) {
         return Fail("Read encoder output description");
     }
-    // 部分编码器的输出描述不带 MIME 等封装必填项；补入本次编码参数，保留输出描述中的 codec 配置。
+    // 部分编码器的输出描述不带MIME等封装必填项；补入本次编码参数，保留输出描述中的codec配置。
     if (!OH_AVFormat_SetStringValue(format.get(), OH_MD_KEY_CODEC_MIME, options_.mime.c_str()) ||
         !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_WIDTH, targetWidth_) ||
         !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_HEIGHT, targetHeight_) ||
@@ -645,7 +687,7 @@ bool TranscodeJob::SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced
             return false;
         }
     }
-    // 带数据的最后一帧先正常送入，下一轮再单独送空 EOS，避免编码器忽略尾帧。
+    // 带数据的最后一帧先正常送入，下一轮再单独送空EOS，避免编码器忽略尾帧。
     if (eos && !hasFrame) {
         attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
     }
@@ -738,6 +780,9 @@ void TranscodeJob::UpdateVideoProgress(const OH_AVCodecBufferAttr &attr)
 
 bool TranscodeJob::CopyAudio(bool &advanced)
 {
+    if (options_.remuxOnly && options_.remuxAllAudioTracks) {
+        return CopyRemuxAudio(advanced);
+    }
     if (audioPipeline_ != nullptr) {
         const bool result = diagnostics_.Measure(TranscodeMetrics::Stage::AUDIO, [&]() {
             return audioPipeline_->Pump(muxStarted_ ? muxer_ : nullptr, muxAudioTrack_, advanced);
@@ -815,7 +860,8 @@ void TranscodeJob::Complete(bool success)
     snapshot_.stage = cancelled_.load() ? "cancelled" : (success ? "complete" : "failed");
     if (snapshot_.state == STATE_FINISHED) {
         snapshot_.progress = COMPLETE_PROGRESS;
-        snapshot_.audioCopied = audioTrack_ >= 0 && options_.audioMode == AUDIO_MODE_COPY;
+        snapshot_.audioCopied = (options_.remuxOnly && options_.remuxAllAudioTracks &&
+            !remuxAudioSourceTracks_.empty()) || (audioTrack_ >= 0 && options_.audioMode == AUDIO_MODE_COPY);
     }
 }
 
@@ -840,7 +886,7 @@ void TranscodeJob::Run()
     bool success = !cancelled_.load() && OpenSource() && InspectCodecs() && CheckStorage(true) &&
                    InitializeDemuxer() && ConfigureCodecs();
     auto lastProgress = std::chrono::steady_clock::now();
-    // 输入 EOS 只结束输入；编码输出 EOS 和音轨都处理完，才能停止封装并报告完成。
+    // 输入EOS只结束输入；编码输出EOS和音轨都处理完，才能停止封装并报告完成。
     while (success && !cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {
         const uint64_t revision = options_.codecMode == 1 ? codecCallbacks_.Revision() : 0;
         bool advanced = false;
@@ -897,7 +943,7 @@ void TranscodeJob::PublishDiagnostics()
 
 void TranscodeJob::ReleaseCodecs()
 {
-    // Surface 由编码器创建，解码器借用。先销毁解码器，再销毁编码器和窗口引用。
+    // Surface由编码器创建，解码器借用。先销毁解码器，再销毁编码器和窗口引用。
     if (decoder_ != nullptr) {
         if (decoderStarted_) {
             (void)OH_VideoDecoder_Stop(decoder_);

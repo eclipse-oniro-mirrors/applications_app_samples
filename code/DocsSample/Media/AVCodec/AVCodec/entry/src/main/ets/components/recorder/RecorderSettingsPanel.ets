@@ -18,7 +18,10 @@ import { RecorderPreprocessPreview } from './RecorderPreprocessPreview';
 import { RecorderSegmentSettings } from './RecorderSegmentSettings';
 import { RecorderSettingsDraft } from '../../model/SettingsDraftModels';
 
+const BUFFER_REQUIREMENTS_FONT_SIZE: number = 12;
+
 export enum RecorderSettingsOption {
+  INPUT_MODE,
   OUTPUT_FORMAT,
   VIDEO_CODEC,
   VIDEO_RESOLUTION,
@@ -177,6 +180,19 @@ export struct RecorderSettingsPanel {
             available: true })
           Divider().color('#E5E7EB')
           this.GroupHeader($r('app.string.setting_group_video'))
+          this.OptionRow({ title: $r('app.string.recorder_input_mode'),
+            selectedText: LocalizedText.get(this.draft.inputMode === 1 ?
+              $r('app.string.recorder_input_buffer') : $r('app.string.recorder_input_direct')),
+            onClick: (): void => this.onChooseOption(RecorderSettingsOption.INPUT_MODE),
+            available: true })
+          if (this.draft.inputMode === 1) {
+            Text($r('app.string.recorder_buffer_requirements'))
+              .fontSize(BUFFER_REQUIREMENTS_FONT_SIZE)
+              .fontColor('#667085')
+              .width('100%')
+              .padding({ bottom: 8 })
+          }
+          Divider().color('#E5E7EB')
           this.OptionRow({ title: $r('app.string.setting_codec'), selectedText: this.videoCodecText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.VIDEO_CODEC),
             available: true })
@@ -187,7 +203,7 @@ export struct RecorderSettingsPanel {
           Divider().color('#E5E7EB')
           this.OptionRow({ title: $r('app.string.setting_frame_rate'), selectedText: this.videoFrameRateText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.VIDEO_FRAME_RATE),
-            available: true })
+            available: this.draft.inputMode === 0 })
           Divider().color('#E5E7EB')
           this.OptionRow({ title: $r('app.string.setting_video_bitrate'), selectedText: this.videoBitrateText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.VIDEO_BITRATE),

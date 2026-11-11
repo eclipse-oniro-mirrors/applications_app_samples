@@ -81,7 +81,7 @@ napi_value SeekToAsync(napi_env env, napi_callback_info info)
         RejectSeek(env, work->deferred);
         return promise;
     }
-    // 完成回调接管 work 的所有权，并在工作线程结束前保持 Player 存活。
+    // 完成回调接管work的所有权，并在工作线程结束前保持Player存活。
     work.release();
     return promise;
 }

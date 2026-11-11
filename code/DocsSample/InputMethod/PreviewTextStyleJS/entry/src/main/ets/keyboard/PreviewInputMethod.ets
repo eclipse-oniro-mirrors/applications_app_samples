@@ -26,6 +26,7 @@ export default class PreviewInputMethod extends InputMethodExtensionAbility {
     previewSender.setClient(undefined);
   };
 
+  // [Start preview_style_js_input_start]
   onCreate(): void {
     previewSender.setPreviewText(this.context.resourceManager.getStringSync($r('app.string.preview_text').id));
     this.active = true;
@@ -36,6 +37,7 @@ export default class PreviewInputMethod extends InputMethodExtensionAbility {
     this.ability.on('inputStop', this.inputStopCallback);
     this.createKeyboard();
   }
+  // [End preview_style_js_input_start]
 
   private async createKeyboard(): Promise<void> {
     try {

@@ -28,6 +28,8 @@ constexpr int64_t FULL_HD_LONG_EDGE = 1080;
 constexpr int64_t UHD_LONG_EDGE = 1920;
 constexpr int64_t MAX_ENCODER_CATEGORY = 2;
 constexpr int64_t MAX_AUDIO_MODE = 2;
+constexpr int32_t AUDIO_MODE_NONE = 2;
+constexpr size_t MIME_BUFFER_CAPACITY = 32;
 constexpr int64_t MAX_RESIZE_MODE = static_cast<int64_t>(TranscodeFrames::ResizeMode::LETTERBOX);
 constexpr int32_t MAX_SCALING_FILTER = 2;
 constexpr int32_t MAX_AUDIO_RESAMPLER = 1;
@@ -90,7 +92,7 @@ bool SetSnapshotFields(napi_env env, napi_value result, const TranscodeSnapshot 
     const std::pair<const char *, const std::string &> strings[] = {
         {"stage", snapshot.stage}, {"detail", snapshot.detail}, {"decoderName", snapshot.decoderName},
         {"encoderName", snapshot.encoderName}, {"sourceMime", snapshot.sourceMime},
-        {"outputValidation", snapshot.outputValidation}};
+        {"outputValidation", snapshot.outputValidation}, {"sampleValidation", snapshot.sampleValidation}};
     for (const auto &entry : strings) {
         if (!SetString(env, result, entry.first, entry.second)) { return false; }
     }
@@ -133,6 +135,18 @@ bool SetAudioTracks(napi_env env, napi_value result, const TranscodeSnapshot &sn
         napi_set_named_property(env, result, "audioTrackIds", ids) == napi_ok;
 }
 
+bool SetSubtitleTracks(napi_env env, napi_value result, const TranscodeSnapshot &snapshot)
+{
+    napi_value tracks = nullptr;
+    if (napi_create_array(env, &tracks) != napi_ok) { return false; }
+    for (uint32_t index = 0; index < snapshot.subtitleTracks.size(); ++index) {
+        napi_value title = nullptr;
+        if (napi_create_string_utf8(env, snapshot.subtitleTracks[index].c_str(), NAPI_AUTO_LENGTH, &title) != napi_ok ||
+            napi_set_element(env, tracks, index, title) != napi_ok) { return false; }
+    }
+    return napi_set_named_property(env, result, "subtitleTracks", tracks) == napi_ok;
+}
+
 bool SetValidationNotes(napi_env env, napi_value result, const TranscodeSnapshot &snapshot)
 {
     napi_value notes = nullptr;
@@ -161,6 +175,7 @@ napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
     napi_value audio = nullptr;
     if (napi_create_object(env, &result) != napi_ok || !SetSnapshotFields(env, result, snapshot) ||
         !SetDiagnostics(env, result, snapshot) || !SetAudioTracks(env, result, snapshot) ||
+        !SetSubtitleTracks(env, result, snapshot) ||
         !SetValidationNotes(env, result, snapshot) ||
         napi_get_boolean(env, snapshot.audioCopied, &audio) != napi_ok ||
         napi_set_named_property(env, result, "audioCopied", audio) != napi_ok) {
@@ -241,7 +256,8 @@ bool ReadRemuxOption(napi_env env, napi_value object, TranscodeOptions &options)
 {
     bool hasRemux = false;
     return napi_has_named_property(env, object, "remuxOnly", &hasRemux) == napi_ok &&
-        (!hasRemux || ReadBool(env, object, "remuxOnly", options.remuxOnly));
+        (!hasRemux || ReadBool(env, object, "remuxOnly", options.remuxOnly)) &&
+        ReadOptionalBool(env, object, "remuxAllAudioTracks", options.remuxAllAudioTracks);
 }
 
 bool ReadQualityOptions(napi_env env, napi_value object, TranscodeOptions &options)
@@ -251,10 +267,13 @@ bool ReadQualityOptions(napi_env env, napi_value object, TranscodeOptions &optio
         !ReadAudioQualityOptions(env, object, options, audioBitrate) || !ReadRemuxOption(env, object, options)) {
         return false;
     }
+    if (!ReadOptionalBool(env, object, "deepValidation", options.deepValidation) ||
+        (options.remuxAllAudioTracks && (!options.remuxOnly || options.audioMode == AUDIO_MODE_NONE))) { return false; }
     options.audioBitrate = audioBitrate;
     if ((options.surface && !options.gpu && options.scalingFilter != 0) ||
         (options.gpu && (!options.surface || options.scalingFilter > 1))) { return false; }
-    return !options.remuxOnly || (!options.surface && options.longEdge == 0 && !options.grayscale &&
+    return !options.remuxOnly || (!options.deepValidation && !options.surface && options.longEdge == 0 &&
+        !options.grayscale &&
         options.resizeMode == 0 && options.frameRateLimit == 0 && options.scalingFilter == 0 &&
         options.startTimeMs == 0 && options.endTimeMs == 0 && options.audioMode != 1);
 }
@@ -320,7 +339,7 @@ bool ReadOptions(napi_env env, napi_value object, TranscodeOptions &options)
         return false;
     }
     napi_value mime = nullptr;
-    char mimeText[32]{};
+    char mimeText[MIME_BUFFER_CAPACITY]{};
     size_t length = 0;
     if (napi_get_named_property(env, object, "mime", &mime) != napi_ok ||
         napi_get_value_string_utf8(env, mime, mimeText, sizeof(mimeText), &length) != napi_ok ||
@@ -331,7 +350,7 @@ bool ReadOptions(napi_env env, napi_value object, TranscodeOptions &options)
     if (options.mime != "video/avc" && options.mime != "video/hevc") {
         return false;
     }
-    // 工作入队前复制 fd，后台任务只使用自己的描述符。
+    // 工作入队前复制fd，后台任务只使用自己的描述符。
     options.inputFd = fcntl(static_cast<int32_t>(inputFd), F_DUPFD_CLOEXEC, 0);
     options.outputFd = options.inspectOnly || options.previewOnly ? -1 :
         fcntl(static_cast<int32_t>(outputFd), F_DUPFD_CLOEXEC, 0);

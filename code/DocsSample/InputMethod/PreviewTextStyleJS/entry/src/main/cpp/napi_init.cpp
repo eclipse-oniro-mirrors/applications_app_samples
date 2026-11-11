@@ -14,6 +14,7 @@
  */
 
 // [Start input_case_input_CPreview016]
+// [Start preview_style_c_headers]
 #include <algorithm>
 #include <mutex>
 #include <string>
@@ -25,6 +26,7 @@
 #include "inputmethod/inputmethod_preview_text_style_capi.h"
 #include "inputmethod/inputmethod_controller_capi.h"
 #include "napi/native_api.h"
+// [End preview_style_c_headers]
 
 static PreviewDisplayState g_display;
 static std::mutex g_textMutex;
@@ -32,6 +34,7 @@ static InputMethod_TextEditorProxy *textEditorProxy = nullptr;
 static InputMethod_AttachOptions *attachOptions = nullptr;
 static InputMethod_InputMethodProxy *inputMethodProxy = nullptr;
 
+// [Start preview_style_c_edit_callbacks]
 void GetTextConfigFunc(InputMethod_TextEditorProxy *proxy, InputMethod_TextConfig *config)
 {
     // 处理获取输入框配置请求
@@ -64,7 +67,7 @@ void InsertTextFunc(InputMethod_TextEditorProxy *proxy, const char16_t *text, si
     g_display.active = false;
 }
 
-// The framework reverses IME directions for compatibility; C editor backward means backspace.
+// 框架为兼容性反转输入方向；C编辑框的向后删除表示退格。
 void DeleteBackwardFunc(InputMethod_TextEditorProxy *proxy, int32_t length)
 {
     std::lock_guard<std::mutex> lock(g_textMutex);
@@ -85,12 +88,12 @@ void DeleteBackwardFunc(InputMethod_TextEditorProxy *proxy, int32_t length)
 void DeleteForwardFunc(InputMethod_TextEditorProxy *proxy, int32_t length)
 {
     std::lock_guard<std::mutex> lock(g_textMutex);
-    // This minimal editor keeps its cursor at the end; there is no text to its right.
+    // 本示例将光标保持在文本末尾，光标右侧没有文本。
 }
 
 void SendKeyboardStatusFunc(InputMethod_TextEditorProxy *proxy, InputMethod_KeyboardStatus status)
 {
-    // No-op: this editor derives its display state from the editing callbacks.
+    // 无需处理：本示例通过编辑回调更新显示状态。
 }
 
 void SendEnterKeyFunc(InputMethod_TextEditorProxy *proxy, InputMethod_EnterKeyType type)
@@ -149,12 +152,14 @@ int32_t ReceivePrivateCommandFunc(InputMethod_TextEditorProxy *proxy, InputMetho
     return 0;
 }
 
-// Attach requires the legacy callback. Rendering is owned by the styled callback.
+// OH_InputMethodController_Attach要求注册SetPreviewText回调；样式由带样式的回调处理。
 int32_t SetPreviewTextFunc(InputMethod_TextEditorProxy *proxy, const char16_t *text, size_t length,
     int32_t start, int32_t end)
 {
     return text == nullptr ? IME_ERR_NULL_POINTER : IME_ERR_OK;
 }
+
+// [End preview_style_c_edit_callbacks]
 
 // [Start preview_style_c_receive]
 int32_t SetPreviewTextWithStyleFunc(InputMethod_TextEditorProxy *proxy, const char16_t *text, uint32_t length,
@@ -166,8 +171,8 @@ int32_t SetPreviewTextWithStyleFunc(InputMethod_TextEditorProxy *proxy, const ch
     OH_InputMethod_UnderlineStyle kind = OH_INPUTMETHOD_UNDERLINE_STYLE_NONE;
     uint32_t color = 0;
     bool hasColor = false;
-    // Read the borrowed object; its lifetime belongs to the input method framework.
-    // The C getters accept a mutable pointer but only read this framework-owned object.
+    // 读取框架传入的样式对象，其生命周期由输入法框架管理。
+    // C接口接收非const指针，但此处仅读取框架持有的对象。
     auto *readStyle = const_cast<OH_InputMethod_PreviewTextStyle *>(style);
     auto result = OH_InputMethod_PreviewTextStyle_GetUnderlineStyle(readStyle, &kind);
     if (result != IME_ERR_OK) {
@@ -235,7 +240,7 @@ int32_t ConstructTextEditorProxy(InputMethod_TextEditorProxy *textEditorProxy)
 // [End input_case_input_CPreview016]
 
 // [Start input_case_input_CPreview208]
-// A failed detach can already have deleted the native proxy. Stop reuse until restart.
+// 解绑失败时原生代理可能已被删除，重新启动前停止复用。
 static int g_releaseError = IME_ERR_OK;
 // [Start input_case_input_OH_InputMethodController_Detach]
 static int ReleaseCEditor()
@@ -248,7 +253,9 @@ static int ReleaseCEditor()
         return g_releaseError;
     }
     if (inputMethodProxy != nullptr) {
+        // [Start preview_style_c_hide_keyboard]
         OH_InputMethodProxy_HideKeyboard(inputMethodProxy);
+        // [End preview_style_c_hide_keyboard]
         const int ret = OH_InputMethodController_Detach(inputMethodProxy);
         inputMethodProxy = nullptr;
         if (ret != IME_ERR_OK) {
@@ -269,7 +276,7 @@ static int ReleaseCEditor()
 
 // [End input_case_input_OH_InputMethodController_Detach]
 
-// One normal object-lifetime example, independent of received preview content.
+// 样式对象的创建与销毁示例，不依赖接收到的预上屏内容。
 // [Start preview_style_c_object]
 static int32_t PreviewTextStyleObjectExample()
 {
@@ -364,8 +371,10 @@ static napi_value IsInputMethodAttached(napi_env env, napi_callback_info info)
 
 static napi_value ShowInputMethodKeyboard(napi_env env, napi_callback_info info)
 {
+    // [Start preview_style_c_show_keyboard]
     const auto code = inputMethodProxy == nullptr ? IME_ERR_NULL_POINTER :
         OH_InputMethodProxy_ShowKeyboard(inputMethodProxy);
+    // [End preview_style_c_show_keyboard]
     napi_value result;
     napi_create_int32(env, code, &result);
     return result;

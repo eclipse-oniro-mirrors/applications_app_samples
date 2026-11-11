@@ -48,7 +48,7 @@ bool OutputSize(int32_t sourceWidth, int32_t sourceHeight, int32_t longEdge, Res
     int32_t &targetWidth, int32_t &targetHeight);
 bool PlanGeometry(const Layout &input, const Layout &output, ResizeMode mode, Geometry &geometry);
 
-// 两侧 stride、sliceHeight 分别来自各自的 codec。只拷贝有效像素，不能假设两块 Buffer 的填充相同。
+// 两侧stride、sliceHeight分别来自各自的codec。只拷贝有效像素，不能假设两块Buffer的填充相同。
 bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
     uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale,
     ResizeMode mode = ResizeMode::FIT, Filter filter = Filter::NEAREST);

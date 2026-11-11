@@ -30,10 +30,12 @@ constexpr int32_t YUV_LUMA_OFFSET = 16;
 constexpr int32_t YUV_LUMA_RANGE = 219;
 constexpr int32_t YUV_CHROMA_RANGE = 224;
 constexpr int32_t RGBA_ALPHA_OPAQUE = 255;
+constexpr long MAX_COLOR_COMPONENT = 255;
 constexpr int32_t PREVIEW_MAX_LONG_EDGE = 640;
 constexpr int64_t VIDEO_COPY_BUFFER_SIZE = 32LL * 1024 * 1024;
 constexpr int32_t PREVIEW_IDLE_WAIT_MS = 2;
 constexpr int64_t MICROSECONDS_PER_MILLISECOND = 1000;
+constexpr int64_t MICROSECONDS_PER_SECOND = 1000000;
 constexpr int32_t DIAGNOSTICS_PUBLISH_INTERVAL_MS = 250;
 constexpr double COLOR_COEFFICIENT_SCALE = 2.0;
 constexpr int32_t PREVIEW_TIMEOUT_SECONDS = 15;
@@ -45,7 +47,9 @@ std::vector<uint8_t> ConvertPreviewToRgba(const std::vector<uint8_t> &yuv,
     const double kb = matrix == MATRIX_COEFFICIENT_BT709 ? 0.0722 : 0.114;
     const double kg = 1 - kr - kb;
     std::vector<uint8_t> rgba(static_cast<size_t>(layout.width) * layout.height * RGBA_CHANNEL_COUNT);
-    const auto byte = [](double value) { return static_cast<uint8_t>(std::clamp(std::lround(value), 0L, 255L)); };
+    const auto byte = [](double value) {
+        return static_cast<uint8_t>(std::clamp(std::lround(value), 0L, MAX_COLOR_COMPONENT));
+    };
     const size_t plane = static_cast<size_t>(layout.width) * layout.height;
     for (int32_t y = 0; y < layout.height; ++y) {
         for (int32_t x = 0; x < layout.width; ++x) {
@@ -81,8 +85,8 @@ bool TranscodeJob::DropFrame(bool &advanced)
     if (options_.previewOnly || options_.frameRateLimit <= 0 || !hasFrame) { return true; }
     const int64_t pts = std::max<int64_t>(0, pendingDecodedAttr_.pts - rangeStartUs_);
     const auto bucket = [this](int64_t timestamp) {
-        return timestamp / 1000000 * options_.frameRateLimit +
-            timestamp % 1000000 * options_.frameRateLimit / 1000000;
+        return timestamp / MICROSECONDS_PER_SECOND * options_.frameRateLimit +
+            timestamp % MICROSECONDS_PER_SECOND * options_.frameRateLimit / MICROSECONDS_PER_SECOND;
     };
     if (lastSubmittedPts_ < 0 || bucket(pts) > bucket(lastSubmittedPts_)) {
         lastSubmittedPts_ = pts;
@@ -203,6 +207,61 @@ bool TranscodeJob::CopyVideoSample()
     return true;
 }
 
+bool TranscodeJob::CopyRemuxAudio(bool &advanced)
+{
+    for (size_t index = 0; index < remuxAudioSourceTracks_.size(); ++index) {
+        if (remuxAudioDone_[index] != 0) {
+            continue;
+        }
+        if (!CopyRemuxAudioSample(index)) {
+            return false;
+        }
+        advanced = true;
+    }
+    audioDone_ = std::all_of(remuxAudioDone_.begin(), remuxAudioDone_.end(),
+        [](uint8_t done) { return done != 0; });
+    return true;
+}
+
+bool TranscodeJob::CopyRemuxAudioSample(size_t index)
+{
+    OH_AVCodecBufferAttr attr{};
+    const int32_t track = remuxAudioSourceTracks_[index];
+    if (!Check(OH_AVDemuxer_ReadSampleBuffer(demuxer_, track, audioBuffer_), "Read remux audio sample") ||
+        !Check(OH_AVBuffer_GetBufferAttr(audioBuffer_, &attr), "Read remux audio attributes")) {
+        return false;
+    }
+    remuxAudioDone_[index] = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0 ? 1 : 0;
+    if (attr.size <= 0) {
+        return true;
+    }
+    attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
+    if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Set remux audio timestamp") ||
+        !Check(OH_AVMuxer_WriteSampleBuffer(muxer_, remuxAudioMuxTracks_[index], audioBuffer_),
+            "Write remux audio sample")) {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(snapshotMutex_);
+    snapshot_.audioBytes += attr.size;
+    return true;
+}
+
+bool TranscodeJob::InitializeRemuxAudioTracks()
+{
+    if (options_.remuxAllAudioTracks) {
+        remuxAudioMuxTracks_.resize(remuxAudioFormats_.size(), -1);
+        remuxAudioDone_.resize(remuxAudioFormats_.size(), 0);
+        for (size_t index = 0; index < remuxAudioFormats_.size(); ++index) {
+            if (!Check(OH_AVMuxer_AddTrack(muxer_, &remuxAudioMuxTracks_[index], remuxAudioFormats_[index].get()),
+                "Source audio track is not MP4-compatible")) { return false; }
+        }
+    } else if (audioFormat_ != nullptr && !Check(OH_AVMuxer_AddTrack(muxer_, &muxAudioTrack_, audioFormat_.get()),
+        "Source audio is not MP4-compatible; select no audio")) {
+        return false;
+    }
+    return true;
+}
+
 bool TranscodeJob::RunRemux()
 {
     if (!CheckStorage(true) || !InitializeDemuxer()) { return false; }
@@ -211,10 +270,14 @@ bool TranscodeJob::RunRemux()
     if (muxer_ == nullptr || videoCopyBuffer_ == nullptr ||
         !Check(OH_AVMuxer_SetRotation(muxer_, rotation_), "Set remux rotation") ||
         !Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, videoFormat_.get()),
-            "Source video is not MP4-compatible") ||
-        (audioFormat_ != nullptr && !Check(OH_AVMuxer_AddTrack(muxer_, &muxAudioTrack_, audioFormat_.get()),
-            "Source audio is not MP4-compatible; select no audio")) ||
-        !Check(OH_AVMuxer_Start(muxer_), "Start remux container")) { return false; }
+            "Source video is not MP4-compatible") || !InitializeRemuxAudioTracks()) {
+        return false;
+    }
+    if (!Check(OH_AVMuxer_Start(muxer_), "Start remux container")) { return false; }
+    if (!Snapshot().subtitleTracks.empty()) {
+        AddValidationNote("Subtitle tracks were detected but are not copied: "
+            "the native MP4 muxer API supports audio/video tracks only");
+    }
     muxStarted_ = true;
     while (!cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {
         bool advanced = false;

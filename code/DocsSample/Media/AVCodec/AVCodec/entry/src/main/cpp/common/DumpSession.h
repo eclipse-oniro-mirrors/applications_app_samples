@@ -23,7 +23,7 @@
 #include <string>
 #include <sys/statvfs.h>
 
-// 每个输出线程独占一个实例。只记录 Dump，不拥有 codec Buffer，也不改变播放/录制状态。
+// 每个输出线程独占一个实例。只记录Dump，不拥有codec Buffer，也不改变播放/录制状态。
 class DumpSession {
 public:
     const std::string &State() const { return state_; }

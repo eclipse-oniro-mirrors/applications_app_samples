@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="720" height="1280">
+  <!-- Backgrounds -->
+  <rect width="720" height="1280" fill="#ffffff"/>
+  <rect x="0" y="60" width="720" height="1120" fill="#f5f6f8"/>
+
+  <!-- Status Bar -->
+  <text x="40" y="45" font-family="sans-serif" font-size="24" fill="#333333" font-weight="500">没有 SIM 卡</text>
+  <rect x="165" y="26" width="4" height="16" fill="#888888" rx="1"/>
+  <rect x="172" y="22" width="4" height="20" fill="#888888" rx="1"/>
+  <rect x="179" y="18" width="4" height="24" fill="#888888" rx="1"/>
+  <rect x="186" y="14" width="4" height="28" fill="#888888" rx="1"/>
+  <text x="520" y="42" font-family="sans-serif" font-size="24" fill="#333333" text-anchor="end">11%</text>
+  <rect x="535" y="23" width="26" height="15" rx="2" stroke="#333333" stroke-width="1.5" fill="none"/>
+  <rect x="537.5" y="25.5" width="5" height="10" fill="#4caf50" rx="1"/>
+  <rect x="561" y="27" width="2.5" height="7" fill="#333333" rx="1"/>
+  <text x="680" y="42" font-family="sans-serif" font-size="24" fill="#333333" text-anchor="end">11:53</text>
+
+  <!-- Header -->
+  <text x="36" y="150" font-family="sans-serif" font-size="36" fill="#333333" font-weight="bold">查询自有技能</text>
+
+  <!-- Form: 模块名 -->
+  <text x="36" y="205" font-family="sans-serif" font-size="22" fill="#333333">模块名</text>
+  <rect x="36" y="225" width="648" height="62" rx="31" fill="#e8e8eb"/>
+  <text x="66" y="265" font-family="sans-serif" font-size="22" fill="#333333">entry</text>
+  <polygon points="645,250 655,250 650,258" fill="#333333"/>
+
+  <!-- Form: 技能名 -->
+  <text x="36" y="335" font-family="sans-serif" font-size="22" fill="#333333">技能名</text>
+  <rect x="36" y="355" width="648" height="62" rx="31" fill="#e8e8eb"/>
+  <text x="66" y="395" font-family="sans-serif" font-size="22" fill="#333333">skill-test</text>
+  <polygon points="645,380 655,380 650,388" fill="#333333"/>
+
+  <!-- Form: 查询标志位 -->
+  <text x="36" y="465" font-family="sans-serif" font-size="22" fill="#333333">查询标志位</text>
+  <rect x="36" y="485" width="648" height="62" rx="31" fill="#e8e8eb"/>
+  <text x="66" y="525" font-family="sans-serif" font-size="22" fill="#333333">All flags</text>
+  <polygon points="645,510 655,510 650,518" fill="#333333"/>
+
+  <!-- Buttons -->
+  <rect x="36" y="590" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="635" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">查询自有技能</text>
+
+  <rect x="36" y="686" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="731" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">查询全部自有技能</text>
+
+  <!-- Status Message -->
+  <text x="36" y="800" font-family="sans-serif" font-size="22" fill="#007aff">技能信息已刷新。</text>
+
+  <!-- Result Header -->
+  <text x="36" y="850" font-family="sans-serif" font-size="28" fill="#333333" font-weight="bold">技能信息</text>
+
+  <!-- Result Card -->
+  <rect x="36" y="870" width="648" height="340" rx="16" fill="#ffffff"/>
+  
+  <!-- Card Content -->
+  <text x="70" y="920" font-family="monospace" font-size="24" fill="#333333" font-weight="bold">skill-test</text>
+  
+  <text x="70" y="960" font-family="sans-serif" font-size="22" fill="#666666">包名</text>
+  <text x="280" y="960" font-family="monospace" font-size="22" fill="#333333">com.samples.pluginandskill</text>
+  
+  <text x="70" y="1000" font-family="sans-serif" font-size="22" fill="#666666">模块</text>
+  <text x="280" y="1000" font-family="monospace" font-size="22" fill="#333333">entry</text>
+  
+  <text x="70" y="1040" font-family="sans-serif" font-size="22" fill="#666666">技能</text>
+  <text x="280" y="1040" font-family="monospace" font-size="22" fill="#333333">skill-test</text>
+  
+  <text x="70" y="1080" font-family="sans-serif" font-size="22" fill="#666666">类型</text>
+  <text x="280" y="1080" font-family="monospace" font-size="22" fill="#333333">0</text>
+  
+  <text x="70" y="1120" font-family="sans-serif" font-size="22" fill="#666666">路径</text>
+  <text x="280" y="1120" font-family="monospace" font-size="22" fill="#333333">/data/skills/</text>
+  <text x="280" y="1150" font-family="monospace" font-size="22" fill="#333333">com.samples.pluginandskill/entry/</text>
+  <text x="280" y="1180" font-family="monospace" font-size="22" fill="#333333">skills/skill-test</text>
+
+  <!-- Bottom Navigation Bar -->
+  <rect x="0" y="1180" width="720" height="100" fill="#ffffff"/>
+  <polygon points="200,1230 218,1214 218,1246" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="360" cy="1230" r="12" fill="none" stroke="#333333" stroke-width="2"/>
+  <rect x="498" y="1218" width="24" height="24" rx="2" fill="none" stroke="#333333" stroke-width="2"/>
+</svg>

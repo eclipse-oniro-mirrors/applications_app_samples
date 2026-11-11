@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { TranscodeQualityModel, TranscodeQualitySnapshot } from './TranscodeQualityModel';
+import { TranscodeAudioMode, TranscodeQualityModel, TranscodeQualitySnapshot } from './TranscodeQualityModel';
 
 export interface TranscodeQueueItem {
   id: string; uri: string; title: string; options: number[]; grayscale: boolean;
@@ -50,6 +50,8 @@ export class TranscodeQueueModel {
         !['waiting', 'running', 'completed', 'failed', 'cancelled', 'interrupted'].includes(item.state) ||
         !Number.isFinite(item.progress) || item.progress < 0 || item.progress > 100 ||
         !TranscodeQueueModel.validRange(item) || !TranscodeQualityModel.valid(item.quality) ||
+        (item.quality?.remuxAllAudioTracks === true && item.quality?.operation !== 1) ||
+        (item.quality?.remuxAllAudioTracks === true && item.options[5] === TranscodeAudioMode.NONE) ||
         (item.quality?.operation === 1 && (item.options[1] !== 0 || item.options[2] !== 0 || item.grayscale ||
           (item.options[7] ?? 0) !== 0 || item.options[5] === 1 || (item.startTimeMs ?? 0) !== 0 ||
           (item.endTimeMs ?? 0) !== 0 || item.quality.filter !== 0 || item.quality.frameRate !== 0))) { return false; }

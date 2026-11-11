@@ -54,7 +54,7 @@ export class PlayerSettingsModel {
   public audioVolume: number = 100;
   /** 仅在下一次创建音频渲染器时生效。 */
   public enableAudioLowLatency: boolean = false;
-  /** 容器内音轨索引；-1 表示选择首条音轨。 */
+  /** 容器内音轨索引；-1表示选择首条音轨。 */
   public audioTrackIndex: number = -1;
   /** 用户一段时间未操作后自动隐藏播放控制条。 */
   public autoHideControls: boolean = true;

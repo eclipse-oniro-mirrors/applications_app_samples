@@ -82,6 +82,7 @@ struct GetFileSyncStates {
             .width('10%')
             .margin(10)
           Button($r('app.string.add_row'))
+            .id('getAddRowBtn')
             .onClick(() => {
               if (this.inputItems.length < 5) {
                 let item: FormItem = {
@@ -93,6 +94,7 @@ struct GetFileSyncStates {
             })
             .margin(10)
           Button($r('app.string.submit'))
+            .id('getSubmitBtn')
             .onClick(() => {
               let paths: string[] = this.inputItems.map((item: FormItem) => item.path);
               cloudDisk.getFileSyncStates(this.syncFolderPath, this.length, paths);
@@ -115,6 +117,7 @@ struct GetFileSyncStates {
     .width('100%')
     .height('100%')
     .align(Alignment.Top)
+    .id('getSyncStatesPage')
   }
 }
 

@@ -76,6 +76,8 @@ struct VideoSampleInfo {
     int32_t iFrameInterval = 100;
     int32_t rangFlag = 1;
     int32_t isHDRVivid = 0;
+    // Recorder: false使用Camera -> Surface；true由应用填充编码输入Buffer。
+    bool bufferInput = false;
     bool hdrVividContainerSignaled = false;
     int32_t hevcProfile = HEVC_PROFILE_MAIN;
     OH_ColorPrimary primary = COLOR_PRIMARY_BT2020;
@@ -83,7 +85,7 @@ struct VideoSampleInfo {
     OH_MatrixCoefficient matrix = MATRIX_COEFFICIENT_BT2020_CL;
     int32_t rotation = 0;
     OHNativeWindow *window = nullptr;
-    // API 26 编码前处理设置。降采样与裁剪互斥，目标帧率可与二者之一组合。
+    // API 26编码前处理设置。降采样与裁剪互斥，目标帧率可与二者之一组合。
     int32_t preprocMode = 0;
     int32_t downsamplingWidth = 0;
     int32_t downsamplingHeight = 0;
@@ -112,7 +114,7 @@ struct AudioSampleInfo {
     size_t codecConfigLen = 0;
     int32_t aacAdts = -1;
     int32_t audioLatencyMode = 0;
-    // 播放时由解封装器选择的音频轨索引；-1 表示使用第一条音频轨。
+    // 播放时由解封装器选择的音频轨索引；-1表示使用第一条音频轨。
     int32_t trackIndex = -1;
 };
 
@@ -135,10 +137,10 @@ struct OutputOptions {
     int32_t outputFd = -1;
     int32_t secondaryOutputFd = -1;
     bool enableVideoDump = false;
-    int32_t dumpMaxMiB = 256; // 0 表示不限制文件大小。
-    int32_t dumpMaxSeconds = 30; // 0 表示不限制写入时长。
+    int32_t dumpMaxMiB = 256; // 0表示不限制文件大小。
+    int32_t dumpMaxSeconds = 30; // 0表示不限制写入时长。
     std::string outputFilePath;
-    // 编码器输出的原始视频码流保存路径；为空时由 Recorder 按当前会话生成默认路径。
+    // 编码器输出的原始视频码流保存路径；为空时由Recorder按当前会话生成默认路径。
     std::string videoDumpPath;
     std::string secondaryVideoDumpPath;
     int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2，AV_OUTPUT_FORMAT_FLV = 14
@@ -150,12 +152,12 @@ struct OutputOptions {
 struct AudioPlaybackOptions {
     // 渲染器音量，取值归一化到 [0.0, 1.0]。
     float volume = 1.0f;
-    // 仅在创建 AudioRenderer 时生效；修改该值后需要重新创建渲染器。
+    // 仅在创建AudioRenderer时生效；修改该值后需要重新创建渲染器。
     bool enableLowLatency = false;
 };
 
 struct PlaybackCallbackInfo {
-    // 播放器完成后调用。回调函数和 context 均由调用方持有，异步播放结束前不得释放其关联对象。
+    // 播放器完成后调用。回调函数和context均由调用方持有，异步播放结束前不得释放其关联对象。
     void (*playDoneCallback)(void *context, bool success, PlaybackCompletionReason reason) = nullptr;
     void *playDoneCallbackData = nullptr;
 };

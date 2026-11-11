@@ -81,13 +81,13 @@ export default class EntryAbility extends UIAbility {
   }
 
   onForeground(): void {
-    // 通知 Native 播放器进入前台。
+    // 通知Native播放器进入前台。
     Logger.info('Ability onForeground');
     player.setAppBackground(false);
   }
 
   onBackground(): void {
-    // 通知 Native 播放器进入后台。
+    // 通知Native播放器进入后台。
     Logger.info('Ability onBackground');
     player.setAppBackground(true);
   }

@@ -234,12 +234,51 @@ async function testHistory() {
   files.set(directory + '/transcoded_126.json', { kind: 'file', text: '{}' });
   files.set(directory + '/transcoded_127.json', { kind: 'file',
     text: JSON.stringify({ ...entry('transcoded_127'), status: status({ state: '2' }) }) });
+  files.set(directory + '/transcoded_128.mp4.part', { kind: 'file', text: 'partial' });
+  files.set(directory + '/transcoded_129.json.pending', { kind: 'file', text: 'pending' });
+  files.set(directory + '/transcoded_130.mp4', { kind: 'link' });
   const list = await TranscodeFilesModel.list(directory);
   assert.equal(list.length, 1);
   assert.equal(list[0].hasFile, true);
+  const firstPage = await TranscodeFilesModel.listPage(directory, 0, 1);
+  assert.equal(firstPage.entries.length, 0, 'Invalid reports are skipped without breaking the page cursor');
+  assert.equal(firstPage.nextOffset, 1);
+  assert.equal(firstPage.hasMore, true);
+  let pageOffset = firstPage.nextOffset;
+  let pagedEntries = firstPage.entries;
+  while (pageOffset < 5) {
+    const nextPage = await TranscodeFilesModel.listPage(directory, pageOffset, 1);
+    pagedEntries = pagedEntries.concat(nextPage.entries);
+    pageOffset = nextPage.nextOffset;
+  }
+  assert.equal(pagedEntries.length, 1, 'Older history can be loaded in bounded pages');
   const text = TranscodeFilesModel.report(report);
   assert(text.includes('\n'));
   assert.doesNotMatch(text, /private-name|file:\/\/|\/private\//);
+  files.set(directory + '/transcoded_128.mp4.part', { kind: 'file', text: 'partial' });
+  files.set(directory + '/transcoded_129.json.pending', { kind: 'file', text: 'pending' });
+  files.set(directory + '/transcoded_130.mp4', { kind: 'link' });
+  const usage = await TranscodeFilesModel.storageUsage(directory);
+  assert.equal(usage.orphanCount, 2, 'Count regular incomplete transcode files');
+  assert(usage.bytes >= 'partial'.length + 'pending'.length);
+  await TranscodeFilesModel.cleanupOrphans(directory);
+  assert(!files.has(directory + '/transcoded_128.mp4.part'));
+  assert(!files.has(directory + '/transcoded_129.json.pending'));
+  assert(files.has(directory + '/transcoded_123.mp4'), 'Orphan cleanup retains complete videos');
+  assert(files.has(directory + '/transcoded_123.json'), 'Orphan cleanup retains reports');
+  assert(files.has(directory + '/transcoded_130.mp4'), 'Orphan cleanup does not follow links');
+  files.set(directory + '/transcoded_123.mp4.part', { kind: 'file' });
+  await TranscodeFilesModel.deleteEntry(directory, 'transcoded_123');
+  assert(!files.has(directory + '/transcoded_123.mp4'));
+  assert(!files.has(directory + '/transcoded_123.json'));
+  assert(!files.has(directory + '/transcoded_123.mp4.part'));
+  files.set(directory + '/transcoded_140.mp4', { kind: 'file' });
+  files.set(directory + '/transcoded_140.json', { kind: 'link' });
+  const removedBeforeUnsafeDelete = removed.length;
+  await assert.rejects(() => TranscodeFilesModel.deleteEntry(directory, 'transcoded_140'), /Unsafe transcode file/);
+  assert.equal(removed.length, removedBeforeUnsafeDelete, 'Preflight all paths before deleting any file');
+  assert(files.has(directory + '/transcoded_140.mp4'));
+  assert(files.has(directory + '/transcoded_140.json'));
   files.set('file://report', { kind: 'file' });
   await TranscodeFilesModel.export({}, report);
   assert.equal(files.get('file://report').text, text);
@@ -308,7 +347,7 @@ async function main() {
   await testSessionTasks();
   await testQueue();
   testCapabilityAndGeometry();
-  console.log('Transcode models: inspection races, resource lease, failure/cancel cleanup, reports and history passed');
+  console.info('Transcode models: inspection races, resource lease, failure/cancel cleanup, reports and history passed');
 }
 
 async function testStateFiles() {
@@ -493,7 +532,10 @@ async function testQueue() {
   const invalidRange = { ...legacyItem, id: 'queue_7_2', startTimeMs: 2000, endTimeMs: 1000 };
   const surfaceRange = { ...legacyItem, id: 'queue_7_3', options: [0, 1, 0, 2, 0, 0, 0, 0],
     startTimeMs: 1000, endTimeMs: 2000 };
-  assert.equal(TranscodeQueueModel.validated([invalidRange, surfaceRange]).length, 0);
+  const allAudioWithoutAudio = { ...legacyItem, id: 'queue_7_4', options: [0, 0, 0, 2, 0, 2, 0, 0],
+    quality: { operation: 1, filter: 0, frameRate: 0, bitrateMode: 0, keyFrame: 1,
+      audioRate: 0, audioChannels: 0, audioBitrate: 1, remuxAllAudioTracks: true } };
+  assert.equal(TranscodeQueueModel.validated([invalidRange, surfaceRange, allAudioWithoutAudio]).length, 0);
   const done = deferred();
   const entered = deferred();
   let started = 0;
@@ -630,8 +672,13 @@ async function testQualityProfiles() {
   remuxFilter.quality.operation = 1; remuxFilter.options[5] = 0;
   assert.equal(TranscodeQueueModel.validated([remuxFilter]).length, 0, 'Remux cannot restore processing controls');
   model.audioMode = 1; model.rangeEnabled = true; model.sizeIndex = 2; model.grayscale = true;
+  model.quality.deepValidation = true;
   model.setOperation(1);
   assert.equal(model.request(1, 2).remuxOnly, true);
+  assert.equal(model.quality.deepValidation, false, 'Remux clears hidden decode validation');
+  model.quality.deepValidation = true;
+  assert.equal(model.request(1, 2).deepValidation, false, 'Restored remux settings cannot enable decode validation');
+  model.quality.deepValidation = false;
   assert.equal(model.audioMode, 0); assert.equal(model.rangeEnabled, false);
   assert.equal(model.sizeIndex, 0); assert.equal(model.grayscale, false);
   model.setOperation(0);

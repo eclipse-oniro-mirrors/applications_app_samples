@@ -21,7 +21,16 @@ import { fileUri } from '@kit.CoreFileKit';
 import { TranscodeQueuePanel } from '../components/transcode/TranscodeQueuePanel';
 import { TranscodePreprocessPanel } from '../components/transcode/TranscodePreprocessPanel';
 import { TranscodeQualityPanel } from '../components/transcode/TranscodeQualityPanel';
-import { TranscodeQualityModel } from '../model/TranscodeQualityModel';
+import { TranscodeAudioMode, TranscodeQualityModel } from '../model/TranscodeQualityModel';
+
+const HINT_FONT_SIZE: number = 12;
+const WARNING_FONT_SIZE: number = 13;
+const HISTORY_TITLE_FONT_SIZE: number = 14;
+const HISTORY_TITLE_MAX_LINES: number = 2;
+const HISTORY_CARD_PADDING: number = 12;
+const HISTORY_CARD_RADIUS: number = 10;
+const BYTES_PER_MIB: number = 1048576;
+const MS_PER_SECOND: number = 1000;
 
 @Component
 export struct TranscodePage {
@@ -116,6 +125,16 @@ export struct TranscodePage {
       }
       if (this.quality.operation === 0) {
         Row() {
+          Text($r('app.string.transcode_deep_validation')).layoutWeight(1)
+          Toggle({ type: ToggleType.Switch, isOn: this.quality.deepValidation })
+            .onChange((checked: boolean): void => { this.quality.deepValidation = checked; })
+        }
+        Text($r('app.string.transcode_deep_validation_hint'))
+          .fontSize(HINT_FONT_SIZE)
+          .fontColor('#667085')
+      }
+      if (this.quality.operation === 0) {
+        Row() {
           Text($r('app.string.transcode_codec')).layoutWeight(1)
           Select(this.codecOptions()).selected(this.model.codecIndex)
             .value(this.codecOptions()[this.model.codecIndex].value)
@@ -176,7 +195,9 @@ export struct TranscodePage {
           Select(this.audioOptions()).selected(this.model.audioMode)
             .value(this.audioOptions()[this.model.audioMode].value)
             .onSelect((index: number): void => {
-              this.model.audioMode = index; void this.model.inspect(this.getUIContext());
+              this.model.audioMode = index;
+              if (index === TranscodeAudioMode.NONE) { this.quality.remuxAllAudioTracks = false; }
+              void this.model.inspect(this.getUIContext());
             })
         }
       } else {
@@ -185,8 +206,20 @@ export struct TranscodePage {
           Text($r('app.string.transcode_audio_copy')).layoutWeight(1)
           Toggle({ type: ToggleType.Switch, isOn: this.model.audioMode === 0 })
             .onChange((checked: boolean): void => {
-              this.model.audioMode = checked ? 0 : 2; void this.model.inspect(this.getUIContext());
+              this.model.audioMode = checked ? TranscodeAudioMode.COPY : TranscodeAudioMode.NONE;
+              if (!checked) { this.quality.remuxAllAudioTracks = false; }
+              void this.model.inspect(this.getUIContext());
             })
+        }
+        if (this.model.analysis.audioTracks.length > 0) {
+          Row() {
+            Text($r('app.string.transcode_all_audio_tracks')).layoutWeight(1)
+            Toggle({ type: ToggleType.Switch, isOn: this.quality.remuxAllAudioTracks })
+              .onChange((checked: boolean): void => {
+                this.quality.remuxAllAudioTracks = checked;
+                if (checked) { this.model.audioMode = 0; }
+              })
+          }
         }
       }
       if (this.model.analysis.audioTracks.length > 0) {
@@ -194,7 +227,7 @@ export struct TranscodePage {
           Text($r('app.string.transcode_audio_track')).layoutWeight(1)
           Select(this.trackOptions()).selected(this.trackIndex())
             .value(this.trackOptions()[this.trackIndex()].value)
-            .enabled(this.model.audioMode !== 2)
+            .enabled(this.model.audioMode !== TranscodeAudioMode.NONE && !this.quality.remuxAllAudioTracks)
             .onSelect((index: number): void => {
               this.model.audioTrack = index === 0 ? 0 : this.model.analysis.audioTrackIds[index - 1];
               void this.model.inspect(this.getUIContext());
@@ -287,11 +320,27 @@ export struct TranscodePage {
           ((this.model.status.outputDurationUs ?? 0) / 1000000).toFixed(2)))
           .fontSize(12).fontColor('#16794B')
       }
+      if (this.model.status.sampleValidation === 'passed') {
+        Text($r('app.string.transcode_sample_validation_passed'))
+          .fontSize(HINT_FONT_SIZE)
+          .fontColor('#16794B')
+      }
+      if (this.model.status.sampleValidation === 'warning') {
+        Text($r('app.string.transcode_sample_validation_warning'))
+          .fontSize(WARNING_FONT_SIZE)
+          .fontColor('#B54708')
+      }
       if (this.model.status.outputValidation === 'warning') {
         Text($r('app.string.transcode_validation_warning')).fontSize(13).fontColor('#B54708')
         ForEach(this.model.status.validationNotes ?? [], (note: string) => {
           Text(note).fontSize(12).fontColor('#B54708').width('100%')
         }, (note: string): string => note)
+      }
+      if (this.quality.operation === 1 && (this.model.status.subtitleTracks?.length ?? 0) > 0) {
+        Text(LocalizedText.format($r('app.string.transcode_subtitles_not_copied'),
+          (this.model.status.subtitleTracks?.length ?? 0).toString()))
+          .fontSize(HINT_FONT_SIZE)
+          .fontColor('#B54708')
       }
       if (this.model.notice.length > 0) {
         Text(this.model.notice).fontSize(14).fontColor('#344054').width('100%')
@@ -359,6 +408,12 @@ export struct TranscodePage {
               (this.model.analysis.maxBitrate / 1000000).toFixed(2) + ' Mbps').fontSize(13)
           }
         }
+        if (this.quality.operation === 1 && (this.model.analysis.subtitleTracks?.length ?? 0) > 0) {
+          Text(LocalizedText.format($r('app.string.transcode_subtitles_not_copied'),
+            (this.model.analysis.subtitleTracks?.length ?? 0).toString()))
+            .fontSize(HINT_FONT_SIZE)
+            .fontColor('#B54708')
+        }
       }
     }.width('100%').padding(16).alignItems(HorizontalAlign.Start).backgroundColor(Color.White).borderRadius(16)
   }
@@ -367,19 +422,51 @@ export struct TranscodePage {
   private historyCard() {
     Column({ space: 8 }) {
       Text($r('app.string.transcode_history')).fontSize(17).fontWeight(FontWeight.Medium)
+      Text(LocalizedText.format($r('app.string.transcode_storage_usage'),
+        (this.model.storageBytes / BYTES_PER_MIB).toFixed(1), this.model.orphanFileCount.toString()))
+        .fontSize(HINT_FONT_SIZE)
+        .fontColor('#667085')
       ForEach(this.model.history, (entry: TranscodeHistoryEntry) => {
-        Column({ space: 4 }) {
-          Text(entry.title).fontSize(14).maxLines(2)
-          Text(new Date(entry.createdAt).toLocaleString() + ' · ' + entry.configuration).fontSize(12)
-          Text((entry.status.elapsedMs / 1000).toFixed(1) + ' s · ' +
-            (entry.status.fileBytes / 1048576).toFixed(1) + ' MiB · ' + entry.status.stage).fontSize(12)
-        }.width('100%').alignItems(HorizontalAlign.Start).padding(12).backgroundColor('#F2F4F7').borderRadius(10)
-        .onClick((): void => { void this.model.openHistory(this.getUIContext(), entry); })
+        Row({ space: 8 }) {
+          Column({ space: 4 }) {
+            Text(entry.title)
+              .fontSize(HISTORY_TITLE_FONT_SIZE)
+              .maxLines(HISTORY_TITLE_MAX_LINES)
+            Text(`${new Date(entry.createdAt).toLocaleString()} · ${entry.configuration}`)
+              .fontSize(HINT_FONT_SIZE)
+            Text(`${(entry.status.elapsedMs / MS_PER_SECOND).toFixed(1)} s · ` +
+              `${(entry.status.fileBytes / BYTES_PER_MIB).toFixed(1)} MiB · ${entry.status.stage}`)
+              .fontSize(HINT_FONT_SIZE)
+          }
+            .layoutWeight(1)
+            .alignItems(HorizontalAlign.Start)
+            .onClick((): void => { void this.model.openHistory(this.getUIContext(), entry); })
+          Button($r('app.string.transcode_delete_file'))
+            .fontSize(HINT_FONT_SIZE)
+            .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting && !this.model.picking &&
+              !this.model.inspecting)
+            .onClick((): void => { void this.model.deleteHistoryEntry(this.getUIContext(), entry); })
+        }
+        .width('100%')
+        .padding(HISTORY_CARD_PADDING)
+        .backgroundColor('#F2F4F7')
+        .borderRadius(HISTORY_CARD_RADIUS)
       }, (entry: TranscodeHistoryEntry): string => entry.id)
-      Button($r('app.string.transcode_cleanup')).width('100%').fontSize(13)
+      if (this.model.historyHasMore || this.model.historyLoading) {
+        Button(this.model.historyLoading ? $r('app.string.transcode_history_loading') :
+          $r('app.string.transcode_history_more'))
+          .width('100%')
+          .fontSize(WARNING_FONT_SIZE)
+          .enabled(!this.model.historyLoading && !this.model.busy && !this.model.queueRunning &&
+            !this.model.exporting && !this.model.picking && !this.model.inspecting)
+          .onClick((): void => { void this.model.loadMoreHistory(this.getUIContext()); })
+      }
+      Button($r('app.string.transcode_cleanup_orphans'))
+        .width('100%')
+        .fontSize(WARNING_FONT_SIZE)
         .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting &&
-          !this.model.picking && !this.model.inspecting)
-        .onClick((): void => { void this.model.clearHistory(this.getUIContext()); })
+          !this.model.picking && !this.model.inspecting && this.model.orphanFileCount > 0)
+        .onClick((): void => { void this.model.cleanOrphanFiles(this.getUIContext()); })
     }.width('100%').padding(16).alignItems(HorizontalAlign.Start).backgroundColor(Color.White).borderRadius(16)
   }
 

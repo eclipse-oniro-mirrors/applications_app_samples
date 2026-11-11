@@ -16,7 +16,10 @@
 import { camera } from '@kit.CameraKit';
 import { colorSpaceManager } from '@kit.ArkGraphics2D';
 import { CameraDataModel } from '../model/CameraDataModel';
-import { encoderProfileCameraCheck, previewProfileCameraCheck } from '../common/utils/CameraCheck';
+import {
+  bufferProfileCameraCheck, encoderProfileCameraCheck, previewProfileCameraCheck
+} from '../common/utils/CameraCheck';
+import { LocalizedText } from '../common/LocalizedText';
 import { CommonConstants as Const } from '../common/CommonConstants';
 import Logger from '../common/utils/Logger';
 
@@ -24,6 +27,8 @@ export class CameraSessionController {
   private input: camera.CameraInput | undefined = undefined;
   private preview: camera.PreviewOutput | undefined = undefined;
   private output: camera.VideoOutput | undefined = undefined;
+  private bufferOutput: camera.PreviewOutput | undefined = undefined;
+  private bufferMode: boolean = false;
   private session: camera.VideoSession | undefined = undefined;
   private preparing: Promise<void> | undefined = undefined;
   private starting: Promise<void> | undefined = undefined;
@@ -37,15 +42,25 @@ export class CameraSessionController {
   }
 
   private async configure(ui: UIContext, data: CameraDataModel, previewOutputId: string): Promise<void> {
+    this.bufferMode = data.bufferInput;
     const manager = camera.getCameraManager(ui.getHostContext());
     const devices: camera.CameraDevice[] = manager.getSupportedCameras();
     if (devices.length === 0 || manager.getSupportedSceneModes(devices[0]).indexOf(camera.SceneMode.NORMAL_VIDEO) < 0) {
       throw new Error('Video camera unavailable');
     }
-    const encoding = encoderProfileCameraCheck(manager, data);
     const preview = previewProfileCameraCheck(manager, data);
-    if (encoding === undefined || preview === undefined) { throw new Error('Camera profile unavailable'); }
-    this.output = manager.createVideoOutput(encoding, data.outputId);
+    if (preview === undefined) { throw new Error('Camera preview profile unavailable'); }
+    if (data.bufferInput) {
+      const profile: camera.Profile | undefined = bufferProfileCameraCheck(manager, data);
+      if (profile === undefined) {
+        throw new Error(LocalizedText.get($r('app.string.recorder_buffer_profile_unavailable')));
+      }
+      this.bufferOutput = manager.createPreviewOutput(profile, data.outputId);
+    } else {
+      const encoding = encoderProfileCameraCheck(manager, data);
+      if (encoding === undefined) { throw new Error('Camera video profile unavailable'); }
+      this.output = manager.createVideoOutput(encoding, data.outputId);
+    }
     this.preview = manager.createPreviewOutput(preview, previewOutputId);
     this.input = manager.createCameraInput(devices[0]);
     await this.input.open();
@@ -54,7 +69,12 @@ export class CameraSessionController {
     this.session.beginConfig();
     this.session.addInput(this.input);
     this.session.addOutput(this.preview);
-    this.session.addOutput(this.output);
+    if (this.bufferOutput !== undefined) {
+      if (!this.session.canAddOutput(this.bufferOutput)) {
+        throw new Error(LocalizedText.get($r('app.string.recorder_buffer_combination_unavailable')));
+      }
+      this.session.addOutput(this.bufferOutput);
+    } else if (this.output !== undefined) { this.session.addOutput(this.output); }
     const stabilization = data.videoStabilizationMode === Const.VIDEO_STABILIZATION_DISABLED ?
       camera.VideoStabilizationMode.OFF : camera.VideoStabilizationMode.AUTO;
     try {
@@ -68,10 +88,23 @@ export class CameraSessionController {
       if (this.session.getSupportedColorSpaces().indexOf(color) >= 0) { this.session.setColorSpace(color); }
     } catch (_error) { Logger.warn('RecorderCamera', 'Optional color space is unavailable'); }
     await this.session.commitConfig();
+    if (this.bufferOutput !== undefined) {
+      const ranges: camera.FrameRateRange[] = this.bufferOutput.getSupportedFrameRates();
+      if (!ranges.some((range: camera.FrameRateRange): boolean =>
+        range.min <= Const.RECORDER_BUFFER_FRAME_RATE && range.max >= Const.RECORDER_BUFFER_FRAME_RATE)) {
+        throw new Error(LocalizedText.get($r('app.string.recorder_buffer_profile_unavailable')));
+      }
+      this.bufferOutput.setFrameRate(Const.RECORDER_BUFFER_FRAME_RATE, Const.RECORDER_BUFFER_FRAME_RATE);
+    }
     if (!this.closing) { await this.session.start(); }
   }
 
   start(): Promise<void> {
+    if (this.bufferMode && this.session !== undefined && !this.closing) {
+      // session.start已启动两条预览流；Native start后才消费Receiver中的帧。
+      this.outputStarted = true;
+      return Promise.resolve();
+    }
     if (this.output === undefined || this.closing) { return Promise.reject(new Error('Camera is not ready')); }
     this.starting = this.output.start().then((): void => { this.outputStarted = true; });
     return this.starting;
@@ -81,6 +114,11 @@ export class CameraSessionController {
     this.closing = true;
     if (this.preparing !== undefined) { try { await this.preparing; } catch (_error) {} }
     if (this.starting !== undefined) { try { await this.starting; } catch (_error) {} }
+    if (this.bufferMode) {
+      await this.session?.stop();
+      this.outputStarted = false;
+      return false;
+    }
     if (this.output !== undefined && this.outputStarted) {
       let listening: boolean = false;
       try {
@@ -128,9 +166,11 @@ export class CameraSessionController {
     try { await this.preview?.release(); } catch (_error) {}
     try { this.output?.off('frameEnd'); } catch (_error) {}
     try { await this.output?.release(); } catch (_error) {}
+    try { await this.bufferOutput?.release(); } catch (_error) {}
     try { await this.session?.release(); } catch (_error) {}
     this.session = undefined;
     this.output = undefined;
+    this.bufferOutput = undefined;
     this.preview = undefined;
     this.input = undefined;
   }

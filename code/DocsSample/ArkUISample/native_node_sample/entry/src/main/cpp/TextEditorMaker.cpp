@@ -467,6 +467,8 @@ void SetTypingStyle(OH_ArkUI_TextEditorStyledStringController* controller)
     OH_ArkUI_TextEditorTextStyle_SetTextBackgroundColor(textStyle, TEXT_STYLE_BG_COLOR);
     OH_ArkUI_TextEditorTextStyle_SetTextBackgroundRadius(textStyle, TEXT_STYLE_BG_RADIUS_TL, TEXT_STYLE_BG_RADIUS_TR,
                                                          TEXT_STYLE_BG_RADIUS_BL, TEXT_STYLE_BG_RADIUS_BR);
+    OH_ArkUI_TextEditorTextStyle_SetTextBackgroundBorderWidth(textStyle, 2.0f);
+    OH_ArkUI_TextEditorTextStyle_SetTextBackgroundBorderColor(textStyle, COLOR_RED);
     OH_ArkUI_TextEditorStyledStringController_SetTypingStyle(controller, textStyle);
 }
 
@@ -1430,6 +1432,27 @@ void UnderLine()
     Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
 }
 
+void AutoFill()
+{
+    StyledStringBase::SetTextTitle(textContainer, "自动填充");
+    ArkUI_NodeHandle textEditor = InitTextEditor();
+    OH_ArkUI_TextEditorStyledStringController* controller = OH_ArkUI_TextEditorStyledStringController_Create();
+    ArkUI_AttributeItem controllerItem = {.object = controller};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_STYLED_STRING_CONTROLLER, &controllerItem);
+    ArkUI_NumberValue enableAutoFill = {.i32 = false};
+    ArkUI_AttributeItem enableAutoFillItem = {&enableAutoFill, VALUE_1};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_INPUT_ENABLE_AUTO_FILL, &enableAutoFillItem);
+    ArkUI_NumberValue enableFillAnimation = {.i32 = false};
+    ArkUI_AttributeItem enableFillAnimationItem = {&enableFillAnimation, VALUE_1};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_ENABLE_AUTO_FILL, &enableFillAnimationItem);
+    ArkUI_NumberValue inputContentType = {.i32 = ARKUI_TEXTINPUT_CONTENT_TYPE_PASSWORD};
+    ArkUI_AttributeItem inputContentTypeItem = {&inputContentType, VALUE_1};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_CONTENT_TYPE, &inputContentTypeItem);
+    const char *passwordRulesVal = "begin:[upper],special:[yes],len:[maxlen:32,minlen:12]";
+    ArkUI_AttributeItem passwordRulesItem = {.string = passwordRulesVal};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_PASSWORD_RULES, &passwordRulesItem);
+}
+
 ArkUI_NodeHandle TextEditorMaker::CreateNativeNode()
 {
     ArkUI_NodeHandle scroll = Manager::nodeAPI_->createNode(ARKUI_NODE_SCROLL);
@@ -1455,6 +1478,7 @@ ArkUI_NodeHandle TextEditorMaker::CreateNativeNode()
     StyledStringWithChangeCallbacks();
     ShowCounter();
     UnderLine();
+    AutoFill();
     Manager::nodeAPI_->addChild(scroll, textContainer);
     return scroll;
 }

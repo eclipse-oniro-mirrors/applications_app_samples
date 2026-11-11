@@ -30,11 +30,11 @@ class Demuxer {
 public:
     Demuxer() = default;
     ~Demuxer();
-    // 由文件描述符创建 Source 和 Demuxer，并解析可用的音视频轨道。
+    // 由文件描述符创建Source和Demuxer，并解析可用的音视频轨道。
     int32_t Create(SampleInfo &sampleInfo);
-    // 读取指定轨道的一帧到 codec 提供的输入 Buffer。buffer 只在本次调用期间写入，随后由调用方推回 codec。
+    // 读取指定轨道的一帧到codec提供的输入Buffer。buffer只在本次调用期间写入，随后由调用方推回codec。
     int32_t ReadSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr);
-    // 销毁 Demuxer 和 Source；调用后轨道 ID 与格式对象不再有效。
+    // 销毁Demuxer和Source；调用后轨道ID与格式对象不再有效。
     int32_t Release();
     int32_t GetVideoTrackId();
     int32_t GetAudioTrackId();
@@ -59,12 +59,12 @@ private:
     void LogAudioConfig(const SampleInfo &info, const char *audioCodecMime);
     void LogCodecConfigDetails(const SampleInfo &info);
 
-    // Source 必须晚于 Demuxer 销毁；两个句柄均由 Release() 管理。
+    // Source必须晚于Demuxer销毁；两个句柄均由Release() 管理。
     OH_AVSource *source_ = nullptr;
     OH_AVDemuxer *demuxer_ = nullptr;
     int32_t videoTrackId_ = -1;
     int32_t audioTrackId_ = -1;
-    // 保护读样本、选轨和 Seek，防止多个工作线程同时改变 Demuxer 的游标。
+    // 保护读样本、选轨和Seek，防止多个工作线程同时改变Demuxer的游标。
     mutable std::mutex demuxerMutex_;
 };
 

@@ -199,7 +199,7 @@ void Player::Release()
         failure_.Record("playback.output", AVCODEC_SAMPLE_ERR_ERROR,
             "播放未产生有效输出或工作线程异常结束；详细原因请结合日志检查");
     }
-    // 完成回调在资源释放后到达 ArkTS；先保存计数，避免结束报告读取到重置后的零值。
+    // 完成回调在资源释放后到达ArkTS；先保存计数，避免结束报告读取到重置后的零值。
     completedPlaybackInfo_ = GetPlaybackInfo();
     ReleasePlaybackResources();
     auto playDoneCallback = sampleInfo_.playback.playDoneCallback;

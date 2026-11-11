@@ -1,0 +1,268 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "画布渐变、图案与矩阵变换演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "CanvasGradient/CanvasPattern/Matrix2D 演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "画布渐变图案矩阵"
+    },
+    {
+      "name": "page_title",
+      "value": "Canvas 画布：渐变、图案与矩阵变换"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "CanvasGradient 渐变 · CanvasPattern 图案 · Matrix2D 矩阵 · 路径 / 文字 / 裁剪合成 / 描边 · OffscreenCanvas 离屏 · ImageData 像素"
+    },
+    {
+      "name": "scene_title_idle",
+      "value": "（点击按钮开始演示）"
+    },
+    {
+      "name": "scene_title_anim",
+      "value": "动画：渐变过渡（ColorUtil 插值驱动）"
+    },
+    {
+      "name": "scene_title_cleared",
+      "value": "（已清空，点击按钮开始演示）"
+    },
+    {
+      "name": "clear_dialog_title",
+      "value": "确认清空"
+    },
+    {
+      "name": "clear_dialog_message",
+      "value": "画布内容和事件日志将全部移除，且无法恢复。"
+    },
+    {
+      "name": "common_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "common_clear",
+      "value": "清空"
+    },
+    {
+      "name": "scene_current_suffix",
+      "value": "（当前）"
+    },
+    {
+      "name": "btn_anim_stop",
+      "value": "停止渐变动画"
+    },
+    {
+      "name": "btn_anim_start",
+      "value": "动画：渐变过渡"
+    },
+    {
+      "name": "btn_clear",
+      "value": "清空画布与日志"
+    },
+    {
+      "name": "log_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "断点：%s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "设备：%s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API：%d"
+    },
+    {
+      "name": "scene_1_button",
+      "value": "场景1：线性渐变与渐变描边"
+    },
+    {
+      "name": "scene_1_title",
+      "value": "场景1：线性渐变与渐变描边"
+    },
+    {
+      "name": "scene_2_button",
+      "value": "场景1：径向渐变光晕"
+    },
+    {
+      "name": "scene_2_title",
+      "value": "场景1：径向渐变光晕"
+    },
+    {
+      "name": "scene_3_button",
+      "value": "场景2：图案填充 repeat"
+    },
+    {
+      "name": "scene_3_title",
+      "value": "场景2：图案填充 repeat"
+    },
+    {
+      "name": "scene_4_button",
+      "value": "场景2：repeat-x 与 no-repeat"
+    },
+    {
+      "name": "scene_4_title",
+      "value": "场景2：repeat-x 与 no-repeat"
+    },
+    {
+      "name": "scene_5_button",
+      "value": "场景3：Matrix2D 平移"
+    },
+    {
+      "name": "scene_5_title",
+      "value": "场景3：Matrix2D 平移"
+    },
+    {
+      "name": "scene_6_button",
+      "value": "场景3：Matrix2D 缩放"
+    },
+    {
+      "name": "scene_6_title",
+      "value": "场景3：Matrix2D 缩放"
+    },
+    {
+      "name": "scene_7_button",
+      "value": "场景3：Matrix2D 旋转"
+    },
+    {
+      "name": "scene_7_title",
+      "value": "场景3：Matrix2D 旋转"
+    },
+    {
+      "name": "scene_8_button",
+      "value": "场景3：组合变换与逆矩阵"
+    },
+    {
+      "name": "scene_8_title",
+      "value": "场景3：组合变换与逆矩阵"
+    },
+    {
+      "name": "scene_9_button",
+      "value": "场景4：离屏合成（三特性串联）"
+    },
+    {
+      "name": "scene_9_title",
+      "value": "场景4：离屏合成（三特性串联）"
+    },
+    {
+      "name": "scene_10_button",
+      "value": "场景3：Matrix2D 倾斜（属性方式）"
+    },
+    {
+      "name": "scene_10_title",
+      "value": "场景3：Matrix2D 倾斜（属性方式）"
+    },
+    {
+      "name": "scene_11_button",
+      "value": "扩展：ImageData 像素操作"
+    },
+    {
+      "name": "scene_11_title",
+      "value": "扩展：ImageData 像素操作"
+    },
+    {
+      "name": "scene_12_button",
+      "value": "扩展：GeometryUtil 圆环阵"
+    },
+    {
+      "name": "scene_12_title",
+      "value": "扩展：GeometryUtil 圆环阵"
+    },
+    {
+      "name": "scene_13_button",
+      "value": "补充：图案矩阵变换（Pattern×Matrix2D）"
+    },
+    {
+      "name": "scene_13_title",
+      "value": "补充：CanvasPattern.setTransform 图案矩阵变换"
+    },
+    {
+      "name": "scene_14_button",
+      "value": "补充：drawImage 源矩形裁剪"
+    },
+    {
+      "name": "scene_14_title",
+      "value": "补充：drawImage 9 参数源矩形裁剪"
+    },
+    {
+      "name": "scene_15_button",
+      "value": "补充：阴影 + 渐变"
+    },
+    {
+      "name": "scene_15_title",
+      "value": "补充：阴影与渐变叠加"
+    },
+    {
+      "name": "scene_16_button",
+      "value": "补充：filter 滤镜模糊对比"
+    },
+    {
+      "name": "scene_16_title",
+      "value": "补充：filter 滤镜模糊对比"
+    },
+    {
+      "name": "scene_17_button",
+      "value": "补充：ColorMetrics 渐变断点（API 12+）"
+    },
+    {
+      "name": "scene_17_title",
+      "value": "补充：addColorStop 的 ColorMetrics 重载"
+    },
+    {
+      "name": "scene_18_button",
+      "value": "场景1：圆锥渐变色环（API 12+）"
+    },
+    {
+      "name": "scene_18_title",
+      "value": "场景1：createConicGradient 圆锥渐变色环"
+    },
+    {
+      "name": "scene_19_button",
+      "value": "扩展：贝塞尔与二次曲线路径"
+    },
+    {
+      "name": "scene_19_title",
+      "value": "扩展：Path 绘制（bezierCurveTo / quadraticCurveTo / arcTo）"
+    },
+    {
+      "name": "scene_20_button",
+      "value": "扩展：clip 裁剪与合成模式"
+    },
+    {
+      "name": "scene_20_title",
+      "value": "扩展：clip 裁剪 + globalCompositeOperation 合成模式"
+    },
+    {
+      "name": "scene_21_button",
+      "value": "扩展：文字绘制与 measureText"
+    },
+    {
+      "name": "scene_21_title",
+      "value": "扩展：fillText / strokeText / measureText 文字绘制"
+    },
+    {
+      "name": "scene_22_button",
+      "value": "扩展：虚线描边与线帽拐角"
+    },
+    {
+      "name": "scene_22_title",
+      "value": "扩展：setLineDash / lineCap / lineJoin 描边样式"
+    },
+    {
+      "name": "scene_23_button",
+      "value": "扩展：ImageData 回读反相"
+    },
+    {
+      "name": "scene_23_title",
+      "value": "扩展：getImageData 回读与像素反相"
+    }
+  ]
+}

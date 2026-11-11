@@ -16,7 +16,7 @@
 {
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/liblibrary.so": "file:./src/main/cpp/types/liblibrary"
+    "liblibrary.so": "file:./src/main/cpp/types/liblibrary"
   },
   "author": "",
   "name": "library",

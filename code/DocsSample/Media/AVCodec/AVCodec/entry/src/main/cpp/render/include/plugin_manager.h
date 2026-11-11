@@ -35,7 +35,7 @@ class PluginManager {
 public:
     class PluginWindowLease {
     public:
-        // 租约通过 NativeObjectReference 保持窗口在异步渲染期间有效；仅可移动，析构时自动解除引用。
+        // 租约通过NativeObjectReference保持窗口在异步渲染期间有效；仅可移动，析构时自动解除引用。
         PluginWindowLease() = default;
         ~PluginWindowLease();
 
@@ -101,11 +101,11 @@ public:
 private:
     static PluginManager pluginManager_;
 
-    // XComponent 由 ArkUI 框架持有，此映射表只记录非拥有指针。销毁回调到达后必须立即移除，
+    // XComponent由ArkUI框架持有，此映射表只记录非拥有指针。销毁回调到达后必须立即移除，
     // 不能把其中的地址交给异步任务长期保存。
     std::unordered_map<std::string, OH_NativeXComponent*> nativeXComponentMap_;
     std::unordered_map<std::string, std::shared_ptr<PluginRender>> pluginRenderMap_;
-    // 当前 XComponent 的借用窗口指针。需要跨出 mutex 或跨线程使用时，必须通过 AcquirePluginWindow() 获取租约。
+    // 当前XComponent的借用窗口指针。需要跨出mutex或跨线程使用时，必须通过AcquirePluginWindow() 获取租约。
     OHNativeWindow *pluginWindow_ = nullptr;
     int32_t pluginWindowWidth_ = 0;
     int32_t pluginWindowHeight_ = 0;

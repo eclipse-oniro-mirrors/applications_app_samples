@@ -80,7 +80,7 @@ public:
             Close();
             return;
         }
-        // 输出 Buffer 仍归 codec 所有，在当前线程写完后立即归还，不把地址交给异步任务。
+        // 输出Buffer仍归codec所有，在当前线程写完后立即归还，不把地址交给异步任务。
         file_.write(reinterpret_cast<const char *>(address + info.attr.offset), info.attr.size);
         if (!file_.good()) {
             session_.Stop("write_failed");

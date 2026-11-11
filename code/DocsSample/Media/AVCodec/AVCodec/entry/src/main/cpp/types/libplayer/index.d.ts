@@ -27,9 +27,9 @@ export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
 
 export interface PlayOptions {
   videoCodecName?: string;
-  /** Dump 文件大小上限（MiB）；0 表示不限。 */
+  /** Dump文件大小上限（MiB）；0表示不限。 */
   dumpMaxMiB?: number;
-  /** Dump 写入时长上限（秒）；0 表示不限。 */
+  /** Dump写入时长上限（秒）；0表示不限。 */
   dumpMaxSeconds?: number;
   inputFileFd: number;
   inputFileOffset: number;
@@ -47,7 +47,7 @@ export interface PlayOptions {
   audioVolume?: number;
   /** 创建播放任务的音频渲染器时生效。 */
   enableAudioLowLatency?: boolean;
-  /** 容器中的音轨索引；-1 表示选择第一条音轨。 */
+  /** 容器中的音轨索引；-1表示选择第一条音轨。 */
   audioTrackIndex?: number;
 }
 
@@ -308,5 +308,5 @@ export const onThermalLevelRecovered: () => void
 /** 设置应用进入后台后是否继续播放。 */
 export const setBackgroundPlaybackEnabled: (enabled: boolean) => void
 
-/** 通知 Native 播放器 Ability 前后台状态变化。 */
+/** 通知Native播放器Ability前后台状态变化。 */
 export const setAppBackground: (background: boolean) => void

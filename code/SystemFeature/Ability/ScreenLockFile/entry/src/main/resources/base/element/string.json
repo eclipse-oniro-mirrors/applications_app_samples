@@ -1,0 +1,244 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Screen lock sensitive data management sample",
+      "description": "Module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Screen lock sensitive data management entry",
+      "description": "Entry ability description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ScreenLockFile",
+      "description": "Application label"
+    },
+    {
+      "name": "page_title",
+      "value": "Screen Lock Sensitive Data",
+      "description": "Feature page title"
+    },
+    {
+      "name": "page_description",
+      "value": "Request, release, and query access to application sensitive data while the screen is locked.",
+      "description": "Feature page description"
+    },
+    {
+      "name": "precondition_title",
+      "value": "Before calling",
+      "description": "Precondition section title"
+    },
+    {
+      "name": "precondition_description",
+      "value": "Declare ohos.permission.PROTECT_SCREEN_LOCK_DATA. Call acquireAccess only when queryAppKeyState returns KEY_EXIST.",
+      "description": "Permission and key state requirements"
+    },
+    {
+      "name": "data_type_description",
+      "value": "DataType: MEDIA_DATA = 0x00000001; ALL_DATA = 0xffffffff.",
+      "description": "Sensitive data type values"
+    },
+    {
+      "name": "access_pairing_description",
+      "value": "Each successful acquireAccess call must be paired with releaseAccess.",
+      "description": "Acquire and release pairing requirement"
+    },
+    {
+      "name": "query_key_state",
+      "value": "Query app key state",
+      "description": "Query key state button label"
+    },
+    {
+      "name": "acquire_access",
+      "value": "Acquire access",
+      "description": "Acquire access button label"
+    },
+    {
+      "name": "release_access",
+      "value": "Release access",
+      "description": "Release access button label"
+    },
+    {
+      "name": "result_title",
+      "value": "Operation result",
+      "description": "Result section title"
+    },
+    {
+      "name": "operation_ready",
+      "value": "Ready. Select an operation.",
+      "description": "Initial operation result"
+    },
+    {
+      "name": "result_description",
+      "value": "The result includes the returned enum name and value, or the BusinessError code and message.",
+      "description": "Result section description"
+    },
+    {
+      "name": "operation_history_title",
+      "value": "Operation history",
+      "description": "Operation history section title"
+    },
+    {
+      "name": "pairing_status_title",
+      "value": "Pairing status",
+      "description": "Acquire/release pairing status section title"
+    },
+    {
+      "name": "pairing_status_format",
+      "value": "Acquire: %d  |  Release: %d  |  Pending: %d",
+      "description": "Pairing status display format"
+    },
+    {
+      "name": "clear_history",
+      "value": "Clear history",
+      "description": "Clear operation history button label"
+    },
+    {
+      "name": "no_history",
+      "value": "No operations yet.",
+      "description": "Placeholder when operation history is empty"
+    },
+    {
+      "name": "query_all_states",
+      "value": "Query all states",
+      "description": "Query all states button label"
+    },
+    {
+      "name": "data_type_enum_title",
+      "value": "DataType Enum Values",
+      "description": "DataType enum programmatic display section title"
+    },
+    {
+      "name": "error_suggestion_801",
+      "value": "Please check if the device supports ScreenLockFileManager",
+      "description": "Error suggestion for code 801"
+    },
+    {
+      "name": "error_suggestion_29300002",
+      "value": "System service error, please restart the device",
+      "description": "Error suggestion for code 29300002"
+    },
+    {
+      "name": "error_suggestion_29300003",
+      "value": "Please declare PROTECT_SCREEN_LOCK_DATA permission in module.json5",
+      "description": "Error suggestion for code 29300003"
+    },
+    {
+      "name": "error_suggestion_29300004",
+      "value": "File access denied, please check key status",
+      "description": "Error suggestion for code 29300004"
+    },
+    {
+      "name": "error_suggestion_29300005",
+      "value": "Please call acquireAccess first",
+      "description": "Error suggestion for code 29300005"
+    },
+    {
+      "name": "error_suggestion_default",
+      "value": "Unknown error",
+      "description": "Default error suggestion"
+    },
+    {
+      "name": "acquire_precondition_failed",
+      "value": "Precondition not met\nKey status: %s\nPlease enable screen lock sensitive data protection",
+      "description": "Acquire precondition failure message"
+    },
+    {
+      "name": "release_pairing_failed",
+      "value": "Pairing check failed\nAcquire count: %d, Release count: %d\nPlease call acquireAccess first",
+      "description": "Release pairing check failure message"
+    },
+    {
+      "name": "error_suggestion_label",
+      "value": "Suggestion: %s",
+      "description": "Error suggestion label format"
+    },
+    {
+      "name": "key_status_not_exist_format",
+      "value": "KEY_NOT_EXIST (%d)",
+      "description": "Key not exist status format"
+    },
+    {
+      "name": "key_status_released_format",
+      "value": "KEY_RELEASED (%d)",
+      "description": "Key released status format"
+    },
+    {
+      "name": "key_status_exist_format",
+      "value": "KEY_EXIST (%d)",
+      "description": "Key exist status format"
+    },
+    {
+      "name": "access_status_granted_format",
+      "value": "ACCESS_GRANTED (%d)",
+      "description": "Access granted status format"
+    },
+    {
+      "name": "access_status_denied_format",
+      "value": "ACCESS_DENIED (%d)",
+      "description": "Access denied status format"
+    },
+    {
+      "name": "release_status_granted_format",
+      "value": "RELEASE_GRANTED (%d)",
+      "description": "Release granted status format"
+    },
+    {
+      "name": "release_status_denied_format",
+      "value": "RELEASE_DENIED (%d)",
+      "description": "Release denied status format"
+    },
+    {
+      "name": "operation_result_format",
+      "value": "%s: %s",
+      "description": "Operation result format"
+    },
+    {
+      "name": "error_result_format",
+      "value": "%s: %d, %s",
+      "description": "Operation error result format"
+    },
+    {
+      "name": "error_with_suggestion_format",
+      "value": "%s\n%s",
+      "description": "Error and suggestion format"
+    },
+    {
+      "name": "history_error_format",
+      "value": "Error(%d)",
+      "description": "History error format"
+    },
+    {
+      "name": "precondition_failed_history",
+      "value": "Precondition failed",
+      "description": "Acquire precondition failure history text"
+    },
+    {
+      "name": "pairing_check_failed_history",
+      "value": "Pairing check failed",
+      "description": "Release pairing failure history text"
+    },
+    {
+      "name": "query_all_states_format",
+      "value": "KeyState: %s | Acquire: %d | Release: %d | Pending: %d",
+      "description": "Combined state result format"
+    },
+    {
+      "name": "data_type_media_format",
+      "value": "MEDIA_DATA = %d (0x00000001)",
+      "description": "Media data type value format"
+    },
+    {
+      "name": "data_type_all_format",
+      "value": "ALL_DATA = %d (0xffffffff)",
+      "description": "All data type value format"
+    },
+    {
+      "name": "history_timestamp_format",
+      "value": "[%s]",
+      "description": "History timestamp format"
+    }
+  ]
+}

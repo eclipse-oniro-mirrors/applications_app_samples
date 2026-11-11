@@ -57,6 +57,7 @@ bool SupportsAacOutput(OH_AVCapability *encoder, int32_t rate, int32_t channels,
     }
     return true;
 }
+
 } // namespace
 
 bool TranscodeJob::InspectCodecs()
