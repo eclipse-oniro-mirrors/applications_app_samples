@@ -153,7 +153,7 @@ export class AVTranscoderDemo {
   //[End doRelease]
 
   // [EndExclude createCallback]
-  // 获取当前进度
+  // 获取当前进度。
   getCurrentProgress(): number {
     console.info(`getCurrentProgress = ${this.currentProgress}`);
     return this.currentProgress;
