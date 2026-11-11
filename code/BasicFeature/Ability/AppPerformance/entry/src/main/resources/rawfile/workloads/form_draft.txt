@@ -1,0 +1,8 @@
+# 表单草稿负载：key=value，必填 step/name/phone/address/note
+step=2
+name=示例用户
+phone=13800000000
+address=示例市示例区示例路 1 号
+note=草稿用于验证恢复后重新校验
+coupon=WELCOME10
+agreed=true
