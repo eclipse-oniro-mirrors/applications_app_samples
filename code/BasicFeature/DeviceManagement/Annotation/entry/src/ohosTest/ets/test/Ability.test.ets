@@ -23,6 +23,11 @@ import { deviceInfo } from '@kit.BasicServicesKit';
 const BUNDLE: string = 'Annotation_';
 const BUNDLE_NAME: string = 'com.samples.annotation';
 const DELAY_MS: number = 1500;
+const MAX_SCROLL_ATTEMPTS: number = 5;
+const SCROLL_START_Y_RATIO: number = 0.8;
+const SCROLL_END_Y_RATIO: number = 0.2;
+const SWIPE_SPEED: number = 5;
+const SCROLL_DELAY_MS: number = 100;
 const AVAILABLE_MIN_API_VERSION: number = 22;
 const SUPPRESS_ANNOTATION_SINCE_API_VERSION: number = 23;
 const FUTURE_DEMO_API_VERSION: number = 27;
@@ -30,44 +35,51 @@ const MOCK_API_VERSION: number = 21;
 
 async function findComponentWithScroll(driver: Driver, id: string): Promise<Object> {
   const matcher = ON.id(id);
-  const maxScrollAttempts = 5;
-  const scrollDistance = 800;
-  
-  for (let attempt = 0; attempt < maxScrollAttempts; attempt++) {
-    try {
-      logger.info(`${BUNDLE}findComponentWithScroll, attempt ${attempt + 1} for ${id}`);
-      const component = await driver.findComponent(matcher);
-      if (component !== null && component !== undefined) {
-        logger.info(`${BUNDLE}findComponentWithScroll, found ${id} on attempt ${attempt + 1}`);
-        return component;
+  try {
+    const displaySize = await driver.getDisplaySize();
+    const centerX = Math.floor(displaySize.x / 2);
+    const startY = Math.floor(displaySize.y * SCROLL_START_Y_RATIO);
+    const endY = Math.floor(displaySize.y * SCROLL_END_Y_RATIO);
+
+    for (let attempt = 0; attempt < MAX_SCROLL_ATTEMPTS; attempt++) {
+      try {
+        logger.info(`${BUNDLE}findComponentWithScroll, attempt ${attempt + 1} for ${id}`);
+        const component = await driver.findComponent(matcher);
+        if (component !== null && component !== undefined) {
+          logger.info(`${BUNDLE}findComponentWithScroll, found ${id} on attempt ${attempt + 1}`);
+          return component;
+        }
+        logger.info(`${BUNDLE}findComponentWithScroll, component is null on attempt ${attempt + 1} for ${id}`);
+      } catch (e) {
+        logger.info(`${BUNDLE}findComponentWithScroll, not found on attempt ${attempt + 1} for ${id}, scrolling down`);
       }
-      logger.info(`${BUNDLE}findComponentWithScroll, component is null on attempt ${attempt + 1} for ${id}`);
-    } catch (e) {
-      logger.info(`${BUNDLE}findComponentWithScroll, not found on attempt ${attempt + 1} for ${id}, scrolling down`);
+      await driver.swipe(centerX, startY, centerX, endY, SWIPE_SPEED);
+      // Reduced delay from 500ms to 100ms to avoid appfreeze (max 1s for 10 attempts)
+      await driver.delayMs(SCROLL_DELAY_MS);
     }
-    await driver.swipe(300, 800, 300, 800 - scrollDistance, 5);
-    // Reduced delay from 500ms to 100ms to avoid appfreeze (max 1s for 10 attempts)
-    await driver.delayMs(100);
-  }
-  
-  for (let attempt = 0; attempt < maxScrollAttempts; attempt++) {
-    try {
-      logger.info(`${BUNDLE}findComponentWithScroll, scrolling up attempt ${attempt + 1} for ${id}`);
-      await driver.swipe(300, 200, 300, 200 + scrollDistance, 5);
-      // Reduced delay from 500ms to 100ms to avoid appfreeze
-      await driver.delayMs(100);
-      const component = await driver.findComponent(matcher);
-      if (component !== null && component !== undefined) {
-        logger.info(`${BUNDLE}findComponentWithScroll, found ${id} on scroll up attempt ${attempt + 1}`);
-        return component;
+
+    for (let attempt = 0; attempt < MAX_SCROLL_ATTEMPTS; attempt++) {
+      try {
+        logger.info(`${BUNDLE}findComponentWithScroll, scrolling up attempt ${attempt + 1} for ${id}`);
+        await driver.swipe(centerX, endY, centerX, startY, SWIPE_SPEED);
+        // Reduced delay from 500ms to 100ms to avoid appfreeze
+        await driver.delayMs(SCROLL_DELAY_MS);
+        const component = await driver.findComponent(matcher);
+        if (component !== null && component !== undefined) {
+          logger.info(`${BUNDLE}findComponentWithScroll, found ${id} on scroll up attempt ${attempt + 1}`);
+          return component;
+        }
+        logger.info(`${BUNDLE}findComponentWithScroll, component is null on scroll up attempt ${attempt + 1} for ${id}`);
+      } catch (e) {
+        logger.info(`${BUNDLE}findComponentWithScroll, still not found on scroll up attempt ${attempt + 1} for ${id}`);
       }
-      logger.info(`${BUNDLE}findComponentWithScroll, component is null on scroll up attempt ${attempt + 1} for ${id}`);
-    } catch (e) {
-      logger.info(`${BUNDLE}findComponentWithScroll, still not found on scroll up attempt ${attempt + 1} for ${id}`);
     }
+
+    throw new Error(`Component with id '${id}' not found after all scroll attempts`);
+  } catch (error) {
+    logger.error(`${BUNDLE}findComponentWithScroll, failed for ${id}: ${error}`);
+    throw new Error(`Failed to find component with id '${id}': ${error}`);
   }
-  
-  throw new Error(`Component with id '${id}' not found after all scroll attempts`);
 }
 
 async function getComponentText(driver: Driver, id: string): Promise<string> {

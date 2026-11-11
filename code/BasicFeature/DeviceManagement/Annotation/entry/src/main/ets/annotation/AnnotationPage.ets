@@ -28,11 +28,35 @@ export struct AnnotationPage {
   @State private availableResult: Resource = $r('app.string.not_run');
   @State private suppressResult: Resource = $r('app.string.not_run');
   @State private suppressionRules: string = '';
+  @State private availableDescription: string = '';
+  @State private suppressDescription: string = '';
   @State private isMock: boolean = false;
 
   public aboutToAppear(): void {
+    this.loadDescriptions();
     this.suppressionRules = AnnotationService.getSuppressionRules().join(', ');
     this.showLocalEnvironment();
+  }
+
+  private loadDescriptions(): void {
+    const resourceManager = this.getUIContext().getHostContext()?.resourceManager;
+    if (!resourceManager) {
+      logger.error('Failed to get the resource manager for annotation descriptions');
+      return;
+    }
+    try {
+      this.availableDescription = resourceManager.getStringSync(
+        $r('app.string.available_description').id,
+        AVAILABLE_MIN_API_VERSION
+      );
+      this.suppressDescription = resourceManager.getStringSync(
+        $r('app.string.suppress_description').id,
+        FUTURE_DEMO_API_VERSION,
+        SUPPRESS_ANNOTATION_SINCE_API_VERSION
+      );
+    } catch (error) {
+      logger.error(`Failed to format annotation descriptions: ${error}`);
+    }
   }
 
   private updateEnvironment(apiVersion: number, isMock: boolean): void {
@@ -174,7 +198,7 @@ export struct AnnotationPage {
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
             .fontColor($r('app.color.primary_text'))
-          Text($r('app.string.available_description'))
+          Text(this.availableDescription)
             .width('100%')
             .fontSize(14)
             .fontColor($r('app.color.secondary_text'))
@@ -224,7 +248,7 @@ export struct AnnotationPage {
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
             .fontColor($r('app.color.primary_text'))
-          Text($r('app.string.suppress_description'))
+          Text(this.suppressDescription)
             .width('100%')
             .fontSize(14)
             .fontColor($r('app.color.secondary_text'))

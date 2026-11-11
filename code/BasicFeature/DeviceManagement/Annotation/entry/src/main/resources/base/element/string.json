@@ -62,7 +62,7 @@
     },
     {
       "name": "available_description",
-      "value": "Marks a demo function as requiring OpenHarmony 22. A runtime guard calls it only on supported systems.",
+      "value": "Marks a demo function as requiring OpenHarmony %1$d. A runtime guard calls it only on supported systems.",
       "description": "Available annotation description"
     },
     {
@@ -107,7 +107,7 @@
     },
     {
       "name": "suppress_description",
-      "value": "Suppresses the compatibility warning raised because the demo function is marked API 27. The annotation itself is available since API 23, and runtime version checks still apply.",
+      "value": "Suppresses the compatibility warning raised because the demo function is marked API %1$d. The annotation itself is available since API %2$d, and runtime version checks still apply.",
       "description": "SuppressWarnings annotation description"
     },
     {

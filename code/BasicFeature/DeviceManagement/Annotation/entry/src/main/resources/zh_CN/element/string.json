@@ -57,7 +57,7 @@
     },
     {
       "name": "available_description",
-      "value": "将示例函数标记为需要 OpenHarmony 22，仅在系统版本满足要求时通过运行时守卫调用。",
+      "value": "将示例函数标记为需要 OpenHarmony %1$d，仅在系统版本满足要求时通过运行时守卫调用。",
       "description": "Available 注解说明"
     },
     {
@@ -97,7 +97,7 @@
     },
     {
       "name": "suppress_description",
-      "value": "抑制示例函数因标记为 API 27 而产生的兼容性告警；注解本身从 API 23 开始支持，运行时仍执行版本判断。",
+      "value": "抑制示例函数因标记为 API %1$d 而产生的兼容性告警；注解本身从 API %2$d 开始支持，运行时仍执行版本判断。",
       "description": "SuppressWarnings 注解说明"
     },
     {
