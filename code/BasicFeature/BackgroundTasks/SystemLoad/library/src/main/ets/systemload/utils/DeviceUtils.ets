@@ -133,22 +133,23 @@ export class DeviceUtils {
 
   /**
    * 获取系统类型
-   * 返回操作系统类型标识
-   * 
-   * @returns string 系统类型（如：OpenHarmony）
+   * 通过deviceInfo.majorVersion（OpenHarmony系统属性）判定系统类型
+   *
+   * @returns string 系统类型（如：OpenHarmony），获取失败时返回回退值
    */
   static getOsType(): string {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'getOsType() called');
     try {
-      // 获取并返回系统类型 - 使用deviceName作为系统类型标识
-      const osType: string = 'OpenHarmony';
+      // majorVersion可正常读取即为OpenHarmony系统，读取异常时判定为未知
+      const majorVersion: number = deviceInfo.majorVersion;
+      const osType: string = majorVersion > 0 ? 'OpenHarmony' : DeviceUtils.DEVICE_TYPE_UNKNOWN;
       hilog.info(DOMAIN, TAG, `getOsType() result: ${osType}`);
       return osType;
     } catch (error) {
       // 记录获取失败
       hilog.error(DOMAIN, TAG, `getOsType() failed: ${(error as Error).message}`);
-      return 'OpenHarmony';
+      return DeviceUtils.DEVICE_TYPE_UNKNOWN;
     }
   }
 
@@ -304,19 +305,25 @@ export class DeviceUtils {
 
   /**
    * 获取设备支持的ABI列表
-   * 返回设备支持的CPU架构
-   * 
+   * 返回设备支持的CPU架构（hardwareAbi与supportedAbis组合）
+   *
    * @returns string[] ABI数组
    */
   static getSupportedAbis(): string[] {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'getSupportedAbis() called');
     try {
-      // 获取ABI列表（deviceInfo未直接暴露ABI属性，返回设备类型作为标识）
+      // abiList为逗号分隔的CPU架构字符串（如arm64-v8a,armeabi-v7a）
       const abis: string[] = [];
-      const arch: string = deviceInfo.deviceType || '';
-      if (arch.length > 0) {
-        abis.push(arch);
+      const abiList: string = deviceInfo.abiList || '';
+      if (abiList.length > 0) {
+        const parts: string[] = abiList.split(',');
+        for (let i = 0; i < parts.length; i++) {
+          const abi: string = parts[i].trim();
+          if (abi.length > 0) {
+            abis.push(abi);
+          }
+        }
       }
       hilog.info(DOMAIN, TAG, `getSupportedAbis() result: ${abis.length} abis`);
       return abis;
@@ -329,8 +336,9 @@ export class DeviceUtils {
 
   /**
    * 检查系统版本是否满足最低要求
-   * 
-   * @param minVersion - 最低系统版本要求
+   * 按"."分段转数字逐段比较，避免字符串字典序比较导致"5.10.0"小于"5.2.0"之类的误判
+   *
+   * @param minVersion - 最低系统版本要求（如：5.0.0）
    * @returns boolean 满足要求返回true，否则返回false
    */
   static isSystemVersionAtLeast(minVersion: string): boolean {
@@ -339,8 +347,7 @@ export class DeviceUtils {
     try {
       // 获取当前系统版本
       const currentVersion: string = DeviceUtils.getOsVersion();
-      // 简单版本比较
-      const result: boolean = currentVersion >= minVersion;
+      const result: boolean = DeviceUtils.compareVersion(currentVersion, minVersion) >= 0;
       hilog.info(DOMAIN, TAG, `isSystemVersionAtLeast() result: ${result}`);
       return result;
     } catch (error) {
@@ -348,6 +355,47 @@ export class DeviceUtils {
       hilog.error(DOMAIN, TAG, `isSystemVersionAtLeast() failed: ${(error as Error).message}`);
       return false;
     }
+  }
+
+  /**
+   * 提取版本字符串中的数字段
+   * 版本号可能带非数字前缀（如OpenHarmony 5.0.1.112），仅提取连续数字段参与比较
+   *
+   * @param version - 版本字符串
+   * @returns number[] 数字段数组
+   */
+  private static parseVersionSegments(version: string): number[] {
+    const segments: number[] = [];
+    const parts: string[] = version.split('.');
+    for (let i = 0; i < parts.length; i++) {
+      const digits: string = parts[i].replace(/[^0-9]/g, '');
+      if (digits.length > 0) {
+        segments.push(parseInt(digits, 10));
+      }
+    }
+    return segments;
+  }
+
+  /**
+   * 逐段比较两个版本号
+   *
+   * @param left - 左侧版本字符串
+   * @param right - 右侧版本字符串
+   * @returns number 左大于右返回1，等于返回0，小于返回-1
+   */
+  private static compareVersion(left: string, right: string): number {
+    const leftSegments: number[] = DeviceUtils.parseVersionSegments(left);
+    const rightSegments: number[] = DeviceUtils.parseVersionSegments(right);
+    const maxLen: number = Math.max(leftSegments.length, rightSegments.length);
+    for (let i = 0; i < maxLen; i++) {
+      // 缺失的短版本段按0处理
+      const leftPart: number = i < leftSegments.length ? leftSegments[i] : 0;
+      const rightPart: number = i < rightSegments.length ? rightSegments[i] : 0;
+      if (leftPart !== rightPart) {
+        return leftPart > rightPart ? 1 : -1;
+      }
+    }
+    return 0;
   }
 
   /**

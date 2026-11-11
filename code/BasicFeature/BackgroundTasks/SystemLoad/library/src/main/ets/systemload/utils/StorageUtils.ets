@@ -28,7 +28,10 @@ const TAG: string = 'StorageUtils';
  * 用于配置存储操作的各种参数
  */
 export class StorageOptions {
-  /** 是否加密存储 */
+  /**
+   * 是否加密存储
+   * 注意：本工具类不执行加密，敏感数据须由调用方在put前自行加密、get后自行解密
+   */
   public encrypted: boolean = false;
   /** 数据过期时间（毫秒） */
   public expireTime: number = 0;
@@ -57,15 +60,15 @@ export class StorageEntry<T> {
  * 
  * @remarks
  * 该类提供同步和异步两种存储方式
- * 支持数据过期、加密等高级功能
+ * 支持数据过期等高级功能；本类不对数据做加密，敏感内容须调用方自行加解密
  * 
  * @example
  * ```typescript
  * // 存储数据
- * StorageUtils.put(context, 'user_name', 'John');
+ * StorageUtils.putString(context, 'user_name', 'John');
  * 
  * // 读取数据
- * const name = StorageUtils.get<string>(context, 'user_name', 'default');
+ * const name = await StorageUtils.getString(context, 'user_name', 'default');
  * 
  * // 存储带过期时间的数据
  * StorageUtils.putWithExpire(context, 'token', 'xxx', 3600000);

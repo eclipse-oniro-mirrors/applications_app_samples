@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+ import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF811;
+const DOMAIN: number = 0xFF00;
 const PREFIX: string = '[Sample_Annotation]';
 
 class Logger {

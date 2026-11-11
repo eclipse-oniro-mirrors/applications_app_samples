@@ -26,6 +26,11 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:test_pages",
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO"
+      }
+    ],
     "abilities": [
       {
         "name": "TestAbility",

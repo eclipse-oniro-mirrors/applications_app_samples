@@ -4,7 +4,7 @@
 
 This sample demonstrates the system performance, power, and thermal level using the [systemLoad API in the Basic Services Kit](https://docs.openharmony.cn/pages/api-cn/arkui-ts/ts-basic-services-apis-systemload.md). It covers `getLevel()`, listener registration, targeted unregistration, and unregistering all callbacks.
 
-The sample is written in ArkTS using the Stage model. The SystemLoad page and the systemLoad API require no permissions. Permissions declared for the retained optional utility library are described in [Permissions](#permissions). Local API data and eight-level mock data are kept clearly separate. The page displays listener state, callback counts, recent callback records, and operation results.
+The sample is written in ArkTS using the Stage model. The SystemLoad page and the systemLoad API require no permissions. The permissions related to the retained optional utility classes are described in [Permissions](#permissions). Local API data and eight-level mock data are kept clearly separate. The page displays listener state, callback counts, recent callback records, and operation results.
 
 ## Preview
 
@@ -105,11 +105,14 @@ The real tests call system APIs directly and make no assumptions about a fixed d
 
 ## Permissions
 
-The systemLoad API and `SystemLoadPage` require no permissions. The library, application, and test modules declare the following permissions only for the retained optional utility classes; the SystemLoad page does not invoke these utilities:
+The systemLoad API and `SystemLoadPage` require no permissions, and the SystemLoad page does not invoke the optional utility classes exported by the library. The application and test modules declare only the following regular permission:
 
-- `ohos.permission.GET_NETWORK_INFO`: Used by `NetworkUtils` to query network availability and capabilities.
-- `ohos.permission.READ_PASTEBOARD`: Used by `ClipboardUtils` methods that read clipboard data. Clipboard write operations do not require this permission.
-- `ohos.permission.sec.ACCESS_UDID`: Used only by `DeviceUtils.getUdid()`. This is a restricted permission for authorized system applications; declaring it does not guarantee authorization for a normal third-party application. If the UDID is unavailable, the utility catches the error and returns `unknown`.
+- `ohos.permission.GET_NETWORK_INFO`: Regular permission (system_grant/normal). Used by `NetworkUtils` to query network availability and capabilities.
+
+The following restricted permissions (system_basic, ACL required) are intentionally not declared in this sample: declaring them in `requestPermissions` makes installation fail on devices (error code 9568289) because a sample without signing configurations cannot obtain ACL authorization. If integrators need the corresponding utilities, they must declare and sign these permissions themselves:
+
+- `ohos.permission.READ_PASTEBOARD`: Used by `ClipboardUtils` methods that read clipboard data. Clipboard write operations do not require this permission. Without authorization, the read methods catch the error and return an empty string.
+- `ohos.permission.sec.ACCESS_UDID`: Used only by `DeviceUtils.getUdid()`. This is a restricted permission for authorized system applications. If the UDID is unavailable, the utility catches the error and returns `unknown`.
 
 `PermissionUtils` is a generic permission check and request helper. Callers must declare and obtain any permissions required by the APIs they invoke. None of these optional utility permissions are required by the systemLoad API itself.
 

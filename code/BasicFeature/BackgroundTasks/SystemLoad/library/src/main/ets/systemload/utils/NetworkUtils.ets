@@ -45,6 +45,8 @@ export class NetworkStatus {
  * @remarks
  * 该类为静态工具类，无需实例化
  * 需要配置ohos.permission.GET_NETWORK_INFO权限
+ * register*Callback方法返回创建的NetConnection实例，页面销毁前必须调用
+ * unregisterNetCallback或unregisterAll注销，避免监听泄漏
  * 
  * @example
  * ```typescript
@@ -235,20 +237,22 @@ export class NetworkUtils {
   /**
    * 注册网络状态变化监听器
    * 当网络连接状态发生变化时触发回调
-   * 
+   *
    * @param callback - 网络状态变化回调函数
-   * @returns Promise<void>
+   * @returns Promise<connection.NetConnection> 创建的NetConnection实例，用于后续注销
    */
   static async registerNetAvailableCallback(
     callback: (netHandle: connection.NetHandle) => void
-  ): Promise<void> {
+  ): Promise<connection.NetConnection> {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'registerNetAvailableCallback() called');
     try {
       // 注册网络可用监听
       const netConnection: connection.NetConnection = connection.createNetConnection();
       netConnection.on('netAvailable', callback);
-      hilog.info(DOMAIN, TAG, 'registerNetAvailableCallback() success');
+      await NetworkUtils.registerConnection(netConnection);
+      // 返回实例，调用方必须保存返回值以便注销
+      return netConnection;
     } catch (error) {
       // 记录注册失败
       hilog.error(DOMAIN, TAG, `registerNetAvailableCallback() failed: ${(error as Error).message}`);
@@ -259,20 +263,22 @@ export class NetworkUtils {
   /**
    * 注册网络能力变化监听器
    * 当网络能力发生变化时触发回调
-   * 
+   *
    * @param callback - 网络能力变化回调函数
-   * @returns Promise<void>
+   * @returns Promise<connection.NetConnection> 创建的NetConnection实例，用于后续注销
    */
   static async registerNetCapabilitiesCallback(
     callback: (netCap: connection.NetCapabilityInfo) => void
-  ): Promise<void> {
+  ): Promise<connection.NetConnection> {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'registerNetCapabilitiesCallback() called');
     try {
       // 注册网络能力监听
       const netConnection: connection.NetConnection = connection.createNetConnection();
       netConnection.on('netCapabilitiesChange', callback);
-      hilog.info(DOMAIN, TAG, 'registerNetCapabilitiesCallback() success');
+      await NetworkUtils.registerConnection(netConnection);
+      // 返回实例，调用方必须保存返回值以便注销
+      return netConnection;
     } catch (error) {
       // 记录注册失败
       hilog.error(DOMAIN, TAG, `registerNetCapabilitiesCallback() failed: ${(error as Error).message}`);
@@ -283,20 +289,22 @@ export class NetworkUtils {
   /**
    * 注册网络丢失监听器
    * 当网络连接丢失时触发回调
-   * 
+   *
    * @param callback - 网络丢失回调函数
-   * @returns Promise<void>
+   * @returns Promise<connection.NetConnection> 创建的NetConnection实例，用于后续注销
    */
   static async registerNetLostCallback(
     callback: (netHandle: connection.NetHandle) => void
-  ): Promise<void> {
+  ): Promise<connection.NetConnection> {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'registerNetLostCallback() called');
     try {
       // 注册网络丢失监听
       const netConnection: connection.NetConnection = connection.createNetConnection();
       netConnection.on('netLost', callback);
-      hilog.info(DOMAIN, TAG, 'registerNetLostCallback() success');
+      await NetworkUtils.registerConnection(netConnection);
+      // 返回实例，调用方必须保存返回值以便注销
+      return netConnection;
     } catch (error) {
       // 记录注册失败
       hilog.error(DOMAIN, TAG, `registerNetLostCallback() failed: ${(error as Error).message}`);
@@ -307,20 +315,22 @@ export class NetworkUtils {
   /**
    * 注册网络连接监听器
    * 当建立网络连接时触发回调
-   * 
+   *
    * @param callback - 网络连接回调函数
-   * @returns Promise<void>
+   * @returns Promise<connection.NetConnection> 创建的NetConnection实例，用于后续注销
    */
   static async registerNetConnectedCallback(
     callback: (netHandle: connection.NetHandle) => void
-  ): Promise<void> {
+  ): Promise<connection.NetConnection> {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'registerNetConnectedCallback() called');
     try {
-      // 注册网络连接监听（使用netAvailable事件）
+      // 注册网络连接监听（connection API无独立netConnected事件，使用netAvailable）
       const netConnection: connection.NetConnection = connection.createNetConnection();
       netConnection.on('netAvailable', callback);
-      hilog.info(DOMAIN, TAG, 'registerNetConnectedCallback() success');
+      await NetworkUtils.registerConnection(netConnection);
+      // 返回实例，调用方必须保存返回值以便注销
+      return netConnection;
     } catch (error) {
       // 记录注册失败
       hilog.error(DOMAIN, TAG, `registerNetConnectedCallback() failed: ${(error as Error).message}`);
@@ -329,12 +339,30 @@ export class NetworkUtils {
   }
 
   /**
-   * 注销网络监听器
-   * 移除所有网络状态变化的监听
-   * 
-   * @param event - 要注销的事件名称
-   * @param callback - 要注销的回调函数
+   * 激活NetConnection事件订阅
+   * on()仅登记回调，必须调用register()后系统才会开始推送事件；失败时抛错由调用方处理
+   *
+   * @param netConnection - 待激活的连接实例
    * @returns Promise<void>
+   */
+  private static async registerConnection(netConnection: connection.NetConnection): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      netConnection.register((err: Object) => {
+        if (err) {
+          reject(new Error(`connection.register failed: ${JSON.stringify(err)}`));
+          return;
+        }
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * 注销网络监听器
+   * 通过注册时返回的NetConnection实例移除对应监听
+   *
+   * @param netConnection - 注册监听时返回的NetConnection实例
+   * @returns Promise<void> 注销失败时以错误拒绝
    */
   static async unregisterNetCallback(
     netConnection: connection.NetConnection
@@ -342,9 +370,13 @@ export class NetworkUtils {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, 'unregisterNetCallback() called');
     try {
-      // 注销监听（通过同一NetConnection实例调用unregister，需要传入回调参数）
-      await new Promise<void>((resolve) => {
+      // 注销监听并检查错误，失败时向调用方抛出
+      await new Promise<void>((resolve, reject) => {
         netConnection.unregister((err: Object) => {
+          if (err) {
+            reject(new Error(`connection.unregister failed: ${JSON.stringify(err)}`));
+            return;
+          }
           resolve();
         });
       });
@@ -354,6 +386,31 @@ export class NetworkUtils {
       hilog.error(DOMAIN, TAG, `unregisterNetCallback() failed: ${(error as Error).message}`);
       throw new Error(`unregisterNetCallback failed: ${(error as Error).message}`);
     }
+  }
+
+  /**
+   * 批量注销网络监听器
+   * 传入注册时返回的实例列表，逐个注销并汇总失败信息
+   *
+   * @param netConnections - 注册时返回的NetConnection实例列表
+   * @returns Promise<void> 存在注销失败时以错误抛出汇总信息
+   */
+  static async unregisterAll(netConnections: connection.NetConnection[]): Promise<void> {
+    // 记录方法调用日志
+    hilog.debug(DOMAIN, TAG, `unregisterAll() called with ${netConnections.length} connections`);
+    const failures: string[] = [];
+    for (let i = 0; i < netConnections.length; i++) {
+      try {
+        await NetworkUtils.unregisterNetCallback(netConnections[i]);
+      } catch (error) {
+        failures.push((error as Error).message);
+      }
+    }
+    if (failures.length > 0) {
+      hilog.error(DOMAIN, TAG, `unregisterAll() had ${failures.length} failures`);
+      throw new Error(`unregisterAll failed: ${failures.join('; ')}`);
+    }
+    hilog.info(DOMAIN, TAG, 'unregisterAll() success');
   }
 
   /**

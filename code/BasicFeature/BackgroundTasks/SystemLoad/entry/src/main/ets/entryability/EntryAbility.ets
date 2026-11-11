@@ -17,8 +17,21 @@ import { UIAbility } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { logger } from '@ohos/systemload';
+import { SYSTEM_LOAD_PAGE_VISIBLE } from '../systemload/SystemLoadPage';
 
 export default class EntryAbility extends UIAbility {
+  onForeground(): void {
+    // 应用回到前台：更新AppStorage，驱动SystemLoadPage的@Watch重新查询并注册监听
+    logger.info('SystemLoad ability moved to foreground');
+    AppStorage.setOrCreate<boolean>(SYSTEM_LOAD_PAGE_VISIBLE, true);
+  }
+
+  onBackground(): void {
+    // 应用退入后台：更新AppStorage，驱动SystemLoadPage注销监听避免后台回调
+    logger.info('SystemLoad ability moved to background');
+    AppStorage.setOrCreate<boolean>(SYSTEM_LOAD_PAGE_VISIBLE, false);
+  }
+
   onWindowStageCreate(windowStage: window.WindowStage): void {
     windowStage.loadContent('pages/Index', (err: BusinessError) => {
       if (err.code) {

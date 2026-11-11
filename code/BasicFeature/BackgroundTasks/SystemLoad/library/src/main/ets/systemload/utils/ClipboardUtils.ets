@@ -343,20 +343,26 @@ export class ClipboardUtils {
       content.timestamp = Date.now();
       // 填充各类型数据（使用getMimeTypes替代getMimeType）
       const mimeTypes: string[] = pasteData.getMimeTypes();
+      let isTextLike: boolean = false;
       if (mimeTypes && mimeTypes.length > 0) {
         const mimeType: string = mimeTypes[0];
         if (mimeType === pasteboard.MIMETYPE_TEXT_PLAIN) {
           content.type = ClipboardDataType.TEXT;
           content.text = pasteData.getPrimaryText();
+          isTextLike = true;
         } else if (mimeType === pasteboard.MIMETYPE_TEXT_HTML) {
           content.type = ClipboardDataType.HTML;
           content.html = pasteData.getPrimaryHtml();
+          isTextLike = true;
         }
       }
-      const uri: string = pasteData.getPrimaryUri();
-      if (uri) {
-        content.type = ClipboardDataType.URI;
-        content.uri = uri;
+      // 仅当主MIME非文本/HTML时才按URI归类，避免纯文本被报告为URI
+      if (!isTextLike) {
+        const uri: string = pasteData.getPrimaryUri();
+        if (uri) {
+          content.type = ClipboardDataType.URI;
+          content.uri = uri;
+        }
       }
       hilog.info(DOMAIN, TAG, `getContent() result type: ${content.type}`);
       return content;

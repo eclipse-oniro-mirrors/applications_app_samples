@@ -45,6 +45,7 @@ export class CryptoResult {
 /**
  * 加密工具类
  * 提供常用的加密、摘要、编码等功能
+ * generateRandomBytes/generateRandomHex/generateUUID 使用密钥框架随机数发生器，具备密码学强度
  */
 export class CryptoUtils {
   /** Base64字符表 */
@@ -96,92 +97,55 @@ export class CryptoUtils {
   }
 
   /**
-   * 计算MD5摘要
+   * 计算摘要并仅记录结果长度
+   * 完整摘要值不写入日志，避免从日志还原哈希结果
    */
-  static async md5(data: string | ArrayBuffer): Promise<string> {
-    hilog.debug(DOMAIN, TAG, 'md5() called');
+  private static async digest(algorithm: string, label: string, data: string | ArrayBuffer): Promise<string> {
+    hilog.debug(DOMAIN, TAG, `${label}() called`);
     try {
-      const md: cryptoFramework.Md = cryptoFramework.createMd('MD5');
+      const md: cryptoFramework.Md = cryptoFramework.createMd(algorithm);
       const inputBuffer: ArrayBuffer = typeof data === 'string'
         ? CryptoUtils.stringToArrayBuffer(data)
         : data;
       // 使用DataBlob接口构造输入数据
       const inputData: cryptoFramework.DataBlob = { data: new Uint8Array(inputBuffer) };
       await md.update(inputData);
-      const output = await md.digest();
+      const output: cryptoFramework.DataBlob = await md.digest();
       const result: string = CryptoUtils.bytesToHex(output.data);
-      hilog.info(DOMAIN, TAG, `md5() result: ${result}`);
+      hilog.info(DOMAIN, TAG, `${label}() result length: ${result.length}`);
       return result;
     } catch (error) {
-      hilog.error(DOMAIN, TAG, `md5() failed: ${(error as Error).message}`);
+      hilog.error(DOMAIN, TAG, `${label}() failed: ${(error as Error).message}`);
       return '';
     }
+  }
+
+  /**
+   * 计算MD5摘要
+   */
+  static async md5(data: string | ArrayBuffer): Promise<string> {
+    return CryptoUtils.digest('MD5', 'md5', data);
   }
 
   /**
    * 计算SHA1摘要
    */
   static async sha1(data: string | ArrayBuffer): Promise<string> {
-    hilog.debug(DOMAIN, TAG, 'sha1() called');
-    try {
-      const md: cryptoFramework.Md = cryptoFramework.createMd('SHA1');
-      const inputBuffer: ArrayBuffer = typeof data === 'string'
-        ? CryptoUtils.stringToArrayBuffer(data)
-        : data;
-      const inputData: cryptoFramework.DataBlob = { data: new Uint8Array(inputBuffer) };
-      await md.update(inputData);
-      const output = await md.digest();
-      const result: string = CryptoUtils.bytesToHex(output.data);
-      hilog.info(DOMAIN, TAG, `sha1() result: ${result}`);
-      return result;
-    } catch (error) {
-      hilog.error(DOMAIN, TAG, `sha1() failed: ${(error as Error).message}`);
-      return '';
-    }
+    return CryptoUtils.digest('SHA1', 'sha1', data);
   }
 
   /**
    * 计算SHA256摘要
    */
   static async sha256(data: string | ArrayBuffer): Promise<string> {
-    hilog.debug(DOMAIN, TAG, 'sha256() called');
-    try {
-      const md: cryptoFramework.Md = cryptoFramework.createMd('SHA256');
-      const inputBuffer: ArrayBuffer = typeof data === 'string'
-        ? CryptoUtils.stringToArrayBuffer(data)
-        : data;
-      const inputData: cryptoFramework.DataBlob = { data: new Uint8Array(inputBuffer) };
-      await md.update(inputData);
-      const output = await md.digest();
-      const result: string = CryptoUtils.bytesToHex(output.data);
-      hilog.info(DOMAIN, TAG, `sha256() result: ${result}`);
-      return result;
-    } catch (error) {
-      hilog.error(DOMAIN, TAG, `sha256() failed: ${(error as Error).message}`);
-      return '';
-    }
+    return CryptoUtils.digest('SHA256', 'sha256', data);
   }
 
   /**
    * 计算SHA512摘要
    */
   static async sha512(data: string | ArrayBuffer): Promise<string> {
-    hilog.debug(DOMAIN, TAG, 'sha512() called');
-    try {
-      const md: cryptoFramework.Md = cryptoFramework.createMd('SHA512');
-      const inputBuffer: ArrayBuffer = typeof data === 'string'
-        ? CryptoUtils.stringToArrayBuffer(data)
-        : data;
-      const inputData: cryptoFramework.DataBlob = { data: new Uint8Array(inputBuffer) };
-      await md.update(inputData);
-      const output = await md.digest();
-      const result: string = CryptoUtils.bytesToHex(output.data);
-      hilog.info(DOMAIN, TAG, `sha512() result length: ${result.length}`);
-      return result;
-    } catch (error) {
-      hilog.error(DOMAIN, TAG, `sha512() failed: ${(error as Error).message}`);
-      return '';
-    }
+    return CryptoUtils.digest('SHA512', 'sha512', data);
   }
 
   /**
@@ -245,43 +209,58 @@ export class CryptoUtils {
   }
 
   /**
-   * 生成随机字节数组
+   * 生成密码学安全随机字节数组
+   *
+   * @param length - 随机字节长度，不得为负数
+   * @returns Uint8Array 随机字节数组
+   * @throws Error 随机数生成失败时抛出
    */
   static generateRandomBytes(length: number): Uint8Array {
     hilog.debug(DOMAIN, TAG, `generateRandomBytes() called with length: ${length}`);
-    const bytes: Uint8Array = new Uint8Array(length);
-    for (let i = 0; i < length; i++) {
-      bytes[i] = Math.floor(Math.random() * 256);
+    if (length < 0) {
+      hilog.error(DOMAIN, TAG, 'generateRandomBytes() failed: length must not be negative');
+      throw new Error('generateRandomBytes failed: length must not be negative');
     }
-    hilog.info(DOMAIN, TAG, `generateRandomBytes() generated ${length} bytes`);
-    return bytes;
+    if (length === 0) {
+      return new Uint8Array(0);
+    }
+    try {
+      // 使用密钥框架的随机数发生器，输出可用于token、nonce等安全敏感场景
+      const random: cryptoFramework.Random = cryptoFramework.createRandom();
+      const blob: cryptoFramework.DataBlob = random.generateRandomSync(length);
+      hilog.info(DOMAIN, TAG, `generateRandomBytes() generated ${blob.data.length} bytes`);
+      return blob.data;
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, `generateRandomBytes() failed: ${(error as Error).message}`);
+      throw new Error(`generateRandomBytes failed: ${(error as Error).message}`);
+    }
   }
 
   /**
-   * 生成随机十六进制字符串
+   * 生成随机十六进制字符串（基于密码学安全随机字节）
    */
   static generateRandomHex(length: number): string {
     hilog.debug(DOMAIN, TAG, `generateRandomHex() called with length: ${length}`);
     const bytes: Uint8Array = CryptoUtils.generateRandomBytes(Math.ceil(length / 2));
     const hex: string = CryptoUtils.bytesToHex(bytes);
     const result: string = hex.substring(0, length);
-    hilog.info(DOMAIN, TAG, `generateRandomHex() result: ${result}`);
+    hilog.info(DOMAIN, TAG, `generateRandomHex() result length: ${result.length}`);
     return result;
   }
 
   /**
-   * 生成UUID
+   * 生成UUID（v4版本，基于密码学安全随机字节）
    */
   static generateUUID(): string {
     hilog.debug(DOMAIN, TAG, 'generateUUID() called');
-    const hex: string = CryptoUtils.generateRandomHex(32);
-    const part1: string = hex.substr(0, 8);
-    const part2: string = hex.substr(8, 4);
-    const part3: string = '4' + hex.substr(13, 3);
-    const part4: string = (8 + parseInt(hex.substr(16, 1), 16) % 4).toString(16) + hex.substr(17, 3);
-    const part5: string = hex.substr(20, 12);
-    const result: string = `${part1}-${part2}-${part3}-${part4}-${part5}`;
-    hilog.info(DOMAIN, TAG, `generateUUID() result: ${result}`);
+    const bytes: Uint8Array = CryptoUtils.generateRandomBytes(16);
+    // 按RFC 4122设置版本号（4）与变体位
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    const hex: string = CryptoUtils.bytesToHex(bytes);
+    const result: string = `${hex.substr(0, 8)}-${hex.substr(8, 4)}-${hex.substr(12, 4)}-`
+      + `${hex.substr(16, 4)}-${hex.substr(20, 12)}`;
+    hilog.info(DOMAIN, TAG, `generateUUID() result length: ${result.length}`);
     return result;
   }
 }

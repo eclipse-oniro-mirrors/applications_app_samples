@@ -109,11 +109,14 @@ SystemLoad
 
 ## 相关权限
 
-systemLoad 接口和 `SystemLoadPage` 不需要申请权限。HAR 库模块、应用模块和测试模块仅为保留的可选工具类声明以下权限，SystemLoad 页面不会调用这些工具类：
+systemLoad 接口和 `SystemLoadPage` 不需要申请权限，SystemLoad 页面也不会调用库模块导出的可选工具类。应用模块和测试模块仅声明以下普通权限：
 
-- `ohos.permission.GET_NETWORK_INFO`：供 `NetworkUtils` 查询网络可用性和网络能力。
-- `ohos.permission.READ_PASTEBOARD`：供 `ClipboardUtils` 中读取剪贴板数据的方法使用，写入剪贴板不需要此权限。
-- `ohos.permission.sec.ACCESS_UDID`：仅供 `DeviceUtils.getUdid()` 使用。该权限属于受限权限，面向获得授权的系统应用，声明后不代表普通三方应用一定能够获得授权。无法获取 UDID 时，工具类会捕获异常并返回 `unknown`。
+- `ohos.permission.GET_NETWORK_INFO`：常规权限（system_grant/normal），供 `NetworkUtils` 查询网络可用性和网络能力。
+
+以下受限权限（system_basic，需 ACL 授权）不在本工程中声明：受限权限无法随无签名配置的 Sample 打包安装，在 `requestPermissions` 中声明会导致设备安装失败（错误码 9568289）。如果集成方确需使用对应工具类，应自行声明并通过 ACL 签名获取授权：
+
+- `ohos.permission.READ_PASTEBOARD`：供 `ClipboardUtils` 中读取剪贴板数据的方法使用，写入剪贴板不需要此权限。未授权时读取方法捕获异常并返回空字符串。
+- `ohos.permission.sec.ACCESS_UDID`：仅供 `DeviceUtils.getUdid()` 使用，面向获得授权的系统应用。无法获取 UDID 时，工具类会捕获异常并返回 `unknown`。
 
 `PermissionUtils` 是通用的权限检查和请求辅助类，调用方仍需声明并获取其调用接口所需的权限。systemLoad 接口本身不依赖上述任何可选工具类权限。
 
