@@ -1,0 +1,1796 @@
+{
+  "string": [
+    {
+      "name": "startup_text_0446",
+      "value": "确认开关状态已变化"
+    },
+    {
+      "name": "startup_text_0447",
+      "value": "导出一份查询历史"
+    },
+    {
+      "name": "startup_text_0448",
+      "value": "确认导出内容可读"
+    },
+    {
+      "name": "startup_text_0449",
+      "value": "查看故障与归档说明"
+    },
+    {
+      "name": "startup_text_0450",
+      "value": "了解常见现象与清理策略"
+    },
+    {
+      "name": "startup_text_0451",
+      "value": "确认历史保留策略"
+    },
+    {
+      "name": "startup_text_0452",
+      "value": "了解自动清理规则"
+    },
+    {
+      "name": "startup_text_0453",
+      "value": "设置完成"
+    },
+    {
+      "name": "startup_text_0454",
+      "value": "后续可在设置中重新进入引导"
+    },
+    {
+      "name": "startup_text_0455",
+      "value": "了解跨设备差异"
+    },
+    {
+      "name": "startup_text_0456",
+      "value": "同功能在不同设备结论不同"
+    },
+    {
+      "name": "startup_text_0457",
+      "value": "了解不支持不等于失败"
+    },
+    {
+      "name": "startup_text_0458",
+      "value": "确定性不支持不会重试"
+    },
+    {
+      "name": "startup_text_0459",
+      "value": "全部完成"
+    },
+    {
+      "name": "startup_text_0460",
+      "value": "下一步 "
+    },
+    {
+      "name": "startup_text_0461",
+      "value": "进度 "
+    },
+    {
+      "name": "startup_text_0462",
+      "value": "%｜完成 "
+    },
+    {
+      "name": "startup_text_0463",
+      "value": "、跳过 "
+    },
+    {
+      "name": "startup_text_0464",
+      "value": "引导步骤表自洽"
+    },
+    {
+      "name": "startup_text_0465",
+      "value": "缺少标题："
+    },
+    {
+      "name": "startup_text_0466",
+      "value": "耗时为负："
+    },
+    {
+      "name": "startup_text_0467",
+      "value": "依赖不存在："
+    },
+    {
+      "name": "startup_text_0468",
+      "value": "依赖自身："
+    },
+    {
+      "name": "startup_text_0469",
+      "value": "依赖顺序错误："
+    },
+    {
+      "name": "startup_text_0470",
+      "value": "首步不应有依赖"
+    },
+    {
+      "name": "startup_text_0471",
+      "value": "缺少必做步骤"
+    },
+    {
+      "name": "startup_text_0472",
+      "value": "近期"
+    },
+    {
+      "name": "startup_text_0473",
+      "value": "近周"
+    },
+    {
+      "name": "startup_text_0474",
+      "value": "归档"
+    },
+    {
+      "name": "startup_text_0475",
+      "value": "待清理"
+    },
+    {
+      "name": "startup_text_0476",
+      "value": "不限"
+    },
+    {
+      "name": "startup_text_0477",
+      "value": " 小时"
+    },
+    {
+      "name": "startup_text_0478",
+      "value": "可导出"
+    },
+    {
+      "name": "startup_text_0479",
+      "value": "不导出"
+    },
+    {
+      "name": "startup_text_0480",
+      "value": "一小时内的记录全部保留，用于即时回溯"
+    },
+    {
+      "name": "startup_text_0481",
+      "value": "六小时内保留到 40 条"
+    },
+    {
+      "name": "startup_text_0482",
+      "value": "一天内保留到 60 条"
+    },
+    {
+      "name": "startup_text_0483",
+      "value": "三天内保留到 80 条"
+    },
+    {
+      "name": "startup_text_0484",
+      "value": "一周内保留到 100 条"
+    },
+    {
+      "name": "startup_text_0485",
+      "value": "两周内保留到 120 条"
+    },
+    {
+      "name": "startup_text_0486",
+      "value": "一个月内保留到 150 条，错误信息截断"
+    },
+    {
+      "name": "startup_text_0487",
+      "value": "两个月内保留到 200 条，不再保留错误详情"
+    },
+    {
+      "name": "startup_text_0488",
+      "value": "三个月内保留到 240 条"
+    },
+    {
+      "name": "startup_text_0489",
+      "value": "半年内保留到 280 条，不再参与导出"
+    },
+    {
+      "name": "startup_text_0490",
+      "value": "超过半年按过期处理，由用户确认后清理"
+    },
+    {
+      "name": "startup_text_0491",
+      "value": " 条：近期 "
+    },
+    {
+      "name": "startup_text_0492",
+      "value": "、近周 "
+    },
+    {
+      "name": "startup_text_0493",
+      "value": "归档 "
+    },
+    {
+      "name": "startup_text_0494",
+      "value": "、待清理 "
+    },
+    {
+      "name": "startup_text_0495",
+      "value": "截断错误详情"
+    },
+    {
+      "name": "startup_text_0496",
+      "value": "丢弃最旧记录"
+    },
+    {
+      "name": "startup_text_0497",
+      "value": "整档清理"
+    },
+    {
+      "name": "startup_text_0498",
+      "value": "无需压缩"
+    },
+    {
+      "name": "startup_text_0499",
+      "value": "清理 "
+    },
+    {
+      "name": "startup_text_0500",
+      "value": " 条需要用户确认"
+    },
+    {
+      "name": "startup_text_0501",
+      "value": "：无记录"
+    },
+    {
+      "name": "startup_text_0502",
+      "value": " 条 -> "
+    },
+    {
+      "name": "startup_text_0503",
+      "value": "年龄上限非单调："
+    },
+    {
+      "name": "startup_text_0504",
+      "value": "条数上限非单调："
+    },
+    {
+      "name": "startup_text_0505",
+      "value": "兜底档数量异常："
+    },
+    {
+      "name": "startup_text_0506",
+      "value": "缺少过期档"
+    },
+    {
+      "name": "startup_text_0507",
+      "value": "最后一档应为不限年龄"
+    },
+    {
+      "name": "startup_text_0508",
+      "value": " 条规则"
+    },
+    {
+      "name": "startup_text_0509",
+      "value": "全部结果"
+    },
+    {
+      "name": "startup_text_0510",
+      "value": "全部来源"
+    },
+    {
+      "name": "startup_text_0511",
+      "value": "回到前台"
+    },
+    {
+      "name": "startup_text_0512",
+      "value": "全部时间"
+    },
+    {
+      "name": "startup_text_0513",
+      "value": "近 1 小时"
+    },
+    {
+      "name": "startup_text_0514",
+      "value": "近 24 小时"
+    },
+    {
+      "name": "startup_text_0515",
+      "value": "近 7 天"
+    },
+    {
+      "name": "startup_text_0516",
+      "value": " 之后"
+    },
+    {
+      "name": "startup_text_0517",
+      "value": "耗时缺失"
+    },
+    {
+      "name": "startup_text_0518",
+      "value": "｜错误 "
+    },
+    {
+      "name": "startup_text_0519",
+      "value": "当前筛选没有记录"
+    },
+    {
+      "name": "startup_text_0520",
+      "value": "暂无历史记录"
+    },
+    {
+      "name": "startup_text_0521",
+      "value": "｜不支持 "
+    },
+    {
+      "name": "startup_text_0522",
+      "value": "超时 "
+    },
+    {
+      "name": "startup_text_0523",
+      "value": "最近有效 #"
+    },
+    {
+      "name": "startup_text_0524",
+      "value": "无"
+    },
+    {
+      "name": "startup_text_0525",
+      "value": "最新 "
+    },
+    {
+      "name": "startup_text_0526",
+      "value": "最早 "
+    },
+    {
+      "name": "startup_text_0527",
+      "value": " 条将在一天内到期"
+    },
+    {
+      "name": "startup_text_0528",
+      "value": "暂无到期记录"
+    },
+    {
+      "name": "startup_text_0529",
+      "value": "没有可比较的样本"
+    },
+    {
+      "name": "startup_text_0530",
+      "value": "只有一条样本 #"
+    },
+    {
+      "name": "startup_text_0531",
+      "value": "前 #"
+    },
+    {
+      "name": "startup_text_0532",
+      "value": "后 #"
+    },
+    {
+      "name": "startup_text_0533",
+      "value": "前后结果不同，请人工确认是否与设置变更一致"
+    },
+    {
+      "name": "startup_text_0534",
+      "value": "前后结果一致"
+    },
+    {
+      "name": "startup_text_0535",
+      "value": "间隔 "
+    },
+    {
+      "name": "startup_text_0536",
+      "value": "暂无可导出内容"
+    },
+    {
+      "name": "startup_text_0537",
+      "value": "…（共 "
+    },
+    {
+      "name": "startup_text_0538",
+      "value": " 行）"
+    },
+    {
+      "name": "startup_text_0539",
+      "value": "选定记录已不在当前范围，请重选（不会引用范围外记录）"
+    },
+    {
+      "name": "startup_text_0540",
+      "value": "请选择不同记录，且“前”样本时间不得晚于“后”样本"
+    },
+    {
+      "name": "startup_text_0541",
+      "value": "普通历史对比不证明设置变更；设置回访请查看明确关联的session/query事实。"
+    },
+    {
+      "name": "startup_text_0542",
+      "value": "请选择当前范围内记录查看详情"
+    },
+    {
+      "name": "startup_text_0543",
+      "value": "结果："
+    },
+    {
+      "name": "startup_text_0544",
+      "value": "；能力："
+    },
+    {
+      "name": "startup_text_0545",
+      "value": "；状态："
+    },
+    {
+      "name": "startup_text_0546",
+      "value": "错误码："
+    },
+    {
+      "name": "startup_text_0547",
+      "value": "本机错误说明："
+    },
+    {
+      "name": "startup_text_0548",
+      "value": "没有采样日期"
+    },
+    {
+      "name": "startup_text_0549",
+      "value": " 分钟｜每日 "
+    },
+    {
+      "name": "startup_text_0550",
+      "value": " 次｜"
+    },
+    {
+      "name": "startup_text_0551",
+      "value": "总计 "
+    },
+    {
+      "name": "startup_text_0552",
+      "value": " 次｜静默 "
+    },
+    {
+      "name": "startup_text_0553",
+      "value": "今日 "
+    },
+    {
+      "name": "startup_text_0554",
+      "value": " 次｜累计 "
+    },
+    {
+      "name": "startup_text_0555",
+      "value": " 次"
+    },
+    {
+      "name": "startup_text_0556",
+      "value": "未获取"
+    },
+    {
+      "name": "startup_text_0557",
+      "value": "用户已关闭提醒"
+    },
+    {
+      "name": "startup_text_0558",
+      "value": "自启已开启，无需提醒"
+    },
+    {
+      "name": "startup_text_0559",
+      "value": "尚未确认处于未开启状态，不提醒"
+    },
+    {
+      "name": "startup_text_0560",
+      "value": "累计提醒已达 "
+    },
+    {
+      "name": "startup_text_0561",
+      "value": "今日提醒已达 "
+    },
+    {
+      "name": "startup_text_0562",
+      "value": "当前处于静默时段"
+    },
+    {
+      "name": "startup_text_0563",
+      "value": "距上次提醒不足 "
+    },
+    {
+      "name": "startup_text_0564",
+      "value": " 分钟"
+    },
+    {
+      "name": "startup_text_0565",
+      "value": "可以提醒用户前往系统设置开启自启"
+    },
+    {
+      "name": "startup_text_0566",
+      "value": "提醒配置自洽"
+    },
+    {
+      "name": "startup_text_0567",
+      "value": "提醒间隔必须为正"
+    },
+    {
+      "name": "startup_text_0568",
+      "value": "提醒次数上限必须为正"
+    },
+    {
+      "name": "startup_text_0569",
+      "value": "总上限不应小于每日上限"
+    },
+    {
+      "name": "startup_text_0570",
+      "value": "静默开始小时越界"
+    },
+    {
+      "name": "startup_text_0571",
+      "value": "静默结束小时越界"
+    },
+    {
+      "name": "startup_text_0572",
+      "value": "未启用静默时段"
+    },
+    {
+      "name": "startup_text_0573",
+      "value": "静默时段 "
+    },
+    {
+      "name": "startup_text_0574",
+      "value": ":00 至次日 "
+    },
+    {
+      "name": "startup_text_0575",
+      "value": "已授权"
+    },
+    {
+      "name": "startup_text_0576",
+      "value": "已拒绝"
+    },
+    {
+      "name": "startup_text_0577",
+      "value": "已永久拒绝"
+    },
+    {
+      "name": "startup_text_0578",
+      "value": "无需授权"
+    },
+    {
+      "name": "startup_text_0579",
+      "value": "｜最多 "
+    },
+    {
+      "name": "startup_text_0580",
+      "value": "当前系统版本不支持自启相关权限"
+    },
+    {
+      "name": "startup_text_0581",
+      "value": "API 9 起才有对应权限项"
+    },
+    {
+      "name": "startup_text_0582",
+      "value": "仅允许申请一次，被拒后请前往系统设置开启"
+    },
+    {
+      "name": "startup_text_0583",
+      "value": "低版本仅支持一次系统弹窗"
+    },
+    {
+      "name": "startup_text_0584",
+      "value": "可以再次申请，被永久拒绝后需前往系统设置"
+    },
+    {
+      "name": "startup_text_0585",
+      "value": "12 起允许两次申请"
+    },
+    {
+      "name": "startup_text_0586",
+      "value": "可以多次申请，但每次申请都应说明用途"
+    },
+    {
+      "name": "startup_text_0587",
+      "value": "18 起申请次数放宽"
+    },
+    {
+      "name": "startup_text_0588",
+      "value": "该版本未验证，请直接前往系统设置"
+    },
+    {
+      "name": "startup_text_0589",
+      "value": "高于已验证版本，不做自动申请"
+    },
+    {
+      "name": "startup_text_0590",
+      "value": "已获得授权，无需再次申请"
+    },
+    {
+      "name": "startup_text_0591",
+      "value": "授权状态正常"
+    },
+    {
+      "name": "startup_text_0592",
+      "value": "当前设备与版本无需额外授权"
+    },
+    {
+      "name": "startup_text_0593",
+      "value": "能力矩阵判定为无需权限"
+    },
+    {
+      "name": "startup_text_0594",
+      "value": "已被永久拒绝，只能前往系统设置手动开启"
+    },
+    {
+      "name": "startup_text_0595",
+      "value": "系统未提供权限弹窗，请前往系统设置"
+    },
+    {
+      "name": "startup_text_0596",
+      "value": "systemDialogAvailable 为 false"
+    },
+    {
+      "name": "startup_text_0597",
+      "value": "已申请 "
+    },
+    {
+      "name": "startup_text_0598",
+      "value": " 次，请前往系统设置开启"
+    },
+    {
+      "name": "startup_text_0599",
+      "value": "本次会话已申请过，请前往系统设置"
+    },
+    {
+      "name": "startup_text_0600",
+      "value": "权限规则表自洽"
+    },
+    {
+      "name": "startup_text_0601",
+      "value": "规则重复："
+    },
+    {
+      "name": "startup_text_0602",
+      "value": "区间非法："
+    },
+    {
+      "name": "startup_text_0603",
+      "value": "缺少文案："
+    },
+    {
+      "name": "startup_text_0604",
+      "value": "申请策略与次数冲突："
+    },
+    {
+      "name": "startup_text_0605",
+      "value": " 无规则覆盖"
+    },
+    {
+      "name": "startup_text_0606",
+      "value": "手动检查系统设置"
+    },
+    {
+      "name": "startup_text_0607",
+      "value": "本示例仅查询，不申请额外权限、不直接开启/关闭自启、不跳转系统设置。设备可能不提供相关选项。"
+    },
+    {
+      "name": "startup_text_0608",
+      "value": "成功刷新后点击“开始手动设置回访”"
+    },
+    {
+      "name": "startup_text_0609",
+      "value": "保存离开前的查询ID与时间"
+    },
+    {
+      "name": "startup_text_0610",
+      "value": "手动离开应用并打开系统设置"
+    },
+    {
+      "name": "startup_text_0611",
+      "value": "查找本应用的启动管理；名称和可用性以实际设备为准"
+    },
+    {
+      "name": "startup_text_0612",
+      "value": "返回本应用查看重新查询和前后对比"
+    },
+    {
+      "name": "startup_text_0613",
+      "value": "只检测前后台，无法证明实际进入设置或修改开关"
+    },
+    {
+      "name": "startup_text_0614",
+      "value": "［可选］"
+    },
+    {
+      "name": "startup_text_0615",
+      "value": "｜共 "
+    },
+    {
+      "name": "startup_text_0616",
+      "value": " 步，其中必做 "
+    },
+    {
+      "name": "startup_text_0617",
+      "value": " 步"
+    },
+    {
+      "name": "startup_text_0618",
+      "value": " 手动指引（不推断设备能力）"
+    },
+    {
+      "name": "startup_text_0619",
+      "value": "尚未判断"
+    },
+    {
+      "name": "startup_text_0620",
+      "value": "无法比较："
+    },
+    {
+      "name": "startup_text_0621",
+      "value": "状态已变化："
+    },
+    {
+      "name": "startup_text_0622",
+      "value": "状态未变化（仍为 "
+    },
+    {
+      "name": "startup_text_0623",
+      "value": "缺少离开前样本"
+    },
+    {
+      "name": "startup_text_0624",
+      "value": "缺少返回后样本"
+    },
+    {
+      "name": "startup_text_0625",
+      "value": "离开前样本不可比（"
+    },
+    {
+      "name": "startup_text_0626",
+      "value": "返回后样本不可比（"
+    },
+    {
+      "name": "startup_text_0627",
+      "value": "已展示设置指引，请前往系统设置后返回"
+    },
+    {
+      "name": "startup_text_0628",
+      "value": "当前阶段 "
+    },
+    {
+      "name": "startup_text_0629",
+      "value": " 不接受离开事件"
+    },
+    {
+      "name": "startup_text_0630",
+      "value": "已记录离开时间"
+    },
+    {
+      "name": "startup_text_0631",
+      "value": " 不接受返回事件"
+    },
+    {
+      "name": "startup_text_0632",
+      "value": "已返回应用，请重新查询"
+    },
+    {
+      "name": "startup_text_0633",
+      "value": " 不接受回查事件"
+    },
+    {
+      "name": "startup_text_0634",
+      "value": "已完成回访对比"
+    },
+    {
+      "name": "startup_text_0635",
+      "value": "用户取消，未做判断"
+    },
+    {
+      "name": "startup_text_0636",
+      "value": "已取消回访"
+    },
+    {
+      "name": "startup_text_0637",
+      "value": "离开超过 10 分钟未返回，判断为未完成"
+    },
+    {
+      "name": "startup_text_0638",
+      "value": "回访已过期"
+    },
+    {
+      "name": "startup_text_0639",
+      "value": "已恢复回访；仅确认应用前后台，不证明实际进入设置"
+    },
+    {
+      "name": "startup_text_0640",
+      "value": "尚无选定的终止回访"
+    },
+    {
+      "name": "startup_text_0641",
+      "value": "｜指引版本 "
+    },
+    {
+      "name": "startup_text_0642",
+      "value": "创建 "
+    },
+    {
+      "name": "startup_text_0643",
+      "value": "｜后台 "
+    },
+    {
+      "name": "startup_text_0644",
+      "value": "｜前台 "
+    },
+    {
+      "name": "startup_text_0645",
+      "value": "终止/最后回查 "
+    },
+    {
+      "name": "startup_text_0646",
+      "value": "｜取消 "
+    },
+    {
+      "name": "startup_text_0647",
+      "value": "离开前 "
+    },
+    {
+      "name": "startup_text_0648",
+      "value": "返回后 "
+    },
+    {
+      "name": "startup_text_0649",
+      "value": "这些事实只证明应用前后台和查询结果，不证明用户进入设置、修改开关或实际开机拉起。"
+    },
+    {
+      "name": "startup_text_0650",
+      "value": "回查尝试 "
+    },
+    {
+      "name": "startup_text_0651",
+      "value": "｜错误码 "
+    },
+    {
+      "name": "startup_text_0652",
+      "value": "全部形态"
+    },
+    {
+      "name": "startup_text_0653",
+      "value": "全部系统"
+    },
+    {
+      "name": "startup_text_0654",
+      "value": "API 9 起才开放 autoStartupManager，低于 9 一律视为系统不支持。"
+    },
+    {
+      "name": "startup_text_0655",
+      "value": "当前系统版本过低，无法使用开机自启设置。"
+    },
+    {
+      "name": "startup_text_0656",
+      "value": "穿戴形态在 API 12 前不开放自启设置入口。"
+    },
+    {
+      "name": "startup_text_0657",
+      "value": "当前设备形态暂不支持开机自启。"
+    },
+    {
+      "name": "startup_text_0658",
+      "value": "TV 形态在 API 12 前不开放自启设置入口。"
+    },
+    {
+      "name": "startup_text_0659",
+      "value": "OpenHarmony API 9~11 仅开放状态查询，设置需跳系统页面。"
+    },
+    {
+      "name": "startup_text_0660",
+      "value": "可以查看开机自启状态；开启需在系统设置中操作。"
+    },
+    {
+      "name": "startup_text_0661",
+      "value": "商用发行版 API 9~11 查询状态需已授予自启相关权限。"
+    },
+    {
+      "name": "startup_text_0662",
+      "value": "需要授予权限后才能查看开机自启状态。"
+    },
+    {
+      "name": "startup_text_0663",
+      "value": "穿戴形态自 API 12 起只开放查询，不开放设置。"
+    },
+    {
+      "name": "startup_text_0664",
+      "value": "当前设备可以查看状态，但不能在应用内开启。"
+    },
+    {
+      "name": "startup_text_0665",
+      "value": "OpenHarmony API 12 起 TV 形态开放查询与设置。"
+    },
+    {
+      "name": "startup_text_0666",
+      "value": "可以查看并设置开机自启。"
+    },
+    {
+      "name": "startup_text_0667",
+      "value": "商用发行版 TV 形态设置自启需系统签名权限。"
+    },
+    {
+      "name": "startup_text_0668",
+      "value": "当前设备需要额外授权才能设置开机自启。"
+    },
+    {
+      "name": "startup_text_0669",
+      "value": "OpenHarmony API 12~13 手机与平板开放查询与设置。"
+    },
+    {
+      "name": "startup_text_0670",
+      "value": "商用发行版手机与平板需要用户授予自启权限。"
+    },
+    {
+      "name": "startup_text_0671",
+      "value": "需要授予权限后才能设置开机自启。"
+    },
+    {
+      "name": "startup_text_0672",
+      "value": "穿戴形态在 API 18 前不开放设置，仅提供查询。"
+    },
+    {
+      "name": "startup_text_0673",
+      "value": "API 14~17 TV 形态开放查询与设置。"
+    },
+    {
+      "name": "startup_text_0674",
+      "value": "API 14~17 手机与平板开放查询与设置。"
+    },
+    {
+      "name": "startup_text_0675",
+      "value": "API 18 起全部形态开放查询与设置。"
+    },
+    {
+      "name": "startup_text_0676",
+      "value": "高于已验证的 API 26，接口行为未确认，按未知处理。"
+    },
+    {
+      "name": "startup_text_0677",
+      "value": "当前系统版本尚未验证，结果仅供参考。"
+    },
+    {
+      "name": "startup_text_0678",
+      "value": "API 9~11 无法识别系统发行版，按未知处理，不假定支持。"
+    },
+    {
+      "name": "startup_text_0679",
+      "value": "暂时无法判断当前系统的自启能力。"
+    },
+    {
+      "name": "startup_text_0680",
+      "value": "API 12~17 无法识别系统发行版，按未知处理，不假定支持。"
+    },
+    {
+      "name": "startup_text_0681",
+      "value": "无法识别设备形态时不假定支持，只展示手动指引。"
+    },
+    {
+      "name": "startup_text_0682",
+      "value": "暂时无法判断当前设备的自启能力。"
+    },
+    {
+      "name": "startup_text_0683",
+      "value": "未命中规则"
+    },
+    {
+      "name": "startup_text_0684",
+      "value": "请补充能力矩阵规则"
+    },
+    {
+      "name": "startup_text_0685",
+      "value": "操作成功。"
+    },
+    {
+      "name": "startup_text_0686",
+      "value": "调用返回成功不代表系统已实际生效，仍需回读状态确认。"
+    },
+    {
+      "name": "startup_text_0687",
+      "value": "缺少所需权限，无法继续。"
+    },
+    {
+      "name": "startup_text_0688",
+      "value": "权限校验失败；确认 ohos.permission 声明已生效且用户已授予。"
+    },
+    {
+      "name": "startup_text_0689",
+      "value": "当前应用不是系统应用。"
+    },
+    {
+      "name": "startup_text_0690",
+      "value": "该接口仅对系统应用开放，三方应用应改用公开接口或引导用户手动设置。"
+    },
+    {
+      "name": "startup_text_0691",
+      "value": "请求参数不合法。"
+    },
+    {
+      "name": "startup_text_0692",
+      "value": "检查入参类型、取值范围与必填项，不要重试同样的非法参数。"
+    },
+    {
+      "name": "startup_text_0693",
+      "value": "当前设备不支持该能力。"
+    },
+    {
+      "name": "startup_text_0694",
+      "value": "设备能力缺失，属于不支持而非失败；不应展示\"重试\"按钮。"
+    },
+    {
+      "name": "startup_text_0695",
+      "value": "参数无效。"
+    },
+    {
+      "name": "startup_text_0696",
+      "value": "Ability 层参数校验失败；核对 want、bundleName 与请求码。"
+    },
+    {
+      "name": "startup_text_0697",
+      "value": "上下文已失效。"
+    },
+    {
+      "name": "startup_text_0698",
+      "value": "Ability 已销毁或上下文未初始化，需在有效生命周期内重新发起。"
+    },
+    {
+      "name": "startup_text_0699",
+      "value": "系统内部错误。"
+    },
+    {
+      "name": "startup_text_0700",
+      "value": "内部错误通常可重试一次；连续失败应记录日志并停止重试。"
+    },
+    {
+      "name": "startup_text_0701",
+      "value": "目标不是前台 Ability。"
+    },
+    {
+      "name": "startup_text_0702",
+      "value": "跳转设置页需在可见状态下发起。"
+    },
+    {
+      "name": "startup_text_0703",
+      "value": "未找到目标 Ability。"
+    },
+    {
+      "name": "startup_text_0704",
+      "value": "系统设置页不存在或名称不匹配，应保留手动指引。"
+    },
+    {
+      "name": "startup_text_0705",
+      "value": "文本超出上限。"
+    },
+    {
+      "name": "startup_text_0706",
+      "value": "错误信息写入前必须截断，避免二次失败。"
+    },
+    {
+      "name": "startup_text_0707",
+      "value": "必填字段为空。"
+    },
+    {
+      "name": "startup_text_0708",
+      "value": "空值不应进入持久化层。"
+    },
+    {
+      "name": "startup_text_0709",
+      "value": "读取本地记录失败。"
+    },
+    {
+      "name": "startup_text_0710",
+      "value": "存档损坏时应保留空列表并提示，不要写入覆盖。"
+    },
+    {
+      "name": "startup_text_0711",
+      "value": "写入本地记录失败。"
+    },
+    {
+      "name": "startup_text_0712",
+      "value": "写入失败不得改变内存中的既有记录。"
+    },
+    {
+      "name": "startup_text_0713",
+      "value": "查询超时。"
+    },
+    {
+      "name": "startup_text_0714",
+      "value": "超时是可重试状态，不等于不支持；记录应标记 timeout 而非 failure。"
+    },
+    {
+      "name": "startup_text_0715",
+      "value": "未知结果。"
+    },
+    {
+      "name": "startup_text_0716",
+      "value": "未知结果不计入成功或失败，单独统计。"
+    },
+    {
+      "name": "startup_text_0717",
+      "value": "成功 "
+    },
+    {
+      "name": "startup_text_0718",
+      "value": "开机自启"
+    },
+    {
+      "name": "startup_text_0719",
+      "value": "已开启开机自启"
+    },
+    {
+      "name": "startup_text_0720",
+      "value": "未开启开机自启"
+    },
+    {
+      "name": "startup_text_0721",
+      "value": "暂时无法确定当前状态"
+    },
+    {
+      "name": "startup_text_0722",
+      "value": "查询失败，可重试一次"
+    },
+    {
+      "name": "startup_text_0723",
+      "value": "当前设备或系统不支持该能力"
+    },
+    {
+      "name": "startup_text_0724",
+      "value": "请前往系统设置中修改"
+    },
+    {
+      "name": "startup_text_0725",
+      "value": "需要授予权限后才能继续"
+    },
+    {
+      "name": "startup_text_0726",
+      "value": "没有可导出的记录"
+    },
+    {
+      "name": "startup_text_0727",
+      "value": "已生成导出内容"
+    },
+    {
+      "name": "startup_text_0728",
+      "value": "还没有查询记录"
+    },
+    {
+      "name": "startup_text_0729",
+      "value": "自检已完成"
+    },
+    {
+      "name": "startup_text_0730",
+      "value": "设置指引"
+    },
+    {
+      "name": "startup_text_0731",
+      "value": "使用引导"
+    },
+    {
+      "name": "startup_text_0732",
+      "value": "开启提醒"
+    },
+    {
+      "name": "startup_text_0733",
+      "value": "共 {count} 条记录，最近一次在 {time}"
+    },
+    {
+      "name": "startup_text_0734",
+      "value": "已申请 {asked} 次，最多 {max} 次"
+    },
+    {
+      "name": "startup_text_0735",
+      "value": "距离下次可提醒还有 {minutes} 分钟"
+    },
+    {
+      "name": "startup_text_0736",
+      "value": "{format} 格式，{rows} 行，{size} 字节"
+    },
+    {
+      "name": "startup_text_0737",
+      "value": "第 {current} 步，共 {total} 步（{percent}%）"
+    },
+    {
+      "name": "startup_text_0738",
+      "value": "{passed} 项通过，{warned} 项提醒，{failed} 项不通过"
+    },
+    {
+      "name": "startup_text_0739",
+      "value": "文案表自洽"
+    },
+    {
+      "name": "startup_text_0740",
+      "value": "文案键重复："
+    },
+    {
+      "name": "startup_text_0741",
+      "value": "文案为空："
+    },
+    {
+      "name": "startup_text_0742",
+      "value": "长度上限非法："
+    },
+    {
+      "name": "startup_text_0743",
+      "value": "文案超长："
+    },
+    {
+      "name": "startup_text_0744",
+      "value": "模板为空："
+    },
+    {
+      "name": "startup_text_0745",
+      "value": "占位符不闭合："
+    },
+    {
+      "name": "startup_text_0746",
+      "value": "占位符解析不一致："
+    },
+    {
+      "name": "startup_text_0747",
+      "value": " 个占位符）"
+    },
+    {
+      "name": "startup_text_0748",
+      "value": "未知时间"
+    },
+    {
+      "name": "startup_text_0749",
+      "value": "时间未知"
+    },
+    {
+      "name": "startup_text_0750",
+      "value": "刚刚"
+    },
+    {
+      "name": "startup_text_0751",
+      "value": " 分钟前"
+    },
+    {
+      "name": "startup_text_0752",
+      "value": " 小时前"
+    },
+    {
+      "name": "startup_text_0753",
+      "value": " 天前"
+    },
+    {
+      "name": "startup_text_0754",
+      "value": "未知耗时"
+    },
+    {
+      "name": "startup_text_0755",
+      "value": "id,时间,来源,结果,结论,错误码,耗时(ms)"
+    },
+    {
+      "name": "startup_text_0756",
+      "value": "| # | 时间 | 来源 | 结果 | 结论 | 错误码 |"
+    },
+    {
+      "name": "startup_text_0757",
+      "value": "错误信息："
+    },
+    {
+      "name": "startup_text_0758",
+      "value": "未查询"
+    },
+    {
+      "name": "startup_text_0759",
+      "value": "查询"
+    },
+    {
+      "name": "startup_text_0760",
+      "value": "待检测"
+    },
+    {
+      "name": "startup_text_0761",
+      "value": "正在查询"
+    },
+    {
+      "name": "startup_text_0762",
+      "value": "等待查询"
+    },
+    {
+      "name": "startup_text_0763",
+      "value": "本应用已开启"
+    },
+    {
+      "name": "startup_text_0764",
+      "value": "本应用未开启"
+    },
+    {
+      "name": "startup_text_0765",
+      "value": "查询暂不可用"
+    },
+    {
+      "name": "startup_text_0766",
+      "value": "查询超时"
+    },
+    {
+      "name": "startup_text_0767",
+      "value": "清空查询记录？"
+    },
+    {
+      "name": "startup_text_0768",
+      "value": "清空本机查询历史，已保存归档不受影响。"
+    },
+    {
+      "name": "startup_text_0769",
+      "value": "取消"
+    },
+    {
+      "name": "startup_text_0770",
+      "value": "确认"
+    },
+    {
+      "name": "startup_text_0771",
+      "value": "结果分类："
+    },
+    {
+      "name": "startup_text_0772",
+      "value": "收起详情 −"
+    },
+    {
+      "name": "startup_text_0773",
+      "value": "查看详情 +"
+    },
+    {
+      "name": "startup_text_0774",
+      "value": "耗时："
+    },
+    {
+      "name": "startup_text_0775",
+      "value": "查询记录"
+    },
+    {
+      "name": "startup_text_0776",
+      "value": "关闭"
+    },
+    {
+      "name": "startup_text_0777",
+      "value": "清空记录"
+    },
+    {
+      "name": "startup_text_0778",
+      "value": "脱敏导出"
+    },
+    {
+      "name": "startup_text_0779",
+      "value": "暂无查询记录"
+    },
+    {
+      "name": "startup_text_0780",
+      "value": "请选择已保存归档查看详情"
+    },
+    {
+      "name": "startup_text_0781",
+      "value": "归档 #"
+    },
+    {
+      "name": "startup_text_0782",
+      "value": "｜原查询 #"
+    },
+    {
+      "name": "startup_text_0783",
+      "value": "\n长期归档不保存原始错误说明；不证明实际开机拉起。"
+    },
+    {
+      "name": "startup_text_0784",
+      "value": "正在处理，尚未确认保存"
+    },
+    {
+      "name": "startup_text_0785",
+      "value": "操作未完成，请重试；未确认成功"
+    },
+    {
+      "name": "startup_text_0786",
+      "value": "来源筛选已更新"
+    },
+    {
+      "name": "startup_text_0787",
+      "value": "结果筛选已更新"
+    },
+    {
+      "name": "startup_text_0788",
+      "value": "确认清空 "
+    },
+    {
+      "name": "startup_text_0789",
+      "value": " 条已保存归档？live历史不受影响。"
+    },
+    {
+      "name": "startup_text_0790",
+      "value": "确认停用后续新查询的自动归档？已保存证据不删除。"
+    },
+    {
+      "name": "startup_text_0791",
+      "value": "确认启用自动归档，并保存当前范围？仅保留实际查询证据，不保存原始错误说明。"
+    },
+    {
+      "name": "startup_text_0792",
+      "value": "#归档编号或精确错误码"
+    },
+    {
+      "name": "startup_text_0793",
+      "value": "检索条件已更新"
+    },
+    {
+      "name": "startup_text_0794",
+      "value": "日期 yyyy-MM-dd（空表示不限）"
+    },
+    {
+      "name": "startup_text_0795",
+      "value": "日期筛选已更新"
+    },
+    {
+      "name": "startup_text_0796",
+      "value": "手动"
+    },
+    {
+      "name": "startup_text_0797",
+      "value": "设置后"
+    },
+    {
+      "name": "startup_text_0798",
+      "value": "首次"
+    },
+    {
+      "name": "startup_text_0799",
+      "value": "前台"
+    },
+    {
+      "name": "startup_text_0800",
+      "value": "本机查询证据归档"
+    },
+    {
+      "name": "startup_text_0801",
+      "value": "收起保存与隐私说明 −"
+    },
+    {
+      "name": "startup_text_0802",
+      "value": "保存与隐私说明 +"
+    },
+    {
+      "name": "startup_text_0803",
+      "value": "已保存证据不随live最近20条裁剪；不保存原始错误说明，不证明实际开机拉起。"
+    },
+    {
+      "name": "startup_text_0804",
+      "value": "｜自动 "
+    },
+    {
+      "name": "startup_text_0805",
+      "value": "启用"
+    },
+    {
+      "name": "startup_text_0806",
+      "value": "待保存 "
+    },
+    {
+      "name": "startup_text_0807",
+      "value": "暂停"
+    },
+    {
+      "name": "startup_text_0808",
+      "value": "可处理"
+    },
+    {
+      "name": "startup_text_0809",
+      "value": " 条｜当前范围 "
+    },
+    {
+      "name": "startup_text_0810",
+      "value": " 条｜"
+    },
+    {
+      "name": "startup_text_0811",
+      "value": "/1048576 字节"
+    },
+    {
+      "name": "startup_text_0812",
+      "value": "待保存项尚未确认落盘；存储故障或容量满时自动采集会暂停，后续查询仍只有live最近20条。"
+    },
+    {
+      "name": "startup_text_0813",
+      "value": "保存当前范围到归档"
+    },
+    {
+      "name": "startup_text_0814",
+      "value": "停用自动归档"
+    },
+    {
+      "name": "startup_text_0815",
+      "value": "启用自动归档"
+    },
+    {
+      "name": "startup_text_0816",
+      "value": "确认自动归档设置"
+    },
+    {
+      "name": "startup_text_0817",
+      "value": "已取消，归档未改变"
+    },
+    {
+      "name": "startup_text_0818",
+      "value": "重试读取/保存"
+    },
+    {
+      "name": "startup_text_0819",
+      "value": "复制脱敏归档"
+    },
+    {
+      "name": "startup_text_0820",
+      "value": "清理预览"
+    },
+    {
+      "name": "startup_text_0821",
+      "value": "清空归档"
+    },
+    {
+      "name": "startup_text_0822",
+      "value": "确认清理"
+    },
+    {
+      "name": "startup_text_0823",
+      "value": "确认清空"
+    },
+    {
+      "name": "startup_text_0824",
+      "value": "当前范围没有已保存归档"
+    },
+    {
+      "name": "startup_text_0825",
+      "value": "上一页"
+    },
+    {
+      "name": "startup_text_0826",
+      "value": "下一页"
+    },
+    {
+      "name": "startup_text_0827",
+      "value": "按日期分布"
+    },
+    {
+      "name": "startup_text_0828",
+      "value": "处于免打扰时段"
+    },
+    {
+      "name": "startup_text_0829",
+      "value": "不在免打扰时段"
+    },
+    {
+      "name": "startup_text_0830",
+      "value": " 条用户可见文案"
+    },
+    {
+      "name": "startup_text_0831",
+      "value": "自启独立诊断（实际API，不是开机拉起证据）\nAPI等级 "
+    },
+    {
+      "name": "startup_text_0832",
+      "value": "设备形态 "
+    },
+    {
+      "name": "startup_text_0833",
+      "value": "\n能力 "
+    },
+    {
+      "name": "startup_text_0834",
+      "value": "脱敏报告已复制"
+    },
+    {
+      "name": "startup_text_0835",
+      "value": "导出失败，请点击复制重试；查询结果未改变"
+    },
+    {
+      "name": "startup_text_0836",
+      "value": "暂无内容"
+    },
+    {
+      "name": "startup_text_0837",
+      "value": "尚未检测"
+    },
+    {
+      "name": "startup_text_0838",
+      "value": "阶段 "
+    },
+    {
+      "name": "startup_text_0839",
+      "value": "；返回 "
+    },
+    {
+      "name": "startup_text_0840",
+      "value": "错误码 "
+    },
+    {
+      "name": "startup_text_0841",
+      "value": "；耗时 "
+    },
+    {
+      "name": "startup_text_0842",
+      "value": "‹ 返回"
+    },
+    {
+      "name": "startup_text_0843",
+      "value": "独立API诊断"
+    },
+    {
+      "name": "startup_text_0844",
+      "value": "分别检查设备能力与本应用状态，不申请额外权限。"
+    },
+    {
+      "name": "startup_text_0845",
+      "value": "检测设备能力"
+    },
+    {
+      "name": "startup_text_0846",
+      "value": "设备能力"
+    },
+    {
+      "name": "startup_text_0847",
+      "value": "查询本应用状态"
+    },
+    {
+      "name": "startup_text_0848",
+      "value": "本应用状态"
+    },
+    {
+      "name": "startup_text_0849",
+      "value": "正在查询，请等待系统响应。"
+    },
+    {
+      "name": "startup_text_0850",
+      "value": "复制脱敏诊断报告 / 失败重试"
+    },
+    {
+      "name": "startup_text_0851",
+      "value": "收起诊断说明与策略 −"
+    },
+    {
+      "name": "startup_text_0852",
+      "value": "诊断说明与策略 +"
+    },
+    {
+      "name": "startup_text_0853",
+      "value": "能力检测为false表示设备不支持，不等于自启未开启；状态以各接口实际返回为准。"
+    },
+    {
+      "name": "startup_text_0854",
+      "value": "这里只查询、不自动修改设置；查询结果不证明实际开机拉起。以下为参考策略，不代表已授权或已发送通知。"
+    },
+    {
+      "name": "startup_text_0855",
+      "value": "查询历史：私有存储，最多"
+    },
+    {
+      "name": "startup_text_0856",
+      "value": "条、30天；格式"
+    },
+    {
+      "name": "startup_text_0857",
+      "value": "，错误信息上限"
+    },
+    {
+      "name": "startup_text_0858",
+      "value": "权限申请策略"
+    },
+    {
+      "name": "startup_text_0859",
+      "value": "文案与提醒时段"
+    },
+    {
+      "name": "startup_text_0860",
+      "value": "存档保留策略"
+    },
+    {
+      "name": "startup_text_0861",
+      "value": "归属分布："
+    },
+    {
+      "name": "startup_text_0862",
+      "value": "层分布："
+    },
+    {
+      "name": "startup_text_0863",
+      "value": "优先项 "
+    },
+    {
+      "name": "startup_text_0864",
+      "value": "可行链："
+    },
+    {
+      "name": "startup_text_0865",
+      "value": "支持结论："
+    },
+    {
+      "name": "startup_text_0866",
+      "value": "失败结论："
+    },
+    {
+      "name": "startup_text_0867",
+      "value": "证据 "
+    },
+    {
+      "name": "startup_text_0868",
+      "value": " 条，链规则 "
+    },
+    {
+      "name": "startup_text_0869",
+      "value": "必做 "
+    },
+    {
+      "name": "startup_text_0870",
+      "value": " 步，可跳过 "
+    },
+    {
+      "name": "startup_text_0871",
+      "value": " 步，"
+    },
+    {
+      "name": "startup_text_0872",
+      "value": "预计 "
+    },
+    {
+      "name": "startup_text_0873",
+      "value": " 秒"
+    },
+    {
+      "name": "startup_text_0874",
+      "value": "当前步骤："
+    },
+    {
+      "name": "startup_text_0875",
+      "value": "阻塞步骤 "
+    },
+    {
+      "name": "startup_text_0876",
+      "value": " 个"
+    },
+    {
+      "name": "startup_text_0877",
+      "value": "已复制 "
+    },
+    {
+      "name": "startup_text_0878",
+      "value": " 字符"
+    },
+    {
+      "name": "startup_text_0879",
+      "value": "故障目录"
+    },
+    {
+      "name": "startup_text_0880",
+      "value": "故障与归档"
+    },
+    {
+      "name": "startup_text_0881",
+      "value": "按需展开排查参考，不作为本机故障检测结果。"
+    },
+    {
+      "name": "startup_text_0882",
+      "value": "目录 "
+    },
+    {
+      "name": "startup_text_0883",
+      "value": " 条｜历史 "
+    },
+    {
+      "name": "startup_text_0884",
+      "value": "处置顺序"
+    },
+    {
+      "name": "startup_text_0885",
+      "value": "归档与保留"
+    },
+    {
+      "name": "startup_text_0886",
+      "value": "结论证据链"
+    },
+    {
+      "name": "startup_text_0887",
+      "value": "引导步骤"
+    },
+    {
+      "name": "startup_text_0888",
+      "value": "复制全部"
+    },
+    {
+      "name": "startup_text_0889",
+      "value": "手动设置回访"
+    },
+    {
+      "name": "startup_text_0890",
+      "value": "开始后，请在10分钟内完成设置并返回。"
+    },
+    {
+      "name": "startup_text_0891",
+      "value": "开始手动设置回访"
+    },
+    {
+      "name": "startup_text_0892",
+      "value": "本轮回访"
+    },
+    {
+      "name": "startup_text_0893",
+      "value": "离开前："
+    }
+  ]
+}
