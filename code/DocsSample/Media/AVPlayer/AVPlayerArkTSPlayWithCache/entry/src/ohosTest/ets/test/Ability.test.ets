@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
+import { beforeEach, describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -77,14 +77,19 @@ async function ensurePlaying(driver: Driver): Promise<void> {
     const pausedButton = await driver.findComponent(ON.id('play'));
     await pausedButton.click();
     await driver.delayMs(DELAY_STATE_SWITCH);
-    hilog.info(DOMAIN, TAG, 'ensurePlaying: app was paused, resumed playing');
+hilog.info(DOMAIN, TAG, '%{public}s', 'ensurePlaying: app was paused, resumed playing');
   } catch (error) {
-    hilog.info(DOMAIN, TAG, `ensurePlaying: app is already playing, ${JSON.stringify(error)}`);
+hilog.info(DOMAIN, TAG, '%{public}s', `ensurePlaying: app is already playing, ${JSON.stringify(error)}`);
   }
 }
 
 export default function abilityTest(): void {
   describe('AVPlayerArkTSPlayWithCacheTest', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 10);
+      });
+    })
     /**
      * @tc.name   testAVPlayerArkTSPlayWithCache0001
      * @tc.number SUB_MEDIA_AVPLAYER_ARKTS_CACHE_0100
@@ -108,7 +113,7 @@ export default function abilityTest(): void {
           await ensurePlaying(driver);
           await driver.assertComponentExist(ON.id('pause'));
         } catch (error) {
-          hilog.error(DOMAIN, TAG, `test0001 failed, error: ${JSON.stringify(error)}`);
+hilog.error(DOMAIN, TAG, '%{public}s', `test0001 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();
@@ -135,7 +140,7 @@ export default function abilityTest(): void {
           await ensurePlaying(driver);
           const first: number = await readCurrentTime(driver);
           const second: number = await waitForTimeAdvance(driver, first);
-          hilog.info(DOMAIN, TAG, `test0002 play time first: ${first}, second: ${second}`);
+hilog.info(DOMAIN, TAG, '%{public}s', `test0002 play time first: ${first}, second: ${second}`);
           expect(second).assertLargerOrEqual(first);
           expect(second).assertLargerOrEqual(0);
           await driver.assertComponentExist(ON.id('pause'));
@@ -148,7 +153,7 @@ export default function abilityTest(): void {
           await driver.delayMs(DELAY_STATE_SWITCH);
           await driver.assertComponentExist(ON.id('pause'));
         } catch (error) {
-          hilog.error(DOMAIN, TAG, `test0002 failed, error: ${JSON.stringify(error)}`);
+hilog.error(DOMAIN, TAG, '%{public}s', `test0002 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();
@@ -184,13 +189,13 @@ export default function abilityTest(): void {
           const point = await slider.getBoundsCenter();
           await driver.drag(point.x - DRAG_LEFT_OFFSET, point.y, point.x + DRAG_RIGHT_OFFSET, point.y, 800);
           const after: number = await waitForTimeAdvance(driver, before);
-          hilog.info(DOMAIN, TAG, `test0003 seek time before: ${before}, after: ${after}`);
+hilog.info(DOMAIN, TAG, '%{public}s', `test0003 seek time before: ${before}, after: ${after}`);
           expect(after).assertLargerOrEqual(0);
           expect(after).assertLargerOrEqual(before);
           const pausedButton = await driver.findComponent(ON.id('play'));
           await pausedButton.click();
         } catch (error) {
-          hilog.error(DOMAIN, TAG, `test0003 failed, error: ${JSON.stringify(error)}`);
+hilog.error(DOMAIN, TAG, '%{public}s', `test0003 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();
@@ -224,11 +229,11 @@ export default function abilityTest(): void {
           const before: number = await readCurrentTime(driver);
           await driver.delayMs(DELAY_PAUSE_CHECK);
           const after: number = await readCurrentTime(driver);
-          hilog.info(DOMAIN, TAG, `test0004 pause time before: ${before}, after: ${after}`);
+hilog.info(DOMAIN, TAG, '%{public}s', `test0004 pause time before: ${before}, after: ${after}`);
           expect(after).assertLargerOrEqual(before);
           expect(after).assertLargerOrEqual(0);
         } catch (error) {
-          hilog.error(DOMAIN, TAG, `test0004 failed, error: ${JSON.stringify(error)}`);
+hilog.error(DOMAIN, TAG, '%{public}s', `test0004 failed, error: ${JSON.stringify(error)}`);
           expect().assertFail();
         }
         done();

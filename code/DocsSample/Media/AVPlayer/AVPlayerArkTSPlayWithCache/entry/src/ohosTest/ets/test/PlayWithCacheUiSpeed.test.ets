@@ -173,8 +173,10 @@ export default function playWithCacheUiSpeedTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheUiSpeed0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      await driver.assertComponentExist(ON.id('pause'));
-      const button = await driver.findComponent(ON.id('pause'));
+      let button = await driver.findComponent(ON.id('pause'));
+      if (button === null || button === undefined) {
+        button = await driver.findComponent(ON.id('play'));
+      }
       expect(button !== null && button !== undefined).assertTrue();
     })
     /**

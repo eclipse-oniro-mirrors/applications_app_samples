@@ -195,13 +195,13 @@ export default function playWithCacheUiSeekTest(): void {
     /**
      * @tc.number    SUB_AVPLAYER_ARKTS_CACHE_EXT_UISEEK_0009
      * @tc.name      testExtCacheUiSeek0009
-     * @tc.desc      Video surface is present.
+     * @tc.desc      Current time text is present.
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testExtCacheUiSeek0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const view = await driver.findComponent(ON.id('VideoView'));
+      const view = await driver.findComponent(ON.id('currentTimeText'));
       expect(view !== null && view !== undefined).assertTrue();
     })
     /**

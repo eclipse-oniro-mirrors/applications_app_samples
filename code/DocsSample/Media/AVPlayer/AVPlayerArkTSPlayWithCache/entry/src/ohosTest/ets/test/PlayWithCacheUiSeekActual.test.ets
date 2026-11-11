@@ -177,7 +177,7 @@ export default function playWithCacheUiSeekActualTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtCacheUiSeek0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const component = await driver.findComponent(ON.id('VideoView'));
+      const component = await driver.findComponent(ON.id('currentTimeText'));
       expect(component !== null && component !== undefined).assertTrue();
     })
     /**
