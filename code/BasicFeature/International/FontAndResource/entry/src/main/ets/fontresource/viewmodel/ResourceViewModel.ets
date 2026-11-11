@@ -23,10 +23,10 @@ import { LogEntry, Logger, ResourceBridge, ResourceCarrier, ResourceEntry, Resou
 
 // The maximum number of on-screen log entries kept by the view model.
 const LOG_LIMIT: number = 50;
-// The list index of the string entry rendered by the round trip path.
-const RENDER_INDEX: number = 0;
-// The list index of the media entry handled by the image conversion.
-const MEDIA_INDEX: number = 4;
+// The key of the string entry rendered by the round trip path.
+const RENDER_KEY: string = 'app_title';
+// The key of the media entry handled by the image conversion.
+const MEDIA_KEY: string = 'media_picture';
 // The magic path value that selects the worker based conversion route.
 const WORKER_PATH: string = 'worker';
 // The module tag used for every system log line emitted by this view model.
@@ -158,8 +158,8 @@ export class ResourceViewModel {
     // Open a trace section around the media conversion.
     const taskId: number = TraceUtil.begin('ResourceVM.convertMedia');
     try {
-      // Read the media row from its fixed list position.
-      const entry: ResourceEntry = this.entries[MEDIA_INDEX];
+      // Read the media row by its stable key.
+      const entry: ResourceEntry = this.requireEntry(MEDIA_KEY);
       // Convert the media resource into its sendable representation.
       const sendable: sendableResourceManager.SendableResource = ResourceBridge.toSendable(entry.resource);
       // Convert the sendable representation back into a plain resource.
@@ -202,13 +202,13 @@ export class ResourceViewModel {
     this.activePath = path;
     // Derive the log tag from the chosen route.
     const tag: string = path === WORKER_PATH ? 'Worker' : 'TaskPool';
-    // Read the string row rendered by this flow from its fixed position.
-    const entry: ResourceEntry = this.entries[RENDER_INDEX];
     // Record the start timestamp for the elapsed measurement.
     const startedAt: number = Date.now();
     // Open a trace section around the round trip.
     const taskId: number = TraceUtil.begin('ResourceVM.runRoundTrip');
     try {
+      // Read the string row rendered by this flow by its stable key.
+      const entry: ResourceEntry = this.requireEntry(RENDER_KEY);
       // Wrap the row resource into a sendable carrier for the thread hop.
       const carrier: ResourceCarrier = new ResourceCarrier(ResourceBridge.toSendable(entry.resource));
       // Execute the round trip on the selected concurrency path.
@@ -248,6 +248,19 @@ export class ResourceViewModel {
   clearLogs(): void {
     // Reset the observable log list to empty.
     this.logs = [];
+  }
+
+  // Returns the entry with the given key, throwing when the list no longer contains it.
+  private requireEntry(key: string): ResourceEntry {
+    // Look the entry up by its stable key instead of its list position.
+    const found: ResourceEntry | undefined = this.entries.find((item: ResourceEntry) => item.key === key);
+    // Fail loudly so the caller reports the missing entry instead of converting the wrong row.
+    if (found === undefined) {
+      // Name the missing key in the error message.
+      throw new Error('Resource entry ' + key + ' is missing');
+    }
+    // Return the matched entry.
+    return found;
   }
 
   // Appends one entry to the UI log and mirrors it into the system log with the tag.

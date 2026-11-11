@@ -27,6 +27,8 @@ const TAG: string = 'EntryAbility';
 export default class EntryAbility extends UIAbility {
   // Called when the ability is created, before any window exists.
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    // Bind the logger to the ability context; file output stays off so hilog remains the only channel.
+    Logger.init(this.context, false);
     // Open a trace section around the creation phase.
     const taskId: number = TraceUtil.begin('EntryAbility.onCreate');
     // Log the creation with the launch parameters for diagnostics.

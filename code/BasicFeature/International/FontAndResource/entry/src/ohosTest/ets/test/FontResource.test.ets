@@ -41,6 +41,8 @@ const CLICK_WAIT_MS: number = 300;
 const ACTION_WAIT_MS: number = 600;
 // The settle time after a round trip conversion that crosses threads.
 const ROUND_TRIP_WAIT_MS: number = 1500;
+// The polling budget for the worker round trip, above the 3 s worker timeout so the outcome has settled.
+const WORKER_WAIT_MS: number = 3500;
 // The settle time after a scroll gesture so the layout tree can refresh.
 const SCROLL_SETTLE_MS: number = 350;
 // The number of swipe bands used while sweeping down the page sections.
@@ -112,6 +114,8 @@ const TASKPOOL_BUTTON_ID: string = 'id_btn_taskpool';
 const WORKER_BUTTON_ID: string = 'id_btn_worker';
 // The component id of the round trip path value row.
 const ROUND_TRIP_PATH_VALUE_ID: string = 'id_roundtrip_path_value';
+// The component id of the round trip bundle value row, left empty by the failure summary.
+const ROUND_TRIP_BUNDLE_VALUE_ID: string = 'id_roundtrip_bundle_value';
 // The component id of the on-screen log list on the font page.
 const FONT_LOG_LIST_ID: string = 'id_font_log_list';
 // The component id of the empty state hint of the on-screen log panel.
@@ -236,6 +240,26 @@ async function findAnywhere(idValue: string): Promise<Component | null> {
   const found: Component[] = await findWithRetry(idValue);
   // Return the first match or null when nothing matched.
   return found.length > 0 ? found[0] : null;
+}
+
+// Polls a component text without gestures until it matches or the wait budget expires.
+async function waitForText(idValue: string, expected: string, timeoutMs: number): Promise<boolean> {
+  // Record the start of the wait so the loop stays bounded.
+  const startedAt: number = Date.now();
+  // Poll until the text matches or the wait budget expires.
+  while (Date.now() - startedAt < timeoutMs) {
+    // Read the current match with a single retried query.
+    const found: Component | null = await findAnywhere(idValue);
+    // Return as soon as the rendered text matches the expectation.
+    if (found !== null && (await found.getText()) === expected) {
+      // Report the match.
+      return true;
+    }
+    // Wait briefly before the next poll.
+    await sleep(FIND_MISS_WAIT_MS);
+  }
+  // Report the timeout so the caller can fall back to a scroll-aware read.
+  return false;
 }
 
 // Returns the first component matching the id, throwing a clear error when absent.
@@ -792,6 +816,42 @@ export default function fontResourceTest() {
       const headerKept: boolean = await hasComponent(FONT_LOG_HEADER_ID);
       // Expect the panel header to stay rendered after the clear.
       expect(headerKept).assertTrue();
+      // Log the case end line.
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_FONTRESOURCE_UI_WORKER_1000
+     * @tc.name      testWorker0001
+     * @tc.desc      Verify the worker route completes the round trip, echoes its label and reports the owning bundle.
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testWorker0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const TAG: string = 'testWorker0001';
+      // Log the case start line.
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // Open the resource page for this case.
+      await openResourcePage();
+      // Press the worker route button.
+      await clickInScroll(RESOURCE_SCROLL_ID, WORKER_BUTTON_ID);
+      // Poll the path row because the worker start-up can outlast the fixed taskpool wait.
+      const settled: boolean = await waitForText(ROUND_TRIP_PATH_VALUE_ID, WORKER_TEXT, WORKER_WAIT_MS);
+      // Log whether the path row switched to the worker label within the budget.
+      logCase(TAG, 'path settled on worker: ' + settled);
+      // Read the final path text, scrolling only when the row sits below the fold.
+      const pathText: string = await readText(RESOURCE_SCROLL_ID, ROUND_TRIP_PATH_VALUE_ID);
+      // Log the captured path label.
+      logCase(TAG, 'round trip path: ' + pathText);
+      // Expect the label to name the worker route.
+      expect(pathText).assertEqual(WORKER_TEXT);
+      // Read the bundle row, which the failure summary leaves empty.
+      const bundleText: string = await readText(RESOURCE_SCROLL_ID, ROUND_TRIP_BUNDLE_VALUE_ID);
+      // Log the captured bundle name.
+      logCase(TAG, 'round trip bundle: ' + bundleText);
+      // Expect a non-empty bundle name, proving the worker conversion succeeded.
+      expect(bundleText.length > 0).assertTrue();
       // Log the case end line.
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
     });

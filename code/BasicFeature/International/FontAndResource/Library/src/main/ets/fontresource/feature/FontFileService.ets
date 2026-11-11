@@ -28,8 +28,6 @@ import { Logger } from '../utils/Logger';
 
 // The sandbox sub-directory that receives copied font files.
 const FONT_DIR: string = '/fonts';
-// The file name of the bundled font copied into the sandbox.
-const FONT_FILE_NAME: string = '/DroidSerif-Regular.ttf';
 // The module tag used for every log line emitted by this service.
 const TAG: string = 'FontFile';
 
@@ -41,10 +39,12 @@ export class FontFileService {
     return `${context.filesDir}${FONT_DIR}`;
   }
 
-  // Resolves the full sandbox path of the demo font file.
-  static sandboxFilePath(context: common.Context): string {
-    // Join the font directory with the demo file name.
-    return `${FontFileService.sandboxDir(context)}${FONT_FILE_NAME}`;
+  // Resolves the full sandbox path of the font file named by the asset.
+  static sandboxFilePath(context: common.Context, asset: FontAsset): string {
+    // Keep only the file name part of the bundled raw file path.
+    const fileName: string = asset.rawFileName.substring(asset.rawFileName.lastIndexOf('/') + 1);
+    // Join the font directory with the font file name.
+    return FontFileService.sandboxDir(context) + '/' + fileName;
   }
 
   // Returns the byte size of the file, or -1 when it does not exist.
@@ -61,7 +61,7 @@ export class FontFileService {
   // Returns the asset reflecting the current sandbox state without copying anything.
   static resolveExisting(context: common.Context, asset: FontAsset): FontAsset {
     // Resolve the expected sandbox file path.
-    const filePath: string = FontFileService.sandboxFilePath(context);
+    const filePath: string = FontFileService.sandboxFilePath(context, asset);
     // Check whether the font already exists in the sandbox.
     if (fs.accessSync(filePath)) {
       // Return a ready asset pointing at the existing file.
@@ -79,7 +79,7 @@ export class FontFileService {
       // Resolve the target sandbox directory.
       const dirPath: string = FontFileService.sandboxDir(context);
       // Resolve the target sandbox file path.
-      const filePath: string = FontFileService.sandboxFilePath(context);
+      const filePath: string = FontFileService.sandboxFilePath(context, asset);
       // Skip the copy when the file already exists.
       if (fs.accessSync(filePath)) {
         // Log the fast path hit for observability.

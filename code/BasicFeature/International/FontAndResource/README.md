@@ -49,9 +49,27 @@ FontAndResource/
 |   |   |   |--- viewmodel
 |   |   |   |   |--- FontViewModel.ets      // 字体场景状态与操作编排
 |   |   |   |   |--- ResourceViewModel.ets  // 资源场景状态与操作编排
-|   |--- src/ohosTest/ets/test
-|   |   |--- FontResource.test.ets          // UI 自动化用例
-|   |   |--- List.test.ets                  // 测试入口
+|   |--- src/ohosTest/ets/test              // 68 个文件，67 个测试套件
+|   |   |--- List.test.ets                  // 测试入口，注册全部测试套件
+|   |   |--- FontResource.test.ets          // UI 自动化用例，10 条
+|   |   |--- FontTypes.test.ets             // 字体数据模型用例
+|   |   |--- ModelTypes.test.ets            // 字体与资源数据模型用例
+|   |   |--- LogTypes.test.ets              // 日志数据模型用例
+|   |   |--- ErrorCodeMap.test.ets          // 错误码说明字典用例
+|   |   |--- Logger.test.ets                // 日志封装用例
+|   |   |--- TraceUtil.test.ets             // 性能打点封装用例
+|   |   |--- Date*.test.ets                 // DateUtils 用例，8 个文件
+|   |   |--- Display*.test.ets              // DisplayUtils 用例，2 个文件
+|   |   |--- Encoding*.test.ets             // EncryptUtils 用例，连同 EncryptUtils，DigestDataMatrix 共 8 个文件
+|   |   |--- Numeric*.test.ets              // NumberUtils 用例，连同 NumberUtils，NumberUtilsAdvanced 共 20 个文件
+|   |   |--- Text*.test.ets                 // StringUtils 用例，连同 StringUtils，StringUtilsAdvanced 共 8 个文件，不含 TextValidationSweep
+|   |   |--- Validation*.test.ets           // ValidateUtils 用例，连同 ValidateUtils，ValidateUtilsAdvanced，ParserMatrix，TextValidationSweep 共 8 个文件
+|   |   |--- ClipboardUtil.test.ets         // ClipboardUtil 用例
+|   |   |--- DeviceUtils.test.ets           // DeviceUtils 用例
+|   |   |--- NetworkUtils.test.ets          // NetworkUtils 用例
+|   |   |--- PermissionUtils.test.ets       // PermissionUtils 用例
+|   |   |--- PreferencesUtil.test.ets       // PreferencesUtil 用例
+|   |   |--- RandomUtils.test.ets           // RandomUtils 用例
 |--- Library                                // 特性模块，可独立编译为 HAR
 |   |--- Index.ets                          // 对外导出
 |   |--- src/main/ets/fontresource
@@ -67,7 +85,22 @@ FontAndResource/
 |   |   |--- common/ErrorCodeMap.ets        // 错误码说明字典
 |   |   |--- components                     // InfoRow，SectionCard，LogPanel
 |   |   |--- model                          // 数据模型
-|   |   |--- utils/Logger.ets               // hilog 封装
+|   |   |--- utils
+|   |   |   |--- Logger.ets                 // hilog 封装，支持可选的沙箱文件日志
+|   |   |   |--- TraceUtil.ets              // hiTraceMeter 打点封装
+|   |   |   |--- ClipboardUtil.ets          // 剪贴板读写
+|   |   |   |--- DateUtils.ets              // 日期时间格式化与时长计算
+|   |   |   |--- DeviceUtils.ets            // 设备与系统信息查询
+|   |   |   |--- DisplayUtils.ets           // 屏幕参数与 px，vp，fp 换算
+|   |   |   |--- EncryptUtils.ets           // Base64，URL 编码与 MD5/SHA 摘要
+|   |   |   |--- FileUtils.ets              // 沙箱文件同步读写
+|   |   |   |--- NetworkUtils.ets           // 网络连接状态查询
+|   |   |   |--- NumberUtils.ets            // 数值格式化，范围限定，单位换算与解析
+|   |   |   |--- PermissionUtils.ets        // 运行时权限检查与申请
+|   |   |   |--- PreferencesUtil.ets        // 首选项键值存储
+|   |   |   |--- RandomUtils.ets            // 随机字节，ID 与颜色生成
+|   |   |   |--- StringUtils.ets            // 字符串处理
+|   |   |   |--- ValidateUtils.ets          // 手机号，邮箱，IPv4，颜色值等格式校验
 |   |   |--- workers/ResourceWorker.ets     // Worker 线程实现
 |   |   |--- src/main/resources             // 字符串，颜色，rawfile 字体
 |   |--- src/test/LogTypes.test.ets         // 本地单元测试
@@ -85,7 +118,7 @@ FontAndResource/
 - 跨线程转换：TaskPool 路径在 [ResourceTask.ets](Library/src/main/ets/fontresource/feature/ResourceTask.ets) 中使用 @Concurrent 函数配合 taskpool.execute 执行；Worker 路径在 [ResourceWorkerClient.ets](Library/src/main/ets/fontresource/feature/ResourceWorkerClient.ets) 中创建 ThreadWorker，线程实现位于 [ResourceWorker.ets](Library/src/main/ets/fontresource/workers/ResourceWorker.ets)，两条路径都带 3 秒超时保护。
 - 场景页面：字体管理页面为 [FontPage.ets](entry/src/main/ets/fontresource/pages/FontPage.ets)，资源管理页面为 [ResourcePage.ets](entry/src/main/ets/fontresource/pages/ResourcePage.ets)，页面状态由 [FontViewModel.ets](entry/src/main/ets/fontresource/viewmodel/FontViewModel.ets) 和 [ResourceViewModel.ets](entry/src/main/ets/fontresource/viewmodel/ResourceViewModel.ets) 管理。
 - 一多布局：在 [MainPage.ets](entry/src/main/ets/fontresource/MainPage.ets) 中通过 GridRow 断点切换布局，小屏使用底部页签，中屏与大屏使用左侧导航。
-- UI 自动化：在 [FontResource.test.ets](entry/src/ohosTest/ets/test/FontResource.test.ets) 中覆盖启动，页签切换，字体准备，预览开关，批量转换，媒体转换，TaskPool 往返转换，Worker 往返转换共 8 条用例。
+- UI 自动化：在 [FontResource.test.ets](entry/src/ohosTest/ets/test/FontResource.test.ets) 中覆盖启动，页签切换，字体准备，预览开关，批量转换，媒体转换，TaskPool 往返转换，预览开关往返切换，日志清空，Worker 往返转换共 10 条用例；其余 66 个测试套件是 Library 数据模型，日志打点与工具类的单元测试，统一在 [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) 中注册。
 
 ## 相关权限
 

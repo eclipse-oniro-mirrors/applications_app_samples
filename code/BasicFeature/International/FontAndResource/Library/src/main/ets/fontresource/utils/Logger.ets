@@ -259,9 +259,8 @@ export class Logger {
       const file: fs.File = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE |
         fs.OpenMode.APPEND);
       try {
-        // Trim overly long lines so one bad message cannot bloat the file.
-        const text: string = Logger.fileLine(level, line).length > MAX_FILE_LINE_LENGTH
-          ? Logger.fileLine(level, line).substring(0, MAX_FILE_LINE_LENGTH) : Logger.fileLine(level, line);
+        // Trim overly long lines so one bad message cannot bloat the file; shorter lines stay intact.
+        const text: string = Logger.fileLine(level, line).substring(0, MAX_FILE_LINE_LENGTH);
         // Write the composed line followed by a newline separator.
         fs.writeSync(file.fd, text + '\n');
       } finally {
