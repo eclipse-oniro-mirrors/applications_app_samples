@@ -258,8 +258,8 @@ export class CryptoUtils {
     bytes[6] = (bytes[6] & 0x0f) | 0x40;
     bytes[8] = (bytes[8] & 0x3f) | 0x80;
     const hex: string = CryptoUtils.bytesToHex(bytes);
-    const result: string = `${hex.substr(0, 8)}-${hex.substr(8, 4)}-${hex.substr(12, 4)}-`
-      + `${hex.substr(16, 4)}-${hex.substr(20, 12)}`;
+    const result: string = `${hex.substr(0, 8)}-${hex.substr(8, 4)}-${hex.substr(12, 4)}-` +
+      `${hex.substr(16, 4)}-${hex.substr(20, 12)}`;
     hilog.info(DOMAIN, TAG, `generateUUID() result length: ${result.length}`);
     return result;
   }
