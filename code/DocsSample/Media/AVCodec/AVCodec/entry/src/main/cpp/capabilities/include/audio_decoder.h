@@ -37,14 +37,13 @@ public:
     int32_t Start();
     // 将已填充属性的输入Buffer归还给codec；调用成功后不能再访问该Buffer。
     int32_t PushInputBuffer(CodecBufferInfo &info);
-    // 按原索引归还已消费的输出Buffer，包括EOS；音频不需要送显参数。
+    // 按原索引归还已消费的输出Buffer。
     int32_t FreeOutputBuffer(const CodecBufferInfo &info);
     int32_t Flush();
     int32_t Reset();
     int32_t Stop();
     // 同步取Buffer返回OK、AGAIN或ERROR；成功时由info保存Buffer和原索引。
     int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    // EOS也返回OK，由调用方识别flags并按原索引归还；封装内部不消费输出。
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     // 释放codec及其内部资源。该操作后此前获得的Buffer和索引均不再有效。
     int32_t Release();

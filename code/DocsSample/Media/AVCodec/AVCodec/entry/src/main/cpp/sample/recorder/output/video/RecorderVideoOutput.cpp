@@ -34,7 +34,7 @@ void Recorder::VideoEncOutputSyncThread()
         const int64_t waitStart = RecorderClockUs();
         // [EndExclude encoder_sync_output_buffer]
         CodecBufferInfo bufferInfo;
-        const int32_t ret = videoEncoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        const int32_t ret = videoEncoder_->GetOutputBuffer(bufferInfo, codecBufferTimeoutUs);
         if (!isStarted_) {
             if (ret == AVCODEC_SAMPLE_ERR_OK &&
                 videoEncoder_->FreeOutputBuffer(bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {

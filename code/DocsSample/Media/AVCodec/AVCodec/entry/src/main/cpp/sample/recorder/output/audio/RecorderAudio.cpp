@@ -200,7 +200,7 @@ void Recorder::AudioEncOutputSyncThread()
             break;
         }
         CodecBufferInfo bufferInfo;
-        const int32_t ret = audioEncoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        const int32_t ret = audioEncoder_->GetOutputBuffer(bufferInfo, codecBufferTimeoutUs);
         if (!isStarted_) {
             if (ret == AVCODEC_SAMPLE_ERR_OK &&
                 audioEncoder_->FreeOutputBuffer(bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {

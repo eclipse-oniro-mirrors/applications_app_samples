@@ -28,7 +28,7 @@ void Recorder::SecondaryVideoEncOutputSyncThread()
         }
         const int64_t waitStart = RecorderClockUs();
         CodecBufferInfo bufferInfo;
-        const int32_t ret = secondaryVideoEncoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        const int32_t ret = secondaryVideoEncoder_->GetOutputBuffer(bufferInfo, codecBufferTimeoutUs);
         if (!isStarted_) {
             if (ret == AVCODEC_SAMPLE_ERR_OK &&
                 secondaryVideoEncoder_->FreeOutputBuffer(bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {

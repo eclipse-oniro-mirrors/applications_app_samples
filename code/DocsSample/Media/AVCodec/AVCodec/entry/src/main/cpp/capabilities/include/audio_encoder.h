@@ -39,7 +39,6 @@ public:
     int32_t PushInputBuffer(CodecBufferInfo &info);
     // 同步取Buffer返回OK、AGAIN或ERROR；成功时由info保存Buffer和原索引。
     int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    // EOS也返回OK，由调用方识别flags并按原索引归还；封装内部不消费输出。
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t FreeOutputBuffer(const CodecBufferInfo &info);
     // 使用按当前同步/异步模式取得的输入Buffer提交EOS；调用后仍需取输出直到收到EOS。

@@ -68,7 +68,7 @@ public:
     }
 
 private:
-    static constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
+    static constexpr int64_t codecBufferTimeoutUs = 100000;
     struct VideoInputState {
         int64_t firstTimestampNs = -1;
         int64_t lastTimestampNs = -1;

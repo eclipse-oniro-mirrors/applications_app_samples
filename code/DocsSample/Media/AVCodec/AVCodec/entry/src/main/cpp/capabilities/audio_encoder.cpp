@@ -163,6 +163,10 @@ int32_t AudioEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 
     info.buffer = outputBuf;
 
+    if (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+        AVCODEC_SAMPLE_LOGI("Out buffer EOS flag detected");
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
     return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End AudioEncoder::GetOutputBuffer]
