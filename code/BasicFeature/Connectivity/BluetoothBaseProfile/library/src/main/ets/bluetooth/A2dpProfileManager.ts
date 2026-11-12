@@ -342,63 +342,32 @@ export class A2dpProfileManager {
 
     try {
       if (this.isReady) {
-        hilog.warn(0xF830, BluetoothConstants.TAG, '%{public}s already initialized', this.managerName);
+        hilog.warn(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s already initialized',
+          this.managerName);
         hiTraceMeter.finishTrace(`${this.managerName}_initialize`, 0);
         return false;
       }
 
       const serviceInitialized: boolean = await this.service.initialize();
       if (!serviceInitialized) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s service initialization failed', this.managerName);
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s service initialization failed',
+          this.managerName);
         hiTraceMeter.finishTrace(`${this.managerName}_initialize`, 0);
         return false;
       }
 
-      this.managedDeviceIds = [];
-      this.operationQueue = [];
-      this.operationRecords = [];
-      this.operationIdCounter = 0;
-      this.isProcessing = false;
-      this.currentRetryCount = 0;
-      this.lastError = '';
-      this.managerStartTime = Date.now();
-      this.autoReconnectState = new Map();
-
-      this.statistics = {
-        totalConnectionAttempts: 0,
-        successfulConnections: 0,
-        failedConnections: 0,
-        disconnectionEvents: 0,
-        totalOperations: 0,
-        successfulOperations: 0,
-        failedOperations: 0,
-        averageOperationDurationMs: 0,
-        maxOperationDurationMs: 0,
-        minOperationDurationMs: Number.MAX_SAFE_INTEGER,
-        connectionSuccessRate: 0,
-        operationSuccessRate: 0,
-        uptimeMs: 0,
-        lastConnectionEvent: 0,
-        lastOperationTime: 0,
-        managedDeviceCount: 0,
-        connectedDeviceCount: 0,
-        queuedOperationCount: 0,
-        retryAttempts: 0,
-        autoReconnectEvents: 0,
-        errorRate: 0,
-        operationsPerMinute: 0,
-        isHealthy: true,
-        healthScore: 100
-      };
+      this.resetRuntimeState();
+      this.statistics = this.createDefaultStatistics();
 
       this.isReady = true;
       this.addOperationRecord('initialize', true, '', 'Manager initialized');
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s initialized successfully', this.managerName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialized successfully',
+        this.managerName);
       hiTraceMeter.finishTrace(`${this.managerName}_initialize`, 0);
       return true;
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s initialization failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialization failed: %{public}s',
         this.managerName, JSON.stringify(error));
       this.addOperationRecord('initialize', false, JSON.stringify(error), 'Initialization failed');
       hiTraceMeter.finishTrace(`${this.managerName}_initialize`, 0);
@@ -420,21 +389,22 @@ export class A2dpProfileManager {
 
     try {
       if (!this.isReady) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s not ready', this.managerName);
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s not ready', this.managerName);
         this.addOperationRecord('connect', false, 'Not ready', 'Manager not initialized');
         hiTraceMeter.finishTrace(`${this.managerName}_connect`, 0);
         return false;
       }
 
       if (this.managedDeviceIds.includes(deviceId)) {
-        hilog.warn(0xF830, BluetoothConstants.TAG, '%{public}s already managing %{public}s',
+        hilog.warn(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s already managing %{public}s',
           this.managerName, deviceId);
         hiTraceMeter.finishTrace(`${this.managerName}_connect`, 0);
         return true;
       }
 
       if (this.managedDeviceIds.length >= this.config.maxManagedDevices) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s max devices reached', this.managerName);
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s max devices reached',
+          this.managerName);
         this.addOperationRecord('connect', false, 'Max devices', 'Maximum managed devices reached');
         hiTraceMeter.finishTrace(`${this.managerName}_connect`, 0);
         return false;
@@ -446,27 +416,9 @@ export class A2dpProfileManager {
       const connected: boolean = await this.service.connect(deviceId);
 
       if (connected) {
-        this.managedDeviceIds.push(deviceId);
-        this.statistics.successfulConnections++;
-        this.statistics.connectedDeviceCount = this.managedDeviceIds.length;
-        this.statistics.managedDeviceCount = this.managedDeviceIds.length;
-
-        if (this.config.autoReconnect) {
-          this.autoReconnectState.set(deviceId, {
-            attempts: 0,
-            lastAttempt: 0,
-            enabled: true
-          });
-        }
-
-        this.addOperationRecord('connect', true, '', `Connected to ${deviceId}`);
-        hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s connected to %{public}s',
-          this.managerName, deviceId);
+        this.recordConnectSuccess(deviceId);
       } else {
-        this.statistics.failedConnections++;
-        this.addOperationRecord('connect', false, 'Connection failed', `Failed to connect to ${deviceId}`);
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s connection failed for %{public}s',
-          this.managerName, deviceId);
+        this.recordConnectFailure(deviceId);
       }
 
       this.updateStatistics();
@@ -475,12 +427,105 @@ export class A2dpProfileManager {
     } catch (error) {
       this.statistics.failedConnections++;
       this.addOperationRecord('connect', false, JSON.stringify(error), `Error connecting to ${deviceId}`);
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s connect error: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s connect error: %{public}s',
         this.managerName, JSON.stringify(error));
       this.updateStatistics();
       hiTraceMeter.finishTrace(`${this.managerName}_connect`, 0);
       return false;
     }
+  }
+
+  /**
+   * @method resetRuntimeState
+   * @description Clears the per-session manager state (device list, queues, records and counters)
+   * so that a fresh initialization always starts from a known baseline.
+   * @private
+   */
+  private resetRuntimeState(): void {
+    this.managedDeviceIds = [];
+    this.operationQueue = [];
+    this.operationRecords = [];
+    this.operationIdCounter = 0;
+    this.isProcessing = false;
+    this.currentRetryCount = 0;
+    this.lastError = '';
+    this.managerStartTime = Date.now();
+    this.autoReconnectState = new Map();
+  }
+
+  /**
+   * @method createDefaultStatistics
+   * @description Builds the zeroed statistics snapshot used on initialization.
+   * @returns {A2dpManagerStatistics} The default statistics object.
+   * @private
+   */
+  private createDefaultStatistics(): A2dpManagerStatistics {
+    return {
+      totalConnectionAttempts: 0,
+      successfulConnections: 0,
+      failedConnections: 0,
+      disconnectionEvents: 0,
+      totalOperations: 0,
+      successfulOperations: 0,
+      failedOperations: 0,
+      averageOperationDurationMs: 0,
+      maxOperationDurationMs: 0,
+      minOperationDurationMs: Number.MAX_SAFE_INTEGER,
+      connectionSuccessRate: 0,
+      operationSuccessRate: 0,
+      uptimeMs: 0,
+      lastConnectionEvent: 0,
+      lastOperationTime: 0,
+      managedDeviceCount: 0,
+      connectedDeviceCount: 0,
+      queuedOperationCount: 0,
+      retryAttempts: 0,
+      autoReconnectEvents: 0,
+      errorRate: 0,
+      operationsPerMinute: 0,
+      isHealthy: true,
+      healthScore: 100
+    };
+  }
+
+  /**
+   * @method recordConnectSuccess
+   * @description Accounts for a successful connection: registers the managed device, updates the
+   * connection counters, enables auto-reconnect when configured and records the operation.
+   * @param {string} deviceId - The device that has just been connected.
+   * @private
+   */
+  private recordConnectSuccess(deviceId: string): void {
+    this.managedDeviceIds.push(deviceId);
+    this.statistics.successfulConnections++;
+    this.statistics.connectedDeviceCount = this.managedDeviceIds.length;
+    this.statistics.managedDeviceCount = this.managedDeviceIds.length;
+
+    if (this.config.autoReconnect) {
+      this.autoReconnectState.set(deviceId, {
+        attempts: 0,
+        lastAttempt: 0,
+        enabled: true
+      });
+    }
+
+    this.addOperationRecord('connect', true, '', `Connected to ${deviceId}`);
+    hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s connected to %{public}s',
+      this.managerName, deviceId);
+  }
+
+  /**
+   * @method recordConnectFailure
+   * @description Accounts for a failed connection attempt: increments the failure counter and
+   * records the operation with the reported reason.
+   * @param {string} deviceId - The device whose connection attempt failed.
+   * @private
+   */
+  private recordConnectFailure(deviceId: string): void {
+    this.statistics.failedConnections++;
+    this.addOperationRecord('connect', false, 'Connection failed', `Failed to connect to ${deviceId}`);
+    hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s connection failed for %{public}s',
+      this.managerName, deviceId);
   }
 
   /**
@@ -526,7 +571,7 @@ export class A2dpProfileManager {
       return disconnected;
     } catch (error) {
       this.addOperationRecord('disconnect', false, JSON.stringify(error), `Error disconnecting from ${deviceId}`);
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s disconnect error: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s disconnect error: %{public}s',
         this.managerName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.managerName}_disconnect`, 0);
       return false;
@@ -594,7 +639,7 @@ export class A2dpProfileManager {
    */
   setConfig(config: Partial<A2dpManagerConfig>): void {
     this.config = { ...this.config, ...config };
-    hilog.debug(0xF830, BluetoothConstants.TAG, '%{public}s config updated', this.managerName);
+    hilog.debug(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s config updated', this.managerName);
   }
 
   /**
@@ -720,7 +765,7 @@ export class A2dpProfileManager {
       this.addOperationRecord('reset', true, '', 'Manager reset');
       hiTraceMeter.finishTrace(`${this.managerName}_reset`, 0);
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s reset failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s reset failed: %{public}s',
         this.managerName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.managerName}_reset`, 0);
     }
@@ -744,10 +789,10 @@ export class A2dpProfileManager {
       this.dataCallbacks = [];
       this.isReady = false;
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s destroyed', this.managerName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s destroyed', this.managerName);
       hiTraceMeter.finishTrace(`${this.managerName}_destroy`, 0);
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s destroy failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s destroy failed: %{public}s',
         this.managerName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.managerName}_destroy`, 0);
     }
