@@ -25,7 +25,6 @@
 
 ## 二、新增自动化覆盖
 
-新增 18 个纯逻辑/契约套件，共 1,000 条；加上原有 12 条 UI 用例，工程测试用例合计约 **1,012** 条。
 
 | 测试套件 | 覆盖点 | 用例数 |
 | -------- | ------ | ------ |
@@ -34,17 +33,11 @@
 | YUVConstantsCore | 拍照/视频比例与权限列表 | 40 |
 | YUVRuntimeTimerCore | RefreshableTimer 启动、刷新、清理 | 40 |
 | YUVWindowUtilCore | 最大预览尺寸与窗口比例 | 40 |
-| YUVUiContractCore | 页面控件 ID 契约 | 60 |
-| YUVGridLineMath | 网格行列与线条位置 | 80 |
-| YUVZoomMath | 变焦档位、当前档位与边界 | 80 |
 | YUVModeContract | 拍照/视频模式与比例常量 | 40 |
-| YUVUiIdsExtra | 扩展 UI 控件 ID 契约 | 40 |
 | YUVCommonUtilExtra | CommonUtil 额外边界 | 80 |
 | YUVPreviewMath | 预览最大尺寸与宽高比 | 60 |
-| YUVGridZoomExtra | 网格与变焦组合 | 60 |
 | YUVCommonUtilExtreme | CommonUtil 极值输入 | 40 |
 | YUVPreviewContract | 预览比例/模式/权限契约 | 30 |
-| YUVUiMenuContract | 闪光灯菜单与控件 ID | 30 |
 | YUVCommonUtilFinal | CommonUtil 最终边界 | 40 |
 | YUVRuntimeConfig | 运行时常量与模式契约 | 40 |
 
@@ -56,3 +49,5 @@
 | 拍照落库 | 已授权 | 点击拍照按钮 | 生成照片文件并出现在图库 | Pass |
 
 > 说明：本板相机仅支持 RGBA_8888 预览与 JPEG 拍照，YUV 拍照路径无法在本板验证，已在交付问题说明中登记为环境限制。
+
+> 说明：已删除恒真/自断言测试套件。工程测试用例当前合计约 **674** 条。

@@ -63,7 +63,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -78,7 +78,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -93,7 +93,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -108,7 +108,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -123,7 +123,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -138,7 +138,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -153,7 +153,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -168,7 +168,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -183,7 +183,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -198,7 +198,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -213,7 +213,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -228,7 +228,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -243,7 +243,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -258,7 +258,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -273,7 +273,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -288,7 +288,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -303,7 +303,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -318,7 +318,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -333,7 +333,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -348,7 +348,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -363,7 +363,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -378,7 +378,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -393,7 +393,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -408,7 +408,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -423,7 +423,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -438,7 +438,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -453,7 +453,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -468,7 +468,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -483,7 +483,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -498,7 +498,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -513,7 +513,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -528,7 +528,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -543,7 +543,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -558,7 +558,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -573,7 +573,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -588,7 +588,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -603,7 +603,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -618,7 +618,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -633,7 +633,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -648,7 +648,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -663,7 +663,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -678,7 +678,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -693,7 +693,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -708,7 +708,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -723,7 +723,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -738,7 +738,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -753,7 +753,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -768,7 +768,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -783,7 +783,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -798,7 +798,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -813,7 +813,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -828,7 +828,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -843,7 +843,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -858,7 +858,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -873,7 +873,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -888,7 +888,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
+      const size = WindowUtil.getMaxDisplaySize(1.3333333333333333);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -903,7 +903,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
+      const size = WindowUtil.getMaxDisplaySize(1.7777777777777777);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -918,7 +918,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(1);
+      const size = WindowUtil.getMaxDisplaySize(1);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -933,7 +933,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(0.75);
+      const size = WindowUtil.getMaxDisplaySize(0.75);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);
@@ -948,7 +948,7 @@ export default function yuvPreviewMathTest(): void {
      * @tc.level     LEVEL2
      */
     it('testExtYuvPreview0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const size: Size = WindowUtil.getMaxDisplaySize(2);
+      const size = WindowUtil.getMaxDisplaySize(2);
       expect(size.width).assertLarger(0);
       expect(size.height).assertLarger(0);
       expect(size.width / size.height).assertLarger(0);

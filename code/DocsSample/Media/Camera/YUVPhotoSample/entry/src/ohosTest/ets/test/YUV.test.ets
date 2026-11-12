@@ -14,14 +14,13 @@
  */
 
 import { beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Component, Driver, MatchPattern, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { Component, Driver, MatchPattern, ON, abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const BUNDLE: string = 'com.example.customcamera_js';
 const ABILITY: string = 'EntryAbility';
 const TAG: string = 'YUVTest';
-const DOMAIN: number = 0xF817;
+const DOMAIN: number = 0xF811;
 
 const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
 

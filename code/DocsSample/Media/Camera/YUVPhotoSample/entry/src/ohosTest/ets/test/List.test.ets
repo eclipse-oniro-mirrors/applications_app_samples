@@ -19,21 +19,15 @@ import yuvCommonUtilCoreTest from './YUVCommonUtilCore.test';
 import yuvConstantsCoreTest from './YUVConstantsCore.test';
 import yuvRuntimeTimerCoreTest from './YUVRuntimeTimerCore.test';
 import yuvWindowUtilCoreTest from './YUVWindowUtilCore.test';
-import yuvUiContractCoreTest from './YUVUiContractCore.test';
 
 import yuvCommonUtilEdgeTest from './YUVCommonUtilEdge.test';
-import yuvGridLineMathTest from './YUVGridLineMath.test';
-import yuvZoomMathTest from './YUVZoomMath.test';
 import yuvModeContractTest from './YUVModeContract.test';
-import yuvUiIdsExtraTest from './YUVUiIdsExtra.test';
 
 import yuvCommonUtilExtraTest from './YUVCommonUtilExtra.test';
 import yuvPreviewMathTest from './YUVPreviewMath.test';
-import yuvGridZoomExtraTest from './YUVGridZoomExtra.test';
 
 import yuvCommonUtilExtremeTest from './YUVCommonUtilExtreme.test';
 import yuvPreviewContractTest from './YUVPreviewContract.test';
-import yuvUiMenuContractTest from './YUVUiMenuContract.test';
 
 import yuvCommonUtilFinalTest from './YUVCommonUtilFinal.test';
 import yuvRuntimeConfigTest from './YUVRuntimeConfig.test';
@@ -44,18 +38,12 @@ export default function testsuite(): void {
   yuvConstantsCoreTest();
   yuvRuntimeTimerCoreTest();
   yuvWindowUtilCoreTest();
-  yuvUiContractCoreTest();
   yuvCommonUtilEdgeTest();
-  yuvGridLineMathTest();
-  yuvZoomMathTest();
   yuvModeContractTest();
-  yuvUiIdsExtraTest();
   yuvCommonUtilExtraTest();
   yuvPreviewMathTest();
-  yuvGridZoomExtraTest();
   yuvCommonUtilExtremeTest();
   yuvPreviewContractTest();
-  yuvUiMenuContractTest();
   yuvCommonUtilFinalTest();
   yuvRuntimeConfigTest();
 }
