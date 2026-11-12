@@ -14,11 +14,10 @@ SystemConfig 是一个基于 OpenHarmony Basic Services Kit 的示例应用，�
 
 ## 效果预览
 
-| 主页 | 定制配置 | 情景模式 | 设置信息 |
-| --- | --- | --- | --- |
-| 首页展示所有功能入口 | 渠道号获取 | 免打扰状态查询 | 系统设置页面操作 |
-
-> **说明**：真机效果截图待补充。
+主页 ![首页展示所有功能入口](ScreenShot/home.svg)
+定制配置 ![渠道号获取](ScreenShot/custom_config.svg)
+情景模式 ![免打扰状态查询](ScreenShot/intelligent_scene.svg)
+设置信息 ![系统设置页面操作](ScreenShot/settings_lite.svg)
 
 ## 使用说明
 
@@ -38,6 +37,7 @@ SystemConfig/
 ├── AppScope/                              # 应用全局配置
 │   ├── app.json5                          # 应用配置（bundleName: com.samples.systemconfig）
 │   └── resources/                         # 应用全局资源
+├── ScreenShot/                            # 效果预览真机截图
 ├── library/                               # Library 模块（HAR）—— API 封装层
 │   ├── Index.ets                          # 模块导出入口
 │   ├── oh-package.json5                   # 模块包配置
@@ -111,7 +111,7 @@ Entry 模块负责业务逻辑和页面展示。
 本示例提供完整的 ohosTest 自动化测试，共 **54 个测试套件、624 条用例**，分为 9 个分类，覆盖服务层、数据模型、工具类、数据校验、网络权限、设备存储、常量、页面导航与多服务集成场景。
 
 - **用例命名**：`it()` 与 `@tc.name` 统一为 `test<Feature><NNNN>`，后四位从 `0001` 起每条自增 1；`@tc.number` 为 `SUB_<MODULE>_<SEQ>`，后四位从 `0100` 起每条自增 100，同一文件内连续编号、全局唯一。
-- **运行方式**：构建并安装 ohosTest HAP 后，执行 `hdc shell "aa test -b com.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"` 全量运行。
+- **运行方式**：构建并安装 ohosTest HAP 后，在目标设备上启动 ohosTest 用例进行全量运行，也可指定套件或单条用例。
 - **最新结果**：连续两轮全量运行均为 `Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0`。
 
 详细用例清单、命名规范与执行说明见 [ohosTest.md](ohosTest.md)。

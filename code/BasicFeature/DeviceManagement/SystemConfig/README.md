@@ -14,11 +14,10 @@ The project uses a Library module (`library`) to encapsulate API interfaces, ser
 
 ## Preview
 
-| Home Page | Custom Config | Intelligent Scene | Settings Lite |
-| --- | --- | --- | --- |
-| Home page showing all feature entries | Channel ID retrieval | DND status query | System settings pages |
-
-> **Note**: Screenshots to be supplemented.
+Home Page [![Home page](ScreenShot/home.svg)](ScreenShot/home.svg)
+Custom Config [![Custom config](ScreenShot/custom_config.svg)](ScreenShot/custom_config.svg)
+Intelligent Scene [![Intelligent scene](ScreenShot/intelligent_scene.svg)](ScreenShot/intelligent_scene.svg)
+Settings Lite [![Settings lite](ScreenShot/settings_lite.svg)](ScreenShot/settings_lite.svg)
 
 ## Usage
 
@@ -38,6 +37,7 @@ SystemConfig/
 ├── AppScope/                              # Global app configuration
 │   ├── app.json5                          # App config (bundleName: com.samples.systemconfig)
 │   └── resources/                         # Global resources
+├── ScreenShot/                            # Device screenshots for Preview
 ├── library/                               # Library module (HAR) - API encapsulation
 │   ├── Index.ets                          # Module export barrel
 │   ├── oh-package.json5                   # Module package config
@@ -111,7 +111,7 @@ The Entry module handles business logic and page display.
 This sample provides comprehensive ohosTest automation tests: **54 test suites with 624 cases** in 9 categories, covering the service layer, data models, utility classes, validation, network/permissions, device storage, constants, page navigation and multi-service integration scenarios.
 
 - **Case naming**: `it()` and `@tc.name` use `test<Feature><NNNN>`, with the last four digits starting at `0001` and incrementing by 1 per case; `@tc.number` uses `SUB_<MODULE>_<SEQ>`, with the last four digits starting at `0100` and incrementing by 100 per case, numbered consecutively within each file and globally unique.
-- **How to run**: After building and installing the ohosTest HAP, run `hdc shell "aa test -b com.samples.systemconfig -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000"` for a full run.
+- **How to run**: After building and installing the ohosTest HAP, launch the ohosTest cases on the target device for a full run, or specify a suite / single case.
 - **Latest results**: Two consecutive full runs both report `Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0`.
 
 For the full case list, naming conventions, and execution details, see [ohosTest.md](ohosTest.md).
