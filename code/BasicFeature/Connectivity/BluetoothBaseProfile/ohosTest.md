@@ -4,7 +4,7 @@
 
 本示例基于 Hypium（1.0.25）框架对八种蓝牙 Profile（A2DP、HFP、HID、PAN、PBAP、MAP、AVRCP、HDP）进行运行时自动化验证，覆盖 Profile 管理器、Profile 服务、数据模型、设备与存储工具、网络与安全工具、全局常量、校验工具以及多 Profile 集成与异常处理场景。业务层使用 Mock 数据，不依赖真实蓝牙硬件，不直接断言真实蓝牙协议交互。
 
-用例不共享可变全局状态：每个用例自行完成初始化、执行被测动作并断言结果，涉及全局静态缓存（首选项、内存缓存、网络状态、权限集合、拦截器）的用例在起始与结束时复位，保证用例之间相互独立、可任意顺序执行。
+用例不共享可变全局状态：每个用例自行完成初始化、执行被测动作并断言结果，涉及全局静态缓存（Preferences、内存缓存、网络状态、权限集合、拦截器）的用例在起始与结束时复位，保证用例之间相互独立、可任意顺序执行。
 
 随机生成类用例采用「循环内计数、循环后聚合断言」的写法：多次抽取的合法性在循环内累命中标记，循环结束后统一断言命中次数与边界值，既保留抽样矩阵覆盖，又避免单条用例长时间占用主线程触发 `THREAD_BLOCK_6S`。
 
@@ -938,7 +938,7 @@
 | SUB_BT_DEVICE_MODEL_1000 | testBluetoothDeviceModel0010 | Verify each signal level boundary switches exactly at the documented percentage thresholds. | Level 1 | Pass |
 | SUB_BT_DEVICE_MODEL_1100 | testBluetoothDeviceModel0011 | Verify every device type maps to its own readable label. | Level 0 | Pass |
 | SUB_BT_DEVICE_MODEL_1200 | testBluetoothDeviceModel0012 | Verify all defined connection states resolve to a concrete label instead of the fallback text. | Level 0 | Pass |
-| SUB_BT_DEVICE_MODEL_1300 | testBluetoothDeviceModel0013 | Verify the readable description carries identity fields and reflects state changes of one instance only. | Level 1 | Pass |
+| SUB_BT_DEVICE_MODEL_1300 | testBluetoothDeviceModel0013 | Verify the readable description carries identity fields and reflects only the state of one instance. | Level 1 | Pass |
 | SUB_BT_DEVICE_MODEL_1400 | testBluetoothDeviceModel0014 | Verify the serialized snapshot mirrors every instance field and shares the capability lists. | Level 1 | Pass |
 | SUB_BT_DEVICE_MODEL_1500 | testBluetoothDeviceModel0015 | Verify reset drops the connection and signal state while identity and capabilities survive. | Level 1 | Pass |
 | SUB_BT_DEVICE_MODEL_1600 | testBluetoothDeviceModel0016 | Verify a full discovery to bonding to connection lifecycle keeps every derived value consistent. | Level 0 | Pass |
@@ -1105,7 +1105,7 @@
 | SUB_FILE_UTILS_1800 | testFileUtils0018 | Reject empty paths and every reserved path character while accepting valid paths. | Level 1 | Pass |
 | SUB_FILE_UTILS_1900 | testFileUtils0019 | Run one path through the whole helper chain and keep the results consistent. | Level 1 | Pass |
 
-## 首选项读写工具 XTS 用例
+## Preferences 读写工具 XTS 用例
 
 套件 `PreferenceUtilsTest`，测试文件：`entry/src/ohosTest/ets/test/Device/PreferenceUtils.test.ets`，共 18 条用例。
 
@@ -1436,7 +1436,7 @@
 | SUB_MATH_UTILS_1800 | testMathUtils0018 | Measure point distance for the 3-4-5 triangle and negative legs. | Level 0 | Pass |
 | SUB_MATH_UTILS_1900 | testMathUtils0019 | Draw integers only inside the inclusive bounds. | Level 1 | Pass |
 | SUB_MATH_UTILS_2000 | testMathUtils0020 | Spread random draws and freeze the value of a zero width range. | Level 1 | Pass |
-| SUB_MATH_UTILS_2100 | testMathUtils0021 | Round a value to the requested number of decimal places. | Level 0 | Pass |
+| SUB_MATH_UTILS_2100 | testMathUtils0021 | Round a value to the requested number of digits. | Level 0 | Pass |
 | SUB_MATH_UTILS_2200 | testMathUtils0022 | Accept both bounds and reject values outside the interval. | Level 0 | Pass |
 | SUB_MATH_UTILS_2300 | testMathUtils0023 | Divide the greatest common divisor of ordinary number pairs. | Level 0 | Pass |
 | SUB_MATH_UTILS_2400 | testMathUtils0024 | Ignore sign and zero when searching for the common divisor. | Level 1 | Pass |
@@ -1691,19 +1691,6 @@
 | SUB_MULTI_PROFILE_1800 | testMultiProfile0018 | Verify that a reset of three profiles clears their records while their counters are kept. | Level 1 | Pass |
 | SUB_MULTI_PROFILE_1900 | testMultiProfile0019 | Verify that operation records of each profile grow only with the operations of that profile. | Level 1 | Pass |
 | SUB_MULTI_PROFILE_2000 | testMultiProfile0020 | Walk one audio and one voice profile through initialization, reset, destruction and recovery. | Level 0 | Pass |
-
-## 执行方式
-
-```powershell
-# 构建测试 HAP
-devecocli build --modules entry@ohosTest
-# 安装并全量执行（entry_test 模块，用例级超时 60s）
-hdc shell "aa test -b com.samples.bluetoothbaseprofile -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 60000"
-# 仅执行本次补充的工具类套件
-hdc shell "aa test -b com.samples.bluetoothbaseprofile -m entry_test -s unittest OpenHarmonyTestRunner -s class DeviceUtilsTest,FileUtilsTest,PreferenceUtilsTest,StorageUtilsTest,EncryptionUtilsTest,HttpUtilsTest,NetworkUtilsTest,PermissionUtilsTest,ConstantsTest -s timeout 30000"
-```
-
-> `-s unittest` 在本工程需传运行器类名 `OpenHarmonyTestRunner`；传 `/ets/TestRunner/OpenHarmonyTestRunner` 全路径时 BMS 解析不到测试运行器，会报 `ReferenceError: Cannot find module ... OpenHarmonyTestRunner` 并返回 `App died`。
 
 ## 已知实现观察（仅记录，未修改业务代码）
 

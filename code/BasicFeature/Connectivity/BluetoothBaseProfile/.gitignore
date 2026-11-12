@@ -3,7 +3,7 @@
 /.idea
 **/build
 **/oh-package-lock.json5
-/.hvigor
+**/.hvigor
 .cxx
 /.clangd
 /.clang-format
