@@ -1,0 +1,48 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#F2F5FA"
+    },
+    {
+      "name": "keyboard_surface",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "keyboard_text_primary",
+      "value": "#182431"
+    },
+    {
+      "name": "keyboard_text_secondary",
+      "value": "#526071"
+    },
+    {
+      "name": "keyboard_text_description",
+      "value": "#657080"
+    },
+    {
+      "name": "keyboard_input_background",
+      "value": "#F2F4F7"
+    },
+    {
+      "name": "keyboard_accent",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "keyboard_secondary_button_background",
+      "value": "#E8EFFD"
+    },
+    {
+      "name": "keyboard_delete_background",
+      "value": "#D8DFE9"
+    },
+    {
+      "name": "keyboard_panel_background",
+      "value": "#E8ECF2"
+    },
+    {
+      "name": "keyboard_page_background",
+      "value": "#F7F8FA"
+    }
+  ]
+}
