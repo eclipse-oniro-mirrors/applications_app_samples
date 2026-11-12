@@ -24,8 +24,8 @@ const DOMAIN: number = BluetoothConstants.DOMAIN;
  * Navigation item data interface.
  */
 interface NavItem {
-  title: string;
-  description: string;
+  title: Resource;
+  description: Resource;
   icon: string;
   targetPage: string;
 }
@@ -38,20 +38,34 @@ interface NavItem {
 @Component
 struct Index {
   @State navItems: NavItem[] = [
-    { title: 'Audio (A2DP)', description: 'Advanced Audio Distribution Profile', icon: 'audio', targetPage: PageConstants.PAGE_A2DP },
-    { title: 'Hands-Free (HFP)', description: 'Hands-Free Profile for calls', icon: 'phone', targetPage: PageConstants.PAGE_HFP },
-    { title: 'Input (HID)', description: 'Human Interface Device Profile', icon: 'keyboard', targetPage: PageConstants.PAGE_HID },
-    { title: 'Network (PAN)', description: 'Personal Area Network Profile', icon: 'network', targetPage: PageConstants.PAGE_PAN },
-    { title: 'Phonebook (PBAP)', description: 'Phone Book Access Profile', icon: 'contacts', targetPage: PageConstants.PAGE_PBAP },
-    { title: 'Messages (MAP)', description: 'Message Access Profile', icon: 'message', targetPage: PageConstants.PAGE_MAP },
-    { title: 'Media (AVRCP)', description: 'Audio/Video Remote Control', icon: 'remote', targetPage: PageConstants.PAGE_AVRCP },
-    { title: 'Health (HDP)', description: 'Health Device Profile', icon: 'health', targetPage: PageConstants.PAGE_HDP },
-    { title: 'Scan Devices', description: 'Discover nearby Bluetooth devices', icon: 'scan', targetPage: PageConstants.PAGE_SCAN },
-    { title: 'Bonded Devices', description: 'View paired device list', icon: 'paired', targetPage: PageConstants.PAGE_BONDED_DEVICES },
-    { title: 'Connection Log', description: 'View connection history', icon: 'log', targetPage: PageConstants.PAGE_CONNECTION_LOG },
-    { title: 'Statistics', description: 'Profile usage statistics', icon: 'stats', targetPage: PageConstants.PAGE_PROFILE_STATISTICS },
-    { title: 'Combined Scenario', description: 'Multi-profile combination', icon: 'combined', targetPage: PageConstants.PAGE_COMBINED_SCENARIO },
-    { title: 'Settings', description: 'Bluetooth configuration', icon: 'settings', targetPage: PageConstants.PAGE_SETTINGS }
+    { title: $r('app.string.nav_title_a2dp'), description: $r('app.string.nav_desc_a2dp'), icon: 'audio',
+      targetPage: PageConstants.PAGE_A2DP },
+    { title: $r('app.string.nav_title_hfp'), description: $r('app.string.nav_desc_hfp'), icon: 'phone',
+      targetPage: PageConstants.PAGE_HFP },
+    { title: $r('app.string.nav_title_hid'), description: $r('app.string.nav_desc_hid'), icon: 'keyboard',
+      targetPage: PageConstants.PAGE_HID },
+    { title: $r('app.string.nav_title_pan'), description: $r('app.string.nav_desc_pan'), icon: 'network',
+      targetPage: PageConstants.PAGE_PAN },
+    { title: $r('app.string.nav_title_pbap'), description: $r('app.string.nav_desc_pbap'), icon: 'contacts',
+      targetPage: PageConstants.PAGE_PBAP },
+    { title: $r('app.string.nav_title_map'), description: $r('app.string.nav_desc_map'), icon: 'message',
+      targetPage: PageConstants.PAGE_MAP },
+    { title: $r('app.string.nav_title_avrcp'), description: $r('app.string.nav_desc_avrcp'), icon: 'remote',
+      targetPage: PageConstants.PAGE_AVRCP },
+    { title: $r('app.string.nav_title_hdp'), description: $r('app.string.nav_desc_hdp'), icon: 'health',
+      targetPage: PageConstants.PAGE_HDP },
+    { title: $r('app.string.nav_title_scan'), description: $r('app.string.nav_desc_scan'), icon: 'scan',
+      targetPage: PageConstants.PAGE_SCAN },
+    { title: $r('app.string.nav_title_bonded'), description: $r('app.string.nav_desc_bonded'), icon: 'paired',
+      targetPage: PageConstants.PAGE_BONDED_DEVICES },
+    { title: $r('app.string.nav_title_connlog'), description: $r('app.string.nav_desc_connlog'), icon: 'log',
+      targetPage: PageConstants.PAGE_CONNECTION_LOG },
+    { title: $r('app.string.nav_title_stats'), description: $r('app.string.nav_desc_stats'), icon: 'stats',
+      targetPage: PageConstants.PAGE_PROFILE_STATISTICS },
+    { title: $r('app.string.nav_title_combined'), description: $r('app.string.nav_desc_combined'), icon: 'combined',
+      targetPage: PageConstants.PAGE_COMBINED_SCENARIO },
+    { title: $r('app.string.nav_title_settings'), description: $r('app.string.nav_desc_settings'), icon: 'settings',
+      targetPage: PageConstants.PAGE_SETTINGS }
   ];
 
   build() {
@@ -66,7 +80,7 @@ struct Index {
       .width('100%')
       .height(PageConstants.NAV_BAR_HEIGHT)
       .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
       // App info card
@@ -81,11 +95,11 @@ struct Index {
           .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
           .width('100%')
         Row() {
-          Text('SDK: 26.0.0')
+          Text($r('app.string.index_sdk_info'))
             .fontSize(PageConstants.FONT_SIZE_SMALL)
             .fontColor(PageConstants.COLOR_TEXT_HINT)
             .margin({ right: 16 })
-          Text('BundleName: com.samples.bluetoothbaseprofile')
+          Text($r('app.string.index_bundle_name'))
             .fontSize(PageConstants.FONT_SIZE_SMALL)
             .fontColor(PageConstants.COLOR_TEXT_HINT)
         }
@@ -93,8 +107,9 @@ struct Index {
       }
       .width('100%')
       .padding(PageConstants.CARD_PADDING)
-      .margin({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING, top: PageConstants.SECTION_SPACING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .margin({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING,
+          top: PageConstants.SECTION_SPACING })
+      .backgroundColor(PageConstants.COLOR_CARD)
       .borderRadius(PageConstants.CARD_BORDER_RADIUS)
       .shadow({ radius: 4, color: 'rgba(0,0,0,0.1)', offsetX: 0, offsetY: 2 })
       .alignItems(HorizontalAlign.Start)
@@ -105,10 +120,11 @@ struct Index {
           ListItem() {
             this.navItemCard(item)
           }
-        }, (item: NavItem) => item.title)
+        }, (item: NavItem) => item.targetPage)
       }
       .width('100%')
-      .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING, top: PageConstants.SECTION_SPACING })
+      .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING,
+          top: PageConstants.SECTION_SPACING })
       .layoutWeight(1)
     }
     .width('100%')
@@ -129,7 +145,7 @@ struct Index {
       .height(48)
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
-      .backgroundColor('#E3F2FD')
+      .backgroundColor($r('app.color.color_light_blue'))
       .borderRadius(24)
       .margin({ right: 12 })
 
@@ -154,7 +170,7 @@ struct Index {
     }
     .width('100%')
     .padding(PageConstants.CARD_PADDING)
-    .backgroundColor(PageConstants.COLOR_SURFACE)
+    .backgroundColor(PageConstants.COLOR_CARD)
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
     .shadow({ radius: 4, color: 'rgba(0,0,0,0.1)', offsetX: 0, offsetY: 2 })
     .onClick(() => {

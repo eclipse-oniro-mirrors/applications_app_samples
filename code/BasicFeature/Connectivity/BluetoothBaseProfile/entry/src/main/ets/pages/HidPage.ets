@@ -22,6 +22,7 @@ import { BluetoothConstants, BluetoothConnectionState } from 'library';
 import { PageConstants } from 'library';
 import { Logger } from 'library';
 import { router } from '@kit.ArkUI';
+import { ProfileDeviceItem, ProfileOperationLogEntry } from '../common/ProfilePageTypes';
 
 /**
  * @interface HidPageState
@@ -44,46 +45,6 @@ interface HidPageState {
   currentPage: number;
   itemsPerPage: number;
   totalItems: number;
-}
-
-/**
- * @interface HidDeviceItem
- * @description Represents a device item in the device list.
- */
-interface HidDeviceItem {
-  deviceId: string;
-  deviceName: string;
-  macAddress: string;
-  isConnected: boolean;
-  rssi: number;
-  deviceType: string;
-  lastSeen: number;
-  batteryLevel: number;
-  supportsProfile: boolean;
-  manufacturer: string;
-  model: string;
-  firmwareVersion: string;
-  iconResource: string;
-  description: string;
-  isFavorite: boolean;
-  tags: string[];
-}
-
-/**
- * @interface HidOperationLogEntry
- * @description Represents an operation log entry for display.
- */
-interface HidOperationLogEntry {
-  id: string;
-  operation: string;
-  timestamp: number;
-  success: boolean;
-  details: string;
-  durationMs: number;
-  deviceId: string;
-  errorCode: number;
-  errorMessage: string;
-  metadata: Map<string, string>;
 }
 
 /**
@@ -113,14 +74,14 @@ struct HidPage {
     itemsPerPage: 10,
     totalItems: 0
   };
-  @State deviceList: HidDeviceItem[] = [];
-  @State operationLog: HidOperationLogEntry[] = [];
+  @State deviceList: ProfileDeviceItem[] = [];
+  @State operationLog: ProfileOperationLogEntry[] = [];
   @State showConnectDialog: boolean = false;
   @State connectDeviceId: string = '';
   @State selectedDeviceId: string = '';
   @State refreshCounter: number = 0;
   @State isAnimating: boolean = false;
-  @State toastMessage: string = '';
+  @State toastMessage: Resource | string = '';
   @State showToast: boolean = false;
   @State scrollPosition: number = 0;
   @State sortAscending: boolean = true;
@@ -140,10 +101,11 @@ struct HidPage {
       this.setupEventListeners();
       this.startAutoRefresh();
       this.state.isLoading = false;
-      hilog.info(0xF830, BluetoothConstants.TAG, 'HidPage initialized successfully');
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, 'HidPage initialized successfully');
     } catch (error) {
       this.state.errorMessage = 'Initialization failed: ' + JSON.stringify(error);
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s initialization error: %{public}s', 'HidPage', JSON.stringify(error));
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialization error: %{public}s',
+        'HidPage', JSON.stringify(error));
     } finally {
       this.state.isLoading = false;
       hiTraceMeter.finishTrace('HidPage_aboutToAppear', 0);
@@ -194,18 +156,19 @@ struct HidPage {
       await this.updateDeviceList();
       await this.updateOperationLog();
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s refresh error: %{public}s', 'HidPage', JSON.stringify(error));
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s refresh error: %{public}s', 'HidPage',
+        JSON.stringify(error));
     }
   }
 
   async updateDeviceList(): Promise<void> {
-    const devices: HidDeviceItem[] = [];
+    const devices: ProfileDeviceItem[] = [];
     const connectedIds = this.manager.getConnectedDeviceIds();
     for (const deviceId of connectedIds) {
       devices.push({
         deviceId: deviceId,
         deviceName: 'Device_' + deviceId.substring(0, 8),
-        macAddress: 'AA:BB:CC:DD:EE:FF',
+        macAddress: BluetoothConstants.MOCK_MAC_ADDRESS,
         isConnected: true,
         rssi: -50,
         deviceType: 'Hid',
@@ -226,7 +189,7 @@ struct HidPage {
 
   async updateOperationLog(): Promise<void> {
     const records = this.manager.getOperationRecords();
-    const logs: HidOperationLogEntry[] = [];
+    const logs: ProfileOperationLogEntry[] = [];
     for (const record of records) {
       logs.push({
         id: record.operationId,
@@ -246,7 +209,7 @@ struct HidPage {
 
   async handleConnectDevice(): Promise<void> {
     if (!this.connectDeviceId || this.connectDeviceId.length === 0) {
-      this.showToastMessage('Please enter a device ID');
+      this.showToastMessage($r('app.string.p_please_enter_device_id'));
       return;
     }
     try {
@@ -254,12 +217,12 @@ struct HidPage {
       this.isAnimating = true;
       const result = await this.manager.connect(this.connectDeviceId);
       if (result) {
-        this.showToastMessage('Connected successfully');
+        this.showToastMessage($r('app.string.p_connected_successfully'));
         this.connectDeviceId = '';
         this.showConnectDialog = false;
         await this.refreshData();
       } else {
-        this.showToastMessage('Connection failed');
+        this.showToastMessage($r('app.string.p_connection_failed'));
       }
     } catch (error) {
       this.showToastMessage('Connection error: ' + JSON.stringify(error));
@@ -274,10 +237,10 @@ struct HidPage {
       this.state.isLoading = true;
       const result = await this.manager.disconnect(deviceId);
       if (result) {
-        this.showToastMessage('Disconnected successfully');
+        this.showToastMessage($r('app.string.p_disconnected_successfully'));
         await this.refreshData();
       } else {
-        this.showToastMessage('Disconnection failed');
+        this.showToastMessage($r('app.string.p_disconnection_failed'));
       }
     } catch (error) {
       this.showToastMessage('Disconnection error: ' + JSON.stringify(error));
@@ -290,7 +253,7 @@ struct HidPage {
     try {
       this.isAnimating = true;
       await this.refreshData();
-      this.showToastMessage('Data refreshed');
+      this.showToastMessage($r('app.string.p_data_refreshed'));
     } catch (error) {
       this.showToastMessage('Refresh failed: ' + JSON.stringify(error));
     } finally {
@@ -303,7 +266,7 @@ struct HidPage {
       this.state.isLoading = true;
       await this.manager.reset();
       await this.refreshData();
-      this.showToastMessage('Manager reset');
+      this.showToastMessage($r('app.string.p_manager_reset'));
     } catch (error) {
       this.showToastMessage('Reset failed: ' + JSON.stringify(error));
     } finally {
@@ -311,7 +274,7 @@ struct HidPage {
     }
   }
 
-  private showToastMessage(message: string): void {
+  private showToastMessage(message: Resource | string): void {
     this.toastMessage = message;
     this.showToast = true;
     setTimeout(() => {
@@ -319,7 +282,7 @@ struct HidPage {
     }, 3000);
   }
 
-  filterDevices(): HidDeviceItem[] {
+  filterDevices(): ProfileDeviceItem[] {
     let filtered = [...this.deviceList];
     if (this.state.searchKeyword) {
       const keyword = this.state.searchKeyword.toLowerCase();
@@ -339,7 +302,7 @@ struct HidPage {
     return filtered;
   }
 
-  sortDevices(devices: HidDeviceItem[]): HidDeviceItem[] {
+  sortDevices(devices: ProfileDeviceItem[]): ProfileDeviceItem[] {
     const sorted = [...devices];
     sorted.sort((a, b) => {
       let comparison = 0;
@@ -364,7 +327,7 @@ struct HidPage {
     return sorted;
   }
 
-  getPaginatedDevices(devices: HidDeviceItem[]): HidDeviceItem[] {
+  getPaginatedDevices(devices: ProfileDeviceItem[]): ProfileDeviceItem[] {
     const startIndex = (this.state.currentPage - 1) * this.state.itemsPerPage;
     const endIndex = startIndex + this.state.itemsPerPage;
     return devices.slice(startIndex, endIndex);
@@ -411,18 +374,18 @@ struct HidPage {
     }
   }
 
-  getConnectionStateColor(state: BluetoothConnectionState): string {
+  getConnectionStateColor(state: BluetoothConnectionState): ResourceColor {
     switch (state) {
       case BluetoothConnectionState.DISCONNECTED:
-        return '#999999';
+        return $r('app.color.color_text_hint');
       case BluetoothConnectionState.CONNECTING:
-        return '#FFA500';
+        return $r('app.color.color_orange');
       case BluetoothConnectionState.CONNECTED:
-        return '#00FF00';
+        return $r('app.color.color_green');
       case BluetoothConnectionState.DISCONNECTING:
-        return '#FFA500';
+        return $r('app.color.color_orange');
       default:
-        return '#999999';
+        return $r('app.color.color_text_hint');
     }
   }
 
@@ -447,26 +410,26 @@ struct HidPage {
         Text($r('app.string.title_hid_full'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
           .fontWeight(FontWeight.Bold)
-          .fontColor('#FFFFFF')
+          .fontColor($r('app.color.color_white'))
         Blank()
         Button($r('app.string.p_btn_refresh'))
           .onClick(() => {
             this.handleRefresh();
           })
-          .backgroundColor('#007DFF')
-          .fontColor('#FFFFFF')
+          .backgroundColor($r('app.color.color_primary'))
+          .fontColor($r('app.color.color_white'))
           .margin({ right: 10 })
         Button($r('app.string.p_btn_connect'))
           .onClick(() => {
             this.showConnectDialog = true;
           })
-          .backgroundColor('#00C853')
-          .fontColor('#FFFFFF')
+          .backgroundColor($r('app.color.color_success'))
+          .fontColor($r('app.color.color_white'))
       }
       .width('100%')
       .height(60)
       .padding({ left: 20, right: 20 })
-      .backgroundColor('#0A59F7')
+      .backgroundColor($r('app.color.color_header'))
 
       Column() {
         Row() {
@@ -507,7 +470,7 @@ struct HidPage {
       .width('90%')
       .padding(15)
       .margin({ top: 15 })
-      .backgroundColor('#F5F5F5')
+      .backgroundColor($r('app.color.color_bg_grey'))
       .borderRadius(10)
 
       Tabs({ barPosition: BarPosition.Start }) {
@@ -557,7 +520,7 @@ struct HidPage {
       if (this.showToast) {
         Text(this.toastMessage)
           .fontSize(PageConstants.FONT_SIZE_BODY)
-          .fontColor('#FFFFFF')
+          .fontColor($r('app.color.color_white'))
           .backgroundColor('rgba(0, 0, 0, 0.7)')
           .padding(10)
           .borderRadius(5)
@@ -582,20 +545,20 @@ struct HidPage {
                 this.showConnectDialog = false;
                 this.connectDeviceId = '';
               })
-              .backgroundColor('#999999')
+              .backgroundColor($r('app.color.color_text_hint'))
               .margin({ right: 10 })
             Button($r('app.string.p_btn_connect'))
               .onClick(() => {
                 this.handleConnectDevice();
               })
-              .backgroundColor('#007DFF')
+              .backgroundColor($r('app.color.color_primary'))
           }
           .width('100%')
           .justifyContent(FlexAlign.End)
         }
         .width('80%')
         .padding(20)
-        .backgroundColor('#FFFFFF')
+        .backgroundColor($r('app.color.color_white'))
         .borderRadius(10)
         .position({ x: '10%', y: '30%' })
         .shadow({ radius: 10, color: 'rgba(0,0,0,0.3)', offsetX: 0, offsetY: 5 })
@@ -603,7 +566,7 @@ struct HidPage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#FFFFFF')
+    .backgroundColor($r('app.color.color_white'))
   }
 
   @Builder
@@ -617,16 +580,21 @@ struct HidPage {
 
         Grid() {
           GridItem() {
-            this.StatCard($r('app.string.p_connected_devices'), this.state.connectedDevices.length.toString(), '#007DFF')
+            this.StatCard($r('app.string.p_connected_devices'), this.state.connectedDevices.length.toString(),
+              $r('app.color.color_primary'))
           }
           GridItem() {
-            this.StatCard($r('app.string.p_tab_operations'), this.state.operationHistory.length.toString(), '#00C853')
+            this.StatCard($r('app.string.p_tab_operations'), this.state.operationHistory.length.toString(),
+              $r('app.color.color_success'))
           }
           GridItem() {
-            this.StatCard($r('app.string.p_health_score'), this.state.healthStatus ? ((this.state.healthStatus as ManagerHealthStatus).healthScore).toString() : 'N/A', '#FF6B35')
+            this.StatCard($r('app.string.p_health_score'),
+              this.state.healthStatus ? ((this.state.healthStatus as ManagerHealthStatus).healthScore).toString()
+              : 'N/A', $r('app.color.color_accent_orange'))
           }
           GridItem() {
-            this.StatCard($r('app.string.p_status'), this.getConnectionStateLabel(this.state.connectionState), '#9C27B0')
+            this.StatCard($r('app.string.p_status'), this.getConnectionStateLabel(this.state.connectionState),
+              $r('app.color.color_accent_purple'))
           }
         }
         .columnsTemplate('1fr 1fr')
@@ -636,7 +604,7 @@ struct HidPage {
         .height(200)
         .margin({ bottom: 20 })
 
-        Text($r('app.string.p_recent_activity'))
+        Text($r('app.string.p_latest_operations'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(FontWeight.Medium)
           .margin({ bottom: 10 })
@@ -651,11 +619,11 @@ struct HidPage {
                 Blank()
                 Text(item.success ? '✓' : '✗')
                   .fontSize(PageConstants.FONT_SIZE_BODY)
-                  .fontColor(item.success ? '#00C853' : '#FF0000')
+                  .fontColor(item.success ? $r('app.color.color_success') : $r('app.color.color_red'))
               }
               .width('100%')
               .padding(10)
-              .backgroundColor('#F5F5F5')
+              .backgroundColor($r('app.color.color_bg_grey'))
               .borderRadius(5)
               .margin({ bottom: 5 })
             }
@@ -720,7 +688,7 @@ struct HidPage {
       .padding({ left: 10, right: 10, bottom: 10 })
 
       List() {
-        ForEach(this.getPaginatedDevices(this.sortDevices(this.filterDevices())), (device: HidDeviceItem) => {
+        ForEach(this.getPaginatedDevices(this.sortDevices(this.filterDevices())), (device: ProfileDeviceItem) => {
           ListItem() {
             this.DeviceCard(device)
           }
@@ -739,7 +707,8 @@ struct HidPage {
             })
             .enabled(this.state.currentPage > 1)
             .margin({ right: 10 })
-          Text($r('app.string.p_page_of_fmt', this.state.currentPage.toString(), this.getTotalPages(this.filterDevices().length).toString()))
+          Text($r('app.string.p_page_of_fmt', this.state.currentPage.toString(),
+              this.getTotalPages(this.filterDevices().length).toString()))
             .fontSize(PageConstants.FONT_SIZE_BODY)
           Button('>')
             .onClick(() => {
@@ -779,8 +748,8 @@ struct HidPage {
           })
           .width('100%')
           .height(50)
-          .backgroundColor('#007DFF')
-          .fontColor('#FFFFFF')
+          .backgroundColor($r('app.color.color_primary'))
+          .fontColor($r('app.color.color_white'))
           .margin({ bottom: 10 })
 
         Button($r('app.string.p_disconnect_all'))
@@ -792,8 +761,8 @@ struct HidPage {
           })
           .width('100%')
           .height(50)
-          .backgroundColor('#FF5252')
-          .fontColor('#FFFFFF')
+          .backgroundColor($r('app.color.color_error'))
+          .fontColor($r('app.color.color_white'))
           .margin({ bottom: 10 })
 
         Button($r('app.string.p_reset_manager'))
@@ -802,8 +771,8 @@ struct HidPage {
           })
           .width('100%')
           .height(50)
-          .backgroundColor('#FF9800')
-          .fontColor('#FFFFFF')
+          .backgroundColor($r('app.color.color_warning'))
+          .fontColor($r('app.color.color_white'))
           .margin({ bottom: 20 })
 
         Text($r('app.string.p_hid_ops_title'))
@@ -813,7 +782,7 @@ struct HidPage {
 
         Text($r('app.string.p_ops_hint_hid'))
           .fontSize(PageConstants.FONT_SIZE_BODY)
-          .fontColor('#666666')
+          .fontColor($r('app.color.color_text_secondary'))
       }
       .width('100%')
       .padding(20)
@@ -831,7 +800,7 @@ struct HidPage {
         .margin({ bottom: 20 })
 
       List() {
-        ForEach(this.operationLog, (entry: HidOperationLogEntry) => {
+        ForEach(this.operationLog, (entry: ProfileOperationLogEntry) => {
           ListItem() {
             Column() {
               Row() {
@@ -841,25 +810,25 @@ struct HidPage {
                 Blank()
                 Text(entry.success ? '✓ Success' : '✗ Failed')
                   .fontSize(PageConstants.FONT_SIZE_CAPTION)
-                  .fontColor(entry.success ? '#00C853' : '#FF0000')
+                  .fontColor(entry.success ? $r('app.color.color_success') : $r('app.color.color_red'))
               }
               .width('100%')
 
               Text(this.formatTimestamp(entry.timestamp))
                 .fontSize(PageConstants.FONT_SIZE_CAPTION)
-                .fontColor('#999999')
+                .fontColor($r('app.color.color_text_hint'))
                 .margin({ top: 5 })
 
               if (entry.details) {
                 Text(entry.details)
                   .fontSize(PageConstants.FONT_SIZE_CAPTION)
-                  .fontColor('#666666')
+                  .fontColor($r('app.color.color_text_secondary'))
                   .margin({ top: 5 })
               }
             }
             .width('100%')
             .padding(15)
-            .backgroundColor('#F5F5F5')
+            .backgroundColor($r('app.color.color_bg_grey'))
             .borderRadius(5)
             .margin({ bottom: 10 })
           }
@@ -888,10 +857,14 @@ struct HidPage {
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow($r('app.string.p_total_conn_attempts'), ((this.state.statistics as HidManagerStatistics).totalConnectionAttempts || 0).toString())
-          this.StatRow($r('app.string.p_successful_connections'), ((this.state.statistics as HidManagerStatistics).successfulConnections || 0).toString())
-          this.StatRow($r('app.string.p_failed_connections'), ((this.state.statistics as HidManagerStatistics).failedConnections || 0).toString())
-          this.StatRow($r('app.string.p_success_rate'), ((this.state.statistics as HidManagerStatistics).connectionSuccessRate || 0).toString() + '%')
+          this.StatRow($r('app.string.p_total_conn_attempts'),
+            ((this.state.statistics as HidManagerStatistics).totalConnectionAttempts || 0).toString())
+          this.StatRow($r('app.string.p_successful_connections'),
+            ((this.state.statistics as HidManagerStatistics).successfulConnections || 0).toString())
+          this.StatRow($r('app.string.p_failed_connections'),
+            ((this.state.statistics as HidManagerStatistics).failedConnections || 0).toString())
+          this.StatRow($r('app.string.p_success_rate'),
+            ((this.state.statistics as HidManagerStatistics).connectionSuccessRate || 0).toString() + '%')
 
           Divider().margin({ top: 20, bottom: 20 })
 
@@ -900,10 +873,14 @@ struct HidPage {
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow($r('app.string.p_total_operations'), ((this.state.statistics as HidManagerStatistics).totalOperations || 0).toString())
-          this.StatRow($r('app.string.p_successful_operations'), ((this.state.statistics as HidManagerStatistics).successfulOperations || 0).toString())
-          this.StatRow($r('app.string.p_failed_operations'), ((this.state.statistics as HidManagerStatistics).failedOperations || 0).toString())
-          this.StatRow($r('app.string.p_operation_success_rate'), ((this.state.statistics as HidManagerStatistics).operationSuccessRate || 0).toString() + '%')
+          this.StatRow($r('app.string.p_total_operations'),
+            ((this.state.statistics as HidManagerStatistics).totalOperations || 0).toString())
+          this.StatRow($r('app.string.p_successful_operations'),
+            ((this.state.statistics as HidManagerStatistics).successfulOperations || 0).toString())
+          this.StatRow($r('app.string.p_failed_operations'),
+            ((this.state.statistics as HidManagerStatistics).failedOperations || 0).toString())
+          this.StatRow($r('app.string.p_operation_success_rate'),
+            ((this.state.statistics as HidManagerStatistics).operationSuccessRate || 0).toString() + '%')
 
           Divider().margin({ top: 20, bottom: 20 })
 
@@ -912,9 +889,12 @@ struct HidPage {
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow($r('app.string.p_uptime'), this.formatDuration((this.state.statistics as HidManagerStatistics).uptimeMs || 0))
-          this.StatRow($r('app.string.p_operations_per_minute'), ((this.state.statistics as HidManagerStatistics).operationsPerMinute || 0).toFixed(2))
-          this.StatRow($r('app.string.p_error_rate'), ((this.state.statistics as HidManagerStatistics).errorRate || 0).toString() + '%')
+          this.StatRow($r('app.string.p_uptime'),
+            this.formatDuration((this.state.statistics as HidManagerStatistics).uptimeMs || 0))
+          this.StatRow($r('app.string.p_operations_per_minute'),
+            ((this.state.statistics as HidManagerStatistics).operationsPerMinute || 0).toFixed(2))
+          this.StatRow($r('app.string.p_error_rate'),
+            ((this.state.statistics as HidManagerStatistics).errorRate || 0).toString() + '%')
         }
 
         if (this.state.healthStatus) {
@@ -925,8 +905,10 @@ struct HidPage {
             .fontWeight(FontWeight.Medium)
             .margin({ bottom: 10 })
 
-          this.StatRow($r('app.string.p_health_score'), ((this.state.healthStatus as ManagerHealthStatus).healthScore || 0).toString() + '/100')
-          this.StatRow($r('app.string.p_status'), (this.state.healthStatus as ManagerHealthStatus).isHealthy ? 'Healthy' : 'Unhealthy')
+          this.StatRow($r('app.string.p_health_score'),
+            ((this.state.healthStatus as ManagerHealthStatus).healthScore || 0).toString() + '/100')
+          this.StatRow($r('app.string.p_status'),
+            (this.state.healthStatus as ManagerHealthStatus).isHealthy ? 'Healthy' : 'Unhealthy')
         }
       }
       .width('100%')
@@ -966,7 +948,7 @@ struct HidPage {
         }
         .width('100%')
         .padding(10)
-        .backgroundColor('#F5F5F5')
+        .backgroundColor($r('app.color.color_bg_grey'))
         .borderRadius(5)
         .margin({ bottom: 10 })
 
@@ -980,7 +962,7 @@ struct HidPage {
         }
         .width('100%')
         .padding(10)
-        .backgroundColor('#F5F5F5')
+        .backgroundColor($r('app.color.color_bg_grey'))
         .borderRadius(5)
         .margin({ bottom: 10 })
 
@@ -1001,7 +983,7 @@ struct HidPage {
         }
         .width('100%')
         .padding(10)
-        .backgroundColor('#F5F5F5')
+        .backgroundColor($r('app.color.color_bg_grey'))
         .borderRadius(5)
         .margin({ bottom: 10 })
 
@@ -1016,7 +998,7 @@ struct HidPage {
         }
         .width('100%')
         .padding(10)
-        .backgroundColor('#F5F5F5')
+        .backgroundColor($r('app.color.color_bg_grey'))
         .borderRadius(5)
         .margin({ bottom: 10 })
 
@@ -1034,19 +1016,19 @@ struct HidPage {
           })
           .width('100%')
           .height(50)
-          .backgroundColor('#007DFF')
-          .fontColor('#FFFFFF')
+          .backgroundColor($r('app.color.color_primary'))
+          .fontColor($r('app.color.color_white'))
           .margin({ bottom: 10 })
 
         Button($r('app.string.p_reset_to_defaults'))
           .onClick(() => {
             this.manager.setConfig({});
-            this.showToastMessage('Configuration reset');
+            this.showToastMessage($r('app.string.p_configuration_reset'));
           })
           .width('100%')
           .height(50)
-          .backgroundColor('#FF9800')
-          .fontColor('#FFFFFF')
+          .backgroundColor($r('app.color.color_warning'))
+          .fontColor($r('app.color.color_white'))
       }
       .width('100%')
       .padding(20)
@@ -1056,11 +1038,11 @@ struct HidPage {
   }
 
   @Builder
-  StatCard(title: ResourceStr, value: string, color: string) {
+  StatCard(title: ResourceStr, value: string, color: ResourceColor) {
     Column() {
       Text(title)
         .fontSize(PageConstants.FONT_SIZE_CAPTION)
-        .fontColor('#666666')
+        .fontColor($r('app.color.color_text_secondary'))
       Text(value)
         .fontSize(24)
         .fontWeight(FontWeight.Bold)
@@ -1070,14 +1052,14 @@ struct HidPage {
     .width('100%')
     .height('100%')
     .padding(15)
-    .backgroundColor('#FFFFFF')
+    .backgroundColor($r('app.color.color_white'))
     .borderRadius(10)
     .shadow({ radius: 5, color: 'rgba(0,0,0,0.1)', offsetX: 0, offsetY: 2 })
     .justifyContent(FlexAlign.Center)
   }
 
   @Builder
-  DeviceCard(device: HidDeviceItem) {
+  DeviceCard(device: ProfileDeviceItem) {
     Row() {
       Column() {
         Text(device.deviceName)
@@ -1085,15 +1067,15 @@ struct HidPage {
           .fontWeight(FontWeight.Medium)
         Text(device.macAddress)
           .fontSize(PageConstants.FONT_SIZE_CAPTION)
-          .fontColor('#999999')
+          .fontColor($r('app.color.color_text_hint'))
           .margin({ top: 2 })
         Row() {
           Text($r('app.string.p_rssi_fmt', device.rssi.toString() + ' dBm'))
             .fontSize(PageConstants.FONT_SIZE_CAPTION)
-            .fontColor('#666666')
+            .fontColor($r('app.color.color_text_secondary'))
           Text($r('app.string.p_battery_fmt', device.batteryLevel.toString() + '%'))
             .fontSize(PageConstants.FONT_SIZE_CAPTION)
-            .fontColor('#666666')
+            .fontColor($r('app.color.color_text_secondary'))
             .margin({ left: 15 })
         }
         .margin({ top: 5 })
@@ -1108,13 +1090,13 @@ struct HidPage {
             await this.handleConnectDevice();
           }
         })
-        .backgroundColor(device.isConnected ? '#FF5252' : '#00C853')
-        .fontColor('#FFFFFF')
+        .backgroundColor(device.isConnected ? $r('app.color.color_error') : $r('app.color.color_success'))
+        .fontColor($r('app.color.color_white'))
         .height(40)
     }
     .width('100%')
     .padding(15)
-    .backgroundColor('#FFFFFF')
+    .backgroundColor($r('app.color.color_white'))
     .borderRadius(10)
     .shadow({ radius: 5, color: 'rgba(0,0,0,0.1)', offsetX: 0, offsetY: 2 })
     .margin({ bottom: 10 })
@@ -1132,7 +1114,7 @@ struct HidPage {
     }
     .width('100%')
     .padding(10)
-    .backgroundColor('#F5F5F5')
+    .backgroundColor($r('app.color.color_bg_grey'))
     .borderRadius(5)
     .margin({ bottom: 5 })
   }

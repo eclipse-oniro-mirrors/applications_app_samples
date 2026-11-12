@@ -53,12 +53,12 @@ struct BondedDevicesPage {
    */
   private getMockItems(): InfoItem[] {
     return [
-      { label: 'JBL Flip 6', value: 'AA:BB:CC:DD:EE:01 | Audio | Connected' },
-      { label: 'Sony WH-1000XM5', value: 'AA:BB:CC:DD:EE:02 | Audio | Connected' },
-      { label: 'Logitech K380', value: 'AA:BB:CC:DD:EE:10 | Input | Connected' },
-      { label: 'Huawei Watch GT4', value: 'AA:BB:CC:DD:EE:20 | Health | Disconnected' },
-      { label: 'Samsung Galaxy S24', value: 'AA:BB:CC:DD:EE:30 | Phone | Disconnected' },
-      { label: 'Microsoft Arc Mouse', value: 'AA:BB:CC:DD:EE:11 | Input | Disconnected' },
+      { label: 'JBL Flip 6', value: '11:22:33:44:55:01 | Audio | Connected' },
+      { label: 'Sony WH-1000XM5', value: '11:22:33:44:55:02 | Audio | Connected' },
+      { label: 'Logitech K380', value: '11:22:33:44:55:10 | Input | Connected' },
+      { label: 'Demo Health Watch', value: '11:22:33:44:55:20 | Health | Disconnected' },
+      { label: 'Samsung Galaxy S24', value: '11:22:33:44:55:30 | Phone | Disconnected' },
+      { label: 'Microsoft Arc Mouse', value: '11:22:33:44:55:11 | Input | Disconnected' },
     ];
   }
 
@@ -73,7 +73,7 @@ struct BondedDevicesPage {
       .width('100%')
       .height(PageConstants.NAV_BAR_HEIGHT)
       .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
 
       List({ space: 8 }) {
         ForEach(this.infoItems, (item: InfoItem) => {
@@ -91,7 +91,7 @@ struct BondedDevicesPage {
             }
             .width('100%')
             .padding(12)
-            .backgroundColor(PageConstants.COLOR_SURFACE)
+            .backgroundColor(PageConstants.COLOR_CARD)
             .borderRadius(8)
           }
         }, (item: InfoItem) => item.label)
