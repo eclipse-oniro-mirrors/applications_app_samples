@@ -14,6 +14,7 @@
  */
 
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { bundleManager } from '@kit.AbilityKit';
 import { paceTurn } from './shared/TestPace';
 import {
@@ -42,6 +43,9 @@ import { certificateToDer } from './shared/CertificateDer';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { toHexUpper } from './shared/BundleOracle';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_CommonProblem_Contract]';
+
 export default function probeSmokeTest() {
   describe('probeSmokeTest', () => {
     beforeEach(async () => {
@@ -57,9 +61,11 @@ export default function probeSmokeTest() {
      * @tc.level LEVEL0
      */
     it('testProbeSmoke0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0001 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_SIGNATURE);
       expect(info.name).assertEqual(SELF_BUNDLE_NAME);
       expect(info.signatureInfo.appId.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0001 end');
     });
 
     /**
@@ -71,10 +77,12 @@ export default function probeSmokeTest() {
      * @tc.level LEVEL0
      */
     it('testProbeSmoke0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0002 begin');
       const asyncInfo: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_SIGNATURE);
       const syncInfo: bundleManager.BundleInfo = querySelfSync(FLAGS_FOR_SIGNATURE);
       expect(syncInfo.name).assertEqual(asyncInfo.name);
       expect(syncInfo.signatureInfo.appId).assertEqual(asyncInfo.signatureInfo.appId);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0002 end');
     });
 
     /**
@@ -86,6 +94,7 @@ export default function probeSmokeTest() {
      * @tc.level LEVEL1
      */
     it('testProbeSmoke0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0003 begin');
       const self: boolean = (await querySelfSafely(FLAGS_FOR_SIGNATURE)).ok;
       expect(self).assertTrue();
       let threw: boolean = false;
@@ -96,6 +105,7 @@ export default function probeSmokeTest() {
       }
       expect(threw).assertTrue();
       expect(querySelfSyncSafely(FLAGS_FOR_SIGNATURE).ok).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0003 end');
     });
 
     /**
@@ -107,6 +117,7 @@ export default function probeSmokeTest() {
      * @tc.level LEVEL1
      */
     it('testProbeSmoke0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0004 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_FULL);
       const certificate: string = info.signatureInfo.certificate ?? '';
       expect(certificate.length > 0).assertTrue();
@@ -115,6 +126,7 @@ export default function probeSmokeTest() {
       const certDigest: cryptoFramework.DataBlob = await md.digest();
       const certHex: string = toHexUpper(new Uint8Array(certDigest.data));
       expect(certHex).assertEqual(info.signatureInfo.fingerprint);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0004 end');
     });
 
     /**
@@ -126,6 +138,7 @@ export default function probeSmokeTest() {
      * @tc.level LEVEL2
      */
     it('testProbeSmoke0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0005 begin');
       expect(BASE64_STD.length).assertEqual(64);
       expect(base64Std(new Uint8Array([0x66]))).assertEqual('Zg==');
       expect(base64Std(new Uint8Array([0x66, 0x6F]))).assertEqual('Zm8=');
@@ -136,6 +149,7 @@ export default function probeSmokeTest() {
       expect(countBits(0xFF)).assertEqual(8);
       expect(toHexLower(new Uint8Array([0x0F, 0xA0]))).assertEqual('0fa0');
       expect(decodeBase64ToBytes('Zm9v').length).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testProbeSmoke0005 end');
     });
   });
 }
