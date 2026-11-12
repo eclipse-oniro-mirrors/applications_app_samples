@@ -249,7 +249,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 | 执行前点亮屏幕并保持常亮 | `testrunner/OpenHarmonyTestRunner.onRun` | 息屏会让被测窗口退到后台、无障碍树为空，导致所有 `findComponent` 落空 |
 | 查找前收起软键盘 | `testkit/SharedDriver.dismissSoftKeyboardIfNeeded` | 键盘弹起时可视区只剩半屏，滑动起点落入内层 List 被吞掉，下半屏控件（滑块/复选框/Swiper）全部搜不到 |
 | 每次滑动前重读滚动区 bounds | `testkit/SharedDriver.swipeOnce` | 窗口尺寸变化后旧 bounds 会让手势坐标失效 |
-| 启动失败重试 + `aa start` 兜底 | `testkit/SharedDriver.startAbility` | `delegator.startAbility` 在连续多次拉起应用时偶发失败（第 5 次全量出现 16 条 `startAbility failed.`，同期设备侧 `aa start` 连发稳定成功），失败后先间隔 1s 重试 2 次，仍失败则由 shell `aa start` 拉起，回显 `start ability successfully` 才视为成功 |
+| 启动失败重试 + shell 侧启动命令兜底 | `testkit/SharedDriver.startAbility` | `delegator.startAbility` 在连续多次拉起应用时偶发失败（第 5 次全量出现 16 条 `startAbility failed.`，同期设备侧执行启动命令连发稳定成功），失败后先间隔 1s 重试 2 次，仍失败则由 shell 侧执行启动命令拉起，回显 `start ability successfully` 才视为成功 |
 
 另：断言统一采用「按 id/description 定位 + 相对变化」，不依赖英文文案、不依赖用例执行顺序（计数器、Swiper 页码、输入内容均跨用例残留）。
 
