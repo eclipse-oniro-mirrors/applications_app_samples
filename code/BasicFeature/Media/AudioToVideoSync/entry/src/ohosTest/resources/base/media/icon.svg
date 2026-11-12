@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="114" height="114" viewBox="0 0 114 114">
+  <defs>
+    <clipPath id="tile">
+      <rect x="0" y="9" width="114" height="96" rx="9" ry="9"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect x="0" y="9" width="114" height="96" fill="#007dff"/>
+    <g stroke="#4098f3" stroke-width="2.5">
+      <path d="M10 9V105 M24 9V105 M37 9V105 M51 9V105 M64 9V105 M78 9V105 M91 9V105 M104 9V105"/>
+      <path d="M0 10H114 M0 24H114 M0 37H114 M0 51H114 M0 64H114 M0 78H114 M0 91H114 M0 104H114"/>
+    </g>
+    <g fill="#ffffff">
+      <circle cx="39" cy="38" r="14.5"/>
+      <circle cx="74" cy="38" r="14.5"/>
+      <circle cx="39" cy="74.5" r="14.5"/>
+      <circle cx="74" cy="74.5" r="14.5"/>
+    </g>
+  </g>
+</svg>
