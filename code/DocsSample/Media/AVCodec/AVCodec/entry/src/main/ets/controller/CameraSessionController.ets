@@ -84,10 +84,14 @@ export class CameraSessionController {
     } catch (_error) { Logger.warn('RecorderCamera', 'Optional stabilization is unavailable'); }
     const color = data.isHDRVivid ? colorSpaceManager.ColorSpace.BT2020_HLG_LIMIT :
       colorSpaceManager.ColorSpace.BT709_LIMIT;
-    try {
-      if (this.session.getSupportedColorSpaces().indexOf(color) >= 0) { this.session.setColorSpace(color); }
-    } catch (_error) { Logger.warn('RecorderCamera', 'Optional color space is unavailable'); }
+    if (this.session.getSupportedColorSpaces().indexOf(color) < 0) {
+      throw new Error(LocalizedText.get($r('app.string.recorder_color_unavailable')));
+    }
+    this.session.setColorSpace(color);
     await this.session.commitConfig();
+    if (this.session.getActiveColorSpace() !== color) {
+      throw new Error(LocalizedText.get($r('app.string.recorder_color_unavailable')));
+    }
     if (this.bufferOutput !== undefined) {
       const ranges: camera.FrameRateRange[] = this.bufferOutput.getSupportedFrameRates();
       if (!ranges.some((range: camera.FrameRateRange): boolean =>

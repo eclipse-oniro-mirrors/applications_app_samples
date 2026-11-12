@@ -23,7 +23,7 @@ const TAG = 'RestoreIndex';
 const KEY_NAV_SNAPSHOT = 'reader.navSnapshot';
 const KEY_RESTORE_NAV_PATH = 'restore.navPath';
 
-/** 方案 A 示例首页：Navigation 三件套与深栈补推。 */
+/** Navigation 页面栈恢复示例首页：三项配置与深层栈补齐。 */
 @Entry
 @Component
 struct RestoreIndex {
@@ -41,7 +41,7 @@ struct RestoreIndex {
 
   // [Start deep_stack_replay_timing]
   onPageShow(): void {
-    // 深栈补推时机：此时系统栈恢复已完成、页面已渲染；禁止提前到 loadContent 回调
+    // 深层栈补齐时机：此时系统栈恢复已完成、页面已渲染；不要提前到 loadContent 回调
     // （系统恢复尚未执行，会互相冲突）。恢复启动时首页的自动跳转（如广告页）必须跳过，
     // 否则会覆盖系统恢复出的栈顶页。
     this.replayDeepStack();
@@ -49,7 +49,7 @@ struct RestoreIndex {
   // [End deep_stack_replay_timing]
 
   // [Start deep_stack_replay]
-  /** 按保存的路径快照补齐系统未恢复的深层级。 */
+  /** 按保存的页面路径补齐系统未恢复的深层级。 */
   private replayDeepStack(): void {
     const navPath = AppStorage.get<string>(KEY_RESTORE_NAV_PATH);
     if (navPath === undefined) {
@@ -59,20 +59,20 @@ struct RestoreIndex {
     try {
       const names: string[] = JSON.parse(navPath) as string[];
       const current: string[] = this.pathStack.getAllPathName();
-      // 从系统已恢复的层数起逐层补齐；补推失败则停在已恢复页，不白屏
+      // 从系统已恢复的层数起逐层补齐；补齐失败则停在已恢复页，不白屏
       for (let i = current.length; i < names.length; i++) {
         this.pathStack.pushPathByName(names[i], {} as Record<string, Object>);
       }
     } catch (_) {
-      // 快照损坏则跳过补推，停在已恢复页不白屏；打日志便于排障
-      hilog.warn(DOMAIN, TAG, 'replayDeepStack skipped: broken snapshot');
+      // 页面路径解析失败则跳过补齐，停在已恢复页不白屏；打日志便于排障
+      hilog.warn(DOMAIN, TAG, 'replayDeepStack skipped: invalid navPath');
     }
   }
   // [End deep_stack_replay]
 
   // [Start nav_snapshot_report]
   aboutToAppear(): void {
-    // 栈变化统一监听：进入、返回、替换后都更新快照，避免只覆盖进入场景
+    // 栈变化统一监听：进入、返回、替换后都更新页面路径，避免只覆盖进入场景
     this.pathStack.setInterception({
       didShow: () => {
         this.reportNavSnapshot();
@@ -80,7 +80,7 @@ struct RestoreIndex {
     });
   }
 
-  /** 栈变化后把路径快照发布到 AppStorage，onSaveState 同步读取。 */
+  /** 栈变化后把页面路径发布到 AppStorage，onSaveState 同步读取。 */
   private reportNavSnapshot(): void {
     AppStorage.setOrCreate(KEY_NAV_SNAPSHOT, JSON.stringify(this.pathStack.getAllPathName()));
   }
@@ -104,7 +104,7 @@ struct RestoreIndex {
             this.pathStack.pushPathByName('ReaderPage', { bookId: 'book-1001' } as Record<string, Object>);
             this.reportNavSnapshot();
           })
-        Button('进入第三层页面（深栈补推演示）')
+        Button('进入第三层页面（深层栈补齐演示）')
           .width('80%')
           .onClick(() => {
             this.pathStack.pushPathByName('ReaderPage', { bookId: 'book-1001' } as Record<string, Object>);
@@ -125,9 +125,9 @@ struct RestoreIndex {
       .justifyContent(FlexAlign.Center)
     }
     .navDestination(this.PageMap)
-    // 三件套之 1：恢复按 navigationId 匹配，必须设置
+    // 三项配置之 1：恢复按 navigationId 匹配，必须设置
     .id('restore-nav')
-    // 三件套之 2：默认 false，必须显式开启（API版本14+）
+    // 三项配置之 2：默认 false，必须显式开启（API版本14+）
     .recoverable(true)
     .mode(NavigationMode.Stack)
     // [End nav_three_piece]

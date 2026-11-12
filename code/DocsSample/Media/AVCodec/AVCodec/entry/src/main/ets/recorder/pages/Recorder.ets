@@ -36,6 +36,7 @@ struct Recorder {
   @State private elapsed: number = 0;
   @State private compact: string = '';
   @State private details: string = '';
+  @State private pauseBusy: boolean = false;
   private data: CameraDataModel = new CameraDataModel();
   private session: RecordingSessionController = new RecordingSessionController();
   private camera: CameraSessionController = new CameraSessionController();
@@ -110,8 +111,10 @@ struct Recorder {
     this.diagnostics.start(this.data.enableDualOutput, this.data.stopOnLowSpace,
       (compact: string, details: string): void => {
         this.compact = compact; this.details = details;
-        this.elapsed = Math.floor((Date.now() - this.startedAt) / 1000);
-        if (this.segments.due(this.data, recorder.getDiagnostics(), Date.now())) { this.rotateSegment(); }
+        this.elapsed = Math.floor(this.session.elapsedSeconds());
+        if (this.phase === RecordingPhase.RECORDING && !this.pauseBusy &&
+          this.segments.due(this.data, recorder.getDiagnostics(),
+            this.startedAt + this.session.elapsedSeconds() * 1000)) { this.rotateSegment(); }
       }, (): void => {
         if (this.data.stopOnLowSpace && recorder.getDiagnostics().active &&
           recorder.getDiagnostics().failure.stage.length === 0) { this.session.mark('storage.stop_requested'); }
@@ -129,6 +132,17 @@ struct Recorder {
       this.switchingTask = undefined;
       if (this.ending) { void this.finish(this.showResultOnFinish); }
     });
+  }
+
+  private async togglePause(): Promise<void> {
+    if (this.pauseBusy || this.ending) { return; }
+    this.pauseBusy = true;
+    try {
+      if (!await this.session.setPaused(this.phase !== RecordingPhase.PAUSED)) {
+        this.getUIContext().getPromptAction().showToast({ message: $r('app.string.recorder_pause_failed') });
+      }
+      if (!this.ending) { this.phase = this.session.phase; }
+    } finally { this.pauseBusy = false; }
   }
 
   private async finalizeSegment(): Promise<void> {
@@ -246,8 +260,11 @@ struct Recorder {
           .onActionEnd((): void => { this.zoom = this.camera.zoomRatio(); }))
       Column() {
         Column({ space: 8 }) {
-          if (this.phase === RecordingPhase.RECORDING) {
+          if (this.phase === RecordingPhase.RECORDING || this.phase === RecordingPhase.PAUSED) {
             Text(dateTime(this.elapsed)).fontSize(27).fontColor(Color.White)
+            if (this.phase === RecordingPhase.PAUSED) {
+              Text($r('app.string.recorder_paused')).fontColor(Color.White)
+            }
           }
           if (this.compact.length > 0) {
             RecorderDiagnosticsPanel({ compactText: this.compact, detailText: this.details,
@@ -258,10 +275,21 @@ struct Recorder {
           if (this.phase === RecordingPhase.RECORDING) {
             RecorderLiveParameters({ recording: true, dualOutput: this.data.enableDualOutput })
           }
-          Button(this.phase === RecordingPhase.RECORDING ? $r('app.string.end_recording') :
+          if (this.phase === RecordingPhase.RECORDING || this.phase === RecordingPhase.PAUSED) {
+            if (this.data.bufferInput && !this.data.enableDualOutput) {
+              Button(this.phase === RecordingPhase.PAUSED ? $r('app.string.recorder_resume') :
+                $r('app.string.recorder_pause')).enabled(!this.pauseBusy)
+                .onClick((): void => { void this.togglePause(); })
+            } else {
+              Text($r('app.string.recorder_pause_hint')).fontSize(12).fontColor('#DDDDDD').maxLines(3)
+            }
+          }
+          Button(this.phase === RecordingPhase.RECORDING || this.phase === RecordingPhase.PAUSED ?
+            $r('app.string.end_recording') :
             this.phase === RecordingPhase.FINALIZING ? $r('app.string.rec_result_finalizing') : $r('app.string.start_recording'))
             .backgroundColor('#E67E22').fontColor(Color.White)
-            .enabled(this.phase === RecordingPhase.READY || this.phase === RecordingPhase.RECORDING)
+            .enabled(this.phase === RecordingPhase.READY || this.phase === RecordingPhase.RECORDING ||
+              this.phase === RecordingPhase.PAUSED)
             .onClick((): void => {
               if (this.phase === RecordingPhase.READY) { void this.start(); } else { void this.finish(true); }
             })

@@ -44,7 +44,7 @@ let car: Car = new Car('Toyota', 'Camry');
 
 // super() 规则：
 // 1. 子类构造函数必须调用super()
-// 2. super() 必须在第一行
+// 2. super() 必须在访问this之前调用（不一定是第一行）
 // 3. super() 参数匹配父类构造函数
 
 class InvalidChild extends Vehicle {

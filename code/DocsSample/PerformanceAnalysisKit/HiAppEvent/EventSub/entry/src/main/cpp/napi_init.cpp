@@ -246,7 +246,7 @@ static napi_value RegisterLeakReceiveWatcher(napi_env env, napi_callback_info in
 }
 // [End PssLeakEvent_OnReceive]
 // [Start AppKillEvent_OnReceive]
-// 定义一变量，用来缓存创建的观察者的指针。
+// 定义一个变量，用来缓存创建的观察者的指针。
 static HiAppEvent_Watcher *appKillWatcherR;
 
 static void HandleAppKillEventInfo(const struct HiAppEvent_AppEventInfo &appEventInfos)
@@ -1592,7 +1592,6 @@ static napi_value AddressSanitizerTest(napi_env env, napi_callback_info info)
 // [End AsanEvent_AddressTest]
 // [Start AppKillEvent_NativeLeak]
 // [StartExclude address_sanitizer_events_arkts_3]
-
 static void NativeLeak()
 {
     constexpr int leakSizePerTime = 500000;
@@ -2097,6 +2096,7 @@ static napi_value HiCollieTestTimerNdk(napi_env env, napi_callback_info exports)
 // [Start FreezeEvent_Init]
 // [EndExclude address_sanitizer_events_arkts_3]
 // [Start ExternalLog_C++_Init]
+// [Start MainThreadJank_Init]
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
@@ -2167,7 +2167,6 @@ static napi_value Init(napi_env env, napi_value exports)
         { "leakMB", nullptr, LeakMB, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [StartExclude Pss_Leak_Init]
         // [Start test_hicollie_set_timer]
-        // [StartExclude Pss_Leak_Init]
         // 将HiCollieTestTimerNdk注册为ArkTS接口
         { "HiCollieTestTimerNdk", nullptr, HiCollieTestTimerNdk, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [End test_hicollie_set_timer]
@@ -2175,10 +2174,8 @@ static napi_value Init(napi_env env, napi_value exports)
         { "registerExternalLogMgr", nullptr, RegisterExternalLogMgr, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [StartExclude ExternalLog_C++_Init]
         // [EndExclude MainThreadJank_Init]
-        // [Start MainThreadJank_Init]
         { "RegisterMainThreadJankWatcher", nullptr, RegisterMainThreadJankWatcher, nullptr, nullptr, nullptr,
             napi_default, nullptr },
-        // [End MainThreadJank_Init]
         // [StartExclude MainThreadJank_Init]
         // [EndExclude FreezeEvent_Init]
         { "RegisterFreezeWatcherR", nullptr, RegisterFreezeWatcherR, nullptr, nullptr, nullptr, napi_default, nullptr },
@@ -2193,7 +2190,6 @@ static napi_value Init(napi_env env, napi_value exports)
         // [EndExclude AppFreezeWarning_Init]
         // [EndExclude FreezeEvent_Init]
         // [EndExclude MainThreadJank_Init]
-        // [EndExclude Pss_Leak_Init]
         // [EndExclude AsanEvent_Init]
         // [EndExclude AsanEventTS_Init]
         // [EndExclude PssLeakEvent_Init]
@@ -2209,6 +2205,7 @@ static napi_value Init(napi_env env, napi_value exports)
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }
+// [End MainThreadJank_Init]
 // [End ExternalLog_C++_Init]
 // [End AppKillEvent_Init]
 // [End AppKillEvent_ArkTS_Init]

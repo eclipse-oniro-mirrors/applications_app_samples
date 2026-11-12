@@ -44,6 +44,7 @@ struct ZoomButtonsView {
     Row({ space: 15 }) {
       ForEach(this.zooms, (zoom: number, index: number) => {
         Text(this.getZoomButtonText(zoom, index))
+          .id('zoom_' + zoom)
           .width(36)
           .height(36)
           .fontColor(Color.White)

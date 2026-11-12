@@ -613,8 +613,8 @@ interface BaseInterface {
 
 // 扩展接口（包含可选成员）
 interface ExtendedInterface extends BaseInterface {
-    optionalMethod?(): void;
-    optionalProperty?: number;
+  optionalMethod?(): void;
+  optionalProperty?: number;
 }
 
 class BaseInterfaceImpl implements BaseInterface {
@@ -954,7 +954,7 @@ makeAnimalSpeak(cow); // 'Daisy moos: Moo!'
 let animals: PolyAnimal[] = [dog, cat, cow];
 
 animals.forEach(animal => {
-    animal.speak();
+  animal.speak();
 });
 // [End interface_polymorphism]
 

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1450" width="800" height="1450">
+  <defs>
+    <style>
+      .bg { fill: #f4f5f9; }
+      .text-dark { fill: #191c1f; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .text-sub { fill: #5f6368; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .text-white { fill: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .btn { fill: #007bff; rx: 35; }
+      .result-box { fill: #ffffff; rx: 15; }
+      .status-bar { fill: #5f6368; font-family: monospace; font-size: 22px; }
+      .title-lg { font-size: 46px; font-weight: bold; text-anchor: middle; }
+      .subtitle { font-size: 23px; text-anchor: middle; }
+      .section-title { font-size: 28px; font-weight: 600; }
+      .btn-text { font-size: 24px; text-anchor: middle; dominant-baseline: middle; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="1450" class="bg" />
+
+  <!-- Status Bar -->
+  <text x="30" y="45" class="status-bar">没有 SIM 卡 *</text>
+  <text x="620" y="45" class="status-bar">11% 🔋  08:42</text>
+
+  <!-- Header -->
+  <text x="400" y="160" class="text-dark title-lg">Shared Preferences</text>
+  <text x="400" y="215" class="text-sub subtitle">Run asynchronous and synchronous APIs. Initialize before data</text>
+  <text x="400" y="245" class="text-sub subtitle">operations.</text>
+
+  <!-- Section: Instance and limits -->
+  <text x="40" y="320" class="text-dark section-title">Instance and limits</text>
+  <rect x="30" y="350" width="370" height="80" class="btn" />
+  <text x="215" y="400" class="text-white btn-text">getPreferences</text>
+  <rect x="420" y="350" width="360" height="80" class="btn" />
+  <text x="600" y="400" class="text-white btn-text">getPreferencesSync</text>
+
+  <rect x="30" y="450" width="750" height="80" class="btn" />
+  <text x="405" y="500" class="text-white btn-text">Show key/value limits</text>
+
+  <!-- Section: Read and write -->
+  <text x="40" y="590" class="text-dark section-title">Read and write</text>
+  <rect x="30" y="620" width="370" height="80" class="btn" />
+  <text x="215" y="670" class="text-white btn-text">put</text>
+  <rect x="420" y="620" width="360" height="80" class="btn" />
+  <text x="600" y="670" class="text-white btn-text">putSync</text>
+
+  <rect x="30" y="720" width="370" height="80" class="btn" />
+  <text x="215" y="770" class="text-white btn-text">get</text>
+  <rect x="420" y="720" width="360" height="80" class="btn" />
+  <text x="600" y="770" class="text-white btn-text">getSync</text>
+
+  <rect x="30" y="820" width="370" height="80" class="btn" />
+  <text x="215" y="870" class="text-white btn-text">getAll</text>
+  <rect x="420" y="820" width="360" height="80" class="btn" />
+  <text x="600" y="870" class="text-white btn-text">getAllSync</text>
+
+  <rect x="30" y="920" width="370" height="80" class="btn" />
+  <text x="215" y="970" class="text-white btn-text">has</text>
+  <rect x="420" y="920" width="360" height="80" class="btn" />
+  <text x="600" y="970" class="text-white btn-text">hasSync</text>
+
+  <!-- Section: Persistence and cleanup -->
+  <text x="40" y="1060" class="text-dark section-title">Persistence and cleanup</text>
+  <rect x="30" y="1090" width="370" height="80" class="btn" />
+  <text x="215" y="1140" class="text-white btn-text">delete</text>
+  <rect x="420" y="1090" width="360" height="80" class="btn" />
+  <text x="600" y="1140" class="text-white btn-text">deleteSync</text>
+
+  <!-- Partially visible buttons at bottom -->
+  <rect x="30" y="1200" width="370" height="40" class="btn" />
+  <rect x="420" y="1200" width="360" height="40" class="btn" />
+
+  <!-- Result Section -->
+  <text x="40" y="1290" class="text-dark section-title">Result</text>
+  <rect x="30" y="1310" width="750" height="150" class="result-box" />
+  <text x="60" y="1360" class="text-dark" style="font-size: 24px;">Ready.</text>
+
+  <!-- Navigation Bar -->
+  <path d="M 300 1420 L 330 1390 L 360 1420 Z" fill="none" stroke="#191c1f" stroke-width="3"/>
+  <circle cx="400" cy="1405" r="15" fill="none" stroke="#191c1f" stroke-width="3"/>
+  <rect x="520" y="1390" width="30" height="30" fill="none" stroke="#191c1f" stroke-width="3"/>
+</svg>

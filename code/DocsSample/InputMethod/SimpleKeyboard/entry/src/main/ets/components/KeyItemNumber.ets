@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,30 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  Stack,
-  Resource,
-  ForEach,
-  Flex,
-  Text,
-  Consume,
-  StateStyles,
-  $r,
-  ClickEvent,
-  FlexOptions,
-  ShadowOptions,
-  StackOptions,
-  ItemAlign,
-  FlexAlign,
-  FlexDirection,
-  Color,
-  AppStorage,
-  FontWeight,
-  Alignment,
-  TextAlign
-} from '@kit.ArkUI';
 import deviceInfo from '@ohos.deviceInfo';
 import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
 import { KeyState, keySourceListType } from '../InputMethodExtensionAbility/pages/KeyboardKeyData';
@@ -49,6 +24,16 @@ export struct KeyItemNumber {
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
   @Consume keyState: number;
   keyValue: keySourceListType | undefined = undefined;
+
+  @Styles
+  normalStyle(): void {
+    .backgroundColor($r('app.color.key_item_normal'))
+  }
+
+  @Styles
+  pressedStyle(): void {
+    .backgroundColor($r('app.color.key_item_normal_pressed'))
+  }
 
   build(): void {
     Flex({
@@ -90,6 +75,7 @@ export struct KeyItemNumber {
     }
     .backgroundColor($r('app.color.key_item_normal'))
     .borderRadius(4)
+    .id('key_' + (this.keyValue ? this.keyValue.content : 'none'))
     .onClick((e: ClickEvent) => {
       if (this.keyState === KeyState.LOWER_CASE && this.keyValue) {
         InputHandler.getInstance().insertText(this.keyValue?.content as string);
@@ -103,13 +89,6 @@ export struct KeyItemNumber {
     .width(this.inputStyle.basicButtonWidth)
     .height('100%')
     .shadow({ radius: 1, color: $r('app.color.shadow'), offsetY: 3 } as ShadowOptions)
-    .stateStyles({
-      normal: () => {
-        this.backgroundColor($r('app.color.key_item_normal'))
-      },
-      pressed: () => {
-        this.backgroundColor($r('app.color.key_item_normal_pressed'))
-      }
-    } as StateStyles)
+    .stateStyles({ normal: this.normalStyle, pressed: this.pressedStyle })
   }
 }

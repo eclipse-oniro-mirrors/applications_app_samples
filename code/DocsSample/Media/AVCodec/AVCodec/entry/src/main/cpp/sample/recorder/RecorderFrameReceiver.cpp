@@ -197,6 +197,12 @@ bool RecorderFrameReceiver::Copy(OH_ImageNative *image, OH_AVBuffer *destination
     }
     OH_NativeBuffer_Config config{};
     OH_NativeBuffer_GetConfig(data.nativeBuffer, &config);
+    OH_NativeBuffer_ColorSpace color = OH_COLORSPACE_NONE;
+    if (OH_NativeBuffer_GetColorSpace(data.nativeBuffer, &color) == 0 && color != OH_COLORSPACE_NONE &&
+        color != OH_COLORSPACE_BT709_LIMIT) {
+        AVCODEC_SAMPLE_LOGE("Camera Buffer color space differs from BT.709 limited: %{public}d", color);
+        return false;
+    }
     void *address = nullptr;
     OH_NativeBuffer_Planes planes{};
     const int32_t mapRet = OH_NativeBuffer_MapPlanes(data.nativeBuffer, &address, &planes);

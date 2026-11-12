@@ -18,10 +18,17 @@ import { SubtitleStyleModel } from '../model/SubtitleStyleModel';
 @Component
 export struct SubtitleSettingsPanel {
   @ObjectLink style: SubtitleStyleModel;
+  @State private delayInvalid: boolean = false;
 
   build() {
     Scroll() {
       Column({ space: 16 }) {
+        Text($r('app.string.subtitle_delay_ms')).width('100%')
+        TextInput({ text: this.style.delayInput }).maxLength(8)
+          .onChange((text: string): void => { this.style.delayInput = text; this.delayInvalid = false; })
+        Button($r('app.string.subtitle_delay_apply'))
+          .onClick((): void => { this.delayInvalid = !this.style.applyDelay(); })
+        if (this.delayInvalid) { Text($r('app.string.subtitle_delay_invalid')).fontColor('#C93535') }
         Row() {
           Text($r('app.string.subtitle_visible')).layoutWeight(1)
           Toggle({ type: ToggleType.Switch, isOn: this.style.visible })
@@ -64,7 +71,7 @@ export struct SubtitleSettingsPanel {
           .backgroundColor(this.style.backgroundColor())
           .textShadow({ radius: 2, color: '#FF000000', offsetX: 1, offsetY: 1 })
           .padding(12)
-        Button($r('app.string.subtitle_reset')).onClick(() => this.style.reset())
+        Button($r('app.string.subtitle_reset')).onClick((): void => { this.style.reset(); this.delayInvalid = false; })
       }.width('100%').padding(20)
     }.scrollBar(BarState.Auto)
   }

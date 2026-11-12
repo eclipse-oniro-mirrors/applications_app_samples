@@ -87,6 +87,13 @@ static napi_value TestSm2Signature(napi_env env, napi_callback_info info)
     return ret;
 }
 
+static napi_value TestSm2Sign(napi_env env, napi_callback_info info)
+{
+    napi_value ret;
+    napi_create_int32(env, DoTestSm2Sign(), &ret);
+    return ret;
+}
+
 static napi_value TestSm2RStoDER(napi_env env, napi_callback_info info)
 {
     napi_value ret;
@@ -115,6 +122,7 @@ static napi_value Init(napi_env env, napi_value exports)
         {"ecdsaVerify", nullptr, TestEcdsaVerify, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"ecdsaSignature", nullptr, TestEcdsaSign, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"sm2Signature", nullptr, TestSm2Signature, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"sm2Sign", nullptr, TestSm2Sign, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"sm2RStoDER", nullptr, TestSm2RStoDER, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"sm2DerConvertRS", nullptr, TestSm2DerConvertRS, nullptr, nullptr, nullptr, napi_default, nullptr},
     };

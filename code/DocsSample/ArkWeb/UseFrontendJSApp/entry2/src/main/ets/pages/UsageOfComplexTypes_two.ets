@@ -51,25 +51,27 @@ struct Index {
             this.webviewController.refresh();
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 使用registerJavaScriptProxy注册对象到window上
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
             this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString']);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 解除已注册的对象
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {
             this.webviewController.deleteJavaScriptRegister('testObjName');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index9.html'), controller: this.webviewController })

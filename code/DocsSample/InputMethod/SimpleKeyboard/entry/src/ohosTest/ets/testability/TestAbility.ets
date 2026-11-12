@@ -25,12 +25,10 @@ import { logger } from '../util/Logger';
 const TAG: string = 'TestAbility';
 
 export default class TestAbility extends UIAbility {
+  private testStarted: boolean = false;
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, `TestAbility onCreate, want param: ${JSON.stringify(want)},launchParam: ${JSON.stringify(launchParam)}`);
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    logger.info(TAG, 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }
 
   onDestroy(): void {
@@ -54,6 +52,15 @@ export default class TestAbility extends UIAbility {
 
   onForeground(): void {
     logger.info(TAG, 'TestAbility onForeground');
+    if (!this.testStarted) {
+      this.testStarted = true;
+      setTimeout(() => {
+        let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+        let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+        logger.info(TAG, 'start run testcase!!!');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      }, 300);
+    }
   }
 
   onBackground(): void {

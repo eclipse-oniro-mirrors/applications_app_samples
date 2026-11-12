@@ -61,6 +61,7 @@ public:
     RecorderAudioInfo GetAudioStats() const { return audioStats_.Snapshot(); }
     void MarkStage(const std::string &id, const std::string &stage, const std::string &result);
     int32_t UpdateVideoParameters(const std::string &sessionId, bool primary, int64_t bitrate, bool requestKeyFrame);
+    int32_t SetPaused(const std::string &sessionId, bool paused);
     RecorderStreamInfo GetOutputStats(bool primary) const
     {
         return primary ? primaryStats_.Snapshot() : secondaryStats_.Snapshot();
@@ -71,7 +72,10 @@ private:
         int32_t stride = 0;
         int32_t sliceHeight = 0;
         int64_t firstTimestampNs = -1;
+        int64_t lastTimestampNs = -1;
         int64_t firstOffsetUs = 0;
+        int64_t initialPausedUs = 0;
+        uint64_t pauseRevision = 0;
         int64_t lastSubmittedUs = 0;
     };
     void VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
@@ -111,7 +115,7 @@ private:
     void StartVideoInputThread();
     void VideoEncInputSyncThread();
     void VideoEncInputAsyncThread();
-    OH_ImageNative *ReadVideoInputImage(int64_t lastSubmittedUs);
+    OH_ImageNative *ReadVideoInputImage(VideoInputState &state);
     bool SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &info, VideoInputState &state,
         int64_t receivedAtUs);
     bool ReadVideoInputLayout(int32_t &stride, int32_t &sliceHeight);
@@ -135,6 +139,12 @@ private:
     std::unique_ptr<RecorderFrameReceiver> frameReceiver_ = nullptr;
     std::unique_ptr<std::thread> videoEncInputThread_ = nullptr;
     std::mutex videoInputMutex_;
+    // 暂停切换与音视频输入提交共用边界；需要mutex_时必须先取得此锁。
+    std::mutex mediaInputMutex_;
+    std::atomic<bool> isPaused_{false};
+    std::atomic<uint64_t> pauseRevision_{0};
+    int64_t pauseStartedUs_ = 0;
+    int64_t pausedDurationUs_ = 0;
     std::atomic<bool> videoInputStopping_{false};
     int64_t captureStartedUs_ = 0;
     int64_t audioCaptureOffsetUs_ = 0;

@@ -53,7 +53,7 @@ struct WebComponent {
                   console.info('[schemeHandler] onRequestStart has no http body stream');
                 }
               } catch (error) {
-                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
 
               // [StartExclude Intercept_requested_information]
@@ -70,7 +70,7 @@ struct WebComponent {
                 response.setEncoding('utf-8');
                 response.setHeaderByName('header1', 'value1', false);
               } catch (error) {
-                console.error(`[schemeHandler] ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`[schemeHandler] ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
 
               // 调用didFinish/didFail前需要优先调用didReceiveResponse将构造的响应头传递给被拦截的请求。
@@ -88,7 +88,7 @@ struct WebComponent {
                   resourceHandler.didFinish();
                 }
               } catch (error) {
-                console.error(`[schemeHandler] ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`[schemeHandler] ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
               // [EndExclude Intercept_requested_information]
               return true;
@@ -101,7 +101,7 @@ struct WebComponent {
 
             this.controller.setWebSchemeHandler('https', this.schemeHandler);
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
         .javaScriptAccess(true)

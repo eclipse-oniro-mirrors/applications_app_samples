@@ -250,6 +250,70 @@ struct audiosession {
                 this.updateNapiLog('错误: ' + JSON.stringify(err));
               }
             })
+
+          // 查询超低时延支持按钮
+          Button('查询超低时延支持')
+            .width('90%')
+            .height(30)
+            .margin({ bottom: 12 })
+            .onClick(async () => {
+              try {
+                let result = await testNapi.CheckUltraFastPlaybackSupported();
+                this.message = '查询超低时延支持成功';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '查询超低时延支持失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
+ 
+          // 创建超低时延播放流按钮
+          Button('创建超低时延播放流')
+            .width('90%')
+            .height(30)
+            .margin({ bottom: 12 })
+            .onClick(async () => {
+              try {
+                let result = await testNapi.CreateUltraFastAudioRender();
+                this.message = '创建超低时延播放流完成';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '创建超低时延播放流失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
+ 
+          // 获取超低时延状态按钮
+          Button('获取超低时延流状态')
+            .width('90%')
+            .height(30)
+            .margin({ bottom: 12 })
+            .onClick(async () => {
+              try {
+                let result = await testNapi.GetUltraFastStatus();
+                this.message = '获取低时延流状态成功';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '获取低时延流状态失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
+
+          // 销毁超低时延播放流按钮
+          Button('销毁超低时延播放流')
+            .width('90%')
+            .height(30)
+            .margin({ bottom: 12 })
+            .onClick(async () => {
+              try {
+                let result = await testNapi.DestroyUltraAudioRender();
+                this.message = '销毁超低时延播放流成功';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '销毁超低时延播放流失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
         }
         .width('100%')
         .padding(16)

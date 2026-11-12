@@ -78,6 +78,7 @@ export interface RecorderOptions {
 export const initNative: (options: RecorderOptions) => Promise<Response>;
 
 export const startNative: () => boolean;
+export const setPaused: (sessionId: string, paused: boolean) => Promise<Response>;
 
 export const stopBeginNative: () => Promise<Response>;
 

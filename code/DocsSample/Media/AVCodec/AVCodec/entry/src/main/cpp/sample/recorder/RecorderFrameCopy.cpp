@@ -70,6 +70,11 @@ void CopyChroma(const uint8_t *source, const Plane &u, const Plane &v, uint8_t *
         const uint8_t *inputU = source + u.offset + static_cast<size_t>(row) * u.rowStride;
         const uint8_t *inputV = source + v.offset + static_cast<size_t>(row) * v.rowStride;
         uint8_t *output = destination + static_cast<size_t>(row) * stride;
+        if (u.pixelStride == CHROMA_COMPONENTS && v.pixelStride == CHROMA_COMPONENTS &&
+            v.offset == u.offset + 1 && u.rowStride == v.rowStride) {
+            std::copy_n(inputU, width, output);
+            continue;
+        }
         for (int32_t col = 0; col < width / CHROMA_SUBSAMPLING; ++col) {
             const size_t column = static_cast<size_t>(col);
             output[column * CHROMA_COMPONENTS] = inputU[column * u.pixelStride];
@@ -114,8 +119,18 @@ bool CopyNv12(const uint8_t *source, size_t bytes, const Plane &y, const Plane &
         !Contains(bytes, u, chromaWidth, chromaHeight) || !Contains(bytes, v, chromaWidth, chromaHeight)) {
         return false;
     }
-    std::fill_n(destination, lumaBytes, LIMITED_RANGE_BLACK);
-    std::fill_n(destination + lumaBytes, lumaBytes / CHROMA_SUBSAMPLING, NEUTRAL_CHROMA);
+    // 只初始化不会被有效像素覆盖的行尾和底部，避免每帧重复写整幅画面。
+    for (int32_t row = 0; row < height; ++row) {
+        std::fill_n(destination + static_cast<size_t>(row) * stride + width, stride - width, LIMITED_RANGE_BLACK);
+    }
+    std::fill_n(destination + static_cast<size_t>(height) * stride,
+        static_cast<size_t>(sliceHeight - height) * stride, LIMITED_RANGE_BLACK);
+    uint8_t *chroma = destination + lumaBytes;
+    for (int32_t row = 0; row < chromaHeight; ++row) {
+        std::fill_n(chroma + static_cast<size_t>(row) * stride + width, stride - width, NEUTRAL_CHROMA);
+    }
+    std::fill_n(chroma + static_cast<size_t>(chromaHeight) * stride,
+        static_cast<size_t>(sliceHeight - height) / CHROMA_SUBSAMPLING * stride, NEUTRAL_CHROMA);
     CopyLuma(source, y, destination, width, height, stride);
     CopyChroma(source, u, v, destination + lumaBytes, width, height, stride);
     return true;

@@ -49,7 +49,7 @@ static void RunJavaScriptCallback(const char *webTag, const char *result, void *
     }
 }
 
-// 示例代码 ，注册了1个对象，2个方法
+// 示例代码，注册了1个对象，2个方法
 static void ProxyMethod1(
     const char *webTag, const ArkWeb_JavaScriptBridgeData *dataArray, size_t arraySize, void *userData)
 {

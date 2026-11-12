@@ -27,7 +27,7 @@ struct WebComponent {
       // 配置Web开启无线调试模式，指定TCP Socket的端口。
       webview.WebviewController.setWebDebuggingAccess(true, DEBUGGING_PORT);
     } catch (error) {
-      console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+      console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
     }
   }
 

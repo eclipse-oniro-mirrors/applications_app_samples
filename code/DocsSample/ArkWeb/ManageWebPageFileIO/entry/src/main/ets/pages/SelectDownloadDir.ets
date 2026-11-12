@@ -54,7 +54,7 @@ struct WebComponent {
             })
             this.controller.setDownloadDelegate(this.delegate);
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index.html'), controller: this.controller })
@@ -81,7 +81,7 @@ function getDownloadPathFromPicker(): Promise<string> {
         const uri = new fileUri.FileUri(uriString);
         resolve(uri.path);
       }).catch((err: BusinessError) => {
-        console.error(`ErrorCode: ${err.code},  Message: ${err.message}`);
+        console.error(`ErrorCode: ${err.code}, Message: ${err.message}`);
         resolve('');
       });
     } catch (error) {

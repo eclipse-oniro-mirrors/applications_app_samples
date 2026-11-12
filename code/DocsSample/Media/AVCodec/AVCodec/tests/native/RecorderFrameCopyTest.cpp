@@ -107,6 +107,33 @@ void CheckNv21Chroma(const FrameCopyFixture &frame)
     }
 }
 
+void TestTightNv12Copy()
+{
+    FrameCopyFixture frame;
+    constexpr size_t tightLuma = FRAME_WIDTH * FRAME_HEIGHT;
+    constexpr size_t tightBytes = tightLuma + tightLuma / CHROMA_SUBSAMPLING;
+    std::array<uint8_t, tightBytes + 1> output;
+    output.fill(UNTOUCHED_PIXEL);
+    for (uint32_t pass = 0; pass < CHROMA_COMPONENTS; ++pass) {
+        CheckTest(CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
+            output.data(), tightBytes, FRAME_WIDTH, FRAME_HEIGHT, FRAME_WIDTH, FRAME_HEIGHT), "Tight NV12 copy");
+        for (size_t row = 0; row < FRAME_HEIGHT; ++row) {
+            for (size_t col = 0; col < FRAME_WIDTH; ++col) {
+                CheckTest(output[row * FRAME_WIDTH + col] == frame.camera[row * CAMERA_STRIDE + col],
+                    "Tight luma replaces previous pixels");
+            }
+        }
+        for (size_t row = 0; row < CHROMA_HEIGHT; ++row) {
+            for (size_t col = 0; col < FRAME_WIDTH; ++col) {
+                CheckTest(output[tightLuma + row * FRAME_WIDTH + col] ==
+                    frame.camera[FIRST_CHROMA_OFFSET + row * CAMERA_STRIDE + col], "Tight interleaved chroma");
+            }
+        }
+        CheckTest(output[tightBytes] == UNTOUCHED_PIXEL, "Tight copy preserves trailing storage");
+        frame.camera.fill(UNTOUCHED_PIXEL);
+    }
+}
+
 void TestNv21Copy()
 {
     FrameCopyFixture frame;
@@ -214,6 +241,7 @@ void TestCopyBoundaries()
 int main()
 {
     TestPaddedNv12Copy();
+    TestTightNv12Copy();
     TestNv21Copy();
     TestNativePlaneLayouts();
     TestInvalidPlaneLayouts();

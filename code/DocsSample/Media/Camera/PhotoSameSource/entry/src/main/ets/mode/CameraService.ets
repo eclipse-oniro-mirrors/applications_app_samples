@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -55,7 +55,7 @@ class CameraService {
   public frameStartFlag: number = 0;
   private callback: (pixelMap: image.PixelMap, url: string) => void = () => {
   };
-  // 推荐拍照分辨率之一
+  // 推荐拍照分辨率之一。
   private photoProfileObj: camera.Profile = {
     format: 2000,
     size: {
@@ -63,7 +63,7 @@ class CameraService {
       height: Constants.X_COMPONENT_SURFACE_HEIGHT
     }
   };
-  // 推荐预览分辨率之一
+  // 推荐预览分辨率之一。
   private previewProfileObj: camera.Profile = {
     format: 1003,
     size: {
@@ -71,7 +71,7 @@ class CameraService {
       height: Constants.X_COMPONENT_SURFACE_HEIGHT
     }
   };
-  // 推荐录像分辨率之一
+  // 推荐录像分辨率之一。
   private videoProfileObj: camera.VideoProfile = {
     format: 1003,
     size: {
@@ -245,10 +245,10 @@ class CameraService {
   }
   // [End camera_beginConfig]
   /**
-   * 初始化相机功能
-   * @param surfaceId - Surface 的 ID
-   * @param cameraDeviceIndex - 相机设备索引
-   * @returns 无返回值
+   * 初始化相机功能。
+   * @param surfaceId - Surface 的 ID。
+   * @param cameraDeviceIndex - 相机设备索引。
+   * @returns 无返回值。
    */
   async initCamera(surfaceId: string, cameraDeviceIndex: number, context: Context | undefined): Promise<void> {
     Logger.debug(TAG, `initCamera cameraDeviceIndex: ${cameraDeviceIndex}`);
@@ -257,13 +257,13 @@ class CameraService {
     this.cameraDeviceIndex = cameraDeviceIndex;
     try {
       await this.releaseCamera();
-      // 获取相机管理器实例
+      // 获取相机管理器实例。
       this.cameraManager = this.getCameraManagerFn();
       if (this.cameraManager === undefined) {
         Logger.error(TAG, 'cameraManager is undefined');
         return;
       }
-      // 获取支持指定的相机设备对象
+      // 获取支持的相机设备对象。
       this.cameras = this.getSupportedCamerasFn(this.cameraManager);
       if (this.cameras.length < 1 || this.cameras.length < cameraDeviceIndex + 1) {
         return;
@@ -282,13 +282,13 @@ class CameraService {
         return;
       }
       this.previewProfileObj = previewProfile;
-      // 创建previewOutput输出对象
+      // 创建previewOutput对象。
       this.previewOutput = this.createPreviewOutputFn(this.cameraManager, this.previewProfileObj, surfaceId);
       if (this.previewOutput === undefined) {
         Logger.error(TAG, 'Failed to create the preview stream.');
         return;
       }
-      // 监听预览事件
+      // 监听预览事件。
       this.previewOutputCallBack(this.previewOutput);
       if (this.curSceneMode === camera.SceneMode.NORMAL_PHOTO) {
         let photoOutput = this.getPhotoOutput(this.cameraManager, cameraOutputCapability);
@@ -313,30 +313,30 @@ class CameraService {
         await this.prepareAVRecorder();
         let videoSurfaceId = await this.avRecorder.getInputSurface();
         // [End camera_video_getVideoSurface]
-        // 创建videoOutPut输出对象
+      // 创建videoOutput对象。
         this.videoOutput = this.createVideoOutputFn(this.cameraManager, this.videoProfileObj, videoSurfaceId);
         if (this.videoOutput === undefined) {
           Logger.error(TAG, 'Failed to create the video stream.');
           return;
         }
       }
-      // 创建cameraInput输出对象
+      // 创建cameraInput对象。
       this.cameraInput = this.createCameraInputFn(this.cameraManager, this.curCameraDevice);
       if (this.cameraInput === undefined) {
         Logger.error(TAG, 'Failed to create the camera input.');
         return;
       }
-      // 打开相机
+      // 打开相机。
       let isOpenSuccess = await this.cameraInputOpenFn(this.cameraInput);
       if (!isOpenSuccess) {
         Logger.error(TAG, 'Failed to open the camera.');
         return;
       }
-      // 镜头状态回调
+      // 镜头状态回调。
       this.onCameraStatusChange(this.cameraManager);
-      // 监听CameraInput的错误事件
+      // 监听CameraInput的错误事件。
       this.onCameraInputChange(this.cameraInput, this.curCameraDevice);
-      // 会话流程
+      // 会话流程。
       await this.sessionFlowFn(this.cameraManager, this.cameraInput, this.previewOutput, this.photoOutput,
         this.videoOutput);
     } catch (error) {
@@ -345,7 +345,7 @@ class CameraService {
   }
 
   /**
-   * 获取可变焦距范围
+   * 获取可变焦距范围。
    */
   getZoomRatioRange(): number[] {
     let zoomRatioRange: number[] = [];
@@ -360,12 +360,13 @@ class CameraService {
   }
 
   /**
-   * 变焦
+   * 变焦。
    */
   // [Start camera_setZoomRatio]
+  // 变焦。
   setZoomRatioFn(zoomRatio: number): void {
     Logger.info(TAG, `setZoomRatioFn value ${zoomRatio}`);
-    // 获取支持的变焦范围
+    // 获取支持的变焦范围。
     try {
       let zoomRatioRange = this.getZoomRatioRange();
       Logger.info(TAG, `getZoomRatioRange success: ${JSON.stringify(zoomRatioRange)}`);
@@ -396,7 +397,8 @@ class CameraService {
     }
     let settings: camera.PhotoCaptureSetting = {
       quality: camera.QualityLevel.QUALITY_LEVEL_HIGH,  // 设置图片质量高。
-      rotation: camera.ImageRotation.ROTATION_0,  // 设置图片旋转角度。
+      // 设置图片旋转角度的camera.ImageRotation.ROTATION_0是通过说明中获取拍照角度的getPhotoRotation方法获取的值进行设置。
+      rotation: camera.ImageRotation.ROTATION_0,
       location: captureLocation,  // 设置图片地理位置。
       mirror: false  // 设置镜像使能开关(默认关)。
     };
@@ -436,7 +438,7 @@ class CameraService {
   }
 
   /**
-   * 释放会话及其相关参数
+   * 释放会话及其相关参数。
    */
   async releaseCamera(): Promise<void> {
     Logger.info(TAG, 'releaseCamera is called');
@@ -494,7 +496,7 @@ class CameraService {
   }
 
   /**
-   * 获取相机管理器实例
+   * 获取相机管理器实例。
    */
   // [Start camera_getCameraManager]
   getCameraManagerFn(): camera.CameraManager | undefined {
@@ -514,7 +516,7 @@ class CameraService {
   // [End camera_getCameraManager]
 
   /**
-   * 获取支持指定的相机设备对象
+   * 获取支持的相机设备对象。
    */
   // [Start camera_getSupportedCameras]
   getSupportedCamerasFn(cameraManager: camera.CameraManager): camera.CameraDevice[] {
@@ -541,7 +543,7 @@ class CameraService {
   // [End camera_getSupportedCameras]
 
   /**
-   * 获取支持的物理相机设备
+   * 获取支持的物理相机设备。
    */
   // [Start camera_getCameraDevices]
   getCameraDevicesFn(cameraManager: camera.CameraManager,
@@ -572,7 +574,7 @@ class CameraService {
   // [End camera_getCameraDevices]
 
   /**
-   * 创建previewOutput输出对象
+   * 创建previewOutput对象。
    */
   createPreviewOutputFn(cameraManager: camera.CameraManager, previewProfileObj: camera.Profile,
     surfaceId: string): camera.PreviewOutput | undefined {
@@ -588,7 +590,7 @@ class CameraService {
   }
 
   /**
-   * 创建photoOutPut输出对象
+   * 创建photoOutput对象。
    */
   createPhotoOutputFn(cameraManager: camera.CameraManager,
     photoProfileObj: camera.Profile): camera.PhotoOutput | undefined {
@@ -604,7 +606,7 @@ class CameraService {
   }
 
   /**
-   * 创建videoOutPut输出对象
+   * 创建videoOutput对象。
    */
   // [Start camera_video_createAVRecorder]
   createVideoOutputFn(cameraManager: camera.CameraManager, videoProfileObj: camera.VideoProfile,
@@ -623,7 +625,7 @@ class CameraService {
 
   // [Start camera_createCameraInput]
   /**
-   * 创建cameraInput输出对象
+   * 创建cameraInput对象。
    */
   createCameraInputFn(cameraManager: camera.CameraManager,
     cameraDevice: camera.CameraDevice): camera.CameraInput | undefined {
@@ -640,7 +642,7 @@ class CameraService {
   }
 
   /**
-   * 打开相机
+   * 打开相机。
    */
   async cameraInputOpenFn(cameraInput: camera.CameraInput): Promise<boolean> {
     let isOpenSuccess = false;
@@ -657,14 +659,14 @@ class CameraService {
   // [End camera_createCameraInput]
 
   /**
-   * 会话流程
+   * 会话流程。
    */
   // [Start camera_quality_prioritization]
   async sessionFlowFn(cameraManager: camera.CameraManager, cameraInput: camera.CameraInput,
     previewOutput: camera.PreviewOutput, photoOutput: camera.PhotoOutput | undefined,
     videoOutput: camera.VideoOutput | undefined): Promise<void> {
     try {
-      // 创建CaptureSession实例
+      // 创建CaptureSession实例。
       if (this.curSceneMode === camera.SceneMode.NORMAL_PHOTO) {
         this.session = cameraManager.createSession(this.curSceneMode) as camera.PhotoSession;
       } else if (this.curSceneMode === camera.SceneMode.NORMAL_VIDEO) {
@@ -675,30 +677,30 @@ class CameraService {
       }
       this.onSessionErrorChange(this.session);
       this.onSystemPressureLevelChange(this.session);
-      // 开始配置会话
+      // 开始配置会话。
       this.session.beginConfig();
-      // 把CameraInput加入到会话
+      // 把CameraInput加入到会话。
       this.session.addInput(cameraInput);
-      // 把previewOutput加入到会话
+      // 把previewOutput加入到会话。
       this.session.addOutput(previewOutput);
       if (this.curSceneMode === camera.SceneMode.NORMAL_PHOTO) {
         if (photoOutput === undefined) {
           return;
         }
-        // 拍照监听事件
+        // 拍照监听事件。
         this.photoOutputCallBack(photoOutput);
-        // 把photoOutPut加入到会话
+        // 把photoOutput加入到会话。
         this.session.addOutput(photoOutput);
       } else if (this.curSceneMode === camera.SceneMode.NORMAL_VIDEO) {
         if (videoOutput === undefined) {
           return;
         }
-        // 把photoOutPut加入到会话
+        // 把videoOutput加入到会话。
         this.videoOutputCallback(videoOutput);
         this.session.addOutput(videoOutput);
       }
 
-      // 提交配置信息
+      // 提交配置信息。
       await this.session.commitConfig();
       if (this.curSceneMode === camera.SceneMode.NORMAL_VIDEO) {
         this.setVideoStabilizationFn(this.session as camera.VideoSession, camera.VideoStabilizationMode.MIDDLE);
@@ -707,7 +709,7 @@ class CameraService {
       if (this.session != undefined) {
         this.configuringSession(this.session);
       }
-      // 开始会话工作
+      // 开始会话工作。
       await this.session.start();
       Logger.info(TAG, 'sessionFlowFn success');
     } catch (error) {
@@ -715,10 +717,11 @@ class CameraService {
       Logger.error(TAG, `sessionFlowFn fail : ${err.code}`);
     }
   }
+  // [End camera_quality_prioritization]
 
   setVideoStabilizationFn(session: camera.VideoSession, videoStabilizationMode: camera.VideoStabilizationMode): void {
     try {
-      // 查询是否支持指定的视频防抖模式
+      // 查询是否支持指定的视频防抖模式。
       let isVideoStabilizationModeSupported: boolean =
         session.isVideoStabilizationModeSupported(videoStabilizationMode);
       if (isVideoStabilizationModeSupported) {
@@ -731,7 +734,7 @@ class CameraService {
   }
 
   /**
-   * 更新滑动条数据
+   * 更新滑动条数据。
    */
   updateSliderValue(): void {
     let zoomRatioRange = this.getZoomRatioRange();
@@ -749,7 +752,7 @@ class CameraService {
   }
 
   /**
-   *  监听拍照回图事件
+   * 监听拍照回图事件。
    */
   // [Start camera_photoAvailable]
   setPhotoOutputCb(photoOutput: camera.PhotoOutput, context: Context) {
@@ -804,7 +807,7 @@ class CameraService {
         console.error(`photoAssetAvailable error: ${err.code}.`);
         return;
       }
-      console.info(`photoOutPutCallBack photoAssetAvailable`);
+      console.info(`photoOutputCallBack photoAssetAvailable`);
       // 开发者可通过photoAsset调用媒体库相关接口，自定义处理图片。
       // 处理方式一：调用媒体库落盘接口保存一阶段图，二阶段图就绪后媒体库会主动帮应用替换落盘图片。
       let accessHelper: photoAccessHelper.PhotoAccessHelper =
@@ -859,23 +862,23 @@ class CameraService {
   }
   // [End photo_asset_available]
   /**
-   * 监听拍照事件
+   * 监听拍照事件。
    */
   photoOutputCallBack(photoOutput: camera.PhotoOutput): void {
     try {
       // [Start capture_start_with_info]
-      // 监听拍照开始
+      // 监听拍照开始。
       photoOutput.on('captureStartWithInfo', (err: BusinessError, captureStartInfo: camera.CaptureStartInfo): void => {
         Logger.info(TAG, `photoOutputCallBack captureStartWithInfo success: ${JSON.stringify(captureStartInfo)}`);
       });
       // [End capture_start_with_info]
-      // 监听拍照帧输出捕获
+      // 监听拍照帧输出捕获。
       photoOutput.on('frameShutter', (err: BusinessError, frameShutterInfo: camera.FrameShutterInfo): void => {
         Logger.info(TAG, `photoOutputCallBack frameShutter captureId:
           ${frameShutterInfo.captureId}, timestamp: ${frameShutterInfo.timestamp}`);
       });
       // [Start capture_end]
-      // 监听拍照结束
+      // 监听拍照结束。
       photoOutput.on('captureEnd', (err: BusinessError, captureEndInfo: camera.CaptureEndInfo): void => {
         Logger.info(TAG, `photoOutputCallBack captureEnd captureId:
           ${captureEndInfo.captureId}, frameCount: ${captureEndInfo.frameCount}`);
@@ -890,21 +893,21 @@ class CameraService {
       });
       // [End capture_ready]
       // [Start photoOutput_error]
-      // 监听拍照异常
-      photoOutput.on('error', (data: BusinessError): void => {
-        Logger.info(TAG, `photoOutPut data: ${JSON.stringify(data)}`);
+      // 监听拍照异常。
+      photoOutput.on('error', (err: BusinessError): void => {
+        console.error(`photoOutput error, err code: ${err.code}`);
       });
       // [End photoOutput_error]
       if (this.context != undefined) {
         this.onPhotoOutputPhotoAssetAvailable(photoOutput, this.context);
       }
     } catch (err) {
-      Logger.error(TAG, 'photoOutputCallBack error');
+      console.error(TAG, `photoOutputCallBack error`);
     }
   }
 
   /**
-   * 监听预览事件
+   * 监听预览事件。
    */
   previewOutputCallBack(previewOutput: camera.PreviewOutput): void {
     Logger.info(TAG, 'previewOutputCallBack is called');
@@ -925,7 +928,7 @@ class CameraService {
   }
 
   /**
-   * 监听录像事件
+   * 监听录像事件。
    */
   videoOutputCallback(videoOutput: camera.VideoOutput): void {
     Logger.info(TAG, 'VideoOutputCallback is called');
@@ -957,10 +960,10 @@ class CameraService {
   }
 
   /**
-   * 注册相机状态变化的回调函数
-   * @param err - 错误信息（如果有）
-   * @param cameraStatusInfo - 相机状态信息
-   * @returns 无返回值
+   * 注册相机状态变化的回调函数。
+   * @param err - 错误信息（如果有）。
+   * @param cameraStatusInfo - 相机状态信息。
+   * @returns 无返回值。
    */
   // [Start on_camera_status]
   registerCameraStatusChange(err: BusinessError, cameraStatusInfo: camera.CameraStatusInfo): void {
@@ -985,9 +988,9 @@ class CameraService {
   }
 
   /**
-   * 监听相机状态变化
-   * @param cameraManager - 相机管理器对象
-   * @returns 无返回值
+   * 监听相机状态变化。
+   * @param cameraManager - 相机管理器对象。
+   * @returns 无返回值。
    */
   onCameraStatusChange(cameraManager: camera.CameraManager): void {
     Logger.info(TAG, 'onCameraStatusChange is called');
@@ -1000,8 +1003,8 @@ class CameraService {
   // [End on_camera_status]
 
   /**
-   * 停止监听相机状态变化
-   * @returns 无返回值
+   * 停止监听相机状态变化。
+   * @returns 无返回值。
    */
   offCameraStatusChange(): void {
     Logger.info(TAG, 'offCameraStatusChange is called');
@@ -1009,10 +1012,10 @@ class CameraService {
   }
 
   /**
-   * 监听相机输入变化
-   * @param cameraInput - 相机输入对象
-   * @param cameraDevice - 相机设备对象
-   * @returns 无返回值
+   * 监听相机输入变化。
+   * @param cameraInput - 相机输入对象。
+   * @param cameraDevice - 相机设备对象。
+   * @returns 无返回值。
    */
   onCameraInputChange(cameraInput: camera.CameraInput, cameraDevice: camera.CameraDevice): void {
     Logger.info(TAG, `onCameraInputChange is called`);
@@ -1026,9 +1029,9 @@ class CameraService {
   }
 
   /**
-   * 监听捕获会话错误变化
-   * @param session - 相机捕获会话对象
-   * @returns 无返回值
+   * 监听捕获会话错误变化。
+   * @param session - 相机捕获会话对象。
+   * @returns 无返回值。
    */
   onSessionErrorChange(session: camera.PhotoSession | camera.VideoSession): void {
     try {
@@ -1042,9 +1045,9 @@ class CameraService {
   }
 
   /**
-   * 监听系统压力
-   * @param session - 相机捕获会话对象
-   * @returns 无返回值
+   * 监听系统压力。
+   * @param session - 相机捕获会话对象。
+   * @returns 无返回值。
    */
   // [Start system_pressure_level]
   onSystemPressureLevelChange(session: camera.PhotoSession | camera.VideoSession): void {
@@ -1061,7 +1064,7 @@ class CameraService {
   }
   // [End system_pressure_level]
 
-  // 动态拍照能力
+  // 动态拍照能力。
   // [Start camera_moving_photo_support]
   isMovingPhotoSupported(): boolean {
     let isSupported: boolean = false;
@@ -1122,7 +1125,7 @@ class CameraService {
     }
   }
 
-  // [Start camera_video_createAVRecorder]
+  // [Start camera_createAVRecorder]
   async prepareAVRecorder(): Promise<void> {
     Logger.info(TAG, 'prepareAVRecorder is called');
     let fd = this.initFd();
@@ -1149,10 +1152,10 @@ class CameraService {
       Logger.error(TAG, `prepareAVRecorder prepare err: ${err.code}`);
     });
   }
-  // [End camera_video_createAVRecorder]
+  // [End camera_createAVRecorder]
 
   /**
-   * 启动录制
+   * 启动录制。
    */
   // [Start camera_video_start]
   async startVideo(): Promise<void> {
@@ -1170,7 +1173,7 @@ class CameraService {
   // [End camera_video_start]
 
   /**
-   * 停止录制
+   * 停止录制。
    */
   // [Start camera_video_stop]
   async stopVideo(): Promise<void> {
@@ -1192,21 +1195,23 @@ class CameraService {
       Logger.error(TAG, `stopVideo err: ${err.code}`);
     }
     Logger.info(TAG, 'stopVideo End of call');
-  }// [End camera_video_stop]
+  }
+  // [End camera_video_stop]
 
   /**
-   * 闪关灯
+   * 闪光灯。
    */
   // [Start camera_flash]
+  // 闪光灯。
   hasFlashFn(flashMode: camera.FlashMode): void {
     try {
-      // 检测是否有闪关灯
+      // 检测是否有闪光灯。
       let hasFlash = this.session?.hasFlash();
       Logger.debug(TAG, `hasFlash success, hasFlash: ${hasFlash}`);
-      // 检测闪光灯模式是否支持
+      // 检测闪光灯模式是否支持。
       let isFlashModeSupported = this.session?.isFlashModeSupported(flashMode);
       Logger.debug(TAG, `isFlashModeSupported success, isFlashModeSupported: ${isFlashModeSupported}`);
-      // 设置闪光灯模式
+      // 设置闪光灯模式。
       if (isFlashModeSupported) {
         this.session?.setFlashMode(flashMode);
       }
@@ -1216,15 +1221,15 @@ class CameraService {
   }
   // [End camera_flash]
   /**
-   * 焦点
+   * 焦点。
    */
   // [Start camera_focus_point]
   setFocusPoint(point: camera.Point): void {
     try {
-      // 设置焦点
+      // 设置焦点。
       this.session?.setFocusPoint(point);
       Logger.info(TAG, `setFocusPoint success point: ${JSON.stringify(point)}`);
-      // 获取当前的焦点
+      // 获取当前的焦点。
       let nowPoint: camera.Point | undefined = undefined;
       nowPoint = this.session?.getFocusPoint();
       Logger.info(TAG, `getFocusPoint success, nowPoint: ${JSON.stringify(nowPoint)}`);
@@ -1234,12 +1239,12 @@ class CameraService {
   }
   // [End camera_focus_point]
   /**
-   * 曝光区域
+   * 曝光区域。
    */
   // [Start camera_metering_point]
   isMeteringPoint(point: camera.Point): void {
     try {
-      // 获取当前曝光模式
+      // 获取当前曝光模式。
       let exposureMode: camera.ExposureMode | undefined = undefined;
       exposureMode = this.session?.getExposureMode();
       Logger.info(TAG, `getExposureMode success, exposureMode: ${exposureMode}`);
@@ -1254,16 +1259,16 @@ class CameraService {
   // [End camera_metering_point]
 
   /**
-   * 曝光补偿
+   * 曝光补偿。
    */
   isExposureBiasRange(exposureBias: number): void {
     try {
       Logger.debug(TAG, `setExposureBias value ${exposureBias}`);
-      // 查询曝光补偿范围
+      // 查询曝光补偿范围。
       let biasRangeArray: number[] | undefined = [];
       biasRangeArray = this.session?.getExposureBiasRange();
       Logger.debug(TAG, `getExposureBiasRange success, biasRangeArray: ${JSON.stringify(biasRangeArray)}`);
-      // 设置曝光补偿
+      // 设置曝光补偿。
       this.session?.setExposureBias(exposureBias);
     } catch (error) {
       console.error(`isExposureBiasRange failed, err: ${error.code}`);
@@ -1348,7 +1353,7 @@ class CameraService {
       let err = error as BusinessError;
       console.error(`Failed to addInput. error: ${err.code}`);
     }
-    let canAddPreviewOutput : boolean = false;
+    let canAddPreviewOutput: boolean = false;
     try {
       canAddPreviewOutput = videoSession.canAddOutput(previewOutput);
     } catch (error) {
@@ -1365,7 +1370,7 @@ class CameraService {
       let err = error as BusinessError;
       console.error(`Failed to add previewOutput. error: ${err.code}`);
     }
-    let canAddPhotoOutput : boolean = false
+    let canAddPhotoOutput: boolean = false;
     try {
       canAddPhotoOutput = videoSession.canAddOutput(photoOutput);
     } catch (error) {
@@ -1536,7 +1541,7 @@ class CameraService {
       return undefined;
     }
 
-    // 创建previewOutput输出对象。
+    // 创建previewOutput对象。
     let previewOutput = cameraManager.createPreviewOutput(previewProfileObj, surfaceId);
     if (previewOutput === undefined) {
       return undefined;
@@ -1631,7 +1636,7 @@ class CameraService {
   async getVideoOutputFn(cameraManager: camera.CameraManager, cameraOutputCapability: camera.CameraOutputCapability,
     concurrentInfo: camera.CameraConcurrentInfo[], curCameraDeviceFront: camera.CameraDevice,
     context: common.Context): Promise<camera.VideoOutput | undefined> {
-    // 此处创建录像输出流以format：1003，size：1920*1080的录像配置项为例，
+    // 此处创建录像输出流以format：1003，size：1920*1080的录像配置项为例。
     // 对应的录像配置项必须在getCameraConcurrentInfos获取到的并发能力信息数组范围内。
     let videoProfileObj: camera.VideoProfile = {
       format: 1003,
@@ -1757,7 +1762,7 @@ class CameraService {
           console.error(`photoAssetAvailable error: ${err.code}.`);
           return;
         }
-        console.info(`photoOutPutCallBack photoAssetAvailable`);
+        console.info(`photoOutputCallBack photoAssetAvailable`);
         // 开发者可通过photoAsset调用媒体库相关接口，自定义处理图片。
         // 调用媒体库落盘接口保存一阶段图，二阶段图就绪后媒体库会主动帮应用替换落盘图片。
         let accessHelper: photoAccessHelper.PhotoAccessHelper =
@@ -1949,6 +1954,385 @@ class CameraService {
     }
   }
   // [End camera_setColorSpace]
+
+  // [Start camera_getMetadataOutput]
+  getMetadataOutput(cameraManager: camera.CameraManager,
+    cameraOutputCapability: camera.CameraOutputCapability): camera.MetadataOutput | undefined {
+    let metadataObjectTypes: camera.MetadataObjectType[] = cameraOutputCapability.supportedMetadataObjectTypes;
+    let metadataOutput: camera.MetadataOutput | undefined = undefined;
+    try {
+      metadataOutput = cameraManager.createMetadataOutput(metadataObjectTypes);
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`Failed to createMetadataOutput, error code: ${err.code}`);
+    }
+    return metadataOutput;
+  }
+  // [End camera_getMetadataOutput]
+
+  // [Start camera_startMetadataOutput]
+  async startMetadataOutput(previewOutput: camera.PreviewOutput,
+    metadataOutput: camera.MetadataOutput, cameraManager: camera.CameraManager): Promise<void> {
+    let cameraArray: camera.CameraDevice[] = [];
+    try {
+      cameraArray = cameraManager.getSupportedCameras();
+      if (cameraArray.length == 0) {
+        console.error(`no camera.`);
+        return;
+      }
+      // 示例代码默认选择第一个镜头，实际开发中请根据实际需求选择。
+      const cameraDevice: camera.CameraDevice = cameraArray[0];
+      // 获取支持的模式类型。
+      let sceneModes: camera.SceneMode[] = cameraManager.getSupportedSceneModes(cameraDevice);
+      let isSupportPhotoMode: boolean = sceneModes.indexOf(camera.SceneMode.NORMAL_PHOTO) >= 0;
+      if (!isSupportPhotoMode) {
+        console.error(`photo mode not support`);
+        return;
+      }
+      let cameraInput: camera.CameraInput | undefined = undefined;
+      cameraInput = cameraManager.createCameraInput(cameraDevice);
+      if (cameraInput === undefined) {
+        console.error(`cameraInput is undefined`);
+        return;
+      }
+      // 打开相机。
+      await cameraInput.open();
+      let session = cameraManager.createSession(camera.SceneMode.NORMAL_PHOTO);
+      if (!session) {
+        console.error(`session is null`);
+        return;
+      }
+      let photoSession: camera.PhotoSession = session as camera.PhotoSession;
+      photoSession.beginConfig();
+      photoSession.addInput(cameraInput);
+      photoSession.addOutput(previewOutput);
+      photoSession.addOutput(metadataOutput);
+      await photoSession.commitConfig();
+      await photoSession.start();
+    } catch (error) {
+      console.error(`startMetadataOutput call failed`);
+    }
+  }
+  // [End camera_startMetadataOutput]
+
+  // [Start camera_stopMetadataOutput]
+  stopMetadataOutput(session: camera.Session): void {
+    session.stop().then(() => {
+      console.info(`Callback returned with session stopped.`);
+    }).catch((err: BusinessError) => {
+      console.error(`Failed to session stop, error code: ${err.code}`);
+    });
+  }
+  // [End camera_stopMetadataOutput]
+
+  // [Start camera_onMetadataAvailable]
+  onMetadataObjectsAvailable(metadataOutput: camera.MetadataOutput): void {
+    metadataOutput.on('metadataObjectsAvailable', (err: BusinessError, metadataObjectArr: camera.MetadataObject[]) => {
+      if (err !== undefined && err.code !== 0) {
+        return;
+      }
+      console.info(`metadata output metadataObjectsAvailable`);
+    });
+  }
+  // [End camera_onMetadataAvailable]
+
+  // [Start camera_onMetadataError]
+  onMetadataError(metadataOutput: camera.MetadataOutput): void {
+    metadataOutput.on('error', (metadataOutputError: BusinessError) => {
+      console.error(`Metadata output error code: ${metadataOutputError.code}`);
+    });
+  }
+  // [End camera_onMetadataError]
+
+  // [Start camera_isTorchSupported]
+  isTorchSupported(cameraManager: camera.CameraManager) : boolean {
+    let torchSupport: boolean = false;
+    try {
+      torchSupport = cameraManager.isTorchSupported();
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`Failed to torch. errorCode = ${err.code}`);
+    }
+    console.info(`Returned with the torch support status:${torchSupport}`);
+    return torchSupport;
+  }
+  // [End camera_isTorchSupported]
+
+  // [Start camera_isTorchModeSupported]
+  isTorchModeSupported(cameraManager: camera.CameraManager, torchMode: camera.TorchMode) : boolean {
+    let isTorchModeSupport: boolean = false;
+    try {
+      isTorchModeSupport = cameraManager.isTorchModeSupported(torchMode);
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`Failed to check the torch mode. err code: ${err.code}.`);
+    }
+    return isTorchModeSupport;
+  }
+  // [End camera_isTorchModeSupported]
+
+  // [Start camera_setTorchMode]
+  setTorchMode(cameraManager: camera.CameraManager, torchMode: camera.TorchMode) : void {
+    try {
+      if (this.isTorchModeSupported(cameraManager, torchMode)) {
+        cameraManager.setTorchMode(torchMode);
+        let isTorchMode = cameraManager.getTorchMode();
+        console.info(`Returned with the torch mode supported mode: ${isTorchMode}`);
+      }
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`Failed to setTorchMode, err code: ${err.code}.`);
+    }
+  }
+  // [End camera_setTorchMode]
+
+  // [Start camera_onTorchStatusChange]
+  onTorchStatusChange(cameraManager: camera.CameraManager): void {
+    cameraManager.on('torchStatusChange', (err: BusinessError, torchStatusInfo: camera.TorchStatusInfo) => {
+      if (err !== undefined && err.code !== 0) {
+        console.error(`Callback Error, errorCode: ${err.code}`);
+        return;
+      }
+      console.info(`onTorchStatusChange, isTorchAvailable: ${torchStatusInfo.isTorchAvailable}, isTorchActive: ${torchStatusInfo.
+      isTorchActive}, level: ${torchStatusInfo.torchLevel}`);
+    });
+  }
+  // [End camera_onTorchStatusChange]
+
+  // [Start camera_isWhiteBalanceModeSupported]
+  isWhiteBalanceModeSupported(session: camera.PhotoSession | camera.VideoSession): boolean {
+    let status: boolean = false;
+    let whiteBalanceMode: camera.WhiteBalanceMode | undefined = undefined;
+    try {
+      let mode: camera.WhiteBalanceMode = camera.WhiteBalanceMode.DAYLIGHT;
+      status = session.isWhiteBalanceModeSupported(mode);
+      if (status) {
+        session.setWhiteBalanceMode(mode);
+      }
+      whiteBalanceMode = session.getWhiteBalanceMode();
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`The isWhiteBalanceModeSupported call failed. error code: ${err.code}`);
+    }
+    return status;
+  }
+  // [End camera_isWhiteBalanceModeSupported]
+
+  // [Start camera_setWhiteBalance]
+  getWhiteBalanceRange(session: camera.PhotoSession | camera.VideoSession): number[] {
+    let range: number[] = [];
+    try {
+      range = session.getWhiteBalanceRange();
+      let whiteBalance: number = 3000;
+      if (whiteBalance >= range[0] && whiteBalance <= range[1]) {
+        session.setWhiteBalance(whiteBalance);
+      }
+      whiteBalance = session.getWhiteBalance();
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`The getWhiteBalanceRange call failed. error code: ${err.code}`);
+    }
+    return range;
+  }
+  // [End camera_setWhiteBalance]
+
+  // [Start camera_systemPressureLevelChange]
+  systemPressureLevelCallback(err: BusinessError, systemPressureLevel: camera.SystemPressureLevel): void {
+    if (err !== undefined && err.code !== 0) {
+      console.error(`Callback Error, errorCode: ${err.code}`);
+      return;
+    }
+    console.info(`systemPressureLevel: ${systemPressureLevel}`);
+  }
+
+  registerSystemPressureLevelChangeCallback(photoSession: camera.PhotoSession): void {
+    photoSession.on('systemPressureLevelChange', this.systemPressureLevelCallback);
+  }
+  // [End camera_systemPressureLevelChange]
+
+  // [Start camera_controlCenterSupported]
+  isControlCenterSupported(videoSession: camera.VideoSession): boolean {
+    let isSupported: boolean = videoSession.isControlCenterSupported();
+    return isSupported;
+  }
+  // [End camera_controlCenterSupported]
+
+  // [Start camera_getSupportedEffectType]
+  getSupportedEffectTypes(videoSession: camera.VideoSession): camera.ControlCenterEffectType[] {
+    let effectTypes: camera.ControlCenterEffectType[] = [];
+    effectTypes = videoSession.getSupportedEffectTypes();
+    return effectTypes;
+  }
+  // [End camera_getSupportedEffectType]
+
+  // [Start camera_enableControlCenter]
+  enableControlCenter(videoSession: camera.VideoSession, enable: boolean): void {
+    let isSupported: boolean = videoSession.isControlCenterSupported();
+    if (isSupported) {
+      videoSession.enableControlCenter(enable);
+    }
+  }
+  // [End camera_enableControlCenter]
+
+  // [Start camera_controlCenterStatusChange]
+  controlCenterEffectStatusChangeCallback(err: BusinessError, status: camera.ControlCenterStatusInfo): void {
+    if (err !== undefined && err.code !== 0) {
+      console.error(`Callback Error, errorCode: ${err.code}`);
+      return;
+    }
+    console.info(`controlCenterEffectStatusChange: ${status}`);
+  }
+
+  registerControlCenterEffectStatusChangeCallback(videoSession: camera.VideoSession): void {
+    videoSession.on('controlCenterEffectStatusChange', this.controlCenterEffectStatusChangeCallback);
+  }
+  // [End camera_controlCenterStatusChange]
+
+  // [Start camera_isMacroSupported]
+  isMacroSupported(photoSession: camera.PhotoSession): boolean {
+    return photoSession.isMacroSupported();
+  }
+  // [End camera_isMacroSupported]
+
+  // [Start camera_enableMacro]
+  enableMacro(photoSession: camera.PhotoSession): void {
+    let isSupported: boolean = photoSession.isMacroSupported();
+    if (isSupported) {
+      photoSession.enableMacro(true);
+    }
+  }
+  // [End camera_enableMacro]
+
+  // [Start camera_macroStatusChange]
+  macroStatusCallback(err: BusinessError, macroStatus: boolean): void {
+    if (err !== undefined && err.code !== 0) {
+      console.error(`Callback Error, errorCode: ${err.code}`);
+      return;
+    }
+    console.info(`Macro state: ${macroStatus}`);
+  }
+
+  // 注册回调函数。
+  registerMacroStatusChanged(photoSession: camera.PhotoSession): void {
+    photoSession.on('macroStatusChanged', this.macroStatusCallback);
+  }
+
+  // 解注册。
+  unregisterMacroStatusChanged(photoSession: camera.PhotoSession): void {
+    photoSession.off('macroStatusChanged');
+  }
+  // [End camera_macroStatusChange]
+
+  // [Start camera_isFocusModeSupported]
+  isFocusModeSupported(photoSession: camera.PhotoSession): boolean {
+    let status: boolean = false;
+    try {
+      // 以检查是否支持自动对焦模式为例。
+      status = photoSession.isFocusModeSupported(camera.FocusMode.FOCUS_MODE_AUTO);
+    } catch (error) {
+      // 失败返回错误码error.code并处理。
+      let err = error as BusinessError;
+      console.error(`The isFocusModeSupported call failed. error code: ${err.code}`);
+    }
+    return status;
+  }
+  // [End camera_isFocusModeSupported]
+
+  // [Start camera_focusStatusChange]
+  onFocusStateChange(photoSession: camera.PhotoSession): void {
+    photoSession.on('focusStateChange', (err: BusinessError, focusState: camera.FocusState) => {
+      if (err !== undefined && err.code !== 0) {
+        console.error(`focusStateChange error code: ${err.code}`);
+        return;
+      }
+      console.info(`focusStateChange focusState: ${focusState}`);
+      // 为保证对焦功能的用户体验，在自动对焦成功后，可将对焦模式设置为连续自动对焦，且相机对焦状态发生改变时触发该事件。
+      if (focusState === camera.FocusState.FOCUS_STATE_FOCUSED) {
+        photoSession.setFocusMode(camera.FocusMode.FOCUS_MODE_CONTINUOUS_AUTO);
+      }
+    });
+  }
+  // [End camera_focusStatusChange]
+
+  // [Start camera_enableHighPerfCapture]
+  async modeSwitchToHigh(photoSession: camera.PhotoSession, photoOutput: camera.PhotoOutput): Promise<void> {
+    try {
+      if (photoSession) {
+        let quality: camera.PhotoQualityPrioritization = camera.PhotoQualityPrioritization.HIGH_QUALITY;
+        let isSupported = false;
+        isSupported = photoOutput.isPhotoQualityPrioritizationSupported(quality);
+        if (isSupported) {
+          photoOutput.setPhotoQualityPrioritization(quality);
+        } else {
+          console.error(`session is not supported`);
+        }
+      } else {
+        console.error(`session is null`);
+      }
+    } catch {
+      console.error(`catch error`);
+    }
+  }
+  // [End camera_enableHighPerfCapture]
+
+  // [Start camera_useHighPerfCapture]
+  async startSessionWithHighPerf(photoSession: camera.PhotoSession, cameraInput: camera.CameraInput,
+    previewOutput: camera.PreviewOutput, photoOutput: camera.PhotoOutput): Promise<void> {
+    try {
+      photoSession.addInput(cameraInput);
+      let canAddPreviewOutput: boolean = false;
+      canAddPreviewOutput = photoSession.canAddOutput(previewOutput);
+      if (!canAddPreviewOutput) {
+        console.error(`Failed to add preview output.`);
+        return;
+      }
+      photoSession.addOutput(previewOutput);
+      let canAddPhotoOutput: boolean = false;
+      canAddPhotoOutput = photoSession.canAddOutput(photoOutput);
+      if (!canAddPhotoOutput) {
+        console.error(`Failed to add photo output.`);
+        return;
+      }
+      photoSession.addOutput(photoOutput);
+      await photoSession.commitConfig();
+      await photoSession.start();
+      await this.modeSwitchToHigh(photoSession, photoOutput);
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`session flow error: ${err.code}`);
+    }
+  }
+  // [End camera_useHighPerfCapture]
+
+  // [Start camera_useHighPerfCapture_option]
+  async startSessionWithHighPerfOption(photoSession: camera.PhotoSession, cameraInput: camera.CameraInput,
+    previewOutput: camera.PreviewOutput, photoOutput: camera.PhotoOutput): Promise<void> {
+    try {
+      photoSession.addInput(cameraInput);
+      let canAddPreviewOutput: boolean = false;
+      canAddPreviewOutput = photoSession.canAddOutput(previewOutput);
+      if (!canAddPreviewOutput) {
+        console.error(`Failed to add preview output.`);
+        return;
+      }
+      photoSession.addOutput(previewOutput);
+      let canAddPhotoOutput: boolean = false;
+      canAddPhotoOutput = photoSession.canAddOutput(photoOutput);
+      if (!canAddPhotoOutput) {
+        console.error(`Failed to add photo output.`);
+        return;
+      }
+      photoSession.addOutput(photoOutput);
+      // 在commitConfig之前设置高性能拍照。
+      await this.modeSwitchToHigh(photoSession, photoOutput);
+      await photoSession.commitConfig();
+      await photoSession.start();
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`session flow error: ${err.code}`);
+    }
+  }
+  // [End camera_useHighPerfCapture_option]
 }
 
 export default new CameraService();

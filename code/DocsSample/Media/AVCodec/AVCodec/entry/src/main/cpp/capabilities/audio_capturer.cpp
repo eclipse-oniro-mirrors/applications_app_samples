@@ -37,6 +37,9 @@ static int32_t AudioCapturerOnReadData(OH_AudioCapturer *capturer, void *userDat
         return 0;
     }
     std::unique_lock<std::mutex> lock(codecUserData->inputMutex);
+    if (codecUserData->capturePaused) {
+        return 0;
+    }
     codecUserData->WriteCache(buffer, bufferLen);
     if (codecUserData->recordingAudioStats != nullptr) {
         codecUserData->recordingAudioStats->Capture(bufferLen, codecUserData->remainlen);

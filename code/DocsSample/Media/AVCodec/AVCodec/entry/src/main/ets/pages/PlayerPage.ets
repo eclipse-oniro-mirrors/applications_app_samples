@@ -13,16 +13,26 @@
  * limitations under the License.
  */
 
+import { PlayerGestureLayer } from '../components/player/PlayerGestureLayer';
+
 @Component
 export struct PlayerPage {
   @BuilderParam surfaceContent: () => void;
-  @BuilderParam gestureContent: () => void;
   @BuilderParam controlsContent: () => void;
+  onDoubleTap: (event: GestureEvent) => void = (_event: GestureEvent): void => {};
+  onTap: () => void = (): void => {};
+  onLongPress: () => void = (): void => {};
+  onLongPressEnd: () => void = (): void => {};
 
   build() {
     Stack({ alignContent: Alignment.Bottom }) {
       this.surfaceContent()
-      this.gestureContent()
+      PlayerGestureLayer({
+        onDoubleTap: this.onDoubleTap,
+        onTap: this.onTap,
+        onLongPress: this.onLongPress,
+        onLongPressEnd: this.onLongPressEnd
+      })
       this.controlsContent()
     }
     .width('100%')

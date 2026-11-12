@@ -39,6 +39,9 @@ struct OH_AVCodec {
     std::deque<uint32_t> queued;
     uint32_t sequence = 1;
     int calls = 0;
+    OH_AVCodecCallback callbacks {};
+    void *context = nullptr;
+    bool asynchronous = false;
 };
 struct OH_AVDemuxer { int chunk = 0; int samples = 0; bool discontinuous = false; };
 struct OH_AVMuxer { int packets = 0; std::vector<int64_t> timestamps; };
@@ -89,6 +92,8 @@ constexpr int64_t K_MICROSECONDS_PER_SECOND = 1000000;
 bool g_sendFormatChange = true;
 bool g_invalidLayout = false;
 bool g_failWrite = false;
+bool g_callbackError = false;
+bool g_errorEncoder = false;
 int g_destroyed = 0;
 int g_paddedSamples = 0;
 int g_inputEos = 0;
@@ -127,7 +132,13 @@ void AddOutput(OH_AVCodec *codec)
     }
     const auto id = codec->sequence++;
     codec->outputs.emplace(id, std::move(output));
-    codec->queued.push_back(id);
+    if (codec->asynchronous) {
+        if (!codec->changed && g_sendFormatChange) {
+            codec->changed = true;
+            codec->callbacks.onStreamChanged(codec, nullptr, codec->context);
+        }
+        codec->callbacks.onNewOutputBuffer(codec, id, &codec->outputs.at(id), codec->context);
+    } else { codec->queued.push_back(id); }
 }
 }
 
@@ -186,8 +197,18 @@ extern "C" OH_AVErrCode FakeAudioCodecConfigure(OH_AVCodec *, const OH_AVFormat 
     __asm__("OH_AudioCodec_Configure");
 extern "C" OH_AVErrCode FakeAudioCodecConfigure(OH_AVCodec *codec, const OH_AVFormat *format)
 {
+    codec->asynchronous = format->numbers.at("sync") == 0;
+    Require(!codec->asynchronous || codec->context != nullptr, "Register callbacks before Configure");
     codec->rate = static_cast<int32_t>(format->numbers.at("rate"));
     codec->channels = static_cast<int32_t>(format->numbers.at("channels"));
+    return AV_ERR_OK;
+}
+extern "C" OH_AVErrCode FakeAudioCodecRegisterCallback(OH_AVCodec *, OH_AVCodecCallback, void *)
+    __asm__("OH_AudioCodec_RegisterCallback");
+extern "C" OH_AVErrCode FakeAudioCodecRegisterCallback(OH_AVCodec *codec, OH_AVCodecCallback callbacks, void *context)
+{
+    codec->callbacks = callbacks;
+    codec->context = context;
     return AV_ERR_OK;
 }
 extern "C" OH_AVErrCode FakeAudioCodecPrepare(OH_AVCodec *) __asm__("OH_AudioCodec_Prepare");
@@ -199,12 +220,14 @@ extern "C" OH_AVErrCode FakeAudioCodecStart(OH_AVCodec *codec) __asm__("OH_Audio
 extern "C" OH_AVErrCode FakeAudioCodecStart(OH_AVCodec *codec)
 {
     codec->started = true;
+    if (codec->asynchronous) { codec->callbacks.onNeedInputBuffer(codec, 0, &codec->input, codec->context); }
     return AV_ERR_OK;
 }
 extern "C" OH_AVErrCode FakeAudioCodecStop(OH_AVCodec *codec) __asm__("OH_AudioCodec_Stop");
 extern "C" OH_AVErrCode FakeAudioCodecStop(OH_AVCodec *codec)
 {
     codec->started = false;
+    if (codec->asynchronous) { codec->callbacks.onError(codec, AV_ERR_UNKNOWN, codec->context); }
     return AV_ERR_OK;
 }
 extern "C" OH_AVErrCode FakeAudioCodecDestroy(OH_AVCodec *codec) __asm__("OH_AudioCodec_Destroy");
@@ -225,6 +248,7 @@ extern "C" OH_AVErrCode FakeAudioCodecQueryInputBuffer(OH_AVCodec *codec, uint32
     __asm__("OH_AudioCodec_QueryInputBuffer");
 extern "C" OH_AVErrCode FakeAudioCodecQueryInputBuffer(OH_AVCodec *codec, uint32_t *index, int64_t)
 {
+    Require(!codec->asynchronous, "Asynchronous input must not Query");
     if (++codec->calls % K_QUERY_FREQUENCY == 0 || codec->outputs.size() >= K_OUTPUT_QUEUE_LIMIT) {
         return AV_ERR_TRY_AGAIN_LATER;
     }
@@ -235,22 +259,31 @@ extern "C" OH_AVBuffer *FakeAudioCodecGetInputBuffer(OH_AVCodec *codec, uint32_t
     __asm__("OH_AudioCodec_GetInputBuffer");
 extern "C" OH_AVBuffer *FakeAudioCodecGetInputBuffer(OH_AVCodec *codec, uint32_t)
 {
+    Require(!codec->asynchronous, "Asynchronous input must not Get");
     return &codec->input;
 }
 extern "C" OH_AVErrCode FakeAudioCodecPushInputBuffer(OH_AVCodec *codec, uint32_t)
     __asm__("OH_AudioCodec_PushInputBuffer");
 extern "C" OH_AVErrCode FakeAudioCodecPushInputBuffer(OH_AVCodec *codec, uint32_t)
 {
+    if (codec->asynchronous && g_callbackError && codec->encoder == g_errorEncoder) {
+        codec->callbacks.onError(codec, AV_ERR_UNKNOWN, codec->context);
+        return AV_ERR_OK;
+    }
     if (codec->encoder) {
         RecordEncoderInput(codec);
     }
     AddOutput(codec);
+    if (codec->asynchronous && (codec->input.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) == 0) {
+        codec->callbacks.onNeedInputBuffer(codec, 0, &codec->input, codec->context);
+    }
     return AV_ERR_OK;
 }
 extern "C" OH_AVErrCode FakeAudioCodecQueryOutputBuffer(OH_AVCodec *codec, uint32_t *index, int64_t)
     __asm__("OH_AudioCodec_QueryOutputBuffer");
 extern "C" OH_AVErrCode FakeAudioCodecQueryOutputBuffer(OH_AVCodec *codec, uint32_t *index, int64_t)
 {
+    Require(!codec->asynchronous, "Asynchronous output must not Query");
     if (!codec->changed && g_sendFormatChange) {
         codec->changed = true;
         return AV_ERR_STREAM_CHANGED;
@@ -264,6 +297,7 @@ extern "C" OH_AVBuffer *FakeAudioCodecGetOutputBuffer(OH_AVCodec *codec, uint32_
     __asm__("OH_AudioCodec_GetOutputBuffer");
 extern "C" OH_AVBuffer *FakeAudioCodecGetOutputBuffer(OH_AVCodec *codec, uint32_t index)
 {
+    Require(!codec->asynchronous, "Asynchronous output must not Get");
     return &codec->outputs.at(index);
 }
 extern "C" OH_AVErrCode FakeAudioCodecFreeOutputBuffer(OH_AVCodec *codec, uint32_t index)
@@ -327,7 +361,7 @@ extern "C" OH_AVErrCode FakeAvMuxerWriteSampleBuffer(OH_AVMuxer *muxer, uint32_t
     return AV_ERR_OK;
 }
 
-void RunSuccess(bool formatEvent, int64_t originUs = 0)
+void RunSuccess(bool formatEvent, int64_t originUs = 0, bool asynchronous = false)
 {
     g_sendFormatChange = formatEvent;
     g_paddedSamples = 0;
@@ -344,7 +378,8 @@ void RunSuccess(bool formatEvent, int64_t originUs = 0)
             failed = true;
             return false;
         });
-        Require(pipeline.Configure(source.get(), &demuxer, 1, originUs), "Configure success pipeline");
+        Require(pipeline.Configure(source.get(), &demuxer, 1, originUs, 0, 0, 0,
+            TranscodeAudioPipeline::TargetBitrate(), false, asynchronous), "Configure success pipeline");
         for (int tick = 0; tick < K_MAX_TICKS && !pipeline.Done(); ++tick) {
             bool advanced = false;
             Require(pipeline.Pump(pipeline.Ready() && tick > K_MUX_START_TICK ? &muxer : nullptr, 1, advanced),
@@ -480,7 +515,7 @@ void RunInvalidSampleRate()
     }
 }
 
-void RunInterrupted(bool writeFailure)
+void RunInterrupted(bool writeFailure, bool asynchronous = false)
 {
     g_sendFormatChange = false;
     g_invalidLayout = false;
@@ -496,7 +531,8 @@ void RunInterrupted(bool writeFailure)
             failed = true;
             return false;
         });
-        Require(pipeline.Configure(source.get(), &demuxer, 1), "Configure interrupted pipeline");
+        Require(pipeline.Configure(source.get(), &demuxer, 1, 0, 0, 0, 0,
+            TranscodeAudioPipeline::TargetBitrate(), false, asynchronous), "Configure interrupted pipeline");
         for (int tick = 0; tick < K_READY_TICKS && !pipeline.Ready(); ++tick) {
             bool advanced = false;
             Require(pipeline.Pump(nullptr, 1, advanced), "Pump interrupted pipeline");
@@ -512,6 +548,31 @@ void RunInterrupted(bool writeFailure)
         // Destruction also covers cancellation with a borrowed first output packet.
     }
     g_failWrite = false;
+}
+
+void RunAsyncError(bool encoder)
+{
+    g_callbackError = true;
+    g_errorEncoder = encoder;
+    OH_AVDemuxer demuxer;
+    bool failed = false;
+    auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
+        FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, K_SAMPLE_RATE, K_CHANNELS),
+        FakeAvFormatDestroy);
+    TranscodeAudioPipeline pipeline([&failed, encoder](const char *operation, int32_t) {
+        failed = true;
+        Require(std::string(operation).find(encoder ? "encoder callback" : "decoder callback") != std::string::npos,
+            "Report callback error origin");
+        return false;
+    });
+    Require(pipeline.Configure(source.get(), &demuxer, 1, 0, 0, 0, 0,
+        TranscodeAudioPipeline::TargetBitrate(), false, true), "Configure callback failure pipeline");
+    for (int tick = 0; tick < K_READY_TICKS && !failed; ++tick) {
+        bool advanced = false;
+        pipeline.Pump(nullptr, 1, advanced);
+    }
+    Require(failed, "Propagate asynchronous callback error");
+    g_callbackError = false;
 }
 
 int main()
@@ -550,5 +611,12 @@ int main()
         Require(failed, "Invalid layout is rejected");
     }
     Require(g_destroyed == K_EXPECTED_DESTROYED && g_returned > 0, "Codec cleanup");
+    g_invalidLayout = false;
+    RunSuccess(true, 0, true);
+    RunSuccess(false, K_FIRST_PTS, true);
+    RunInterrupted(true, true);
+    RunInterrupted(false, true);
+    RunAsyncError(false);
+    RunAsyncError(true);
     std::cout << "AAC pipeline checks passed\n";
 }

@@ -207,6 +207,42 @@
     {
       "name": "VIDEO_RATE_30",
       "value": "30"
+    },
+    {
+      "name": "PHOTO_MODE",
+      "value": "拍照"
+    },
+    {
+      "name": "VIDEO_MODE",
+      "value": "录像"
+    },
+    {
+      "name": "WHITE_BALANCE",
+      "value": "白平衡"
+    },
+    {
+      "name": "WHITE_BALANCE_AUTO",
+      "value": "自动"
+    },
+    {
+      "name": "WHITE_BALANCE_CLOUDY",
+      "value": "阴天"
+    },
+    {
+      "name": "WHITE_BALANCE_INCANDESCENT",
+      "value": "白炽光"
+    },
+    {
+      "name": "WHITE_BALANCE_FLUORESCENT",
+      "value": "荧光"
+    },
+    {
+      "name": "WHITE_BALANCE_DAYLIGHT",
+      "value": "日光"
+    },
+    {
+      "name": "WHITE_BALANCE_MANUAL",
+      "value": "手动"
     }
   ]
 }

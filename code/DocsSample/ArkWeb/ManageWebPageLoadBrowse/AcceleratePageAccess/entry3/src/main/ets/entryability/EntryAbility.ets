@@ -30,8 +30,6 @@ export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
-  // [EndExclude save_the_uiContext_to_localstorage_in_entry_ability]
-  // [StartExclude save_the_uiContext_to_localstorage_in_entry_ability]
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
@@ -51,14 +49,10 @@ export default class EntryAbility extends UIAbility {
     // Main window is destroyed, release UI related resources
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
-  // [EndExclude save_the_uiContext_to_localstorage_in_entry_ability]
-  // [StartExclude save_the_uiContext_to_localstorage_in_entry_ability]
   onForeground(): void {
     // Ability has brought to foreground
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
   }
-  // [EndExclude save_the_uiContext_to_localstorage_in_entry_ability]
-  // [StartExclude save_the_uiContext_to_localstorage_in_entry_ability]
   onBackground(): void {
     // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');

@@ -52,16 +52,16 @@ bool SamplesBefore(int64_t boundaryUs, int64_t ptsUs, int64_t samples, int32_t r
     return true;
 }
 
-bool ConfigureDecoderFormat(OH_AVFormat *source)
+bool ConfigureDecoderFormat(OH_AVFormat *source, bool asynchronous)
 {
     return OH_AVFormat_SetIntValue(source, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) &&
-        OH_AVFormat_SetIntValue(source, OH_MD_KEY_ENABLE_SYNC_MODE, SYNC_MODE_ENABLED);
+        OH_AVFormat_SetIntValue(source, OH_MD_KEY_ENABLE_SYNC_MODE, asynchronous ? 0 : SYNC_MODE_ENABLED);
 }
 
-bool ConfigureEncoderFormat(OH_AVFormat *encoded, int64_t bitrate)
+bool ConfigureEncoderFormat(OH_AVFormat *encoded, int64_t bitrate, bool asynchronous)
 {
     return OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) &&
-        OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_ENABLE_SYNC_MODE, SYNC_MODE_ENABLED) &&
+        OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_ENABLE_SYNC_MODE, asynchronous ? 0 : SYNC_MODE_ENABLED) &&
         OH_AVFormat_SetLongValue(encoded, OH_MD_KEY_BITRATE, bitrate) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_PROFILE, AAC_PROFILE_LC) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AAC_IS_ADTS, ADTS_DISABLED);
@@ -70,7 +70,14 @@ bool ConfigureEncoderFormat(OH_AVFormat *encoded, int64_t bitrate)
 
 bool TranscodeAudioPipeline::Check(int32_t result, const char *operation)
 {
-    return result == AV_ERR_OK || error_(operation, result);
+    if (result == AV_ERR_OK) { return true; }
+    bool encoderError = false;
+    const int32_t callbackError = asynchronous_ ? callbacks_.Error(encoderError) : AV_ERR_OK;
+    if (callbackError != AV_ERR_OK) {
+        return error_(encoderError ? "Asynchronous AAC encoder callback" : "Asynchronous audio decoder callback",
+            callbackError);
+    }
+    return error_(operation, result);
 }
 
 int64_t TranscodeAudioPipeline::TargetBitrate()
@@ -91,8 +98,15 @@ bool TranscodeAudioPipeline::ReadSourceFormat(OH_AVFormat *source, const char *&
 
 bool TranscodeAudioPipeline::ConfigureFormats(OH_AVFormat *source, OH_AVFormat *encoded)
 {
-    if (!ConfigureDecoderFormat(source) || !ConfigureEncoderFormat(encoded, bitrate_)) {
+    if (!ConfigureDecoderFormat(source, asynchronous_) || !ConfigureEncoderFormat(encoded, bitrate_, asynchronous_)) {
         return error_("Build audio decoder/AAC encoder format", -1);
+    }
+    if (asynchronous_) {
+        const OH_AVCodecCallback callbacks = TranscodeCodecCallbacks::Callbacks();
+        if (!Check(OH_AudioCodec_RegisterCallback(decoder_, callbacks, callbacks_.DecoderContext()),
+            "Register asynchronous audio decoder") ||
+            !Check(OH_AudioCodec_RegisterCallback(encoder_, callbacks, callbacks_.EncoderContext()),
+                "Register asynchronous AAC encoder")) { return false; }
     }
     return Check(OH_AudioCodec_Configure(decoder_, source), "Configure audio decoder") &&
         Check(OH_AudioCodec_Configure(encoder_, encoded), "Configure AAC encoder");
@@ -118,8 +132,10 @@ bool TranscodeAudioPipeline::StartCodecs()
 }
 
 bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track,
-    int64_t rangeStartUs, int64_t rangeEndUs, int32_t targetRate, int32_t targetChannels, int64_t bitrate, bool lowPass)
+    int64_t rangeStartUs, int64_t rangeEndUs, int32_t targetRate, int32_t targetChannels, int64_t bitrate, bool lowPass,
+    bool asynchronous)
 {
+    asynchronous_ = asynchronous;
     demuxer_ = demuxer;
     track_ = track;
     rangeStartUs_ = rangeStartUs;
@@ -146,7 +162,8 @@ bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxe
     return true;
 }
 
-bool TranscodeAudioPipeline::Feed(bool &advanced)
+// [Start transcode_audio_feed_sync]
+bool TranscodeAudioPipeline::FeedSync(bool &advanced)
 {
     if (inputDone_) { return true; }
     uint32_t index = 0;
@@ -154,6 +171,24 @@ bool TranscodeAudioPipeline::Feed(bool &advanced)
     if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
     if (!Check(result, "Query audio decoder input")) { return false; }
     OH_AVBuffer *buffer = OH_AudioCodec_GetInputBuffer(decoder_, index);
+    return FeedBuffer(index, buffer, advanced);
+}
+// [End transcode_audio_feed_sync]
+
+// [Start transcode_audio_feed_async]
+bool TranscodeAudioPipeline::FeedAsync(bool &advanced)
+{
+    if (inputDone_) { return true; }
+    TranscodeCodecBuffer input;
+    const int32_t result = callbacks_.Take(false, true, input);
+    if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
+    if (!Check(result, "Read asynchronous audio decoder input")) { return false; }
+    return FeedBuffer(input.index, input.buffer, advanced);
+}
+// [End transcode_audio_feed_async]
+
+bool TranscodeAudioPipeline::FeedBuffer(uint32_t index, OH_AVBuffer *buffer, bool &advanced)
+{
     OH_AVCodecBufferAttr attr {};
     if (buffer == nullptr) { return error_("Get audio decoder input", -1); }
     if (!Check(OH_AVDemuxer_ReadSampleBuffer(demuxer_, track_, buffer), "Read compressed audio") ||
@@ -186,7 +221,8 @@ bool TranscodeAudioPipeline::ValidatePcm()
     return true;
 }
 
-bool TranscodeAudioPipeline::Decode(bool &advanced)
+// [Start transcode_audio_decode_sync]
+bool TranscodeAudioPipeline::DecodeSync(bool &advanced)
 {
     if (decodedDone_ || pcm_ != nullptr) { return true; }
     const int32_t result = OH_AudioCodec_QueryOutputBuffer(decoder_, &pcmIndex_, 0);
@@ -197,6 +233,34 @@ bool TranscodeAudioPipeline::Decode(bool &advanced)
     }
     if (!Check(result, "Query decoded PCM")) { return false; }
     pcm_ = OH_AudioCodec_GetOutputBuffer(decoder_, pcmIndex_);
+    return AcceptPcm(advanced);
+}
+// [End transcode_audio_decode_sync]
+
+// [Start transcode_audio_decode_async]
+bool TranscodeAudioPipeline::DecodeAsync(bool &advanced)
+{
+    if (decodedDone_ || pcm_ != nullptr) {
+        return true;
+    }
+    TranscodeCodecBuffer output;
+    const int32_t result = callbacks_.Take(false, false, output);
+    if (result == AV_ERR_TRY_AGAIN_LATER) {
+        return true;
+    }
+    if (result == AV_ERR_STREAM_CHANGED) {
+        advanced = true;
+        return ValidatePcm();
+    }
+    if (!Check(result, "Read asynchronous decoded PCM")) { return false; }
+    pcm_ = output.buffer;
+    pcmIndex_ = output.index;
+    return AcceptPcm(advanced);
+}
+// [End transcode_audio_decode_async]
+
+bool TranscodeAudioPipeline::AcceptPcm(bool &advanced)
+{
     if (pcm_ == nullptr || !Check(OH_AVBuffer_GetBufferAttr(pcm_, &pcmAttr_), "Read PCM attributes")) {
         pcm_ = nullptr;
         return error_("Get decoded PCM", -1);
@@ -311,7 +375,8 @@ bool TranscodeAudioPipeline::FillPcmFrame(bool &advanced)
     return true;
 }
 
-bool TranscodeAudioPipeline::Encode(bool &advanced)
+// [Start transcode_audio_encode_sync]
+bool TranscodeAudioPipeline::EncodeSync(bool &advanced)
 {
     const size_t frameBytes = static_cast<size_t>(AAC_SAMPLES) * targetChannels_ * PCM_BYTES;
     if (!FillPcmFrame(advanced)) { return false; }
@@ -321,6 +386,27 @@ bool TranscodeAudioPipeline::Encode(bool &advanced)
     if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
     if (!Check(result, "Query AAC encoder input")) { return false; }
     OH_AVBuffer *input = OH_AudioCodec_GetInputBuffer(encoder_, index);
+    return SubmitPcm(index, input, advanced);
+}
+// [End transcode_audio_encode_sync]
+
+// [Start transcode_audio_encode_async]
+bool TranscodeAudioPipeline::EncodeAsync(bool &advanced)
+{
+    const size_t frameBytes = static_cast<size_t>(AAC_SAMPLES) * targetChannels_ * PCM_BYTES;
+    if (!FillPcmFrame(advanced)) { return false; }
+    if (sentEos_ || (frame_.size() < frameBytes && !decodedDone_)) { return true; }
+    TranscodeCodecBuffer input;
+    const int32_t result = callbacks_.Take(true, true, input);
+    if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
+    if (!Check(result, "Read asynchronous AAC input")) { return false; }
+    return SubmitPcm(input.index, input.buffer, advanced);
+}
+// [End transcode_audio_encode_async]
+
+bool TranscodeAudioPipeline::SubmitPcm(uint32_t index, OH_AVBuffer *input, bool &advanced)
+{
+    const size_t frameBytes = static_cast<size_t>(AAC_SAMPLES) * targetChannels_ * PCM_BYTES;
     if (input == nullptr) { return error_("Get AAC encoder input", -1); }
     OH_AVCodecBufferAttr attr {};
     attr.pts = std::max<int64_t>(0, pcmStartPts_) + submittedSamples_ / targetRate_ * US_PER_SECOND +
@@ -347,7 +433,8 @@ bool TranscodeAudioPipeline::Encode(bool &advanced)
     return true;
 }
 
-bool TranscodeAudioPipeline::Drain(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced)
+// [Start transcode_audio_drain_sync]
+bool TranscodeAudioPipeline::DrainSync(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced)
 {
     if (outputDone_ || (ready_ && muxer == nullptr)) { return true; }
     uint32_t index = 0;
@@ -360,6 +447,34 @@ bool TranscodeAudioPipeline::Drain(OH_AVMuxer *muxer, int32_t muxTrack, bool &ad
     }
     if (!Check(result, "Query AAC output")) { return false; }
     OH_AVBuffer *buffer = OH_AudioCodec_GetOutputBuffer(encoder_, index);
+    return WriteOutput(index, buffer, muxer, muxTrack, advanced);
+}
+// [End transcode_audio_drain_sync]
+
+// [Start transcode_audio_drain_async]
+bool TranscodeAudioPipeline::DrainAsync(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced)
+{
+    if (outputDone_ || (ready_ && muxer == nullptr)) {
+        return true;
+    }
+    TranscodeCodecBuffer output;
+    const int32_t result = callbacks_.Take(true, false, output);
+    if (result == AV_ERR_TRY_AGAIN_LATER) {
+        return true;
+    }
+    if (result == AV_ERR_STREAM_CHANGED) {
+        ready_ = true;
+        advanced = true;
+        return true;
+    }
+    if (!Check(result, "Read asynchronous AAC output")) { return false; }
+    return WriteOutput(output.index, output.buffer, muxer, muxTrack, advanced);
+}
+// [End transcode_audio_drain_async]
+
+bool TranscodeAudioPipeline::WriteOutput(uint32_t index, OH_AVBuffer *buffer, OH_AVMuxer *muxer,
+    int32_t muxTrack, bool &advanced)
+{
     OH_AVCodecBufferAttr attr {};
     if (buffer == nullptr || !Check(OH_AVBuffer_GetBufferAttr(buffer, &attr), "Read AAC output attributes")) {
         return error_("Get AAC output", -1);
@@ -384,6 +499,10 @@ bool TranscodeAudioPipeline::Drain(OH_AVMuxer *muxer, int32_t muxTrack, bool &ad
 
 bool TranscodeAudioPipeline::Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced)
 {
+    bool encoderError = false;
+    const int32_t callbackError = asynchronous_ ? callbacks_.Error(encoderError) : AV_ERR_OK;
+    if (!Check(callbackError,
+        encoderError ? "Asynchronous AAC encoder callback" : "Asynchronous audio decoder callback")) { return false; }
     if (pendingOutput_ != nullptr && muxer != nullptr) {
         OH_AVCodecBufferAttr attr {};
         if (!Check(OH_AVBuffer_GetBufferAttr(pendingOutput_, &attr), "Read pending AAC output")) { return false; }
@@ -398,7 +517,12 @@ bool TranscodeAudioPipeline::Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &adv
         if (!success || !returned) { return false; }
         advanced = true;
     }
-    return outputDone_ || (Drain(muxer, muxTrack, advanced) && Encode(advanced) && Decode(advanced) && Feed(advanced));
+    if (outputDone_) { return true; }
+    if (asynchronous_) {
+        return DrainAsync(muxer, muxTrack, advanced) && EncodeAsync(advanced) && DecodeAsync(advanced) &&
+            FeedAsync(advanced);
+    }
+    return DrainSync(muxer, muxTrack, advanced) && EncodeSync(advanced) && DecodeSync(advanced) && FeedSync(advanced);
 }
 
 OH_AVFormat *TranscodeAudioPipeline::OutputFormat() const
@@ -408,6 +532,7 @@ OH_AVFormat *TranscodeAudioPipeline::OutputFormat() const
 
 TranscodeAudioPipeline::~TranscodeAudioPipeline()
 {
+    callbacks_.Close();
     if (decoder_ != nullptr) {
         if (decoderStarted_) { (void)OH_AudioCodec_Stop(decoder_); }
         OH_AudioCodec_Destroy(decoder_);

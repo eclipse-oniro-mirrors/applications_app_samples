@@ -151,7 +151,7 @@ napi_value ImageEdit::PixelMapFilterStart(napi_env env, napi_callback_info info)
     // [End image_effect_start]
 
     // [Start image_effect_save]
-    // 序列化效果器(可选)。
+    // 序列化效果器（可选）。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -219,7 +219,7 @@ napi_value ImageEdit::NativeBufferFilterStart(napi_env env, napi_callback_info i
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
 
-    // 序列化效果器(可选)。
+    // 序列化效果器（可选）。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -273,7 +273,7 @@ napi_value ImageEdit::URIFilterStart(napi_env env, napi_callback_info info)
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
 
-    // 序列化效果器(可选)。
+    // 序列化效果器（可选）。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -348,7 +348,7 @@ void AddFilterSingle(const char *filterName, float filterValue, OH_PixelmapNativ
     // [End image_effect_create_filter]
 
     // [Start image_effect_set_filter_value]
-    // 设置滤镜参数, 滤镜强度设置为传入参数。
+    // 设置滤镜参数，滤镜强度设置为传入参数。
     ImageEffect_Any value;
     value.dataType = ImageEffect_DataType::EFFECT_DATA_TYPE_FLOAT;
     value.dataValue.floatValue = static_cast<float>(filterValue);
@@ -775,7 +775,7 @@ napi_value ImageEdit::RegisterCustomBrightness()
                     ImageEffect_Any value;
                     value.dataType = ImageEffect_DataType::EFFECT_DATA_TYPE_FLOAT;
                     value.dataValue.floatValue = brightness;
-                    // 设置滤镜参数, value为info中按json解析出来的参数。
+                    // 设置滤镜参数，value为info中按json解析出来的参数。
                     LOG_E("brightness value: %{public}f ", value.dataValue.floatValue);
                     ImageEffect_ErrorCode errorCode = OH_EffectFilter_SetValue(filter, "brightness", &value);
                     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, nullptr,
@@ -838,7 +838,7 @@ napi_value ImageEdit::RegisterCustomCrop()
                     ImageEffect_Any value;
                     value.dataType = ImageEffect_DataType::EFFECT_DATA_TYPE_FLOAT;
                     value.dataValue.floatValue = crop;
-                    // 设置滤镜参数, value为info中按json解析出来的参数。
+                    // 设置滤镜参数，value为info中按json解析出来的参数。
                     LOG_E("crop value: %{public}f ", value.dataValue.floatValue);
                     ImageEffect_ErrorCode errorCode = OH_EffectFilter_SetValue(filter, "crop", &value);
                     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, nullptr,

@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the 'License');
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an 'AS IS' BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -56,7 +56,7 @@ struct Index {
   @State exposureBol: boolean = true;
   // Exposure value
   @State exposureNum: number = 0;
-  //HDR video
+  // HDR video
   @Provide isHdrVideo: boolean = false;
   @Provide isVideoMode: boolean = false;
   @State videoId: string = '';
@@ -217,11 +217,11 @@ struct Index {
         }
         // FlashLight
         FlashingLightPage();
-        //WhiteBalance
+        // WhiteBalance
         WhiteBalancePage();
         // Slide
         SlidePage();
-        //GridLine
+        // GridLine
         GridLinePage({
           isGridLineVisible: this.isGridLineVisible
         });
@@ -269,7 +269,7 @@ struct Index {
     .backgroundColor(Color.Black)
   }
 
-  //保存图片
+  // 保存图片。
   async savePicture() {
     let fileName = `${Date.now()}`;
     let photoType: photoAccessHelper.PhotoType = photoAccessHelper.PhotoType.IMAGE;
@@ -284,22 +284,22 @@ struct Index {
       Logger.info(TAG, 'getPhotoAccessHelper succcess');
     }
     let imgPhotoUri: string = await accessHelper.createAsset(photoType, extension, options);
-    //指定待保存到媒体库的位于应用沙箱的图片uri
+    // 指定待保存到媒体库的位于应用沙箱的图片uri。
     let srcFileUris: string[] = [
       imgPhotoUri
     ];
-    // 指定待保存照片的创建选项,包括文件后缀和照片类型,标题和照片子类型可选
+    // 指定待保存照片的创建选项，包括文件后缀和照片类型，标题和照片子类型可选。
     let photoCreationConfigs: photoAccessHelper.PhotoCreationConfig[] = [
       {
-        title: fileName, //可选
+        title: fileName, // 可选。
         fileNameExtension: 'jpg',
         photoType: photoAccessHelper.PhotoType.IMAGE,
-        subtype: photoAccessHelper.PhotoSubtype.DEFAULT, //可选
+        subtype: photoAccessHelper.PhotoSubtype.DEFAULT, // 可选。
       }
     ];
-    // 基于弹窗授权的方式获取媒体库的目标uri
+    // 基于弹窗授权的方式获取媒体库的目标uri。
     let desFileUris: string[] = await accessHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
-    // 将来源于应用沙箱的照片内容写入媒体库的目标uri
+    // 将来源于应用沙箱的照片内容写入媒体库的目标uri。
     let desFile: fileIo.File = await fileIo.open(desFileUris[0], fileIo.OpenMode.WRITE_ONLY);
     await fileIo.write(desFile.fd, this.photoBuffer);
 

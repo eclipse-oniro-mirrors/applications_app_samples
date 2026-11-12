@@ -31,7 +31,7 @@ struct WebComponent {
           try {
             webview.GeolocationPermissions.allowGeolocation(this.origin);
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
 
@@ -41,7 +41,7 @@ struct WebComponent {
           try {
             webview.GeolocationPermissions.deleteGeolocation(this.origin);
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
 
@@ -53,10 +53,10 @@ struct WebComponent {
               .then(result => {
                 console.info('getAccessibleGeolocationPromise result: ' + result);
               }).catch((error: BusinessError) => {
-              console.error(`getAccessibleGeolocationPromise error, ErrorCode: ${error.code},  Message: ${error.message}`);
+              console.error(`getAccessibleGeolocationPromise error, ErrorCode: ${error.code}, Message: ${error.message}`);
             });
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
 

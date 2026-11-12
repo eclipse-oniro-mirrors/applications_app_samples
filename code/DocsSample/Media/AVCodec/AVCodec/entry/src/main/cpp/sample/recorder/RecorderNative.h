@@ -34,6 +34,7 @@ public:
     static napi_value Start(napi_env env, napi_callback_info info);
     static napi_value GetDiagnostics(napi_env env, napi_callback_info info);
     static napi_value UpdateParameters(napi_env env, napi_callback_info info);
+    static napi_value SetPaused(napi_env env, napi_callback_info info);
     // 异步请求停止录制并开始排空编码器。
     static napi_value StopStart(napi_env env, napi_callback_info info);
     // 异步等待资源释放完成，Promise返回后可以开始下一次录制。

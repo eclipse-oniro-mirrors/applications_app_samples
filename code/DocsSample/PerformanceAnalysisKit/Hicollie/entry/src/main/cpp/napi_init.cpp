@@ -137,7 +137,6 @@ std::shared_ptr<std::atomic<bool>> isSixSecondEvent_ = std::make_shared<std::ato
 // [End hicollie_NapiInit_InputBlock_BlockTime_Flag]
 // [Start hicollie_NapiInit_InputBlock_Report_Set_Timer]
 // [Start hicollie_NapiInit_StuckDetection_Report_Set_Timer]
-
 void ReportEvent()
 {
     bool temp = isSixSecondEvent_->load();

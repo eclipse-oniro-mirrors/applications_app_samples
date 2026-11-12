@@ -1,15 +1,152 @@
-import audioTest from './AudioTest'
-import videoTest from './VideoTest'
-import syncTest from './SyncTest'
-import performanceTest from './PerformanceTest'
-
-/**
- * Test Suite for AudioToVideoSync
- * This suite organizes and executes all audio, video, and synchronization tests
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+import Audio01Test from './AudioTest.test';
+import AudioToVideoSyncLogic01Test from './AudioToVideoSyncLogicTest01.test';
+import Performance01Test from './PerformanceTest.test';
+import Sync01Test from './SyncTest.test';
+import Video01Test from './VideoTest.test';
+import viewportLayoutMatrixTest from './Validation/ViewportLayoutMatrix.test';
+import displayMetricContractTest from './Validation/DisplayMetricContract.test';
+import avPlayerStateContractTest from './Media/AVPlayerStateContract.test';
+import audioPipelineContractTest from './Audio/AudioPipelineContract.test';
+import fileContentMatrixTest from './FileIo/FileContentMatrix.test';
+import fileSystemOpsMatrixTest from './FileIo/FileSystemOpsMatrix.test';
+import clockContractTest from './Time/ClockContract.test';
+import indexPageContractTest from './Interaction/IndexPageContract.test';
+import fileSizeBoundaryMatrixTest from './FileIo/FileSizeBoundaryMatrix.test';
+import fileNameMatrixTest from './FileIo/FileNameMatrix.test';
+import timerAccuracyMatrixTest from './Time/TimerAccuracyMatrix.test';
+import audioRendererLifecycleMatrixTest from './Audio/AudioRendererLifecycleMatrix.test';
+import operationLatencyTest from './Performance/OperationLatency.test';
+import pipelineIntegrationTest from './Integration/PipelineIntegration.test';
+import fileOffsetMatrixTest from './FileIo/FileOffsetMatrix.test';
+import dateSnapshotMatrixTest from './Time/DateSnapshotMatrix.test';
+import fileErrorMatrixTest from './Robustness/FileErrorMatrix.test';
+import fileCopyTruncateMatrixTest from './FileIo/FileCopyTruncateMatrix.test';
+import fileUnicodeMatrixTest from './FileIo/FileUnicodeMatrix.test';
+import audioVolumeStreamMatrixTest from './Audio/AudioVolumeStreamMatrix.test';
+import displayAudioFileMatrixTest from './Integration/DisplayAudioFileMatrix.test';
+import displayRoundingMatrixTest from './Validation/DisplayRoundingMatrix.test';
+import fileDirectoryMatrixTest from './FileIo/FileDirectoryMatrix.test';
+import fileHandleMatrixTest from './FileIo/FileHandleMatrix.test';
+import audioFormatContractTest from './Audio/AudioFormatContract.test';
+import indexPageNavigationTest from './Interaction/IndexPageNavigation.test';
+import fileModeMatrixTest from './FileIo/FileModeMatrix.test';
+import audioRendererBufferMatrixTest from './Audio/AudioRendererBufferMatrix.test';
+import audioVolumeFileTest from './Integration/AudioVolumeFile.test';
+import directoryErrorMatrixTest from './Robustness/DirectoryErrorMatrix.test';
+import audioLifecycleThroughputTest from './Performance/AudioLifecycleThroughput.test';
+import fileStatMatrixTest from './FileIo/FileStatMatrix.test';
+import fileListMatrixTest from './FileIo/FileListMatrix.test';
+import fileWritePatternMatrixTest from './FileIo/FileWritePatternMatrix.test';
+import displayRefreshMatrixTest from './Validation/DisplayRefreshMatrix.test';
+import mediaErrorMatrixTest from './Robustness/MediaErrorMatrix.test';
+import pipelineStressTest from './Integration/PipelineStress.test';
+import textCodecMatrixTest from './Utils/TextCodecMatrix.test';
+import uuidBase64MatrixTest from './Utils/UuidBase64Matrix.test';
+import bufferUriMatrixTest from './Utils/BufferUriMatrix.test';
+import collectionMatrixTest from './Utils/CollectionMatrix.test';
+import urlMatrixTest from './Utils/UrlMatrix.test';
+import utilsFileMatrixTest from './Integration/UtilsFileMatrix.test';
+import urlSearchParamsMatrixTest from './Utils/UrlSearchParamsMatrix.test';
+import dateArithmeticMatrixTest from './Time/DateArithmeticMatrix.test';
+import fileIoLoopMatrixTest from './Stability/FileIoLoopMatrix.test';
+import audioLoopMatrixTest from './Stability/AudioLoopMatrix.test';
+import fileThroughputMatrixTest from './Performance/FileThroughputMatrix.test';
+import timerDriftMatrixTest from './Time/TimerDriftMatrix.test';
+import pathInputMatrixTest from './Robustness/PathInputMatrix.test';
+import base64VectorMatrixTest from './Utils/Base64VectorMatrix.test';
+import bufferExtraMatrixTest from './Utils/BufferExtraMatrix.test';
+import compatibilityMatrixTest from './Validation/CompatibilityMatrix.test';
+import timerLongDriftMatrixTest from './Time/TimerLongDriftMatrix.test';
+import textUnicodeExpandedTest from './TextUnicodeExpanded.test';
+import textCodecExpandedTest from './TextCodecExpanded.test';
+import base64ExpandedTest from './Base64Expanded.test';
+import bufferExpandedTest from './BufferExpanded.test';
+import urlParseExpandedTest from './UrlParseExpanded.test';
+import urlSearchParamsExpandedTest from './UrlSearchParamsExpanded.test';
+import fileOpenModeExpandedTest from './FileOpenModeExpanded.test';
+import fileIoContractMoreTest from './FileIoContractMore.test';
+
 export default function testsuite() {
-  audioTest()
-  videoTest()
-  syncTest()
-  performanceTest()
+  Audio01Test();
+  AudioToVideoSyncLogic01Test();
+  Performance01Test();
+  Sync01Test();
+  Video01Test();
+  indexPageContractTest();
+  indexPageNavigationTest();
+  viewportLayoutMatrixTest();
+  displayMetricContractTest();
+  displayRoundingMatrixTest();
+  avPlayerStateContractTest();
+  audioPipelineContractTest();
+  audioFormatContractTest();
+  fileContentMatrixTest();
+  fileSystemOpsMatrixTest();
+  clockContractTest();
+  fileSizeBoundaryMatrixTest();
+  fileNameMatrixTest();
+  fileDirectoryMatrixTest();
+  fileHandleMatrixTest();
+  timerAccuracyMatrixTest();
+  audioRendererLifecycleMatrixTest();
+  operationLatencyTest();
+  pipelineIntegrationTest();
+  fileOffsetMatrixTest();
+  dateSnapshotMatrixTest();
+  fileErrorMatrixTest();
+  fileCopyTruncateMatrixTest();
+  fileUnicodeMatrixTest();
+  audioVolumeStreamMatrixTest();
+  displayAudioFileMatrixTest();
+  fileModeMatrixTest();
+  audioRendererBufferMatrixTest();
+  audioVolumeFileTest();
+  directoryErrorMatrixTest();
+  audioLifecycleThroughputTest();
+  fileStatMatrixTest();
+  fileListMatrixTest();
+  fileWritePatternMatrixTest();
+  displayRefreshMatrixTest();
+  mediaErrorMatrixTest();
+  pipelineStressTest();
+  textCodecMatrixTest();
+  uuidBase64MatrixTest();
+  bufferUriMatrixTest();
+  collectionMatrixTest();
+  urlMatrixTest();
+  utilsFileMatrixTest();
+  urlSearchParamsMatrixTest();
+  dateArithmeticMatrixTest();
+  fileIoLoopMatrixTest();
+  audioLoopMatrixTest();
+  fileThroughputMatrixTest();
+  timerDriftMatrixTest();
+  pathInputMatrixTest();
+  base64VectorMatrixTest();
+  bufferExtraMatrixTest();
+  compatibilityMatrixTest();
+  timerLongDriftMatrixTest();
+  textUnicodeExpandedTest();
+  textCodecExpandedTest();
+  base64ExpandedTest();
+  bufferExpandedTest();
+  urlParseExpandedTest();
+  urlSearchParamsExpandedTest();
+  fileOpenModeExpandedTest();
+  fileIoContractMoreTest();
 }

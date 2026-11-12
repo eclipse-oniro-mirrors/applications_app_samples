@@ -32,7 +32,8 @@
    - **Call PSSSignatureSeg**：RSA密钥对签名（PSS模式）
    - **Call PSSVerifySeg**：RSA密钥对验签（PSS模式）
    - **Call ECDSASignature**：ECDSA密钥对签名
-     **Call ECDSAVerify**：ECDSA密钥对验签
+   - **Call ECDSAVerify**：ECDSA密钥对验签
+   - **Call SM2Sign**：SM2密钥对签名
    - **Call SM2Signature**：SM2密钥对验签
    - **Call SM2 RS to DER**：SM2签名格式转换（R/S转DER）
    - **Call SM2 DER Convert RS**：SM2签名格式转换（DER转R/S）
@@ -61,6 +62,7 @@ entry/src/
  │   │   │       ├── rsa_pss_verification_tool.cpp
  │   │   │       ├── signing_signature_verification.h
  │   │   │       ├── sm2_der_convert_r_s.cpp
+ │   │   │       ├── sm2_sign.cpp
  │   │   │       ├── sm2_signature_format_conversion_der.cpp
  │   │   │       └── sm2_signature_verification.cpp
  │   │   ├── CMakeLists.txt

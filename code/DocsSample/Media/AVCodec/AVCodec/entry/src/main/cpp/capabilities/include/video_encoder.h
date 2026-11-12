@@ -61,6 +61,7 @@ public:
     // 查询已编码输出Buffer的索引。输出处理完成后必须调用FreeOutputBuffer归还该索引。
     int32_t QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
     bool GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
+    bool GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs, int32_t *queryStatus);
     int32_t PushInputBuffer(CodecBufferInfo &info);
     int32_t FreeOutputBuffer(const CodecBufferInfo &info);
     int32_t NotifyEndOfStream();

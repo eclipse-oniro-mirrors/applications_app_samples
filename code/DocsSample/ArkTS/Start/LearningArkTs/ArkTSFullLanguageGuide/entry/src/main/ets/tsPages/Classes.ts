@@ -269,7 +269,7 @@ let tsThisEx: TsThisExample = new TsThisExample();
 console.info(`${tsThisEx.getName()}`);  // 'MyClass'
 
 let tsThisG = tsThisEx.getName;
-tsThisG();  // 运行时错误：Cannot read property 'name' of undefined
+tsThisG();  // 运行时错误：Cannot read property name of undefined
 // [End ts_runtime_this_error]
 
 // [Start ts_constructor_signature]

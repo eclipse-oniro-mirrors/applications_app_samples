@@ -15,6 +15,60 @@
 
 import abilityTest from './Ability.test';
 
-export default function testsuite() {
+import avRecorderDateTimeCoreTest from './AVRecorderDateTimeCore.test';
+import avRecorderTimerCoreTest from './AVRecorderTimerCore.test';
+import avRecorderResolutionCoreTest from './AVRecorderResolutionCore.test';
+import avRecorderFileNamingCoreTest from './AVRecorderFileNamingCore.test';
+
+import avRecorderTimerEdgeTest from './AVRecorderTimerEdge.test';
+import avRecorderFileNamingEdgeTest from './AVRecorderFileNamingEdge.test';
+
+import avRecorderFileUtilIntegrationTest from './AVRecorderFileUtilIntegration.test';
+import avRecorderCameraSelectionTest from './AVRecorderCameraSelection.test';
+
+import avRecorderCameraNativeSelectionTest from './AVRecorderCameraNativeSelection.test';
+import avRecorderFileNamingMatrixTest from './AVRecorderFileNamingMatrix.test';
+import avRecorderTimeBoundaryTest from './AVRecorderTimeBoundary.test';
+
+import avRecorderFileUtilFilesTest from './AVRecorderFileUtilFiles.test';
+import avRecorderDurationStateCoreTest from './AVRecorderDurationStateCore.test';
+import avRecorderTimeNamingEdgeTest from './AVRecorderTimeNamingEdge.test';
+
+import avRecorderSettingsUiTest from './AVRecorderSettingsUi.test';
+import avRecorderNativeUiTest from './AVRecorderNativeUi.test';
+
+import avRecorderCameraServiceNoopTest from './AVRecorderCameraServiceNoop.test';
+import avRecorderCameraNativeNoopTest from './AVRecorderCameraNativeNoop.test';
+import avRecorderFileOutputMatrixTest from './AVRecorderFileOutputMatrix.test';
+
+import avRecorderServiceIntegrationTest from './AVRecorderServiceIntegration.test';
+import avRecorderCameraIntegrationTest from './AVRecorderCameraIntegration.test';
+import avRecorderErrorPathsTest from './AVRecorderErrorPaths.test';
+
+
+
+export default function testsuite(): void {
   abilityTest();
+  avRecorderDateTimeCoreTest();
+  avRecorderTimerCoreTest();
+  avRecorderResolutionCoreTest();
+  avRecorderFileNamingCoreTest();
+  avRecorderTimerEdgeTest();
+  avRecorderFileNamingEdgeTest();
+  avRecorderFileUtilIntegrationTest();
+  avRecorderCameraSelectionTest();
+  avRecorderCameraNativeSelectionTest();
+  avRecorderFileNamingMatrixTest();
+  avRecorderTimeBoundaryTest();
+  avRecorderFileUtilFilesTest();
+  avRecorderDurationStateCoreTest();
+  avRecorderTimeNamingEdgeTest();
+  avRecorderSettingsUiTest();
+  avRecorderNativeUiTest();
+  avRecorderCameraServiceNoopTest();
+  avRecorderCameraNativeNoopTest();
+  avRecorderFileOutputMatrixTest();
+  avRecorderServiceIntegrationTest();
+  avRecorderCameraIntegrationTest();
+  avRecorderErrorPathsTest();
 }

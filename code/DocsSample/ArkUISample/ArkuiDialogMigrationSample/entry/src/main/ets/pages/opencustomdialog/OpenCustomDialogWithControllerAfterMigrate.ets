@@ -16,6 +16,7 @@
 // [Start open_custom_dialog_with_controller_after_migrate]
 import { DialogBaseAlignment, DialogBaseController, DialogPresenter, DialogResult } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
+import resource from '../../common/resource';
 
 @Entry
 @Component
@@ -28,19 +29,19 @@ export struct OpenCustomDialogWithControllerAfterMigrate {
     NavDestination() {
       Row() {
         Column() {
-          Text('openCustomDialogWithController 迁移示例')
+          Text('openCustomDialogWithController' + resource.resourceToString($r('app.string.migrate_sample_zh')))
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
 
-          Button('老接口：promptAction.openCustomDialogWithController')
+          Button(resource.resourceToString($r('app.string.old_interface_zh')) + '：promptAction.openCustomDialogWithController')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
               this.result = $r('app.string.OldInterfaceOpenCustomDialogWithControllerOnClick');
             })
 
-          Button('新接口：DialogPresenter.present（自定义弹窗）')
+          Button(resource.resourceToString($r('app.string.new_interface_zh')) + '：DialogPresenter.present')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {

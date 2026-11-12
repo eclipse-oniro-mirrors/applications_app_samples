@@ -92,6 +92,45 @@ export function parseSubtitle(content: string, fileName: string): SubtitleCue[] 
 }
 
 export function findSubtitleText(cues: SubtitleCue[], positionUs: number): string {
-  const cue = cues.find((item: SubtitleCue) => positionUs >= item.startUs && positionUs < item.endUs);
-  return cue === undefined ? '' : cue.text;
+  return cues.filter((item: SubtitleCue): boolean => positionUs >= item.startUs && positionUs < item.endUs)
+    .map((item: SubtitleCue): string => item.text).join('\n');
+}
+
+export class SubtitleTimeline {
+  private static readonly REPOSITION_GAP_US: number = 1000000;
+  private cues: SubtitleCue[] = [];
+  private endBounds: number[] = [];
+  private active: SubtitleCue[] = [];
+  private cursor: number = 0;
+  private lastPosition: number = -1;
+
+  setCues(cues: SubtitleCue[]): void {
+    this.cues = cues.slice().sort((left: SubtitleCue, right: SubtitleCue): number => left.startUs - right.startUs);
+    this.endBounds = [];
+    let end: number = 0;
+    for (const cue of this.cues) { end = Math.max(end, cue.endUs); this.endBounds.push(end); }
+    this.active = []; this.cursor = 0; this.lastPosition = -1;
+  }
+
+  textAt(positionUs: number): string {
+    if (!Number.isFinite(positionUs) || positionUs < 0) { return ''; }
+    if (this.lastPosition < 0 || positionUs < this.lastPosition ||
+      positionUs - this.lastPosition > SubtitleTimeline.REPOSITION_GAP_US) {
+      let left: number = 0;
+      let right: number = this.cues.length;
+      // 前缀最大结束时间保留跨越Seek位置的长字幕，不能只查最近一条开始时间。
+      while (left < right) {
+        const middle: number = Math.floor((left + right) / 2);
+        if (this.endBounds[middle] <= positionUs) { left = middle + 1; } else { right = middle; }
+      }
+      this.cursor = left; this.active = [];
+    }
+    this.active = this.active.filter((cue: SubtitleCue): boolean => cue.endUs > positionUs);
+    while (this.cursor < this.cues.length && this.cues[this.cursor].startUs <= positionUs) {
+      const cue: SubtitleCue = this.cues[this.cursor++];
+      if (cue.endUs > positionUs) { this.active.push(cue); }
+    }
+    this.lastPosition = positionUs;
+    return this.active.map((cue: SubtitleCue): string => cue.text).join('\n');
+  }
 }

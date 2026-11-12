@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,16 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  Stack,
-  Image,
-  $r,
-  StateStyles,
-  ShadowOptions,
-  $rawfile
-} from '@kit.ArkUI';
 import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 
@@ -31,6 +20,16 @@ import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 @Component
 export struct DeleteItem {
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
+
+  @Styles
+  normalStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray'))
+  }
+
+  @Styles
+  pressedStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray_pressed'))
+  }
 
   build(): void {
     Stack() {
@@ -40,19 +39,13 @@ export struct DeleteItem {
     }
     .backgroundColor($r('app.color.key_item_gray'))
     .borderRadius(4)
+    .id('deleteKey')
     .onClick(() => {
       InputHandler.getInstance().deleteForward(1);
     })
     .width(this.inputStyle.switchButtonWidth)
     .height('100%')
     .shadow({ radius: 1, color: $r('app.color.shadow'), offsetY: 3 } as ShadowOptions)
-    .stateStyles({
-      normal: () => {
-        this.backgroundColor($r('app.color.key_item_gray'))
-      },
-      pressed: () => {
-        this.backgroundColor($r('app.color.key_item_gray_pressed'))
-      }
-    } as StateStyles)
+    .stateStyles({ normal: this.normalStyle, pressed: this.pressedStyle })
   }
 }

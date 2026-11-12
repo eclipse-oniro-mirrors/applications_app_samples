@@ -33,12 +33,15 @@ export interface RecordingResultInfo {
   segments?: RecordingSegmentInfo[];
 }
 
-export enum RecordingPhase { PREPARING, READY, RECORDING, FINALIZING, FINISHED, FAILED }
+export enum RecordingPhase { PREPARING, READY, RECORDING, PAUSED, FINALIZING, FINISHED, FAILED }
 
 export class RecordingSessionController {
   public phase: RecordingPhase = RecordingPhase.PREPARING;
   private sessionId: string = '';
   private startedAt: number = 0;
+  private pausedAt: number = 0;
+  private pausedMs: number = 0;
+  private pauseTask: Promise<boolean> | undefined = undefined;
   private finishTask: Promise<RecordingResultInfo | undefined> | undefined = undefined;
   private lease: MediaTaskLease | undefined = undefined;
 
@@ -68,6 +71,38 @@ export class RecordingSessionController {
     return this.finishTask;
   }
 
+  elapsedSeconds(now: number = Date.now()): number {
+    return this.startedAt > 0 ? Math.max(0, ((this.pausedAt > 0 ? this.pausedAt : now) -
+      this.startedAt - this.pausedMs) / 1000) : 0;
+  }
+
+  setPaused(paused: boolean): Promise<boolean> {
+    if (this.pauseTask !== undefined) { return this.pauseTask; }
+    if (this.phase !== RecordingPhase.RECORDING && this.phase !== RecordingPhase.PAUSED) {
+      return Promise.resolve(false);
+    }
+    this.pauseTask = this.changePause(paused);
+    void this.pauseTask.finally((): void => { this.pauseTask = undefined; });
+    return this.pauseTask;
+  }
+
+  private async changePause(paused: boolean): Promise<boolean> {
+    try {
+      const response = await recorder.setPaused(this.sessionId, paused);
+      if (response.code !== 0) { return false; }
+      const now: number = Date.now();
+      if (paused && this.pausedAt === 0) { this.pausedAt = now; }
+      if (!paused && this.pausedAt > 0) { this.pausedMs += now - this.pausedAt; this.pausedAt = 0; }
+      if (this.phase !== RecordingPhase.FINALIZING) {
+        this.phase = paused ? RecordingPhase.PAUSED : RecordingPhase.RECORDING;
+      }
+      return true;
+    } catch (error) {
+      Logger.warn('RecordingSession', 'Pause failed: ' + JSON.stringify(error));
+      return false;
+    }
+  }
+
   private async closeFile(fd: number): Promise<boolean> {
     if (fd < 0) { return true; }
     try {
@@ -81,7 +116,8 @@ export class RecordingSessionController {
 
   private async finalize(context: common.UIAbilityContext, data: CameraDataModel,
     stopCamera: () => Promise<void>, releaseCamera: () => Promise<void>): Promise<RecordingResultInfo | undefined> {
-    const duration: number = this.startedAt > 0 ? (Date.now() - this.startedAt) / 1000 : 0;
+    if (this.pauseTask !== undefined) { await this.pauseTask; }
+    const duration: number = this.elapsedSeconds();
     this.mark('stop.requested');
     let nativeReleased: boolean = false;
     try {

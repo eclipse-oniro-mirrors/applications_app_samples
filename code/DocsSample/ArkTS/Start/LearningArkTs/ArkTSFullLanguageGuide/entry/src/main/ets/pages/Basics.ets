@@ -819,7 +819,7 @@ function riskyOperation(): number {
 }
 
 function parseJSON(data: string): Object {
-  return JSON.parse(data);
+  return JSON.parse(data); // 返回类型为Object
 }
 
 let tcData: string = '{"name": "Alice"}';

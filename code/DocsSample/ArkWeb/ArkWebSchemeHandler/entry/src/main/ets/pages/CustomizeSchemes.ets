@@ -30,7 +30,7 @@ aboutToAppear(): void {
     try {
     webview.WebviewController.customizeSchemes([this.scheme1, this.scheme2, this.scheme3]);
     } catch (error) {
-    console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+    console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
     }
 }
 

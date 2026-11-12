@@ -14,8 +14,7 @@
 */
 // [Start define_worker]
 // Worker.ets
-import { MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
-import { taskpool } from '@kit.ArkTS';
+import { MessageEvents, ThreadWorkerGlobalScope, worker, taskpool } from '@kit.ArkTS';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 workerPort.onmessage = async (e: MessageEvents) => {

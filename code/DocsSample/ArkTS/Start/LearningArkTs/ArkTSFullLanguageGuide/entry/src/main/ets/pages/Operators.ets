@@ -230,7 +230,7 @@ console.info(`${gtB > gtA}`);   // false
 console.info(`${gtA > gtA}`);   // false
 
 // 字符串比较Unicode码点
-console.info(`${'gtB' > 'gtA'}`);     // true
+console.info(`${'b' > 'a'}`);     // true
 console.info(`${'abc' > 'abb'}`); // true
 // [End greater_than_operator]
 
@@ -248,10 +248,10 @@ console.info(`${ltA < ltA}`);   // false
 // [Start greater_than_or_equal_operator]
 let gteA: number = 10;
 let gteB: number = 5;
-let c: number = 10;
+let gteC: number = 10;
 
 console.info(`${gteA >= gteB}`);  // true
-console.info(`${gteA >= c}`);  // true
+console.info(`${gteA >= gteC}`);  // true
 console.info(`${gteB >= gteA}`);  // false
 // [End greater_than_or_equal_operator]
 
@@ -546,6 +546,7 @@ if (value === null) { }
 if (count === 0) { }
 // [End strict_comparison_preferred]
 
+let c: number = 10;
 // ===== parentheses_for_logical_precedence =====
 // [Start parentheses_for_logical_precedence]
 // 反例

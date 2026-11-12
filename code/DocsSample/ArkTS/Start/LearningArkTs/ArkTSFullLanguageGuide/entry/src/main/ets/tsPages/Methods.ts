@@ -91,8 +91,8 @@ class Service {
 let service: Service = new Service();
 
 // public方法可调用
-service.start();  // Service started, Initializing..., Loading config
-service.stop();   // Cleaning up..., Service stopped
+service.start();  // Service started, Initializing..., Loading configuration
+service.stop();   // Cleaning up resources, Service stopped
 
 // private方法不可访问
 service.initialize();  // 编译错误

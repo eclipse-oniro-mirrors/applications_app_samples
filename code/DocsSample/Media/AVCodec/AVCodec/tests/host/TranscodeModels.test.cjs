@@ -809,5 +809,60 @@ async function testPreviewDisposal() {
   } finally { images.createPixelMap = originalCreate; preview = originalPreview; }
   console.info('Preview lifecycle: disposal during bitmap creation and paired image release passed');
 }
-main().then(testQualityProfiles).then(testBatchOperations).then(testPreviewDisposal)
+async function testHistoryController() {
+  const { TranscodeHistoryController } = load('../controller/TranscodeHistoryController');
+  const { TranscodeFilesModel } = load('TranscodeFilesModel');
+  const originalPage = TranscodeFilesModel.listPage;
+  const originalUsage = TranscodeFilesModel.storageUsage;
+  let held = deferred();
+  let hold = true;
+  TranscodeFilesModel.listPage = async (_directory, offset) => {
+    if (hold) { return held.promise; }
+    return { entries: [{ id: String(offset) }], nextOffset: offset + 1, hasMore: offset === 0 };
+  };
+  TranscodeFilesModel.storageUsage = async () => ({ bytes: 1234, orphanCount: 2 });
+  try {
+    const history = new TranscodeHistoryController();
+    const stale = history.load('/files/transcodes');
+    history.invalidate();
+    hold = false;
+    await history.load('/files/transcodes');
+    held.resolve({ entries: [{ id: 'stale' }], nextOffset: 99, hasMore: false });
+    await stale;
+    assert.equal(history.entries[0].id, '0', 'Invalidated load cannot replace a fresh page');
+    await history.load('/files/transcodes', true);
+    assert.equal(history.entries.length, 2);
+    assert.equal(history.hasMore, false);
+    assert.equal(history.storageBytes, 1234);
+    assert.equal(history.orphanCount, 2);
+    held = deferred(); hold = true;
+    const pending = history.refresh('/files/transcodes');
+    history.dispose();
+    held.resolve({ entries: [], nextOffset: 0, hasMore: false });
+    await pending;
+    assert.equal(history.entries.length, 2, 'Disposal rejects pending history updates');
+    assert.equal(history.loading, false);
+    const model = new TranscodeModel();
+    held = deferred(); hold = true;
+    const staleLoad = model.loadHistory(ui);
+    model.dispose();
+    model.activate();
+    const fresh = deferred();
+    TranscodeFilesModel.listPage = async () => fresh.promise;
+    const freshLoad = model.loadHistory(ui);
+    assert.equal(model.historyLoading, true, 'Activation permits another history request');
+    held.resolve({ entries: [{ id: 'obsolete' }], nextOffset: 99, hasMore: false });
+    await staleLoad;
+    assert.equal(model.historyLoading, true, 'An obsolete request cannot clear the current loading state');
+    fresh.resolve({ entries: [{ id: 'reactivated' }], nextOffset: 1, hasMore: false });
+    await freshLoad;
+    assert.equal(model.history[0].id, 'reactivated', 'Reactivated model accepts only the current result');
+    assert.equal(model.historyLoading, false);
+  } finally {
+    TranscodeFilesModel.listPage = originalPage; TranscodeFilesModel.storageUsage = originalUsage;
+  }
+  console.info('History controller: page append, usage, stale requests and disposal passed');
+}
+
+main().then(testQualityProfiles).then(testBatchOperations).then(testPreviewDisposal).then(testHistoryController)
   .catch(error => { console.error(error); process.exitCode = 1; });
