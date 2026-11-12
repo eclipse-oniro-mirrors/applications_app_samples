@@ -14,7 +14,10 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Size, Level, TestType } from '@ohos/hypium';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_PatternLock_Ability]';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -37,14 +40,24 @@ export default function abilityTest() {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })
-    it('assertContain', 0, () => {
+    /**
+     * @tc.number    SUB_PATTERN_LOCK_ABILITY_0100
+     * @tc.name      testAssertContain
+     * @tc.desc      Verify assertContain and assertEqual on template smoke case
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 2
+     */
+    it('assertContain', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
+      hilog.info(DOMAIN, TAG, '%{public}s', 'assertContain begin');
+      let a: string = 'abc';
+      let b: string = 'b';
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertContain params: a=${a}, b=${b}`);
       // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
       expect(a).assertContain(b);
       expect(a).assertEqual(a);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'assertContain end');
     })
   })
 }

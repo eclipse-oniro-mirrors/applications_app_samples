@@ -134,6 +134,18 @@ entry/src/main
 └── module.json5                           // 模块配置文件
 ```
 
+### ohosTest 目录
+
+```
+entry/src/ohosTest
+├── ets
+│   ├── test                              // 测试套件（List.test、矩阵用例、shared 工具）
+│   ├── testability                       // TestAbility 与测试页面
+│   └── testrunner                        // OpenHarmonyTestRunner
+├── resources
+└── module.json5                          // 测试模块配置
+```
+
 ### 相关权限
 
 不涉及。
@@ -150,11 +162,11 @@ entry/src/main
 
 ### 约束与限制
 
-1. 本示例仅支持标准系统上运行，支持设备：RK3568。
+1. 本示例仅支持标准系统上运行，deviceTypes 配置为 `default`（RK3568 为验证设备）。
 
-2. 本示例为Stage模型，支持API20版本SDK，SDK版本号（API Version 20 Release）。
+2. 本示例为Stage模型，支持API20版本SDK，SDK版本号（API Version 20 Release）；当前已升级至API 26版本SDK（SDK版本号(API Version 26)）。`compileSdkVersion`/`targetSdkVersion` 为 `26.0.0`，`compatibleSdkVersion` 保持 `20`（最低兼容 API 20）。
 
-3. 本示例需要使用DevEco Studio 6.0.0 Release才可编译运行。
+3. 本示例需要使用DevEco Studio 6.0.0 Release才可编译运行；当前已升级至DevEco Studio 26.0.0 Release及以上版本。
 
 ### 下载
 
