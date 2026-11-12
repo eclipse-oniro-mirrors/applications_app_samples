@@ -16,7 +16,7 @@
 // [Start present_custom_dialog_after_migrate]
 import { DialogBaseController, DialogPresenter, DialogResult } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
-// 导入的resource用来把ResourceStr转成字符串
+// 导入的resource用来把Resource转成字符串
 import resource from '../../common/resource';
 
 @Entry
