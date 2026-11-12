@@ -1,0 +1,19 @@
+{
+    "string": [
+        {
+            "name": "module_test_desc",
+            "value": "AccessibilityExtension test module",
+            "description": "Test module description"
+        },
+        {
+            "name": "TestAbility_desc",
+            "value": "AccessibilityExtension test ability",
+            "description": "Test ability description"
+        },
+        {
+            "name": "TestAbility_label",
+            "value": "AccessibilityExtension TestAbility",
+            "description": "Test ability label"
+        }
+    ]
+}
