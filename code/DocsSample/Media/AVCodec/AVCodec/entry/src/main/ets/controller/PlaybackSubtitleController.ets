@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { fileIo } from '@kit.CoreFileKit';
+import { fileIo, picker } from '@kit.CoreFileKit';
 import { parseSubtitle, SubtitleTimeline } from '../model/SubtitleModel';
 
 export class PlaybackSubtitleController {
@@ -21,6 +21,21 @@ export class PlaybackSubtitleController {
   private static readonly MAX_CUES: number = 100000;
   private timeline: SubtitleTimeline = new SubtitleTimeline();
   private revision: number = 0;
+
+  async selectAndLoad(): Promise<string> {
+    const request: number = ++this.revision;
+    let result: string[] = [];
+    try {
+      const options = new picker.DocumentSelectOptions();
+      options.fileSuffixFilters = ['SRT|.srt', 'WebVTT|.vtt'];
+      result = await new picker.DocumentViewPicker().select(options);
+    } catch (error) {
+      if (request !== this.revision) { return ''; }
+      throw new Error('Unable to select subtitle: ' + JSON.stringify(error));
+    }
+    if (request !== this.revision || result.length === 0) { return ''; }
+    return this.load(result[0]);
+  }
 
   async load(uri: string): Promise<string> {
     const request: number = ++this.revision;

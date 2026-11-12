@@ -29,7 +29,7 @@ public:
 
     // 根据录制参数创建采集器，并把采集回调写入audioEncContext的缓存队列。
     // 回调上下文audioEncContext必须在AudioCapturerRelease前保持有效。
-    void AudioCapturerInit(SampleInfo& sampleInfo, CodecUserData *audioEncContext);
+    int32_t AudioCapturerInit(const SampleInfo &sampleInfo, CodecUserData *audioEncContext);
     bool AudioCapturerStart();
     // 先停止并释放采集器，再销毁构建器；销毁后不会再触发采集回调。
     void AudioCapturerRelease();

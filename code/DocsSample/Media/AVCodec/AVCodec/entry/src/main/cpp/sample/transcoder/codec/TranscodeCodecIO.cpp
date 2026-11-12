@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "TranscodeJob.h"
+#include "../core/TranscodeJob.h"
 #include <multimedia/player_framework/native_averrors.h>
 
 bool TranscodeJob::RegisterCodecCallbacks()

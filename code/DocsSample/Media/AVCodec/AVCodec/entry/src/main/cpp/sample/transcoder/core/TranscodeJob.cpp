@@ -105,6 +105,10 @@ bool TranscodeJob::ReadTracks(int32_t trackCount)
             (options_.audioTrack == 0 || options_.audioTrack == index + 1)) {
             audioTrack_ = index;
             audioFormat_ = std::move(track);
+            int32_t selectedChannels = 0;
+            OH_AVFormat_GetIntValue(audioFormat_.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, &selectedChannels);
+            std::lock_guard<std::mutex> lock(snapshotMutex_);
+            snapshot_.selectedAudioChannels = selectedChannels;
         }
     }
     return true;
@@ -153,6 +157,9 @@ bool TranscodeJob::ValidateSourceColor()
     if (transfer == TRANSFER_CHARACTERISTIC_HLG || transfer == TRANSFER_CHARACTERISTIC_PQ ||
         (hevc && (profile == HEVC_PROFILE_MAIN_10_HDR10 || profile == HEVC_PROFILE_MAIN_10_HDR10_PLUS))) {
         return Fail("PQ/HLG or HDR10 input is not transcoded: HDR metadata preservation is unavailable");
+    }
+    if (transfer == TRANSFER_CHARACTERISTIC_BT2020_10BIT || transfer == TRANSFER_CHARACTERISTIC_BT2020_12BIT) {
+        return Fail("BT.2020 10/12-bit input is not transcoded: high-bit-depth handling is unavailable");
     }
     if (hevc && profile != HEVC_PROFILE_MAIN) {
         return Fail("HEVC Main 10 and other non-Main profiles are not transcoded "
@@ -297,7 +304,7 @@ bool TranscodeJob::InitializeDemuxer()
                 [this](const char *operation, int32_t result) { return Fail(operation, result); });
             if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_, rangeStartUs_, rangeEndUs_,
                 options_.audioSampleRate, options_.audioChannels, options_.audioBitrate,
-                options_.audioResampler == 1, options_.codecMode == 1)) {
+                options_.audioResampler == 1, options_.codecMode == 1, options_.audioSourceLayout)) {
                 return false;
             }
         } else {

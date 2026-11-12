@@ -21,6 +21,7 @@ export struct TranscodeQualityPanel {
   @Prop allowFilter: boolean = true;
   @Prop allowArea: boolean = true;
   @Prop allowAudio: boolean = false;
+  @Prop sourceChannels: number = 0;
   @Prop allowEditing: boolean = true;
   onChanged: () => void = (): void => {};
 
@@ -46,8 +47,15 @@ export struct TranscodeQualityPanel {
     return [{ value: $r('app.string.transcode_keep_source') }, { value: '44.1 kHz' }, { value: '48 kHz' }];
   }
   private channels(): SelectOption[] {
-    return [{ value: $r('app.string.transcode_keep_source') }, { value: $r('app.string.transcode_mono') },
+    const defaultChannels = this.sourceChannels === 6 ? $r('app.string.transcode_keep_source_5point1') :
+      $r('app.string.transcode_keep_source');
+    return [{ value: defaultChannels }, { value: $r('app.string.transcode_mono') },
       { value: $r('app.string.transcode_stereo') }];
+  }
+  private sourceLayouts(): SelectOption[] {
+    return [{ value: $r('app.string.transcode_audio_layout_choose') },
+      { value: $r('app.string.transcode_audio_layout_5point1_side') },
+      { value: $r('app.string.transcode_audio_layout_5point1_back') }];
   }
   private audioBitrates(): SelectOption[] {
     return [{ value: '64 kbps' }, { value: '128 kbps' }, { value: '192 kbps' }];
@@ -96,6 +104,15 @@ export struct TranscodeQualityPanel {
           Select(this.channels()).selected(this.quality.audioChannels)
             .value(this.channels()[this.quality.audioChannels].value)
             .onSelect((index: number): void => { this.quality.audioChannels = index; this.onChanged(); })
+        }
+        if (this.sourceChannels === 6) {
+          Row() {
+            Text($r('app.string.transcode_audio_source_layout')).layoutWeight(1)
+            Select(this.sourceLayouts()).selected(this.quality.audioSourceLayout)
+              .value(this.sourceLayouts()[this.quality.audioSourceLayout].value)
+              .onSelect((index: number): void => { this.quality.audioSourceLayout = index; this.onChanged(); })
+          }
+          Text($r('app.string.transcode_audio_source_layout_hint')).fontSize(12).fontColor('#667085')
         }
         Row() {
           Text($r('app.string.transcode_audio_bitrate')).layoutWeight(1)

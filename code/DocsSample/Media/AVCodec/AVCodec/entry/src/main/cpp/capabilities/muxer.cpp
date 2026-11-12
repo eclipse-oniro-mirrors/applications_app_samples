@@ -60,7 +60,7 @@ int32_t Muxer::SetRotation()
     if (outputFormat_ == AV_OUTPUT_FORMAT_FLV) {
         return AVCODEC_SAMPLE_ERR_OK;
     }
-    // 由于相机的profile只有1920×1080，没有1080×1920，所以得往文件中封装一个90度的角度信息，后续播放才会是竖屏显示。
+    // 相机按横向Profile采集，MP4写入90度旋转信息以竖屏播放。
     int32_t ret = OH_AVMuxer_SetRotation(muxer_, VERTICAL_ANGLE);
     if (ret != AV_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("Set rotation failed, ret: %{public}d", ret);
@@ -173,8 +173,10 @@ int32_t Muxer::Release()
 {
     if (muxer_ != nullptr) {
         // Destroy只释放封装器资源，不关闭Create()时由业务侧传入的文件描述符。
-        OH_AVMuxer_Destroy(muxer_);
+        const int32_t ret = OH_AVMuxer_Destroy(muxer_);
         muxer_ = nullptr;
+        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+            "Destroy muxer failed, ret: %{public}d", ret);
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }

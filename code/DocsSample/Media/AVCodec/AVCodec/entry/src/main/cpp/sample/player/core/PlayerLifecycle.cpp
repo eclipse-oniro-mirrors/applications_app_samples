@@ -328,15 +328,15 @@ void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
 
 bool Player::PrepareVideoSinkForPlayback()
 {
-    // 音频-only媒体没有视频输出链路，不需要创建GPU sink。
+    // 纯音频媒体没有视频输出链路，无需创建GPU送显对象。
     if (sampleInfo_.video.videoCodecMime.empty()) {
         return true;
     }
     if (sampleInfo_.codec.codecRunMode == SURFACE) {
         return true;
     }
-    // Surface窗口只属于当前一次解码器配置。非Surface模式必须先清空旧租约留下的指针，
-    // 否则本轮GPU建链失败时可能把已释放的NativeWindow误传给新的decoder。
+    // Surface窗口只属于当前一次解码器配置。非Surface模式先清空旧租约指针，
+    // 避免GPU建链失败后将已释放的NativeWindow传给新解码器。
     sampleInfo_.video.window = nullptr;
     if (videoSink_ == nullptr) {
         switch (sampleInfo_.codec.codecRunMode) {

@@ -20,10 +20,12 @@
 #include <sys/statvfs.h>
 #include <sys/stat.h>
 #include <multimedia/player_framework/native_averrors.h>
+#include <multimedia/native_audio_channel_layout.h>
 
 namespace {
 constexpr int32_t AUDIO_MODE_AAC = 1;
-constexpr int32_t MAX_AUDIO_CHANNELS = 2;
+constexpr int32_t MAX_AUDIO_SOURCE_CHANNELS = 6;
+constexpr int32_t MAX_AUDIO_OUTPUT_CHANNELS = 2;
 constexpr int32_t MAX_AUDIO_SAMPLE_RATE = 96000;
 constexpr int64_t FALLBACK_AUDIO_BITRATE = 192000;
 constexpr int64_t STORAGE_RESERVE_BYTES = 64LL * 1024 * 1024;
@@ -31,13 +33,20 @@ constexpr int64_t US_PER_SECOND = 1000000;
 constexpr double BITS_PER_BYTE = 8;
 constexpr double STORAGE_ESTIMATE_MARGIN = 1.15;
 
-bool ReadAudioSourceProperties(OH_AVFormat *format, const char *&mime, int32_t &rate, int32_t &channels)
+bool ReadAudioSourceProperties(OH_AVFormat *format, const char *&mime, int32_t &rate, int32_t &channels,
+    int32_t sourceLayout)
 {
-    return format != nullptr && OH_AVFormat_GetStringValue(format, OH_MD_KEY_CODEC_MIME, &mime) && mime != nullptr &&
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, &rate) &&
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels) &&
-        channels >= 1 && channels <= MAX_AUDIO_CHANNELS && rate > 0 && rate <= MAX_AUDIO_SAMPLE_RATE &&
-        OH_AVCodec_GetCapability(mime, false) != nullptr;
+    if (format == nullptr || !OH_AVFormat_GetStringValue(format, OH_MD_KEY_CODEC_MIME, &mime) || mime == nullptr ||
+        !OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, &rate) ||
+        !OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels) ||
+        channels < 1 || channels > MAX_AUDIO_SOURCE_CHANNELS || rate <= 0 || rate > MAX_AUDIO_SAMPLE_RATE ||
+        OH_AVCodec_GetCapability(mime, false) == nullptr) {
+        return false;
+    }
+    if (channels <= MAX_AUDIO_OUTPUT_CHANNELS) { return true; }
+    return channels == MAX_AUDIO_SOURCE_CHANNELS &&
+        (sourceLayout == TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1 ||
+            sourceLayout == TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1_BACK);
 }
 bool SupportsAacOutput(OH_AVCapability *encoder, int32_t rate, int32_t channels, int64_t bitrate)
 {
@@ -157,14 +166,19 @@ bool TranscodeJob::InspectAudio()
     const char *mime = nullptr;
     int32_t rate = 0;
     int32_t channels = 0;
-    if (!ReadAudioSourceProperties(audioFormat_.get(), mime, rate, channels)) {
-        return Fail("AAC transcode requires an available decoder and a valid mono/stereo source");
+    if (!ReadAudioSourceProperties(audioFormat_.get(), mime, rate, channels, options_.audioSourceLayout)) {
+        return Fail("AAC transcode requires mono/stereo input or an explicit layout for six-channel input");
     }
     OH_AVCapability *encoder = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_AUDIO_AAC, true);
     rate = options_.audioSampleRate > 0 ? options_.audioSampleRate : rate;
-    channels = options_.audioChannels > 0 ? options_.audioChannels : channels;
+    channels = options_.audioChannels > 0 ? options_.audioChannels :
+        std::min(channels, MAX_AUDIO_OUTPUT_CHANNELS);
     if (!SupportsAacOutput(encoder, rate, channels, options_.audioBitrate)) {
         return Fail("AAC encoder does not support the selected sample rate, channels or bitrate");
     }
+    if (channels < 1 || channels > MAX_AUDIO_OUTPUT_CHANNELS) {
+        return Fail("AAC output must be mono or stereo");
+    }
+    options_.audioOutputChannels = channels;
     return true;
 }

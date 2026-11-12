@@ -355,6 +355,8 @@ int32_t VideoEncoder::Config(SampleInfo &sampleInfo, CodecUserData *codecUserDat
     int32_t ret = Configure(sampleInfo);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Configure failed");
 
+    codecUserData->isEncFirstFrame = sampleInfo.video.bufferInput;
+
     if (getInputSurface) {
         ret = GetSurface(sampleInfo);
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Get surface failed");
@@ -384,99 +386,53 @@ int32_t VideoEncoder::Prepare()
 }
 // [End encoder_prepare]
 
-bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs, int32_t *queryStatus)
-{
-    info.buffer = nullptr;
-    if (queryStatus != nullptr) { *queryStatus = AV_ERR_UNKNOWN; }
-    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, false, "Encoder is null");
-    // 格式变化后只重试一次，避免递归重入同一个shared_mutex；持续变化由下次轮询继续处理。
-    for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
-        const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);
-        if (queryStatus != nullptr) { *queryStatus = ret; }
-        switch (ret) {
-            case AV_ERR_OK: {
-                OH_AVBuffer *buffer = OH_VideoEncoder_GetOutputBuffer(encoder_, info.bufferIndex);
-                if (buffer == nullptr && queryStatus != nullptr) { *queryStatus = AV_ERR_UNKNOWN; }
-                CHECK_AND_RETURN_RET_LOG(buffer != nullptr, false, "Output buffer is null");
-                const OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &info.attr);
-                if (queryStatus != nullptr) { *queryStatus = getBufferRet; }
-                CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false,
-                    "Get buffer attr error, ret: %{public}d", getBufferRet);
-                info.buffer = buffer;
-                // 开发者可根据业务需要，对输出数据进行保存/释放处理。
-                return true;
-            }
-            case AV_ERR_TRY_AGAIN_LATER: {
-                AVCODEC_SAMPLE_LOGE("Get output buffer timeout.");
-                return false;
-            }
-            case AV_ERR_STREAM_CHANGED: {
-                int32_t width = 0;
-                int32_t height = 0;
-                auto format =
-                    std::shared_ptr<OH_AVFormat>(OH_VideoEncoder_GetOutputDescription(encoder_), OH_AVFormat_Destroy);
-                CHECK_AND_BREAK_LOG(format != nullptr, "Format is nullptr.");
-                const bool getIntRet = OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_WIDTH, &width) &&
-                                       OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_HEIGHT, &height);
-                CHECK_AND_BREAK_LOG(getIntRet, "Encoder get int value failed.");
-                AVCODEC_SAMPLE_LOGI("Stream Changed. Width: %{public}i, height: %{public}i", width, height);
-                continue;
-            }
-            default: {
-                return false;
-            }
-        }
-    }
-    AVCODEC_SAMPLE_LOGE("Output stream changed repeatedly, defer buffer acquisition to next poll");
-    return false;
-}
-
 // [Start encoder_sync_get_outputbuffer]
-bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
+int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
-    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, false, "Encoder is null");
+    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     // [StartExclude encoder_sync_get_outputbuffer]
     // 格式变化后只重试一次；持续变化由下次轮询继续处理。
-    for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
     // [EndExclude encoder_sync_get_outputbuffer]
+    for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
         const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);
         switch (ret) {
             case AV_ERR_OK: {
                 OH_AVBuffer *buffer = OH_VideoEncoder_GetOutputBuffer(encoder_, info.bufferIndex);
-                CHECK_AND_RETURN_RET_LOG(buffer != nullptr, false, "Output buffer is null");
+                CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Output buffer is null");
                 const OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &info.attr);
-                CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false,
+                CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                     "Get buffer attr error, ret: %{public}d", getBufferRet);
                 info.buffer = buffer;
                 // 开发者可根据业务需要，对输出数据进行保存/释放处理。
-                return true;
+                return AVCODEC_SAMPLE_ERR_OK;
             }
             case AV_ERR_TRY_AGAIN_LATER: {
-                AVCODEC_SAMPLE_LOGE("Get output buffer timeout.");
-                return false;
+                AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");
+                return AVCODEC_SAMPLE_ERR_AGAIN;
             }
             case AV_ERR_STREAM_CHANGED: {
                 int32_t width = 0;
                 int32_t height = 0;
                 auto format =
                     std::shared_ptr<OH_AVFormat>(OH_VideoEncoder_GetOutputDescription(encoder_), OH_AVFormat_Destroy);
-                CHECK_AND_BREAK_LOG(format != nullptr, "Format is nullptr.");
+                CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Format is nullptr.");
                 const bool getIntRet = OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_WIDTH, &width) &&
                                        OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_HEIGHT, &height);
-                CHECK_AND_BREAK_LOG(getIntRet, "Encoder get int value failed.");
+                CHECK_AND_RETURN_RET_LOG(getIntRet, AVCODEC_SAMPLE_ERR_ERROR, "Encoder get int value failed.");
                 AVCODEC_SAMPLE_LOGI("Stream Changed. Width: %{public}i, height: %{public}i", width, height);
                 continue;
             }
             default: {
-                return false;
+                AVCODEC_SAMPLE_LOGE("Query output buffer failed, ret: %{public}d", ret);
+                return AVCODEC_SAMPLE_ERR_ERROR;
             }
         }
-    // [StartExclude encoder_sync_get_outputbuffer]
     }
+    // [StartExclude encoder_sync_get_outputbuffer]
+    AVCODEC_SAMPLE_LOGD("Output stream changed repeatedly, defer buffer acquisition to next poll");
     // [EndExclude encoder_sync_get_outputbuffer]
-    AVCODEC_SAMPLE_LOGE("Output stream changed repeatedly, defer buffer acquisition to next poll");
-    return false;
+    return AVCODEC_SAMPLE_ERR_AGAIN;
 }
 // [End encoder_sync_get_outputbuffer]
 
@@ -493,17 +449,19 @@ int32_t VideoEncoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 }
 
 // [Start encoder_sync_get_inputbuffer]
-OH_AVBuffer *VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
+int32_t VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
-    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, nullptr, "Encoder is null");
+    info.buffer = nullptr;
+    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_QueryInputBuffer(encoder_, &info.bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
         AVCODEC_SAMPLE_LOGD("Get input buffer timeout.");
-        return nullptr;
+        return AVCODEC_SAMPLE_ERR_AGAIN;
     }
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, nullptr, "Query input buffer failed, ret: %{public}d", ret);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Query input buffer failed, ret: %{public}d", ret);
     OH_AVBuffer *buffer = OH_VideoEncoder_GetInputBuffer(encoder_, info.bufferIndex);
-    CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null");
+    CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
     // buffer和bufferIndex必须成对保存，后续PushInputBuffer会使用同一个索引归还给编码器。
     info.buffer = buffer;
     /**
@@ -539,7 +497,7 @@ OH_AVBuffer *VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
      *     return false;
      * }
      */
-    return buffer;
+    return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End encoder_sync_get_inputbuffer]
 
@@ -673,13 +631,8 @@ int32_t VideoEncoder::NotifyEndOfStream()
 // [Start encoder_stop]
 int32_t VideoEncoder::Stop()
 {
-    // Stop前先清除缓存，确保已排队但尚未输出的编码数据不会落入下一次Start。
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
-
-    int32_t ret = OH_VideoEncoder_Flush(encoder_);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
-
-    ret = OH_VideoEncoder_Stop(encoder_);
+    const int32_t ret = OH_VideoEncoder_Stop(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Stop failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }

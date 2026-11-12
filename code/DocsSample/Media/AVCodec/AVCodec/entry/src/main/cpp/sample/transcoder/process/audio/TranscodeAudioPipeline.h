@@ -19,10 +19,16 @@
 #include <memory>
 #include <vector>
 #include "TranscodePcmConverter.h"
-#include "TranscodeCodecCallbacks.h"
+#include "../../codec/TranscodeCodecCallbacks.h"
 #include <multimedia/player_framework/native_avcodec_audiocodec.h>
 #include <multimedia/player_framework/native_avdemuxer.h>
 #include <multimedia/player_framework/native_avmuxer.h>
+
+enum TranscodeSourceAudioLayout : int32_t {
+    TRANSCODE_SOURCE_AUDIO_LAYOUT_UNSPECIFIED = 0,
+    TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1 = 1,
+    TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1_BACK = 2
+};
 
 // One borrowed decoder output and at most one AAC PCM frame are retained.
 class TranscodeAudioPipeline {
@@ -32,7 +38,8 @@ public:
     ~TranscodeAudioPipeline();
     bool Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track, int64_t rangeStartUs = 0,
         int64_t rangeEndUs = 0, int32_t targetRate = 0, int32_t targetChannels = 0, int64_t bitrate = 128000,
-        bool lowPass = false, bool asynchronous = false);
+        bool lowPass = false, bool asynchronous = false,
+        int32_t sourceLayout = TRANSCODE_SOURCE_AUDIO_LAYOUT_UNSPECIFIED);
     bool Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool Ready() const { return ready_; }
     bool Done() const { return outputDone_; }
@@ -42,7 +49,7 @@ public:
     static int64_t TargetBitrate();
 
 private:
-    bool ReadSourceFormat(OH_AVFormat *source, const char *&mime);
+    bool ReadSourceFormat(OH_AVFormat *source, const char *&mime, int32_t sourceLayout);
     bool ConfigureFormats(OH_AVFormat *source, OH_AVFormat *encoded);
     bool PrepareCodecs();
     bool StartCodecs();
@@ -78,6 +85,7 @@ private:
     int32_t pcmConsumed_ = 0;
     std::vector<uint8_t> frame_;
     int32_t channels_ = 0;
+    int32_t sourceLayout_ = TRANSCODE_SOURCE_AUDIO_LAYOUT_UNSPECIFIED;
     int32_t sampleRate_ = 0;
     int32_t targetRate_ = 0;
     int32_t targetChannels_ = 0;

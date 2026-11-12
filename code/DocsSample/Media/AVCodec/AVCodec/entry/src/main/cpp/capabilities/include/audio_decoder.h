@@ -28,7 +28,7 @@ public:
     AudioDecoder() = default;
     ~AudioDecoder();
 
-    // 按MIME创建音频解码器实例。成功后由Release() 销毁，调用方不直接销毁decoder_。
+    // 按MIME创建音频解码器实例。成功后由Release()销毁，调用方不直接销毁decoder_。
     int32_t Create(const std::string &codecMime);
     int32_t CreateByName(const std::string &codecMime);
     int32_t ValidateConfiguration(const SampleInfo &sampleInfo);
@@ -37,13 +37,13 @@ public:
     int32_t Start();
     // 将已填充属性的输入Buffer归还给codec；调用成功后不能再访问该Buffer。
     int32_t PushInputBuffer(CodecBufferInfo &info);
-    // 归还已消费的输出Buffer。音频不送显，render参数仅为接口兼容保留。
-    int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render);
+    // 按原索引归还已消费的输出Buffer。
+    int32_t FreeOutputBuffer(const CodecBufferInfo &info);
     int32_t Flush();
     int32_t Reset();
     int32_t Stop();
-    OH_AVBuffer *GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    // 同步模式下取得解码输出；调用方必须随后归还bufferIndex，否则codec会因无可用Buffer阻塞。
+    // 同步取Buffer返回OK、AGAIN或ERROR；成功时由info保存Buffer和原索引。
+    int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     // 释放codec及其内部资源。该操作后此前获得的Buffer和索引均不再有效。
     int32_t Release();
@@ -55,7 +55,7 @@ private:
     void SetAVBuffer(OH_AVBuffer *buffer);
 
     bool isAVBufferMode_ = false;
-    // 由OH_AudioCodec_CreateByMime创建并由Release() 销毁的音频解码器句柄。
+    // 由OH_AudioCodec_CreateByMime创建并由Release()销毁的音频解码器句柄。
     OH_AVCodec *decoder_ = nullptr;
 };
 #endif

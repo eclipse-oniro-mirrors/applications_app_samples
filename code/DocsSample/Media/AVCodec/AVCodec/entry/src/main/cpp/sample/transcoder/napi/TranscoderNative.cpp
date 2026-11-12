@@ -19,7 +19,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <napi/native_api.h>
-#include "TranscodeJob.h"
+#include "../core/TranscodeJob.h"
 
 namespace {
 constexpr int64_t MIN_BITRATE = 100000;
@@ -41,6 +41,7 @@ constexpr int32_t MAX_KEY_FRAME_INTERVAL_MS = 10000;
 constexpr int32_t AUDIO_SAMPLE_RATE_44100 = 44100;
 constexpr int32_t AUDIO_SAMPLE_RATE_48000 = 48000;
 constexpr int32_t MAX_AUDIO_CHANNEL_COUNT = 2;
+constexpr int32_t MAX_AUDIO_SOURCE_LAYOUT = TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1_BACK;
 constexpr int32_t MIN_AUDIO_BITRATE = 32000;
 constexpr int32_t MAX_AUDIO_BITRATE = 320000;
 struct TranscodeModuleState {
@@ -81,6 +82,7 @@ bool SetSnapshotFields(napi_env env, napi_value result, const TranscodeSnapshot 
         {"sourceHeight", snapshot.sourceHeight}, {"durationUs", snapshot.durationUs},
         {"sourceFrameRate", snapshot.sourceFrameRate}, {"minBitrate", snapshot.minBitrate},
         {"maxBitrate", snapshot.maxBitrate}, {"audioBytes", snapshot.audioBytes}, {"audioMode", snapshot.audioMode},
+        {"selectedAudioChannels", snapshot.selectedAudioChannels},
         {"outputDurationUs", snapshot.outputDurationUs}, {"expectedDurationUs", snapshot.expectedDurationUs},
         {"previewWidth", snapshot.previewWidth}, {"previewHeight", snapshot.previewHeight},
         {"originalWidth", snapshot.originalWidth}, {"originalHeight", snapshot.originalHeight},
@@ -248,6 +250,8 @@ bool ReadAudioQualityOptions(napi_env env, napi_value object, TranscodeOptions &
             options.audioSampleRate == AUDIO_SAMPLE_RATE_48000) &&
         ReadOptionalNumber(env, object, "audioChannels", options.audioChannels) &&
         options.audioChannels <= MAX_AUDIO_CHANNEL_COUNT &&
+        ReadOptionalNumber(env, object, "audioSourceLayout", options.audioSourceLayout) &&
+        options.audioSourceLayout <= MAX_AUDIO_SOURCE_LAYOUT &&
         ReadOptionalNumber(env, object, "audioBitrate", audioBitrate) &&
         audioBitrate >= MIN_AUDIO_BITRATE && audioBitrate <= MAX_AUDIO_BITRATE;
 }

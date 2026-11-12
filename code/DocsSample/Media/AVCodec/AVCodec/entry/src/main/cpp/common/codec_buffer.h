@@ -64,7 +64,7 @@ public:
         std::unique_lock<std::mutex> lock(mutex_);
         (void)cond_.wait_for(lock, std::chrono::milliseconds(timeoutMs),
             [this]() { return cancelled_ || !bufferQueue_.empty(); });
-        // 返回空既可能是超时，也可能是解码器不处于Running状态；调用方应结合所属流水线的运行状态决定后续动作。
+        // 超时或队列取消时返回空；调用方根据所属编解码流程的运行状态决定重试或退出。
         if (cancelled_ || bufferQueue_.empty()) {
             return nullptr;
         }
