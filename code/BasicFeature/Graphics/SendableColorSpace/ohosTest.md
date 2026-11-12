@@ -81,7 +81,7 @@
 | ChromaticityDiagramTest | ChromaticityDiagramTest.test.ets | Canvas | 12 | 色度图导航、面积/覆盖比、白点、参考叠加与探针 |
 | ColorDifferenceTest | ColorDifferenceTest.test.ets | UI | 15 | 色差页预设、滑块、交换、色域切换与判定分档 |
 | ColorConversionTest | ColorConversionTest.test.ets | UI | 14 | 转换页 XYZ/Lab/Encoded/Clipped、越界限幅与交换/重置 |
-| ConcurrencyBenchmarkTest | ConcurrencyBenchmarkTest.test.ets | Concurrency | 10 | 三通道基准、汇总最快路径、gamma 一致性与重置 |
+| ConcurrencyBenchmarkTest | ConcurrencyBenchmarkTest.test.ets | Concurrency | 10 | 三通道基准、汇总耗时最短路径、gamma 一致性与重置 |
 | ColorSpaceReportTest | ColorSpaceReportTest.test.ets | Report | 8 | 报表排序、三种过滤、汇总极值与重置 |
 | **小计** | | | **59** |
 
@@ -683,7 +683,7 @@ entry/src/main/ets/common/utils/              // 工具类实现：12 个类，2
 | SUB_CS_BENCH_0003 | testBenchTaskPool0001 | TaskPool 通道 | 同上 | 点击 `BenchBtnRunTaskPool` | 报告含 `samples=200`、`name=SRGB`，gamma 与平台一致 | Pass |
 | SUB_CS_BENCH_0004 | testBenchWorker0001 | Worker 通道 | 同上 | 点击 `BenchBtnRunWorker` | 报告含 `roundTrips=200` 与 `name=SRGB`；耗时大于等于 0 | Pass |
 | SUB_CS_BENCH_0005 | testBenchRunAll0001 | 三通道全跑 | 同上 | 点击 `BenchBtnRunAll` | 三条报告同时填充：`samples=200`、`samples=200`、`roundTrips=200` | Pass |
-| SUB_CS_BENCH_0006 | testBenchSummary0001 | 汇总最快通道 | 同上 | 点击 `BenchBtnRunAll` 后读取汇总行 | 汇总行等于期望串；最快通道为 Local/TaskPool/Worker 之一；最优耗时大于等于 0 | Pass |
+| SUB_CS_BENCH_0006 | testBenchSummary0001 | 汇总耗时最短通道 | 同上 | 点击 `BenchBtnRunAll` 后读取汇总行 | 汇总行等于期望串；耗时最短通道为 Local/TaskPool/Worker 之一；最优耗时大于等于 0 | Pass |
 | SUB_CS_BENCH_0007 | testBenchRepeatable0001 | 重复测量 | 同上 | 连续点击两次 `BenchBtnRunLocal` | 第二次报告仍含 `samples=200`；两次耗时均大于等于 0 | Pass |
 | SUB_CS_BENCH_0008 | testBenchGammaConsistency0001 | 三通道 gamma 一致 | 同上 | 点击 `BenchBtnRunAll` 后比对 gamma | 本地、TaskPool、Worker 三值两两差小于 0.0001，且等于平台 gamma | Pass |
 | SUB_CS_BENCH_0009 | testBenchReset0001 | 重置 | 同上 | 先跑本地通道再点击 `BenchBtnReset` | `Status:Ready`；汇总为 `Fastest:none Total:0`；本地报告清空 | Pass |
@@ -798,7 +798,7 @@ node <DevEcoStudio>/tools/hvigor/bin/hvigorw.js --mode module -p module=entry@oh
 | 交互层 | 九个页面布局、入口跳转、返回栈、重入复位 | IndexPageTest、NavigationFlowTest、NavigationStateTest、StandardColorSpaceTest、CustomColorSpaceTest |
 | 输入层 | 坐标输入合法/非法/极值/空白/科学计数、gamma 全区间与滑块边界 | CustomInputMatrix、GammaInputTest、SliderBoundary |
 | 组合层 | 0~12 个色域比较、顺序、取消、清空、面积复算 | CompareCombinationTest、CompareScaleMatrix、ColorSpaceValueMatrix、ColorSpaceLimitMatrix |
-| 并发层 | 页面状态、日志上限、引用替换、三通道基准与最快路径 | ConcurrencyTest、ConcurrencyBenchmarkTest |
+| 并发层 | 页面状态、日志上限、引用替换、三通道基准与耗时最短路径 | ConcurrencyTest、ConcurrencyBenchmarkTest |
 | 异常层 | 非法枚举、非法 gamma、越界坐标、错误码形状、错误后恢复 | ExceptionTest、ExceptionButtonTest、ExceptionOutcome |
 | 演示页 | 色度图面积/覆盖/白点/探针、色差分档、转换越界、报表排序与过滤 | ChromaticityDiagramTest、ColorDifferenceTest、ColorConversionTest、ColorSpaceReportTest |
 | 工具层 | 日志、色域几何、ΔE 与字节转换、字符串、数组、数值、数学、解析、日期、校验、格式化、色彩、标识、有序 Map、确定性随机 | UtilsSuite01~UtilsSuite15 |
@@ -844,4 +844,4 @@ node <DevEcoStudio>/tools/hvigor/bin/hvigorw.js --mode module -p module=entry@oh
 - 覆盖深度：26 个色域全部做独立创建与属性查询；8 个标准、7 个扩展、11 个 LIMIT 色域全部走按钮渲染矩阵；自定义页面八个坐标入口与 gamma 全区间 0.1~5.0 均有用例；比较功能覆盖 0~12 个色域的组合与顺序；219 个工具类方法全部展开为 8 条池化输入。
 - 真机结果：42 个套件 1825 条用例在 OpenHarmony 7.1.0.21（API version 26）设备上连续两轮全部通过，无失败与错误。
 - 规模：本组新增 main 侧 12 个工具类（2,456 行）与 ohosTest 侧 15 个套件（42,725 行）；每次新增 8 条输入都是在同一方法上追加一条不同字面量，用例信息密度低于前面的场景用例，属于典型以行数为主的填充。
-- 已知限制：UX 用例依赖主 HAP 与测试 HAP 同时安装；并发与基准用例的耗时断言只校验“耗时大于等于 0”与通道间 gamma 一致，不对绝对性能做阈值断言，避免不同设备性能差异导致误判；H_LOG 与 Display_BT2020 等依赖平台映射的色域只断言“与平台真值一致”，不断言固定字符串。
+- 已知限制：UX 用例依赖主 HAP 与测试 HAP 同时安装；并发与基准用例的耗时断言只校验“耗时大于等于 0”与通道间 gamma 一致，不对实际性能数值做固定阈值断言，避免不同设备性能差异导致误判；H_LOG 与 Display_BT2020 等依赖平台映射的色域只断言“与平台真值一致”，不断言固定字符串。

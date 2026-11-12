@@ -185,8 +185,8 @@ struct Concurrency {
       }
     );
 
-    let allPromises: Array<Promise<ColorSpaceResult>> = [taskPromise, workerPromise];
-    Promise.all(allPromises).then((results: Array<ColorSpaceResult>) => {
+    let allPromises: Promise<ColorSpaceResult>[] = [taskPromise, workerPromise];
+    Promise.all(allPromises).then((results: ColorSpaceResult[]) => {
       let taskRes: ColorSpaceResult = results[0];
       let workerRes: ColorSpaceResult = results[1];
       let nameMatch: boolean = taskRes.name === workerRes.name;
