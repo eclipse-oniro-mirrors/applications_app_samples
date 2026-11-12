@@ -15,102 +15,103 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from './ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 日志级别枚举
+// Log level enum
 // ========================================
 
 /**
- * 日志级别枚举
- * 定义了系统中可用的日志级别，从调试到致命错误
+ * Log level enum
+ * Defines the log levels available in the system, from debug to fatal
  */
 export enum LogLevel {
-  /** 调试级别 */
+  /** Debug level */
   DEBUG = 0,
-  /** 信息级别 */
+  /** Info level */
   INFO = 1,
-  /** 警告级别 */
+  /** Warn level */
   WARN = 2,
-  /** 错误级别 */
+  /** Error level */
   ERROR = 3,
-  /** 致命错误级别 */
+  /** Fatal level */
   FATAL = 4,
 }
 
 // ========================================
-// 日志条目接口
+// Log entry interface
 // ========================================
 
 /**
- * 日志条目接口
- * 定义单条日志记录的数据结构
+ * Log entry interface
+ * Defines the data structure of a single log record
  */
 export interface LogEntry {
-  /** 日志级别 */
+  /** Log level */
   level: LogLevel;
-  /** 日志标签 */
+  /** Log tag */
   tag: string;
-  /** 日志消息内容 */
+  /** Log message content */
   message: string;
-  /** 日志时间戳（毫秒） */
+  /** Log timestamp (milliseconds) */
   timestamp: number;
 }
 
 // ========================================
-// 日志监听器接口
+// Log listener interface
 // ========================================
 
 /**
- * 日志监听器接口
- * 用于监听日志事件并执行自定义处理逻辑
+ * Log listener interface
+ * Used to observe log events and run custom handling logic
  */
 export interface LogListener {
   /**
-   * 当日志条目被记录时回调
-   * @param entry - 日志条目对象
+   * Invoked when a log entry is recorded
+   * @param entry - Log entry object
    */
   onLog(entry: LogEntry): void;
 }
 
 // ========================================
-// 日志工具类
+// Logger utility class
 // ========================================
 
 /**
- * 日志工具类
- * 提供统一的日志记录功能，支持日志级别控制、历史记录存储和监听器机制
- * 内部使用循环缓冲区存储日志条目，避免内存无限增长
+ * Logger utility class
+ * Provides unified logging with level control, history storage and a listener mechanism
+ * Uses an internal circular buffer to store log entries and avoid unbounded memory growth
  */
 export class Logger {
-  /** 最大日志条目存储数量 */
+  /** Maximum stored log entry count */
   private static readonly MAX_LOG_ENTRIES: number = 1000;
 
-  /** 循环缓冲区，存储最近的日志条目 */
+  /** Circular buffer storing the most recent log entries */
   private static logBuffer: LogEntry[] = [];
 
-  /** 当前日志级别阈值 */
+  /** Current log level threshold */
   private static currentLevel: LogLevel = LogLevel.DEBUG;
 
-  /** 已注册的监听器列表 */
+  /** Registered listener list */
   private static listeners: LogListener[] = [];
 
-  /** 缓冲区写入索引 */
+  /** Buffer write index */
   private static bufferIndex: number = 0;
 
-  /** 缓冲区是否已满 */
+  /** Whether the buffer is full */
   private static bufferFull: boolean = false;
 
   // ========================================
-  // 日志级别控制
+  // Log level control
   // ========================================
 
   /**
-   * 设置当前日志级别阈值
-   * 低于该级别的日志将不会被记录
-   * @param level - 要设置的日志级别
+   * Sets the current log level threshold
+   * Logs below this level will not be recorded
+   * @param level - Log level to set
    */
   static setLevel(level: LogLevel): void {
     Logger.currentLevel = level;
@@ -118,68 +119,68 @@ export class Logger {
   }
 
   /**
-   * 获取当前日志级别阈值
-   * @returns 当前的日志级别
+   * Gets the current log level threshold
+   * @returns Current log level
    */
   static getLevel(): LogLevel {
     return Logger.currentLevel;
   }
 
   // ========================================
-  // 核心日志记录方法
+  // Core logging methods
   // ========================================
 
   /**
-   * 记录调试级别日志
-   * @param message - 日志消息内容
-   * @param tag - 可选的自定义标签
+   * Records a debug level log
+   * @param message - Log message content
+   * @param tag - Optional custom tag
    */
   static debug(message: string, tag?: string): void {
     Logger.log(LogLevel.DEBUG, message, tag);
   }
 
   /**
-   * 记录信息级别日志
-   * @param message - 日志消息内容
-   * @param tag - 可选的自定义标签
+   * Records an info level log
+   * @param message - Log message content
+   * @param tag - Optional custom tag
    */
   static info(message: string, tag?: string): void {
     Logger.log(LogLevel.INFO, message, tag);
   }
 
   /**
-   * 记录警告级别日志
-   * @param message - 日志消息内容
-   * @param tag - 可选的自定义标签
+   * Records a warn level log
+   * @param message - Log message content
+   * @param tag - Optional custom tag
    */
   static warn(message: string, tag?: string): void {
     Logger.log(LogLevel.WARN, message, tag);
   }
 
   /**
-   * 记录错误级别日志
-   * @param message - 日志消息内容
-   * @param tag - 可选的自定义标签
+   * Records an error level log
+   * @param message - Log message content
+   * @param tag - Optional custom tag
    */
   static error(message: string, tag?: string): void {
     Logger.log(LogLevel.ERROR, message, tag);
   }
 
   /**
-   * 记录致命错误级别日志
-   * @param message - 日志消息内容
-   * @param tag - 可选的自定义标签
+   * Records a fatal level log
+   * @param message - Log message content
+   * @param tag - Optional custom tag
    */
   static fatal(message: string, tag?: string): void {
     Logger.log(LogLevel.FATAL, message, tag);
   }
 
   /**
-   * 内部日志记录方法
-   * 根据日志级别调用对应的hilog方法，并将日志条目存入缓冲区
-   * @param level - 日志级别
-   * @param message - 日志消息内容
-   * @param customTag - 可选的自定义标签
+   * Internal logging method
+   * Calls the corresponding hilog method by level and stores the entry in the buffer
+   * @param level - Log level
+   * @param message - Log message content
+   * @param customTag - Optional custom tag
    */
   private static log(level: LogLevel, message: string, customTag?: string): void {
     if (level < Logger.currentLevel) {
@@ -189,7 +190,7 @@ export class Logger {
     const logTag: string = customTag ?? TAG;
     const timestamp: number = Date.now();
 
-    // 根据日志级别调用对应的hilog方法
+    // Call the corresponding hilog method by log level
     switch (level) {
       case LogLevel.DEBUG:
         hilog.debug(DOMAIN, logTag, message);
@@ -211,7 +212,7 @@ export class Logger {
         break;
     }
 
-    // 创建日志条目并存入循环缓冲区
+    // Create the log entry and store it in the circular buffer
     const entry: LogEntry = {
       level: level,
       tag: logTag,
@@ -224,13 +225,13 @@ export class Logger {
   }
 
   // ========================================
-  // 循环缓冲区管理
+  // Circular buffer management
   // ========================================
 
   /**
-   * 将日志条目添加到循环缓冲区
-   * 当缓冲区满时，新条目会覆盖最旧的条目
-   * @param entry - 要添加的日志条目
+   * Adds a log entry to the circular buffer
+   * When the buffer is full, new entries overwrite the oldest ones
+   * @param entry - Log entry to add
    */
   private static addToBuffer(entry: LogEntry): void {
     if (!Logger.bufferFull && Logger.logBuffer.length < Logger.MAX_LOG_ENTRIES) {
@@ -247,16 +248,16 @@ export class Logger {
   }
 
   /**
-   * 获取日志历史记录
-   * 返回按时间顺序排列的日志条目数组
-   * @returns 日志条目数组的副本
+   * Gets the log history
+   * Returns log entries ordered by time
+   * @returns Copy of the log entry array
    */
   static getHistory(): LogEntry[] {
     if (!Logger.bufferFull) {
       return [...Logger.logBuffer];
     }
 
-    // 缓冲区已满，需要从当前索引开始重新排列
+    // Buffer is full, reorder starting from the current index
     const ordered: LogEntry[] = [];
     for (let i: number = 0; i < Logger.MAX_LOG_ENTRIES; i++) {
       const actualIndex: number = (Logger.bufferIndex + i) % Logger.MAX_LOG_ENTRIES;
@@ -266,9 +267,9 @@ export class Logger {
   }
 
   /**
-   * 获取指定级别的日志历史记录
-   * @param level - 要筛选的日志级别
-   * @returns 符合指定级别的日志条目数组
+   * Gets the log history for a specific level
+   * @param level - Log level to filter
+   * @returns Log entries matching the specified level
    */
   static getHistoryByLevel(level: LogLevel): LogEntry[] {
     const history: LogEntry[] = Logger.getHistory();
@@ -276,8 +277,8 @@ export class Logger {
   }
 
   /**
-   * 获取日志缓冲区中的条目总数
-   * @returns 当前存储的日志条目数量
+   * Gets the total entry count in the log buffer
+   * @returns Number of currently stored log entries
    */
   static getBufferSize(): number {
     if (Logger.bufferFull) {
@@ -287,7 +288,7 @@ export class Logger {
   }
 
   /**
-   * 清空日志缓冲区和所有监听器
+   * Clears the log buffer and all listeners
    */
   static clear(): void {
     Logger.logBuffer = [];
@@ -298,12 +299,12 @@ export class Logger {
   }
 
   // ========================================
-  // 监听器管理
+  // Listener management
   // ========================================
 
   /**
-   * 添加日志监听器
-   * @param listener - 要添加的日志监听器
+   * Adds a log listener
+   * @param listener - Log listener to add
    */
   static addListener(listener: LogListener): void {
     const existingIndex: number = Logger.listeners.indexOf(listener);
@@ -314,8 +315,8 @@ export class Logger {
   }
 
   /**
-   * 移除日志监听器
-   * @param listener - 要移除的日志监听器
+   * Removes a log listener
+   * @param listener - Log listener to remove
    */
   static removeListener(listener: LogListener): void {
     const index: number = Logger.listeners.indexOf(listener);
@@ -326,8 +327,8 @@ export class Logger {
   }
 
   /**
-   * 通知所有已注册的监听器
-   * @param entry - 新产生的日志条目
+   * Notifies all registered listeners
+   * @param entry - Newly produced log entry
    */
   private static notifyListeners(entry: LogEntry): void {
     for (let i: number = 0; i < Logger.listeners.length; i++) {
@@ -340,35 +341,35 @@ export class Logger {
   }
 
   // ========================================
-  // 辅助方法
+  // Helper methods
   // ========================================
 
   /**
-   * 获取日志级别对应的文本标签
-   * @param level - 日志级别枚举值
-   * @returns 日志级别的中文名称
+   * Gets the text label for a log level
+   * @param level - Log level enum value
+   * @returns Localized name of the log level
    */
   static getLevelLabel(level: LogLevel): string {
     switch (level) {
       case LogLevel.DEBUG:
-        return '调试';
+        return ResourceHelper.getStringByName('log_level_debug');
       case LogLevel.INFO:
-        return '信息';
+        return ResourceHelper.getStringByName('log_level_info');
       case LogLevel.WARN:
-        return '警告';
+        return ResourceHelper.getStringByName('log_level_warn');
       case LogLevel.ERROR:
-        return '错误';
+        return ResourceHelper.getStringByName('log_level_error');
       case LogLevel.FATAL:
-        return '致命';
+        return ResourceHelper.getStringByName('log_level_fatal');
       default:
-        return '未知';
+        return ResourceHelper.getStringByName('log_level_unknown');
     }
   }
 
   /**
-   * 格式化日志条目为可读字符串
-   * @param entry - 要格式化的日志条目
-   * @returns 格式化后的日志字符串
+   * Formats a log entry into a readable string
+   * @param entry - Log entry to format
+   * @returns Formatted log string
    */
   static formatEntry(entry: LogEntry): string {
     const date: Date = new Date(entry.timestamp);

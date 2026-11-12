@@ -20,38 +20,38 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 数学工具类
+// Math utility class
 // ========================================
 
 /**
- * 数学工具类
- * 提供常用的数学计算静态方法，包括数值限制、插值、舍入、随机数生成、
- * 数组统计、百分比计算等功能
+ * Math utility class
+ * Provides common static math methods including value clamping, interpolation, rounding,
+ * random generation, array statistics and percentage calculations
  */
 export class MathUtils {
-  /** 默认小数精度 */
+  /** Default decimal precision */
   private static readonly DEFAULT_PRECISION: number = 2;
 
-  /** 圆周率常量 */
+  /** Pi constant */
   static readonly PI: number = Math.PI;
 
-  /** 自然常数 */
+  /** Euler's number */
   static readonly E: number = Math.E;
 
-  /** 黄金比例 */
+  /** Golden ratio */
   static readonly GOLDEN_RATIO: number = 1.618033988749895;
 
   // ========================================
-  // 数值限制与插值
+  // Value clamping and interpolation
   // ========================================
 
   /**
-   * 将数值限制在指定范围内
-   * 如果值小于最小值则返回最小值，大于最大值则返回最大值
-   * @param value - 要限制的数值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns 限制范围后的数值
+   * Clamps a value to the specified range
+   * Returns the minimum when below it, and the maximum when above it
+   * @param value - Value to clamp
+   * @param min - Minimum value
+   * @param max - Maximum value
+   * @returns Clamped value
    */
   static clamp(value: number, min: number, max: number): number {
     if (min > max) {
@@ -64,12 +64,12 @@ export class MathUtils {
   }
 
   /**
-   * 线性插值计算
-   * 根据参数t（0-1）在a和b之间进行线性插值
-   * @param a - 起始值
-   * @param b - 结束值
-   * @param t - 插值因子（0到1之间）
-   * @returns 插值结果
+   * Linear interpolation
+   * Interpolates linearly between a and b by parameter t (0-1)
+   * @param a - Start value
+   * @param b - End value
+   * @param t - Interpolation factor (between 0 and 1)
+   * @returns Interpolated result
    */
   static lerp(a: number, b: number, t: number): number {
     const clampedT: number = MathUtils.clamp(t, 0, 1);
@@ -77,12 +77,12 @@ export class MathUtils {
   }
 
   /**
-   * 反向线性插值
-   * 给定值在a和b之间的位置，返回对应的插值因子
-   * @param a - 起始值
-   * @param b - 结束值
-   * @param value - 实际值
-   * @returns 插值因子（0到1之间）
+   * Inverse linear interpolation
+   * Given a value's position between a and b, returns the interpolation factor
+   * @param a - Start value
+   * @param b - End value
+   * @param value - Actual value
+   * @returns Interpolation factor (between 0 and 1)
    */
   static inverseLerp(a: number, b: number, value: number): number {
     if (a === b) {
@@ -92,13 +92,13 @@ export class MathUtils {
   }
 
   /**
-   * 将一个范围内的值映射到另一个范围
-   * @param value - 原始值
-   * @param fromMin - 原始范围最小值
-   * @param fromMax - 原始范围最大值
-   * @param toMin - 目标范围最小值
-   * @param toMax - 目标范围最大值
-   * @returns 映射后的值
+   * Maps a value from one range to another
+   * @param value - Original value
+   * @param fromMin - Source range minimum
+   * @param fromMax - Source range maximum
+   * @param toMin - Target range minimum
+   * @param toMax - Target range maximum
+   * @returns Mapped value
    */
   static mapRange(value: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number {
     const t: number = MathUtils.inverseLerp(fromMin, fromMax, value);
@@ -106,14 +106,14 @@ export class MathUtils {
   }
 
   // ========================================
-  // 舍入与精度
+  // Rounding and precision
   // ========================================
 
   /**
-   * 四舍五入到指定小数位
-   * @param value - 要舍入的数值
-   * @param decimals - 小数位数，默认为2
-   * @returns 舍入后的数值
+   * Rounds to the specified decimal places
+   * @param value - Value to round
+   * @param decimals - Decimal places, default 2
+   * @returns Rounded value
    */
   static round(value: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
     const factor: number = Math.pow(10, decimals);
@@ -121,10 +121,10 @@ export class MathUtils {
   }
 
   /**
-   * 向上取整到指定小数位
-   * @param value - 要处理的数值
-   * @param decimals - 小数位数，默认为2
-   * @returns 向上取整后的数值
+   * Ceils to the specified decimal places
+   * @param value - Value to process
+   * @param decimals - Decimal places, default 2
+   * @returns Ceiled result
    */
   static ceil(value: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
     const factor: number = Math.pow(10, decimals);
@@ -132,10 +132,10 @@ export class MathUtils {
   }
 
   /**
-   * 向下取整到指定小数位
-   * @param value - 要处理的数值
-   * @param decimals - 小数位数，默认为2
-   * @returns 向下取整后的数值
+   * Floors to the specified decimal places
+   * @param value - Value to process
+   * @param decimals - Decimal places, default 2
+   * @returns Floored result
    */
   static floor(value: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
     const factor: number = Math.pow(10, decimals);
@@ -143,14 +143,14 @@ export class MathUtils {
   }
 
   // ========================================
-  // 随机数生成
+  // Random generation
   // ========================================
 
   /**
-   * 生成指定范围内的随机整数
-   * @param min - 最小值（包含）
-   * @param max - 最大值（包含）
-   * @returns 随机整数
+   * Generates a random integer in the specified range
+   * @param min - Minimum (inclusive)
+   * @param max - Maximum (inclusive)
+   * @returns Random integer
    */
   static randomInt(min: number, max: number): number {
     const safeMin: number = Math.ceil(min);
@@ -159,19 +159,19 @@ export class MathUtils {
   }
 
   /**
-   * 生成指定范围内的随机浮点数
-   * @param min - 最小值（包含）
-   * @param max - 最大值（不包含）
-   * @returns 随机浮点数
+   * Generates a random float in the specified range
+   * @param min - Minimum (inclusive)
+   * @param max - Maximum (exclusive)
+   * @returns Random float
    */
   static randomFloat(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
 
   /**
-   * 从数组中随机选取一个元素
-   * @param array - 源数组
-   * @returns 随机选取的元素，数组为空时返回undefined
+   * Picks a random element from an array
+   * @param array - Source array
+   * @returns Randomly picked element, or undefined for an empty array
    */
   static randomChoice<T>(array: T[]): T | undefined {
     if (array.length === 0) {
@@ -182,64 +182,64 @@ export class MathUtils {
   }
 
   /**
-   * 生成随机布尔值
-   * @param probability - 返回true的概率（0-1），默认为0.5
-   * @returns 随机布尔值
+   * Generates a random boolean
+   * @param probability - Probability of returning true (0-1), default 0.5
+   * @returns Random boolean
    */
   static randomBoolean(probability: number = 0.5): boolean {
     return Math.random() < probability;
   }
 
   // ========================================
-  // 范围检查
+  // Range checks
   // ========================================
 
   /**
-   * 检查数值是否在指定范围内（包含边界）
-   * @param value - 要检查的数值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns 如果值在范围内返回true
+   * Checks whether a value is within the specified range (inclusive)
+   * @param value - Value to check
+   * @param min - Minimum value
+   * @param max - Maximum value
+   * @returns true if the value is within range
    */
   static isInRange(value: number, min: number, max: number): boolean {
     return value >= min && value <= max;
   }
 
   /**
-   * 检查数值是否为正数
-   * @param value - 要检查的数值
-   * @returns 如果值为正数返回true
+   * Checks whether a value is positive
+   * @param value - Value to check
+   * @returns true if the value is positive
    */
   static isPositive(value: number): boolean {
     return value > 0;
   }
 
   /**
-   * 检查数值是否为负数
-   * @param value - 要检查的数值
-   * @returns 如果值为负数返回true
+   * Checks whether a value is negative
+   * @param value - Value to check
+   * @returns true if the value is negative
    */
   static isNegative(value: number): boolean {
     return value < 0;
   }
 
   /**
-   * 检查数值是否为整数
-   * @param value - 要检查的数值
-   * @returns 如果值为整数返回true
+   * Checks whether a value is an integer
+   * @param value - Value to check
+   * @returns true if the value is an integer
    */
   static isInteger(value: number): boolean {
     return Number.isInteger(value);
   }
 
   // ========================================
-  // 数组统计方法
+  // Array statistics
   // ========================================
 
   /**
-   * 计算数值数组的平均值
-   * @param numbers - 数值数组
-   * @returns 平均值，数组为空时返回0
+   * Calculates the average of a numeric array
+   * @param numbers - Numeric array
+   * @returns Average value, or 0 for an empty array
    */
   static average(numbers: number[]): number {
     if (numbers.length === 0) {
@@ -250,9 +250,9 @@ export class MathUtils {
   }
 
   /**
-   * 计算数值数组的总和
-   * @param numbers - 数值数组
-   * @returns 所有元素的总和
+   * Calculates the sum of a numeric array
+   * @param numbers - Numeric array
+   * @returns Sum of all elements
    */
   static sum(numbers: number[]): number {
     let total: number = 0;
@@ -263,9 +263,9 @@ export class MathUtils {
   }
 
   /**
-   * 计算数值数组的中位数
-   * @param numbers - 数值数组
-   * @returns 中位数，数组为空时返回0
+   * Calculates the median of a numeric array
+   * @param numbers - Numeric array
+   * @returns Median value, or 0 for an empty array
    */
   static median(numbers: number[]): number {
     if (numbers.length === 0) {
@@ -280,9 +280,9 @@ export class MathUtils {
   }
 
   /**
-   * 找出数组中的最大值
-   * @param numbers - 数值数组
-   * @returns 最大值，数组为空时返回0
+   * Finds the maximum value in an array
+   * @param numbers - Numeric array
+   * @returns Maximum value, or 0 for an empty array
    */
   static max(numbers: number[]): number {
     if (numbers.length === 0) {
@@ -298,9 +298,9 @@ export class MathUtils {
   }
 
   /**
-   * 找出数组中的最小值
-   * @param numbers - 数值数组
-   * @returns 最小值，数组为空时返回0
+   * Finds the minimum value in an array
+   * @param numbers - Numeric array
+   * @returns Minimum value, or 0 for an empty array
    */
   static min(numbers: number[]): number {
     if (numbers.length === 0) {
@@ -316,15 +316,15 @@ export class MathUtils {
   }
 
   // ========================================
-  // 百分比计算
+  // Percentage calculations
   // ========================================
 
   /**
-   * 计算百分比
-   * @param part - 部分值
-   * @param total - 总值
-   * @param decimals - 小数位数，默认为2
-   * @returns 百分比数值
+   * Calculates a percentage
+   * @param part - Partial value
+   * @param total - Total value
+   * @param decimals - Decimal places, default 2
+   * @returns Percentage value
    */
   static percentage(part: number, total: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
     if (total === 0) {
@@ -336,39 +336,39 @@ export class MathUtils {
   }
 
   /**
-   * 计算数值的平方
-   * @param value - 要计算平方的数值
-   * @returns 平方结果
+   * Calculates the square of a value
+   * @param value - Value to square
+   * @returns Squared result
    */
   static square(value: number): number {
     return value * value;
   }
 
   /**
-   * 计算两点之间的欧几里得距离
-   * @param x1 - 第一个点的x坐标
-   * @param y1 - 第一个点的y坐标
-   * @param x2 - 第二个点的x坐标
-   * @param y2 - 第二个点的y坐标
-   * @returns 两点之间的距离
+   * Calculates the Euclidean distance between two points
+   * @param x1 - x coordinate of the first point
+   * @param y1 - y coordinate of the first point
+   * @param x2 - x coordinate of the second point
+   * @param y2 - y coordinate of the second point
+   * @returns Distance between the points
    */
   static distance(x1: number, y1: number, x2: number, y2: number): number {
     return Math.sqrt(MathUtils.square(x2 - x1) + MathUtils.square(y2 - y1));
   }
 
   /**
-   * 将角度转换为弧度
-   * @param degrees - 角度值
-   * @returns 弧度值
+   * Converts degrees to radians
+   * @param degrees - Degree value
+   * @returns Radian value
    */
   static degreesToRadians(degrees: number): number {
     return degrees * (MathUtils.PI / 180);
   }
 
   /**
-   * 将弧度转换为角度
-   * @param radians - 弧度值
-   * @returns 角度值
+   * Converts radians to degrees
+   * @param radians - Radian value
+   * @returns Degree value
    */
   static radiansToDegrees(radians: number): number {
     return radians * (180 / MathUtils.PI);

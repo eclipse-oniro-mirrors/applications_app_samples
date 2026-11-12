@@ -15,146 +15,147 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from './ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 类型名称常量
+// Type name constants
 // ========================================
 
-/** 字符串类型名称 */
+/** String type name */
 const TYPE_STRING: string = 'string';
-/** 数字类型名称 */
+/** Number type name */
 const TYPE_NUMBER: string = 'number';
-/** 布尔类型名称 */
+/** Boolean type name */
 const TYPE_BOOLEAN: string = 'boolean';
-/** 对象类型名称 */
+/** Object type name */
 const TYPE_OBJECT: string = 'object';
-/** 未定义类型名称 */
+/** Undefined type name */
 const TYPE_UNDEFINED: string = 'undefined';
-/** 空类型名称 */
+/** Null type name */
 const TYPE_NULL: string = 'null';
-/** 数组类型名称 */
+/** Array type name */
 const TYPE_ARRAY: string = 'array';
-/** 函数类型名称 */
+/** Function type name */
 const TYPE_FUNCTION: string = 'function';
-/** 符号类型名称 */
+/** Symbol type name */
 const TYPE_SYMBOL: string = 'symbol';
 
 // ========================================
-// 类型工具类
+// Type utility class
 // ========================================
 
 /**
- * 类型工具类
- * 提供全面的类型检查和类型转换静态方法
- * 包括基本类型判断、空值检查、类型安全转换等功能
- * 所有方法都经过严格的空值和边界检查
+ * Type utility class
+ * Provides comprehensive type checking and conversion static methods,
+ * including primitive checks, null checks and type-safe conversions.
+ * All methods include strict null and boundary checks.
  */
 export class TypeUtils {
   // ========================================
-  // 基本类型检查方法
+  // Basic type check methods
   // ========================================
 
   /**
-   * 检查值是否为字符串类型
-   * @param value - 要检查的值
-   * @returns 如果值为字符串类型返回true
+   * Checks whether a value is a string
+   * @param value - Value to check
+   * @returns true if the value is a string
    */
   static isString(value: unknown): boolean {
     return typeof value === TYPE_STRING;
   }
 
   /**
-   * 检查值是否为数字类型（排除NaN）
-   * @param value - 要检查的值
-   * @returns 如果值为有效数字类型返回true
+   * Checks whether a value is a number (excluding NaN)
+   * @param value - Value to check
+   * @returns true if the value is a valid number
    */
   static isNumber(value: unknown): boolean {
     return typeof value === TYPE_NUMBER && !isNaN(value as number);
   }
 
   /**
-   * 检查值是否为布尔类型
-   * @param value - 要检查的值
-   * @returns 如果值为布尔类型返回true
+   * Checks whether a value is a boolean
+   * @param value - Value to check
+   * @returns true if the value is a boolean
    */
   static isBoolean(value: unknown): boolean {
     return typeof value === TYPE_BOOLEAN;
   }
 
   /**
-   * 检查值是否为对象类型（排除null和数组）
-   * @param value - 要检查的值
-   * @returns 如果值为普通对象类型返回true
+   * Checks whether a value is a plain object (excluding null and arrays)
+   * @param value - Value to check
+   * @returns true if the value is a plain object
    */
   static isObject(value: unknown): boolean {
     return typeof value === TYPE_OBJECT && value !== null && !Array.isArray(value);
   }
 
   /**
-   * 检查值是否为数组类型
-   * @param value - 要检查的值
-   * @returns 如果值为数组类型返回true
+   * Checks whether a value is an array
+   * @param value - Value to check
+   * @returns true if the value is an array
    */
   static isArray(value: unknown): boolean {
     return Array.isArray(value);
   }
 
   /**
-   * 检查值是否为null
-   * @param value - 要检查的值
-   * @returns 如果值为null返回true
+   * Checks whether a value is null
+   * @param value - Value to check
+   * @returns true if the value is null
    */
   static isNull(value: unknown): boolean {
     return value === null;
   }
 
   /**
-   * 检查值是否为undefined
-   * @param value - 要检查的值
-   * @returns 如果值为undefined返回true
+   * Checks whether a value is undefined
+   * @param value - Value to check
+   * @returns true if the value is undefined
    */
   static isUndefined(value: unknown): boolean {
     return value === undefined;
   }
 
   /**
-   * 检查值是否为函数类型
-   * @param value - 要检查的值
-   * @returns 如果值为函数类型返回true
+   * Checks whether a value is a function
+   * @param value - Value to check
+   * @returns true if the value is a function
    */
   static isFunction(value: unknown): boolean {
     return typeof value === TYPE_FUNCTION;
   }
 
   /**
-   * 检查值是否为Symbol类型
-   * @param value - 要检查的值
-   * @returns 如果值为Symbol类型返回true
+   * Checks whether a value is a symbol
+   * @param value - Value to check
+   * @returns true if the value is a symbol
    */
   static isSymbol(value: unknown): boolean {
     return typeof value === TYPE_SYMBOL;
   }
 
   // ========================================
-  // 空值检查方法
+  // Null and empty checks
   // ========================================
 
   /**
-   * 检查值是否为空（null、undefined或空字符串）
-   * @param value - 要检查的值
-   * @returns 如果值为空返回true
+   * Checks whether a value is empty (null, undefined or empty string)
+   * @param value - Value to check
+   * @returns true if the value is empty
    */
   static isEmpty(value: string | null | undefined): boolean {
     return value === null || value === undefined || value === '';
   }
 
   /**
-   * 检查字符串是否为空白（null、undefined、空字符串或仅含空白字符）
-   * @param value - 要检查的字符串
-   * @returns 如果字符串为空白返回true
+   * Checks whether a string is blank (null, undefined, empty or whitespace only)
+   * @param value - String to check
+   * @returns true if the string is blank
    */
   static isBlank(value: string | null | undefined): boolean {
     if (value === null || value === undefined) {
@@ -164,9 +165,9 @@ export class TypeUtils {
   }
 
   /**
-   * 检查对象是否为空（null、undefined或没有自有属性）
-   * @param value - 要检查的对象
-   * @returns 如果对象为空返回true
+   * Checks whether an object is empty (null, undefined or without own properties)
+   * @param value - Object to check
+   * @returns true if the object is empty
    */
   static isEmptyObject(value: object | null | undefined): boolean {
     if (value === null || value === undefined) {
@@ -176,9 +177,9 @@ export class TypeUtils {
   }
 
   /**
-   * 检查数组是否为空（null、undefined或长度为0）
-   * @param value - 要检查的数组
-   * @returns 如果数组为空返回true
+   * Checks whether an array is empty (null, undefined or length 0)
+   * @param value - Array to check
+   * @returns true if the array is empty
    */
   static isEmptyArray(value: unknown[] | null | undefined): boolean {
     if (value === null || value === undefined) {
@@ -188,9 +189,9 @@ export class TypeUtils {
   }
 
   /**
-   * 检查值是否为空集合（null、undefined、空字符串、空数组或空对象）
-   * @param value - 要检查的值
-   * @returns 如果值为空集合返回true
+   * Checks whether a value is an empty collection (null, undefined, empty string, array or object)
+   * @param value - Value to check
+   * @returns true if the value is an empty collection
    */
   static isEmptyCollection(value: unknown): boolean {
     if (value === null || value === undefined) {
@@ -209,14 +210,14 @@ export class TypeUtils {
   }
 
   // ========================================
-  // 类型获取方法
+  // Type retrieval methods
   // ========================================
 
   /**
-   * 获取值的类型名称
-   * 返回精确的类型描述字符串
-   * @param value - 要获取类型的值
-   * @returns 类型名称字符串（如'string'、'number'、'array'、'null'等）
+   * Gets the type name of a value
+   * Returns a precise type description string
+   * @param value - Value whose type is requested
+   * @returns Type name string (e.g. 'string', 'number', 'array', 'null')
    */
   static getType(value: unknown): string {
     if (value === null) {
@@ -232,34 +233,34 @@ export class TypeUtils {
   }
 
   /**
-   * 获取值的详细类型描述
-   * 使用Object.prototype.toString获取精确类型
-   * @param value - 要获取类型的值
-   * @returns 详细类型描述字符串（如'[object String]'）
+   * Gets the detailed type description of a value
+   * Uses Object.prototype.toString for the exact type
+   * @param value - Value whose type is requested
+   * @returns Detailed type string (e.g. '[object String]')
    */
   static getDetailedType(value: unknown): string {
     return Object.prototype.toString.call(value);
   }
 
   /**
-   * 检查值是否为指定的类型
-   * @param value - 要检查的值
-   * @param typeName - 期望的类型名称
-   * @returns 如果值是指定类型返回true
+   * Checks whether a value is of the specified type
+   * @param value - Value to check
+   * @param typeName - Expected type name
+   * @returns true if the value is of the specified type
    */
   static isType(value: unknown, typeName: string): boolean {
     return TypeUtils.getType(value) === typeName;
   }
 
   // ========================================
-  // 类型转换方法
+  // Type conversion methods
   // ========================================
 
   /**
-   * 将值安全地转换为字符串
-   * null和undefined转换为空字符串，对象使用JSON序列化
-   * @param value - 要转换的值
-   * @returns 转换后的字符串
+   * Safely converts a value to a string
+   * null/undefined become an empty string; objects are JSON-serialized
+   * @param value - Value to convert
+   * @returns Converted string
    */
   static toString(value: unknown): string {
     if (value === null || value === undefined) {
@@ -280,10 +281,10 @@ export class TypeUtils {
   }
 
   /**
-   * 将值安全地转换为数字
-   * 无法转换时返回0
-   * @param value - 要转换的值
-   * @returns 转换后的数字
+   * Safely converts a value to a number
+   * Returns 0 when conversion is impossible
+   * @param value - Value to convert
+   * @returns Converted number
    */
   static toNumber(value: unknown): number {
     if (value === null || value === undefined) {
@@ -308,10 +309,10 @@ export class TypeUtils {
   }
 
   /**
-   * 将值安全地转换为布尔值
-   * 遵循JavaScript的truthy/falsy规则，但空字符串和'false'文本返回false
-   * @param value - 要转换的值
-   * @returns 转换后的布尔值
+   * Safely converts a value to a boolean
+   * Follows JavaScript truthy/falsy rules, but empty strings and the text 'false' return false
+   * @param value - Value to convert
+   * @returns Converted boolean
    */
   static toBoolean(value: unknown): boolean {
     if (value === null || value === undefined) {
@@ -337,10 +338,10 @@ export class TypeUtils {
   }
 
   /**
-   * 尝试将字符串解析为整数
-   * @param value - 要解析的字符串
-   * @param defaultValue - 解析失败时的默认值
-   * @returns 解析后的整数或默认值
+   * Parses a string into an integer
+   * @param value - String to parse
+   * @param defaultValue - Default value when parsing fails
+   * @returns Parsed integer or the default value
    */
   static toInt(value: string | null | undefined, defaultValue: number = 0): number {
     if (value === null || value === undefined || value.trim().length === 0) {
@@ -351,10 +352,10 @@ export class TypeUtils {
   }
 
   /**
-   * 尝试将字符串解析为浮点数
-   * @param value - 要解析的字符串
-   * @param defaultValue - 解析失败时的默认值
-   * @returns 解析后的浮点数或默认值
+   * Parses a string into a float
+   * @param value - String to parse
+   * @param defaultValue - Default value when parsing fails
+   * @returns Parsed float or the default value
    */
   static toFloat(value: string | null | undefined, defaultValue: number = 0): number {
     if (value === null || value === undefined || value.trim().length === 0) {
@@ -365,27 +366,27 @@ export class TypeUtils {
   }
 
   // ========================================
-  // 类型断言辅助方法
+  // Type assertion helpers
   // ========================================
 
   /**
-   * 确保值不为空，为空时抛出异常
-   * @param value - 要检查的值
-   * @param name - 值名称（用于错误信息）
-   * @returns 非空的值
+   * Ensures a value is non-null, throwing when it is empty
+   * @param value - Value to check
+   * @param name - Value name (for the error message)
+   * @returns The non-null value
    */
   static requireNonNull<T>(value: T | null | undefined, name: string): T {
     if (value === null || value === undefined) {
       hilog.error(DOMAIN, TAG, 'TypeUtils required parameter is empty, name=%{public}s', name);
-      throw new Error(`必需参数 '${name}' 不能为空`);
+      throw new Error(ResourceHelper.getStringByName('type_param_required_empty', name));
     }
     return value;
   }
 
   /**
-   * 检查值是否为原始类型（string、number、boolean、symbol、null、undefined）
-   * @param value - 要检查的值
-   * @returns 如果值为原始类型返回true
+   * Checks whether a value is primitive (string, number, boolean, symbol, null, undefined)
+   * @param value - Value to check
+   * @returns true if the value is primitive
    */
   static isPrimitive(value: unknown): boolean {
     if (value === null || value === undefined) {
@@ -396,20 +397,20 @@ export class TypeUtils {
   }
 
   /**
-   * 检查值是否为引用类型（对象、数组、函数）
-   * @param value - 要检查的值
-   * @returns 如果值为引用类型返回true
+   * Checks whether a value is a reference type (object, array, function)
+   * @param value - Value to check
+   * @returns true if the value is a reference type
    */
   static isReference(value: unknown): boolean {
     return !TypeUtils.isPrimitive(value);
   }
 
   /**
-   * 安全地检查两个值是否相等
-   * 支持基本类型和对象的深度比较
-   * @param a - 第一个值
-   * @param b - 第二个值
-   * @returns 如果两个值相等返回true
+   * Safely checks whether two values are equal
+   * Supports primitives and deep comparison of objects
+   * @param a - First value
+   * @param b - Second value
+   * @returns true if the values are equal
    */
   static safeEquals(a: unknown, b: unknown): boolean {
     if (a === b) {

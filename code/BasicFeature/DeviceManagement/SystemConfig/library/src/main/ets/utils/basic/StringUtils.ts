@@ -20,48 +20,48 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 命名风格枚举
+// Naming style enum
 // ========================================
 
 /**
- * 命名风格枚举
- * 定义字符串转换的目标命名风格
+ * Naming style enum
+ * Defines target naming styles for string conversion
  */
 export enum NamingStyle {
-  /** 驼峰命名法 */
+  /** camelCase style */
   CAMEL_CASE = 'camelCase',
-  /** 蛇形命名法 */
+  /** snake_case style */
   SNAKE_CASE = 'snake_case',
-  /** 短横线命名法 */
+  /** kebab-case style */
   KEBAB_CASE = 'kebab-case',
-  /** 帕斯卡命名法 */
+  /** PascalCase style */
   PASCAL_CASE = 'PascalCase',
 }
 
 // ========================================
-// 字符串工具类
+// String utility class
 // ========================================
 
 /**
- * 字符串工具类
- * 提供丰富的字符串处理静态方法，包括大小写转换、命名风格转换、
- * 字符串查找、生成随机字符串、哈希计算等实用功能
+ * String utility class
+ * Provides rich static string methods including case conversion, naming style conversion,
+ * substring searching, random string generation and hash calculation
  */
 export class StringUtils {
-  /** 随机字符串字符集 */
+  /** Random string charset */
   private static readonly RANDOM_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  /** 十六进制字符集 */
+  /** Hexadecimal charset */
   private static readonly HEX_CHARS: string = '0123456789abcdef';
 
   // ========================================
-  // 大小写转换方法
+  // Case conversion methods
   // ========================================
 
   /**
-   * 将字符串首字母大写
-   * @param str - 原始字符串
-   * @returns 首字母大写后的字符串
+   * Capitalizes the first letter of a string
+   * @param str - Original string
+   * @returns String with the first letter capitalized
    */
   static capitalize(str: string): string {
     if (!str || str.length === 0) {
@@ -71,9 +71,9 @@ export class StringUtils {
   }
 
   /**
-   * 将字符串首字母小写
-   * @param str - 原始字符串
-   * @returns 首字母小写后的字符串
+   * Lowercases the first letter of a string
+   * @param str - Original string
+   * @returns String with the first letter lowercased
    */
   static uncapitalize(str: string): string {
     if (!str || str.length === 0) {
@@ -83,39 +83,39 @@ export class StringUtils {
   }
 
   /**
-   * 将字符串全部转为大写
-   * @param str - 原始字符串
-   * @returns 大写字符串
+   * Converts the whole string to upper case
+   * @param str - Original string
+   * @returns Uppercased string
    */
   static toUpperCase(str: string): string {
     return str.toUpperCase();
   }
 
   /**
-   * 将字符串全部转为小写
-   * @param str - 原始字符串
-   * @returns 小写字符串
+   * Converts the whole string to lower case
+   * @param str - Original string
+   * @returns Lowercased string
    */
   static toLowerCase(str: string): string {
     return str.toLowerCase();
   }
 
   // ========================================
-  // 命名风格转换方法
+  // Naming style conversion methods
   // ========================================
 
   /**
-   * 将字符串转换为驼峰命名格式
-   * 支持从蛇形、短横线、空格分隔等多种格式转换
-   * @param str - 原始字符串
-   * @returns 驼峰命名格式的字符串
+   * Converts a string to camelCase
+   * Supports sources such as snake_case, kebab-case and space-separated forms
+   * @param str - Original string
+   * @returns camelCase formatted string
    */
   static toCamelCase(str: string): string {
     if (!str || str.length === 0) {
       return str;
     }
 
-    // 先按常见分隔符拆分
+    // Split by common separators first
     const words: string[] = StringUtils.splitWords(str);
     if (words.length === 0) {
       return str;
@@ -129,9 +129,9 @@ export class StringUtils {
   }
 
   /**
-   * 将字符串转换为蛇形命名格式
-   * @param str - 原始字符串
-   * @returns 蛇形命名格式的字符串（小写字母加下划线）
+   * Converts a string to snake_case
+   * @param str - Original string
+   * @returns snake_case formatted string (lowercase with underscores)
    */
   static toSnakeCase(str: string): string {
     if (!str || str.length === 0) {
@@ -143,9 +143,9 @@ export class StringUtils {
   }
 
   /**
-   * 将字符串转换为短横线命名格式
-   * @param str - 原始字符串
-   * @returns 短横线命名格式的字符串
+   * Converts a string to kebab-case
+   * @param str - Original string
+   * @returns kebab-case formatted string
    */
   static toKebabCase(str: string): string {
     if (!str || str.length === 0) {
@@ -157,9 +157,9 @@ export class StringUtils {
   }
 
   /**
-   * 将字符串转换为帕斯卡命名格式
-   * @param str - 原始字符串
-   * @returns 帕斯卡命名格式的字符串（每个单词首字母大写）
+   * Converts a string to PascalCase
+   * @param str - Original string
+   * @returns PascalCase formatted string (each word capitalized)
    */
   static toPascalCase(str: string): string {
     if (!str || str.length === 0) {
@@ -171,13 +171,13 @@ export class StringUtils {
   }
 
   /**
-   * 将字符串拆分为单词数组
-   * 处理驼峰、蛇形、短横线、空格等多种分隔方式
-   * @param str - 原始字符串
-   * @returns 拆分后的单词数组
+   * Splits a string into a word array
+   * Handles camelCase, snake_case, kebab-case, spaces and other separators
+   * @param str - Original string
+   * @returns Array of split words
    */
   private static splitWords(str: string): string[] {
-    // 先按非字母数字字符拆分
+    // Split by non-alphanumeric characters first
     const parts: string[] = str.replace(/([a-z])([A-Z])/g, '$1 $2')
       .replace(/[_\-\s]+/g, ' ')
       .trim()
@@ -186,14 +186,14 @@ export class StringUtils {
   }
 
   // ========================================
-  // 字符串查找方法
+  // Substring search methods
   // ========================================
 
   /**
-   * 检查字符串是否包含指定子串
-   * @param str - 原始字符串
-   * @param sub - 要查找的子串
-   * @returns 如果包含返回true
+   * Checks whether a string contains the specified substring
+   * @param str - Original string
+   * @param sub - Substring to find
+   * @returns true if the substring is contained
    */
   static contains(str: string, sub: string): boolean {
     if (!str || !sub) {
@@ -203,10 +203,10 @@ export class StringUtils {
   }
 
   /**
-   * 检查字符串是否以指定前缀开头
-   * @param str - 原始字符串
-   * @param prefix - 要检查的前缀
-   * @returns 如果以指定前缀开头返回true
+   * Checks whether a string starts with the specified prefix
+   * @param str - Original string
+   * @param prefix - Prefix to check
+   * @returns true if the string starts with the prefix
    */
   static startsWith(str: string, prefix: string): boolean {
     if (!str || !prefix) {
@@ -216,10 +216,10 @@ export class StringUtils {
   }
 
   /**
-   * 检查字符串是否以指定后缀结尾
-   * @param str - 原始字符串
-   * @param suffix - 要检查的后缀
-   * @returns 如果以指定后缀结尾返回true
+   * Checks whether a string ends with the specified suffix
+   * @param str - Original string
+   * @param suffix - Suffix to check
+   * @returns true if the string ends with the suffix
    */
   static endsWith(str: string, suffix: string): boolean {
     if (!str || !suffix) {
@@ -229,10 +229,10 @@ export class StringUtils {
   }
 
   /**
-   * 统计子串在字符串中出现的次数
-   * @param str - 原始字符串
-   * @param sub - 要统计的子串
-   * @returns 子串出现的次数
+   * Counts occurrences of a substring in a string
+   * @param str - Original string
+   * @param sub - Substring to count
+   * @returns Number of occurrences
    */
   static countOccurrences(str: string, sub: string): number {
     if (!str || !sub || sub.length === 0) {
@@ -252,14 +252,14 @@ export class StringUtils {
   }
 
   // ========================================
-  // 字符串操作方法
+  // String manipulation methods
   // ========================================
 
   /**
-   * 重复字符串指定次数
-   * @param str - 原始字符串
-   * @param count - 重复次数
-   * @returns 重复后的字符串
+   * Repeats a string the specified number of times
+   * @param str - Original string
+   * @param count - Repeat count
+   * @returns Repeated string
    */
   static repeat(str: string, count: number): string {
     if (count <= 0 || !str) {
@@ -273,9 +273,9 @@ export class StringUtils {
   }
 
   /**
-   * 反转字符串
-   * @param str - 原始字符串
-   * @returns 反转后的字符串
+   * Reverses a string
+   * @param str - Original string
+   * @returns Reversed string
    */
   static reverse(str: string): string {
     if (!str) {
@@ -289,9 +289,9 @@ export class StringUtils {
   }
 
   /**
-   * 移除字符串中的所有空白字符
-   * @param str - 原始字符串
-   * @returns 移除空白后的字符串
+   * Removes all whitespace from a string
+   * @param str - Original string
+   * @returns String without whitespace
    */
   static removeWhitespace(str: string): string {
     if (!str) {
@@ -301,10 +301,10 @@ export class StringUtils {
   }
 
   /**
-   * 去除字符串两端的指定字符
-   * @param str - 原始字符串
-   * @param chars - 要去除的字符集合
-   * @returns 处理后的字符串
+   * Trims specified characters from both ends of a string
+   * @param str - Original string
+   * @param chars - Character set to trim
+   * @returns Processed string
    */
   static trimChars(str: string, chars: string): string {
     if (!str) {
@@ -324,11 +324,11 @@ export class StringUtils {
   }
 
   /**
-   * 截取字符串到指定最大长度
-   * @param str - 原始字符串
-   * @param maxLen - 最大长度
-   * @param suffix - 截断后的后缀，默认为空
-   * @returns 截取后的字符串
+   * Truncates a string to the specified maximum length
+   * @param str - Original string
+   * @param maxLen - Maximum length
+   * @param suffix - Suffix appended after truncation, default empty
+   * @returns Truncated string
    */
   static substring(str: string, maxLen: number, suffix: string = ''): string {
     if (!str || str.length <= maxLen) {
@@ -338,14 +338,14 @@ export class StringUtils {
   }
 
   // ========================================
-  // 随机字符串生成
+  // Random string generation
   // ========================================
 
   /**
-   * 生成指定长度的随机字符串
-   * 包含大小写字母和数字
-   * @param length - 要生成的字符串长度
-   * @returns 随机字符串
+   * Generates a random string of the specified length
+   * Contains upper/lowercase letters and digits
+   * @param length - Length of the string to generate
+   * @returns Random string
    */
   static generateRandomString(length: number): string {
     let result: string = '';
@@ -357,9 +357,9 @@ export class StringUtils {
   }
 
   /**
-   * 生成指定长度的随机十六进制字符串
-   * @param length - 要生成的字符串长度
-   * @returns 随机十六进制字符串
+   * Generates a random hexadecimal string of the specified length
+   * @param length - Length of the string to generate
+   * @returns Random hexadecimal string
    */
   static generateHexString(length: number): string {
     let result: string = '';
@@ -371,14 +371,14 @@ export class StringUtils {
   }
 
   // ========================================
-  // 哈希计算
+  // Hash calculation
   // ========================================
 
   /**
-   * 计算字符串的哈希值
-   * 使用DJB2哈希算法
-   * @param str - 要计算哈希值的字符串
-   * @returns 32位整数哈希值
+   * Calculates the hash of a string
+   * Uses the DJB2 hash algorithm
+   * @param str - String to hash
+   * @returns 32-bit integer hash value
    */
   static hashCode(str: string): number {
     if (!str || str.length === 0) {
@@ -388,15 +388,15 @@ export class StringUtils {
     for (let i: number = 0; i < str.length; i++) {
       const charCode: number = str.charCodeAt(i);
       hash = ((hash << 5) + hash) + charCode;
-      hash = hash & hash; // 转换为32位整数
+      hash = hash & hash; // Convert to a 32-bit integer
     }
     return Math.abs(hash);
   }
 
   /**
-   * 计算字符串的简单校验和
-   * @param str - 要计算校验和的字符串
-   * @returns 校验和数值
+   * Calculates a simple checksum of a string
+   * @param str - String to checksum
+   * @returns Checksum value
    */
   static checksum(str: string): number {
     if (!str) {
@@ -410,31 +410,31 @@ export class StringUtils {
   }
 
   // ========================================
-  // 辅助方法
+  // Helper methods
   // ========================================
 
   /**
-   * 检查字符串是否为有效的非空字符串
-   * @param str - 要检查的字符串
-   * @returns 如果字符串非空且不仅包含空白字符返回true
+   * Checks whether a string is a valid non-blank string
+   * @param str - String to check
+   * @returns true if the string is non-empty with non-whitespace content
    */
   static isNotBlank(str: string | null | undefined): boolean {
     return str !== null && str !== undefined && str.trim().length > 0;
   }
 
   /**
-   * 检查字符串是否为空白或空
-   * @param str - 要检查的字符串
-   * @returns 如果字符串为空或仅含空白字符返回true
+   * Checks whether a string is blank or empty
+   * @param str - String to check
+   * @returns true if the string is empty or contains only whitespace
    */
   static isBlank(str: string | null | undefined): boolean {
     return !StringUtils.isNotBlank(str);
   }
 
   /**
-   * 安全地获取字符串长度
-   * @param str - 字符串
-   * @returns 字符串长度，null或undefined返回0
+   * Safely gets the length of a string
+   * @param str - String
+   * @returns String length, or 0 for null/undefined
    */
   static safeLength(str: string | null | undefined): number {
     if (!str) {

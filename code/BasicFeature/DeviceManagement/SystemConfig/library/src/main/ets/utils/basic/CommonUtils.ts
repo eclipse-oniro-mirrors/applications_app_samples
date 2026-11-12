@@ -20,47 +20,47 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 重试配置接口
+// Retry config interface
 // ========================================
 
 /**
- * 重试配置接口
- * 定义重试操作的可选配置参数
+ * Retry config interface
+ * Defines optional configuration parameters for retry operations
  */
 export interface RetryConfig {
-  /** 最大重试次数 */
+  /** Maximum retry count */
   maxRetries: number;
-  /** 重试间隔时间（毫秒） */
+  /** Retry interval (milliseconds) */
   delayMs: number;
-  /** 是否使用指数退避策略 */
+  /** Whether to use exponential backoff */
   exponentialBackoff: boolean;
 }
 
 // ========================================
-// 通用工具类
+// Common utility class
 // ========================================
 
 /**
- * 通用工具类
- * 提供常用的静态工具方法，包括延时、ID生成、空值检查、深拷贝、重试机制等
- * 这些方法在应用的各个模块中都可以复用
+ * Common utility class
+ * Provides frequently used static utility methods including delay, ID generation,
+ * null checks, deep clone and retry, reusable across application modules
  */
 export class CommonUtils {
-  /** UUID生成计数器 */
+  /** UUID generation counter */
   private static idCounter: number = 0;
 
-  /** 上次生成ID的时间戳 */
+  /** Timestamp of the last generated ID */
   private static lastTimestamp: number = 0;
 
   // ========================================
-  // 延时方法
+  // Delay methods
   // ========================================
 
   /**
-   * 异步延时方法
-   * 返回一个在指定毫秒数后解决的Promise
-   * @param ms - 延时的毫秒数
-   * @returns 延时完成后解决的Promise
+   * Asynchronous delay method
+   * Returns a Promise that resolves after the specified milliseconds
+   * @param ms - Delay duration in milliseconds
+   * @returns Promise resolved when the delay completes
    */
   static delay(ms: number): Promise<void> {
     return new Promise<void>((resolve: () => void): void => {
@@ -71,19 +71,19 @@ export class CommonUtils {
   }
 
   // ========================================
-  // ID生成
+  // ID generation
   // ========================================
 
   /**
-   * 生成唯一的类UUID标识符
-   * 基于时间戳和随机数生成，格式类似UUID v4
-   * @returns 类UUID格式的唯一标识符字符串
+   * Generates a unique UUID-like identifier
+   * Based on timestamp and random values, formatted similarly to UUID v4
+   * @returns Unique identifier string in UUID-like format
    */
   static generateId(): string {
     const timestamp: number = Date.now();
     CommonUtils.idCounter++;
 
-    // 确保同一毫秒内的唯一性
+    // Ensure uniqueness within the same millisecond
     if (timestamp === CommonUtils.lastTimestamp) {
       CommonUtils.idCounter++;
     } else {
@@ -101,9 +101,9 @@ export class CommonUtils {
   }
 
   /**
-   * 生成指定长度的十六进制字符串段
-   * @param length - 要生成的十六进制字符串长度
-   * @returns 随机十六进制字符串
+   * Generates a hexadecimal string segment of the specified length
+   * @param length - Length of the hexadecimal string to generate
+   * @returns Random hexadecimal string
    */
   private static generateHexSegment(length: number): string {
     let result: string = '';
@@ -115,13 +115,13 @@ export class CommonUtils {
   }
 
   // ========================================
-  // 空值检查方法
+  // Null check methods
   // ========================================
 
   /**
-   * 检查字符串是否为空或仅包含空白字符
-   * @param str - 要检查的字符串
-   * @returns 如果字符串为空或仅含空白字符返回true
+   * Checks whether a string is empty or contains only whitespace
+   * @param str - String to check
+   * @returns true if the string is empty or contains only whitespace
    */
   static isEmpty(str: string | null | undefined): boolean {
     if (str === null || str === undefined) {
@@ -131,9 +131,9 @@ export class CommonUtils {
   }
 
   /**
-   * 检查值是否为null或undefined
-   * @param value - 要检查的值
-   * @returns 如果值为null或undefined返回true
+   * Checks whether a value is null or undefined
+   * @param value - Value to check
+   * @returns true if the value is null or undefined
    */
   static isNullOrEmpty(value: string | null | undefined | object | unknown[]): boolean {
     if (value === null || value === undefined) {
@@ -152,24 +152,24 @@ export class CommonUtils {
   }
 
   /**
-   * 检查字符串是否不为空且包含非空白字符
-   * @param str - 要检查的字符串
-   * @returns 如果字符串包含非空白字符返回true
+   * Checks whether a string is non-empty and contains non-whitespace characters
+   * @param str - String to check
+   * @returns true if the string contains non-whitespace characters
    */
   static isNotEmpty(str: string | null | undefined): boolean {
     return !CommonUtils.isEmpty(str);
   }
 
   // ========================================
-  // 深拷贝
+  // Deep clone
   // ========================================
 
   /**
-   * 深拷贝对象
-   * 通过JSON序列化和反序列化实现深拷贝
-   * 注意：不支持函数、undefined、Symbol、循环引用等
-   * @param obj - 要深拷贝的对象
-   * @returns 深拷贝后的新对象
+   * Deep clones an object
+   * Implemented via JSON serialization and deserialization
+   * Note: functions, undefined, Symbol and circular references are not supported
+   * @param obj - Object to deep clone
+   * @returns New deep-cloned object
    */
   static deepClone<T>(obj: T): T {
     if (obj === null || obj === undefined) {
@@ -185,17 +185,17 @@ export class CommonUtils {
   }
 
   // ========================================
-  // 重试机制
+  // Retry mechanism
   // ========================================
 
   /**
-   * 带重试机制的异步操作执行器
-   * 当操作失败时，会按照配置的重试策略自动重试
-   * @param fn - 要执行的异步函数
-   * @param maxRetries - 最大重试次数，默认为3
-   * @param delayMs - 重试间隔毫秒数，默认为1000
-   * @param exponentialBackoff - 是否使用指数退避，默认为true
-   * @returns 函数执行结果的Promise
+   * Asynchronous operation executor with retry
+   * Automatically retries failed operations according to the configured strategy
+   * @param fn - Asynchronous function to execute
+   * @param maxRetries - Maximum retry count, default 3
+   * @param delayMs - Retry interval in milliseconds, default 1000
+   * @param exponentialBackoff - Whether to use exponential backoff, default true
+   * @returns Promise of the function result
    */
   static async retry<T>(
     fn: () => Promise<T>,
@@ -230,14 +230,14 @@ export class CommonUtils {
   }
 
   // ========================================
-  // JSON解析
+  // JSON parsing
   // ========================================
 
   /**
-   * 安全地解析JSON字符串
-   * 解析失败时返回null而不是抛出异常
-   * @param str - 要解析的JSON字符串
-   * @returns 解析后的对象，解析失败返回null
+   * Safely parses a JSON string
+   * Returns null instead of throwing on failure
+   * @param str - JSON string to parse
+   * @returns Parsed object, or null on failure
    */
   static safeJsonParse(str: string | null | undefined): object | null {
     if (str === null || str === undefined || str.trim().length === 0) {
@@ -252,11 +252,11 @@ export class CommonUtils {
   }
 
   /**
-   * 安全地将对象序列化为JSON字符串
-   * 序列化失败时返回null
-   * @param obj - 要序列化的对象
-   * @param pretty - 是否格式化输出，默认为false
-   * @returns JSON字符串，序列化失败返回null
+   * Safely serializes an object to a JSON string
+   * Returns null on serialization failure
+   * @param obj - Object to serialize
+   * @param pretty - Whether to format the output, default false
+   * @returns JSON string, or null on failure
    */
   static safeJsonStringify(obj: object | null | undefined, pretty: boolean = false): string | null {
     if (obj === null || obj === undefined) {
@@ -274,34 +274,34 @@ export class CommonUtils {
   }
 
   // ========================================
-  // 其他实用方法
+  // Other utility methods
   // ========================================
 
   /**
-   * 获取当前时间戳（毫秒）
-   * @returns 当前时间的毫秒时间戳
+   * Gets the current timestamp (milliseconds)
+   * @returns Current time in millisecond timestamp
    */
   static getCurrentTimestamp(): number {
     return Date.now();
   }
 
   /**
-   * 检查值是否在指定范围内（包含边界）
-   * @param value - 要检查的数值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns 如果值在范围内返回true
+   * Checks whether a value is within the specified range (inclusive)
+   * @param value - Number to check
+   * @param min - Minimum value
+   * @param max - Maximum value
+   * @returns true if the value is within range
    */
   static isInRange(value: number, min: number, max: number): boolean {
     return value >= min && value <= max;
   }
 
   /**
-   * 将数值限制在指定范围内
-   * @param value - 要限制的数值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns 限制范围后的数值
+   * Clamps a number to the specified range
+   * @param value - Number to clamp
+   * @param min - Minimum value
+   * @param max - Maximum value
+   * @returns Clamped number
    */
   static clamp(value: number, min: number, max: number): number {
     return Math.min(Math.max(value, min), max);

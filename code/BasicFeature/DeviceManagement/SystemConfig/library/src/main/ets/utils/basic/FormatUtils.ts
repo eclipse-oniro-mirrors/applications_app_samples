@@ -15,65 +15,68 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from './ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 格式化单位枚举
+// Format unit enum
 // ========================================
 
 /**
- * 字节单位枚举
- * 定义文件大小格式化时使用的单位类型
+ * Byte unit enum
+ * Defines unit types used when formatting file sizes
  */
 export enum ByteUnit {
-  /** 自动选择合适单位 */
+  /** Automatically selects a suitable unit */
   AUTO = 'auto',
-  /** 字节 */
+  /** Bytes */
   BYTES = 'B',
-  /** 千字节 */
+  /** Kilobytes */
   KILOBYTES = 'KB',
-  /** 兆字节 */
+  /** Megabytes */
   MEGABYTES = 'MB',
-  /** 吉字节 */
+  /** Gigabytes */
   GIGABYTES = 'GB',
-  /** 太字节 */
+  /** Terabytes */
   TERABYTES = 'TB',
 }
 
 // ========================================
-// 格式化工具类
+// Formatting utility class
 // ========================================
 
 /**
- * 格式化工具类
- * 提供各类数据格式化的静态方法，包括字节大小、时间长度、数字、字符串等
- * 所有格式化方法均支持中文输出
+ * Formatting utility class
+ * Provides static methods for various data formats, including byte size, duration,
+ * numbers and strings
+ * Language-dependent units and texts come from string.json resources
+ * (duration_*, compact_unit_*)
  */
 export class FormatUtils {
-  /** 字节单位换算基数 */
+  /** Byte conversion base */
   private static readonly BYTE_BASE: number = 1024;
 
-  /** 字节单位标签数组 */
+  /** Byte unit label array */
   private static readonly BYTE_UNITS: string[] = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
-  /** 时间单位常量 */
+  /** Time unit constants */
   private static readonly MS_PER_SECOND: number = 1000;
   private static readonly MS_PER_MINUTE: number = 60000;
   private static readonly MS_PER_HOUR: number = 3600000;
   private static readonly MS_PER_DAY: number = 86400000;
 
   // ========================================
-  // 字节格式化
+  // Byte formatting
   // ========================================
 
   /**
-   * 将字节数格式化为人类可读的文件大小字符串
-   * 自动选择合适的单位（B、KB、MB、GB、TB）
-   * @param bytes - 字节数
-   * @param decimals - 小数位数，默认为2
-   * @returns 格式化后的大小字符串，如"1.5 MB"
+   * Formats a byte count into a human-readable file size string
+   * Automatically selects a suitable unit (B, KB, MB, GB, TB)
+   * @param bytes - Byte count
+   * @param decimals - Decimal places, default 2
+   * @returns Formatted size string, e.g. "1.5 MB"
    */
   static formatBytes(bytes: number, decimals: number = 2): string {
     if (bytes === 0) {
@@ -87,7 +90,7 @@ export class FormatUtils {
     const value: number = absBytes / Math.pow(FormatUtils.BYTE_BASE, safeUnitIndex);
     const formatted: string = value.toFixed(decimals);
 
-    // 移除末尾多余的零
+    // Remove trailing redundant zeros
     const cleanValue: string = parseFloat(formatted).toString();
     const prefix: string = isNegative ? '-' : '';
 
@@ -95,11 +98,11 @@ export class FormatUtils {
   }
 
   /**
-   * 将字节数格式化为精确的指定单位
-   * @param bytes - 字节数
-   * @param unit - 目标单位
-   * @param decimals - 小数位数，默认为2
-   * @returns 格式化后的大小字符串
+   * Formats a byte count into an exact specified unit
+   * @param bytes - Byte count
+   * @param unit - Target unit
+   * @param decimals - Decimal places, default 2
+   * @returns Formatted size string
    */
   static formatBytesInUnit(bytes: number, unit: ByteUnit, decimals: number = 2): string {
     if (unit === ByteUnit.AUTO) {
@@ -120,18 +123,19 @@ export class FormatUtils {
   }
 
   // ========================================
-  // 时间长度格式化
+  // Duration formatting
   // ========================================
 
   /**
-   * 将毫秒数格式化为人类可读的时间长度字符串
-   * 支持天、小时、分钟、秒的组合显示
-   * @param ms - 毫秒数
-   * @returns 格式化后的时间长度字符串，如"2小时30分"
+   * Formats milliseconds into a human-readable duration string
+   * Supports combinations of days, hours, minutes and seconds; unit texts come from
+   * string.json duration_* resources
+   * @param ms - Milliseconds
+   * @returns Formatted duration string
    */
   static formatDuration(ms: number): string {
     if (ms <= 0) {
-      return '0秒';
+      return ResourceHelper.getStringByName('duration_zero');
     }
 
     const days: number = Math.floor(ms / FormatUtils.MS_PER_DAY);
@@ -142,25 +146,25 @@ export class FormatUtils {
     let result: string = '';
 
     if (days > 0) {
-      result += `${days}天`;
+      result += ResourceHelper.getStringByName('duration_days', days);
     }
     if (hours > 0) {
-      result += `${hours}小时`;
+      result += ResourceHelper.getStringByName('duration_hours', hours);
     }
     if (minutes > 0) {
-      result += `${minutes}分`;
+      result += ResourceHelper.getStringByName('duration_minutes', minutes);
     }
     if (seconds > 0 && days === 0) {
-      result += `${seconds}秒`;
+      result += ResourceHelper.getStringByName('duration_seconds', seconds);
     }
 
-    return result || '0秒';
+    return result || ResourceHelper.getStringByName('duration_zero');
   }
 
   /**
-   * 将秒数格式化为 HH:mm:ss 格式的时间字符串
-   * @param totalSeconds - 总秒数
-   * @returns 格式化后的时间字符串
+   * Formats seconds into an HH:mm:ss time string
+   * @param totalSeconds - Total seconds
+   * @returns Formatted time string
    */
   static formatSeconds(totalSeconds: number): string {
     const hours: number = Math.floor(totalSeconds / 3600);
@@ -175,14 +179,14 @@ export class FormatUtils {
   }
 
   // ========================================
-  // 数字格式化
+  // Number formatting
   // ========================================
 
   /**
-   * 格式化数字，保留指定小数位数
-   * @param num - 要格式化的数字
-   * @param decimals - 小数位数，默认为2
-   * @returns 格式化后的数字字符串
+   * Formats a number keeping the specified decimal places
+   * @param num - Number to format
+   * @param decimals - Decimal places, default 2
+   * @returns Formatted number string
    */
   static formatNumber(num: number, decimals: number = 2): string {
     if (isNaN(num)) {
@@ -193,9 +197,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化数字为带千分位分隔符的字符串
-   * @param num - 要格式化的数字
-   * @returns 带千分位分隔符的数字字符串，如"1,234,567"
+   * Formats a number with thousands separators
+   * @param num - Number to format
+   * @returns Number string with thousands separators, e.g. "1,234,567"
    */
   static formatWithSeparator(num: number): string {
     const parts: string[] = num.toString().split('.');
@@ -204,30 +208,30 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化大数字为简短表示（万、亿）
-   * @param num - 要格式化的数字
-   * @returns 简短的数字表示，如"1.5万"、"2.3亿"
+   * Formats a large number in compact form, using units from string.json compact_unit_* resources
+   * @param num - Number to format
+   * @returns Compact number representation
    */
   static formatCompactNumber(num: number): string {
     if (Math.abs(num) >= 100000000) {
-      return `${(num / 100000000).toFixed(1)}亿`;
+      return `${(num / 100000000).toFixed(1)}${ResourceHelper.getStringByName('compact_unit_yi')}`;
     }
     if (Math.abs(num) >= 10000) {
-      return `${(num / 10000).toFixed(1)}万`;
+      return `${(num / 10000).toFixed(1)}${ResourceHelper.getStringByName('compact_unit_wan')}`;
     }
     return num.toString();
   }
 
   // ========================================
-  // 字符串格式化
+  // String formatting
   // ========================================
 
   /**
-   * 在字符串开头填充指定字符到目标长度
-   * @param str - 原始字符串
-   * @param len - 目标总长度
-   * @param char - 填充字符，默认为空格
-   * @returns 填充后的字符串
+   * Pads a string at the start with a character until the target length
+   * @param str - Original string
+   * @param len - Target total length
+   * @param char - Padding character, default space
+   * @returns Padded string
    */
   static padStart(str: string, len: number, char: string = ' '): string {
     if (str.length >= len) {
@@ -238,11 +242,11 @@ export class FormatUtils {
   }
 
   /**
-   * 在字符串末尾填充指定字符到目标长度
-   * @param str - 原始字符串
-   * @param len - 目标总长度
-   * @param char - 填充字符，默认为空格
-   * @returns 填充后的字符串
+   * Pads a string at the end with a character until the target length
+   * @param str - Original string
+   * @param len - Target total length
+   * @param char - Padding character, default space
+   * @returns Padded string
    */
   static padEnd(str: string, len: number, char: string = ' '): string {
     if (str.length >= len) {
@@ -253,11 +257,11 @@ export class FormatUtils {
   }
 
   /**
-   * 截断字符串到指定最大长度，超出部分用省略号替代
-   * @param str - 原始字符串
-   * @param maxLen - 最大长度（包含省略号）
-   * @param suffix - 超出部分的替代后缀，默认为"..."
-   * @returns 截断后的字符串
+   * Truncates a string to a maximum length, replacing the overflow with an ellipsis
+   * @param str - Original string
+   * @param maxLen - Maximum length (including the ellipsis)
+   * @param suffix - Replacement suffix for the overflow, default "..."
+   * @returns Truncated string
    */
   static truncate(str: string, maxLen: number, suffix: string = '...'): string {
     if (str.length <= maxLen) {
@@ -267,10 +271,10 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化百分比数值
-   * @param ratio - 比率值（0-1之间的小数或0-100的整数）
-   * @param decimals - 小数位数，默认为1
-   * @returns 格式化后的百分比字符串，如"75.5%"
+   * Formats a percentage value
+   * @param ratio - Ratio (a decimal between 0-1 or an integer between 0-100)
+   * @param decimals - Decimal places, default 1
+   * @returns Formatted percentage string, e.g. "75.5%"
    */
   static formatPercentage(ratio: number, decimals: number = 1): string {
     let percentage: number;
@@ -283,9 +287,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化手机号码，中间部分用星号替代
-   * @param phone - 手机号码字符串
-   * @returns 脱敏后的手机号码，如"138****5678"
+   * Formats a phone number with the middle part masked by asterisks
+   * @param phone - Phone number string
+   * @returns Masked phone number, e.g. "138****5678"
    */
   static maskPhone(phone: string): string {
     if (phone.length < 7) {
@@ -298,9 +302,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化邮箱地址，用户名部分用星号替代
-   * @param email - 邮箱地址
-   * @returns 脱敏后的邮箱地址
+   * Formats an email address with the username part masked by asterisks
+   * @param email - Email address
+   * @returns Masked email address
    */
   static maskEmail(email: string): string {
     const atIndex: number = email.indexOf('@');
