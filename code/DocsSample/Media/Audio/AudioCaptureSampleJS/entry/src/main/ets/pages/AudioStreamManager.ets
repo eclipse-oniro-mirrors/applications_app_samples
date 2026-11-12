@@ -18,13 +18,14 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 let audioManager = audio.getAudioManager();
 let audioStreamManager = audioManager.getStreamManager();
+// [End get_StreamManager]
+
 let audioVolumeGroupManager: audio.AudioVolumeGroupManager | undefined;
 const micCapturerInfo: audio.AudioCapturerInfo = {
   source: audio.SourceType.SOURCE_TYPE_MIC,
   capturerFlags: 0
 };
 const MIC_OCCUPATION_AMPLITUDE_SAMPLE_INTERVAL_MS: number = 500;
-// [End get_StreamManager]
 
 // 全局UI更新回调
 let globalCallbackUpdate: ((msg: string) => void) | undefined;
