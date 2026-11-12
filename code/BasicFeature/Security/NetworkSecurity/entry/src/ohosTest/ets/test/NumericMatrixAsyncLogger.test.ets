@@ -778,9 +778,10 @@ export default function numericMatrixAsyncLoggerTest() {
       // The leading call and a burst call schedule the trailing edge.
       wrapped();
       wrapped();
-      // Waiting past the interval lets the trailing call refresh the last run time.
       await sleepMs(80);
-      // A new call after the trailing edge starts a fresh leading execution.
+      expect(fireCount).assertEqual(2);
+      // Measure the next interval from the observed trailing call, not its scheduled deadline.
+      await sleepMs(40);
       wrapped();
       // Leading plus trailing plus the fresh call produce three executions.
       expect(fireCount).assertEqual(3);
