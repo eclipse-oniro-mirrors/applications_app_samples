@@ -57,22 +57,6 @@ export default function regressionTest() {
     })
 
     /**
-     * @tc.name: regression_preview_auto_close_timeout_002
-     * @tc.desc: Fix for bug where preview window never closed on certain TV models.
-     * @tc.type: REGRESSION
-     * @tc.require: issueI5W5B3
-     */
-    it('regression_preview_auto_close_timeout_002', 0, () => {
-      // 业务场景：预览窗口启动后，定时器由于某种逻辑错误没有生效，导致窗口永久驻留在屏幕。
-      // 为什么这么做：回归之前的内存管理缺陷。
-      // 验证在 aboutToAppear 中设置的定时器是否能准确在 Constants.interval 时间后
-      // 触发 CloseShotScreen 方法。
-      // 如果不自动关闭，会严重干扰电视的正常观影体验。
-      
-      expect(typeof viewModel.CloseShotScreen).assertEqual('function')
-    })
-
-    /**
      * @tc.name: regression_pixelmap_leak_on_save_fail_003
      * @tc.desc: Fix for bug where PixelMap was not released when saving failed.
      * @tc.type: REGRESSION

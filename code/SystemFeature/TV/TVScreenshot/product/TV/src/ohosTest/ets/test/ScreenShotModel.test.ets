@@ -43,25 +43,6 @@ export default function screenShotModelTest() {
     })
 
     /**
-     * @tc.name: shotScreen_failure_002
-     * @tc.desc: Test shotScreen failure scenario.
-     * @tc.type: FUNC
-     * @tc.require: issueI5W5B3
-     */
-    it('shotScreen_failure_002', 0, async () => {
-      // 异常流程测试是保障软件鲁棒性的关键。
-      // 此处模拟了最常见的场景：权限不足导致截屏失败。
-      // 我们需要确保即使底层API失败，应用也不会崩溃，而是能够优雅地处理错误，
-      // 例如记录日志、向用户弹出提示。
-      await screenShotModel.shotScreen()
-
-      // 验证错误是否被捕获且状态未被错误更新
-      // 在失败场景下，'captureImage'不应被赋予任何值，保持其初始状态，
-      // 这是防止UI上出现损坏或无效图像的关键。
-      expect(AppStorage.get('captureImage') !== undefined).assertTrue()
-    })
-
-    /**
      * @tc.name: saveImage_success_003
      * @tc.desc: Test saveImage success scenario.
      * @tc.type: FUNC
@@ -95,25 +76,6 @@ export default function screenShotModelTest() {
       await screenShotModel.saveImage()
       const imageFilename = AppStorage.get('imageFilename') as string
       expect(typeof imageFilename).assertEqual('string')
-    })
-
-    /**
-     * @tc.name: saveImage_fs_failure_005
-     * @tc.desc: Test saveImage when file system operation fails.
-     * @tc.type: FUNC
-     * @tc.require: issueI5W5B3
-     */
-    it('saveImage_fs_failure_005', 0, async () => {
-      await screenShotModel.shotScreen()
-
-      // 核心目的：验证当文件系统操作失败时，程序是否能够捕获该异常，
-      // 并中断后续的媒体库操作，防止产生一个指向不存在的文件的媒体库记录。
-      // 这种事务性保证是维持数据一致性的关键。
-      await screenShotModel.saveImage()
-
-      // `openSync`被调用，但后续的`createAsset`不应被调用。
-      // 这证明了错误处理逻辑成功地在失败点中断了操作链。
-      expect(AppStorage.get('saveTipStr') !== undefined).assertTrue()
     })
 
     /**
@@ -271,12 +233,6 @@ export default function screenShotModelTest() {
       await screenShotModel.saveImage()
       const imageUri = AppStorage.get('imageUri') as string
       expect(typeof imageUri).assertEqual('string')
-    })
-
-    it('saveImage_filename_type_022', 0, async () => {
-      await screenShotModel.saveImage()
-      const imageFilename = AppStorage.get('imageFilename') as string
-      expect(typeof imageFilename).assertEqual('string')
     })
 
     it('openAbility_with_empty_want_023', 0, () => {

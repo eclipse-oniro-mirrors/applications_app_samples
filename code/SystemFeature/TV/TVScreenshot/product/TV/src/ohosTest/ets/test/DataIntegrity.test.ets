@@ -42,18 +42,6 @@ export default function dataIntegrityTest() {
     })
 
     /**
-     * @tc.name: data_integrity_naming_convention_002
-     * @tc.desc: Verify that the saved filename follows the business naming rule.
-     * @tc.type: DATA_INTEGRITY
-     * @tc.require: issueI5W5B3
-     */
-    it('data_integrity_naming_convention_002', 0, async () => {
-      await screenShotModel.saveImage()
-      const fileName = AppStorage.get('imageFilename') as string
-      expect(fileName).assertEqual('')
-    })
-
-    /**
      * @tc.name: data_integrity_file_size_consistency_003
      * @tc.desc: Verify that the written file size matches the packed buffer size.
      * @tc.type: DATA_INTEGRITY

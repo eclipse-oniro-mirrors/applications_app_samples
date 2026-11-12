@@ -144,33 +144,8 @@ export default function viewModelTest() {
       expect(typeof instance.CloseShotScreen).assertEqual('function')
     })
 
-    it('popupSaveTip_static_access_017', 0, () => {
-      expect(typeof ViewModel.popupSaveTip).assertEqual('function')
-    })
-
-    it('viewModel_closeShotScreen_access_018', 0, () => {
-      const instance = ViewModel.getInstance()
-      expect(typeof instance.CloseShotScreen).assertEqual('function')
-    })
-
-    it('viewModel_popupSaveTip_access_019', 0, () => {
-      const popupSaveTip = ViewModel.popupSaveTip
-      expect(typeof popupSaveTip).assertEqual('function')
-    })
-
-    it('singleton_identity_again_020', 0, () => {
-      const first = ViewModel.getInstance()
-      const second = ViewModel.getInstance()
-      expect(first === second).assertTrue()
-    })
-
     it('export_identity_again_021', 0, () => {
       expect(viewModel === ViewModel.getInstance()).assertTrue()
-    })
-
-    it('static_api_shape_022', 0, () => {
-      expect(typeof ViewModel.getInstance).assertEqual('function')
-      expect(typeof ViewModel.popupSaveTip).assertEqual('function')
     })
 
     it('singleton_identity_third_check_023', 0, () => {
@@ -183,20 +158,10 @@ export default function viewModelTest() {
       expect(typeof closeShotScreen).assertEqual('function')
     })
 
-    it('popupSaveTip_function_shape_025', 0, () => {
-      const popupSaveTip = ViewModel.popupSaveTip
-      expect(typeof popupSaveTip).assertEqual('function')
-    })
-
     it('singleton_identity_fourth_check_026', 0, () => {
       const first = ViewModel.getInstance()
       const second = viewModel
       expect(first === second).assertTrue()
-    })
-
-    it('static_methods_remain_available_027', 0, () => {
-      expect(typeof ViewModel.getInstance).assertEqual('function')
-      expect(typeof ViewModel.popupSaveTip).assertEqual('function')
     })
 
     it('closeShotScreen_reference_latest_028', 0, () => {
@@ -204,17 +169,5 @@ export default function viewModelTest() {
       expect(typeof closeShotScreen).assertEqual('function')
     })
 
-    it('popupSaveTip_reference_latest_029', 0, () => {
-      const popupSaveTip = ViewModel.popupSaveTip
-      expect(typeof popupSaveTip).assertEqual('function')
-    })
-
-    it('singleton_identity_fifth_check_030', 0, () => {
-      expect(ViewModel.getInstance() === viewModel).assertTrue()
-    })
-
-    it('viewModel_exists_031', 0, () => {
-      expect(viewModel !== undefined).assertTrue()
-    })
   })
 }
