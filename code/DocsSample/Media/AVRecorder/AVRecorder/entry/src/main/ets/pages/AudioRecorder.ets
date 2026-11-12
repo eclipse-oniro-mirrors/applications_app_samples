@@ -108,6 +108,7 @@ struct AudioRecorder {
       Row() {
         Stack({ alignContent: Alignment.Center }) {
           Text(this.audioRecorderTimeText)
+            .id('audioTime')
             .fontFamily('HarmonyHeiTi-Light')
             .width(70)
             .height(40)
@@ -241,6 +242,7 @@ struct AudioRecorder {
 
   onConfirm = (audioSampleRate: number) => {
     Logger.info(TAG, 'Callback when the confirm button is clicked');
+    this.audioSampleRate = audioSampleRate;
     this.recorderService.configAudioSampleRate(audioSampleRate);
   }
 
