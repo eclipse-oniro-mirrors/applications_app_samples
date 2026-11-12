@@ -19,7 +19,8 @@
     "deviceTypes": [
       "phone",
       "tablet",
-      "2in1"
+      "2in1",
+      "default"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
@@ -62,18 +63,6 @@
             "resource": "$profile:backup_config"
           }
         ]
-      }
-    ],
-    "requestPermissions": [
-      {
-        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
-        "reason": "$string:reason_background",
-        "usedScene": {
-          "abilities": [
-            "EntryAbility"
-          ],
-          "when": "always"
-        }
       }
     ]
   }
