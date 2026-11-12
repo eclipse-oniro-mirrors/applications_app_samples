@@ -51,8 +51,8 @@ function hello() {
 }
 `;
 
-// 转义反引号和 $
-let escaped: string = `Price: \$100`;
+// 转义反引号和 ${
+let escaped: string = `Price: \${100}`;
 let backtick: string = `Use \`backticks\``;
 // [End template_string_escape]
 
@@ -406,6 +406,9 @@ let firstUpper: string = upperText[0].toUpperCase() + upperText.substring(1);  /
 function capitalizeWords(upperText: string): string {
   let words: string[] = upperText.split(' ');
   let capitalized: string[] = words.map((word: string): string => {
+    if (word.length === 0) {
+      return '';
+    }
     return word[0].toUpperCase() + word.substring(1).toLowerCase();
   });
   return capitalized.join(' ');
@@ -522,6 +525,9 @@ console.info(`${regexParts}`);  // 'a,b,c,d'
 
 // matchAll：全局匹配（ES2020，ArkTS支持；/\w+/g表示全局匹配由单词字符组成的连续片段）
 let allMatches: IterableIterator<RegExpMatchArray> = regexText.matchAll(/\w+/g);
+for (const match of allMatches) {
+  console.info(`${match[0]}`);  // 依次输出：The、quick、brown、fox
+}
 // [End string_regex]
 
 // ===== prefer_template_string =====

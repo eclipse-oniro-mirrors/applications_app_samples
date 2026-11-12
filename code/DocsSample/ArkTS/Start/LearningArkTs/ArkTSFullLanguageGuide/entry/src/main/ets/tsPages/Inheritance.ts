@@ -322,7 +322,7 @@ class SuperChild extends SuperBase {
 
     // 应使用this或父类名访问属性
     console.info(`${this.value}`);          // 20（子类属性）
-    console.info(`${SuperChild.prototype.value}`); // 反例：父类属性
+    console.info(`${SuperChild.prototype.value}`); // 反例：不应通过prototype访问属性
   }
 
   anotherMethod(): void {
