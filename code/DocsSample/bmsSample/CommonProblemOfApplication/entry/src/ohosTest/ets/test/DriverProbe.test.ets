@@ -30,7 +30,7 @@ export default function driverProbeTest() {
         hilog.info(DOMAIN, TAG, `Driver.create() returned non-null: ${d !== null}`);
         expect(d !== null).assertTrue();
       } catch (e) {
-        const err = e as BusinessError;
+        const err: BusinessError = e as BusinessError;
         hilog.error(DOMAIN, TAG, `driver probe failed, code: ${err.code}, message: ${err.message}`);
         expect(false).assertTrue();
       }

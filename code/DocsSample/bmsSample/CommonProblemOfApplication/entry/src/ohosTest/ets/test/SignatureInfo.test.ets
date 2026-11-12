@@ -16,6 +16,7 @@
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { bundleManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = 'SignatureInfoTest';
@@ -30,21 +31,24 @@ export default function SignatureInfoTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testGetAppId0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      const bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
+    it('testGetAppId0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGetAppId0001 begin');
+      const bundleFlags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
         bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SIGNATURE_INFO;
+      hilog.info(DOMAIN, TAG, '%{public}s', `bundleFlags: ${bundleFlags}`);
 
       try {
-        const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
+        const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
         expect(bundleInfo != null).assertTrue();
         expect(bundleInfo.signatureInfo != null).assertTrue();
         expect(bundleInfo.signatureInfo.appId != null).assertTrue();
-        console.info(TAG, 'getAppId successfully. appId:', bundleInfo.signatureInfo.appId);
+        hilog.info(DOMAIN, TAG, '%{public}s', `getAppId successfully. appId: ${bundleInfo.signatureInfo.appId}`);
       } catch (err) {
-        let message = (err as BusinessError).message;
-        console.error(TAG, 'getAppId failed:', message);
+        let message: string = (err as BusinessError).message;
+        hilog.error(DOMAIN, TAG, '%{public}s', `getAppId failed: ${message}`);
         expect(false).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGetAppId0001 end');
     })
 
     /**
@@ -55,21 +59,25 @@ export default function SignatureInfoTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testGetAppIdentifier0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      const bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
+    it('testGetAppIdentifier0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGetAppIdentifier0001 begin');
+      const bundleFlags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
         bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SIGNATURE_INFO;
+      hilog.info(DOMAIN, TAG, '%{public}s', `bundleFlags: ${bundleFlags}`);
 
       try {
-        const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
+        const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
         expect(bundleInfo != null).assertTrue();
         expect(bundleInfo.signatureInfo != null).assertTrue();
         expect(bundleInfo.signatureInfo.appIdentifier != null).assertTrue();
-        console.info(TAG, 'getAppIdentifier successfully. appIdentifier:', bundleInfo.signatureInfo.appIdentifier);
+        hilog.info(DOMAIN, TAG, '%{public}s',
+          `getAppIdentifier successfully. appIdentifier: ${bundleInfo.signatureInfo.appIdentifier}`);
       } catch (err) {
-        let message = (err as BusinessError).message;
-        console.error(TAG, 'getAppIdentifier failed:', message);
+        let message: string = (err as BusinessError).message;
+        hilog.error(DOMAIN, TAG, '%{public}s', `getAppIdentifier failed: ${message}`);
         expect(false).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGetAppIdentifier0001 end');
     })
 
     /**
@@ -80,21 +88,25 @@ export default function SignatureInfoTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testGetFingerprint0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      const bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
+    it('testGetFingerprint0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGetFingerprint0001 begin');
+      const bundleFlags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
         bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SIGNATURE_INFO;
+      hilog.info(DOMAIN, TAG, '%{public}s', `bundleFlags: ${bundleFlags}`);
 
       try {
-        const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
+        const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
         expect(bundleInfo != null).assertTrue();
         expect(bundleInfo.signatureInfo != null).assertTrue();
         expect(bundleInfo.signatureInfo.fingerprint != null).assertTrue();
-        console.info(TAG, 'getFingerprint successfully. fingerprint:', bundleInfo.signatureInfo.fingerprint);
+        hilog.info(DOMAIN, TAG, '%{public}s',
+          `getFingerprint successfully. fingerprint: ${bundleInfo.signatureInfo.fingerprint}`);
       } catch (err) {
-        let message = (err as BusinessError).message;
-        console.error(TAG, 'getFingerprint failed:', message);
+        let message: string = (err as BusinessError).message;
+        hilog.error(DOMAIN, TAG, '%{public}s', `getFingerprint failed: ${message}`);
         expect(false).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGetFingerprint0001 end');
     })
 
     /**
@@ -105,21 +117,24 @@ export default function SignatureInfoTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBundleFlagsCombination0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      const bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
+    it('testBundleFlagsCombination0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBundleFlagsCombination0001 begin');
+      const bundleFlags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
         bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SIGNATURE_INFO;
+      hilog.info(DOMAIN, TAG, '%{public}s', `bundleFlags: ${bundleFlags}`);
 
       try {
-        const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
+        const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
         expect(bundleInfo != null).assertTrue();
         // Verify that signature info is available
         expect(bundleInfo.signatureInfo != null).assertTrue();
-        console.info(TAG, 'bundleFlags combination test passed');
+        hilog.info(DOMAIN, TAG, '%{public}s', 'bundleFlags combination test passed');
       } catch (err) {
-        let message = (err as BusinessError).message;
-        console.error(TAG, 'bundleFlags combination test failed:', message);
+        let message: string = (err as BusinessError).message;
+        hilog.error(DOMAIN, TAG, '%{public}s', `bundleFlags combination test failed: ${message}`);
         expect(false).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBundleFlagsCombination0001 end');
     })
 
     /**
@@ -130,20 +145,23 @@ export default function SignatureInfoTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testErrorHandling0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      const invalidFlags = -1; // Invalid flag value
+    it('testErrorHandling0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testErrorHandling0001 begin');
+      const invalidFlags: number = -1; // Invalid flag value
+      hilog.info(DOMAIN, TAG, '%{public}s', `invalidFlags: ${invalidFlags}`);
 
       try {
-        const bundleInfo = await bundleManager.getBundleInfoForSelf(invalidFlags);
+        const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(invalidFlags);
         // If no error thrown, verify the result is still valid
         expect(bundleInfo != null).assertTrue();
-        console.info(TAG, 'error handling test passed with default behavior');
+        hilog.info(DOMAIN, TAG, '%{public}s', 'error handling test passed with default behavior');
       } catch (err) {
-        let message = (err as BusinessError).message;
-        console.info(TAG, 'error handling test caught expected error:', message);
+        let message: string = (err as BusinessError).message;
+        hilog.info(DOMAIN, TAG, '%{public}s', `error handling test caught expected error: ${message}`);
         // Error is acceptable for invalid flags
         expect(true).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testErrorHandling0001 end');
     })
   })
 }
