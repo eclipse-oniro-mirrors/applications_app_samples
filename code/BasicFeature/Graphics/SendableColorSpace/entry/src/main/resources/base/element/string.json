@@ -1,0 +1,60 @@
+{
+    "string": [
+        {
+            "name": "module_desc",
+            "value": "module description"
+        },
+        {
+            "name": "EntryAbility_desc",
+            "value": "description"
+        },
+        {
+            "name": "EntryAbility_label",
+            "value": "SendableColorSpace"
+        },
+        {
+            "name": "page_title",
+            "value": "SendableColorSpace"
+        },
+        {
+            "name": "page_subtitle",
+            "value": "Sendable Color Space Management Sample"
+        },
+        {
+            "name": "nav_standard",
+            "value": "Standard Color Spaces"
+        },
+        {
+            "name": "nav_custom",
+            "value": "Custom Color Space"
+        },
+        {
+            "name": "nav_concurrency",
+            "value": "Concurrency Scenarios"
+        },
+        {
+            "name": "nav_exception",
+            "value": "Exception Handling"
+        },
+        {
+            "name": "nav_chromaticity",
+            "value": "Chromaticity Diagram"
+        },
+        {
+            "name": "nav_difference",
+            "value": "Color Difference"
+        },
+        {
+            "name": "nav_conversion",
+            "value": "Color Conversion"
+        },
+        {
+            "name": "nav_benchmark",
+            "value": "Concurrency Benchmark"
+        },
+        {
+            "name": "nav_report",
+            "value": "Color Space Report"
+        }
+    ]
+}

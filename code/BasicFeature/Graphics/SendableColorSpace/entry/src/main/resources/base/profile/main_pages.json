@@ -1,0 +1,14 @@
+{
+    "src": [
+        "pages/Index",
+        "pages/StandardColorSpace",
+        "pages/CustomColorSpace",
+        "pages/Concurrency",
+        "pages/ExceptionTest",
+        "pages/ChromaticityDiagram",
+        "pages/ColorDifference",
+        "pages/ColorConversion",
+        "pages/ConcurrencyBenchmark",
+        "pages/ColorSpaceReport"
+    ]
+}

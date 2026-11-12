@@ -1,0 +1,60 @@
+{
+    "string": [
+        {
+            "name": "module_desc",
+            "value": "模块描述"
+        },
+        {
+            "name": "EntryAbility_desc",
+            "value": "描述"
+        },
+        {
+            "name": "EntryAbility_label",
+            "value": "可共享色彩管理"
+        },
+        {
+            "name": "page_title",
+            "value": "可共享色彩管理"
+        },
+        {
+            "name": "page_subtitle",
+            "value": "Sendable 色域管理示例工程"
+        },
+        {
+            "name": "nav_standard",
+            "value": "标准色域"
+        },
+        {
+            "name": "nav_custom",
+            "value": "自定义色域"
+        },
+        {
+            "name": "nav_concurrency",
+            "value": "并发场景"
+        },
+        {
+            "name": "nav_exception",
+            "value": "异常处理"
+        },
+        {
+            "name": "nav_chromaticity",
+            "value": "色度图"
+        },
+        {
+            "name": "nav_difference",
+            "value": "色差计算"
+        },
+        {
+            "name": "nav_conversion",
+            "value": "色彩转换"
+        },
+        {
+            "name": "nav_benchmark",
+            "value": "并发基准"
+        },
+        {
+            "name": "nav_report",
+            "value": "色域报告"
+        }
+    ]
+}
