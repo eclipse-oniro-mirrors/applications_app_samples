@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -23,7 +23,15 @@ const TAG: string = 'CommonProblemOfApplicationDriverProbeTest';
 
 export default function driverProbeTest() {
   describe('driverProbeTest', () => {
-    it('probe', 0, async () => {
+    /**
+     * @tc.number SUB_COMMON_PROBLEM_DRIVER_PROBE_0100
+     * @tc.name testDriverProbe0001
+     * @tc.desc Verify UiTest Driver can be created and returned instance is non-null
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL1
+     */
+    it('testDriverProbe0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, 'driverProbeTest probe begin');
       try {
         const d: Driver = Driver.create();
