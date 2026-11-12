@@ -1,0 +1,209 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "无障碍扩展示例模块",
+      "description": "入口模块的描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "无障碍扩展示例入口元能力",
+      "description": "入口元能力的描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "无障碍扩展示例",
+      "description": "入口元能力在桌面上显示的名称"
+    },
+    {
+      "name": "AccessibilityExtensionAbility_desc",
+      "value": "无障碍扩展服务能力描述",
+      "description": "无障碍扩展服务能力的描述"
+    },
+    {
+      "name": "AccessibilityExtensionAbility_label",
+      "value": "无障碍扩展示例服务",
+      "description": "无障碍扩展服务在系统设置中显示的名称"
+    },
+    {
+      "name": "accessibility_config_description",
+      "value": "示例应用的无障碍服务配置",
+      "description": "无障碍扩展服务配置文件的描述"
+    },
+    {
+      "name": "page_title",
+      "value": "无障碍扩展示例",
+      "description": "示例页面标题"
+    },
+    {
+      "name": "section_basic_interaction",
+      "value": "基础交互",
+      "description": "基础交互区域标题"
+    },
+    {
+      "name": "btn_click_me",
+      "value": "点击我",
+      "description": "点击事件按钮的文本"
+    },
+    {
+      "name": "btn_click_desc",
+      "value": "用于触发点击无障碍事件的按钮",
+      "description": "点击事件按钮的无障碍描述"
+    },
+    {
+      "name": "btn_long_click",
+      "value": "长按",
+      "description": "长按事件按钮的文本"
+    },
+    {
+      "name": "btn_long_click_desc",
+      "value": "用于触发长按无障碍事件的按钮",
+      "description": "长按事件按钮的无障碍描述"
+    },
+    {
+      "name": "counter_label",
+      "value": "点击次数",
+      "description": "点击计数器的名称"
+    },
+    {
+      "name": "section_text_input",
+      "value": "文本输入",
+      "description": "文本输入区域标题"
+    },
+    {
+      "name": "input_placeholder",
+      "value": "请输入文本",
+      "description": "文本输入框的提示文本"
+    },
+    {
+      "name": "input_accessibility_text",
+      "value": "文本输入框",
+      "description": "文本输入框的无障碍文本"
+    },
+    {
+      "name": "input_accessibility_desc",
+      "value": "用于触发文本更新无障碍事件的输入框",
+      "description": "文本输入框的无障碍描述"
+    },
+    {
+      "name": "section_toggle",
+      "value": "开关控件",
+      "description": "开关控件区域标题"
+    },
+    {
+      "name": "toggle_accessibility_text",
+      "value": "开关",
+      "description": "开关控件的无障碍文本"
+    },
+    {
+      "name": "toggle_accessibility_desc",
+      "value": "用于触发选择无障碍事件的开关控件",
+      "description": "开关控件的无障碍描述"
+    },
+    {
+      "name": "section_list",
+      "value": "可滚动列表",
+      "description": "可滚动列表区域标题"
+    },
+    {
+      "name": "list_item_1",
+      "value": "列表项 1",
+      "description": "第一个列表项的文本"
+    },
+    {
+      "name": "list_item_2",
+      "value": "列表项 2",
+      "description": "第二个列表项的文本"
+    },
+    {
+      "name": "list_item_3",
+      "value": "列表项 3",
+      "description": "第三个列表项的文本"
+    },
+    {
+      "name": "list_item_4",
+      "value": "列表项 4",
+      "description": "第四个列表项的文本"
+    },
+    {
+      "name": "list_item_5",
+      "value": "列表项 5",
+      "description": "第五个列表项的文本"
+    },
+    {
+      "name": "list_accessibility_text",
+      "value": "可滚动的列表项集合",
+      "description": "可滚动列表的无障碍文本"
+    },
+    {
+      "name": "section_slider",
+      "value": "滑块控件",
+      "description": "滑块控件区域标题"
+    },
+    {
+      "name": "slider_accessibility_text",
+      "value": "音量滑块",
+      "description": "滑块的无障碍文本"
+    },
+    {
+      "name": "slider_accessibility_desc",
+      "value": "用于演示 valueNow、valueMax、valueMin 无障碍属性的滑块",
+      "description": "滑块的无障碍描述"
+    },
+    {
+      "name": "slider_value_label",
+      "value": "当前值",
+      "description": "滑块当前值的名称"
+    },
+    {
+      "name": "section_checkbox",
+      "value": "复选框控件",
+      "description": "复选框控件区域标题"
+    },
+    {
+      "name": "checkbox_accessibility_text",
+      "value": "开启通知",
+      "description": "复选框的无障碍文本"
+    },
+    {
+      "name": "checkbox_accessibility_desc",
+      "value": "用于演示 checkable 与 checked 无障碍属性的复选框",
+      "description": "复选框的无障碍描述"
+    },
+    {
+      "name": "checkbox_label",
+      "value": "开启通知",
+      "description": "复选框旁显示的文本"
+    },
+    {
+      "name": "section_swiper",
+      "value": "轮播页面",
+      "description": "轮播组件区域标题"
+    },
+    {
+      "name": "swiper_accessibility_text",
+      "value": "页面轮播",
+      "description": "轮播组件的无障碍文本"
+    },
+    {
+      "name": "swiper_accessibility_desc",
+      "value": "用于演示页面内容更新无障碍事件的轮播组件",
+      "description": "轮播组件的无障碍描述"
+    },
+    {
+      "name": "swiper_page_1",
+      "value": "第 1 页",
+      "description": "轮播第一页的文本"
+    },
+    {
+      "name": "swiper_page_2",
+      "value": "第 2 页",
+      "description": "轮播第二页的文本"
+    },
+    {
+      "name": "swiper_page_3",
+      "value": "第 3 页",
+      "description": "轮播第三页的文本"
+    }
+  ]
+}
