@@ -3,20 +3,19 @@
 ## 测试环境
 
 - 设备：deviceType 为 `default` 的 32 位 OpenHarmony 开发板，系统 API version 26
-- 工程 SDK：API version 26.0.0（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `"26.0.0"`，`runtimeOS: HarmonyOS`）
+- 工程 SDK：API version 26.0.0（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `"26.0.0"`，`runtimeOS` 使用工程默认配置）
 - 测试套件：`AudioFocusTest`
 - 测试文件：`entry/src/ohosTest/ets/test/Ability.test.ets`
 - 用例格式：`@tc.number` / `@tc.name` / `@tc.desc` / `@tc.type` / `@tc.size` / `@tc.level`；JSDoc `@tc.level` 统一 `LEVEL0`，`it()` 第三参为 `Level.LEVEL0`
 
-运行命令：
+运行方式：
 
-```bash
-hdc shell aa test -b com.samples.intraappfocus -m entry_test \
-  -s unittest /ets/testrunner/OpenHarmonyTestRunner \
-  -s timeout 120000
-```
+- 测试入口：`OpenHarmonyTestRunner`
+- 模块：`entry_test`
+- 测试套件：`AudioFocusTest`
+- 超时：120000 ms
 
-> Git Bash 下需加 `MSYS_NO_PATHCONV=1`，否则 `/ets/testrunner/...` 会被转换成 Windows 路径。
+> 通过 Ability Assistant 测试命令执行；Git Bash 下需加 `MSYS_NO_PATHCONV=1`，否则 `/ets/testrunner/...` 会被转换成 Windows 路径。
 
 ## 用例表
 
@@ -68,7 +67,7 @@ hdc shell aa test -b com.samples.intraappfocus -m entry_test \
 - 为修复原工程 `@Builder` 按值传参导致按钮状态不刷新的问题，`StreamCardView` 已改为独立子组件，`isPlaying` 使用 `@Prop` 同步。
 - 新增应用管控关闭态用例：SHARE_MODE 下应用不主动暂停另一条流，A/B 或音乐/视频可同时播放。
 - 已删除未使用的 `ohos.permission.KEEP_BACKGROUND_RUNNING`（代码中无后台任务调用）；否则安装报 `9568289 grant request permissions failed`。
-- 2026-10-29 清除恒真断言：本环境 `findComponent`/`waitForComponent` 未命中时返回非 `undefined` 占位对象，原 `component !== undefined` 与 `ensureIndex` 的 `if (indexPage)` 永远为真（换成不存在的 id 也能通过）。现统一使用 `existsById()`（内部 `assertComponentExist`）和 `waitForId()`，并已用不存在的 id 反向验证断言会失败。
+- 2026-10-29 清除恒真断言：本环境 `findComponent`/`waitForComponent` 未命中时返回非 `undefined` 占位对象，原 `component !== undefined` 与 `ensureIndex` 的 `if (indexPage)` 始终为真（换成不存在的 id 也能通过）。现统一使用 `existsById()`（内部 `assertComponentExist`）和 `waitForId()`，并已用不存在的 id 反向验证断言会失败。
 - 主工程无假函数：`AudioStreamController` 直接使用真实 `AudioRenderer`；`StreamCardView` 的空回调仅为可选回调默认值，三个页面均绑定真实业务方法。
 
 ## 新增逻辑补充
