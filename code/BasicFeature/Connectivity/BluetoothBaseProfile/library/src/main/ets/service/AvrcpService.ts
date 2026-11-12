@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { AvrcpModel, AvrcpJson } from '../model/AvrcpModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
@@ -305,8 +304,7 @@ export class AvrcpService {
 
     try {
       if (this.isInitialized) {
-        hilog.warn(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s already initialized',
-          this.serviceName);
+        Logger.warn(`${this.serviceName} already initialized`);
         this.addHistoryEntry('initialize', false, 'Already initialized');
         hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
         return false;
@@ -345,13 +343,11 @@ export class AvrcpService {
       this.isInitialized = true;
       this.addHistoryEntry('initialize', true, 'Service initialized successfully');
 
-      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialized successfully',
-        this.serviceName);
+      Logger.info(`${this.serviceName} initialized successfully`);
       hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
       return true;
     } catch (error) {
-      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialization failed: %{public}s',
-        this.serviceName, JSON.stringify(error));
+      Logger.error(`${this.serviceName} initialization failed: ${JSON.stringify(error)}`);
       this.addHistoryEntry('initialize', false, `Error: ${JSON.stringify(error)}`);
       hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
       return false;

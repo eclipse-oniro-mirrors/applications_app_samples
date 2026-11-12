@@ -512,8 +512,8 @@ export default function pbapProfileManagerTest(): void {
       expect(uninitialized.getProfileType().length > 0).assertTrue();
       expect(uninitialized.getProfileType().indexOf(' ')).assertEqual(-1);
       expect(BluetoothProfileType.PBAP).assertEqual(PROFILE_ID);
-      expect(uninitialized.getProfileType().charCodeAt(0) >= 65
-        && uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
+      expect(uninitialized.getProfileType().charCodeAt(0) >= 65 &&
+        uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
       expect(typeof BluetoothProfileType.PBAP).assertEqual('string');
 
       const manager = new PbapProfileManager();

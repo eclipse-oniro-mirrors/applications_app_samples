@@ -512,8 +512,8 @@ export default function panProfileManagerTest(): void {
       expect(uninitialized.getProfileType().length > 0).assertTrue();
       expect(uninitialized.getProfileType().indexOf(' ')).assertEqual(-1);
       expect(BluetoothProfileType.PAN).assertEqual(PROFILE_ID);
-      expect(uninitialized.getProfileType().charCodeAt(0) >= 65
-        && uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
+      expect(uninitialized.getProfileType().charCodeAt(0) >= 65 &&
+        uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
       expect(typeof BluetoothProfileType.PAN).assertEqual('string');
 
       const manager = new PanProfileManager();

@@ -21,7 +21,7 @@ import { abilityDelegatorRegistry } from '@kit.TestKit';
 import testsuite from '../test/List.test';
 
 const TAG: string = '[Sample_BluetoothBaseProfile]';
-const DOMAIN: number = 0xF830;
+const DOMAIN: number = 0xF811;
 
 /**
  * TestAbility for ohosTest.

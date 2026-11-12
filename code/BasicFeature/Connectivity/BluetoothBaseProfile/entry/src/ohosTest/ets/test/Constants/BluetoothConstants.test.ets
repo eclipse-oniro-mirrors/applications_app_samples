@@ -155,8 +155,8 @@ export default function bluetoothConstantsTest(): void {
       expect(BluetoothConstants.TAG.indexOf('[Sample_')).assertEqual(0);
       expect(BluetoothConstants.TAG.substring(BluetoothConstants.TAG.length - 1)).assertEqual(']');
 
-      expect(BluetoothConstants.DOMAIN).assertEqual(0xF830);
-      expect(BluetoothConstants.DOMAIN).assertEqual(63536);
+      expect(BluetoothConstants.DOMAIN).assertEqual(0xF811);
+      expect(BluetoothConstants.DOMAIN).assertEqual(63505);
       expect(BluetoothConstants.TRACE_DOMAIN).assertEqual(BluetoothConstants.DOMAIN);
       expect(BluetoothConstants.EVENT_DOMAIN).assertEqual(BluetoothConstants.DOMAIN);
 

@@ -53,17 +53,17 @@ export class BluetoothConstants {
   /** Log tag for all Bluetooth BaseProfile sample logging */
   static readonly TAG: string = '[Sample_BluetoothBaseProfile]';
 
-  /** Log domain identifier for hilog output (0xF830 = Connectivity sample) */
-  static readonly DOMAIN: number = 0xF830;
+  /** Log domain identifier for hilog output (0xF811 = recommended Sample domain) */
+  static readonly DOMAIN: number = 0xF811;
 
   /** Application bundle name for identification */
   static readonly BUNDLE_NAME: string = 'com.samples.bluetoothbaseprofile';
 
   /** hiTraceMeter trace domain for performance analysis */
-  static readonly TRACE_DOMAIN: number = 0xF830;
+  static readonly TRACE_DOMAIN: number = 0xF811;
 
   /** hiAppEvent event domain for application event reporting */
-  static readonly EVENT_DOMAIN: number = 0xF830;
+  static readonly EVENT_DOMAIN: number = 0xF811;
 
   /** hiAppEvent event group name for Bluetooth events */
   static readonly EVENT_GROUP: string = 'bluetoothBaseProfileEvent';

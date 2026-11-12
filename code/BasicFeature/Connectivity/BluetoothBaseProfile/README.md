@@ -52,13 +52,10 @@ entry/src/main/ets/
 |   |---ConnectionLogPage.ets               // Connection history page
 |   |---ProfileStatisticsPage.ets           // Profile usage statistics page
 |   |---CombinedScenarioPage.ets            // Multi-profile combination page
-|---components
-|   |---AudioStreamControl.ets              // Audio stream control component
-|   |---CallControlPanel.ets                // Call control panel component
-|   |---MediaControlPanel.ets               // Media control panel component
-|   |---BluetoothDeviceCard.ets             // Bluetooth device card component
-|   |---ScanResultList.ets                  // Scan result list component
-|   |---ProfileStatusIndicator.ets          // Profile status indicator component
+|   |---ScanPage.ets                        // Bluetooth device scan page
+|   |---SettingsPage.ets                    // Application settings page
+|---common
+|   |---ProfilePageTypes.ets                // Device item and operation log types shared by profile pages
 library/src/main/ets/
 |---bluetooth
 |   |---A2dpProfileManager.ts               // A2DP profile manager
@@ -76,10 +73,21 @@ library/src/main/ets/
 |---model                                   // Data models for each profile
 |---mock                                    // Mock data generators for demonstration
 |---constants                               // Bluetooth and page constants
+|---types                                   // Shared Bluetooth profile type definitions
 |---utils                                   // Basic, device, network and validation utilities
 ```
 
-The `entry` module implements the UI pages and components, while the `library` module encapsulates profile managers, services, data models, and utilities. Each profile follows the same layered design: **Manager** (lifecycle and connection management) -> **Service** (profile business logic) -> **Model** (data state).
+The `entry` module implements the UI pages, while the `library` module encapsulates profile managers, services, data models, and utilities. Each profile follows the same layered design: **Manager** (lifecycle and connection management) -> **Service** (profile business logic) -> **Model** (data state).
+
+### How It Works
+
+The sample is organized as **Page -> Profile Manager -> Service -> Model**: each UI page owns a profile manager instance, the manager drives the business flow through a service, and the service keeps state in a model.
+
+1. **Device scan** -- [BluetoothScanService.ts](library/src/main/ets/service/BluetoothScanService.ts) starts discovery with a timeout (`BluetoothConstants.SCAN_TIMEOUT_MS`), fills results through [BluetoothMockDataGenerator.ts](library/src/main/ets/mock/BluetoothMockDataGenerator.ts), and notifies registered `ScanResultCallback` observers (`onDeviceFound` / `onScanComplete` / `onScanFailed`). See [ScanPage.ets](entry/src/main/ets/pages/ScanPage.ets).
+2. **Connection management** -- [BluetoothConnectionManager.ts](library/src/main/ets/service/BluetoothConnectionManager.ts) is the central hub that pairs, connects, and disconnects devices across all profiles, records connection history, and aggregates the statistics shown on [ConnectionLogPage.ets](entry/src/main/ets/pages/ConnectionLogPage.ets) and [ProfileStatisticsPage.ets](entry/src/main/ets/pages/ProfileStatisticsPage.ets).
+3. **Profile interaction** -- Each profile is driven by its manager (for example [A2dpProfileManager.ts](library/src/main/ets/bluetooth/A2dpProfileManager.ts)), which delegates business logic to a service (for example [A2dpService.ts](library/src/main/ets/service/A2dpService.ts)); the page (for example [A2dpPage.ets](entry/src/main/ets/pages/A2dpPage.ets)) binds ArkUI `@State` to the returned model.
+4. **State callbacks** -- Managers register `ConnectionEventCallback` observers; `onConnected` / `onDisconnected` / `onError` / `onStateChanged` refresh the pages when a connection changes, and each operation is appended to the shared `ProfileOperationLogEntry` list defined in [ProfilePageTypes.ets](entry/src/main/ets/common/ProfilePageTypes.ets).
+5. **Logging and tracing** -- [Logger.ts](library/src/main/ets/utils/basic/Logger.ts) wraps hilog, while hiTraceMeter and hiAppEvent capture performance traces and events under the Sample log domain.
 
 ### Required Permissions
 

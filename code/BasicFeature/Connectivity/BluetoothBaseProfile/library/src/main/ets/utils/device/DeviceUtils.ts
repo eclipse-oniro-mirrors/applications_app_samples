@@ -14,7 +14,7 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import deviceInfo from '@ohos.deviceInfo';
+import { deviceInfo } from '@kit.BasicServicesKit';
 import { BluetoothConstants } from '../../constants/BluetoothConstants';
 
 const TAG: string = BluetoothConstants.TAG;

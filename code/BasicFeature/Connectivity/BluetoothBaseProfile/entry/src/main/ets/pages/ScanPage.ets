@@ -251,9 +251,8 @@ struct ScanPage {
                 .margin({ top: MARGIN_SMALL })
                 Text(this.getSignalLabel(device.rssi))
                   .fontSize(PageConstants.FONT_SIZE_CAPTION)
-                  .fontColor(device.rssi >= RSSI_EXCELLENT
-                    ? PageConstants.COLOR_SUCCESS
-                    : PageConstants.COLOR_WARNING)
+                  .fontColor(device.rssi >= RSSI_EXCELLENT ? PageConstants.COLOR_SUCCESS :
+                    PageConstants.COLOR_WARNING)
                   .margin({ top: MARGIN_SMALL })
               }
               .alignItems(HorizontalAlign.End)

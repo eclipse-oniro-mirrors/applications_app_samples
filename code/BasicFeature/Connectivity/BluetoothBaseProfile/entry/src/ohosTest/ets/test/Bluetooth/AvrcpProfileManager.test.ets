@@ -512,8 +512,8 @@ export default function avrcpProfileManagerTest(): void {
       expect(uninitialized.getProfileType().length > 0).assertTrue();
       expect(uninitialized.getProfileType().indexOf(' ')).assertEqual(-1);
       expect(BluetoothProfileType.AVRCP).assertEqual(PROFILE_ID);
-      expect(uninitialized.getProfileType().charCodeAt(0) >= 65
-        && uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
+      expect(uninitialized.getProfileType().charCodeAt(0) >= 65 &&
+        uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
       expect(typeof BluetoothProfileType.AVRCP).assertEqual('string');
 
       const manager = new AvrcpProfileManager();

@@ -512,8 +512,8 @@ export default function a2dpProfileManagerTest(): void {
       expect(uninitialized.getProfileType().length > 0).assertTrue();
       expect(uninitialized.getProfileType().indexOf(' ')).assertEqual(-1);
       expect(BluetoothProfileType.A2DP).assertEqual(PROFILE_ID);
-      expect(uninitialized.getProfileType().charCodeAt(0) >= 65
-        && uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
+      expect(uninitialized.getProfileType().charCodeAt(0) >= 65 &&
+        uninitialized.getProfileType().charCodeAt(0) <= 90).assertTrue();
       expect(typeof BluetoothProfileType.A2DP).assertEqual('string');
 
       const manager = new A2dpProfileManager();

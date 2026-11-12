@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { HfpModel, HfpJson } from '../model/HfpModel';
 import {
   BluetoothConstants,

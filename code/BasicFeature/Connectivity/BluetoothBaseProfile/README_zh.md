@@ -52,13 +52,10 @@ entry/src/main/ets/
 |   |---ConnectionLogPage.ets               // 连接历史记录页面
 |   |---ProfileStatisticsPage.ets           // Profile使用统计页面
 |   |---CombinedScenarioPage.ets            // 多Profile组合场景页面
-|---components
-|   |---AudioStreamControl.ets              // 音频流控制组件
-|   |---CallControlPanel.ets                // 通话控制面板组件
-|   |---MediaControlPanel.ets               // 媒体控制面板组件
-|   |---BluetoothDeviceCard.ets             // 蓝牙设备卡片组件
-|   |---ScanResultList.ets                  // 扫描结果列表组件
-|   |---ProfileStatusIndicator.ets          // Profile状态指示组件
+|   |---ScanPage.ets                        // 蓝牙设备扫描页面
+|   |---SettingsPage.ets                    // 应用设置页面
+|---common
+|   |---ProfilePageTypes.ets                // Profile页面共用的设备项与操作日志类型定义
 library/src/main/ets/
 |---bluetooth
 |   |---A2dpProfileManager.ts               // A2DP Profile管理器
@@ -76,10 +73,21 @@ library/src/main/ets/
 |---model                                   // 各Profile数据模型
 |---mock                                    // 演示用Mock数据生成器
 |---constants                               // 蓝牙与页面常量
+|---types                                   // 共享的蓝牙Profile类型定义
 |---utils                                   // 基础、设备、网络与校验工具类
 ```
 
-其中，`entry`模块实现UI页面与组件，`library`模块封装Profile管理器、服务、数据模型和工具类。每种Profile均遵循相同的分层设计：**Manager**（生命周期与连接管理）-> **Service**（Profile业务逻辑）-> **Model**（数据状态）。
+其中，`entry`模块实现UI页面，`library`模块封装Profile管理器、服务、数据模型和工具类。每种Profile均遵循相同的分层设计：**Manager**（生命周期与连接管理）-> **Service**（Profile业务逻辑）-> **Model**（数据状态）。
+
+### 具体实现
+
+示例采用 **页面 -> Profile Manager -> Service -> Model** 的分层结构：每个 UI 页面持有一个 Profile Manager 实例，Manager 通过 Service 驱动业务流程，Service 将状态保存在 Model 中。
+
+1. **设备扫描** —— [BluetoothScanService.ts](library/src/main/ets/service/BluetoothScanService.ts) 以超时时间（`BluetoothConstants.SCAN_TIMEOUT_MS`）启动扫描，通过 [BluetoothMockDataGenerator.ts](library/src/main/ets/mock/BluetoothMockDataGenerator.ts) 生成扫描结果，并以 `ScanResultCallback`（`onDeviceFound`/`onScanComplete`/`onScanFailed`）回调通知已注册的观察者。参见 [ScanPage.ets](entry/src/main/ets/pages/ScanPage.ets)。
+2. **连接管理** —— [BluetoothConnectionManager.ts](library/src/main/ets/service/BluetoothConnectionManager.ts) 作为统一中枢，负责各 Profile 设备的配对、连接与断开，记录连接历史并为 [ConnectionLogPage.ets](entry/src/main/ets/pages/ConnectionLogPage.ets) 与 [ProfileStatisticsPage.ets](entry/src/main/ets/pages/ProfileStatisticsPage.ets) 汇总统计。
+3. **Profile 交互** —— 每个 Profile 由对应 Manager（如 [A2dpProfileManager.ts](library/src/main/ets/bluetooth/A2dpProfileManager.ts)）管理生命周期并委派给 Service（如 [A2dpService.ts](library/src/main/ets/service/A2dpService.ts)），页面（如 [A2dpPage.ets](entry/src/main/ets/pages/A2dpPage.ets)）将 ArkUI `@State` 绑定到返回的 Model。
+4. **状态回调** —— Manager 注册 `ConnectionEventCallback` 观察者，连接状态变化时通过 `onConnected`/`onDisconnected`/`onError`/`onStateChanged` 通知页面刷新，并将每次操作追加到 [ProfilePageTypes.ets](entry/src/main/ets/common/ProfilePageTypes.ets) 定义的共享 `ProfileOperationLogEntry` 列表。
+5. **日志与追踪** —— [Logger.ts](library/src/main/ets/utils/basic/Logger.ts) 封装 hilog，hiTraceMeter 与 hiAppEvent 在 Sample 日志 Domain 下采集性能追踪与应用事件。
 
 ### 相关权限
 

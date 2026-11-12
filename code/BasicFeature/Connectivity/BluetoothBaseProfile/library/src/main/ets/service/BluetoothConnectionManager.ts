@@ -867,8 +867,7 @@ export class BluetoothConnectionManager {
 
     const completedConnections: number = acc.totalConnections + acc.totalFailures;
     const avgDuration: number = acc.totalDisconnections > 0 ? acc.totalDuration / acc.totalDisconnections : 0;
-    const avgRssi: number = this.connectionRecords.length > 0 ?
-      -(acc.totalRssi / this.connectionRecords.length) : 0;
+    const avgRssi: number = this.connectionRecords.length > 0 ? -(acc.totalRssi / this.connectionRecords.length) : 0;
 
     return {
       totalConnections: acc.totalConnections,

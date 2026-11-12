@@ -77,31 +77,31 @@ export interface BluetoothDeviceJson {
  */
 export class BluetoothDeviceModel {
   /** device unique identifier */
-  deviceId: string;
+  public deviceId: string;
   /** device name */
-  deviceName: string;
+  public deviceName: string;
   /** MAC ground address */
-  macAddress: string;
+  public macAddress: string;
   /** device type */
-  deviceType: BluetoothDeviceType;
+  public deviceType: BluetoothDeviceType;
   /** connection state */
-  connectionState: BluetoothConnectionState;
+  public connectionState: BluetoothConnectionState;
   /** main service class type */
-  majorServices: BluetoothMajorService[];
+  public majorServices: BluetoothMajorService[];
   /** supported profile list */
-  supportedProfiles: BluetoothProfileType[];
+  public supportedProfiles: BluetoothProfileType[];
   /** signal strength */
-  rssi: number;
+  public rssi: number;
   /** pairing state state */
-  bondState: number;
+  public bondState: number;
   /** last connection time */
-  lastConnectedTime: number;
+  public lastConnectedTime: number;
   /** connection count statistics */
-  connectionCount: number;
+  public connectionCount: number;
   /** signal strength percentage */
-  signalStrength: number;
+  public signalStrength: number;
   /** device class */
-  deviceClass: number;
+  public deviceClass: number;
 
   /**
    * create Bluetooth device model type instance.

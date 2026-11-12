@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { HidProfileManager } from 'library';
 import { HidManagerStatistics, ManagerHealthStatus, ManagerFilterCriteria, OperationHistoryEntry } from 'library';
 import { HidModel } from 'library';
@@ -589,8 +588,8 @@ struct HidPage {
           }
           GridItem() {
             this.StatCard($r('app.string.p_health_score'),
-              this.state.healthStatus ? ((this.state.healthStatus as ManagerHealthStatus).healthScore).toString()
-              : 'N/A', $r('app.color.color_accent_orange'))
+              this.state.healthStatus ? ((this.state.healthStatus as ManagerHealthStatus).healthScore).toString() :
+              'N/A', $r('app.color.color_accent_orange'))
           }
           GridItem() {
             this.StatCard($r('app.string.p_status'), this.getConnectionStateLabel(this.state.connectionState),

@@ -126,8 +126,8 @@ export class ProfileMockData {
       const last: string = lastNames[Math.floor(i / firstNames.length) % lastNames.length];
       contacts.push({
         name: first + ' ' + last,
-        phone: '1' + (30 + Math.floor(Math.random() * 60))
-          + String(Math.floor(Math.random() * 100000000)).padStart(8, '0'),
+        phone: '1' + (30 + Math.floor(Math.random() * 60)) +
+          String(Math.floor(Math.random() * 100000000)).padStart(8, '0'),
         email: first.toLowerCase() + '.' + last.toLowerCase() + '@example.com',
         organization: orgs[i % orgs.length]
       });

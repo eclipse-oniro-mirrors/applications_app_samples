@@ -52,7 +52,7 @@ export interface AvrcpData {
   playbackState: string;
   /** current track item name name */
   trackName: string;
-  /** art technique family name name */
+  /** artist name */
   artistName: string;
   /** special logic name name */
   albumName: string;
