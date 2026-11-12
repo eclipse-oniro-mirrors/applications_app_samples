@@ -47,7 +47,8 @@ export struct PreviewEditor {
 
   // [Start preview_style_sta_receive]
   private onStyledPreview: inputMethod.SetPreviewTextWithStyleCallback =
-    (text: string, range: inputMethod.Range, style: inputMethodEngine.PreviewTextStyle): void => {
+    (text: string, range: inputMethod.Range, rawStyle: Object): void => {
+      const style = rawStyle as inputMethodEngine.PreviewTextStyle;
       if (!this.alive || !this.listening) {
         return;
       }
