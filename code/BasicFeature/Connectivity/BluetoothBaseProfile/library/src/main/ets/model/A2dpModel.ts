@@ -34,92 +34,92 @@ export interface A2dpJson {
 }
 
 /**
- * A2DP音频分发连接状态枚举。
+ * A2DP audio divide send connection state enum.
  */
 export enum A2dpState {
-  /** 未连接 */
+  /** disconnected */
   DISCONNECTED = 'disconnected',
-  /** 正在连接 */
+  /** connecting */
   CONNECTING = 'connecting',
-  /** 已连接 */
+  /** connected */
   CONNECTED = 'connected',
-  /** 正在断开 */
+  /** disconnecting */
   DISCONNECTING = 'disconnecting',
-  /** 错误状态 */
+  /** error state */
   ERROR = 'error'
 }
 
 /**
- * A2DP音频分发数据接口。
+ * A2DP audio divide send data interface.
  */
 export interface A2dpData {
-  /** 音频编解码器 */
+  /** audio codec */
   codec: string;
-  /** 采样率 */
+  /** collect sample rate */
   sampleRate: number;
-  /** 比特率 */
+  /** compare special rate */
   bitRate: number;
-  /** 音量级别 (0-100) */
+  /** volume level (0-100) */
   volume: number;
-  /** 是否正在播放 */
+  /** whether playing */
   isPlaying: boolean;
-  /** 播放进度（毫秒） */
+  /** playback progress (ms) */
   playbackPosition: number;
-  /** 总时长（毫秒） */
+  /** total time length (ms) */
   totalDuration: number;
-  /** 音频源名称 */
+  /** audio source name */
   audioSourceName: string;
-  /** 音频源类型 */
+  /** audio source type */
   audioSourceType: string;
 }
 
 /**
- * A2DP音频分发数据模型。
- * 封装A2dpProfile的数据和状态信息。
+ * A2DP audio divide send number data model type.
+ * wrap package A2dpProfile number data and state state info info.
  */
 export class A2dpModel {
-  /** 当前连接状态 */
+  /** current connection state */
   state: A2dpState = A2dpState.DISCONNECTED;
-  /** 关联的设备ID */
+  /** relate link device ID */
   deviceId: string = '';
-  /** 最后更新时间戳 */
+  /** last update timestamp */
   lastUpdateTime: number = 0;
-  /** 数据内容 */
+  /** number data internal content */
   data: A2dpData | null = null;
-  /** 操作日志 */
+  /** operation log */
   operationLog: string[] = [];
-  /** 重试次数 */
+  /** weight try times number */
   retryCount: number = 0;
-  /** 最大重试次数 */
+  /** max weight try times number */
   maxRetries: number = BluetoothConstants.MAX_RETRY_COUNT;
-  /** 超时时间（毫秒） */
+  /** timeout (ms) */
   timeoutMs: number = BluetoothConstants.OPERATION_TIMEOUT_MS;
-  /** 是否已初始化 */
+  /** whether already initialize */
   isInitialized: boolean = false;
-  /** 错误信息 */
+  /** error info info */
   errorMessage: string = '';
-  /** 错误码 */
+  /** error code */
   errorCode: number = 0;
-  /** 连接持续时间（毫秒） */
+  /** connection duration (ms) */
   connectionDuration: number = 0;
-  /** 连接开始时间 */
+  /** connection start time */
   connectionStartTime: number = 0;
-  /** 操作计数 */
+  /** operation count */
   operationCount: number = 0;
-  /** 是否正在播放 */
+  /** whether playing */
   isPlaying: boolean = false;
-  /** 音量级别 (0-100) */
+  /** volume level (0-100) */
   volume: number = 50;
-  /** 音频编解码器ID */
+  /** audio codec ID */
   codec: number = 0;
-  /** 比特率 */
+  /** compare special rate */
   bitRate: number = 0;
-  /** 播放位置（毫秒） */
+  /** playback position (ms) */
   playbackPosition: number = 0;
 
   /**
-   * 构造函数。
-   * @param {string} deviceId - 设备ID
+   * structure build function number.
+   * @param {string} deviceId - device ID
    */
   constructor(deviceId: string = '') {
     hilog.info(DOMAIN, TAG, 'A2dpModel constructor: deviceId=%{public}s', deviceId);
@@ -132,7 +132,7 @@ export class A2dpModel {
   }
 
   /**
-   * 标记为连接中。
+   * mark for connecting.
    */
   markConnecting(): void {
     hilog.info(DOMAIN, TAG, 'A2dpModel markConnecting: deviceId=%{public}s', this.deviceId);
@@ -143,7 +143,7 @@ export class A2dpModel {
   }
 
   /**
-   * 标记为已连接。
+   * mark for connected.
    */
   markConnected(): void {
     hilog.info(DOMAIN, TAG, 'A2dpModel markConnected: deviceId=%{public}s', this.deviceId);
@@ -157,7 +157,7 @@ export class A2dpModel {
   }
 
   /**
-   * 标记为断开中。
+   * mark for disconnecting.
    */
   markDisconnecting(): void {
     hilog.info(DOMAIN, TAG, 'A2dpModel markDisconnecting: deviceId=%{public}s', this.deviceId);
@@ -167,7 +167,7 @@ export class A2dpModel {
   }
 
   /**
-   * 标记为已断开。
+   * mark for disconnected.
    */
   markDisconnected(): void {
     hilog.info(DOMAIN, TAG, 'A2dpModel markDisconnected: deviceId=%{public}s', this.deviceId);
@@ -178,9 +178,9 @@ export class A2dpModel {
   }
 
   /**
-   * 标记为错误状态。
-   * @param {string} message - 错误信息
-   * @param {number} code - 错误码
+   * mark for error state.
+   * @param {string} message - error info info
+   * @param {number} code - error code
    */
   markError(message: string, code: number): void {
     hilog.error(DOMAIN, TAG, 'A2dpModel markError: message=%{public}s, code=%{public}d', message, code);
@@ -193,53 +193,53 @@ export class A2dpModel {
   }
 
   /**
-   * 检查是否已连接。
-   * @returns {boolean} 是否已连接
+   * check whether connected.
+   * @returns {boolean} whether connected
    */
   isConnected(): boolean {
     return this.state === A2dpState.CONNECTED;
   }
 
   /**
-   * 检查是否正在连接。
-   * @returns {boolean} 是否正在连接
+   * check whether connecting.
+   * @returns {boolean} whether connecting
    */
   isConnecting(): boolean {
     return this.state === A2dpState.CONNECTING;
   }
 
   /**
-   * 检查是否可以重试。
-   * @returns {boolean} 是否可以重试
+   * check whether can weight try.
+   * @returns {boolean} whether can weight try
    */
   canRetry(): boolean {
     return this.retryCount < this.maxRetries;
   }
 
   /**
-   * 添加操作日志。
-   * @param {string} log - 日志内容
+   * add operation log.
+   * @param {string} log - day log internal content
    */
   addLog(log: string): void {
     const timestamp: string = new Date().toISOString();
     this.operationLog.push('[' + timestamp + '] ' + log);
     this.operationCount += 1;
-    // 保持日志数量在合理范围内
+    // keep hold log count at combine manage range range internal
     if (this.operationLog.length > BluetoothConstants.MAX_LOG_ENTRIES) {
       this.operationLog = this.operationLog.slice(-BluetoothConstants.MAX_LOG_ENTRIES);
     }
   }
 
   /**
-   * 获取操作日志。
-   * @returns {string[]} 日志数组
+   * get operation log.
+   * @returns {string[]} log array
    */
   getLogs(): string[] {
     return [...this.operationLog];
   }
 
   /**
-   * 清空操作日志。
+   * clear operation log.
    */
   clearLogs(): void {
     hilog.info(DOMAIN, TAG, 'A2dpModel clearLogs: clearing %{public}d entries', this.operationLog.length);
@@ -247,8 +247,8 @@ export class A2dpModel {
   }
 
   /**
-   * 更新数据。
-   * @param {A2dpData} data - 新数据
+   * update number data.
+   * @param {A2dpData} data - new number data
    */
   updateData(data: A2dpData): void {
     hilog.debug(DOMAIN, TAG, 'A2dpModel updateData: updating data for device %{public}s', this.deviceId);
@@ -257,8 +257,8 @@ export class A2dpModel {
   }
 
   /**
-   * 获取连接持续时间（毫秒）。
-   * @returns {number} 连接持续时间
+   * get connection hold continue time interval (ms).
+   * @returns {number} connection duration
    */
   getConnectionDuration(): number {
     if (this.state === A2dpState.CONNECTED && this.connectionStartTime > 0) {
@@ -268,7 +268,7 @@ export class A2dpModel {
   }
 
   /**
-   * 重置模型状态。
+   * reset model type state state.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'A2dpModel reset: resetting model for device %{public}s', this.deviceId);
@@ -285,8 +285,8 @@ export class A2dpModel {
   }
 
   /**
-   * 序列化为JSON。
-   * @returns {object} JSON对象
+   * serialize to JSON.
+   * @returns {object} JSON against object
    */
   toJSON(): object {
     return {
@@ -303,8 +303,8 @@ export class A2dpModel {
   }
 
   /**
-   * 转换为可读字符串。
-   * @returns {string} 字符串描述
+   * convert to readable string.
+   * @returns {string} string description
    */
   toString(): string {
     return 'A2dpModel[deviceId=' + this.deviceId + ', state=' + this.state +
@@ -312,8 +312,8 @@ export class A2dpModel {
   }
 
   /**
-   * 更新连接状态。
-   * @param {BluetoothConnectionState} newState - 新的连接状态
+   * update connection state.
+   * @param {BluetoothConnectionState} newState - new connection state
    */
   updateConnectionState(newState: BluetoothConnectionState): void {
     hilog.info(DOMAIN, TAG, 'A2dpModel updateConnectionState: %{public}s', String(newState));

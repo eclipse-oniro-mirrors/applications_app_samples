@@ -16,7 +16,12 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { A2dpModel, A2dpJson } from '../model/A2dpModel';
-import { BluetoothConstants, BluetoothConnectionState, A2dpConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
+import {
+  BluetoothConstants,
+  BluetoothConnectionState,
+  A2dpConnectionState,
+  BluetoothProfileType
+} from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
 
 /**
@@ -322,6 +327,89 @@ export class A2dpService {
   private codecSwitchCount: number = 0;
 
   /**
+   * Default A2DP codec set (SBC, AAC, aptX, aptX HD, LDAC) with their standard parameters.
+   * Read-only template: every service instance works on its own copy so that the
+   * per-connection "active" flag never leaks between instances.
+   */
+  private static readonly DEFAULT_CODECS: A2dpAudioCodecInfo[] = [
+    {
+      codecId: 0x00,
+      codecName: 'SBC',
+      maxBitRate: 320000,
+      minBitRate: 192000,
+      sampleRates: [16000, 32000, 44100, 48000],
+      bitDepths: [4, 8, 12, 16],
+      channelModes: ['mono', 'dual_channel', 'stereo', 'joint_stereo'],
+      isActive: true,
+      qualityRating: 0.6,
+      latencyMs: 40,
+      supportsHiRes: false,
+      vendorId: 0,
+      vendorCodecId: 0
+    },
+    {
+      codecId: 0x02,
+      codecName: 'AAC',
+      maxBitRate: 320000,
+      minBitRate: 8000,
+      sampleRates: [8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100, 48000],
+      bitDepths: [16, 24],
+      channelModes: ['mono', 'stereo'],
+      isActive: false,
+      qualityRating: 0.7,
+      latencyMs: 35,
+      supportsHiRes: false,
+      vendorId: 0,
+      vendorCodecId: 0
+    },
+    {
+      codecId: 0x01,
+      codecName: 'aptX',
+      maxBitRate: 352000,
+      minBitRate: 352000,
+      sampleRates: [44100, 48000],
+      bitDepths: [16],
+      channelModes: ['stereo'],
+      isActive: false,
+      qualityRating: 0.75,
+      latencyMs: 30,
+      supportsHiRes: false,
+      vendorId: 0x0000004F,
+      vendorCodecId: 0x0001
+    },
+    {
+      codecId: 0x03,
+      codecName: 'aptX HD',
+      maxBitRate: 576000,
+      minBitRate: 576000,
+      sampleRates: [44100, 48000],
+      bitDepths: [24],
+      channelModes: ['stereo'],
+      isActive: false,
+      qualityRating: 0.85,
+      latencyMs: 32,
+      supportsHiRes: true,
+      vendorId: 0x0000004F,
+      vendorCodecId: 0x0002
+    },
+    {
+      codecId: 0x04,
+      codecName: 'LDAC',
+      maxBitRate: 990000,
+      minBitRate: 303000,
+      sampleRates: [44100, 48000, 88200, 96000],
+      bitDepths: [16, 24, 32],
+      channelModes: ['mono', 'dual_channel', 'stereo'],
+      isActive: false,
+      qualityRating: 0.95,
+      latencyMs: 25,
+      supportsHiRes: true,
+      vendorId: 0x0000012D,
+      vendorCodecId: 0x00AA
+    }
+  ];
+
+  /**
    * @method initialize
    * @description Initializes the A2DP service and prepares it for audio connections.
    * This method must be called before any other service methods. It sets up the internal
@@ -358,7 +446,8 @@ export class A2dpService {
 
     try {
       if (this.isInitialized) {
-        hilog.warn(0xF830, BluetoothConstants.TAG, '%{public}s already initialized', this.serviceName);
+        hilog.warn(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s already initialized',
+          this.serviceName);
         this.addHistoryEntry('initialize', false, 'Already initialized');
         hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
         return false;
@@ -388,11 +477,12 @@ export class A2dpService {
       this.isInitialized = true;
       this.addHistoryEntry('initialize', true, 'Service initialized successfully');
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s initialized successfully', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialized successfully',
+        this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
       return true;
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s initialization failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialization failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       this.addHistoryEntry('initialize', false, `Error: ${JSON.stringify(error)}`);
       hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
@@ -408,84 +498,36 @@ export class A2dpService {
    * @private
    */
   private registerDefaultCodecs(): void {
-    this.supportedCodecs = [
-      {
-        codecId: 0x00,
-        codecName: 'SBC',
-        maxBitRate: 320000,
-        minBitRate: 192000,
-        sampleRates: [16000, 32000, 44100, 48000],
-        bitDepths: [4, 8, 12, 16],
-        channelModes: ['mono', 'dual_channel', 'stereo', 'joint_stereo'],
-        isActive: true,
-        qualityRating: 0.6,
-        latencyMs: 40,
-        supportsHiRes: false,
-        vendorId: 0,
-        vendorCodecId: 0
-      },
-      {
-        codecId: 0x02,
-        codecName: 'AAC',
-        maxBitRate: 320000,
-        minBitRate: 8000,
-        sampleRates: [8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100, 48000],
-        bitDepths: [16, 24],
-        channelModes: ['mono', 'stereo'],
-        isActive: false,
-        qualityRating: 0.7,
-        latencyMs: 35,
-        supportsHiRes: false,
-        vendorId: 0,
-        vendorCodecId: 0
-      },
-      {
-        codecId: 0x01,
-        codecName: 'aptX',
-        maxBitRate: 352000,
-        minBitRate: 352000,
-        sampleRates: [44100, 48000],
-        bitDepths: [16],
-        channelModes: ['stereo'],
-        isActive: false,
-        qualityRating: 0.75,
-        latencyMs: 30,
-        supportsHiRes: false,
-        vendorId: 0x0000004F,
-        vendorCodecId: 0x0001
-      },
-      {
-        codecId: 0x03,
-        codecName: 'aptX HD',
-        maxBitRate: 576000,
-        minBitRate: 576000,
-        sampleRates: [44100, 48000],
-        bitDepths: [24],
-        channelModes: ['stereo'],
-        isActive: false,
-        qualityRating: 0.85,
-        latencyMs: 32,
-        supportsHiRes: true,
-        vendorId: 0x0000004F,
-        vendorCodecId: 0x0002
-      },
-      {
-        codecId: 0x04,
-        codecName: 'LDAC',
-        maxBitRate: 990000,
-        minBitRate: 303000,
-        sampleRates: [44100, 48000, 88200, 96000],
-        bitDepths: [16, 24, 32],
-        channelModes: ['mono', 'dual_channel', 'stereo'],
-        isActive: false,
-        qualityRating: 0.95,
-        latencyMs: 25,
-        supportsHiRes: true,
-        vendorId: 0x0000012D,
-        vendorCodecId: 0x00AA
-      }
-    ];
-    hilog.debug(0xF830, BluetoothConstants.TAG, 'Registered %{public}d default A2DP codecs', this.supportedCodecs.length);
+    this.supportedCodecs = A2dpService.DEFAULT_CODECS.map(
+      (codec: A2dpAudioCodecInfo) => A2dpService.cloneCodec(codec));
+    hilog.debug(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, 'Registered %{public}d default A2DP codecs',
+      this.supportedCodecs.length);
+  }
+
+  /**
+   * @method cloneCodec
+   * @description Builds an independent copy of a default codec entry so that the shared
+   * template is never mutated by per-instance state such as the active flag.
+   * @param {A2dpAudioCodecInfo} codec - The codec entry to copy.
+   * @returns {A2dpAudioCodecInfo} The copy, with its own sample rate / bit depth / channel mode lists.
+   * @private
+   */
+  private static cloneCodec(codec: A2dpAudioCodecInfo): A2dpAudioCodecInfo {
+    return {
+      codecId: codec.codecId,
+      codecName: codec.codecName,
+      maxBitRate: codec.maxBitRate,
+      minBitRate: codec.minBitRate,
+      sampleRates: codec.sampleRates.slice(0),
+      bitDepths: codec.bitDepths.slice(0),
+      channelModes: codec.channelModes.slice(0),
+      isActive: codec.isActive,
+      qualityRating: codec.qualityRating,
+      latencyMs: codec.latencyMs,
+      supportsHiRes: codec.supportsHiRes,
+      vendorId: codec.vendorId,
+      vendorCodecId: codec.vendorCodecId
+    };
   }
 
   /**
@@ -570,7 +612,7 @@ export class A2dpService {
    *
    * @example
    * ```typescript
-   * const connected = await a2dpService.connect('AA:BB:CC:DD:EE:FF');
+   * const connected = await a2dpService.connect(BluetoothConstants.MOCK_MAC_ADDRESS);
    * if (connected) {
    *   console.info('Audio streaming ready');
    * }
@@ -582,21 +624,22 @@ export class A2dpService {
 
     try {
       if (!this.isInitialized) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s not initialized', this.serviceName);
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s not initialized', this.serviceName);
         this.addHistoryEntry('connect', false, 'Service not initialized');
         hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
         return false;
       }
 
       if (!deviceId || deviceId.length === 0) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s invalid device ID', this.serviceName);
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s invalid device ID',
+          this.serviceName);
         this.addHistoryEntry('connect', false, 'Invalid device ID');
         hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
         return false;
       }
 
       if (this.connectedDeviceIds.includes(deviceId)) {
-        hilog.warn(0xF830, BluetoothConstants.TAG, '%{public}s already connected to %{public}s',
+        hilog.warn(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s already connected to %{public}s',
           this.serviceName, deviceId);
         this.addHistoryEntry('connect', false, 'Already connected');
         hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
@@ -610,24 +653,15 @@ export class A2dpService {
       // Simulate connection delay
       await this.simulateConnectionDelay(800);
 
-      this.connectedDeviceIds.push(deviceId);
-      this.audioSourceDeviceId = deviceId;
-      this.connectionState = BluetoothConnectionState.CONNECTED;
-      this.a2dpState = A2dpConnectionState.CONNECTED;
-      this.isStreamActive = true;
-      this.sessionStartTime = Date.now();
-      this.totalBytesTransferred = 0;
-
-      if (this.qualityMetrics) {
-        this.qualityMetrics.sessionStartTime = this.sessionStartTime;
-      }
+      this.applyConnectedState(deviceId);
 
       this.model.updateConnectionState(BluetoothConnectionState.CONNECTED);
       this.notifyConnectionCallbacks();
       this.notifyDataCallbacks();
 
       this.addHistoryEntry('connect', true, `Connected to ${deviceId}`);
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s connected to %{public}s', this.serviceName, deviceId);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s connected to %{public}s',
+        this.serviceName, deviceId);
       hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
       return true;
     } catch (error) {
@@ -635,10 +669,30 @@ export class A2dpService {
       this.a2dpState = A2dpConnectionState.NOT_CONNECTED;
       this.notifyConnectionCallbacks();
       this.addHistoryEntry('connect', false, `Error: ${JSON.stringify(error)}`);
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s connect failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s connect failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
       return false;
+    }
+  }
+
+  /**
+   * @method applyConnectedState
+   * @description Records a successful connection: registers the device as the audio source,
+   * switches the service to the connected state and restarts the session counters.
+   * @param {string} deviceId - The device that has just been connected.
+   * @private
+   */
+  private applyConnectedState(deviceId: string): void {
+    this.connectedDeviceIds.push(deviceId);
+    this.audioSourceDeviceId = deviceId;
+    this.connectionState = BluetoothConnectionState.CONNECTED;
+    this.a2dpState = A2dpConnectionState.CONNECTED;
+    this.isStreamActive = true;
+    this.sessionStartTime = Date.now();
+    this.totalBytesTransferred = 0;
+    if (this.qualityMetrics) {
+      this.qualityMetrics.sessionStartTime = this.sessionStartTime;
     }
   }
 
@@ -695,13 +749,13 @@ export class A2dpService {
       this.notifyDataCallbacks();
       this.addHistoryEntry('disconnect', true, `Disconnected from ${deviceId}`);
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s disconnected from %{public}s',
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s disconnected from %{public}s',
         this.serviceName, deviceId);
       hiTraceMeter.finishTrace(`${this.serviceName}_disconnect`, 0);
       return true;
     } catch (error) {
       this.addHistoryEntry('disconnect', false, `Error: ${JSON.stringify(error)}`);
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s disconnect failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s disconnect failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.serviceName}_disconnect`, 0);
       return false;
@@ -736,7 +790,7 @@ export class A2dpService {
       this.notifyPlaybackCallbacks();
       this.addHistoryEntry('play', true, 'Playback started');
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s playback started', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s playback started', this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_play`, 0);
       return true;
     } catch (error) {
@@ -774,7 +828,7 @@ export class A2dpService {
       this.notifyPlaybackCallbacks();
       this.addHistoryEntry('pause', true, 'Playback paused');
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s playback paused', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s playback paused', this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_pause`, 0);
       return true;
     } catch (error) {
@@ -814,7 +868,7 @@ export class A2dpService {
       this.notifyPlaybackCallbacks();
       this.addHistoryEntry('stop', true, 'Playback stopped');
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s playback stopped', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s playback stopped', this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_stop`, 0);
       return true;
     } catch (error) {
@@ -881,7 +935,8 @@ export class A2dpService {
       }
 
       if (this.playbackInfo && this.playbackInfo.totalTracks > 0) {
-        const prevIndex: number = (this.playbackInfo.trackIndex - 1 + this.playbackInfo.totalTracks) % this.playbackInfo.totalTracks;
+        const prevIndex: number =
+          (this.playbackInfo.trackIndex - 1 + this.playbackInfo.totalTracks) % this.playbackInfo.totalTracks;
         this.playbackInfo.trackIndex = prevIndex;
         this.playbackInfo.positionMs = 0;
         this.model.playbackPosition = 0;
@@ -930,7 +985,7 @@ export class A2dpService {
       this.notifyPlaybackCallbacks();
       this.addHistoryEntry('setVolume', true, `Volume set to ${clampedVolume}`);
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s volume set to %{public}d',
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s volume set to %{public}d',
         this.serviceName, clampedVolume);
       hiTraceMeter.finishTrace(`${this.serviceName}_setVolume`, 0);
       return true;
@@ -961,7 +1016,8 @@ export class A2dpService {
         return false;
       }
 
-      const codec: A2dpAudioCodecInfo | undefined = this.supportedCodecs.find((c: A2dpAudioCodecInfo) => c.codecId === codecId);
+      const codec: A2dpAudioCodecInfo | undefined =
+        this.supportedCodecs.find((c: A2dpAudioCodecInfo) => c.codecId === codecId);
       if (!codec) {
         this.addHistoryEntry('selectCodec', false, `Unsupported codec: ${codecId}`);
         hiTraceMeter.finishTrace(`${this.serviceName}_selectCodec`, 0);
@@ -984,7 +1040,7 @@ export class A2dpService {
       this.notifyDataCallbacks();
       this.addHistoryEntry('selectCodec', true, `Selected codec: ${codec.codecName}`);
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s codec selected: %{public}s',
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s codec selected: %{public}s',
         this.serviceName, codec.codecName);
       hiTraceMeter.finishTrace(`${this.serviceName}_selectCodec`, 0);
       return true;
@@ -1272,10 +1328,10 @@ export class A2dpService {
       this.initializePlaybackInfo();
 
       this.addHistoryEntry('reset', true, 'Service reset');
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s reset complete', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s reset complete', this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_reset`, 0);
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s reset failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s reset failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.serviceName}_reset`, 0);
     }
@@ -1301,10 +1357,10 @@ export class A2dpService {
       this.supportedCodecs = [];
       this.isInitialized = false;
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s destroyed', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s destroyed', this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_destroy`, 0);
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s destroy failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s destroy failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.serviceName}_destroy`, 0);
     }
@@ -1320,7 +1376,7 @@ export class A2dpService {
       try {
         callback(this.connectionState);
       } catch (error) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s callback error: %{public}s',
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s callback error: %{public}s',
           this.serviceName, JSON.stringify(error));
       }
     }
@@ -1336,7 +1392,7 @@ export class A2dpService {
       try {
         callback(this.model);
       } catch (error) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s data callback error: %{public}s',
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s data callback error: %{public}s',
           this.serviceName, JSON.stringify(error));
       }
     }
@@ -1355,7 +1411,7 @@ export class A2dpService {
       try {
         callback(this.playbackInfo);
       } catch (error) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s playback callback error: %{public}s',
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s playback callback error: %{public}s',
           this.serviceName, JSON.stringify(error));
       }
     }

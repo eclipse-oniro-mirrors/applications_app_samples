@@ -20,40 +20,40 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 蓝牙设备类型枚举。
- * 定义蓝牙设备的分类类型。
+ * Bluetooth device type enum.
+ * specify meaning Bluetooth device classification class type.
  */
 export enum BluetoothDeviceType {
-  /** 经典蓝牙设备 */
+  /** classic Bluetooth device */
   CLASSIC = 'classic',
-  /** 低功耗蓝牙设备 */
+  /** low-energy Bluetooth device */
   BLE = 'ble',
-  /** 双模设备 */
+  /** dual-mode device */
   DUAL_MODE = 'dual_mode',
-  /** 未知类型 */
+  /** not yet know class type */
   UNKNOWN = 'unknown'
 }
 
 /**
- * 蓝牙设备主要服务类型枚举。
+ * Bluetooth device main service type enum.
  */
 export enum BluetoothMajorService {
-  /** 音频 */
+  /** audio */
   AUDIO = 'audio',
-  /** 电话 */
+  /** electric talk */
   TELEPHONY = 'telephony',
-  /** 网络 */
+  /** network */
   NETWORK = 'network',
-  /** 输入设备 */
+  /** input device */
   INPUT = 'input',
-  /** 健康 */
+  /** health health */
   HEALTH = 'health',
-  /** 信息 */
+  /** info info */
   INFORMATION = 'information'
 }
 
 /**
- * 蓝牙设备JSON序列化接口。
+ * Bluetooth device JSON serialization interface.
  */
 export interface BluetoothDeviceJson {
   deviceId: string;
@@ -72,43 +72,43 @@ export interface BluetoothDeviceJson {
 }
 
 /**
- * 蓝牙设备数据模型。
- * 封装蓝牙设备的基本信息和连接状态。
+ * Bluetooth device data model.
+ * wrap package Bluetooth device base this info info and connection state.
  */
 export class BluetoothDeviceModel {
-  /** 设备唯一标识 */
+  /** device unique identifier */
   deviceId: string;
-  /** 设备名称 */
+  /** device name */
   deviceName: string;
-  /** MAC地址 */
+  /** MAC ground address */
   macAddress: string;
-  /** 设备类型 */
+  /** device type */
   deviceType: BluetoothDeviceType;
-  /** 连接状态 */
+  /** connection state */
   connectionState: BluetoothConnectionState;
-  /** 主要服务类型 */
+  /** main service class type */
   majorServices: BluetoothMajorService[];
-  /** 支持的Profile列表 */
+  /** supported profile list */
   supportedProfiles: BluetoothProfileType[];
-  /** 信号强度 */
+  /** signal strength */
   rssi: number;
-  /** 配对状态 */
+  /** pairing state state */
   bondState: number;
-  /** 最后连接时间 */
+  /** last connection time */
   lastConnectedTime: number;
-  /** 连接次数统计 */
+  /** connection count statistics */
   connectionCount: number;
-  /** 信号强度百分比 */
+  /** signal strength percentage */
   signalStrength: number;
-  /** 设备类别 */
+  /** device class */
   deviceClass: number;
 
   /**
-   * 创建蓝牙设备模型实例。
-   * @param {string} deviceId - 设备ID
-   * @param {string} deviceName - 设备名称
-   * @param {string} macAddress - MAC地址
-   * @param {BluetoothDeviceType} deviceType - 设备类型
+   * create Bluetooth device model type instance.
+   * @param {string} deviceId - device ID
+   * @param {string} deviceName - device name
+   * @param {string} macAddress - MAC ground address
+   * @param {BluetoothDeviceType} deviceType - device type
    */
   constructor(
     deviceId: string = '',
@@ -133,8 +133,8 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 更新连接状态。
-   * @param {BluetoothConnectionState} state - 新的连接状态
+   * update connection state.
+   * @param {BluetoothConnectionState} state - new connection state
    */
   updateConnectionState(state: BluetoothConnectionState): void {
     hilog.info(DOMAIN, TAG, 'BluetoothDeviceModel updateConnectionState: %{public}s -> %{public}s',
@@ -147,33 +147,33 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 检查设备是否已连接。
-   * @returns {boolean} 是否已连接
+   * check device whether connected.
+   * @returns {boolean} whether connected
    */
   isConnected(): boolean {
     return this.connectionState === BluetoothConnectionState.CONNECTED;
   }
 
   /**
-   * 检查设备是否已配对。
-   * @returns {boolean} 是否已配对
+   * check device whether already pairing.
+   * @returns {boolean} whether already pairing
    */
   isBonded(): boolean {
     return this.bondState === 12;
   }
 
   /**
-   * 检查设备是否支持指定Profile。
-   * @param {BluetoothProfileType} profile - 要检查的Profile类型
-   * @returns {boolean} 是否支持
+   * check device whether support hold specified Profile.
+   * @param {BluetoothProfileType} profile - want check Profile class type
+   * @returns {boolean} whether support hold
    */
   supportsProfile(profile: BluetoothProfileType): boolean {
     return this.supportedProfiles.indexOf(profile) !== -1;
   }
 
   /**
-   * 添加支持的Profile。
-   * @param {BluetoothProfileType} profile - 要添加的Profile
+   * add support hold Profile.
+   * @param {BluetoothProfileType} profile - want add Profile
    */
   addSupportedProfile(profile: BluetoothProfileType): void {
     if (!this.supportsProfile(profile)) {
@@ -183,8 +183,8 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 添加主要服务类型。
-   * @param {BluetoothMajorService} service - 要添加的服务类型
+   * add main service class type.
+   * @param {BluetoothMajorService} service - want add service class type
    */
   addMajorService(service: BluetoothMajorService): void {
     if (this.majorServices.indexOf(service) === -1) {
@@ -193,13 +193,13 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 更新信号强度。
-   * @param {number} rssi - RSSI值
+   * update signal strength.
+   * @param {number} rssi - RSSI value
    */
   updateRssi(rssi: number): void {
     this.rssi = rssi;
-    // 将RSSI转换为0-100的信号强度百分比
-    // RSSI范围通常为-100到-30dBm
+    // will RSSI convert for 0-100 signal strength percentage
+    // RSSI range range through constant for -100 to -30dBm
     if (rssi <= -100) {
       this.signalStrength = 0;
     } else if (rssi >= -30) {
@@ -210,8 +210,8 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 获取信号强度等级描述。
-   * @returns {string} 信号强度等级
+   * get signal strength level describe describe.
+   * @returns {string} signal strength level
    */
   getSignalLevel(): string {
     if (this.signalStrength >= 80) {
@@ -227,8 +227,8 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 获取设备类型描述。
-   * @returns {string} 设备类型描述
+   * get device type describe describe.
+   * @returns {string} device type describe describe
    */
   getDeviceTypeLabel(): string {
     switch (this.deviceType) {
@@ -244,8 +244,8 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 获取连接状态描述。
-   * @returns {string} 连接状态描述
+   * get connection state state describe describe.
+   * @returns {string} connection state describe describe
    */
   getConnectionStateLabel(): string {
     switch (this.connectionState) {
@@ -267,8 +267,8 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 序列化为JSON兼容对象。
-   * @returns {BluetoothDeviceJson} JSON表示
+   * serialize to JSON compatible content against object.
+   * @returns {BluetoothDeviceJson} JSON table display
    */
   toJSON(): BluetoothDeviceJson {
     return {
@@ -289,8 +289,8 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 转换为可读字符串。
-   * @returns {string} 字符串描述
+   * convert to readable string.
+   * @returns {string} string description
    */
   toString(): string {
     return 'BluetoothDeviceModel[id=' + this.deviceId + ', name=' + this.deviceName +
@@ -298,7 +298,7 @@ export class BluetoothDeviceModel {
   }
 
   /**
-   * 重置设备状态。
+   * reset device status.
    */
   reset(): void {
     this.connectionState = BluetoothConnectionState.DISCONNECTED;

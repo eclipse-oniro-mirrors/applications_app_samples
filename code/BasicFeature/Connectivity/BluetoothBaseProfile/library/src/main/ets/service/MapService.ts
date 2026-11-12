@@ -228,7 +228,8 @@ export class MapService {
   private lastError: string = '';
 
   /** State transition history */
-  private stateTransitions: Array<{ from: BluetoothConnectionState; to: BluetoothConnectionState; timestamp: number }> = [];
+  private stateTransitions: Array<{ from: BluetoothConnectionState; to: BluetoothConnectionState; timestamp: number }> =
+    [];
 
   /**
    * @constructor
@@ -304,7 +305,8 @@ export class MapService {
 
     try {
       if (this.isInitialized) {
-        hilog.warn(0xF830, BluetoothConstants.TAG, '%{public}s already initialized', this.serviceName);
+        hilog.warn(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s already initialized',
+          this.serviceName);
         this.addHistoryEntry('initialize', false, 'Already initialized');
         hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
         return false;
@@ -343,11 +345,12 @@ export class MapService {
       this.isInitialized = true;
       this.addHistoryEntry('initialize', true, 'Service initialized successfully');
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s initialized successfully', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialized successfully',
+        this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
       return true;
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s initialization failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s initialization failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       this.addHistoryEntry('initialize', false, `Error: ${JSON.stringify(error)}`);
       hiTraceMeter.finishTrace(`${this.serviceName}_initialize`, 0);
@@ -383,21 +386,22 @@ export class MapService {
 
     try {
       if (!this.isInitialized) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s not initialized', this.serviceName);
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s not initialized', this.serviceName);
         this.addHistoryEntry('connect', false, 'Service not initialized');
         hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
         return false;
       }
 
       if (!deviceId || deviceId.length === 0) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s invalid device ID', this.serviceName);
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s invalid device ID',
+          this.serviceName);
         this.addHistoryEntry('connect', false, 'Invalid device ID');
         hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
         return false;
       }
 
       if (this.connectedDeviceIds.includes(deviceId)) {
-        hilog.warn(0xF830, BluetoothConstants.TAG, '%{public}s already connected to %{public}s',
+        hilog.warn(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s already connected to %{public}s',
           this.serviceName, deviceId);
         this.addHistoryEntry('connect', false, 'Already connected');
         hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
@@ -417,14 +421,15 @@ export class MapService {
       this.addHistoryEntry('connect', true, `Connected to ${deviceId}`);
       this.addOperationRecord('connect', deviceId, true, '', `Connected to ${deviceId}`);
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s connected to %{public}s', this.serviceName, deviceId);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s connected to %{public}s',
+        this.serviceName, deviceId);
       hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
       return true;
     } catch (error) {
       this.transitionState(BluetoothConnectionState.DISCONNECTED);
       this.addHistoryEntry('connect', false, `Error: ${JSON.stringify(error)}`);
       this.addOperationRecord('connect', deviceId, false, JSON.stringify(error), 'Connection failed');
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s connect failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s connect failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.serviceName}_connect`, 0);
       return false;
@@ -565,7 +570,7 @@ export class MapService {
    */
   setConnectionConfig(config: Partial<MapConnectionConfig>): void {
     this.connectionConfig = { ...this.connectionConfig, ...config };
-    hilog.debug(0xF830, BluetoothConstants.TAG, '%{public}s config updated', this.serviceName);
+    hilog.debug(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s config updated', this.serviceName);
   }
 
   /**
@@ -751,7 +756,7 @@ export class MapService {
       this.addHistoryEntry('reset', true, 'Service reset');
       hiTraceMeter.finishTrace(`${this.serviceName}_reset`, 0);
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s reset failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s reset failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.serviceName}_reset`, 0);
     }
@@ -774,10 +779,10 @@ export class MapService {
       this.operationCallbacks = [];
       this.isInitialized = false;
 
-      hilog.info(0xF830, BluetoothConstants.TAG, '%{public}s destroyed', this.serviceName);
+      hilog.info(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s destroyed', this.serviceName);
       hiTraceMeter.finishTrace(`${this.serviceName}_destroy`, 0);
     } catch (error) {
-      hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s destroy failed: %{public}s',
+      hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s destroy failed: %{public}s',
         this.serviceName, JSON.stringify(error));
       hiTraceMeter.finishTrace(`${this.serviceName}_destroy`, 0);
     }
@@ -811,7 +816,7 @@ export class MapService {
       try {
         callback(this.connectionState);
       } catch (error) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s callback error: %{public}s',
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s callback error: %{public}s',
           this.serviceName, JSON.stringify(error));
       }
     }
@@ -827,7 +832,7 @@ export class MapService {
       try {
         callback(this.model);
       } catch (error) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s data callback error: %{public}s',
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG, '%{public}s data callback error: %{public}s',
           this.serviceName, JSON.stringify(error));
       }
     }
@@ -844,7 +849,8 @@ export class MapService {
       try {
         callback(record);
       } catch (error) {
-        hilog.error(0xF830, BluetoothConstants.TAG, '%{public}s operation callback error: %{public}s',
+        hilog.error(BluetoothConstants.DOMAIN, BluetoothConstants.TAG,
+          '%{public}s operation callback error: %{public}s',
           this.serviceName, JSON.stringify(error));
       }
     }

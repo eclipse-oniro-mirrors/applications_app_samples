@@ -146,6 +146,23 @@ export interface ConnectionStatistics {
 }
 
 /**
+ * Mutable accumulator used while folding the connection record list into
+ * ConnectionStatistics. Kept private to this module.
+ */
+interface StatisticsAccumulator {
+  totalConnections: number;
+  totalDisconnections: number;
+  totalFailures: number;
+  totalAutoReconnects: number;
+  totalDuration: number;
+  longestDuration: number;
+  shortestDuration: number;
+  totalRssi: number;
+  connectionsByProfile: Map<string, number>;
+  failuresByErrorCode: Map<number, number>;
+}
+
+/**
  * Bluetooth Connection Manager class.
  *
  * This is the central service for managing all Bluetooth device connections.
@@ -300,27 +317,7 @@ export class BluetoothConnectionManager {
       }
 
       // Connection successful
-      device.updateConnectionState(BluetoothConnectionState.CONNECTED);
-      this.connectedDevices.set(device.deviceId, device);
-      this.uniqueDeviceIds.add(device.deviceId);
-
-      // Track profile association
-      if (!this.deviceProfiles.has(device.deviceId)) {
-        this.deviceProfiles.set(device.deviceId, []);
-      }
-      this.deviceProfiles.get(device.deviceId)!.push(profile);
-
-      // Reset auto-reconnect counter on successful connection
-      this.autoReconnectCounts.set(device.deviceId, 0);
-
-      // Record the connection event
-      this.addRecord(device, profile, BluetoothConnectionState.CONNECTED, '', 0);
-
-      // Notify callbacks
-      this.notifyConnected(device.deviceId, profile);
-
-      // Report event
-      this.triggerAppEvent(device.deviceId, profile, 'connected');
+      this.applyConnectionSuccess(device, profile);
 
       hilog.info(DOMAIN, TAG, 'BluetoothConnectionManager connectDevice: success');
       hiTraceMeter.finishTrace('ConnectionManager_connect', 0);
@@ -328,21 +325,65 @@ export class BluetoothConnectionManager {
     } catch (err) {
       // Connection failed
       const errorMsg: string = err instanceof Error ? err.message : 'Unknown error';
-      device.updateConnectionState(BluetoothConnectionState.CONNECTION_FAILED);
-
-      // Record the failure
-      this.addRecord(device, profile, BluetoothConnectionState.CONNECTION_FAILED, errorMsg, 0);
-
-      // Notify callbacks of error
-      this.notifyError(device.deviceId, profile, errorMsg);
-
-      // Report event
-      this.triggerAppEvent(device.deviceId, profile, 'error');
+      this.applyConnectionFailure(device, profile, errorMsg);
 
       hilog.error(DOMAIN, TAG, 'BluetoothConnectionManager connectDevice: failed - %{public}s', errorMsg);
       hiTraceMeter.finishTrace('ConnectionManager_connect', 0);
       return false;
     }
+  }
+
+  /**
+   * Register a successful connection: update the device state, remember the profile
+   * association, reset the auto-reconnect counter, then record and report the event.
+   *
+   * @param {BluetoothDeviceModel} device - The device that has just been connected
+   * @param {BluetoothProfileType} profile - The profile the connection was established on
+   */
+  private applyConnectionSuccess(device: BluetoothDeviceModel, profile: BluetoothProfileType): void {
+    device.updateConnectionState(BluetoothConnectionState.CONNECTED);
+    this.connectedDevices.set(device.deviceId, device);
+    this.uniqueDeviceIds.add(device.deviceId);
+
+    // Track profile association
+    if (!this.deviceProfiles.has(device.deviceId)) {
+      this.deviceProfiles.set(device.deviceId, []);
+    }
+    this.deviceProfiles.get(device.deviceId)!.push(profile);
+
+    // Reset auto-reconnect counter on successful connection
+    this.autoReconnectCounts.set(device.deviceId, 0);
+
+    // Record the connection event
+    this.addRecord(device, profile, BluetoothConnectionState.CONNECTED, '', 0);
+
+    // Notify callbacks
+    this.notifyConnected(device.deviceId, profile);
+
+    // Report event
+    this.triggerAppEvent(device.deviceId, profile, 'connected');
+  }
+
+  /**
+   * Register a failed connection: update the device state, record the failure,
+   * then notify the error callbacks and report the event.
+   *
+   * @param {BluetoothDeviceModel} device - The device whose connection attempt failed
+   * @param {BluetoothProfileType} profile - The profile the attempt was made on
+   * @param {string} errorMsg - The reason reported to observers
+   */
+  private applyConnectionFailure(device: BluetoothDeviceModel, profile: BluetoothProfileType,
+    errorMsg: string): void {
+    device.updateConnectionState(BluetoothConnectionState.CONNECTION_FAILED);
+
+    // Record the failure
+    this.addRecord(device, profile, BluetoothConnectionState.CONNECTION_FAILED, errorMsg, 0);
+
+    // Notify callbacks of error
+    this.notifyError(device.deviceId, profile, errorMsg);
+
+    // Report event
+    this.triggerAppEvent(device.deviceId, profile, 'error');
   }
 
   /**
@@ -415,13 +456,12 @@ export class BluetoothConnectionManager {
     let count: number = 0;
     const deviceIds: string[] = Array.from(this.connectedDevices.keys());
     for (const deviceId of deviceIds) {
-      const profiles: BluetoothProfileType[] | undefined = this.deviceProfiles.get(deviceId);
-      if (profiles) {
-        for (const profile of profiles) {
-          const result: boolean = await this.disconnectDevice(deviceId, profile);
-          if (result) {
-            count++;
-          }
+      const profileList: BluetoothProfileType[] | undefined = this.deviceProfiles.get(deviceId);
+      const profiles: BluetoothProfileType[] = profileList ?? [];
+      for (const profile of profiles) {
+        const result: boolean = await this.disconnectDevice(deviceId, profile);
+        if (result) {
+          count++;
         }
       }
     }
@@ -808,63 +848,80 @@ export class BluetoothConnectionManager {
    * @returns {ConnectionStatistics} Aggregated statistics
    */
   getStatistics(): ConnectionStatistics {
-    let totalConnections: number = 0;
-    let totalDisconnections: number = 0;
-    let totalFailures: number = 0;
-    let totalAutoReconnects: number = 0;
-    let totalDuration: number = 0;
-    let longestDuration: number = 0;
-    let shortestDuration: number = Number.MAX_VALUE;
-    let totalRssi: number = 0;
-    const connectionsByProfile: Map<string, number> = new Map();
-    const failuresByErrorCode: Map<number, number> = new Map();
+    const acc: StatisticsAccumulator = {
+      totalConnections: 0,
+      totalDisconnections: 0,
+      totalFailures: 0,
+      totalAutoReconnects: 0,
+      totalDuration: 0,
+      longestDuration: 0,
+      shortestDuration: Number.MAX_VALUE,
+      totalRssi: 0,
+      connectionsByProfile: new Map(),
+      failuresByErrorCode: new Map()
+    };
 
     for (const record of this.connectionRecords) {
-      if (record.state === BluetoothConnectionState.CONNECTED) {
-        totalConnections++;
-        const profileCount: number = connectionsByProfile.get(record.profile) || 0;
-        connectionsByProfile.set(record.profile, profileCount + 1);
-      } else if (record.state === BluetoothConnectionState.DISCONNECTED) {
-        totalDisconnections++;
-        if (record.duration > 0) {
-          totalDuration += record.duration;
-          if (record.duration > longestDuration) {
-            longestDuration = record.duration;
-          }
-          if (record.duration < shortestDuration) {
-            shortestDuration = record.duration;
-          }
-        }
-      } else {
-        totalFailures++;
-      }
-      if (record.isAutoReconnect) {
-        totalAutoReconnects++;
-      }
-      totalRssi += Math.abs(record.rssi);
+      this.accumulateRecord(acc, record);
     }
 
-    const completedConnections: number = totalConnections + totalFailures;
-    const avgDuration: number = totalDisconnections > 0 ? totalDuration / totalDisconnections : 0;
+    const completedConnections: number = acc.totalConnections + acc.totalFailures;
+    const avgDuration: number = acc.totalDisconnections > 0 ? acc.totalDuration / acc.totalDisconnections : 0;
     const avgRssi: number = this.connectionRecords.length > 0 ?
-      -(totalRssi / this.connectionRecords.length) : 0;
+      -(acc.totalRssi / this.connectionRecords.length) : 0;
 
     return {
-      totalConnections: totalConnections,
-      totalDisconnections: totalDisconnections,
-      totalFailures: totalFailures,
-      totalAutoReconnects: totalAutoReconnects,
+      totalConnections: acc.totalConnections,
+      totalDisconnections: acc.totalDisconnections,
+      totalFailures: acc.totalFailures,
+      totalAutoReconnects: acc.totalAutoReconnects,
       averageDuration: Math.round(avgDuration),
-      longestDuration: longestDuration,
-      shortestDuration: shortestDuration === Number.MAX_VALUE ? 0 : shortestDuration,
+      longestDuration: acc.longestDuration,
+      shortestDuration: acc.shortestDuration === Number.MAX_VALUE ? 0 : acc.shortestDuration,
       currentConnectedCount: this.connectedDevices.size,
       totalUniqueDevices: this.uniqueDeviceIds.size,
       successRate: completedConnections > 0 ?
-        Math.round((totalConnections / completedConnections) * 100) : 0,
+        Math.round((acc.totalConnections / completedConnections) * 100) : 0,
       averageRssi: Math.round(avgRssi),
-      connectionsByProfile: connectionsByProfile,
-      failuresByErrorCode: failuresByErrorCode
+      connectionsByProfile: acc.connectionsByProfile,
+      failuresByErrorCode: acc.failuresByErrorCode
     };
+  }
+
+  /**
+   * Fold one connection record into the statistics accumulator.
+   * @param {StatisticsAccumulator} acc - Accumulator updated in place
+   * @param {ConnectionRecord} record - The record to take into account
+   */
+  private accumulateRecord(acc: StatisticsAccumulator, record: ConnectionRecord): void {
+    if (record.state === BluetoothConnectionState.CONNECTED) {
+      acc.totalConnections++;
+      const profileCount: number = acc.connectionsByProfile.get(record.profile) || 0;
+      acc.connectionsByProfile.set(record.profile, profileCount + 1);
+    } else if (record.state === BluetoothConnectionState.DISCONNECTED) {
+      acc.totalDisconnections++;
+      this.accumulateDuration(acc, record.duration);
+    } else {
+      acc.totalFailures++;
+    }
+    if (record.isAutoReconnect) {
+      acc.totalAutoReconnects++;
+    }
+    acc.totalRssi += Math.abs(record.rssi);
+  }
+
+  /**
+   * Update the duration aggregates with one completed connection session.
+   * @param {StatisticsAccumulator} acc - Accumulator updated in place
+   * @param {number} duration - Session duration in milliseconds
+   */
+  private accumulateDuration(acc: StatisticsAccumulator, duration: number): void {
+    if (duration <= 0) {
+      return;
+    }
+    acc.totalDuration += duration;
+    acc.longestDuration = Math.max(acc.longestDuration, duration);
+    acc.shortestDuration = Math.min(acc.shortestDuration, duration);
   }
 
   /**

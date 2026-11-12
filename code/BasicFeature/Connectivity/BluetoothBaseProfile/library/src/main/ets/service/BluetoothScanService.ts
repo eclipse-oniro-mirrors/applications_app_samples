@@ -21,7 +21,7 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 扫描结果回调接口
+ * scan result callback interface
  */
 export interface ScanResultCallback {
   onDeviceFound(device: BluetoothDeviceModel): void;
@@ -30,25 +30,25 @@ export interface ScanResultCallback {
 }
 
 /**
- * 蓝牙扫描服务。
- * 管理蓝牙设备扫描和发现流程。
+ * blue tooth scan service.
+ * manage manage Bluetooth device scan and discover stream process.
  */
 export class BluetoothScanService {
-  /** 当前扫描状态 */
+  /** current scan status */
   private scanState: BluetoothScanState = BluetoothScanState.IDLE;
-  /** 扫描到的设备列表 */
+  /** scanned devices list table */
   private discoveredDevices: BluetoothDeviceModel[] = [];
-  /** 扫描回调 */
+  /** scan callback */
   private callbacks: ScanResultCallback[] = [];
-  /** 扫描定时器 */
+  /** scan timer */
   private scanTimer: number = -1;
-  /** 是否正在扫描 */
+  /** whether scanning */
   private isScanning: boolean = false;
 
   /**
-   * 开始扫描蓝牙设备。
-   * @param {number} timeout - 扫描超时时间（毫秒）
-   * @returns {Promise<boolean>} 是否成功启动扫描
+   * start scanning Bluetooth device.
+   * @param {number} timeout - scan timeout (ms)
+   * @returns {Promise<boolean>} whether success start scan
    */
   async startScan(timeout: number = BluetoothConstants.SCAN_TIMEOUT_MS): Promise<boolean> {
     hiTraceMeter.startTrace('BluetoothScanService_startScan', 0);
@@ -65,7 +65,7 @@ export class BluetoothScanService {
     this.discoveredDevices = [];
 
     try {
-      // 模拟扫描过程 - 生成mock设备
+      // simulate scan over process - generate mock device
       await this.simulateScan();
       this.scanState = BluetoothScanState.SCAN_COMPLETE;
       this.isScanning = false;
@@ -85,7 +85,7 @@ export class BluetoothScanService {
   }
 
   /**
-   * 停止扫描。
+   * stop scanning.
    */
   stopScan(): void {
     hilog.info(DOMAIN, TAG, 'BluetoothScanService stopScan: stopping');
@@ -98,48 +98,48 @@ export class BluetoothScanService {
   }
 
   /**
-   * 获取扫描状态。
-   * @returns {BluetoothScanState} 扫描状态
+   * get scan status.
+   * @returns {BluetoothScanState} scan status
    */
   getScanState(): BluetoothScanState {
     return this.scanState;
   }
 
   /**
-   * 检查是否正在扫描。
-   * @returns {boolean} 是否正在扫描
+   * check whether scanning.
+   * @returns {boolean} whether scanning
    */
   getIsScanning(): boolean {
     return this.isScanning;
   }
 
   /**
-   * 获取已发现的设备列表。
-   * @returns {BluetoothDeviceModel[]} 设备列表
+   * get discovered device list.
+   * @returns {BluetoothDeviceModel[]} device list
    */
   getDiscoveredDevices(): BluetoothDeviceModel[] {
     return [...this.discoveredDevices];
   }
 
   /**
-   * 获取已发现设备数量。
-   * @returns {number} 设备数量
+   * get discovered device count.
+   * @returns {number} device number amount
    */
   getDeviceCount(): number {
     return this.discoveredDevices.length;
   }
 
   /**
-   * 添加扫描回调。
-   * @param {ScanResultCallback} callback - 回调
+   * add scan callback.
+   * @param {ScanResultCallback} callback - callback
    */
   addCallback(callback: ScanResultCallback): void {
     this.callbacks.push(callback);
   }
 
   /**
-   * 移除扫描回调。
-   * @param {ScanResultCallback} callback - 回调
+   * remove scan callback.
+   * @param {ScanResultCallback} callback - callback
    */
   removeCallback(callback: ScanResultCallback): void {
     const index: number = this.callbacks.indexOf(callback);
@@ -149,7 +149,7 @@ export class BluetoothScanService {
   }
 
   /**
-   * 清除已发现的设备列表。
+   * clear discovered device list.
    */
   clearDevices(): void {
     hilog.info(DOMAIN, TAG, 'BluetoothScanService clearDevices: clearing %{public}d devices',
@@ -158,17 +158,17 @@ export class BluetoothScanService {
   }
 
   /**
-   * 按信号强度排序设备列表。
-   * @returns {BluetoothDeviceModel[]} 排序后的设备列表
+   * sort device list by signal strength.
+   * @returns {BluetoothDeviceModel[]} sorted device list
    */
   getDevicesSortedByRssi(): BluetoothDeviceModel[] {
     return [...this.discoveredDevices].sort((a: BluetoothDeviceModel, b: BluetoothDeviceModel) => b.rssi - a.rssi);
   }
 
   /**
-   * 按设备名称过滤。
-   * @param {string} keyword - 关键字
-   * @returns {BluetoothDeviceModel[]} 过滤后的设备列表
+   * filter by device name.
+   * @param {string} keyword - relate key character
+   * @returns {BluetoothDeviceModel[]} filtered device list
    */
   filterDevicesByName(keyword: string): BluetoothDeviceModel[] {
     if (!keyword) {
@@ -180,16 +180,16 @@ export class BluetoothScanService {
   }
 
   /**
-   * 按设备类型过滤。
-   * @param {BluetoothDeviceType} type - 设备类型
-   * @returns {BluetoothDeviceModel[]} 过滤后的设备列表
+   * filter by device type.
+   * @param {BluetoothDeviceType} type - device type
+   * @returns {BluetoothDeviceModel[]} filtered device list
    */
   filterDevicesByType(type: BluetoothDeviceType): BluetoothDeviceModel[] {
     return this.discoveredDevices.filter((d: BluetoothDeviceModel) => d.deviceType === type);
   }
 
   /**
-   * 模拟扫描过程。
+   * simulate scan over process.
    * @returns {Promise<void>}
    */
   private async simulateScan(): Promise<void> {
@@ -219,8 +219,8 @@ export class BluetoothScanService {
   }
 
   /**
-   * 生成模拟MAC地址。
-   * @returns {string} MAC地址
+   * generate mock MAC ground address.
+   * @returns {string} MAC ground address
    */
   private generateMockMac(): string {
     const hex: string = '0123456789ABCDEF';
@@ -236,8 +236,8 @@ export class BluetoothScanService {
   }
 
   /**
-   * 模拟延迟。
-   * @param {number} ms - 毫秒
+   * simulate delay.
+   * @param {number} ms - ms
    * @returns {Promise<void>}
    */
   private simulateDelay(ms: number): Promise<void> {
@@ -245,8 +245,8 @@ export class BluetoothScanService {
   }
 
   /**
-   * 通知发现设备。
-   * @param {BluetoothDeviceModel} device - 发现的设备
+   * notify device found.
+   * @param {BluetoothDeviceModel} device - discovered device
    */
   private notifyDeviceFound(device: BluetoothDeviceModel): void {
     for (const callback of this.callbacks) {
@@ -259,7 +259,7 @@ export class BluetoothScanService {
   }
 
   /**
-   * 通知扫描完成。
+   * notify scan completed.
    */
   private notifyScanComplete(): void {
     for (const callback of this.callbacks) {
@@ -272,8 +272,8 @@ export class BluetoothScanService {
   }
 
   /**
-   * 通知扫描失败。
-   * @param {string} error - 错误信息
+   * notify scan failed.
+   * @param {string} error - error info info
    */
   private notifyScanFailed(error: string): void {
     for (const callback of this.callbacks) {
@@ -286,7 +286,7 @@ export class BluetoothScanService {
   }
 
   /**
-   * 重置扫描服务。
+   * reset scan service.
    */
   reset(): void {
     this.stopScan();
