@@ -25,7 +25,7 @@ const ID_SEPARATOR_COUNT: number = 3;
 
 export default function deviceUtilsTest(): void {
   describe('DeviceUtilsTest', () => {
-    // ==================== 单值设备属性（3 条） ====================
+    // ==================== single-value device belong property (3 cases) ====================
 
     /*
      * @tc.number: SUB_DEVICE_UTILS_0100
@@ -88,7 +88,7 @@ export default function deviceUtilsTest(): void {
       expect(deviceType.indexOf(' ')).assertEqual(-1);
     });
 
-    // ==================== 设备形态判定（2 条） ====================
+    // ==================== device form judge specify (2 cases) ====================
 
     /*
      * @tc.number: SUB_DEVICE_UTILS_0400
@@ -130,7 +130,7 @@ export default function deviceUtilsTest(): void {
       expect(DeviceUtils.isTablet() && !supportClassic).assertFalse();
     });
 
-    // ==================== 聚合设备信息（3 条） ====================
+    // ==================== aggregate device info (3 cases) ====================
 
     /*
      * @tc.number: SUB_DEVICE_UTILS_0600
@@ -202,7 +202,7 @@ export default function deviceUtilsTest(): void {
       expect(generated[11].length > 6).assertTrue();
     });
 
-    // ==================== 固定能力描述（2 条） ====================
+    // ==================== fixed specify capability describe describe (2 cases) ====================
 
     /*
      * @tc.number: SUB_DEVICE_UTILS_0900

@@ -93,7 +93,7 @@ async function readyManager(): Promise<A2dpProfileManager> {
 
 export default function errorHandlingTest(): void {
   describe('ErrorHandlingTest', () => {
-    // ==================== 生命周期与就绪守卫（4 条） ====================
+    // ==================== lifecycle and ready guard (4 cases) ====================
 
     /*
      * @tc.number: SUB_ERROR_HANDLING_0100
@@ -253,7 +253,7 @@ export default function errorHandlingTest(): void {
       await manager.destroy();
     });
 
-    // ==================== 设备标识异常输入（6 条） ====================
+    // ==================== device identifier exception input (6 cases) ====================
 
     /*
      * @tc.number: SUB_ERROR_HANDLING_0500
@@ -492,7 +492,7 @@ export default function errorHandlingTest(): void {
       await manager.destroy();
     });
 
-    // ==================== 并发与回调异常（2 条） ====================
+    // ==================== concurrency and callback exception (2 cases) ====================
 
     /*
      * @tc.number: SUB_ERROR_HANDLING_1100
@@ -589,7 +589,7 @@ export default function errorHandlingTest(): void {
       await manager.destroy();
     });
 
-    // ==================== 统计、记录与配置一致性（6 条） ====================
+    // ==================== statistics, record and config set consistency (6 cases) ====================
 
     /*
      * @tc.number: SUB_ERROR_HANDLING_1300
@@ -856,7 +856,7 @@ export default function errorHandlingTest(): void {
       await manager.destroy();
     });
 
-    // ==================== 健康度与故障隔离（4 条） ====================
+    // ==================== health score and fault isolation (4 cases) ====================
 
     /*
      * @tc.number: SUB_ERROR_HANDLING_1900

@@ -28,7 +28,7 @@ const TERABYTE: number = 1099511627776;
 
 export default function fileUtilsTest(): void {
   describe('FileUtilsTest', () => {
-    // ==================== 扩展名解析（3 条） ====================
+    // ==================== expand extend name decode parse (3 cases) ====================
 
     /*
      * @tc.number: SUB_FILE_UTILS_0100
@@ -120,7 +120,7 @@ export default function fileUtilsTest(): void {
       expect(FileUtils.getFileName(FileUtils.getParentPath(path))).assertEqual('music');
     });
 
-    // ==================== 体积格式化（2 条） ====================
+    // ==================== size format (2 cases) ====================
 
     /*
      * @tc.number: SUB_FILE_UTILS_0600
@@ -157,7 +157,7 @@ export default function fileUtilsTest(): void {
       expect(FileUtils.formatFileSize(KILOBYTE + 1)).assertEqual('1.00 KB');
     });
 
-    // ==================== 文件类别判定（5 条） ====================
+    // ==================== text item category judge specify (5 cases) ====================
 
     /*
      * @tc.number: SUB_FILE_UTILS_0800
@@ -291,7 +291,7 @@ export default function fileUtilsTest(): void {
       expect(FileUtils.getFileIconName('jpg')).assertEqual('image');
     });
 
-    // ==================== MIME 与图标（2 条） ====================
+    // ==================== MIME and icon (2 cases) ====================
 
     /*
      * @tc.number: SUB_FILE_UTILS_1300
@@ -356,7 +356,7 @@ export default function fileUtilsTest(): void {
       expect(FileUtils.getFileIconName('Mp4')).assertEqual('video');
     });
 
-    // ==================== 路径处理（3 条） ====================
+    // ==================== path handle (3 cases) ====================
 
     /*
      * @tc.number: SUB_FILE_UTILS_1600

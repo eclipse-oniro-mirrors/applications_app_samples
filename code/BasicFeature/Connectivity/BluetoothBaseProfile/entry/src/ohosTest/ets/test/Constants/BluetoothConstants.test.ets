@@ -49,8 +49,9 @@ const UPPER_UUID: string = '0000110A-0000-1000-8000-00805F9B34FB';
 const DEFAULT_AUDIO_VOLUME: number = 50;
 
 /**
- * 列出 BluetoothConstants 中全部已定义错误码，用于分类与唯一性统计。
- * @returns {number[]} 已定义错误码集合
+ * list output BluetoothConstants in all part already specify meaning error code, used for classification and uniqueness
+ * statistics.
+ * @returns {number[]} already specify meaning error code set combine
  */
 function definedErrorCodes(): number[] {
   return [
@@ -69,9 +70,9 @@ function definedErrorCodes(): number[] {
 }
 
 /**
- * 统计集合中重复出现的元素数量。
- * @param {string[]} values - 待统计的字符串集合
- * @returns {number} 重复元素对数
+ * statistics set combine in weight repeat output current element number amount.
+ * @param {string[]} values - pending statistics string set combine
+ * @returns {number} duplicate element against number
  */
 function duplicateCount(values: string[]): number {
   let duplicated: number = 0;
@@ -86,9 +87,9 @@ function duplicateCount(values: string[]): number {
 }
 
 /**
- * 生成长度为 length 的设备名称。
- * @param {number} length - 目标名称长度
- * @returns {string} 由小写字母组成的名称
+ * generate length degree for length device name.
+ * @param {number} length - target name length
+ * @returns {string} by lowercase letters group become name name
  */
 function buildDeviceName(length: number): string {
   let name: string = '';
@@ -99,9 +100,9 @@ function buildDeviceName(length: number): string {
 }
 
 /**
- * 读取 A2DP 当前音量，播放信息缺失时返回 -1。
- * @param {A2dpService} service - 被测 A2DP 服务
- * @returns {number} 当前音量
+ * read A2DP current volume, playback info missing time return -1.
+ * @param {A2dpService} service - passive test A2DP service
+ * @returns {number} current volume
  */
 function a2dpVolume(service: A2dpService): number {
   const info = service.getPlaybackInfo();
@@ -109,9 +110,9 @@ function a2dpVolume(service: A2dpService): number {
 }
 
 /**
- * 读取 A2DP 静音标记，播放信息缺失时返回 false。
- * @param {A2dpService} service - 被测 A2DP 服务
- * @returns {boolean} 是否静音
+ * read A2DP static sound mark, playback info missing time return false.
+ * @param {A2dpService} service - passive test A2DP service
+ * @returns {boolean} whether static sound
  */
 function a2dpMuted(service: A2dpService): boolean {
   const info = service.getPlaybackInfo();
@@ -119,10 +120,10 @@ function a2dpMuted(service: A2dpService): boolean {
 }
 
 /**
- * 读取 HFP 音频配置中的指定音量，配置缺失时返回 -1。
- * @param {HfpService} service - 被测 HFP 服务
- * @param {string} field - 音量字段名
- * @returns {number} 音量值
+ * read HFP audio config in specified volume, config set missing time return -1.
+ * @param {HfpService} service - passive test HFP service
+ * @param {string} field - volume field name
+ * @returns {number} volume value
  */
 function hfpVolume(service: HfpService, field: string): number {
   const config = service.getAudioConfig();
@@ -138,7 +139,7 @@ function hfpVolume(service: HfpService, field: string): number {
  */
 export default function bluetoothConstantsTest(): void {
   describe('BluetoothConstantsTest', () => {
-    // ==================== 标识与错误码常量（2 条） ====================
+    // ==================== mark identify and error code constant amount (2 cases) ====================
 
     /*
      * @tc.number: SUB_BT_CONST_0100
@@ -211,7 +212,7 @@ export default function bluetoothConstantsTest(): void {
       expect(duplicated).assertEqual(0);
     });
 
-    // ==================== 错误码文案与错误分类（4 条） ====================
+    // ==================== error code text and error classification (4 cases) ====================
 
     /*
      * @tc.number: SUB_BT_CONST_0300
@@ -375,7 +376,7 @@ export default function bluetoothConstantsTest(): void {
       expect(BluetoothConstants.isPermanentError(35200099)).assertFalse();
     });
 
-    // ==================== 运行限额与定时常量（2 条） ====================
+    // ==================== run row limit and timer constant amount (2 cases) ====================
 
     /*
      * @tc.number: SUB_BT_CONST_0700
@@ -463,7 +464,7 @@ export default function bluetoothConstantsTest(): void {
       expect(BluetoothConstants.MAX_MESSAGE_LENGTH % BluetoothConstants.SYNC_CHUNK_SIZE).assertEqual(0);
     });
 
-    // ==================== 常量与真实校验逻辑的一致性（3 条） ====================
+    // ==================== constant amount and true actual validation logic consistency (3 cases) ====================
 
     /*
      * @tc.number: SUB_BT_CONST_0900
@@ -581,7 +582,7 @@ export default function bluetoothConstantsTest(): void {
         .assertEqual('Invalid MAC format');
       expect(ValidationUtils.validateMacAddress('').errorCode).assertEqual(1);
       expect(ValidationUtils.validateMacAddress('').errorMessage).assertEqual('MAC address is empty');
-      expect(ValidationUtils.validateMacAddress('AA:BB:CC:DD:EE:FF').isValid).assertTrue();
+      expect(ValidationUtils.validateMacAddress('11:22:33:44:55:FF').isValid).assertTrue();
       expect(ValidationUtils.validateMacAddress('00:11:22:33:44:5G').isValid).assertFalse();
     });
 
@@ -654,7 +655,7 @@ export default function bluetoothConstantsTest(): void {
       expect(hfpVolume(hfpService, 'speaker')).assertEqual(DEFAULT_AUDIO_VOLUME);
     });
 
-    // ==================== 配置与状态枚举取值（1 条） ====================
+    // ==================== config set and state state enum values (1 cases) ====================
 
     /*
      * @tc.number: SUB_BT_CONST_1200

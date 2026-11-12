@@ -90,7 +90,7 @@ async function initHdp(): Promise<HdpProfileManager> {
 
 export default function multiProfileIntegrationTest(): void {
   describe('MultiProfileIntegrationTest', () => {
-    // ==================== 多协议初始化与身份（1 条） ====================
+    // ==================== multi-profile initialize and body copy (1 cases) ====================
 
     /*
      * @tc.number: SUB_MULTI_PROFILE_0100
@@ -163,7 +163,7 @@ export default function multiProfileIntegrationTest(): void {
       await hdp.destroy();
     });
 
-    // ==================== 同一设备多协议并行接入（4 条） ====================
+    // ==================== same one device multi-profile parallel access (4 cases) ====================
 
     /*
      * @tc.number: SUB_MULTI_PROFILE_0200
@@ -353,7 +353,7 @@ export default function multiProfileIntegrationTest(): void {
       await pbap.destroy();
     });
 
-    // ==================== 故障、健康度与配置隔离（5 条） ====================
+    // ==================== fault, health score and config set isolation (5 cases) ====================
 
     /*
      * @tc.number: SUB_MULTI_PROFILE_0600
@@ -563,7 +563,7 @@ export default function multiProfileIntegrationTest(): void {
       await hfp.destroy();
     });
 
-    // ==================== 统一守卫行为（4 条） ====================
+    // ==================== system one guard row for (4 cases) ====================
 
     /*
      * @tc.number: SUB_MULTI_PROFILE_1100
@@ -793,7 +793,7 @@ export default function multiProfileIntegrationTest(): void {
       await pbap.destroy();
     });
 
-    // ==================== 数据与统计隔离（5 条） ====================
+    // ==================== number data and statistics isolation (5 cases) ====================
 
     /*
      * @tc.number: SUB_MULTI_PROFILE_1600

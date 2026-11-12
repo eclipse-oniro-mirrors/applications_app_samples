@@ -99,14 +99,14 @@ struct ScanPage {
 
     // Simulate device discovery
     const mockDevices: ScanResult[] = [
-      { name: 'JBL Flip 6', mac: 'AA:BB:CC:DD:EE:01', rssi: -45, type: 'Audio', isBonded: true },
-      { name: 'Sony WH-1000XM5', mac: 'AA:BB:CC:DD:EE:02', rssi: -38, type: 'Audio', isBonded: true },
-      { name: 'Logitech K380', mac: 'AA:BB:CC:DD:EE:10', rssi: -50, type: 'Input', isBonded: true },
-      { name: 'Microsoft Arc Mouse', mac: 'AA:BB:CC:DD:EE:11', rssi: -55, type: 'Input', isBonded: false },
-      { name: 'Huawei Watch GT4', mac: 'AA:BB:CC:DD:EE:20', rssi: -40, type: 'Health', isBonded: true },
-      { name: 'Samsung Galaxy S24', mac: 'AA:BB:CC:DD:EE:30', rssi: -35, type: 'Phone', isBonded: true },
-      { name: 'Unknown Device', mac: 'AA:BB:CC:DD:EE:40', rssi: -72, type: 'Unknown', isBonded: false },
-      { name: 'BT-Gamepad-Pro', mac: 'AA:BB:CC:DD:EE:50', rssi: -60, type: 'Input', isBonded: false },
+      { name: 'JBL Flip 6', mac: '11:22:33:44:55:01', rssi: -45, type: 'Audio', isBonded: true },
+      { name: 'Sony WH-1000XM5', mac: '11:22:33:44:55:02', rssi: -38, type: 'Audio', isBonded: true },
+      { name: 'Logitech K380', mac: '11:22:33:44:55:10', rssi: -50, type: 'Input', isBonded: true },
+      { name: 'Microsoft Arc Mouse', mac: '11:22:33:44:55:11', rssi: -55, type: 'Input', isBonded: false },
+      { name: 'Demo Health Watch', mac: '11:22:33:44:55:20', rssi: -40, type: 'Health', isBonded: true },
+      { name: 'Samsung Galaxy S24', mac: '11:22:33:44:55:30', rssi: -35, type: 'Phone', isBonded: true },
+      { name: 'Unknown Device', mac: '11:22:33:44:55:40', rssi: -72, type: 'Unknown', isBonded: false },
+      { name: 'BT-Gamepad-Pro', mac: '11:22:33:44:55:50', rssi: -60, type: 'Input', isBonded: false },
     ];
 
     let index: number = 0;
@@ -170,7 +170,7 @@ struct ScanPage {
       .width('100%')
       .height(PageConstants.NAV_BAR_HEIGHT)
       .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
 
       // Scan control
       Column() {
@@ -207,7 +207,7 @@ struct ScanPage {
         right: PageConstants.PAGE_PADDING,
         top: PageConstants.SECTION_SPACING
       })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
       .borderRadius(PageConstants.CARD_BORDER_RADIUS)
 
       // Results list
@@ -260,7 +260,7 @@ struct ScanPage {
             }
             .width('100%')
             .padding(CARD_INNER_PADDING)
-            .backgroundColor(PageConstants.COLOR_SURFACE)
+            .backgroundColor(PageConstants.COLOR_CARD)
             .borderRadius(CARD_INNER_RADIUS)
             .shadow({
               radius: 2,

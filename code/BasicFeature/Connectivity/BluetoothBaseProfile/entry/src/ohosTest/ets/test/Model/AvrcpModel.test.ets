@@ -35,11 +35,11 @@ interface AvrcpDataPayload {
 }
 
 /**
- * 构造一份完整的 AVRCP 媒体控制数据载荷。
- * @param {string} playbackState - 播放状态
- * @param {string} trackName - 曲目名称
- * @param {number} position - 播放位置
- * @returns {AvrcpDataPayload} 数据载荷
+ * structure build a complete AVRCP media control data payload.
+ * @param {string} playbackState - playback state
+ * @param {string} trackName - track item name name
+ * @param {number} position - playback position
+ * @returns {AvrcpDataPayload} data payload
  */
 function buildPayload(playbackState: string, trackName: string, position: number): AvrcpDataPayload {
   return {
@@ -56,9 +56,9 @@ function buildPayload(playbackState: string, trackName: string, position: number
 }
 
 /**
- * 读取日志末条内容（去掉时间戳前缀）。
- * @param {AvrcpModel} model - 被测模型
- * @returns {string} 末条日志正文，无日志时返回空串
+ * read day log last internal content (remove drop timestamp prefix).
+ * @param {AvrcpModel} model - passive test model type
+ * @returns {string} last day log correct text, none day log time return empty string
  */
 function lastLog(model: AvrcpModel): string {
   const logs = model.getLogs();
@@ -75,7 +75,7 @@ function lastLog(model: AvrcpModel): string {
  */
 export default function avrcpModelTest(): void {
   describe('AvrcpModelTest', () => {
-    // ==================== 构造与实例隔离（2 条） ====================
+    // ==================== structure build and instance isolation (2 cases) ====================
 
     /*
      * @tc.number: SUB_AVRCP_MODEL_0100
@@ -145,7 +145,7 @@ export default function avrcpModelTest(): void {
       expect(model.toString().indexOf('AvrcpModel[deviceId=' + DEVICE_ID + ', state=connecting')).assertEqual(0);
     });
 
-    // ==================== 连接状态迁移（4 条） ====================
+    // ==================== connection state transitions (4 cases) ====================
 
     /*
      * @tc.number: SUB_AVRCP_MODEL_0300
@@ -265,7 +265,7 @@ export default function avrcpModelTest(): void {
       expect(model.retryCount).assertEqual(0);
     });
 
-    // ==================== 操作日志行为（2 条） ====================
+    // ==================== operation log row for (2 cases) ====================
 
     /*
      * @tc.number: SUB_AVRCP_MODEL_0700
@@ -328,7 +328,7 @@ export default function avrcpModelTest(): void {
       expect(lastLog(model)).assertEqual('gamma');
     });
 
-    // ==================== 数据载荷与状态入口（2 条） ====================
+    // ==================== data payload and state entry (2 cases) ====================
 
     /*
      * @tc.number: SUB_AVRCP_MODEL_0900
@@ -402,7 +402,7 @@ export default function avrcpModelTest(): void {
       expect(model.data).assertEqual(null);
     });
 
-    // ==================== 重置与序列化（2 条） ====================
+    // ==================== reset and serialize (2 cases) ====================
 
     /*
      * @tc.number: SUB_AVRCP_MODEL_1100

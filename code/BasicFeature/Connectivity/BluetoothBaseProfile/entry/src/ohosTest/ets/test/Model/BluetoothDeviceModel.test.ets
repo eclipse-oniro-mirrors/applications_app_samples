@@ -30,10 +30,10 @@ const BONDED_VALUE: number = 12;
 const UNBONDED_VALUE: number = 10;
 
 /**
- * 统计字符串数组中目标值出现的次数。
- * @param {string[]} values - 待统计数组
- * @param {string} target - 目标值
- * @returns {number} 出现次数
+ * statistics string array in target value output current times number.
+ * @param {string[]} values - array to count
+ * @param {string} target - target value
+ * @returns {number} occurrence count
  */
 function countOf(values: string[], target: string): number {
   let count: number = 0;
@@ -51,7 +51,7 @@ function countOf(values: string[], target: string): number {
  */
 export default function bluetoothDeviceModelTest(): void {
   describe('BluetoothDeviceModelTest', () => {
-    // ==================== 构造与默认值（2 条） ====================
+    // ==================== structure build and default value (2 cases) ====================
 
     /*
      * @tc.number: SUB_BT_DEVICE_MODEL_0100
@@ -109,7 +109,7 @@ export default function bluetoothDeviceModelTest(): void {
       expect(sibling.connectionCount).assertEqual(0);
     });
 
-    // ==================== 连接状态与计数（3 条） ====================
+    // ==================== connection state and count number (3 cases) ====================
 
     /*
      * @tc.number: SUB_BT_DEVICE_MODEL_0300
@@ -188,7 +188,7 @@ export default function bluetoothDeviceModelTest(): void {
       expect(device.supportedProfiles.length).assertEqual(0);
     });
 
-    // ==================== 配对与能力集合（3 条） ====================
+    // ==================== pairing and capability set (3 cases) ====================
 
     /*
      * @tc.number: SUB_BT_DEVICE_MODEL_0600
@@ -274,7 +274,7 @@ export default function bluetoothDeviceModelTest(): void {
       expect(device.connectionState).assertEqual(BluetoothConnectionState.DISCONNECTED);
     });
 
-    // ==================== 信号强度换算（2 条） ====================
+    // ==================== signal strength conversion (2 cases) ====================
 
     /*
      * @tc.number: SUB_BT_DEVICE_MODEL_0900
@@ -357,7 +357,7 @@ export default function bluetoothDeviceModelTest(): void {
       expect(fresh.getSignalLevel()).assertEqual('very_weak');
     });
 
-    // ==================== 文本标签（3 条） ====================
+    // ==================== text label (3 cases) ====================
 
     /*
      * @tc.number: SUB_BT_DEVICE_MODEL_1100
@@ -428,14 +428,14 @@ export default function bluetoothDeviceModelTest(): void {
     /*
      * @tc.number: SUB_BT_DEVICE_MODEL_1300
      * @tc.name: testBluetoothDeviceModel0013
-     * @tc.desc: Verify the readable description carries identity fields and reflects state changes of one instance only.
+     * @tc.desc: Verify the readable description carries identity fields and reflects only the state of one instance.
      * @tc.size: MediumTest
      * @tc.type: Function
      * @tc.level Level 1
      */
     it('testBluetoothDeviceModel0013', 0, () => {
       const device = new BluetoothDeviceModel(DEVICE_ID, DEVICE_NAME, MAC_ADDRESS, BluetoothDeviceType.BLE);
-      const sibling = new BluetoothDeviceModel('other_id', 'Other', 'AA:BB:CC:DD:EE:FF', BluetoothDeviceType.CLASSIC);
+      const sibling = new BluetoothDeviceModel('other_id', 'Other', '11:22:33:44:55:FF', BluetoothDeviceType.CLASSIC);
 
       const initial: string = device.toString();
       expect(initial.indexOf('BluetoothDeviceModel[id=' + DEVICE_ID + ', name=' + DEVICE_NAME)).assertEqual(0);
@@ -454,7 +454,7 @@ export default function bluetoothDeviceModelTest(): void {
       expect(sibling.isConnected()).assertFalse();
     });
 
-    // ==================== 序列化与重置（2 条） ====================
+    // ==================== serialize and reset (2 cases) ====================
 
     /*
      * @tc.number: SUB_BT_DEVICE_MODEL_1400

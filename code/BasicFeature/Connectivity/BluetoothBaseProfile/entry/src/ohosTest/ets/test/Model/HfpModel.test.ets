@@ -36,11 +36,11 @@ interface HfpDataPayload {
 }
 
 /**
- * 构造一份完整的 HFP 通话数据载荷。
- * @param {string} callState - 通话状态文本
- * @param {number} speakerVolume - 扬声器音量
- * @param {string} carrierName - 运营商名称
- * @returns {HfpDataPayload} 数据载荷
+ * structure build a complete HFP call data payload.
+ * @param {string} callState - call state text
+ * @param {number} speakerVolume - speaker volume
+ * @param {string} carrierName - run operate vendor name name
+ * @returns {HfpDataPayload} data payload
  */
 function buildPayload(callState: string, speakerVolume: number, carrierName: string): HfpDataPayload {
   return {
@@ -58,9 +58,9 @@ function buildPayload(callState: string, speakerVolume: number, carrierName: str
 }
 
 /**
- * 读取日志末条内容（去掉时间戳前缀）。
- * @param {HfpModel} model - 被测模型
- * @returns {string} 末条日志正文，无日志时返回空串
+ * read day log last internal content (remove drop timestamp prefix).
+ * @param {HfpModel} model - passive test model type
+ * @returns {string} last day log correct text, none day log time return empty string
  */
 function lastLog(model: HfpModel): string {
   const logs = model.getLogs();
@@ -77,7 +77,7 @@ function lastLog(model: HfpModel): string {
  */
 export default function hfpModelTest(): void {
   describe('HfpModelTest', () => {
-    // ==================== 构造与默认值（2 条） ====================
+    // ==================== structure build and default value (2 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_MODEL_0100
@@ -139,7 +139,7 @@ export default function hfpModelTest(): void {
       expect(model.toString().indexOf('HfpModel[deviceId=' + DEVICE_ID + ', state=connecting')).assertEqual(0);
     });
 
-    // ==================== 连接状态迁移（4 条） ====================
+    // ==================== connection state transitions (4 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_MODEL_0300
@@ -251,7 +251,7 @@ export default function hfpModelTest(): void {
       expect(model.operationCount).assertEqual(2);
     });
 
-    // ==================== 重试能力边界（1 条） ====================
+    // ==================== weight try capability edge interface (1 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_MODEL_0700
@@ -287,7 +287,7 @@ export default function hfpModelTest(): void {
       expect(model.retryCount).assertEqual(0);
     });
 
-    // ==================== 操作日志行为（3 条） ====================
+    // ==================== operation log row for (3 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_MODEL_0800
@@ -368,7 +368,7 @@ export default function hfpModelTest(): void {
       expect(lastLog(model)).assertEqual('gamma');
     });
 
-    // ==================== 通话与音频字段（3 条） ====================
+    // ==================== call and audio field (3 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_MODEL_1100
@@ -461,11 +461,11 @@ export default function hfpModelTest(): void {
       expect(stored.callState).assertEqual('active');
       expect(model.speakerVolume).assertEqual(DEFAULT_VOLUME);
 
-      const second: HfpDataPayload = buildPayload('held', 7, 'China Telecom');
+      const second: HfpDataPayload = buildPayload('held', 7, 'Demo Carrier');
       model.updateData(second);
       const replaced: ESObject = model.data;
       expect(replaced.callState).assertEqual('held');
-      expect(replaced.carrierName).assertEqual('China Telecom');
+      expect(replaced.carrierName).assertEqual('Demo Carrier');
       expect(stored.callState).assertEqual('active');
     });
 
@@ -507,7 +507,7 @@ export default function hfpModelTest(): void {
       expect(model.errorMessage).assertEqual('');
     });
 
-    // ==================== 重置语义与序列化（2 条） ====================
+    // ==================== reset semantics and serialize (2 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_MODEL_1500

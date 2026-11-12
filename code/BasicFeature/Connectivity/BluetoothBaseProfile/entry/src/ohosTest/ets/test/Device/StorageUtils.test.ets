@@ -26,7 +26,7 @@ const LONG_TTL: number = 600000;
 
 export default function storageUtilsTest(): void {
   describe('StorageUtilsTest', () => {
-    // ==================== 空缓存基线（2 条） ====================
+    // ==================== empty cache baseline (2 cases) ====================
 
     /*
      * @tc.number: SUB_STORAGE_UTILS_0100
@@ -72,7 +72,7 @@ export default function storageUtilsTest(): void {
       expect(StorageUtils.get<number>('never_stored')).assertNull();
     });
 
-    // ==================== 存取与引用语义（3 条） ====================
+    // ==================== access and reference semantics (3 cases) ====================
 
     /*
      * @tc.number: SUB_STORAGE_UTILS_0300
@@ -110,11 +110,11 @@ export default function storageUtilsTest(): void {
       const deviceIds: string[] = ['11:22:33:44:55:66'];
       StorageUtils.put('device_ids', deviceIds);
       const cached: string[] | null = StorageUtils.get<string[]>('device_ids');
-      deviceIds.push('77:88:99:AA:BB:CC');
+      deviceIds.push('77:88:99:11:22:33');
 
       expect(cached === deviceIds).assertTrue();
       expect(cached!.length).assertEqual(2);
-      expect(cached![1]).assertEqual('77:88:99:AA:BB:CC');
+      expect(cached![1]).assertEqual('77:88:99:11:22:33');
       expect(StorageUtils.get<string[]>('device_ids') === deviceIds).assertTrue();
       expect(StorageUtils.size()).assertEqual(1);
       expect(StorageUtils.keys()[0]).assertEqual('device_ids');
@@ -144,7 +144,7 @@ export default function storageUtilsTest(): void {
       expect(StorageUtils.keys()[0]).assertEqual('volume');
     });
 
-    // ==================== 删除与清理（2 条） ====================
+    // ==================== delete and cleanup (2 cases) ====================
 
     /*
      * @tc.number: SUB_STORAGE_UTILS_0600
@@ -226,7 +226,7 @@ export default function storageUtilsTest(): void {
       expect(StorageUtils.get<number>('first')).assertEqual(9);
     });
 
-    // ==================== 过期策略（3 条） ====================
+    // ==================== expiration policy (3 cases) ====================
 
     /*
      * @tc.number: SUB_STORAGE_UTILS_0900
@@ -305,7 +305,7 @@ export default function storageUtilsTest(): void {
       expect(StorageUtils.getStats().totalEntries).assertEqual(1);
     });
 
-    // ==================== 统计与容量上限（3 条） ====================
+    // ==================== statistics and capacity upper limit (3 cases) ====================
 
     /*
      * @tc.number: SUB_STORAGE_UTILS_1200

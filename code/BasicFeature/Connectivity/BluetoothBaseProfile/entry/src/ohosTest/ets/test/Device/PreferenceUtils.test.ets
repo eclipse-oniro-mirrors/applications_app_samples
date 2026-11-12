@@ -42,7 +42,7 @@ class ThrowingPreferenceListener {
 
 export default function preferenceUtilsTest(): void {
   describe('PreferenceUtilsTest', () => {
-    // ==================== 存储创建与字符串读写（3 条） ====================
+    // ==================== store creation and string read/write (3 cases) ====================
 
     /*
      * @tc.number: SUB_PREFERENCE_UTILS_0100
@@ -115,7 +115,7 @@ export default function preferenceUtilsTest(): void {
       PreferenceUtils.clear(STORE_A);
     });
 
-    // ==================== 数值与布尔读写（4 条） ====================
+    // ==================== number value and layout er read/write (4 cases) ====================
 
     /*
      * @tc.number: SUB_PREFERENCE_UTILS_0400
@@ -219,7 +219,7 @@ export default function preferenceUtilsTest(): void {
       PreferenceUtils.clear(STORE_A);
     });
 
-    // ==================== 键生命周期（3 条） ====================
+    // ==================== key lifecycle (3 cases) ====================
 
     /*
      * @tc.number: SUB_PREFERENCE_UTILS_0800
@@ -308,7 +308,7 @@ export default function preferenceUtilsTest(): void {
       PreferenceUtils.clear(STORE_A);
     });
 
-    // ==================== 多存储隔离（3 条） ====================
+    // ==================== multi store isolation (3 cases) ====================
 
     /*
      * @tc.number: SUB_PREFERENCE_UTILS_1100
@@ -420,7 +420,7 @@ export default function preferenceUtilsTest(): void {
       PreferenceUtils.clear(STORE_A);
     });
 
-    // ==================== 变更监听（4 条） ====================
+    // ==================== change monitor listen (4 cases) ====================
 
     /*
      * @tc.number: SUB_PREFERENCE_UTILS_1500

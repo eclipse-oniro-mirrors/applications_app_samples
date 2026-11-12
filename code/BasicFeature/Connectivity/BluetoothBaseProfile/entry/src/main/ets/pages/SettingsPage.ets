@@ -56,7 +56,7 @@ struct SettingsPage {
       { label: 'Bluetooth Enabled', value: 'Yes' },
       { label: 'Discoverable', value: 'Yes (300s timeout)' },
       { label: 'Device Name', value: 'OpenHarmony Device' },
-      { label: 'MAC Address', value: 'AA:BB:CC:DD:EE:FF' },
+      { label: 'MAC Address', value: BluetoothConstants.MOCK_MAC_ADDRESS },
       { label: 'Scan Mode', value: 'Connectable & Discoverable' },
       { label: 'Auto-reconnect', value: 'Enabled' },
       { label: 'Connection Timeout', value: '10 seconds' },
@@ -77,7 +77,7 @@ struct SettingsPage {
       .width('100%')
       .height(PageConstants.NAV_BAR_HEIGHT)
       .padding({ left: PageConstants.PAGE_PADDING, right: PageConstants.PAGE_PADDING })
-      .backgroundColor(PageConstants.COLOR_SURFACE)
+      .backgroundColor(PageConstants.COLOR_CARD)
 
       List({ space: 8 }) {
         ForEach(this.infoItems, (item: InfoItem) => {
@@ -95,7 +95,7 @@ struct SettingsPage {
             }
             .width('100%')
             .padding(12)
-            .backgroundColor(PageConstants.COLOR_SURFACE)
+            .backgroundColor(PageConstants.COLOR_CARD)
             .borderRadius(8)
           }
         }, (item: InfoItem) => item.label)

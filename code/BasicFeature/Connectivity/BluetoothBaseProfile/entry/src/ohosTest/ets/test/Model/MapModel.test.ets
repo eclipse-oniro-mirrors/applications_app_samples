@@ -38,11 +38,11 @@ interface MapDataPayload {
 }
 
 /**
- * 构造一份完整的 MAP 消息访问数据载荷。
- * @param {number} totalMessages - 消息总数
- * @param {string} messageType - 消息类型
- * @param {number} unreadCount - 未读消息数
- * @returns {MapDataPayload} 数据载荷
+ * structure build a complete MAP message access data payload.
+ * @param {number} totalMessages - total message count
+ * @param {string} messageType - message type
+ * @param {number} unreadCount - unread message count
+ * @returns {MapDataPayload} data payload
  */
 function buildPayload(totalMessages: number, messageType: string, unreadCount: number): MapDataPayload {
   return {
@@ -58,9 +58,9 @@ function buildPayload(totalMessages: number, messageType: string, unreadCount: n
 }
 
 /**
- * 读取日志末条内容（去掉时间戳前缀）。
- * @param {MapModel} model - 被测模型
- * @returns {string} 末条日志正文，无日志时返回空串
+ * read day log last internal content (remove drop timestamp prefix).
+ * @param {MapModel} model - passive test model type
+ * @returns {string} last day log correct text, none day log time return empty string
  */
 function lastLog(model: MapModel): string {
   const logs = model.getLogs();
@@ -77,7 +77,7 @@ function lastLog(model: MapModel): string {
  */
 export default function mapModelTest(): void {
   describe('MapModelTest', () => {
-    // ==================== 构造与实例隔离（2 条） ====================
+    // ==================== structure build and instance isolation (2 cases) ====================
 
     /*
      * @tc.number: SUB_MAP_MODEL_0100
@@ -146,7 +146,7 @@ export default function mapModelTest(): void {
       expect(model.toString().indexOf('MapModel[deviceId=' + DEVICE_ID + ', state=connecting')).assertEqual(0);
     });
 
-    // ==================== 连接状态迁移（4 条） ====================
+    // ==================== connection state transitions (4 cases) ====================
 
     /*
      * @tc.number: SUB_MAP_MODEL_0300
@@ -266,7 +266,7 @@ export default function mapModelTest(): void {
       expect(model.retryCount).assertEqual(0);
     });
 
-    // ==================== 操作日志行为（2 条） ====================
+    // ==================== operation log row for (2 cases) ====================
 
     /*
      * @tc.number: SUB_MAP_MODEL_0700
@@ -329,7 +329,7 @@ export default function mapModelTest(): void {
       expect(lastLog(model)).assertEqual('gamma');
     });
 
-    // ==================== 数据载荷与状态入口（2 条） ====================
+    // ==================== data payload and state entry (2 cases) ====================
 
     /*
      * @tc.number: SUB_MAP_MODEL_0900
@@ -404,7 +404,7 @@ export default function mapModelTest(): void {
       expect(model.data).assertEqual(null);
     });
 
-    // ==================== 重置与序列化（2 条） ====================
+    // ==================== reset and serialize (2 cases) ====================
 
     /*
      * @tc.number: SUB_MAP_MODEL_1100

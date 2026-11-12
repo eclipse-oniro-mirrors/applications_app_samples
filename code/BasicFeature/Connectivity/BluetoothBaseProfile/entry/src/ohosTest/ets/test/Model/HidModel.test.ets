@@ -33,11 +33,11 @@ interface HidDataPayload {
 }
 
 /**
- * 构造一份完整的 HID 输入设备数据载荷。
- * @param {string} subType - 设备子类型
- * @param {number} batteryLevel - 电池电量
- * @param {string} firmwareVersion - 固件版本
- * @returns {HidDataPayload} 数据载荷
+ * structure build a complete HID input device data payload.
+ * @param {string} subType - device sub-type
+ * @param {number} batteryLevel - electric pool electric amount
+ * @param {string} firmwareVersion - fixed item version this
+ * @returns {HidDataPayload} data payload
  */
 function buildPayload(subType: string, batteryLevel: number, firmwareVersion: string): HidDataPayload {
   return {
@@ -53,9 +53,9 @@ function buildPayload(subType: string, batteryLevel: number, firmwareVersion: st
 }
 
 /**
- * 读取日志末条内容（去掉时间戳前缀）。
- * @param {HidModel} model - 被测模型
- * @returns {string} 末条日志正文，无日志时返回空串
+ * read day log last internal content (remove drop timestamp prefix).
+ * @param {HidModel} model - passive test model type
+ * @returns {string} last day log correct text, none day log time return empty string
  */
 function lastLog(model: HidModel): string {
   const logs = model.getLogs();
@@ -72,7 +72,7 @@ function lastLog(model: HidModel): string {
  */
 export default function hidModelTest(): void {
   describe('HidModelTest', () => {
-    // ==================== 构造与实例隔离（2 条） ====================
+    // ==================== structure build and instance isolation (2 cases) ====================
 
     /*
      * @tc.number: SUB_HID_MODEL_0100
@@ -136,7 +136,7 @@ export default function hidModelTest(): void {
       expect(model.toString().indexOf('HidModel[deviceId=' + DEVICE_ID + ', state=connecting')).assertEqual(0);
     });
 
-    // ==================== 连接状态迁移（4 条） ====================
+    // ==================== connection state transitions (4 cases) ====================
 
     /*
      * @tc.number: SUB_HID_MODEL_0300
@@ -256,7 +256,7 @@ export default function hidModelTest(): void {
       expect(model.retryCount).assertEqual(0);
     });
 
-    // ==================== 操作日志行为（2 条） ====================
+    // ==================== operation log row for (2 cases) ====================
 
     /*
      * @tc.number: SUB_HID_MODEL_0700
@@ -319,7 +319,7 @@ export default function hidModelTest(): void {
       expect(lastLog(model)).assertEqual('gamma');
     });
 
-    // ==================== 数据载荷与状态入口（2 条） ====================
+    // ==================== data payload and state entry (2 cases) ====================
 
     /*
      * @tc.number: SUB_HID_MODEL_0900
@@ -392,7 +392,7 @@ export default function hidModelTest(): void {
       expect(model.data).assertEqual(null);
     });
 
-    // ==================== 重置与序列化（2 条） ====================
+    // ==================== reset and serialize (2 cases) ====================
 
     /*
      * @tc.number: SUB_HID_MODEL_1100

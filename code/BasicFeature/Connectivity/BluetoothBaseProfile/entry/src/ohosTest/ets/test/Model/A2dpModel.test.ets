@@ -32,11 +32,11 @@ interface A2dpDataPayload {
 }
 
 /**
- * 构造一份完整的 A2DP 音频数据载荷。
- * @param {string} codec - 编解码器名称
- * @param {number} volume - 音量
- * @param {boolean} isPlaying - 是否播放中
- * @returns {A2dpDataPayload} 数据载荷
+ * structure build a complete A2DP audio data payload.
+ * @param {string} codec - codec device name name
+ * @param {number} volume - volume
+ * @param {boolean} isPlaying - whether playing
+ * @returns {A2dpDataPayload} data payload
  */
 function buildPayload(codec: string, volume: number, isPlaying: boolean): A2dpDataPayload {
   return {
@@ -53,9 +53,9 @@ function buildPayload(codec: string, volume: number, isPlaying: boolean): A2dpDa
 }
 
 /**
- * 读取日志末条内容（去掉时间戳前缀）。
- * @param {A2dpModel} model - 被测模型
- * @returns {string} 末条日志正文，无日志时返回空串
+ * read day log last internal content (remove drop timestamp prefix).
+ * @param {A2dpModel} model - passive test model type
+ * @returns {string} last day log correct text, none day log time return empty string
  */
 function lastLog(model: A2dpModel): string {
   const logs = model.getLogs();
@@ -72,7 +72,7 @@ function lastLog(model: A2dpModel): string {
  */
 export default function a2dpModelTest(): void {
   describe('A2dpModelTest', () => {
-    // ==================== 构造与默认值（2 条） ====================
+    // ==================== structure build and default value (2 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_MODEL_0100
@@ -131,7 +131,7 @@ export default function a2dpModelTest(): void {
       expect(blank.toString().indexOf('deviceId=,')).assertEqual(10);
     });
 
-    // ==================== 连接状态迁移（4 条） ====================
+    // ==================== connection state transitions (4 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_MODEL_0300
@@ -244,7 +244,7 @@ export default function a2dpModelTest(): void {
       expect(model.operationCount).assertEqual(2);
     });
 
-    // ==================== 重试能力边界（1 条） ====================
+    // ==================== weight try capability edge interface (1 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_MODEL_0700
@@ -280,7 +280,7 @@ export default function a2dpModelTest(): void {
       expect(model.retryCount).assertEqual(0);
     });
 
-    // ==================== 操作日志行为（3 条） ====================
+    // ==================== operation log row for (3 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_MODEL_0800
@@ -361,7 +361,7 @@ export default function a2dpModelTest(): void {
       expect(lastLog(model)).assertEqual('gamma');
     });
 
-    // ==================== 数据载荷与状态映射（3 条） ====================
+    // ==================== data payload and state mapping (3 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_MODEL_1100
@@ -460,7 +460,7 @@ export default function a2dpModelTest(): void {
       expect(model.errorMessage).assertEqual('');
     });
 
-    // ==================== 连接时长与重置语义（2 条） ====================
+    // ==================== connection time length and reset semantics (2 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_MODEL_1400
@@ -540,7 +540,7 @@ export default function a2dpModelTest(): void {
       expect(model.timeoutMs).assertEqual(10000);
     });
 
-    // ==================== 序列化与文本描述（1 条） ====================
+    // ==================== serialize and text describe describe (1 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_MODEL_1600
