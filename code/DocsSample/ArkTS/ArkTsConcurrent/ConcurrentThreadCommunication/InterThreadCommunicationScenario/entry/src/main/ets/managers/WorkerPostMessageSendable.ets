@@ -14,7 +14,6 @@
  */
 
 // [Start multi_worker_high_performance_communication]
-// WorkerPostMessageSendable.ets
 import { worker, collections } from '@kit.ArkTS';
 import { CopyEntry } from '../Sendable/CopyEntry';
 
