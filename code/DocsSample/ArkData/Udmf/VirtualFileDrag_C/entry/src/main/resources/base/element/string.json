@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "虚拟文件拖拽（C API）"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "虚拟文件拖拽（C API）"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "虚拟文件拖拽（C API）"
+    }
+  ]
+}
