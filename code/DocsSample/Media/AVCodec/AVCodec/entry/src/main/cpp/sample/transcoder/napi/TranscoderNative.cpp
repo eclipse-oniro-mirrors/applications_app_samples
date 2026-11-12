@@ -19,7 +19,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <napi/native_api.h>
-#include "TranscodeJob.h"
+#include "../core/TranscodeJob.h"
 
 namespace {
 constexpr int64_t MIN_BITRATE = 100000;

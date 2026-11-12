@@ -27,11 +27,11 @@
 #include <multimedia/player_framework/native_avdemuxer.h>
 #include <multimedia/player_framework/native_avmuxer.h>
 #include <multimedia/player_framework/native_avsource.h>
-#include "TranscodeFrameProcessor.h"
-#include "TranscodeDiagnostics.h"
-#include "TranscodeAudioPipeline.h"
-#include "TranscodeCodecCallbacks.h"
-#include "TranscodeGpuProcessor.h"
+#include "../process/video/TranscodeFrameProcessor.h"
+#include "../diagnostics/TranscodeDiagnostics.h"
+#include "../process/audio/TranscodeAudioPipeline.h"
+#include "../codec/TranscodeCodecCallbacks.h"
+#include "../process/video/gpu/TranscodeGpuProcessor.h"
 
 struct TranscodeOptions {
     int32_t inputFd = -1;

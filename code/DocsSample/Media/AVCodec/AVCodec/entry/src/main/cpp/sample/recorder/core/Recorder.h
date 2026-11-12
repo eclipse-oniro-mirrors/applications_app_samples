@@ -16,7 +16,6 @@
 #ifndef VIDEO_CODEC_SAMPLE_RECODER_H
 #define VIDEO_CODEC_SAMPLE_RECODER_H
 
-#include <bits/alltypes.h>
 #include <mutex>
 #include <memory>
 #include <atomic>
@@ -29,11 +28,12 @@
 #include "muxer.h"
 #include "sample_info.h"
 #include "audio_capturer.h"
-#include "RecorderDumpWriter.h"
-#include "RecorderOutputStats.h"
+#include "../output/dump/RecorderDumpWriter.h"
+#include "../diagnostics/RecorderOutputStats.h"
 #include "SessionReport.h"
-#include "RecorderAudioStats.h"
-#include "RecorderFrameReceiver.h"
+#include "../diagnostics/RecorderAudioStats.h"
+#include "../input/video/RecorderFrameReceiver.h"
+#include "RecorderWorker.h"
 
 class Recorder {
 public:
@@ -50,7 +50,7 @@ public:
     int32_t Init(SampleInfo &sampleInfo);
     // 启动编码与采集线程。仅当Init成功后才能调用。
     int32_t Start();
-    // 请求停止：停止采集并发送EOS，后台线程继续排空编码器和封装器中的剩余数据。
+    // 标记录制正在停止，拒绝动态参数更新；相机停流后由StopEnd发送EOS并等待输出排空。
     int32_t StopStart();
     // 等待后台收尾完成并释放录制资源；完成前不能启动下一次录制。
     int32_t StopEnd();
@@ -68,9 +68,8 @@ public:
     }
 
 private:
+    static constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
     struct VideoInputState {
-        int32_t stride = 0;
-        int32_t sliceHeight = 0;
         int64_t firstTimestampNs = -1;
         int64_t lastTimestampNs = -1;
         int64_t firstOffsetUs = 0;
@@ -78,10 +77,11 @@ private:
         uint64_t pauseRevision = 0;
         int64_t lastSubmittedUs = 0;
     };
-    void VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
-    void VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
-    bool ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer,
-        CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs);
+    void VideoEncOutputAsyncThread();
+    void VideoEncOutputSyncThread();
+    void SecondaryVideoEncOutputAsyncThread();
+    void SecondaryVideoEncOutputSyncThread();
+    bool ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs);
     void RefreshStreamStorage(bool primary, bool force = false);
     void CaptureEncoderDescription(bool primary);
     void FinishVideoOutputThread(CodecUserData *context, bool isPrimary);
@@ -105,27 +105,32 @@ private:
     int32_t InitializeSession(SampleInfo &sampleInfo);
     int32_t InitializeSecondaryMuxer();
     void ReleaseMuxers();
-    void RecordVideoOutput(CodecUserData *context, CodecBufferInfo &bufferInfo, bool isPrimary);
+    void NormalizeVideoOutputTimestamp(CodecUserData &context, CodecBufferInfo &bufferInfo);
+    void RecordVideoOutput(CodecUserData *context, const CodecBufferInfo &bufferInfo, bool isPrimary);
     int32_t StartVideoPipeline();
     int32_t StartVideoMuxers();
     int32_t StartVideoEncoders();
     int32_t StartVideoOutputThreads();
-    int32_t StartAudioPipeline(std::unique_lock<std::mutex> &lock);
+    int32_t StartAudioPipeline();
     int32_t SendVideoEndOfStream();
-    void StartVideoInputThread();
+    int32_t StartVideoInputThread();
     void VideoEncInputSyncThread();
     void VideoEncInputAsyncThread();
     OH_ImageNative *ReadVideoInputImage(VideoInputState &state);
     bool SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &info, VideoInputState &state,
         int64_t receivedAtUs);
-    bool ReadVideoInputLayout(int32_t &stride, int32_t &sliceHeight);
+    bool InitSyncVideoInputContext();
     int32_t SendBufferVideoEndOfStream();
     int32_t SendBufferVideoEndOfStreamSync();
     int32_t SendBufferVideoEndOfStreamAsync();
     int32_t SendAudioEndOfStream();
     int32_t SendAudioEndOfStreamSync();
     int32_t SendAudioEndOfStreamAsync();
-    void WaitForEncoderEndOfStream();
+    int32_t WaitForEncoderEndOfStream();
+    int32_t WaitForVideoEndOfStream();
+    int32_t WaitForAudioEndOfStream();
+    void CancelWorkerWaits();
+    void FinishAudioOutputThread();
     int32_t AbortAndWait(int32_t errorCode, const char *reason);
     bool WaitForAudioInputFrame(std::chrono::milliseconds timeout);
     bool SubmitAudioInputFrame(CodecBufferInfo &bufferInfo);
@@ -137,7 +142,7 @@ private:
     // 编码器和封装器由Recorder独占，ReleaseThread完成收尾后释放。
     std::unique_ptr<VideoEncoder> videoEncoder_ = nullptr;
     std::unique_ptr<RecorderFrameReceiver> frameReceiver_ = nullptr;
-    std::unique_ptr<std::thread> videoEncInputThread_ = nullptr;
+    RecorderWorker videoInputWorker_;
     std::mutex videoInputMutex_;
     // 暂停切换与音视频输入提交共用边界；需要mutex_时必须先取得此锁。
     std::mutex mediaInputMutex_;
@@ -155,35 +160,36 @@ private:
     std::unique_ptr<Muxer> secondaryMuxer_ = nullptr;
 
     std::mutex mutex_;
-    // EOS表示不再送入新数据；视频和音频输出线程仍需继续取Buffer，直到各自完成收尾。
-    std::atomic<bool> isEos_{false};
-    std::atomic<bool> isVideoEos_{false};
-    std::atomic<bool> isSecondaryVideoEos_{false};
-    std::atomic<bool> isAudioEos_{false};
-    std::atomic<bool> primaryEosReceived_{false};
-    std::atomic<bool> secondaryEosReceived_{false};
-    std::atomic<bool> audioEosReceived_{false};
+    // 输入停止、输出线程结束和输出EOS分别记录，输入结束不能让输出提前退出。
+    std::atomic<bool> audioInputStopping_{false};
+    std::atomic<bool> videoOutputDone_{false};
+    std::atomic<bool> secondaryVideoOutputDone_{false};
+    std::atomic<bool> audioOutputDone_{false};
+    std::atomic<bool> videoOutputEosReceived_{false};
+    std::atomic<bool> secondaryVideoOutputEosReceived_{false};
+    std::atomic<bool> audioOutputEosReceived_{false};
     std::atomic<bool> isStopping_{false};
-    std::condition_variable videoEosCond_;
-    std::mutex videoEosMutex_;
+    std::condition_variable outputDoneCond_;
+    std::mutex outputDoneMutex_;
     std::atomic<bool> isStarted_{false};
     std::atomic<bool> sessionActive_{false};
-    int32_t isAudioEncFirstFrame_ = true;
+    bool isAudioEncFirstFrame_ = true;
     int64_t audioSubmittedFrames_ = 0;
-    std::unique_ptr<std::thread> encOutputThread_ = nullptr;
-    std::unique_ptr<std::thread> secondaryEncOutputThread_ = nullptr;
-    std::unique_ptr<std::thread> audioEncInputThread_ = nullptr;
-    std::unique_ptr<std::thread> audioEncOutputThread_ = nullptr;
+    RecorderWorker videoOutputWorker_;
+    RecorderWorker secondaryVideoOutputWorker_;
+    RecorderWorker audioInputWorker_;
+    RecorderWorker audioOutputWorker_;
     std::unique_ptr<std::thread> releaseThread_ = nullptr;
     std::condition_variable doneCond_;
-    // 仅由mutex_ 保护。Release完成后才允许WaitForDone返回或开始下一次录制。
+    // 仅由mutex_保护。Release完成后才允许WaitForDone返回或开始下一次录制。
     bool releaseCompleted_ = true;
+    int32_t releaseResult_ = AVCODEC_SAMPLE_ERR_OK;
     SampleInfo sampleInfo_;
     SampleInfo secondarySampleInfo_;
     // 回调上下文必须在注销codec回调、退出所有编码线程后释放，否则回调可能访问悬空对象。
-    CodecUserData *encContext_ = nullptr;
-    CodecUserData *secondaryEncContext_ = nullptr;
-    CodecUserData *audioEncContext_ = nullptr;
+    std::unique_ptr<CodecUserData> encContext_;
+    std::unique_ptr<CodecUserData> secondaryEncContext_;
+    std::unique_ptr<CodecUserData> audioEncContext_;
 
     RecorderDumpWriter primaryDump_;
     RecorderDumpWriter secondaryDump_;

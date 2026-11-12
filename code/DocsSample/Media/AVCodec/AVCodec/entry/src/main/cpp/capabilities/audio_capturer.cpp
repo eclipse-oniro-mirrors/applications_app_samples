@@ -16,8 +16,11 @@
 #include "audio_capturer.h"
 #include "sample_callback.h"
 #include "av_codec_sample_log.h"
-#include "sample/recorder/RecorderAudioStats.h"
+#include "dfx/error/av_codec_sample_error.h"
+#include "sample/recorder/diagnostics/RecorderAudioStats.h"
 
+#undef LOG_TAG
+#define LOG_TAG "AudioCapturer"
 
 AudioCapturer::~AudioCapturer()
 {
@@ -48,25 +51,41 @@ static int32_t AudioCapturerOnReadData(OH_AudioCapturer *capturer, void *userDat
     return 0;
 }
 
-void AudioCapturer::AudioCapturerInit(SampleInfo &sampleInfo, CodecUserData *audioEncContext)
+int32_t AudioCapturer::AudioCapturerInit(const SampleInfo &sampleInfo, CodecUserData *audioEncContext)
 {
     // 重复初始化时先释放旧实例，旧回调不再写入新的录制缓存。
     AudioCapturerRelease();
 
-    OH_AudioStream_Type type = AUDIOSTREAM_TYPE_CAPTURER;
-    OH_AudioStreamBuilder_Create(&builder_, type);
-    OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo.audio.audioSampleRate);
-    OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo.audio.audioChannelCount);
-    OH_AudioStreamBuilder_SetSampleFormat(builder_, AUDIOSTREAM_SAMPLE_S16LE);
+    const int32_t createRet = OH_AudioStreamBuilder_Create(&builder_, AUDIOSTREAM_TYPE_CAPTURER);
+    if (createRet != AUDIOSTREAM_SUCCESS || builder_ == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Create audio capturer builder failed, ret: %{public}d", createRet);
+        AudioCapturerRelease();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
     const auto latencyMode = sampleInfo.audio.audioLatencyMode == AUDIOSTREAM_LATENCY_MODE_FAST ?
         AUDIOSTREAM_LATENCY_MODE_FAST : AUDIOSTREAM_LATENCY_MODE_NORMAL;
-    OH_AudioStreamBuilder_SetLatencyMode(builder_, latencyMode);
-    OH_AudioStreamBuilder_SetEncodingType(builder_, AUDIOSTREAM_ENCODING_TYPE_RAW);
     OH_AudioCapturer_Callbacks callbacks {};
     callbacks.OH_AudioCapturer_OnReadData = AudioCapturerOnReadData;
     // 回调上下文audioEncContext在停止采集和释放Capturer前必须一直有效。
-    OH_AudioStreamBuilder_SetCapturerCallback(builder_, callbacks, audioEncContext);
-    OH_AudioStreamBuilder_GenerateCapturer(builder_, &audioCapturer_);
+    const bool configured =
+        OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo.audio.audioSampleRate) == AUDIOSTREAM_SUCCESS &&
+        OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo.audio.audioChannelCount) == AUDIOSTREAM_SUCCESS &&
+        OH_AudioStreamBuilder_SetSampleFormat(builder_, AUDIOSTREAM_SAMPLE_S16LE) == AUDIOSTREAM_SUCCESS &&
+        OH_AudioStreamBuilder_SetLatencyMode(builder_, latencyMode) == AUDIOSTREAM_SUCCESS &&
+        OH_AudioStreamBuilder_SetEncodingType(builder_, AUDIOSTREAM_ENCODING_TYPE_RAW) == AUDIOSTREAM_SUCCESS &&
+        OH_AudioStreamBuilder_SetCapturerCallback(builder_, callbacks, audioEncContext) == AUDIOSTREAM_SUCCESS;
+    if (!configured) {
+        AVCODEC_SAMPLE_LOGE("Configure audio capturer builder failed");
+        AudioCapturerRelease();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    const int32_t generateRet = OH_AudioStreamBuilder_GenerateCapturer(builder_, &audioCapturer_);
+    if (generateRet != AUDIOSTREAM_SUCCESS || audioCapturer_ == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Generate audio capturer failed, ret: %{public}d", generateRet);
+        AudioCapturerRelease();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    return AVCODEC_SAMPLE_ERR_OK;
 }
 
 bool AudioCapturer::AudioCapturerStart()

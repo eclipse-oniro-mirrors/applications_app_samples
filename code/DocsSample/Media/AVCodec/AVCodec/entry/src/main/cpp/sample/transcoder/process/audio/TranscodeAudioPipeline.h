@@ -19,7 +19,7 @@
 #include <memory>
 #include <vector>
 #include "TranscodePcmConverter.h"
-#include "TranscodeCodecCallbacks.h"
+#include "../../codec/TranscodeCodecCallbacks.h"
 #include <multimedia/player_framework/native_avcodec_audiocodec.h>
 #include <multimedia/player_framework/native_avdemuxer.h>
 #include <multimedia/player_framework/native_avmuxer.h>

@@ -16,7 +16,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <thread>
-#include "../../entry/src/main/cpp/sample/transcoder/TranscodeDiagnostics.h"
+#include "../../entry/src/main/cpp/sample/transcoder/diagnostics/TranscodeDiagnostics.h"
 
 namespace {
 constexpr size_t K_STAGE_COUNT = 6;

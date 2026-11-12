@@ -21,7 +21,7 @@
 #include <memory>
 #include <native_window/external_window.h>
 #include "napi/native_api.h"
-#include "Recorder.h"
+#include "../core/Recorder.h"
 #include "dfx/error/av_codec_sample_error.h"
 #include "av_codec_sample_log.h"
 

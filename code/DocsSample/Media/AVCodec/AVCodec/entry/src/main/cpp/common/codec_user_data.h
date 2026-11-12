@@ -35,6 +35,11 @@ struct CodecUserData {
     bool isDecFirstFrame = false;
     bool isEncFirstFrame = false;
 
+    // 编码输入布局在首个输入Buffer到达时读取，与格式变化回调更新的输出布局分别保存。
+    int32_t inputWidthStride = 0;
+    int32_t inputHeightStride = 0;
+    OH_AVPixelFormat inputPixelFormat = AV_PIXEL_FORMAT_NV12;
+
     int32_t width = 0;
     int32_t height = 0;
     int32_t widthStride = 0;
@@ -101,6 +106,7 @@ struct CodecUserData {
         }
         inputBufferQueue.CancelWait();
         outputBufferQueue.CancelWait();
+        inputCond.notify_all();
         renderCond.notify_all();
     }
     // [Start buffer_clean]

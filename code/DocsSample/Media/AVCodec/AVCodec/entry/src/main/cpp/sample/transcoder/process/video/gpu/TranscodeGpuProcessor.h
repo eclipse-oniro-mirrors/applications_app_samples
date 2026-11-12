@@ -18,8 +18,8 @@
 #include <atomic>
 #include <GLES2/gl2.h>
 #include <native_image/native_image.h>
-#include "../../common/graphics/EglWindowContext.h"
-#include "TranscodeFrameProcessor.h"
+#include "../../../../../common/graphics/EglWindowContext.h"
+#include "../TranscodeFrameProcessor.h"
 
 // Independent of player VideoSink. All GL calls stay on the Native transcode worker.
 class TranscodeGpuProcessor {

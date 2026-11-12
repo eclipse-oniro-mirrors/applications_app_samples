@@ -173,8 +173,10 @@ int32_t Muxer::Release()
 {
     if (muxer_ != nullptr) {
         // Destroy只释放封装器资源，不关闭Create()时由业务侧传入的文件描述符。
-        OH_AVMuxer_Destroy(muxer_);
+        const int32_t ret = OH_AVMuxer_Destroy(muxer_);
         muxer_ = nullptr;
+        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+            "Destroy muxer failed, ret: %{public}d", ret);
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }

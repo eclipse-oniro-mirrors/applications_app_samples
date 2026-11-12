@@ -506,14 +506,18 @@ Playback and recording Dumps default to a per-file limit of 256 MiB or 30 second
 - `SeekPreviewController` handles throttling, request generations, and PixelMap release;
 - `PlaybackQueueController` owns queue paths, current index, and repeat/random selection;
 - `RecorderLaunchController` owns media asset creation, primary/secondary descriptors, native initialization, route transition, and failure cleanup;
-- `RecorderVideoSession.cpp` groups encoder, preprocessing, dual-output Muxer, and Dump setup.
+- `recorder/core/RecorderVideoSession.cpp` groups encoder, preprocessing, dual-output Muxer, and Dump setup.
 - `PlaybackSubtitleController` owns subtitle loading and cue lookup; `PlaybackControlsController` owns the auto-hide timer;
 - `PlaybackWindowController` owns fullscreen orientation and system-bar changes; `PlaybackAudioController` owns track selection and mute state;
 - `PlaybackAbLoopController` owns A-B markers, its monitor timer, and seek generation checks;
 - `PlayerViewport` owns the stable XComponent surface, status overlay, HDR/subtitle overlay, and diagnostics overlay; `PlayerPage` owns the gesture layer composition;
 - `TranscodeHistoryController` owns history pagination, usage totals and request invalidation; `TranscodeModel` keeps task and cleanup decisions;
 - `TranscodeHistoryPanel` observes the history controller through `@ObjectLink`, so asynchronous pagination updates the displayed rows directly;
-- `RecorderAudio.cpp` groups audio encoder creation, PCM input and AAC output; sync queries and async callback consumption remain separate methods.
+- `recorder/output/audio/RecorderAudio.cpp` groups audio encoder creation, PCM input and AAC output; sync queries and async callback consumption remain separate methods.
+- `recorder/output/video/RecorderVideoOutput.cpp` handles primary video output and PTS conversion; `recorder/output/video/RecorderSecondaryOutput.cpp` keeps the secondary sync/async acquisition loops separate. `recorder/diagnostics/RecorderDiagnostics.cpp` reads the normalized timestamps and updates statistics without changing media data.
+- `recorder/core/RecorderRelease.cpp` owns EOS submission, drain waits and teardown. `recorder/core/RecorderWorker.h` catches encoding-worker creation failures and joins each worker after its exit condition has been signalled.
+
+Native modules use the same responsibility-based layout as the player: `core/` coordinates sessions, `napi/` handles the ArkTS boundary, and `diagnostics/` holds measurements. Recording separates camera Buffer input in `input/video/`, audio workers in `output/audio/`, video output in `output/video/`, and bitstream saving in `output/dump/`. Transcoding keeps codec acquisition and callbacks in `codec/`, audio/video processing in `process/`, and finalized-file checks in `output/`. Synchronous and asynchronous examples remain separate entry points.
 
 `SettingsDraftModels.ets` now owns playback and recording drafts. Two `@Observed` models load, validate, and apply settings; Index keeps two `@State` draft objects rather than dozens of separate fields. Pickers update object properties, child components receive the matching `@Prop` values, and draft changes invalidate the old capability result. Only Apply writes the applied models. Preset restoration and cancellation reuse the same draft-loading methods.
 
@@ -669,22 +673,57 @@ AVCodec/
     │   │   │   │       ├── PlayerNapiParser.cpp/.h
     │   │   │   │       └── PlayerNapiSerializer.cpp/.h
     │   │   │   ├── transcoder/
-    │   │   │   │   ├── TranscoderNative.cpp # Request validation, fd duplication and async work
-    │   │   │   │   ├── TranscodeJob.cpp/.h  # Main loop, Buffer/Surface handoff and cleanup
-    │   │   │   │   ├── TranscodeCodecIO.cpp # Sync queries or async callback consumption
-    │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h # Bounded callback queues and shutdown
-    │   │   │   │   ├── TranscodeOperations.cpp # Rate cap, selected-frame preview and remux
-    │   │   │   │   ├── TranscodeFrameProcessor.cpp/.h # YUV layout, resizing, crop and grayscale
-    │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h # Audio decoding, AAC framing and encoding
-    │   │   │   │   ├── TranscodePcmConverter.h # Streaming resampling and mono/stereo conversion
-    │   │   │   │   ├── TranscodeInspection.cpp # Source and codec preflight
-    │   │   │   │   ├── TranscodeTimeRange.cpp # Range validation and output filtering
-    │   │   │   │   ├── TranscodeOutputValidation.cpp # Reopen and inspect finalized MP4
-    │   │   │   │   └── TranscodeDiagnostics.h # Call timings and cross-poll waits
+    │   │   │   │   ├── core/ # Session lifecycle and coordination
+    │   │   │   │   │   ├── TranscodeInspection.cpp
+    │   │   │   │   │   ├── TranscodeJob.cpp/.h
+    │   │   │   │   │   ├── TranscodeOperations.cpp
+    │   │   │   │   │   └── TranscodeTimeRange.cpp
+    │   │   │   │   ├── napi/ # ArkTS entry points and parsing
+    │   │   │   │   │   └── TranscoderNative.cpp
+    │   │   │   │   ├── codec/ # Sync acquisition and async callback queues
+    │   │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h
+    │   │   │   │   │   └── TranscodeCodecIO.cpp
+    │   │   │   │   ├── process/
+    │   │   │   │   │   ├── audio/ # Audio decoding, PCM conversion and AAC encoding
+    │   │   │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h
+    │   │   │   │   │   │   ├── TranscodeLowPassResampler.h
+    │   │   │   │   │   │   └── TranscodePcmConverter.h
+    │   │   │   │   │   └── video/ # YUV layout, scaling, crop and grayscale
+    │   │   │   │   │       ├── gpu/ # NativeImage/OpenGL processing
+    │   │   │   │   │       │   └── TranscodeGpuProcessor.cpp/.h
+    │   │   │   │   │       └── TranscodeFrameProcessor.cpp/.h
+    │   │   │   │   ├── output/ # Finalized MP4 metadata and sampled decode checks
+    │   │   │   │   │   ├── TranscodeOutputValidation.cpp
+    │   │   │   │   │   └── TranscodeSampleValidator.cpp/.h
+    │   │   │   │   └── diagnostics/ # Statistics and timing
+    │   │   │   │       └── TranscodeDiagnostics.h
     │   │   │   └── recorder/
-    │   │   │       ├── Recorder.cpp         # Recording lifecycle and data flow
-    │   │   │       ├── RecorderAudio.cpp    # PCM input and AAC output, separate sync/async workers
-    │   │   │       └── RecorderNative.cpp   # Recording NAPI entry
+    │   │   │       ├── core/ # Session lifecycle and coordination
+    │   │   │       │   ├── Recorder.cpp/.h
+    │   │   │       │   ├── RecorderRelease.cpp
+    │   │   │       │   ├── RecorderVideoSession.cpp
+    │   │   │       │   └── RecorderWorker.h
+    │   │   │       ├── napi/ # ArkTS entry points and parsing
+    │   │   │       │   ├── RecorderNative.cpp/.h
+    │   │   │       │   └── RecorderOptionsParser.cpp/.h
+    │   │   │       ├── input/
+    │   │   │       │   └── video/ # Camera images and encoder Buffer input
+    │   │   │       │       ├── RecorderFrameCopy.cpp/.h
+    │   │   │       │       ├── RecorderFrameReceiver.cpp/.h
+    │   │   │       │       └── RecorderVideoInput.cpp
+    │   │   │       ├── output/
+    │   │   │       │   ├── audio/ # PCM input and AAC output workers
+    │   │   │       │   │   └── RecorderAudio.cpp
+    │   │   │       │   ├── dump/ # Encoded bitstream saving
+    │   │   │       │   │   └── RecorderDumpWriter.h
+    │   │   │       │   └── video/ # Primary and secondary video output
+    │   │   │       │       ├── RecorderSecondaryOutput.cpp
+    │   │   │       │       └── RecorderVideoOutput.cpp
+    │   │   │       └── diagnostics/ # Statistics and timing
+    │   │   │           ├── RecorderAudioStats.h
+    │   │   │           ├── RecorderDiagnostics.cpp
+    │   │   │           ├── RecorderOutputStats.h
+    │   │   │           └── RecorderStreamMetrics.h
     │   │   ├── types                        # ArkTS declarations for Native modules
     │   │   └── CMakeLists.txt               # Native build entry
     │   ├── ets                              # ArkTS UI and application logic
@@ -742,7 +781,7 @@ The following source entries complement the directory tree for transcoding and s
 |---|---|
 | [TranscodePage.ets](entry/src/main/ets/pages/TranscodePage.ets), [TranscodeModel.ets](entry/src/main/ets/model/TranscodeModel.ets) | UI, request construction, job execution, file completion and queue orchestration |
 | [TranscodePreviewController.ets](entry/src/main/ets/controller/TranscodePreviewController.ets), [TranscodeQueueRunner.ets](entry/src/main/ets/controller/TranscodeQueueRunner.ets), [TranscodeExportController.ets](entry/src/main/ets/controller/TranscodeExportController.ets) | Paired-image lifetime, sequential queue dispatch/failure policy and per-file export outcomes |
-| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/TranscodeGpuProcessor.cpp), [EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | Worker-owned NativeImage/OpenGL processing and encoder-window submission, independent of playback |
+| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/process/video/gpu/TranscodeGpuProcessor.cpp), [EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | Worker-owned NativeImage/OpenGL processing and encoder-window submission, independent of playback |
 | [RecorderSegmentController.ets](entry/src/main/ets/controller/RecorderSegmentController.ets), [RecorderOutputController.ets](entry/src/main/ets/controller/RecorderOutputController.ets), [RecorderSettingsController.ets](entry/src/main/ets/controller/RecorderSettingsController.ets) | Segment thresholds/results, asset and descriptor initialization, settings selection outside Index |
 | [TranscodeQualityModel.ets](entry/src/main/ets/model/TranscodeQualityModel.ets), [TranscodeQueueModel.ets](entry/src/main/ets/model/TranscodeQueueModel.ets) | Quality snapshots, queue state and restore validation |
 | [TranscodeSourcePicker.ets](entry/src/main/ets/model/TranscodeSourcePicker.ets), [TranscodeFilesModel.ets](entry/src/main/ets/model/TranscodeFilesModel.ets) | Source selection, export, history and private files |
@@ -760,7 +799,7 @@ An operation follows this path: **the UI selects a scenario -> ArkTS prepares op
 | Scenario | UI entry | Native entry | Main modules | Destination |
 |---|---|---|---|---|
 | Playback | Play controls and XComponent in `Index.ets` | `PlayerNative.cpp`, `Player.cpp` | `Demuxer`, `VideoDecoder`, `AudioDecoder`, `AudioOutputPump`, `BufferRenderer`, `PluginRender` | Video to XComponent/NativeWindow; PCM to AudioRenderer |
-| Recording | Record controls in `Index.ets`; preview in `Recorder.ets` | `RecorderNative.cpp`, `Recorder.cpp` | `VideoEncoder`, `AudioCapturer`, `AudioEncoder`, `Muxer` | Camera video and microphone audio to MP4/FLV |
+| Recording | Record controls in `Index.ets`; preview in `Recorder.ets` | `recorder/napi/RecorderNative.cpp`, `recorder/core/Recorder.cpp` | `VideoEncoder`, `AudioCapturer`, `AudioEncoder`, `Muxer` | Camera video and microphone audio to MP4/FLV |
 | Transcoding and remuxing | `TranscodePage.ets`, `TranscodeModel.ets` | `TranscoderNative.cpp`, `TranscodeJob.cpp`, `TranscodeOperations.cpp` | `OH_AVDemuxer`, video decoder/encoder, `TranscodeFrames`, `TranscodeAudioPipeline`, `OH_AVMuxer` | An MP4 in the app sandbox, then optional export to Gallery or File Manager |
 | Graphics output | XComponents on playback/recording pages | `PluginManager`, `PluginRender`, `BufferRenderer` | Native XComponent, NativeWindow, NativeBuffer | Direct codec output in SurfaceMode; application copy in BufferMode |
 | Demuxing | Selected source file | `Demuxer.cpp` | `OH_AVSource`, `OH_AVDemuxer` | Track metadata and compressed samples to decoders |
@@ -1672,6 +1711,12 @@ Microphone --> Existing PCM / AAC pipeline --------^
 
 `StartVideoInputThread()` selects one input worker at startup. Buffer acquisition is visible in each worker rather than hidden behind a mode-switching helper. The independent example tags are `recorder_video_buffer_input_sync` and `recorder_video_buffer_input_async`; EOS examples use `recorder_video_buffer_eos_sync` and `recorder_video_buffer_eos_async`. Both workers share camera image retrieval, pixel copying and PTS calculation. Video output acquisition remains separate in `VideoEncOutputSyncThread()` and `VideoEncOutputAsyncThread()`.
 
+Synchronous encoder and decoder acquisition use the same contract. `GetInputBuffer(info, timeoutUs)` and `GetOutputBuffer(info, timeoutUs)` return an `int32_t` status and store the Buffer, index and attributes in `CodecBufferInfo`. `AVCODEC_SAMPLE_ERR_OK` means success; `AVCODEC_SAMPLE_ERR_AGAIN` means the worker should check its running state and retry. Other errors terminate recording. Repeated output format changes also return `AGAIN`, keeping retries bounded within the wrapper. During stop, output workers keep draining until each stream receives EOS or finalization times out.
+
+Input layout initialization corresponds to decoder first-frame initialization. The synchronous worker calls `InitSyncVideoInputContext()` after acquiring its first Buffer; the asynchronous path reads `OH_VideoEncoder_GetInputDescription()` in the first `OnNeedInputBuffer` callback. Both read the actual `VIDEO_STRIDE`, `VIDEO_SLICE_HEIGHT` and `PIXEL_FORMAT` instead of inferring strides from resolution. `CodecUserData` stores these in `inputWidthStride`, `inputHeightStride` and `inputPixelFormat`, separately from output format fields so output callbacks cannot overwrite copy parameters. Later frames reuse this layout and validate NV12, dimensions and capacities before copying.
+
+The four primary video input/output workers are parameterless member functions, matching the player decoder workers. Dual-output secondary workers live in `recorder/output/video/RecorderSecondaryOutput.cpp`: `SecondaryVideoEncOutputSyncThread()` and `SecondaryVideoEncOutputAsyncThread()` use their own encoder and callback queue. Both streams share muxing, Dump and Buffer release rules while tracking EOS separately. `VideoEncoder::Stop()` only calls the system Stop API; `Flush()` remains an independent operation.
+
 Buffer recording requires API 23+, 8-bit SDR, 1280x720 or 1920x1080, and 30fps. Selecting it resets incompatible draft settings and disables HDR, platform encoder preprocessing, target frame dropping and dual output. Switch back to Surface to configure those features. Input mode is persisted with recording settings; older snapshots default to Surface.
 
 The camera must also support simultaneous display and YUV preview outputs. An encoder capability query cannot confirm that stream combination or CPU-readable camera storage. Unsupported profiles/combinations produce an error. Unreadable images, missing NV12 encoder layout, regressing timestamps or a stalled input terminate the recording; the sample does not silently select Surface or reduce the resolution.
@@ -1756,6 +1801,14 @@ Audio input, output and EOS acquisition also have separate entry points:
 | Asynchronous | `AudioEncInputAsyncThread()` dequeues input callback Buffers | `AudioEncOutputAsyncThread()` dequeues output callback Buffers | `SendAudioEndOfStreamAsync()` dequeues an input callback Buffer |
 
 `SubmitAudioInputFrame()` fills and submits an already acquired Buffer without a scheduling flag. At stop, `SendAudioEndOfStream()` joins the audio input worker before dispatching to the matching EOS implementation. Each implementation acquires its own Buffer and passes it to `AudioEncoder::NotifyEndOfStream(bufferInfo)` to set and submit EOS, while output workers continue draining. AAC is written to the primary muxer and, when enabled, the secondary muxer before its original output index is returned.
+
+`AudioEncoder` and `AudioDecoder` follow the video wrapper contract: both synchronous acquisition methods return `int32_t` status codes and put the borrowed Buffer and index in `CodecBufferInfo`. Only a query timeout returns `AVCODEC_SAMPLE_ERR_AGAIN`; query, Get or attribute-read failures return an error. EOS returns `OK` with its flags intact, so the output worker identifies and returns it exactly once. `PushInputBuffer(info)` submits input and `FreeOutputBuffer(info)` returns output by the same index. The player audio workers use this contract as well.
+
+Capturer initialization checks builder creation, parameter configuration and capturer generation before recording can start. Failure releases partially created capture resources and makes `Recorder::Init()` roll back the session. Audio Configure owns its temporary Format through RAII, including early returns. Worker creation failures also enter the common release path: cancel waits, join workers already started, destroy muxers and codecs, then release callback contexts. Recorder owns these contexts with `unique_ptr`; SDK callbacks only borrow them until Destroy completes.
+
+Input-stop, output-worker completion and output EOS are separate states. Stopping input leaves output workers running; a completed output worker is considered drained only if it has successfully returned its EOS Buffer. A timeout, missing EOS, muxer failure or Buffer-return failure makes finalization fail instead of reporting a complete file. A worker interrupted immediately after acquisition first returns that output index, and a return failure is preserved in the result. Successful PCM submissions and consumed outputs are counted at the same points in sync and async modes.
+
+`AudioEncoder::Stop()` and `AudioDecoder::Stop()` only call the system Stop API. Flush remains explicit, and Release calls Destroy without an implicit Flush or Stop. Muxer release also calls only Destroy; file descriptors remain open until native teardown finishes. Destruction errors propagate to the finalization result.
 
 <a id="muxing"></a>
 
@@ -2298,7 +2351,7 @@ When playback fails, first confirm the active mode and tracks, then inspect the 
 | Seek fails or the picture takes a long time to move | Whether the request was `superseded`, timeline-recovery time, first target-frame time, and nearby sync frames | Separate a request merged by a newer drag position, an unusable sync-frame index, slow Flush/audio-path recovery, and a late target frame after recovery. Long-GOP media must decode preroll from a sync frame; do not display preroll or treat the UI slider as Native completion. |
 | OpenGL/Vulkan output is black, green, or incorrectly scaled | Sink type in logs, `UsesSurfaceDecoder()`, whether the decoder received the NativeImage producer Surface, and presentation failures/duration | Confirm the run did not fall back to Buffer output. Check NativeBuffer acquire and fences, external-image import, window extent, crop/stride matrix, and rotation. If the problem remains after Stop or switching media, verify the previous sink was quiesced, old Buffers returned, and the window lease refreshed. |
 | HDR Vivid watermark is absent | Separately inspect the container declaration, output Buffer HDR type, dynamic-metadata read, and confirmed UI state | The container declaration is only shown as media information; the app watermark indicates output-metadata confirmation. Surface/GPU paths may not expose the decoder output Buffer, so “unconfirmed” does not prove the system is not displaying HDR. The BT.709 conversion result must be checked separately. |
-| Recording file exists but cannot be opened | Camera frame-end, audio/video EOS, Muxer Stop/Destroy, and fd-close order | Ensure both encoder output workers consume EOS before stopping the muxer, and close the fd only after container finalization. Destroying the muxer while audio is still being captured or encoded can leave an incomplete container. |
+| Recording file exists but cannot be opened | Camera frame-end, audio/video EOS, Muxer Destroy, and fd-close order | Return audio and video EOS Buffers and join all workers before destroying the muxer. Close the fd only after container finalization. Destroying the muxer while audio is still being captured or encoded can leave an incomplete container. |
 
 When collecting logs, include device and system versions, container and track information, decoder/output/sync modes, speed or HDR options, and whether the issue occurred on first play, track switch, Seek, or Stop. Start the reproduction from a fresh app launch and change one setting at a time. If several files and modes were switched in sequence, record their order and timestamps so a retained frame or diagnostic count from the previous task is not mistaken for current output.
 

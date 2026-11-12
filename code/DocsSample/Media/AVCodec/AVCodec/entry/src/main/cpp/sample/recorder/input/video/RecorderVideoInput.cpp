@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "Recorder.h"
+#include "../../core/Recorder.h"
 #include <algorithm>
 
 namespace {
@@ -40,29 +40,36 @@ uint64_t Recorder::GetCameraInputSurfaceId() const
     return id;
 }
 
-bool Recorder::ReadVideoInputLayout(int32_t &stride, int32_t &sliceHeight)
+bool Recorder::InitSyncVideoInputContext()
 {
+    if (!encContext_->isEncFirstFrame) {
+        return true;
+    }
     std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)> format(videoEncoder_->GetInputDescription(),
                                                                         OH_AVFormat_Destroy);
     int32_t pixelFormat = -1;
-    // 跨距必须由编码器报告，不能从分辨率猜测；相机和编码器两侧的填充可能不同。
-    return format != nullptr && OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_STRIDE, &stride) &&
-           OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_SLICE_HEIGHT, &sliceHeight) &&
-           OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_PIXEL_FORMAT, &pixelFormat) &&
-           pixelFormat == AV_PIXEL_FORMAT_NV12 && stride >= sampleInfo_.video.videoWidth &&
-           sliceHeight >= sampleInfo_.video.videoHeight;
+    // 与同步解码首帧读取输出描述对应：取得首个输入Buffer后，读取编码器的实际输入布局。
+    if (format == nullptr ||
+        !OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_STRIDE, &encContext_->inputWidthStride) ||
+        !OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_SLICE_HEIGHT, &encContext_->inputHeightStride) ||
+        !OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
+        return false;
+    }
+    encContext_->inputPixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
+    encContext_->isEncFirstFrame = false;
+    return true;
 }
 
-void Recorder::StartVideoInputThread()
+int32_t Recorder::StartVideoInputThread()
 {
     if (frameReceiver_ == nullptr) {
-        return;
+        return AVCODEC_SAMPLE_ERR_OK;
     }
-    if (sampleInfo_.codec.codecSyncMode) {
-        videoEncInputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncInputSyncThread, this);
-    } else {
-        videoEncInputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncInputAsyncThread, this);
-    }
+    const bool started = sampleInfo_.codec.codecSyncMode ?
+        videoInputWorker_.Start([this]() { VideoEncInputSyncThread(); }) :
+        videoInputWorker_.Start([this]() { VideoEncInputAsyncThread(); });
+    CHECK_AND_RETURN_RET_LOG(started, AVCODEC_SAMPLE_ERR_ERROR, "Create video input worker failed");
+    return AVCODEC_SAMPLE_ERR_OK;
 }
 
 OH_ImageNative *Recorder::ReadVideoInputImage(VideoInputState &state)
@@ -109,6 +116,7 @@ void Recorder::VideoEncInputSyncThread()
 {
     VideoInputState state;
     state.lastSubmittedUs = RecorderClockUs();
+    // videoInputStopping_单独结束视频输入线程，停止读取相机图像、提交普通帧，让输出线程继续排空编码数据。
     while (isStarted_.load() && !videoInputStopping_.load()) {
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
         if (isPaused_) {
@@ -125,8 +133,13 @@ void Recorder::VideoEncInputSyncThread()
         const int64_t receivedAtUs = RecorderClockUs();
         CodecBufferInfo info;
         // 同步模式主动Query输入索引，再Get对应的编码器Buffer。
-        if (videoEncoder_->GetInputBuffer(info, INPUT_WAIT_US) == nullptr) {
+        const int32_t ret = videoEncoder_->GetInputBuffer(info, INPUT_WAIT_US);
+        if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
             continue;
+        }
+        if (ret != AVCODEC_SAMPLE_ERR_OK || !InitSyncVideoInputContext()) {
+            AbortRecording("Get video input buffer or input description failed");
+            break;
         }
         if (!SubmitVideoInputImage(image.get(), info, state, receivedAtUs)) {
             break;
@@ -140,6 +153,7 @@ void Recorder::VideoEncInputAsyncThread()
 {
     VideoInputState state;
     state.lastSubmittedUs = RecorderClockUs();
+    // videoInputStopping_单独结束视频输入线程，停止读取相机图像、提交普通帧，让输出线程继续排空编码数据。
     while (isStarted_.load() && !videoInputStopping_.load()) {
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
         if (isPaused_) {
@@ -180,11 +194,14 @@ bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &inf
         return false;
     }
     state.lastTimestampNs = timestampNs;
-    if (state.stride == 0 && !ReadVideoInputLayout(state.stride, state.sliceHeight)) {
+    if (encContext_->isEncFirstFrame || encContext_->inputPixelFormat != AV_PIXEL_FORMAT_NV12 ||
+        encContext_->inputWidthStride < sampleInfo_.video.videoWidth ||
+        encContext_->inputHeightStride < sampleInfo_.video.videoHeight) {
         AbortRecording("Encoder did not report a valid NV12 input layout");
         return false;
     }
-    if (!frameReceiver_->Copy(image, info.buffer, state.stride, state.sliceHeight, info.attr.size)) {
+    if (!frameReceiver_->Copy(image, info.buffer, encContext_->inputWidthStride,
+        encContext_->inputHeightStride, info.attr.size)) {
         AbortRecording("Camera YUV image is not CPU-readable or has an unsupported layout");
         return false;
     }
@@ -216,10 +233,7 @@ int32_t Recorder::SendBufferVideoEndOfStream()
     std::lock_guard<std::mutex> inputLock(videoInputMutex_);
     // ArkTS已停止相机输出；先join唯一输入线程，再获取专用于EOS的输入Buffer。
     videoInputStopping_.store(true);
-    if (videoEncInputThread_ != nullptr && videoEncInputThread_->joinable()) {
-        videoEncInputThread_->join();
-    }
-    videoEncInputThread_.reset();
+    videoInputWorker_.Join();
     if (!isStarted_.load()) {
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
@@ -230,9 +244,8 @@ int32_t Recorder::SendBufferVideoEndOfStream()
 int32_t Recorder::SendBufferVideoEndOfStreamSync()
 {
     CodecBufferInfo info;
-    if (videoEncoder_->GetInputBuffer(info, DRAIN_WAIT_US) == nullptr) {
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
+    const int32_t ret = videoEncoder_->GetInputBuffer(info, DRAIN_WAIT_US);
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Get video EOS input buffer failed");
     info.attr.size = 0;
     info.attr.offset = 0;
     info.attr.pts = lastVideoInputPtsUs_;

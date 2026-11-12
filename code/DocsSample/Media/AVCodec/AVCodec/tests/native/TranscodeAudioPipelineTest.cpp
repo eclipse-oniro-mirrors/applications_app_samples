@@ -22,7 +22,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "../../entry/src/main/cpp/sample/transcoder/TranscodeAudioPipeline.h"
+#include "../../entry/src/main/cpp/sample/transcoder/process/audio/TranscodeAudioPipeline.h"
 #include <multimedia/player_framework/native_avcodec_base.h>
 #include <multimedia/player_framework/native_averrors.h>
 

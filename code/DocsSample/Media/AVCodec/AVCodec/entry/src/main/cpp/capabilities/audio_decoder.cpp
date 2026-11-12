@@ -75,31 +75,29 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
             "continue with decoder configure", sampleInfo.audio.audioCodecMime.c_str());
     }
     // format仅用于本次Configure；所有失败路径和成功路径都要在返回前销毁。
-    OH_AVFormat *format = OH_AVFormat_Create();
+    auto format = std::shared_ptr<OH_AVFormat>(OH_AVFormat_Create(), OH_AVFormat_Destroy);
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
     // 必选：采样格式、声道数、声道布局、采样率。
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, sampleInfo.audio.audioChannelCount);
-    OH_AVFormat_SetLongValue(format, OH_MD_KEY_CHANNEL_LAYOUT, sampleInfo.audio.audioChannelLayout);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, sampleInfo.audio.audioSampleRate);
+    OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE);
+    OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, sampleInfo.audio.audioChannelCount);
+    OH_AVFormat_SetLongValue(format.get(), OH_MD_KEY_CHANNEL_LAYOUT, sampleInfo.audio.audioChannelLayout);
+    OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_AUD_SAMPLE_RATE, sampleInfo.audio.audioSampleRate);
     // 可选：同步模式，按需设置。
     if (sampleInfo.codec.codecSyncMode) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
+        OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
 
     // 可选：编解码器特定数据（codec config），由解封装获取，没有则不设置。
     if (sampleInfo.audio.codecConfigLen > 0 &&
         sampleInfo.audio.codecConfig.size() >= sampleInfo.audio.codecConfigLen) {
-        OH_AVFormat_SetBuffer(format, OH_MD_KEY_CODEC_CONFIG, sampleInfo.audio.codecConfig.data(),
+        OH_AVFormat_SetBuffer(format.get(), OH_MD_KEY_CODEC_CONFIG, sampleInfo.audio.codecConfig.data(),
             sampleInfo.audio.codecConfigLen);
     }
 
     // 配置解码器。
-    int ret = OH_AudioCodec_Configure(decoder_, format);
+    int ret = OH_AudioCodec_Configure(decoder_, format.get());
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
-    OH_AVFormat_Destroy(format);
-    format = nullptr;
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -137,27 +135,22 @@ int32_t AudioDecoder::ValidateConfiguration(const SampleInfo &sampleInfo)
 }
 
 // [Start AudioDecoder::GetInputBuffer]
-OH_AVBuffer *AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
+int32_t AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
-    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");
-    int32_t ret = OH_AudioCodec_QueryInputBuffer(decoder_, &info.bufferIndex, timeoutUs);
-    switch (ret) {
-        case AV_ERR_OK: {
-            OH_AVBuffer *buffer = OH_AudioCodec_GetInputBuffer(decoder_, info.bufferIndex);
-            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null");
-            // Buffer由codec管理，业务侧只在PushInputBuffer前写入，不能缓存地址或跨线程长期持有。
-            info.buffer = buffer;
-            return buffer;
-        }
-        case AV_ERR_TRY_AGAIN_LATER: {
-            AVCODEC_SAMPLE_LOGE("Get input buffer timeout.");
-            return nullptr;
-        }
-        default: {
-            return nullptr;
-        }
+    info.buffer = nullptr;
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+    const int32_t ret = OH_AudioCodec_QueryInputBuffer(decoder_, &info.bufferIndex, timeoutUs);
+    if (ret == AV_ERR_TRY_AGAIN_LATER) {
+        AVCODEC_SAMPLE_LOGD("Get input buffer timeout.");
+        return AVCODEC_SAMPLE_ERR_AGAIN;
     }
-    return nullptr;
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Query input buffer failed, ret: %{public}d", ret);
+    OH_AVBuffer *buffer = OH_AudioCodec_GetInputBuffer(decoder_, info.bufferIndex);
+    CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
+    // Buffer和索引成对保存，调用PushInputBuffer后不能继续访问该Buffer。
+    info.buffer = buffer;
+    return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End AudioDecoder::GetInputBuffer]
 
@@ -169,12 +162,12 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     OH_AVErrCode ret = OH_AudioCodec_QueryOutputBuffer(decoder_, &info.bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
         // 超时通常说明等待时间过短，或已有输出Buffer未及时归还导致codec暂无可用Buffer。
-        AVCODEC_SAMPLE_LOGW("Get output buffer timeout.");
-        return AVCODEC_SAMPLE_ERR_AGAIN; // continue;
+        AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");
+        return AVCODEC_SAMPLE_ERR_AGAIN;
     }
     if (ret != AV_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("query output buffer failed, ret: %{public}d", ret);
-        return AVCODEC_SAMPLE_ERR_ERROR; // break;
+        return AVCODEC_SAMPLE_ERR_ERROR;
     }
 
     OH_AVBuffer *outputBuf = OH_AudioCodec_GetOutputBuffer(decoder_, info.bufferIndex);
@@ -184,14 +177,7 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Get output buffer attr failed, ret: %{public}d", ret);
     info.buffer = outputBuf;
-    if (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-        // EOS输出也必须归还，之后不再访问outputBuf或该索引。
-        OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
-        info.buffer = nullptr;
-        AVCODEC_SAMPLE_LOGI("Out buffer end");
-        // 解码输出结束。
-        return AVCODEC_SAMPLE_ERR_END;
-    }
+
     return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End AudioDecoder::GetOutputBuffer]
@@ -221,12 +207,12 @@ int32_t AudioDecoder::PushInputBuffer(CodecBufferInfo &info)
 // [End AudioDecoder::PushInputBuffer]
 
 // [Start AudioDecoder::FreeOutputBuffer]
-int32_t AudioDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render)
+int32_t AudioDecoder::FreeOutputBuffer(const CodecBufferInfo &info)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
     int32_t ret = AVCODEC_SAMPLE_ERR_OK;
-    ret = OH_AudioCodec_FreeOutputBuffer(decoder_, bufferIndex);
+    ret = OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Free output data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -271,11 +257,11 @@ int32_t AudioDecoder::Stop()
 int32_t AudioDecoder::Release()
 {
     if (decoder_ != nullptr) {
-        // 销毁前刷新并停止解码器，不可重复destroy。
-        Flush();
-        Stop();
-        OH_AudioCodec_Destroy(decoder_);
+        // 工作线程退出后由业务侧销毁codec，Destroy完成后才能释放回调上下文。
+        const int32_t ret = OH_AudioCodec_Destroy(decoder_);
         decoder_ = nullptr;
+        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+            "Destroy failed, ret: %{public}d", ret);
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }

@@ -18,7 +18,7 @@
 #include <limits>
 #include <GLES2/gl2ext.h>
 #include <native_buffer/native_buffer.h>
-#include "../../common/graphics/GlProgram.h"
+#include "../../../../../common/graphics/GlProgram.h"
 
 namespace {
 constexpr int32_t COMPONENTS = 2;

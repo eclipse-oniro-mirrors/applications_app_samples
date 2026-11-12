@@ -84,7 +84,7 @@ int32_t Recorder::UpdateVideoParameters(const std::string &sessionId, bool prima
 {
     // 与Init/Release共用生命周期锁。异步请求还需匹配会话，防止旧页面请求落到新编码器上。
     std::lock_guard<std::mutex> lock(mutex_);
-    if (!isStarted_.load() || isStopping_.load() || isEos_.load() ||
+    if (!isStarted_.load() || isStopping_.load() || audioInputStopping_.load() ||
         sessionId != sampleInfo_.output.sessionId) {
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
@@ -134,7 +134,8 @@ int32_t Recorder::InitializeSession(SampleInfo &sampleInfo)
     ret = CreateAudioEncoder();
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create audio encoder failed");
 
-    audioCapturer_->AudioCapturerInit(sampleInfo_, audioEncContext_);
+    ret = audioCapturer_->AudioCapturerInit(sampleInfo_, audioEncContext_.get());
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Initialize audio capturer failed");
 
     ret = CreateVideoEncoder();
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
@@ -174,7 +175,7 @@ void Recorder::CloseVideoDumpFiles()
 
 int32_t Recorder::StartVideoPipeline()
 {
-    isEos_ = false;
+    audioInputStopping_ = false;
     int32_t ret = StartVideoMuxers();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         return ret;
@@ -224,25 +225,19 @@ int32_t Recorder::StartVideoEncoders()
 
 int32_t Recorder::StartVideoOutputThreads()
 {
+    bool started = false;
     if (sampleInfo_.codec.codecSyncMode) {
-        encOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputSyncThread, this,
-            videoEncoder_.get(), encContext_, muxer_.get(), true);
-        if (secondaryVideoEncoder_ != nullptr) {
-            secondaryEncOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputSyncThread, this,
-                secondaryVideoEncoder_.get(), secondaryEncContext_, secondaryMuxer_.get(), false);
+        started = videoOutputWorker_.Start([this]() { VideoEncOutputSyncThread(); });
+        if (started && secondaryVideoEncoder_ != nullptr) {
+            started = secondaryVideoOutputWorker_.Start([this]() { SecondaryVideoEncOutputSyncThread(); });
         }
     } else {
-        encOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputAsyncThread, this,
-            videoEncoder_.get(), encContext_, muxer_.get(), true);
-        if (secondaryVideoEncoder_ != nullptr) {
-            secondaryEncOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputAsyncThread, this,
-                secondaryVideoEncoder_.get(), secondaryEncContext_, secondaryMuxer_.get(), false);
+        started = videoOutputWorker_.Start([this]() { VideoEncOutputAsyncThread(); });
+        if (started && secondaryVideoEncoder_ != nullptr) {
+            started = secondaryVideoOutputWorker_.Start([this]() { SecondaryVideoEncOutputAsyncThread(); });
         }
     }
-    if (encOutputThread_ == nullptr) {
-        AVCODEC_SAMPLE_LOGE("Create thread failed");
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
+    CHECK_AND_RETURN_RET_LOG(started, AVCODEC_SAMPLE_ERR_ERROR, "Create video output workers failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -271,7 +266,7 @@ int32_t Recorder::CreateVideoEncoder()
         }
         return ret;
     }
-    encContext_ = context.release();
+    encContext_ = std::move(context);
 
     if (sampleInfo_.video.bufferInput) {
         frameReceiver_ = std::make_unique<RecorderFrameReceiver>();
@@ -280,18 +275,17 @@ int32_t Recorder::CreateVideoEncoder()
     }
 
     if (sampleInfo_.output.enableDualOutput) {
-        secondaryEncContext_ = new CodecUserData();
+        secondaryEncContext_ = std::make_unique<CodecUserData>();
         secondaryEncContext_->sampleInfo = &secondarySampleInfo_;
         secondaryEncContext_->failureDetails = &failure_;
         ret = secondaryVideoEncoder_->CreateSecondaryFromPrimary(*videoEncoder_);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             return ret;
         }
-        ret = secondaryVideoEncoder_->Config(secondarySampleInfo_, secondaryEncContext_, false);
+        ret = secondaryVideoEncoder_->Config(secondarySampleInfo_, secondaryEncContext_.get(), false);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             (void)secondaryVideoEncoder_->Release();
-            delete secondaryEncContext_;
-            secondaryEncContext_ = nullptr;
+            secondaryEncContext_.reset();
             return ret;
         }
         // 副编码器共享主路输入Surface，不再向ArkTS暴露第二个CameraKit VideoOutput。

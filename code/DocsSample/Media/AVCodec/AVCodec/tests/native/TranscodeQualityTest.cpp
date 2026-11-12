@@ -17,8 +17,8 @@
 #include <iterator>
 #include <vector>
 #include <cmath>
-#include "../../entry/src/main/cpp/sample/transcoder/TranscodePcmConverter.h"
-#include "../../entry/src/main/cpp/sample/transcoder/TranscodeFrameProcessor.h"
+#include "../../entry/src/main/cpp/sample/transcoder/process/audio/TranscodePcmConverter.h"
+#include "../../entry/src/main/cpp/sample/transcoder/process/video/TranscodeFrameProcessor.h"
 
 namespace {
 constexpr int32_t TEST_SAMPLE_RATE_48000 = 48000;

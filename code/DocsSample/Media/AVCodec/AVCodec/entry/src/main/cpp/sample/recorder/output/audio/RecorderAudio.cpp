@@ -13,17 +13,16 @@
  * limitations under the License.
  */
 
-#include "Recorder.h"
-#include <limits>
+#include "../../core/Recorder.h"
 
 namespace {
 constexpr int64_t MICROSECOND = 1000000;
-constexpr int64_t TIMEOUT_US = 5000000;
-constexpr int32_t AUDIO_INPUT_STOP_POLL_INTERVAL_MS = 10;
-constexpr auto AUDIO_INPUT_ASYNC_WAIT = std::chrono::seconds(5);
+constexpr auto AUDIO_INPUT_ASYNC_WAIT = std::chrono::milliseconds(100);
 constexpr auto AUDIO_INPUT_SYNC_WAIT = std::chrono::milliseconds(100);
 constexpr int64_t AUDIO_INPUT_QUERY_TIMEOUT_US = 100000;
 constexpr int32_t AUDIO_INPUT_CALLBACK_WAIT_MS = 100;
+constexpr int32_t AUDIO_EOS_WAIT_MS = 5000;
+constexpr int64_t AUDIO_EOS_WAIT_US = AUDIO_EOS_WAIT_MS * 1000LL;
 }
 
 int32_t Recorder::CreateAudioEncoder()
@@ -42,7 +41,7 @@ int32_t Recorder::CreateAudioEncoder()
         (void)audioEncoder_->Release();
         return ret;
     }
-    audioEncContext_ = context.release();
+    audioEncContext_ = std::move(context);
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -50,28 +49,32 @@ int32_t Recorder::CreateAudioEncoder()
 // [Start Recorder::AudioEncInputAsyncThread]
 void Recorder::AudioEncInputAsyncThread()
 {
-    while (isStarted_ && !isEos_) {
-        if (isStopping_.load()) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(AUDIO_INPUT_STOP_POLL_INTERVAL_MS));
-            continue;
+    while (isStarted_ && !audioInputStopping_) {
+        if (audioEncContext_->hasError.load()) {
+            AbortRecording("Audio codec callback failed");
+            break;
         }
         if (!WaitForAudioInputFrame(AUDIO_INPUT_ASYNC_WAIT)) {
             continue;
         }
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
-        if (isPaused_ || !isStarted_ || isEos_) { continue; }
-        std::shared_ptr<CodecBufferInfo> bufferInfo =
-            audioEncContext_->inputBufferQueue.Dequeue(AUDIO_INPUT_CALLBACK_WAIT_MS);
-        std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
+        if (isPaused_ || !isStarted_ || audioInputStopping_) {
+            continue;
+        }
+        const auto bufferInfo = audioEncContext_->inputBufferQueue.Dequeue(AUDIO_INPUT_CALLBACK_WAIT_MS);
         if (audioEncContext_->hasError.load()) {
             AbortRecording("Audio codec callback failed");
             break;
         }
-        CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Audio buffer queue is empty, continue");
+        if (!isStarted_) {
+            break;
+        }
+        if (bufferInfo == nullptr) {
+            continue;
+        }
         if (!SubmitAudioInputFrame(*bufferInfo)) {
             break;
         }
-        ++audioEncContext_->inputFrameCount;
     }
 }
 // [End Recorder::AudioEncInputAsyncThread]
@@ -80,10 +83,10 @@ bool Recorder::WaitForAudioInputFrame(std::chrono::milliseconds timeout)
 {
     std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
     audioEncContext_->inputCond.wait_for(lock, timeout, [this]() {
-        return !isStarted_ || isEos_.load() ||
+        return !isStarted_ || audioInputStopping_ || audioEncContext_->hasError ||
             (!isPaused_ && audioEncContext_->remainlen >= sampleInfo_.audio.audioMaxInputSize);
     });
-    return isStarted_ && !isEos_.load() && !isPaused_ &&
+    return isStarted_ && !audioInputStopping_ && !audioEncContext_->hasError && !isPaused_ &&
         audioEncContext_->remainlen >= sampleInfo_.audio.audioMaxInputSize;
 }
 
@@ -117,11 +120,12 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo)
         audioSubmittedFrames_ * MICROSECOND / sampleInfo_.audio.audioSampleRate;
     bufferInfo.attr.flags = isAudioEncFirstFrame_ ? AVCODEC_BUFFER_FLAGS_CODEC_DATA : AVCODEC_BUFFER_FLAGS_NONE;
     isAudioEncFirstFrame_ = false;
-    const int32_t ret = audioEncoder_->PushInputData(bufferInfo);
+    const int32_t ret = audioEncoder_->PushInputBuffer(bufferInfo);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AbortRecording("Audio input push failed");
         return false;
     }
+    ++audioEncContext_->inputFrameCount;
     audioSubmittedFrames_ += inputSize / sampleInfo_.audio.audioChannelCount / sizeof(int16_t);
     return true;
 }
@@ -130,54 +134,55 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo)
 void Recorder::AudioEncOutputAsyncThread()
 {
     while (isStarted_) {
-        std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->outputBufferQueue.Dequeue();
-        std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
-        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
-        if (audioEncContext_->hasError.load()) {
-            AbortRecording("Audio codec callback failed");
+        const auto bufferInfo = audioEncContext_->outputBufferQueue.Dequeue();
+        if (!isStarted_ || audioEncContext_->hasError.load()) {
+            if (bufferInfo != nullptr && audioEncoder_->FreeOutputBuffer(*bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {
+                failure_.Record("recorder.audio.release", AVCODEC_SAMPLE_ERR_ERROR,
+                    "Return audio output while stopping failed");
+            }
+            if (isStarted_) {
+                AbortRecording("Audio codec callback failed");
+            }
             break;
         }
-        CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
-
+        if (bufferInfo == nullptr) {
+            continue;
+        }
         if (!ProcessAudioOutputBuffer(*bufferInfo)) {
             break;
         }
     }
-    AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", audioEncContext_->inputFrameCount);
+    FinishAudioOutputThread();
 }
 // [End Recorder::AudioEncOutputAsyncThread]
 
 // [Start Recorder::AudioEncInputSyncThread]
 void Recorder::AudioEncInputSyncThread()
 {
-    while (isStarted_ && !isEos_.load()) {
-        CHECK_AND_BREAK_LOG(isStarted_, "Audio encoder sync thread out");
-        // 收到EOS后停止提交新输入，但输出线程仍会继续排空已编码样本。
-        if (isEos_.load()) {
-            AVCODEC_SAMPLE_LOGI("Audio input thread received EOS signal, stopping input");
+    while (isStarted_ && !audioInputStopping_) {
+        if (audioEncContext_->hasError.load()) {
+            AbortRecording("Audio codec callback failed");
             break;
         }
-        // 等待缓存凑满一帧；不完整音频数据会造成时长和时间戳异常。
         if (!WaitForAudioInputFrame(AUDIO_INPUT_SYNC_WAIT)) {
-            if (!isStarted_ || isEos_.load()) {
-                break;
-            }
             continue;
         }
-        // 数据充足后才可以申请codec输入buffer；减少申请成功后因缓存不足无法及时归还的风险。
+        // PCM充足后才取得输入Buffer，同步模式只通过Query/Get获取。
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
-        if (isPaused_ || !isStarted_ || isEos_) { continue; }
-        CodecBufferInfo bufferInfo;
-        bufferInfo.bufferIndex = std::numeric_limits<uint32_t>::max();
-        auto buffer = audioEncoder_->GetInputBuffer(bufferInfo, AUDIO_INPUT_QUERY_TIMEOUT_US);
-        if (buffer == nullptr) {
-            if (bufferInfo.bufferIndex != std::numeric_limits<uint32_t>::max()) {
-                // Query已成功但Get失败时，索引可能仍由应用持有；结束会话交由codec回收。
-                AbortRecording("Synchronous audio input buffer retrieval failed");
-                break;
-            }
-            AVCODEC_SAMPLE_LOGW("Get input buffer timeout, retry");
+        if (isPaused_ || !isStarted_ || audioInputStopping_) {
             continue;
+        }
+        CodecBufferInfo bufferInfo;
+        const int32_t ret = audioEncoder_->GetInputBuffer(bufferInfo, AUDIO_INPUT_QUERY_TIMEOUT_US);
+        if (!isStarted_) {
+            break;
+        }
+        if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
+            continue;
+        }
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            AbortRecording("Synchronous audio input buffer retrieval failed");
+            break;
         }
         if (!SubmitAudioInputFrame(bufferInfo)) {
             break;
@@ -190,30 +195,32 @@ void Recorder::AudioEncInputSyncThread()
 void Recorder::AudioEncOutputSyncThread()
 {
     while (isStarted_) {
-        CHECK_AND_BREAK_LOG(isStarted_, "Audio encoder output thread out");
+        if (audioEncContext_->hasError.load()) {
+            AbortRecording("Audio codec callback failed");
+            break;
+        }
         CodecBufferInfo bufferInfo;
-        int32_t errCode = audioEncoder_->GetOutputBuffer(bufferInfo, TIMEOUT_US);
-        if (errCode == AVCODEC_SAMPLE_ERR_OK) {
-            AVCODEC_SAMPLE_LOGI("AVCODEC_SAMPLE_ERR_OK");
-        } else if (errCode == AVCODEC_SAMPLE_ERR_ERROR) {
-            if (isStarted_ && !isStopping_) {
-                AbortRecording("Audio output buffer retrieval failed");
+        const int32_t ret = audioEncoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        if (!isStarted_) {
+            if (ret == AVCODEC_SAMPLE_ERR_OK &&
+                audioEncoder_->FreeOutputBuffer(bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {
+                failure_.Record("recorder.audio.release", AVCODEC_SAMPLE_ERR_ERROR,
+                    "Return audio output while stopping failed");
             }
             break;
-        } else if (errCode == AVCODEC_SAMPLE_ERR_END) {
-            AVCODEC_SAMPLE_LOGI("Audio output thread reached EOS");
-            break;
-        } else {
-            AVCODEC_SAMPLE_LOGW("Get output buffer timeout, retry");
+        }
+        if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
             continue;
         }
-
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            AbortRecording("Audio output buffer retrieval failed");
+            break;
+        }
         if (!ProcessAudioOutputBuffer(bufferInfo)) {
             break;
         }
     }
-    // 同步模式仍由视频线程触发释放；音频先结束时，视频仍在使用Muxer。
-    AVCODEC_SAMPLE_LOGI("Audio output thread exited, waiting for video thread to trigger release");
+    FinishAudioOutputThread();
 }
 // [End Recorder::AudioEncOutputSyncThread]
 
@@ -242,19 +249,52 @@ bool Recorder::ProcessAudioOutputBuffer(CodecBufferInfo &bufferInfo)
         }
     }
     // 即使写入失败也先归还同一索引，随后由正常的错误收尾路径释放会话。
-    const int32_t freeRet = audioEncoder_->FreeOutputData(bufferInfo.bufferIndex);
+    const int32_t freeRet = audioEncoder_->FreeOutputBuffer(bufferInfo);
     if (writeRet != AVCODEC_SAMPLE_ERR_OK || freeRet != AVCODEC_SAMPLE_ERR_OK) {
         AbortRecording(writeRet != AVCODEC_SAMPLE_ERR_OK ? "Write encoded audio sample failed" :
             "Release encoded audio buffer failed");
         return false;
     }
     if (eos) {
-        audioEosReceived_ = true;
+        audioOutputEosReceived_ = true;
         sessionReport_.Event("audio.eos");
-        isAudioEos_.store(true);
         audioStats_.Stop();
-        videoEosCond_.notify_all();
+        outputDoneCond_.notify_all();
         return false;
     }
     return true;
 }
+
+void Recorder::FinishAudioOutputThread()
+{
+    audioStats_.Stop();
+    sessionReport_.Event("audio.thread_end");
+    AVCODEC_SAMPLE_LOGI("Audio output finished, output frames: %{public}u", audioEncContext_->outputFrameCount);
+    std::lock_guard<std::mutex> lock(outputDoneMutex_);
+    audioOutputDone_.store(true);
+    outputDoneCond_.notify_all();
+}
+
+// EOS获取与普通输入一样，分别展示同步查询和异步回调队列。
+// [Start recorder_audio_eos_sync]
+int32_t Recorder::SendAudioEndOfStreamSync()
+{
+    CodecBufferInfo bufferInfo;
+    const int32_t ret = audioEncoder_->GetInputBuffer(bufferInfo, AUDIO_EOS_WAIT_US);
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Get synchronous audio EOS input buffer failed");
+    return audioEncoder_->NotifyEndOfStream(bufferInfo);
+}
+// [End recorder_audio_eos_sync]
+
+// [Start recorder_audio_eos_async]
+int32_t Recorder::SendAudioEndOfStreamAsync()
+{
+    CHECK_AND_RETURN_RET_LOG(audioEncContext_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Audio context is null");
+    // 异步模式只能使用输入回调给出的Buffer，不能调用同步QueryInputBuffer接口。
+    const auto input = audioEncContext_->inputBufferQueue.Dequeue(AUDIO_EOS_WAIT_MS);
+    CHECK_AND_RETURN_RET_LOG(input != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+        "Get asynchronous audio EOS input buffer failed");
+    CodecBufferInfo bufferInfo = *input;
+    return audioEncoder_->NotifyEndOfStream(bufferInfo);
+}
+// [End recorder_audio_eos_async]

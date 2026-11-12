@@ -56,12 +56,12 @@ public:
     int32_t RegisterParameterCallback(OH_VideoEncoder_OnNeedInputParameter callback, void *userData);
     // 查询空闲输入Buffer的索引。查询成功后，该索引只能用于对应的GetInputBuffer和PushInputBuffer。
     int32_t QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
-    // 同步模式下取得一个空闲输入Buffer，并将同一Buffer与索引写入info。
-    OH_AVBuffer *GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
+    // 同步模式下取得一个空闲输入Buffer并写入info；返回OK、AGAIN或ERROR，与解码接口一致。
+    int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     // 查询已编码输出Buffer的索引。输出处理完成后必须调用FreeOutputBuffer归还该索引。
     int32_t QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
-    bool GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    bool GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs, int32_t *queryStatus);
+    // 同步模式下取得已编码输出；AGAIN表示本次未取到Buffer，由输出线程继续轮询。
+    int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t PushInputBuffer(CodecBufferInfo &info);
     int32_t FreeOutputBuffer(const CodecBufferInfo &info);
     int32_t NotifyEndOfStream();

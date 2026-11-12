@@ -506,14 +506,18 @@ PQ/HLG、HDR10、HDR Vivid、BT.2020 10/12-bit 传递特性和 HEVC Main 10 重�
 - `SeekPreviewController` 管理拖动预览的节流、请求代次和 PixelMap 释放；
 - `PlaybackQueueController` 管理队列路径、当前索引、循环/随机计算；
 - `RecorderLaunchController` 管理媒体库创建资源、打开主副 fd、Native 初始化、失败回收和路由跳转；
-- `RecorderVideoSession.cpp` 集中录制会话的编码器、前处理、双路 Muxer 和 Dump 初始化。
+- `recorder/core/RecorderVideoSession.cpp` 集中录制会话的编码器、前处理、双路 Muxer 和 Dump 初始化。
 - `PlaybackSubtitleController`负责字幕文件读取和Cue定位，`PlaybackControlsController`管理控制条自动隐藏计时；
 - `PlaybackWindowController`负责全屏方向和系统栏切换，`PlaybackAudioController`负责音轨选择和静音状态；
 - `PlaybackAbLoopController`负责A-B点、检查定时器和Seek代次保护；
 - `PlayerViewport`负责稳定的XComponent画面、状态/HDR/字幕叠加和诊断叠加，`PlayerPage`负责手势层组合；
 - `TranscodeHistoryController`管理历史分页、占用统计和失效请求，`TranscodeModel`保留任务及清理决策；
 - `TranscodeHistoryPanel`通过`@ObjectLink`直接观察历史控制器，异步分页后刷新列表，不依赖父页面重新打开；
-- `RecorderAudio.cpp`集中音频编码器创建、PCM输入与AAC输出，同步查询和异步回调消费仍各自保留独立方法。
+- `recorder/output/audio/RecorderAudio.cpp`集中音频编码器创建、PCM输入与AAC输出，同步查询和异步回调消费仍各自保留独立方法。
+- `recorder/output/video/RecorderVideoOutput.cpp`负责主路视频输出和PTS转换，`recorder/output/video/RecorderSecondaryOutput.cpp`保留副路独立的同、异步取Buffer循环。`recorder/diagnostics/RecorderDiagnostics.cpp`读取转换后的时间戳、更新统计，不修改媒体数据。
+- `recorder/core/RecorderRelease.cpp`负责EOS提交、排空等待和资源释放。`recorder/core/RecorderWorker.h`捕获编码工作线程创建失败，在通知退出后回收各线程。
+
+Native目录沿用播放器按职责分层的方式。录制和转码的`core/`负责会话协调，`napi/`负责ArkTS接口边界，`diagnostics/`保存统计实现。录制将相机Buffer输入放在`input/video/`，音频线程放在`output/audio/`，视频输出放在`output/video/`，码流保存放在`output/dump/`。转码的`codec/`负责同步取Buffer和异步回调队列，`process/`分别处理音频、视频与GPU像素流程，`output/`负责成品文件校验。同步和异步示例仍保留独立入口。
 
 播放和录制的设置草稿进一步移到 `SettingsDraftModels.ets`。两个 `@Observed` 模型分别负责加载、校验和应用；Index 只保存两个 `@State` 草稿对象，不再维护几十个独立字段。Picker 修改对象属性后，子组件通过对应的 `@Prop` 值刷新，录制能力提示也随草稿变化清掉旧结果。点击应用才写入正式模型，预设恢复和取消编辑沿用同一套加载入口。
 
@@ -672,25 +676,58 @@ AVCodec/
     │   │   │   │       ├── PlayerAsyncSeek.cpp # Promise 异步 Seek 工作项
     │   │   │   │       ├── PlayerNapiParser.cpp/.h # 播放和 Seek 参数解析
     │   │   │   │       └── PlayerNapiSerializer.cpp/.h # 播放状态和媒体信息序列化
-    │   │   │   ├── transcoder                # 转码、转封装、预览与结果检查
-    │   │   │   │   ├── TranscoderNative.cpp  # 请求校验、复制 fd 和 N-API 工作项
-    │   │   │   │   ├── TranscodeJob.cpp/.h   # 主循环、Buffer/Surface 交接和收尾
-    │   │   │   │   ├── TranscodeCodecIO.cpp # 同步查询或异步回调消费
-    │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h # 有界回调队列与退出通知
-    │   │   │   │   ├── TranscodeOperations.cpp # 帧率限制、选时预览和转封装
-    │   │   │   │   ├── TranscodeFrameProcessor.cpp/.h # YUV 布局、缩放、裁剪、灰度
-    │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h # 音轨解码、AAC 拼帧和编码
-    │   │   │   │   ├── TranscodePcmConverter.h # 流式采样率和单/双声道转换
-    │   │   │   │   ├── TranscodeInspection.cpp # 媒体和编解码组合预检
-    │   │   │   │   ├── TranscodeTimeRange.cpp # 区间检查与预滚帧过滤
-    │   │   │   │   ├── TranscodeOutputValidation.cpp # MP4 重开与元数据校验
-    │   │   │   │   └── TranscodeDiagnostics.h # 调用耗时和跨轮询等待
-    │   │   │   └── recorder                  # Native 录制接口和实现
-    │   │   │       ├── Recorder.cpp          # 录制生命周期和数据流实现
-    │   │   │       ├── RecorderAudio.cpp     # PCM输入、AAC输出，同异步入口独立
-    │   │   │       ├── Recorder.h            # Recorder 接口和状态定义
-    │   │   │       ├── RecorderNative.cpp    # 录制 NAPI 入口
-    │   │   │       └── RecorderNative.h      # 录制 NAPI 接口
+    │   │   │   ├── transcoder/
+    │   │   │   │   ├── core/ # 会话生命周期与协调
+    │   │   │   │   │   ├── TranscodeInspection.cpp
+    │   │   │   │   │   ├── TranscodeJob.cpp/.h
+    │   │   │   │   │   ├── TranscodeOperations.cpp
+    │   │   │   │   │   └── TranscodeTimeRange.cpp
+    │   │   │   │   ├── napi/ # ArkTS接口入口与参数解析
+    │   │   │   │   │   └── TranscoderNative.cpp
+    │   │   │   │   ├── codec/ # 同步取Buffer与异步回调队列
+    │   │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h
+    │   │   │   │   │   └── TranscodeCodecIO.cpp
+    │   │   │   │   ├── process/
+    │   │   │   │   │   ├── audio/ # 音频解码、PCM转换与AAC编码
+    │   │   │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h
+    │   │   │   │   │   │   ├── TranscodeLowPassResampler.h
+    │   │   │   │   │   │   └── TranscodePcmConverter.h
+    │   │   │   │   │   └── video/ # YUV布局、缩放、裁剪与灰度
+    │   │   │   │   │       ├── gpu/ # NativeImage/OpenGL处理
+    │   │   │   │   │       │   └── TranscodeGpuProcessor.cpp/.h
+    │   │   │   │   │       └── TranscodeFrameProcessor.cpp/.h
+    │   │   │   │   ├── output/ # 成品MP4元数据校验与抽帧解码
+    │   │   │   │   │   ├── TranscodeOutputValidation.cpp
+    │   │   │   │   │   └── TranscodeSampleValidator.cpp/.h
+    │   │   │   │   └── diagnostics/ # 统计与计时
+    │   │   │   │       └── TranscodeDiagnostics.h
+    │   │   │   └── recorder/
+    │   │   │       ├── core/ # 会话生命周期与协调
+    │   │   │       │   ├── Recorder.cpp/.h
+    │   │   │       │   ├── RecorderRelease.cpp
+    │   │   │       │   ├── RecorderVideoSession.cpp
+    │   │   │       │   └── RecorderWorker.h
+    │   │   │       ├── napi/ # ArkTS接口入口与参数解析
+    │   │   │       │   ├── RecorderNative.cpp/.h
+    │   │   │       │   └── RecorderOptionsParser.cpp/.h
+    │   │   │       ├── input/
+    │   │   │       │   └── video/ # 相机图像接收与编码Buffer输入
+    │   │   │       │       ├── RecorderFrameCopy.cpp/.h
+    │   │   │       │       ├── RecorderFrameReceiver.cpp/.h
+    │   │   │       │       └── RecorderVideoInput.cpp
+    │   │   │       ├── output/
+    │   │   │       │   ├── audio/ # PCM输入与AAC输出线程
+    │   │   │       │   │   └── RecorderAudio.cpp
+    │   │   │       │   ├── dump/ # 编码码流保存
+    │   │   │       │   │   └── RecorderDumpWriter.h
+    │   │   │       │   └── video/ # 主副路视频输出
+    │   │   │       │       ├── RecorderSecondaryOutput.cpp
+    │   │   │       │       └── RecorderVideoOutput.cpp
+    │   │   │       └── diagnostics/ # 统计与计时
+    │   │   │           ├── RecorderAudioStats.h
+    │   │   │           ├── RecorderDiagnostics.cpp
+    │   │   │           ├── RecorderOutputStats.h
+    │   │   │           └── RecorderStreamMetrics.h
     │   │   ├── types                         # Native 模块对 ArkTS 暴露的类型
     │   │   │   ├── libplayer                 # 播放模块类型声明
     │   │   │   ├── librecorder               # 录制模块类型声明
@@ -766,7 +803,7 @@ AVCodec/
 |---|---|
 | [TranscodePage.ets](entry/src/main/ets/pages/TranscodePage.ets)、[TranscodeModel.ets](entry/src/main/ets/model/TranscodeModel.ets) | 转码界面、请求生成、任务执行、文件收尾和队列编排 |
 | [TranscodePreviewController.ets](entry/src/main/ets/controller/TranscodePreviewController.ets)、[TranscodeQueueRunner.ets](entry/src/main/ets/controller/TranscodeQueueRunner.ets)、[TranscodeExportController.ets](entry/src/main/ets/controller/TranscodeExportController.ets) | 原图与处理图生命周期、队列串行推进与失败策略、逐文件导出结果 |
-| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/TranscodeGpuProcessor.cpp)、[EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | 独立于播放器的 NativeImage/OpenGL 处理，工作线程持有图形资源并提交编码窗口 |
+| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/process/video/gpu/TranscodeGpuProcessor.cpp)、[EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | 独立于播放器的 NativeImage/OpenGL 处理，工作线程持有图形资源并提交编码窗口 |
 | [RecorderSegmentController.ets](entry/src/main/ets/controller/RecorderSegmentController.ets)、[RecorderOutputController.ets](entry/src/main/ets/controller/RecorderOutputController.ets)、[RecorderSettingsController.ets](entry/src/main/ets/controller/RecorderSettingsController.ets) | 切段条件与结果汇总、输出资产和 fd 初始化、从 Index 拆出的设置选择 |
 | [TranscodeQualityModel.ets](entry/src/main/ets/model/TranscodeQualityModel.ets)、[TranscodeQueueModel.ets](entry/src/main/ets/model/TranscodeQueueModel.ets) | 质量快照、队列状态和恢复校验 |
 | [TranscodeSourcePicker.ets](entry/src/main/ets/model/TranscodeSourcePicker.ets)、[TranscodeFilesModel.ets](entry/src/main/ets/model/TranscodeFilesModel.ets) | 源选择、导出、历史与私有文件管理 |
@@ -783,7 +820,7 @@ AVCodec/
 | 场景 | UI入口 | Native入口 | 主要能力模块 | 数据去向 |
 |------|--------|------------|--------------|----------|
 | 播放 | `entry/src/main/ets/pages/Index.ets` 中的播放按钮和 `XComponent` | `PlayerNative.cpp`、`Player.cpp` | `Demuxer`、`VideoDecoder`、`AudioDecoder`、`AudioOutputPump`、`BufferRenderer`、`PluginRender` | 视频送到 XComponent 对应的 NativeWindow，音频送到 AudioRenderer |
-| 录制 | `Index.ets` 中的录制按钮、`recorder/pages/Recorder.ets` 中的预览页 | `RecorderNative.cpp`、`Recorder.cpp` | `VideoEncoder`、`AudioCapturer`、`AudioEncoder`、`Muxer` | 相机视频流和麦克风音频流封装成 mp4/flv 文件 |
+| 录制 | `Index.ets` 中的录制按钮、`recorder/pages/Recorder.ets` 中的预览页 | `recorder/napi/RecorderNative.cpp`、`recorder/core/Recorder.cpp` | `VideoEncoder`、`AudioCapturer`、`AudioEncoder`、`Muxer` | 相机视频流和麦克风音频流封装成 mp4/flv 文件 |
 | 转码与转封装 | `TranscodePage.ets`、`TranscodeModel.ets` | `TranscoderNative.cpp`、`TranscodeJob.cpp`、`TranscodeOperations.cpp` | `OH_AVDemuxer`、视频 decoder/encoder、`TranscodeFrames`、`TranscodeAudioPipeline`、`OH_AVMuxer` | 先生成应用沙箱内的 MP4，再按用户选择导出到图库或文件管理器 |
 | 图形显示 | 播放页/录制页的 `XComponent` | `PluginManager`、`PluginRender`、`BufferRenderer` | Native XComponent、NativeWindow、NativeBuffer | SurfaceMode 直接由 codec 送显；BufferMode 由应用手动拷贝送显 |
 | 解封装 | 播放前打开媒体文件后进入 Native | `Demuxer.cpp` | `OH_AVSource`、`OH_AVDemuxer` | 读取音视频 track 信息并向解码器输入压缩帧 |
@@ -1488,7 +1525,7 @@ recorder.startNative()
 停止录制时：
 
 1. Surface 模式下，UI 为 CameraKit 的 `frameEnd` 注册一次停止等待，并调用 `encoderVideoOutput.stop()`；Buffer 模式直接停止 CameraSession，不再产生新的 YUV 帧。
-2. Native `stopBeginNative()` 将 `isStopping_` 置为 true，让音频采集/编码线程停止继续塞新数据。
+2. Native `stopBeginNative()`将`isStopping_`置为true，关闭动态参数更新入口；音频继续输入，直到`stopEndNative()`结束输入线程并提交EOS。
 3. Surface 模式等待 CameraKit 触发 `frameEnd`；如果事件异常缺失，超时保护会继续收尾。Buffer 模式没有 VideoOutput，不等待该事件。
 4. UI 调用并等待 `stopEndNative()`；Surface 视频调用 `NotifyEndOfStream()`，Buffer 视频先退出并 join 输入线程，再提交空的 EOS Buffer。Native 等待音视频编码输出排空后销毁 muxer、encoder 和 capturer。
 5. `stopEndNative()` 完成后，UI 关闭媒体库输出 fd，再释放 CameraInput、所有 PreviewOutput、可选 VideoOutput 和 VideoSession。
@@ -1791,6 +1828,12 @@ CameraKit VideoSession
 
 `StartVideoInputThread()` 在启动时选择一个输入线程，线程内部不再通过统一的取 Buffer 函数切换模式。同步和异步示例分别标记为 `recorder_video_buffer_input_sync`、`recorder_video_buffer_input_async`；EOS 示例分别标记为 `recorder_video_buffer_eos_sync`、`recorder_video_buffer_eos_async`，可独立提取到开发资料。两条输入路径共用相机图像读取、像素复制和 PTS 计算，视频输出仍由 `VideoEncOutputSyncThread()` 和 `VideoEncOutputAsyncThread()` 分别获取 Buffer。
 
+编码和解码的同步取Buffer接口采用相同约定：`GetInputBuffer(info, timeoutUs)`和`GetOutputBuffer(info, timeoutUs)`返回`int32_t`错误码，Buffer、索引和属性保存在`CodecBufferInfo`中。`AVCODEC_SAMPLE_ERR_OK`表示成功，`AVCODEC_SAMPLE_ERR_AGAIN`表示暂时无Buffer，由线程检查运行状态后重试；其余错误结束本次录制。输出查询连续遇到格式变化时也返回`AGAIN`，避免递归或在封装内部无限等待。停止期间仍继续读取输出，直到收到各路EOS或收尾超时。
+
+输入布局的读取时机与解码首帧相对应：同步输入线程首次成功取得Buffer后调用`InitSyncVideoInputContext()`，异步模式在首个`OnNeedInputBuffer`回调中读取`OH_VideoEncoder_GetInputDescription()`。两者都读取实际`VIDEO_STRIDE`、`VIDEO_SLICE_HEIGHT`和`PIXEL_FORMAT`，不从分辨率推算跨距。输入布局保存在`CodecUserData`的`inputWidthStride`、`inputHeightStride`和`inputPixelFormat`中，与输出格式字段分开，防止输出格式回调覆盖拷贝参数。后续帧复用这份布局，校验NV12、尺寸和容量后再复制图像。
+
+主路的四个视频输入、输出线程均使用无参成员函数，与播放器解码线程保持一致。一入二出的副路输出放在`recorder/output/video/RecorderSecondaryOutput.cpp`，分别由`SecondaryVideoEncOutputSyncThread()`和`SecondaryVideoEncOutputAsyncThread()`处理自己的编码器和回调队列；主、副路共用封装、Dump和归还Buffer的处理规则，各自记录EOS。`VideoEncoder::Stop()`只调用系统Stop接口；清空缓存使用独立的`Flush()`接口，两者不隐式绑定。
+
 该模式要求 API 23 及以上、8-bit SDR、1280×720 或 1920×1080、30fps。选择 Buffer 时会重置不兼容的草稿选项，并禁用 HDR、平台编码前处理、丢帧目标和一入二出。切回 Surface 后可重新配置这些功能。输入模式会随录制配置持久化，旧配置默认使用 Surface。
 
 相机设备还必须支持两条预览流同时工作。仅有对应分辨率的编码能力，不能证明相机流组合或 YUV 的 CPU 可读性可用。Profile 或组合不支持时会提示失败；实际图像不可读、编码器未报告有效 NV12 输入布局、时间戳回退或输入持续停滞时会终止本次录制，不会自动换成 Surface 或降低分辨率。
@@ -1912,6 +1955,14 @@ Muxer 写入音频 track
 | 异步 | `AudioEncInputAsyncThread()` 从 `inputBufferQueue` 取回调 Buffer | `AudioEncOutputAsyncThread()` 从 `outputBufferQueue` 取回调 Buffer | `SendAudioEndOfStreamAsync()` 从输入回调队列取 Buffer |
 
 `SubmitAudioInputFrame()` 只填充已经取得的 Buffer、设置 PCM 属性并提交；不再接收同步／异步标志。停止录制时，`SendAudioEndOfStream()` 先结束并 join 音频输入线程，再选择对应的 EOS 实现。两条实现分别取得 Buffer 后交给 `AudioEncoder::NotifyEndOfStream(bufferInfo)` 设置 `AVCODEC_BUFFER_FLAGS_EOS` 并提交，输出线程继续排空。单路时 AAC 写入主 Muxer；双路时同一个 AAC 输出先后写入主、副 Muxer，再按原索引归还给 AudioEncoder。
+
+`AudioEncoder`和`AudioDecoder`与视频封装采用相同约定：同步取输入、输出接口返回`int32_t`错误码，借用的Buffer和索引保存在`CodecBufferInfo`中。只有查询超时返回`AVCODEC_SAMPLE_ERR_AGAIN`；查询、Get或读取属性失败都返回错误。EOS仍返回`OK`并保留flags，由输出线程识别并归还一次。`PushInputBuffer(info)`提交输入，`FreeOutputBuffer(info)`按原索引归还输出；播放器音频线程也使用这份约定。
+
+采集器初始化逐项检查Builder创建、参数配置和Capturer生成。失败时回收已创建的采集资源，并让`Recorder::Init()`回滚会话，不等到启动时才暴露空句柄。音频Configure通过RAII管理临时Format，提前返回也会释放。工作线程创建失败同样进入统一收尾：取消等待、join已启动线程、销毁封装器和codec，最后回收回调上下文。Recorder用`unique_ptr`独占这些上下文，SDK回调只在Destroy完成前借用。
+
+输入停止、输出线程结束和输出EOS分开记录。结束输入后输出线程继续运行；只有成功归还EOS Buffer，才把该路视为正常排空。超时、线程未收到EOS就结束、封装写入失败或归还Buffer失败，都让收尾返回失败，不把文件标为完整。线程刚取得输出就收到停止请求时，先归还原索引；归还失败也保留到最终结果。成功提交的PCM输入与已消费输出，在同、异步模式下分别使用相同的计数位置。
+
+`AudioEncoder::Stop()`和`AudioDecoder::Stop()`只调用系统Stop接口，Flush独立调用；Release只执行Destroy，不隐式Flush或Stop。Muxer释放也只调用Destroy，文件描述符保持打开，直到Native收尾完成。销毁失败会传回最终收尾结果。
 
 <a id="muxing"></a>
 
@@ -2697,7 +2748,7 @@ GPU 后端的每帧回调只应通知送显线程“有新帧”，不应在 cod
 | Seek 返回失败或画面迟迟不动 | 请求是否被 `superseded`、Seek 链路恢复耗时、第一个目标帧耗时、目标附近的同步帧 | 区分“请求被新拖动位置合并”“同步帧索引不可用”“Flush/音频链路恢复慢”和“链路恢复成功但目标帧迟到”。长 GOP 媒体必须从同步帧解码预滚；不要直接显示预滚帧或把 UI 位置当成 Native 已完成位置。 |
 | OpenGL/Vulkan 画面全黑、绿屏或比例不对 | 日志中的 sink 类型、`UsesSurfaceDecoder()`、NativeImage producer Surface 是否传给 decoder、送显失败/耗时 | 确认不是意外走到 Buffer 回退；检查 NativeBuffer acquire 和 fence、外部图像导入、窗口 extent、crop/stride 矩阵及 rotation。问题在 Stop/切视频后持续时，再看上一轮 sink 是否先 Quiesce、旧 Buffer 是否归还、窗口 lease 是否更新。 |
 | HDR Vivid 水印没有出现 | 分开看容器声明、输出 Buffer 的 HDR 类型、动态元数据读取结果和水印状态 | 容器声明仅用于媒体详情；应用水印是对输出元数据的确认。Surface/GPU 路径可能无法直接读到 decoder 输出 Buffer，此时“未确认”不等于系统没有按 HDR 显示。HDR 转 BT.709 的配置结果也不能由水印代替判断。 |
-| 录制文件存在但打不开 | 相机 frame-end、视频/音频 EOS、Muxer Stop/Destroy、fd close 的先后日志 | 确认两个 encoder 输出线程都消费 EOS 后才 Stop Muxer，并且完成文件尾部写入后才关闭 fd。视频停了但音频仍采集或编码时，提前销毁 muxer 会留下不完整容器。 |
+| 录制文件存在但打不开 | 相机frame-end、视频/音频EOS、Muxer Destroy、fd close的先后日志 | 确认视频和音频输出线程都归还EOS、完成join后再Destroy Muxer，容器收尾完成后才关闭fd。视频停了但音频仍采集或编码时，提前销毁Muxer会留下不完整容器。 |
 
 采集日志时同时记录设备型号和系统版本、媒体封装与轨道信息、解码/送显模式、同步模式、是否启用倍速或 HDR 选项，以及问题发生在首播、切轨、Seek 还是 Stop。复现步骤尽量从新启动应用开始，只改一个设置再重试；如果先后切过多个媒体和模式，应把每一步的时间点写清楚，避免把上一条任务残留的帧或诊断计数当成本次结果。
 

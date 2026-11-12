@@ -68,15 +68,18 @@ void Player::AudioDecInputSyncThread()
         WaitIfPaused(true);
         CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Decoder input thread out");
         CodecBufferInfo bufferInfo;
-        auto buffer = audioDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
-        CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
+        const int32_t inputRet = audioDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Work done, thread out");
-        bufferInfo.buffer = buffer;
-        // [StartExclude Player::AudioDecInputSyncThread]
-        AVCODEC_SAMPLE_LOGW("bufferInfo.attr.size:%{public}d", bufferInfo.attr.size);
-        // [EndExclude Player::AudioDecInputSyncThread]
+        if (inputRet == AVCODEC_SAMPLE_ERR_AGAIN) {
+            continue;
+        }
+        if (inputRet != AVCODEC_SAMPLE_ERR_OK) {
+            playbackFailed_ = true;
+            isStarted_ = false;
+            break;
+        }
         audioDecContext_->inputFrameCount++;
-        int32_t ret = demuxer_->ReadSample(demuxer_->GetAudioTrackId(), buffer, bufferInfo.attr);
+        int32_t ret = demuxer_->ReadSample(demuxer_->GetAudioTrackId(), bufferInfo.buffer, bufferInfo.attr);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             AVCODEC_SAMPLE_LOGE("Read audio sample failed");
             playbackFailed_ = true;
@@ -114,7 +117,7 @@ bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
         diagnostics_.RecordSeekOutput();
     }
     audioOutputBuffers_.fetch_add(1);
-    const int32_t ret = audioDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, true);
+    const int32_t ret = audioDecoder_->FreeOutputBuffer(bufferInfo);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("FreeOutputBuffer failed: %{public}d", ret);
         playbackFailed_ = true;

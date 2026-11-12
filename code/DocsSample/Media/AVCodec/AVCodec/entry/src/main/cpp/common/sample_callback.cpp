@@ -160,20 +160,23 @@ void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
     }
 }
 
-// 视频编码首帧：从输入描述中读取宽高/stride信息，音频编解码不会进入此分支。
+// 视频编码首帧：从输入描述中读取跨距和像素格式，音频编解码不会进入此分支。
 void UpdateEncoderFirstInputDescription(OH_AVCodec *codec, CodecUserData *codecUserData)
 {
-    if (codec == nullptr || !codecUserData->isEncFirstFrame) {
+    if (!codecUserData->isEncFirstFrame) {
         return;
     }
-    OH_AVFormat *format = OH_VideoEncoder_GetInputDescription(codec);
-    if (format != nullptr) {
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
-        OH_AVFormat_Destroy(format);
+    auto format = std::shared_ptr<OH_AVFormat>(OH_VideoEncoder_GetInputDescription(codec), OH_AVFormat_Destroy);
+    int32_t pixelFormat = -1;
+    if (format == nullptr ||
+        !OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_STRIDE, &codecUserData->inputWidthStride) ||
+        !OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->inputHeightStride) ||
+        !OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
+        AVCODEC_SAMPLE_LOGE("Get encoder input description failed");
+        codecUserData->SignalError();
+        return;
     }
+    codecUserData->inputPixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
     codecUserData->isEncFirstFrame = false;
 }
 } // namespace
@@ -354,12 +357,10 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
         return;
     }
-    if (codec == nullptr || buffer == nullptr) {
-        AVCODEC_SAMPLE_LOGE("Invalid codec input callback argument");
-        codecUserData->SignalError();
+    UpdateEncoderFirstInputDescription(codec, codecUserData);
+    if (codecUserData->hasError.load()) {
         return;
     }
-    UpdateEncoderFirstInputDescription(codec, codecUserData);
     // 输入帧的数据buffer和对应的index送入inputBufferQueue队列。
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
 }
@@ -391,11 +392,6 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     // [StartExclude quick_start]
     auto *codecUserData = static_cast<CodecUserData *>(userData);
     if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
-        return;
-    }
-    if (codec == nullptr || buffer == nullptr) {
-        AVCODEC_SAMPLE_LOGE("Invalid codec output callback argument");
-        codecUserData->SignalError();
         return;
     }
     if (codecUserData->isDecFirstFrame) {

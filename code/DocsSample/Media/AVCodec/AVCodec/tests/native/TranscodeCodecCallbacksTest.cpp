@@ -17,7 +17,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <thread>
-#include "../../entry/src/main/cpp/sample/transcoder/TranscodeCodecCallbacks.h"
+#include "../../entry/src/main/cpp/sample/transcoder/codec/TranscodeCodecCallbacks.h"
 #include <multimedia/player_framework/native_averrors.h>
 
 struct OH_AVBuffer { OH_AVCodecBufferAttr attr {}; };

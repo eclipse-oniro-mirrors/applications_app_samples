@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "TranscodeJob.h"
+#include "../core/TranscodeJob.h"
 #include "TranscodeSampleValidator.h"
 #include <algorithm>
 #include <cmath>
