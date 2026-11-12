@@ -36,98 +36,98 @@ export interface HfpJson {
 }
 
 /**
- * HFP免提连接状态枚举。
+ * HFP free provide connection state enum.
  */
 export enum HfpState {
-  /** 未连接 */
+  /** disconnected */
   DISCONNECTED = 'disconnected',
-  /** 正在连接 */
+  /** connecting */
   CONNECTING = 'connecting',
-  /** 已连接 */
+  /** connected */
   CONNECTED = 'connected',
-  /** 正在断开 */
+  /** disconnecting */
   DISCONNECTING = 'disconnecting',
-  /** 错误状态 */
+  /** error state */
   ERROR = 'error'
 }
 
 /**
- * HFP免提数据接口。
+ * HFP free provide data interface.
  */
 export interface HfpData {
-  /** 通话状态 */
+  /** call state */
   callState: string;
-  /** 通话号码 */
+  /** call number */
   phoneNumber: string;
-  /** 通话时长（秒） */
+  /** call duration (second) */
   callDuration: number;
-  /** 是否静音 */
+  /** whether static sound */
   isMuted: boolean;
-  /** 是否使用扬声器 */
+  /** whether use speaker voice device */
   isSpeakerOn: boolean;
-  /** 音量级别 (0-15) */
+  /** volume level (0-15) */
   speakerVolume: number;
-  /** 麦克风音量 (0-15) */
+  /** microphone volume (0-15) */
   micVolume: number;
-  /** 电池电量 (0-100) */
+  /** electric pool electric amount (0-100) */
   batteryLevel: number;
-  /** 网络信号强度 (0-5) */
+  /** network signal strength (0-5) */
   networkSignal: number;
-  /** 运营商名称 */
+  /** run operate vendor name name */
   carrierName: string;
 }
 
 /**
- * HFP免提数据模型。
- * 封装HfpProfile的数据和状态信息。
+ * HFP free provide number data model type.
+ * wrap package HfpProfile number data and state state info info.
  */
 export class HfpModel {
-  /** 当前连接状态 */
+  /** current connection state */
   state: HfpState = HfpState.DISCONNECTED;
-  /** 关联的设备ID */
+  /** relate link device ID */
   deviceId: string = '';
-  /** 最后更新时间戳 */
+  /** last update timestamp */
   lastUpdateTime: number = 0;
-  /** 数据内容 */
+  /** number data internal content */
   data: HfpData | null = null;
-  /** 操作日志 */
+  /** operation log */
   operationLog: string[] = [];
-  /** 重试次数 */
+  /** weight try times number */
   retryCount: number = 0;
-  /** 最大重试次数 */
+  /** max weight try times number */
   maxRetries: number = BluetoothConstants.MAX_RETRY_COUNT;
-  /** 超时时间（毫秒） */
+  /** timeout (ms) */
   timeoutMs: number = BluetoothConstants.OPERATION_TIMEOUT_MS;
-  /** 是否已初始化 */
+  /** whether already initialize */
   isInitialized: boolean = false;
-  /** 错误信息 */
+  /** error info info */
   errorMessage: string = '';
-  /** 错误码 */
+  /** error code */
   errorCode: number = 0;
-  /** 连接持续时间（毫秒） */
+  /** connection duration (ms) */
   connectionDuration: number = 0;
-  /** 连接开始时间 */
+  /** connection start time */
   connectionStartTime: number = 0;
-  /** 操作计数 */
+  /** operation count */
   operationCount: number = 0;
-  /** 通话状态 */
+  /** call state */
   callState: number = 0;
-  /** 通话号码 */
+  /** call number */
   phoneNumber: string = '';
-  /** 通话时长（秒） */
+  /** call duration (second) */
   callDuration: number = 0;
-  /** 是否静音 */
+  /** whether static sound */
   isMuted: boolean = false;
-  /** 是否使用扬声器 */
+  /** whether use speaker voice device */
   isSpeakerOn: boolean = false;
-  /** 扬声器音量 (0-15) */
+  /** speaker volume (0-15) */
   speakerVolume: number = 50;
-  /** 麦克风音量 (0-15) */
+  /** microphone volume (0-15) */
   micVolume: number = 50;
 
   /**
-   * 构造函数。
-   * @param {string} deviceId - 设备ID
+   * structure build function number.
+   * @param {string} deviceId - device ID
    */
   constructor(deviceId: string = '') {
     hilog.info(DOMAIN, TAG, 'HfpModel constructor: deviceId=%{public}s', deviceId);
@@ -140,7 +140,7 @@ export class HfpModel {
   }
 
   /**
-   * 标记为连接中。
+   * mark for connecting.
    */
   markConnecting(): void {
     hilog.info(DOMAIN, TAG, 'HfpModel markConnecting: deviceId=%{public}s', this.deviceId);
@@ -151,7 +151,7 @@ export class HfpModel {
   }
 
   /**
-   * 标记为已连接。
+   * mark for connected.
    */
   markConnected(): void {
     hilog.info(DOMAIN, TAG, 'HfpModel markConnected: deviceId=%{public}s', this.deviceId);
@@ -165,7 +165,7 @@ export class HfpModel {
   }
 
   /**
-   * 标记为断开中。
+   * mark for disconnecting.
    */
   markDisconnecting(): void {
     hilog.info(DOMAIN, TAG, 'HfpModel markDisconnecting: deviceId=%{public}s', this.deviceId);
@@ -175,7 +175,7 @@ export class HfpModel {
   }
 
   /**
-   * 标记为已断开。
+   * mark for disconnected.
    */
   markDisconnected(): void {
     hilog.info(DOMAIN, TAG, 'HfpModel markDisconnected: deviceId=%{public}s', this.deviceId);
@@ -186,9 +186,9 @@ export class HfpModel {
   }
 
   /**
-   * 标记为错误状态。
-   * @param {string} message - 错误信息
-   * @param {number} code - 错误码
+   * mark for error state.
+   * @param {string} message - error info info
+   * @param {number} code - error code
    */
   markError(message: string, code: number): void {
     hilog.error(DOMAIN, TAG, 'HfpModel markError: message=%{public}s, code=%{public}d', message, code);
@@ -201,53 +201,53 @@ export class HfpModel {
   }
 
   /**
-   * 检查是否已连接。
-   * @returns {boolean} 是否已连接
+   * check whether connected.
+   * @returns {boolean} whether connected
    */
   isConnected(): boolean {
     return this.state === HfpState.CONNECTED;
   }
 
   /**
-   * 检查是否正在连接。
-   * @returns {boolean} 是否正在连接
+   * check whether connecting.
+   * @returns {boolean} whether connecting
    */
   isConnecting(): boolean {
     return this.state === HfpState.CONNECTING;
   }
 
   /**
-   * 检查是否可以重试。
-   * @returns {boolean} 是否可以重试
+   * check whether can weight try.
+   * @returns {boolean} whether can weight try
    */
   canRetry(): boolean {
     return this.retryCount < this.maxRetries;
   }
 
   /**
-   * 添加操作日志。
-   * @param {string} log - 日志内容
+   * add operation log.
+   * @param {string} log - day log internal content
    */
   addLog(log: string): void {
     const timestamp: string = new Date().toISOString();
     this.operationLog.push('[' + timestamp + '] ' + log);
     this.operationCount += 1;
-    // 保持日志数量在合理范围内
+    // keep hold log count at combine manage range range internal
     if (this.operationLog.length > BluetoothConstants.MAX_LOG_ENTRIES) {
       this.operationLog = this.operationLog.slice(-BluetoothConstants.MAX_LOG_ENTRIES);
     }
   }
 
   /**
-   * 获取操作日志。
-   * @returns {string[]} 日志数组
+   * get operation log.
+   * @returns {string[]} log array
    */
   getLogs(): string[] {
     return [...this.operationLog];
   }
 
   /**
-   * 清空操作日志。
+   * clear operation log.
    */
   clearLogs(): void {
     hilog.info(DOMAIN, TAG, 'HfpModel clearLogs: clearing %{public}d entries', this.operationLog.length);
@@ -255,8 +255,8 @@ export class HfpModel {
   }
 
   /**
-   * 更新数据。
-   * @param {HfpData} data - 新数据
+   * update number data.
+   * @param {HfpData} data - new number data
    */
   updateData(data: HfpData): void {
     hilog.debug(DOMAIN, TAG, 'HfpModel updateData: updating data for device %{public}s', this.deviceId);
@@ -265,8 +265,8 @@ export class HfpModel {
   }
 
   /**
-   * 获取连接持续时间（毫秒）。
-   * @returns {number} 连接持续时间
+   * get connection hold continue time interval (ms).
+   * @returns {number} connection duration
    */
   getConnectionDuration(): number {
     if (this.state === HfpState.CONNECTED && this.connectionStartTime > 0) {
@@ -276,7 +276,7 @@ export class HfpModel {
   }
 
   /**
-   * 重置模型状态。
+   * reset model type state state.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'HfpModel reset: resetting model for device %{public}s', this.deviceId);
@@ -293,8 +293,8 @@ export class HfpModel {
   }
 
   /**
-   * 序列化为JSON。
-   * @returns {object} JSON对象
+   * serialize to JSON.
+   * @returns {object} JSON against object
    */
   toJSON(): object {
     return {
@@ -311,8 +311,8 @@ export class HfpModel {
   }
 
   /**
-   * 转换为可读字符串。
-   * @returns {string} 字符串描述
+   * convert to readable string.
+   * @returns {string} string description
    */
   toString(): string {
     return 'HfpModel[deviceId=' + this.deviceId + ', state=' + this.state +
@@ -320,8 +320,8 @@ export class HfpModel {
   }
 
   /**
-   * 更新连接状态。
-   * @param {BluetoothConnectionState} newState - 新的连接状态
+   * update connection state.
+   * @param {BluetoothConnectionState} newState - new connection state
    */
   updateConnectionState(newState: BluetoothConnectionState): void {
     hilog.info(DOMAIN, TAG, 'HfpModel updateConnectionState: %{public}s', String(newState));

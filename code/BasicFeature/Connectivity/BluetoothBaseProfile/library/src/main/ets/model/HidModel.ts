@@ -29,75 +29,75 @@ export interface HidJson {
 }
 
 /**
- * HID人机交互连接状态枚举。
+ * HID person machine exchange mutual connection state enum.
  */
 export enum HidState {
-  /** 未连接 */
+  /** disconnected */
   DISCONNECTED = 'disconnected',
-  /** 正在连接 */
+  /** connecting */
   CONNECTING = 'connecting',
-  /** 已连接 */
+  /** connected */
   CONNECTED = 'connected',
-  /** 正在断开 */
+  /** disconnecting */
   DISCONNECTING = 'disconnecting',
-  /** 错误状态 */
+  /** error state */
   ERROR = 'error'
 }
 
 /**
- * HID人机交互数据接口。
+ * HID person machine exchange mutual data interface.
  */
 export interface HidData {
-  /** 设备子类型 */
+  /** device sub-type */
   subType: string;
-  /** 是否已就绪 */
+  /** whether already ready */
   isReady: boolean;
-  /** 按键映射数量 */
+  /** press key map emit number amount */
   keyMappingCount: number;
-  /** 支持的按键列表 */
+  /** supported key list */
   supportedKeys: string[];
-  /** 指针速度 */
+  /** point needle speed degree */
   pointerSpeed: number;
-  /** 是否支持触控板手势 */
+  /** whether support hold trigger control board hand trend */
   supportsTouchpadGestures: boolean;
-  /** 电池电量 (0-100) */
+  /** electric pool electric amount (0-100) */
   batteryLevel: number;
-  /** 固件版本 */
+  /** fixed item version this */
   firmwareVersion: string;
 }
 
 /**
- * HID人机交互数据模型。
- * 封装HidProfile的数据和状态信息。
+ * HID person machine exchange mutual number data model type.
+ * wrap package HidProfile number data and state state info info.
  */
 export class HidModel {
-  /** 当前连接状态 */
+  /** current connection state */
   state: HidState = HidState.DISCONNECTED;
-  /** 关联的设备ID */
+  /** relate link device ID */
   deviceId: string = '';
-  /** 最后更新时间戳 */
+  /** last update timestamp */
   lastUpdateTime: number = 0;
-  /** 数据内容 */
+  /** number data internal content */
   data: HidData | null = null;
-  /** 操作日志 */
+  /** operation log */
   operationLog: string[] = [];
-  /** 重试次数 */
+  /** weight try times number */
   retryCount: number = 0;
-  /** 最大重试次数 */
+  /** max weight try times number */
   maxRetries: number = BluetoothConstants.MAX_RETRY_COUNT;
-  /** 超时时间（毫秒） */
+  /** timeout (ms) */
   timeoutMs: number = BluetoothConstants.OPERATION_TIMEOUT_MS;
-  /** 是否已初始化 */
+  /** whether already initialize */
   isInitialized: boolean = false;
-  /** 错误信息 */
+  /** error info info */
   errorMessage: string = '';
-  /** 错误码 */
+  /** error code */
   errorCode: number = 0;
-  /** 连接持续时间（毫秒） */
+  /** connection duration (ms) */
   connectionDuration: number = 0;
-  /** 连接开始时间 */
+  /** connection start time */
   connectionStartTime: number = 0;
-  /** 操作计数 */
+  /** operation count */
   operationCount: number = 0;
   /** Key mapping count */
   keyMappingCount: number = 0;
@@ -107,8 +107,8 @@ export class HidModel {
   supportedKeys: number[] = [];
 
   /**
-   * 构造函数。
-   * @param {string} deviceId - 设备ID
+   * structure build function number.
+   * @param {string} deviceId - device ID
    */
   constructor(deviceId: string = '') {
     hilog.info(DOMAIN, TAG, 'HidModel constructor: deviceId=%{public}s', deviceId);
@@ -121,7 +121,7 @@ export class HidModel {
   }
 
   /**
-   * 标记为连接中。
+   * mark for connecting.
    */
   markConnecting(): void {
     hilog.info(DOMAIN, TAG, 'HidModel markConnecting: deviceId=%{public}s', this.deviceId);
@@ -132,7 +132,7 @@ export class HidModel {
   }
 
   /**
-   * 标记为已连接。
+   * mark for connected.
    */
   markConnected(): void {
     hilog.info(DOMAIN, TAG, 'HidModel markConnected: deviceId=%{public}s', this.deviceId);
@@ -146,7 +146,7 @@ export class HidModel {
   }
 
   /**
-   * 标记为断开中。
+   * mark for disconnecting.
    */
   markDisconnecting(): void {
     hilog.info(DOMAIN, TAG, 'HidModel markDisconnecting: deviceId=%{public}s', this.deviceId);
@@ -156,7 +156,7 @@ export class HidModel {
   }
 
   /**
-   * 标记为已断开。
+   * mark for disconnected.
    */
   markDisconnected(): void {
     hilog.info(DOMAIN, TAG, 'HidModel markDisconnected: deviceId=%{public}s', this.deviceId);
@@ -167,9 +167,9 @@ export class HidModel {
   }
 
   /**
-   * 标记为错误状态。
-   * @param {string} message - 错误信息
-   * @param {number} code - 错误码
+   * mark for error state.
+   * @param {string} message - error info info
+   * @param {number} code - error code
    */
   markError(message: string, code: number): void {
     hilog.error(DOMAIN, TAG, 'HidModel markError: message=%{public}s, code=%{public}d', message, code);
@@ -182,53 +182,53 @@ export class HidModel {
   }
 
   /**
-   * 检查是否已连接。
-   * @returns {boolean} 是否已连接
+   * check whether connected.
+   * @returns {boolean} whether connected
    */
   isConnected(): boolean {
     return this.state === HidState.CONNECTED;
   }
 
   /**
-   * 检查是否正在连接。
-   * @returns {boolean} 是否正在连接
+   * check whether connecting.
+   * @returns {boolean} whether connecting
    */
   isConnecting(): boolean {
     return this.state === HidState.CONNECTING;
   }
 
   /**
-   * 检查是否可以重试。
-   * @returns {boolean} 是否可以重试
+   * check whether can weight try.
+   * @returns {boolean} whether can weight try
    */
   canRetry(): boolean {
     return this.retryCount < this.maxRetries;
   }
 
   /**
-   * 添加操作日志。
-   * @param {string} log - 日志内容
+   * add operation log.
+   * @param {string} log - day log internal content
    */
   addLog(log: string): void {
     const timestamp: string = new Date().toISOString();
     this.operationLog.push('[' + timestamp + '] ' + log);
     this.operationCount += 1;
-    // 保持日志数量在合理范围内
+    // keep hold log count at combine manage range range internal
     if (this.operationLog.length > BluetoothConstants.MAX_LOG_ENTRIES) {
       this.operationLog = this.operationLog.slice(-BluetoothConstants.MAX_LOG_ENTRIES);
     }
   }
 
   /**
-   * 获取操作日志。
-   * @returns {string[]} 日志数组
+   * get operation log.
+   * @returns {string[]} log array
    */
   getLogs(): string[] {
     return [...this.operationLog];
   }
 
   /**
-   * 清空操作日志。
+   * clear operation log.
    */
   clearLogs(): void {
     hilog.info(DOMAIN, TAG, 'HidModel clearLogs: clearing %{public}d entries', this.operationLog.length);
@@ -236,8 +236,8 @@ export class HidModel {
   }
 
   /**
-   * 更新数据。
-   * @param {HidData} data - 新数据
+   * update number data.
+   * @param {HidData} data - new number data
    */
   updateData(data: HidData): void {
     hilog.debug(DOMAIN, TAG, 'HidModel updateData: updating data for device %{public}s', this.deviceId);
@@ -246,8 +246,8 @@ export class HidModel {
   }
 
   /**
-   * 获取连接持续时间（毫秒）。
-   * @returns {number} 连接持续时间
+   * get connection hold continue time interval (ms).
+   * @returns {number} connection duration
    */
   getConnectionDuration(): number {
     if (this.state === HidState.CONNECTED && this.connectionStartTime > 0) {
@@ -257,7 +257,7 @@ export class HidModel {
   }
 
   /**
-   * 重置模型状态。
+   * reset model type state state.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'HidModel reset: resetting model for device %{public}s', this.deviceId);
@@ -274,8 +274,8 @@ export class HidModel {
   }
 
   /**
-   * 序列化为JSON。
-   * @returns {object} JSON对象
+   * serialize to JSON.
+   * @returns {object} JSON against object
    */
   toJSON(): object {
     return {
@@ -292,8 +292,8 @@ export class HidModel {
   }
 
   /**
-   * 转换为可读字符串。
-   * @returns {string} 字符串描述
+   * convert to readable string.
+   * @returns {string} string description
    */
   toString(): string {
     return 'HidModel[deviceId=' + this.deviceId + ', state=' + this.state +

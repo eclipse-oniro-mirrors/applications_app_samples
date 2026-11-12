@@ -20,14 +20,14 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 格式化工具类
- * 提供数据格式化相关的实用方法
+ * format utility class
+ * provides data format relative relate actual use method method
  */
 export class FormatUtils {
   /**
-   * 格式化字节数为可读字符串
-   * @param bytes - 字节数
-   * @returns 格式化后的字符串
+   * format bytes to readable string
+   * @param bytes - character section number
+   * @returns formatted string
    */
   static formatBytes(bytes: number): string {
     if (bytes === 0) {
@@ -41,9 +41,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化比特率为可读字符串
-   * @param bps - 比特率
-   * @returns 格式化后的字符串
+   * format bitrate to readable string
+   * @param bps - compare special rate
+   * @returns formatted string
    */
   static formatBitRate(bps: number): string {
     if (bps < 1000) {
@@ -56,9 +56,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化MAC地址为标准格式
-   * @param mac - 原始MAC地址
-   * @returns 格式化后的MAC地址
+   * format MAC address to standard format
+   * @param mac - original MAC ground address
+   * @returns formatted MAC ground address
    */
   static formatMacAddress(mac: string): string {
     if (!mac || mac.length < 12) {
@@ -73,9 +73,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化信号强度为描述性文本
-   * @param rssi - RSSI值
-   * @returns 信号强度描述
+   * format signal strength to descriptive text
+   * @param rssi - RSSI value
+   * @returns signal strength description
    */
   static formatSignalStrength(rssi: number): string {
     if (rssi >= -50) {
@@ -94,10 +94,10 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化百分比
-   * @param value - 值
-   * @param total - 总量
-   * @returns 百分比字符串
+   * format percentage
+   * @param value - value
+   * @param total - total amount
+   * @returns percentage string
    */
   static formatPercentage(value: number, total: number): string {
     if (total === 0) {
@@ -107,18 +107,18 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化数字，添加千位分隔符
-   * @param num - 要格式化的数字
-   * @returns 格式化后的字符串
+   * format number with thousands separator
+   * @param num - want format number character
+   * @returns formatted string
    */
   static formatNumber(num: number): string {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   /**
-   * 格式化电话号码
-   * @param phone - 电话号码
-   * @returns 格式化后的电话号码
+   * format phone number
+   * @param phone - electric talk number
+   * @returns formatted electric talk number
    */
   static formatPhoneNumber(phone: string): string {
     if (!phone || phone.length !== 11) {
@@ -128,9 +128,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化UUID为标准格式
-   * @param uuid - UUID字符串
-   * @returns 格式化后的UUID
+   * format UUID to standard format
+   * @param uuid - UUID string
+   * @returns formatted UUID
    */
   static formatUuid(uuid: string): string {
     if (!uuid) {
@@ -145,11 +145,11 @@ export class FormatUtils {
   }
 
   /**
-   * 截断字符串到指定长度
-   * @param str - 原始字符串
-   * @param maxLen - 最大长度
-   * @param suffix - 截断后缀
-   * @returns 截断后的字符串
+   * truncate string to the specified length
+   * @param str - original string
+   * @param maxLen - max length degree
+   * @param suffix - cut disconnect suffix
+   * @returns truncated string
    */
   static truncate(str: string, maxLen: number, suffix: string = '...'): string {
     if (!str || str.length <= maxLen) {
@@ -159,9 +159,9 @@ export class FormatUtils {
   }
 
   /**
-   * 将毫秒转换为时分秒格式
-   * @param ms - 毫秒数
-   * @returns 格式化后的时间字符串
+   * convert ms to hour-minute-second format
+   * @param ms - milliseconds
+   * @returns formatted time string
    */
   static formatTimeMs(ms: number): string {
     const totalSeconds: number = Math.floor(ms / 1000);
@@ -177,9 +177,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化蓝牙设备类别
-   * @param deviceClass - 设备类别值
-   * @returns 设备类别描述
+   * format Bluetooth device class
+   * @param deviceClass - device class value
+   * @returns device class describe describe
    */
   static formatDeviceClass(deviceClass: number): string {
     const majorClass: number = (deviceClass >> 8) & 0x1F;
@@ -198,9 +198,9 @@ export class FormatUtils {
   }
 
   /**
-   * 格式化JSON对象为美化字符串
-   * @param obj - 要格式化的对象
-   * @returns 美化后的JSON字符串
+   * format JSON object to pretty string
+   * @param obj - want format against object
+   * @returns pretty ize after JSON string
    */
   static formatJson(obj: object): string {
     try {

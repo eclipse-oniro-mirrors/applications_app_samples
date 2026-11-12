@@ -21,28 +21,29 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 蓝牙Mock数据生成器。
- * 提供生成模拟蓝牙设备数据的能力，用于在无真实设备时进行测试和演示。
+ * Bluetooth mock data generator.
+ * provides generation of mock Bluetooth device data capability, used for at without real devices time progress row test
+ * try and render display.
  */
 export class BluetoothMockDataGenerator {
-  /** 设备名称前缀列表 */
+  /** device name prefix list table */
   private static readonly DEVICE_PREFIXES: string[] = [
     'BT-Speaker', 'BT-Headphone', 'BT-Keyboard', 'BT-Mouse', 'BT-Watch',
     'BT-Health', 'BT-Car', 'BT-Phone', 'BT-Headset', 'BT-Gamepad',
     'BT-Monitor', 'BT-Printer', 'BT-Camera', 'BT-Scale', 'BT-Thermostat'
   ];
 
-  /** 制造商列表 */
+  /** control build vendor list table */
   private static readonly MANUFACTURERS: string[] = [
     'Sony', 'Bose', 'Samsung', 'Apple', 'JBL', 'Logitech',
-    'Microsoft', 'Huawei', 'Xiaomi', 'Sennheiser', 'Garmin',
+    'Microsoft', 'DemoVendor', 'Xiaomi', 'Sennheiser', 'Garmin',
     'Fitbit', 'Beats', 'Anker', 'Plantronics'
   ];
 
   /**
-   * 生成随机蓝牙设备。
-   * @param {number} count - 生成数量
-   * @returns {BluetoothDeviceModel[]} 设备列表
+   * generate random Bluetooth device.
+   * @param {number} count - generate number amount
+   * @returns {BluetoothDeviceModel[]} device list
    */
   static generateDevices(count: number = 10): BluetoothDeviceModel[] {
     hilog.info(DOMAIN, TAG, 'BluetoothMockDataGenerator generateDevices: count=%{public}d', count);
@@ -54,9 +55,9 @@ export class BluetoothMockDataGenerator {
   }
 
   /**
-   * 生成单个随机设备。
-   * @param {number} index - 设备索引
-   * @returns {BluetoothDeviceModel} 设备模型
+   * generate single follow machine device.
+   * @param {number} index - device index
+   * @returns {BluetoothDeviceModel} device model
    */
   static generateDevice(index: number = 0): BluetoothDeviceModel {
     const prefix: string = BluetoothMockDataGenerator.DEVICE_PREFIXES[
@@ -74,23 +75,23 @@ export class BluetoothMockDataGenerator {
       types[index % types.length]
     );
 
-    // 设置随机信号强度
+    // set follow machine signal strength
     device.updateRssi(-30 - Math.floor(Math.random() * 70));
-    // 随机配对状态
+    // follow machine pairing state state
     device.bondState = Math.random() > 0.5 ? 12 : 0;
-    // 设置支持的Profile
+    // set support hold Profile
     BluetoothMockDataGenerator.assignProfiles(device);
-    // 设置主要服务
+    // set main service
     BluetoothMockDataGenerator.assignServices(device);
-    // 设置设备类别
+    // set device class
     device.deviceClass = Math.floor(Math.random() * 10) + 1;
 
     return device;
   }
 
   /**
-   * 生成随机MAC地址。
-   * @returns {string} MAC地址
+   * generate random MAC ground address.
+   * @returns {string} MAC ground address
    */
   static generateMacAddress(): string {
     const hex: string = '0123456789ABCDEF';
@@ -106,8 +107,8 @@ export class BluetoothMockDataGenerator {
   }
 
   /**
-   * 为设备分配支持的Profile。
-   * @param {BluetoothDeviceModel} device - 设备
+   * for device assign support hold Profile.
+   * @param {BluetoothDeviceModel} device - device
    */
   private static assignProfiles(device: BluetoothDeviceModel): void {
     const allProfiles: BluetoothProfileType[] = [
@@ -116,7 +117,7 @@ export class BluetoothMockDataGenerator {
       BluetoothProfileType.AVRCP, BluetoothProfileType.HDP
     ];
 
-    // 根据设备名称前缀决定主要Profile
+    // root data device name prefix resolve specify main Profile
     const name: string = device.deviceName;
     if (name.indexOf('Speaker') !== -1 || name.indexOf('Headphone') !== -1 ||
       name.indexOf('Headset') !== -1) {
@@ -141,7 +142,7 @@ export class BluetoothMockDataGenerator {
       device.addSupportedProfile(BluetoothProfileType.MAP);
       device.addSupportedProfile(BluetoothProfileType.HFP);
     } else {
-      // 随机分配1-3个Profile
+      // follow machine assign 1-3 Profile
       const count: number = 1 + Math.floor(Math.random() * 3);
       for (let i: number = 0; i < count; i++) {
         device.addSupportedProfile(allProfiles[Math.floor(Math.random() * allProfiles.length)]);
@@ -150,8 +151,8 @@ export class BluetoothMockDataGenerator {
   }
 
   /**
-   * 为设备分配主要服务。
-   * @param {BluetoothDeviceModel} device - 设备
+   * for device assign main service.
+   * @param {BluetoothDeviceModel} device - device
    */
   private static assignServices(device: BluetoothDeviceModel): void {
     if (device.supportsProfile(BluetoothProfileType.A2DP) ||
@@ -177,9 +178,9 @@ export class BluetoothMockDataGenerator {
   }
 
   /**
-   * 生成已配对设备列表。
-   * @param {number} count - 数量
-   * @returns {BluetoothDeviceModel[]} 已配对设备列表
+   * generate paired device list.
+   * @param {number} count - number amount
+   * @returns {BluetoothDeviceModel[]} paired device list
    */
   static generateBondedDevices(count: number = 5): BluetoothDeviceModel[] {
     const devices: BluetoothDeviceModel[] = BluetoothMockDataGenerator.generateDevices(count);
@@ -194,9 +195,9 @@ export class BluetoothMockDataGenerator {
   }
 
   /**
-   * 生成连接日志。
-   * @param {number} count - 日志数量
-   * @returns {string[]} 日志列表
+   * generate connection log.
+   * @param {number} count - log count
+   * @returns {string[]} log list
    */
   static generateConnectionLogs(count: number = 20): string[] {
     const logs: string[] = [];
@@ -213,8 +214,8 @@ export class BluetoothMockDataGenerator {
   }
 
   /**
-   * 生成Profile使用统计。
-   * @returns {Map<string, number>} 统计信息
+   * generate profile usage stats.
+   * @returns {Map<string, number>} statistics
    */
   static generateProfileStatistics(): Map<string, number> {
     const stats: Map<string, number> = new Map();

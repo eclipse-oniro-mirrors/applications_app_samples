@@ -20,26 +20,26 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 日期工具类
- * 提供日期格式化、解析、计算等实用方法
+ * date utility class
+ * provides date format, decode parse, calculate equal actual use method method
  */
 export class DateUtils {
-  /** 月份名称数组 */
+  /** month name array */
   private static readonly MONTH_NAMES: string[] = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  /** 星期名称数组 */
+  /** weekday name array */
   private static readonly DAY_NAMES: string[] = [
     'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
   ];
 
   /**
-   * 格式化时间戳为日期字符串
-   * @param timestamp - 时间戳（毫秒）
-   * @param format - 格式字符串
-   * @returns 格式化后的日期字符串
+   * format timestamp to date string
+   * @param timestamp - timestamp (ms)
+   * @param format - format style string
+   * @returns formatted date string
    */
   static formatTimestamp(timestamp: number, format: string = 'yyyy-MM-dd HH:mm:ss'): string {
     const date: Date = new Date(timestamp);
@@ -61,27 +61,27 @@ export class DateUtils {
   }
 
   /**
-   * 获取当前时间戳
-   * @returns 当前时间戳（毫秒）
+   * get current time stamp
+   * @returns current time stamp (ms)
    */
   static now(): number {
     return Date.now();
   }
 
   /**
-   * 计算两个时间戳之间的差值（毫秒）
-   * @param start - 开始时间戳
-   * @param end - 结束时间戳
-   * @returns 时间差（毫秒）
+   * calculate difference between two timestamps (ms)
+   * @param start - start time stamp
+   * @param end - end time stamp
+   * @returns time difference (ms)
    */
   static diff(start: number, end: number): number {
     return Math.abs(end - start);
   }
 
   /**
-   * 将毫秒数转换为可读的时间格式
-   * @param ms - 毫秒数
-   * @returns 格式化后的时间字符串
+   * convert milliseconds to readable time format
+   * @param ms - milliseconds
+   * @returns formatted time string
    */
   static formatDuration(ms: number): string {
     if (ms < 0) {
@@ -103,9 +103,9 @@ export class DateUtils {
   }
 
   /**
-   * 获取月份名称
-   * @param month - 月份索引（0-11）
-   * @returns 月份名称
+   * get month copy name name
+   * @param month - month copy index quote (0-11)
+   * @returns month copy name name
    */
   static getMonthName(month: number): string {
     if (month < 0 || month > 11) {
@@ -115,9 +115,9 @@ export class DateUtils {
   }
 
   /**
-   * 获取星期名称
-   * @param day - 星期索引（0-6，0为周日）
-   * @returns 星期名称
+   * get star period name name
+   * @param day - star period index quote (0-6, 0 for week day)
+   * @returns star period name name
    */
   static getDayName(day: number): string {
     if (day < 0 || day > 6) {
@@ -127,9 +127,9 @@ export class DateUtils {
   }
 
   /**
-   * 检查时间戳是否为今天
-   * @param timestamp - 要检查的时间戳
-   * @returns 是否为今天
+   * check timestamp whether for today
+   * @param timestamp - want check timestamp
+   * @returns whether for today
    */
   static isToday(timestamp: number): boolean {
     const today: Date = new Date();
@@ -140,9 +140,9 @@ export class DateUtils {
   }
 
   /**
-   * 检查时间戳是否为昨天
-   * @param timestamp - 要检查的时间戳
-   * @returns 是否为昨天
+   * check timestamp whether for yesterday
+   * @param timestamp - want check timestamp
+   * @returns whether for yesterday
    */
   static isYesterday(timestamp: number): boolean {
     const yesterday: Date = new Date();
@@ -154,9 +154,9 @@ export class DateUtils {
   }
 
   /**
-   * 获取相对时间描述
-   * @param timestamp - 时间戳
-   * @returns 相对时间描述字符串
+   * get relative time describe describe
+   * @param timestamp - timestamp
+   * @returns relative time description string
    */
   static getRelativeTime(timestamp: number): string {
     const now: number = Date.now();
@@ -174,19 +174,19 @@ export class DateUtils {
   }
 
   /**
-   * 检查是否为闰年
-   * @param year - 年份
-   * @returns 是否为闰年
+   * check whether for leap year
+   * @param year - year copy
+   * @returns whether for leap year
    */
   static isLeapYear(year: number): boolean {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
   }
 
   /**
-   * 获取指定月份的天数
-   * @param year - 年份
-   * @param month - 月份（0-11）
-   * @returns 天数
+   * get specified month copy day number
+   * @param year - year copy
+   * @param month - month copy (0-11)
+   * @returns day number
    */
   static getDaysInMonth(year: number, month: number): number {
     const daysInMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -197,10 +197,10 @@ export class DateUtils {
   }
 
   /**
-   * 添加天数到日期
-   * @param date - 原始日期
-   * @param days - 要添加的天数
-   * @returns 新的日期
+   * add day number to day period
+   * @param date - original day period
+   * @param days - want add day number
+   * @returns new day period
    */
   static addDays(date: Date, days: number): Date {
     const result: Date = new Date(date.getTime());
@@ -209,10 +209,10 @@ export class DateUtils {
   }
 
   /**
-   * 添加小时到日期
-   * @param date - 原始日期
-   * @param hours - 要添加的小时数
-   * @returns 新的日期
+   * add small time to day period
+   * @param date - original day period
+   * @param hours - want add small time number
+   * @returns new day period
    */
   static addHours(date: Date, hours: number): Date {
     const result: Date = new Date(date.getTime());
@@ -221,10 +221,10 @@ export class DateUtils {
   }
 
   /**
-   * 添加分钟到日期
-   * @param date - 原始日期
-   * @param minutes - 要添加的分钟数
-   * @returns 新的日期
+   * add divide clock to day period
+   * @param date - original day period
+   * @param minutes - want add divide clock number
+   * @returns new day period
    */
   static addMinutes(date: Date, minutes: number): Date {
     const result: Date = new Date(date.getTime());
@@ -233,9 +233,9 @@ export class DateUtils {
   }
 
   /**
-   * 获取一天的开始时间
-   * @param date - 日期
-   * @returns 当天0点的时间戳
+   * get one day start time
+   * @param date - day period
+   * @returns the same day 0 point timestamp
    */
   static getStartOfDay(date: Date): number {
     const result: Date = new Date(date);
@@ -244,9 +244,9 @@ export class DateUtils {
   }
 
   /**
-   * 获取一天的结束时间
-   * @param date - 日期
-   * @returns 当天23:59:59的时间戳
+   * get one day end time
+   * @param date - day period
+   * @returns the same day 23:59:59 timestamp
    */
   static getEndOfDay(date: Date): number {
     const result: Date = new Date(date);

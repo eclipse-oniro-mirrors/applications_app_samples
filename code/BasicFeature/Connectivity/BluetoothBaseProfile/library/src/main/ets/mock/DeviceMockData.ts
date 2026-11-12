@@ -17,19 +17,19 @@ import { BluetoothDeviceModel, BluetoothDeviceType, BluetoothMajorService } from
 import { BluetoothProfileType, BluetoothConnectionState } from '../constants/BluetoothConstants';
 
 /**
- * 设备Mock数据。
- * 提供预定义的蓝牙设备模拟数据。
+ * device mock data.
+ * provides predefined Bluetooth device mock data.
  */
 export class DeviceMockData {
   /**
-   * 获取预定义的音频设备列表。
-   * @returns {BluetoothDeviceModel[]} 音频设备列表
+   * get predefined audio device list.
+   * @returns {BluetoothDeviceModel[]} audio device list table
    */
   static getAudioDevices(): BluetoothDeviceModel[] {
     const devices: BluetoothDeviceModel[] = [];
 
     const speaker: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'audio_speaker_001', 'JBL Flip 6', 'AA:BB:CC:DD:EE:01', BluetoothDeviceType.CLASSIC);
+      'audio_speaker_001', 'JBL Flip 6', '11:22:33:44:55:01', BluetoothDeviceType.CLASSIC);
     speaker.addSupportedProfile(BluetoothProfileType.A2DP);
     speaker.addSupportedProfile(BluetoothProfileType.AVRCP);
     speaker.addMajorService(BluetoothMajorService.AUDIO);
@@ -38,7 +38,7 @@ export class DeviceMockData {
     devices.push(speaker);
 
     const headphone: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'audio_headphone_001', 'Sony WH-1000XM5', 'AA:BB:CC:DD:EE:02', BluetoothDeviceType.DUAL_MODE);
+      'audio_headphone_001', 'Sony WH-1000XM5', '11:22:33:44:55:02', BluetoothDeviceType.DUAL_MODE);
     headphone.addSupportedProfile(BluetoothProfileType.A2DP);
     headphone.addSupportedProfile(BluetoothProfileType.AVRCP);
     headphone.addSupportedProfile(BluetoothProfileType.HFP);
@@ -49,7 +49,7 @@ export class DeviceMockData {
     devices.push(headphone);
 
     const earbuds: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'audio_earbuds_001', 'AirPods Pro 2', 'AA:BB:CC:DD:EE:03', BluetoothDeviceType.DUAL_MODE);
+      'audio_earbuds_001', 'AirPods Pro 2', '11:22:33:44:55:03', BluetoothDeviceType.DUAL_MODE);
     earbuds.addSupportedProfile(BluetoothProfileType.A2DP);
     earbuds.addSupportedProfile(BluetoothProfileType.AVRCP);
     earbuds.addSupportedProfile(BluetoothProfileType.HFP);
@@ -59,7 +59,7 @@ export class DeviceMockData {
     devices.push(earbuds);
 
     const carAudio: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'audio_car_001', 'BMW Car Audio', 'AA:BB:CC:DD:EE:04', BluetoothDeviceType.CLASSIC);
+      'audio_car_001', 'BMW Car Audio', '11:22:33:44:55:04', BluetoothDeviceType.CLASSIC);
     carAudio.addSupportedProfile(BluetoothProfileType.A2DP);
     carAudio.addSupportedProfile(BluetoothProfileType.AVRCP);
     carAudio.addSupportedProfile(BluetoothProfileType.HFP);
@@ -73,14 +73,14 @@ export class DeviceMockData {
   }
 
   /**
-   * 获取预定义的输入设备列表。
-   * @returns {BluetoothDeviceModel[]} 输入设备列表
+   * get predefined input device list.
+   * @returns {BluetoothDeviceModel[]} input device list table
    */
   static getInputDevices(): BluetoothDeviceModel[] {
     const devices: BluetoothDeviceModel[] = [];
 
     const keyboard: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'input_keyboard_001', 'Logitech K380', 'AA:BB:CC:DD:EE:10', BluetoothDeviceType.BLE);
+      'input_keyboard_001', 'Logitech K380', '11:22:33:44:55:10', BluetoothDeviceType.BLE);
     keyboard.addSupportedProfile(BluetoothProfileType.HID);
     keyboard.addMajorService(BluetoothMajorService.INPUT);
     keyboard.updateRssi(-50);
@@ -88,7 +88,7 @@ export class DeviceMockData {
     devices.push(keyboard);
 
     const mouse: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'input_mouse_001', 'Microsoft Arc Mouse', 'AA:BB:CC:DD:EE:11', BluetoothDeviceType.BLE);
+      'input_mouse_001', 'Microsoft Arc Mouse', '11:22:33:44:55:11', BluetoothDeviceType.BLE);
     mouse.addSupportedProfile(BluetoothProfileType.HID);
     mouse.addMajorService(BluetoothMajorService.INPUT);
     mouse.updateRssi(-55);
@@ -96,7 +96,7 @@ export class DeviceMockData {
     devices.push(mouse);
 
     const gamepad: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'input_gamepad_001', 'Xbox Wireless Controller', 'AA:BB:CC:DD:EE:12', BluetoothDeviceType.DUAL_MODE);
+      'input_gamepad_001', 'Xbox Wireless Controller', '11:22:33:44:55:12', BluetoothDeviceType.DUAL_MODE);
     gamepad.addSupportedProfile(BluetoothProfileType.HID);
     gamepad.addMajorService(BluetoothMajorService.INPUT);
     gamepad.updateRssi(-48);
@@ -107,14 +107,14 @@ export class DeviceMockData {
   }
 
   /**
-   * 获取预定义的健康设备列表。
-   * @returns {BluetoothDeviceModel[]} 健康设备列表
+   * get predefined health device list.
+   * @returns {BluetoothDeviceModel[]} health device list table
    */
   static getHealthDevices(): BluetoothDeviceModel[] {
     const devices: BluetoothDeviceModel[] = [];
 
     const watch: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'health_watch_001', 'Huawei Watch GT4', 'AA:BB:CC:DD:EE:20', BluetoothDeviceType.DUAL_MODE);
+      'health_watch_001', 'Demo Health Watch', '11:22:33:44:55:20', BluetoothDeviceType.DUAL_MODE);
     watch.addSupportedProfile(BluetoothProfileType.HDP);
     watch.addMajorService(BluetoothMajorService.HEALTH);
     watch.updateRssi(-40);
@@ -122,7 +122,7 @@ export class DeviceMockData {
     devices.push(watch);
 
     const band: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'health_band_001', 'Fitbit Charge 6', 'AA:BB:CC:DD:EE:21', BluetoothDeviceType.BLE);
+      'health_band_001', 'Fitbit Charge 6', '11:22:33:44:55:21', BluetoothDeviceType.BLE);
     band.addSupportedProfile(BluetoothProfileType.HDP);
     band.addMajorService(BluetoothMajorService.HEALTH);
     band.updateRssi(-52);
@@ -130,7 +130,7 @@ export class DeviceMockData {
     devices.push(band);
 
     const scale: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'health_scale_001', 'Xiaomi Body Scale', 'AA:BB:CC:DD:EE:22', BluetoothDeviceType.BLE);
+      'health_scale_001', 'Xiaomi Body Scale', '11:22:33:44:55:22', BluetoothDeviceType.BLE);
     scale.addSupportedProfile(BluetoothProfileType.HDP);
     scale.addMajorService(BluetoothMajorService.HEALTH);
     scale.updateRssi(-60);
@@ -141,14 +141,14 @@ export class DeviceMockData {
   }
 
   /**
-   * 获取预定义的手机设备列表。
-   * @returns {BluetoothDeviceModel[]} 手机设备列表
+   * get predefined phone device list.
+   * @returns {BluetoothDeviceModel[]} phone device list table
    */
   static getPhoneDevices(): BluetoothDeviceModel[] {
     const devices: BluetoothDeviceModel[] = [];
 
     const phone1: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'phone_001', 'Samsung Galaxy S24', 'AA:BB:CC:DD:EE:30', BluetoothDeviceType.DUAL_MODE);
+      'phone_001', 'Samsung Galaxy S24', '11:22:33:44:55:30', BluetoothDeviceType.DUAL_MODE);
     phone1.addSupportedProfile(BluetoothProfileType.PBAP);
     phone1.addSupportedProfile(BluetoothProfileType.MAP);
     phone1.addSupportedProfile(BluetoothProfileType.HFP);
@@ -159,7 +159,7 @@ export class DeviceMockData {
     devices.push(phone1);
 
     const phone2: BluetoothDeviceModel = new BluetoothDeviceModel(
-      'phone_002', 'iPhone 15 Pro', 'AA:BB:CC:DD:EE:31', BluetoothDeviceType.DUAL_MODE);
+      'phone_002', 'iPhone 15 Pro', '11:22:33:44:55:31', BluetoothDeviceType.DUAL_MODE);
     phone2.addSupportedProfile(BluetoothProfileType.PBAP);
     phone2.addSupportedProfile(BluetoothProfileType.MAP);
     phone2.addMajorService(BluetoothMajorService.TELEPHONY);
@@ -171,8 +171,8 @@ export class DeviceMockData {
   }
 
   /**
-   * 获取所有预定义设备。
-   * @returns {BluetoothDeviceModel[]} 所有设备
+   * get all pre specify meaning device.
+   * @returns {BluetoothDeviceModel[]} all device
    */
   static getAllDevices(): BluetoothDeviceModel[] {
     return [

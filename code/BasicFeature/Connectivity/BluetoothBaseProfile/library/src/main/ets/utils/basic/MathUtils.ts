@@ -16,36 +16,36 @@
 import { BluetoothConstants } from '../../constants/BluetoothConstants';
 
 /**
- * 数学工具类
- * 提供数学计算相关的实用方法
+ * math utility class
+ * provides number study calculate relative relate actual use method method
  */
 export class MathUtils {
   /**
-   * 将值限制在指定范围内
-   * @param value - 输入值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns 限制后的值
+   * clamp the value within the specified range
+   * @param value - input value
+   * @param min - min value
+   * @param max - max value
+   * @returns limit control after value
    */
   static clamp(value: number, min: number, max: number): number {
     return Math.min(Math.max(value, min), max);
   }
 
   /**
-   * 线性插值
-   * @param start - 起始值
-   * @param end - 结束值
-   * @param t - 插值因子 (0-1)
-   * @returns 插值结果
+   * linear interpolation
+   * @param start - start value
+   * @param end - end value
+   * @param t - interpolation factor (0-1)
+   * @returns interpolation result
    */
   static lerp(start: number, end: number, t: number): number {
     return start + (end - start) * MathUtils.clamp(t, 0, 1);
   }
 
   /**
-   * 计算平均值
-   * @param values - 数值数组
-   * @returns 平均值
+   * calculate average
+   * @param values - number array
+   * @returns average
    */
   static average(values: number[]): number {
     if (values.length === 0) {
@@ -59,9 +59,9 @@ export class MathUtils {
   }
 
   /**
-   * 计算中位数
-   * @param values - 数值数组
-   * @returns 中位数
+   * calculate median
+   * @param values - number array
+   * @returns median
    */
   static median(values: number[]): number {
     if (values.length === 0) {
@@ -76,9 +76,9 @@ export class MathUtils {
   }
 
   /**
-   * 计算标准差
-   * @param values - 数值数组
-   * @returns 标准差
+   * calculate standard deviation
+   * @param values - number array
+   * @returns standard deviation
    */
   static standardDeviation(values: number[]): number {
     if (values.length === 0) {
@@ -94,10 +94,10 @@ export class MathUtils {
   }
 
   /**
-   * 计算百分比
-   * @param value - 当前值
-   * @param total - 总值
-   * @returns 百分比 (0-100)
+   * calculate percentage
+   * @param value - current value
+   * @param total - total value
+   * @returns percentage (0-100)
    */
   static percentage(value: number, total: number): number {
     if (total === 0) {
@@ -107,12 +107,12 @@ export class MathUtils {
   }
 
   /**
-   * 将RSSI转换为距离估算（米）
-   * 使用对数距离路径损耗模型
-   * @param rssi - RSSI值 (dBm)
-   * @param txPower - 发射功率 (dBm)，默认-59
-   * @param pathLossExponent - 路径损耗指数，默认2.0
-   * @returns 估算距离（米）
+   * will RSSI convert for distance estimate (meter)
+   * use log-distance path loss model
+   * @param rssi - RSSI value (dBm)
+   * @param txPower - transmit power (dBm), default -59
+   * @param pathLossExponent - path loss exponent, default 2.0
+   * @returns estimated distance (meter)
    */
   static rssiToDistance(rssi: number, txPower: number = -59, pathLossExponent: number = 2.0): number {
     if (rssi === 0) {
@@ -123,9 +123,9 @@ export class MathUtils {
   }
 
   /**
-   * 将RSSI转换为信号质量百分比
-   * @param rssi - RSSI值
-   * @returns 信号质量 (0-100)
+   * will RSSI convert for signal quality percentage
+   * @param rssi - RSSI value
+   * @returns signal quality (0-100)
    */
   static rssiToQuality(rssi: number): number {
     if (rssi <= -100) {
@@ -138,42 +138,42 @@ export class MathUtils {
   }
 
   /**
-   * 计算两个点之间的欧几里得距离
-   * @param x1 - 点1的x坐标
-   * @param y1 - 点1的y坐标
-   * @param x2 - 点2的x坐标
-   * @param y2 - 点2的y坐标
-   * @returns 距离
+   * calculate Euclidean distance between two points
+   * @param x1 - point 1 x coordinate
+   * @param y1 - point 1 y coordinate
+   * @param x2 - point 2 x coordinate
+   * @param y2 - point 2 y coordinate
+   * @returns distance distance
    */
   static distance(x1: number, y1: number, x2: number, y2: number): number {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
   }
 
   /**
-   * 生成指定范围内的随机整数
-   * @param min - 最小值（包含）
-   * @param max - 最大值（包含）
-   * @returns 随机整数
+   * generate specified range range internal random integer
+   * @param min - min value (package contain)
+   * @param max - max value (package contain)
+   * @returns random integer
    */
   static randomInt(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   /**
-   * 生成指定范围内的随机浮点数
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns 随机浮点数
+   * generate specified range range internal random float
+   * @param min - min value
+   * @param max - max value
+   * @returns random float
    */
   static randomFloat(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
 
   /**
-   * 四舍五入到指定小数位
-   * @param value - 要舍入的值
-   * @param decimals - 小数位数
-   * @returns 舍入后的值
+   * round to the specified decimals
+   * @param value - want house in value
+   * @param decimals - number of digits after the decimal point
+   * @returns house in after value
    */
   static roundTo(value: number, decimals: number): number {
     const factor: number = Math.pow(10, decimals);
@@ -181,21 +181,21 @@ export class MathUtils {
   }
 
   /**
-   * 检查值是否在指定范围内（包含边界）
-   * @param value - 要检查的值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns 是否在范围内
+   * check value whether at specified range range internal (package contain edge interface)
+   * @param value - want check value
+   * @param min - min value
+   * @param max - max value
+   * @returns whether at range range internal
    */
   static inRange(value: number, min: number, max: number): boolean {
     return value >= min && value <= max;
   }
 
   /**
-   * 计算最大公约数
-   * @param a - 第一个数
-   * @param b - 第二个数
-   * @returns 最大公约数
+   * calculate greatest common divisor
+   * @param a - th one number
+   * @param b - th second number
+   * @returns greatest common divisor
    */
   static gcd(a: number, b: number): number {
     a = Math.abs(a);
@@ -209,10 +209,10 @@ export class MathUtils {
   }
 
   /**
-   * 计算最小公倍数
-   * @param a - 第一个数
-   * @param b - 第二个数
-   * @returns 最小公倍数
+   * calculate least common multiple
+   * @param a - th one number
+   * @param b - th second number
+   * @returns least common multiple
    */
   static lcm(a: number, b: number): number {
     if (a === 0 || b === 0) {

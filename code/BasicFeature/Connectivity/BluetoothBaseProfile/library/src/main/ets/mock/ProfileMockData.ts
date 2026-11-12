@@ -16,7 +16,7 @@
 import { BluetoothProfileType } from '../constants/BluetoothConstants';
 
 /**
- * A2DP音频数据接口
+ * A2DP audio data connect port
  */
 export interface MockAudioTrack {
   title: string;
@@ -27,7 +27,7 @@ export interface MockAudioTrack {
 }
 
 /**
- * HFP通话数据接口
+ * HFP call data connect port
  */
 export interface MockCallInfo {
   phoneNumber: string;
@@ -38,7 +38,7 @@ export interface MockCallInfo {
 }
 
 /**
- * PBAP联系人数据接口
+ * PBAP link system person data interface
  */
 export interface MockContact {
   name: string;
@@ -48,7 +48,7 @@ export interface MockContact {
 }
 
 /**
- * MAP消息数据接口
+ * MAP message data connect port
  */
 export interface MockMessage {
   sender: string;
@@ -60,7 +60,7 @@ export interface MockMessage {
 }
 
 /**
- * HDP健康数据接口
+ * HDP health data connect port
  */
 export interface MockHealthReading {
   type: string;
@@ -70,13 +70,13 @@ export interface MockHealthReading {
 }
 
 /**
- * Profile Mock数据。
- * 提供各Profile的模拟数据。
+ * Profile Mock number data.
+ * provides each Profile mock data.
  */
 export class ProfileMockData {
   /**
-   * 生成模拟音频曲目列表。
-   * @returns {MockAudioTrack[]} 曲目列表
+   * generate mock audio track list.
+   * @returns {MockAudioTrack[]} track list
    */
   static getAudioTracks(): MockAudioTrack[] {
     return [
@@ -84,16 +84,18 @@ export class ProfileMockData {
       { title: 'Bohemian Rhapsody', artist: 'Queen', album: 'A Night at the Opera', duration: 354000, position: 0 },
       { title: 'Hotel California', artist: 'Eagles', album: 'Hotel California', duration: 391000, position: 200000 },
       { title: 'Imagine', artist: 'John Lennon', album: 'Imagine', duration: 187000, position: 50000 },
-      { title: 'Stairway to Heaven', artist: 'Led Zeppelin', album: 'Led Zeppelin IV', duration: 482000, position: 300000 },
+      { title: 'Stairway to Heaven', artist: 'Led Zeppelin', album: 'Led Zeppelin IV', duration: 482000,
+        position: 300000 },
       { title: 'Yesterday', artist: 'The Beatles', album: 'Help!', duration: 125000, position: 0 },
       { title: 'Smells Like Teen Spirit', artist: 'Nirvana', album: 'Nevermind', duration: 301000, position: 150000 },
-      { title: 'Sweet Child O Mine', artist: 'Guns N Roses', album: 'Appetite for Destruction', duration: 356000, position: 100000 },
+      { title: 'Sweet Child O Mine', artist: 'Guns N Roses', album: 'Appetite for Destruction', duration: 356000,
+        position: 100000 },
     ];
   }
 
   /**
-   * 生成模拟通话记录。
-   * @returns {MockCallInfo[]} 通话记录
+   * generate mock call record.
+   * @returns {MockCallInfo[]} call record
    */
   static getCallHistory(): MockCallInfo[] {
     return [
@@ -101,26 +103,31 @@ export class ProfileMockData {
       { phoneNumber: '13900139002', contactName: 'Bob Johnson', callState: 'ended', duration: 420, isIncoming: false },
       { phoneNumber: '15800158003', contactName: 'Charlie Brown', callState: 'active', duration: 60, isIncoming: true },
       { phoneNumber: '18600186004', contactName: 'Diana Prince', callState: 'missed', duration: 0, isIncoming: true },
-      { phoneNumber: '13500135005', contactName: 'Edward Norton', callState: 'ended', duration: 300, isIncoming: false },
+      { phoneNumber: '13500135005', contactName: 'Edward Norton', callState: 'ended', duration: 300,
+        isIncoming: false },
     ];
   }
 
   /**
-   * 生成模拟联系人列表。
-   * @param {number} count - 联系人数量
-   * @returns {MockContact[]} 联系人列表
+   * generate mock contact list.
+   * @param {number} count - contact count
+   * @returns {MockContact[]} contact list
    */
   static getContacts(count: number = 20): MockContact[] {
-    const firstNames: string[] = ['Alice', 'Bob', 'Charlie', 'Diana', 'Edward', 'Fiona', 'George', 'Helen', 'Ivan', 'Julia'];
-    const lastNames: string[] = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor'];
-    const orgs: string[] = ['TechCorp', 'DataInc', 'CloudSys', 'NetWorks', 'DigiLab', 'InfoTech', 'SmartDev', 'CodeBase'];
+    const firstNames: string[] =
+      ['Alice', 'Bob', 'Charlie', 'Diana', 'Edward', 'Fiona', 'George', 'Helen', 'Ivan', 'Julia'];
+    const lastNames: string[] =
+      ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor'];
+    const orgs: string[] =
+      ['TechCorp', 'DataInc', 'CloudSys', 'NetWorks', 'DigiLab', 'InfoTech', 'SmartDev', 'CodeBase'];
     const contacts: MockContact[] = [];
     for (let i: number = 0; i < count; i++) {
       const first: string = firstNames[i % firstNames.length];
       const last: string = lastNames[Math.floor(i / firstNames.length) % lastNames.length];
       contacts.push({
         name: first + ' ' + last,
-        phone: '1' + (30 + Math.floor(Math.random() * 60)) + String(Math.floor(Math.random() * 100000000)).padStart(8, '0'),
+        phone: '1' + (30 + Math.floor(Math.random() * 60))
+          + String(Math.floor(Math.random() * 100000000)).padStart(8, '0'),
         email: first.toLowerCase() + '.' + last.toLowerCase() + '@example.com',
         organization: orgs[i % orgs.length]
       });
@@ -129,9 +136,9 @@ export class ProfileMockData {
   }
 
   /**
-   * 生成模拟消息列表。
-   * @param {number} count - 消息数量
-   * @returns {MockMessage[]} 消息列表
+   * generate mock message list.
+   * @param {number} count - consume info number amount
+   * @returns {MockMessage[]} message list
    */
   static getMessages(count: number = 15): MockMessage[] {
     const senders: string[] = ['Alice', 'Bob', 'Charlie', 'Diana', 'Edward', 'System', 'Support'];
@@ -155,34 +162,34 @@ export class ProfileMockData {
   }
 
   /**
-   * 生成模拟健康数据。
-   * @returns {MockHealthReading[]} 健康读数列表
+   * generate mock health data.
+   * @returns {MockHealthReading[]} health reading list table
    */
   static getHealthReadings(): MockHealthReading[] {
     const readings: MockHealthReading[] = [];
     const now: number = Date.now();
-    // 心率数据
+    // heart rate data
     for (let i: number = 0; i < 10; i++) {
       readings.push({
         type: 'heart_rate', value: 60 + Math.floor(Math.random() * 40),
         unit: 'bpm', timestamp: now - (10 - i) * 60000
       });
     }
-    // 血压数据
+    // blood pressure data
     for (let i: number = 0; i < 5; i++) {
       readings.push({
         type: 'blood_pressure', value: 110 + Math.floor(Math.random() * 30),
         unit: 'mmHg', timestamp: now - (5 - i) * 3600000
       });
     }
-    // 体温数据
+    // body temperature data
     for (let i: number = 0; i < 8; i++) {
       readings.push({
         type: 'temperature', value: Math.round((36 + Math.random() * 2) * 10) / 10,
         unit: 'C', timestamp: now - (8 - i) * 1800000
       });
     }
-    // 血氧数据
+    // blood oxygen data
     for (let i: number = 0; i < 6; i++) {
       readings.push({
         type: 'blood_oxygen', value: 95 + Math.floor(Math.random() * 5),
@@ -193,9 +200,9 @@ export class ProfileMockData {
   }
 
   /**
-   * 获取Profile描述信息。
-   * @param {BluetoothProfileType} profile - Profile类型
-   * @returns {object} Profile描述
+   * get Profile describe describe info info.
+   * @param {BluetoothProfileType} profile - Profile class type
+   * @returns {object} Profile describe describe
    */
   static getProfileDescription(profile: BluetoothProfileType): object {
     const descriptions: Record<string, object> = {

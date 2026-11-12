@@ -16,7 +16,7 @@
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 
 /**
- * 连接记录接口
+ * connection record interface
  */
 export interface MockConnectionRecord {
   deviceId: string;
@@ -30,20 +30,20 @@ export interface MockConnectionRecord {
 }
 
 /**
- * 连接Mock数据。
- * 提供模拟的连接记录数据。
+ * connection mock data.
+ * provides mock connection record data.
  */
 export class ConnectionMockData {
   /**
-   * 生成模拟连接记录。
-   * @param {number} count - 记录数量
-   * @returns {MockConnectionRecord[]} 连接记录列表
+   * generate mock connection record.
+   * @param {number} count - record number amount
+   * @returns {MockConnectionRecord[]} connection record list table
    */
   static generateRecords(count: number = 30): MockConnectionRecord[] {
     const records: MockConnectionRecord[] = [];
     const deviceNames: string[] = [
       'JBL Flip 6', 'Sony WH-1000XM5', 'Logitech K380', 'Microsoft Arc Mouse',
-      'Huawei Watch GT4', 'Samsung Galaxy S24', 'BMW Car Audio', 'AirPods Pro 2'
+      'Demo Health Watch', 'Samsung Galaxy S24', 'BMW Car Audio', 'AirPods Pro 2'
     ];
     const profiles: BluetoothProfileType[] = [
       BluetoothProfileType.A2DP, BluetoothProfileType.HFP, BluetoothProfileType.HID,
@@ -75,8 +75,8 @@ export class ConnectionMockData {
   }
 
   /**
-   * 获取当前活跃连接。
-   * @returns {MockConnectionRecord[]} 活跃连接列表
+   * get current active connection.
+   * @returns {MockConnectionRecord[]} active connection list table
    */
   static getActiveConnections(): MockConnectionRecord[] {
     const active: MockConnectionRecord[] = [];
@@ -99,9 +99,9 @@ export class ConnectionMockData {
   }
 
   /**
-   * 生成连接日志。
-   * @param {number} count - 日志数量
-   * @returns {string[]} 日志列表
+   * generate connection log.
+   * @param {number} count - log count
+   * @returns {string[]} log list
    */
   static generateLogs(count: number = 50): string[] {
     const logs: string[] = [];

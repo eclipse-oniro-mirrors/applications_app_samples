@@ -20,13 +20,13 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 通用工具类
- * 提供各种通用辅助方法
+ * general utility class
+ * provides various general auxiliary assist method method
  */
 export class CommonUtils {
   /**
-   * 延迟执行
-   * @param ms - 延迟毫秒数
+   * delay late execute row
+   * @param ms - delay milliseconds
    * @returns Promise
    */
   static delay(ms: number): Promise<void> {
@@ -36,8 +36,8 @@ export class CommonUtils {
   }
 
   /**
-   * 生成唯一ID
-   * @returns 唯一ID字符串
+   * generate unique ID
+   * @returns unique ID string
    */
   static generateId(): string {
     const timestamp: string = Date.now().toString(36);
@@ -46,9 +46,9 @@ export class CommonUtils {
   }
 
   /**
-   * 安全的JSON序列化
-   * @param obj - 要序列化的对象
-   * @returns JSON字符串
+   * safe all JSON serialize
+   * @param obj - want serialize against object
+   * @returns JSON string
    */
   static safeStringify(obj: unknown): string {
     try {
@@ -60,9 +60,9 @@ export class CommonUtils {
   }
 
   /**
-   * 安全的JSON解析
-   * @param json - JSON字符串
-   * @returns 解析后的对象
+   * safe all JSON decode parse
+   * @param json - JSON string
+   * @returns decode parse after against object
    */
   static safeParse(json: string): object | null {
     try {
@@ -74,10 +74,10 @@ export class CommonUtils {
   }
 
   /**
-   * 防抖函数
-   * @param fn - 要防抖的函数
-   * @param delay - 延迟时间（毫秒）
-   * @returns 防抖后的函数
+   * prevent shake function number
+   * @param fn - want prevent shake function number
+   * @param delay - delay late time interval (ms)
+   * @returns prevent shake after function number
    */
   static debounce(fn: () => void, delay: number): () => void {
     let timer: number = -1;
@@ -93,10 +93,10 @@ export class CommonUtils {
   }
 
   /**
-   * 节流函数
-   * @param fn - 要节流的函数
-   * @param interval - 间隔时间（毫秒）
-   * @returns 节流后的函数
+   * section stream function number
+   * @param fn - want section stream function number
+   * @param interval - interval (ms)
+   * @returns section stream after function number
    */
   static throttle(fn: () => void, interval: number): () => void {
     let lastTime: number = 0;
@@ -110,11 +110,11 @@ export class CommonUtils {
   }
 
   /**
-   * 重试执行异步操作
-   * @param fn - 要执行的异步函数
-   * @param maxRetries - 最大重试次数
-   * @param delayMs - 重试间隔（毫秒）
-   * @returns Promise结果
+   * weight try execute row different step operation
+   * @param fn - want execute row different step function number
+   * @param maxRetries - max weight try times number
+   * @param delayMs - retry interval (ms)
+   * @returns Promise result result
    */
   static async retryAsync<T>(fn: () => Promise<T>, maxRetries: number = 3, delayMs: number = 1000): Promise<T> {
     let lastError: Error | null = null;
@@ -133,10 +133,10 @@ export class CommonUtils {
   }
 
   /**
-   * 创建超时Promise
-   * @param promise - 原始Promise
-   * @param timeoutMs - 超时时间（毫秒）
-   * @returns 带超时的Promise
+   * create exceed time Promise
+   * @param promise - original Promise
+   * @param timeoutMs - timeout (ms)
+   * @returns Promise with timeout
    */
   static withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
     return new Promise<T>((resolve, reject) => {
@@ -157,9 +157,9 @@ export class CommonUtils {
   }
 
   /**
-   * 数组去重
-   * @param arr - 原始数组
-   * @returns 去重后的数组
+   * array remove weight
+   * @param arr - original array
+   * @returns deduplicated array
    */
   static unique<T>(arr: T[]): T[] {
     const seen: Set<string> = new Set<string>();
@@ -175,10 +175,10 @@ export class CommonUtils {
   }
 
   /**
-   * 数组分块
-   * @param arr - 原始数组
-   * @param size - 每块大小
-   * @returns 分块后的二维数组
+   * array divide block
+   * @param arr - original array
+   * @param size - each block large small
+   * @returns chunked 2D array
    */
   static chunk<T>(arr: T[], size: number): T[][] {
     const result: T[][] = [];
@@ -189,9 +189,9 @@ export class CommonUtils {
   }
 
   /**
-   * 扁平化数组
-   * @param arr - 嵌套数组
-   * @returns 扁平化后的数组
+   * flat flat ize array
+   * @param arr - nested array
+   * @returns flattened array
    */
   static flatten<T>(arr: T[][]): T[] {
     const result: T[] = [];
@@ -204,10 +204,10 @@ export class CommonUtils {
   }
 
   /**
-   * 分组数组
-   * @param arr - 原始数组
-   * @param keyFn - 分组键函数
-   * @returns 分组后的Map
+   * divide group array
+   * @param arr - original array
+   * @param keyFn - divide group key function number
+   * @returns divide group after Map
    */
   static groupBy<T>(arr: T[], keyFn: (item: T) => string): Map<string, T[]> {
     const result: Map<string, T[]> = new Map<string, T[]>();
@@ -221,29 +221,29 @@ export class CommonUtils {
   }
 
   /**
-   * 排序数组（不修改原数组）
-   * @param arr - 原始数组
-   * @param compareFn - 比较函数
-   * @returns 排序后的新数组
+   * sort array (not modify modify raw array)
+   * @param arr - original array
+   * @param compareFn - compare compare function number
+   * @returns sorted new array
    */
   static sortBy<T>(arr: T[], compareFn: (a: T, b: T) => number): T[] {
     return [...arr].sort(compareFn);
   }
 
   /**
-   * 检查值是否在数组中
-   * @param arr - 数组
-   * @param value - 要查找的值
-   * @returns 是否包含
+   * check value whether at array in
+   * @param arr - array
+   * @param value - want check find value
+   * @returns whether package contain
    */
   static includes<T>(arr: T[], value: T): boolean {
     return arr.indexOf(value) !== -1;
   }
 
   /**
-   * 获取数组最后一个元素
-   * @param arr - 数组
-   * @returns 最后一个元素
+   * get array last one element
+   * @param arr - array
+   * @returns last one element
    */
   static last<T>(arr: T[]): T | undefined {
     if (arr.length === 0) {
@@ -253,9 +253,9 @@ export class CommonUtils {
   }
 
   /**
-   * 获取数组第一个元素
-   * @param arr - 数组
-   * @returns 第一个元素
+   * get array th one element
+   * @param arr - array
+   * @returns th one element
    */
   static first<T>(arr: T[]): T | undefined {
     if (arr.length === 0) {

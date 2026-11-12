@@ -20,7 +20,7 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 版本信息接口
+ * version info interface
  */
 export interface VersionInfo {
   major: number;
@@ -31,8 +31,8 @@ export interface VersionInfo {
 }
 
 /**
- * 应用级常量类
- * 定义应用中通用的常量值
+ * application-level constants class
+ * specify meaning respond use in general constant amount value
  */
 export class Constants {
   static readonly API_VERSION_MAJOR: number = 1;
@@ -74,15 +74,15 @@ export class Constants {
   static readonly BLUETOOTH_ADDRESS_REGEX: string = '^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$';
 
   /**
-   * 初始化常量类
+   * initialize constant amount class
    */
   static initialize(): void {
     hilog.info(DOMAIN, TAG, 'Constants initialized, API version: ' + Constants.API_VERSION_STRING);
   }
 
   /**
-   * 获取完整的API版本信息对象
-   * @returns 版本信息
+   * get complete whole API version this info info against object
+   * @returns version this info info
    */
   static getVersionInfo(): VersionInfo {
     return {
@@ -95,9 +95,9 @@ export class Constants {
   }
 
   /**
-   * 验证邮箱地址格式
-   * @param email - 邮箱地址
-   * @returns 是否有效
+   * validate email address format
+   * @param email - mail box ground address
+   * @returns whether valid
    */
   static isValidEmail(email: string): boolean {
     const regex: RegExp = new RegExp(Constants.EMAIL_REGEX);
@@ -105,9 +105,9 @@ export class Constants {
   }
 
   /**
-   * 验证MAC地址格式
-   * @param mac - MAC地址
-   * @returns 是否有效
+   * validate MAC address format
+   * @param mac - MAC ground address
+   * @returns whether valid
    */
   static isValidMacAddress(mac: string): boolean {
     const regex: RegExp = new RegExp(Constants.BLUETOOTH_ADDRESS_REGEX);
@@ -115,9 +115,9 @@ export class Constants {
   }
 
   /**
-   * 验证UUID格式
-   * @param uuid - UUID字符串
-   * @returns 是否有效
+   * validate UUID format
+   * @param uuid - UUID string
+   * @returns whether valid
    */
   static isValidUuid(uuid: string): boolean {
     const regex: RegExp = new RegExp(Constants.UUID_REGEX);
