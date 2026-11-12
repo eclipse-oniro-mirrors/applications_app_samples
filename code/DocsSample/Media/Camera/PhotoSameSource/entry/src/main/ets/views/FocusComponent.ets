@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// 曝光选择
+// 曝光选择。
 @Component
 export struct FocusComponent {
   @Link focusPointBol: boolean;
@@ -27,7 +27,7 @@ export struct FocusComponent {
   build() {
     if (this.focusPointBol) {
       Row() {
-        // 对焦框
+        // 对焦框。
         Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.SpaceBetween }) {
           Flex({ justifyContent: FlexAlign.SpaceBetween }) {
             Row() {

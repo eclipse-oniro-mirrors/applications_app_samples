@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the 'License');
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an 'AS IS' BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -51,6 +51,7 @@ NDKCamera::NDKCamera(CameraBuildingConfig config)
       photoOutput_(nullptr),
       metaDataObjectType_(nullptr),
       metadataOutput_(nullptr),
+      frameRateRange(nullptr),
       isExposureModeSupported_(false),
       isFocusModeSupported_(false),
       exposureMode_(EXPOSURE_MODE_LOCKED),
@@ -314,10 +315,7 @@ Camera_ErrorCode NDKCamera::SessionFlowFn(void)
     // 开始设置对焦模式。
     ret = IsFocusMode(focusMode_);
 
-    // Start GetSupport
-    const uint32_t maxFrameRateRanges = 10; // 假设最多10个帧率范围
-    frameRateRange = (Camera_FrameRateRange *)malloc(sizeof(Camera_FrameRateRange) * maxFrameRateRanges);
-    uint32_t size = maxFrameRateRanges;
+    uint32_t size = 0;
     ret = PreviewOutputGetSupportedFrameRates(previewOutput_, &frameRateRange, &size);
     RegisterMacroStatusCallback();
     RegisterSystemPressureCallback();
@@ -326,7 +324,7 @@ Camera_ErrorCode NDKCamera::SessionFlowFn(void)
 }
 
 // [Start get_supported_frame_rates]
-// 获取设备支持的预览帧率
+// 获取设备支持的预览帧率。
 Camera_ErrorCode NDKCamera::PreviewOutputGetSupportedFrameRates(Camera_PreviewOutput *previewOutput,
     Camera_FrameRateRange **frameRateRange, uint32_t *size)
 {
@@ -436,7 +434,7 @@ void NDKCamera::GetProfiles()
         profile->size.height = NUM_1080;
         previewProfile_ = profile;
     }
-    // VideoOutput的宽高比需要和PreviewOutput一致
+    // VideoOutput的宽高比需要和PreviewOutput一致。
     if (isHdrVideo) {
         Camera_VideoProfile* profile = cameraOutputCapability_->videoProfiles[0];
         profile->size.width = NUM_1920;
@@ -616,7 +614,7 @@ Camera_ErrorCode NDKCamera::VideoOutputStart(void)
 }
 // [End video_output_start]
 // [EndExclude camera_shooting_case]
- 
+
 // [StartExclude camera_recording_case]
 Camera_ErrorCode NDKCamera::StartPhotoWithOutSurfaceId()
 {
@@ -817,28 +815,31 @@ Camera_ErrorCode NDKCamera::PreviewOutputSetFrameRate(uint32_t minFps, uint32_t 
 {
     Camera_ErrorCode ret = OH_PreviewOutput_SetFrameRate(previewOutput_, minFps, maxFps);
     if (ret != CAMERA_OK) {
-        return CAMERA_INVALID_ARGUMENT;
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_SetFrameRate failed.");
+        return ret;
     }
 
-    ret = OH_PreviewOutput_GetActiveFrameRate(previewOutput_, frameRateRange);
+    Camera_FrameRateRange activeRange = {0, 0};
+    ret = OH_PreviewOutput_GetActiveFrameRate(previewOutput_, &activeRange);
     if (ret != CAMERA_OK) {
-        return CAMERA_INVALID_ARGUMENT;
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_GetActiveFrameRate failed.");
+        return ret;
     }
     OH_LOG_DEBUG(LOG_APP, "PreviewOutputGetActiveFrameRate: ActiveFrameRate frameRateRange_ min %{public}d",
-        (*frameRateRange).min);
+        activeRange.min);
     OH_LOG_DEBUG(LOG_APP, "PreviewOutputGetActiveFrameRate: ActiveFrameRate frameRateRange_ max %{public}d",
-        (*frameRateRange).max);
+        activeRange.max);
 
     return ret;
 }
 // [End set_frame_rate]
 
-// 设置白平衡模式
+// 设置白平衡模式。
 Camera_ErrorCode NDKCamera::SetWhiteBalance(int32_t whiteBalance)
 {
     Camera_WhiteBalanceMode mode = static_cast<Camera_WhiteBalanceMode>(whiteBalance);
 
-    // 查询白平衡模式是否支持
+    // 查询白平衡模式是否支持。
     bool isSupported = false;
     Camera_ErrorCode ret = OH_CaptureSession_IsWhiteBalanceModeSupported(captureSession_, mode, &isSupported);
 
@@ -862,7 +863,7 @@ Camera_ErrorCode NDKCamera::SetWhiteBalance(int32_t whiteBalance)
 }
 
 // [StartExclude camera_shooting_case]
-// 设置HDR Vivid 视频
+// 设置HDR Vivid 视频。
 void NDKCamera::EnableHdrVideo(bool isHdr)
 {
     OH_LOG_INFO(LOG_APP, "EnableHdrVideo: isHdr is %{public}d", isHdr);
@@ -906,7 +907,7 @@ void NDKCamera::EnableMacro(bool isMacro)
 
 bool NDKCamera::IsControlCenterSupported()
 {
-    //判断设备是否支持控制相机控制器
+    // 判断设备是否支持控制中心。
     bool isSupported = false;
     if (captureSession_ == nullptr) {
         OH_LOG_ERROR(LOG_APP, "IsControlCenterSupported: session is nullptr.");
@@ -950,7 +951,7 @@ void NDKCamera::SetIsControl(bool isControlCenter)
 }
 
 // [Start set_color_space]
-// 设置色彩空间
+// 设置色彩空间。
 Camera_ErrorCode NDKCamera::SetColorSpace(OH_NativeBuffer_ColorSpace colorSpace)
 {
     OH_LOG_ERROR(LOG_APP, "SetColorSpace: this color space is %{public}d, start", colorSpace);
@@ -1312,7 +1313,7 @@ Camera_ErrorCode NDKCamera::RegisterBufferCb(void *cb)
 {
     OH_LOG_INFO(LOG_APP, " RegisterBufferCb start");
     if (cb == nullptr) {
-        OH_LOG_INFO(LOG_APP, " RegisterBufferCb invalid error");
+        OH_LOG_ERROR(LOG_APP, " RegisterBufferCb invalid error");
         return CAMERA_INVALID_ARGUMENT;
     }
     g_bufferCb = cb;
@@ -1450,7 +1451,7 @@ Camera_ErrorCode NDKCamera::PhotoOutputRegisterPhotoAvailableCallback(void)
     OH_LOG_INFO(LOG_APP, "NDKCamera::PhotoOutputRegisterPhotoAvailableCallback start!");
     Camera_ErrorCode ret = OH_PhotoOutput_RegisterPhotoAvailableCallback(photoOutput_, OnPhotoAvailable);
     if (ret != CAMERA_OK) {
-        OH_LOG_INFO(LOG_APP, "NDKCamera::PhotoOutputRegisterPhotoAvailableCallback failed.");
+        OH_LOG_ERROR(LOG_APP, "NDKCamera::PhotoOutputRegisterPhotoAvailableCallback failed.");
     }
     OH_LOG_INFO(LOG_APP, "NDKCamera::PhotoOutputRegisterPhotoAvailableCallback return with ret code: %{public}d!",
         ret_);
@@ -1495,7 +1496,7 @@ void MacroStatusCallback(Camera_CaptureSession *captureSession, bool isMacroDete
     OH_LOG_INFO(LOG_APP, "MacroStatusCallback isMacro: %{public}d", isMacroDetected);
 }
 
-// 注册回调函数。
+// 注册微距状态变化回调。
 Camera_ErrorCode NDKCamera::RegisterMacroStatusCallback()
 {
     Camera_ErrorCode ret = OH_CaptureSession_RegisterMacroStatusChangeCallback(captureSession_, MacroStatusCallback);
@@ -1505,7 +1506,7 @@ Camera_ErrorCode NDKCamera::RegisterMacroStatusCallback()
     return ret;
 }
 
-// 解注册
+// 解注册微距状态变化回调。
 Camera_ErrorCode NDKCamera::UnregisterMacroStatusCallback()
 {
     Camera_ErrorCode ret = OH_CaptureSession_UnregisterMacroStatusChangeCallback(captureSession_, MacroStatusCallback);
@@ -1541,7 +1542,7 @@ void ControlCenterEffectStatusChange(Camera_CaptureSession *session,
     OH_LOG_INFO(LOG_APP, "ControlCenterEffectStatusChange isActive: %{public}d", controlCenterStatusInfo->isActive);
 }
 
-// 注册回调函数。
+// 注册控制中心效果状态变化回调。
 Camera_ErrorCode NDKCamera::RegisterControlCenterEffectStatusChangeCallback()
 {
     Camera_ErrorCode ret = OH_CaptureSession_RegisterControlCenterEffectStatusChangeCallback(
@@ -1552,7 +1553,7 @@ Camera_ErrorCode NDKCamera::RegisterControlCenterEffectStatusChangeCallback()
     return ret;
 }
 
-// 解注册。
+// 解注册控制中心效果状态变化回调。
 Camera_ErrorCode NDKCamera::UnregisterControlCenterEffectStatusChangeCallback()
 {
     Camera_ErrorCode ret = OH_CaptureSession_UnregisterControlCenterEffectStatusChangeCallback(
@@ -1577,7 +1578,7 @@ int32_t NDKCamera::GetDefaultDisplayRotation()
 
 void NDKCamera::InitPreviewRotation()
 {
-    // previewOutput_是创建的预览输出
+    // 使用已创建的预览输出对象previewOutput_获取并设置预览旋转角度。
     Camera_ImageRotation previewRotation = IAMGE_ROTATION_0;
     int32_t imageRotation = GetDefaultDisplayRotation();
     Camera_ErrorCode ret = OH_PreviewOutput_GetPreviewRotation(previewOutput_, imageRotation, &previewRotation);
@@ -1649,7 +1650,7 @@ Camera_ErrorCode NDKCamera::GetCameraDevices(Camera_Manager* cameraManager, Came
         OH_LOG_INFO(LOG_APP, "cameraType = %{public}d ", (*cameras)[index].cameraType);          // 获取相机类型。
         OH_LOG_INFO(LOG_APP, "connectionType = %{public}d ", (*cameras)[index].connectionType);  // 获取相机连接类型。
         bool isLogical = false;
-        ret = OH_CameraDevice_IsLogicalCamera(cameras[index], &isLogical);
+        ret = OH_CameraDevice_IsLogicalCamera(&(*cameras)[index], &isLogical);
         if (ret != CAMERA_OK) {
             OH_LOG_ERROR(LOG_APP, "OH_CameraDevice_IsLogicalCamera failed.");
             continue;
@@ -1947,7 +1948,7 @@ Camera_ErrorCode NDKCamera::ReloadSession(Camera_CaptureSession* captureSession,
 // [End reload_session]
 
 /**
- * 以下为多摄同开能力
+ * 以下为多摄同开能力。
  */
 // [Start get_supported_cameras_for_concurrent]
 void NDKCamera::GetSupportedCamerasForConcurrent(Camera_Manager *cameraManager)
@@ -2092,5 +2093,124 @@ void NDKCamera::SetExposureModeFn(uint32_t mode, Camera_CaptureSession *captureS
     }
 }
 // [End set_exposure_mode]
+// [Start is_torch_supported]
+bool NDKCamera::IsTorchSupported(Camera_Manager* cameraManager)
+{
+    // 判断设备是否支持手电筒模式。
+    bool isTorchSupported = false;
+    if (cameraManager == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "cameraManager is nullptr.");
+        return isTorchSupported;
+    }
+    Camera_ErrorCode ret = OH_CameraManager_IsTorchSupported(cameraManager, &isTorchSupported);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_IsTorchSupported failed.");
+    }
+    if (isTorchSupported) {
+        OH_LOG_INFO(LOG_APP, "isTorchSupported success.");
+    } else {
+        OH_LOG_ERROR(LOG_APP, "isTorchSupported failed.");
+    }
+    return isTorchSupported;
+}
+// [End is_torch_supported]
+
+// [Start is_torch_mode_supported]
+bool NDKCamera::IsTorchSupportedByTorchMode(Camera_Manager* cameraManager, Camera_TorchMode torchMode)
+{
+    bool torchModeSupported = false;
+    Camera_ErrorCode ret = OH_CameraManager_IsTorchSupportedByTorchMode(cameraManager, torchMode, &torchModeSupported);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_IsTorchSupportedByTorchMode failed.");
+    }
+    if (torchModeSupported) {
+        OH_LOG_INFO(LOG_APP, "IsTorchSupportedByTorchMode success.");
+    } else {
+        OH_LOG_ERROR(LOG_APP, "IsTorchSupportedByTorchMode failed. %{public}d ", ret);
+    }
+    return torchModeSupported;
+}
+// [End is_torch_mode_supported]
+
+// [Start set_torch_mode]
+Camera_ErrorCode NDKCamera::SetTorchMode(Camera_Manager* cameraManager, Camera_TorchMode torchMode)
+{
+    // 在torchMode支持的情况下进行设置手电筒模式。
+    Camera_ErrorCode ret = OH_CameraManager_SetTorchMode(cameraManager, torchMode);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_SetTorchMode failed. %{public}d ", ret);
+    } else {
+        OH_LOG_INFO(LOG_APP, "OH_CameraManager_SetTorchMode success.");
+    }
+    return ret;
+}
+// [End set_torch_mode]
+
+// [Start search_set_focus_mode]
+Camera_ErrorCode NDKCamera::SetFocusMode(Camera_CaptureSession *captureSession, uint32_t mode)
+{
+    bool isFocusModeSupported = false;
+    Camera_FocusMode focusMode = static_cast<Camera_FocusMode>(mode);
+    Camera_ErrorCode ret = OH_CaptureSession_IsFocusModeSupported(captureSession, focusMode, &isFocusModeSupported);
+    if (&isFocusModeSupported == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "IsFocusModeSupported failed.");
+        return CAMERA_INVALID_ARGUMENT;
+    }
+
+    if (!isFocusModeSupported) {
+        OH_LOG_INFO(LOG_APP, "current focusMode(%{public}d) is not supported.", focusMode);
+        return CAMERA_OK;
+    }
+
+    OH_LOG_INFO(LOG_APP, "OH_CaptureSession_SetFocusMode focusMode(%{public}d).", focusMode);
+    ret = OH_CaptureSession_SetFocusMode(captureSession, focusMode);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "SetFocusMode failed.");
+        return CAMERA_INVALID_ARGUMENT;
+    }
+    return ret;
+}
+// [End search_set_focus_mode]
+
+// [Start create_session_for_normal]
+Camera_ErrorCode NDKCamera::CreateCaptureSession(Camera_Manager *cameraManager, Camera_CaptureSession *captureSession)
+{
+    Camera_ErrorCode ret = OH_CameraManager_CreateCaptureSession(cameraManager, &captureSession);
+    if (captureSession == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_CreateCaptureSession failed.");
+    }
+    // 设置会话模式为拍照或录像模式，此处以拍照模式为例。
+    ret = OH_CaptureSession_SetSessionMode(captureSession, Camera_SceneMode::NORMAL_PHOTO);
+    return ret;
+}
+// [End create_session_for_normal]
+
+// [Start set_preview_frame_rate]
+Camera_ErrorCode NDKCamera::PreviewOutputSetFrameRate(Camera_PreviewOutput* previewOutput,
+    uint32_t minFps, uint32_t maxFps)
+{
+    Camera_ErrorCode ret = OH_PreviewOutput_SetFrameRate(previewOutput, minFps, maxFps);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_SetFrameRate failed.");
+    }
+    return ret;
+}
+// [End set_preview_frame_rate]
+
+// [Start get_active_frame_rate]
+Camera_ErrorCode NDKCamera::PreviewOutputGetActiveFrameRate(Camera_PreviewOutput* previewOutput,
+    Camera_FrameRateRange* frameRateRange)
+{
+    Camera_ErrorCode ret = OH_PreviewOutput_GetActiveFrameRate(previewOutput, frameRateRange);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_GetActiveFrameRate failed.");
+    }
+    OH_LOG_DEBUG(LOG_APP, "PreviewOutputGetActiveFrameRate: "
+                          "ActiveFrameRate frameRateRange_ min %{public}d", (*frameRateRange).min);
+    OH_LOG_DEBUG(LOG_APP, "PreviewOutputGetActiveFrameRate: "
+                          "ActiveFrameRate frameRateRange_ max %{public}d", (*frameRateRange).max);
+    return ret;
+}
+// [End get_active_frame_rate]
 
 } // namespace OHOS_CAMERA_SAMPLE

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -18,14 +18,14 @@ import CameraService from '../mode/CameraService';
 
 const TAG: string = 'FocusAreaComponent';
 
-// 对焦区域
+// 对焦区域。
 @Component
 export struct FocusAreaComponent {
   @Link focusPointBol: boolean;
   @Link focusPointVal: Array<number>;
   @Prop xComponentWidth: number;
   @Prop xComponentHeight: number;
-  // 对焦区域显示框定时器
+  // 对焦区域显示框定时器。
   private areaTimer: number = -1;
   private focusFrameDisplayDuration: number = 3500;
 
@@ -40,9 +40,9 @@ export struct FocusAreaComponent {
         this.focusPointBol = true;
         this.focusPointVal[0] = e.touches[0].windowX;
         this.focusPointVal[1] = e.touches[0].windowY;
-        // 归一化焦点。
-        // 设置的焦点与相机sensor角度和窗口方向有关（相机sensor角度可通过CameraDevice的cameraOrientation属性获取），
-        // 下面焦点是以竖屏窗口，相机sensor角度为90度场景下的焦点设置
+        // 归一化焦点。设置的焦点与相机sensor角度和窗口方向有关
+        // （相机sensor角度可通过CameraDevice的cameraOrientation属性获取），
+        // 下面焦点是以竖屏窗口，相机sensor角度为90度场景下的焦点设置。
         CameraService.setFocusPoint({
           x: e.touches[0].y / this.xComponentHeight,
           y: 1 - (e.touches[0].x / this.xComponentWidth)
