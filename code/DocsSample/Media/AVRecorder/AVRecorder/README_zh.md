@@ -57,7 +57,7 @@ entry/src/main/
 |---cpp
 |   |---types/libentry
 |   |   |---Index.d.ts                         // C++ 原生模块的 ArkTS 类型声明
-|   |---avrecorder_ndk.cpp              // Native C++ implementation file
+|   |---native-cpp                     // Native C++ implementation directory
 |   |---CMakeLists.txt                         // 定义 C++ 原生模块的 CMake 构建配置
 ```
 
@@ -70,7 +70,7 @@ entry/src/main/
 
 * C(Native)接口录控功能实现参考工程目录中的Native音频录制页面和Native视频录制页面
   * 通过NAPI调用OH_AVRecorder_Create()、OH_AVRecorder_Prepare()、OH_AVRecorder_GetInputSurface()、OH_AVRecorder_Start()、OH_AVRecorder_Pause()、OH_AVRecorder_Resume()、OH_AVRecorder_Stop()、OH_AVRecorder_Reset()、OH_AVRecorder_Release()等C接口实现录制器的创建、准备、录控操作、重置、销毁实例等功能；
-  * Native录控功能C接口实现详见[avrecorder_ndk.cpp](entry/src/main/cpp/avrecorder_ndk.cpp)
+  * Native录控功能C接口实现详见[entry/src/main/cpp](entry/src/main/cpp)
   * 视频录制[VideoRecorderNative.ets](entry/src/main/ets/pages/VideoRecorderNative.ets)调用Camera接口实现相机出流配合视频录制功能
 
 ### 相关权限

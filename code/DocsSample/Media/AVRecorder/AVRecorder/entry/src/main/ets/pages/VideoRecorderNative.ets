@@ -20,6 +20,7 @@ import recorderLib from 'libentry.so';
 import CameraServiceNative from '../services/CameraServiceNative';
 
 const TAG: string = 'Sample_VideoRecorderNative';
+const NATIVE_VIEW_TYPE: XComponentType = 0 as XComponentType;
 
 @Entry
 @Component
@@ -142,7 +143,7 @@ struct VideoRecorderNative {
       Row() {
         Stack({ alignContent: Alignment.Center }) {
           XComponent({
-            type: XComponentType.SURFACE,
+            type: NATIVE_VIEW_TYPE,
             controller: this.xComponentController
           })
             .onLoad(() => {
