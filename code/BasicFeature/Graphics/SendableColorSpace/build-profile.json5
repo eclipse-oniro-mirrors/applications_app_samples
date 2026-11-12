@@ -1,0 +1,56 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "26.0.0",
+        "targetSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "OpenHarmony",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/oyz/.ohos/config/openharmony/default_SendableColorSpace_f8gYKJ9aWLLyiPVT0d-dvvVsePiS-bc4N7dbGX-j4us=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B87ED491FBF75508DE8AE86262685441675F4B1F4FD98011479D467F0E4C4A790151F79A8C37D74",
+          "profile": "C:/Users/oyz/.ohos/config/openharmony/default_SendableColorSpace_f8gYKJ9aWLLyiPVT0d-dvvVsePiS-bc4N7dbGX-j4us=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/oyz/.ohos/config/openharmony/default_SendableColorSpace_f8gYKJ9aWLLyiPVT0d-dvvVsePiS-bc4N7dbGX-j4us=.p12",
+          "storePassword": "0000001B2E544CCC7E52D2AE0505E4202306AD754BE54D3FA4099C80BAB9A86AF6CF26CEB7F4FE05A9E788"
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

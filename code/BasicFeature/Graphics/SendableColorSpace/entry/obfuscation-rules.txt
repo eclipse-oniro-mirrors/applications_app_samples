@@ -1,0 +1,8 @@
+# Define project specific obfuscation rules here.
+# You can include the obfuscation configuration files with the current file name pattern.
+#
+# More configuration information can be found in:
+# https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-obfuscation-V5
+
+-enable-property-name
+-enable-toplevel-name
