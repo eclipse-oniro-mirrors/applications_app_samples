@@ -20,25 +20,25 @@ import {
   DoNotDisturbStatus
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * IntelligentSceneService 情景模式服务测试套件。
- * 覆盖 initialize/reset/destroy 生命周期、isServiceInitialized、
- * getDoNotDisturbModel/getCurrentStatus 以及 DoNotDisturbModel 状态迁移。
+ * IntelligentSceneService scene mode service test suite.
+ * Covers the initialize/reset/destroy lifecycle, isServiceInitialized,
+ * getDoNotDisturbModel/getCurrentStatus and DoNotDisturbModel state transitions.
  */
 export default function IntelligentSceneServiceTest(): void {
   describe('IntelligentSceneServiceTest', () => {
 
     // ========================================
-    // 生命周期
+    // Lifecycle
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0100
      * @tc.name testIntelligentSceneService0001
-     * @tc.desc 正向: initialize 后 isServiceInitialized 返回 true
+     * @tc.desc Verify isServiceInitialized returns true after initialize
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -56,7 +56,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0200
      * @tc.name testIntelligentSceneService0002
-     * @tc.desc 正向: reset 后 isServiceInitialized 回到 false
+     * @tc.desc Verify isServiceInitialized returns to false after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -76,7 +76,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0300
      * @tc.name testIntelligentSceneService0003
-     * @tc.desc 正向: destroy 后状态完全重置
+     * @tc.desc Verify the state is fully reset after destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -94,13 +94,13 @@ export default function IntelligentSceneServiceTest(): void {
     });
 
     // ========================================
-    // 模型访问
+    // Model access
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0400
      * @tc.name testIntelligentSceneService0004
-     * @tc.desc 正向: initialize 重建免打扰模型并回到初始值
+     * @tc.desc Verify initialize rebuilds the DND model and returns to initial values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -126,7 +126,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0500
      * @tc.name testIntelligentSceneService0005
-     * @tc.desc 正向: 初始化后 getCurrentStatus 返回 IDLE
+     * @tc.desc Verify getCurrentStatus returns IDLE after initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -143,13 +143,13 @@ export default function IntelligentSceneServiceTest(): void {
     });
 
     // ========================================
-    // DoNotDisturbModel 状态迁移
+    // DoNotDisturbModel state transitions
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0600
      * @tc.name testIntelligentSceneService0006
-     * @tc.desc 正向: markQuerying 将状态设为 QUERYING
+     * @tc.desc Verify markQuerying sets the status to QUERYING
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -167,7 +167,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0700
      * @tc.name testIntelligentSceneService0007
-     * @tc.desc 正向: markSuccess 更新状态和数据
+     * @tc.desc Verify markSuccess updates status and data
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -188,7 +188,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0800
      * @tc.name testIntelligentSceneService0008
-     * @tc.desc 反向: markFailed 记录错误信息
+     * @tc.desc Verify markFailed records the error message
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -208,7 +208,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_0900
      * @tc.name testIntelligentSceneService0009
-     * @tc.desc 正向: reset 后模型回到初始状态
+     * @tc.desc Verify the model returns to initial state after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -228,13 +228,13 @@ export default function IntelligentSceneServiceTest(): void {
     });
 
     // ========================================
-    // DoNotDisturbModel 查询方法
+    // DoNotDisturbModel query methods
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_1000
      * @tc.name testIntelligentSceneService0010
-     * @tc.desc 正向: isDndActive 仅在 SUCCESS 且 dndEnabled 时返回 true
+     * @tc.desc Verify isDndActive returns true only when SUCCESS and dndEnabled
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -253,7 +253,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_1100
      * @tc.name testIntelligentSceneService0011
-     * @tc.desc 正向: canNotify 仅在 SUCCESS 且 notifyAllowed 时返回 true
+     * @tc.desc Verify canNotify returns true only when SUCCESS and notifyAllowed
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -272,7 +272,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_1200
      * @tc.name testIntelligentSceneService0012
-     * @tc.desc 正向: isReady 仅在 SUCCESS 状态时返回 true
+     * @tc.desc Verify isReady returns true only in SUCCESS status
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -288,13 +288,13 @@ export default function IntelligentSceneServiceTest(): void {
     });
 
     // ========================================
-    // 序列化
+    // Serialization
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_1300
      * @tc.name testIntelligentSceneService0013
-     * @tc.desc 正向: toJSON 返回完整字段
+     * @tc.desc Verify toJSON returns all fields
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -315,7 +315,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_1400
      * @tc.name testIntelligentSceneService0014
-     * @tc.desc 正向: toString 返回包含关键字段的字符串
+     * @tc.desc Verify toString returns a string containing the key fields
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -333,7 +333,7 @@ export default function IntelligentSceneServiceTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_1500
      * @tc.name testIntelligentSceneService0015
-     * @tc.desc 正向: 未查询返回 -1，查询后返回正值
+     * @tc.desc Verify it returns -1 before query and a positive value after query
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

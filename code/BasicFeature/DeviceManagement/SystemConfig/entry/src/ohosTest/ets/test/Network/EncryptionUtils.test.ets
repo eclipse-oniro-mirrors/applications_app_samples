@@ -16,11 +16,11 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { EncryptionUtils } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * EncryptionUtils 工具类测试套件。
+ * EncryptionUtils utility test suite.
  */
 export default function EncryptionUtilsTest(): void {
   describe('EncryptionUtilsTest', () => {
@@ -28,7 +28,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0100
      * @tc.name testEncryptionUtils0001
-     * @tc.desc 正向: Base64 编码后解码还原
+     * @tc.desc Verify Base64 decode restores the value after encoding
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -46,7 +46,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0200
      * @tc.name testEncryptionUtils0002
-     * @tc.desc 正向: 空字符串编解码
+     * @tc.desc Verify encoding/decoding an empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -63,7 +63,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0300
      * @tc.name testEncryptionUtils0003
-     * @tc.desc 正向: MD5 哈希返回 32 位十六进制
+     * @tc.desc Verify MD5 hash returns 32 hex digits
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -79,7 +79,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0400
      * @tc.name testEncryptionUtils0004
-     * @tc.desc 正向: 相同输入 MD5 一致
+     * @tc.desc Verify the same input yields a consistent MD5
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -96,7 +96,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0500
      * @tc.name testEncryptionUtils0005
-     * @tc.desc 正向: SHA-256 哈希返回 64 位十六进制
+     * @tc.desc Verify SHA-256 hash returns 64 hex digits
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -113,7 +113,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0600
      * @tc.name testEncryptionUtils0006
-     * @tc.desc 正向: 凯撒加密后解密还原
+     * @tc.desc Verify decryption restores the value after Caesar encryption
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -131,7 +131,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0700
      * @tc.name testEncryptionUtils0007
-     * @tc.desc 正向: 生成指定长度 Nonce
+     * @tc.desc Verify generating a Nonce of the specified length
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -148,7 +148,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0800
      * @tc.name testEncryptionUtils0008
-     * @tc.desc 正向: 生成 64 位 Token
+     * @tc.desc Verify generating a 64-character Token
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -165,7 +165,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_0900
      * @tc.name testEncryptionUtils0009
-     * @tc.desc 正向: 十六进制转字节再转回
+     * @tc.desc Verify hex to bytes and back
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -183,7 +183,7 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_1000
      * @tc.name testEncryptionUtils0010
-     * @tc.desc 正向: 不同输入产生不同 MD5
+     * @tc.desc Verify different inputs produce different MD5
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -200,42 +200,42 @@ export default function EncryptionUtilsTest(): void {
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_1100
      * @tc.name testEncryptionUtils0011
-     * @tc.desc 正向: MD5 结果匹配标准测试向量（真实算法校验）
+     * @tc.desc Verify the MD5 result matches standard test vectors (real algorithm check)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
      */
     it('testEncryptionUtils0011', 0, () => {
       hilog.info(DOMAIN, TAG, 'testEncryptionUtils0011: begin');
-      // RFC 标准向量: MD5("test") 与 MD5("")
+      // RFC standard vectors: MD5("test") and MD5("")
       const hashTest: string = EncryptionUtils.md5Hash('test');
       hilog.info(DOMAIN, TAG, 'testEncryptionUtils0011: md5(test)=%{public}s', hashTest);
       expect(hashTest).assertEqual('098f6bcd4621d373cade4e832627b4f6');
       const hashEmpty: string = EncryptionUtils.md5Hash('');
       hilog.info(DOMAIN, TAG, 'testEncryptionUtils0011: md5(empty)=%{public}s', hashEmpty);
       expect(hashEmpty).assertEqual('d41d8cd98f00b204e9800998ecf8427e');
-      // 真实 MD5 输出恒为 32 位小写十六进制
+      // Real MD5 output is always 32 lowercase hex digits
       expect(hashTest.length).assertEqual(32);
     });
 
     /**
      * @tc.number SUB_ENCRYPTION_UTILS_1200
      * @tc.name testEncryptionUtils0012
-     * @tc.desc 正向: SHA-256 结果匹配标准测试向量（真实算法校验）
+     * @tc.desc Verify the SHA-256 result matches standard test vectors (real algorithm check)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
      */
     it('testEncryptionUtils0012', 0, () => {
       hilog.info(DOMAIN, TAG, 'testEncryptionUtils0012: begin');
-      // 标准向量: SHA-256("test") 与 SHA-256("")
+      // Standard vectors: SHA-256("test") and SHA-256("")
       const hashTest: string = EncryptionUtils.sha256Hash('test');
       hilog.info(DOMAIN, TAG, 'testEncryptionUtils0012: sha256(test)=%{public}s', hashTest);
       expect(hashTest).assertEqual('9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
       const hashEmpty: string = EncryptionUtils.sha256Hash('');
       hilog.info(DOMAIN, TAG, 'testEncryptionUtils0012: sha256(empty)=%{public}s', hashEmpty);
       expect(hashEmpty).assertEqual('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
-      // 真实 SHA-256 输出恒为 64 位小写十六进制
+      // Real SHA-256 output is always 64 lowercase hex digits
       expect(hashTest.length).assertEqual(64);
     });
   });

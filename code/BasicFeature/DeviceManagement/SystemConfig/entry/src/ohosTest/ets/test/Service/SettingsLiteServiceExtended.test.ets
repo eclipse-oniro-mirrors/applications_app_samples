@@ -20,11 +20,11 @@ import {
   SettingsOperationStatus
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * 模拟一次打开设置页面操作（与 Service 内部流程一致）。
+ * Simulate one open-settings-page operation (consistent with the Service internal flow).
  */
 function simulateOpenPage(model: SettingsItemModel): void {
   model.markOpening();
@@ -32,21 +32,21 @@ function simulateOpenPage(model: SettingsItemModel): void {
 }
 
 /**
- * SettingsLiteService 扩展测试套件。
- * 补充覆盖并发操作 / 状态流转 / 异常恢复 / 边界值 / 长时间运行等场景。
- * 打开页面需要 UIAbilityContext，单元测试通过模型协同模拟操作流程。
+ * SettingsLiteService extended test suite.
+ * Adds coverage for concurrent operations / state transitions / exception recovery / boundary values / long-running scenarios.
+ * Opening a page requires a UIAbilityContext, so unit tests simulate the flow via model collaboration.
  */
 export default function SettingsLiteServiceExtendedTest(): void {
   describe('SettingsLiteServiceExtendedTest', () => {
 
     // ========================================
-    // 并发操作测试
+    // Concurrent operation tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0100
      * @tc.name testSettingsLiteServiceExtended0001
-     * @tc.desc 正向: 连续模拟打开 PIN 设置后模型状态正确
+     * @tc.desc Verify the model state is correct after repeatedly simulating opening PIN settings
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -70,7 +70,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0200
      * @tc.name testSettingsLiteServiceExtended0002
-     * @tc.desc 正向: 连续模拟打开 NFC 设置后模型状态正确
+     * @tc.desc Verify the model state is correct after repeatedly simulating opening NFC settings
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -94,7 +94,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0300
      * @tc.name testSettingsLiteServiceExtended0003
-     * @tc.desc 正向: 连续模拟打开双击设置后模型状态正确
+     * @tc.desc Verify the model state is correct after repeatedly simulating opening double-click settings
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -116,13 +116,13 @@ export default function SettingsLiteServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 状态流转测试
+    // State transition tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0400
      * @tc.name testSettingsLiteServiceExtended0004
-     * @tc.desc 正向: IDLE → OPENING → SUCCESS 完整流转
+     * @tc.desc Verify the full IDLE → OPENING → SUCCESS transition
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -149,7 +149,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0500
      * @tc.name testSettingsLiteServiceExtended0005
-     * @tc.desc 边界: 重置后状态回到 IDLE
+     * @tc.desc Verify the status returns to IDLE after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -169,13 +169,13 @@ export default function SettingsLiteServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 异常恢复测试
+    // Exception recovery tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0600
      * @tc.name testSettingsLiteServiceExtended0006
-     * @tc.desc 边界: 未初始化直接操作模型
+     * @tc.desc Verify operating the model directly without initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -196,7 +196,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0700
      * @tc.name testSettingsLiteServiceExtended0007
-     * @tc.desc 边界: 销毁后重新初始化
+     * @tc.desc Verify re-initialization after destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -222,7 +222,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0800
      * @tc.name testSettingsLiteServiceExtended0008
-     * @tc.desc 边界: 多次销毁不报错
+     * @tc.desc Verify repeated destroy calls do not throw
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -242,13 +242,13 @@ export default function SettingsLiteServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 边界值测试
+    // Boundary value tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_0900
      * @tc.name testSettingsLiteServiceExtended0009
-     * @tc.desc 边界: 操作后立即重置
+     * @tc.desc Verify reset immediately after an operation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -270,7 +270,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_1000
      * @tc.name testSettingsLiteServiceExtended0010
-     * @tc.desc 边界: 重复获取 PIN 模型返回同一被操作实例
+     * @tc.desc Verify repeatedly getting the PIN model returns the same operated instance
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -294,7 +294,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_1100
      * @tc.name testSettingsLiteServiceExtended0011
-     * @tc.desc 边界: 获取所有模型
+     * @tc.desc Verify getting all models
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -321,13 +321,13 @@ export default function SettingsLiteServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 长时间运行测试
+    // Long-running tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_1200
      * @tc.name testSettingsLiteServiceExtended0012
-     * @tc.desc 边界: 大量操作后计数正确
+     * @tc.desc Verify the count is correct after a large number of operations
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -352,7 +352,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_1300
      * @tc.name testSettingsLiteServiceExtended0013
-     * @tc.desc 边界: 反复初始化/销毁
+     * @tc.desc Verify repeated initialize/destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -373,13 +373,13 @@ export default function SettingsLiteServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 综合场景测试
+    // Combined scenario tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_1400
      * @tc.name testSettingsLiteServiceExtended0014
-     * @tc.desc 综合: 初始化 → 操作 → 重置 → 重新操作
+     * @tc.desc Verify initialize → operate → reset → operate again
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -406,7 +406,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_1500
      * @tc.name testSettingsLiteServiceExtended0015
-     * @tc.desc 综合: 多次操作后重置
+     * @tc.desc Verify reset after multiple operations
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -441,7 +441,7 @@ export default function SettingsLiteServiceExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_EXTENDED_1600
      * @tc.name testSettingsLiteServiceExtended0016
-     * @tc.desc 综合: 操作 → 销毁 → 重新初始化
+     * @tc.desc Verify operate → destroy → re-initialize
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

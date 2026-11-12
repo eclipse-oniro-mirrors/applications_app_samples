@@ -23,12 +23,12 @@ import {
   SystemConfigConstants
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * 错误处理组合测试套件。
- * 验证各服务在异常场景下的行为。
+ * Error-handling combination test suite.
+ * Verifies the behavior of each service under exception scenarios.
  */
 export default function ErrorHandlingCombinationTest(): void {
   describe('ErrorHandlingCombinationTest', () => {
@@ -36,7 +36,7 @@ export default function ErrorHandlingCombinationTest(): void {
     /**
      * @tc.number SUB_ERROR_HANDLING_COMBINATION_0100
      * @tc.name testErrorHandlingCombination0001
-     * @tc.desc 反向: 未初始化服务调用 getChannelId 不抛异常
+     * @tc.desc Verify calling getChannelId on an uninitialized service throws no exception
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -58,7 +58,7 @@ export default function ErrorHandlingCombinationTest(): void {
     /**
      * @tc.number SUB_ERROR_HANDLING_COMBINATION_0200
      * @tc.name testErrorHandlingCombination0002
-     * @tc.desc 反向: 多次销毁不抛异常且每次均重建渠道模型为初始状态
+     * @tc.desc Verify repeated destroy throws no exception and each time rebuilds the channel model to its initial state
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -70,7 +70,7 @@ export default function ErrorHandlingCombinationTest(): void {
       expect(service.isServiceInitialized()).assertTrue();
       service.destroy();
       expect(service.isServiceInitialized()).assertFalse();
-      // 二次销毁为幂等操作；若抛出异常则由测试框架直接判定本用例失败
+      // A second destroy is idempotent; if it throws, the test framework marks this case failed directly
       const modelAfterFirstDestroy: ChannelConfigModel = service.getChannelConfigModel();
       service.destroy();
       expect(service.isServiceInitialized()).assertFalse();
@@ -84,7 +84,7 @@ export default function ErrorHandlingCombinationTest(): void {
     /**
      * @tc.number SUB_ERROR_HANDLING_COMBINATION_0300
      * @tc.name testErrorHandlingCombination0003
-     * @tc.desc 反向: 未初始化 EventService 上报事件不抛异常且事件正确写入历史与统计
+     * @tc.desc Verify reporting an event on an uninitialized EventService throws no exception and writes it to history and statistics
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -93,7 +93,7 @@ export default function ErrorHandlingCombinationTest(): void {
       hilog.info(DOMAIN, TAG, 'testErrorHandlingCombination0003: begin');
       const service: EventService = new EventService();
       expect(service.isServiceInitialized()).assertFalse();
-      // 未初始化时上报事件不抛异常；emitEvent 无初始化守卫，仍会写入历史记录
+      // Reporting an event while uninitialized throws no exception; emitEvent has no initialization guard and still writes the history record
       const beforeReport: number = Date.now();
       service.reportChannelFetched('ch', true);
       const history = service.getEventHistory();
@@ -110,7 +110,7 @@ export default function ErrorHandlingCombinationTest(): void {
     /**
      * @tc.number SUB_ERROR_HANDLING_COMBINATION_0400
      * @tc.name testErrorHandlingCombination0004
-     * @tc.desc 反向: 禁用追踪后操作不报错
+     * @tc.desc Verify operations after disabling tracing report no error
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -131,7 +131,7 @@ export default function ErrorHandlingCombinationTest(): void {
     /**
      * @tc.number SUB_ERROR_HANDLING_COMBINATION_0500
      * @tc.name testErrorHandlingCombination0005
-     * @tc.desc 反向: 销毁后重置可重新初始化
+     * @tc.desc Verify reset after destroy can re-initialize the service
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -151,7 +151,7 @@ export default function ErrorHandlingCombinationTest(): void {
     /**
      * @tc.number SUB_ERROR_HANDLING_COMBINATION_0600
      * @tc.name testErrorHandlingCombination0006
-     * @tc.desc 反向: 获取渠道号后检查状态一致性
+     * @tc.desc Verify status consistency is preserved after fetching the channel id
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

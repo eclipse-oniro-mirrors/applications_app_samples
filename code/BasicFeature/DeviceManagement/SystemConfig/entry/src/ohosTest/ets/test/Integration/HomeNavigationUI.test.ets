@@ -16,7 +16,7 @@ import { describe, expect, it } from '@ohos/hypium';
 import { UiTestSession } from '../Utils/UiTestSupport';
 
 /**
- * 首页真实导航测试。
+ * Home page real navigation test.
  */
 export default function homeNavigationUITest(): void {
   describe('HomeNavigationUITest', () => {

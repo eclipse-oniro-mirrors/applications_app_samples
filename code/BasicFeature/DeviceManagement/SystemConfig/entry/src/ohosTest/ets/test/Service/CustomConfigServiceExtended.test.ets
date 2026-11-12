@@ -16,11 +16,12 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { CustomConfigService, ChannelConfigModel, ChannelConfigStatus, SystemConfigConstants } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * 按设备实际结果检查非空成功、空成功或异常失败，不预设渠道号必须为空。
+ * Check non-empty success, empty success or exception failure against the device's
+ * actual result, without assuming the channel id must be empty.
  */
 function assertFetchResult(service: CustomConfigService, channelId: string,
   expectedFetchCount: number): ChannelConfigModel {
@@ -50,20 +51,21 @@ function assertFetchResult(service: CustomConfigService, channelId: string,
 }
 
 /**
- * CustomConfigService 扩展测试套件。
- * 补充覆盖多次顺序调用 / 状态流转 / 异常恢复 / 边界值 / 长时间运行等场景。
+ * CustomConfigService extended test suite.
+ * Adds coverage for repeated sequential calls / state transitions / exception recovery /
+ * boundary values / long-running scenarios.
  */
 export default function CustomConfigServiceExtendedTest(): void {
   describe('CustomConfigServiceExtendedTest', () => {
 
     // ========================================
-    // 多次顺序调用测试
+    // Repeated sequential call tests
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0100
      * @tc.name testCustomConfigServiceExtended0001
-     * @tc.desc 正向: 多次顺序调用 getChannelId 结果一致
+     * @tc.desc Verify repeated sequential getChannelId calls return consistent results
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -92,7 +94,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0200
      * @tc.name testCustomConfigServiceExtended0002
-     * @tc.desc 正向: 多次顺序调用后模型状态正确
+     * @tc.desc Verify the model status is correct after repeated sequential calls
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -116,13 +118,13 @@ export default function CustomConfigServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 状态流转测试
+    // State transition tests
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0300
      * @tc.name testCustomConfigServiceExtended0003
-     * @tc.desc 正向: 获取渠道号后状态与设备结果一致
+     * @tc.desc Verify the status matches the device result after fetching the channel id
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -149,7 +151,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0400
      * @tc.name testCustomConfigServiceExtended0004
-     * @tc.desc 边界: 重置后状态回到 UNINITIALIZED
+     * @tc.desc Verify the status returns to UNINITIALIZED after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -169,13 +171,13 @@ export default function CustomConfigServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 异常恢复测试
+    // Exception recovery tests
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0500
      * @tc.name testCustomConfigServiceExtended0005
-     * @tc.desc 边界: 未初始化直接获取渠道号
+     * @tc.desc Verify fetching the channel id directly without initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -195,7 +197,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0600
      * @tc.name testCustomConfigServiceExtended0006
-     * @tc.desc 边界: 销毁后重新初始化
+     * @tc.desc Verify re-initialization after destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -223,7 +225,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0700
      * @tc.name testCustomConfigServiceExtended0007
-     * @tc.desc 边界: 多次销毁不报错
+     * @tc.desc Verify repeated destroy calls do not throw
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -243,13 +245,13 @@ export default function CustomConfigServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 边界值测试
+    // Boundary value tests
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0800
      * @tc.name testCustomConfigServiceExtended0008
-     * @tc.desc 边界: 获取渠道号后立即重置
+     * @tc.desc Verify reset immediately after fetching the channel id
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -273,7 +275,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_0900
      * @tc.name testCustomConfigServiceExtended0009
-     * @tc.desc 边界: 重置后获取模型
+     * @tc.desc Verify getting the model after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -296,7 +298,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_1000
      * @tc.name testCustomConfigServiceExtended0010
-     * @tc.desc 边界: 模型引用一致性
+     * @tc.desc Verify model reference consistency
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -315,13 +317,13 @@ export default function CustomConfigServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 长时间运行测试
+    // Long-running tests
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_1100
      * @tc.name testCustomConfigServiceExtended0011
-     * @tc.desc 边界: 大量调用后内存稳定
+     * @tc.desc Verify memory stays stable after a large number of calls
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -348,7 +350,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_1200
      * @tc.name testCustomConfigServiceExtended0012
-     * @tc.desc 边界: 反复初始化/销毁
+     * @tc.desc Verify repeated initialize/destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -372,13 +374,13 @@ export default function CustomConfigServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 综合场景测试
+    // Combined scenario tests
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_1300
      * @tc.name testCustomConfigServiceExtended0013
-     * @tc.desc 综合: 初始化 → 获取 → 重置 → 重新获取
+     * @tc.desc Verify initialize → fetch → reset → fetch again
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -406,7 +408,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_1400
      * @tc.name testCustomConfigServiceExtended0014
-     * @tc.desc 综合: 获取 → 销毁 → 重新初始化
+     * @tc.desc Verify fetch → destroy → re-initialize
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -432,7 +434,7 @@ export default function CustomConfigServiceExtendedTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_EXTENDED_1500
      * @tc.name testCustomConfigServiceExtended0015
-     * @tc.desc 综合: 多次获取后重置
+     * @tc.desc Verify reset after multiple fetches
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

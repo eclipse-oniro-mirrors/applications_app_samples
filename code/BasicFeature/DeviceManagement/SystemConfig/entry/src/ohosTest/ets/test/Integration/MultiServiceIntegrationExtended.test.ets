@@ -23,25 +23,25 @@ import {
   EventTypeName
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * 集成测试扩展套件。
- * 补充覆盖服务间协同 / 事件与追踪联动 / 错误传播 /
- * 多实例隔离 / 生命周期交叉等集成场景。
+ * Integration test extended suite.
+ * Adds coverage for inter-service collaboration / event-and-trace linkage / error propagation /
+ * multi-instance isolation / crossed lifecycles and other integration scenarios.
  */
 export default function IntegrationExtendedTest(): void {
   describe('IntegrationExtendedTest', () => {
 
     // ========================================
-    // 事件上报与历史联动测试
+    // Event reporting and history linkage tests
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0100
      * @tc.name testMultiServiceIntegrationExtended0001
-     * @tc.desc 正向: EventService 上报事件后历史计数增加
+     * @tc.desc Verify the history count increases after EventService reports an event
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -61,13 +61,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // 追踪与事件联动测试
+    // Trace and event linkage tests
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0200
      * @tc.name testMultiServiceIntegrationExtended0002
-     * @tc.desc 正向: 追踪完成后上报事件，两者互不干扰
+     * @tc.desc Verify reporting an event after a trace completes, with the two not interfering
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -94,13 +94,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // 多实例隔离测试
+    // Multi-instance isolation tests
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0300
      * @tc.name testMultiServiceIntegrationExtended0003
-     * @tc.desc 正向: 多个 EventService 实例历史互不影响
+     * @tc.desc Verify the histories of multiple EventService instances do not affect each other
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -125,13 +125,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // 生命周期交叉测试
+    // Crossed lifecycle tests
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0400
      * @tc.name testMultiServiceIntegrationExtended0004
-     * @tc.desc 边界: 先追踪后初始化服务，追踪仍生效
+     * @tc.desc Verify starting a trace before initializing a service still keeps the trace effective
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -157,13 +157,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // CustomConfigService 状态与 EventService 联动
+    // CustomConfigService status linked with EventService
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0500
      * @tc.name testMultiServiceIntegrationExtended0005
-     * @tc.desc 正向: CustomConfigService 状态变更后上报事件
+     * @tc.desc Verify an event is reported after the CustomConfigService status changes
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -187,13 +187,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // TraceService 多次 start/finish 循环
+    // TraceService repeated start/finish loop
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0600
      * @tc.name testMultiServiceIntegrationExtended0006
-     * @tc.desc 正向: 多次 start/finish 循环，计数始终正确
+     * @tc.desc Verify counts stay correct across repeated start/finish loops
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -220,13 +220,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // EventService 清空历史后重新计数
+    // EventService recounting after clearing history
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0700
      * @tc.name testMultiServiceIntegrationExtended0007
-     * @tc.desc 正向: 清空历史后重新上报，计数从 0 开始
+     * @tc.desc Verify recounting from 0 after clearing history and reporting again
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -250,13 +250,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // 服务销毁后不可再操作验证
+    // Verifying operations are disallowed after service destruction
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0800
      * @tc.name testMultiServiceIntegrationExtended0008
-     * @tc.desc 边界: 销毁后调用查询方法不崩溃
+     * @tc.desc Verify calling query methods after destroy does not crash
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -274,13 +274,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // 并行追踪不同 TraceName
+    // Tracing different TraceNames in parallel
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_0900
      * @tc.name testMultiServiceIntegrationExtended0009
-     * @tc.desc 正向: 并行追踪多个不同 TraceName，计数独立累加
+     * @tc.desc Verify tracing multiple distinct TraceNames in parallel with independent counts
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -306,13 +306,13 @@ export default function IntegrationExtendedTest(): void {
     });
 
     // ========================================
-    // 综合场景: 全服务协同
+    // Comprehensive scenario: all services collaborating
     // ========================================
 
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_EXTENDED_1000
      * @tc.name testMultiServiceIntegrationExtended0010
-     * @tc.desc 综合: 三服务协同操作，各自状态正确
+     * @tc.desc Verify collaborating across three services keeps each status correct
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

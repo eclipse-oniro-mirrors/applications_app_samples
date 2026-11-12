@@ -69,7 +69,7 @@ function assertIdle(model: SettingsItemModel): void {
 }
 
 /**
- * SettingsLiteService 核心公开操作测试。
+ * SettingsLiteService core public operation tests.
  */
 export default function settingsLiteServiceOperationTest(): void {
   describe('SettingsLiteServiceOperationTest', () => {
@@ -252,7 +252,7 @@ export default function settingsLiteServiceOperationTest(): void {
         callbackErrorCode = cb.errorCode;
       });
       const model: SettingsItemModel = service.getDoubleClickModel();
-      // settingsLite 为 FA 模型专用接口，Stage 环境下如实回调不支持错误，不再返回模拟成功
+      // settingsLite is an FA-model-only interface; under the Stage model it faithfully reports an unsupported error instead of a simulated success
       expect(callbackCount).assertEqual(1);
       expect(callbackError !== null).assertTrue();
       expect(callbackResult).assertEqual(ClickResult.ERROR);

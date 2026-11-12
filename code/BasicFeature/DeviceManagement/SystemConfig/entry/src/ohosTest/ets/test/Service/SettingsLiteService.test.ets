@@ -22,26 +22,26 @@ import {
   ClickResult
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * SettingsLiteService 设置信息服务测试套件。
- * 覆盖 initialize/reset/destroy 生命周期、isServiceInitialized、
+ * SettingsLiteService settings info service test suite.
+ * Covers the initialize/reset/destroy lifecycle, isServiceInitialized,
  * getPinModel/getNfcModel/getDoubleClickModel/getAllModels
- * 以及 SettingsItemModel 状态迁移。
+ * and SettingsItemModel state transitions.
  */
 export default function SettingsLiteServiceTest(): void {
   describe('SettingsLiteServiceTest', () => {
 
     // ========================================
-    // 生命周期
+    // Lifecycle
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0100
      * @tc.name testSettingsLiteService0001
-     * @tc.desc 正向: initialize 后 isServiceInitialized 返回 true
+     * @tc.desc Verify isServiceInitialized returns true after initialize
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -62,7 +62,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0200
      * @tc.name testSettingsLiteService0002
-     * @tc.desc 正向: reset 后 isServiceInitialized 回到 false
+     * @tc.desc Verify isServiceInitialized returns to false after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -82,7 +82,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0300
      * @tc.name testSettingsLiteService0003
-     * @tc.desc 正向: destroy 后状态完全重置
+     * @tc.desc Verify the state is fully reset after destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -100,13 +100,13 @@ export default function SettingsLiteServiceTest(): void {
     });
 
     // ========================================
-    // 模型访问
+    // Model access
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0400
      * @tc.name testSettingsLiteService0004
-     * @tc.desc 正向: getPinModel 返回 PIN 类型模型
+     * @tc.desc Verify getPinModel returns a PIN type model
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -126,7 +126,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0500
      * @tc.name testSettingsLiteService0005
-     * @tc.desc 正向: getNfcModel 返回 NFC 类型模型
+     * @tc.desc Verify getNfcModel returns an NFC type model
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -146,7 +146,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0600
      * @tc.name testSettingsLiteService0006
-     * @tc.desc 正向: getDoubleClickModel 返回双击类型模型
+     * @tc.desc Verify getDoubleClickModel returns a double-click type model
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -166,7 +166,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0700
      * @tc.name testSettingsLiteService0007
-     * @tc.desc 正向: getAllModels 返回 3 个模型
+     * @tc.desc Verify getAllModels returns 3 models
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -184,13 +184,13 @@ export default function SettingsLiteServiceTest(): void {
     });
 
     // ========================================
-    // SettingsItemModel 状态迁移
+    // SettingsItemModel state transitions
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0800
      * @tc.name testSettingsLiteService0008
-     * @tc.desc 正向: markOpening 将状态设为 OPENING
+     * @tc.desc Verify markOpening sets the status to OPENING
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -211,7 +211,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_0900
      * @tc.name testSettingsLiteService0009
-     * @tc.desc 正向: markSuccess 更新状态和统计
+     * @tc.desc Verify markSuccess updates status and statistics
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -233,7 +233,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_1000
      * @tc.name testSettingsLiteService0010
-     * @tc.desc 反向: markFailed 记录错误信息
+     * @tc.desc Verify markFailed records the error message
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -255,7 +255,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_1100
      * @tc.name testSettingsLiteService0011
-     * @tc.desc 正向: reset 后模型回到初始状态
+     * @tc.desc Verify the model returns to initial state after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -276,13 +276,13 @@ export default function SettingsLiteServiceTest(): void {
     });
 
     // ========================================
-    // SettingsItemModel 序列化
+    // SettingsItemModel serialization
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_1200
      * @tc.name testSettingsLiteService0012
-     * @tc.desc 正向: toJSON 返回完整字段
+     * @tc.desc Verify toJSON returns all fields
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -304,7 +304,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_1300
      * @tc.name testSettingsLiteService0013
-     * @tc.desc 正向: toString 返回包含关键字段的字符串
+     * @tc.desc Verify toString returns a string containing the key fields
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -323,7 +323,7 @@ export default function SettingsLiteServiceTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_SERVICE_1400
      * @tc.name testSettingsLiteService0014
-     * @tc.desc 正向: updateClickResult 更新双击结果
+     * @tc.desc Verify updateClickResult updates the double-click result
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

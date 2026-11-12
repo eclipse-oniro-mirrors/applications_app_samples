@@ -17,11 +17,11 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { EventService } from 'library';
 import type { EventHistoryRecord } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * EventService 历史清除功能测试套件。
+ * EventService history clearing test suite.
  */
 export default function HistoryClearTest(): void {
   describe('HistoryClearTest', () => {
@@ -29,7 +29,7 @@ export default function HistoryClearTest(): void {
     /**
      * @tc.number SUB_HISTORY_CLEAR_TEST_0100
      * @tc.name testHistoryClearTest0001
-     * @tc.desc 正向: 空历史记录清除不报错
+     * @tc.desc Verify clearing an empty history does not throw
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -48,7 +48,7 @@ export default function HistoryClearTest(): void {
     /**
      * @tc.number SUB_HISTORY_CLEAR_TEST_0200
      * @tc.name testHistoryClearTest0002
-     * @tc.desc 正向: 上报后清除，记录归零
+     * @tc.desc Verify records drop to zero after reporting then clearing
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -71,7 +71,7 @@ export default function HistoryClearTest(): void {
     /**
      * @tc.number SUB_HISTORY_CLEAR_TEST_0300
      * @tc.name testHistoryClearTest0003
-     * @tc.desc 正向: 清除后继续上报正常记录
+     * @tc.desc Verify reporting after clearing still records normally
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -93,7 +93,7 @@ export default function HistoryClearTest(): void {
     /**
      * @tc.number SUB_HISTORY_CLEAR_TEST_0400
      * @tc.name testHistoryClearTest0004
-     * @tc.desc 正向: 销毁后历史清空
+     * @tc.desc Verify history is cleared after destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -112,7 +112,7 @@ export default function HistoryClearTest(): void {
     /**
      * @tc.number SUB_HISTORY_CLEAR_TEST_0500
      * @tc.name testHistoryClearTest0005
-     * @tc.desc 正向: 清除后统计信息归零
+     * @tc.desc Verify statistics drop to zero after clearing
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

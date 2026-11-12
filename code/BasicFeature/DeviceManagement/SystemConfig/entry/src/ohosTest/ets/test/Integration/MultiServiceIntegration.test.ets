@@ -22,12 +22,12 @@ import {
   ChannelConfigStatus
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * 多服务集成测试套件。
- * 验证 CustomConfigService + EventService + TraceService 协同工作。
+ * Multi-service integration test suite.
+ * Verifies CustomConfigService + EventService + TraceService working together.
  */
 export default function MultiServiceIntegrationTest(): void {
   describe('MultiServiceIntegrationTest', () => {
@@ -35,7 +35,7 @@ export default function MultiServiceIntegrationTest(): void {
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_0100
      * @tc.name testMultiServiceIntegration0001
-     * @tc.desc 正向: 三个服务均可初始化
+     * @tc.desc Verify all three services can be initialized
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -65,7 +65,7 @@ export default function MultiServiceIntegrationTest(): void {
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_0200
      * @tc.name testMultiServiceIntegration0002
-     * @tc.desc 正向: 获取渠道号 + 追踪 + 事件上报
+     * @tc.desc Verify fetching the channel id with tracing and event reporting
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -99,7 +99,7 @@ export default function MultiServiceIntegrationTest(): void {
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_0300
      * @tc.name testMultiServiceIntegration0003
-     * @tc.desc 正向: 按顺序销毁服务不影响其他服务
+     * @tc.desc Verify destroying services in order does not affect the other services
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -124,7 +124,7 @@ export default function MultiServiceIntegrationTest(): void {
     /**
      * @tc.number SUB_MULTI_SERVICE_INTEGRATION_0400
      * @tc.name testMultiServiceIntegration0004
-     * @tc.desc 正向: 多个追踪并行，计数正确
+     * @tc.desc Verify multiple traces run in parallel with correct counts
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

@@ -17,29 +17,29 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { NetworkUtils, NetworkType, NetworkState } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// NetworkUtils 工具类测试套件
+// NetworkUtils utility test suite
 // ========================================
 
 /**
- * NetworkUtils 工具类测试套件。
- * 测试 NetworkUtils 类中网络类型与状态标签获取、
- * 连接判断、带宽评估、信号等级计算、延迟估算等方法的正确性。
+ * NetworkUtils utility test suite.
+ * Tests the correctness of network type and state label lookup,
+ * connection checks, bandwidth evaluation, signal level calculation and latency estimation in the NetworkUtils class.
  */
 export default function networkUtilsTest(): void {
   describe('NetworkUtilsTest', () => {
 
     // ========================================
-    // getNetworkTypeLabel - 网络类型标签测试
+    // getNetworkTypeLabel - network type label tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_0100
      * @tc.name testNetworkUtils0001
-     * @tc.desc 正向: 类型标签 - WIFI 返回 "Wi-Fi"
+     * @tc.desc Verify type label - WIFI returns "Wi-Fi"
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -56,7 +56,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_0200
      * @tc.name testNetworkUtils0002
-     * @tc.desc 正向: 类型标签 - CELLULAR 返回 "蜂窝网络"
+     * @tc.desc Verify type label - CELLULAR returns the cellular network label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -73,7 +73,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_0300
      * @tc.name testNetworkUtils0003
-     * @tc.desc 正向: 类型标签 - ETHERNET 返回 "以太网"
+     * @tc.desc Verify type label - ETHERNET returns the ethernet label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -90,7 +90,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_0400
      * @tc.name testNetworkUtils0004
-     * @tc.desc 正向: 类型标签 - BLUETOOTH 返回 "蓝牙"
+     * @tc.desc Verify type label - BLUETOOTH returns the bluetooth label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -107,7 +107,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_0500
      * @tc.name testNetworkUtils0005
-     * @tc.desc 正向: 类型标签 - UNKNOWN 返回 "未知网络"
+     * @tc.desc Verify type label - UNKNOWN returns the unknown network label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -122,13 +122,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // getNetworkStateLabel - 网络状态标签测试
+    // getNetworkStateLabel - network state label tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_0600
      * @tc.name testNetworkUtils0006
-     * @tc.desc 正向: 状态标签 - CONNECTED 返回 "已连接"
+     * @tc.desc Verify state label - CONNECTED returns the connected label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -145,7 +145,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_0700
      * @tc.name testNetworkUtils0007
-     * @tc.desc 正向: 状态标签 - DISCONNECTED 返回 "已断开"
+     * @tc.desc Verify state label - DISCONNECTED returns the disconnected label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -162,7 +162,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_0800
      * @tc.name testNetworkUtils0008
-     * @tc.desc 正向: 状态标签 - CONNECTING 返回 "连接中"
+     * @tc.desc Verify state label - CONNECTING returns the connecting label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -179,7 +179,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_0900
      * @tc.name testNetworkUtils0009
-     * @tc.desc 正向: 状态标签 - SUSPENDED 返回 "已暂停"
+     * @tc.desc Verify state label - SUSPENDED returns the suspended label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -194,13 +194,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // isConnected - 连接状态判断测试
+    // isConnected - connection state tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_1000
      * @tc.name testNetworkUtils0010
-     * @tc.desc 正向: 连接判断 - CONNECTED 返回 true
+     * @tc.desc Verify connection check - CONNECTED returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -217,7 +217,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_1100
      * @tc.name testNetworkUtils0011
-     * @tc.desc 正向: 连接判断 - DISCONNECTED 返回 false
+     * @tc.desc Verify connection check - DISCONNECTED returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -234,7 +234,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_1200
      * @tc.name testNetworkUtils0012
-     * @tc.desc 正向: 连接判断 - CONNECTING 返回 false
+     * @tc.desc Verify connection check - CONNECTING returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -249,13 +249,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // isAvailable - 网络可用性判断测试
+    // isAvailable - network availability tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_1300
      * @tc.name testNetworkUtils0013
-     * @tc.desc 正向: 可用性 - CONNECTED 返回 true
+     * @tc.desc Verify availability - CONNECTED returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -272,7 +272,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_1400
      * @tc.name testNetworkUtils0014
-     * @tc.desc 正向: 可用性 - CONNECTING 返回 true
+     * @tc.desc Verify availability - CONNECTING returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -289,7 +289,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_1500
      * @tc.name testNetworkUtils0015
-     * @tc.desc 正向: 可用性 - DISCONNECTED 返回 false
+     * @tc.desc Verify availability - DISCONNECTED returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -306,7 +306,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_1600
      * @tc.name testNetworkUtils0016
-     * @tc.desc 正向: 可用性 - SUSPENDED 返回 false
+     * @tc.desc Verify availability - SUSPENDED returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -321,13 +321,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // isHighBandwidth - 高带宽判断测试
+    // isHighBandwidth - high bandwidth tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_1700
      * @tc.name testNetworkUtils0017
-     * @tc.desc 正向: 高带宽 - WIFI 返回 true
+     * @tc.desc Verify high bandwidth - WIFI returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -344,7 +344,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_1800
      * @tc.name testNetworkUtils0018
-     * @tc.desc 正向: 高带宽 - ETHERNET 返回 true
+     * @tc.desc Verify high bandwidth - ETHERNET returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -361,7 +361,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_1900
      * @tc.name testNetworkUtils0019
-     * @tc.desc 正向: 高带宽 - CELLULAR 返回 false
+     * @tc.desc Verify high bandwidth - CELLULAR returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -378,7 +378,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2000
      * @tc.name testNetworkUtils0020
-     * @tc.desc 正向: 高带宽 - BLUETOOTH 返回 false
+     * @tc.desc Verify high bandwidth - BLUETOOTH returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -393,13 +393,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // getSignalLevel - 信号等级计算测试
+    // getSignalLevel - signal level tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_2100
      * @tc.name testNetworkUtils0021
-     * @tc.desc 正向: 信号等级 - 极好 (rssi >= -50)
+     * @tc.desc Verify signal level - excellent (rssi >= -50)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -415,7 +415,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2200
      * @tc.name testNetworkUtils0022
-     * @tc.desc 正向: 信号等级 - 好 (-60 <= rssi < -50)
+     * @tc.desc Verify signal level - good (-60 <= rssi < -50)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -431,7 +431,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2300
      * @tc.name testNetworkUtils0023
-     * @tc.desc 正向: 信号等级 - 一般 (-70 <= rssi < -60)
+     * @tc.desc Verify signal level - fair (-70 <= rssi < -60)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -447,7 +447,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2400
      * @tc.name testNetworkUtils0024
-     * @tc.desc 正向: 信号等级 - 差 (-80 <= rssi < -70)
+     * @tc.desc Verify signal level - poor (-80 <= rssi < -70)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -463,7 +463,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2500
      * @tc.name testNetworkUtils0025
-     * @tc.desc 正向: 信号等级 - 无信号 (rssi < -80)
+     * @tc.desc Verify signal level - no signal (rssi < -80)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -479,7 +479,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2600
      * @tc.name testNetworkUtils0026
-     * @tc.desc 边界: 信号等级 - 临界值测试
+     * @tc.desc Verify signal level - threshold boundary test
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -495,13 +495,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // estimateLatency - 延迟估算测试
+    // estimateLatency - latency estimation tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_2700
      * @tc.name testNetworkUtils0027
-     * @tc.desc 正向: 延迟估算 - WIFI 返回 20ms
+     * @tc.desc Verify latency estimation - WIFI returns 20ms
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -518,7 +518,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2800
      * @tc.name testNetworkUtils0028
-     * @tc.desc 正向: 延迟估算 - ETHERNET 返回 5ms
+     * @tc.desc Verify latency estimation - ETHERNET returns 5ms
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -535,7 +535,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_2900
      * @tc.name testNetworkUtils0029
-     * @tc.desc 正向: 延迟估算 - CELLULAR 返回 100ms
+     * @tc.desc Verify latency estimation - CELLULAR returns 100ms
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -552,7 +552,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3000
      * @tc.name testNetworkUtils0030
-     * @tc.desc 正向: 延迟估算 - BLUETOOTH 返回 150ms
+     * @tc.desc Verify latency estimation - BLUETOOTH returns 150ms
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -569,7 +569,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3100
      * @tc.name testNetworkUtils0031
-     * @tc.desc 正向: 延迟估算 - UNKNOWN 返回 200ms
+     * @tc.desc Verify latency estimation - UNKNOWN returns 200ms
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -586,7 +586,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3200
      * @tc.name testNetworkUtils0032
-     * @tc.desc 正向: 延迟估算 - 延迟递增顺序验证
+     * @tc.desc Verify latency estimation - latency ascending order
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -605,13 +605,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // getBandwidthDescription - 带宽描述测试
+    // getBandwidthDescription - bandwidth description tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_3300
      * @tc.name testNetworkUtils0033
-     * @tc.desc 正向: 带宽描述 - ETHERNET 返回 "千兆级带宽"
+     * @tc.desc Verify bandwidth description - ETHERNET returns the gigabit-level bandwidth label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -628,7 +628,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3400
      * @tc.name testNetworkUtils0034
-     * @tc.desc 正向: 带宽描述 - WIFI 返回 "百兆级带宽"
+     * @tc.desc Verify bandwidth description - WIFI returns the hundred-megabit-level bandwidth label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -645,7 +645,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3500
      * @tc.name testNetworkUtils0035
-     * @tc.desc 正向: 带宽描述 - CELLULAR 返回 "移动网络带宽"
+     * @tc.desc Verify bandwidth description - CELLULAR returns the mobile network bandwidth label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -662,7 +662,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3600
      * @tc.name testNetworkUtils0036
-     * @tc.desc 正向: 带宽描述 - BLUETOOTH 返回 "低功耗窄带"
+     * @tc.desc Verify bandwidth description - BLUETOOTH returns the low-power narrowband label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -679,7 +679,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3700
      * @tc.name testNetworkUtils0037
-     * @tc.desc 正向: 带宽描述 - UNKNOWN 返回 "未知带宽"
+     * @tc.desc Verify bandwidth description - UNKNOWN returns the unknown bandwidth label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -694,13 +694,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // 枚举值测试
+    // Enum value tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_3800
      * @tc.name testNetworkUtils0038
-     * @tc.desc 正向: 网络类型枚举值验证
+     * @tc.desc Verify network type enum values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -718,7 +718,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_3900
      * @tc.name testNetworkUtils0039
-     * @tc.desc 正向: 网络状态枚举值验证
+     * @tc.desc Verify network state enum values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -733,13 +733,13 @@ export default function networkUtilsTest(): void {
     });
 
     // ========================================
-    // 综合场景测试
+    // Combined scenario tests
     // ========================================
 
     /**
      * @tc.number SUB_NETWORK_UTILS_4000
      * @tc.name testNetworkUtils0040
-     * @tc.desc 正向: 高带宽网络延迟较低综合验证
+     * @tc.desc Verify high bandwidth networks have lower latency
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -761,7 +761,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_4100
      * @tc.name testNetworkUtils0041
-     * @tc.desc 正向: 信号等级递减顺序验证
+     * @tc.desc Verify signal level descending order
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -785,7 +785,7 @@ export default function networkUtilsTest(): void {
     /**
      * @tc.number SUB_NETWORK_UTILS_4200
      * @tc.name testNetworkUtils0042
-     * @tc.desc 正向: 状态判断一致性验证
+     * @tc.desc Verify state check consistency
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

@@ -16,11 +16,11 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DeviceUtils, SystemConfigConstants } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * DeviceUtils 工具类测试套件。
+ * DeviceUtils utility test suite.
  */
 export default function DeviceUtilsTest(): void {
   describe('DeviceUtilsTest', () => {
@@ -28,7 +28,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0100
      * @tc.name testDeviceUtils0001
-     * @tc.desc 正向: 返回非空字符串
+     * @tc.desc Verify getDeviceType returns a non-empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -39,7 +39,7 @@ export default function DeviceUtilsTest(): void {
       const deviceType: string = DeviceUtils.getDeviceType();
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0001: deviceType=%{public}s', deviceType);
       expect(deviceType.length).assertLarger(0);
-      // 真实设备类型不再硬编码为 default；归一化外的取值可能含数字（如 2in1），仅校验为非空小写字母数字标识串
+      // The real device type is no longer hardcoded as default; values outside normalization may contain digits (e.g. 2in1), so only verify it is a non-empty lowercase alphanumeric identifier
       expect(/^[a-z0-9]+$/.test(deviceType)).assertTrue();
       const cached: string = DeviceUtils.getDeviceType();
       expect(cached).assertEqual(deviceType);
@@ -48,7 +48,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0200
      * @tc.name testDeviceUtils0002
-     * @tc.desc 正向: 屏幕尺寸为正数
+     * @tc.desc Verify the screen size is positive
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -59,12 +59,12 @@ export default function DeviceUtilsTest(): void {
       const width: number = DeviceUtils.getScreenWidth();
       const height: number = DeviceUtils.getScreenHeight();
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0002: width=%{public}d, height=%{public}d', width, height);
-      // 屏幕尺寸来自真实 display，仅校验为正数，不再假设具体分辨率与朝向
+      // The screen size comes from the real display, only verify it is positive, no longer assuming a specific resolution or orientation
       expect(width).assertLarger(0);
       expect(height).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0002: repeat width=%{public}d, height=%{public}d',
         DeviceUtils.getScreenWidth(), DeviceUtils.getScreenHeight());
-      // ensureScreenSize 惰性取值后写入缓存，重复获取必须稳定一致
+      // ensureScreenSize reads lazily then caches, so repeated reads must stay consistent
       expect(DeviceUtils.getScreenWidth()).assertEqual(width);
       expect(DeviceUtils.getScreenHeight()).assertEqual(height);
     });
@@ -72,7 +72,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0300
      * @tc.name testDeviceUtils0003
-     * @tc.desc 正向: 设置屏幕尺寸后可获取
+     * @tc.desc Verify the size can be read after setting the screen size
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -89,7 +89,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0400
      * @tc.name testDeviceUtils0004
-     * @tc.desc 正向: 默认尺寸下为竖屏
+     * @tc.desc Verify portrait under the default size
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -101,9 +101,9 @@ export default function DeviceUtilsTest(): void {
       const landscape: boolean = DeviceUtils.isLandscape();
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0004: portrait=%{public}s, landscape=%{public}s',
         portrait.toString(), landscape.toString());
-      // 朝向由真实屏幕尺寸决定，横竖屏互斥，不再假设默认为竖屏
+      // Orientation is decided by the real screen size, portrait and landscape are mutually exclusive, no longer assuming portrait by default
       expect(portrait).assertEqual(!landscape);
-      // 朝向判定必须与真实宽高关系一致：竖屏 height>=width，横屏 width>height
+      // The orientation decision must match the real width/height relation: portrait height>=width, landscape width>height
       const w: number = DeviceUtils.getScreenWidth();
       const h: number = DeviceUtils.getScreenHeight();
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0004: width=%{public}d, height=%{public}d', w, h);
@@ -114,7 +114,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0500
      * @tc.name testDeviceUtils0005
-     * @tc.desc 正向: 返回非空字符串
+     * @tc.desc Verify getOsVersion returns a non-empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -123,9 +123,9 @@ export default function DeviceUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0005: begin');
       const version: string = DeviceUtils.getOsVersion();
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0005: osVersion=%{public}s', version);
-      // 系统版本来自 deviceInfo.osFullName，仅校验非空，不再硬编码具体版本串
+      // The system version comes from deviceInfo.osFullName, only verify non-empty, no longer hardcoding a specific version string
       expect(version.length).assertLarger(0);
-      // osFullName 为稳定单行标识串，重复获取必须一致且不含换行
+      // osFullName is a stable single-line identifier, repeated reads must be consistent and contain no newline
       expect(version).assertEqual(DeviceUtils.getOsVersion());
       expect(version.indexOf('\n')).assertEqual(-1);
     });
@@ -133,7 +133,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0600
      * @tc.name testDeviceUtils0006
-     * @tc.desc 正向: 返回非空字符串
+     * @tc.desc Verify getDeviceId returns a non-empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -151,7 +151,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0700
      * @tc.name testDeviceUtils0007
-     * @tc.desc 正向: 返回正整数
+     * @tc.desc Verify a positive integer is returned
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -160,10 +160,10 @@ export default function DeviceUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0007: begin');
       const version: number = DeviceUtils.getApiVersion();
       hilog.info(DOMAIN, TAG, 'testDeviceUtils0007: apiVersion=%{public}d', version);
-      // API 版本来自 deviceInfo.sdkApiVersion，随运行设备而变，仅校验为正整数
+      // The API version comes from deviceInfo.sdkApiVersion and varies by device, only verify it is a positive integer
       expect(version).assertLarger(0);
       expect(Number.isInteger(version)).assertTrue();
-      // 本工程目标 API 26，运行设备不低于最低支持版本 10；重复读取必须稳定
+      // This project targets API 26, the running device is no lower than the minimum supported version 10; repeated reads must be stable
       expect(version >= 10).assertTrue();
       expect(DeviceUtils.getApiVersion()).assertEqual(version);
     });
@@ -171,7 +171,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0800
      * @tc.name testDeviceUtils0008
-     * @tc.desc 正向: 返回非空字符串
+     * @tc.desc Verify getBundleName returns a non-empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -187,7 +187,7 @@ export default function DeviceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_UTILS_0900
      * @tc.name testDeviceUtils0009
-     * @tc.desc 正向: 清除缓存后重新获取设备类型
+     * @tc.desc Verify the device type is re-fetched after clearing the cache
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

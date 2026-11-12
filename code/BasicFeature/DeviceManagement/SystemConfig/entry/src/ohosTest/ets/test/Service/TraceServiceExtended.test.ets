@@ -16,25 +16,25 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { TraceService, TraceName } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * TraceService 扩展测试套件。
- * 补充覆盖 traceAsync / traceSync / 禁用时行为 / 完整生命周期 /
- * processStage / finishTrace count 参数 等场景。
+ * TraceService extended test suite.
+ * Adds coverage for traceAsync / traceSync / disabled behavior / full lifecycle /
+ * processStage / finishTrace count parameter scenarios.
  */
 export default function TraceServiceExtendedTest(): void {
   describe('TraceServiceExtendedTest', () => {
 
     // ========================================
-    // traceSync 测试
+    // traceSync tests
     // ========================================
 
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0100
      * @tc.name testTraceServiceExtended0001
-     * @tc.desc 正向: traceSync 包裹同步操作返回结果且计数正确
+     * @tc.desc Verify traceSync wraps a sync operation, returns the result and counts correctly
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -56,7 +56,7 @@ export default function TraceServiceExtendedTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0200
      * @tc.name testTraceServiceExtended0002
-     * @tc.desc 边界: traceSync 内操作抛异常后计数仍归零且异常传播
+     * @tc.desc Verify the count still returns to zero and the exception propagates when the operation inside traceSync throws
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -81,13 +81,13 @@ export default function TraceServiceExtendedTest(): void {
     });
 
     // ========================================
-    // traceAsync 测试
+    // traceAsync tests
     // ========================================
 
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0300
      * @tc.name testTraceServiceExtended0003
-     * @tc.desc 正向: traceAsync 包裹异步操作返回结果且计数正确
+     * @tc.desc Verify traceAsync wraps an async operation, returns the result and counts correctly
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -108,7 +108,7 @@ export default function TraceServiceExtendedTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0400
      * @tc.name testTraceServiceExtended0004
-     * @tc.desc 边界: traceAsync 内操作抛异常后计数归零且异常传播
+     * @tc.desc Verify the count returns to zero and the exception propagates when the operation inside traceAsync throws
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -133,13 +133,13 @@ export default function TraceServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 禁用时行为测试
+    // Disabled behavior tests
     // ========================================
 
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0500
      * @tc.name testTraceServiceExtended0005
-     * @tc.desc 边界: 禁用时 finishTrace 不将计数减到负数
+     * @tc.desc Verify finishTrace does not reduce the count below zero when disabled
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -160,7 +160,7 @@ export default function TraceServiceExtendedTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0600
      * @tc.name testTraceServiceExtended0006
-     * @tc.desc 正向: initialize(false) 后追踪服务处于禁用状态
+     * @tc.desc Verify the trace service is disabled after initialize(false)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -181,13 +181,13 @@ export default function TraceServiceExtendedTest(): void {
     });
 
     // ========================================
-    // startTrace 带 processStage 测试
+    // startTrace with processStage tests
     // ========================================
 
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0700
      * @tc.name testTraceServiceExtended0007
-     * @tc.desc 正向: startTrace 带 processStage 参数正常增加计数
+     * @tc.desc Verify startTrace with a processStage parameter increases the count normally
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -208,13 +208,13 @@ export default function TraceServiceExtendedTest(): void {
     });
 
     // ========================================
-    // finishTrace count 参数测试
+    // finishTrace count parameter tests
     // ========================================
 
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0800
      * @tc.name testTraceServiceExtended0008
-     * @tc.desc 正向: finishTrace 按 taskId 精确配对结束，未知 taskId 不影响计数
+     * @tc.desc Verify finishTrace pairs and ends by exact taskId, and an unknown taskId does not affect the count
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -227,10 +227,10 @@ export default function TraceServiceExtendedTest(): void {
       const idPage: number = service.startTrace(TraceName.PAGE_LOAD);
       hilog.info(DOMAIN, TAG, 'testTraceServiceExtended0008: idInit=%{public}d, idPage=%{public}d', idInit, idPage);
       expect(service.getActiveTraceCount()).assertEqual(2);
-      // 未知 taskId 不匹配任何活动追踪，计数保持不变
+      // An unknown taskId matches no active trace, so the count stays unchanged
       service.finishTrace(TraceName.SERVICE_INIT, 9999);
       expect(service.getActiveTraceCount()).assertEqual(2);
-      // 正确 taskId 精确结束对应追踪
+      // The correct taskId precisely ends the corresponding trace
       service.finishTrace(TraceName.SERVICE_INIT, idInit);
       expect(service.getActiveTraceCount()).assertEqual(1);
       service.finishTrace(TraceName.PAGE_LOAD, idPage);
@@ -239,13 +239,13 @@ export default function TraceServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 完整生命周期测试
+    // Full lifecycle tests
     // ========================================
 
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_0900
      * @tc.name testTraceServiceExtended0009
-     * @tc.desc 正向: init → start → finish → reset → destroy 完整流程
+     * @tc.desc Verify the full init → start → finish → reset → destroy flow
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -271,13 +271,13 @@ export default function TraceServiceExtendedTest(): void {
     });
 
     // ========================================
-    // TraceName 常量完整性测试
+    // TraceName constant completeness tests
     // ========================================
 
     /**
      * @tc.number SUB_TRACE_SERVICE_EXTENDED_1000
      * @tc.name testTraceServiceExtended0010
-     * @tc.desc 正向: TraceName 按业务模块前缀分组
+     * @tc.desc Verify TraceName is grouped by business module prefix
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

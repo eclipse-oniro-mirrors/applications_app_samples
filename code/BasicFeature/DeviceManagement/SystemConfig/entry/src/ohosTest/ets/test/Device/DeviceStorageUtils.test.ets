@@ -16,14 +16,14 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { StorageUtils } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * StorageUtils 存储计算工具类测试套件。
- * 覆盖 formatStorageSize/parseStorageSize/getAvailablePercent/
+ * StorageUtils storage calculation utility test suite.
+ * Covers all public methods including formatStorageSize/parseStorageSize/getAvailablePercent/
  * isStorageLow/getStorageLevel/estimateFreeSpace/
- * calculateUsagePercent/getStorageSummary 等全部公开方法。
+ * calculateUsagePercent/getStorageSummary.
  */
 export default function StorageUtilsTest(): void {
   describe('StorageUtilsTest', () => {
@@ -35,7 +35,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0100
      * @tc.name testDeviceStorageUtils0001
-     * @tc.desc 正向: 各数量级字节数格式化为可读字符串
+     * @tc.desc Verify byte counts of each magnitude format into a readable string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -62,7 +62,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0200
      * @tc.name testDeviceStorageUtils0002
-     * @tc.desc 正向: 解析各存储单位字符串为字节数
+     * @tc.desc Verify storage unit strings parse into byte counts
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -81,7 +81,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0300
      * @tc.name testDeviceStorageUtils0003
-     * @tc.desc 正向: 简写单位 K/M/G/T 也能正确解析
+     * @tc.desc Verify abbreviated units K/M/G/T parse correctly too
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -101,7 +101,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0400
      * @tc.name testDeviceStorageUtils0004
-     * @tc.desc 正向: 计算可用空间百分比
+     * @tc.desc Verify the available space percentage calculation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -123,21 +123,21 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0500
      * @tc.name testDeviceStorageUtils0005
-     * @tc.desc 边界: isStorageLow 基于可用/总量比例判定，非法输入返回 false
+     * @tc.desc Verify isStorageLow judges by the available/total ratio and returns false for illegal input
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
     it('testDeviceStorageUtils0005', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceStorageUtils0005 begin');
-      // 非法输入：可用为负或总量非正 -> false
+      // Illegal input: negative available or non-positive total -> false
       expect(StorageUtils.isStorageLow(-1, 100)).assertFalse();
       expect(StorageUtils.isStorageLow(10, 0)).assertFalse();
-      // 可用为 0 且总量为正 -> 存储不足
+      // Available is 0 and total is positive -> storage low
       expect(StorageUtils.isStorageLow(0, 100)).assertTrue();
-      // 正数低存储分支可达：5% < 10% 阈值 -> true
+      // The positive low-storage branch is reachable: 5% < 10% threshold -> true
       expect(StorageUtils.isStorageLow(5, 100)).assertTrue();
-      // 50% -> 存储不低
+      // 50% -> storage not low
       expect(StorageUtils.isStorageLow(50, 100)).assertFalse();
       expect(StorageUtils.estimateFreeSpace(0)).assertEqual(0);
     });
@@ -149,7 +149,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0600
      * @tc.name testDeviceStorageUtils0006
-     * @tc.desc 正向: 各比例对应正确的存储级别
+     * @tc.desc Verify each ratio maps to the correct storage level
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -171,7 +171,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0700
      * @tc.name testDeviceStorageUtils0007
-     * @tc.desc 正向: estimateFreeSpace 返回总容量的 35%
+     * @tc.desc Verify estimateFreeSpace returns 35% of the total capacity
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -193,7 +193,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0800
      * @tc.name testDeviceStorageUtils0008
-     * @tc.desc 正向: 计算使用百分比
+     * @tc.desc Verify the usage percentage calculation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -215,7 +215,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_0900
      * @tc.name testDeviceStorageUtils0009
-     * @tc.desc 正向: getStorageSummary 返回包含关键信息的摘要
+     * @tc.desc Verify getStorageSummary returns a summary containing the key info
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -234,7 +234,7 @@ export default function StorageUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_1000
      * @tc.name testDeviceStorageUtils0010
-     * @tc.desc 边界: 零总容量时摘要不崩溃
+     * @tc.desc Verify the summary does not crash when total capacity is zero
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -248,13 +248,13 @@ export default function StorageUtilsTest(): void {
     });
 
     // ========================================
-    // 往返一致性
+    // Round-trip consistency
     // ========================================
 
     /**
      * @tc.number SUB_DEVICE_STORAGE_UTILS_1100
      * @tc.name testDeviceStorageUtils0011
-     * @tc.desc 正向: format 后 parse 能还原原始字节数
+     * @tc.desc Verify parse can restore the original byte count after format
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

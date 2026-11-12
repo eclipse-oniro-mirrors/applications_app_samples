@@ -16,12 +16,12 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { CustomConfigService, ChannelConfigModel, ChannelConfigStatus } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * CustomConfigService 接口测试套件。
- * 验证 CustomConfigService 的初始化、渠道号获取、状态管理、重置与销毁等能力。
+ * CustomConfigService interface test suite.
+ * Verifies initialization, channel id fetching, status management, reset and destroy.
  */
 export default function CustomConfigServiceTest(): void {
   describe('CustomConfigServiceTest', () => {
@@ -29,7 +29,7 @@ export default function CustomConfigServiceTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_0100
      * @tc.name testCustomConfigService0001
-     * @tc.desc 正向: 初始化后 isServiceInitialized 返回 true
+     * @tc.desc Verify isServiceInitialized returns true after initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -47,7 +47,7 @@ export default function CustomConfigServiceTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_0200
      * @tc.name testCustomConfigService0002
-     * @tc.desc 正向: 连续获取渠道号时返回值与模型一致
+     * @tc.desc Verify the return value stays consistent with the model across consecutive fetches
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -69,7 +69,7 @@ export default function CustomConfigServiceTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_0300
      * @tc.name testCustomConfigService0003
-     * @tc.desc 正向: 获取渠道号后模型与当前状态一致
+     * @tc.desc Verify the model matches the current status after fetching the channel id
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -90,7 +90,7 @@ export default function CustomConfigServiceTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_0400
      * @tc.name testCustomConfigService0004
-     * @tc.desc 正向: 初始化后当前状态精确为 UNINITIALIZED
+     * @tc.desc Verify the current status is exactly UNINITIALIZED after initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -115,7 +115,7 @@ export default function CustomConfigServiceTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_0500
      * @tc.name testCustomConfigService0005
-     * @tc.desc 正向: 重置后状态回到未初始化
+     * @tc.desc Verify the status returns to uninitialized after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -136,7 +136,7 @@ export default function CustomConfigServiceTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_SERVICE_0600
      * @tc.name testCustomConfigService0006
-     * @tc.desc 正向: 多次调用 getChannelId 返回一致结果
+     * @tc.desc Verify repeated getChannelId calls return consistent results
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

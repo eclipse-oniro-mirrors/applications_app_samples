@@ -19,29 +19,29 @@ import { HttpUtils, HttpMethod } from 'library';
 import type { HttpRequestConfig } from 'library';
 import { SystemConfigConstants } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// HttpUtils 工具类测试套件
+// HttpUtils utility test suite
 // ========================================
 
 /**
- * HttpUtils 工具类测试套件。
- * 测试 HttpUtils 类中 URL 构建、查询字符串解析、
- * 默认配置创建、状态码判断等方法的正确性。
+ * HttpUtils utility test suite.
+ * Tests the correctness of URL building, query string parsing,
+ * default config creation and status code checks in the HttpUtils class.
  */
 export default function httpUtilsTest(): void {
   describe('HttpUtilsTest', () => {
 
     // ========================================
-    // buildUrl - URL 构建测试
+    // buildUrl - URL building tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_0100
      * @tc.name testHttpUtils0001
-     * @tc.desc 正向: URL 构建 - 无参数时返回 base URL
+     * @tc.desc Verify URL building - returns the base URL when there are no params
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -60,7 +60,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_0200
      * @tc.name testHttpUtils0002
-     * @tc.desc 正向: URL 构建 - 单参数拼接
+     * @tc.desc Verify URL building - appends a single param
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -80,7 +80,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_0300
      * @tc.name testHttpUtils0003
-     * @tc.desc 正向: URL 构建 - 多参数拼接
+     * @tc.desc Verify URL building - appends multiple params
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -103,7 +103,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_0400
      * @tc.name testHttpUtils0004
-     * @tc.desc 正向: URL 构建 - base 已有问号时使用 & 连接
+     * @tc.desc Verify URL building - uses & to join when the base already has a question mark
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -124,7 +124,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_0500
      * @tc.name testHttpUtils0005
-     * @tc.desc 正向: URL 构建 - 特殊字符 URL 编码
+     * @tc.desc Verify URL building - URL-encodes special characters
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -144,13 +144,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // parseQueryString - 解析查询字符串测试
+    // parseQueryString - query string parsing tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_0600
      * @tc.name testHttpUtils0006
-     * @tc.desc 正向: 解析查询串 - 标准格式
+     * @tc.desc Verify query parsing - standard format
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -169,7 +169,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_0700
      * @tc.name testHttpUtils0007
-     * @tc.desc 正向: 解析查询串 - 无前缀 ?
+     * @tc.desc Verify query parsing - without leading ?
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -188,7 +188,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_0800
      * @tc.name testHttpUtils0008
-     * @tc.desc 正向: 解析查询串 - 空值处理
+     * @tc.desc Verify query parsing - empty value handling
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -207,7 +207,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_0900
      * @tc.name testHttpUtils0009
-     * @tc.desc 正向: 解析查询串 - 仅键无等号
+     * @tc.desc Verify query parsing - key only without equals sign
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -225,7 +225,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1000
      * @tc.name testHttpUtils0010
-     * @tc.desc 正向: 解析查询串 - URL 编码解码
+     * @tc.desc Verify query parsing - URL decode
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -244,7 +244,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1100
      * @tc.name testHttpUtils0011
-     * @tc.desc 边界: 解析空查询串
+     * @tc.desc Verify parsing an empty query string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -262,13 +262,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // createDefaultConfig - 默认配置测试
+    // createDefaultConfig - default config tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_1200
      * @tc.name testHttpUtils0012
-     * @tc.desc 正向: 默认配置 - 结构完整性
+     * @tc.desc Verify default config - structural integrity
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -287,7 +287,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1300
      * @tc.name testHttpUtils0013
-     * @tc.desc 正向: 默认配置 - Content-Type 正确
+     * @tc.desc Verify default config - correct Content-Type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -304,7 +304,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1400
      * @tc.name testHttpUtils0014
-     * @tc.desc 正向: 默认配置 - 超时值等于常量
+     * @tc.desc Verify default config - timeout equals the constant
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -322,7 +322,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1500
      * @tc.name testHttpUtils0015
-     * @tc.desc 正向: 默认配置 - User-Agent 设置
+     * @tc.desc Verify default config - User-Agent is set
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -337,13 +337,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // isSuccessStatus - 成功状态判断测试
+    // isSuccessStatus - success status tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_1600
      * @tc.name testHttpUtils0016
-     * @tc.desc 正向: 成功状态 - 200 OK
+     * @tc.desc Verify success status - 200 OK
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -359,7 +359,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1700
      * @tc.name testHttpUtils0017
-     * @tc.desc 正向: 成功状态 - 2xx 范围
+     * @tc.desc Verify success status - 2xx range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -375,7 +375,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1800
      * @tc.name testHttpUtils0018
-     * @tc.desc 边界: 成功状态 - 300 边界
+     * @tc.desc Verify success status - 300 boundary
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -391,7 +391,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_1900
      * @tc.name testHttpUtils0019
-     * @tc.desc 边界: 成功状态 - 199 边界
+     * @tc.desc Verify success status - 199 boundary
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -405,13 +405,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // isClientError - 客户端错误判断测试
+    // isClientError - client error tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_2000
      * @tc.name testHttpUtils0020
-     * @tc.desc 正向: 客户端错误 - 4xx 范围
+     * @tc.desc Verify client error - 4xx range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -428,7 +428,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_2100
      * @tc.name testHttpUtils0021
-     * @tc.desc 正向: 客户端错误 - 4xx 上界
+     * @tc.desc Verify client error - 4xx upper bound
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -444,7 +444,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_2200
      * @tc.name testHttpUtils0022
-     * @tc.desc 边界: 客户端错误 - 399 下界
+     * @tc.desc Verify client error - 399 lower bound
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -460,7 +460,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_2300
      * @tc.name testHttpUtils0023
-     * @tc.desc 边界: 客户端错误 - 500 上界
+     * @tc.desc Verify client error - 500 upper bound
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -474,13 +474,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // isServerError - 服务器错误判断测试
+    // isServerError - server error tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_2400
      * @tc.name testHttpUtils0024
-     * @tc.desc 正向: 服务器错误 - 5xx 范围
+     * @tc.desc Verify server error - 5xx range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -497,7 +497,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_2500
      * @tc.name testHttpUtils0025
-     * @tc.desc 正向: 服务器错误 - 5xx 上界
+     * @tc.desc Verify server error - 5xx upper bound
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -513,7 +513,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_2600
      * @tc.name testHttpUtils0026
-     * @tc.desc 边界: 服务器错误 - 499 下界
+     * @tc.desc Verify server error - 499 lower bound
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -529,7 +529,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_2700
      * @tc.name testHttpUtils0027
-     * @tc.desc 边界: 服务器错误 - 600 上界
+     * @tc.desc Verify server error - 600 upper bound
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -543,13 +543,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // getStatusText - 状态文本获取测试
+    // getStatusText - status text tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_2800
      * @tc.name testHttpUtils0028
-     * @tc.desc 正向: 状态文本 - 已知状态 200
+     * @tc.desc Verify status text - known status 200
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -565,7 +565,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_2900
      * @tc.name testHttpUtils0029
-     * @tc.desc 正向: 状态文本 - 已知状态 3xx/4xx
+     * @tc.desc Verify status text - known status 3xx/4xx
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -582,7 +582,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_3000
      * @tc.name testHttpUtils0030
-     * @tc.desc 正向: 状态文本 - 已知状态 4xx/5xx
+     * @tc.desc Verify status text - known status 4xx/5xx
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -599,7 +599,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_3100
      * @tc.name testHttpUtils0031
-     * @tc.desc 正向: 状态文本 - 已知状态 5xx
+     * @tc.desc Verify status text - known status 5xx
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -615,7 +615,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_3200
      * @tc.name testHttpUtils0032
-     * @tc.desc 边界: 状态文本 - 未知状态
+     * @tc.desc Verify status text - unknown status
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -629,13 +629,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // HttpMethod 枚举测试
+    // HttpMethod enum tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_3300
      * @tc.name testHttpUtils0033
-     * @tc.desc 正向: HTTP 方法枚举值验证
+     * @tc.desc Verify HTTP method enum values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -651,13 +651,13 @@ export default function httpUtilsTest(): void {
     });
 
     // ========================================
-    // 综合场景测试
+    // Combined scenario tests
     // ========================================
 
     /**
      * @tc.number SUB_HTTP_UTILS_3400
      * @tc.name testHttpUtils0034
-     * @tc.desc 正向: URL 构建后解析往返一致性
+     * @tc.desc Verify round-trip consistency of building then parsing a URL
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -680,7 +680,7 @@ export default function httpUtilsTest(): void {
     /**
      * @tc.number SUB_HTTP_UTILS_3500
      * @tc.name testHttpUtils0035
-     * @tc.desc 正向: 状态码判断全覆盖
+     * @tc.desc Verify full coverage of status code checks
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

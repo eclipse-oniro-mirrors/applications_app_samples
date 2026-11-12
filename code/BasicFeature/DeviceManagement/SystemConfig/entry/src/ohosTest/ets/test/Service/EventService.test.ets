@@ -17,11 +17,11 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { EventService, EventTypeName } from 'library';
 import type { EventFilter, EventStatistics, EventHistoryRecord, EventListener } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * EventService 接口测试套件。
+ * EventService interface test suite.
  */
 export default function EventServiceTest(): void {
   describe('EventServiceTest', () => {
@@ -29,7 +29,7 @@ export default function EventServiceTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_0100
      * @tc.name testEventService0001
-     * @tc.desc 正向: 初始化返回 true
+     * @tc.desc Verify initialize returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -47,7 +47,7 @@ export default function EventServiceTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_0200
      * @tc.name testEventService0002
-     * @tc.desc 正向: 上报事件后历史记录增加
+     * @tc.desc Verify the history grows after reporting an event
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -67,7 +67,7 @@ export default function EventServiceTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_0300
      * @tc.name testEventService0003
-     * @tc.desc 正向: 统计信息返回正确
+     * @tc.desc Verify the statistics are returned correctly
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -88,7 +88,7 @@ export default function EventServiceTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_0400
      * @tc.name testEventService0004
-     * @tc.desc 正向: 清除历史后记录为空
+     * @tc.desc Verify records are empty after clearing history
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -109,7 +109,7 @@ export default function EventServiceTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_0500
      * @tc.name testEventService0005
-     * @tc.desc 正向: 上报错误事件
+     * @tc.desc Verify reporting an error event
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -129,7 +129,7 @@ export default function EventServiceTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_0600
      * @tc.name testEventService0006
-     * @tc.desc 正向: 销毁后状态重置
+     * @tc.desc Verify the state is reset after destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

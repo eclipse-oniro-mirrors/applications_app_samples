@@ -20,25 +20,25 @@ import {
   DoNotDisturbStatus
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * IntelligentSceneService 扩展测试套件。
- * 覆盖异步查询状态机编排 / 模型引用一致性 / 初始化与销毁生命周期。
- * 免打扰接口真实查询结果依赖系统通知管理服务，由 IntelligentSceneService 套件单独覆盖。
+ * IntelligentSceneService extended test suite.
+ * Covers async query state machine orchestration / model reference consistency / initialize and destroy lifecycle.
+ * The real query result of the DND interface depends on the system notification management service and is covered separately by the IntelligentSceneService suite.
  */
 export default function IntelligentSceneServiceExtendedTest(): void {
   describe('IntelligentSceneServiceExtendedTest', () => {
 
     // ========================================
-    // 异步模拟测试
+    // Async simulation tests
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_EXTENDED_0100
      * @tc.name testIntelligentSceneServiceExtended0001
-     * @tc.desc 正向: 模拟异步查询成功流程
+     * @tc.desc Verify the simulated async query success flow
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -65,7 +65,7 @@ export default function IntelligentSceneServiceExtendedTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_EXTENDED_0200
      * @tc.name testIntelligentSceneServiceExtended0002
-     * @tc.desc 边界: 模拟异步查询失败
+     * @tc.desc Verify a simulated async query failure
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -88,13 +88,13 @@ export default function IntelligentSceneServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 状态缓存测试
+    // State cache tests
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_EXTENDED_0300
      * @tc.name testIntelligentSceneServiceExtended0003
-     * @tc.desc 边界: 模型引用一致性
+     * @tc.desc Verify model reference consistency
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -114,13 +114,13 @@ export default function IntelligentSceneServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 异常恢复测试
+    // Exception recovery tests
     // ========================================
 
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_EXTENDED_0400
      * @tc.name testIntelligentSceneServiceExtended0004
-     * @tc.desc 边界: 多次销毁不报错
+     * @tc.desc Verify repeated destroy calls do not throw
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -142,7 +142,7 @@ export default function IntelligentSceneServiceExtendedTest(): void {
     /**
      * @tc.number SUB_INTELLIGENT_SCENE_SERVICE_EXTENDED_0500
      * @tc.name testIntelligentSceneServiceExtended0005
-     * @tc.desc 边界: 反复初始化/销毁
+     * @tc.desc Verify repeated initialize/destroy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

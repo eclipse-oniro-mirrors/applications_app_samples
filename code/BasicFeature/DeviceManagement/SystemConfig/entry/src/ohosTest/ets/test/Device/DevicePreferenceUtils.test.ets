@@ -17,25 +17,25 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { PreferenceUtils } from 'library';
 import type { PreferenceChangeListener } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * PreferenceUtils 偏好设置工具类测试套件。
- * 覆盖构造/get/getWithDefault/set/remove/clear/has/keys/getAll/size/
- * getStoreName/监听器管理/destroy 等全部公开方法。
+ * PreferenceUtils preference storage utility test suite.
+ * Covers all public methods including construction/get/getWithDefault/set/remove/clear/has/keys/getAll/size/
+ * getStoreName/listener management/destroy.
  */
 export default function PreferenceUtilsTest(): void {
   describe('PreferenceUtilsTest', () => {
 
     // ========================================
-    // 构造与基础存取
+    // Construction and basic get/set
     // ========================================
 
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0100
      * @tc.name testDevicePreferenceUtils0001
-     * @tc.desc 正向: 构造后 getStoreName 返回正确名称
+     * @tc.desc Verify getStoreName returns the correct name after construction.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -51,7 +51,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0200
      * @tc.name testDevicePreferenceUtils0002
-     * @tc.desc 正向: set 后 get 返回正确值
+     * @tc.desc Verify get returns the correct value after set.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -71,7 +71,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0300
      * @tc.name testDevicePreferenceUtils0003
-     * @tc.desc 边界: 获取不存在的键返回 null
+     * @tc.desc Verify getting a nonexistent key returns null.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -91,7 +91,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0400
      * @tc.name testDevicePreferenceUtils0004
-     * @tc.desc 正向: 键存在返回值，不存在返回默认值
+     * @tc.desc Verify an existing key returns its value while a missing key returns the default.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -112,7 +112,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0500
      * @tc.name testDevicePreferenceUtils0005
-     * @tc.desc 正向: remove 后键不存在
+     * @tc.desc Verify the key no longer exists after remove.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -137,7 +137,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0600
      * @tc.name testDevicePreferenceUtils0006
-     * @tc.desc 正向: clear 后所有数据清空
+     * @tc.desc Verify all data is cleared after clear.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -162,7 +162,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0700
      * @tc.name testDevicePreferenceUtils0007
-     * @tc.desc 正向: keys 返回所有键，getAll 返回副本
+     * @tc.desc Verify keys returns all keys and getAll returns a copy.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -183,13 +183,13 @@ export default function PreferenceUtilsTest(): void {
     });
 
     // ========================================
-    // 覆盖写入
+    // Overwrite semantics
     // ========================================
 
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0800
      * @tc.name testDevicePreferenceUtils0008
-     * @tc.desc 正向: 重复 set 同一键覆盖旧值
+     * @tc.desc Verify repeated set on the same key overwrites the old value.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -205,13 +205,13 @@ export default function PreferenceUtilsTest(): void {
     });
 
     // ========================================
-    // 监听器管理
+    // Listener management
     // ========================================
 
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_0900
      * @tc.name testDevicePreferenceUtils0009
-     * @tc.desc 正向: set/remove 触发 onChanged 回调
+     * @tc.desc Verify set/remove trigger the onChanged callback.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -246,7 +246,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_1000
      * @tc.name testDevicePreferenceUtils0010
-     * @tc.desc 正向: clear 触发 onCleared 回调
+     * @tc.desc Verify clear triggers the onCleared callback.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -273,7 +273,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_1100
      * @tc.name testDevicePreferenceUtils0011
-     * @tc.desc 正向: 移除监听器后不再收到回调
+     * @tc.desc Verify a removed listener no longer receives callbacks.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -301,7 +301,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_1200
      * @tc.name testDevicePreferenceUtils0012
-     * @tc.desc 边界: 重复添加同一监听器只注册一次
+     * @tc.desc Verify adding the same listener twice registers it only once.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -333,7 +333,7 @@ export default function PreferenceUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_PREFERENCE_UTILS_1300
      * @tc.name testDevicePreferenceUtils0013
-     * @tc.desc 正向: destroy 后数据清空、get 返回 null
+     * @tc.desc Verify destroy clears data and get returns null afterwards.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

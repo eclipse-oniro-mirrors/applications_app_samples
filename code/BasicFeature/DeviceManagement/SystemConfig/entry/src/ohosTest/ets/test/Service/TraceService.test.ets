@@ -16,11 +16,11 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { TraceService, TraceName } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * TraceService 接口测试套件。
+ * TraceService interface test suite.
  */
 export default function TraceServiceTest(): void {
   describe('TraceServiceTest', () => {
@@ -28,7 +28,7 @@ export default function TraceServiceTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_0100
      * @tc.name testTraceService0001
-     * @tc.desc 正向: 初始化后追踪启用
+     * @tc.desc Verify tracing is enabled after initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -46,7 +46,7 @@ export default function TraceServiceTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_0200
      * @tc.name testTraceService0002
-     * @tc.desc 正向: TraceName 常量取值固定且互不重复
+     * @tc.desc Verify TraceName constants have fixed and non-duplicated values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -80,7 +80,7 @@ export default function TraceServiceTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_0300
      * @tc.name testTraceService0003
-     * @tc.desc 正向: startTrace + finishTrace 计数正确
+     * @tc.desc Verify startTrace + finishTrace counts correctly
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -100,7 +100,7 @@ export default function TraceServiceTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_0400
      * @tc.name testTraceService0004
-     * @tc.desc 正向: 禁用后 startTrace 不增加计数
+     * @tc.desc Verify startTrace does not increase the count when disabled
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -121,7 +121,7 @@ export default function TraceServiceTest(): void {
     /**
      * @tc.number SUB_TRACE_SERVICE_0500
      * @tc.name testTraceService0005
-     * @tc.desc 正向: reset 后计数归零
+     * @tc.desc Verify the count resets to zero after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

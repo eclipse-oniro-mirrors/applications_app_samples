@@ -17,12 +17,12 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { EventService, EventTypeName } from 'library';
 import type { EventFilter, EventStatistics, EventHistoryRecord, EventListener } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * EventListener 实现类，用于测试。
- * ArkTS 不允许使用未类型化的对象字面量。
+ * EventListener implementation for testing.
+ * ArkTS does not allow untyped object literals.
  */
 class TestEventListener implements EventListener {
   callbackCount: number = 0;
@@ -39,22 +39,22 @@ class TestEventListener implements EventListener {
 }
 
 /**
- * EventService 扩展测试套件。
- * 补充覆盖 reportDndStateChanged / reportSettingsPageOpened / reportDoubleClickQueried /
+ * EventService extended test suite.
+ * Adds coverage for reportDndStateChanged / reportSettingsPageOpened / reportDoubleClickQueried /
  * reportServiceInitialized / addListener / removeListener / getEventHistory(filter) /
- * 历史溢出 / 未初始化上报 等场景。
+ * history overflow / reporting before initialization scenarios.
  */
 export default function EventServiceExtendedTest(): void {
   describe('EventServiceExtendedTest', () => {
 
     // ========================================
-    // reportDndStateChanged 测试
+    // reportDndStateChanged tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0100
      * @tc.name testEventServiceExtended0001
-     * @tc.desc 正向: 上报免打扰状态变更(dnd=true, notify=true)后历史记录正确
+     * @tc.desc Verify history record is correct after reporting DND state change (dnd=true, notify=true)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -76,7 +76,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0200
      * @tc.name testEventServiceExtended0002
-     * @tc.desc 正向: 上报免打扰状态变更(dnd=false, notify=false)数据字段正确
+     * @tc.desc Verify data fields are correct after reporting DND state change (dnd=false, notify=false)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -96,13 +96,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // reportSettingsPageOpened 测试
+    // reportSettingsPageOpened tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0300
      * @tc.name testEventServiceExtended0003
-     * @tc.desc 正向: 上报打开 PIN 设置页面成功事件
+     * @tc.desc Verify reporting a successful PIN settings page open event
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -123,7 +123,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0400
      * @tc.name testEventServiceExtended0004
-     * @tc.desc 正向: 上报打开 NFC 设置页面失败事件
+     * @tc.desc Verify reporting a failed NFC settings page open event
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -142,13 +142,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // reportDoubleClickQueried 测试
+    // reportDoubleClickQueried tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0500
      * @tc.name testEventServiceExtended0005
-     * @tc.desc 正向: 上报双击查询事件后记录正确
+     * @tc.desc Verify the record is correct after reporting a double-click query event
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -167,13 +167,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // reportServiceInitialized 测试
+    // reportServiceInitialized tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0600
      * @tc.name testEventServiceExtended0006
-     * @tc.desc 正向: 上报服务初始化事件后记录正确
+     * @tc.desc Verify the record is correct after reporting a service initialization event
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -192,13 +192,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // addListener / removeListener 测试
+    // addListener / removeListener tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0700
      * @tc.name testEventServiceExtended0007
-     * @tc.desc 正向: 添加监听器后上报事件触发回调
+     * @tc.desc Verify reporting an event triggers the callback after adding a listener
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -221,7 +221,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0800
      * @tc.name testEventServiceExtended0008
-     * @tc.desc 正向: 移除监听器后上报事件不再触发回调
+     * @tc.desc Verify reporting an event no longer triggers the callback after removing a listener
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -245,7 +245,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_0900
      * @tc.name testEventServiceExtended0009
-     * @tc.desc 正向: 重复添加同一监听器，每次上报触发多次回调
+     * @tc.desc Verify adding the same listener repeatedly triggers multiple callbacks per report
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -271,7 +271,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1000
      * @tc.name testEventServiceExtended0010
-     * @tc.desc 边界: 移除未添加的监听器不报错
+     * @tc.desc Verify removing a listener that was never added does not throw
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -292,13 +292,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // getEventHistory(filter) 过滤测试
+    // getEventHistory(filter) filtering tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1100
      * @tc.name testEventServiceExtended0011
-     * @tc.desc 正向: 按事件类型过滤历史记录
+     * @tc.desc Verify filtering event history by event type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -323,7 +323,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1200
      * @tc.name testEventServiceExtended0012
-     * @tc.desc 正向: 按时间范围过滤历史记录
+     * @tc.desc Verify filtering event history by time range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -351,7 +351,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1300
      * @tc.name testEventServiceExtended0013
-     * @tc.desc 正向: 按最大数量过滤返回最新 N 条
+     * @tc.desc Verify filtering by max count returns the latest N records
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -378,7 +378,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1400
      * @tc.name testEventServiceExtended0014
-     * @tc.desc 边界: 空过滤器返回全部历史
+     * @tc.desc Verify an empty filter returns all history
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -399,13 +399,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 历史溢出测试
+    // History overflow tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1500
      * @tc.name testEventServiceExtended0015
-     * @tc.desc 边界: 上报事件超过 MAX_LOG_ENTRIES(200) 后历史被裁剪
+     * @tc.desc Verify history is trimmed after reporting more than MAX_LOG_ENTRIES(200) events
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -427,13 +427,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 未初始化上报测试
+    // Reporting before initialization tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1600
      * @tc.name testEventServiceExtended0016
-     * @tc.desc 边界: 未初始化直接上报事件仍记录到历史
+     * @tc.desc Verify reporting events directly without initialization is still recorded in history
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -451,13 +451,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 多类型事件统计测试
+    // Multi-type event statistics tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1700
      * @tc.name testEventServiceExtended0017
-     * @tc.desc 正向: 多种类型事件上报后统计按类型分组
+     * @tc.desc Verify statistics are grouped by type after reporting multiple event types
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -481,13 +481,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 监听器异常容错测试
+    // Listener exception tolerance tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1800
      * @tc.name testEventServiceExtended0018
-     * @tc.desc 边界: 监听器回调抛异常不影响其他监听器和历史记录
+     * @tc.desc Verify a listener callback throwing does not affect other listeners or the history record
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -510,13 +510,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // destroy 清除监听器测试
+    // destroy clears listeners tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_1900
      * @tc.name testEventServiceExtended0019
-     * @tc.desc 正向: destroy 后监听器被清除，重新初始化后无旧监听器
+     * @tc.desc Verify listeners are cleared after destroy and no old listeners remain after re-initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -539,13 +539,13 @@ export default function EventServiceExtendedTest(): void {
     });
 
     // ========================================
-    // 空统计信息测试
+    // Empty statistics tests
     // ========================================
 
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_2000
      * @tc.name testEventServiceExtended0020
-     * @tc.desc 边界: 无事件时统计信息返回零值
+     * @tc.desc Verify statistics return zero values when there are no events
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -565,7 +565,7 @@ export default function EventServiceExtendedTest(): void {
     /**
      * @tc.number SUB_EVENT_SERVICE_EXTENDED_2100
      * @tc.name testEventServiceExtended0021
-     * @tc.desc 正向: hiAppEvent 上报计数器返回契约与不变量
+     * @tc.desc Verify the hiAppEvent reporting counter return contract and invariants
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -574,12 +574,12 @@ export default function EventServiceExtendedTest(): void {
       hilog.info(DOMAIN, TAG, 'testEventServiceExtended0021: begin');
       const service: EventService = new EventService();
       service.initialize();
-      // 新服务计数器归零，返回 [成功, 失败] 两元素
+      // A new service counter resets to zero and returns a two-element [success, failure] array
       const before: number[] = service.getWriteCounters();
       expect(before.length).assertEqual(2);
       expect(before[0]).assertEqual(0);
       expect(before[1]).assertEqual(0);
-      // 触发 3 次事件上报（内部走 hiAppEvent.write）
+      // Trigger 3 event reports (internally via hiAppEvent.write)
       service.reportSettingsPageOpened('pin', true);
       service.reportDoubleClickQueried('isSelf');
       service.reportError('op', 'boom', 100);
@@ -587,7 +587,7 @@ export default function EventServiceExtendedTest(): void {
       hilog.info(DOMAIN, TAG, 'testEventServiceExtended0021: success=%{public}d, fail=%{public}d',
         after[0], after[1]);
       expect(after.length).assertEqual(2);
-      // write 结算为异步微任务且结果依赖设备侧 dfx 服务，此处只校验计数不变量：非负且不超过已上报事件数
+      // write settles as an async microtask and its result depends on the device-side dfx service, so only the counter invariant is checked here: non-negative and not exceeding the number of reported events
       expect(after[0] >= 0).assertTrue();
       expect(after[1] >= 0).assertTrue();
       expect(after[0] + after[1] <= 3).assertTrue();

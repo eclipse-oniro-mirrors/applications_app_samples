@@ -15,31 +15,31 @@
 
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { PermissionUtils, PermissionStatus, SystemConfigConstants } from 'library';
+import { PermissionUtils, PermissionStatus, ResourceHelper, SystemConfigConstants } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// PermissionUtils 工具类测试套件
+// PermissionUtils utility test suite
 // ========================================
 
 /**
- * PermissionUtils 工具类测试套件。
- * 测试 PermissionUtils 类中权限状态检查、权限标签获取、
- * 必要权限管理和权限列表格式化等方法的正确性。
+ * PermissionUtils utility test suite.
+ * Tests the correctness of permission status checks, permission label lookup,
+ * required permission management and permission list formatting in the PermissionUtils class.
  */
 export default function permissionUtilsTest(): void {
   describe('PermissionUtilsTest', () => {
 
     // ========================================
-    // checkPermissionStatus - 权限状态检查测试
+    // checkPermissionStatus - permission status check tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_0100
      * @tc.name testPermissionUtils0001
-     * @tc.desc 正向: 未登记权限默认返回 NOT_DETERMINED
+     * @tc.desc Verify unregistered permissions default to NOT_DETERMINED
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -57,7 +57,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_0200
      * @tc.name testPermissionUtils0002
-     * @tc.desc 正向: 权限检查 - 未决定状态为默认
+     * @tc.desc Verify permission check - NOT_DETERMINED is the default state
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -75,7 +75,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_0300
      * @tc.name testPermissionUtils0003
-     * @tc.desc 正向: 模拟权限工具的 DND 权限默认未登记
+     * @tc.desc Verify the mock permission tool's DND permission is unregistered by default
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -91,13 +91,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // isPermissionGranted - 判断是否已授予测试
+    // isPermissionGranted - granted check tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_0400
      * @tc.name testPermissionUtils0004
-     * @tc.desc 正向: 判断已授予 - GRANTED 返回 true
+     * @tc.desc Verify granted check - GRANTED returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -114,7 +114,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_0500
      * @tc.name testPermissionUtils0005
-     * @tc.desc 正向: 判断已授予 - DENIED 返回 false
+     * @tc.desc Verify granted check - DENIED returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -131,7 +131,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_0600
      * @tc.name testPermissionUtils0006
-     * @tc.desc 正向: 判断已授予 - NOT_DETERMINED 返回 false
+     * @tc.desc Verify granted check - NOT_DETERMINED returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -147,13 +147,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // isPermissionRestricted - 判断是否受限测试
+    // isPermissionRestricted - restricted check tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_0700
      * @tc.name testPermissionUtils0007
-     * @tc.desc 正向: 判断受限 - RESTRICTED 返回 true
+     * @tc.desc Verify restricted check - RESTRICTED returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -170,7 +170,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_0800
      * @tc.name testPermissionUtils0008
-     * @tc.desc 正向: 判断受限 - GRANTED 返回 false
+     * @tc.desc Verify restricted check - GRANTED returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -187,7 +187,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_0900
      * @tc.name testPermissionUtils0009
-     * @tc.desc 正向: 判断受限 - 其他状态返回 false
+     * @tc.desc Verify restricted check - other states return false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -203,13 +203,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // getPermissionLabel - 获取权限标签测试
+    // getPermissionLabel - permission label tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_1000
      * @tc.name testPermissionUtils0010
-     * @tc.desc 正向: 获取标签 - DND 权限返回中文描述
+     * @tc.desc Verify label lookup - the DND permission returns a localized description
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -227,7 +227,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_1100
      * @tc.name testPermissionUtils0011
-     * @tc.desc 正向: 获取标签 - INTERNET 权限返回中文描述
+     * @tc.desc Verify label lookup - the INTERNET permission returns a localized description
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -244,7 +244,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_1200
      * @tc.name testPermissionUtils0012
-     * @tc.desc 正向: 获取标签 - 位置权限返回中文描述
+     * @tc.desc Verify label lookup - the location permission returns a localized description
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -263,7 +263,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_1300
      * @tc.name testPermissionUtils0013
-     * @tc.desc 边界: 获取标签 - 未知权限返回原值
+     * @tc.desc Verify label lookup - an unknown permission returns its original value
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -279,13 +279,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // getPermissionStatusLabel - 获取权限状态标签测试
+    // getPermissionStatusLabel - permission status label tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_1400
      * @tc.name testPermissionUtils0014
-     * @tc.desc 正向: 状态标签 - GRANTED 返回 "已授予"
+     * @tc.desc Verify status label - GRANTED returns the granted label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -302,7 +302,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_1500
      * @tc.name testPermissionUtils0015
-     * @tc.desc 正向: 状态标签 - DENIED 返回 "已拒绝"
+     * @tc.desc Verify status label - DENIED returns the denied label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -319,7 +319,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_1600
      * @tc.name testPermissionUtils0016
-     * @tc.desc 正向: 状态标签 - NOT_DETERMINED  "未决定"
+     * @tc.desc Verify status label - NOT_DETERMINED returns the undetermined label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -336,7 +336,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_1700
      * @tc.name testPermissionUtils0017
-     * @tc.desc 正向: 状态标签 - RESTRICTED 返回 "受限"
+     * @tc.desc Verify status label - RESTRICTED returns the restricted label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -351,13 +351,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // getRequiredPermissions - 获取必要权限测试
+    // getRequiredPermissions - required permissions tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_1800
      * @tc.name testPermissionUtils0018
-     * @tc.desc 正向: 必要权限列表 - 包含 DND 权限
+     * @tc.desc Verify required permission list - contains the DND permission
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -374,7 +374,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_1900
      * @tc.name testPermissionUtils0019
-     * @tc.desc 正向: 必要权限列表 - 每次调用返回独立副本
+     * @tc.desc Verify required permission list - each call returns an independent copy
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -392,13 +392,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // getAllKnownPermissions - 获取所有已知权限测试
+    // getAllKnownPermissions - all known permissions tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_2000
      * @tc.name testPermissionUtils0020
-     * @tc.desc 正向: 所有已知权限 - 返回完整列表
+     * @tc.desc Verify all known permissions - returns the full list
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -416,7 +416,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_2100
      * @tc.name testPermissionUtils0021
-     * @tc.desc 正向: 所有已知权限 - 包含常见权限
+     * @tc.desc Verify all known permissions - contains common permissions
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -433,7 +433,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_2200
      * @tc.name testPermissionUtils0022
-     * @tc.desc 正向: 所有已知权限 - 前缀统一且均有中文标签
+     * @tc.desc Verify all known permissions - unified prefixes and all have localized labels
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -460,13 +460,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // formatPermissionList - 格式化权限列表测试
+    // formatPermissionList - permission list formatting tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_2300
      * @tc.name testPermissionUtils0023
-     * @tc.desc 边界: 格式化 - 空列表返回 "无权限"
+     * @tc.desc Verify formatting - an empty list returns the no-permission label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -483,33 +483,35 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_2400
      * @tc.name testPermissionUtils0024
-     * @tc.desc 正向: 格式化 - 单权限返回中文标签
+     * @tc.desc Verify formatting - a single permission returns its localized label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
      */
     it('testPermissionUtils0024', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0024: begin');
+      const separator: string = ResourceHelper.getStringByName('list_separator');
       const result: string = PermissionUtils.formatPermissionList(['ohos.permission.INTERNET']);
       expect(result).assertEqual('网络访问');
       expect(result.length).assertEqual(4);
-      expect(result.indexOf('、')).assertEqual(-1);
+      expect(result.indexOf(separator)).assertEqual(-1);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0024: end');
     });
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_2500
      * @tc.name testPermissionUtils0025
-     * @tc.desc 正向: 格式化 - 多权限顿号分隔
+     * @tc.desc Verify formatting - multiple permissions are separated by the ideographic comma
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
      */
     it('testPermissionUtils0025', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0025: begin');
+      const separator: string = ResourceHelper.getStringByName('list_separator');
       const perms: string[] = ['ohos.permission.INTERNET', 'ohos.permission.LOCATION'];
       const result: string = PermissionUtils.formatPermissionList(perms);
-      expect(result.indexOf('、')).assertLarger(-1);
+      expect(result.indexOf(separator)).assertLarger(-1);
       expect(result.indexOf('网络访问')).assertLarger(-1);
       expect(result.indexOf('位置信息')).assertLarger(-1);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0025: end');
@@ -518,13 +520,14 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_2600
      * @tc.name testPermissionUtils0026
-     * @tc.desc 正向: 格式化 - 三个权限正确分隔
+     * @tc.desc Verify formatting - three permissions are separated correctly
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
     it('testPermissionUtils0026', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0026: begin');
+      const separator: string = ResourceHelper.getStringByName('list_separator');
       const perms: string[] = [
         'ohos.permission.INTERNET',
         'ohos.permission.CAMERA',
@@ -534,7 +537,7 @@ export default function permissionUtilsTest(): void {
       expect(result.indexOf('网络访问')).assertLarger(-1);
       expect(result.indexOf('相机使用')).assertLarger(-1);
       expect(result.indexOf('位置信息')).assertLarger(-1);
-      const separatorCount: number = result.split('、').length - 1;
+      const separatorCount: number = result.split(separator).length - 1;
       expect(separatorCount).assertEqual(2);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0026: end');
     });
@@ -542,7 +545,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_2700
      * @tc.name testPermissionUtils0027
-     * @tc.desc 边界: 格式化 - 未知权限返回原值
+     * @tc.desc Verify formatting - an unknown permission returns its original value
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -558,13 +561,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // PermissionStatus 枚举测试
+    // PermissionStatus enum tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_2800
      * @tc.name testPermissionUtils0028
-     * @tc.desc 正向: 权限状态枚举值验证
+     * @tc.desc Verify permission status enum values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -581,7 +584,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_2900
      * @tc.name testPermissionUtils0029
-     * @tc.desc 正向: 权限状态枚举唯一性
+     * @tc.desc Verify permission status enum uniqueness
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -602,13 +605,13 @@ export default function permissionUtilsTest(): void {
     });
 
     // ========================================
-    // 综合场景测试
+    // Combined scenario tests
     // ========================================
 
     /**
      * @tc.number SUB_PERMISSION_UTILS_3000
      * @tc.name testPermissionUtils0030
-     * @tc.desc 正向: 权限状态一致性 - GRANTED 与 isGranted 匹配
+     * @tc.desc Verify permission state consistency - GRANTED matches isGranted
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -627,7 +630,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_3100
      * @tc.name testPermissionUtils0031
-     * @tc.desc 正向: 权限状态一致性 - RESTRICTED 与 isRestricted 匹配
+     * @tc.desc Verify permission state consistency - RESTRICTED matches isRestricted
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -646,7 +649,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_3200
      * @tc.name testPermissionUtils0032
-     * @tc.desc 正向: 权限标签映射 - 已知权限都有中文标签
+     * @tc.desc Verify permission label mapping - known permissions all have localized labels
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -670,7 +673,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_3300
      * @tc.name testPermissionUtils0033
-     * @tc.desc 正向: 各状态标签完整性验证
+     * @tc.desc Verify completeness of each status label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -691,7 +694,7 @@ export default function permissionUtilsTest(): void {
     /**
      * @tc.number SUB_PERMISSION_UTILS_3400
      * @tc.name testPermissionUtils0034
-     * @tc.desc 正向: 必要权限在已知权限列表中
+     * @tc.desc Verify required permissions are in the known permission list
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

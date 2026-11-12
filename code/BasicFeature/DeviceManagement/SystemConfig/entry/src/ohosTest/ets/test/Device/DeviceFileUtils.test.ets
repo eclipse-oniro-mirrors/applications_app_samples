@@ -16,14 +16,14 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { FileUtils } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * FileUtils 文件操作工具类测试套件。
- * 覆盖 getFileExtension/getFileName/getFileSize/isImageFile/isDocumentFile/
+ * FileUtils file operation utility test suite.
+ * Covers all public methods including getFileExtension/getFileName/getFileSize/isImageFile/isDocumentFile/
  * isAudioFile/isVideoFile/getMimeType/sanitizeFileName/generateTempFileName/
- * getFileTypeDescription 等全部公开方法。
+ * getFileTypeDescription.
  */
 export default function FileUtilsTest(): void {
   describe('FileUtilsTest', () => {
@@ -35,7 +35,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0100
      * @tc.name testDeviceFileUtils0001
-     * @tc.desc 正向: 从文件名提取扩展名（小写）
+     * @tc.desc Verify the file extension (lowercased) is extracted from a file name.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -57,7 +57,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0200
      * @tc.name testDeviceFileUtils0002
-     * @tc.desc 正向: 从路径中提取文件名
+     * @tc.desc Verify the file name is extracted from a path.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -78,7 +78,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0300
      * @tc.name testDeviceFileUtils0003
-     * @tc.desc 正向: 各数量级文件大小格式化正确
+     * @tc.desc Verify file size formatting is correct across magnitudes.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -97,13 +97,13 @@ export default function FileUtilsTest(): void {
     });
 
     // ========================================
-    // 文件类型判断
+    // File type detection
     // ========================================
 
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0400
      * @tc.name testDeviceFileUtils0004
-     * @tc.desc 正向: isImageFile 识别图片扩展名
+     * @tc.desc Verify isImageFile recognizes image extensions.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -121,7 +121,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0500
      * @tc.name testDeviceFileUtils0005
-     * @tc.desc 正向: isDocumentFile 识别文档扩展名
+     * @tc.desc Verify isDocumentFile recognizes document extensions.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -139,7 +139,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0600
      * @tc.name testDeviceFileUtils0006
-     * @tc.desc 正向: isAudioFile 识别音频扩展名
+     * @tc.desc Verify isAudioFile recognizes audio extensions.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -157,7 +157,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0700
      * @tc.name testDeviceFileUtils0007
-     * @tc.desc 正向: isVideoFile 识别视频扩展名
+     * @tc.desc Verify isVideoFile recognizes video extensions.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -179,7 +179,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0800
      * @tc.name testDeviceFileUtils0008
-     * @tc.desc 正向: 已知扩展名返回正确 MIME 类型
+     * @tc.desc Verify known extensions return the correct MIME type.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -201,7 +201,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_0900
      * @tc.name testDeviceFileUtils0009
-     * @tc.desc 正向: 清理非法字符并保留安全文件名
+     * @tc.desc Verify illegal characters are removed and safe file names are kept.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -224,7 +224,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_1000
      * @tc.name testDeviceFileUtils0010
-     * @tc.desc 正向: 生成临时文件名包含前缀和 .tmp 后缀
+     * @tc.desc Verify generated temp file names contain the prefix and the .tmp suffix.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -248,7 +248,7 @@ export default function FileUtilsTest(): void {
     /**
      * @tc.number SUB_DEVICE_FILE_UTILS_1100
      * @tc.name testDeviceFileUtils0011
-     * @tc.desc 正向: 各类型扩展名返回正确的中文描述
+     * @tc.desc Verify each extension category returns the correct Chinese description.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
