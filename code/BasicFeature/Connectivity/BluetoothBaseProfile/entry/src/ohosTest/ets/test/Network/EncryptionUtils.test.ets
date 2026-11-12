@@ -39,7 +39,7 @@ function countOutsideTable(value: string, table: string): number {
 
 export default function encryptionUtilsTest(): void {
   describe('EncryptionUtilsTest', () => {
-    // ==================== Base64 编码（4 条） ====================
+    // ==================== Base64 encode (4 cases) ====================
 
     /*
      * @tc.number: SUB_ENCRYPTION_UTILS_0100
@@ -124,7 +124,7 @@ export default function encryptionUtilsTest(): void {
       expect(EncryptionUtils.base64Encode('a+b/c=d?').length).assertEqual(12);
     });
 
-    // ==================== Base64 解码与往返（3 条） ====================
+    // ==================== Base64 decode and toward return (3 cases) ====================
 
     /*
      * @tc.number: SUB_ENCRYPTION_UTILS_0500
@@ -193,7 +193,7 @@ export default function encryptionUtilsTest(): void {
       expect(EncryptionUtils.base64Decode('TWFu')).assertEqual('Man');
     });
 
-    // ==================== XOR 可逆混淆（3 条） ====================
+    // ==================== XOR can inverse mix confuse (3 cases) ====================
 
     /*
      * @tc.number: SUB_ENCRYPTION_UTILS_0800
@@ -234,7 +234,8 @@ export default function encryptionUtilsTest(): void {
       expect(shortText.charCodeAt(1)).assertEqual(0);
       expect(EncryptionUtils.xorEncrypt(EncryptionUtils.xorEncrypt(secret, longKey), longKey)).assertEqual(secret);
       expect(EncryptionUtils.xorDecrypt(EncryptionUtils.xorEncrypt(secret, 'zz'), 'zz')).assertEqual(secret);
-      expect(EncryptionUtils.xorEncrypt('aaaa', 'z').charCodeAt(0)).assertEqual('aaaa'.charCodeAt(0) ^ 'z'.charCodeAt(0));
+      expect(EncryptionUtils.xorEncrypt('aaaa',
+          'z').charCodeAt(0)).assertEqual('aaaa'.charCodeAt(0) ^ 'z'.charCodeAt(0));
       expect(EncryptionUtils.xorEncrypt('AB', 'ab')).assertEqual(EncryptionUtils.xorEncrypt('AB', 'ab'));
     });
 
@@ -256,7 +257,7 @@ export default function encryptionUtilsTest(): void {
       expect(EncryptionUtils.xorDecrypt(EncryptionUtils.xorEncrypt('x', 'l'), 'l')).assertEqual('x');
     });
 
-    // ==================== 摘要与随机标识（4 条） ====================
+    // ==================== digest and random identifier (4 cases) ====================
 
     /*
      * @tc.number: SUB_ENCRYPTION_UTILS_1100
@@ -352,7 +353,7 @@ export default function encryptionUtilsTest(): void {
       expect(generated[0].charAt(14)).assertEqual('4');
     });
 
-    // ==================== 十六进制转换（2 条） ====================
+    // ==================== hex conversion (2 cases) ====================
 
     /*
      * @tc.number: SUB_ENCRYPTION_UTILS_1500
@@ -396,7 +397,7 @@ export default function encryptionUtilsTest(): void {
       expect(EncryptionUtils.bytesToHex([171, 12])).assertEqual('ab0c');
     });
 
-    // ==================== 随机密钥与脱敏（3 条） ====================
+    // ==================== random key and masking (3 cases) ====================
 
     /*
      * @tc.number: SUB_ENCRYPTION_UTILS_1700

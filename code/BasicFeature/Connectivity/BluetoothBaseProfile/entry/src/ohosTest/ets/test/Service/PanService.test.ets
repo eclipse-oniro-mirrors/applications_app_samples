@@ -65,9 +65,9 @@ interface StatsView {
 }
 
 /**
- * 复制操作历史为具名视图数组。
- * @param {PanService} service - 被测服务
- * @returns {HistoryEntryView[]} 历史条目副本
+ * copy operation history for named view array.
+ * @param {PanService} service - passive test service
+ * @returns {HistoryEntryView[]} history entry copy
  */
 function historyOf(service: PanService): HistoryEntryView[] {
   const raw = service.getOperationHistory();
@@ -84,10 +84,10 @@ function historyOf(service: PanService): HistoryEntryView[] {
 }
 
 /**
- * 统计指定操作名的历史条目数量。
- * @param {PanService} service - 被测服务
- * @param {string} operation - 操作名
- * @returns {number} 匹配条目数
+ * statistics specified operation name history entry number amount.
+ * @param {PanService} service - passive test service
+ * @param {string} operation - operation name
+ * @returns {number} matching entry count
  */
 function countHistory(service: PanService, operation: string): number {
   let count: number = 0;
@@ -100,9 +100,9 @@ function countHistory(service: PanService, operation: string): number {
 }
 
 /**
- * 读取末条操作历史，空历史返回空条目。
- * @param {PanService} service - 被测服务
- * @returns {HistoryEntryView} 末条历史
+ * read last operation history, empty history return empty entry.
+ * @param {PanService} service - passive test service
+ * @returns {HistoryEntryView} last history
  */
 function lastHistory(service: PanService): HistoryEntryView {
   const entries = historyOf(service);
@@ -113,9 +113,9 @@ function lastHistory(service: PanService): HistoryEntryView {
 }
 
 /**
- * 读取末条操作记录，空记录返回空条目。
- * @param {PanService} service - 被测服务
- * @returns {RecordView} 末条记录
+ * read last operation record, empty record return empty entry.
+ * @param {PanService} service - passive test service
+ * @returns {RecordView} last record
  */
 function lastRecord(service: PanService): RecordView {
   const records = service.getOperationRecords();
@@ -140,9 +140,9 @@ function lastRecord(service: PanService): RecordView {
 }
 
 /**
- * 读取统计快照，getStatistics 返回裸 object，需经 ESObject 取字段。
- * @param {PanService} service - 被测服务
- * @returns {StatsView} 统计快照
+ * read statistics snapshot, getStatistics return bare object, need through ESObject take field.
+ * @param {PanService} service - passive test service
+ * @returns {StatsView} statistics snapshot
  */
 function statsOf(service: PanService): StatsView {
   const stats: ESObject = service.getStatistics();
@@ -171,7 +171,7 @@ function statsOf(service: PanService): StatsView {
  */
 export default function panServiceTest(): void {
   describe('PanServiceTest', () => {
-    // ==================== 生命周期与初始化（5 条） ====================
+    // ==================== lifecycle and initialize (5 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_0100
@@ -393,7 +393,7 @@ export default function panServiceTest(): void {
       await service.destroy();
     });
 
-    // ==================== 连接与断开（6 条） ====================
+    // ==================== connect and disconnect (6 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_0600
@@ -631,7 +631,7 @@ export default function panServiceTest(): void {
       await service.destroy();
     });
 
-    // ==================== 模型联动（3 条） ====================
+    // ==================== model type link move (3 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_1200
@@ -742,7 +742,7 @@ export default function panServiceTest(): void {
       await service.destroy();
     });
 
-    // ==================== 数据同步（2 条） ====================
+    // ==================== number data same step (2 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_1500
@@ -815,7 +815,7 @@ export default function panServiceTest(): void {
       await service.destroy();
     });
 
-    // ==================== 配置与性能指标（3 条） ====================
+    // ==================== config set and property capability metric (3 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_1700
@@ -942,7 +942,7 @@ export default function panServiceTest(): void {
       await service.destroy();
     });
 
-    // ==================== 回调注册与通知（3 条） ====================
+    // ==================== callback registration and notification (3 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_2000
@@ -1080,7 +1080,7 @@ export default function panServiceTest(): void {
       await service.destroy();
     });
 
-    // ==================== 历史与记录上限（3 条） ====================
+    // ==================== history and record upper limit (3 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_2300
@@ -1204,7 +1204,7 @@ export default function panServiceTest(): void {
       await service.destroy();
     });
 
-    // ==================== 重置与组合场景（5 条） ====================
+    // ==================== reset and combined scenario (5 cases) ====================
 
     /*
      * @tc.number: SUB_PAN_SERVICE_2600

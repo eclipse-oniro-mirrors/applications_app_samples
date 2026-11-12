@@ -22,7 +22,7 @@ import { StringUtils } from 'library';
  */
 export default function stringUtilsTest(): void {
   describe('StringUtilsTest', () => {
-    // ==================== 首字母大小写（2 条） ====================
+    // ==================== first character mother large small write (2 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_0100
@@ -54,7 +54,7 @@ export default function stringUtilsTest(): void {
       expect(StringUtils.uncapitalize('a')).assertEqual('a');
     });
 
-    // ==================== 命名风格转换（5 条） ====================
+    // ==================== naming style convert (5 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_0300
@@ -131,7 +131,7 @@ export default function stringUtilsTest(): void {
       expect(StringUtils.toCamelCase('HTTPServer')).assertEqual('httpserver');
     });
 
-    // ==================== 包含与前后缀（3 条） ====================
+    // ==================== package contain and prefix and suffix (3 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_0800
@@ -175,13 +175,13 @@ export default function stringUtilsTest(): void {
      */
     it('testStringUtils0010', 0, () => {
       expect(StringUtils.endsWith('A2dpSource', 'Source')).assertTrue();
-      expect(StringUtils.endsWith('aaaa', 'aa')).assertTrue();
+      expect(StringUtils.endsWith('xxxx', 'xx')).assertTrue();
       expect(StringUtils.endsWith('A2dpSource', 'A2dp')).assertFalse();
       expect(StringUtils.endsWith('', 'a')).assertFalse();
       expect(StringUtils.endsWith('abc', '')).assertFalse();
     });
 
-    // ==================== 计数与重复（3 条） ====================
+    // ==================== count number and weight repeat (3 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_1100
@@ -193,7 +193,7 @@ export default function stringUtilsTest(): void {
      */
     it('testStringUtils0011', 0, () => {
       expect(StringUtils.countOccurrences('hello world', 'o')).assertEqual(2);
-      expect(StringUtils.countOccurrences('aaaa', 'aa')).assertEqual(3);
+      expect(StringUtils.countOccurrences('xxxx', 'xx')).assertEqual(3);
       expect(StringUtils.countOccurrences('abc', 'z')).assertEqual(0);
       expect(StringUtils.countOccurrences('', 'a')).assertEqual(0);
       expect(StringUtils.countOccurrences('abc', '')).assertEqual(0);
@@ -229,7 +229,7 @@ export default function stringUtilsTest(): void {
       expect(StringUtils.repeat('ab', 0).length).assertEqual(0);
     });
 
-    // ==================== 反转与去空白（2 条） ====================
+    // ==================== reverse and remove whitespace (2 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_1400
@@ -261,7 +261,7 @@ export default function stringUtilsTest(): void {
       expect(StringUtils.removeWhitespace('')).assertEqual('');
     });
 
-    // ==================== 随机串生成（3 条） ====================
+    // ==================== random string generate (3 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_1600
@@ -329,7 +329,7 @@ export default function stringUtilsTest(): void {
       expect(StringUtils.generateHexString(8).toUpperCase().length).assertEqual(8);
     });
 
-    // ==================== 哈希（2 条） ====================
+    // ==================== ha hope (2 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_1900
@@ -361,7 +361,7 @@ export default function stringUtilsTest(): void {
       expect(StringUtils.hashCode('a')).assertEqual(177670);
     });
 
-    // ==================== 空白判定与安全长度（3 条） ====================
+    // ==================== whitespace judge specify and safe all length degree (3 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_2100
@@ -410,7 +410,7 @@ export default function stringUtilsTest(): void {
       expect(StringUtils.safeLength(undefined)).assertEqual(0);
     });
 
-    // ==================== 截断与填充（3 条） ====================
+    // ==================== cut disconnect and pad (3 cases) ====================
 
     /*
      * @tc.number: SUB_STRING_UTILS_2400

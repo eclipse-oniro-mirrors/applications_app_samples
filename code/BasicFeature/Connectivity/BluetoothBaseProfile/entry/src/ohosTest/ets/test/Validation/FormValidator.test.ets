@@ -22,7 +22,7 @@ import { FormValidator, ValidationUtils } from 'library';
  */
 export default function formValidatorTest(): void {
   describe('FormValidatorTest', () => {
-    // ==================== 规则登记（4 条） ====================
+    // ==================== rule registration (4 cases) ====================
 
     /*
      * @tc.number: SUB_FORM_VALIDATOR_0100
@@ -143,7 +143,7 @@ export default function formValidatorTest(): void {
       expect(result.errors.size).assertEqual(0);
     });
 
-    // ==================== 必填与长度规则（5 条） ====================
+    // ==================== required and length rules (5 cases) ====================
 
     /*
      * @tc.number: SUB_FORM_VALIDATOR_0700
@@ -239,7 +239,7 @@ export default function formValidatorTest(): void {
       expect(short.errors.get('name')).assertEqual('name too short (min 3)');
     });
 
-    // ==================== 正则与自定义规则（3 条） ====================
+    // ==================== regex and custom rules (3 cases) ====================
 
     /*
      * @tc.number: SUB_FORM_VALIDATOR_1200
@@ -304,7 +304,7 @@ export default function formValidatorTest(): void {
       expect(validator.validate({ 'timeout': '30' }).isValid).assertTrue();
     });
 
-    // ==================== 多字段汇总（2 条） ====================
+    // ==================== multi field aggregate total (2 cases) ====================
 
     /*
      * @tc.number: SUB_FORM_VALIDATOR_1500
@@ -347,7 +347,7 @@ export default function formValidatorTest(): void {
       expect(result.errors.has('pin')).assertFalse();
     });
 
-    // ==================== 预置验证器（2 条） ====================
+    // ==================== preset validator (2 cases) ====================
 
     /*
      * @tc.number: SUB_FORM_VALIDATOR_1700

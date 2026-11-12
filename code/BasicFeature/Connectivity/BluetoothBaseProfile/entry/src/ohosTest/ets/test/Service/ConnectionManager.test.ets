@@ -22,14 +22,14 @@ import {
   BluetoothProfileType
 } from 'library';
 
-const TEST_MAC: string = 'AA:BB:CC:DD:EE:FF';
+const TEST_MAC: string = '11:22:33:44:55:FF';
 const MAX_CONNECTED_DEVICES: number = 7;
 
 /**
- * 构造测试用蓝牙设备。
- * @param {string} deviceId - 设备ID
- * @param {number} rssi - 信号强度
- * @returns {BluetoothDeviceModel} 设备模型
+ * structure build test try use Bluetooth device.
+ * @param {string} deviceId - device ID
+ * @param {number} rssi - signal strength
+ * @returns {BluetoothDeviceModel} device model
  */
 function createDevice(deviceId: string, rssi: number): BluetoothDeviceModel {
   const device: BluetoothDeviceModel = new BluetoothDeviceModel(deviceId, `Device ${deviceId}`,
@@ -39,11 +39,12 @@ function createDevice(deviceId: string, rssi: number): BluetoothDeviceModel {
 }
 
 /**
- * 安装受控随机数序列，返回恢复函数。
- * connectDevice 先消耗一次随机数计算连接延迟，再消耗一次判断是否模拟失败，
- * 因此序列首值为延迟系数，次值为失败判定值。
- * @param {number[]} values - 随机数序列，耗尽后复用最后一个值
- * @returns {Function} 恢复原始 Math.random 的函数
+ * safe package controlled random number sequence, return restore function number.
+ * connectDevice first consume one times random number calculate connection delay late, again consume one times
+ * determine whether simulate failed,
+ * cause this sequence first value for delay factor, times value for failure decision value.
+ * @param {number[]} values - random number sequence, exhaust after reuse last one value
+ * @returns {Function} restore original Math.random function number
  */
 function installRandomSequence(values: number[]): () => void {
   const mathObject: ESObject = Math;

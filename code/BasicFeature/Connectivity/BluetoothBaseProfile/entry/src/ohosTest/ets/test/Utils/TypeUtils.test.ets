@@ -22,7 +22,7 @@ import { TypeUtils } from 'library';
  */
 export default function typeUtilsTest(): void {
   describe('TypeUtilsTest', () => {
-    // ==================== 类型判定（6 条） ====================
+    // ==================== type detection (6 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_0100
@@ -121,7 +121,7 @@ export default function typeUtilsTest(): void {
       expect(TypeUtils.isFunction(undefined)).assertFalse();
     });
 
-    // ==================== 空值判定（3 条） ====================
+    // ==================== empty value judge specify (3 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_0700
@@ -174,7 +174,7 @@ export default function typeUtilsTest(): void {
       expect(TypeUtils.isEmpty(null)).assertTrue();
     });
 
-    // ==================== 数值与布尔转换（4 条） ====================
+    // ==================== number and boolean conversion (4 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_1000
@@ -239,7 +239,7 @@ export default function typeUtilsTest(): void {
       expect(TypeUtils.toBoolean(null)).assertFalse();
     });
 
-    // ==================== 字符串转换（2 条） ====================
+    // ==================== string conversion (2 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_1400
@@ -271,7 +271,7 @@ export default function typeUtilsTest(): void {
       expect(TypeUtils.toString(undefined, '')).assertEqual('');
     });
 
-    // ==================== 深拷贝（3 条） ====================
+    // ==================== deep copy (3 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_1600
@@ -325,7 +325,7 @@ export default function typeUtilsTest(): void {
       expect(TypeUtils.deepEquals(rows, copy)).assertFalse();
     });
 
-    // ==================== 深度相等（4 条） ====================
+    // ==================== deep equality (4 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_1900
@@ -400,7 +400,7 @@ export default function typeUtilsTest(): void {
       expect(TypeUtils.deepEquals(sameRows, otherRows)).assertFalse();
     });
 
-    // ==================== 类型名称（2 条） ====================
+    // ==================== type name (2 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_2300
@@ -435,7 +435,7 @@ export default function typeUtilsTest(): void {
       expect(TypeUtils.getTypeName(handler)).assertEqual('function');
     });
 
-    // ==================== JSON 安全解析（2 条） ====================
+    // ==================== JSON safe parse (2 cases) ====================
 
     /*
      * @tc.number: SUB_TYPE_UTILS_2500

@@ -81,9 +81,9 @@ interface HistoryEntrySnapshot {
 }
 
 /**
- * 读取播放信息快照，未初始化时用 -1 标记缺失值。
- * @param {A2dpService} service - 被测服务
- * @returns {PlaybackSnapshot} 播放信息快照
+ * read playback info snapshot, not yet initialize time use -1 mark missing value.
+ * @param {A2dpService} service - passive test service
+ * @returns {PlaybackSnapshot} playback info snapshot
  */
 function playbackSnapshot(service: A2dpService): PlaybackSnapshot {
   const info = service.getPlaybackInfo();
@@ -110,9 +110,9 @@ function playbackSnapshot(service: A2dpService): PlaybackSnapshot {
 }
 
 /**
- * 读取编解码器快照，包含激活数量与 SBC/AAC 激活状态。
- * @param {A2dpService} service - 被测服务
- * @returns {CodecSnapshot} 编解码器快照
+ * read codec device snapshot, package contain active count and SBC/AAC activation state.
+ * @param {A2dpService} service - passive test service
+ * @returns {CodecSnapshot} codec device snapshot
  */
 function codecSnapshot(service: A2dpService): CodecSnapshot {
   const codecs = service.getSupportedCodecs();
@@ -142,9 +142,9 @@ function codecSnapshot(service: A2dpService): CodecSnapshot {
 }
 
 /**
- * 读取音质指标快照。
- * @param {A2dpService} service - 被测服务
- * @returns {QualitySnapshot} 音质指标快照
+ * read audio quality metric snapshot.
+ * @param {A2dpService} service - passive test service
+ * @returns {QualitySnapshot} audio quality metric snapshot
  */
 function qualitySnapshot(service: A2dpService): QualitySnapshot {
   const metrics = service.getQualityMetrics();
@@ -159,9 +159,9 @@ function qualitySnapshot(service: A2dpService): QualitySnapshot {
 }
 
 /**
- * 读取统计信息快照。getStatistics 返回 object，需通过 ESObject 读取字段。
- * @param {A2dpService} service - 被测服务
- * @returns {ServiceStatsSnapshot} 统计快照
+ * read statistics snapshot. getStatistics return object, need through over ESObject read field.
+ * @param {A2dpService} service - passive test service
+ * @returns {ServiceStatsSnapshot} statistics snapshot
  */
 function statsSnapshot(service: A2dpService): ServiceStatsSnapshot {
   const stats: ESObject = service.getStatistics();
@@ -188,9 +188,9 @@ function statsSnapshot(service: A2dpService): ServiceStatsSnapshot {
 }
 
 /**
- * 读取最后一条操作历史，空历史返回空记录。
- * @param {A2dpService} service - 被测服务
- * @returns {HistoryEntrySnapshot} 最后一条历史
+ * read last one item operation history, empty history return empty record.
+ * @param {A2dpService} service - passive test service
+ * @returns {HistoryEntrySnapshot} last one item history
  */
 function lastHistory(service: A2dpService): HistoryEntrySnapshot {
   const history = service.getOperationHistory();
@@ -212,7 +212,7 @@ function lastHistory(service: A2dpService): HistoryEntrySnapshot {
  */
 export default function a2dpServiceTest(): void {
   describe('A2dpServiceTest', () => {
-    // ==================== 生命周期与初始化（4 条） ====================
+    // ==================== lifecycle and initialize (4 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_SERVICE_0100
@@ -344,7 +344,7 @@ export default function a2dpServiceTest(): void {
       expect(statsSnapshot(service).isInitialized).assertTrue();
     });
 
-    // ==================== 连接与断开（6 条） ====================
+    // ==================== connect and disconnect (6 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_SERVICE_0500
@@ -513,7 +513,7 @@ export default function a2dpServiceTest(): void {
       expect(history.success).assertTrue();
     });
 
-    // ==================== 断开守卫、重置与销毁（4 条） ====================
+    // ==================== disconnect guard, reset and destroy (4 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_SERVICE_1100
@@ -654,7 +654,7 @@ export default function a2dpServiceTest(): void {
       expect(stats.supportedCodecCount).assertEqual(0);
     });
 
-    // ==================== 播放控制（6 条） ====================
+    // ==================== playback control (6 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_SERVICE_1500
@@ -842,7 +842,7 @@ export default function a2dpServiceTest(): void {
       expect(history.details).assertEqual('Volume set to 65');
     });
 
-    // ==================== 音量边界、编解码与防御性副本（5 条） ====================
+    // ==================== volume bounds, codec and defensive copy (5 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_SERVICE_2100
@@ -1011,7 +1011,7 @@ export default function a2dpServiceTest(): void {
       expect(service.getSupportedCodecs().length).assertEqual(EXPECTED_CODEC_COUNT);
     });
 
-    // ==================== 统计、未实现路径与回调（5 条） ====================
+    // ==================== statistics, not yet actual current path and callback (5 cases) ====================
 
     /*
      * @tc.number: SUB_A2DP_SERVICE_2600

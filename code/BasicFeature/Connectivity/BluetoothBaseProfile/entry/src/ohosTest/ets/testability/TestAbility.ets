@@ -25,14 +25,14 @@ const DOMAIN: number = 0xF830;
 
 /**
  * TestAbility for ohosTest.
- * 测试入口 Ability，负责初始化 Hypium 测试框架并加载测试页面。
+ * test try in port Ability, responsible for initialize Hypium test try box framework and add load test page.
  */
 export default class TestAbility extends UIAbility {
   /**
-   * 创建 Ability 时调用。
-   * 初始化 Hypium 测试框架。
-   * @param want - 启动参数
-   * @param launchParam - 启动参数
+   * create Ability time invoke.
+   * initialize Hypium test try box framework.
+   * @param want - start params
+   * @param launchParam - start params
    */
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onCreate');
@@ -42,16 +42,16 @@ export default class TestAbility extends UIAbility {
   }
 
   /**
-   * 销毁 Ability 时调用。
+   * destroy Ability time invoke.
    */
   onDestroy(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onDestroy');
   }
 
   /**
-   * 窗口阶段创建时调用。
-   * 加载测试页面。
-   * @param windowStage - 窗口阶段
+   * window port stage segment create time invoke.
+   * add load test page.
+   * @param windowStage - window port stage segment
    */
   onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onWindowStageCreate');
@@ -65,21 +65,21 @@ export default class TestAbility extends UIAbility {
   }
 
   /**
-   * 窗口阶段销毁时调用。
+   * window port stage segment destroy time invoke.
    */
   onWindowStageDestroy(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onWindowStageDestroy');
   }
 
   /**
-   * 前台时调用。
+   * before platform time invoke.
    */
   onForeground(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onForeground');
   }
 
   /**
-   * 后台时调用。
+   * after platform time invoke.
    */
   onBackground(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onBackground');

@@ -45,7 +45,7 @@ class ThrowingNetworkCallback {
 
 export default function networkUtilsTest(): void {
   describe('NetworkUtilsTest', () => {
-    // ==================== 默认状态与类型（4 条） ====================
+    // ==================== default state state and class type (4 cases) ====================
 
     /*
      * @tc.number: SUB_NETWORK_UTILS_0100
@@ -178,7 +178,7 @@ export default function networkUtilsTest(): void {
       NetworkUtils.reset();
     });
 
-    // ==================== 状态回调（6 条） ====================
+    // ==================== state state callback (6 cases) ====================
 
     /*
      * @tc.number: SUB_NETWORK_UTILS_0600
@@ -340,7 +340,7 @@ export default function networkUtilsTest(): void {
       NetworkUtils.reset();
     });
 
-    // ==================== 描述文本与复位（3 条） ====================
+    // ==================== describe describe text and reset (3 cases) ====================
 
     /*
      * @tc.number: SUB_NETWORK_UTILS_1200

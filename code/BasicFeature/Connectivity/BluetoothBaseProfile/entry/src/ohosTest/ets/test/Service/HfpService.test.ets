@@ -95,9 +95,9 @@ interface HistoryEntrySnapshot {
 }
 
 /**
- * 读取音频配置快照，未初始化时用 -1 标记缺失值。
- * @param {HfpService} service - 被测服务
- * @returns {AudioSnapshot} 音频配置快照
+ * read audio config snapshot, not yet initialize time use -1 mark missing value.
+ * @param {HfpService} service - passive test service
+ * @returns {AudioSnapshot} audio config snapshot
  */
 function audioSnapshot(service: HfpService): AudioSnapshot {
   const config = service.getAudioConfig();
@@ -130,9 +130,9 @@ function audioSnapshot(service: HfpService): AudioSnapshot {
 }
 
 /**
- * 读取网络信息快照，未初始化时用 -1 标记缺失值。
- * @param {HfpService} service - 被测服务
- * @returns {NetworkSnapshot} 网络信息快照
+ * read network info snapshot, not yet initialize time use -1 mark missing value.
+ * @param {HfpService} service - passive test service
+ * @returns {NetworkSnapshot} network info snapshot
  */
 function networkSnapshot(service: HfpService): NetworkSnapshot {
   const info = service.getNetworkInfo();
@@ -161,9 +161,9 @@ function networkSnapshot(service: HfpService): NetworkSnapshot {
 }
 
 /**
- * 读取当前通话快照，无通话时 exists 为 false。
- * @param {HfpService} service - 被测服务
- * @returns {CallSnapshot} 通话快照
+ * read current call snapshot, none call time exists for false.
+ * @param {HfpService} service - passive test service
+ * @returns {CallSnapshot} call snapshot
  */
 function callSnapshot(service: HfpService): CallSnapshot {
   const call = service.getCurrentCall();
@@ -200,9 +200,9 @@ function callSnapshot(service: HfpService): CallSnapshot {
 }
 
 /**
- * 读取统计信息快照。getStatistics 返回 object，需通过 ESObject 读取字段。
- * @param {HfpService} service - 被测服务
- * @returns {HfpStatsSnapshot} 统计快照
+ * read statistics snapshot. getStatistics return object, need through over ESObject read field.
+ * @param {HfpService} service - passive test service
+ * @returns {HfpStatsSnapshot} statistics snapshot
  */
 function statsSnapshot(service: HfpService): HfpStatsSnapshot {
   const stats: ESObject = service.getStatistics();
@@ -228,9 +228,9 @@ function statsSnapshot(service: HfpService): HfpStatsSnapshot {
 }
 
 /**
- * 读取最后一条操作历史，空历史返回空记录。
- * @param {HfpService} service - 被测服务
- * @returns {HistoryEntrySnapshot} 最后一条历史
+ * read last one item operation history, empty history return empty record.
+ * @param {HfpService} service - passive test service
+ * @returns {HistoryEntrySnapshot} last one item history
  */
 function lastHistory(service: HfpService): HistoryEntrySnapshot {
   const history = service.getOperationHistory();
@@ -252,7 +252,7 @@ function lastHistory(service: HfpService): HistoryEntrySnapshot {
  */
 export default function hfpServiceTest(): void {
   describe('HfpServiceTest', () => {
-    // ==================== 生命周期与初始化（4 条） ====================
+    // ==================== lifecycle and initialize (4 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_SERVICE_0100
@@ -416,7 +416,7 @@ export default function hfpServiceTest(): void {
       expect(statsSnapshot(service).isInitialized).assertTrue();
     });
 
-    // ==================== 连接与断开（5 条） ====================
+    // ==================== connect and disconnect (5 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_SERVICE_0500
@@ -550,7 +550,7 @@ export default function hfpServiceTest(): void {
       expect(history.details).assertEqual(`Disconnected from ${TEST_DEVICE_A}`);
     });
 
-    // ==================== 断开守卫、重置与销毁（4 条） ====================
+    // ==================== disconnect guard, reset and destroy (4 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_SERVICE_1000
@@ -697,7 +697,7 @@ export default function hfpServiceTest(): void {
       expect(destroyed.operationHistoryCount).assertEqual(1);
     });
 
-    // ==================== 通话管理（9 条） ====================
+    // ==================== call management (9 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_SERVICE_1400
@@ -984,7 +984,7 @@ export default function hfpServiceTest(): void {
       expect(statsSnapshot(service).totalCallsInHistory).assertEqual(0);
     });
 
-    // ==================== 重播与音量（4 条） ====================
+    // ==================== replay and volume (4 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_SERVICE_2300
@@ -1126,7 +1126,7 @@ export default function hfpServiceTest(): void {
       expect(history[3].details).assertEqual('Not initialized');
     });
 
-    // ==================== 语音识别（1 条） ====================
+    // ==================== sound identify distinguish (1 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_SERVICE_2700
@@ -1160,7 +1160,7 @@ export default function hfpServiceTest(): void {
       expect(lastHistory(service).details).assertEqual('Voice recognition stopped');
     });
 
-    // ==================== 统计、副本与回调（3 条） ====================
+    // ==================== statistics, copy and callback (3 cases) ====================
 
     /*
      * @tc.number: SUB_HFP_SERVICE_2800

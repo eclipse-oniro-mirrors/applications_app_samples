@@ -14,19 +14,19 @@
  */
 
 /**
- * 测试页面索引组件。
- * 作为 ohosTest 的默认页面，用于显示测试执行状态。
+ * test page index quote group item.
+ * operate for ohosTest default page, used for show display test try execute row state state.
  */
 @Entry
 @Component
 struct Index {
-  /** 页面标题 */
+  /** page title */
   @State title: string = 'Bluetooth BaseProfile Tests';
-  /** 测试状态信息 */
+  /** test try state state info info */
   @State statusMessage: string = 'Tests are running...';
 
   /**
-   * 构建 UI 界面。
+   * structure build UI interface layout.
    */
   build() {
     Column() {

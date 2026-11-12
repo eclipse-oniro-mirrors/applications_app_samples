@@ -22,7 +22,7 @@ import { FormatUtils } from 'library';
  */
 export default function formatUtilsTest(): void {
   describe('FormatUtilsTest', () => {
-    // ==================== 字节与比特率（4 条） ====================
+    // ==================== character section and compare special rate (4 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_0100
@@ -85,7 +85,7 @@ export default function formatUtilsTest(): void {
       expect(FormatUtils.formatBitRate(1000000)).assertEqual('1.0 Mbps');
     });
 
-    // ==================== MAC 地址（3 条） ====================
+    // ==================== MAC ground address (3 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_0500
@@ -131,7 +131,7 @@ export default function formatUtilsTest(): void {
       expect(FormatUtils.formatMacAddress('0011223344556677').split(':').length).assertEqual(8);
     });
 
-    // ==================== 信号强度（2 条） ====================
+    // ==================== signal strength (2 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_0800
@@ -165,7 +165,7 @@ export default function formatUtilsTest(): void {
       expect(FormatUtils.formatSignalStrength(-127)).assertEqual('Very Weak');
     });
 
-    // ==================== 百分比与千位分隔（3 条） ====================
+    // ==================== percentage and thousands separator (3 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_1000
@@ -213,7 +213,7 @@ export default function formatUtilsTest(): void {
       expect(FormatUtils.formatNumber(-1000)).assertEqual('-1,000');
     });
 
-    // ==================== 电话与 UUID（3 条） ====================
+    // ==================== phone and UUID(3 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_1300
@@ -277,7 +277,7 @@ export default function formatUtilsTest(): void {
       expect(FormatUtils.formatUuid('AABB').indexOf(':')).assertEqual(-1);
     });
 
-    // ==================== 截断（3 条） ====================
+    // ==================== cut disconnect (3 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_1700
@@ -326,7 +326,7 @@ export default function formatUtilsTest(): void {
       expect(FormatUtils.truncate('abc', 3)).assertEqual('abc');
     });
 
-    // ==================== 时长与设备类别（4 条） ====================
+    // ==================== time length and device class (4 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_2000
@@ -391,7 +391,7 @@ export default function formatUtilsTest(): void {
       expect(FormatUtils.formatDeviceClass(0x0A00)).assertEqual('Unknown');
     });
 
-    // ==================== JSON 美化（1 条） ====================
+    // ==================== JSON pretty ize (1 cases) ====================
 
     /*
      * @tc.number: SUB_FORMAT_UTILS_2400

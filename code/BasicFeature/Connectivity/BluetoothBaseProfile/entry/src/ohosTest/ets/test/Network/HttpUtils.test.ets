@@ -26,7 +26,7 @@ const UNKNOWN_TEXT: string = 'Unknown';
 
 export default function httpUtilsTest(): void {
   describe('HttpUtilsTest', () => {
-    // ==================== 查询串构建（2 条） ====================
+    // ==================== check query string structure build (2 cases) ====================
 
     /*
      * @tc.number: SUB_HTTP_UTILS_0100
@@ -71,7 +71,7 @@ export default function httpUtilsTest(): void {
       expect(HttpUtils.parseQueryString(built)['a&b']).assertEqual('c=d');
     });
 
-    // ==================== 查询串解析（3 条） ====================
+    // ==================== check query string decode parse (3 cases) ====================
 
     /*
      * @tc.number: SUB_HTTP_UTILS_0300
@@ -141,7 +141,7 @@ export default function httpUtilsTest(): void {
       expect(restored['name'] === source['name']).assertTrue();
     });
 
-    // ==================== URL 拼接（2 条） ====================
+    // ==================== URL concat connect (2 cases) ====================
 
     /*
      * @tc.number: SUB_HTTP_UTILS_0600
@@ -181,7 +181,7 @@ export default function httpUtilsTest(): void {
       expect(HttpUtils.buildUrl(BASE_URL, 'api', empty).indexOf('?')).assertEqual(-1);
     });
 
-    // ==================== 请求配置（3 条） ====================
+    // ==================== request config (3 cases) ====================
 
     /*
      * @tc.number: SUB_HTTP_UTILS_0800
@@ -254,7 +254,7 @@ export default function httpUtilsTest(): void {
       expect(HttpUtils.createConfig(BASE_URL, HttpMethod.POST).method).assertEqual('POST');
     });
 
-    // ==================== 状态码分类（5 条） ====================
+    // ==================== state state code classification (5 cases) ====================
 
     /*
      * @tc.number: SUB_HTTP_UTILS_1100
@@ -357,7 +357,7 @@ export default function httpUtilsTest(): void {
       expect(HttpUtils.isServerError(599)).assertTrue();
     });
 
-    // ==================== 状态描述（2 条） ====================
+    // ==================== state state describe describe (2 cases) ====================
 
     /*
      * @tc.number: SUB_HTTP_UTILS_1600
@@ -401,7 +401,7 @@ export default function httpUtilsTest(): void {
       expect(HttpUtils.getStatusText(599)).assertEqual(UNKNOWN_TEXT);
     });
 
-    // ==================== 拦截器注册（1 条） ====================
+    // ==================== interceptor register (1 cases) ====================
 
     /*
      * @tc.number: SUB_HTTP_UTILS_1800

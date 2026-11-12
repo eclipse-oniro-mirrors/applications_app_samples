@@ -22,7 +22,7 @@ import { CommonUtils } from 'library';
  */
 export default function commonUtilsTest(): void {
   describe('CommonUtilsTest', () => {
-    // ==================== 异步辅助（3 条） ====================
+    // ==================== different step auxiliary assist (3 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_0100
@@ -80,7 +80,7 @@ export default function commonUtilsTest(): void {
       expect(message.indexOf('40') >= 0).assertTrue();
     });
 
-    // ==================== 唯一 ID（2 条） ====================
+    // ==================== unique ID(2 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_0400
@@ -117,7 +117,7 @@ export default function commonUtilsTest(): void {
       expect(Number.isNaN(decoded)).assertFalse();
     });
 
-    // ==================== JSON 安全序列化（4 条） ====================
+    // ==================== JSON safe serialize (4 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_0600
@@ -183,7 +183,7 @@ export default function commonUtilsTest(): void {
       expect(CommonUtils.safeParse('')).assertNull();
     });
 
-    // ==================== 防抖与节流（3 条） ====================
+    // ==================== prevent shake and section stream (3 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_1000
@@ -255,7 +255,7 @@ export default function commonUtilsTest(): void {
       expect(hits).assertEqual(1);
     });
 
-    // ==================== 重试（2 条） ====================
+    // ==================== weight try (2 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_1300
@@ -303,7 +303,7 @@ export default function commonUtilsTest(): void {
       expect(attempts > 1).assertTrue();
     });
 
-    // ==================== 数组去重与分块（4 条） ====================
+    // ==================== array remove weight and divide block (4 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_1500
@@ -368,7 +368,7 @@ export default function commonUtilsTest(): void {
       expect(CommonUtils.chunk<string>([], 3).length).assertEqual(0);
     });
 
-    // ==================== 扁平化与分组（3 条） ====================
+    // ==================== flat flat ize and divide group (3 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_1900
@@ -396,7 +396,8 @@ export default function commonUtilsTest(): void {
      */
     it('testCommonUtils0020', 0, () => {
       const names: string[] = ['Audio', 'Appliances', 'Beacon'];
-      const groups: Map<string, string[]> = CommonUtils.groupBy<string>(names, (item: string): string => item.charAt(0));
+      const groups: Map<string,
+        string[]> = CommonUtils.groupBy<string>(names, (item: string): string => item.charAt(0));
       expect(groups.size).assertEqual(2);
       expect((groups.get('A') as string[]).length).assertEqual(2);
       expect((groups.get('B') as string[])[0]).assertEqual('Beacon');
@@ -418,7 +419,7 @@ export default function commonUtilsTest(): void {
       expect(groups !== undefined).assertTrue();
     });
 
-    // ==================== 排序与检索（4 条） ====================
+    // ==================== sort and check index (4 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_2200
@@ -446,7 +447,8 @@ export default function commonUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testCommonUtils0023', 0, () => {
-      const sorted: string[] = CommonUtils.sortBy<string>(['b', 'c', 'a'], (a: string, b: string): number => b.localeCompare(a));
+      const sorted: string[] =
+        CommonUtils.sortBy<string>(['b', 'c', 'a'], (a: string, b: string): number => b.localeCompare(a));
       expect(sorted[0]).assertEqual('c');
       expect(sorted[1]).assertEqual('b');
       expect(sorted.length).assertEqual(3);
@@ -498,7 +500,7 @@ export default function commonUtilsTest(): void {
       expect(single.length).assertEqual(1);
     });
 
-    // ==================== 不变量与稳定性（4 条） ====================
+    // ==================== not change amount and stable specify property (4 cases) ====================
 
     /*
      * @tc.number: SUB_COMMON_UTILS_2700

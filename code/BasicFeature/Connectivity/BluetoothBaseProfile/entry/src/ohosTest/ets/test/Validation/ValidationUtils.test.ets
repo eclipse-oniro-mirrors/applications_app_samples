@@ -22,7 +22,7 @@ import { BluetoothConstants, ValidationUtils } from 'library';
  */
 export default function validationUtilsTest(): void {
   describe('ValidationUtilsTest', () => {
-    // ==================== MAC 地址校验（4 条） ====================
+    // ==================== MAC ground address validation (4 cases) ====================
 
     /*
      * @tc.number: SUB_VALIDATION_UTILS_0100
@@ -49,11 +49,11 @@ export default function validationUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testValidationUtils0002', 0, () => {
-      const dash = ValidationUtils.validateMacAddress('aa-bb-cc-dd-ee-ff');
+      const dash = ValidationUtils.validateMacAddress('1a-2b-3c-4d-5e-6f');
       expect(dash.isValid).assertTrue();
       expect(dash.errorCode).assertEqual(0);
       expect(ValidationUtils.validateMacAddress('A1-B2-C3-D4-E5-F6').isValid).assertTrue();
-      expect(ValidationUtils.validateMacAddress('aa:bb-cc:dd-ee:ff').isValid).assertTrue();
+      expect(ValidationUtils.validateMacAddress('1a:2b-3c:4d-5e:6f').isValid).assertTrue();
       expect(ValidationUtils.validateMacAddress('aabbccddeeff').isValid).assertFalse();
     });
 
@@ -90,7 +90,7 @@ export default function validationUtilsTest(): void {
       expect(ValidationUtils.validateMacAddress(':').errorCode).assertEqual(2);
     });
 
-    // ==================== UUID 校验（4 条） ====================
+    // ==================== UUID validation (4 cases) ====================
 
     /*
      * @tc.number: SUB_VALIDATION_UTILS_0500
@@ -157,7 +157,7 @@ export default function validationUtilsTest(): void {
       expect(ValidationUtils.validateUuid('').errorCode).assertEqual(1);
     });
 
-    // ==================== 设备名校验（2 条） ====================
+    // ==================== device name validation (2 cases) ====================
 
     /*
      * @tc.number: SUB_VALIDATION_UTILS_0900
@@ -200,7 +200,7 @@ export default function validationUtilsTest(): void {
       expect(tooLong.errorCode).assertEqual(2);
     });
 
-    // ==================== RSSI 与音量校验（4 条） ====================
+    // ==================== RSSI and volume validation (4 cases) ====================
 
     /*
      * @tc.number: SUB_VALIDATION_UTILS_1100
@@ -272,7 +272,7 @@ export default function validationUtilsTest(): void {
       expect(ValidationUtils.validateVolume(60, 127).isValid).assertTrue();
     });
 
-    // ==================== 电话与 IP 校验（4 条） ====================
+    // ==================== phone and IP validation (4 cases) ====================
 
     /*
      * @tc.number: SUB_VALIDATION_UTILS_1500
@@ -345,7 +345,7 @@ export default function validationUtilsTest(): void {
       expect(ValidationUtils.validateIpAddress('').errorMessage).assertEqual('IP address is empty');
     });
 
-    // ==================== 通用非空、范围与长度校验（2 条） ====================
+    // ==================== general non empty, range range and length degree validation (2 cases) ====================
 
     /*
      * @tc.number: SUB_VALIDATION_UTILS_1900

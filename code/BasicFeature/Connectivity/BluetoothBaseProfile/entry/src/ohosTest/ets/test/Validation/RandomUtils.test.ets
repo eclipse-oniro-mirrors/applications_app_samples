@@ -22,7 +22,7 @@ import { RandomUtils, TypeUtils, ValidationUtils } from 'library';
  */
 export default function randomUtilsTest(): void {
   describe('RandomUtilsTest', () => {
-    // ==================== 随机 MAC 与 UUID（4 条） ====================
+    // ==================== follow machine MAC and UUID(4 cases) ====================
 
     /*
      * @tc.number: SUB_RANDOM_UTILS_0100
@@ -138,7 +138,7 @@ export default function randomUtilsTest(): void {
       expect(seen[0].length).assertEqual(36);
     });
 
-    // ==================== 设备名与制造商（3 条） ====================
+    // ==================== device name and control build vendor (3 cases) ====================
 
     /*
      * @tc.number: SUB_RANDOM_UTILS_0500
@@ -226,7 +226,7 @@ export default function randomUtilsTest(): void {
       expect(ValidationUtils.validateDeviceName(seen[0]).isValid).assertTrue();
     });
 
-    // ==================== 信号与设备标识（5 条） ====================
+    // ==================== signal and device identifier (5 cases) ====================
 
     /*
      * @tc.number: SUB_RANDOM_UTILS_0800
@@ -349,7 +349,7 @@ export default function randomUtilsTest(): void {
       expect(Number.isNaN(Number.parseInt(second.split('_')[1], 36))).assertFalse();
     });
 
-    // ==================== 号码与联系人（2 条） ====================
+    // ==================== number and link system person (2 cases) ====================
 
     /*
      * @tc.number: SUB_RANDOM_UTILS_1300
@@ -417,7 +417,7 @@ export default function randomUtilsTest(): void {
       expect(RandomUtils.randomContactName().indexOf(' ') > 0).assertTrue();
     });
 
-    // ==================== 健康数值（3 条） ====================
+    // ==================== health values (3 cases) ====================
 
     /*
      * @tc.number: SUB_RANDOM_UTILS_1500
@@ -510,7 +510,7 @@ export default function randomUtilsTest(): void {
       expect(RandomUtils.randomTemperature() >= 36).assertTrue();
     });
 
-    // ==================== 通用抽取（5 条） ====================
+    // ==================== general extract (5 cases) ====================
 
     /*
      * @tc.number: SUB_RANDOM_UTILS_1800

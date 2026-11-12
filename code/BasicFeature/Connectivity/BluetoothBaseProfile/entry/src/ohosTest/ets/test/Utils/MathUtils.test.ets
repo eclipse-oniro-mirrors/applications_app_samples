@@ -22,7 +22,7 @@ import { MathUtils } from 'library';
  */
 export default function mathUtilsTest(): void {
   describe('MathUtilsTest', () => {
-    // ==================== 数值夹取（2 条） ====================
+    // ==================== numeric clamp (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_0100
@@ -54,7 +54,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.clamp(0, 0, 0)).assertEqual(0);
     });
 
-    // ==================== 线性插值（2 条） ====================
+    // ==================== linear interpolation (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_0300
@@ -86,7 +86,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.lerp(10, 20, 1.5)).assertEqual(20);
     });
 
-    // ==================== 平均值（2 条） ====================
+    // ==================== average (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_0500
@@ -119,7 +119,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.average(empty)).assertEqual(MathUtils.average([]));
     });
 
-    // ==================== 中位数（3 条） ====================
+    // ==================== median (3 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_0700
@@ -168,7 +168,7 @@ export default function mathUtilsTest(): void {
       expect(source[1]).assertEqual(1);
     });
 
-    // ==================== 标准差（2 条） ====================
+    // ==================== standard deviation (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_1000
@@ -200,7 +200,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.standardDeviation([0, 10])).assertEqual(5);
     });
 
-    // ==================== 百分比（2 条） ====================
+    // ==================== percentage (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_1200
@@ -232,7 +232,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.percentage(20, 10)).assertEqual(100);
     });
 
-    // ==================== RSSI 距离与质量（4 条） ====================
+    // ==================== RSSI distance distance and quality amount (4 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_1400
@@ -294,7 +294,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.rssiToQuality(-75) < MathUtils.rssiToQuality(-60)).assertTrue();
     });
 
-    // ==================== 欧氏距离（1 条） ====================
+    // ==================== Euclidean distance (1 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_1800
@@ -311,7 +311,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.distance(0, 5, 0, 0)).assertEqual(5);
     });
 
-    // ==================== 随机数（2 条） ====================
+    // ==================== random number (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_1900
@@ -369,12 +369,12 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.randomFloat(-1, 1) >= -1).assertTrue();
     });
 
-    // ==================== 四舍五入（1 条） ====================
+    // ==================== four house five in (1 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_2100
      * @tc.name: testMathUtils0021
-     * @tc.desc: Round a value to the requested number of decimal places.
+     * @tc.desc: Round a value to the requested number of digits.
      * @tc.size: MediumTest
      * @tc.type: Function
      * @tc.level Level 0
@@ -386,7 +386,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.roundTo(1234.5678, 2)).assertEqual(1234.57);
     });
 
-    // ==================== 范围判断（1 条） ====================
+    // ==================== range range determine (1 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_2200
@@ -404,7 +404,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.inRange(10.5, 1, 10)).assertFalse();
     });
 
-    // ==================== 最大公约数（2 条） ====================
+    // ==================== greatest common divisor (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_2300
@@ -436,7 +436,7 @@ export default function mathUtilsTest(): void {
       expect(MathUtils.gcd(1, 100)).assertEqual(1);
     });
 
-    // ==================== 最小公倍数（2 条） ====================
+    // ==================== least common multiple (2 cases) ====================
 
     /*
      * @tc.number: SUB_MATH_UTILS_2500

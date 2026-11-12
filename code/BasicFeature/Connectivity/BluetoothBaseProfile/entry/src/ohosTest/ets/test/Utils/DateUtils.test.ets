@@ -24,7 +24,7 @@ const SAMPLE: Date = new Date(2024, 0, 5, 8, 9, 10, 0);
  */
 export default function dateUtilsTest(): void {
   describe('DateUtilsTest', () => {
-    // ==================== 时间戳格式化（4 条） ====================
+    // ==================== timestamp format (4 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_0100
@@ -89,7 +89,7 @@ export default function dateUtilsTest(): void {
       expect(before.length).assertEqual(2);
     });
 
-    // ==================== 当前时间与差值（3 条） ====================
+    // ==================== current time and difference value (3 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_0500
@@ -138,7 +138,7 @@ export default function dateUtilsTest(): void {
       expect(DateUtils.diff(-day, day) > day).assertTrue();
     });
 
-    // ==================== 时长格式化（4 条） ====================
+    // ==================== time length format (4 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_0800
@@ -198,7 +198,7 @@ export default function dateUtilsTest(): void {
       expect(DateUtils.formatDuration(-1)).assertEqual(DateUtils.formatDuration(0));
     });
 
-    // ==================== 月份与星期名称（3 条） ====================
+    // ==================== month copy and star period name name (3 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_1200
@@ -246,7 +246,7 @@ export default function dateUtilsTest(): void {
       expect(DateUtils.getDayName(-1)).assertEqual('Unknown');
     });
 
-    // ==================== 今天与昨天（3 条） ====================
+    // ==================== today and yesterday (3 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_1500
@@ -299,7 +299,7 @@ export default function dateUtilsTest(): void {
       expect(DateUtils.isYesterday(0)).assertFalse();
     });
 
-    // ==================== 相对时间（3 条） ====================
+    // ==================== relative time (3 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_1800
@@ -347,7 +347,7 @@ export default function dateUtilsTest(): void {
       expect(oldText.indexOf('ago') < 0).assertTrue();
     });
 
-    // ==================== 闰年与月天数（3 条） ====================
+    // ==================== leap year and month day number (3 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_2100
@@ -396,7 +396,7 @@ export default function dateUtilsTest(): void {
       expect(sum).assertEqual(365);
     });
 
-    // ==================== 日期加减（5 条） ====================
+    // ==================== day period add subtract (5 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_2400
@@ -482,7 +482,7 @@ export default function dateUtilsTest(): void {
       expect(identity !== SAMPLE).assertTrue();
     });
 
-    // ==================== 一天起止（2 条） ====================
+    // ==================== day start and end (2 cases) ====================
 
     /*
      * @tc.number: SUB_DATE_UTILS_2900

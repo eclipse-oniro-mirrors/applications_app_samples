@@ -40,11 +40,11 @@ interface PbapDataPayload {
 }
 
 /**
- * 构造一份完整的 PBAP 电话簿数据载荷。
- * @param {number} totalContacts - 联系人总数
- * @param {string} phonebookType - 电话簿类型
- * @param {string} searchKeyword - 检索关键字
- * @returns {PbapDataPayload} 数据载荷
+ * structure build a complete PBAP phonebook data payload.
+ * @param {number} totalContacts - total contact count
+ * @param {string} phonebookType - phonebook type
+ * @param {string} searchKeyword - check index relate key character
+ * @returns {PbapDataPayload} data payload
  */
 function buildPayload(totalContacts: number, phonebookType: string, searchKeyword: string): PbapDataPayload {
   return {
@@ -61,9 +61,9 @@ function buildPayload(totalContacts: number, phonebookType: string, searchKeywor
 }
 
 /**
- * 读取日志末条内容（去掉时间戳前缀）。
- * @param {PbapModel} model - 被测模型
- * @returns {string} 末条日志正文，无日志时返回空串
+ * read day log last internal content (remove drop timestamp prefix).
+ * @param {PbapModel} model - passive test model type
+ * @returns {string} last day log correct text, none day log time return empty string
  */
 function lastLog(model: PbapModel): string {
   const logs = model.getLogs();
@@ -80,7 +80,7 @@ function lastLog(model: PbapModel): string {
  */
 export default function pbapModelTest(): void {
   describe('PbapModelTest', () => {
-    // ==================== 构造与实例隔离（2 条） ====================
+    // ==================== structure build and instance isolation (2 cases) ====================
 
     /*
      * @tc.number: SUB_PBAP_MODEL_0100
@@ -150,7 +150,7 @@ export default function pbapModelTest(): void {
       expect(model.toString().indexOf('PbapModel[deviceId=' + DEVICE_ID + ', state=connecting')).assertEqual(0);
     });
 
-    // ==================== 连接状态迁移（4 条） ====================
+    // ==================== connection state transitions (4 cases) ====================
 
     /*
      * @tc.number: SUB_PBAP_MODEL_0300
@@ -270,7 +270,7 @@ export default function pbapModelTest(): void {
       expect(model.retryCount).assertEqual(0);
     });
 
-    // ==================== 操作日志行为（2 条） ====================
+    // ==================== operation log row for (2 cases) ====================
 
     /*
      * @tc.number: SUB_PBAP_MODEL_0700
@@ -333,7 +333,7 @@ export default function pbapModelTest(): void {
       expect(lastLog(model)).assertEqual('gamma');
     });
 
-    // ==================== 数据载荷与状态入口（2 条） ====================
+    // ==================== data payload and state entry (2 cases) ====================
 
     /*
      * @tc.number: SUB_PBAP_MODEL_0900
@@ -409,7 +409,7 @@ export default function pbapModelTest(): void {
       expect(model.data).assertEqual(null);
     });
 
-    // ==================== 重置与序列化（2 条） ====================
+    // ==================== reset and serialize (2 cases) ====================
 
     /*
      * @tc.number: SUB_PBAP_MODEL_1100

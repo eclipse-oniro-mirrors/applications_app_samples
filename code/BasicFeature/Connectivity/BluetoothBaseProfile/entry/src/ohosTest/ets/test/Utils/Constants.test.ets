@@ -31,7 +31,7 @@ const UUID_DASH_COUNT: number = 4;
 
 export default function constantsTest(): void {
   describe('ConstantsTest', () => {
-    // ==================== 版本信息（3 条） ====================
+    // ==================== version this info info (3 cases) ====================
 
     /*
      * @tc.number: SUB_CONSTANTS_0100
@@ -96,7 +96,7 @@ export default function constantsTest(): void {
       expect(Constants.getVersionInfo().versionString).assertEqual(VERSION_TEXT);
     });
 
-    // ==================== 默认业务参数（2 条） ====================
+    // ==================== default business params (2 cases) ====================
 
     /*
      * @tc.number: SUB_CONSTANTS_0400
@@ -134,7 +134,7 @@ export default function constantsTest(): void {
       expect(Constants.DEFAULT_ANIMATION_DURATION < Constants.DEFAULT_TIMEOUT_MS).assertTrue();
     });
 
-    // ==================== 单位换算常量（2 条） ====================
+    // ==================== unit conversion constant amount (2 cases) ====================
 
     /*
      * @tc.number: SUB_CONSTANTS_0600
@@ -195,7 +195,7 @@ export default function constantsTest(): void {
       expect(Constants.EMPTY_STRING.length).assertEqual(0);
     });
 
-    // ==================== 邮箱校验（2 条） ====================
+    // ==================== email validation (2 cases) ====================
 
     /*
      * @tc.number: SUB_CONSTANTS_0900
@@ -249,7 +249,7 @@ export default function constantsTest(): void {
       expect(new RegExp(Constants.EMAIL_REGEX).test('a@b.co')).assertTrue();
     });
 
-    // ==================== 蓝牙地址校验（3 条） ====================
+    // ==================== Bluetooth address validation (3 cases) ====================
 
     /*
      * @tc.number: SUB_CONSTANTS_1100
@@ -349,7 +349,7 @@ export default function constantsTest(): void {
       expect(Constants.URL_REGEX.endsWith('$')).assertFalse();
     });
 
-    // ==================== UUID 校验（2 条） ====================
+    // ==================== UUID validation (2 cases) ====================
 
     /*
      * @tc.number: SUB_CONSTANTS_1500
@@ -424,7 +424,7 @@ export default function constantsTest(): void {
       expect(new RegExp(Constants.UUID_REGEX).test(generated[5])).assertTrue();
     });
 
-    // ==================== 初始化（1 条） ====================
+    // ==================== initialize (1 cases) ====================
 
     /*
      * @tc.number: SUB_CONSTANTS_1800

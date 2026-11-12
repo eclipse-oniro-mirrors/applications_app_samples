@@ -27,9 +27,9 @@ const BLE_DEVICE_COUNT: number = 3;
 const DUAL_MODE_DEVICE_COUNT: number = 2;
 
 /**
- * 启动一次完整扫描并返回扫描到的设备。
- * @param {BluetoothScanService} service - 扫描服务
- * @returns {Promise<BluetoothDeviceModel[]>} 扫描结果
+ * start one full scan and return scanned devices.
+ * @param {BluetoothScanService} service - scan service
+ * @returns {Promise<BluetoothDeviceModel[]>} scan result
  */
 async function scanDevices(service: BluetoothScanService): Promise<BluetoothDeviceModel[]> {
   const started: boolean = await service.startScan();

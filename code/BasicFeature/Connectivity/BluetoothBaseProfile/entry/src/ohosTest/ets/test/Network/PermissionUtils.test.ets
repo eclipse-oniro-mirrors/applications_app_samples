@@ -52,7 +52,7 @@ class RecordingRequestCallback {
 
 export default function permissionUtilsTest(): void {
   describe('PermissionUtilsTest', () => {
-    // ==================== 授权与撤销（5 条） ====================
+    // ==================== grant and revoke (5 cases) ====================
 
     /*
      * @tc.number: SUB_PERMISSION_UTILS_0100
@@ -170,7 +170,7 @@ export default function permissionUtilsTest(): void {
       expect(PermissionUtils.getGrantedPermissions().length).assertEqual(1);
     });
 
-    // ==================== 蓝牙与位置便捷检查（1 条） ====================
+    // ==================== convenient Bluetooth and location check (1 cases) ====================
 
     /*
      * @tc.number: SUB_PERMISSION_UTILS_0600
@@ -198,7 +198,7 @@ export default function permissionUtilsTest(): void {
       expect(PermissionUtils.getGrantedPermissions().length).assertEqual(1);
     });
 
-    // ==================== 批量请求（3 条） ====================
+    // ==================== batch amount request request (3 cases) ====================
 
     /*
      * @tc.number: SUB_PERMISSION_UTILS_0700
@@ -273,7 +273,7 @@ export default function permissionUtilsTest(): void {
       expect(second.captured!.get(LOCATION_PERMISSION)).assertEqual(PermissionStatus.GRANTED);
     });
 
-    // ==================== 结果回调（4 条） ====================
+    // ==================== result callback (4 cases) ====================
 
     /*
      * @tc.number: SUB_PERMISSION_UTILS_1000
@@ -388,7 +388,7 @@ export default function permissionUtilsTest(): void {
       PermissionUtils.clearAll();
     });
 
-    // ==================== 状态描述与全量清理（2 条） ====================
+    // ==================== state state describe describe and all amount cleanup (2 cases) ====================
 
     /*
      * @tc.number: SUB_PERMISSION_UTILS_1400

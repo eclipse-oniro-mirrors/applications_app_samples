@@ -17,7 +17,7 @@ import { describe, it, expect } from '@ohos/hypium';
 import { ClipboardDataType, ClipboardUtils } from 'library';
 
 /**
- * 记录剪贴板回调内容的辅助监听器
+ * record clipboard callback content auxiliary assist listener
  */
 class ClipRecorder {
   public payloads: string[] = [];
@@ -30,7 +30,8 @@ class ClipRecorder {
 }
 
 /**
- * 故意抛出异常的辅助监听器，用于验证通知循环不被中断
+ * therefore meaning throw output exception auxiliary assist listener, used for validate notify loop environment not
+ * passive in disconnect
  */
 class ThrowingRecorder {
   public calls: number = 0;
@@ -47,7 +48,7 @@ class ThrowingRecorder {
  */
 export default function clipboardUtilsTest(): void {
   describe('ClipboardUtilsTest', () => {
-    // ==================== 写入与读取（4 条） ====================
+    // ==================== write and read (4 cases) ====================
 
     /*
      * @tc.number: SUB_CLIPBOARD_UTILS_0100
@@ -116,7 +117,7 @@ export default function clipboardUtilsTest(): void {
       expect(ClipboardUtils.getText().length).assertEqual(0);
     });
 
-    // ==================== 类型探测（3 条） ====================
+    // ==================== type probing (3 cases) ====================
 
     /*
      * @tc.number: SUB_CLIPBOARD_UTILS_0500
@@ -163,7 +164,7 @@ export default function clipboardUtilsTest(): void {
       expect(ClipboardUtils.detectType('12345')).assertEqual(ClipboardDataType.TEXT);
     });
 
-    // ==================== 设备信息与日志复制（3 条） ====================
+    // ==================== device info and day log copy (3 cases) ====================
 
     /*
      * @tc.number: SUB_CLIPBOARD_UTILS_0800
@@ -219,7 +220,7 @@ export default function clipboardUtilsTest(): void {
       expect(ClipboardUtils.getDataType()).assertEqual(ClipboardDataType.TEXT);
     });
 
-    // ==================== 变更监听（6 条） ====================
+    // ==================== change monitor listen (6 cases) ====================
 
     /*
      * @tc.number: SUB_CLIPBOARD_UTILS_1100
@@ -254,7 +255,7 @@ export default function clipboardUtilsTest(): void {
       ClipboardUtils.clear();
       const recorder = new ClipRecorder();
       ClipboardUtils.addListener(recorder);
-      ClipboardUtils.copyDeviceInfo('Watch', 'AA:BB:CC:DD:EE:FF');
+      ClipboardUtils.copyDeviceInfo('Watch', '11:22:33:44:55:FF');
       ClipboardUtils.copyConnectionLogs(['a', 'b']);
       expect(recorder.payloads.length).assertEqual(2);
       expect(recorder.payloads[0].indexOf('Device: Watch') === 0).assertTrue();

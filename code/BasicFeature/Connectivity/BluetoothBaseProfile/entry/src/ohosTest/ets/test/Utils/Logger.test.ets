@@ -46,7 +46,7 @@ class ThrowingListener implements LogListener {
  */
 export default function loggerTest(): void {
   describe('LoggerTest', () => {
-    // ==================== 级别阈值（4 条） ====================
+    // ==================== level threshold (4 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_0100
@@ -136,7 +136,7 @@ export default function loggerTest(): void {
       expect(Logger.getLevel()).assertEqual(LogLevel.DEBUG);
     });
 
-    // ==================== 条目内容（3 条） ====================
+    // ==================== entry content (3 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_0500
@@ -197,7 +197,7 @@ export default function loggerTest(): void {
       expect(history[1].message.startsWith('xxx')).assertTrue();
     });
 
-    // ==================== 级别筛选（2 条） ====================
+    // ==================== level filter (2 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_0800
@@ -239,7 +239,7 @@ export default function loggerTest(): void {
       expect(Logger.getBufferSize()).assertEqual(1);
     });
 
-    // ==================== 缓冲区容量（3 条） ====================
+    // ==================== buffer capacity (3 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_1000
@@ -302,7 +302,7 @@ export default function loggerTest(): void {
       expect(second !== first).assertTrue();
     });
 
-    // ==================== 清空（2 条） ====================
+    // ==================== clear (2 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_1300
@@ -366,7 +366,7 @@ export default function loggerTest(): void {
       Logger.setLevel(LogLevel.DEBUG);
     });
 
-    // ==================== 监听器（4 条） ====================
+    // ==================== listener (4 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_1600
@@ -491,7 +491,7 @@ export default function loggerTest(): void {
       Logger.setLevel(LogLevel.DEBUG);
     });
 
-    // ==================== 级别标签与条目格式化（3 条） ====================
+    // ==================== level label and entry format (3 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_2100
@@ -571,7 +571,7 @@ export default function loggerTest(): void {
       expect(Logger.getLevelLabel(entry.level)).assertEqual('FATAL');
     });
 
-    // ==================== 性能追踪（2 条） ====================
+    // ==================== performance tracing (2 cases) ====================
 
     /*
      * @tc.number: SUB_LOGGER_2500
