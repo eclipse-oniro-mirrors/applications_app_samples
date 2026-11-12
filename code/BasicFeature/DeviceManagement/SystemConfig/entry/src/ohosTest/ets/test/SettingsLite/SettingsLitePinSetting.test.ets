@@ -23,12 +23,12 @@ import {
   ClickResult
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * SettingsLiteService 接口测试套件。
- * 验证 SettingsLiteService 的初始化、模型获取、状态管理等不依赖 UI 上下文的能力。
+ * SettingsLiteService interface test suite.
+ * Verifies SettingsLiteService capabilities that do not depend on a UI context: initialization, model retrieval, and status management.
  */
 export default function SettingsLitePinSettingTest(): void {
   describe('SettingsLitePinSettingTest', () => {
@@ -36,7 +36,7 @@ export default function SettingsLitePinSettingTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_PIN_SETTING_0100
      * @tc.name testSettingsLitePinSetting0001
-     * @tc.desc 正向用例：初始化服务后状态为已初始化。
+     * @tc.desc Verify the service reports initialized after initialization
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -55,7 +55,7 @@ export default function SettingsLitePinSettingTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_PIN_SETTING_0200
      * @tc.name testSettingsLitePinSetting0002
-     * @tc.desc 正向用例：获取 PIN 模型，验证类型和初始状态。
+     * @tc.desc Verify getPinModel returns the correct type and initial status
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -74,7 +74,7 @@ export default function SettingsLitePinSettingTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_PIN_SETTING_0300
      * @tc.name testSettingsLitePinSetting0003
-     * @tc.desc 反向用例：重置服务后状态为未初始化。
+     * @tc.desc Verify the service reports uninitialized after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

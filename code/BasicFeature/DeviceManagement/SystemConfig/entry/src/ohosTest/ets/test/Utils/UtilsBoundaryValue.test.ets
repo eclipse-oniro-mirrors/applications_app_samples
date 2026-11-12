@@ -16,25 +16,25 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DateUtils, MathUtils, StringUtils, FormatUtils } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * 边界值测试套件 - DateUtils/MathUtils/StringUtils/FormatUtils。
- * 覆盖现有测试未涉及的边界场景：空值、极值、负数、NaN、
- * 精度边界、空集合、相等性边界等。
+ * Boundary-value test suite - DateUtils/MathUtils/StringUtils/FormatUtils.
+ * Covers boundary scenarios not addressed by existing tests: null values, extremes, negatives, NaN,
+ * precision boundaries, empty collections, equality boundaries, etc.
  */
 export default function BoundaryValueTest(): void {
   describe('BoundaryValueTest', () => {
 
     // ========================================
-    // DateUtils 边界值
+    // DateUtils boundary values
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0100
      * @tc.name testUtilsBoundaryValue0001
-     * @tc.desc 边界: parse 无效日期字符串返回 NaN 或 -1
+     * @tc.desc Verify parse returns NaN or -1 for an invalid date string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -52,7 +52,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0200
      * @tc.name testUtilsBoundaryValue0002
-     * @tc.desc 边界: addDays/addHours/addMinutes 传入负数
+     * @tc.desc Verify addDays/addHours/addMinutes with negative arguments
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -74,7 +74,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0300
      * @tc.name testUtilsBoundaryValue0003
-     * @tc.desc 边界: 闰年/平年判断
+     * @tc.desc Verify leap-year and common-year detection
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -91,7 +91,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0400
      * @tc.name testUtilsBoundaryValue0004
-     * @tc.desc 边界: daysBetween 相同时间戳返回 0
+     * @tc.desc Verify daysBetween returns 0 for identical timestamps
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -108,7 +108,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0500
      * @tc.name testUtilsBoundaryValue0005
-     * @tc.desc 边界: 各月份天数及闰年二月
+     * @tc.desc Verify days per month and February in a leap year
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -123,13 +123,13 @@ export default function BoundaryValueTest(): void {
     });
 
     // ========================================
-    // MathUtils 边界值
+    // MathUtils boundary values
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0600
      * @tc.name testUtilsBoundaryValue0006
-     * @tc.desc 边界: lerp t=0/t=1/t 超出范围
+     * @tc.desc Verify lerp at t=0/t=1 and an out-of-range t
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -146,7 +146,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0700
      * @tc.name testUtilsBoundaryValue0007
-     * @tc.desc 边界: inverseLerp a==b 时避免除零
+     * @tc.desc Verify inverseLerp avoids division by zero when a==b
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -164,7 +164,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0800
      * @tc.name testUtilsBoundaryValue0008
-     * @tc.desc 边界: median 空数组/单元素/偶数个元素
+     * @tc.desc Verify median for an empty array/single element/even number of elements
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -185,7 +185,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_0900
      * @tc.name testUtilsBoundaryValue0009
-     * @tc.desc 边界: percentage total=0 时避免除零
+     * @tc.desc Verify percentage avoids division by zero when total=0
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -203,7 +203,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1000
      * @tc.name testUtilsBoundaryValue0010
-     * @tc.desc 边界: square 负数、0、极大值
+     * @tc.desc Verify square for a negative number, 0, and a very large value
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -219,7 +219,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1100
      * @tc.name testUtilsBoundaryValue0011
-     * @tc.desc 边界: 角度弧度转换特殊值
+     * @tc.desc Verify special values in degree/radian conversion
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -235,7 +235,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1200
      * @tc.name testUtilsBoundaryValue0012
-     * @tc.desc 边界: max/min 单元素数组
+     * @tc.desc Verify max/min on single-element arrays
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -249,13 +249,13 @@ export default function BoundaryValueTest(): void {
     });
 
     // ========================================
-    // StringUtils 边界值
+    // StringUtils boundary values
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1300
      * @tc.name testUtilsBoundaryValue0013
-     * @tc.desc 边界: capitalize 单字符、空字符串
+     * @tc.desc Verify capitalize with a single character and an empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -272,7 +272,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1400
      * @tc.name testUtilsBoundaryValue0014
-     * @tc.desc 边界: toKebabCase/toPascalCase 空字符串和单单词
+     * @tc.desc Verify toKebabCase/toPascalCase with empty strings and a single word
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -289,7 +289,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1500
      * @tc.name testUtilsBoundaryValue0015
-     * @tc.desc 边界: countOccurrences 空字符串、无匹配
+     * @tc.desc Verify countOccurrences with an empty string and no match
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -305,7 +305,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1600
      * @tc.name testUtilsBoundaryValue0016
-     * @tc.desc 边界: isBlank/isNotBlank null/undefined/空串/纯空白
+     * @tc.desc Verify isBlank/isNotBlank for null/undefined/empty/pure-whitespace
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -323,7 +323,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1700
      * @tc.name testUtilsBoundaryValue0017
-     * @tc.desc 边界: hashCode/checksum 空字符串
+     * @tc.desc Verify hashCode/checksum on an empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -340,7 +340,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1800
      * @tc.name testUtilsBoundaryValue0018
-     * @tc.desc 边界: substring 各种边界参数
+     * @tc.desc Verify substring with various boundary arguments
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -354,13 +354,13 @@ export default function BoundaryValueTest(): void {
     });
 
     // ========================================
-    // FormatUtils 边界值
+    // FormatUtils boundary values
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_1900
      * @tc.name testUtilsBoundaryValue0019
-     * @tc.desc 边界: formatBytes NaN/Infinity/极大值
+     * @tc.desc Verify formatBytes for NaN/Infinity/very large values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -380,7 +380,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_2000
      * @tc.name testUtilsBoundaryValue0020
-     * @tc.desc 边界: formatDuration 0/负数/极大值
+     * @tc.desc Verify formatDuration for 0/negative/very large values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -397,7 +397,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_2100
      * @tc.name testUtilsBoundaryValue0021
-     * @tc.desc 边界: formatNumber NaN/Infinity
+     * @tc.desc Verify formatNumber for NaN/Infinity
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -414,7 +414,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_2200
      * @tc.name testUtilsBoundaryValue0022
-     * @tc.desc 边界: padStart/padEnd 长度已达标或目标长度为0
+     * @tc.desc Verify padStart/padEnd when the length already meets the target or the target is 0
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -431,7 +431,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_2300
      * @tc.name testUtilsBoundaryValue0023
-     * @tc.desc 边界: truncate maxLen 极小值
+     * @tc.desc Verify truncate with a very small maxLen
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -447,7 +447,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_2400
      * @tc.name testUtilsBoundaryValue0024
-     * @tc.desc 边界: formatPercentage 负数、超过100的值
+     * @tc.desc Verify formatPercentage for negatives and values over 100
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -464,7 +464,7 @@ export default function BoundaryValueTest(): void {
     /**
      * @tc.number SUB_UTILS_BOUNDARY_VALUE_2500
      * @tc.name testUtilsBoundaryValue0025
-     * @tc.desc 边界: maskPhone 过短号码
+     * @tc.desc Verify maskPhone with a too-short number
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

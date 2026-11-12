@@ -16,25 +16,25 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Constants, PageConstants } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * Constants 应用级常量类测试套件。
- * 覆盖 API 版本常量、默认值常量、时间/字节单位、
- * 正则表达式验证、initialize/getVersionInfo 等方法。
+ * Constants application-level constant test suite.
+ * Covers API version constants, default value constants, time/byte units,
+ * regex validation and initialize/getVersionInfo methods.
  */
 export default function ConstantsTest(): void {
   describe('ConstantsTest', () => {
 
     // ========================================
-    // API 版本常量
+    // API version constants
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0100
      * @tc.name testUtilsConstants0001
-     * @tc.desc 正向: API 版本号各字段值正确
+     * @tc.desc Verify each API version field value is correct
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -49,13 +49,13 @@ export default function ConstantsTest(): void {
     });
 
     // ========================================
-    // 默认值常量
+    // Default value constants
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0200
      * @tc.name testUtilsConstants0002
-     * @tc.desc 正向: 各默认值常量符合预期
+     * @tc.desc Verify each default value constant matches expectations
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -73,13 +73,13 @@ export default function ConstantsTest(): void {
     });
 
     // ========================================
-    // 时间单位常量
+    // Time unit constants
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0300
      * @tc.name testUtilsConstants0003
-     * @tc.desc 正向: 时间单位常量换算正确
+     * @tc.desc Verify time unit constant conversions are correct
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -97,13 +97,13 @@ export default function ConstantsTest(): void {
     });
 
     // ========================================
-    // 字节单位常量
+    // Byte unit constants
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0400
      * @tc.name testUtilsConstants0004
-     * @tc.desc 正向: 字节单位常量换算正确
+     * @tc.desc Verify byte unit constant conversions are correct
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -119,13 +119,13 @@ export default function ConstantsTest(): void {
     });
 
     // ========================================
-    // 空字符串常量
+    // Empty string constants
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0500
      * @tc.name testUtilsConstants0005
-     * @tc.desc 正向: 空字符串相关常量值正确
+     * @tc.desc Verify empty-string related constant values are correct
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -141,13 +141,13 @@ export default function ConstantsTest(): void {
     });
 
     // ========================================
-    // 正则表达式常量
+    // Regex constants
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0600
      * @tc.name testUtilsConstants0006
-     * @tc.desc 正向: 正则表达式字符串非空且可构造
+     * @tc.desc Verify regex strings are non-empty and constructible
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -170,7 +170,7 @@ export default function ConstantsTest(): void {
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0700
      * @tc.name testUtilsConstants0007
-     * @tc.desc 正向: isValidEmail 验证合法/非法邮箱
+     * @tc.desc Verify isValidEmail validates valid/invalid emails
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -187,7 +187,7 @@ export default function ConstantsTest(): void {
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0800
      * @tc.name testUtilsConstants0008
-     * @tc.desc 正向: isValidPhone 验证合法/非法手机号
+     * @tc.desc Verify isValidPhone validates valid/invalid phone numbers
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -204,7 +204,7 @@ export default function ConstantsTest(): void {
     /**
      * @tc.number SUB_UTILS_CONSTANTS_0900
      * @tc.name testUtilsConstants0009
-     * @tc.desc 正向: isValidUrl 验证合法/非法 URL
+     * @tc.desc Verify isValidUrl validates valid/invalid URLs
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -225,7 +225,7 @@ export default function ConstantsTest(): void {
     /**
      * @tc.number SUB_UTILS_CONSTANTS_1000
      * @tc.name testUtilsConstants0010
-     * @tc.desc 正向: getVersionInfo 返回完整版本信息
+     * @tc.desc Verify getVersionInfo returns complete version info
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -243,7 +243,7 @@ export default function ConstantsTest(): void {
     /**
      * @tc.number SUB_UTILS_CONSTANTS_1100
      * @tc.name testUtilsConstants0011
-     * @tc.desc 正向: initialize 调用不抛异常
+     * @tc.desc Verify calling initialize does not throw
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

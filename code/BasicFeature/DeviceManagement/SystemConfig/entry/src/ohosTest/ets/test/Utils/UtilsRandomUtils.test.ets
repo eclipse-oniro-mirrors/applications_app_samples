@@ -16,13 +16,13 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { RandomUtils } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * RandomUtils 随机工具类测试套件。
- * 覆盖 nextInt/nextFloat/nextBoolean/nextString/nextHex/nextUuid/nextColor/
- * nextElement/shuffle/nextInRange/weightedRandom 等全部公开方法。
+ * RandomUtils random utility test suite.
+ * Covers all public methods including nextInt/nextFloat/nextBoolean/nextString/nextHex/nextUuid/nextColor/
+ * nextElement/shuffle/nextInRange/weightedRandom.
  */
 export default function RandomUtilsTest(): void {
   describe('RandomUtilsTest', () => {
@@ -34,7 +34,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0100
      * @tc.name testUtilsRandomUtils0001
-     * @tc.desc 正向: nextInt 返回值在 [min, max) 范围内
+     * @tc.desc Verify nextInt returns a value within the [min, max) range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -52,7 +52,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0200
      * @tc.name testUtilsRandomUtils0002
-     * @tc.desc 边界: min >= max 时返回 min
+     * @tc.desc Verify nextInt returns min when min >= max
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -71,7 +71,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0300
      * @tc.name testUtilsRandomUtils0003
-     * @tc.desc 正向: nextFloat 返回值在 [min, max] 范围内
+     * @tc.desc Verify nextFloat returns a value within the [min, max] range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -93,7 +93,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0400
      * @tc.name testUtilsRandomUtils0004
-     * @tc.desc 边界: min > max 时自动交换
+     * @tc.desc Verify the bounds are swapped automatically when min > max
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -121,7 +121,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0500
      * @tc.name testUtilsRandomUtils0005
-     * @tc.desc 正向: nextBoolean 50 次采样同时出现 true 与 false
+     * @tc.desc Verify 50 nextBoolean samples yield both true and false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -151,7 +151,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0600
      * @tc.name testUtilsRandomUtils0006
-     * @tc.desc 正向: nextString 返回指定长度的字符串
+     * @tc.desc Verify nextString returns a string of the requested length
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -171,7 +171,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0700
      * @tc.name testUtilsRandomUtils0007
-     * @tc.desc 正向: 自定义字符集生成字符串仅包含指定字符
+     * @tc.desc Verify a custom charset yields a string containing only the given characters
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -195,7 +195,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0800
      * @tc.name testUtilsRandomUtils0008
-     * @tc.desc 正向: nextHex 返回指定长度的十六进制字符串
+     * @tc.desc Verify nextHex returns a hex string of the requested length
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -218,7 +218,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_0900
      * @tc.name testUtilsRandomUtils0009
-     * @tc.desc 正向: nextUuid 返回符合 v4 格式的 UUID
+     * @tc.desc Verify nextUuid returns a UUID matching the v4 format
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -239,7 +239,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1000
      * @tc.name testUtilsRandomUtils0010
-     * @tc.desc 正向: 多次生成的 UUID 互不相同
+     * @tc.desc Verify repeated UUID generations are all distinct
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -263,7 +263,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1100
      * @tc.name testUtilsRandomUtils0011
-     * @tc.desc 正向: nextColor 返回 #RRGGBB 格式
+     * @tc.desc Verify nextColor returns the #RRGGBB format
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -285,7 +285,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1200
      * @tc.name testUtilsRandomUtils0012
-     * @tc.desc 正向: 从非空数组中选取元素存在于原数组
+     * @tc.desc Verify an element picked from a non-empty array exists in the original array
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -309,7 +309,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1300
      * @tc.name testUtilsRandomUtils0013
-     * @tc.desc 正向: shuffle 返回等长数组且不修改原数组
+     * @tc.desc Verify shuffle returns an equal-length array without modifying the original
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -324,7 +324,7 @@ export default function RandomUtilsTest(): void {
       for (const item of shuffled) {
         expect(backup.indexOf(item)).assertLarger(-1);
       }
-      // 原数组不变
+      // The original array stays unchanged
       for (let i: number = 0; i < original.length; i++) {
         expect(original[i]).assertEqual(backup[i]);
       }
@@ -337,7 +337,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1400
      * @tc.name testUtilsRandomUtils0014
-     * @tc.desc 正向: nextInRange 返回值为 min + n*step 之一
+     * @tc.desc Verify nextInRange returns one of the values min + n*step
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -359,7 +359,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1500
      * @tc.name testUtilsRandomUtils0015
-     * @tc.desc 边界: step <= 0 或 min > max 时返回 min
+     * @tc.desc Verify nextInRange returns min when step <= 0 or min > max
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -378,7 +378,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1600
      * @tc.name testUtilsRandomUtils0016
-     * @tc.desc 正向: weightedRandom 返回值在候选列表中
+     * @tc.desc Verify weightedRandom returns a value from the candidate list
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -399,7 +399,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1700
      * @tc.name testUtilsRandomUtils0017
-     * @tc.desc 边界: items 与 weights 长度不一致返回 undefined
+     * @tc.desc Verify undefined is returned when items and weights have mismatched lengths
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -417,7 +417,7 @@ export default function RandomUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_RANDOM_UTILS_1800
      * @tc.name testUtilsRandomUtils0018
-     * @tc.desc 边界: 全零权重时仍返回候选之一
+     * @tc.desc Verify one of the candidates is still returned when all weights are zero
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

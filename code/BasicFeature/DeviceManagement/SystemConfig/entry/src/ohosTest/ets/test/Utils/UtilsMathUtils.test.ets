@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { MathUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 数学工具测试套件
+// Math utilities test suite
 // ========================================
 
 /**
- * 数学工具测试套件。
- * 测试 MathUtils 类中各数学计算方法的正确性。
+ * Math utilities test suite.
+ * Verifies the correctness of each calculation method in the MathUtils class.
  */
 export default function utilsMathUtilsTest(): void {
   describe('UtilsMathUtilsTest', () => {
 
     // ========================================
-    // 正向用例 - 数值限制与插值
+    // Positive cases - value clamping and interpolation
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0100
      * @tc.name testUtilsMathUtils0001
-     * @tc.desc 正向: 范围内值不变
+     * @tc.desc Verify an in-range value is left unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -55,7 +55,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0200
      * @tc.name testUtilsMathUtils0002
-     * @tc.desc 正向: 低于最小值取最小
+     * @tc.desc Verify a value below the minimum is clamped to the minimum
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -72,7 +72,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0300
      * @tc.name testUtilsMathUtils0003
-     * @tc.desc 正向: 超过最大值取最大
+     * @tc.desc Verify a value above the maximum is clamped to the maximum
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -89,7 +89,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0400
      * @tc.name testUtilsMathUtils0004
-     * @tc.desc 正向: 线性插值中点
+     * @tc.desc Verify linear interpolation at the midpoint
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -107,7 +107,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0500
      * @tc.name testUtilsMathUtils0005
-     * @tc.desc 正向: 四舍五入
+     * @tc.desc Verify rounding to the given number of digits
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -123,13 +123,13 @@ export default function utilsMathUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 随机数与范围
+    // Positive cases - random numbers and ranges
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0600
      * @tc.name testUtilsMathUtils0006
-     * @tc.desc 正向: 随机整数范围
+     * @tc.desc Verify randomInt stays within the given range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -146,7 +146,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0700
      * @tc.name testUtilsMathUtils0007
-     * @tc.desc 正向: 范围内返回true
+     * @tc.desc Verify isInRange returns true for an in-range value
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -162,7 +162,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0800
      * @tc.name testUtilsMathUtils0008
-     * @tc.desc 正向: 范围外返回false
+     * @tc.desc Verify isInRange returns false for an out-of-range value
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -177,13 +177,13 @@ export default function utilsMathUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 统计与百分比
+    // Positive cases - statistics and percentage
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_0900
      * @tc.name testUtilsMathUtils0009
-     * @tc.desc 正向: 平均值计算
+     * @tc.desc Verify the average calculation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -201,7 +201,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_1000
      * @tc.name testUtilsMathUtils0010
-     * @tc.desc 正向: 求和计算
+     * @tc.desc Verify the sum calculation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -219,7 +219,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_1100
      * @tc.name testUtilsMathUtils0011
-     * @tc.desc 正向: 百分比计算
+     * @tc.desc Verify the percentage calculation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -235,13 +235,13 @@ export default function utilsMathUtilsTest(): void {
     });
 
     // ========================================
-    // 边界用例
+    // Boundary cases
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_1200
      * @tc.name testUtilsMathUtils0012
-     * @tc.desc 边界: 最小等于最大
+     * @tc.desc Verify the case where min equals max
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -258,7 +258,7 @@ export default function utilsMathUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_MATH_UTILS_1300
      * @tc.name testUtilsMathUtils0013
-     * @tc.desc 边界: 空数组平均值
+     * @tc.desc Verify the average of an empty array
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

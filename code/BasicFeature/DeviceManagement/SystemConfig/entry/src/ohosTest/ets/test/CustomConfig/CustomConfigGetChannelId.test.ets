@@ -22,25 +22,25 @@ import {
   SystemConfigConstants
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * CustomConfigService getChannelId 接口测试套件。
- * 验证通过 CustomConfigService 调用 getChannelId 获取渠道标识符的正确性、
- * 格式一致性、多次调用稳定性以及异常场景处理能力。
+ * CustomConfigService getChannelId interface test suite.
+ * Verifies the correctness of obtaining the channel identifier via CustomConfigService,
+ * format consistency, stability across repeated calls and exception-scenario handling.
  */
 export default function CustomConfigGetChannelIdTest(): void {
   describe('CustomConfigGetChannelIdTest', () => {
 
     // ========================================
-    // 正向用例
+    // Positive cases
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_GET_CHANNEL_ID_0100
      * @tc.name testCustomConfigGetChannelId0001
-     * @tc.desc 正向用例：获取渠道号后返回值、状态和模型保持一致。
+     * @tc.desc Verify the returned value, status and model stay consistent after fetching the channel id.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -63,7 +63,7 @@ export default function CustomConfigGetChannelIdTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_GET_CHANNEL_ID_0200
      * @tc.name testCustomConfigGetChannelId0002
-     * @tc.desc 正向用例：按设备实际渠道号核对成功或失败模型。
+     * @tc.desc Verify the success or failed model against the device's actual channel id.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -94,7 +94,7 @@ export default function CustomConfigGetChannelIdTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_GET_CHANNEL_ID_0300
      * @tc.name testCustomConfigGetChannelId0003
-     * @tc.desc 正向用例：多次调用 getChannelId 返回一致结果。
+     * @tc.desc Verify repeated getChannelId calls return consistent results.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -116,13 +116,13 @@ export default function CustomConfigGetChannelIdTest(): void {
     });
 
     // ========================================
-    // 反向用例
+    // Negative cases
     // ========================================
 
     /**
      * @tc.number SUB_CUSTOM_CONFIG_GET_CHANNEL_ID_0400
      * @tc.name testCustomConfigGetChannelId0004
-     * @tc.desc 反向用例：重置后清空模型并在重新初始化后一致获取。
+     * @tc.desc Verify reset clears the model and a re-initialized service fetches consistently.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -156,7 +156,7 @@ export default function CustomConfigGetChannelIdTest(): void {
     /**
      * @tc.number SUB_CUSTOM_CONFIG_GET_CHANNEL_ID_0500
      * @tc.name testCustomConfigGetChannelId0005
-     * @tc.desc 反向用例：未初始化服务获取渠道号后模型一致且初始化标志不变。
+     * @tc.desc Verify fetching the channel id on an uninitialized service keeps the model consistent and the init flag unchanged.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

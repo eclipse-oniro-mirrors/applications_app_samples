@@ -17,25 +17,25 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DoNotDisturbModel, DoNotDisturbStatus } from 'library';
 import type { DoNotDisturbModelJson } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * DoNotDisturbModel 扩展测试套件。
- * 补充覆盖 isReady / getTimeSinceLastQuery / toString /
- * 状态机完整流转 / toJSON 往返序列化 / 多次 markFailed 等场景。
+ * DoNotDisturbModel extended test suite.
+ * Adds coverage for isReady / getTimeSinceLastQuery / toString /
+ * full state-machine transitions / toJSON round-trip serialization / repeated markFailed scenarios.
  */
 export default function DoNotDisturbModelExtendedTest(): void {
   describe('DoNotDisturbModelExtendedTest', () => {
 
     // ========================================
-    // isReady 测试
+    // isReady tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0100
      * @tc.name testDoNotDisturbModelExtended0001
-     * @tc.desc 正向: 各状态下 isReady 仅 SUCCESS 返回 true
+     * @tc.desc Verify isReady returns true only in the SUCCESS status
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -53,13 +53,13 @@ export default function DoNotDisturbModelExtendedTest(): void {
     });
 
     // ========================================
-    // getTimeSinceLastQuery 测试
+    // getTimeSinceLastQuery tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0200
      * @tc.name testDoNotDisturbModelExtended0002
-     * @tc.desc 正向: 未查询返回 -1，查询后返回非负时间差
+     * @tc.desc Verify the time diff is -1 before any query and non-negative after a query
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -80,7 +80,7 @@ export default function DoNotDisturbModelExtendedTest(): void {
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0300
      * @tc.name testDoNotDisturbModelExtended0003
-     * @tc.desc 边界: reset 后 getTimeSinceLastQuery 恢复为 -1
+     * @tc.desc Verify getTimeSinceLastQuery resets to -1 after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -96,13 +96,13 @@ export default function DoNotDisturbModelExtendedTest(): void {
     });
 
     // ========================================
-    // toString 测试
+    // toString tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0400
      * @tc.name testDoNotDisturbModelExtended0004
-     * @tc.desc 正向: toString 输出包含关键字段
+     * @tc.desc Verify the toString output contains the key fields
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -119,13 +119,13 @@ export default function DoNotDisturbModelExtendedTest(): void {
     });
 
     // ========================================
-    // 状态机完整流转测试
+    // Full state-machine transition tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0500
      * @tc.name testDoNotDisturbModelExtended0005
-     * @tc.desc 正向: IDLE → QUERYING → SUCCESS → reset → IDLE 完整流转
+     * @tc.desc Verify the full IDLE → QUERYING → SUCCESS → reset → IDLE transition
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -155,7 +155,7 @@ export default function DoNotDisturbModelExtendedTest(): void {
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0600
      * @tc.name testDoNotDisturbModelExtended0006
-     * @tc.desc 正向: IDLE → QUERYING → FAILED → reset → IDLE 异常流转
+     * @tc.desc Verify the IDLE → QUERYING → FAILED → reset → IDLE error transition
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -177,13 +177,13 @@ export default function DoNotDisturbModelExtendedTest(): void {
     });
 
     // ========================================
-    // toJSON 往返序列化测试
+    // toJSON round-trip serialization tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0700
      * @tc.name testDoNotDisturbModelExtended0007
-     * @tc.desc 正向: toJSON 序列化后字段完整且值一致
+     * @tc.desc Verify toJSON keeps all fields complete and consistent
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -203,13 +203,13 @@ export default function DoNotDisturbModelExtendedTest(): void {
     });
 
     // ========================================
-    // 多次 markFailed 测试
+    // Repeated markFailed tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0800
      * @tc.name testDoNotDisturbModelExtended0008
-     * @tc.desc 正向: 多次 markFailed 后 queryCount 累加
+     * @tc.desc Verify queryCount accumulates after repeated markFailed calls
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -230,13 +230,13 @@ export default function DoNotDisturbModelExtendedTest(): void {
     });
 
     // ========================================
-    // markSuccess + updateDndState + updateNotifyState 组合测试
+    // markSuccess + updateDndState + updateNotifyState combination tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_0900
      * @tc.name testDoNotDisturbModelExtended0009
-     * @tc.desc 正向: markSuccess 后通过 updateDndState/updateNotifyState 单独更新
+     * @tc.desc Verify updateDndState/updateNotifyState can update a field in isolation after markSuccess
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -258,13 +258,13 @@ export default function DoNotDisturbModelExtendedTest(): void {
     });
 
     // ========================================
-    // 构造参数测试
+    // Constructor parameter tests
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_EXTENDED_1000
      * @tc.name testDoNotDisturbModelExtended0010
-     * @tc.desc 正向: 带参数构造后状态和查询方法正确
+     * @tc.desc Verify the status and query methods are correct after a parameterized construction
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

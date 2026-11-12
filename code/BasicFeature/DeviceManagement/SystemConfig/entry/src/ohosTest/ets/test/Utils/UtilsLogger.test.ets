@@ -17,25 +17,25 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Logger, LogLevel } from 'library';
 import type { LogEntry, LogListener } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * Logger 日志工具类测试套件。
- * 覆盖日志级别控制、各级别记录方法、缓冲区管理、
- * 监听器机制、getLevelLabel/formatEntry 等全部公开方法。
+ * Logger logging utility test suite.
+ * Covers log-level control, per-level logging methods, buffer management,
+ * the listener mechanism, and all public methods such as getLevelLabel/formatEntry.
  */
 export default function LoggerTest(): void {
   describe('LoggerTest', () => {
 
     // ========================================
-    // 日志级别控制
+    // Log level control
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_LOGGER_0100
      * @tc.name testUtilsLogger0001
-     * @tc.desc 正向: setLevel 后 getLevel 返回正确值
+     * @tc.desc Verify getLevel returns the correct value after setLevel
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -53,13 +53,13 @@ export default function LoggerTest(): void {
     });
 
     // ========================================
-    // 各级别日志记录方法
+    // Per-level logging methods
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_LOGGER_0200
      * @tc.name testUtilsLogger0002
-     * @tc.desc 正向: debug() 记录日志到缓冲区
+     * @tc.desc Verify debug() records a log entry into the buffer
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -80,7 +80,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_0300
      * @tc.name testUtilsLogger0003
-     * @tc.desc 正向: info() 记录日志到缓冲区
+     * @tc.desc Verify info() records a log entry into the buffer
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -101,7 +101,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_0400
      * @tc.name testUtilsLogger0004
-     * @tc.desc 正向: warn() 记录日志到缓冲区
+     * @tc.desc Verify warn() records a log entry into the buffer
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -121,7 +121,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_0500
      * @tc.name testUtilsLogger0005
-     * @tc.desc 正向: error() 记录日志到缓冲区
+     * @tc.desc Verify error() records a log entry into the buffer
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -141,7 +141,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_0600
      * @tc.name testUtilsLogger0006
-     * @tc.desc 正向: fatal() 记录日志到缓冲区
+     * @tc.desc Verify fatal() records a log entry into the buffer
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -159,13 +159,13 @@ export default function LoggerTest(): void {
     });
 
     // ========================================
-    // 日志级别过滤
+    // Log level filtering
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_LOGGER_0700
      * @tc.name testUtilsLogger0007
-     * @tc.desc 正向: 低于当前级别的日志不被记录
+     * @tc.desc Verify logs below the current level are not recorded
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -185,13 +185,13 @@ export default function LoggerTest(): void {
     });
 
     // ========================================
-    // 缓冲区管理
+    // Buffer management
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_LOGGER_0800
      * @tc.name testUtilsLogger0008
-     * @tc.desc 正向: getBufferSize 反映已记录的日志条数
+     * @tc.desc Verify getBufferSize reflects the number of recorded logs
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -211,7 +211,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_0900
      * @tc.name testUtilsLogger0009
-     * @tc.desc 正向: clear 后缓冲区归零
+     * @tc.desc Verify the buffer returns to zero after clear
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -230,7 +230,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_1000
      * @tc.name testUtilsLogger0010
-     * @tc.desc 正向: getHistoryByLevel 只返回指定级别的日志
+     * @tc.desc Verify getHistoryByLevel returns only logs of the specified level
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -253,13 +253,13 @@ export default function LoggerTest(): void {
     });
 
     // ========================================
-    // 监听器管理
+    // Listener management
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_LOGGER_1100
      * @tc.name testUtilsLogger0011
-     * @tc.desc 正向: 添加/移除监听器功能正常
+     * @tc.desc Verify adding and removing listeners works correctly
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -291,7 +291,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_1200
      * @tc.name testUtilsLogger0012
-     * @tc.desc 边界: 重复添加同一监听器只注册一次
+     * @tc.desc Verify adding the same listener twice registers it only once
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -317,13 +317,13 @@ export default function LoggerTest(): void {
     });
 
     // ========================================
-    // 辅助方法
+    // Helper methods
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_LOGGER_1300
      * @tc.name testUtilsLogger0013
-     * @tc.desc 正向: 各日志级别对应正确的中文标签
+     * @tc.desc Verify each log level maps to the correct localized label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -340,7 +340,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_1400
      * @tc.name testUtilsLogger0014
-     * @tc.desc 正向: formatEntry 返回包含时间/级别/标签/消息的字符串
+     * @tc.desc Verify formatEntry returns a string containing time/level/tag/message
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -363,7 +363,7 @@ export default function LoggerTest(): void {
     /**
      * @tc.number SUB_UTILS_LOGGER_1500
      * @tc.name testUtilsLogger0015
-     * @tc.desc 正向: 不传 tag 时使用默认标签
+     * @tc.desc Verify the default tag is used when no tag is passed
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

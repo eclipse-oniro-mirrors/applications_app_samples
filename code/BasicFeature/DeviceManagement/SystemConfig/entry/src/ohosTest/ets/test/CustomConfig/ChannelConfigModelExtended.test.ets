@@ -17,25 +17,25 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ChannelConfigModel, ChannelConfigStatus } from 'library';
 import type { ChannelConfigJson } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * ChannelConfigModel 扩展测试套件。
- * 补充覆盖状态机完整流转 / toJSON 往返序列化 / 多次 markSuccess 累计 /
- * markLoading 边界 / getTimeSinceLastFetch 等场景。
+ * ChannelConfigModel extended test suite.
+ * Additionally covers full state-machine transitions / toJSON round-trip serialization /
+ * cumulative markSuccess / markLoading boundaries / getTimeSinceLastFetch scenarios.
  */
 export default function ChannelConfigModelExtendedTest(): void {
   describe('ChannelConfigModelExtendedTest', () => {
 
     // ========================================
-    // 状态机完整流转测试
+    // Full state machine transition tests
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0100
      * @tc.name testChannelConfigModelExtended0001
-     * @tc.desc 正向: UNINITIALIZED → LOADING → SUCCESS 完整流转
+     * @tc.desc Verify the full UNINITIALIZED → LOADING → SUCCESS state transition.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -62,7 +62,7 @@ export default function ChannelConfigModelExtendedTest(): void {
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0200
      * @tc.name testChannelConfigModelExtended0002
-     * @tc.desc 正向: UNINITIALIZED → LOADING → FAILED → reset 异常流转
+     * @tc.desc Verify the UNINITIALIZED → LOADING → FAILED → reset transition.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -86,13 +86,13 @@ export default function ChannelConfigModelExtendedTest(): void {
     });
 
     // ========================================
-    // toJSON 往返序列化测试
+    // toJSON round-trip serialization test
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0300
      * @tc.name testChannelConfigModelExtended0003
-     * @tc.desc 正向: toJSON 序列化后字段完整且值一致
+     * @tc.desc Verify toJSON keeps all fields complete and consistent with the model values.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -111,13 +111,13 @@ export default function ChannelConfigModelExtendedTest(): void {
     });
 
     // ========================================
-    // 多次 markSuccess 累计测试
+    // Cumulative markSuccess tests
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0400
      * @tc.name testChannelConfigModelExtended0004
-     * @tc.desc 正向: 多次 markSuccess 后 fetchCount 累加
+     * @tc.desc Verify fetchCount accumulates across multiple markSuccess calls.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -138,13 +138,13 @@ export default function ChannelConfigModelExtendedTest(): void {
     });
 
     // ========================================
-    // getTimeSinceLastFetch 测试
+    // getTimeSinceLastFetch tests
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0500
      * @tc.name testChannelConfigModelExtended0005
-     * @tc.desc 正向: 未获取返回 -1，获取后返回非负时间差
+     * @tc.desc Verify it returns -1 before any fetch and a non-negative time diff afterwards.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -165,7 +165,7 @@ export default function ChannelConfigModelExtendedTest(): void {
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0600
      * @tc.name testChannelConfigModelExtended0006
-     * @tc.desc 边界: reset 后 getTimeSinceLastFetch 恢复为 -1
+     * @tc.desc Verify getTimeSinceLastFetch returns -1 again after reset.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -181,13 +181,13 @@ export default function ChannelConfigModelExtendedTest(): void {
     });
 
     // ========================================
-    // toString 测试
+    // toString tests
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0700
      * @tc.name testChannelConfigModelExtended0007
-     * @tc.desc 正向: toString 输出包含关键字段
+     * @tc.desc Verify the toString output contains the key fields.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -203,13 +203,13 @@ export default function ChannelConfigModelExtendedTest(): void {
     });
 
     // ========================================
-    // isSuccess 边界测试
+    // isSuccess boundary tests
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0800
      * @tc.name testChannelConfigModelExtended0008
-     * @tc.desc 边界: SUCCESS 状态但 channelId 为空时 isSuccess 返回 false
+     * @tc.desc Verify isSuccess returns false when status is SUCCESS but channelId is empty.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -225,13 +225,13 @@ export default function ChannelConfigModelExtendedTest(): void {
     });
 
     // ========================================
-    // markLoading 清除错误信息测试
+    // markLoading error clearing test
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0900
      * @tc.name testChannelConfigModelExtended0009
-     * @tc.desc 正向: markLoading 清除之前的错误信息
+     * @tc.desc Verify markLoading clears the previous error message.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -249,13 +249,13 @@ export default function ChannelConfigModelExtendedTest(): void {
     });
 
     // ========================================
-    // 构造参数测试
+    // Construction parameter tests
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_1000
      * @tc.name testChannelConfigModelExtended0010
-     * @tc.desc 正向: 默认构造后所有查询方法返回正确初始值
+     * @tc.desc Verify all query methods return correct initial values after default construction.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

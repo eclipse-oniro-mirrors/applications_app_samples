@@ -14,7 +14,7 @@
  */
 
 // ========================================
-// CustomConfig 测试套件
+// CustomConfig test suite
 // ========================================
 import CustomConfigGetChannelIdTest from './CustomConfig/CustomConfigGetChannelId.test';
 import ChannelConfigModelTest from './CustomConfig/ChannelConfigModel.test';
@@ -22,7 +22,7 @@ import ChannelConfigModelExtendedTest from './CustomConfig/ChannelConfigModelExt
 import CustomConfigPageUITest from './CustomConfig/CustomConfigPageUI.test';
 
 // ========================================
-// IntelligentScene 测试套件
+// IntelligentScene test suite
 // ========================================
 import IntelligentSceneDndTest from './IntelligentScene/IntelligentSceneDnd.test';
 import DoNotDisturbModelTest from './IntelligentScene/DoNotDisturbModel.test';
@@ -30,7 +30,7 @@ import DoNotDisturbModelExtendedTest from './IntelligentScene/DoNotDisturbModelE
 import IntelligentScenePageUITest from './IntelligentScene/IntelligentScenePageUI.test';
 
 // ========================================
-// SettingsLite 测试套件
+// SettingsLite test suite
 // ========================================
 import SettingsLitePinSettingTest from './SettingsLite/SettingsLitePinSetting.test';
 import SettingsLiteNfcSettingTest from './SettingsLite/SettingsLiteNfcSetting.test';
@@ -40,7 +40,7 @@ import SettingsItemModelExtendedTest from './SettingsLite/SettingsItemModelExten
 import SettingsLitePageUITest from './SettingsLite/SettingsLitePageUI.test';
 
 // ========================================
-// Validation 测试套件
+// Validation test suite
 // ========================================
 import ValidateChannelIdTest from './Validation/ValidationChannelId.test';
 import ValidateDeviceIdTest from './Validation/ValidationDeviceId.test';
@@ -50,7 +50,7 @@ import ClipboardUtilsTest from './Validation/ValidationClipboardUtils.test';
 import ValidationUtilsMethodsTest from './Validation/ValidationUtilsMethods.test';
 
 // ========================================
-// Utils 工具类测试套件
+// Utils utility test suite
 // ========================================
 import UtilsStringUtilsTest from './Utils/UtilsStringUtils.test';
 import UtilsMathUtilsTest from './Utils/UtilsMathUtils.test';
@@ -64,7 +64,7 @@ import UtilsConstantsTest from './Utils/UtilsConstants.test';
 import BoundaryValueTest from './Utils/UtilsBoundaryValue.test';
 
 // ========================================
-// Service 服务层测试套件（新增）
+// Service layer test suite (new)
 // ========================================
 import CustomConfigServiceTest from './Service/CustomConfigService.test';
 import EventServiceTest from './Service/EventService.test';
@@ -80,7 +80,7 @@ import SettingsLiteServiceExtendedTest from './Service/SettingsLiteServiceExtend
 import SettingsLiteServiceOperationTest from './Service/SettingsLiteServiceOperation.test';
 
 // ========================================
-// Device 设备工具测试套件（新增）
+// Device utility test suite (new)
 // ========================================
 import DeviceUtilsTest from './Device/DeviceUtils.test';
 import DeviceFileUtilsTest from './Device/DeviceFileUtils.test';
@@ -88,7 +88,7 @@ import DeviceStorageUtilsTest from './Device/DeviceStorageUtils.test';
 import DevicePreferenceUtilsTest from './Device/DevicePreferenceUtils.test';
 
 // ========================================
-// Network 网络工具测试套件（新增）
+// Network utility test suite (new)
 // ========================================
 import EncryptionUtilsTest from './Network/EncryptionUtils.test';
 import HttpUtilsTest from './Network/HttpUtils.test';
@@ -96,7 +96,7 @@ import NetworkUtilsTest from './Network/NetworkUtils.test';
 import PermissionUtilsTest from './Network/PermissionUtils.test';
 
 // ========================================
-// Integration 集成测试套件（新增）
+// Integration test suite (new)
 // ========================================
 import MultiServiceIntegrationTest from './Integration/MultiServiceIntegration.test';
 import ErrorHandlingCombinationTest from './Integration/ErrorHandlingCombination.test';
@@ -104,28 +104,28 @@ import IntegrationExtendedTest from './Integration/MultiServiceIntegrationExtend
 import HomeNavigationUITest from './Integration/HomeNavigationUI.test';
 
 /**
- * 测试用例列表。
- * 汇总所有测试套件并导出，供 Hypium 框架加载执行。
+ * Test case list.
+ * Aggregates and exports all test suites for the Hypium framework to load and run.
  */
 export default function testsuite(): void {
-  // CustomConfig 测试
+  // CustomConfig tests
   CustomConfigGetChannelIdTest();
   ChannelConfigModelTest();
   ChannelConfigModelExtendedTest();
   
-  // IntelligentScene 测试
+  // IntelligentScene tests
   IntelligentSceneDndTest();
   DoNotDisturbModelTest();
   DoNotDisturbModelExtendedTest();
   
-  // SettingsLite 测试
+  // SettingsLite tests
   SettingsLitePinSettingTest();
   SettingsLiteNfcSettingTest();
   SettingsLiteDoubleClickTest();
   SettingsItemModelTest();
   SettingsItemModelExtendedTest();
   
-  // Validation 测试
+  // Validation tests
   ValidateChannelIdTest();
   ValidateDeviceIdTest();
   FormValidatorTest();
@@ -133,7 +133,7 @@ export default function testsuite(): void {
   ClipboardUtilsTest();
   ValidationUtilsMethodsTest();
   
-  // Utils 工具类测试
+  // Utils utility tests
   UtilsStringUtilsTest();
   UtilsMathUtilsTest();
   UtilsDateUtilsTest();
@@ -145,7 +145,7 @@ export default function testsuite(): void {
   UtilsConstantsTest();
   BoundaryValueTest();
   
-  // Service 服务层测试
+  // Service layer tests
   CustomConfigServiceTest();
   EventServiceTest();
   TraceServiceTest();
@@ -159,24 +159,24 @@ export default function testsuite(): void {
   SettingsLiteServiceExtendedTest();
   SettingsLiteServiceOperationTest();
   
-  // Device 设备工具测试
+  // Device utility tests
   DeviceUtilsTest();
   DeviceFileUtilsTest();
   DeviceStorageUtilsTest();
   DevicePreferenceUtilsTest();
   
-  // Network 网络工具测试
+  // Network utility tests
   EncryptionUtilsTest();
   HttpUtilsTest();
   NetworkUtilsTest();
   PermissionUtilsTest();
   
-  // Integration 集成测试
+  // Integration tests
   MultiServiceIntegrationTest();
   ErrorHandlingCombinationTest();
   IntegrationExtendedTest();
 
-  // 真实页面 UI 测试
+  // Real page UI tests
   HomeNavigationUITest();
   CustomConfigPageUITest();
   IntelligentScenePageUITest();

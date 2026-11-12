@@ -17,24 +17,24 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ValidationUtils } from 'library';
 import type { ValidationResult } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * ValidationUtils 方法扩展测试套件。
- * 覆盖 validateChannelId 和 validateDeviceId 的合法值、边界值、非法值矩阵。
+ * ValidationUtils method extension test suite.
+ * Covers the valid-value, boundary-value, and illegal-value matrix for validateChannelId and validateDeviceId.
  */
 export default function ValidationUtilsMethodsTest(): void {
   describe('ValidationUtilsMethodsTest', () => {
 
     // ========================================
-    // validateChannelId - 合法值测试
+    // validateChannelId - valid value tests
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0100
      * @tc.name testValidationUtilsMethods0001
-     * @tc.desc 正向: 正常渠道号验证通过
+     * @tc.desc Verify a normal channel ID passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -50,7 +50,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0200
      * @tc.name testValidationUtilsMethods0002
-     * @tc.desc 边界: 渠道号恰好 64 字符验证通过
+     * @tc.desc Verify a channel ID of exactly 64 characters passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -67,7 +67,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0300
      * @tc.name testValidationUtilsMethods0003
-     * @tc.desc 边界: 渠道号超过 64 字符验证失败
+     * @tc.desc Verify a channel ID over 64 characters fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -84,7 +84,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0400
      * @tc.name testValidationUtilsMethods0004
-     * @tc.desc 非法: 空字符串渠道号验证失败
+     * @tc.desc Verify an empty-string channel ID fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -100,7 +100,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0500
      * @tc.name testValidationUtilsMethods0005
-     * @tc.desc 非法: 纯空格渠道号验证失败
+     * @tc.desc Verify a space-only channel ID fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -114,13 +114,13 @@ export default function ValidationUtilsMethodsTest(): void {
     });
 
     // ========================================
-    // validateDeviceId - 合法值测试
+    // validateDeviceId - valid value tests
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0600
      * @tc.name testValidationUtilsMethods0006
-     * @tc.desc 正向: 正常设备 ID 验证通过
+     * @tc.desc Verify a normal device ID passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -136,7 +136,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0700
      * @tc.name testValidationUtilsMethods0007
-     * @tc.desc 边界: 设备 ID 恰好 2 字符验证通过
+     * @tc.desc Verify a device ID of exactly 2 characters passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -152,7 +152,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0800
      * @tc.name testValidationUtilsMethods0008
-     * @tc.desc 边界: 设备 ID 仅 1 字符验证失败
+     * @tc.desc Verify a device ID of only 1 character fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -168,7 +168,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_0900
      * @tc.name testValidationUtilsMethods0009
-     * @tc.desc 边界: 设备 ID 恰好 128 字符验证通过
+     * @tc.desc Verify a device ID of exactly 128 characters passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -185,7 +185,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_1000
      * @tc.name testValidationUtilsMethods0010
-     * @tc.desc 边界: 设备 ID 超过 128 字符验证失败
+     * @tc.desc Verify a device ID over 128 characters fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -202,7 +202,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_1100
      * @tc.name testValidationUtilsMethods0011
-     * @tc.desc 非法: 空字符串设备 ID 验证失败
+     * @tc.desc Verify an empty-string device ID fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -218,7 +218,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_1200
      * @tc.name testValidationUtilsMethods0012
-     * @tc.desc 非法: 含特殊字符的设备 ID 验证失败
+     * @tc.desc Verify a device ID containing special characters fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -234,7 +234,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_1300
      * @tc.name testValidationUtilsMethods0013
-     * @tc.desc 非法: 以连字符开头的设备 ID 验证失败
+     * @tc.desc Verify a device ID starting with a hyphen fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -250,7 +250,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_1400
      * @tc.name testValidationUtilsMethods0014
-     * @tc.desc 非法: 以连字符结尾的设备 ID 验证失败
+     * @tc.desc Verify a device ID ending with a hyphen fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -266,7 +266,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_1500
      * @tc.name testValidationUtilsMethods0015
-     * @tc.desc 正向: 纯数字设备 ID 验证通过
+     * @tc.desc Verify a purely numeric device ID passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -282,7 +282,7 @@ export default function ValidationUtilsMethodsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_METHODS_1600
      * @tc.name testValidationUtilsMethods0016
-     * @tc.desc 正向: 渠道号和设备 ID 验证结果互不干扰
+     * @tc.desc Verify channel ID and device ID validation results do not interfere with each other
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

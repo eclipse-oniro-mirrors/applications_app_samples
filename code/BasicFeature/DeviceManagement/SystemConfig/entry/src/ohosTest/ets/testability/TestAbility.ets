@@ -18,27 +18,29 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { Hypium } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { ResourceHelper } from 'library';
 import testsuite from '../test/List.test';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
 let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
 
 /**
- * 测试能力类。
- * 继承自 UIAbility，用于在 ohosTest 环境下加载并运行 Hypium 测试用例。
+ * Test ability class.
+ * Extends UIAbility to load and run Hypium test cases in the ohosTest environment.
  */
 export default class TestAbility extends UIAbility {
   /**
-   * 能力创建回调。
-   * 在此处初始化 Hypium 测试框架并启动测试执行。
-   * @param {Want} want - 启动参数
-   * @param {AbilityConstant.LaunchParam} launchParam - 启动参数
+   * Ability creation callback.
+   * Initializes the Hypium test framework and starts test execution here.
+   * @param {Want} want - launch parameters
+   * @param {AbilityConstant.LaunchParam} launchParam - launch parameters
    */
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onCreate: test ability created');
+    ResourceHelper.init(this.context);
     abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
     abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
@@ -46,9 +48,9 @@ export default class TestAbility extends UIAbility {
   }
 
   /**
-   * 窗口阶段回调。
-   * 加载测试页面。
-   * @param {window.WindowStage} windowStage - 窗口阶段实例
+   * Window stage callback.
+   * Loads the test page.
+   * @param {window.WindowStage} windowStage - window stage instance
    */
   onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onWindowStageCreate: window stage created');
@@ -62,29 +64,29 @@ export default class TestAbility extends UIAbility {
   }
 
   /**
-   * 窗口销毁回调。
+   * Window destruction callback.
    */
   onWindowStageDestroy(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onWindowStageDestroy: window stage destroyed');
   }
 
   /**
-   * 能力销毁回调。
-   * 释放测试相关资源。
+   * Ability destruction callback.
+   * Releases test-related resources.
    */
   onAbilityDestroy(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onAbilityDestroy: test ability destroyed');
   }
 
   /**
-   * 能力前台回调。
+   * Ability foreground callback.
    */
   onForeground(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onForeground: test ability foreground');
   }
 
   /**
-   * 能力后台回调。
+   * Ability background callback.
    */
   onBackground(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onBackground: test ability background');

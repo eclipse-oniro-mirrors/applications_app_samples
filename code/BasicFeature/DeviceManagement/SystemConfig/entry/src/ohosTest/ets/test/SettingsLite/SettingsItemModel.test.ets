@@ -22,25 +22,25 @@ import {
   ClickResult
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * SettingsItemModel 数据模型测试套件。
- * 验证设置项模型的构造、状态标记、查询判断、双击结果更新、
- * 状态描述、类型名称、序列化与重置等全部公开方法的行为正确性。
+ * SettingsItemModel data model test suite.
+ * Verifies the behavior of all public methods: model construction, status marking, query checks, double-click result updates,
+ * status descriptions, type names, serialization, and reset.
  */
 export default function SettingsItemModelTest(): void {
   describe('SettingsItemModelTest', () => {
 
     // ========================================
-    // 构造与默认值
+    // Construction and default values
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0100
      * @tc.name testSettingsItemModel0001
-     * @tc.desc 正向用例：默认构造后各字段为初始值。
+     * @tc.desc Verify each field holds its initial value after the default constructor
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -62,7 +62,7 @@ export default function SettingsItemModelTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0200
      * @tc.name testSettingsItemModel0002
-     * @tc.desc 正向用例：参数构造后各字段与传入值一致。
+     * @tc.desc Verify each field matches the arguments passed to the parameterized constructor
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -79,13 +79,13 @@ export default function SettingsItemModelTest(): void {
     });
 
     // ========================================
-    // 状态标记方法
+    // Status marking methods
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0300
      * @tc.name testSettingsItemModel0003
-     * @tc.desc 正向用例：调用 markOpening 后状态变为 OPENING，错误信息清空。
+     * @tc.desc Verify the status becomes OPENING and the error message is cleared after markOpening
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -103,7 +103,7 @@ export default function SettingsItemModelTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0400
      * @tc.name testSettingsItemModel0004
-     * @tc.desc 正向用例：调用 markQuerying 后状态变为 QUERYING。
+     * @tc.desc Verify the status becomes QUERYING after markQuerying
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -120,7 +120,7 @@ export default function SettingsItemModelTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0500
      * @tc.name testSettingsItemModel0005
-     * @tc.desc 正向用例：调用 markSuccess 后状态变为 SUCCESS，操作次数加一。
+     * @tc.desc Verify the status becomes SUCCESS and the operation count increments after markSuccess
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -139,7 +139,7 @@ export default function SettingsItemModelTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0600
      * @tc.name testSettingsItemModel0006
-     * @tc.desc 正向用例：调用 markFailed 后状态变为 FAILED，错误信息正确记录。
+     * @tc.desc Verify the status becomes FAILED and the error message is recorded after markFailed
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -155,13 +155,13 @@ export default function SettingsItemModelTest(): void {
     });
 
     // ========================================
-    // 更新与查询方法
+    // Update and query methods
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0700
      * @tc.name testSettingsItemModel0007
-     * @tc.desc 正向用例：调用 updateClickResult 更新双击回调结果和时间戳。
+     * @tc.desc Verify updateClickResult updates the double-click result and the timestamp
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -178,7 +178,7 @@ export default function SettingsItemModelTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0800
      * @tc.name testSettingsItemModel0008
-     * @tc.desc 正向用例：各状态下 getStatusDescription 返回正确的中文描述。
+     * @tc.desc Verify getStatusDescription returns the correct localized description for each status
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -200,7 +200,7 @@ export default function SettingsItemModelTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_0900
      * @tc.name testSettingsItemModel0009
-     * @tc.desc 正向用例：各类型下 getTypeName 返回正确的中文名称。
+     * @tc.desc Verify getTypeName returns the correct localized name for each type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -216,13 +216,13 @@ export default function SettingsItemModelTest(): void {
     });
 
     // ========================================
-    // 重置方法
+    // Reset method
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_1000
      * @tc.name testSettingsItemModel0010
-     * @tc.desc 正向用例：reset 后操作相关字段恢复为初始值，类型和标题保持不变。
+     * @tc.desc Verify reset restores the operation fields to initial values while keeping type and title unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

@@ -22,11 +22,11 @@ import {
   ClickResult
 } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * SettingsLiteService 双击设置测试套件。
+ * SettingsLiteService double-click setting test suite.
  */
 export default function SettingsLiteDoubleClickTest(): void {
   describe('SettingsLiteDoubleClickTest', () => {
@@ -34,7 +34,7 @@ export default function SettingsLiteDoubleClickTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_DOUBLE_CLICK_0100
      * @tc.name testSettingsLiteDoubleClick0001
-     * @tc.desc 正向用例：获取双击模型，验证类型为 DOUBLE_CLICK_SETTING。
+     * @tc.desc Verify getDoubleClickModel returns a model of type DOUBLE_CLICK_SETTING
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -53,7 +53,7 @@ export default function SettingsLiteDoubleClickTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_DOUBLE_CLICK_0200
      * @tc.name testSettingsLiteDoubleClick0002
-     * @tc.desc 正向用例：markOpening 后状态变为 OPENING。
+     * @tc.desc Verify the status becomes OPENING after markOpening
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -72,7 +72,7 @@ export default function SettingsLiteDoubleClickTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_DOUBLE_CLICK_0300
      * @tc.name testSettingsLiteDoubleClick0003
-     * @tc.desc 正向用例：updateClickResult 更新双击结果。
+     * @tc.desc Verify updateClickResult updates the double-click result
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

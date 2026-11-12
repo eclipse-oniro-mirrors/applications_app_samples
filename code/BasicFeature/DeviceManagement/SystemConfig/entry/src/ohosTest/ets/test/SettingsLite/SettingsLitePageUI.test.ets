@@ -28,7 +28,7 @@ async function openSettingsLitePage(session: UiTestSession): Promise<void> {
 }
 
 /**
- * 日志面板标题栏渲染的条目总数，是页面日志数组的唯一权威计数。
+ * The total number of entries rendered in the log panel title bar, which is the single authoritative count of the page log array.
  */
 function logCountLabel(count: number): string {
   return `共 ${count} 条`;
@@ -49,9 +49,9 @@ function modelOf(details: SettingsItemModelJson[], itemType: SettingsItemType): 
 }
 
 /**
- * 设置信息页面状态编排测试。
- * PIN/NFC/双击跳转的系统设置页由设备侧设置应用提供，本镜像无对应 Want handler，
- * 应用侧构造的 Want 内容由 SettingsLiteService 套件校验。
+ * Settings page state orchestration tests.
+ * The system settings pages opened by the PIN/NFC/double-click jumps are provided by the device-side settings app, and this
+ * mirror has no matching Want handler; the Want content built by the app side is validated by the SettingsLiteService suite.
  */
 export default function settingsLitePageUITest(): void {
   describe('SettingsLitePageUITest', () => {
@@ -72,7 +72,7 @@ export default function settingsLitePageUITest(): void {
         expect(await session.scrollTextOf('双击设置')).assertEqual('双击设置');
         expect(await session.textCount('空闲')).assertEqual(3);
         expect(await session.scrollTextOf('未查询')).assertEqual('未查询');
-        // aboutToAppear 只写入初始化一条日志，页面日志数必须与之相等
+        // aboutToAppear writes only one initialization log entry, so the page log count must equal it
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
         expect(await session.scrollTextOf('视图模型初始化完成', true)).assertContain('视图模型初始化完成');
         const details: SettingsItemModelJson[] = await readSettingsDetail(session);
@@ -101,11 +101,11 @@ export default function settingsLitePageUITest(): void {
       try {
         await openSettingsLitePage(session);
         await session.scrollClickText('查询双击应用');
-        // settingsLite 为 FA 专用接口，Stage 环境查询如实返回不支持错误
+        // settingsLite is an FA-only interface; in a Stage environment the query honestly returns an unsupported error
         expect(await session.scrollTextOf('查询出错')).assertEqual('查询出错');
         expect(await session.scrollTextOf('操作失败')).assertEqual('操作失败');
         expect(await session.scrollTextOf('双击查询失败', true)).assertContain('双击查询失败');
-        // 初始化一条、查询进行中一条、查询失败一条
+        // one init entry, one query-in-progress entry, one query-failed entry
         expect(await session.scrollTextOf(logCountLabel(3))).assertEqual(logCountLabel(3));
         const details: SettingsItemModelJson[] = await readSettingsDetail(session);
         const doubleClick: SettingsItemModelJson = modelOf(details, SettingsItemType.DOUBLE_CLICK_SETTING);
@@ -139,9 +139,9 @@ export default function settingsLitePageUITest(): void {
         expect(await session.textCount('空闲')).assertEqual(3);
         expect(await session.textCount('操作失败')).assertEqual(0);
         expect(await session.scrollTextOf('未查询')).assertEqual('未查询');
-        // 查询结果字段与重置前是同一个节点，此处已把它滚入视口，计数为 0 才能证明旧值被清除
+        // the query result field is the same node as before the reset; here it has been scrolled into view, so a count of 0 proves the stale value was cleared
         expect(await session.textCount('查询出错')).assertEqual(0);
-        // resetState 先清空日志数组再写入“状态已重置”，面板计数回落为一条即证明历史日志全部清除
+        // resetState first clears the log array then writes the "status reset" entry; the panel count falling back to one proves all history logs were cleared
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
         expect(await session.scrollTextOf('状态已重置', true)).assertContain('状态已重置');
         const details: SettingsItemModelJson[] = await readSettingsDetail(session);

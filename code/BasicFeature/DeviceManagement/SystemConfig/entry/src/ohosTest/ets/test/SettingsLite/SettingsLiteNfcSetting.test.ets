@@ -16,11 +16,11 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SettingsLiteService, SettingsItemModel, SettingsItemType, SettingsOperationStatus } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * SettingsLiteService NFC 设置测试套件。
+ * SettingsLiteService NFC setting test suite.
  */
 export default function SettingsLiteNfcSettingTest(): void {
   describe('SettingsLiteNfcSettingTest', () => {
@@ -28,7 +28,7 @@ export default function SettingsLiteNfcSettingTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_NFC_SETTING_0100
      * @tc.name testSettingsLiteNfcSetting0001
-     * @tc.desc 正向用例：获取 NFC 模型，验证类型为 NFC_SETTING。
+     * @tc.desc Verify getNfcModel returns a model of type NFC_SETTING
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -47,7 +47,7 @@ export default function SettingsLiteNfcSettingTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_NFC_SETTING_0200
      * @tc.name testSettingsLiteNfcSetting0002
-     * @tc.desc 正向用例：NFC 模型的 getTypeName 返回非空字符串。
+     * @tc.desc Verify the NFC model's getTypeName returns a non-empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -67,7 +67,7 @@ export default function SettingsLiteNfcSettingTest(): void {
     /**
      * @tc.number SUB_SETTINGS_LITE_NFC_SETTING_0300
      * @tc.name testSettingsLiteNfcSetting0003
-     * @tc.desc 正向用例：getAllModels 返回 3 个模型。
+     * @tc.desc Verify getAllModels returns 3 models
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

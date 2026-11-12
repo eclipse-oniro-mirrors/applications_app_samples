@@ -17,25 +17,25 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ClipboardUtils, ClipboardDataType } from 'library';
 import type { ClipboardChangeListener } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * ClipboardUtils 剪贴板工具类测试套件。
- * 覆盖 setData/getData/getDataType/hasData/clear、
- * 监听器管理、类型检测、parseClipboardContent、操作历史等全部公开方法。
+ * ClipboardUtils clipboard utility test suite.
+ * Covers setData/getData/getDataType/hasData/clear,
+ * listener management, type detection, parseClipboardContent, operation history, and all other public methods.
  */
 export default function ClipboardUtilsTest(): void {
   describe('ClipboardUtilsTest', () => {
 
     // ========================================
-    // 基础数据存取
+    // Basic data access
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0100
      * @tc.name testValidationClipboardUtils0001
-     * @tc.desc 正向: setData 后 getData 返回写入的数据
+     * @tc.desc Verify getData returns the data written by setData
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -52,7 +52,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0200
      * @tc.name testValidationClipboardUtils0002
-     * @tc.desc 正向: clear 后数据清空且 hasData 返回 false
+     * @tc.desc Verify the data is cleared after clear and hasData returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -71,7 +71,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0300
      * @tc.name testValidationClipboardUtils0003
-     * @tc.desc 正向: 多次 setData 后者覆盖前者
+     * @tc.desc Verify a later setData overwrites the earlier one
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -87,13 +87,13 @@ export default function ClipboardUtilsTest(): void {
     });
 
     // ========================================
-    // 自动类型检测
+    // Automatic type detection
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0400
      * @tc.name testValidationClipboardUtils0004
-     * @tc.desc 正向: 写入 URL 自动识别为 URL 类型
+     * @tc.desc Verify writing a URL is detected automatically as the URL type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -110,7 +110,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0500
      * @tc.name testValidationClipboardUtils0005
-     * @tc.desc 正向: 写入 HTML 内容自动识别为 HTML 类型
+     * @tc.desc Verify writing HTML content is detected automatically as the HTML type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -127,7 +127,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0600
      * @tc.name testValidationClipboardUtils0006
-     * @tc.desc 正向: 写入 image:// 前缀自动识别为 IMAGE 类型
+     * @tc.desc Verify an image:// prefix is detected automatically as the IMAGE type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -145,7 +145,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0700
      * @tc.name testValidationClipboardUtils0007
-     * @tc.desc 边界: 空字符串数据类型为 UNKNOWN
+     * @tc.desc Verify an empty string has the UNKNOWN data type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -160,13 +160,13 @@ export default function ClipboardUtilsTest(): void {
     });
 
     // ========================================
-    // 监听器管理
+    // Listener management
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0800
      * @tc.name testValidationClipboardUtils0008
-     * @tc.desc 正向: 添加监听器后 getListenerCount 递增
+     * @tc.desc Verify getListenerCount increases after adding a listener
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -187,7 +187,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_0900
      * @tc.name testValidationClipboardUtils0009
-     * @tc.desc 正向: 移除监听器后 getListenerCount 递减
+     * @tc.desc Verify getListenerCount decreases after removing a listener
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -209,7 +209,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1000
      * @tc.name testValidationClipboardUtils0010
-     * @tc.desc 正向: setData 时监听器收到正确回调
+     * @tc.desc Verify the listener receives the correct callback on setData
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -233,13 +233,13 @@ export default function ClipboardUtilsTest(): void {
     });
 
     // ========================================
-    // 类型标签与判断方法
+    // Type labels and detection methods
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1100
      * @tc.name testValidationClipboardUtils0011
-     * @tc.desc 正向: 各枚举值对应正确的中文标签
+     * @tc.desc Verify each enum value maps to the correct localized label
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -257,7 +257,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1200
      * @tc.name testValidationClipboardUtils0012
-     * @tc.desc 正向: isUrl 识别合法/非法 URL
+     * @tc.desc Verify isUrl recognizes valid/invalid URLs
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -276,7 +276,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1300
      * @tc.name testValidationClipboardUtils0013
-     * @tc.desc 正向: isHtml 识别包含 HTML 标签的字符串
+     * @tc.desc Verify isHtml recognizes strings containing HTML tags
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -299,7 +299,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1400
      * @tc.name testValidationClipboardUtils0014
-     * @tc.desc 正向: parseClipboardContent 按优先级正确识别各类型
+     * @tc.desc Verify parseClipboardContent detects each type correctly by priority
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -320,13 +320,13 @@ export default function ClipboardUtilsTest(): void {
     });
 
     // ========================================
-    // 操作历史
+    // Operation history
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1500
      * @tc.name testValidationClipboardUtils0015
-     * @tc.desc 正向: setData/getData/clear 均记录操作历史
+     * @tc.desc Verify setData/getData/clear all record operation history
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -350,7 +350,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1600
      * @tc.name testValidationClipboardUtils0016
-     * @tc.desc 边界: 操作历史不超过最大条数 50
+     * @tc.desc Verify the operation history never exceeds the maximum of 50 entries
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -370,7 +370,7 @@ export default function ClipboardUtilsTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CLIPBOARD_UTILS_1700
      * @tc.name testValidationClipboardUtils0017
-     * @tc.desc 边界: 新建实例初始状态无数据、无监听器、无历史
+     * @tc.desc Verify a new instance starts with no data, no listeners, and no history
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

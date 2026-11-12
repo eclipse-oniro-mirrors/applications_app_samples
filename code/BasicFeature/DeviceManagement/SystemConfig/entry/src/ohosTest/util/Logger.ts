@@ -15,7 +15,7 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const PREFIX: string = '[Sample_SystemConfig]';
 
 class Logger {

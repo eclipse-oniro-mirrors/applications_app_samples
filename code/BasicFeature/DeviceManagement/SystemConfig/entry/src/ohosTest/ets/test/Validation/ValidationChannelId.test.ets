@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { ValidationUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 渠道号验证测试套件
+// Channel ID validation test suite
 // ========================================
 
 /**
- * 渠道号验证测试套件。
- * 测试 ValidationUtils.validateChannelId 方法在各种输入下的行为。
+ * Channel ID validation test suite.
+ * Verifies the behavior of ValidationUtils.validateChannelId under various inputs.
  */
 export default function validateChannelIdTest(): void {
   describe('ValidateChannelIdTest', () => {
 
     // ========================================
-    // 正向用例
+    // Positive cases
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CHANNEL_ID_0100
      * @tc.name testValidationChannelId0001
-     * @tc.desc 正向: 合法渠道号验证通过
+     * @tc.desc Verify a valid channel ID passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -55,7 +55,7 @@ export default function validateChannelIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CHANNEL_ID_0200
      * @tc.name testValidationChannelId0002
-     * @tc.desc 正向: 单字符渠道号验证通过
+     * @tc.desc Verify a single-character channel ID passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -70,13 +70,13 @@ export default function validateChannelIdTest(): void {
     });
 
     // ========================================
-    // 反向用例
+    // Negative cases
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CHANNEL_ID_0300
      * @tc.name testValidationChannelId0003
-     * @tc.desc 反向: 空字符串验证失败
+     * @tc.desc Verify an empty string fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -93,7 +93,7 @@ export default function validateChannelIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CHANNEL_ID_0400
      * @tc.name testValidationChannelId0004
-     * @tc.desc 反向: 纯空白字符串验证失败
+     * @tc.desc Verify a whitespace-only string fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -108,13 +108,13 @@ export default function validateChannelIdTest(): void {
     });
 
     // ========================================
-    // 边界用例
+    // Boundary cases
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_CHANNEL_ID_0500
      * @tc.name testValidationChannelId0005
-     * @tc.desc 边界: 超长渠道号验证（超过64字符）
+     * @tc.desc Verify an over-long channel ID fails validation (over 64 characters)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -132,7 +132,7 @@ export default function validateChannelIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CHANNEL_ID_0600
      * @tc.name testValidationChannelId0006
-     * @tc.desc 边界: 恰好64字符的渠道号验证通过
+     * @tc.desc Verify a channel ID of exactly 64 characters passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -150,7 +150,7 @@ export default function validateChannelIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_CHANNEL_ID_0700
      * @tc.name testValidationChannelId0007
-     * @tc.desc 边界: 特殊字符渠道号验证通过（工具类不限制字符类型）
+     * @tc.desc Verify a channel ID with special characters passes validation (the utility does not restrict character types)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

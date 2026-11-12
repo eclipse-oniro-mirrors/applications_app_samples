@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { FormatUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 格式化工具测试套件
+// Format utility test suite
 // ========================================
 
 /**
- * 格式化工具测试套件。
- * 测试 FormatUtils 类中各格式化方法的正确性。
+ * Format utility test suite.
+ * Tests the correctness of each formatting method in the FormatUtils class.
  */
 export default function utilsFormatUtilsTest(): void {
   describe('UtilsFormatUtilsTest', () => {
 
     // ========================================
-    // 正向用例 - 字节格式化
+    // Positive cases - byte formatting
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0100
      * @tc.name testUtilsFormatUtils0001
-     * @tc.desc 正向: 0字节
+     * @tc.desc Verify 0 bytes
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -55,7 +55,7 @@ export default function utilsFormatUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0200
      * @tc.name testUtilsFormatUtils0002
-     * @tc.desc 正向: KB格式
+     * @tc.desc Verify KB format
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -73,7 +73,7 @@ export default function utilsFormatUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0300
      * @tc.name testUtilsFormatUtils0003
-     * @tc.desc 正向: MB格式
+     * @tc.desc Verify MB format
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -90,7 +90,7 @@ export default function utilsFormatUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0400
      * @tc.name testUtilsFormatUtils0004
-     * @tc.desc 正向: GB格式
+     * @tc.desc Verify GB format
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -105,13 +105,13 @@ export default function utilsFormatUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 时长与数字格式化
+    // Positive cases - duration and number formatting
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0500
      * @tc.name testUtilsFormatUtils0005
-     * @tc.desc 正向: 时长格式化
+     * @tc.desc Verify duration formatting
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -130,7 +130,7 @@ export default function utilsFormatUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0600
      * @tc.name testUtilsFormatUtils0006
-     * @tc.desc 正向: 数字格式化
+     * @tc.desc Verify number formatting
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -148,7 +148,7 @@ export default function utilsFormatUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0700
      * @tc.name testUtilsFormatUtils0007
-     * @tc.desc 正向: 前填充
+     * @tc.desc Verify left padding
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -164,13 +164,13 @@ export default function utilsFormatUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 字符串截断与百分比
+    // Positive cases - string truncation and percentage
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0800
      * @tc.name testUtilsFormatUtils0008
-     * @tc.desc 正向: 短字符串不截断
+     * @tc.desc Verify a short string is not truncated
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -188,7 +188,7 @@ export default function utilsFormatUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_0900
      * @tc.name testUtilsFormatUtils0009
-     * @tc.desc 正向: 长字符串截断
+     * @tc.desc Verify a long string is truncated
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -206,7 +206,7 @@ export default function utilsFormatUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_1000
      * @tc.name testUtilsFormatUtils0010
-     * @tc.desc 正向: 百分比格式化
+     * @tc.desc Verify percentage formatting
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -223,13 +223,13 @@ export default function utilsFormatUtilsTest(): void {
     });
 
     // ========================================
-    // 边界用例
+    // Boundary cases
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_FORMAT_UTILS_1100
      * @tc.name testUtilsFormatUtils0011
-     * @tc.desc 边界: 负数处理
+     * @tc.desc Verify negative number handling
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

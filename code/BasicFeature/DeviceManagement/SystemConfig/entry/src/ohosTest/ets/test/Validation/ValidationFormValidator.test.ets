@@ -17,24 +17,24 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { FormValidator } from 'library';
 import type { FormValidationResult, FieldRule } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * FormValidator 表单验证工具测试套件。
- * 验证规则管理、字段验证、内置验证器等全部公开方法。
+ * FormValidator form validation utility test suite.
+ * Covers all public methods including rule management, field validation, and built-in validators.
  */
 export default function FormValidatorTest(): void {
   describe('FormValidatorTest', () => {
 
     // ========================================
-    // 规则管理
+    // Rule management
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0100
      * @tc.name testValidationFormValidator0001
-     * @tc.desc 正向: 添加规则后 getRuleCount 递增
+     * @tc.desc Verify getRuleCount increases after adding a rule
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -53,7 +53,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0200
      * @tc.name testValidationFormValidator0002
-     * @tc.desc 正向: 移除规则后 getRuleCount 递减
+     * @tc.desc Verify getRuleCount decreases after removing a rule
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -73,7 +73,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0300
      * @tc.name testValidationFormValidator0003
-     * @tc.desc 正向: clearRules 后规则数归零
+     * @tc.desc Verify the rule count returns to zero after clearRules
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -94,13 +94,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 字段验证 - 必填检查
+    // Field validation - required checks
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0400
      * @tc.name testValidationFormValidator0004
-     * @tc.desc 正向: 必填字段为空时验证失败
+     * @tc.desc Verify a required field fails validation when empty
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -120,7 +120,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0500
      * @tc.name testValidationFormValidator0005
-     * @tc.desc 正向: 必填字段有值时验证通过
+     * @tc.desc Verify a required field passes validation when it has a value
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -139,13 +139,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 字段验证 - 长度限制
+    // Field validation - length limits
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0600
      * @tc.name testValidationFormValidator0006
-     * @tc.desc 正向: 字段长度小于 minLength 时验证失败
+     * @tc.desc Verify a field shorter than minLength fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -166,7 +166,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0700
      * @tc.name testValidationFormValidator0007
-     * @tc.desc 正向: 字段长度超过 maxLength 时验证失败
+     * @tc.desc Verify a field longer than maxLength fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -185,13 +185,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 字段验证 - 正则模式
+    // Field validation - regex pattern
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0800
      * @tc.name testValidationFormValidator0008
-     * @tc.desc 正向: 不匹配正则时验证失败
+     * @tc.desc Verify validation fails when the pattern does not match
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -209,13 +209,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 字段验证 - 自定义验证器
+    // Field validation - custom validator
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_0900
      * @tc.name testValidationFormValidator0009
-     * @tc.desc 正向: 自定义验证器返回错误时验证失败
+     * @tc.desc Verify validation fails when the custom validator returns an error
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -239,13 +239,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 无规则字段验证
+    // Validation of fields without rules
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1000
      * @tc.name testValidationFormValidator0010
-     * @tc.desc 正向: 未注册规则的字段验证直接通过
+     * @tc.desc Verify a field with no registered rule passes validation directly
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -264,13 +264,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 内置静态验证器
+    // Built-in static validators
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1100
      * @tc.name testValidationFormValidator0011
-     * @tc.desc 正向: isEmail 验证合法/非法邮箱
+     * @tc.desc Verify isEmail validates valid/invalid emails
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -287,7 +287,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1200
      * @tc.name testValidationFormValidator0012
-     * @tc.desc 正向: isPhone 验证合法/非法手机号
+     * @tc.desc Verify isPhone validates valid/invalid phone numbers
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -304,7 +304,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1300
      * @tc.name testValidationFormValidator0013
-     * @tc.desc 正向: isUrl 验证合法/非法 URL
+     * @tc.desc Verify isUrl validates valid/invalid URLs
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -321,7 +321,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1400
      * @tc.name testValidationFormValidator0014
-     * @tc.desc 正向: isNotEmpty 验证非空
+     * @tc.desc Verify isNotEmpty validates non-empty values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -337,7 +337,7 @@ export default function FormValidatorTest(): void {
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1500
      * @tc.name testValidationFormValidator0015
-     * @tc.desc 正向: matchesPattern 验证正则匹配
+     * @tc.desc Verify matchesPattern validates against a regex
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -351,13 +351,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 多字段综合验证
+    // Combined multi-field validation
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1600
      * @tc.name testValidationFormValidator0016
-     * @tc.desc 正向: 多字段综合验证，部分失败
+     * @tc.desc Verify combined multi-field validation with partial failures
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -380,13 +380,13 @@ export default function FormValidatorTest(): void {
     });
 
     // ========================================
-    // 边界值：纯空格必填
+    // Boundary: whitespace-only required field
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_FORM_VALIDATOR_1700
      * @tc.name testValidationFormValidator0017
-     * @tc.desc 边界: 纯空格作为必填字段时验证失败（trim 后为空）
+     * @tc.desc Verify a whitespace-only required field fails validation (empty after trim)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

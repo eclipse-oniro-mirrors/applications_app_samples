@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { CommonUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 通用工具测试套件
+// Common utility test suite
 // ========================================
 
 /**
- * 通用工具测试套件。
- * 测试 CommonUtils 类中各通用方法的正确性。
+ * Common utility test suite.
+ * Tests the correctness of each common method in the CommonUtils class.
  */
 export default function utilsCommonUtilsTest(): void {
   describe('UtilsCommonUtilsTest', () => {
 
     // ========================================
-    // 正向用例 - ID生成
+    // Positive cases - ID generation
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0100
      * @tc.name testUtilsCommonUtils0001
-     * @tc.desc 正向: ID唯一性
+     * @tc.desc Verify ID uniqueness
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -57,7 +57,7 @@ export default function utilsCommonUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0200
      * @tc.name testUtilsCommonUtils0002
-     * @tc.desc 正向: ID格式（类UUID格式含连字符）
+     * @tc.desc Verify ID format (UUID-like format with hyphens)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -73,13 +73,13 @@ export default function utilsCommonUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 空值检查
+    // Positive cases - null/empty check
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0300
      * @tc.name testUtilsCommonUtils0003
-     * @tc.desc 正向: 空字符串判断
+     * @tc.desc Verify empty string check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -96,7 +96,7 @@ export default function utilsCommonUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0400
      * @tc.name testUtilsCommonUtils0004
-     * @tc.desc 正向: 非空字符串判断
+     * @tc.desc Verify non-empty string check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -111,13 +111,13 @@ export default function utilsCommonUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 深拷贝
+    // Positive cases - deep clone
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0500
      * @tc.name testUtilsCommonUtils0005
-     * @tc.desc 正向: 对象深拷贝
+     * @tc.desc Verify object deep clone
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -136,7 +136,7 @@ export default function utilsCommonUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0600
      * @tc.name testUtilsCommonUtils0006
-     * @tc.desc 正向: 数组深拷贝
+     * @tc.desc Verify array deep clone
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -153,13 +153,13 @@ export default function utilsCommonUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - JSON解析
+    // Positive cases - JSON parsing
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0700
      * @tc.name testUtilsCommonUtils0007
-     * @tc.desc 正向: 合法JSON解析
+     * @tc.desc Verify valid JSON parsing
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -182,7 +182,7 @@ export default function utilsCommonUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0800
      * @tc.name testUtilsCommonUtils0008
-     * @tc.desc 反向: 非法JSON解析返回null
+     * @tc.desc Verify invalid JSON parsing returns null
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -197,13 +197,13 @@ export default function utilsCommonUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 重试机制
+    // Positive cases - retry mechanism
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_0900
      * @tc.name testUtilsCommonUtils0009
-     * @tc.desc 正向: 重试成功（首次即成功）
+     * @tc.desc Verify retry success (succeeds on first attempt)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -225,13 +225,13 @@ export default function utilsCommonUtilsTest(): void {
     });
 
     // ========================================
-    // 边界用例
+    // Boundary cases
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_COMMON_UTILS_1000
      * @tc.name testUtilsCommonUtils0010
-     * @tc.desc 边界: ID非空检查
+     * @tc.desc Verify ID non-empty check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

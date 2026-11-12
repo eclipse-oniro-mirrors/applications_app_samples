@@ -22,25 +22,25 @@ import {
 } from 'library';
 import type { SettingsItemModelJson } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * SettingsItemModel 扩展测试套件。
- * 补充覆盖 toJSON 往返序列化 / toString / getTypeName 全覆盖 /
- * 状态机完整流转 / 多次操作累计 等场景。
+ * SettingsItemModel extended test suite.
+ * Adds coverage for toJSON round-trip serialization / toString / full getTypeName coverage /
+ * complete state-machine transitions / repeated operation accumulation, and similar scenarios.
  */
 export default function SettingsItemModelExtendedTest(): void {
   describe('SettingsItemModelExtendedTest', () => {
 
     // ========================================
-    // toJSON 往返序列化测试
+    // toJSON round-trip serialization tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0100
      * @tc.name testSettingsItemModelExtended0001
-     * @tc.desc 正向: toJSON 序列化后字段完整且值一致
+     * @tc.desc Verify toJSON keeps all fields complete and consistent
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -64,7 +64,7 @@ export default function SettingsItemModelExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0200
      * @tc.name testSettingsItemModelExtended0002
-     * @tc.desc 正向: 失败状态下 toJSON 包含错误信息
+     * @tc.desc Verify toJSON includes the error information in the FAILED state
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -81,13 +81,13 @@ export default function SettingsItemModelExtendedTest(): void {
     });
 
     // ========================================
-    // toString 测试
+    // toString tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0300
      * @tc.name testSettingsItemModelExtended0003
-     * @tc.desc 正向: toString 输出包含关键信息
+     * @tc.desc Verify toString output contains the key information
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -106,13 +106,13 @@ export default function SettingsItemModelExtendedTest(): void {
     });
 
     // ========================================
-    // getTypeName 全覆盖测试
+    // getTypeName full coverage tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0400
      * @tc.name testSettingsItemModelExtended0004
-     * @tc.desc 正向: 三种类型均返回正确中文名称
+     * @tc.desc Verify all three types return the correct localized name
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -128,13 +128,13 @@ export default function SettingsItemModelExtendedTest(): void {
     });
 
     // ========================================
-    // 状态机完整流转测试
+    // Complete state machine transition tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0500
      * @tc.name testSettingsItemModelExtended0005
-     * @tc.desc 正向: IDLE → OPENING → SUCCESS → reset → IDLE 完整流转
+     * @tc.desc Verify the full IDLE → OPENING → SUCCESS → reset → IDLE transition
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -162,7 +162,7 @@ export default function SettingsItemModelExtendedTest(): void {
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0600
      * @tc.name testSettingsItemModelExtended0006
-     * @tc.desc 正向: IDLE → QUERYING → SUCCESS 双击查询流转
+     * @tc.desc Verify the IDLE → QUERYING → SUCCESS double-click query transition
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -182,13 +182,13 @@ export default function SettingsItemModelExtendedTest(): void {
     });
 
     // ========================================
-    // 多次操作累计测试
+    // Repeated operation accumulation tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0700
      * @tc.name testSettingsItemModelExtended0007
-     * @tc.desc 正向: 多次 markSuccess 后 operationCount 累加
+     * @tc.desc Verify operationCount accumulates after repeated markSuccess calls
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -209,13 +209,13 @@ export default function SettingsItemModelExtendedTest(): void {
     });
 
     // ========================================
-    // getStatusDescription 各状态测试
+    // getStatusDescription per-status tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0800
      * @tc.name testSettingsItemModelExtended0008
-     * @tc.desc 正向: 各状态下 getStatusDescription 返回正确描述
+     * @tc.desc Verify getStatusDescription returns the correct description for each status
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -235,13 +235,13 @@ export default function SettingsItemModelExtendedTest(): void {
     });
 
     // ========================================
-    // reset 清除所有状态测试
+    // reset clearing all state tests
     // ========================================
 
     /**
      * @tc.number SUB_SETTINGS_ITEM_MODEL_EXTENDED_0900
      * @tc.name testSettingsItemModelExtended0009
-     * @tc.desc 正向: reset 后所有字段恢复初始值
+     * @tc.desc Verify all fields return to their initial values after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

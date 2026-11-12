@@ -31,9 +31,10 @@ const TAG: string = '[Sample_SystemConfig]';
 const BUNDLE_NAME: string = 'com.samples.systemconfig';
 const ENTRY_ABILITY: string = 'EntryAbility';
 /**
- * 单步组件等待预算。页面跳转后已 waitForIdle，正常渲染只需几十毫秒，
- * 这里刻意取小值：踩满预算只发生在页面状态异常时，取值过大会让
- * 单条用例串起多个等待后突破 aa test 的每用例超时。
+ * Per-step component wait budget. After a page transition waitForIdle has already run and
+ * normal rendering only needs tens of milliseconds, so a small value is chosen deliberately:
+ * exhausting the budget only happens when the page state is abnormal, and a value too large
+ * would let a single case chain several waits and exceed the per-case aa test timeout.
  */
 const DEFAULT_TIMEOUT_MS: number = 4000;
 const LAUNCH_TIMEOUT_MS: number = 6000;
@@ -55,7 +56,7 @@ const SWEEP_FLING_SPEED: number = 8000;
 const FAST_SCROLL_SPEED: number = 8000;
 
 /**
- * 纯定时器等待。UiTest 接口通道被占用时不能使用 driver.delayMs。
+ * Pure timer-based wait. driver.delayMs cannot be used while the UiTest channel is occupied.
  */
 function delay(durationMs: number): Promise<void> {
   return new Promise<void>((resolve: () => void): void => {
@@ -66,12 +67,13 @@ function delay(durationMs: number): Promise<void> {
 }
 
 /**
- * 判断 UiTest 通道是否处于“暂时不可用”状态。
- * 17000002：上一条用例超时遗留的操作还占着接口通道。
- * 17000001：AAMS 侧连接未就绪，既可能是上一次测试进程的链接尚未回收，
- *           也可能是设备上别的 uitest 客户端（例如另一个样例的 uitest start-daemon）
- *           正在独占通道。两者都会自行释放，需要退避重试而不是直接放弃，
- *           否则一条用例的占用会把后续所有 UI 用例瞬间打成 Error。
+ * Whether the UiTest channel is in a "temporarily unavailable" state.
+ * 17000002: an operation left over from the previous timed-out case still holds the channel.
+ * 17000001: the AAMS-side connection is not ready, either because the previous test process's
+ *           link has not been reclaimed yet, or because another uitest client on the device
+ *           (e.g. another sample's uitest start-daemon) is exclusively holding the channel.
+ *           Both release on their own, so back off and retry instead of giving up immediately,
+ *           otherwise one case occupying the channel would turn all subsequent UI cases into Error at once.
  */
 function isChannelBusyError(error: Object): boolean {
   const businessError: BusinessError = error as BusinessError;
@@ -79,15 +81,16 @@ function isChannelBusyError(error: Object): boolean {
 }
 
 /**
- * Driver 是 UiTest 服务的无状态门面，整个测试进程共用一个实例即可，
- * 避免每条用例重复承担创建开销。
+ * Driver is a stateless facade over the UiTest service, so the whole test process can share one
+ * instance to avoid paying the creation overhead repeatedly for every case.
  */
 let sharedDriver: Driver | null = null;
 
 /**
- * 页面测试公共驱动。业务结果断言由各测试用例自行完成。
- * Driver 在首次使用时（即用例的 try 之内）才创建，避免上一条用例超时残留的
- * 操作让新用例在构造阶段就被并发错误打断，连清理逻辑都执行不到。
+ * Shared driver for page tests. Business-result assertions are done by each test case itself.
+ * The Driver is created only on first use (inside the case's try block), so that an operation left
+ * over from a previous timed-out case cannot interrupt a new case with a concurrency error during
+ * construction and prevent even its cleanup logic from running.
  */
 export class UiTestSession {
   private readonly delegator: abilityDelegatorRegistry.AbilityDelegator =
@@ -110,7 +113,7 @@ export class UiTestSession {
   }
 
   /**
-   * 取得 Driver；通道被上一次测试进程或设备上别的 uitest 客户端短暂独占时，退避等待其释放。
+   * Acquire the Driver; when the channel is briefly held by the previous test process or another uitest client on the device, back off and wait for it to be released.
    */
   private async acquireDriver(): Promise<Driver> {
     if (sharedDriver !== null) {
@@ -138,7 +141,7 @@ export class UiTestSession {
   }
 
   /**
-   * 首个 UiTest 调用同样需要等待通道空闲。
+   * The first UiTest call also needs to wait for the channel to be idle.
    */
   private async wakeUpDisplay(driver: Driver): Promise<void> {
     let lastMessage: string = 'unknown';
@@ -159,7 +162,7 @@ export class UiTestSession {
   }
 
   /**
-   * 记录页面驱动单步耗时，便于定位用例超时来自哪一次 UiTest 调用。
+   * Record the per-step cost of the page driver to pinpoint which UiTest call caused a case timeout.
    */
   private logStep(step: string, startedAt: number, detail: string = ''): void {
     hilog.info(DOMAIN, TAG, 'UiStep %{public}s cost=%{public}dms %{public}s',
@@ -202,7 +205,7 @@ export class UiTestSession {
   }
 
   /**
-   * 清理动作尽力完成并记录，避免 finally 中的异常掩盖用例本身的结论。
+   * Cleanup is best-effort and logged, so an exception in finally cannot mask the case's own result.
    */
   async cleanup(): Promise<void> {
     const driver: Driver | null = sharedDriver;
@@ -245,7 +248,7 @@ export class UiTestSession {
   }
 
   /**
-   * 在超时范围内轮询文本是否出现，用于需要等待页面渲染完成的存在性判断。
+   * Poll whether a text appears within the timeout, for existence checks that must wait for the page to finish rendering.
    */
   async textAppears(text: string, contains: boolean = false, timeoutMs: number = 3000): Promise<boolean> {
     const driver: Driver = await this.acquireDriver();
@@ -271,7 +274,7 @@ export class UiTestSession {
     const driver: Driver = await this.acquireDriver();
     const scroll: Component = await this.scrollContainer(driver);
     const startedAt: number = Date.now();
-    // 默认滚动速度只有 600px/s，长页面一次回顶要 10 秒以上，这里显式提速
+    // The default scroll speed is only 600px/s, so returning a long page to the top takes over 10 seconds; speed it up explicitly here
     await scroll.scrollToTop(FAST_SCROLL_SPEED);
     await driver.waitForIdle(READ_IDLE_MS, READ_IDLE_TIMEOUT_MS);
     this.logStep('scrollToTop', startedAt);
@@ -324,10 +327,10 @@ export class UiTestSession {
   }
 
   /**
-   * 定位需要滚动才能露出的组件。
-   * 不使用 Component.scrollSearch：它在懒加载日志面板上会反复回扫，实测单次要 11 秒以上；
-   * 这里改为“就地查找 → 到底查找 → 自顶向下有界回扫”，并给整个回扫加硬预算，
-   * 保证目标文本确实不存在时快速失败，而不是把用例剩余时间全烧在滚动上。
+   * Locate a component that only becomes visible after scrolling.
+   * Component.scrollSearch is not used: it repeatedly rescans the lazily-loaded log panel, measured at over 11 seconds per call;
+   * this instead does "find in place → find at bottom → bounded top-down resweep", with a hard budget over the whole sweep,
+   * so that it fails fast when the target text truly does not exist rather than burning all remaining case time on scrolling.
    */
   private async locateScrolled(on: On, label: string): Promise<Component> {
     const driver: Driver = await this.acquireDriver();

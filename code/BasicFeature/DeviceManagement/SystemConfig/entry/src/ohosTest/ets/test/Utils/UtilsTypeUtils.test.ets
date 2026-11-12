@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { TypeUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 类型工具测试套件
+// Type utilities test suite
 // ========================================
 
 /**
- * 类型工具测试套件。
- * 测试 TypeUtils 类中各类型检查和转换方法的正确性。
+ * Type utilities test suite.
+ * Verifies the correctness of each type-check and conversion method in the TypeUtils class.
  */
 export default function utilsTypeUtilsTest(): void {
   describe('UtilsTypeUtilsTest', () => {
 
     // ========================================
-    // 正向用例 - 类型检查
+    // Positive cases - type checks
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0100
      * @tc.name testUtilsTypeUtils0001
-     * @tc.desc 正向: 字符串判断
+     * @tc.desc Verify the string check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -54,7 +54,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0200
      * @tc.name testUtilsTypeUtils0002
-     * @tc.desc 正向: 数字判断
+     * @tc.desc Verify the number check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -70,7 +70,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0300
      * @tc.name testUtilsTypeUtils0003
-     * @tc.desc 正向: 布尔判断
+     * @tc.desc Verify the boolean check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -86,7 +86,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0400
      * @tc.name testUtilsTypeUtils0004
-     * @tc.desc 正向: 对象判断
+     * @tc.desc Verify the object check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -103,7 +103,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0500
      * @tc.name testUtilsTypeUtils0005
-     * @tc.desc 正向: 数组判断
+     * @tc.desc Verify the array check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -119,7 +119,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0600
      * @tc.name testUtilsTypeUtils0006
-     * @tc.desc 正向: null判断
+     * @tc.desc Verify the null check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -135,7 +135,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0700
      * @tc.name testUtilsTypeUtils0007
-     * @tc.desc 正向: undefined判断
+     * @tc.desc Verify the undefined check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -149,13 +149,13 @@ export default function utilsTypeUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 空值检查
+    // Positive cases - empty value checks
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0800
      * @tc.name testUtilsTypeUtils0008
-     * @tc.desc 正向: 空字符串
+     * @tc.desc Verify the empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -171,7 +171,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_0900
      * @tc.name testUtilsTypeUtils0009
-     * @tc.desc 正向: 空对象
+     * @tc.desc Verify the empty object
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -189,7 +189,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_1000
      * @tc.name testUtilsTypeUtils0010
-     * @tc.desc 正向: 空数组
+     * @tc.desc Verify the empty array
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -203,13 +203,13 @@ export default function utilsTypeUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 类型转换
+    // Positive cases - type conversion
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_1100
      * @tc.name testUtilsTypeUtils0011
-     * @tc.desc 正向: 转字符串
+     * @tc.desc Verify conversion to string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -225,7 +225,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_1200
      * @tc.name testUtilsTypeUtils0012
-     * @tc.desc 正向: 转数字
+     * @tc.desc Verify conversion to number
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -241,7 +241,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_1300
      * @tc.name testUtilsTypeUtils0013
-     * @tc.desc 正向: 转布尔
+     * @tc.desc Verify conversion to boolean
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -258,7 +258,7 @@ export default function utilsTypeUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_TYPE_UTILS_1400
      * @tc.name testUtilsTypeUtils0014
-     * @tc.desc 正向: 获取类型
+     * @tc.desc Verify getting the type
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

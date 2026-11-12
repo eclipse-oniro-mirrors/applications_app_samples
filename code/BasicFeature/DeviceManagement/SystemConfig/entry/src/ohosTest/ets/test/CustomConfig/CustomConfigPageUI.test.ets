@@ -20,14 +20,14 @@ const SUCCESS_LOG_PREFIX: string = '获取渠道号成功: ';
 const FAILURE_LOG_PREFIX: string = '获取渠道号失败: ';
 
 /**
- * 日志面板标题栏渲染的条目总数，是页面日志数组的唯一权威计数。
+ * Total entry count rendered in the log panel title bar, the single authoritative count of the page log array.
  */
 function logCountLabel(count: number): string {
   return `共 ${count} 条`;
 }
 
 /**
- * CustomConfigPage.getStatusText 的期望映射。
+ * Expected mapping of CustomConfigPage.getStatusText.
  */
 function statusTextOf(status: ChannelConfigStatus): string {
   if (status === ChannelConfigStatus.SUCCESS) {
@@ -47,8 +47,8 @@ function isFetchSuccess(detail: ChannelConfigJson): boolean {
 }
 
 /**
- * 页面展示值由 viewModel.currentChannelId || '未获取' 决定，
- * 而 ChannelConfigModel 仅在获取成功时写入 channelId，失败与空值一律回落为未获取。
+ * The displayed value comes from viewModel.currentChannelId || '未获取',
+ * and ChannelConfigModel only writes channelId on success; failures and empty values fall back to not-fetched.
  */
 function displayedChannelId(detail: ChannelConfigJson): string {
   return isFetchSuccess(detail) ? detail.channelId : '未获取';
@@ -72,7 +72,7 @@ async function openCustomConfigPage(session: UiTestSession): Promise<void> {
 }
 
 /**
- * 定制配置页面真实 ViewModel 编排测试。
+ * Real ViewModel orchestration tests for the custom config page.
  */
 export default function customConfigPageUITest(): void {
   describe('CustomConfigPageUITest', () => {
@@ -94,7 +94,7 @@ export default function customConfigPageUITest(): void {
         expect(await session.textOf('获取渠道号')).assertEqual('获取渠道号');
         expect(await session.textOf('查看详情')).assertEqual('查看详情');
         expect(await session.textOf('重置')).assertEqual('重置');
-        // aboutToAppear 只写入初始化一条日志，页面日志数必须与之相等
+        // aboutToAppear writes exactly one initialization log, so the page log count must equal it
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
         expect(await session.scrollTextOf('视图模型初始化完成', true)).assertContain('视图模型初始化完成');
         const initText: string = await session.scrollTextOf('"channelId"', true);
@@ -121,7 +121,7 @@ export default function customConfigPageUITest(): void {
       try {
         await openCustomConfigPage(session);
         await session.scrollClickText('获取渠道号');
-        // fetchChannelId 固定追加“正在获取”与“结果”两条日志，初始化一条合计三条
+        // fetchChannelId always appends two logs "正在获取" and "结果", three in total with the initialization log
         expect(await session.scrollTextOf(logCountLabel(3))).assertEqual(logCountLabel(3));
 
         const detailText: string = await session.scrollTextOf('"channelId"', true);
@@ -129,12 +129,12 @@ export default function customConfigPageUITest(): void {
         expect(detail.fetchCount).assertEqual(1);
         expect(detail.lastFetchTime).assertLarger(0);
 
-        // 状态标签文本由 detail.status 推导，而不是先探测界面再自比
+        // The status label text is derived from detail.status, rather than probing the UI and self-comparing
         const expectedStatus: string = statusTextOf(detail.status);
         expect(await session.scrollTextOf(expectedStatus)).assertEqual(expectedStatus);
         expect(await session.textCount(statusTextOf(ChannelConfigStatus.UNINITIALIZED))).assertEqual(0);
 
-        // 渠道号字段与结果日志同样以 detail 模型为期望来源
+        // The channel id field and the result log also take the detail model as the expected source
         expect(await session.scrollTextOf(displayedChannelId(detail))).assertEqual(displayedChannelId(detail));
         const resultLog: string = await session.scrollTextOf(resultLogPrefix(detail), true);
         expect(logResult(resultLog, resultLogPrefix(detail))).assertEqual(resultLogSuffix(detail));
@@ -213,8 +213,8 @@ export default function customConfigPageUITest(): void {
         await session.scrollClickText('重置');
         expect(await session.scrollTextOf('未获取')).assertEqual('未获取');
         expect(await session.scrollTextOf('未初始化')).assertEqual('未初始化');
-        // resetState 先清空日志数组再写入“状态已重置”，因此面板计数必须回落为一条，
-        // 由此同时证明初始化日志与获取结果日志均已被清除
+        // resetState clears the log array first then writes "状态已重置", so the panel count must drop back to one,
+        // which simultaneously proves both the initialization log and the fetch result logs have been cleared
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
         expect(await session.scrollTextOf('状态已重置', true)).assertContain('状态已重置');
 

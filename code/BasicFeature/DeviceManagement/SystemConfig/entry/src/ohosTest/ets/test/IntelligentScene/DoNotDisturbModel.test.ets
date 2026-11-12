@@ -18,25 +18,25 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DoNotDisturbModel, DoNotDisturbStatus } from 'library';
 import type { DoNotDisturbModelJson } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * DoNotDisturbModel 数据模型测试套件。
- * 验证免打扰模型的构造、状态标记、免打扰/通知状态判断、
- * 序列化与重置等全部公开方法的行为正确性。
+ * DoNotDisturbModel data model test suite.
+ * Verifies the behavior of all public methods: model construction, status marking, do-not-disturb/notify state checks,
+ * serialization, and reset.
  */
 export default function DoNotDisturbModelTest(): void {
   describe('DoNotDisturbModelTest', () => {
 
     // ========================================
-    // 构造与默认值
+    // Construction and default values
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0100
      * @tc.name testDoNotDisturbModel0001
-     * @tc.desc 正向用例：默认构造后各字段为初始值。
+     * @tc.desc Verify each field holds its initial value after the default constructor
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -54,13 +54,13 @@ export default function DoNotDisturbModelTest(): void {
     });
 
     // ========================================
-    // 状态标记方法
+    // Status marking methods
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0200
      * @tc.name testDoNotDisturbModel0002
-     * @tc.desc 正向用例：调用 markSuccess 后状态变为 SUCCESS，查询次数加一。
+     * @tc.desc Verify the status becomes SUCCESS and the query count increments after markSuccess
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -79,7 +79,7 @@ export default function DoNotDisturbModelTest(): void {
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0300
      * @tc.name testDoNotDisturbModel0003
-     * @tc.desc 正向用例：调用 markFailed 后状态变为 FAILED，错误信息正确记录。
+     * @tc.desc Verify the status becomes FAILED and the error message is recorded after markFailed
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -97,7 +97,7 @@ export default function DoNotDisturbModelTest(): void {
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0400
      * @tc.name testDoNotDisturbModel0004
-     * @tc.desc 正向用例：调用 markQuerying 后状态变为 QUERYING，错误信息清空。
+     * @tc.desc Verify the status becomes QUERYING and the error message is cleared after markQuerying
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -113,13 +113,13 @@ export default function DoNotDisturbModelTest(): void {
     });
 
     // ========================================
-    // 状态更新方法
+    // Status update methods
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0500
      * @tc.name testDoNotDisturbModel0005
-     * @tc.desc 正向用例：调用 updateDndState 更新免打扰启用状态和时间戳。
+     * @tc.desc Verify updateDndState updates the do-not-disturb enabled flag and the timestamp
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -136,7 +136,7 @@ export default function DoNotDisturbModelTest(): void {
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0600
      * @tc.name testDoNotDisturbModel0006
-     * @tc.desc 正向用例：调用 updateNotifyState 更新通知允许状态和时间戳。
+     * @tc.desc Verify updateNotifyState updates the notify-allowed flag and the timestamp
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -151,13 +151,13 @@ export default function DoNotDisturbModelTest(): void {
     });
 
     // ========================================
-    // 查询判断方法
+    // Query check methods
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0700
      * @tc.name testDoNotDisturbModel0007
-     * @tc.desc 正向用例：isDndActive 仅在 SUCCESS 且免打扰启用时返回 true。
+     * @tc.desc Verify isDndActive returns true only when SUCCESS and do-not-disturb is enabled
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -175,7 +175,7 @@ export default function DoNotDisturbModelTest(): void {
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0800
      * @tc.name testDoNotDisturbModel0008
-     * @tc.desc 正向用例：canNotify 仅在 SUCCESS 且通知允许时返回 true。
+     * @tc.desc Verify canNotify returns true only when SUCCESS and notifications are allowed
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -191,13 +191,13 @@ export default function DoNotDisturbModelTest(): void {
     });
 
     // ========================================
-    // 重置与序列化
+    // Reset and serialization
     // ========================================
 
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_0900
      * @tc.name testDoNotDisturbModel0009
-     * @tc.desc 正向用例：reset 后所有字段恢复为初始值。
+     * @tc.desc Verify all fields return to their initial values after reset
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -219,7 +219,7 @@ export default function DoNotDisturbModelTest(): void {
     /**
      * @tc.number SUB_DO_NOT_DISTURB_MODEL_1000
      * @tc.name testDoNotDisturbModel0010
-     * @tc.desc 正向用例：toJSON 返回包含全部字段的对象。
+     * @tc.desc Verify toJSON returns an object containing all fields
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

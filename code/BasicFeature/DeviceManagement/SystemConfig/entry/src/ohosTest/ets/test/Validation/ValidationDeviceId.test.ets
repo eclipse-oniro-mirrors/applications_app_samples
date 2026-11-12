@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { ValidationUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 设备号验证测试套件
+// Device ID validation test suite
 // ========================================
 
 /**
- * 设备号验证测试套件。
- * 测试 ValidationUtils.validateDeviceId 方法在各种输入下的行为。
+ * Device ID validation test suite.
+ * Verifies the behavior of ValidationUtils.validateDeviceId under various inputs.
  */
 export default function validateDeviceIdTest(): void {
   describe('ValidateDeviceIdTest', () => {
 
     // ========================================
-    // 正向用例
+    // Positive cases
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0100
      * @tc.name testValidationDeviceId0001
-     * @tc.desc 正向: 合法设备号验证通过
+     * @tc.desc Verify a valid device ID passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -55,7 +55,7 @@ export default function validateDeviceIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0200
      * @tc.name testValidationDeviceId0002
-     * @tc.desc 正向: 纯字母数字设备号验证通过
+     * @tc.desc Verify an alphanumeric device ID passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -70,13 +70,13 @@ export default function validateDeviceIdTest(): void {
     });
 
     // ========================================
-    // 反向用例
+    // Negative cases
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0300
      * @tc.name testValidationDeviceId0003
-     * @tc.desc 反向: 空字符串验证失败
+     * @tc.desc Verify an empty string fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -93,7 +93,7 @@ export default function validateDeviceIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0400
      * @tc.name testValidationDeviceId0004
-     * @tc.desc 反向: 非法格式验证（含特殊字符）
+     * @tc.desc Verify an illegal format fails validation (contains special characters)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -110,7 +110,7 @@ export default function validateDeviceIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0500
      * @tc.name testValidationDeviceId0005
-     * @tc.desc 反向: 以连字符开头的设备号验证失败
+     * @tc.desc Verify a device ID starting with a hyphen fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -125,13 +125,13 @@ export default function validateDeviceIdTest(): void {
     });
 
     // ========================================
-    // 边界用例
+    // Boundary cases
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0600
      * @tc.name testValidationDeviceId0006
-     * @tc.desc 边界: 边界长度测试（少于最小长度2字符）
+     * @tc.desc Verify the lower length boundary (fewer than the minimum of 2 characters)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -148,7 +148,7 @@ export default function validateDeviceIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0700
      * @tc.name testValidationDeviceId0007
-     * @tc.desc 边界: 超过最大长度128字符验证失败
+     * @tc.desc Verify a length over the maximum of 128 characters fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -166,7 +166,7 @@ export default function validateDeviceIdTest(): void {
     /**
      * @tc.number SUB_VALIDATION_DEVICE_ID_0800
      * @tc.name testValidationDeviceId0008
-     * @tc.desc 边界: 恰好最小长度2字符验证通过
+     * @tc.desc Verify exactly the minimum length of 2 characters passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

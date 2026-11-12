@@ -17,13 +17,14 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ValidationUtils } from 'library';
 import type { ValidationResult } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * ValidationUtils 综合验证测试套件。
- * 覆盖 validateErrorCode、validateTimestamp、validateString、
- * validateNumber、validateEnum、validateArray 等未在其他测试文件中覆盖的方法。
+ * ValidationUtils comprehensive validation test suite.
+ * Covers methods not exercised by other test files:
+ * validateErrorCode, validateTimestamp, validateString,
+ * validateNumber, validateEnum, and validateArray.
  */
 export default function ValidationUtilsComprehensiveTest(): void {
   describe('ValidationUtilsComprehensiveTest', () => {
@@ -35,7 +36,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0100
      * @tc.name testValidationUtilsComprehensive0001
-     * @tc.desc 正向: 合法错误码(0, 1, 99999)验证通过
+     * @tc.desc Verify valid error codes (0, 1, 99999) pass validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -55,7 +56,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0200
      * @tc.name testValidationUtilsComprehensive0002
-     * @tc.desc 反向: 负数、超大值、非整数验证失败
+     * @tc.desc Verify negatives, over-large values, and non-integers fail validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -80,7 +81,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0300
      * @tc.name testValidationUtilsComprehensive0003
-     * @tc.desc 正向: 合法历史时间戳验证通过
+     * @tc.desc Verify a valid past timestamp passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -97,7 +98,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0400
      * @tc.name testValidationUtilsComprehensive0004
-     * @tc.desc 反向: 负数、零、未来时间、NaN、Infinity 验证失败
+     * @tc.desc Verify negatives, zero, future times, NaN, and Infinity fail validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -123,7 +124,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0500
      * @tc.name testValidationUtilsComprehensive0005
-     * @tc.desc 正向: 长度在范围内的字符串验证通过
+     * @tc.desc Verify a string with an in-range length passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -142,7 +143,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0600
      * @tc.name testValidationUtilsComprehensive0006
-     * @tc.desc 反向: 长度低于 minLen 验证失败
+     * @tc.desc Verify a length below minLen fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -158,7 +159,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0700
      * @tc.name testValidationUtilsComprehensive0007
-     * @tc.desc 反向: 长度超过 maxLen 验证失败
+     * @tc.desc Verify a length above maxLen fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -178,7 +179,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0800
      * @tc.name testValidationUtilsComprehensive0008
-     * @tc.desc 正向: 范围内的数值验证通过
+     * @tc.desc Verify an in-range number passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -197,7 +198,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_0900
      * @tc.name testValidationUtilsComprehensive0009
-     * @tc.desc 反向: 超出范围、NaN 验证失败
+     * @tc.desc Verify out-of-range values and NaN fail validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -221,7 +222,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_1000
      * @tc.name testValidationUtilsComprehensive0010
-     * @tc.desc 正向: 合法枚举值验证通过
+     * @tc.desc Verify a valid enum value passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -238,7 +239,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_1100
      * @tc.name testValidationUtilsComprehensive0011
-     * @tc.desc 反向: 非法枚举值、空值、空列表验证失败
+     * @tc.desc Verify an invalid enum value, an empty value, and an empty list fail validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -264,7 +265,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_1200
      * @tc.name testValidationUtilsComprehensive0012
-     * @tc.desc 正向: 满足最小长度的数组验证通过
+     * @tc.desc Verify an array meeting the minimum length passes validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -283,7 +284,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_1300
      * @tc.name testValidationUtilsComprehensive0013
-     * @tc.desc 反向: 数组长度不足最小要求验证失败
+     * @tc.desc Verify an array shorter than the minimum requirement fails validation
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -299,13 +300,13 @@ export default function ValidationUtilsComprehensiveTest(): void {
     });
 
     // ========================================
-    // 边界值
+    // Boundary values
     // ========================================
 
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_1400
      * @tc.name testValidationUtilsComprehensive0014
-     * @tc.desc 边界: 错误码恰好为 0 和 99999 边界值
+     * @tc.desc Verify the error code boundaries of exactly 0 and 99999
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -323,7 +324,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
     /**
      * @tc.number SUB_VALIDATION_UTILS_COMPREHENSIVE_1500
      * @tc.name testValidationUtilsComprehensive0015
-     * @tc.desc 边界: minLen=0 允许空字符串
+     * @tc.desc Verify minLen=0 allows an empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

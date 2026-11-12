@@ -17,14 +17,14 @@ import { describe, expect, it } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DoNotDisturbModel, DoNotDisturbStatus, IntelligentSceneService } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * 校验一次查询结束后的状态落库是否自洽。
- * 查询成功时错误信息必须被清空；查询失败时服务约定吞掉异常并返回 false，
- * 同时把错误码与错误信息落到模型上。两种分支都给出确定期望，不做排除法判断。
- * 业务字段（免打扰启用 / 通知允许）由本接口归属之外的查询写入，需由用例单独校验隔离性。
+ * Verifies that the state persisted after a query is self-consistent.
+ * On success the error message must be cleared; on failure the service contract swallows the exception and returns false,
+ * while recording the error code and message on the model. Both branches give deterministic expectations instead of reasoning by exclusion.
+ * Business fields (do-not-disturb enabled / notify allowed) are written by queries outside this interface's scope, so isolation must be validated separately by each case.
  */
 function assertQueryContract(model: DoNotDisturbModel, returned: boolean): void {
   if (model.status === DoNotDisturbStatus.SUCCESS) {
@@ -41,9 +41,9 @@ function assertQueryContract(model: DoNotDisturbModel, returned: boolean): void 
 }
 
 /**
- * IntelligentSceneService 免打扰查询接口测试套件。
- * 验证免打扰状态查询、通知允许状态查询与全量查询的调用计数、
- * 模型字段落库、状态机分支以及重置与未初始化场景下的服务行为。
+ * IntelligentSceneService do-not-disturb query interface test suite.
+ * Verifies the call counting of the do-not-disturb state query, notify-allowed query, and full query,
+ * model field persistence, state-machine branches, and the service behavior in reset and uninitialized scenarios.
  */
 export default function IntelligentSceneDndTest(): void {
   describe('IntelligentSceneDndTest', () => {
@@ -73,9 +73,9 @@ export default function IntelligentSceneDndTest(): void {
       expect(model.queryCount).assertEqual(1);
       expect(model.lastQueryTime).assertLargerOrEqual(startedAt);
       expect(model.getTimeSinceLastQuery()).assertLargerOrEqual(0);
-      // 免打扰启用状态查询不得改写通知允许状态，成功与失败分支均成立
+      // Querying the do-not-disturb enabled state must not overwrite the notify-allowed state, in both success and failure branches
       expect(model.isNotifyAllowed).assertEqual(notifyBefore);
-      // 成功分支落库接口返回值；失败分支 markFailed 不写业务字段，保留查询前的值
+      // The success branch persists the interface return value; the failure branch's markFailed does not write business fields and keeps the pre-query value
       if (model.status === DoNotDisturbStatus.SUCCESS) {
         expect(model.isDoNotDisturbEnabled).assertEqual(result);
       } else {
@@ -110,10 +110,10 @@ export default function IntelligentSceneDndTest(): void {
       const allowed: boolean = await service.isNotifyAllowedInDoNotDisturb();
       expect(model.queryCount).assertEqual(1);
       expect(model.lastQueryTime).assertLargerOrEqual(startedAt);
-      // 通知允许状态查询不得改写免打扰启用状态，成功与失败分支均成立
+      // Querying the notify-allowed state must not overwrite the do-not-disturb enabled state, in both success and failure branches
       expect(model.isDoNotDisturbEnabled).assertEqual(dndBefore);
       expect(service.getCurrentStatus()).assertEqual(model.status);
-      // 成功分支落库接口返回值；失败分支 markFailed 不写业务字段，保留查询前的值
+      // The success branch persists the interface return value; the failure branch's markFailed does not write business fields and keeps the pre-query value
       if (model.status === DoNotDisturbStatus.SUCCESS) {
         expect(model.isNotifyAllowed).assertEqual(allowed);
       } else {
@@ -150,7 +150,7 @@ export default function IntelligentSceneDndTest(): void {
       const allowed: boolean = await service.isNotifyAllowedInDoNotDisturb();
       expect(returned.queryCount).assertEqual(2);
       expect(returned.lastQueryTime).assertLargerOrEqual(beforeNext);
-      // 通知允许状态查询不得改写免打扰启用状态，成功与失败分支均成立
+      // Querying the notify-allowed state must not overwrite the do-not-disturb enabled state, in both success and failure branches
       expect(returned.isDoNotDisturbEnabled).assertEqual(dndBefore);
       if (returned.status === DoNotDisturbStatus.SUCCESS) {
         expect(returned.isNotifyAllowed).assertEqual(allowed);
@@ -192,7 +192,7 @@ export default function IntelligentSceneDndTest(): void {
 
       service.initialize();
       expect(service.isServiceInitialized()).assertTrue();
-      // initialize 重建模型实例，reset 前持有的旧引用不再被服务更新
+      // initialize rebuilds the model instance, so the stale reference held before reset is no longer updated by the service
       const liveModel: DoNotDisturbModel = service.getDoNotDisturbModel();
       expect(liveModel === model).assertFalse();
       const afterInit: boolean = await service.isDoNotDisturbEnabled();
@@ -226,7 +226,7 @@ export default function IntelligentSceneDndTest(): void {
       expect(service.isServiceInitialized()).assertFalse();
       expect(model.queryCount).assertEqual(1);
       expect(model.lastQueryTime).assertLargerOrEqual(startedAt);
-      // 未初始化状态下的查询同样不得改写通知允许状态
+      // A query in the uninitialized state must likewise not overwrite the notify-allowed state
       expect(model.isNotifyAllowed).assertEqual(notifyBefore);
       if (model.status === DoNotDisturbStatus.SUCCESS) {
         expect(model.isDoNotDisturbEnabled).assertEqual(result);

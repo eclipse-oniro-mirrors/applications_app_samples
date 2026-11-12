@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { StringUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 字符串工具测试套件
+// String utilities test suite
 // ========================================
 
 /**
- * 字符串工具测试套件。
- * 测试 StringUtils 类中各字符串处理方法的正确性。
+ * String utilities test suite.
+ * Verifies the correctness of each string-processing method in the StringUtils class.
  */
 export default function utilsStringUtilsTest(): void {
   describe('UtilsStringUtilsTest', () => {
 
     // ========================================
-    // 正向用例 - 大小写与命名转换
+    // Positive cases - case and naming conversion
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0100
      * @tc.name testUtilsStringUtils0001
-     * @tc.desc 正向: 首字母大写
+     * @tc.desc Verify capitalizing the first letter
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -56,7 +56,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0200
      * @tc.name testUtilsStringUtils0002
-     * @tc.desc 正向: 驼峰转换
+     * @tc.desc Verify conversion to camelCase
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -74,7 +74,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0300
      * @tc.name testUtilsStringUtils0003
-     * @tc.desc 正向: 蛇形转换
+     * @tc.desc Verify conversion to snake_case
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -90,13 +90,13 @@ export default function utilsStringUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 查找与操作
+    // Positive cases - lookup and operations
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0400
      * @tc.name testUtilsStringUtils0004
-     * @tc.desc 正向: 包含检查
+     * @tc.desc Verify the contains check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -113,7 +113,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0500
      * @tc.name testUtilsStringUtils0005
-     * @tc.desc 正向: 前缀检查
+     * @tc.desc Verify the prefix check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -130,7 +130,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0600
      * @tc.name testUtilsStringUtils0006
-     * @tc.desc 正向: 后缀检查
+     * @tc.desc Verify the suffix check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -147,7 +147,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0700
      * @tc.name testUtilsStringUtils0007
-     * @tc.desc 正向: 重复字符串
+     * @tc.desc Verify repeating a string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -165,7 +165,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0800
      * @tc.name testUtilsStringUtils0008
-     * @tc.desc 正向: 反转字符串
+     * @tc.desc Verify reversing a string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -183,7 +183,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_0900
      * @tc.name testUtilsStringUtils0009
-     * @tc.desc 正向: 移除空白
+     * @tc.desc Verify removing whitespace
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -199,13 +199,13 @@ export default function utilsStringUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 生成与哈希
+    // Positive cases - generation and hashing
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_1000
      * @tc.name testUtilsStringUtils0010
-     * @tc.desc 正向: 随机字符串长度
+     * @tc.desc Verify the length of a generated random string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -224,7 +224,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_1100
      * @tc.name testUtilsStringUtils0011
-     * @tc.desc 正向: 哈希值一致性
+     * @tc.desc Verify the hash value is consistent
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -242,13 +242,13 @@ export default function utilsStringUtilsTest(): void {
     });
 
     // ========================================
-    // 边界用例
+    // Boundary cases
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_1200
      * @tc.name testUtilsStringUtils0012
-     * @tc.desc 边界: 空字符串
+     * @tc.desc Verify the empty string
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -266,7 +266,7 @@ export default function utilsStringUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_STRING_UTILS_1300
      * @tc.name testUtilsStringUtils0013
-     * @tc.desc 边界: 零次重复
+     * @tc.desc Verify zero repetitions
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

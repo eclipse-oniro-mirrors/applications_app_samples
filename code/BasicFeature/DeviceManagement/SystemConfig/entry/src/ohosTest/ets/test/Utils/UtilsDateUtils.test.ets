@@ -17,28 +17,28 @@ import { describe, it, expect } from '@ohos/hypium';
 import { DateUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 // ========================================
-// 日期工具测试套件
+// Date utility test suite
 // ========================================
 
 /**
- * 日期工具测试套件。
- * 测试 DateUtils 类中各日期处理方法的正确性。
+ * Date utility test suite.
+ * Tests the correctness of each date-handling method in the DateUtils class.
  */
 export default function utilsDateUtilsTest(): void {
   describe('UtilsDateUtilsTest', () => {
 
     // ========================================
-    // 正向用例 - 基础时间
+    // Positive cases - basic time
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0100
      * @tc.name testUtilsDateUtils0001
-     * @tc.desc 正向: now返回数字
+     * @tc.desc Verify now returns a number
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -56,7 +56,7 @@ export default function utilsDateUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0200
      * @tc.name testUtilsDateUtils0002
-     * @tc.desc 正向: 日期格式化
+     * @tc.desc Verify date formatting
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -74,13 +74,13 @@ export default function utilsDateUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 日期计算
+    // Positive cases - date calculation
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0300
      * @tc.name testUtilsDateUtils0003
-     * @tc.desc 正向: 增加天数
+     * @tc.desc Verify adding days
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -100,7 +100,7 @@ export default function utilsDateUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0400
      * @tc.name testUtilsDateUtils0004
-     * @tc.desc 正向: 增加小时
+     * @tc.desc Verify adding hours
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -120,7 +120,7 @@ export default function utilsDateUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0500
      * @tc.name testUtilsDateUtils0005
-     * @tc.desc 正向: 增加分钟
+     * @tc.desc Verify adding minutes
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -138,13 +138,13 @@ export default function utilsDateUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 日期判断
+    // Positive cases - date checks
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0600
      * @tc.name testUtilsDateUtils0006
-     * @tc.desc 正向: 判断今天
+     * @tc.desc Verify the isToday check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -163,7 +163,7 @@ export default function utilsDateUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0700
      * @tc.name testUtilsDateUtils0007
-     * @tc.desc 正向: 判断昨天
+     * @tc.desc Verify the isYesterday check
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -179,13 +179,13 @@ export default function utilsDateUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 相对时间
+    // Positive cases - relative time
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0800
      * @tc.name testUtilsDateUtils0008
-     * @tc.desc 正向: 刚刚
+     * @tc.desc Verify the "just now" formatting
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -204,7 +204,7 @@ export default function utilsDateUtilsTest(): void {
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_0900
      * @tc.name testUtilsDateUtils0009
-     * @tc.desc 正向: 分钟前
+     * @tc.desc Verify the "minutes ago" formatting
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -221,13 +221,13 @@ export default function utilsDateUtilsTest(): void {
     });
 
     // ========================================
-    // 正向用例 - 日期解析
+    // Positive cases - date parsing
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_1000
      * @tc.name testUtilsDateUtils0010
-     * @tc.desc 正向: 解析合法日期
+     * @tc.desc Verify parsing a valid date
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -243,13 +243,13 @@ export default function utilsDateUtilsTest(): void {
     });
 
     // ========================================
-    // 边界用例
+    // Boundary cases
     // ========================================
 
     /**
      * @tc.number SUB_UTILS_DATE_UTILS_1100
      * @tc.name testUtilsDateUtils0011
-     * @tc.desc 边界: 零时间戳
+     * @tc.desc Verify a zero timestamp
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

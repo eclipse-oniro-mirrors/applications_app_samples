@@ -27,8 +27,8 @@ async function readDndDetail(session: UiTestSession): Promise<DoNotDisturbModelJ
 }
 
 /**
- * 情景模式页面加载与初始状态测试。
- * 免打扰查询按钮的页面结果依赖系统通知管理服务，由服务层套件单独覆盖。
+ * Intelligent scene page loading and initial state test.
+ * The page result of the do-not-disturb query button depends on the system notification management service and is covered separately by the service-layer suite.
  */
 export default function intelligentScenePageUITest(): void {
   describe('IntelligentScenePageUITest', () => {

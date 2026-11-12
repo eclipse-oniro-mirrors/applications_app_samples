@@ -17,25 +17,25 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ChannelConfigModel, ChannelConfigStatus, ChannelConfigJson } from 'library';
 
-const DOMAIN: number = 0xF820;
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
 
 /**
- * ChannelConfigModel 数据模型测试套件。
- * 验证渠道配置模型的构造、状态标记、查询判断、序列化、
- * 重置等全部公开方法的行为正确性。
+ * ChannelConfigModel data model test suite.
+ * Verifies the behavior of all public methods of the channel config model,
+ * including construction, status marking, query checks, serialization and reset.
  */
 export default function ChannelConfigModelTest(): void {
   describe('ChannelConfigModelTest', () => {
 
     // ========================================
-    // 构造与默认值
+    // Construction and default values
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0100
      * @tc.name testChannelConfigModel0001
-     * @tc.desc 正向用例：默认构造后各字段为初始值。
+     * @tc.desc Verify all fields hold initial values after default construction.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -52,13 +52,13 @@ export default function ChannelConfigModelTest(): void {
     });
 
     // ========================================
-    // 状态标记方法
+    // Status marking methods
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0200
      * @tc.name testChannelConfigModel0002
-     * @tc.desc 正向用例：调用 markSuccess 后状态变为 SUCCESS，渠道号更新，获取次数加一。
+     * @tc.desc Verify markSuccess switches status to SUCCESS, updates the channel id and increments the fetch count.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -78,7 +78,7 @@ export default function ChannelConfigModelTest(): void {
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0300
      * @tc.name testChannelConfigModel0003
-     * @tc.desc 正向用例：调用 markFailed 后状态变为 FAILED，错误信息正确记录。
+     * @tc.desc Verify markFailed switches status to FAILED and records the error message correctly.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -96,7 +96,7 @@ export default function ChannelConfigModelTest(): void {
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0400
      * @tc.name testChannelConfigModel0004
-     * @tc.desc 正向用例：调用 markLoading 后状态变为 LOADING，错误信息清空。
+     * @tc.desc Verify markLoading switches status to LOADING and clears the error message.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -112,13 +112,13 @@ export default function ChannelConfigModelTest(): void {
     });
 
     // ========================================
-    // 查询判断方法
+    // Query check methods
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0500
      * @tc.name testChannelConfigModel0005
-     * @tc.desc 正向用例：markSuccess 后 isSuccess 返回 true，其他状态返回 false。
+     * @tc.desc Verify isSuccess returns true after markSuccess and false for other statuses.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -134,13 +134,13 @@ export default function ChannelConfigModelTest(): void {
     });
 
     // ========================================
-    // 重置方法
+    // Reset method
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0600
      * @tc.name testChannelConfigModel0006
-     * @tc.desc 正向用例：reset 后所有字段恢复为初始值。
+     * @tc.desc Verify all fields are restored to initial values after reset.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
@@ -159,13 +159,13 @@ export default function ChannelConfigModelTest(): void {
     });
 
     // ========================================
-    // 序列化方法
+    // Serialization methods
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0700
      * @tc.name testChannelConfigModel0007
-     * @tc.desc 正向用例：toJSON 返回包含全部字段的对象。
+     * @tc.desc Verify toJSON returns an object containing all fields.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -184,7 +184,7 @@ export default function ChannelConfigModelTest(): void {
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0800
      * @tc.name testChannelConfigModel0008
-     * @tc.desc 正向用例：toString 返回包含模型信息的非空字符串。
+     * @tc.desc Verify toString returns a non-empty string containing the model info.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -200,13 +200,13 @@ export default function ChannelConfigModelTest(): void {
     });
 
     // ========================================
-    // 统计与时间方法
+    // Statistics and time methods
     // ========================================
 
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_0900
      * @tc.name testChannelConfigModel0009
-     * @tc.desc 正向用例：多次 markSuccess 和 markFailed 后 fetchCount 累加正确。
+     * @tc.desc Verify fetchCount accumulates correctly across multiple markSuccess and markFailed calls.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -226,7 +226,7 @@ export default function ChannelConfigModelTest(): void {
     /**
      * @tc.number SUB_CHANNEL_CONFIG_MODEL_1000
      * @tc.name testChannelConfigModel0010
-     * @tc.desc 边界用例：未获取过时间差返回 -1，markSuccess 后状态与渠道号同步更新且时间差落在调用区间内。
+     * @tc.desc Verify the time diff returns -1 before any fetch, and after markSuccess the status and channel id update together with the time diff falling inside the call interval.
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -239,8 +239,8 @@ export default function ChannelConfigModelTest(): void {
       expect(model.fetchCount).assertEqual(0);
       const beforeMark: number = Date.now();
       model.markSuccess('ch-time');
-      // 必须在取 after 之前读取时间差：getTimeSinceLastFetch 每次调用都重新取 Date.now()，
-      // 若先取 after 再读时间差，跨毫秒时上界断言会偶发失败。
+      // The time diff must be read before capturing after: getTimeSinceLastFetch re-reads Date.now() on every call,
+      // so capturing after first would make the upper-bound assertion fail sporadically across millisecond boundaries.
       const timeDiff: number = model.getTimeSinceLastFetch();
       const afterMark: number = Date.now();
       expect(model.channelId).assertEqual('ch-time');

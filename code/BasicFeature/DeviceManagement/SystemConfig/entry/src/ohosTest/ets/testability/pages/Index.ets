@@ -14,9 +14,9 @@
  */
 
 /**
- * 测试运行页面。
- * 提供一个空白页面作为测试能力的 UI 载体，
- * 测试用例的实际执行由 TestAbility 驱动。
+ * Test runner page.
+ * Provides a blank page as the UI host for the test ability,
+ * while the actual test cases are driven by TestAbility.
  */
 @Entry
 @Component
