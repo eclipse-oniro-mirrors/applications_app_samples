@@ -6,7 +6,7 @@
 
 - 在 DevEco Studio 中运行本工程的 ohosTest；设备或模拟器须能运行本工程。本文只说明代码中的操作和断言，不代表已经执行或通过测试。
 - 文件测试在应用缓存目录创建和清理文件。数据库测试会写入配置、创建记录并删除记录，宜在专用测试安装上执行；配置快照恢复不等于恢复被清除的历史记录。
-- 逻辑及矩阵用例由测试代码调用接口，不需要用户手动操作界面。表内数据表名称均指对应源文件中的常量；“逐项与预设一致”明确指所列输出字段与该行 `expected`（或对应命名字段）比较。
+- 逻辑及矩阵用例由测试代码调用接口，不需要用户手动操作界面。表内数据表名称均指对应源文件中的常量；“逐项与预设一致”明确指所列输出字段与该行 `expected`（或对应命名字段）比较。重复字符样本用 `a×n` 表示连续 n 个字符 `a`，不表示数值乘法；中文样本的 Unicode 转义与源码字符串等价。
 - 时间构造采用设备本地时间。真实围栏能力、定位开关及授权状态只影响 UI 围栏切换的成功／拒绝分支，不要求设备真实移动穿越围栏。网络测试检查网络名称及本地端口 1 请求的失败结果，不要求公网联网。
 - UI 套件先写库预置 `Sample Fence`（纬度 `39.908722`、经度 `116.397499`、半径 `200`），启动 `EntryAbility`，处理“允许／仅使用期间允许”弹窗，必要时补齐表单。9 个 UI 用例按定义顺序执行，末尾的无效纬度用例会清空纬度字段。UI 的模拟签到／签退不以记录数量增减为断言；响应式用例不自动切换手机和平板。
 
@@ -35,7 +35,7 @@
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_BASIC_0100 | testStringChecks0001 | 对 `undefined`、`''`、`'a'` 调用 `isEmptyString`；再对空格和 `a b` 调用 `isBlank`，对缺失值和带空格的 x 调用 `trimSafe`。 | 空值判定依次 true、true、false；空白判定依次 true、false；修剪依次 `''`、`x`。 |
 | SUB_GEOFENCECHECKIN_BASIC_0200 | testStringTransforms0001 | 对 `geofence`、空串、`aBc` 首字母大写；反转 `abc`、空串，再对 `abc` 双重反转。 | 首字母结果为 `Geofence`、`''`、`ABc`；反转为 `cba`、`''`，双重反转恢复 `abc`。 |
-| SUB_GEOFENCECHECKIN_BASIC_0300 | testCountOccurrences0001 | 调用 `countOccurrences` 检查 `aXbXc/X`、`aaa/aa`、`abc/空目标`、`abc/z`、`空源/a`。 | 次数依次为 2、1、0、0、0，重叠的 `aa` 只计一次。 |
+| SUB_GEOFENCECHECKIN_BASIC_0300 | testCountOccurrences0001 | 调用 `countOccurrences` 检查 `aXbXc/X`、`a×3/a×2`、`abc/空目标`、`abc/z`、`空源/a`。 | 次数依次为 2、1、0、0、0，重叠的 `a×2` 只计一次。 |
 | SUB_GEOFENCECHECKIN_BASIC_0400 | testNumberHelpers0001 | 限幅 5、-3、99、1 到 [1,10]；调用随机数单点、倒置区间和 [1,100]；判断 1、0、-1、NaN、Infinity 是否为正数。 | 限幅依次 5、1、10、1；随机单点为 1、倒置区间 `(5,3)` 为 3，普通结果在 [1,100]；仅 1 的正数判定为 true。 |
 | SUB_GEOFENCECHECKIN_BASIC_0500 | testFormatPercent0001 | 格式化 0.256、`(0.5,2)`、0、1，检查默认结果后缀。 | 依次 `25.6%`、`50.00%`、`0.0%`、`100.0%`，默认结果以 `%` 结尾。 |
 | SUB_GEOFENCECHECKIN_BASIC_0600 | testValidationHelpers0001 | 校验邮箱 `a@b.com/bad/a@b`、手机 `13800138000/12800138000/1380013800`、身份证 `11010519491231002X` 及小写 x、缺位、错校验码样本。 | 邮箱和手机均依次 true、false、false；正确身份证及小写 x 为 true，缺位和 `110105194912310021` 为 false。 |
@@ -49,7 +49,7 @@
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_VALIDATION_0100 | testValidateConfigValid0001 | 检查半径常量；校验 `(39.908722,116.397499,200)`，逐次替换纬度 ±90、经度 ±180、半径 MIN_RADIUS/MAX_RADIUS。 | 最小／最大半径为 50／5000；普通配置及上述所有端点配置均返回 true，端点包含在有效范围内。 |
 | SUB_GEOFENCECHECKIN_VALIDATION_0200 | testValidateConfigBadLatitude0001 | 保持经度 116.397499、半径 200，依次校验纬度 90.1、-90.1、NaN。 | 三种配置均返回 false。 |
-| SUB_GEOFENCECHECKIN_VALIDATION_0300 | testValidateConfigBadLongitudeRadius0001 | 保持其他字段有效，校验经度 ±180.1 和半径 49.9、5000.1、0、-1。 | 六种配置均返回 false。 |
+| SUB_GEOFENCECHECKIN_VALIDATION_0300 | testValidateConfigBadLongitudeRadius0001 | 保持其余字段有效，校验经度 ±180.1 和半径 49.9、5000.1、0、-1。 | 六种配置均返回 false。 |
 
 ## 5. [FileSecurityUtil.test.ets](entry/src/ohosTest/ets/test/FileSecurityUtil.test.ets)（6 个）
 
@@ -58,8 +58,8 @@
 | 用例编号 | 用例名称 | 测试步骤 | 预期结果 |
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_SECURITY_0100 | testSecurityDigest0001 | 计算空串和 `abc` 的 MD5，再计算 `abc` 的 SHA256。 | 空串 MD5=`d41d8cd98f00b204e9800998ecf8427e`；abc MD5=`900150983cd24fb0d6963f7d28e17f72`、长度32；abc SHA256=`ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad`、长度64。 |
-| SUB_GEOFENCECHECKIN_SECURITY_0200 | testSecurityBase64RoundTrip0001 | 编码并解码 `GeofenceCheckIn`；对 `鸿蒙签到` 编码两次，再解码。 | 英文解码长度15，索引0/8/13/14为71/67/73/110；中文两次编码相同、长度为4的倍数，解码字节数12。未逐字节比较中文内容。 |
-| SUB_GEOFENCECHECKIN_SECURITY_0300 | testSecurityUuidAndHex0001 | 生成两个 UUID 和两份8字节随机十六进制串，检查长度、分隔及每个字符。 | 首个 UUID 长36、分为5段，两 UUID 不同；首串长16、两串不同，索引0/7/15及全体字符均属于 `0123456789abcdef`。 |
+| SUB_GEOFENCECHECKIN_SECURITY_0200 | testSecurityBase64RoundTrip0001 | 编码并解码 `GeofenceCheckIn`；对 `\u9E3F\u8499\u7B7E\u5230` 编码两次，再解码。 | 英文解码长度15，索引0/8/13/14为71/67/73/110；中文两次编码相同、长度为4的倍数，解码字节数12。未逐字节比较中文内容。 |
+| SUB_GEOFENCECHECKIN_SECURITY_0300 | testSecurityUuidAndHex0001 | 生成两个 UUID 和两份8字节随机十六进制串，检查长度、分隔及每个字符。 | 第1个 UUID 长36、分为5段，两 UUID 不同；首串长16、两串不同，索引0/7/15及全体字符均属于 `0123456789abcdef`。 |
 | SUB_GEOFENCECHECKIN_SECURITY_0400 | testSecurityFileWriteReadDelete0001 | 向 `gc_sec_test_write.txt` 写入 `hello geofence 2026`，检查存在、读回内容和大小，再删除。 | 写后存在；读回文本完全相同；大小19字节；删除后不存在。 |
 | SUB_GEOFENCECHECKIN_SECURITY_0500 | testSecurityFileCopyRename0001 | 写入 `copy rename payload` 到 src，复制到 dst，读双方内容和大小；将 dst 重命名到 renamed。 | 副本内容等于原文且与源内容相同；两文件大小相等；重命名后 dst 不存在、renamed 存在。 |
 | SUB_GEOFENCECHECKIN_SECURITY_0600 | testSecurityDirOps0001 | 创建 `gc_sec_test_dir` 两次，写入 `one.txt`，读取目录条目。 | 两次创建后目录均存在；条目列表非空且含 `one.txt`。 |
@@ -80,11 +80,11 @@
 | 用例编号 | 用例名称 | 测试步骤 | 预期结果 |
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_STORE_0100 | testStoreConfigRoundTrip0001 | 保存 `test_store_config`（纬度30.5、经度120.5、半径300、fenceId42、停用、updatedAt12345），再 `getConfig`。 | 上述七个字段逐一等于保存值。 |
-| SUB_GEOFENCECHECKIN_STORE_0200 | testStoreEnterExit0001 | 在 t=`Date.now()` 进入，t+1 重复进入，t+60000 退出。 | 首次记录非 undefined，enterTime=t、exitTime=OPEN_END、durationMs=0；重复进入为 undefined；退出记录非 undefined、ID与进入相同、exitTime=t+60000、durationMs=60000。 |
-| SUB_GEOFENCECHECKIN_STORE_0300 | testStoreExitWithoutEnter0001 | 查询开放记录，无进入先退出；然后进入、退出，再次退出。 | 起初开放记录和无进入退出均为 undefined；进入记录存在且 exitTime=OPEN_END；首次退出存在且ID相同；再次退出为 undefined。 |
+| SUB_GEOFENCECHECKIN_STORE_0200 | testStoreEnterExit0001 | 在 t=`Date.now()` 进入，t+1 重复进入，t+60000 退出。 | 第1次记录非 undefined，enterTime=t、exitTime=OPEN_END、durationMs=0；重复进入为 undefined；退出记录非 undefined、ID与进入相同、exitTime=t+60000、durationMs=60000。 |
+| SUB_GEOFENCECHECKIN_STORE_0300 | testStoreExitWithoutEnter0001 | 查询开放记录，无进入先退出；然后进入、退出，再次退出。 | 起初开放记录和无进入退出均为 undefined；进入记录存在且 exitTime=OPEN_END；第1次退出存在且ID相同；再次退出为 undefined。 |
 | SUB_GEOFENCECHECKIN_STORE_0400 | testStoreRecordsOrder0001 | 在 t、t+1000、t+2000 各进入并在500毫秒后退出；查全部记录和 limit=2。 | 三次进入均有记录；全量为3项，enterTime从新到旧为t+2000/t+1000/t，每条均非开放记录；限量为2项、首项为t+2000。 |
 | SUB_GEOFENCECHECKIN_STORE_0500 | testStoreDaySummary0001 | t进入、t+1000退出；t+5000进入、t+7000退出；按当前日首查询，再清空并查询。 | 两次进入记录存在；日汇总 count=2、durationMs=3000；清空后两字段均为0。 |
-| SUB_GEOFENCECHECKIN_STORE_0600 | testStoreSimulateTransition0001 | 以参数1调用 `CheckInService.simulate`：ENTER、ENTER、EXIT、EXIT。 | changed依次true/false/true/false；首个进入记录存在、exitTime=OPEN_END、durationMs=0；首个退出记录存在、durationMs≥0。 |
+| SUB_GEOFENCECHECKIN_STORE_0600 | testStoreSimulateTransition0001 | 以参数1调用 `CheckInService.simulate`：ENTER、ENTER、EXIT、EXIT。 | changed依次true/false/true/false；第1个进入记录存在、exitTime=OPEN_END、durationMs=0；第1个退出记录存在、durationMs≥0。 |
 
 ## 8. [BasicUtilArrayMatrix.test.ets](entry/src/ohosTest/ets/test/BasicUtilArrayMatrix.test.ets)（8 个）
 
@@ -113,7 +113,7 @@
 | 用例编号 | 用例名称 | 测试步骤 | 预期结果 |
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_BASICDEEP_0100 | testCapitalizeDeep0001 | 遍历 `STRING_DEEP_CASES` 标识符样本调用capitalize，再检查空串和a。 | 500行均等于capitalized；空串→空串、a→A。 |
-| SUB_GEOFENCECHECKIN_BASICDEEP_0200 | testReverseStringDeep0002 | 遍历 `STRING_DEEP_CASES` 调用reverseString，并反转预设reversed；另反转空串。 | 500行首次等于reversed，反转reversed恢复input；空串仍为空串。 |
+| SUB_GEOFENCECHECKIN_BASICDEEP_0200 | testReverseStringDeep0002 | 遍历 `STRING_DEEP_CASES` 调用reverseString，并反转预设reversed；另反转空串。 | 500行第1次等于reversed，反转reversed恢复input；空串仍为空串。 |
 
 ## 11. [BasicUtilStringExhaustive.test.ets](entry/src/ohosTest/ets/test/BasicUtilStringExhaustive.test.ets)（4 个）
 
@@ -121,7 +121,7 @@
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_BASICEXH_0100 | testCapitalizeExhaustive0001 | 遍历 `CAPITALIZE_CASES` 文本样本调用capitalize，另检查空串和aBc。 | 100行均等于expected；空串不变、aBc→ABc。 |
 | SUB_GEOFENCECHECKIN_BASICEXH_0200 | testReverseExhaustive0002 | 遍历 `REVERSE_CASES` 文本样本，单次和双重反转，再检查空串。 | 100行单次等于expected，双重恢复input；空串不变。 |
-| SUB_GEOFENCECHECKIN_BASICEXH_0300 | testCountExhaustive0003 | 遍历 `COUNT_CASES` 的input/target统计次数，另检查空目标及aaa/aa。 | 100行均等于expected；abc/空目标为0、aaa/aa为1。 |
+| SUB_GEOFENCECHECKIN_BASICEXH_0300 | testCountExhaustive0003 | 遍历 `COUNT_CASES` 的input/target统计次数，另检查空目标及a×3/a×2。 | 100行均等于expected；abc/空目标为0、a×3/a×2为1。 |
 | SUB_GEOFENCECHECKIN_BASICEXH_0400 | testTrimExhaustive0004 | 遍历 `TRIM_CASES` 带空格文本调用trimSafe和isBlank，另检查undefined和全空格。 | 100行修剪均等于expected、原文本isBlank=false；undefined修剪为空串，全空格isBlank=true。 |
 
 ## 12. [BasicUtilStringMatrix.test.ets](entry/src/ohosTest/ets/test/BasicUtilStringMatrix.test.ets)（31 个）
@@ -137,12 +137,12 @@
 | SUB_GEOFENCECHECKIN_BASICSTR_0700 | testCapitalizeMatrix0001 | 遍历 `CAPITALIZE_PROBES` 的大小写、空串、数字/符号/空格开头、中文及补充平面字符，检查首字母转换和再次转换。 | 12行等于expected及expectedLength，长度与原文相同、substring(1)不变、转换幂等；geofence→Geofence、GEOFENCE不变、aBc→ABc、空串不变、z→Z。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_0800 | testCapitalizeIdempotent0001 | 对 `CAPITALIZE_PROBES` 转换两次并统计变化行，再检查b/B及空格、数字、中文开头。 | 12行二次不变、变化行4；b→B、B不变、空串不变，双重geofence→Geofence，` a`、1a、中文不变。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_0900 | testReverseStringMatrix0001 | 遍历 `REVERSE_PROBES`（空串、回文、大小写、数字、符号、空格、中文）反转并双重反转。 | 12行等于expected及expectedLength，长度不变、双重恢复；abc→cba、空串不变、a不变、ab→ba、`ab `→` ba`、中文→文中。 |
-| SUB_GEOFENCECHECKIN_BASICSTR_1000 | testReverseStringRoundTrip0001 | 遍历 `REVERSE_PROBES` 反转再恢复，非空时比较首尾；另反转level、空串、a、ab、abc、aabb。 | 12行双重恢复，非空首尾互换；附加依次level、空串、a、ba、cba、bbaa。 |
+| SUB_GEOFENCECHECKIN_BASICSTR_1000 | testReverseStringRoundTrip0001 | 遍历 `REVERSE_PROBES` 反转再恢复，非空时比较首尾；另反转level、空串、a、ab、abc以及两个a后接两个b的字符串。 | 12行双重恢复，非空首尾互换；附加依次level、空串、a、ba、cba以及两个b后接两个a的字符串。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_1100 | testReverseStringEmoji0001 | 使用 `\u{1F4CD}`、`a+该字符+b`、双字符、`\u{1F680}`、CR/LF/NUL及孤立代理项调用反转；检查火箭前缀go。 | 单字符长度2且反转不变；混合长4、反转为b+该字符+a，首b末a且可恢复；双字符长4且不变；两种补充平面字符交换；以P表示 `\u{1F4CD}`，`a\r\n+P+\u0000b` 反转为 `b\u0000+P+\n\ra`；`\uD800a`→`a\uD800`，`a\uDC00`→`\uDC00a`；火箭go长4、反转首字符o，g计数1、非blank、capitalize长4。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_1200 | testReverseStringLongText0001 | 反转100份 `0123456789`，双重恢复，统计正反文子串并调用blank/empty/trim/capitalize。 | 源及反文长1000，反文=`9876543210`重复100次、首9末0；双重恢复；源0123与反文3210计数100、反文0123计数0；非blank非empty、trim及capitalize不变。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_1300 | testCountOccurrencesMatrix0001 | 遍历 `OCCURRENCE_PROBES` 的空目标、空源、缺失匹配、重复、重叠、中文、数字和符号样本统计。 | 15行均等于expected，次数≥0且≤可起始位置上界；预期0时目标为空或源不含目标；abc/abc=1、abc/abcd=0、空/空=0、abcabc/bc=2，首行目标为空。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_1400 | testCountOccurrencesEmptyTarget0001 | 以空串、a、geofence、围栏围栏、a b c五种源检查空目标及反向空源，再检查完整目标和重复。 | 空目标／空源均0；源数5、空串blank；geofence自身1、加X目标0，abcabc/abc及/a均2，a b c/空格2，空/空及空/a均0。 |
-| SUB_GEOFENCECHECKIN_BASICSTR_1500 | testCountOccurrencesOverlap0001 | 统计aaaa/aa、aaaaa/aa、aaaaaa/aa、aaa/aa、ababab/aba、abababa/aba、哈哈哈/哈哈、哈哈哈哈/哈哈、abab/ab。 | 依次2、2、3、1、1、2、1、2、2；aaaa/aa≤3，按非重叠匹配计数。 |
+| SUB_GEOFENCECHECKIN_BASICSTR_1500 | testCountOccurrencesOverlap0001 | 统计a×4/a×2、a×5/a×2、a×6/a×2、a×3/a×2、ababab/aba、abababa/aba、哈哈哈/哈哈、哈哈哈哈/哈哈、abab/ab。 | 依次2、2、3、1、1、2、1、2、2；a×4/a×2≤3，按非重叠匹配计数。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_1600 | testCountOccurrencesLongText0001 | 生成ab重复500次，统计a、b、ab、ba、abab、cd、整文、ababab、空目标；再加ab统计ba并双重反转。 | 文长1000；计数依次500、500、500、499、250、0、1、166、0；加ab后ba=500；双重恢复原文。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_1700 | testRemoveDuplicatesStringMatrix0001 | 去重 `b,a,b,空串,两空格,a,围栏,围栏,tab`，统计结果empty/blank，再查空数组。 | 源长9，去重6项为b/a/空串/两空格/围栏/tab；empty数1、blank数3；空数组去重长度0。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_1800 | testSafeJoinMatrix0001 | 连接含空项、全空、空数组、单项、空白和中文数组；组合计数、反转及trim。 | 依次a-b-c、空串、空串、x、` \|a\| `、围栏/区域；短横数2，ab/cd反转连接为dc-ba，边空格修剪为`a  ,b`；空分隔符a/b→ab，单a→a，空/a冒号连接→a。 |
@@ -150,15 +150,15 @@
 | SUB_GEOFENCECHECKIN_BASICSTR_2000 | testUnicodeChineseMatrix0001 | 对地理围栏执行判空、capitalize、反转、子串计数和trim，再查全角空格、双重反转及连接。 | 长4、非empty非blank、capitalize不变、反转栏围理地；围栏/地/安全计数1/1/0；trim恢复原文、全角空格blank、双重恢复、地理与围栏连接为原文。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_2100 | testDigitSymbolMatrix0001 | 检查数字块及 `+-*/=<>` 的判空、大写、反转、计数，修剪42。 | 数字非empty非blank、大写不变、反转9876543210，0计数1、00计数0，修剪为42；符号长7、反转`><=/*-+`、大写不变；--++--/--=2，短横非blank非empty。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_2200 | testValidateEmailStringMatrix0001 | 校验普通／子域邮箱、空白、缺用户名／域名／后缀、前导空格；修剪带空格邮箱后再校验，计数@并反转反文。 | 两合法邮箱true；空串/空白/不完整/带前空格均false，空白blank；修剪后合法、@计数1；反转得到user@example.com。 |
-| SUB_GEOFENCECHECKIN_BASICSTR_2300 | testStringMatrixSummary0001 | 读取五种PROBES长度，统计缺失、零匹配预设、反转不变、空白行。 | EMPTY/TRIM/CAPITALIZE/REVERSE/OCCURRENCE分别14/14/12/12/15；missing=1、零匹配=4、反转不变=3、blank=8，首个TRIM预设长度0。 |
+| SUB_GEOFENCECHECKIN_BASICSTR_2300 | testStringMatrixSummary0001 | 读取五种PROBES长度，统计缺失、零匹配预设、反转不变、空白行。 | EMPTY/TRIM/CAPITALIZE/REVERSE/OCCURRENCE分别14/14/12/12/15；missing=1、零匹配=4、反转不变=3、blank=8，TRIM第1条预设长度0。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_2400 | testUnicodeCodePointMatrix0001 | 使用 `\u{1F4CD}` 检查判空、反转／恢复、前缀capitalize、重复计数和trim。 | 字符长2、非empty非blank、单／双反转不变；字符+ab大写后长4、substring(2)=ab；两字符以竖线隔开计数2、单字符计数1；边空格修剪不变。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_2500 | testLongTextMillionMatrix0001 | 生成geofence重复250次及2000空格，检查计数、首字母、反转恢复和修剪。 | 实际正文长2000，并非百万字符；非empty非blank，geofence/fence/Geo计数250/250/0，首字符变G；反文长2000且可恢复，trim恢复正文；2000空格blank但非empty、trim为空。未断言耗时或复杂度。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_2600 | testSafeJoinTrimmingMatrix0001 | 连接空／单项／多项／含空项／含空白／带边空格数组；过滤空项后逐项trim再连接，检查去重。 | 输出为空、a、a,b,c、a,b、空、`a, ,b`、ab、` a \| b `；逐项修剪后a-b；去重a/a/b长2、a/b/a首a、空数组长0、x/y第二项y。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_2700 | testFlagAndPercentStringMatrix0001 | 转换布尔及判空结果标记；格式化百分比默认/0位/2位，统计文本符号、trim和反转。 | true/false为1/0，blank全空格及empty空串为1、empty a为0；输出25.0%、26%、25.60%、100.0%、0.0%；100.0%的点和百分号各1，修剪50%，反转为%05。 |
-| SUB_GEOFENCECHECKIN_BASICSTR_2800 | testOverlapAndCompoundMatrix0001 | 检查aaa重叠、a/aa、aba、abc和小数点计数，再遍历 `OCCURRENCE_PROBES`。 | aaaa/aaa=1、aaaaa/aaa=1、aaaaaa/aaa=2、aaaa/a=4、aaaa/aa=2、abababa/aba=2、abcabcab/abc=2、0.1.0.1/点=3；各行等于expected，正预期行源和目标非空。 |
+| SUB_GEOFENCECHECKIN_BASICSTR_2800 | testOverlapAndCompoundMatrix0001 | 检查a×3重叠、a/a×2、aba、abc和小数点计数，再遍历 `OCCURRENCE_PROBES`。 | a×4/a×3=1、a×5/a×3=1、a×6/a×3=2、a×4/a=4、a×4/a×2=2、abababa/aba=2、abcabcab/abc=2、0.1.0.1/点=3；各行等于expected，正预期行源和目标非空。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_2900 | testPhoneIdCardStringMatrix0001 | 校验合法手机、空白、短／长／带空格手机，并修剪后再校验；校验正确／空／错码身份证及修剪样本，计数1。 | 13800138000和19912345678合法；空、空白、10/12位及前空格手机不合法，trim后合法；正确身份证和trim后合法，空与错码不合法，空串blank；正确身份证中1计数6。 |
 | SUB_GEOFENCECHECKIN_BASICSTR_3000 | testWhitespaceFamilyMatrix0001 | 对空格、tab、LF、CR、CRLF及混合空白判blank；对含内容样本判blank，修剪、计数和反转。 | 七种纯空白均true，a-tab-b和LF-LF-a为false；修剪混合边空白得到a b，LF/tab修剪为空；tab与LF各计数2；a-tab-b反转为b-tab-a。未单独断言不换行空格。 |
-| SUB_GEOFENCECHECKIN_BASICSTR_3100 | testBoundaryLengthMatrix0001 | 对空格、一／两字符、带边空格调用判空、trim、大写、反转、计数、连接和去重。 | 空格非empty但blank、trim为空；` a `→a；a/ab/空格a大写为A/Ab/空格a；反转a/ab为a/ba；a/a=1、a/b=0、ab/ba=0、aa/a=2；a+b连接正确、去重a/b长2，两空格单项保留、修剪纯空格仍blank。 |
+| SUB_GEOFENCECHECKIN_BASICSTR_3100 | testBoundaryLengthMatrix0001 | 对空格、一／两字符、带边空格调用判空、trim、大写、反转、计数、连接和去重。 | 空格非empty但blank、trim为空；` a `→a；a/ab/空格a大写为A/Ab/空格a；反转a/ab为a/ba；a/a=1、a/b=0、ab/ba=0、a×2/a=2；a+b连接正确、去重a/b长2，两空格单项保留、修剪纯空格仍blank。 |
 
 ## 13. [BasicUtilValidationMatrix.test.ets](entry/src/ohosTest/ets/test/BasicUtilValidationMatrix.test.ets)（9 个）
 
@@ -203,13 +203,13 @@
 | 用例编号 | 用例名称 | 测试步骤 | 预期结果 |
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_FIXTURE_0100 | testDefaultConfigFixture0001 | 创建工厂默认配置与库默认配置，逐字段读取并调用configEquals/configDiffFields。 | 工厂name为空、经纬度0、radius=DEFAULT_RADIUS、fenceId=INVALID_FENCE_ID、enabled=false、updatedAt=0；两配置相等、差异列表空；库radius及fenceId保持默认标记。 |
-| SUB_GEOFENCECHECKIN_FIXTURE_0200 | testConfigBuilderFields0001 | 用builder_case、31.2304、121.4737、350、12、true、SAMPLE_TIME构造配置，再用空名及零值构造。 | 首个七字段均等于参数；零配置的name/latitude/radius/fenceId/enabled/updatedAt分别为空/0/0/0/false/0。零配置未单独断言longitude。 |
+| SUB_GEOFENCECHECKIN_FIXTURE_0200 | testConfigBuilderFields0001 | 用builder_case、31.2304、121.4737、350、12、true、SAMPLE_TIME构造配置，再用空名及零值构造。 | 第1份配置的七字段均等于参数；零配置的name/latitude/radius/fenceId/enabled/updatedAt分别为空/0/0/0/false/0。零配置未单独断言longitude。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_0300 | testConfigPresetRadiusMatrix0001 | 遍历 `RADIUS_PRESET_ROWS` 默认、正常、半径端点／越界、名称和状态预设，按kind构造并计算半径范围。 | radius等于row.radius，范围判定等于accepted；name.length≥0；有效12、无效2，合计等于表长14。此处检查半径范围，不调用配置校验器。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_0400 | testConfigPresetCenterMatrix0001 | 获取allConfigPresets，逐项检查坐标有限性和边界，另查ORIGIN_CENTER。 | 预设数等于RADIUS_PRESET_ROWS长度；经纬度均有限且在[-90,90]/[-180,180]；原点纬经度0、fenceId0。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_0500 | testConfigPresetNameMatrix0001 | 获取EMPTY_NAME/BLANK_NAME/UNICODE_NAME/NOMINAL，检查名称及nominalConfig的空后缀和gate后缀。 | 空名长0且trim长0；空白名长3且trim长0；Unicode名长4且trim长4；NOMINAL以preset_开头且更长、不同于nominalConfig空后缀；gate名fence_gate、启用、默认半径。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_0600 | testCloneConfigIndependence0001 | clone nominalConfig(clone)，比较七字段；修改副本name/radius/fenceId/enabled。 | 初始实例不同、值全相等；修改后源名fence_clone、默认半径、fenceId非999、仍启用；副本与源不再相等。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_0700 | testConfigDiffFieldMatrix0001 | 用 `CONFIG_DIFF_ROWS` 和applySingleFieldChange依次改变七个字段，调用差异及相等比较。 | fieldNames数7，自比差异0；每行差异恰好1项且为expectedField，configEquals=false，字段属于fieldNames、row.changed非空。 |
-| SUB_GEOFENCECHECKIN_FIXTURE_0800 | testRenameConfigKeepsOtherFields0001 | 快照nominalConfig(rename)，原地改名renamed_fence，比较其他字段和差异，再改为空名。 | 返回实例即原实例，name更新；其余六字段等于快照；差异仅name；再次改空名后长0。 |
+| SUB_GEOFENCECHECKIN_FIXTURE_0800 | testRenameConfigKeepsOtherFields0001 | 快照nominalConfig(rename)，原地改名renamed_fence，比较其余字段和差异，再改为空名。 | 返回实例即原实例，name更新；其余六字段等于快照；差异仅name；再次改空名后长0。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_0900 | testOpenAndClosedRecordFixture0001 | 构造ID1的开放记录及ID2的一分钟闭合记录，读取字段并比较。 | 开放ID1、enterTime=SAMPLE_TIME、exitTime=OPEN_END、durationMs0、isOpen=true；闭合ID2、退出=SAMPLE_TIME+60000、时长60000、isOpen=false，退出减进入等于时长；两记录不等。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_1000 | testRecordPresetDurationMatrix0001 | 遍历 `DURATION_PRESET_ROWS` 开放、分钟、小时、1毫秒、零／负停留、全天、特殊ID及epoch预设。 | 时长及开放状态逐行等于预设；进入／退出均有限；开放标记等于OPEN_END、闭合标记不同；开放3、闭合7，合计10。 |
 | SUB_GEOFENCECHECKIN_FIXTURE_1100 | testRecordPresetIdentityMatrix0001 | 两次allRecordPresets，逐项比较实例、值和预设时长，再收集ID。 | 两列表等长且等于时长表长；逐项实例不同、记录值相等、时长符合预设；ID列表长10且含-1/0/7/4。未断言全部ID互异。 |
@@ -238,8 +238,8 @@
 | SUB_GEOFENCECHECKIN_GEOGRID_0300 | testCoordinateValidity0003 | 遍历 `LATITUDE_CASES`、`LONGITUDE_CASES` 的端点、范围内及越界样本；另查NaN、纬度+Infinity、经度-Infinity。 | 两表逐项等于expected且各checked等于非空表长；端点有效、越界无效，附加非有限值全部false。 |
 | SUB_GEOFENCECHECKIN_GEOGRID_0400 | testLatitudeIndex0004 | 遍历 `LAT_INDEX_CASES` 用0.5度步长定位，再检查步长0/-1及纬度91。 | 表逐项等于expected、checked等于非空表长；-90→0、90→360；三个非法输入均-1。 |
 | SUB_GEOFENCECHECKIN_GEOGRID_0500 | testLongitudeIndex0005 | 遍历 `LON_INDEX_CASES` 用0.5度步长定位，再检查步长0/-1及经度181。 | 表逐项等于expected、checked等于非空表长；-180→0、180→720；三个非法输入均-1。 |
-| SUB_GEOFENCECHECKIN_GEOGRID_0600 | testCenterLatitude0006 | 遍历 `LAT_CENTER_CASES` 计算中心纬度；另查负索引、零／负步长。 | 每行与expected绝对误差<0.000001，checked等于非空表长；三种非法输入均0。 |
-| SUB_GEOFENCECHECKIN_GEOGRID_0700 | testCenterLongitude0007 | 遍历 `LON_CENTER_CASES` 计算中心经度；另查负索引、零／负步长。 | 每行与expected绝对误差<0.000001，checked等于非空表长；三种非法输入均0。 |
+| SUB_GEOFENCECHECKIN_GEOGRID_0600 | testCenterLatitude0006 | 遍历 `LAT_CENTER_CASES` 计算中心纬度；另查负索引、零／负步长。 | 每行与expected之差的模<0.000001，checked等于非空表长；三种非法输入均0。 |
+| SUB_GEOFENCECHECKIN_GEOGRID_0700 | testCenterLongitude0007 | 遍历 `LON_CENTER_CASES` 计算中心经度；另查负索引、零／负步长。 | 每行与expected之差的模<0.000001，checked等于非空表长；三种非法输入均0。 |
 | SUB_GEOFENCECHECKIN_GEOGRID_0800 | testGridKey0008 | 遍历 `KEY_CASES` 正／负／零索引对生成键，另检查典型键及长度。 | 表逐项等于expected、checked等于非空表长；(0,0)/(1,2)/(-1,-2)为0:0/1:2/-1:-2；10:20长度5。 |
 | SUB_GEOFENCECHECKIN_GEOGRID_0900 | testNeighborKeys0009 | 调用neighborKeys(5,5)，读取八项并检查中心是否包含。 | 长8，顺序4:4/4:5/4:6/5:4/5:6/6:4/6:5/6:6；不含5:5。 |
 | SUB_GEOFENCECHECKIN_GEOGRID_1000 | testCellCount0010 | 以步长1/0.5/10求纬经格数；另查纬度步长0、经度步长-1及两轴比例。 | 纬格数180/360/18，经格数360/720/36；非法步长均0；步长1的经格数为纬格数两倍。 |
@@ -318,7 +318,7 @@
 | SUB_GEOFENCECHECKIN_PUZZLE_0500 | testTriangularNumber0005 | 遍历 `TRIANGULAR_CASES` 三角数索引预设，再查-1/0/1/2/10。 | 表逐项等于expected、checked等于非空表长；附加0/0/1/3/55。 |
 | SUB_GEOFENCECHECKIN_PUZZLE_0600 | testIsTriangular0006 | 遍历 `TRIANGULAR_CHECK_CASES` 三角数及其邻值，再判-1/0/1/2/3。 | 表逐项等于expected、checked等于非空表长；附加false/true/true/false/true。 |
 | SUB_GEOFENCECHECKIN_PUZZLE_0700 | testDigitalRoot0007 | 遍历 `DIGITAL_ROOT_CASES` 数字根预设，再求0/-12/9/10/999999。 | 表逐项等于expected、checked等于非空表长；附加0/0/9/1/9。 |
-| SUB_GEOFENCECHECKIN_PUZZLE_0800 | testPowerOfTwo0008 | 遍历 `POWER_TWO_CASES` 2的幂及其他值，再判0/-2/1/2/3。 | 表逐项等于expected、checked等于非空表长；附加false/false/true/true/false。 |
+| SUB_GEOFENCECHECKIN_PUZZLE_0800 | testPowerOfTwo0008 | 遍历 `POWER_TWO_CASES` 2的幂及其余值，再判0/-2/1/2/3。 | 表逐项等于expected、checked等于非空表长；附加false/false/true/true/false。 |
 | SUB_GEOFENCECHECKIN_PUZZLE_0900 | testNextPowerOfTwo0009 | 遍历 `NEXT_POWER_CASES` 求不小于输入的2次幂，再求0/-9/1/2/3。 | 表逐项等于expected、checked等于非空表长；附加1/1/1/2/4。 |
 | SUB_GEOFENCECHECKIN_PUZZLE_1000 | testKaprekarSteps0010 | 遍历 `KAPREKAR_CASES` 的6174、收敛、重复数字及非四位样本，再查6174/999/10000/1111/2222。 | 表逐项等于expected、checked等于非空表长；6174为0步，其余附加输入均-1。 |
 | SUB_GEOFENCECHECKIN_PUZZLE_1100 | testPuzzleInvariants0011 | 索引1至120生成三角数再判断；1至200求数字根；1至64内若为2次幂则求nextPowerOfTwo。 | 120个生成数均为三角数；200个根在[1,9]且root%9=n%9；7个2次幂的next结果为自身。 |
@@ -365,7 +365,7 @@
 | SUB_GEOFENCECHECKIN_NUMSEQ_1500 | testPalindromeAndArmstrong0001 | 用 `DIGIT_ROWS`、expectedTwice、expectedReversedPalindrome比较双重数值反转和反文回文；另判Armstrong样本。 | 两预设数组长等于DIGIT_ROWS；逐项等于相应预设、单反转等于row.reversed，末尾0在双重反转中不恢复；1/153/1634/8208/9474/0/-153为Armstrong，154/100不是。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_1600 | testPerfectNumber0001 | 判完全数及邻值、非法输入，再求2/0/-6/6/28/1/12的真因子和。 | 6/28/496/8128/33550336为true；1/0/-6/5/7/27/495/6.5/NaN为false；因子和依次1/0/0/6/28/0/16。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_1700 | testToBaseString0001 | 遍历 `BASE_ROWS` 的二／八／十／十六／36进制含负数样本；另传非法进制和NaN。 | 文本及长度与row.text一致；进制1/37/0/-2/2.5、NaN值均空串；123十进制123、255二进制长8、1000的32进制等于原生toString(32)、1的36进制1。 |
-| SUB_GEOFENCECHECKIN_NUMSEQ_1800 | testParseBaseString0001 | 遍历 `PARSE_ROWS` 的大小写、负号、空串和非法数字样本；检查非法进制及具体二／八／16／36进制值。 | valid行等于row.value且非NaN，其他为NaN；进制1/40、独立负号、十进制a为NaN；1010→10、777八进制511、1z→71、-1010→-10、-0→0、ZZ→1295、11二进制3、ff→255、1000十六进制4096、110二进制6。 |
+| SUB_GEOFENCECHECKIN_NUMSEQ_1800 | testParseBaseString0001 | 遍历 `PARSE_ROWS` 的大小写、负号、空串和非法数字样本；检查非法进制及具体二／八／16／36进制值。 | valid行等于row.value且非NaN，其余为NaN；进制1/40、独立负号、十进制a为NaN；1010→10、777八进制511、1z→71、-1010→-10、-0→0、ZZ→1295、11二进制3、ff→255、1000十六进制4096、110二进制6。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_1900 | testBaseRoundTrip0001 | 遍历进制2至36及values[0,1,7,42,255,1024,65535,-123]，编码解码；另检查进制及典型文本。 | 35种进制均有效，280次回算恢复原值；1/37/2.5无效、10有效；9二进制1001、0/35/36的36进制0/z/10，-8二进制-1000，7.9十进制截断为7。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_2000 | testClampIntMatrix0001 | 遍历 `CLAMP_ROWS` 的端点、越界、小数、倒置范围；另传NaN/Infinity及小数边界。 | 逐项等于expected；NaN/Infinity落在(3,9)下界3；5.99→5、-5.99限到[0,10]→0；单点7→7；(1,2.9,8.9)→2。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_2100 | testLerpMatrix0001 | 对端点、中间比例、外插、负值、同端点及非有限值调用lerp。 | (0,10)比例0/1/0.5→0/10/5；(10,20)比例0.25/2/-1→12.5/30/0；(-10,10,0.5)=0，同端5→5；NaN/Infinity比例回退起点1，NaN起点结果NaN；(0,1,0.1)=0.1、(100,200,0.75)=175、(-100,100,-0.5)=-200、零端点0。 |
@@ -383,11 +383,11 @@
 | SUB_GEOFENCECHECKIN_NUMSEQ_3300 | testBasicUtilRandomInt0001 | 检查单点及倒置范围，抽200次[1,10]，另抽[-1000,1000]、[-5,5]。 | 单点5/0/-7/42/-3返回自身；(5,3)→3、(-1,-9)→-9；200次均为区间内整数，两个额外抽样在各自闭区间内。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_3400 | testBasicUtilPositiveNumber0001 | 判有限正数、±0、负数和非有限；筛选[-200,0,50,5000,5001]并与countAbove比较。 | 1/0.0001/5000/MAX_SAFE_INTEGER/1e-10为true，其余直接否定样本false；筛选[50,5000,5001]长3，countAbove0=3。正数判定不等同围栏半径有效性。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_3500 | testBasicUtilBooleanToFlag0001 | 转换true/false及七项flags，统计true和标记总和，再检查比较表达式标记。 | 每个标记为0或1；true→1、false→0，flagSum=trueCount=4；true/false标记和1；1>0→1、1<0→0。 |
-| SUB_GEOFENCECHECKIN_NUMSEQ_3600 | testBasicUtilFormatPercentMatrix0001 | 对ratios[0,0.1,0.25,0.5,0.75,1]检查expectedDefault/expectedZeroDigits及2位后缀，另格式化其他精度和边界。 | 默认为0.0/10.0/25.0/50.0/75.0/100.0%，零位去小数、2位以%结尾；附加25.6%、25.600%、12.3%、99.90%、200.0%、-50.0%、0.000%、0.01%；(0.1234,4)长8，50.0%首5、点索引2。 |
+| SUB_GEOFENCECHECKIN_NUMSEQ_3600 | testBasicUtilFormatPercentMatrix0001 | 对ratios[0,0.1,0.25,0.5,0.75,1]检查expectedDefault/expectedZeroDigits及2位后缀，另格式化其余精度和边界。 | 默认为0.0/10.0/25.0/50.0/75.0/100.0%，零位去小数、2位以%结尾；附加25.6%、25.600%、12.3%、99.90%、200.0%、-50.0%、0.000%、0.01%；(0.1234,4)长8，50.0%首5、点索引2。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_3700 | testPercentCrossCheck0001 | 遍历 `PERCENT_ROWS` 比较percentOf预设；对合法[0,1]比例解析formatPercent零位文本，与roundTo比较；另查三分之一、三分之二及一半。 | 误差<1e-12，合法比例文本数字等于四舍五入百分数；1/3一位33.3及33.3%，2/3一位66.7及66.7%；重复固定再舍入为33.3；一半50及50%；3/4与1/4百分数和100。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_3800 | testSeriesCombinationMatrix0001 | 对count1/2/3/5/8比较等差(0,1,count)与range；再统计Fibonacci12及前缀、频率、range和均值。 | 各列相等、长count、和count×(count-1)/2、max=count-1、min0；Fibonacci大于10数5、[2,21]数6、去重长11；前缀末7、首桶count2、偶range长10、1至10和55、奇数列均值5。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_3900 | testLargeValueBoundary0001 | 检查MAX_SAFE_INTEGER数字、gcd、进制、限幅、跨度和比例；检查170!、20!及70项Fibonacci阈值。 | 最大安全整数数字和76、反转>0，与前整数gcd1；170!>0、与169!比170；16进制长14、1fffffffffffff解析恢复；正／负限[0,100]→100/0，最大跨度range长2、自比例100、非回文，与3的gcd1；20!数字和54，255→ff；Fibonacci70大于1e15数0，大于1e10数>0。 |
-| SUB_GEOFENCECHECKIN_NUMSEQ_4000 | testNegativeInputMatrix0001 | 遍历negatives[-1,-9,-10,-121,-1001,-1234]与绝对值比较数字函数及进制往返；另查负数理论函数。 | 数字和、反转、回文等于绝对值结果；十进制带负号、二进制往返保留负值；-1/-9为Armstrong，-10不是；限幅-150→-100，gcd(-12,-18)=6、lcm(-6,-8)=24，round(-12.345,2)=-12.34、percent(-1,4)=-25。 |
+| SUB_GEOFENCECHECKIN_NUMSEQ_4000 | testNegativeInputMatrix0001 | 遍历negatives[-1,-9,-10,-121,-1001,-1234]与对应正值比较数字函数及进制往返；另查负数理论函数。 | 数字和、反转、回文等于对应正值结果；十进制带负号、二进制往返保留负值；-1/-9为Armstrong，-10不是；限幅-150→-100，gcd(-12,-18)=6、lcm(-6,-8)=24，round(-12.345,2)=-12.34、percent(-1,4)=-25。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_4100 | testGeometricAndArithmeticComposition0001 | 对count2至6生成2次幂列及差分；对(3,3,10)等差列求前缀、均值、区间数及去重。 | 幂列长count、末2^(count-1)、差分长count-1且递增、和2^count-1；等差前缀末165、均值16.5、[10,20]数3、去重长10。未使用对数断言。 |
 | SUB_GEOFENCECHECKIN_NUMSEQ_4200 | testNumberTheoryCrossLink0001 | 遍历values[6,28,496,12,17,97]比较完全数与真因子和、质数与primesBelow成员关系；查gcd及数字和。 | 完全数判定等于因子和=自身，质数判定等于质数列表含该值；列表长、gcd及数字和均>0；8内质数长4、496为完全数。未断言跨样本质数数量单调。 |
 
@@ -431,7 +431,7 @@
 | SUB_GEOFENCECHECKIN_NUMMAT_0600 | testUniqueNumbersMatrix0001 | 去重空、单项、重复、混合顺序、负数、小数及100项i%10。 | 空长0、单长1、四个1→单1；混合为[3,1,2,5]长4；负数长3首-1末1；小数长2首0.5；大数组去重长10末9。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_0700 | testSortMatrix0001 | 对[10,9,100,1,-5]升降序；检查源首末和长度，再排序空／单42、小数、重复数组。 | 升序[-5,1,9,10,100]、降序首100末-5；源首10末-5长5；空升序空、单42降序42；小数首0.1末0.3，重复长4首1末2。未逐项断言源全部内容或降序中间值。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_0800 | testStatisticsMatrix0001 | 遍历 `STATS_CASES` 空、单项、重复、负数、小数、较大值，计算七统计量及count。 | count/sum/average/min/max/median等于预设；variance/stdDev误差<1e-9；空min/max/median/variance/stdDev均0。 |
-| SUB_GEOFENCECHECKIN_NUMMAT_0900 | testStatisticsConsistency0001 | 生成500项(i%37)-18，求统计；按-18至18分桶求和，调用describe，再描述空数组。 | 长500、min-18/max18、均值在范围内；stdDev²与variance误差<1e-9、variance>0；桶和等于总和；describe.count500、其他统计与独立函数一致，浮点误差<1e-9；空count/stdDev0。 |
+| SUB_GEOFENCECHECKIN_NUMMAT_0900 | testStatisticsConsistency0001 | 生成500项(i%37)-18，求统计；按-18至18分桶求和，调用describe，再描述空数组。 | 长500、min-18/max18、均值在范围内；stdDev²与variance误差<1e-9、variance>0；桶和等于总和；describe.count500、其余统计与独立函数一致，浮点误差<1e-9；空count/stdDev0。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_1000 | testBoundaryValuesMatrix0001 | 遍历 `BOUNDARY_CASES` 数量0/1/多项、零跨度、负中心、小数跨度，求boundaryValues；另查负步数和(0,4,5)。 | 长度等于expectedLength，首末与预设误差<1e-9且夹住center；负步数只含5；五项中间为-2/0/2、非递减。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_1100 | testGridOfNumbersMatrix0001 | 遍历 `GRID_CASES` 零／负维度、单点、行列、方阵、零／小数步长生成网格；另查3×3的行列和。 | rows/cols、首末值等于预设，展平长为预设行列乘积；3×3索引[0][1]/[1][0]/[2][2]=2/4/9；首行和6、第三列和18，展平严格递增。此用例未单独传非有限维度。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_1200 | testGridInfoMatrix0001 | 描述(-3,5)/(0,0)/(4,4)/(2,7)/(9,1)，将4×4实体展平，再描述Infinity和NaN行。 | 负行rows0/cols5/total0，零total0；方阵4/4/16，宽total14、高total9；实体长度16；Infinity行rows0/total0；NaN行rows0/cols3。 |
@@ -444,7 +444,7 @@
 | SUB_GEOFENCECHECKIN_NUMMAT_1900 | testOrderingHelpers0001 | 比较严格升序和非递减的重复、倒序、空、单项；对样本排序后判顺序。 | 严格[1,2,3]true，重复／倒序／空／单项false；非递减重复升序true、[2,1]和空false、单5true；排序后升序非递减true、降序false且首7。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_2000 | testDecimateAndCombine0001 | 对0至7按stride2/3/0/-2抽样，查空；对两列逐项加减，检查不同长度和空列。 | stride2长4、指定值0/2/6；stride3长3末6；0/-2长8、空长0；加法长3首11末33，减法首-9末-27；长度不齐取较短长2/1，两空列长0。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_2100 | testIndexOfValue0001 | 查询[4,1,4,2,4]中4/1/9及空／单项／负／小数样本；生成20项交替0/1查询0。 | 4索引[0,2,4]长3，1长1索引1，9和空无命中；单7索引0、两个-1命中2、小数0.5命中1；交替0命中10、末索引18。 |
-| SUB_GEOFENCECHECKIN_NUMMAT_2200 | testClampCrossCheck0001 | 遍历 `CLAMP_CASES` 越界、端点、倒置、小数和大值调用BasicUtil.clamp；限[-20,-5,0,5,20]到[-5,5]再统计。 | 各行等于expected，正常区间内不越界；派生列首/中/末=-5/0/5，min-5/max5、范围内5项；绝对值总和严格小于原列。 |
+| SUB_GEOFENCECHECKIN_NUMMAT_2200 | testClampCrossCheck0001 | 遍历 `CLAMP_CASES` 越界、端点、倒置、小数和大值调用BasicUtil.clamp；限[-20,-5,0,5,20]到[-5,5]再统计。 | 各行等于expected，正常区间内不越界；派生列首/中/末=-5/0/5，min-5/max5、范围内5项；各元素幅值之和严格小于原列。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_2300 | testRandomIntCrossCheck0001 | 抽200次[1,100]整数，统计区间；检查单点／倒置，抽50次[0,1]并取[1,9]判正。 | 200次均为闭区间整数、长200、区间内200、[-100,0]数0；(7,7)=7、(5,1)=1、(-3,-3)=-3；50个小样本全部在[0,1]；[1,9]结果为正数。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_2400 | testPositiveNumberCrossCheck0001 | 判有限正数、零、负数和非有限；从[-2,-0.5,0,0.5,2]筛选正范围，再比较min/max/average的判定。 | 1/0.0001/1e9 true，其余直接否定样本false；筛选长2、等于另一正范围计数；max2且判正true、min判正false、对称均值判正false、正值子集均值判正true。 |
 | SUB_GEOFENCECHECKIN_NUMMAT_2500 | testFormatPercentCrossCheck0001 | 遍历 `PERCENT_CASES` 的比例、精度、负值及超1样本，解析数字部分；再查默认／3位／0位及均值派生比例。 | 每行等于expected、末字符%、数字非NaN，与ratio×100差<10^(-digits)/2+1e-9；0.5输出50.0%/50.000%/50%；均值≈0.2、输出20.0%；0.25→25.0%、0.125两位→12.50%、0零位→0%。 |
@@ -482,12 +482,12 @@
 | 用例编号 | 用例名称 | 测试步骤 | 预期结果 |
 | --- | --- | --- | --- |
 | SUB_GEOFENCECHECKIN_STOREMAT_0100 | testConfigFieldMatrix0001 | 遍历drafts的正常、最小／最大半径、空名原点半径25、极端坐标半径1配置，逐次saveConfig/getConfig。 | 每个配置七字段均等于draft，configEquals=true、差异数0。仅检查持久化，不要求这些配置通过围栏校验。 |
-| SUB_GEOFENCECHECKIN_STOREMAT_0200 | testConfigOverwriteMatrix0001 | 保存overwrite_first(11.1,22.2,100,1,false,1000)，再保存overwrite_second(33.3,44.4,900,2,true,2000)并读回。 | 首次name正确且停用；第二次七字段为second值，等于second、不等于first、差异非空。未直接统计配置表行数。 |
+| SUB_GEOFENCECHECKIN_STOREMAT_0200 | testConfigOverwriteMatrix0001 | 保存overwrite_first(11.1,22.2,100,1,false,1000)，再保存overwrite_second(33.3,44.4,900,2,true,2000)并读回。 | 第1次name正确且停用；第二次七字段为second值，等于second、不等于first、差异非空。未直接统计配置表行数。 |
 | SUB_GEOFENCECHECKIN_STOREMAT_0300 | testConfigEnabledFlagMatrix0001 | 四轮保存toggle_step、坐标10/20、默认半径、fenceId=step、updatedAt=5000+step，enabled交替true/false。 | 每轮enabled/name/fenceId/updatedAt/radius等于本轮值；最终enabled=false、name=toggle_3。本用例未逐轮断言坐标。 |
 | SUB_GEOFENCECHECKIN_STOREMAT_0400 | testEnterCreatesOpenRecord0001 | 查空表开放记录，t进入，再查开放记录和列表。 | 起初undefined；创建记录存在、enterTime=t、exitTime=OPEN_END、durationMs0、ID>0且开放；重读开放记录存在且时间／标记／时长一致；列表1条。 |
-| SUB_GEOFENCECHECKIN_STOREMAT_0500 | testRepeatedEnterIgnored0001 | t首次进入，t+1分钟和t+2分钟再进入，查开放记录和列表。 | 首次存在、后两次undefined；开放记录ID为首次ID、enterTime=t、exitTime=OPEN_END；列表仍1条且进入时间t。 |
+| SUB_GEOFENCECHECKIN_STOREMAT_0500 | testRepeatedEnterIgnored0001 | t第1次进入，t+1分钟和t+2分钟再进入，查开放记录和列表。 | 第1次存在、后两次undefined；开放记录ID为第1次ID、enterTime=t、exitTime=OPEN_END；列表仍1条且进入时间t。 |
 | SUB_GEOFENCECHECKIN_STOREMAT_0600 | testExitClosesOpenRecord0001 | t进入，t+7分钟退出，查开放记录和列表。 | 进入／退出均存在；退出ID保持、enterTime=t、exitTime=t+420000、durationMs420000、非开放；查询开放记录undefined；列表1条、退出和时长相同。 |
-| SUB_GEOFENCECHECKIN_STOREMAT_0700 | testExitWithoutEnterIgnored0001 | 空表退出并读列表；t进入、+1分钟退出、+2分钟重复退出，查列表和开放记录。 | 空退出undefined、列表0；进入及首次退出存在，重复退出undefined；列表1条、duration60000、exitTime=t+60000；无开放记录。 |
+| SUB_GEOFENCECHECKIN_STOREMAT_0700 | testExitWithoutEnterIgnored0001 | 空表退出并读列表；t进入、+1分钟退出、+2分钟重复退出，查列表和开放记录。 | 空退出undefined、列表0；进入及第1次退出存在，重复退出undefined；列表1条、duration60000、exitTime=t+60000；无开放记录。 |
 | SUB_GEOFENCECHECKIN_STOREMAT_0800 | testTransitionStateMachineCycles0001 | 三轮按小时间隔进入，每轮查询开放记录、1分钟后退出，再查开放记录；末尾读全列表。 | 每轮进入／开放查询／退出存在，开放时间及标记正确、退出时长60000，轮后无开放记录；最终3条、每条一分钟且闭合。 |
 | SUB_GEOFENCECHECKIN_STOREMAT_0900 | testOpenRecordSelectsNewest0001 | 先查空表，再建立t的一分钟闭合记录；t+1小时建立开放记录并查，关闭后再查列表。 | 空查询undefined；两次进入存在；选中开放记录ID对应第二次、enterTime=t+小时、exitTime=OPEN_END、duration0；关闭后undefined、列表2条。未制造多条同时开放记录。 |
 | SUB_GEOFENCECHECKIN_STOREMAT_1000 | testRecordsOrderNewestFirst0001 | 建立四条每隔1小时进入、一分钟停留记录，读取全部。 | 长4，逐项enterTime=t+(3-index)×小时、duration60000；首新于末且相邻时间严格递减。 |
