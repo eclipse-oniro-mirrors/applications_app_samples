@@ -14,50 +14,40 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Size, Level, TestType } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_PatternLock_Ability]';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
+    });
+
     beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
+    });
+
     afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
+    });
+
     afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
+    });
+
     /**
-     * @tc.number    SUB_PATTERN_LOCK_ABILITY_0100
-     * @tc.name      testAssertContain
-     * @tc.desc      Verify assertContain and assertEqual on template smoke case
-     * @tc.size      MediumTest
+     * @tc.number    SUB_PATTERN_ABILITY_0001
+     * @tc.name      testAssertContain0001
+     * @tc.desc      Verify hypium assertContain/assertEqual basic assertions
+     * @tc.size      SmallTest
      * @tc.type      Function
-     * @tc.level     Level 2
+     * @tc.level     LEVEL1
      */
-    it('assertContain', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(DOMAIN, TAG, '%{public}s', 'assertContain begin');
-      let a: string = 'abc';
-      let b: string = 'b';
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertContain params: a=${a}, b=${b}`);
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-      hilog.info(DOMAIN, TAG, '%{public}s', 'assertContain end');
-    })
-  })
+    it('testAssertContain0001', 0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAssertContain0001 begin');
+      const text: string = 'abc';
+      const part: string = 'b';
+      expect(text).assertContain(part);
+      expect(text).assertEqual(text);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAssertContain0001 end');
+    });
+  });
 }
