@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,55 +15,45 @@
 
 import abilityTest from './Ability.test';
 
-import builderContextCoreTest from './BuilderContextCore.test';
-import builderContextExtendedTest from './BuilderContextExtended.test';
-import builderContextAdvancedTest from './BuilderContextAdvanced.test';
-import builderContextTailTest from './BuilderContextTail.test';
-import dataSourceListenerCoreTest from './DataSourceListenerCore.test';
-import dataSourceListenerExtendedTest from './DataSourceListenerExtended.test';
-import dataSourceListenerAdvancedTest from './DataSourceListenerAdvanced.test';
-import dataSourceListenerTailTest from './DataSourceListenerTail.test';
-import colorDataCoreTest from './ColorDataCore.test';
-import colorDataExtendedTest from './ColorDataExtended.test';
-import colorDataAdvancedTest from './ColorDataAdvanced.test';
-import colorDataTailTest from './ColorDataTail.test';
-import friendMomentDataCoreTest from './FriendMomentDataCore.test';
-import friendMomentDataExtendedTest from './FriendMomentDataExtended.test';
-import friendMomentDataAdvancedTest from './FriendMomentDataAdvanced.test';
-import friendMomentDataTailTest from './FriendMomentDataTail.test';
-import constantsDataCoreTest from './ConstantsDataCore.test';
-import constantsDataExtendedTest from './ConstantsDataExtended.test';
-import constantsDataAdvancedTest from './ConstantsDataAdvanced.test';
-import constantsDataTailTest from './ConstantsDataTail.test';
-import modelContractCoreTest from './ModelContractCore.test';
-import modelContractExtendedTest from './ModelContractExtended.test';
-import modelContractAdvancedTest from './ModelContractAdvanced.test';
-import modelContractTailTest from './ModelContractTail.test';
+import builderContextTest from './BuilderContext.test';
+import dataSourceListenerTest from './DataSourceListener.test';
+import colorDataTest from './ColorData.test';
+import friendMomentDataTest from './FriendMomentData.test';
+import constantsDataTest from './ConstantsData.test';
+import modelContractTest from './ModelContract.test';
+import componentReuseQualityTest from './QualityDimensions.test';
+import performanceMatrixTest from './PerformanceMatrix.test';
+import robustnessMatrixTest from './RobustnessMatrix.test';
+import dataModelContractTest from './DataModelContract.test';
+import stateIsolationTest from './StateIsolation.test';
+import listenerLifecycleMatrixTest from './ListenerLifecycleMatrix.test';
+import interleavingMatrixTest from './InterleavingMatrix.test';
+import builderContextOverwriteTest from './BuilderContextOverwriteMatrix.test';
+import listenerMultiNotifyTest from './ListenerMultiNotifyMatrix.test';
+import shareModelIsolationTest from './ShareModelIsolationMatrix.test';
+import dataSourceAlternationTest from './DataSourceAlternationMatrix.test';
+import colorModelFieldMatrixTest from './ColorModelFieldMatrix.test';
+import friendMomentFieldMatrixTest from './FriendMomentFieldMatrix.test';
 
 export default function testsuite() {
   abilityTest();
-  builderContextCoreTest();
-  builderContextExtendedTest();
-  builderContextAdvancedTest();
-  builderContextTailTest();
-  dataSourceListenerCoreTest();
-  dataSourceListenerExtendedTest();
-  dataSourceListenerAdvancedTest();
-  dataSourceListenerTailTest();
-  colorDataCoreTest();
-  colorDataExtendedTest();
-  colorDataAdvancedTest();
-  colorDataTailTest();
-  friendMomentDataCoreTest();
-  friendMomentDataExtendedTest();
-  friendMomentDataAdvancedTest();
-  friendMomentDataTailTest();
-  constantsDataCoreTest();
-  constantsDataExtendedTest();
-  constantsDataAdvancedTest();
-  constantsDataTailTest();
-  modelContractCoreTest();
-  modelContractExtendedTest();
-  modelContractAdvancedTest();
-  modelContractTailTest();
+  builderContextTest();
+  dataSourceListenerTest();
+  colorDataTest();
+  friendMomentDataTest();
+  constantsDataTest();
+  modelContractTest();
+  componentReuseQualityTest();
+  performanceMatrixTest();
+  robustnessMatrixTest();
+  dataModelContractTest();
+  stateIsolationTest();
+  listenerLifecycleMatrixTest();
+  interleavingMatrixTest();
+  builderContextOverwriteTest();
+  listenerMultiNotifyTest();
+  shareModelIsolationTest();
+  dataSourceAlternationTest();
+  colorModelFieldMatrixTest();
+  friendMomentFieldMatrixTest();
 }
