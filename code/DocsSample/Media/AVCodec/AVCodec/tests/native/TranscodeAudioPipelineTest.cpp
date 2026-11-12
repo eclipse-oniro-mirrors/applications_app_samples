@@ -60,6 +60,11 @@ const char *OH_AVCODEC_MIMETYPE_AUDIO_AAC = "audio/mp4a-latm";
 
 namespace {
 constexpr int32_t K_CHANNELS = 2;
+constexpr int32_t K_MONO_CHANNELS = 1;
+constexpr int32_t K_FIVE_POINT_ONE_CHANNELS = 6;
+constexpr int32_t K_PCM_SAMPLE_BYTES = 2;
+constexpr int32_t K_PCM_SAMPLE_BITS_PER_BYTE = 8;
+constexpr int32_t K_STEREO_PCM_FRAME_BYTES = K_CHANNELS * K_PCM_SAMPLE_BYTES;
 constexpr int32_t K_SAMPLE_RATE = 48000;
 constexpr int32_t K_INVALID_SAMPLE_RATE = 44100;
 constexpr int32_t K_SAMPLE_RATE_44100 = 44100;
@@ -115,7 +120,7 @@ void RecordEncoderInput(OH_AVCodec *codec)
         ++g_inputEos;
         return;
     }
-    const int32_t bytesPerSample = codec->channels * 2;
+    const int32_t bytesPerSample = codec->channels * K_PCM_SAMPLE_BYTES;
     Require(codec->input.attr.size == K_AAC_FRAME_SAMPLES * bytesPerSample, "PCM frame size");
     encodedPts.push_back(codec->input.attr.pts);
     for (int index = 0; index < codec->input.attr.size; index += bytesPerSample) {
@@ -360,7 +365,7 @@ extern "C" OH_AVErrCode FakeAvDemuxerReadSampleBuffer(OH_AVDemuxer *demuxer, uin
         buffer->attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
         return AV_ERR_OK;
     }
-    buffer->attr.size = chunks[demuxer->chunk] * demuxer->channels * 2;
+    buffer->attr.size = chunks[demuxer->chunk] * demuxer->channels * K_PCM_SAMPLE_BYTES;
     std::fill(buffer->data.begin(), buffer->data.end(), 1);
     demuxer->samples += chunks[demuxer->chunk++];
     return AV_ERR_OK;
@@ -513,48 +518,54 @@ int16_t ReadOutputSample(const std::vector<uint8_t> &bytes, size_t offset)
 
 void RunFivePointOneDownmix()
 {
-    constexpr double K_DOWNMIX_GAIN = 0.7071067811865476;
+    constexpr double kDownmixGain = 0.7071067811865476;
     const int16_t channels[] = {1000, 2000, 3000, 30000, 4000, 5000};
     std::vector<uint8_t> input;
     for (const int16_t sample : channels) {
         const uint16_t value = static_cast<uint16_t>(sample);
         input.push_back(static_cast<uint8_t>(value));
-        input.push_back(static_cast<uint8_t>(value >> 8));
+        input.push_back(static_cast<uint8_t>(value >> K_PCM_SAMPLE_BITS_PER_BYTE));
     }
     TranscodePcmConverter converter;
-    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE, 6, 2, false, CH_LAYOUT_5POINT1),
+    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE, K_FIVE_POINT_ONE_CHANNELS, K_CHANNELS, false,
+        CH_LAYOUT_5POINT1),
         "Configure standard 5.1 downmix");
     converter.Push(input.data());
     converter.Finish();
     std::vector<uint8_t> output;
-    Require(converter.Pull(output) && output.size() == 4, "Produce one stereo frame from 5.1");
-    const int16_t expectedLeft = static_cast<int16_t>(1000 + std::lround(7000 * K_DOWNMIX_GAIN));
-    const int16_t expectedRight = static_cast<int16_t>(2000 + std::lround(8000 * K_DOWNMIX_GAIN));
-    Require(ReadOutputSample(output, 0) == expectedLeft && ReadOutputSample(output, 2) == expectedRight,
+    Require(converter.Pull(output) && output.size() == K_STEREO_PCM_FRAME_BYTES,
+        "Produce one stereo frame from 5.1");
+    const int16_t expectedLeft = static_cast<int16_t>(1000 + std::lround(7000 * kDownmixGain));
+    const int16_t expectedRight = static_cast<int16_t>(2000 + std::lround(8000 * kDownmixGain));
+    Require(ReadOutputSample(output, 0) == expectedLeft &&
+        ReadOutputSample(output, K_PCM_SAMPLE_BYTES) == expectedRight,
         "Mix center and surrounds at -3 dB and omit LFE");
-    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE, 6, 1, false, CH_LAYOUT_5POINT1_BACK),
+    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE, K_FIVE_POINT_ONE_CHANNELS, K_MONO_CHANNELS, false,
+        CH_LAYOUT_5POINT1_BACK),
         "Configure rear 5.1 mono downmix");
     converter.Push(input.data());
     converter.Finish();
     output.clear();
-    Require(converter.Pull(output) && output.size() == 2 &&
-        ReadOutputSample(output, 0) == static_cast<int16_t>((expectedLeft + expectedRight) / 2),
+    Require(converter.Pull(output) && output.size() == K_PCM_SAMPLE_BYTES &&
+        ReadOutputSample(output, 0) == static_cast<int16_t>((expectedLeft + expectedRight) / K_CHANNELS),
         "Downmix rear 5.1 to mono");
-    Require(!converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE, 6, 2, false, CH_LAYOUT_UNKNOWN),
+    Require(!converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE, K_FIVE_POINT_ONE_CHANNELS, K_CHANNELS, false,
+        CH_LAYOUT_UNKNOWN),
         "Reject 5.1 PCM without a declared channel layout");
-    constexpr int32_t K_LOW_PASS_SOURCE_SAMPLES = 512;
-    constexpr int32_t K_LOW_PASS_EXPECTED_SAMPLES = 471;
-    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE_44100, 6, 2, true, CH_LAYOUT_5POINT1),
+    constexpr int32_t kLowPassSourceSamples = 512;
+    constexpr int32_t kLowPassExpectedSamples = 471;
+    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE_44100, K_FIVE_POINT_ONE_CHANNELS, K_CHANNELS, true,
+        CH_LAYOUT_5POINT1),
         "Configure low-pass filtering for 5.1 downmix");
     output.clear();
-    for (int32_t sample = 0; sample < K_LOW_PASS_SOURCE_SAMPLES; ++sample) {
+    for (int32_t sample = 0; sample < kLowPassSourceSamples; ++sample) {
         converter.Push(input.data());
         while (converter.Pull(output)) {}
     }
     converter.Finish();
     while (converter.Pull(output)) {}
-    Require(converter.Count() == K_LOW_PASS_EXPECTED_SAMPLES &&
-        output.size() == static_cast<size_t>(K_LOW_PASS_EXPECTED_SAMPLES * 4),
+    Require(converter.Count() == kLowPassExpectedSamples &&
+        output.size() == static_cast<size_t>(kLowPassExpectedSamples * K_STEREO_PCM_FRAME_BYTES),
         "Low-pass downmix preserves output sample count and stereo PCM size");
 }
 
@@ -672,7 +683,8 @@ int main()
     RunConverted(K_SAMPLE_RATE_44100, K_CHANNELS);
     RunConverted(K_SAMPLE_RATE, 1);
     RunConverted(K_SAMPLE_RATE, K_CHANNELS);
-    RunConverted(K_SAMPLE_RATE_44100, K_CHANNELS, 6, TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1_BACK);
+    RunConverted(K_SAMPLE_RATE_44100, K_CHANNELS, K_FIVE_POINT_ONE_CHANNELS,
+        TRANSCODE_SOURCE_AUDIO_LAYOUT_5POINT1_BACK);
     RunUnspecifiedSixChannelRejected();
     RunFivePointOneDownmix();
     RunDiscontinuous();

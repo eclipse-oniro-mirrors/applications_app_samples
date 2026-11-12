@@ -134,9 +134,9 @@ private:
         const int32_t center = Read(sample + pcmSampleBytes * 2);
         const int32_t surroundLeft = Read(sample + pcmSampleBytes * 4);
         const int32_t surroundRight = Read(sample + pcmSampleBytes * 5);
-        constexpr double CENTER_SURROUND_GAIN = 0.7071067811865476;
-        const double mixedLeft = left + (center + surroundLeft) * CENTER_SURROUND_GAIN;
-        const double mixedRight = right + (center + surroundRight) * CENTER_SURROUND_GAIN;
+        constexpr double centerSurroundGain = 0.7071067811865476;
+        const double mixedLeft = left + (center + surroundLeft) * centerSurroundGain;
+        const double mixedRight = right + (center + surroundRight) * centerSurroundGain;
         return {Clamp(mixedLeft), Clamp(mixedRight)};
     }
 
