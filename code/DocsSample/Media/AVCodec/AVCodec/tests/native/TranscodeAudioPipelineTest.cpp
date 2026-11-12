@@ -516,6 +516,26 @@ int16_t ReadOutputSample(const std::vector<uint8_t> &bytes, size_t offset)
     return static_cast<int16_t>(value);
 }
 
+void RunFivePointOneLowPassResampling(const uint8_t *input)
+{
+    constexpr int32_t kLowPassSourceSamples = 512;
+    constexpr int32_t kLowPassExpectedSamples = 471;
+    TranscodePcmConverter converter;
+    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE_44100, K_FIVE_POINT_ONE_CHANNELS, K_CHANNELS, true,
+        CH_LAYOUT_5POINT1),
+        "Configure low-pass filtering for 5.1 downmix");
+    std::vector<uint8_t> output;
+    for (int32_t sample = 0; sample < kLowPassSourceSamples; ++sample) {
+        converter.Push(input);
+        while (converter.Pull(output)) {}
+    }
+    converter.Finish();
+    while (converter.Pull(output)) {}
+    Require(converter.Count() == kLowPassExpectedSamples &&
+        output.size() == static_cast<size_t>(kLowPassExpectedSamples * K_STEREO_PCM_FRAME_BYTES),
+        "Low-pass downmix preserves output sample count and stereo PCM size");
+}
+
 void RunFivePointOneDownmix()
 {
     constexpr double kDownmixGain = 0.7071067811865476;
@@ -552,21 +572,7 @@ void RunFivePointOneDownmix()
     Require(!converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE, K_FIVE_POINT_ONE_CHANNELS, K_CHANNELS, false,
         CH_LAYOUT_UNKNOWN),
         "Reject 5.1 PCM without a declared channel layout");
-    constexpr int32_t kLowPassSourceSamples = 512;
-    constexpr int32_t kLowPassExpectedSamples = 471;
-    Require(converter.Configure(K_SAMPLE_RATE, K_SAMPLE_RATE_44100, K_FIVE_POINT_ONE_CHANNELS, K_CHANNELS, true,
-        CH_LAYOUT_5POINT1),
-        "Configure low-pass filtering for 5.1 downmix");
-    output.clear();
-    for (int32_t sample = 0; sample < kLowPassSourceSamples; ++sample) {
-        converter.Push(input.data());
-        while (converter.Pull(output)) {}
-    }
-    converter.Finish();
-    while (converter.Pull(output)) {}
-    Require(converter.Count() == kLowPassExpectedSamples &&
-        output.size() == static_cast<size_t>(kLowPassExpectedSamples * K_STEREO_PCM_FRAME_BYTES),
-        "Low-pass downmix preserves output sample count and stereo PCM size");
+    RunFivePointOneLowPassResampling(input.data());
 }
 
 void RunDiscontinuous()
