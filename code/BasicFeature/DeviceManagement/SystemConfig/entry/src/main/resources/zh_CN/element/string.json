@@ -145,12 +145,24 @@
       "value": "PIN 码设置"
     },
     {
+      "name": "card_pin_subtitle",
+      "value": "settingsLite.openPinSettingPage()"
+    },
+    {
       "name": "card_nfc_title",
       "value": "NFC 设置"
     },
     {
+      "name": "card_nfc_subtitle",
+      "value": "settingsLite.openNfcSettingsPage()"
+    },
+    {
       "name": "card_double_click_title",
       "value": "双击设置"
+    },
+    {
+      "name": "card_double_click_subtitle",
+      "value": "settingsLite.openDoubleClickSettingsPage() / isDoubleClickAppForSelf()"
     },
     {
       "name": "card_detail_title",
@@ -279,6 +291,138 @@
     {
       "name": "value_not_allowed",
       "value": "不允许"
+    },
+    {
+      "name": "log_vm_initialized",
+      "value": "视图模型初始化完成"
+    },
+    {
+      "name": "log_state_reset",
+      "value": "状态已重置"
+    },
+    {
+      "name": "log_fetching_channel_id",
+      "value": "正在获取渠道号..."
+    },
+    {
+      "name": "log_channel_success",
+      "value": "获取渠道号成功: %s"
+    },
+    {
+      "name": "log_channel_failed",
+      "value": "获取渠道号失败: %s"
+    },
+    {
+      "name": "log_channel_exception",
+      "value": "获取渠道号异常"
+    },
+    {
+      "name": "log_querying_dnd",
+      "value": "正在查询免打扰状态..."
+    },
+    {
+      "name": "log_dnd_state",
+      "value": "免打扰状态: %s"
+    },
+    {
+      "name": "log_querying_notify",
+      "value": "正在查询通知允许状态..."
+    },
+    {
+      "name": "log_notify_state",
+      "value": "通知允许状态: %s"
+    },
+    {
+      "name": "log_querying_all",
+      "value": "正在查询所有免打扰状态..."
+    },
+    {
+      "name": "log_query_all_done",
+      "value": "查询完成 - 免打扰: %s, 通知: %s"
+    },
+    {
+      "name": "log_query_failed",
+      "value": "查询失败: %s"
+    },
+    {
+      "name": "log_opening_pin",
+      "value": "正在打开 PIN 设置页面..."
+    },
+    {
+      "name": "log_opening_nfc",
+      "value": "正在打开 NFC 设置页面..."
+    },
+    {
+      "name": "log_opening_double_click",
+      "value": "正在打开双击设置页面..."
+    },
+    {
+      "name": "log_querying_double_click",
+      "value": "正在查询双击应用信息..."
+    },
+    {
+      "name": "log_pin_opened",
+      "value": "PIN 设置页面已打开"
+    },
+    {
+      "name": "log_nfc_opened",
+      "value": "NFC 设置页面已打开"
+    },
+    {
+      "name": "log_double_click_opened",
+      "value": "双击设置页面已打开"
+    },
+    {
+      "name": "log_open_pin_failed",
+      "value": "打开 PIN 设置页面失败: %s"
+    },
+    {
+      "name": "log_open_nfc_failed",
+      "value": "打开 NFC 设置页面失败: %s"
+    },
+    {
+      "name": "log_open_double_click_failed",
+      "value": "打开双击设置页面失败: %s"
+    },
+    {
+      "name": "log_error_no_context",
+      "value": "错误: 上下文未初始化"
+    },
+    {
+      "name": "log_double_click_query_failed",
+      "value": "双击查询失败: %s"
+    },
+    {
+      "name": "log_double_click_result",
+      "value": "双击查询结果: %s"
+    },
+    {
+      "name": "result_click_self",
+      "value": "是双击应用自身"
+    },
+    {
+      "name": "result_click_not_self",
+      "value": "不是双击应用自身"
+    },
+    {
+      "name": "result_click_error",
+      "value": "查询出错"
+    },
+    {
+      "name": "result_click_unknown",
+      "value": "未知结果"
+    },
+    {
+      "name": "setting_pin_desc",
+      "value": "打开 PIN 码设置页面"
+    },
+    {
+      "name": "setting_nfc_desc",
+      "value": "打开 NFC 设置页面"
+    },
+    {
+      "name": "setting_double_click_desc",
+      "value": "打开双击设置页面"
     }
   ]
 }

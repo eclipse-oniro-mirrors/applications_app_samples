@@ -2,283 +2,427 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "系统配置示例模块"
+      "value": "System configuration sample module"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "系统配置 API 示例"
+      "value": "System configuration API sample"
     },
     {
       "name": "EntryAbility_label",
-      "value": "系统配置"
+      "value": "System Configuration"
     },
     {
       "name": "permission_reason_get_dnd_state",
-      "value": "用于获取免打扰模式状态"
+      "value": "Used to query the Do Not Disturb status"
     },
     {
       "name": "page_index_title",
-      "value": "系统配置示例"
+      "value": "System Configuration Samples"
     },
     {
       "name": "app_intro_title",
-      "value": "SystemConfig 示例"
+      "value": "SystemConfig Sample"
     },
     {
       "name": "app_intro_desc",
-      "value": "本示例演示 Basic Services Kit 中的定制配置、情景模式和设置信息接口。"
+      "value": "This sample demonstrates the custom configuration, intelligent scene and settings information APIs of Basic Services Kit."
     },
     {
       "name": "page_custom_config",
-      "value": "定制配置"
+      "value": "Custom Configuration"
     },
     {
       "name": "page_intelligent_scene",
-      "value": "情景模式"
+      "value": "Intelligent Scene"
     },
     {
       "name": "page_settings_lite",
-      "value": "设置信息"
+      "value": "Settings Information"
     },
     {
       "name": "desc_custom_config",
-      "value": "获取应用预置渠道号等定制配置信息"
+      "value": "Obtain customization configuration such as the preset channel ID"
     },
     {
       "name": "desc_intelligent_scene",
-      "value": "查询免打扰模式状态和通知权限"
+      "value": "Query the Do Not Disturb status and the notification permission"
     },
     {
       "name": "desc_settings_lite",
-      "value": "打开系统设置页面并查询快捷操作状态"
+      "value": "Open system settings pages and query shortcut operation status"
     },
     {
       "name": "nav_desc_custom_config",
-      "value": "获取设备渠道标识符（customConfig.getChannelId）"
+      "value": "Get the device channel identifier (customConfig.getChannelId)"
     },
     {
       "name": "nav_desc_intelligent_scene",
-      "value": "查询免打扰状态和通知允许状态（intelligentScene）"
+      "value": "Query the Do Not Disturb status and the notification status (intelligentScene)"
     },
     {
       "name": "nav_desc_settings_lite",
-      "value": "打开系统设置页面和查询双击应用（settingsLite）"
+      "value": "Open system settings pages and query the double-click app (settingsLite)"
     },
     {
       "name": "btn_get_channel_id",
-      "value": "获取渠道号"
+      "value": "Get Channel ID"
     },
     {
       "name": "btn_view_detail",
-      "value": "查看详情"
+      "value": "View Details"
     },
     {
       "name": "btn_reset",
-      "value": "重置"
+      "value": "Reset"
     },
     {
       "name": "btn_check_dnd",
-      "value": "查询免打扰状态"
+      "value": "Query DND Status"
     },
     {
       "name": "btn_query_notify",
-      "value": "查询通知允许状态"
+      "value": "Query Notification Status"
     },
     {
       "name": "btn_query_all",
-      "value": "查询全部状态"
+      "value": "Query All Status"
     },
     {
       "name": "btn_check_notify_allowed",
-      "value": "查询通知白名单"
+      "value": "Query Notification Allowlist"
     },
     {
       "name": "btn_open_pin_page",
-      "value": "打开 PIN 设置页面"
+      "value": "Open PIN Settings Page"
     },
     {
       "name": "btn_open_nfc_page",
-      "value": "打开 NFC 设置页面"
+      "value": "Open NFC Settings Page"
     },
     {
       "name": "btn_open_double_click_page",
-      "value": "打开双击设置页面"
+      "value": "Open Double-click Settings Page"
     },
     {
       "name": "btn_query_double_click",
-      "value": "查询双击应用"
+      "value": "Query Double-click App"
     },
     {
       "name": "btn_open_pin_settings",
-      "value": "打开 PIN 设置"
+      "value": "Open PIN Settings"
     },
     {
       "name": "btn_open_nfc_settings",
-      "value": "打开 NFC 设置"
+      "value": "Open NFC Settings"
     },
     {
       "name": "btn_open_double_click",
-      "value": "打开双击亮屏设置"
+      "value": "Open Double-click Screen Wake Settings"
     },
     {
       "name": "btn_check_double_click_app",
-      "value": "查询双击默认应用"
+      "value": "Query Default Double-click App"
     },
     {
       "name": "card_channel_title",
-      "value": "渠道配置信息"
+      "value": "Channel Configuration"
     },
     {
       "name": "card_channel_subtitle",
-      "value": "customConfig.getChannelId() 接口调用结果"
+      "value": "Result of customConfig.getChannelId()"
     },
     {
       "name": "card_dnd_title",
-      "value": "免打扰状态信息"
+      "value": "Do Not Disturb Status"
     },
     {
       "name": "card_dnd_subtitle",
-      "value": "intelligentScene 模块查询结果"
+      "value": "Result queried by the intelligentScene module"
     },
     {
       "name": "card_pin_title",
-      "value": "PIN 码设置"
+      "value": "PIN Settings"
+    },
+    {
+      "name": "card_pin_subtitle",
+      "value": "settingsLite.openPinSettingPage()"
     },
     {
       "name": "card_nfc_title",
-      "value": "NFC 设置"
+      "value": "NFC Settings"
+    },
+    {
+      "name": "card_nfc_subtitle",
+      "value": "settingsLite.openNfcSettingsPage()"
     },
     {
       "name": "card_double_click_title",
-      "value": "双击设置"
+      "value": "Double-click Settings"
+    },
+    {
+      "name": "card_double_click_subtitle",
+      "value": "settingsLite.openDoubleClickSettingsPage() / isDoubleClickAppForSelf()"
     },
     {
       "name": "card_detail_title",
-      "value": "详细数据"
+      "value": "Detailed Data"
     },
     {
       "name": "card_detail_subtitle_channel",
-      "value": "ChannelConfigModel JSON 表示"
+      "value": "JSON representation of ChannelConfigModel"
     },
     {
       "name": "card_detail_subtitle_dnd",
-      "value": "DoNotDisturbModel JSON 表示"
+      "value": "JSON representation of DoNotDisturbModel"
     },
     {
       "name": "card_detail_subtitle_settings",
-      "value": "SettingsItemModel JSON 表示"
+      "value": "JSON representation of SettingsItemModel"
     },
     {
       "name": "label_channel_id",
-      "value": "渠道号:"
+      "value": "Channel ID:"
     },
     {
       "name": "label_status",
-      "value": "状态:"
+      "value": "Status:"
     },
     {
       "name": "label_dnd_mode",
-      "value": "免打扰模式:"
+      "value": "Do Not Disturb:"
     },
     {
       "name": "label_notify_allowed",
-      "value": "通知允许:"
+      "value": "Notifications Allowed:"
     },
     {
       "name": "label_query_status",
-      "value": "查询状态:"
+      "value": "Query Status:"
     },
     {
       "name": "label_required_permission",
-      "value": "所需权限:"
+      "value": "Required Permission:"
     },
     {
       "name": "label_query_result",
-      "value": "查询结果:"
+      "value": "Query Result:"
     },
     {
       "name": "label_result",
-      "value": "结果"
+      "value": "Result"
     },
     {
       "name": "label_log",
-      "value": "运行日志"
+      "value": "Runtime Log"
     },
     {
       "name": "log_panel_title",
-      "value": "操作日志"
+      "value": "Operation Log"
     },
     {
       "name": "log_count",
-      "value": "共 %d 条"
+      "value": "%d entries in total"
     },
     {
       "name": "log_empty",
-      "value": "暂无日志"
+      "value": "No logs"
     },
     {
       "name": "info_card_empty",
-      "value": "暂无内容"
+      "value": "No content"
     },
     {
       "name": "status_uninitialized",
-      "value": "未初始化"
+      "value": "Not initialized"
     },
     {
       "name": "status_loading",
-      "value": "获取中"
+      "value": "Fetching"
     },
     {
       "name": "status_success",
-      "value": "获取成功"
+      "value": "Fetched successfully"
     },
     {
       "name": "status_failed",
-      "value": "获取失败"
+      "value": "Failed to fetch"
     },
     {
       "name": "status_unknown",
-      "value": "未知"
+      "value": "Unknown"
     },
     {
       "name": "status_idle",
-      "value": "空闲"
+      "value": "Idle"
     },
     {
       "name": "status_querying",
-      "value": "查询中"
+      "value": "Querying"
     },
     {
       "name": "status_query_success",
-      "value": "查询成功"
+      "value": "Query succeeded"
     },
     {
       "name": "status_query_failed",
-      "value": "查询失败"
+      "value": "Query failed"
     },
     {
       "name": "value_not_fetched",
-      "value": "未获取"
+      "value": "Not fetched"
     },
     {
       "name": "value_not_queried",
-      "value": "未查询"
+      "value": "Not queried"
     },
     {
       "name": "value_enabled",
-      "value": "已启用"
+      "value": "Enabled"
     },
     {
       "name": "value_disabled",
-      "value": "未启用"
+      "value": "Disabled"
     },
     {
       "name": "value_allowed",
-      "value": "允许"
+      "value": "Allowed"
     },
     {
       "name": "value_not_allowed",
-      "value": "不允许"
+      "value": "Not allowed"
+    },
+    {
+      "name": "log_vm_initialized",
+      "value": "View model initialized"
+    },
+    {
+      "name": "log_state_reset",
+      "value": "State reset"
+    },
+    {
+      "name": "log_fetching_channel_id",
+      "value": "Fetching the channel ID..."
+    },
+    {
+      "name": "log_channel_success",
+      "value": "Channel ID obtained: %s"
+    },
+    {
+      "name": "log_channel_failed",
+      "value": "Failed to obtain the channel ID: %s"
+    },
+    {
+      "name": "log_channel_exception",
+      "value": "Exception while obtaining the channel ID"
+    },
+    {
+      "name": "log_querying_dnd",
+      "value": "Querying the Do Not Disturb status..."
+    },
+    {
+      "name": "log_dnd_state",
+      "value": "Do Not Disturb status: %s"
+    },
+    {
+      "name": "log_querying_notify",
+      "value": "Querying the notification status..."
+    },
+    {
+      "name": "log_notify_state",
+      "value": "Notification status: %s"
+    },
+    {
+      "name": "log_querying_all",
+      "value": "Querying all Do Not Disturb statuses..."
+    },
+    {
+      "name": "log_query_all_done",
+      "value": "Query completed - Do Not Disturb: %s, Notification: %s"
+    },
+    {
+      "name": "log_query_failed",
+      "value": "Query failed: %s"
+    },
+    {
+      "name": "log_opening_pin",
+      "value": "Opening the PIN settings page..."
+    },
+    {
+      "name": "log_opening_nfc",
+      "value": "Opening the NFC settings page..."
+    },
+    {
+      "name": "log_opening_double_click",
+      "value": "Opening the double-click settings page..."
+    },
+    {
+      "name": "log_querying_double_click",
+      "value": "Querying the double-click app information..."
+    },
+    {
+      "name": "log_pin_opened",
+      "value": "PIN settings page opened"
+    },
+    {
+      "name": "log_nfc_opened",
+      "value": "NFC settings page opened"
+    },
+    {
+      "name": "log_double_click_opened",
+      "value": "Double-click settings page opened"
+    },
+    {
+      "name": "log_open_pin_failed",
+      "value": "Failed to open the PIN settings page: %s"
+    },
+    {
+      "name": "log_open_nfc_failed",
+      "value": "Failed to open the NFC settings page: %s"
+    },
+    {
+      "name": "log_open_double_click_failed",
+      "value": "Failed to open the double-click settings page: %s"
+    },
+    {
+      "name": "log_error_no_context",
+      "value": "Error: context not initialized"
+    },
+    {
+      "name": "log_double_click_query_failed",
+      "value": "Double-click query failed: %s"
+    },
+    {
+      "name": "log_double_click_result",
+      "value": "Double-click query result: %s"
+    },
+    {
+      "name": "result_click_self",
+      "value": "The double-click app is this application"
+    },
+    {
+      "name": "result_click_not_self",
+      "value": "The double-click app is not this application"
+    },
+    {
+      "name": "result_click_error",
+      "value": "Query error"
+    },
+    {
+      "name": "result_click_unknown",
+      "value": "Unknown result"
+    },
+    {
+      "name": "setting_pin_desc",
+      "value": "Open the PIN settings page"
+    },
+    {
+      "name": "setting_nfc_desc",
+      "value": "Open the NFC settings page"
+    },
+    {
+      "name": "setting_double_click_desc",
+      "value": "Open the double-click settings page"
     }
   ]
 }
