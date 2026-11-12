@@ -50,6 +50,7 @@ struct Index {
     { name: 'BuilderChangeVariableRight', path: 'pages/BuilderChangeVariableRight' },
     { name: 'BuilderCallInWatch', path: 'pages/BuilderCallInWatch' },
     { name: 'BuilderClassInterface', path: 'pages/BuilderClassInterface' },
+    { name: 'BuilderPlaceholderList', path: 'pages/BuilderPlaceholderList' },
   ]
 
   build() {

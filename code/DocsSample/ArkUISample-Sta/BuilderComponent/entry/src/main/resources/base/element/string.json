@@ -95,6 +95,10 @@
     {
       "name": "builder_class_title",
       "value": "成员自定义构建函数"
+    },
+    {
+      "name": "builder_placeholder_list_title",
+      "value": "占位构建函数"
     }
   ]
 }
