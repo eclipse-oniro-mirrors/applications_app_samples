@@ -67,7 +67,7 @@ entry/src/main/ets/
 ## 约束与限制
 
 - 支持设备类型: 手机、平板、2in1 设备，以及 deviceType 为 `default` 的开发板（已在 32 位 OpenHarmony 开发板上验证）.
-- 已适配 API version 26.0.0（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `"26.0.0"`，`runtimeOS: HarmonyOS`）.
+- 已适配 API version 26.0.0（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `"26.0.0"`，`runtimeOS` 使用工程默认配置）.
 - DevEco Studio: 26.0.0 Release 及以上.
 - 本示例未使用系统 API, 无需 Full SDK, 使用 Public SDK 即可编译运行.
 - 本示例仅包含播放场景的焦点管控演示, 内录(PlaybackCapture)相关 API 需要 API 26+ 支持, 当前示例不包含录制代码.

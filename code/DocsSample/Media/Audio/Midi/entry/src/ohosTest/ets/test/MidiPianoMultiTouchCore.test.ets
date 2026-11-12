@@ -65,7 +65,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -119,7 +118,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -173,7 +171,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -227,7 +224,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -281,7 +277,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -335,7 +330,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -389,7 +383,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -443,7 +436,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -497,7 +489,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -551,7 +542,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -605,7 +595,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -659,7 +648,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -713,7 +701,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -767,7 +754,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -821,7 +807,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -875,7 +860,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -929,7 +913,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -983,7 +966,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -1037,7 +1019,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);
@@ -1091,7 +1072,6 @@ export default function midiPianoMultiTouchCoreTest(): void {
       const notes: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < notes.length; index++) { active.push(notes[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(notes.length);
       expect(notes.length).assertLarger(0);

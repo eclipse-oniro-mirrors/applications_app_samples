@@ -65,7 +65,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -116,7 +115,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -167,7 +165,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -218,7 +215,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -269,7 +265,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -320,7 +315,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -371,7 +365,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -422,7 +415,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -473,7 +465,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -524,7 +515,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -575,7 +565,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -626,7 +615,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -677,7 +665,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -728,7 +715,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -779,7 +765,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -830,7 +815,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -881,7 +865,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -932,7 +915,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -983,7 +965,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1034,7 +1015,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1085,7 +1065,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1136,7 +1115,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1187,7 +1165,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1238,7 +1215,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(2);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1289,7 +1265,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(1);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1340,7 +1315,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62, 63];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(4);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);
@@ -1391,7 +1365,6 @@ export default function keyboardSoundMultiKeyCoreTest(): void {
       const keys: number[] = [60, 61, 62];
       let active: number[] = [];
       for (let index: number = 0; index < keys.length; index++) { active.push(keys[index]); }
-      for (let index: number = 0; index < 0; index++) { active.shift(); }
       expect(active.length).assertEqual(3);
       expect(active.length).assertLessOrEqual(keys.length);
       expect(keys.length).assertLarger(0);

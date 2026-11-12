@@ -63,9 +63,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -223,9 +220,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -383,9 +377,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -543,9 +534,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -703,9 +691,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -863,9 +848,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -1023,9 +1005,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -1183,9 +1162,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -1343,9 +1319,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
@@ -1503,9 +1476,6 @@ export default function midiBleRecentCoreTest(): void {
      */
     it('testExtMidiRecent0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       let devices: string[] = [];
-      for (let index: number = 0; index < 0; index++) {
-        devices.unshift('device_' + index);
-      }
       if (devices.length > 5) { devices = devices.slice(0, 5); }
       expect(devices.length).assertEqual(0);
       expect(devices.length).assertLessOrEqual(5);
