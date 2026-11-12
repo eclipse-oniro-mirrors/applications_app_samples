@@ -33,6 +33,8 @@ export const ecdsaSignature: () => number;
 
 export const sm2Signature: () => number;
 
+export const sm2Sign: () => number;
+
 export const sm2RStoDER: () => number;
 
 export const sm2DerConvertRS: () => number;
