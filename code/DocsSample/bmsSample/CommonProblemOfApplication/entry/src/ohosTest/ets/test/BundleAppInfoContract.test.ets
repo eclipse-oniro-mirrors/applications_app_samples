@@ -14,6 +14,7 @@
  */
 
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { bundleManager } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { paceTurn } from './shared/TestPace';
@@ -25,6 +26,9 @@ import {
   querySelf,
   querySelfSync
 } from './shared/BundleProbe';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_CommonProblem_Contract]';
 
 const ENTRY_ABILITY_NAME: string = 'EntryAbility';
 const ENTRY_BACKUP_ABILITY_NAME: string = 'EntryBackupAbility';
@@ -81,9 +85,11 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0001 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.versionCode).assertEqual(EXPECTED_VERSION_CODE);
       expect(info.versionCode).assertLarger(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0001 end');
     });
 
     /**
@@ -95,9 +101,11 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0002 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.versionName).assertEqual(EXPECTED_VERSION_NAME);
       expect(/^\d+\.\d+\.\d+$/.test(info.versionName)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0002 end');
     });
 
     /**
@@ -109,8 +117,10 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0003 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.vendor).assertEqual(EXPECTED_VENDOR);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0003 end');
     });
 
     /**
@@ -122,10 +132,12 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0004 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.appInfo !== undefined).assertTrue();
       expect(info.appInfo.uid > 0).assertTrue();
       expect(info.appInfo.accessTokenId > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0004 end');
     });
 
     /**
@@ -137,8 +149,10 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0005 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.appInfo.name).assertEqual(info.name);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0005 end');
     });
 
     /**
@@ -150,9 +164,11 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0006 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.appInfo.enabled).assertTrue();
       expect(info.appInfo.systemApp).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0006 end');
     });
 
     /**
@@ -164,9 +180,11 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0007 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       // BundleType.APP = 0
       expect(info.appInfo.bundleType).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0007 end');
     });
 
     /**
@@ -178,9 +196,11 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0008 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.appInfo.codePath.startsWith('/')).assertTrue();
       expect(info.appInfo.codePath.indexOf(info.name) > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0008 end');
     });
 
     /**
@@ -192,11 +212,13 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0009 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       const names: string[] = moduleNames(info.hapModulesInfo);
       expect(names.indexOf(ENTRY_MODULE_NAME) >= 0).assertTrue();
       // entry is declared first in app.json5 module list
       expect(info.hapModulesInfo.length >= 1).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0009 end');
     });
 
     /**
@@ -208,10 +230,12 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0010 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       const deviceTypes: string[] = info.hapModulesInfo[0].deviceTypes;
       expect(deviceTypes.length > 0).assertTrue();
       expect(deviceTypes.every((value: string) => value.length > 0)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0010 end');
     });
 
     /**
@@ -223,6 +247,7 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0011 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       const ability: bundleManager.AbilityInfo | undefined = findAbility(info, ENTRY_ABILITY_NAME);
       expect(ability !== undefined).assertTrue();
@@ -232,6 +257,7 @@ export default function bundleAppInfoContractTest() {
         expect(ability.moduleName).assertEqual(ENTRY_MODULE_NAME);
         expect(ability.permissions.length).assertEqual(0);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0011 end');
     });
 
     /**
@@ -243,6 +269,7 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0013 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       const extension: bundleManager.ExtensionAbilityInfo | undefined =
         findExtension(info, ENTRY_BACKUP_ABILITY_NAME);
@@ -251,6 +278,7 @@ export default function bundleAppInfoContractTest() {
         expect(extension.exported).assertFalse();
         expect(extension.moduleName).assertEqual(ENTRY_MODULE_NAME);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0013 end');
     });
 
     /**
@@ -262,6 +290,7 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0014 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       let pageAbilities: number = 0;
       let backupExtensions: number = 0;
@@ -281,6 +310,7 @@ export default function bundleAppInfoContractTest() {
       }
       expect(pageAbilities).assertEqual(1);
       expect(backupExtensions).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0014 end');
     });
 
     /**
@@ -292,10 +322,12 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0015 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
       expect(module.installationFree).assertFalse();
       expect(module.codePath.startsWith('/')).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0015 end');
     });
 
     /**
@@ -307,11 +339,13 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0016 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.installTime > 0).assertTrue();
       expect(info.updateTime > 0).assertTrue();
       expect(info.updateTime >= info.installTime).assertTrue();
       expect(info.installTime > 1500000000000).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0016 end');
     });
 
     /**
@@ -323,9 +357,11 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0017 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       expect(info.minCompatibleVersionCode <= info.versionCode).assertTrue();
       expect(info.minCompatibleVersionCode >= 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0017 end');
     });
 
     /**
@@ -337,10 +373,12 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0019 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP | FLAGS_FOR_MODULE);
       expect(info.appInfo.uid > 0).assertTrue();
       expect(info.hapModulesInfo.length >= 1).assertTrue();
       expect(moduleNames(info.hapModulesInfo).indexOf(ENTRY_MODULE_NAME) >= 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0019 end');
     });
 
     /**
@@ -352,10 +390,12 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0020 begin');
       const asyncInfo: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       const syncInfo: bundleManager.BundleInfo = querySelfSync(FLAGS_FOR_MODULE);
       expect(asyncInfo.hapModulesInfo[0].name).assertEqual(syncInfo.hapModulesInfo[0].name);
       expect(asyncInfo.hapModulesInfo[0].mainElementName).assertEqual(syncInfo.hapModulesInfo[0].mainElementName);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0020 end');
     });
 
     /**
@@ -367,10 +407,12 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0021 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_APP);
       const contextUid: number =
         abilityDelegatorRegistry.getAbilityDelegator().getAppContext().applicationInfo.uid;
       expect(info.appInfo.uid).assertEqual(contextUid);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0021 end');
     });
 
     /**
@@ -382,11 +424,13 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL1
      */
     it('testAppInfoContract0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0022 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_FULL);
       expect(info.appInfo.uid > 0).assertTrue();
       expect(info.hapModulesInfo.length >= 1).assertTrue();
       expect(moduleNames(info.hapModulesInfo).indexOf(ENTRY_MODULE_NAME) >= 0).assertTrue();
       expect(info.signatureInfo.appId.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0022 end');
     });
 
     /**
@@ -398,9 +442,11 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0023 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_SIGNATURE);
       expect(info.versionCode).assertEqual(EXPECTED_VERSION_CODE);
       expect(info.versionName).assertEqual(EXPECTED_VERSION_NAME);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0023 end');
     });
 
     /**
@@ -412,11 +458,13 @@ export default function bundleAppInfoContractTest() {
      * @tc.level LEVEL2
      */
     it('testAppInfoContract0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0024 begin');
       const info: bundleManager.BundleInfo = await querySelf(FLAGS_FOR_MODULE);
       expect(findAbility(info, ENTRY_ABILITY_NAME) !== undefined).assertTrue();
       expect(findAbility(info, 'MissingAbility') === undefined).assertTrue();
       expect(findExtension(info, ENTRY_BACKUP_ABILITY_NAME) !== undefined).assertTrue();
       expect(findExtension(info, 'MissingExtension') === undefined).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAppInfoContract0024 end');
     });
   });
 }
