@@ -1,0 +1,7 @@
+{
+  "displayedMode": "list",
+  "mainTitleResource": "$string:main_title",
+  "dstAbilityMode": 0,
+  "dstAbilityName": "EntryAbility",
+  "dstBundleName": "com.example.menuuiabilitydemo"
+}

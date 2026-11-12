@@ -1005,7 +1005,7 @@ class CameraService {
       });
       // Monitoring and photographing exception
       photoOutput.on('error', (data: BusinessError): void => {
-        Logger.info(TAG, `photoOutPut data: ${data}`);
+        Logger.info(TAG, `photoOutput data: ${data}`);
       });
       if (!this.is2in1()) {
         photoOutput.on('photoAssetAvailable', (err: BusinessError, photoAsset: photoAccessHelper.PhotoAsset) => {

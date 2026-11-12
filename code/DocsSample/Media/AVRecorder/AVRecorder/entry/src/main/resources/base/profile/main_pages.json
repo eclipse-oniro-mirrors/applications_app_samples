@@ -3,7 +3,7 @@
     "pages/Index",
     "pages/VideoRecorder",
     "pages/AudioRecorder",
-    "pages/VideoRecorderNDK",
-    "pages/AudioRecorderNDK"
+    "pages/VideoRecorderNative",
+    "pages/AudioRecorderNative"
   ]
 }

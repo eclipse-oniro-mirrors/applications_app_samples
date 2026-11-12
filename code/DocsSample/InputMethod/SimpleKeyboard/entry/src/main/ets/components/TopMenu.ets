@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  StorageLink,
-  Component,
-  Column,
-  Row,
-  Stack,
-  Divider,
-  Image,
-  Blank,
-  $r,
-  ImageFit,
-  $rawfile,
-  ItemAlign,
-  VerticalAlign
-} from '@kit.ArkUI';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
 import { SubMenuType } from '../InputMethodExtensionAbility/pages/KeyboardKeyData';

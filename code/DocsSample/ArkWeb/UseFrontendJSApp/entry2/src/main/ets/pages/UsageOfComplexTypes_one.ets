@@ -21,6 +21,7 @@ class TestClass {
   constructor() {
   }
 
+  // 返回数组类型，演示应用侧与前端页面间传递Array
   test(): Array<number> {
     return [1, 2, 3, 4];
   }
@@ -44,25 +45,27 @@ struct Index {
             this.webviewController.refresh();
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 使用registerJavaScriptProxy注册对象到window上
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
             this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString']);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 解除已注册的对象
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {
             this.webviewController.deleteJavaScriptRegister('testObjName');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index7.html'), controller: this.webviewController })

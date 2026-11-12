@@ -1,0 +1,1372 @@
+{
+  "string": [
+    {
+      "name": "app_title",
+      "value": "分布式扩展与链路示例"
+    },
+    {
+      "name": "app_subtitle",
+      "value": "分布式 Extension / 链路增强 / 代理通道三个最小示例"
+    },
+    {
+      "name": "module_desc",
+      "value": "分布式扩展与链路示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "分布式扩展与链路示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "分布式扩展"
+    },
+    {
+      "name": "reason_bluetooth",
+      "value": "用于打开蓝牙代理通道，与已配对设备收发数据"
+    },
+    {
+      "name": "reason_datasync",
+      "value": "用于创建增强连接的服务端与客户端，与对端设备收发数据"
+    },
+    {
+      "name": "catalog_ext_entry",
+      "value": "module.json5 中声明 type 为 distributed 的扩展"
+    },
+    {
+      "name": "catalog_ext_title",
+      "value": "分布式扩展"
+    },
+    {
+      "name": "catalog_ext_permission",
+      "value": "无（成为系统应用并配置 ACL 才能被系统拉起）"
+    },
+    {
+      "name": "catalog_ext_summary",
+      "value": "以扩展形式参与跨端协同：onCreate/onDestroy 管生命周期，onCollaborate 回传是否接受协同请求。"
+    },
+    {
+      "name": "catalog_ext_note",
+      "value": "声明该扩展不要求系统签名，但系统只会对系统应用（APL=system_basic/system_core）拉起它，所以本页只做注册信息与生命周期路径的核对，协同结果用本地模拟呈现。"
+    },
+    {
+      "name": "catalog_link_title",
+      "value": "链路增强"
+    },
+    {
+      "name": "catalog_link_summary",
+      "value": "在对端设备之间建立增强连接：一端 createServer 提供服务，另一端 createConnection 发起连接，随后用 sendData 收发 ArrayBuffer。"
+    },
+    {
+      "name": "catalog_link_note",
+      "value": "需要两台设备（或两个模拟器）在同组网内，且双方都授予 DISTRIBUTED_DATASYNC；单机只能验证到“服务端创建成功”这一步。"
+    },
+    {
+      "name": "catalog_chan_title",
+      "value": "代理通道"
+    },
+    {
+      "name": "catalog_chan_summary",
+      "value": "基于经典蓝牙（BR）打开一条代理通道，用 channelId 收发数据，并订阅通道状态变化。"
+    },
+    {
+      "name": "catalog_chan_note",
+      "value": "只支持 LINK_BR 链路类型，对端必须是已配对的蓝牙设备；单机没有对端时 openProxyChannel 会返回错误码，示例把错误码原样贴出来。"
+    },
+    {
+      "name": "link_stage_server_created",
+      "value": "服务端已创建"
+    },
+    {
+      "name": "link_stage_server_started",
+      "value": "服务端已启动"
+    },
+    {
+      "name": "link_stage_server_stopped",
+      "value": "服务端已停止"
+    },
+    {
+      "name": "link_stage_connection_created",
+      "value": "连接对象已创建"
+    },
+    {
+      "name": "link_stage_connecting",
+      "value": "正在连接"
+    },
+    {
+      "name": "link_stage_connected",
+      "value": "已连接"
+    },
+    {
+      "name": "link_stage_closed",
+      "value": "已关闭"
+    },
+    {
+      "name": "link_stage_empty",
+      "value": "未创建"
+    },
+    {
+      "name": "link_hint_server_created",
+      "value": "下一步调用 start() 开始监听 connectionAccepted；不需要时 stop() 或 close()"
+    },
+    {
+      "name": "link_hint_server_started",
+      "value": "正在等待对端连接；本机单测只验证到这里，真实连接需要第二台设备"
+    },
+    {
+      "name": "link_hint_server_stopped",
+      "value": "已停止监听，可重新 start()，也可以 close() 释放服务端"
+    },
+    {
+      "name": "link_hint_connection_created",
+      "value": "下一步调用 connect()，结果通过 connectResult 回调返回"
+    },
+    {
+      "name": "link_hint_connecting",
+      "value": "等 connectResult 回调；不要提前 sendData，否则会拿到 32390205"
+    },
+    {
+      "name": "link_hint_connected",
+      "value": "可以 sendData()，也可以在 disconnected 后 disconnect()"
+    },
+    {
+      "name": "link_hint_closed",
+      "value": "对象已关闭，需要重新创建"
+    },
+    {
+      "name": "link_hint_empty",
+      "value": "先创建服务端（createServer）或连接对象（createConnection）"
+    },
+    {
+      "name": "link_server_name_empty",
+      "value": "（未填写服务名）"
+    },
+    {
+      "name": "link_stage_summary",
+      "value": "%s；服务名 %s"
+    },
+    {
+      "name": "chan_stage_opening",
+      "value": "正在打开"
+    },
+    {
+      "name": "chan_stage_open",
+      "value": "通道已打开"
+    },
+    {
+      "name": "chan_stage_failed",
+      "value": "打开失败"
+    },
+    {
+      "name": "chan_stage_closed",
+      "value": "未打开"
+    },
+    {
+      "name": "chan_hint_opening",
+      "value": "等 openProxyChannel 的 Promise 返回；返回数字即 channelId"
+    },
+    {
+      "name": "chan_hint_open",
+      "value": "可以 sendData(channelId, ArrayBuffer)，不需要时 closeProxyChannel(channelId)"
+    },
+    {
+      "name": "chan_hint_failed",
+      "value": "打开失败：先看错误码（未配对 32390002 / 蓝牙关闭 32390001 / 能力缺失 801），处理后重开"
+    },
+    {
+      "name": "chan_hint_closed",
+      "value": "先 openProxyChannel({ linkType: LINK_BR, peerDevAddr, peerUuid })"
+    },
+    {
+      "name": "chan_describe_no_id",
+      "value": "%s；尚无 channelId"
+    },
+    {
+      "name": "chan_describe_with_id",
+      "value": "%s；channelId=%s"
+    },
+    {
+      "name": "collab_describe",
+      "value": "协同下标 \"%s\"，参数 %s 个 → %s"
+    },
+    {
+      "name": "collab_index_empty",
+      "value": "（空）"
+    },
+    {
+      "name": "collab_verdict_accept",
+      "value": "接受协同"
+    },
+    {
+      "name": "collab_verdict_reject",
+      "value": "拒绝协同（缺少 supportCollaborateIndex）"
+    },
+    {
+      "name": "collab_summary",
+      "value": "%s；扩展按 demo 规则%s"
+    },
+    {
+      "name": "probe_status_ready",
+      "value": "可用"
+    },
+    {
+      "name": "probe_status_permission_denied",
+      "value": "缺少权限"
+    },
+    {
+      "name": "probe_status_unsupported",
+      "value": "设备不支持"
+    },
+    {
+      "name": "probe_status_unpaired",
+      "value": "对端未配对"
+    },
+    {
+      "name": "probe_status_br_disabled",
+      "value": "蓝牙未开启"
+    },
+    {
+      "name": "probe_status_duplicate_name",
+      "value": "服务名重复"
+    },
+    {
+      "name": "probe_status_limit_exceeded",
+      "value": "数量超限"
+    },
+    {
+      "name": "probe_status_not_ready",
+      "value": "连接未就绪"
+    },
+    {
+      "name": "probe_status_invalid_param",
+      "value": "参数无效"
+    },
+    {
+      "name": "probe_status_channel_invalid",
+      "value": "通道不可用"
+    },
+    {
+      "name": "probe_status_restricted",
+      "value": "调用受限"
+    },
+    {
+      "name": "probe_status_data_too_long",
+      "value": "数据过长"
+    },
+    {
+      "name": "probe_status_send_failed",
+      "value": "发送失败"
+    },
+    {
+      "name": "probe_status_internal",
+      "value": "内部错误"
+    },
+    {
+      "name": "probe_status_failed",
+      "value": "操作失败"
+    },
+    {
+      "name": "probe_status_idle",
+      "value": "未探测"
+    },
+    {
+      "name": "probe_hint_ready",
+      "value": "对象已创建，可以继续下一步调用"
+    },
+    {
+      "name": "probe_hint_permission_denied",
+      "value": "先在页面里授予 DISTRIBUTED_DATASYNC / ACCESS_BLUETOOTH 再重试"
+    },
+    {
+      "name": "probe_hint_unsupported",
+      "value": "当前镜像未编译该能力（模拟器或精简镜像常见），需换用支持 SystemCapability.DistributedSched.AppCollaboration 的设备"
+    },
+    {
+      "name": "probe_hint_unpaired",
+      "value": "系统蓝牙里没有与对端配对，先在设置里配对再打开通道"
+    },
+    {
+      "name": "probe_hint_br_disabled",
+      "value": "经典蓝牙处于关闭状态，先打开系统蓝牙开关"
+    },
+    {
+      "name": "probe_hint_duplicate_name",
+      "value": "同名服务已存在，换一个服务名或先关闭已有服务"
+    },
+    {
+      "name": "probe_hint_limit_exceeded",
+      "value": "服务或连接数量达到上限，先关闭不用的对象再重试"
+    },
+    {
+      "name": "probe_hint_not_ready",
+      "value": "连接尚未建立完成，等 connectResult 回调后再收发数据"
+    },
+    {
+      "name": "probe_hint_invalid_param",
+      "value": "检查服务名（不超过 255 字节）与对端参数（MAC 形如 12:34:56:78:9A:BC）"
+    },
+    {
+      "name": "probe_hint_channel_invalid",
+      "value": "channelId 已失效或从未创建成功，重新 openProxyChannel"
+    },
+    {
+      "name": "probe_hint_restricted",
+      "value": "系统限制了本次调用（常见于非前台或未授权场景）"
+    },
+    {
+      "name": "probe_hint_data_too_long",
+      "value": "单次发送的数据超过链路允许的长度，可拆分后再发"
+    },
+    {
+      "name": "probe_hint_send_failed",
+      "value": "数据没有发出去，确认对端仍在连接中"
+    },
+    {
+      "name": "probe_hint_internal",
+      "value": "服务内部错误，可稍后重试并查看 hilog"
+    },
+    {
+      "name": "probe_hint_default",
+      "value": "查看日志面板里的错误码与原始描述"
+    },
+    {
+      "name": "channel_state_wait_resume",
+      "value": "通道不可用，等待恢复"
+    },
+    {
+      "name": "channel_state_resume",
+      "value": "通道已恢复"
+    },
+    {
+      "name": "channel_state_software_failed",
+      "value": "软件异常，通道不可用"
+    },
+    {
+      "name": "channel_state_br_no_paired",
+      "value": "蓝牙配对被删除，通道不可用"
+    },
+    {
+      "name": "channel_state_unknown",
+      "value": "未知通道状态"
+    },
+    {
+      "name": "collab_result_accept",
+      "value": "ACCEPT（0）：接受协同"
+    },
+    {
+      "name": "collab_result_reject",
+      "value": "REJECT（1）：拒绝协同"
+    },
+    {
+      "name": "collab_result_unknown",
+      "value": "未知协同结果（%s）"
+    },
+    {
+      "name": "error_unknown",
+      "value": "未知错误"
+    },
+    {
+      "name": "error_with_code",
+      "value": "%s失败（%s）：%s"
+    },
+    {
+      "name": "error_no_code",
+      "value": "%s失败：%s"
+    },
+    {
+      "name": "err_hint_201",
+      "value": "缺少 ohos.permission.DISTRIBUTED_DATASYNC / ACCESS_BLUETOOTH 授权，请先申请权限"
+    },
+    {
+      "name": "err_hint_801",
+      "value": "当前设备未编译分布式协同能力（SystemCapability.DistributedSched.AppCollaboration），需换设备镜像"
+    },
+    {
+      "name": "err_hint_32390001",
+      "value": "经典蓝牙未开启，先在系统设置里打开蓝牙"
+    },
+    {
+      "name": "err_hint_32390002",
+      "value": "对端设备未与本机配对，先在系统设置里完成配对"
+    },
+    {
+      "name": "err_hint_32390004",
+      "value": "channelId 已失效或不存在，重新 openProxyChannel"
+    },
+    {
+      "name": "err_hint_32390006",
+      "value": "入参无效，检查 MAC 地址与 UUID 格式"
+    },
+    {
+      "name": "err_hint_32390100",
+      "value": "代理通道内部错误；实测未声明 action.ohos.pull.listener 时系统反查调用方 ability 失败（底层 ret=8521221），先补上该 action 再试"
+    },
+    {
+      "name": "err_hint_32390101",
+      "value": "本次调用被系统限制；实测系统向推送服务校验调用方权限失败（Remote is nullptr，ret=-426115026）时返回该码，需集成推送服务的设备镜像"
+    },
+    {
+      "name": "err_hint_32390102",
+      "value": "操作失败或连接超时，确认对端在线后重试"
+    },
+    {
+      "name": "err_hint_32390103",
+      "value": "单次发送的数据超过链路允许长度，需要拆包"
+    },
+    {
+      "name": "err_hint_32390104",
+      "value": "数据发送失败，确认通道仍在连接中"
+    },
+    {
+      "name": "err_hint_32390200",
+      "value": "客户端连接超时，确认对端服务已启动且两台设备同组网"
+    },
+    {
+      "name": "err_hint_32390201",
+      "value": "对端服务端未启动，先在另一台设备上 createServer 并 start"
+    },
+    {
+      "name": "err_hint_32390202",
+      "value": "服务端数量超过上限，先关闭不用的 Server"
+    },
+    {
+      "name": "err_hint_32390203",
+      "value": "同名服务已存在，换一个服务名或先关闭已有服务"
+    },
+    {
+      "name": "err_hint_32390204",
+      "value": "连接数量超过上限，先关闭不用的 Connection"
+    },
+    {
+      "name": "err_hint_32390205",
+      "value": "连接尚未就绪，等 connectResult 回调为 0 后再 sendData"
+    },
+    {
+      "name": "err_hint_32390206",
+      "value": "入参无效，检查服务名（不超过 255 字节）与 deviceId"
+    },
+    {
+      "name": "err_hint_32390300",
+      "value": "链路增强内部错误，可稍后重试并查看 hilog"
+    },
+    {
+      "name": "err_hint_done",
+      "value": "操作已正常完成"
+    },
+    {
+      "name": "error_describe_thrown",
+      "value": "%s；%s"
+    },
+    {
+      "name": "perm_granted",
+      "value": "已授权"
+    },
+    {
+      "name": "perm_not_granted",
+      "value": "尚未授权"
+    },
+    {
+      "name": "perm_describe_granted",
+      "value": "%s 已授权"
+    },
+    {
+      "name": "perm_describe_denied",
+      "value": "%s 未授权（%s）：%s"
+    },
+    {
+      "name": "perm_reject",
+      "value": "拒绝（%s）"
+    },
+    {
+      "name": "perm_pair",
+      "value": "%s；%s"
+    },
+    {
+      "name": "perm_check_failed",
+      "value": "checkAccessTokenSync 失败（%s）：%s"
+    },
+    {
+      "name": "perm_request_failed",
+      "value": "requestPermissionsFromUser 失败（%s）：%s"
+    },
+    {
+      "name": "perm_item",
+      "value": "%s=%s"
+    },
+    {
+      "name": "perm_separator",
+      "value": "；"
+    },
+    {
+      "name": "ctx_unknown",
+      "value": "（未提供）"
+    },
+    {
+      "name": "ctx_type_distributed",
+      "value": "%s（distributed）"
+    },
+    {
+      "name": "ctx_type_other",
+      "value": "%s（非 distributed）"
+    },
+    {
+      "name": "ctx_describe",
+      "value": "context 可用：%s，type=%s，模块 %s，语言 %s"
+    },
+    {
+      "name": "log_panel_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "log_count",
+      "value": "%s 条"
+    },
+    {
+      "name": "log_clear",
+      "value": "清空"
+    },
+    {
+      "name": "log_empty",
+      "value": "暂无事件，操作分布式接口后将在这里看到调用记录"
+    },
+    {
+      "name": "log_title_home",
+      "value": "首页事件"
+    },
+    {
+      "name": "log_title_extension",
+      "value": "分布式扩展事件"
+    },
+    {
+      "name": "log_title_link",
+      "value": "链路增强事件"
+    },
+    {
+      "name": "log_title_channel",
+      "value": "代理通道事件"
+    },
+    {
+      "name": "probe_unknown_result",
+      "value": "未知结果"
+    },
+    {
+      "name": "probe_action_success",
+      "value": "%s成功：%s"
+    },
+    {
+      "name": "probe_action_not_executed",
+      "value": "%s未执行：%s"
+    },
+    {
+      "name": "probe_action_failed",
+      "value": "%s失败（%s）：%s"
+    },
+    {
+      "name": "probe_hint_guard",
+      "value": "按顺序完成前一步再调用该接口"
+    },
+    {
+      "name": "probe_hint_permission_throw",
+      "value": "系统以权限校验为由拒绝调用，先在首页授予 DISTRIBUTED_DATASYNC / ACCESS_BLUETOOTH 再重试"
+    },
+    {
+      "name": "probe_hint_thrown",
+      "value": "系统接口抛出异常但未携带数字错误码，查看 hilog 中的原始描述"
+    },
+    {
+      "name": "probe_hint_pair",
+      "value": "%s；%s"
+    },
+    {
+      "name": "extinfo_read_failed",
+      "value": "读取扩展信息失败（%s）：%s"
+    },
+    {
+      "name": "extinfo_not_declared",
+      "value": "未读到 distributed 扩展：本模块共注册 %s 个扩展"
+    },
+    {
+      "name": "extinfo_declared",
+      "value": "已注册 %s（type=%s）；本模块共注册 %s 个扩展"
+    },
+    {
+      "name": "extinfo_no_match",
+      "value": "未匹配到 ExtensionAbilityType.DISTRIBUTED"
+    },
+    {
+      "name": "syscap_undeclared",
+      "value": "%s 未声明"
+    },
+    {
+      "name": "syscap_declared",
+      "value": "%s 已声明"
+    },
+    {
+      "name": "enum_read_failed",
+      "value": "读取枚举失败（%s）：%s"
+    },
+    {
+      "name": "enum_same",
+      "value": "一致"
+    },
+    {
+      "name": "enum_diff",
+      "value": "不一致"
+    },
+    {
+      "name": "enum_link_part",
+      "value": "LinkType.LINK_BR=%s（%s）"
+    },
+    {
+      "name": "enum_channel_part",
+      "value": "ChannelState.CHANNEL_RESUME=%s（%s）"
+    },
+    {
+      "name": "enum_collab_part",
+      "value": "CollaborateResult.ACCEPT=%s"
+    },
+    {
+      "name": "enum_part_sep",
+      "value": "；"
+    },
+    {
+      "name": "lastrecv_hex",
+      "value": "%s（%s）"
+    },
+    {
+      "name": "lastrecv_none",
+      "value": "尚未收到数据"
+    },
+    {
+      "name": "event_line",
+      "value": "%s：%s"
+    },
+    {
+      "name": "log_fail_code",
+      "value": "失败（%s）"
+    },
+    {
+      "name": "cb_connect_ok",
+      "value": "连接成功"
+    },
+    {
+      "name": "cb_connect_fail",
+      "value": "连接失败 reason=%s"
+    },
+    {
+      "name": "cb_device_empty",
+      "value": "（空 deviceId）"
+    },
+    {
+      "name": "cb_connect_emit",
+      "value": "%s；deviceId=%s"
+    },
+    {
+      "name": "cb_disconnected",
+      "value": "被动断开，reason=%s"
+    },
+    {
+      "name": "cb_data_received",
+      "value": "%s 字节：%s"
+    },
+    {
+      "name": "guard_server_name_empty",
+      "value": "服务名不能为空（d.ts：不能为空且不超过 255 字节）"
+    },
+    {
+      "name": "cb_accepted",
+      "value": "对端接入，deviceId=%s"
+    },
+    {
+      "name": "cb_empty_value",
+      "value": "（空）"
+    },
+    {
+      "name": "cb_server_stopped",
+      "value": "服务端被动停止，reason=%s"
+    },
+    {
+      "name": "server_created",
+      "value": "服务端 %s 已创建"
+    },
+    {
+      "name": "guard_no_server",
+      "value": "尚未创建服务端"
+    },
+    {
+      "name": "server_started",
+      "value": "已开始监听，等对端 createConnection + connect"
+    },
+    {
+      "name": "server_stopped",
+      "value": "已停止监听，可重新 start"
+    },
+    {
+      "name": "guard_conn_param",
+      "value": "deviceId 与服务名都不能为空"
+    },
+    {
+      "name": "conn_created",
+      "value": "目标 deviceId=%s，服务名 %s"
+    },
+    {
+      "name": "guard_no_connection",
+      "value": "尚未创建 Connection 对象"
+    },
+    {
+      "name": "conn_connecting",
+      "value": "已发起连接，结果通过 connectResult 回调返回"
+    },
+    {
+      "name": "guard_empty_content",
+      "value": "发送内容为空"
+    },
+    {
+      "name": "guard_over_limit",
+      "value": "超过接口上限 %s 字节（当前 %s）"
+    },
+    {
+      "name": "conn_disconnected",
+      "value": "已断开，Connection 对象仍可再次 connect"
+    },
+    {
+      "name": "conn_closed",
+      "value": "Connection 已关闭，需要重新 createConnection"
+    },
+    {
+      "name": "server_closed",
+      "value": "Server 已关闭，需要重新 createServer"
+    },
+    {
+      "name": "log_conn_close_fail",
+      "value": "Connection.close 失败（%s）"
+    },
+    {
+      "name": "log_server_close_fail",
+      "value": "Server.close 失败（%s）"
+    },
+    {
+      "name": "chan_no_state",
+      "value": "暂无状态回调"
+    },
+    {
+      "name": "chan_no_callback",
+      "value": "暂无回调"
+    },
+    {
+      "name": "chan_state_text",
+      "value": "%s（%s）"
+    },
+    {
+      "name": "cb_chan_receive",
+      "value": "channelId=%s，%s 字节：%s"
+    },
+    {
+      "name": "cb_chan_state",
+      "value": "channelId=%s，%s，可用=%s"
+    },
+    {
+      "name": "log_subscribe_fail",
+      "value": "订阅失败（%s）：%s"
+    },
+    {
+      "name": "log_unsubscribe_fail",
+      "value": "取消订阅失败（%s）"
+    },
+    {
+      "name": "guard_peer_param",
+      "value": "对端 MAC 与 UUID 都不能为空"
+    },
+    {
+      "name": "chan_opened_wait",
+      "value": "已打开，等待 channelStateChange"
+    },
+    {
+      "name": "cb_chan_open",
+      "value": "channelId=%s，对端 %s"
+    },
+    {
+      "name": "chan_id_only",
+      "value": "channelId=%s"
+    },
+    {
+      "name": "guard_no_channel",
+      "value": "尚未打开通道"
+    },
+    {
+      "name": "guard_chan_over_limit",
+      "value": "超过演示上限 %s 字节（当前 %s）"
+    },
+    {
+      "name": "guard_no_open_channel",
+      "value": "当前没有打开的通道"
+    },
+    {
+      "name": "chan_closed_state",
+      "value": "已关闭"
+    },
+    {
+      "name": "chan_close_ok",
+      "value": "channelId=%s 已关闭"
+    },
+    {
+      "name": "log_chan_close_fail",
+      "value": "closeProxyChannel 失败（%s）"
+    },
+    {
+      "name": "ble_name_missing",
+      "value": "（广播里没有名称）"
+    },
+    {
+      "name": "bt_name_missing",
+      "value": "（系统没给出名称）"
+    },
+    {
+      "name": "bt_source_paired",
+      "value": "已配对"
+    },
+    {
+      "name": "bt_source_found",
+      "value": "本次发现"
+    },
+    {
+      "name": "home_syscap_unread",
+      "value": "未读取"
+    },
+    {
+      "name": "home_query_unread",
+      "value": "未查询"
+    },
+    {
+      "name": "home_syscap_declared",
+      "value": "已声明 AppCollaboration"
+    },
+    {
+      "name": "home_syscap_undeclared",
+      "value": "未声明（%s）"
+    },
+    {
+      "name": "home_granted",
+      "value": "已授权"
+    },
+    {
+      "name": "home_not_granted",
+      "value": "未授权"
+    },
+    {
+      "name": "home_precondition",
+      "value": "本机前置条件"
+    },
+    {
+      "name": "home_request_perms",
+      "value": "申请两个权限"
+    },
+    {
+      "name": "home_perm_note",
+      "value": "链路增强要 DISTRIBUTED_DATASYNC，代理通道要 ACCESS_BLUETOOTH；两个都是 user_grant，未授权时只会拿到 201"
+    },
+    {
+      "name": "home_search_hint",
+      "value": "搜索能力，例如 linkEnhance、proxyChannel"
+    },
+    {
+      "name": "home_count",
+      "value": "%s 项"
+    },
+    {
+      "name": "home_enter",
+      "value": "进入"
+    },
+    {
+      "name": "home_no_match",
+      "value": "没有匹配的能力，试试清空搜索词"
+    },
+    {
+      "name": "demo_back",
+      "value": "返回"
+    },
+    {
+      "name": "demo_dash",
+      "value": "—"
+    },
+    {
+      "name": "demo_unread",
+      "value": "未读取"
+    },
+    {
+      "name": "demo_no_event",
+      "value": "暂无回调"
+    },
+    {
+      "name": "demo_no_received",
+      "value": "尚未收到数据"
+    },
+    {
+      "name": "demo_no_call",
+      "value": "尚未调用接口"
+    },
+    {
+      "name": "ext_registered",
+      "value": "扩展已注册"
+    },
+    {
+      "name": "ext_not_found",
+      "value": "扩展未读到"
+    },
+    {
+      "name": "ext_card_status",
+      "value": "扩展与契约"
+    },
+    {
+      "name": "ext_card_status_sub",
+      "value": "bundleManager 读回"
+    },
+    {
+      "name": "ext_label_registration",
+      "value": "扩展注册"
+    },
+    {
+      "name": "ext_label_syscap",
+      "value": "能力位"
+    },
+    {
+      "name": "ext_label_enum",
+      "value": "枚举核对"
+    },
+    {
+      "name": "ext_label_declared_at",
+      "value": "声明位置"
+    },
+    {
+      "name": "ext_label_context",
+      "value": "上下文"
+    },
+    {
+      "name": "ext_value_declared_at",
+      "value": "entry/src/main/module.json5 → extensionAbilities[1]"
+    },
+    {
+      "name": "ext_value_context",
+      "value": "扩展内 this.context → extensionAbilityInfo / currentHapModuleInfo / config（被拉起时写 hilog）"
+    },
+    {
+      "name": "ext_card_action",
+      "value": "接口调用"
+    },
+    {
+      "name": "ext_card_action_sub",
+      "value": "三个读取动作"
+    },
+    {
+      "name": "ext_btn_read_extension",
+      "value": "读取扩展注册"
+    },
+    {
+      "name": "ext_btn_read_syscap",
+      "value": "读取能力位"
+    },
+    {
+      "name": "ext_btn_read_enum",
+      "value": "核对枚举"
+    },
+    {
+      "name": "ext_action_note",
+      "value": "扩展注册读的是 ExtensionAbilityType.DISTRIBUTED（28），读得到才说明 type: distributed 被系统接受"
+    },
+    {
+      "name": "ext_card_collab",
+      "value": "onCollaborate 模拟"
+    },
+    {
+      "name": "ext_card_collab_sub",
+      "value": "与扩展同一份纯函数"
+    },
+    {
+      "name": "ext_collab_param",
+      "value": "调用方参数 supportCollaborateIndex"
+    },
+    {
+      "name": "ext_collab_hint",
+      "value": "留空即验证 REJECT（1）分支"
+    },
+    {
+      "name": "ext_btn_simulate",
+      "value": "模拟 onCollaborate"
+    },
+    {
+      "name": "ext_btn_clear_index",
+      "value": "清空下标"
+    },
+    {
+      "name": "ext_label_request",
+      "value": "请求摘要"
+    },
+    {
+      "name": "ext_label_result",
+      "value": "返回结果"
+    },
+    {
+      "name": "ext_request_none",
+      "value": "尚未模拟 onCollaborate"
+    },
+    {
+      "name": "ext_card_note",
+      "value": "为什么只能模拟"
+    },
+    {
+      "name": "ext_card_note_sub",
+      "value": "能力边界"
+    },
+    {
+      "name": "ext_note_body",
+      "value": "扩展本体在 ets/distributedextensionability/DistributedExtAbility.ets，onCreate 会先记 want，再读 this.context 的 extensionAbilityInfo / currentHapModuleInfo / config 并写 hilog；onDestroy / onCollaborate 同理。本页模拟只覆盖 onCollaborate 的返回值规则。"
+    },
+    {
+      "name": "link_card_status",
+      "value": "链路状态"
+    },
+    {
+      "name": "link_card_status_sub",
+      "value": "两条对象链"
+    },
+    {
+      "name": "link_label_server",
+      "value": "服务端"
+    },
+    {
+      "name": "link_label_conn",
+      "value": "连接端"
+    },
+    {
+      "name": "link_label_peer",
+      "value": "对端 deviceId"
+    },
+    {
+      "name": "link_label_last_call",
+      "value": "最近调用"
+    },
+    {
+      "name": "link_label_last_event",
+      "value": "最近回调"
+    },
+    {
+      "name": "link_label_received",
+      "value": "收到数据"
+    },
+    {
+      "name": "link_state_text",
+      "value": "%s：%s"
+    },
+    {
+      "name": "link_card_peer",
+      "value": "对端发现"
+    },
+    {
+      "name": "link_card_peer_sub",
+      "value": "startAdvertising / startBLEScan / on(BLEDeviceFind)"
+    },
+    {
+      "name": "link_btn_scan",
+      "value": "扫描对端广播"
+    },
+    {
+      "name": "link_btn_stop_scan",
+      "value": "停止扫描"
+    },
+    {
+      "name": "link_btn_fill",
+      "value": "填入"
+    },
+    {
+      "name": "link_btn_adv",
+      "value": "开启本机广播"
+    },
+    {
+      "name": "link_btn_stop_adv",
+      "value": "停止广播"
+    },
+    {
+      "name": "link_scan_idle",
+      "value": "尚未扫描：点「扫描对端广播」拿对端 BLE MAC"
+    },
+    {
+      "name": "link_scan_found",
+      "value": "已扫描到 %s 台 BLE 设备，点某一行可把它填进下方的 deviceId"
+    },
+    {
+      "name": "link_scan_failed",
+      "value": "扫描失败（%s）：%s"
+    },
+    {
+      "name": "link_scan_stopped",
+      "value": "已停止扫描，本次共看到 %s 台 BLE 设备"
+    },
+    {
+      "name": "link_scan_running",
+      "value": "正在扫描…对端需要在 BLE 上可被看见（服务端已 start 或已打开蓝牙）"
+    },
+    {
+      "name": "link_peer_applied",
+      "value": "已把 %s 填入下方 deviceId，接着依次点 createConnection / connect"
+    },
+    {
+      "name": "link_adv_idle",
+      "value": "本机未广播：服务端需要先开广播，对端才能扫到它"
+    },
+    {
+      "name": "link_adv_on",
+      "value": "本机正在广播，对端扫描时能看到本机地址"
+    },
+    {
+      "name": "link_adv_off",
+      "value": "本机已停止广播"
+    },
+    {
+      "name": "link_adv_failed",
+      "value": "广播失败（%s）：%s"
+    },
+    {
+      "name": "link_peer_note",
+      "value": "两台设备互相扫一次：服务端先 createServer + start 并开启广播，连接端扫到对端后把地址填进 deviceId"
+    },
+    {
+      "name": "link_card_server",
+      "value": "服务端 Server"
+    },
+    {
+      "name": "link_card_server_sub",
+      "value": "createServer / start / stop / close"
+    },
+    {
+      "name": "link_input_server_name",
+      "value": "服务名，不超过 255 字节"
+    },
+    {
+      "name": "link_server_note",
+      "value": "start() 之后对端才能连上本机；本机单跑时最多验证到「服务端已启动」"
+    },
+    {
+      "name": "link_card_client",
+      "value": "连接端 Connection"
+    },
+    {
+      "name": "link_card_client_sub",
+      "value": "createConnection / connect / disconnect / close"
+    },
+    {
+      "name": "link_input_device",
+      "value": "对端 deviceId（BLE MAC，形如 12:34:56:78:9A:BC）"
+    },
+    {
+      "name": "link_input_conn_name",
+      "value": "对端服务名，需与对端 createServer 时一致"
+    },
+    {
+      "name": "link_client_note",
+      "value": "deviceId 取对端设备的 BLE MAC（对端没开广播时扫不到，connectResult 会退回 0 / 32390200 / 32390300）；实测断连后对同一条 Connection 再 connect，数据能收发但 connectResult 不再回调，页面会停在「正在连接」，需要重连的话重新 createConnection 更稳"
+    },
+    {
+      "name": "link_card_send",
+      "value": "收发数据"
+    },
+    {
+      "name": "link_send_sub",
+      "value": "上限 %s 字节"
+    },
+    {
+      "name": "link_input_payload",
+      "value": "待发送文本，按 UTF-8 编码"
+    },
+    {
+      "name": "link_len_text",
+      "value": "当前 %s 字节 / 上限 %s 字节"
+    },
+    {
+      "name": "link_btn_force_send",
+      "value": "跳过回调发送"
+    },
+    {
+      "name": "link_send_note",
+      "value": "「跳过回调发送」用于验证负向路径：连接未就绪时系统返回 32390205，页面会原样贴出错误码"
+    },
+    {
+      "name": "link_card_note",
+      "value": "能力边界"
+    },
+    {
+      "name": "link_card_note_sub",
+      "value": "实测口径"
+    },
+    {
+      "name": "chan_card_status",
+      "value": "通道状态"
+    },
+    {
+      "name": "chan_card_status_sub",
+      "value": "两条状态线"
+    },
+    {
+      "name": "chan_label_open_flow",
+      "value": "打开流程"
+    },
+    {
+      "name": "chan_label_channel_id",
+      "value": "channelId"
+    },
+    {
+      "name": "chan_label_usability",
+      "value": "通道可用性"
+    },
+    {
+      "name": "chan_label_last_call",
+      "value": "最近调用"
+    },
+    {
+      "name": "chan_label_last_event",
+      "value": "最近回调"
+    },
+    {
+      "name": "chan_label_received",
+      "value": "收到数据"
+    },
+    {
+      "name": "chan_flow_text",
+      "value": "%s：%s"
+    },
+    {
+      "name": "chan_card_peer",
+      "value": "获取对端地址"
+    },
+    {
+      "name": "chan_card_peer_sub",
+      "value": "经典蓝牙 · BR/EDR"
+    },
+    {
+      "name": "chan_btn_load_paired",
+      "value": "读取已配对"
+    },
+    {
+      "name": "chan_btn_find",
+      "value": "发现附近设备"
+    },
+    {
+      "name": "chan_btn_stop_find",
+      "value": "停止发现"
+    },
+    {
+      "name": "chan_btn_fill",
+      "value": "填入"
+    },
+    {
+      "name": "chan_note_initial",
+      "value": "先点「读取已配对」；对端没配对时，让它处于可被发现状态再点「发现附近设备」"
+    },
+    {
+      "name": "chan_note_candidates",
+      "value": "候选 %s 台，点右侧「填入」把地址写进 peerDevAddr"
+    },
+    {
+      "name": "chan_note_empty",
+      "value": "还没有候选：先点「读取已配对」，或让对端进入可被发现状态再点「发现附近设备」"
+    },
+    {
+      "name": "chan_note_error",
+      "value": "取地址失败（%s）：%s"
+    },
+    {
+      "name": "chan_note_filled",
+      "value": "已填入 %s（%s）"
+    },
+    {
+      "name": "chan_peer_note",
+      "value": "地址来源：「已配对」= 系统记录里与本机配对过的设备；「本次发现」= 刚扫到的设备，对端需处于可被发现状态。API 26 起，未持有 system_basic 级 ohos.permission.GET_BLUETOOTH_PEERS_MAC 时系统返回的是虚拟地址，不是硬件 MAC；本示例是普通应用，申请不到该权限，所以列出的地址应以能否成功打开通道为准。"
+    },
+    {
+      "name": "chan_card_param",
+      "value": "对端参数"
+    },
+    {
+      "name": "chan_card_param_sub",
+      "value": "ChannelInfo"
+    },
+    {
+      "name": "chan_input_addr",
+      "value": "peerDevAddr：对端 MAC 地址"
+    },
+    {
+      "name": "chan_mac_fmt",
+      "value": "MAC 格式：%s"
+    },
+    {
+      "name": "chan_format_ok",
+      "value": "通过"
+    },
+    {
+      "name": "chan_format_bad",
+      "value": "不通过"
+    },
+    {
+      "name": "chan_mac_note",
+      "value": "这里只校验格式，不校验真实性：地址建议从上方「获取对端地址」列表直接填入，避免手抄出错"
+    },
+    {
+      "name": "chan_input_uuid",
+      "value": "peerUuid：对端服务 UUID"
+    },
+    {
+      "name": "chan_uuid_fmt",
+      "value": "UUID 格式：%s"
+    },
+    {
+      "name": "chan_btn_open_busy",
+      "value": "请求进行中"
+    },
+    {
+      "name": "chan_param_note",
+      "value": "linkType 固定使用 LinkType.LINK_BR(0)，即经典蓝牙；三个前提缺一不可：①两台设备已在系统设置里完成经典蓝牙配对（对端未配对时返回 32390002）；②module.json5 的 ability 声明了 action.ohos.pull.listener（不声明则反查调用方能力失败，返回 32390100）；③系统侧能向推送服务校验调用方权限（该校验失败时返回 32390101 Call is restricted）"
+    },
+    {
+      "name": "chan_card_send",
+      "value": "收发数据"
+    },
+    {
+      "name": "chan_send_sub",
+      "value": "演示上限 %s 字节"
+    },
+    {
+      "name": "chan_input_payload",
+      "value": "待发送文本，按 UTF-8 编码"
+    },
+    {
+      "name": "chan_len_text",
+      "value": "当前 %s 字节 / 演示上限 %s 字节"
+    },
+    {
+      "name": "chan_send_note",
+      "value": "receiveData / channelStateChange 的订阅在 openProxyChannel 成功后自动完成，关闭时自动 off"
+    },
+    {
+      "name": "chan_card_note",
+      "value": "能力边界"
+    },
+    {
+      "name": "chan_card_note_sub",
+      "value": "实测口径"
+    },
+    {
+      "name": "chan_note_body",
+      "value": "d.ts 里 sendData 的上限是 4096 字节，本示例把输入框限制到 256 字节，超过即本地拦截，不发请求。"
+    },
+    {
+      "name": "chan_validate_mac",
+      "value": "本地校验未通过：MAC 需为 17 字符的 12:34:56:78:9A:BC 形式，未发起请求"
+    },
+    {
+      "name": "chan_validate_uuid",
+      "value": "本地校验未通过：UUID 需为 36 字符的 8-4-4-4-12 形式，未发起请求"
+    },
+    {
+      "name": "chan_name_sep",
+      "value": "，"
+    }
+  ]
+}

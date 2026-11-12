@@ -1,0 +1,19 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "字体与资源管理示例",
+      "description": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "字体与资源管理示例入口",
+      "description": "入口能力描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "字体与资源管理",
+      "description": "应用名称"
+    }
+  ]
+}

@@ -15,11 +15,23 @@
 
 @Observed
 export class SubtitleStyleModel {
+  private static readonly MAX_DELAY_MS: number = 600000;
   public visible: boolean = true;
   public sizeIndex: number = 1;
   public colorIndex: number = 0;
   public backgroundIndex: number = 1;
   public positionIndex: number = 0;
+  public delayMs: number = 0;
+  public delayInput: string = '0';
+
+  applyDelay(): boolean {
+    if (!/^[+-]?\d+$/.test(this.delayInput.trim())) { return false; }
+    const delay: number = Number(this.delayInput);
+    if (!Number.isSafeInteger(delay) || Math.abs(delay) > SubtitleStyleModel.MAX_DELAY_MS) { return false; }
+    this.delayMs = delay;
+    this.delayInput = delay.toString();
+    return true;
+  }
 
   fontSize(): string {
     const sizes: string[] = ['16fp', '18fp', '22fp'];
@@ -42,5 +54,7 @@ export class SubtitleStyleModel {
     this.colorIndex = 0;
     this.backgroundIndex = 1;
     this.positionIndex = 0;
+    this.delayMs = 0;
+    this.delayInput = '0';
   }
 }

@@ -70,6 +70,7 @@ struct SettingButtonsView {
   @Builder
   flashButton(flashModes: camera.FlashMode[]) {
     SymbolGlyph(this.getFlashItem(this.flashMode)?.image)
+      .id('flashBtn')
       .fontSize(22)
       .fontColor([Color.White])
       .bindMenu(flashModes.map(mode => {
@@ -91,6 +92,7 @@ struct SettingButtonsView {
     SymbolGlyph(this.isSinglePhoto
       ? $r('sys.symbol.picture')
       : $r('sys.symbol.picture_on_square_1'))
+      .id('photoModeBtn')
       .onClick(() => {
         this.isSinglePhoto = !this.isSinglePhoto;
         this.photoManager.setPhotoOutputCallback(this.isSinglePhoto);

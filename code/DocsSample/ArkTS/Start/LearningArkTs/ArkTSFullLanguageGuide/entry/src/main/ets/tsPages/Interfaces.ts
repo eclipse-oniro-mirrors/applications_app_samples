@@ -17,7 +17,7 @@ export {};
 
 // [Start ts_interface_property_types]
 interface Product {
-    // 必选属性
+  // 必选属性
   id: number;
   name: string;
   price: number;
@@ -39,7 +39,7 @@ let product: Product = {
 
 // 可以访问可选属性
 if (product.description) {
-    console.info(`${product.description}`);
+  console.info(`${product.description}`);
 }
 
 // 只读属性不能修改

@@ -37,6 +37,7 @@ struct ModeButtonsView {
   build() {
     Row() {
         Text(this.modeBtn.title)
+          .id('modeButton')
           .fontColor(Color.White)
           .fontSize(14)
           .fontWeight(this.previewVM.isCurrentCameraMode(this.modeBtn.mode) ? FontWeight.Bold : FontWeight.Normal)

@@ -86,6 +86,7 @@ struct OperateButtonsView {
   @Builder
   toggleCameraPositionButton() {
     Image($r('app.media.toggle_position'))
+      .id('switchCameraBtn')
       .width(48)
       .height(48)
       .onClick(async () => {
@@ -109,6 +110,13 @@ struct OperateButtonsView {
   build() {
     Row() {
       this.thumbnailButton()
+      // The capture callback writes the media library URI here so that tests can assert on it.
+      Text(this.thumbnailUrl)
+        .id('thumbnailUrl')
+        .fontSize(1)
+        .width(1)
+        .height(1)
+        .opacity(0)
 
       if (this.previewVM.isPhotoMode()) {
         this.photoButton()

@@ -363,12 +363,12 @@ function log(message: string): void {
   console.info(`${message}`);
 }
 
-function notify(message: string): void {
-  alert(message);
-}
-
 function alert(message: string): void {
   console.info(`Alert: ${message}`);
+}
+
+function notify(message: string): void {
+  alert(message);
 }
 
 // void函数可以提前返回
@@ -1543,9 +1543,9 @@ type VcCallback = () => void;
 
 // 返回number的函数可赋给void返回类型
 let vcCb: VcCallback = (): number => {
-  console.info('side effect');
+  console.info('副作用');
   return 42;
 };
 
-vcCb(); // 打印side effect，返回值42被忽略
+vcCb(); // 打印'副作用'，返回值42被忽略
 // [End void_return_compatibility]
