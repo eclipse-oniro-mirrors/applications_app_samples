@@ -12,14 +12,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import AbilityTest from './Ability.test';
+import audioFocusConstantsCoreTest from './AudioFocusConstantsCore.test';
+import audioFocusUsageMappingCoreTest from './AudioFocusUsageMappingCore.test';
+import audioFocusStateContractTest from './AudioFocusStateContract.test';
+import audioFocusControllerNegativeTest from './AudioFocusControllerNegative.test';
+import audioFocusInterruptMatrixTest from './AudioFocusInterruptMatrix.test';
+import audioFocusPcmMathTest from './AudioFocusPcmMath.test';
+import audioFocusScenarioCoreTest from './AudioFocusScenarioCore.test';
+import audioFocusEnumCoreTest from './AudioFocusEnumCore.test';
+import audioFocusControllerStateTest from './AudioFocusControllerState.test';
+import audioFocusRoutingCoreTest from './AudioFocusRoutingCore.test';
+import audioFocusBufferContractTest from './AudioFocusBufferContract.test';
+import audioFocusPageFlowCoreTest from './AudioFocusPageFlowCore.test';
+import audioFocusPcmEdgeTest from './AudioFocusPcmEdge.test';
+import audioFocusUiMatrixTest from './AudioFocusUiMatrix.test';
+import audioFocusRendererContractTest from './AudioFocusRendererContract.test';
+import audioFocusPlaybackUiTest from './AudioFocusPlaybackUi.test';
+import audioFocusDuckingCoreTest from './AudioFocusDuckingCore.test';
+import audioFocusBufferTimelineCoreTest from './AudioFocusBufferTimelineCore.test';
+import audioFocusScenarioStateCoreTest from './AudioFocusScenarioStateCore.test';
 
 export default function ListTest() {
   AbilityTest();
-  describe('ListTest', () => {
-    it('list_test_001', 0, () => {
-      expect(1).assertEqual(1);
-    });
-  });
+  audioFocusConstantsCoreTest();
+  audioFocusUsageMappingCoreTest();
+  audioFocusStateContractTest();
+  audioFocusControllerNegativeTest();
+  audioFocusInterruptMatrixTest();
+  audioFocusPcmMathTest();
+  audioFocusScenarioCoreTest();
+  audioFocusEnumCoreTest();
+  audioFocusControllerStateTest();
+  audioFocusRoutingCoreTest();
+  audioFocusBufferContractTest();
+  audioFocusPageFlowCoreTest();
+  audioFocusPcmEdgeTest();
+  audioFocusUiMatrixTest();
+  audioFocusRendererContractTest();
+  audioFocusPlaybackUiTest();
+  audioFocusInterruptGuardCoreTest();
+  audioFocusRenderingPipelineCoreTest();
+  audioFocusStrategySelectionCoreTest();
+  audioFocusPageControlCoreTest();
+  audioFocusDuckingCoreTest();
+  audioFocusBufferTimelineCoreTest();
+  audioFocusScenarioStateCoreTest();
 }
