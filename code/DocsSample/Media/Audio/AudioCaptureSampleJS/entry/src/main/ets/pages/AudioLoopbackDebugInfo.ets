@@ -1,40 +1,33 @@
 /*
-* Copyright (C) 2026 Huawei Device Co., Ltd.
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-// [Start all_audioLoopbackDebugInfo]
-// [Start get_DebugManager]
+ * Copyright (C) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { audio } from '@kit.AudioKit'; // 导入audio模块。
-// [Start print_LoopbackInfo]
 import { BusinessError } from '@kit.BasicServicesKit'; // 导入BusinessError。
-// [StartExclude get_DebugManager]
-// [StartExclude print_LoopbackInfo]
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit'; // 导入UIAbilityContext。
 import { fileIo as fs } from '@kit.CoreFileKit'; // 导入文件管理模块。
 
 const TAG = 'AudioLoopbackDebugInfoDemo';
-// [EndExclude print_LoopbackInfo]
 let mode: audio.AudioLoopbackMode = audio.AudioLoopbackMode.HARDWARE;
 let audioLoopback: audio.AudioLoopback | undefined = undefined;
-// [StartExclude get_DebugManager]
 
+// 申请麦克风录音权限
 async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
   let atManager = abilityAccessCtrl.createAtManager();
   let result: PermissionRequestResult = await atManager
     .requestPermissionsFromUser(context, ['ohos.permission.MICROPHONE']);
   return result.authResults[0] === 0;
 }
-// [EndExclude all_audioLoopbackDebugInfo]
 
 // 查询能力，创建返听器实例。
 function init(updateCallback?: (msg: string, isError: boolean) => void): void {
@@ -43,41 +36,27 @@ function init(updateCallback?: (msg: string, isError: boolean) => void): void {
   if (isSupported) {
     audio.createAudioLoopback(mode).then((loopback) => {
       console.info('Succeeded in creating audio loopback.');
-      // [StartExclude get_DebugManager]
-      // [StartExclude all_audioLoopbackDebugInfo]
       const successMsg = 'Succeeded in creating audio loopback.';
       if (updateCallback) {
         updateCallback(successMsg, false);
       }
-      // [EndExclude all_audioLoopbackDebugInfo]
-      // [EndExclude get_DebugManager]
       audioLoopback = loopback;
     }).catch((err: BusinessError) => {
       console.error(`Failed to create audio loopback. Code: ${err.code}, message: ${err.message}`);
-      // [StartExclude get_DebugManager]
-      // [StartExclude all_audioLoopbackDebugInfo]
       const errorMsg = `Failed to create audio loopback. Code: ${err.code}, message: ${err.message}`;
       if (updateCallback) {
         updateCallback(errorMsg, true);
       }
-      // [EndExclude all_audioLoopbackDebugInfo]
-      // [EndExclude get_DebugManager]
     });
   } else {
     console.error('Audio loopback is unsupported.');
-    // [StartExclude all_audioLoopbackDebugInfo]
-    // [StartExclude get_DebugManager]
     const errorMsg = 'Audio loopback is unsupported.';
     if (updateCallback) {
       updateCallback(errorMsg, true);
     }
-    // [EndExclude get_DebugManager]
-    // [EndExclude all_audioLoopbackDebugInfo]
   }
 }
-// [End get_DebugManager]
 
-// [StartExclude all_audioLoopbackDebugInfo]
 // 启用返听。
 async function enable(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
   if (audioLoopback !== undefined) {
@@ -110,25 +89,23 @@ async function enable(updateCallback?: (msg: string, isError: boolean) => void):
     }
   }
 }
-// [EndExclude all_audioLoopbackDebugInfo]
 
 // 查询返听器调试信息。
 function printLoopbackInfo(updateCallback?: (msg: string, isError: boolean) => void): void {
-// [EndExclude print_LoopbackInfo]
   if (audioLoopback === undefined) {
     console.error('Audio loopback not created.');
-    // [StartExclude print_LoopbackInfo]
     const errorMsg = 'Audio loopback not created.';
     if (updateCallback) {
       updateCallback(errorMsg, true);
     }
-    // [EndExclude print_LoopbackInfo]
     return;
   }
-  // [StartExclude print_LoopbackInfo]
+  // [Start print_loopback_info]
+  // 获取调试管理器。
   let debugManager = audio.getAudioManager().getDebuggingManager();
-  // [EndExclude print_LoopbackInfo]
+
   // 输出到hilog日志。
+  // audioLoopback为已创建的AudioLoopback实例。
   debugManager.printLoopbackInfo(audioLoopback, -1);
 
   // 输出到文件。
@@ -139,16 +116,13 @@ function printLoopbackInfo(updateCallback?: (msg: string, isError: boolean) => v
   } finally {
     fs.closeSync(file);
   }
-  // [StartExclude print_LoopbackInfo]
+  // [End print_loopback_info]
   const successMsg = `Loopback debug info written to: ${filePath}`;
   if (updateCallback) {
     updateCallback(successMsg, false);
   }
-  // [EndExclude print_LoopbackInfo]
 }
-// [End print_LoopbackInfo]
 
-// [StartExclude all_audioLoopbackDebugInfo]
 @Entry
 @Component
 struct Index {
@@ -280,5 +254,3 @@ struct Index {
     }
   }
 }
-// [EndExclude all_audioLoopbackDebugInfo]
-// [End all_audioLoopbackDebugInfo]
