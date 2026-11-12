@@ -1,0 +1,9 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "AccessibilityExtension",
+      "description": "Application name"
+    }
+  ]
+}
