@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 720" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 12; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #666666; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="720" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 11:07</text>
+
+    <!-- 标题 -->
+    <text x="15" y="85" class="text-main" font-size="22" font-weight="bold">组合场景</text>
+
+    <!-- 场景列表 -->
+    <!-- 场景 1 -->
+    <rect x="15" y="110" width="330" height="50" class="card"/>
+    <text x="30" y="140" class="text-main" font-size="15" font-weight="bold">Scenario 1: Car Audio</text>
+    <text x="330" y="140" class="text-sub" font-size="13" text-anchor="end">A2DP + HFP + AVRCP + PBAP</text>
+
+    <!-- 场景 2 -->
+    <rect x="15" y="170" width="330" height="50" class="card"/>
+    <text x="30" y="200" class="text-main" font-size="15" font-weight="bold">Scenario 2: Music + Control</text>
+    <text x="330" y="200" class="text-sub" font-size="13" text-anchor="end">A2DP + AVRCP</text>
+
+    <!-- 场景 3 -->
+    <rect x="15" y="230" width="330" height="50" class="card"/>
+    <text x="30" y="260" class="text-main" font-size="15" font-weight="bold">Scenario 3: Phone Sync</text>
+    <text x="330" y="260" class="text-sub" font-size="13" text-anchor="end">PBAP + MAP + HFP</text>
+
+    <!-- 场景 4 -->
+    <rect x="15" y="290" width="330" height="50" class="card"/>
+    <text x="30" y="320" class="text-main" font-size="15" font-weight="bold">Scenario 4: Fitness</text>
+    <text x="330" y="320" class="text-sub" font-size="13" text-anchor="end">HDP + PAN</text>
+
+    <!-- 场景 5 -->
+    <rect x="15" y="350" width="330" height="50" class="card"/>
+    <text x="30" y="380" class="text-main" font-size="15" font-weight="bold">Scenario 5: Gaming</text>
+    <text x="330" y="380" class="text-sub" font-size="13" text-anchor="end">HID + A2DP</text>
+
+    <!-- 场景 6 -->
+    <rect x="15" y="410" width="330" height="50" class="card"/>
+    <text x="30" y="440" class="text-main" font-size="15" font-weight="bold">Scenario 6: Full Office</text>
+    <text x="330" y="440" class="text-sub" font-size="13" text-anchor="end">HID + PAN + PBAP</text>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,695 120,705 100,705" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="700" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="692" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

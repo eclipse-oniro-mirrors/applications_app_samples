@@ -20,17 +20,17 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 加密工具类
- * 提供常用的加密、编码和解码方法
+ * encryption utility class
+ * provides common encrypt, encode and decode method method
  */
 export class EncryptionUtils {
-  /** Base64字符表 */
+  /** Base64 character symbol table */
   private static readonly BASE64_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
   /**
-   * Base64编码
-   * @param input - 要编码的字符串
-   * @returns Base64编码后的字符串
+   * Base64 encode
+   * @param input - want encode string
+   * @returns Base64 encoded string
    */
   static base64Encode(input: string): string {
     if (!input) {
@@ -52,7 +52,7 @@ export class EncryptionUtils {
       result += EncryptionUtils.BASE64_CHARS[(triplet >> 6) & 0x3F];
       result += EncryptionUtils.BASE64_CHARS[triplet & 0x3F];
     }
-    // 添加填充
+    // add pad
     const padding: number = (3 - (bytes.length % 3)) % 3;
     for (let p: number = 0; p < padding; p++) {
       result = result.substring(0, result.length - 1 - p) + '=' + result.substring(result.length - p);
@@ -61,9 +61,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * Base64解码
-   * @param input - Base64编码的字符串
-   * @returns 解码后的字符串
+   * Base64 decode
+   * @param input - Base64 encode string
+   * @returns decoded string
    */
   static base64Decode(input: string): string {
     if (!input) {
@@ -93,10 +93,10 @@ export class EncryptionUtils {
   }
 
   /**
-   * 简单的XOR加密
-   * @param input - 要加密的字符串
-   * @param key - 加密密钥
-   * @returns 加密后的字符串
+   * simple XOR encryption
+   * @param input - string to encrypt
+   * @param key - encryption key
+   * @returns encrypted string
    */
   static xorEncrypt(input: string, key: string): string {
     if (!input || !key) {
@@ -111,19 +111,19 @@ export class EncryptionUtils {
   }
 
   /**
-   * 简单的XOR解密（与加密相同操作）
-   * @param input - 加密的字符串
-   * @param key - 解密密钥
-   * @returns 解密后的字符串
+   * simple XOR decryption (same operation as encryption)
+   * @param input - encrypted string
+   * @param key - decryption key
+   * @returns decrypted string
    */
   static xorDecrypt(input: string, key: string): string {
     return EncryptionUtils.xorEncrypt(input, key);
   }
 
   /**
-   * 计算字符串的简单哈希值
-   * @param input - 要哈希的字符串
-   * @returns 哈希值（十六进制字符串）
+   * calculate string simple single ha hope value
+   * @param input - want ha hope string
+   * @returns ha hope value (hex string)
    */
   static simpleHash(input: string): string {
     if (!input) {
@@ -138,8 +138,8 @@ export class EncryptionUtils {
   }
 
   /**
-   * 生成UUID v4
-   * @returns UUID字符串
+   * generate UUID v4
+   * @returns UUID string
    */
   static generateUuid(): string {
     const hex: string = '0123456789abcdef';
@@ -159,9 +159,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 将十六进制字符串转换为字节数组
-   * @param hex - 十六进制字符串
-   * @returns 字节数组
+   * will hex string to byte array
+   * @param hex - hex string
+   * @returns byte array
    */
   static hexToBytes(hex: string): number[] {
     const bytes: number[] = [];
@@ -172,9 +172,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 将字节数组转换为十六进制字符串
-   * @param bytes - 字节数组
-   * @returns 十六进制字符串
+   * will byte array to hex string
+   * @param bytes - byte array
+   * @returns hex string
    */
   static bytesToHex(bytes: number[]): string {
     let hex: string = '';
@@ -185,9 +185,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 生成随机密钥
-   * @param length - 密钥长度（字节）
-   * @returns 随机密钥字符串
+   * generate random key
+   * @param length - key length (character section)
+   * @returns random key string
    */
   static generateKey(length: number = 16): string {
     const chars: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -199,10 +199,10 @@ export class EncryptionUtils {
   }
 
   /**
-   * 掩码敏感信息
-   * @param input - 原始字符串
-   * @param visibleChars - 保留的可见字符数
-   * @returns 掩码后的字符串
+   * mask sensitive info
+   * @param input - original string
+   * @param visibleChars - number of visible chars to keep
+   * @returns masked string
    */
   static maskSensitive(input: string, visibleChars: number = 4): string {
     if (!input || input.length <= visibleChars) {

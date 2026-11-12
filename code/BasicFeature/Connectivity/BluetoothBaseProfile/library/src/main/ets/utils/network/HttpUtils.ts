@@ -14,7 +14,7 @@
  */
 
 /**
- * HTTP方法枚举
+ * HTTP method enum
  */
 export enum HttpMethod {
   GET = 'GET',
@@ -25,7 +25,7 @@ export enum HttpMethod {
 }
 
 /**
- * HTTP响应接口
+ * HTTP sound respond connect port
  */
 export interface HttpResponse {
   statusCode: number;
@@ -34,7 +34,7 @@ export interface HttpResponse {
 }
 
 /**
- * HTTP请求配置接口
+ * HTTP request config connect port
  */
 export interface HttpRequestConfig {
   url: string;
@@ -45,35 +45,35 @@ export interface HttpRequestConfig {
 }
 
 /**
- * 请求拦截器接口
+ * request interceptor interface
  */
 export interface RequestInterceptor {
   onRequest(config: HttpRequestConfig): HttpRequestConfig;
 }
 
 /**
- * 响应拦截器接口
+ * response interceptor interface
  */
 export interface ResponseInterceptor {
   onResponse(response: HttpResponse): HttpResponse;
 }
 
 /**
- * HTTP工具类
- * 提供HTTP请求相关的实用方法
+ * HTTP utility class
+ * provides HTTP request request relative relate actual use method method
  */
 export class HttpUtils {
-  /** 请求拦截器列表 */
+  /** request interceptor list */
   private static requestInterceptors: RequestInterceptor[] = [];
-  /** 响应拦截器列表 */
+  /** response interceptor list */
   private static responseInterceptors: ResponseInterceptor[] = [];
-  /** 默认超时时间 */
+  /** default timeout */
   private static readonly DEFAULT_TIMEOUT: number = 30000;
 
   /**
-   * 构建URL查询参数
-   * @param params - 参数对象
-   * @returns 查询参数字符串
+   * build URL query parameters
+   * @param params - params against object
+   * @returns query parameter string
    */
   static buildQueryString(params: Record<string, string>): string {
     const parts: string[] = [];
@@ -84,9 +84,9 @@ export class HttpUtils {
   }
 
   /**
-   * 解析URL查询参数
-   * @param queryString - 查询字符串
-   * @returns 参数对象
+   * parse URL query parameters
+   * @param queryString - query string
+   * @returns params against object
    */
   static parseQueryString(queryString: string): Record<string, string> {
     const result: Record<string, string> = {};
@@ -107,11 +107,11 @@ export class HttpUtils {
   }
 
   /**
-   * 构建完整的URL
-   * @param baseUrl - 基础URL
-   * @param path - 路径
-   * @param params - 查询参数
-   * @returns 完整的URL
+   * build full URL
+   * @param baseUrl - base URL
+   * @param path - path
+   * @param params - check query params
+   * @returns full URL
    */
   static buildUrl(baseUrl: string, path: string, params?: Record<string, string>): string {
     let url: string = baseUrl;
@@ -129,11 +129,11 @@ export class HttpUtils {
   }
 
   /**
-   * 创建请求配置
-   * @param url - 请求URL
-   * @param method - HTTP方法
-   * @param body - 请求体
-   * @returns 请求配置
+   * create request config
+   * @param url - request URL
+   * @param method - HTTP method method
+   * @param body - request body
+   * @returns request config
    */
   static createConfig(url: string, method: HttpMethod = HttpMethod.GET, body?: string): HttpRequestConfig {
     return {
@@ -146,61 +146,61 @@ export class HttpUtils {
   }
 
   /**
-   * 添加请求拦截器
-   * @param interceptor - 拦截器
+   * add request interceptor
+   * @param interceptor - interceptor
    */
   static addRequestInterceptor(interceptor: RequestInterceptor): void {
     HttpUtils.requestInterceptors.push(interceptor);
   }
 
   /**
-   * 添加响应拦截器
-   * @param interceptor - 拦截器
+   * add response interceptor
+   * @param interceptor - interceptor
    */
   static addResponseInterceptor(interceptor: ResponseInterceptor): void {
     HttpUtils.responseInterceptors.push(interceptor);
   }
 
   /**
-   * 检查HTTP状态码是否成功
-   * @param statusCode - HTTP状态码
-   * @returns 是否成功
+   * check HTTP state state code whether success
+   * @param statusCode - HTTP state state code
+   * @returns whether success
    */
   static isSuccess(statusCode: number): boolean {
     return statusCode >= 200 && statusCode < 300;
   }
 
   /**
-   * 检查是否需要重定向
-   * @param statusCode - HTTP状态码
-   * @returns 是否需要重定向
+   * check whether need redirect
+   * @param statusCode - HTTP state state code
+   * @returns whether need redirect
    */
   static isRedirect(statusCode: number): boolean {
     return statusCode >= 300 && statusCode < 400;
   }
 
   /**
-   * 检查是否为客户端错误
-   * @param statusCode - HTTP状态码
-   * @returns 是否为客户端错误
+   * check whether for client error
+   * @param statusCode - HTTP state state code
+   * @returns whether for client error
    */
   static isClientError(statusCode: number): boolean {
     return statusCode >= 400 && statusCode < 500;
   }
 
   /**
-   * 检查是否为服务端错误
-   * @param statusCode - HTTP状态码
-   * @returns 是否为服务端错误
+   * check whether for server error
+   * @param statusCode - HTTP state state code
+   * @returns whether for server error
    */
   static isServerError(statusCode: number): boolean {
     return statusCode >= 500;
   }
 
   /**
-   * 获取状态码描述
-   * @param statusCode - HTTP状态码
-   * @returns 状态码描述
+   * get state state code describe describe
+   * @param statusCode - HTTP state state code
+   * @returns state state code describe describe
    */
   static getStatusText(statusCode: number): string {
     const statusTexts: Record<number, string> = {
@@ -214,7 +214,7 @@ export class HttpUtils {
   }
 
   /**
-   * 清除所有拦截器
+   * clear all interceptors
    */
   static clearInterceptors(): void {
     HttpUtils.requestInterceptors = [];

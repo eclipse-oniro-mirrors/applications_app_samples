@@ -20,7 +20,7 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 剪贴板数据类型枚举
+ * clipboard data type enum
  */
 export enum ClipboardDataType {
   TEXT = 'text',
@@ -30,27 +30,27 @@ export enum ClipboardDataType {
 }
 
 /**
- * 剪贴板变更监听器接口
+ * clipboard change listener interface
  */
 export interface ClipboardChangeListener {
   onDataChange(data: string, type: ClipboardDataType): void;
 }
 
 /**
- * 剪贴板工具类
- * 提供剪贴板操作相关的实用方法
+ * clipboard utility class
+ * provides clipboard operation relative relate actual use method method
  */
 export class ClipboardUtils {
-  /** 内部剪贴板存储 */
+  /** internal part clipboard store */
   private static clipboardData: string = '';
-  /** 数据类型 */
+  /** number data class type */
   private static dataType: ClipboardDataType = ClipboardDataType.UNKNOWN;
-  /** 监听器列表 */
+  /** listener list */
   private static listeners: ClipboardChangeListener[] = [];
 
   /**
-   * 设置剪贴板文本
-   * @param text - 要设置的文本
+   * set clipboard text
+   * @param text - want set text
    */
   static setText(text: string): void {
     hilog.info(DOMAIN, TAG, 'ClipboardUtils setText: length=%{public}d', text.length);
@@ -60,31 +60,31 @@ export class ClipboardUtils {
   }
 
   /**
-   * 获取剪贴板文本
-   * @returns 剪贴板文本
+   * get clipboard text
+   * @returns clipboard text
    */
   static getText(): string {
     return ClipboardUtils.clipboardData;
   }
 
   /**
-   * 获取剪贴板数据类型
-   * @returns 数据类型
+   * get clipboard data type
+   * @returns number data class type
    */
   static getDataType(): ClipboardDataType {
     return ClipboardUtils.dataType;
   }
 
   /**
-   * 检查剪贴板是否有内容
-   * @returns 是否有内容
+   * check whether the clipboard has content
+   * @returns whether have internal content
    */
   static hasData(): boolean {
     return ClipboardUtils.clipboardData.length > 0;
   }
 
   /**
-   * 清空剪贴板
+   * clear clipboard
    */
   static clear(): void {
     hilog.info(DOMAIN, TAG, 'ClipboardUtils clear: clearing clipboard');
@@ -93,9 +93,9 @@ export class ClipboardUtils {
   }
 
   /**
-   * 检测数据类型
-   * @param data - 要检测的数据
-   * @returns 数据类型
+   * check test number data class type
+   * @param data - want check test number data
+   * @returns number data class type
    */
   static detectType(data: string): ClipboardDataType {
     if (!data) {
@@ -111,9 +111,9 @@ export class ClipboardUtils {
   }
 
   /**
-   * 复制蓝牙设备信息到剪贴板
-   * @param deviceName - 设备名称
-   * @param macAddress - MAC地址
+   * copy Bluetooth device info to clipboard
+   * @param deviceName - device name
+   * @param macAddress - MAC ground address
    */
   static copyDeviceInfo(deviceName: string, macAddress: string): void {
     const info: string = 'Device: ' + deviceName + '\nMAC: ' + macAddress;
@@ -121,24 +121,24 @@ export class ClipboardUtils {
   }
 
   /**
-   * 复制连接日志
-   * @param logs - 日志数组
+   * copy connection log
+   * @param logs - log array
    */
   static copyConnectionLogs(logs: string[]): void {
     ClipboardUtils.setText(logs.join('\n'));
   }
 
   /**
-   * 添加变更监听器
-   * @param listener - 监听器
+   * add change listener
+   * @param listener - listener
    */
   static addListener(listener: ClipboardChangeListener): void {
     ClipboardUtils.listeners.push(listener);
   }
 
   /**
-   * 移除变更监听器
-   * @param listener - 监听器
+   * remove change listener
+   * @param listener - listener
    */
   static removeListener(listener: ClipboardChangeListener): void {
     const index: number = ClipboardUtils.listeners.indexOf(listener);
@@ -148,9 +148,9 @@ export class ClipboardUtils {
   }
 
   /**
-   * 通知所有监听器
-   * @param data - 数据
-   * @param type - 类型
+   * notify all listeners
+   * @param data - number data
+   * @param type - class type
    */
   private static notifyListeners(data: string, type: ClipboardDataType): void {
     for (const listener of ClipboardUtils.listeners) {

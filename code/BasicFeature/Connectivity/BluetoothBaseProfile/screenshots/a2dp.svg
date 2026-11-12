@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 720" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 12; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #666666; }
+            .text-gray { font-family: -apple-system, sans-serif; fill: #999999; }
+            .text-blue { font-family: -apple-system, sans-serif; fill: #0a59f7; }
+            .tab-active { font-family: -apple-system, sans-serif; fill: #0a59f7; font-size: 14px; font-weight: bold; }
+            .tab-normal { font-family: -apple-system, sans-serif; fill: #666666; font-size: 14px; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="720" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 10:54</text>
+
+    <!-- 顶部标题栏 -->
+    <rect x="0" y="45" width="360" height="60" fill="#0a59f7"/>
+    <text x="15" y="82" fill="#ffffff" font-size="18" font-weight="bold">音频分发 Profile (A2DP)</text>
+
+    <!-- 顶部按钮 -->
+    <rect x="245" y="58" width="55" height="34" rx="17" fill="#3b7bff"/>
+    <text x="272" y="79" fill="#ffffff" font-size="14" text-anchor="middle" font-weight="bold">刷新</text>
+    <rect x="305" y="58" width="45" height="34" rx="17" fill="#14c93c"/>
+    <text x="327" y="79" fill="#ffffff" font-size="14" text-anchor="middle" font-weight="bold">连接</text>
+
+    <!-- 连接状态卡片 -->
+    <rect x="15" y="120" width="330" height="100" class="card"/>
+    <text x="30" y="150" class="text-main" font-size="16" font-weight="bold">连接状态</text>
+    <text x="330" y="150" class="text-gray" font-size="14" text-anchor="end">Disconnected</text>
+
+    <text x="30" y="175" class="text-main" font-size="14">已连接设备: </text>
+    <text x="110" y="175" class="text-main" font-size="14" font-weight="bold">0</text>
+
+    <text x="30" y="200" class="text-main" font-size="14">健康度: </text>
+    <text x="85" y="200" class="text-main" font-size="14" font-weight="bold">60/100</text>
+
+    <!-- 导航 Tabs -->
+    <text x="35" y="260" class="tab-active">概览</text>
+    <line x1="28" y1="268" x2="58" y2="268" stroke="#0a59f7" stroke-width="2"/>
+    <text x="90" y="260" class="tab-normal">设备</text>
+    <text x="150" y="260" class="tab-normal">操作</text>
+    <text x="210" y="260" class="tab-normal">历史</text>
+    <text x="270" y="260" class="tab-normal">统计</text>
+    <text x="325" y="260" class="tab-normal">设置</text>
+
+    <!-- 概览内容区 -->
+    <text x="180" y="305" class="text-main" font-size="18" font-weight="bold" text-anchor="middle">概览</text>
+
+    <!-- 数据卡片 -->
+    <rect x="15" y="325" width="330" height="160" class="card"/>
+
+    <!-- 分割线 -->
+    <line x1="180" y1="345" x2="180" y2="465" stroke="#eeeeee" stroke-width="2"/>
+
+    <!-- 左侧数据 -->
+    <text x="100" y="390" class="text-sub" font-size="13" text-anchor="middle">已连接设备</text>
+    <text x="100" y="430" class="text-blue" font-size="32" font-weight="bold" text-anchor="middle">0</text>
+
+    <!-- 右侧数据 -->
+    <text x="260" y="390" class="text-sub" font-size="13" text-anchor="middle">操作</text>
+    <text x="260" y="430" fill="#14c93c" font-size="32" font-weight="bold" text-anchor="middle">1</text>
+
+    <!-- 最近操作区 -->
+    <text x="180" y="515" class="text-main" font-size="16" font-weight="bold" text-anchor="middle">最近操作</text>
+
+    <rect x="15" y="535" width="330" height="40" rx="8" fill="#f0f0f0"/>
+    <text x="30" y="560" class="text-main" font-size="14">initialize</text>
+    <path d="M325 548 L330 555 L338 545" fill="none" stroke="#14c93c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,695 120,705 100,705" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="700" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="692" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

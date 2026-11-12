@@ -20,33 +20,33 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 偏好设置变更监听器接口
+ * preference change listener interface
  */
 export interface PreferenceChangeListener {
   /**
-   * 当偏好值变更时回调
-   * @param key - 变更的键名
-   * @param value - 新的值
+   * when bias good value change time callback
+   * @param key - changed key name
+   * @param value - new value
    */
   onChange(key: string, value: string | number | boolean): void;
 }
 
 /**
- * 偏好设置工具类
- * 提供轻量级的键值对持久化存储能力
- * 使用内存Map模拟Preference存储
+ * preference utility class
+ * provides lightweight key-value persistent storage capability
+ * use internal store Map simulate Preference store
  */
 export class PreferenceUtils {
-  /** 内部存储 */
+  /** internal storage */
   private static storage: Map<string, Map<string, string | number | boolean>> = new Map();
-  /** 监听器列表 */
+  /** listener list */
   private static listeners: PreferenceChangeListener[] = [];
-  /** 默认存储名称 */
+  /** default store name */
   private static readonly DEFAULT_STORE: string = 'bluetooth_prefs';
 
   /**
-   * 初始化偏好存储
-   * @param storeName - 存储名称
+   * initialize preference store
+   * @param storeName - store name
    */
   static initialize(storeName: string = PreferenceUtils.DEFAULT_STORE): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils initialize: storeName=%{public}s', storeName);
@@ -56,9 +56,9 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取存储实例
-   * @param storeName - 存储名称
-   * @returns Map实例
+   * get store instance
+   * @param storeName - store name
+   * @returns Map instance
    */
   private static getStore(storeName: string): Map<string, string | number | boolean> {
     if (!PreferenceUtils.storage.has(storeName)) {
@@ -68,10 +68,10 @@ export class PreferenceUtils {
   }
 
   /**
-   * 存储字符串值
-   * @param key - 键名
-   * @param value - 值
-   * @param storeName - 存储名称
+   * store string value
+   * @param key - key name
+   * @param value - value
+   * @param storeName - store name
    */
   static putString(key: string, value: string, storeName: string = PreferenceUtils.DEFAULT_STORE): void {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils putString: key=%{public}s', key);
@@ -81,11 +81,11 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取字符串值
-   * @param key - 键名
-   * @param defaultValue - 默认值
-   * @param storeName - 存储名称
-   * @returns 存储的字符串值
+   * get string value
+   * @param key - key name
+   * @param defaultValue - default value
+   * @param storeName - store name
+   * @returns stored string value
    */
   static getString(key: string, defaultValue: string = '', storeName: string = PreferenceUtils.DEFAULT_STORE): string {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
@@ -97,10 +97,10 @@ export class PreferenceUtils {
   }
 
   /**
-   * 存储数值
-   * @param key - 键名
-   * @param value - 值
-   * @param storeName - 存储名称
+   * store number value
+   * @param key - key name
+   * @param value - value
+   * @param storeName - store name
    */
   static putNumber(key: string, value: number, storeName: string = PreferenceUtils.DEFAULT_STORE): void {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils putNumber: key=%{public}s, value=%{public}d', key, value);
@@ -110,11 +110,11 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取数值
-   * @param key - 键名
-   * @param defaultValue - 默认值
-   * @param storeName - 存储名称
-   * @returns 存储的数值
+   * get number value
+   * @param key - key name
+   * @param defaultValue - default value
+   * @param storeName - store name
+   * @returns stored number value
    */
   static getNumber(key: string, defaultValue: number = 0, storeName: string = PreferenceUtils.DEFAULT_STORE): number {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
@@ -126,10 +126,10 @@ export class PreferenceUtils {
   }
 
   /**
-   * 存储布尔值
-   * @param key - 键名
-   * @param value - 值
-   * @param storeName - 存储名称
+   * store boolean value
+   * @param key - key name
+   * @param value - value
+   * @param storeName - store name
    */
   static putBoolean(key: string, value: boolean, storeName: string = PreferenceUtils.DEFAULT_STORE): void {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils putBoolean: key=%{public}s, value=%{public}s', key, value.toString());
@@ -139,13 +139,14 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取布尔值
-   * @param key - 键名
-   * @param defaultValue - 默认值
-   * @param storeName - 存储名称
-   * @returns 存储的布尔值
+   * get boolean value
+   * @param key - key name
+   * @param defaultValue - default value
+   * @param storeName - store name
+   * @returns stored boolean value
    */
-  static getBoolean(key: string, defaultValue: boolean = false, storeName: string = PreferenceUtils.DEFAULT_STORE): boolean {
+  static getBoolean(key: string, defaultValue: boolean = false,
+    storeName: string = PreferenceUtils.DEFAULT_STORE): boolean {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
     const value: string | number | boolean | undefined = store.get(key);
     if (value === undefined) {
@@ -155,10 +156,10 @@ export class PreferenceUtils {
   }
 
   /**
-   * 检查键是否存在
-   * @param key - 键名
-   * @param storeName - 存储名称
-   * @returns 是否存在
+   * check whether the key exists
+   * @param key - key name
+   * @param storeName - store name
+   * @returns whether store at
    */
   static has(key: string, storeName: string = PreferenceUtils.DEFAULT_STORE): boolean {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
@@ -166,9 +167,9 @@ export class PreferenceUtils {
   }
 
   /**
-   * 删除指定键
-   * @param key - 键名
-   * @param storeName - 存储名称
+   * delete the specified key
+   * @param key - key name
+   * @param storeName - store name
    */
   static remove(key: string, storeName: string = PreferenceUtils.DEFAULT_STORE): void {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils remove: key=%{public}s', key);
@@ -177,8 +178,8 @@ export class PreferenceUtils {
   }
 
   /**
-   * 清空指定存储
-   * @param storeName - 存储名称
+   * clear the specified store
+   * @param storeName - store name
    */
   static clear(storeName: string = PreferenceUtils.DEFAULT_STORE): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils clear: clearing store %{public}s', storeName);
@@ -186,9 +187,9 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取所有键名
-   * @param storeName - 存储名称
-   * @returns 键名数组
+   * get all key names
+   * @param storeName - store name
+   * @returns key array
    */
   static keys(storeName: string = PreferenceUtils.DEFAULT_STORE): string[] {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
@@ -196,9 +197,9 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取存储大小
-   * @param storeName - 存储名称
-   * @returns 存储条目数
+   * get store size
+   * @param storeName - store name
+   * @returns store entry count
    */
   static size(storeName: string = PreferenceUtils.DEFAULT_STORE): number {
     const store: Map<string, string | number | boolean> = PreferenceUtils.getStore(storeName);
@@ -206,16 +207,16 @@ export class PreferenceUtils {
   }
 
   /**
-   * 添加偏好变更监听器
-   * @param listener - 监听器
+   * add preference change listener
+   * @param listener - listener
    */
   static addListener(listener: PreferenceChangeListener): void {
     PreferenceUtils.listeners.push(listener);
   }
 
   /**
-   * 移除偏好变更监听器
-   * @param listener - 监听器
+   * remove preference change listener
+   * @param listener - listener
    */
   static removeListener(listener: PreferenceChangeListener): void {
     const index: number = PreferenceUtils.listeners.indexOf(listener);
@@ -225,9 +226,9 @@ export class PreferenceUtils {
   }
 
   /**
-   * 通知所有监听器
-   * @param key - 变更的键
-   * @param value - 新的值
+   * notify all listeners
+   * @param key - changed key
+   * @param value - new value
    */
   private static notifyListeners(key: string, value: string | number | boolean): void {
     for (const listener of PreferenceUtils.listeners) {

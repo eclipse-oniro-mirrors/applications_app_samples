@@ -58,7 +58,7 @@ export interface ManagerFilterCriteria {
 /**
  * @interface OperationHistoryEntry
  * @description Shape returned by every service's getOperationHistory() and used
- *              by pages to render Recent Activity lists.
+ *              by pages to render the Latest Operations list.
  */
 export interface OperationHistoryEntry {
   /** Human readable operation name (e.g. 'connect', 'disconnect'). */

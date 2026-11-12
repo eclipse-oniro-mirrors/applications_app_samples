@@ -16,7 +16,7 @@
 import { ValidationUtils, ValidationResult } from './ValidationUtils';
 
 /**
- * 表单验证结果接口
+ * form validation result interface
  */
 export interface FormValidationResult {
   isValid: boolean;
@@ -25,7 +25,7 @@ export interface FormValidationResult {
 }
 
 /**
- * 字段规则接口
+ * field rule interface
  */
 export interface FieldRule {
   fieldName: string;
@@ -37,66 +37,66 @@ export interface FieldRule {
 }
 
 /**
- * 表单验证器类
- * 提供表单字段验证能力
+ * form validator class
+ * provides form field validate capability
  */
 export class FormValidator {
-  /** 验证规则列表 */
+  /** validation rule list */
   private rules: FieldRule[] = [];
 
   /**
-   * 添加验证规则
-   * @param rule - 字段规则
+   * add validation rule
+   * @param rule - field rule rule
    */
   addRule(rule: FieldRule): void {
     this.rules.push(rule);
   }
 
   /**
-   * 移除指定字段的规则
-   * @param fieldName - 字段名称
+   * remove rules of the specified field
+   * @param fieldName - field name name
    */
   removeRule(fieldName: string): void {
     this.rules = this.rules.filter((r: FieldRule) => r.fieldName !== fieldName);
   }
 
   /**
-   * 清除所有规则
+   * clear all rules
    */
   clearRules(): void {
     this.rules = [];
   }
 
   /**
-   * 验证表单数据
-   * @param data - 表单数据
-   * @returns 验证结果
+   * validate form data
+   * @param data - form data
+   * @returns validation result
    */
   validate(data: Record<string, string>): FormValidationResult {
     const errors: Map<string, string> = new Map();
     for (const rule of this.rules) {
       const value: string = data[rule.fieldName] || '';
-      // 检查必填
+      // check required fill
       if (rule.required && (!value || value.trim().length === 0)) {
         errors.set(rule.fieldName, rule.fieldName + ' is required');
         continue;
       }
-      // 检查最小长度
+      // check min length degree
       if (rule.minLength !== undefined && value.length < rule.minLength) {
         errors.set(rule.fieldName, rule.fieldName + ' too short (min ' + rule.minLength + ')');
         continue;
       }
-      // 检查最大长度
+      // check max length degree
       if (rule.maxLength !== undefined && value.length > rule.maxLength) {
         errors.set(rule.fieldName, rule.fieldName + ' too long (max ' + rule.maxLength + ')');
         continue;
       }
-      // 检查正则
+      // check correct rule
       if (rule.pattern && !rule.pattern.test(value)) {
         errors.set(rule.fieldName, rule.fieldName + ' format invalid');
         continue;
       }
-      // 自定义验证
+      // custom validation
       if (rule.customValidator && value.length > 0) {
         const result: ValidationResult = rule.customValidator(value);
         if (!result.isValid) {
@@ -112,36 +112,37 @@ export class FormValidator {
   }
 
   /**
-   * 获取规则数量
-   * @returns 规则数量
+   * get rule count
+   * @returns rule rule number amount
    */
   getRuleCount(): number {
     return this.rules.length;
   }
 
   /**
-   * 检查是否有指定字段的规则
-   * @param fieldName - 字段名称
-   * @returns 是否有规则
+   * check whether the specified field has rules
+   * @param fieldName - field name name
+   * @returns whether have rule rule
    */
   hasRule(fieldName: string): boolean {
     return this.rules.some((r: FieldRule) => r.fieldName === fieldName);
   }
 
   /**
-   * 创建蓝牙设备表单验证器
-   * @returns 配置好的表单验证器
+   * create Bluetooth device form validator
+   * @returns configured form validator
    */
   static createBluetoothDeviceValidator(): FormValidator {
     const validator: FormValidator = new FormValidator();
     validator.addRule({ fieldName: 'deviceName', required: true, minLength: 1, maxLength: 248 });
-    validator.addRule({ fieldName: 'macAddress', required: true, customValidator: (v: string) => ValidationUtils.validateMacAddress(v) });
+    validator.addRule({ fieldName: 'macAddress', required: true,
+        customValidator: (v: string) => ValidationUtils.validateMacAddress(v) });
     return validator;
   }
 
   /**
-   * 创建连接配置表单验证器
-   * @returns 配置好的表单验证器
+   * create connection config form validator
+   * @returns configured form validator
    */
   static createConnectionConfigValidator(): FormValidator {
     const validator: FormValidator = new FormValidator();

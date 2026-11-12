@@ -20,7 +20,7 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 权限状态枚举
+ * permission state enum
  */
 export enum PermissionStatus {
   GRANTED = 'granted',
@@ -29,41 +29,41 @@ export enum PermissionStatus {
 }
 
 /**
- * 权限结果回调接口
+ * permission result callback interface
  */
 export interface PermissionResultCallback {
   onResult(permission: string, status: PermissionStatus): void;
 }
 
 /**
- * 权限请求回调接口
+ * permission request callback interface
  */
 export interface PermissionRequestCallback {
   onPermissionsResult(results: Map<string, PermissionStatus>): void;
 }
 
 /**
- * 权限工具类
- * 提供权限检查和请求相关的实用方法
+ * permission utility class
+ * provides permission check and request request relative relate actual use method method
  */
 export class PermissionUtils {
-  /** 已授予的权限集合 */
+  /** granted permission set */
   private static grantedPermissions: Set<string> = new Set();
-  /** 权限回调列表 */
+  /** permission callback list */
   private static resultCallbacks: PermissionResultCallback[] = [];
 
   /**
-   * 检查权限是否已授予
-   * @param permission - 权限名称
-   * @returns 是否已授予
+   * check whether the permission is granted
+   * @param permission - permission name
+   * @returns whether already grant give
    */
   static hasPermission(permission: string): boolean {
     return PermissionUtils.grantedPermissions.has(permission);
   }
 
   /**
-   * 授予权限（模拟）
-   * @param permission - 权限名称
+   * grant permission (simulate)
+   * @param permission - permission name
    */
   static grantPermission(permission: string): void {
     hilog.info(DOMAIN, TAG, 'PermissionUtils grantPermission: %{public}s', permission);
@@ -72,8 +72,8 @@ export class PermissionUtils {
   }
 
   /**
-   * 撤销权限（模拟）
-   * @param permission - 权限名称
+   * revoke permission (simulate)
+   * @param permission - permission name
    */
   static revokePermission(permission: string): void {
     hilog.info(DOMAIN, TAG, 'PermissionUtils revokePermission: %{public}s', permission);
@@ -82,12 +82,13 @@ export class PermissionUtils {
   }
 
   /**
-   * 请求多个权限
-   * @param permissions - 权限列表
-   * @param callback - 结果回调
+   * request multiple permissions
+   * @param permissions - permission list
+   * @param callback - result callback
    */
   static requestPermissions(permissions: string[], callback: PermissionRequestCallback): void {
-    hilog.info(DOMAIN, TAG, 'PermissionUtils requestPermissions: requesting %{public}d permissions', permissions.length);
+    hilog.info(DOMAIN, TAG, 'PermissionUtils requestPermissions: requesting %{public}d permissions',
+      permissions.length);
     const results: Map<string, PermissionStatus> = new Map();
     for (const perm of permissions) {
       if (PermissionUtils.grantedPermissions.has(perm)) {
@@ -100,32 +101,32 @@ export class PermissionUtils {
   }
 
   /**
-   * 检查蓝牙权限
-   * @returns 是否有蓝牙权限
+   * check Bluetooth permission
+   * @returns whether it has Bluetooth permission
    */
   static hasBluetoothPermission(): boolean {
     return PermissionUtils.hasPermission('ohos.permission.USE_BLUETOOTH');
   }
 
   /**
-   * 检查位置权限
-   * @returns 是否有位置权限
+   * check location permission
+   * @returns whether it has location permission
    */
   static hasLocationPermission(): boolean {
     return PermissionUtils.hasPermission('ohos.permission.APPROXIMATELY_LOCATION');
   }
 
   /**
-   * 添加权限结果回调
-   * @param callback - 回调
+   * add permission result callback
+   * @param callback - callback
    */
   static addResultCallback(callback: PermissionResultCallback): void {
     PermissionUtils.resultCallbacks.push(callback);
   }
 
   /**
-   * 移除权限结果回调
-   * @param callback - 回调
+   * remove permission result callback
+   * @param callback - callback
    */
   static removeResultCallback(callback: PermissionResultCallback): void {
     const index: number = PermissionUtils.resultCallbacks.indexOf(callback);
@@ -135,9 +136,9 @@ export class PermissionUtils {
   }
 
   /**
-   * 通知权限结果
-   * @param permission - 权限名称
-   * @param status - 权限状态
+   * notify permission limit result result
+   * @param permission - permission name
+   * @param status - permission state
    */
   private static notifyResult(permission: string, status: PermissionStatus): void {
     for (const callback of PermissionUtils.resultCallbacks) {
@@ -150,15 +151,15 @@ export class PermissionUtils {
   }
 
   /**
-   * 获取所有已授予的权限
-   * @returns 权限列表
+   * get all granted permissions
+   * @returns permission list
    */
   static getGrantedPermissions(): string[] {
     return Array.from(PermissionUtils.grantedPermissions);
   }
 
   /**
-   * 清除所有权限状态
+   * clear all permission states
    */
   static clearAll(): void {
     PermissionUtils.grantedPermissions.clear();
@@ -166,9 +167,9 @@ export class PermissionUtils {
   }
 
   /**
-   * 获取权限状态描述
-   * @param status - 权限状态
-   * @returns 描述字符串
+   * get permission state description
+   * @param status - permission state
+   * @returns description string
    */
   static getStatusLabel(status: PermissionStatus): string {
     switch (status) {

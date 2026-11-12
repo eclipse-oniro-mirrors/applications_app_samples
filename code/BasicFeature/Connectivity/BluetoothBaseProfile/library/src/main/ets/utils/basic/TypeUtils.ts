@@ -16,77 +16,77 @@
 import { BluetoothConstants } from '../../constants/BluetoothConstants';
 
 /**
- * 类型工具类
- * 提供类型检查和转换相关的实用方法
+ * type utility class
+ * provides type check and convert relative relate actual use method method
  */
 export class TypeUtils {
   /**
-   * 检查值是否为字符串类型
-   * @param value - 要检查的值
-   * @returns 是否为字符串
+   * check whether the value is a string
+   * @param value - want check value
+   * @returns whether it is a string
    */
   static isString(value: unknown): boolean {
     return typeof value === 'string';
   }
 
   /**
-   * 检查值是否为数字类型
-   * @param value - 要检查的值
-   * @returns 是否为数字
+   * check whether the value is a number
+   * @param value - want check value
+   * @returns whether it is a number
    */
   static isNumber(value: unknown): boolean {
     return typeof value === 'number' && !isNaN(value);
   }
 
   /**
-   * 检查值是否为布尔类型
-   * @param value - 要检查的值
-   * @returns 是否为布尔
+   * check whether the value is a boolean
+   * @param value - want check value
+   * @returns whether it is a boolean
    */
   static isBoolean(value: unknown): boolean {
     return typeof value === 'boolean';
   }
 
   /**
-   * 检查值是否为数组
-   * @param value - 要检查的值
-   * @returns 是否为数组
+   * check whether the value is an array
+   * @param value - want check value
+   * @returns whether it is an array
    */
   static isArray(value: unknown): boolean {
     return Array.isArray(value);
   }
 
   /**
-   * 检查值是否为对象
-   * @param value - 要检查的值
-   * @returns 是否为对象
+   * check whether the value is an object
+   * @param value - want check value
+   * @returns whether it is an object
    */
   static isObject(value: unknown): boolean {
     return value !== null && typeof value === 'object' && !Array.isArray(value);
   }
 
   /**
-   * 检查值是否为函数
-   * @param value - 要检查的值
-   * @returns 是否为函数
+   * check whether the value is a function
+   * @param value - want check value
+   * @returns whether it is a function
    */
   static isFunction(value: unknown): boolean {
     return typeof value === 'function';
   }
 
   /**
-   * 检查值是否为null或undefined
-   * @param value - 要检查的值
-   * @returns 是否为null或undefined
+   * check value whether for null or undefined
+   * @param value - want check value
+   * @returns whether for null or undefined
    */
   static isNullOrUndefined(value: unknown): boolean {
     return value === null || value === undefined;
   }
 
   /**
-   * 检查值是否为空（null、undefined、空字符串、空数组、空对象）
-   * @param value - 要检查的值
-   * @returns 是否为空
+   * check value whether for empty (null, undefined, empty string, empty array, empty against object)
+   * @param value - want check value
+   * @returns whether for empty
    */
   static isEmpty(value: unknown): boolean {
     if (value === null || value === undefined) {
@@ -105,10 +105,10 @@ export class TypeUtils {
   }
 
   /**
-   * 安全地将字符串转换为数字
-   * @param value - 要转换的字符串
-   * @param defaultValue - 转换失败时的默认值
-   * @returns 转换后的数字
+   * safely convert string to number
+   * @param value - string to convert
+   * @param defaultValue - default value when conversion fails
+   * @returns converted number
    */
   static toNumber(value: string, defaultValue: number = 0): number {
     const num: number = Number(value);
@@ -116,9 +116,9 @@ export class TypeUtils {
   }
 
   /**
-   * 安全地将值转换为布尔值
-   * @param value - 要转换的值
-   * @returns 布尔值
+   * safely convert value to boolean
+   * @param value - value to convert
+   * @returns layout er value
    */
   static toBoolean(value: unknown): boolean {
     if (typeof value === 'boolean') {
@@ -135,10 +135,10 @@ export class TypeUtils {
   }
 
   /**
-   * 安全地将值转换为字符串
-   * @param value - 要转换的值
-   * @param defaultValue - 转换失败时的默认值
-   * @returns 字符串
+   * safely convert value to string
+   * @param value - value to convert
+   * @param defaultValue - default value when conversion fails
+   * @returns string
    */
   static toString(value: unknown, defaultValue: string = ''): string {
     if (value === null || value === undefined) {
@@ -151,9 +151,9 @@ export class TypeUtils {
   }
 
   /**
-   * 深拷贝对象
-   * @param obj - 要拷贝的对象
-   * @returns 拷贝后的新对象
+   * deep copy object
+   * @param obj - want copy shell against object
+   * @returns copied new object
    */
   static deepClone<T>(obj: T): T {
     if (obj === null || typeof obj !== 'object') {
@@ -167,10 +167,10 @@ export class TypeUtils {
   }
 
   /**
-   * 检查两个对象是否深度相等
-   * @param a - 第一个对象
-   * @param b - 第二个对象
-   * @returns 是否深度相等
+   * check whether two objects are deeply equal
+   * @param a - th one against object
+   * @param b - th second against object
+   * @returns whether deep equality
    */
   static deepEquals(a: unknown, b: unknown): boolean {
     if (a === b) {
@@ -201,9 +201,9 @@ export class TypeUtils {
   }
 
   /**
-   * 获取值的类型名称
-   * @param value - 要检查的值
-   * @returns 类型名称
+   * get the type name of the value
+   * @param value - want check value
+   * @returns type name
    */
   static getTypeName(value: unknown): string {
     if (value === null) {
@@ -219,10 +219,10 @@ export class TypeUtils {
   }
 
   /**
-   * 安全地解析JSON字符串
-   * @param json - JSON字符串
-   * @param defaultValue - 解析失败时的默认值
-   * @returns 解析后的对象
+   * safely parse JSON string
+   * @param json - JSON string
+   * @param defaultValue - default value when parsing fails
+   * @returns decode parse after against object
    */
   static safeParseJson<T>(json: string, defaultValue: T): T {
     try {

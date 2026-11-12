@@ -136,6 +136,15 @@ export class BluetoothConstants {
   /** Expected length of a MAC address string (XX:XX:XX:XX:XX:XX) */
   static readonly MAC_ADDRESS_LENGTH: number = 17;
 
+  /** Placeholder MAC address used by sample/mock device data */
+  static readonly MOCK_MAC_ADDRESS: string = '11:22:33:44:55:FF';
+
+  /** Default MAC address shown when a device address is unknown */
+  static readonly UNKNOWN_MAC_ADDRESS: string = '00:00:00:00:00:00';
+
+  /** Simulated asynchronous operation delay in milliseconds (demo UI feedback) */
+  static readonly SIMULATED_OP_DELAY_MS: number = 100;
+
   /** Expected length of a UUID string (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) */
   static readonly UUID_LENGTH: number = 36;
 

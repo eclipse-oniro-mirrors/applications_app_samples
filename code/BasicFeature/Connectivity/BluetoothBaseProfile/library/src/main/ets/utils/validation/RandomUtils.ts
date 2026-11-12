@@ -14,25 +14,25 @@
  */
 
 /**
- * 随机工具类
- * 提供各种随机数据生成方法
+ * random utility class
+ * provides various random number data generate method method
  */
 export class RandomUtils {
-  /** 常用蓝牙设备名称前缀 */
+  /** constant use Bluetooth device name name prefix */
   private static readonly DEVICE_PREFIXES: string[] = [
     'BT-Speaker', 'BT-Headphone', 'BT-Keyboard', 'BT-Mouse', 'BT-Watch',
     'BT-Health', 'BT-Car', 'BT-Phone', 'BT-Headset', 'BT-Gamepad'
   ];
 
-  /** 常见蓝牙设备制造商 */
+  /** constant see Bluetooth device control build vendor */
   private static readonly MANUFACTURERS: string[] = [
     'Sony', 'Bose', 'Samsung', 'Apple', 'JBL', 'Logitech',
-    'Microsoft', 'Huawei', 'Xiaomi', 'Sennheiser'
+    'Microsoft', 'DemoVendor', 'Xiaomi', 'Sennheiser'
   ];
 
   /**
-   * 生成随机蓝牙MAC地址
-   * @returns MAC地址字符串
+   * generate random blue tooth MAC ground address
+   * @returns MAC ground address string
    */
   static randomMacAddress(): string {
     const hex: string = '0123456789ABCDEF';
@@ -48,8 +48,8 @@ export class RandomUtils {
   }
 
   /**
-   * 生成随机蓝牙设备名称
-   * @returns 设备名称
+   * generate random Bluetooth device name name
+   * @returns device name
    */
   static randomDeviceName(): string {
     const prefix: string = RandomUtils.DEVICE_PREFIXES[Math.floor(Math.random() * RandomUtils.DEVICE_PREFIXES.length)];
@@ -58,16 +58,16 @@ export class RandomUtils {
   }
 
   /**
-   * 生成随机制造商名称
-   * @returns 制造商名称
+   * generate random control build vendor name name
+   * @returns control build vendor name name
    */
   static randomManufacturer(): string {
     return RandomUtils.MANUFACTURERS[Math.floor(Math.random() * RandomUtils.MANUFACTURERS.length)];
   }
 
   /**
-   * 生成随机UUID
-   * @returns UUID字符串
+   * generate random UUID
+   * @returns UUID string
    */
   static randomUuid(): string {
     const hex: string = '0123456789abcdef';
@@ -82,26 +82,26 @@ export class RandomUtils {
   }
 
   /**
-   * 生成随机RSSI值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @returns RSSI值
+   * generate random RSSI value
+   * @param min - min value
+   * @param max - max value
+   * @returns RSSI value
    */
   static randomRssi(min: number = -100, max: number = -30): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   /**
-   * 生成随机设备ID
-   * @returns 设备ID
+   * generate random device ID
+   * @returns device ID
    */
   static randomDeviceId(): string {
     return 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8);
   }
 
   /**
-   * 生成随机电话号码
-   * @returns 电话号码
+   * generate random electric talk number
+   * @returns electric talk number
    */
   static randomPhoneNumber(): string {
     const prefixes: string[] = ['138', '139', '158', '159', '186', '187', '135', '136'];
@@ -114,8 +114,8 @@ export class RandomUtils {
   }
 
   /**
-   * 生成随机联系人名称
-   * @returns 联系人名称
+   * generate random contact name
+   * @returns contact name
    */
   static randomContactName(): string {
     const firstNames: string[] = ['Alice', 'Bob', 'Charlie', 'Diana', 'Edward', 'Fiona', 'George', 'Helen'];
@@ -125,16 +125,16 @@ export class RandomUtils {
   }
 
   /**
-   * 生成随机心率值
-   * @returns 心率值
+   * generate random heart rate value
+   * @returns heart rate value
    */
   static randomHeartRate(): number {
     return Math.floor(Math.random() * 60) + 60;
   }
 
   /**
-   * 生成随机血压值
-   * @returns 血压对象
+   * generate random blood pressure value
+   * @returns blood pressure against object
    */
   static randomBloodPressure(): { systolic: number; diastolic: number } {
     return {
@@ -144,50 +144,50 @@ export class RandomUtils {
   }
 
   /**
-   * 生成随机体温值
-   * @returns 体温值
+   * generate random body temperature value
+   * @returns body temperature value
    */
   static randomTemperature(): number {
     return Math.round((Math.random() * 2 + 36) * 10) / 10;
   }
 
   /**
-   * 生成随机血氧值
-   * @returns 血氧百分比
+   * generate random blood oxygen value
+   * @returns blood oxygen percentage
    */
   static randomBloodOxygen(): number {
     return Math.floor(Math.random() * 8) + 92;
   }
 
   /**
-   * 生成随机体重值
-   * @returns 体重（kg）
+   * generate random body weight value
+   * @returns body weight (kg)
    */
   static randomWeight(): number {
     return Math.round((Math.random() * 50 + 40) * 10) / 10;
   }
 
   /**
-   * 从数组中随机选择元素
-   * @param arr - 数组
-   * @returns 随机元素
+   * from array in follow machine select element
+   * @param arr - array
+   * @returns follow machine element
    */
   static randomChoice<T>(arr: T[]): T {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
   /**
-   * 生成随机布尔值
-   * @param probability - 为true的概率 (0-1)
-   * @returns 随机布尔值
+   * generate random layout er value
+   * @param probability - for true overview rate (0-1)
+   * @returns follow machine layout er value
    */
   static randomBoolean(probability: number = 0.5): boolean {
     return Math.random() < probability;
   }
 
   /**
-   * 生成随机IP地址
-   * @returns IP地址
+   * generate random IP ground address
+   * @returns IP ground address
    */
   static randomIpAddress(): string {
     return Math.floor(Math.random() * 254 + 1) + '.' +

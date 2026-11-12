@@ -16,7 +16,7 @@
 import { BluetoothConstants } from '../../constants/BluetoothConstants';
 
 /**
- * 验证结果接口
+ * validation result interface
  */
 export interface ValidationResult {
   isValid: boolean;
@@ -25,14 +25,14 @@ export interface ValidationResult {
 }
 
 /**
- * 验证工具类
- * 提供各种数据验证方法
+ * validation utility class
+ * provides various data validation method method
  */
 export class ValidationUtils {
   /**
-   * 验证蓝牙MAC地址格式
-   * @param mac - MAC地址
-   * @returns 验证结果
+   * validate Bluetooth MAC address format
+   * @param mac - MAC ground address
+   * @returns validation result
    */
   static validateMacAddress(mac: string): ValidationResult {
     if (!mac || mac.length === 0) {
@@ -46,9 +46,9 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证蓝牙UUID格式
+   * validate Bluetooth UUID format
    * @param uuid - UUID
-   * @returns 验证结果
+   * @returns validation result
    */
   static validateUuid(uuid: string): ValidationResult {
     if (!uuid || uuid.length === 0) {
@@ -62,9 +62,9 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证设备名称
-   * @param name - 设备名称
-   * @returns 验证结果
+   * validate device name
+   * @param name - device name
+   * @returns validation result
    */
   static validateDeviceName(name: string): ValidationResult {
     if (!name || name.length === 0) {
@@ -77,9 +77,9 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证RSSI值
-   * @param rssi - RSSI值
-   * @returns 验证结果
+   * validate RSSI value
+   * @param rssi - RSSI value
+   * @returns validation result
    */
   static validateRssi(rssi: number): ValidationResult {
     if (rssi < -120 || rssi > 0) {
@@ -89,10 +89,10 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证音量值
-   * @param volume - 音量值
-   * @param maxVolume - 最大音量
-   * @returns 验证结果
+   * validate volume value
+   * @param volume - volume value
+   * @param maxVolume - max volume
+   * @returns validation result
    */
   static validateVolume(volume: number, maxVolume: number = 100): ValidationResult {
     if (volume < 0 || volume > maxVolume) {
@@ -102,9 +102,9 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证电话号码
-   * @param phone - 电话号码
-   * @returns 验证结果
+   * validate phone number
+   * @param phone - electric talk number
+   * @returns validation result
    */
   static validatePhoneNumber(phone: string): ValidationResult {
     if (!phone || phone.length === 0) {
@@ -118,9 +118,9 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证IP地址
-   * @param ip - IP地址
-   * @returns 验证结果
+   * validate IP address
+   * @param ip - IP ground address
+   * @returns validation result
    */
   static validateIpAddress(ip: string): ValidationResult {
     if (!ip || ip.length === 0) {
@@ -134,10 +134,10 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证非空字符串
-   * @param value - 要验证的值
-   * @param fieldName - 字段名称
-   * @returns 验证结果
+   * validate non-empty string
+   * @param value - want validate value
+   * @param fieldName - field name name
+   * @returns validation result
    */
   static validateNonEmpty(value: string, fieldName: string): ValidationResult {
     if (!value || value.trim().length === 0) {
@@ -147,12 +147,12 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证数值范围
-   * @param value - 要验证的值
-   * @param min - 最小值
-   * @param max - 最大值
-   * @param fieldName - 字段名称
-   * @returns 验证结果
+   * validate numeric range
+   * @param value - want validate value
+   * @param min - min value
+   * @param max - max value
+   * @param fieldName - field name name
+   * @returns validation result
    */
   static validateRange(value: number, min: number, max: number, fieldName: string): ValidationResult {
     if (value < min || value > max) {
@@ -162,12 +162,12 @@ export class ValidationUtils {
   }
 
   /**
-   * 验证字符串长度
-   * @param value - 要验证的字符串
-   * @param minLen - 最小长度
-   * @param maxLen - 最大长度
-   * @param fieldName - 字段名称
-   * @returns 验证结果
+   * validate string length
+   * @param value - want validate string
+   * @param minLen - min length degree
+   * @param maxLen - max length degree
+   * @param fieldName - field name name
+   * @returns validation result
    */
   static validateLength(value: string, minLen: number, maxLen: number, fieldName: string): ValidationResult {
     if (!value || value.length < minLen || value.length > maxLen) {

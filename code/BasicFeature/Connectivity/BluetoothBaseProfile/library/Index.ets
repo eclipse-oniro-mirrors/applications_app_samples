@@ -36,7 +36,11 @@ export {
 // ========================================
 // Models
 // ========================================
-export { BluetoothDeviceModel, BluetoothDeviceType, BluetoothMajorService } from './src/main/ets/model/BluetoothDeviceModel';
+export {
+  BluetoothDeviceModel,
+  BluetoothDeviceType,
+  BluetoothMajorService
+} from './src/main/ets/model/BluetoothDeviceModel';
 export type { BluetoothDeviceJson } from './src/main/ets/model/BluetoothDeviceModel';
 export { A2dpModel, A2dpState } from './src/main/ets/model/A2dpModel';
 export type { A2dpJson } from './src/main/ets/model/A2dpModel';
@@ -123,7 +127,11 @@ export { ProfileMockData } from './src/main/ets/mock/ProfileMockData';
 // ========================================
 // Shared Profile Types
 // ========================================
-export type { ManagerHealthStatus, ManagerFilterCriteria, OperationHistoryEntry } from './src/main/ets/types/ProfileTypes';
+export type {
+  ManagerHealthStatus,
+  ManagerFilterCriteria,
+  OperationHistoryEntry
+} from './src/main/ets/types/ProfileTypes';
 export type { A2dpManagerStatistics, A2dpOperationRecord } from './src/main/ets/bluetooth/A2dpProfileManager';
 export type { AvrcpManagerStatistics, AvrcpOperationRecord } from './src/main/ets/bluetooth/AvrcpProfileManager';
 export type { HdpManagerStatistics, HdpOperationRecord } from './src/main/ets/bluetooth/HdpProfileManager';

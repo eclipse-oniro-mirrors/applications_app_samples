@@ -20,32 +20,32 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 文件信息接口
+ * file info interface
  */
 export interface FileInfo {
-  /** 文件名 */
+  /** text item name */
   name: string;
-  /** 文件路径 */
+  /** text item path */
   path: string;
-  /** 文件大小（字节） */
+  /** text item large small (character section) */
   size: number;
-  /** 文件类型 */
+  /** text item class type */
   type: string;
-  /** 最后修改时间 */
+  /** last modified time */
   lastModified: number;
-  /** 是否为目录 */
+  /** whether for item record */
   isDirectory: boolean;
 }
 
 /**
- * 文件工具类
- * 提供文件操作相关的实用方法
+ * file utility class
+ * provides file operation relative relate actual use method method
  */
 export class FileUtils {
   /**
-   * 获取文件扩展名
-   * @param filename - 文件名
-   * @returns 扩展名（不含点号）
+   * get text item expand extend name
+   * @param filename - text item name
+   * @returns expand extend name (not contain point number)
    */
   static getExtension(filename: string): string {
     if (!filename || filename.indexOf('.') === -1) {
@@ -56,9 +56,9 @@ export class FileUtils {
   }
 
   /**
-   * 获取文件名（不含路径）
-   * @param filePath - 文件路径
-   * @returns 文件名
+   * get text item name (not contain path)
+   * @param filePath - text item path
+   * @returns text item name
    */
   static getFileName(filePath: string): string {
     if (!filePath) {
@@ -69,9 +69,9 @@ export class FileUtils {
   }
 
   /**
-   * 获取文件名（不含扩展名）
-   * @param filename - 文件名
-   * @returns 不含扩展名的文件名
+   * get text item name (not contain expand extend name)
+   * @param filename - text item name
+   * @returns not contain expand extend name text item name
    */
   static getFileNameWithoutExtension(filename: string): string {
     if (!filename) {
@@ -85,9 +85,9 @@ export class FileUtils {
   }
 
   /**
-   * 格式化文件大小为可读字符串
-   * @param bytes - 文件大小（字节）
-   * @returns 格式化后的大小字符串
+   * format file size to readable string
+   * @param bytes - text item large small (character section)
+   * @returns formatted size string
    */
   static formatFileSize(bytes: number): string {
     if (bytes === 0) {
@@ -101,9 +101,9 @@ export class FileUtils {
   }
 
   /**
-   * 检查文件类型是否为图片
-   * @param extension - 文件扩展名
-   * @returns 是否为图片文件
+   * check text item class type whether for image piece
+   * @param extension - text item expand extend name
+   * @returns whether for image piece text item
    */
   static isImageFile(extension: string): boolean {
     const imageExts: string[] = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg', 'ico'];
@@ -111,9 +111,9 @@ export class FileUtils {
   }
 
   /**
-   * 检查文件类型是否为音频
-   * @param extension - 文件扩展名
-   * @returns 是否为音频文件
+   * check text item class type whether for audio
+   * @param extension - text item expand extend name
+   * @returns whether for audio text item
    */
   static isAudioFile(extension: string): boolean {
     const audioExts: string[] = ['mp3', 'wav', 'aac', 'flac', 'ogg', 'wma', 'm4a'];
@@ -121,9 +121,9 @@ export class FileUtils {
   }
 
   /**
-   * 检查文件类型是否为视频
-   * @param extension - 文件扩展名
-   * @returns 是否为视频文件
+   * check text item class type whether for view frequency
+   * @param extension - text item expand extend name
+   * @returns whether for view frequency text item
    */
   static isVideoFile(extension: string): boolean {
     const videoExts: string[] = ['mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm', '3gp'];
@@ -131,9 +131,9 @@ export class FileUtils {
   }
 
   /**
-   * 检查文件类型是否为文档
-   * @param extension - 文件扩展名
-   * @returns 是否为文档文件
+   * check text item class type whether for text file
+   * @param extension - text item expand extend name
+   * @returns whether for text file text item
    */
   static isDocumentFile(extension: string): boolean {
     const docExts: string[] = ['doc', 'docx', 'pdf', 'txt', 'xls', 'xlsx', 'ppt', 'pptx'];
@@ -141,9 +141,9 @@ export class FileUtils {
   }
 
   /**
-   * 获取文件MIME类型
-   * @param extension - 文件扩展名
-   * @returns MIME类型
+   * get text item MIME class type
+   * @param extension - text item expand extend name
+   * @returns MIME class type
    */
   static getMimeType(extension: string): string {
     const mimeTypes: Record<string, string> = {
@@ -159,9 +159,9 @@ export class FileUtils {
   }
 
   /**
-   * 获取文件图标名称
-   * @param extension - 文件扩展名
-   * @returns 图标名称
+   * get text item icon name name
+   * @param extension - text item expand extend name
+   * @returns icon name name
    */
   static getFileIconName(extension: string): string {
     if (FileUtils.isImageFile(extension)) {
@@ -180,9 +180,9 @@ export class FileUtils {
   }
 
   /**
-   * 规范化文件路径
-   * @param path - 原始路径
-   * @returns 规范化后的路径
+   * rule range ize text item path
+   * @param path - original path
+   * @returns rule range ize after path
    */
   static normalizePath(path: string): string {
     if (!path) {
@@ -192,9 +192,9 @@ export class FileUtils {
   }
 
   /**
-   * 获取父目录路径
-   * @param filePath - 文件路径
-   * @returns 父目录路径
+   * get parent item record path
+   * @param filePath - text item path
+   * @returns parent item record path
    */
   static getParentPath(filePath: string): string {
     if (!filePath) {
@@ -209,9 +209,9 @@ export class FileUtils {
   }
 
   /**
-   * 检查路径是否有效
-   * @param path - 文件路径
-   * @returns 路径是否有效
+   * check path whether valid
+   * @param path - text item path
+   * @returns path whether valid
    */
   static isValidPath(path: string): boolean {
     if (!path || path.length === 0) {

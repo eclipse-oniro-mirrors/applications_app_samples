@@ -20,7 +20,7 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 网络类型枚举
+ * network type enum
  */
 export enum NetworkType {
   WIFI = 'wifi',
@@ -32,7 +32,7 @@ export enum NetworkType {
 }
 
 /**
- * 网络状态枚举
+ * network state enum
  */
 export enum NetworkState {
   CONNECTED = 'connected',
@@ -42,7 +42,7 @@ export enum NetworkState {
 }
 
 /**
- * 网络回调接口
+ * network callback interface
  */
 export interface NetworkCallback {
   onAvailable(type: NetworkType): void;
@@ -50,68 +50,68 @@ export interface NetworkCallback {
 }
 
 /**
- * 网络工具类
- * 提供网络状态查询和管理相关的实用方法
+ * network utility class
+ * provides network state state check query and manage manage relative relate actual use method method
  */
 export class NetworkUtils {
-  /** 当前网络类型 */
+  /** current network type */
   private static currentType: NetworkType = NetworkType.UNKNOWN;
-  /** 当前网络状态 */
+  /** current network state */
   private static currentState: NetworkState = NetworkState.DISCONNECTED;
-  /** 网络回调列表 */
+  /** network callback list */
   private static callbacks: NetworkCallback[] = [];
 
   /**
-   * 获取当前网络类型
-   * @returns 网络类型
+   * get current network type
+   * @returns network type
    */
   static getNetworkType(): NetworkType {
     return NetworkUtils.currentType;
   }
 
   /**
-   * 获取当前网络状态
-   * @returns 网络状态
+   * get current network state
+   * @returns network state
    */
   static getNetworkState(): NetworkState {
     return NetworkUtils.currentState;
   }
 
   /**
-   * 检查网络是否可用
-   * @returns 网络是否可用
+   * check network whether available
+   * @returns network whether available
    */
   static isNetworkAvailable(): boolean {
     return NetworkUtils.currentState === NetworkState.CONNECTED;
   }
 
   /**
-   * 检查是否为WiFi网络
-   * @returns 是否为WiFi
+   * check whether for WiFi network
+   * @returns whether for WiFi
    */
   static isWifi(): boolean {
     return NetworkUtils.currentType === NetworkType.WIFI;
   }
 
   /**
-   * 检查是否为蜂窝网络
-   * @returns 是否为蜂窝网络
+   * check whether for cellular network
+   * @returns whether for cellular network
    */
   static isCellular(): boolean {
     return NetworkUtils.currentType === NetworkType.CELLULAR;
   }
 
   /**
-   * 检查是否为蓝牙网络
-   * @returns 是否为蓝牙网络
+   * check whether for Bluetooth network
+   * @returns whether for Bluetooth network
    */
   static isBluetooth(): boolean {
     return NetworkUtils.currentType === NetworkType.BLUETOOTH;
   }
 
   /**
-   * 设置网络类型（用于模拟）
-   * @param type - 网络类型
+   * set network type (used for simulate)
+   * @param type - network type
    */
   static setNetworkType(type: NetworkType): void {
     hilog.info(DOMAIN, TAG, 'NetworkUtils setNetworkType: %{public}s', type);
@@ -119,8 +119,8 @@ export class NetworkUtils {
   }
 
   /**
-   * 设置网络状态（用于模拟）
-   * @param state - 网络状态
+   * set network state (used for simulate)
+   * @param state - network state
    */
   static setNetworkState(state: NetworkState): void {
     hilog.info(DOMAIN, TAG, 'NetworkUtils setNetworkState: %{public}s', state);
@@ -132,16 +132,16 @@ export class NetworkUtils {
   }
 
   /**
-   * 添加网络回调
-   * @param callback - 回调
+   * add network callback
+   * @param callback - callback
    */
   static addCallback(callback: NetworkCallback): void {
     NetworkUtils.callbacks.push(callback);
   }
 
   /**
-   * 移除网络回调
-   * @param callback - 回调
+   * remove network callback
+   * @param callback - callback
    */
   static removeCallback(callback: NetworkCallback): void {
     const index: number = NetworkUtils.callbacks.indexOf(callback);
@@ -151,8 +151,8 @@ export class NetworkUtils {
   }
 
   /**
-   * 通知所有回调
-   * @param state - 新的网络状态
+   * notify all callbacks
+   * @param state - new network state
    */
   private static notifyCallbacks(state: NetworkState): void {
     for (const callback of NetworkUtils.callbacks) {
@@ -169,9 +169,9 @@ export class NetworkUtils {
   }
 
   /**
-   * 获取网络类型描述
-   * @param type - 网络类型
-   * @returns 描述字符串
+   * get network type describe describe
+   * @param type - network type
+   * @returns description string
    */
   static getNetworkTypeLabel(type: NetworkType): string {
     switch (type) {
@@ -185,9 +185,9 @@ export class NetworkUtils {
   }
 
   /**
-   * 获取网络状态描述
-   * @param state - 网络状态
-   * @returns 描述字符串
+   * get network state describe describe
+   * @param state - network state
+   * @returns description string
    */
   static getNetworkStateLabel(state: NetworkState): string {
     switch (state) {
@@ -200,7 +200,7 @@ export class NetworkUtils {
   }
 
   /**
-   * 重置网络状态
+   * reset network state
    */
   static reset(): void {
     NetworkUtils.currentType = NetworkType.UNKNOWN;

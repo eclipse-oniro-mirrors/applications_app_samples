@@ -20,19 +20,19 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 存储工具类
- * 提供内存缓存管理功能
+ * storage utility class
+ * provides memory cache manage manage function
  */
 export class StorageUtils {
-  /** 内部缓存存储 */
+  /** internal cache storage */
   private static cache: Map<string, CacheEntry> = new Map();
-  /** 最大缓存条目数 */
+  /** max cache entry number */
   private static readonly MAX_CACHE_SIZE: number = 200;
-  /** 默认缓存过期时间（毫秒） */
+  /** default cache expiration time interval (ms) */
   private static readonly DEFAULT_TTL: number = 300000;
 
   /**
-   * 缓存条目接口
+   * cache entry interface
    */
   private static createEntry(key: string, value: unknown, ttl: number): CacheEntry {
     return {
@@ -46,10 +46,10 @@ export class StorageUtils {
   }
 
   /**
-   * 存储值到缓存
-   * @param key - 键名
-   * @param value - 值
-   * @param ttl - 过期时间（毫秒）
+   * store value to cache
+   * @param key - key name
+   * @param value - value
+   * @param ttl - expiration time interval (ms)
    */
   static put(key: string, value: unknown, ttl: number = StorageUtils.DEFAULT_TTL): void {
     hilog.debug(DOMAIN, TAG, 'StorageUtils put: key=%{public}s', key);
@@ -60,9 +60,9 @@ export class StorageUtils {
   }
 
   /**
-   * 从缓存获取值
-   * @param key - 键名
-   * @returns 缓存的值，过期或不存在返回null
+   * get value from cache
+   * @param key - key name
+   * @returns cached value, expiration or not store at return null
    */
   static get<T>(key: string): T | null {
     const entry: CacheEntry | undefined = StorageUtils.cache.get(key);
@@ -79,9 +79,9 @@ export class StorageUtils {
   }
 
   /**
-   * 检查键是否存在且未过期
-   * @param key - 键名
-   * @returns 是否存在
+   * check whether the key exists and is not expired
+   * @param key - key name
+   * @returns whether store at
    */
   static has(key: string): boolean {
     const entry: CacheEntry | undefined = StorageUtils.cache.get(key);
@@ -96,8 +96,8 @@ export class StorageUtils {
   }
 
   /**
-   * 删除缓存条目
-   * @param key - 键名
+   * delete cache entry
+   * @param key - key name
    */
   static remove(key: string): void {
     hilog.debug(DOMAIN, TAG, 'StorageUtils remove: key=%{public}s', key);
@@ -105,7 +105,7 @@ export class StorageUtils {
   }
 
   /**
-   * 清空所有缓存
+   * clear all cache
    */
   static clear(): void {
     hilog.info(DOMAIN, TAG, 'StorageUtils clear: clearing %{public}d entries', StorageUtils.cache.size);
@@ -113,15 +113,15 @@ export class StorageUtils {
   }
 
   /**
-   * 获取缓存大小
-   * @returns 缓存条目数
+   * get cache size
+   * @returns cache entry number
    */
   static size(): number {
     return StorageUtils.cache.size;
   }
 
   /**
-   * 清理过期条目
+   * clean expired entries
    */
   static cleanExpired(): void {
     const now: number = Date.now();
@@ -140,7 +140,7 @@ export class StorageUtils {
   }
 
   /**
-   * 淘汰最少使用的缓存条目
+   * evict least used cache entry
    */
   private static evict(): void {
     hilog.debug(DOMAIN, TAG, 'StorageUtils evict: evicting least used entries');
@@ -158,16 +158,16 @@ export class StorageUtils {
   }
 
   /**
-   * 获取所有缓存键名
-   * @returns 键名数组
+   * get all cache keys
+   * @returns key array
    */
   static keys(): string[] {
     return Array.from(StorageUtils.cache.keys());
   }
 
   /**
-   * 获取缓存统计信息
-   * @returns 统计信息对象
+   * get cache stats
+   * @returns statistics against object
    */
   static getStats(): CacheStats {
     let totalAccess: number = 0;
@@ -189,7 +189,7 @@ export class StorageUtils {
 }
 
 /**
- * 缓存条目接口
+ * cache entry interface
  */
 interface CacheEntry {
   key: string;
@@ -201,7 +201,7 @@ interface CacheEntry {
 }
 
 /**
- * 缓存统计信息接口
+ * cache stats interface
  */
 interface CacheStats {
   totalEntries: number;

@@ -21,31 +21,31 @@ const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
 /**
- * 设备信息接口
+ * device info interface
  */
 export interface DeviceInfo {
-  /** 设备品牌 */
+  /** device brand */
   brand: string;
-  /** 设备型号 */
+  /** device model */
   model: string;
-  /** 系统版本 */
+  /** system system version this */
   osVersion: string;
-  /** 设备类型 */
+  /** device type */
   deviceType: string;
-  /** 系统API版本 */
+  /** system system API version this */
   apiVersion: string;
-  /** 设备ID */
+  /** device ID */
   deviceId: string;
 }
 
 /**
- * 设备工具类
- * 提供设备信息查询和设备管理相关的实用方法
+ * device utility class
+ * provides device info check query and device manage manage relative relate actual use method method
  */
 export class DeviceUtils {
   /**
-   * 获取设备品牌
-   * @returns 设备品牌名称
+   * get device brand
+   * @returns device brand name name
    */
   static getBrand(): string {
     try {
@@ -57,8 +57,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取设备型号
-   * @returns 设备型号名称
+   * get device model
+   * @returns device model name name
    */
   static getModel(): string {
     try {
@@ -70,8 +70,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取系统版本
-   * @returns 系统版本号
+   * get system system version this
+   * @returns system system version this number
    */
   static getOsVersion(): string {
     try {
@@ -83,8 +83,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取系统API版本
-   * @returns API版本号
+   * get system system API version this
+   * @returns API version this number
    */
   static getApiVersion(): string {
     try {
@@ -96,8 +96,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取设备类型
-   * @returns 设备类型
+   * get device type
+   * @returns device type
    */
   static getDeviceType(): string {
     try {
@@ -109,8 +109,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取完整设备信息
-   * @returns 设备信息对象
+   * get complete whole device info
+   * @returns device info against object
    */
   static getDeviceInfo(): DeviceInfo {
     hilog.info(DOMAIN, TAG, 'DeviceUtils getDeviceInfo: collecting device info');
@@ -128,8 +128,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 生成设备唯一标识
-   * @returns 设备ID
+   * generate device unique mark identify
+   * @returns device ID
    */
   static generateDeviceId(): string {
     const brand: string = DeviceUtils.getBrand();
@@ -140,16 +140,16 @@ export class DeviceUtils {
   }
 
   /**
-   * 检查是否为平板设备
-   * @returns 是否为平板
+   * check whether for tablet device
+   * @returns whether for flat board
    */
   static isTablet(): boolean {
     return DeviceUtils.getDeviceType() === 'tablet';
   }
 
   /**
-   * 检查是否为手机设备
-   * @returns 是否为手机
+   * check whether for phone device
+   * @returns whether for hand machine
    */
   static isPhone(): boolean {
     const type: string = DeviceUtils.getDeviceType();
@@ -157,8 +157,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取设备内存信息
-   * @returns 内存信息字符串
+   * get device internal store info info
+   * @returns memory info string
    */
   static getMemoryInfo(): string {
     try {
@@ -174,8 +174,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取设备存储信息
-   * @returns 存储信息字符串
+   * get device store info info
+   * @returns storage info string
    */
   static getStorageInfo(): string {
     try {
@@ -186,8 +186,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 检查设备是否支持蓝牙
-   * @returns 是否支持蓝牙
+   * check device whether support hold blue tooth
+   * @returns whether support hold blue tooth
    */
   static supportsBluetooth(): boolean {
     hilog.info(DOMAIN, TAG, 'DeviceUtils supportsBluetooth: checking bluetooth support');
@@ -195,8 +195,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 检查设备是否支持BLE
-   * @returns 是否支持BLE
+   * check device whether support hold BLE
+   * @returns whether support hold BLE
    */
   static supportsBle(): boolean {
     hilog.info(DOMAIN, TAG, 'DeviceUtils supportsBle: checking BLE support');
@@ -204,9 +204,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 格式化设备信息为可读字符串
-   * @param info - 设备信息
-   * @returns 格式化后的字符串
+   * format device info for readable string
+   * @param info - device info
+   * @returns formatted string
    */
   static formatDeviceInfo(info: DeviceInfo): string {
     return 'Brand: ' + info.brand + '\n' +
