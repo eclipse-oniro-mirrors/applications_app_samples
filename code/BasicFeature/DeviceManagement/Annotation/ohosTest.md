@@ -642,7 +642,6 @@
 - 执行日期：2026-11-10。
 - 执行环境：OpenHarmony 7.1.0.21，API 26，真实设备。
 - 构建与安装：主 HAP 和 ohosTest HAP 均构建成功，并成功安装到设备。
-- 执行命令：`hdc shell aa test -b com.samples.annotation -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 15000`。其中 `aa test` 是 OpenHarmony Ability 框架提供的测试执行命令，`-s unittest OpenHarmonyTestRunner` 用于指定 Stage 模型测试模板的默认测试运行器。
 - 执行结果：363 条运行时用例全部通过，汇总为 `Tests run: 363, Failure: 0, Error: 0, Pass: 363, Ignore: 0`。
 - 结果说明：此前入口加载失败的根因是测试运行器目录与运行端查找路径大小写不一致；已将 `ets/TestRunner` 调整为标准的 `ets/testrunner`，全量套件已重新执行并逐条更新为通过。
 
