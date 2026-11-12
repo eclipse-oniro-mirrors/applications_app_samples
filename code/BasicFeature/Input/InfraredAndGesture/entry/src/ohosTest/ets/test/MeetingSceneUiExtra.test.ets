@@ -215,9 +215,10 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_CORRECTPANEL_0201
      * @tc.name      testCorrectPanelApply0001
-     * @tc.desc      Verify the correction panel applies an expected power state and closes
-     *               while the device card stays rendered; the case then reopens the panel
-     *               and restores the power-on expectation for the seeded projector.
+     * @tc.desc      Verify the phone correction panel closes after power off is chosen while
+     *               the seeded projector card and its expected state widget stay rendered;
+     *               the case then reopens the panel and chooses power on, which closes it
+     *               again.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -270,9 +271,9 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_ROOMCONFIGGUARD_0300
      * @tc.name      testRoomNameRequired0001
-     * @tc.desc      Verify the phone room configuration page shows the required-name hint
-     *               when the user taps create room with an empty name, keeping the room
-     *               list intact and returning to the console home afterwards.
+     * @tc.desc      Verify the phone room configuration page shows the status line when the
+     *               user taps create room with an empty name, keeps the room section
+     *               rendered and returns to the console home afterwards.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -311,9 +312,10 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_ROOMCONFIGGUARD_0301
      * @tc.name      testImportPathRequired0001
-     * @tc.desc      Verify the phone room configuration page shows the enter-path hint when
-     *               importing without a path and the select-device hint when binding a key
-     *               with no device chosen; both actions leave the data unchanged.
+     * @tc.desc      Verify the phone room configuration page renders the configuration
+     *               package section and the export button at the bottom, and shows the
+     *               status line after import is tapped without a path and bind key is tapped
+     *               without a device.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -426,9 +428,10 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_SCENEEDITORGUARD_0401
      * @tc.name      testSceneEditorFormCheck0001
-     * @tc.desc      Verify the phone scene editor renders the room list, the scene list,
-     *               the add-step form selectors and both action buttons; no add-step tap
-     *               is performed so the seeded scene data stays unchanged.
+     * @tc.desc      Verify the phone scene editor renders the room list, the first step
+     *               toggle, the device and key selectors and the add-step and validate
+     *               buttons without tapping either button, and keeps the step section after
+     *               scrolling back.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -478,9 +481,9 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_ORCHROOMGUARD_0500
      * @tc.name      testCreateRoomRequired0001
-     * @tc.desc      Verify the tablet orchestration home shows the required-name hint when
-     *               the user taps create room with an empty name, keeping the room section
-     *               and the room grid rendered on the same page.
+     * @tc.desc      Verify the tablet orchestration home shows the status line when the user
+     *               taps create room with an empty name, keeping the room section and the
+     *               room grid rendered on the same page.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -515,9 +518,9 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TRANSFERGUARD_0600
      * @tc.name      testExportSelectionGuard0001
-     * @tc.desc      Verify the tablet transfer page toggles a seeded room on and off and
-     *               shows the select-room hint when exporting with an empty selection,
-     *               keeping the export and import sections rendered.
+     * @tc.desc      Verify the tablet transfer page keeps the seeded room toggle after it is
+     *               tapped twice and shows the status line after export is tapped, keeping
+     *               the export and import sections rendered.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -573,8 +576,8 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TRANSFERGUARD_0601
      * @tc.name      testImportPathGuard0001
-     * @tc.desc      Verify the tablet transfer page shows the enter-path hint when the user
-     *               taps import without typing a path, keeping the path input rendered and
+     * @tc.desc      Verify the tablet transfer page shows the status line when the user taps
+     *               import without typing a path, keeping the path input rendered and
      *               returning to the orchestration home afterwards.
      * @tc.require   NA
      * @tc.size      MediumTest
@@ -775,9 +778,9 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_SCENESTEPSAFE_0801
      * @tc.name      testStepDelayCycle0001
-     * @tc.desc      Verify the seeded step delay button cycles through the presets
-     *               250, 500, 1000 and 100 ms with a status hint, and returns to the
-     *               seeded 250 ms value after four taps so the step data ends unchanged.
+     * @tc.desc      Verify the phone scene editor accepts four taps on the first step delay
+     *               button, shows the status line after the first two taps and keeps the
+     *               step row rendered after all four.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -829,10 +832,10 @@ export default function meetingSceneUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_CONSOLEWIDGETS_0900
      * @tc.name      testConsoleHomeState0001
-     * @tc.desc      Verify the phone console home renders the title, room name, device
-     *               card area and navigation row together with the seeded projector card
-     *               and its expected state text, and the read-only banner renders exactly
-     *               when the device card hides its resend action.
+     * @tc.desc      Verify the phone console home renders the title, room name, device list
+     *               and navigation row with the seeded projector card and its expected state
+     *               widget, shows exactly one of the read-only banner and the projector
+     *               resend button, and hides the no-devices hint.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function

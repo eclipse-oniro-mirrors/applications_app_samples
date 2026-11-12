@@ -480,8 +480,8 @@ export default function irCompilerLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCOMPILER_0110
      * @tc.name      testIrCompiler0011
-     * @tc.desc      Verify an even 2048 value RAW payload splits into exactly two full frames and the
-     *               concatenated values still equal the input sequence.
+     * @tc.desc      Verify an even 2048 value RAW payload splits into exactly two full frames of 1024 values
+     *               whose first values are 100 and 500 and whose durations equal their own value sums.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -650,8 +650,8 @@ export default function irCompilerLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCOMPILER_0117
      * @tc.name      testIrCompiler0018
-     * @tc.desc      Verify an NEC payload without exactly two comma separated values is rejected
-     *               with INVALID_VALUE and the address/command message.
+     * @tc.desc      Verify NEC payloads with one value, three values, a semicolon separator or a non numeric
+     *               address are rejected with INVALID_VALUE and the address/command message.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -675,7 +675,7 @@ export default function irCompilerLogicExtraTest() {
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCOMPILER_0118
      * @tc.name      testIrCompiler0019
      * @tc.desc      Verify NEC values beyond sixteen bits, negative values and non integer values are
-     *               rejected with the byte range message.
+     *               rejected with the byte range message, while '65535,65535' compiles into a 67 value frame.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1342,8 +1342,8 @@ export default function irCompilerLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCOMPILER_0146
      * @tc.name      testIrCompiler0047
-     * @tc.desc      Verify the RC5 frame always keeps the fixed fourteen bit duration while the number
-     *               of pattern values varies with how many half bits merge into runs.
+     * @tc.desc      Verify the RC5 payloads '0,0' and '31,63' both keep the fixed fourteen bit duration of
+     *               24892 microseconds with a frame length between 2 and 28 values.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1446,8 +1446,8 @@ export default function irCompilerLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCOMPILER_0150
      * @tc.name      testIrCompiler0051
-     * @tc.desc      Verify decimal notation edge cases follow the Number parser exactly: exponent
-     *               text is accepted while trailing junk is rejected.
+     * @tc.desc      Verify RAW values follow the Number parser: exponent text and hexadecimal text are
+     *               accepted while trailing junk is rejected.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

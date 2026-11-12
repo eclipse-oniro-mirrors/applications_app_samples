@@ -196,7 +196,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0101
      * @tc.name      testObjectValidate0002
-     * @tc.desc      Verify getOrDefault returns the default for 0, empty text and empty array because those inputs are present.
+     * @tc.desc      Verify getOrDefault returns the input itself for 0, empty text, non-empty text and an empty array, because those inputs are present.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -497,7 +497,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0114
      * @tc.name      testObjectValidate0015
-     * @tc.desc      Verify deepEqualsByJson is sensitive to the declaration order of the carrier fields.
+     * @tc.desc      Verify deepEqualsByJson treats two equal PairBox values as equal, and that stringify emits the fields in declaration order, so the output differs from the reordered literal of the same length.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -645,7 +645,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0120
      * @tc.name      testObjectValidate0021
-     * @tc.desc      Verify isPhoneCN rejects wrong length, wrong prefix and formatted variants of a valid number.
+     * @tc.desc      Verify isPhoneCN accepts the valid number and rejects wrong lengths, a second digit of 2 and variants formatted with spaces, hyphens or the +86 prefix.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -668,7 +668,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0121
      * @tc.name      testObjectValidate0022
-     * @tc.desc      Verify isPhoneCN accepts every second digit from three to nine and rejects zero to two.
+     * @tc.desc      Verify isPhoneCN accepts second digits 3, 4, 5, 6, 8 and 9 and rejects second digits 0, 1 and 2.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -824,7 +824,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0128
      * @tc.name      testObjectValidate0029
-     * @tc.desc      Verify isPortNumber accepts the two legal boundary ports zero and 65535.
+     * @tc.desc      Verify isPortNumber accepts the boundary ports 0 and 65535 as well as 1, 8080 and 65534.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -844,7 +844,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0129
      * @tc.name      testObjectValidate0030
-     * @tc.desc      Verify isPortNumber rejects 65536, negative values, fractional values and NaN.
+     * @tc.desc      Verify isPortNumber rejects 65536, 131070, -1, 1.5 and NaN.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1079,7 +1079,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0139
      * @tc.name      testObjectValidate0040
-     * @tc.desc      Verify every ObjectUtils method keeps null safety for a missing object operand.
+     * @tc.desc      Verify hasValue, getOrDefault, isEmptyObject and stringify return a boolean or a string for a null operand, deepClone returns a non-null copy and deepEqualsByJson treats two nulls as equal.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1298,7 +1298,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0148
      * @tc.name      testObjectValidate0049
-     * @tc.desc      Verify the outcome of every validator on the empty text stays consistently false.
+     * @tc.desc      Verify isEmail, isPhoneCN, isUrl, isIpv4, isPositiveInteger and isLengthInRange with a minimum of 1 reject the empty text, while isLengthInRange with a minimum of 0 and hasValue accept it.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1391,7 +1391,7 @@ export default function objectValidateLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_OBJECT_0152
      * @tc.name      testObjectValidate0053
-     * @tc.desc      Verify deepEqualsByJson treats two independently built equal pairs as equal only in the same key order.
+     * @tc.desc      Verify deepEqualsByJson treats two independently built PairBox(1, 2) values as equal and PairBox(2, 1) as different, matching their stringify output.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

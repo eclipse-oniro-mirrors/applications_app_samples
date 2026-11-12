@@ -686,7 +686,7 @@ export default function stringUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_STRING_0124
      * @tc.name      testStringUtils0024
-     * @tc.desc      Verify format replaces placeholders in order against every formatting fixture.
+     * @tc.desc      Verify formatWithArgs replaces placeholders in order against every formatting fixture.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1379,7 +1379,7 @@ export default function stringUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_STRING_0154
      * @tc.name      testStringUtils0054
-     * @tc.desc      Verify capitalize handles single character and already uppercased fixtures without touching the tail.
+     * @tc.desc      Verify capitalize turns the lower case and upper case single character fixtures into 'A'.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1499,7 +1499,7 @@ export default function stringUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_STRING_0159
      * @tc.name      testStringUtils0059
-     * @tc.desc      Verify the format fixture labelled with three holes expands every placeholder in order.
+     * @tc.desc      Verify format expands the three-holes fixture and the CJK argument fixture in placeholder order.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1553,7 +1553,7 @@ export default function stringUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_STRING_0161
      * @tc.name      testStringUtils0061
-     * @tc.desc      Verify the join fixture with an empty separator concatenates the parts without any gap.
+     * @tc.desc      Verify join concatenates the parts without a gap for an empty separator and with '::' for a multi character separator.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1582,7 +1582,7 @@ export default function stringUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_STRING_0162
      * @tc.name      testStringUtils0062
-     * @tc.desc      Verify the case sensitive and insensitive suites disagree only on the case mismatch fixture.
+     * @tc.desc      Verify pairing the equals and equalsIgnoreCase fixtures by index yields exactly one disagreement, and that 'Room' differs from 'room' case sensitively but equals 'ROOM' ignoring case.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1611,7 +1611,7 @@ export default function stringUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_STRING_0163
      * @tc.name      testStringUtils0063
-     * @tc.desc      Verify the empty and blank catalogs stay consistent on every shared fixture.
+     * @tc.desc      Verify isEmpty and isBlank agree on '' and '0' and differ on whitespace, and that every non-empty entry of the empty catalog is not empty.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

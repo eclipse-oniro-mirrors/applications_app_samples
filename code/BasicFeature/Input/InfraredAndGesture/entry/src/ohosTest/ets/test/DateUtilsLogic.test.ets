@@ -57,10 +57,11 @@ function expectedNow(): string {
  * 覆盖范围：formatTimestamp / formatTimestampWithPattern / formatDuration /
  *          elapsedSince / isSameDay / nowMillis 六个公开静态方法。
  *
- * 期望值来源：所有时间戳都是固定常量（0、1000、1700000000000、1700000000001、
- * 1735689599000 等），期望字符串一律用本地 Date 组件取年/月/日/时/分/秒，
- * 再用本文件自写的 padTwo 补零拼接得到，不出现硬编码的时区相关字面量，
- * 也不依赖运行时刻，因此用例在不同时区与不同执行时刻都可重复通过。
+ * 期望值来源：时间戳均为固定常量（0、1000、1700000000000、1700000000001、
+ * 1735689599000 等）。格式化类用例的期望字符串用本地 Date 组件取年/月/日/时/分/秒，
+ * 再用本文件自写的 padTwo 补零拼接得到，不依赖设备时区；isSameDay 等日界用例的
+ * 常量按 UTC+8 构造，需在 UTC+8 时区执行；elapsedSince 与 nowMillis 相关用例
+ * 读取设备当前时间，要求系统时间准确。
  *
  * 明确不覆盖的分支：AppLogger.warn 只写日志没有返回值，非法入参的告警日志
  * 无法从外部观测，只能通过“返回空串/返回 0/false 且不抛异常”间接覆盖。
@@ -629,7 +630,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0115
      * @tc.name      testDateUtils0016
-     * @tc.desc      Verify the custom patterns reject a negative and a NaN timestamp with an empty string.
+     * @tc.desc      Verify the custom patterns reject negative, NaN and infinite timestamps with an empty string.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -971,7 +972,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0131
      * @tc.name      testDateUtils0032
-     * @tc.desc      Verify isSameDay rejects two constants that differ by exactly one UTC+8 day.
+     * @tc.desc      Verify isSameDay in UTC+8 accepts two times ten hours apart and one second before 08:00 of the same day, and rejects the third day, one week later and 07:59:59 of the next day.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -986,7 +987,8 @@ export default function dateUtilsLogicTest() {
       expect(DateUtils.isSameDay(T_SECOND_DAY, T_START_DAY)).assertTrue();
       expect(DateUtils.isSameDay(T_START_DAY, T_2024_THIRD_DAY)).assertFalse();
       expect(DateUtils.isSameDay(T_START_DAY, T_2024_WEEK_LATER)).assertFalse();
-      // The second before midnight of the start day is still the start day, one second later is not.
+      // In UTC+8, 07:59:59 of the second day already belongs to the second day,
+      // while 07:59:59 and 08:00 of the third day fall on the same day.
       expect(DateUtils.isSameDay(T_START_DAY, T_2024_SECOND_DAY - MS_PER_SECOND)).assertFalse();
       expect(DateUtils.isSameDay(T_2024_THIRD_DAY, T_2024_THIRD_DAY - MS_PER_SECOND)).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
@@ -995,7 +997,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0132
      * @tc.name      testDateUtils0033
-     * @tc.desc      Verify isSameDay rejects two constants that are in different months of the same year.
+     * @tc.desc      Verify isSameDay rejects constants in different months of the same year, including the leap day against March 1 in UTC+8, and accepts two times of March 1.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1152,7 +1154,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0140
      * @tc.name      testDateUtils0040
-     * @tc.desc      Verify elapsedSince returns a non negative value inside a loose window for a valid start.
+     * @tc.desc      Verify elapsedSince returns a finite non negative integer above 60000 ms for a start point of 1000.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1172,7 +1174,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0141
      * @tc.name      testDateUtils0041
-     * @tc.desc      Verify elapsedSince stays finite and non negative for several fixed start points.
+     * @tc.desc      Verify elapsedSince stays finite, non negative and above 60000 ms for several fixed start points.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1217,7 +1219,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0143
      * @tc.name      testDateUtils0043
-     * @tc.desc      Verify nowMillis returns a positive integer that is close to the Date component clock.
+     * @tc.desc      Verify nowMillis returns a positive finite integer later than 2024-01-01 00:00:00 UTC.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1301,7 +1303,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0147
      * @tc.name      testDateUtils0047
-     * @tc.desc      Verify formatTimestamp, isSameDay and formatDuration agree on the same fixed constant.
+     * @tc.desc      Verify isSameDay, formatTimestampWithPattern and formatDuration give consistent results for the leap day constant, which falls on February 29 in UTC+8.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1326,7 +1328,7 @@ export default function dateUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_DATE_0148
      * @tc.name      testDateUtils0048
-     * @tc.desc      Verify the one UTC+8 day arithmetic keeps isSameDay and the pattern output consistent.
+     * @tc.desc      Verify one day and one hour offsets from 2024-01-01 move the local day and hour by one and give the expected isSameDay results in UTC+8.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

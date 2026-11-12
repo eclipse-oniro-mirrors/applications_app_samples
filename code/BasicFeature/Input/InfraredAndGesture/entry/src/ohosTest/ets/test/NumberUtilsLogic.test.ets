@@ -261,7 +261,7 @@ export default function numberUtilsLogicTest() {
       expect(NumberUtils.parseIntSafe(null, DEFAULT_ZERO)).assertEqual(DEFAULT_ZERO);
       expect(NumberUtils.parseIntSafe(null, DEFAULT_SEVEN)).assertEqual(DEFAULT_SEVEN);
       expect(NumberUtils.parseIntSafe(null, DEFAULT_SENTINEL)).assertEqual(DEFAULT_SENTINEL);
-      // Negative zero must survive untouched, it is a legitimate fallback.
+      // A -0 fallback is returned as a value equal to 0.
       expect(NumberUtils.parseIntSafe(null, -0)).assertEqual(DEFAULT_ZERO);
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
     });
@@ -757,7 +757,7 @@ export default function numberUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMBER_0124
      * @tc.name      testNumberUtils0025
-     * @tc.desc      Verify clamp is idempotent, clamping an already clamped value changes nothing.
+     * @tc.desc      Verify clamp is idempotent with swapped bounds: clamping the result again with the same bounds changes nothing, and widening the range keeps an already clamped value.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -782,7 +782,7 @@ export default function numberUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMBER_0125
      * @tc.name      testNumberUtils0026
-     * @tc.desc      Verify clamp saturates the special numeric values instead of propagating NaN.
+     * @tc.desc      Verify clamp saturates infinite values to the bounds, keeps a finite value inside an infinite range and returns a non-finite result for NaN.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -996,7 +996,7 @@ export default function numberUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMBER_0134
      * @tc.name      testNumberUtils0035
-     * @tc.desc      Verify exactly one hundred fraction digits are kept while one hundred and one are clamped down.
+     * @tc.desc      Verify toFixedString keeps exactly one hundred fraction digits for 1, producing a 102 character text.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1572,7 +1572,7 @@ export default function numberUtilsLogicTest() {
     it('testNumberUtils0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       const TAG: string = 'testNumberUtils0057';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
-      // Inside the kilobyte unit the reported value grows strictly with the byte count.
+      // Inside the kilobyte unit the reported value never decreases as the byte count grows.
       let previous: number = -1;
       let steps: number = 0;
       for (let bytes: number = BYTES_PER_KB; bytes < BYTES_PER_KB * 2; bytes += 128) {
@@ -1585,7 +1585,7 @@ export default function numberUtilsLogicTest() {
       }
       // 1024, 1152, ..., 1920 gives eight probes, all inside the kilobyte unit.
       expect(steps).assertEqual(8);
-      // The last probe sits exactly on the kilobyte boundary.
+      // The first probe sits exactly on the kilobyte boundary.
       expect(NumberUtils.formatFileSize(BYTES_PER_KB)).assertEqual('1.00KB');
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
     });
@@ -1593,7 +1593,7 @@ export default function numberUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMBER_0157
      * @tc.name      testNumberUtils0058
-     * @tc.desc      Verify small negative and positive byte counts are symmetric around zero after normalization.
+     * @tc.desc      Verify small negative byte counts format as '0.00B', unlike their positive counterparts, and that 0 and -0 format identically.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

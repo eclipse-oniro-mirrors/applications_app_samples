@@ -548,7 +548,7 @@ export default function irSendQueueLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRSENDQUEUE_0110
      * @tc.name      testIrSendQueue0011
-     * @tc.desc      Verify the terminal event of every empty step reports resultCode OK and no step reports FAILED.
+     * @tc.desc      Verify every empty step of a scene job reports PENDING, SENDING and SUCCESS in order, the first terminal event reports OK and no step reports FAILED.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -575,7 +575,7 @@ export default function irSendQueueLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRSENDQUEUE_0111
      * @tc.name      testIrSendQueue0012
-     * @tc.desc      Verify the device id and key id of each step are delivered unchanged on all three events of that step.
+     * @tc.desc      Verify step device and key ids reach the progress events: the first event of each step carries its device id and the last event carries its key id.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -766,7 +766,7 @@ export default function irSendQueueLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRSENDQUEUE_0118
      * @tc.name      testIrSendQueue0019
-     * @tc.desc      Verify cancel on the running ticket stops the job at the next step boundary so later steps never report progress.
+     * @tc.desc      Verify cancel on the running ticket stops the job before its last step: the last step reports no progress, no step fails and fewer events than a full run are emitted.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1056,7 +1056,7 @@ export default function irSendQueueLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRSENDQUEUE_0128
      * @tc.name      testIrSendQueue0029
-     * @tc.desc      Verify a negative step delay falls back to the default pacing without changing the progress sequence.
+     * @tc.desc      Verify a job with a negative step delay still emits six progress events in PENDING, SENDING, SUCCESS order and ends every step with SUCCESS.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1196,7 +1196,7 @@ export default function irSendQueueLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRSENDQUEUE_0133
      * @tc.name      testIrSendQueue0034
-     * @tc.desc      Verify every terminal snapshot of a successful job reports OK and every pending snapshot reports UNKNOWN.
+     * @tc.desc      Verify a successful two step job emits two PENDING, two SENDING and two SUCCESS events without FAILED, and that the first event reports UNKNOWN.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1225,7 +1225,7 @@ export default function irSendQueueLogicExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRSENDQUEUE_0134
      * @tc.name      testIrSendQueue0035
-     * @tc.desc      Verify a cancelled multi step job stops emitting progress events after the current step boundary.
+     * @tc.desc      Verify a cancelled four step job emits no progress for its last step, reports no failure and leaves the queue idle.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

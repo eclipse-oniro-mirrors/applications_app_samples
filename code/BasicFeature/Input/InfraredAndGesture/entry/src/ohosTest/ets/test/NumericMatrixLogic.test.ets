@@ -473,7 +473,7 @@ export default function numericMatrixLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMMATRIX_0107
      * @tc.name      testNumericMatrix0008
-     * @tc.desc      Verify the prime vector sums to the hand checked footer and keeps every element prime.
+     * @tc.desc      Verify the first ten primes sum to 129 with minimum 2, maximum 29 and no duplicates.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -789,7 +789,7 @@ export default function numericMatrixLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMMATRIX_0120
      * @tc.name      testNumericMatrix0021
-     * @tc.desc      Verify a non-positive chunk size falls back to single element chunks.
+     * @tc.desc      Verify chunk sizes 0 and -4 both split five elements into five chunks, and that size 0 yields single element chunks.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -863,7 +863,7 @@ export default function numericMatrixLogicTest() {
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testNumericMatrix0024', TestType.FUNCTION + Size.SMALLTEST, () => {
+    it('testNumericMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       const TAG: string = 'testNumericMatrix0024';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
       const base: number[] = NumericVectorFactory.ascending(FIVE, PRIMARY_START, PRIMARY_STEP);
@@ -998,7 +998,7 @@ export default function numericMatrixLogicTest() {
      * @tc.type      Function
      * @tc.level     Level 0
      */
-    it('testNumericMatrix0030', TestType.FUNCTION + Size.SMALLTEST, () => {
+    it('testNumericMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       const TAG: string = 'testNumericMatrix0030';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
       const matrixCase: MatrixCase = smallMatrix();
@@ -1685,7 +1685,7 @@ export default function numericMatrixLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMMATRIX_0158
      * @tc.name      testNumericMatrix0058
-     * @tc.desc      Verify a negative count yields an empty vector while the closed form stays zero.
+     * @tc.desc      Verify a negative count yields an empty vector whose sum and in-range count are zero and whose min and max are null.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1728,7 +1728,7 @@ export default function numericMatrixLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_NUMMATRIX_0160
      * @tc.name      testNumericMatrix0060
-     * @tc.desc      Verify interleaving vectors of different lengths appends the longer tail unchanged.
+     * @tc.desc      Verify interleaving vectors of three and eight values keeps all eleven values, the combined sum and the extremes 1 and 27.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1806,7 +1806,7 @@ export default function numericMatrixLogicTest() {
      */
     it('testNumericMatrix0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       const TAG: string = 'testNumericMatrix0063';
-      hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
+      hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
       const cases: MatrixCase[] = [singleCellMatrix(), smallMatrix(), rectangularMatrix(), largeMatrix()];
       for (const matrixCase of cases) {
         let matrixRowTotal: number = 0;
@@ -1842,7 +1842,7 @@ export default function numericMatrixLogicTest() {
      */
     it('testNumericMatrix0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       const TAG: string = 'testNumericMatrix0064';
-      hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
+      hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
       const values: number[] = NumericVectorFactory.fibonacci(TEN);
       const mirrored: number[] = NumericVectorFactory.mirror(values);
       expect(ArrayUtils.sum(mirrored)).assertEqual(ArrayUtils.sum(values));

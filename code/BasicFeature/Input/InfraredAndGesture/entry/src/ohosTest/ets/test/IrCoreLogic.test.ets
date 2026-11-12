@@ -507,8 +507,8 @@ export default function irCoreLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCORE_0114
      * @tc.name      testIrCore0015
-     * @tc.desc      NEC 载荷 0,255 为 8 位边界值：地址 0 的反码 255 全部为长空号，
-     *               命令 255 的反码 0 全部为短空号。
+     * @tc.desc      NEC 载荷 0,255 为 8 位边界值：地址 0 的反码首比特为长空号 1690，
+     *               命令 255 的反码首比特为短空号 560。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -638,8 +638,8 @@ export default function irCoreLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCORE_0118
      * @tc.name      testIrCore0019
-     * @tc.desc      SONY 数据值等于 12 位上界 4096 或为负数时编译失败；数据为 0
-     *               属于合法下界，编译为全零比特的标准帧。
+     * @tc.desc      SONY 数据值等于 12 位上界 4096 或为负数时编译失败；数据为 0 属于
+     *               合法下界，编译为 26 值标准帧且首个数据码元为 600 微秒短码。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -671,8 +671,8 @@ export default function irCoreLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCORE_0119
      * @tc.name      testIrCore0020
-     * @tc.desc      RC5 载荷 0,0 编译为 14 比特曼彻斯特帧：起始位与场位先高后低，
-     *               前三个半比特各 889 微秒，总时长恒为 24892 微秒。
+     * @tc.desc      RC5 载荷 0,0 编译为单帧曼彻斯特波形：前两段各 889 微秒，第四段
+     *               为合并后的 1778 微秒，总时长恒为 24892 微秒。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -992,7 +992,7 @@ export default function irCoreLogicTest() {
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCORE_0131
      * @tc.name      testIrCore0032
      * @tc.desc      任务执行期间再次入队被拒绝：受理为假、原因为 BUSY、票据为
-     *               空；队列空闲后同一场景重新入队即可受理。
+     *               空；队列空闲后再次入队即可受理。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1232,8 +1232,7 @@ export default function irCoreLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRCORE_0138
      * @tc.name      testIrCore0039
-     * @tc.desc      波形中含零值或负值时在触达系统接口前被拒绝，提示信息指出对
-     *               应位置取值无效。
+     * @tc.desc      波形中含零值或负值时在触达系统接口前被拒绝，提示信息包含 invalid。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

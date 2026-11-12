@@ -540,9 +540,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONEROOMNAME_1200
      * @tc.name      testRoomNameBlankGuard0001
-     * @tc.desc      Verify the phone room configuration page rejects a whitespace-only room
-     *               name: after typing blanks into the name input the create action still
-     *               shows the required-name hint and the seeded room row stays intact.
+     * @tc.desc      Verify the phone room configuration page shows the status line when create
+     *               room is tapped with a whitespace-only name, while the seeded room row stays
+     *               rendered.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -587,9 +587,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONEROOMNAME_1201
      * @tc.name      testRoomCreateRollback0001
-     * @tc.desc      Verify a created room appears next to the seeded rows and that the
-     *               seeded row keeps its name, enter and delete widgets, so the phone
-     *               room list stays intact around the insertion.
+     * @tc.desc      Verify a room named case-room-placeholder created on the phone room page
+     *               shows the status line and its name, while the seeded room keeps its row,
+     *               enter and name widgets before and after the insertion.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -703,9 +703,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONEROOMNAME_1203
      * @tc.name      testRoomAddDeviceGuard0001
-     * @tc.desc      Verify the add-device form of the phone room page rejects an empty device
-     *               name with the enter-name hint, keeps every seeded device row, and that
-     *               the type cycle button keeps the form mounted while cycling all types.
+     * @tc.desc      Verify the phone room page shows the status line when add device is tapped
+     *               with an empty name, keeps the four seeded device rows, and keeps the new
+     *               device row and input after two taps on the type cycle button.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -761,9 +761,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONEROOMNAME_1204
      * @tc.name      testRoomBindGuardOrder0001
-     * @tc.desc      Verify the bind-key guard order on the phone room page: with no device
-     *               selected the bind action reports the select-device hint, and the key
-     *               library selectors plus the read-only test-send hint stay rendered.
+     * @tc.desc      Verify tapping bind key on the phone room page with no device selected
+     *               leaves the status line, the three key library selectors and exactly one of
+     *               the test-send button and the read-only hint rendered.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -819,9 +819,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONEROOMNAME_1205
      * @tc.name      testRoomPackageGuard0001
-     * @tc.desc      Verify the package section of the phone room page: export with a selected
-     *               room keeps the section mounted, import with an empty or whitespace path
-     *               reports the enter-path hint and never produces an import summary.
+     * @tc.desc      Verify the package section of the phone room page renders its title, export
+     *               button and path input, and that importing with an empty path shows the
+     *               status line without an import summary.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1040,9 +1040,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONESCENE_1303
      * @tc.name      testSceneDelayCycleFull0001
-     * @tc.desc      Verify the seeded step delay button runs through the full preset ring of
-     *               four values with an equal number of taps, ending on the seeded value and
-     *               leaving the step row and its action chips untouched.
+     * @tc.desc      Verify the delay button of the second seeded step stays rendered across four
+     *               taps, and that the status line and the actions, toggle and remove widgets of
+     *               that step are present afterwards.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1093,9 +1093,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONESCENE_1304
      * @tc.name      testSceneStepToggleTwice0001
-     * @tc.desc      Verify the seeded step toggle switches the row to the disabled state and
-     *               back within two taps, that the row keeps all of its widgets in between
-     *               and that no validation message is produced by the toggles.
+     * @tc.desc      Verify the toggle of the third seeded step can be tapped twice: the step row
+     *               and line stay after the first tap, the step actions stay after the second,
+     *               and no validation text appears.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1204,9 +1204,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONESCENE_1306
      * @tc.name      testSceneEditorReentry0001
-     * @tc.desc      Verify the phone scene editor survives a leave-and-reenter cycle: the
-     *               page is closed with the back button and opened again, and the preselected
-     *               scene, the step rows and the status area behave the same way twice.
+     * @tc.desc      Verify the phone scene editor can be left and reopened twice, each time
+     *               rendering the header, the seeded scene name and the first and last seeded
+     *               step rows before returning to the console.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1288,9 +1288,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_PHONESETTINGS_1401
      * @tc.name      testSettingsBackChain0001
-     * @tc.desc      Verify the phone navigation chain console -> settings -> room page ->
-     *               scene editor keeps the console root alive underneath, so the back button
-     *               of every sub page returns to the same console instance.
+     * @tc.desc      Verify the phone settings, room configuration and scene editor pages each
+     *               open from the console and return to it with their back buttons, leaving the
+     *               console title, device list and navigation row rendered.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1426,9 +1426,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETORCH_1502
      * @tc.name      testOrchestrationScrollStable0001
-     * @tc.desc      Verify the tablet home keeps its room section and grid mounted while the
-     *               page scroll container moves to the bottom and back, and that the transfer
-     *               button is reachable in both positions.
+     * @tc.desc      Verify the tablet home keeps the room section rendered with its scroll
+     *               container at the bottom and back at the top, where the transfer button and
+     *               the room grid are also present.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1469,10 +1469,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETROOM_1600
      * @tc.name      testTabletRoomInfoGuard0001
-     * @tc.desc      Verify the tablet room configuration page preloads the seeded room name and
-     *               note into the info card inputs, that the room actions are present, and
-     *               that clearing the name and saving reports the required-name hint without
-     *               leaving the page.
+     * @tc.desc      Verify the tablet room configuration page renders the info card with its
+     *               title, name and note inputs, actions and save button, and that saving after
+     *               clearing the name shows the status line without leaving the page.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1630,9 +1629,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETROOM_1603
      * @tc.name      testTabletRoomKeySection0001
-     * @tc.desc      Verify the tablet key section starts in the select-device hint state, that
-     *               the semantic, brand and code selectors plus the bind action are rendered,
-     *               and that the bind action without a device keeps the hint in place.
+     * @tc.desc      Verify the tablet key section renders the select-device hint, the semantic,
+     *               brand and code selectors and the bind action, and that binding without a
+     *               device shows the status line while the key section stays.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1727,9 +1726,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETSCENE_1701
      * @tc.name      testTabletSceneStepShape0001
-     * @tc.desc      Verify every seeded step of the tablet scene editor renders its number,
-     *               device, key, delay label, toggle and the up, down, remove actions, and
-     *               that the seeded scene is already selected on entry.
+     * @tc.desc      Verify every seeded step of the tablet scene editor renders its row, line,
+     *               number, device, key, delay, actions, toggle and up, down and remove widgets,
+     *               with the seeded scene row present and no validation text.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1785,9 +1784,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETSCENE_1702
      * @tc.name      testTabletSceneDelayBounds0001
-     * @tc.desc      Verify the tablet step delay plus and minus buttons clamp the seeded value
-     *               inside the configured bounds: three plus taps and three minus taps leave
-     *               the step row mounted, the delay label present and the list unchanged.
+     * @tc.desc      Verify the tablet step delay plus and minus buttons accept three taps each
+     *               while the step row, the delay label and the first and last seeded step rows
+     *               stay rendered.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -1898,10 +1897,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETXFER_1800
      * @tc.name      testTransferSelectToggleSet0001
-     * @tc.desc      Verify the tablet transfer page toggles room selection independently: the
-     *               seeded room toggles on, stays toggled on when another toggle target is
-     *               absent, and returns to unselected after a second tap so the selection set
-     *               ends empty.
+     * @tc.desc      Verify the tablet transfer page keeps the seeded room toggle after two taps,
+     *               and that exporting afterwards shows the status line without an export path
+     *               or an export summary.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function
@@ -2019,9 +2017,9 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETXFER_1802
      * @tc.name      testTransferMultiToggle0001
-     * @tc.desc      Verify the transfer page tolerates repeated selection changes: five taps on
-     *               the same room toggle end on the selected state, the export section keeps
-     *               its button and hint, and a following tap deselects it again.
+     * @tc.desc      Verify the tablet transfer page keeps the seeded room toggle across five
+     *               taps with the export section, title, hint and button rendered, and keeps the
+     *               import section after a sixth tap.
      * @tc.require   NA
      * @tc.size      MediumTest
      * @tc.type      Function

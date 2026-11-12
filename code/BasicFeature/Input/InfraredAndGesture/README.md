@@ -72,7 +72,7 @@ InfraredAndGesture
 │       ├── viewmodel/ConsoleViewModel.ets          // 中控台视图模型
 │       ├── views                                   // 设备卡片，场景栏，进度面板，日志面板
 │       └── components                              // 只读横幅与发送结果提示组件
-├── entry/src/ohosTest/ets/test/MeetingScene.test.ets // UI 自动化用例
+├── entry/src/ohosTest/ets/test                     // 自动化测试用例，用例清单见 ohosTest.md
 └── screenshots                                     // 真机效果截图
 ```
 
@@ -145,7 +145,7 @@ InfraredAndGesture
 
 ## 测试
 
-UI 自动化用例位于 `entry/src/ohosTest`，套件名为 `MeetingSceneUiTest`，共 8 条用例，覆盖启动路由，首页设备控件区，二级页面跳转，发送日志页，房间管理，场景管理，场景编辑步骤列表与配置包导出入口等基本场景。用例的场景，步骤与结果记录见 [TestReport.md](TestReport.md)。
+自动化用例位于 `entry/src/ohosTest/ets/test`，共 16 个测试套件 780 条用例。其中 UI 自动化用例 64 条，覆盖启动路由，首页控件，二级页面跳转，房间与场景配置，配置包导入导出等场景；逻辑用例 716 条，覆盖 common，ircore 与 room 模块的工具类，码型编译，发送队列，场景校验与配置包解析。全部用例的编号，步骤与预期结果见 [ohosTest.md](ohosTest.md)，`MeetingSceneUiTest` 套件的测试报告见 [TestReport.md](TestReport.md)。
 
 ## 下载
 

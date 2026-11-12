@@ -1,13 +1,13 @@
 # 会议室场景控制测试用例报告
 
-当前工程包名为 `com.samples.infraredandgesture`。以下测试记录对应调整前的包名 `com.samples.meetingscene`；新包名尚未重新构建或执行测试。
+本报告记录 `MeetingSceneUiTest` 套件 8 条 UI 自动化用例的执行情况，全部 780 条自动化用例的清单见 [ohosTest.md](ohosTest.md)。
 
 ## 一、测试环境
 
 | 项目 | 说明                                                                         |
 | --- |----------------------------------------------------------------------------|
 | 设备型号 | dayu200（RK3568）真机                                                          |
-| 应用包名 | com.samples.meetingscene                                                   |
+| 应用包名 | com.samples.infraredandgesture                                             |
 | 系统 | OpenHarmony 7.1.0.22                                                       |
 | SDK | `compatibleSdkVersion` / `targetSdkVersion` 均为 `26.0.0`                    |
 | 测试框架 | `@ohos/hypium` + `OpenHarmonyTestRunner`（模块名 `entry_test`）                 |
@@ -24,7 +24,7 @@
 | 用例名称 | testLaunchApp0001 |
 | 测试场景 | 应用启动后按设备形态进入正确首页 |
 | 前置条件 | 应用已安装，设备已解锁 |
-| 操作步骤 | 1. 由套件 beforeAll 启动 com.samples.meetingscene/EntryAbility，等待首页加载完成。2. 等待首页根节点出现。 |
+| 操作步骤 | 1. 由套件 beforeAll 启动 com.samples.infraredandgesture/EntryAbility，等待首页加载完成。2. 等待首页根节点出现。 |
 | 预期结果 | 手机上出现中控台首页（id_console_root），平板上出现编排首页（id_orch_root），页面无白屏与闪退 |
 | 实际结果 | Pass |
 | 关键日志 | `MeetingScene_testLaunchApp0001 start` 与 `MeetingScene_testLaunchApp0001 end` |

@@ -694,8 +694,8 @@ export default function irModelLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRMODEL_0121
      * @tc.name      testIrModel0022
-     * @tc.desc      Verify a populated SendProgress keeps the ticket, scene run id, step counters and
-     *               the device and key identifiers exactly as assigned.
+     * @tc.desc      Verify a populated SendProgress keeps the ticket, scene run id, step counters, state
+     *               and result code exactly as assigned.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -929,8 +929,8 @@ export default function irModelLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRMODEL_0129
      * @tc.name      testIrModel0030
-     * @tc.desc      Verify a populated IrCode keeps every metadata field including the optional
-     *               checksum and the semantic name used for library matching.
+     * @tc.desc      Verify a populated IrCode keeps its id, protocol, payload, repeat count, brand and
+     *               semantic name as assigned, together with an eight character checksum.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1179,8 +1179,9 @@ export default function irModelLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRMODEL_0138
      * @tc.name      testIrModel0039
-     * @tc.desc      Verify the compile result and the transmit result never alias each other, as they
-     *               model different stages of one send and must keep separate error channels.
+     * @tc.desc      Verify the compile result error and the transmit result code keep their own values:
+     *               INVALID_VALUE and PARAM_ERROR read back with their string forms while ok stays false
+     *               and the duration stays zero.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1205,8 +1206,8 @@ export default function irModelLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRMODEL_0139
      * @tc.name      testIrModel0040
-     * @tc.desc      Verify the frame and step count fields default to zero for a brand new code and frame,
-     *               so a caller can distinguish an empty model from a filled one without null checks.
+     * @tc.desc      Verify a new IrCompileResult, SendJob and SendTicket start empty: no frames, no steps,
+     *               a non accepted ticket with an empty id and reason, and the declared field counts.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1401,8 +1402,9 @@ export default function irModelLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_IRMODEL_0146
      * @tc.name      testIrModel0047
-     * @tc.desc      Verify the model field counts of the frame, step and job classes equal the declared
-     *               structural constants, so an accidental field addition fails this case first.
+     * @tc.desc      Verify the field counts of IrFrame, SendFrame, SendStep, SendJob, SendProgress,
+     *               TransmitResult and IrLibraryCode equal the declared structural constants, so an
+     *               accidental field addition fails this case first.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

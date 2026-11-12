@@ -1146,8 +1146,9 @@ export default function securityFileLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_SECFILE_0137
      * @tc.name      testSecurityFile0038
-     * @tc.desc      Verify a single byte block encoded by both entry points yields the same
-     *               Base64 text for every value in the lower half of the byte range.
+     * @tc.desc      Verify every single byte value from 0 to 63 encodes through base64EncodeBytes
+     *               into four alphabet characters and decodes back to the same byte, and that a zero
+     *               byte encodes to 'AA=='.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1174,8 +1175,8 @@ export default function securityFileLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_SECFILE_0138
      * @tc.name      testSecurityFile0039
-     * @tc.desc      Verify Base64 encoding never throws and stays inside the alphabet for
-     *               payloads containing control characters, quotes and emoji text.
+     * @tc.desc      Verify control characters and quotes survive a Base64 round trip, and that emoji
+     *               text encodes inside the alphabet, decodes back and yields eight UTF-8 bytes.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

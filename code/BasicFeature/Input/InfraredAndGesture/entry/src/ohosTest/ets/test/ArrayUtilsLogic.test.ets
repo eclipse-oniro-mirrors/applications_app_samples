@@ -671,7 +671,7 @@ export default function arrayUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ARRAY_0118
      * @tc.name      testArrayUtils0019
-     * @tc.desc      Verify sum of a mirrored vector is twice the sum of the source vector.
+     * @tc.desc      Verify a mirrored vector keeps the source length and sum, an interleave with itself doubles both, and repeatEach by three triples both.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1336,7 +1336,7 @@ export default function arrayUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ARRAY_0142
      * @tc.name      testArrayUtils0043
-     * @tc.desc      Verify chunk then removeElement then unique keeps the length invariant on a generated vector.
+     * @tc.desc      Verify chunk keeps all twelve elements, removeElement drops the first element so the copy keeps eleven elements whose sum shrinks by that element, and unique never grows the copy.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1429,7 +1429,7 @@ export default function arrayUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ARRAY_0145
      * @tc.name      testArrayUtils0046
-     * @tc.desc      Verify every generated vector family satisfies the pipeline contains, sum, min, max and unique.
+     * @tc.desc      Verify every generated vector family satisfies contains, minOrNull, maxOrNull and unique against the helper minimum, maximum and distinct count.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1500,7 +1500,7 @@ export default function arrayUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ARRAY_0147
      * @tc.name      testArrayUtils0048
-     * @tc.desc      Verify chunk column totals of a matrix vector match the closed-form column sums.
+     * @tc.desc      Verify the row sums, manually extracted column sums and column extremes of a three by four matrix match the closed-form values, and the flattened total matches matrixTotalSum.
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

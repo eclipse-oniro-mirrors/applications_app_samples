@@ -523,7 +523,7 @@ export default function commonUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_COMMON_0121
      * @tc.name      testCommonUtils0022
-     * @tc.desc      低于下界返回下界，高于上界返回上界，上下界互换时按交换后区间夹紧。
+     * @tc.desc      低于下界返回下界，高于上界返回上界，上下界互换时区间内的值保持不变，上下界相等时返回该值。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -727,7 +727,7 @@ export default function commonUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_COMMON_0131
      * @tc.name      testCommonUtils0032
-     * @tc.desc      输出各字段与本地时间字段拼接结果完全一致，同一时间戳重复格式化结果相同。
+     * @tc.desc      输出与按本地时间字段补零拼接的 yyyy-MM-dd HH:mm:ss 文本一致，长度为 19，前 4 位为本地年份。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -814,7 +814,7 @@ export default function commonUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_COMMON_0135
      * @tc.name      testCommonUtils0036
-     * @tc.desc      不足一秒归零显示，恰满一秒进位，秒位满 59 秒后归零不进位错误。
+     * @tc.desc      不足一秒显示为零，恰满一秒进位，59999 毫秒显示为 00:00:59。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -852,7 +852,7 @@ export default function commonUtilsLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_COMMON_0137
      * @tc.name      testCommonUtils0038
-     * @tc.desc      负数与 NaN 返回空串，超大时长的小时段可超过两位正常显示。
+     * @tc.desc      负数、NaN 与正无穷返回空串，超大时长的小时段可超过两位正常显示。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function

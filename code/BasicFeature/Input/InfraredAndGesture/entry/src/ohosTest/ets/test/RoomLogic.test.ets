@@ -770,7 +770,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0119
      * @tc.name      testRoomLogic0020
-     * @tc.desc      手动校正过的设备状态不被任何按键语义改写，电源、等级与来源全部保持原值。
+     * @tc.desc      手动校正过的设备状态不被 POWER_ON 语义改写，电源、等级、来源与更新时间均保持原值。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -954,7 +954,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0127
      * @tc.name      testRoomLogic0028
-     * @tc.desc      HDMI 切换等无副作用语义不改变电源与等级，来源改写为场景来源并写入注入时间。
+     * @tc.desc      HDMI 切换等无副作用语义不改变电源与等级，来源保持为场景来源并写入注入时间。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1346,7 +1346,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0141
      * @tc.name      testRoomLogic0042
-     * @tc.desc      版本不兼容的配置包文本解析时抛出异常，异常提示正是第一条校验错误的内容。
+     * @tc.desc      版本不兼容的配置包文本解析时抛出异常，异常信息包含版本不兼容提示以及实际版本 2 与期望版本 1。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1575,7 +1575,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0150
      * @tc.name      testRoomLogic0051
-     * @tc.desc      空串与纯空白的 Pronto 码文本都会被拒绝，并给出输入为空的明确提示。
+     * @tc.desc      空串与纯空白的 Pronto 码文本都会被拒绝并提示输入为空，合法 Pronto 码解析出带 pronto 前缀的编号。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1628,7 +1628,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0152
      * @tc.name      testRoomLogic0053
-     * @tc.desc      频率字段为零的 Pronto 码无法换算载波频率，被拒绝并给出零频率提示。
+     * @tc.desc      频率字段为零的 Pronto 码无法换算载波频率，被拒绝并给出零频率提示；频率字段为 006B 时换算为 38740 赫兹。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1651,7 +1651,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0153
      * @tc.name      testRoomLogic0054
-     * @tc.desc      只有四个头部词而没有波形数据的输入被拒绝，提示缺少波形数据。
+     * @tc.desc      只有四个头部词而没有波形数据的输入被拒绝，提示缺少波形数据；含一对波形词的输入解析为重复一次的载荷。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1674,7 +1674,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0154
      * @tc.name      testRoomLogic0055
-     * @tc.desc      波形数据词个数为奇数时无法配对，被拒绝并提示数据必须成对出现。
+     * @tc.desc      波形数据词个数为奇数时无法配对，被拒绝并提示数据必须成对出现；两对波形词按顺序解析为四个载荷值。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1724,7 +1724,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0156
      * @tc.name      testRoomLogic0057
-     * @tc.desc      典型六词 Pronto 码解析为 RAW 协议码：频率约 38740 赫兹、重复一次、编号带 pronto 前缀。
+     * @tc.desc      典型六词 Pronto 码解析为 RAW 协议码：频率为 38740 赫兹、重复一次、编号带 pronto 前缀。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
