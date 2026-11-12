@@ -353,7 +353,7 @@ export default function errorRecoveryTest(): void {
      */
     it('ErrorRecovery_openAbility_error_010', 0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'ErrorRecovery_openAbility_error_010: error path of openAbility');
-      // A failed system call surfaces as a BusinessError, the model must translate
+      // A failed system call is reported as a BusinessError, the model must translate
       // it into a readable tip instead of leaking the raw error to the preview.
       const failure: BusinessError = {
         code: 16000001,
@@ -528,7 +528,7 @@ export default function errorRecoveryTest(): void {
 
     /**
      * @tc.name: ErrorRecovery_type_Text_driver_017
-     * @tc.desc: Verify that the preview surface can be located through the UiTest driver (type_Text)
+     * @tc.desc: Verify that the preview window can be located through the UiTest driver (type_Text)
      * @tc.type: FUNC
      * @tc.require: issueI5W5B3
      */
@@ -884,7 +884,7 @@ export default function errorRecoveryTest(): void {
      */
     it('ErrorRecovery_saveImage_error_031', 0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'ErrorRecovery_saveImage_error_031: error path of saveImage');
-      // A failed system call surfaces as a BusinessError, the model must translate
+      // A failed system call is reported as a BusinessError, the model must translate
       // it into a readable tip instead of leaking the raw error to the preview.
       const failure: BusinessError = {
         code: 13900020,
@@ -1059,7 +1059,7 @@ export default function errorRecoveryTest(): void {
 
     /**
      * @tc.name: ErrorRecovery_text_Screenshot_driver_038
-     * @tc.desc: Verify that the preview surface can be located through the UiTest driver (text_Screenshot)
+     * @tc.desc: Verify that the preview window can be located through the UiTest driver (text_Screenshot)
      * @tc.type: FUNC
      * @tc.require: issueI5W5B3
      */

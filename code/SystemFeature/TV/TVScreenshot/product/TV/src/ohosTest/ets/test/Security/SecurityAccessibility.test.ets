@@ -353,7 +353,7 @@ export default function securityAccessibilityTest(): void {
      */
     it('SecurityAccessibility_openAbility_error_010', 0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'SecurityAccessibility_openAbility_error_010: error path of openAbility');
-      // A failed system call surfaces as a BusinessError, the model must translate
+      // A failed system call is reported as a BusinessError, the model must translate
       // it into a readable tip instead of leaking the raw error to the preview.
       const failure: BusinessError = {
         code: 16000001,

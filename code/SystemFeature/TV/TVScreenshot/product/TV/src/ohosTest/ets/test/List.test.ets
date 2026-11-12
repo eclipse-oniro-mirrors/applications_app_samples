@@ -117,7 +117,7 @@ import viewModelTest from './ViewModel.test';
 /**
  * List.test.ets is the single entry point consumed by OpenHarmonyTestRunner.
  * Every suite below is registered exactly once so the runner can execute the whole
- * capture feature surface: model, view model, extension ability, window, resources
+ * capture feature scope: model, view model, extension ability, window, resources
  * and the interaction, lifecycle, performance, integration and security dimensions.
  */
 export default function testsuite(): void {

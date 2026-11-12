@@ -221,7 +221,7 @@ export async function checkTextContent(driver: Driver, expected: string): Promis
 }
 
 /**
- * Check whether the preview surface is currently visible. The preview is identified by
+ * Check whether the preview window is currently visible. The preview is identified by
  * an image component inside the floating window.
  */
 export async function isPreviewVisible(driver: Driver): Promise<boolean> {
