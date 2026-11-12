@@ -1592,7 +1592,7 @@ export default function roomLogicTest() {
         IrLibraryImporter.parseProntoHex('   \t  ');
       });
       expect(blankThrown).assertEqual('Pronto HEX is empty');
-      const valid: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AA');
+      const valid: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AC');
       expect(valid.id.startsWith('pronto-')).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
     });
@@ -1638,11 +1638,11 @@ export default function roomLogicTest() {
       const TAG: string = 'testRoomLogic0053';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
       const zeroFrequency: string = captureMessage(() => {
-        IrLibraryImporter.parseProntoHex('0000 0000 0001 0002 015C 00AA');
+        IrLibraryImporter.parseProntoHex('0000 0000 0001 0002 015C 00AC');
       });
       expect(zeroFrequency.indexOf('frequency field is 0') >= 0).assertTrue();
       const validFrequency: IrCode =
-        IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AA');
+        IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AC');
       expect(validFrequency.frequencyHz).assertEqual(38740);
       expect(validFrequency.payload.length > 0).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
@@ -1665,8 +1665,8 @@ export default function roomLogicTest() {
       });
       expect(noData.indexOf('no waveform data') >= 0).assertTrue();
       const withData: IrCode =
-        IrLibraryImporter.parseProntoHex('0000 006B 0001 0003 015C 00AA');
-      expect(withData.payload).assertEqual('8983,4388');
+        IrLibraryImporter.parseProntoHex('0000 006B 0001 0003 015C 00AC');
+      expect(withData.payload).assertEqual('8983,4440');
       expect(withData.repeatCount).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
     });
@@ -1688,8 +1688,8 @@ export default function roomLogicTest() {
       });
       expect(oddPairs.indexOf('must come in pairs') >= 0).assertTrue();
       const evenPairs: IrCode = IrLibraryImporter.parseProntoHex(
-        '0000 006B 0001 0002 015C 00AA 015C 00AA');
-      expect(evenPairs.payload).assertEqual('8983,4388,8983,4388');
+        '0000 006B 0001 0002 015C 00AC 015C 00AC');
+      expect(evenPairs.payload).assertEqual('8983,4440,8983,4440');
       expect(evenPairs.frequencyHz).assertEqual(38740);
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
     });
@@ -1707,15 +1707,15 @@ export default function roomLogicTest() {
       const TAG: string = 'testRoomLogic0056';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
       const letters: string = captureMessage(() => {
-        IrLibraryImporter.parseProntoHex('ZZZZ 006B 0001 0002 015C 00AA');
+        IrLibraryImporter.parseProntoHex('ZZZZ 006B 0001 0002 015C 00AC');
       });
       expect(letters.indexOf('word 1 is invalid') >= 0).assertTrue();
       const tooShort: string = captureMessage(() => {
-        IrLibraryImporter.parseProntoHex('0000 123 0001 0002 015C 00AA');
+        IrLibraryImporter.parseProntoHex('0000 123 0001 0002 015C 00AC');
       });
       expect(tooShort.indexOf('word 2 is invalid') >= 0).assertTrue();
       const tooLong: string = captureMessage(() => {
-        IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 123456 00AA');
+        IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 123456 00AC');
       });
       expect(tooLong.indexOf('word 5 is invalid') >= 0).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
@@ -1733,7 +1733,7 @@ export default function roomLogicTest() {
     it('testRoomLogic0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       const TAG: string = 'testRoomLogic0057';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
-      const code: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AA');
+      const code: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AC');
       expect(code.protocol).assertEqual(IrProtocol.RAW);
       expect(code.frequencyHz).assertEqual(38740);
       expect(code.repeatCount).assertEqual(1);
@@ -1744,7 +1744,7 @@ export default function roomLogicTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_LOGIC_ROOM_0157
      * @tc.name      testRoomLogic0058
-     * @tc.desc      波形词按四舍五入换算成微秒序列 8983,4388，来源与授权信息固定为用户导入。
+     * @tc.desc      波形词按四舍五入换算成微秒序列 8983,4440，来源与授权信息固定为用户导入。
      * @tc.require   NA
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -1753,8 +1753,8 @@ export default function roomLogicTest() {
     it('testRoomLogic0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       const TAG: string = 'testRoomLogic0058';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
-      const code: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AA');
-      expect(code.payload).assertEqual('8983,4388');
+      const code: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AC');
+      expect(code.payload).assertEqual('8983,4440');
       expect(code.source).assertEqual('Pronto HEX');
       expect(code.license).assertEqual('User import');
       expect(code.frequencyHz).assertEqual(38740);
@@ -1773,14 +1773,14 @@ export default function roomLogicTest() {
     it('testRoomLogic0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       const TAG: string = 'testRoomLogic0059';
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' start');
-      const spaced: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AA');
-      const arrayText: string = '["0000","006B","0001","0002","015C","00AA"]';
+      const spaced: IrCode = IrLibraryImporter.parseProntoHex('0000 006B 0001 0002 015C 00AC');
+      const arrayText: string = '["0000","006B","0001","0002","015C","00AC"]';
       const fromArray: IrCode = IrLibraryImporter.parseProntoHex(arrayText);
       expect(fromArray.frequencyHz).assertEqual(spaced.frequencyHz);
       expect(fromArray.payload).assertEqual(spaced.payload);
-      expect(fromArray.payload).assertEqual('8983,4388');
+      expect(fromArray.payload).assertEqual('8983,4440');
       const notString: string = captureMessage(() => {
-        IrLibraryImporter.parseProntoHex('["0000",6107,"0001","0002","015C","00AA"]');
+        IrLibraryImporter.parseProntoHex('["0000",6107,"0001","0002","015C","00AC"]');
       });
       expect(notString.indexOf('item 2 is not a string') >= 0).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', SUITE_PREFIX + TAG + ' end');
