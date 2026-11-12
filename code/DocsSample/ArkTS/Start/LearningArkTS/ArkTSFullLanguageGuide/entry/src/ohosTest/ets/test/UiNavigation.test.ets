@@ -14,14 +14,13 @@
  */
 
 import { describe, it, expect, beforeEach } from '@ohos/hypium';
-import { Driver } from '@kit.TestKit';
+import { Driver, ON, Component } from '@kit.TestKit';
 import {
   INDEX_TITLE, TAB_BASICS, TAB_FUNCTIONS, TAB_CLASSES, TAB_GENERICS, ALL_PAGES, PageSpec,
   STATUS_UNINITIALIZED, LOG_EMPTY,
   logBegin, logEnd, getDriver, startApp, lockRecovery, clickLabel, backToIndex, delay,
   waitForText, navigate, readStatus, readLogRaw
 } from './ArkTSGuideUiSupport';
-import { ON, Component } from '@kit.TestKit';
 
 const INDEX_TABS: string[] = [TAB_BASICS, TAB_FUNCTIONS, TAB_CLASSES, TAB_GENERICS];
 

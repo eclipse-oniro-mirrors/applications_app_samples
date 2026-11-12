@@ -16,8 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { UserService, ProductService, createProduct } from '../../../main/ets/common/Service';
 import { UserRepository } from '../../../main/ets/common/Repository';
-import { User as CommonUser } from '../../../main/ets/common/Types';
-import { Product as CommonProduct } from '../../../main/ets/common/Types';
+import { User as CommonUser, Product as CommonProduct } from '../../../main/ets/common/Types';
 import { User as ModuleUser, createUser, UserService as ModuleUserService } from '../../../main/ets/common/User';
 import { logBegin, logEnd } from './ArkTSGuideUiSupport';
 
