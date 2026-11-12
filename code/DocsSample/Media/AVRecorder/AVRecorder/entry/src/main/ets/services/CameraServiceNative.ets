@@ -186,7 +186,8 @@ export default class CameraServiceNative {
     try {
       if (this.videoOutputProfiles && this.cameraManager) {
         let index: number = this.selectVideoOutputProfile(this.videoOutputProfiles, this.videoResolution);
-        this.videoOutput = this.cameraManager.createVideoOutput(this.videoOutputProfiles[index] as camera.VideoProfile, surfaceId);
+        const profile = this.videoOutputProfiles[index] as never;
+        this.videoOutput = this.cameraManager.createVideoOutput(profile, surfaceId);
         if (!this.videoOutput) {
           console.error('[CameraServiceNative/createVideoOutput] create videoOutPut fail');
           return;
