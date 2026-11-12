@@ -21,6 +21,7 @@ class TestClass {
   constructor() {
   }
 
+  // test方法返回一个Promise对象，10秒后异步返回结果
   test(): Promise<string> {
     let p: Promise<string> = new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -53,6 +54,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 使用registerJavaScriptProxy注册对象到window上
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
@@ -62,6 +64,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 解除已注册的对象
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {

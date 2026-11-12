@@ -21,6 +21,7 @@ class TestClass {
   constructor() {
   }
 
+  // test方法通过回调函数异步返回结果，模拟Promise场景
   test(param:Function): void {
     setTimeout( () => { param('suc') }, 10000)
   }
@@ -47,6 +48,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 使用registerJavaScriptProxy注册对象到window上
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
@@ -56,6 +58,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 解除已注册的对象
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {

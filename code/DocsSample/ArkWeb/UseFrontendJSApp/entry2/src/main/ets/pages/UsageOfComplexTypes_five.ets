@@ -17,6 +17,7 @@
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
+// 定义返回给前端页面的对象类型，其中的方法可供前端页面调用
 class ObjOther {
   public methodNameListForJsProxy: string[];
 
@@ -36,6 +37,7 @@ public objReturn: ObjOther
     this.objReturn = new ObjOther(['testOther']);
   }
 
+  // 返回包含方法的对象，前端页面可调用该对象内的方法
   test(): ESObject {
     return this.objReturn
   }
@@ -62,6 +64,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 使用registerJavaScriptProxy注册对象到window上
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
@@ -71,6 +74,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 解除已注册的对象
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {

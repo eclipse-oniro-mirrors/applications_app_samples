@@ -21,6 +21,7 @@ class TestClass {
   constructor() {
   }
 
+  // 应用侧调用前端页面对象中的方法
   test(param: ESObject): void {
     param.hello('call obj func');
   }
@@ -47,6 +48,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 使用registerJavaScriptProxy注册对象到window上
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
@@ -56,6 +58,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 解除已注册的对象
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {

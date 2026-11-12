@@ -46,6 +46,7 @@ struct Index {
           .height(100)
           .border({ width: 1 })
         Text('App_Side_Button')
+        // 创建应用侧与H5侧通信的消息端口
         Row() {
           Button('createNoControllerTagPort')
             .id('create_no_tag_btn')
@@ -69,6 +70,7 @@ struct Index {
             })
         }
 
+        // 注册应用侧消息接收回调，setHandler直接调用注册，setHandlerThread演示在独立线程中调用注册接口
         Row({ space: 10 }) {
 
           Button('setHandler')
@@ -94,6 +96,7 @@ struct Index {
             })
         }
 
+        // 应用侧向H5侧发送不同类型的消息（字符串、二进制、空消息）
         Row({ space: 10 }) {
           Button('SendString')
             .id('send_string_btn')
@@ -181,6 +184,7 @@ struct Index {
         .padding(10)
         .border({ width: 1 })
 
+        // 通过执行前端脚本，触发H5侧向应用侧发送不同类型的消息
         Column({ space: 10 }) {
           Text('H5_Side_Send_Button')
           Row({ space: 10 }) {
@@ -254,6 +258,7 @@ struct Index {
         .padding(10)
         .border({ width: 1 })
 
+        // 加载H5页面，并通过onConsole过滤展示以H5开头的日志
         Web({ src: $rawfile('index.html'), controller: this.controller })
           .onConsole((event) => {
             if (event) {

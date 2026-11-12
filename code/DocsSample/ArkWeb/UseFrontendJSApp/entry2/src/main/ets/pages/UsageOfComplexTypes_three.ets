@@ -21,6 +21,7 @@ class TestClass {
   constructor() {
   }
 
+  // 应用侧调用前端页面传入的回调函数
   test(param: Function): void {
     param('call callback');
   }
@@ -47,6 +48,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 使用registerJavaScriptProxy注册对象到window上
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
@@ -56,6 +58,7 @@ struct Index {
               `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
+      // 解除已注册的对象
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {
