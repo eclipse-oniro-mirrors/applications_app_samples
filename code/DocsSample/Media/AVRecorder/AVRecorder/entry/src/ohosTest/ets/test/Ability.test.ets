@@ -14,13 +14,12 @@
  */
 
 import { afterEach, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Component, Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import fileIo from '@ohos.file.fs';
+import { Component, Driver, ON, abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import DateTimeUtil, { dateTime, getShownTimer } from '../../../main/ets/utils/DateTimeUtil';
 
-const BUNDLE_NAME: string = 'com.demo.avrecorder01';
+const BUNDLE_NAME: string = 'com.samples.avrecorder';
 const ABILITY_NAME: string = 'EntryAbility';
 const TAG: string = 'AVRecorderTest';
 const DOMAIN: number = 0xF811;
@@ -253,7 +252,7 @@ export default function abilityTest() {
           expect(runningText === '00:00').assertFalse();
           await stop.click();
           await sleep(1500);
-          await await driver.waitForComponent(ON.id('audioStart'), 3000);
+          await driver.waitForComponent(ON.id('audioStart'), 3000);
           expect(await existsById(driver, 'audioStart')).assertTrue();
           const resetText: string = await getTextById(driver, 'audioTime');
           expect(resetText).assertEqual('00:00');
@@ -379,7 +378,7 @@ export default function abilityTest() {
           expect(runningText === '00:00').assertFalse();
           await stop.click();
           await sleep(1500);
-          await await driver.waitForComponent(ON.id('audioStartNative'), 3000);
+          await driver.waitForComponent(ON.id('audioStartNative'), 3000);
           expect(await existsById(driver, 'audioStartNative')).assertTrue();
           const size: number = recordFileSize(AUDIO_FILE);
           log(`audio Native file size: ${size}`);
@@ -454,7 +453,7 @@ export default function abilityTest() {
           expect(runningText === '00:00').assertFalse();
           await stop.click();
           await sleep(DELAY_MEDIUM);
-          await await driver.waitForComponent(ON.id('videoStart'), 3000);
+          await driver.waitForComponent(ON.id('videoStart'), 3000);
           expect(await existsById(driver, 'videoStart')).assertTrue();
           const resetText: string = await getTextById(driver, 'videoTime');
           expect(resetText).assertEqual('00:00');
@@ -576,7 +575,7 @@ export default function abilityTest() {
           expect(runningText === '00:00').assertFalse();
           await stop.click();
           await sleep(DELAY_MEDIUM);
-          await await driver.waitForComponent(ON.id('videoStartNative'), 3000);
+          await driver.waitForComponent(ON.id('videoStartNative'), 3000);
           expect(await existsById(driver, 'videoStartNative')).assertTrue();
           const size: number = recordFileSize(VIDEO_FILE);
           log(`video Native file size: ${size}`);
@@ -805,7 +804,7 @@ export default function abilityTest() {
             const size: number = recordFileSize(AUDIO_FILE);
             log(`repeated record ${i} file size: ${size}`);
             expect(size).assertLarger(1000);
-            await await driver.waitForComponent(ON.id('audioStart').clickable(true), 3000);
+            await driver.waitForComponent(ON.id('audioStart').clickable(true), 3000);
             expect(await existsById(driver, 'audioStart')).assertTrue();
           }
         } catch (err) {

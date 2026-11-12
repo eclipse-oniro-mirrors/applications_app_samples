@@ -17,7 +17,7 @@ import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const BUNDLE_NAME: string = 'com.demo.avrecorder01';
+const BUNDLE_NAME: string = 'com.samples.avrecorder';
 const ABILITY_NAME: string = 'EntryAbility';
 const DOMAIN: number = 0xF811;
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();

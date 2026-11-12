@@ -142,7 +142,7 @@ struct VideoRecorderNative {
       Row() {
         Stack({ alignContent: Alignment.Center }) {
           XComponent({
-            type: 0 as XComponentType,
+            type: XComponentType.SURFACE,
             controller: this.xComponentController
           })
             .onLoad(() => {

@@ -42,26 +42,14 @@
 | AVRecorderDateTimeCore | `DateTimeUtil` 补零、日期/时间拼接与格式 | 80 |
 | AVRecorderTimerCore | `getShownTimer`、`dateTime` 取整与边界 | 80 |
 | AVRecorderResolutionCore | `Resolution` 默认值与尺寸赋值 | 40 |
-| AVRecorderStateGuardCore | 录制状态-操作允许矩阵 | 80 |
-| AVRecorderConfigCore | 音频采样率、分辨率、声道与码率契约 | 80 |
 | AVRecorderFileNamingCore | AUDIO_/VIDEO_ 文件命名与扩展名 | 80 |
-| AVRecorderStateMatrix | 扩展录制状态-操作矩阵 | 115 |
-| AVRecorderConfigMatrix | 采样率、分辨率、声道、码率、方向组合 | 70 |
-| AVRecorderCameraContract | 预览/视频 profile 选择与格式映射 | 70 |
-| AVRecorderPageContract | 页面、按钮、时间控件 ID 契约 | 80 |
 | AVRecorderTimerEdge | 长时间与跨小时计时边界 | 80 |
 | AVRecorderFileNamingEdge | 文件名前缀、扩展名与路径安全 | 80 |
-| AVRecorderServiceContract | fd URL、音视频 profile 与默认参数 | 70 |
-| AVRecorderUiSettingsContract | 音频采样率与视频分辨率选项 | 60 |
-| AVRecorderServiceNoop | 未初始化时录制服务空状态调用 | 40 |
 | AVRecorderFileUtilIntegration | 真实创建音频/视频输出文件并关闭 fd | 30 |
 | AVRecorderCameraSelection | CameraService 实际 profile 选择 | 76 |
-| AVRecorderUiFlowCore | 页面、按钮与设置项 UI 流程契约 | 30 |
 | AVRecorderCameraNativeSelection | Native CameraService profile 选择 | 76 |
-| AVRecorderPageStateCore | 录制页面开始/暂停/恢复/停止状态流 | 60 |
 | AVRecorderFileNamingMatrix | 音视频输出文件命名矩阵 | 40 |
 | AVRecorderTimeBoundary | 负值、毫秒取整与超长计时边界 | 40 |
-| AVRecorderNativePageContract | Native 页面、按钮与控件 ID 契约 | 30 |
 | AVRecorderFileUtilFiles | 真实输出文件列表、扩展名、大小与清理 | 40 |
 | AVRecorderDurationStateCore | 录制时长、文件大小与状态组合 | 80 |
 | AVRecorderTimeNamingEdge | 时间取整与输出命名异常边界 | 40 |
@@ -69,20 +57,11 @@
 | AVRecorderNativeUi | 音频/视频 Native 录制页真实 UI | 20 |
 | AVRecorderCameraServiceNoop | CameraService 未初始化空状态调用 | 80 |
 | AVRecorderCameraNativeNoop | CameraServiceNative 未初始化空状态调用 | 80 |
-| AVRecorderPageSettingsCore | 页面采样率、分辨率、声道与状态 | 76 |
 | AVRecorderFileOutputMatrix | 输出文件命名、大小与时长矩阵 | 80 |
-| AVRecorderUiContracts | 页面、按钮与设置控件契约 | 40 |
 | AVRecorderServiceIntegration | 真实 AVRecorder 创建、配置与释放 | 60 |
 | AVRecorderCameraIntegration | CameraService/Native 实际初始化与 profile 选择 | 60 |
 | AVRecorderErrorPaths | 未初始化、重复关闭、非法配置路径 | 80 |
-| AVRecorderFormatContract | 音视频编码/封装/参数/方向契约 | 70 |
-| AVRecorderPermissionContract | 录制权限列表与组合 | 60 |
-| AVRecorderUiFlowModel | 录制页面状态流模型 | 60 |
-| AVRecorderRecordingFlowCore | 录制完整状态流与计时 | 40 |
-| AVRecorderErrorRecoveryCore | 错误码与可恢复/重试判定 | 30 |
-| AVRecorderFileValidationCore | 输出格式与文件大小校验 | 30 |
 
-新增 2,533 条，工程测试用例合计约 **2,549** 条。
 
 ## 已知限制
 
@@ -95,3 +74,5 @@
 - `if (component)` 之类的真值判断本身是正确的（`null` 为假），仅为统一写法改为显式存在性校验。
 - 主工程无假函数：`AVRecorderService` 使用真实 `AVRecorder`；`CameraService`/`CameraServiceNative` 真实创建 `CameraInput`、`PreviewOutput`、`VideoOutput`；`entry/src/main/cpp` 为 576 行真实 Native 实现；未发现 TODO/mock/空函数。
 - Native 视频“文件 > 0”是真实但较弱的断言，受 32 位板限制，已在“已知限制”说明；不是恒真断言。
+
+> 说明：已删除恒真/自断言测试套件。工程测试用例当前合计约 **1,380** 条。
