@@ -182,7 +182,7 @@ export default function listItemTextVerifyTest(): void {
             runCase('testListItemTextVerify0006', async (): Promise<void> => {
                 await startApp(BUNDLE_NAME, ABILITY_NAME);
 
-                // 断言1：首个列表项 ID 存在
+                // 断言1：列表项 1 的 ID 存在
                 let firstItem: boolean = await existsId('listItem_0');
                 expect(firstItem).assertTrue();
 

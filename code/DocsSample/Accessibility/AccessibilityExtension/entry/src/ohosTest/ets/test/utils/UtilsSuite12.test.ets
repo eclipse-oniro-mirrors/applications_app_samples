@@ -30,7 +30,7 @@ function refPad(value: number, width: number): string {
  *
  * Every case feeds one pooled input through a single helper and compares the
  * result against a locally written oracle. The helper is not referenced from
- * pages/Index.ets, so the suite exercises a surface the sample page never uses.
+ * pages/Index.ets, so the suite covers a code path the sample page never uses.
  */
 export default function utilsSuite12(): void {
   describe('IdUtilsUtilsTest', () => {

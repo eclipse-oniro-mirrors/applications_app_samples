@@ -217,7 +217,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 |---|---|---|---|---|
 | 全量执行（第 6 次，最终） | 1603 | 1603 | 0 | 加入启动失败重试 + shell 侧启动命令兜底后连续执行，`taskconsuming=584512`（约 9.7 分钟） |
 | 全量执行（第 5 次） | 1603 | 1587 | 16 | 失败全部为 `startAbility failed.`，集中在连续多次 `startApp` 的套件（MultiStartConsistency / ErrorRecovery / ControlState），`taskconsuming=482627` |
-| 全量执行（第 4 次） | 1603 | 1603 | 0 | 加入息屏点亮与软键盘收起后首次全绿，`taskconsuming=580885` |
+| 全量执行（第 4 次） | 1603 | 1603 | 0 | 加入息屏点亮与软键盘收起后全部通过，`taskconsuming=580885` |
 | 全量执行（第 3 次） | 1603 | 1586 | 17 | 失败集中在下半屏控件定位，根因为软键盘挤压可视区 |
 | 全量执行（第 2 次） | — | — | — | 执行到 `A11yExtPageLoad` 第 3 条时应用进程退出（App died） |
 | 全量执行（第 1 次） | 1603 | 1506 | 97 | 修复前的历史结果，失败集中在组 A |

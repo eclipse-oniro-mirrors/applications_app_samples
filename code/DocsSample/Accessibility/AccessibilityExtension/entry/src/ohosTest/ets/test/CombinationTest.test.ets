@@ -242,7 +242,7 @@ export default function combinationTest(): void {
                 await inputComponent.inputText('first');
                 await getDriver().waitForIdle(300, 3000);
 
-                // 断言1：首次输入内容正确
+                // 断言1：输入内容正确
                 let after1: string = await inputComponent.getOriginalText();
                 addLog('testCombination0006: after first input=%{public}s', after1);
                 expect(after1).assertEqual('first');
