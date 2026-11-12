@@ -16,6 +16,7 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Logger, LogLevel } from 'library';
 import type { LogEntry, LogListener } from 'library';
+import { TestRes } from './TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -330,11 +331,11 @@ export default function LoggerTest(): void {
      */
     it('testUtilsLogger0013', 0, () => {
       hilog.info(DOMAIN, TAG, 'testUtilsLogger0013 begin');
-      expect(Logger.getLevelLabel(LogLevel.DEBUG)).assertEqual('调试');
-      expect(Logger.getLevelLabel(LogLevel.INFO)).assertEqual('信息');
-      expect(Logger.getLevelLabel(LogLevel.WARN)).assertEqual('警告');
-      expect(Logger.getLevelLabel(LogLevel.ERROR)).assertEqual('错误');
-      expect(Logger.getLevelLabel(LogLevel.FATAL)).assertEqual('致命');
+      expect(Logger.getLevelLabel(LogLevel.DEBUG)).assertEqual(TestRes.str('log_level_debug'));
+      expect(Logger.getLevelLabel(LogLevel.INFO)).assertEqual(TestRes.str('log_level_info'));
+      expect(Logger.getLevelLabel(LogLevel.WARN)).assertEqual(TestRes.str('log_level_warn'));
+      expect(Logger.getLevelLabel(LogLevel.ERROR)).assertEqual(TestRes.str('log_level_error'));
+      expect(Logger.getLevelLabel(LogLevel.FATAL)).assertEqual(TestRes.str('log_level_fatal'));
     });
 
     /**
@@ -354,7 +355,7 @@ export default function LoggerTest(): void {
         timestamp: 1700000000000
       };
       const formatted: string = Logger.formatEntry(entry);
-      expect(formatted.indexOf('信息')).assertLarger(-1);
+      expect(formatted.indexOf(TestRes.str('log_level_info'))).assertLarger(-1);
       expect(formatted.indexOf('TestTag')).assertLarger(-1);
       expect(formatted.indexOf('Test message')).assertLarger(-1);
       expect(formatted.indexOf('[')).assertEqual(0);

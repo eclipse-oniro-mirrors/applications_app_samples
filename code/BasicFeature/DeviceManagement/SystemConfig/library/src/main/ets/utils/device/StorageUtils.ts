@@ -57,7 +57,7 @@ export class StorageUtils {
   /**
    * Formats a storage capacity into a readable string.
    * Converts bytes into human-readable B/KB/MB/GB/TB formats
-   * with two decimal places.
+   * with two digits after the decimal point.
    * @param {number} bytes - Storage capacity in bytes
    * @returns {string} Formatted capacity string
    */

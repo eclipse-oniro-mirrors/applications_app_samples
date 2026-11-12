@@ -55,7 +55,7 @@ SystemConfig/
 │       │   ├── SettingsLiteService.ets    # Settings lite service
 │       │   ├── TraceService.ets           # hiTraceMeter service
 │       │   └── EventService.ets           # hiAppEvent service
-│       └── utils/                         # Utility classes (4 categories, 20 classes)
+│       └── utils/                         # Utility classes (4 categories, 21 classes)
 │           ├── basic/                     # Basic utilities
 │           ├── device/                    # Device & storage utilities
 │           ├── network/                   # Network & permission utilities
@@ -72,7 +72,7 @@ SystemConfig/
 │       │   │   ├── intelligentScene/      # Intelligent scene page
 │       │   │   └── settingslite/          # Settings lite page
 │       │   └── viewmodel/                 # View models
-│       ├── ohosTest/                      # UI automation tests (54 suites / 624 cases)
+│       ├── ohosTest/                      # UI automation tests (54 suites / 627 cases)
 │       │   └── ets/test/                  # Test suites (9 categories)
 │       └── main/resources/                # Module resources
 ├── build-profile.json5                    # Project build config (API 26)
@@ -89,7 +89,7 @@ The Library module encapsulates the core APIs and can be independently compiled 
 - **Service Layer** ([library/src/main/ets/service/](library/src/main/ets/service/)): Each API module has a corresponding Service class that wraps the actual API calls with logging, tracing, and error handling. For example, `CustomConfigService` wraps `customConfig.getChannelId()`.
 - **Data Models** ([library/src/main/ets/model/](library/src/main/ets/model/)): Three model classes (`ChannelConfigModel`, `DoNotDisturbModel`, `SettingsItemModel`) manage state, track operation history, and provide serialization.
 - **Trace & Event** ([library/src/main/ets/service/TraceService.ets](library/src/main/ets/service/TraceService.ets)): `TraceService` wraps hiTraceMeter for performance tracing; `EventService` wraps hiAppEvent for event reporting.
-- **Utility Classes** ([library/src/main/ets/utils/](library/src/main/ets/utils/)): 20 utility classes across 4 categories covering basic operations, device/storage, network/permissions, and validation/random.
+- **Utility Classes** ([library/src/main/ets/utils/](library/src/main/ets/utils/)): 21 utility classes across 4 categories covering basic operations, device/storage, network/permissions, and validation/random.
 - **Module Exports** ([library/Index.ets](library/Index.ets)): Barrel export of all public APIs.
 
 ### Entry Module
@@ -108,11 +108,11 @@ The Entry module handles business logic and page display.
 
 ## Automated Testing
 
-This sample provides comprehensive ohosTest automation tests: **54 test suites with 624 cases** in 9 categories, covering the service layer, data models, utility classes, validation, network/permissions, device storage, constants, page navigation and multi-service integration scenarios.
+This sample provides comprehensive ohosTest automation tests: **54 test suites with 627 cases** in 9 categories, covering the service layer, data models, utility classes, validation, network/permissions, device storage, constants, page navigation and multi-service integration scenarios.
 
 - **Case naming**: `it()` and `@tc.name` use `test<Feature><NNNN>`, with the last four digits starting at `0001` and incrementing by 1 per case; `@tc.number` uses `SUB_<MODULE>_<SEQ>`, with the last four digits starting at `0100` and incrementing by 100 per case, numbered consecutively within each file and globally unique.
 - **How to run**: After building and installing the ohosTest HAP, launch the ohosTest cases on the target device for a full run, or specify a suite / single case.
-- **Latest results**: Two consecutive full runs both report `Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0`.
+- **Latest results**: Two consecutive full runs both report `Tests run: 627, Failure: 0, Error: 0, Pass: 627, Ignore: 0`.
 
 For the full case list, naming conventions, and execution details, see [ohosTest.md](ohosTest.md).
 

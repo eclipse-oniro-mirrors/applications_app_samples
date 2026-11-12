@@ -15,6 +15,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { FileUtils } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -255,12 +256,12 @@ export default function FileUtilsTest(): void {
      */
     it('testDeviceFileUtils0011', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceFileUtils0011 begin');
-      expect(FileUtils.getFileTypeDescription('jpg')).assertEqual('图片文件');
-      expect(FileUtils.getFileTypeDescription('pdf')).assertEqual('文档文件');
-      expect(FileUtils.getFileTypeDescription('mp3')).assertEqual('音频文件');
-      expect(FileUtils.getFileTypeDescription('mp4')).assertEqual('视频文件');
-      expect(FileUtils.getFileTypeDescription('xyz')).assertEqual('其他文件');
-      expect(FileUtils.getFileTypeDescription('')).assertEqual('其他文件');
+      expect(FileUtils.getFileTypeDescription('jpg')).assertEqual(TestRes.str('file_type_image'));
+      expect(FileUtils.getFileTypeDescription('pdf')).assertEqual(TestRes.str('file_type_document'));
+      expect(FileUtils.getFileTypeDescription('mp3')).assertEqual(TestRes.str('file_type_audio'));
+      expect(FileUtils.getFileTypeDescription('mp4')).assertEqual(TestRes.str('file_type_video'));
+      expect(FileUtils.getFileTypeDescription('xyz')).assertEqual(TestRes.str('file_type_other'));
+      expect(FileUtils.getFileTypeDescription('')).assertEqual(TestRes.str('file_type_other'));
     });
   });
 }

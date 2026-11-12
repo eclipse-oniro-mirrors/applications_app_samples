@@ -16,6 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { NetworkUtils, NetworkType, NetworkState } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -64,9 +65,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0002', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0002: begin');
       const result: string = NetworkUtils.getNetworkTypeLabel(NetworkType.CELLULAR);
-      expect(result).assertEqual('蜂窝网络');
-      expect(result.length).assertEqual(4);
-      expect(result.indexOf('蜂窝')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_type_cellular'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0002: end');
     });
 
@@ -81,9 +81,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0003', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0003: begin');
       const result: string = NetworkUtils.getNetworkTypeLabel(NetworkType.ETHERNET);
-      expect(result).assertEqual('以太网');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('以太')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_type_ethernet'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0003: end');
     });
 
@@ -98,8 +97,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0004', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0004: begin');
       const result: string = NetworkUtils.getNetworkTypeLabel(NetworkType.BLUETOOTH);
-      expect(result).assertEqual('蓝牙');
-      expect(result.length).assertEqual(2);
+      expect(result).assertEqual(TestRes.str('net_type_bluetooth'));
+      expect(result.length).assertLarger(0);
       expect(NetworkType.BLUETOOTH).assertEqual('bluetooth');
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0004: end');
     });
@@ -115,9 +114,9 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0005', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0005: begin');
       const result: string = NetworkUtils.getNetworkTypeLabel(NetworkType.UNKNOWN);
-      expect(result).assertEqual('未知网络');
-      expect(result.length).assertEqual(4);
-      expect(result.indexOf('未知')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_type_unknown'));
+      expect(result.length).assertLarger(0);
+      expect(result.indexOf(TestRes.str('status_unknown'))).assertEqual(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0005: end');
     });
 
@@ -136,9 +135,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0006', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0006: begin');
       const result: string = NetworkUtils.getNetworkStateLabel(NetworkState.CONNECTED);
-      expect(result).assertEqual('已连接');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('已')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_state_connected'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0006: end');
     });
 
@@ -153,9 +151,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0007', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0007: begin');
       const result: string = NetworkUtils.getNetworkStateLabel(NetworkState.DISCONNECTED);
-      expect(result).assertEqual('已断开');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('断')).assertLarger(-1);
+      expect(result).assertEqual(TestRes.str('net_state_disconnected'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0007: end');
     });
 
@@ -170,9 +167,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0008', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0008: begin');
       const result: string = NetworkUtils.getNetworkStateLabel(NetworkState.CONNECTING);
-      expect(result).assertEqual('连接中');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('中')).assertEqual(2);
+      expect(result).assertEqual(TestRes.str('net_state_connecting'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0008: end');
     });
 
@@ -187,9 +183,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0009', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0009: begin');
       const result: string = NetworkUtils.getNetworkStateLabel(NetworkState.SUSPENDED);
-      expect(result).assertEqual('已暂停');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('暂')).assertLarger(-1);
+      expect(result).assertEqual(TestRes.str('net_state_suspended'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0009: end');
     });
 
@@ -210,7 +205,7 @@ export default function networkUtilsTest(): void {
       const result: boolean = NetworkUtils.isConnected(NetworkState.CONNECTED);
       expect(result).assertTrue();
       expect(NetworkUtils.isAvailable(NetworkState.CONNECTED)).assertTrue();
-      expect(NetworkUtils.getNetworkStateLabel(NetworkState.CONNECTED)).assertEqual('已连接');
+      expect(NetworkUtils.getNetworkStateLabel(NetworkState.CONNECTED)).assertEqual(TestRes.str('net_state_connected'));
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0010: end');
     });
 
@@ -227,7 +222,8 @@ export default function networkUtilsTest(): void {
       const result: boolean = NetworkUtils.isConnected(NetworkState.DISCONNECTED);
       expect(result).assertFalse();
       expect(NetworkUtils.isAvailable(NetworkState.DISCONNECTED)).assertFalse();
-      expect(NetworkUtils.getNetworkStateLabel(NetworkState.DISCONNECTED)).assertEqual('已断开');
+      expect(NetworkUtils.getNetworkStateLabel(NetworkState.DISCONNECTED))
+        .assertEqual(TestRes.str('net_state_disconnected'));
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0011: end');
     });
 
@@ -282,7 +278,8 @@ export default function networkUtilsTest(): void {
       const result: boolean = NetworkUtils.isAvailable(NetworkState.CONNECTING);
       expect(result).assertTrue();
       expect(NetworkUtils.isConnected(NetworkState.CONNECTING)).assertFalse();
-      expect(NetworkUtils.getNetworkStateLabel(NetworkState.CONNECTING)).assertEqual('连接中');
+      expect(NetworkUtils.getNetworkStateLabel(NetworkState.CONNECTING))
+        .assertEqual(TestRes.str('net_state_connecting'));
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0014: end');
     });
 
@@ -299,7 +296,8 @@ export default function networkUtilsTest(): void {
       const result: boolean = NetworkUtils.isAvailable(NetworkState.DISCONNECTED);
       expect(result).assertFalse();
       expect(NetworkUtils.isConnected(NetworkState.DISCONNECTED)).assertFalse();
-      expect(NetworkUtils.getNetworkStateLabel(NetworkState.DISCONNECTED)).assertEqual('已断开');
+      expect(NetworkUtils.getNetworkStateLabel(NetworkState.DISCONNECTED))
+        .assertEqual(TestRes.str('net_state_disconnected'));
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0015: end');
     });
 
@@ -336,7 +334,7 @@ export default function networkUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0017: begin');
       const result: boolean = NetworkUtils.isHighBandwidth(NetworkType.WIFI);
       expect(result).assertTrue();
-      expect(NetworkUtils.getBandwidthDescription(NetworkType.WIFI)).assertEqual('百兆级带宽');
+      expect(NetworkUtils.getBandwidthDescription(NetworkType.WIFI)).assertEqual(TestRes.str('net_bw_megabit'));
       expect(NetworkUtils.estimateLatency(NetworkType.WIFI)).assertEqual(20);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0017: end');
     });
@@ -353,7 +351,7 @@ export default function networkUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0018: begin');
       const result: boolean = NetworkUtils.isHighBandwidth(NetworkType.ETHERNET);
       expect(result).assertTrue();
-      expect(NetworkUtils.getBandwidthDescription(NetworkType.ETHERNET)).assertEqual('千兆级带宽');
+      expect(NetworkUtils.getBandwidthDescription(NetworkType.ETHERNET)).assertEqual(TestRes.str('net_bw_gigabit'));
       expect(NetworkUtils.estimateLatency(NetworkType.ETHERNET)).assertEqual(5);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0018: end');
     });
@@ -370,7 +368,7 @@ export default function networkUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0019: begin');
       const result: boolean = NetworkUtils.isHighBandwidth(NetworkType.CELLULAR);
       expect(result).assertFalse();
-      expect(NetworkUtils.getNetworkTypeLabel(NetworkType.CELLULAR)).assertEqual('蜂窝网络');
+      expect(NetworkUtils.getNetworkTypeLabel(NetworkType.CELLULAR)).assertEqual(TestRes.str('net_type_cellular'));
       expect(NetworkUtils.isHighBandwidth(NetworkType.ETHERNET)).assertTrue();
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0019: end');
     });
@@ -562,7 +560,7 @@ export default function networkUtilsTest(): void {
       const result: number = NetworkUtils.estimateLatency(NetworkType.BLUETOOTH);
       expect(result).assertEqual(150);
       expect(result).assertLarger(100);
-      expect(NetworkUtils.getBandwidthDescription(NetworkType.BLUETOOTH)).assertEqual('低功耗窄带');
+      expect(NetworkUtils.getBandwidthDescription(NetworkType.BLUETOOTH)).assertEqual(TestRes.str('net_bw_low_power'));
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0030: end');
     });
 
@@ -619,9 +617,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0033', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0033: begin');
       const result: string = NetworkUtils.getBandwidthDescription(NetworkType.ETHERNET);
-      expect(result).assertEqual('千兆级带宽');
-      expect(result.length).assertEqual(5);
-      expect(result.indexOf('千兆')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_bw_gigabit'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0033: end');
     });
 
@@ -636,9 +633,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0034', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0034: begin');
       const result: string = NetworkUtils.getBandwidthDescription(NetworkType.WIFI);
-      expect(result).assertEqual('百兆级带宽');
-      expect(result.length).assertEqual(5);
-      expect(result.indexOf('百兆')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_bw_megabit'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0034: end');
     });
 
@@ -653,9 +649,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0035', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0035: begin');
       const result: string = NetworkUtils.getBandwidthDescription(NetworkType.CELLULAR);
-      expect(result).assertEqual('移动网络带宽');
-      expect(result.length).assertEqual(6);
-      expect(result.indexOf('移动')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_bw_mobile'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0035: end');
     });
 
@@ -670,9 +665,8 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0036', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0036: begin');
       const result: string = NetworkUtils.getBandwidthDescription(NetworkType.BLUETOOTH);
-      expect(result).assertEqual('低功耗窄带');
-      expect(result.length).assertEqual(5);
-      expect(result.indexOf('低功')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_bw_low_power'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0036: end');
     });
 
@@ -687,9 +681,9 @@ export default function networkUtilsTest(): void {
     it('testNetworkUtils0037', 0, () => {
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0037: begin');
       const result: string = NetworkUtils.getBandwidthDescription(NetworkType.UNKNOWN);
-      expect(result).assertEqual('未知带宽');
-      expect(result.length).assertEqual(4);
-      expect(result.indexOf('未知')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('net_bw_unknown'));
+      expect(result.length).assertLarger(0);
+      expect(result.indexOf(TestRes.str('status_unknown'))).assertEqual(0);
       hilog.info(DOMAIN, TAG, 'testNetworkUtils0037: end');
     });
 

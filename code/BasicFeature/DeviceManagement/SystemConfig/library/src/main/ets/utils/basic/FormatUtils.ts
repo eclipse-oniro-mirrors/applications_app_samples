@@ -75,7 +75,7 @@ export class FormatUtils {
    * Formats a byte count into a human-readable file size string
    * Automatically selects a suitable unit (B, KB, MB, GB, TB)
    * @param bytes - Byte count
-   * @param decimals - Decimal places, default 2
+   * @param decimals - Digits after the decimal point, default 2
    * @returns Formatted size string, e.g. "1.5 MB"
    */
   static formatBytes(bytes: number, decimals: number = 2): string {
@@ -101,7 +101,7 @@ export class FormatUtils {
    * Formats a byte count into an exact specified unit
    * @param bytes - Byte count
    * @param unit - Target unit
-   * @param decimals - Decimal places, default 2
+   * @param decimals - Digits after the decimal point, default 2
    * @returns Formatted size string
    */
   static formatBytesInUnit(bytes: number, unit: ByteUnit, decimals: number = 2): string {
@@ -183,9 +183,9 @@ export class FormatUtils {
   // ========================================
 
   /**
-   * Formats a number keeping the specified decimal places
+   * Formats a number keeping the given digits after the decimal point
    * @param num - Number to format
-   * @param decimals - Decimal places, default 2
+   * @param decimals - Digits after the decimal point, default 2
    * @returns Formatted number string
    */
   static formatNumber(num: number, decimals: number = 2): string {
@@ -273,7 +273,7 @@ export class FormatUtils {
   /**
    * Formats a percentage value
    * @param ratio - Ratio (a decimal between 0-1 or an integer between 0-100)
-   * @param decimals - Decimal places, default 1
+   * @param decimals - Digits after the decimal point, default 1
    * @returns Formatted percentage string, e.g. "75.5%"
    */
   static formatPercentage(ratio: number, decimals: number = 1): string {

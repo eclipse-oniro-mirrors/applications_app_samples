@@ -21,6 +21,7 @@ import {
   SettingsOperationStatus,
   ClickResult
 } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -118,8 +119,8 @@ export default function SettingsLiteServiceTest(): void {
       const pinModel: SettingsItemModel = service.getPinModel();
       expect(pinModel.itemType).assertEqual(SettingsItemType.PIN_SETTING);
       expect(pinModel.operationStatus).assertEqual(SettingsOperationStatus.IDLE);
-      expect(pinModel.title).assertEqual('PIN 码设置');
-      expect(pinModel.getStatusDescription()).assertEqual('空闲');
+      expect(pinModel.title).assertEqual(TestRes.str('card_pin_title'));
+      expect(pinModel.getStatusDescription()).assertEqual(TestRes.str('status_idle'));
       service.destroy();
     });
 
@@ -138,8 +139,8 @@ export default function SettingsLiteServiceTest(): void {
       const nfcModel: SettingsItemModel = service.getNfcModel();
       expect(nfcModel.itemType).assertEqual(SettingsItemType.NFC_SETTING);
       expect(nfcModel.operationStatus).assertEqual(SettingsOperationStatus.IDLE);
-      expect(nfcModel.title).assertEqual('NFC 设置');
-      expect(nfcModel.description).assertEqual('打开 NFC 设置页面');
+      expect(nfcModel.title).assertEqual(TestRes.str('card_nfc_title'));
+      expect(nfcModel.description).assertEqual(TestRes.str('settings_desc_open_nfc'));
       service.destroy();
     });
 
@@ -158,7 +159,7 @@ export default function SettingsLiteServiceTest(): void {
       const dcModel: SettingsItemModel = service.getDoubleClickModel();
       expect(dcModel.itemType).assertEqual(SettingsItemType.DOUBLE_CLICK_SETTING);
       expect(dcModel.clickResult).assertEqual(ClickResult.NOT_SELF);
-      expect(dcModel.title).assertEqual('双击设置');
+      expect(dcModel.title).assertEqual(TestRes.str('card_double_click_title'));
       expect(dcModel.lastOperationTime).assertEqual(0);
       service.destroy();
     });

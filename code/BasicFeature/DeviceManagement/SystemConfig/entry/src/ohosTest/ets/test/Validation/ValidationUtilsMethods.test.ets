@@ -16,6 +16,7 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ValidationUtils } from 'library';
 import type { ValidationResult } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -44,7 +45,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateChannelId('channel-001');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('渠道号验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_channel_pass'));
     });
 
     /**
@@ -94,7 +95,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateChannelId('');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1001);
-      expect(result.message.indexOf('空')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_channel_empty'));
     });
 
     /**
@@ -130,7 +131,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateDeviceId('device-001');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('设备ID验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_device_pass'));
     });
 
     /**
@@ -179,7 +180,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateDeviceId(maxId);
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('设备ID验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_device_pass'));
     });
 
     /**
@@ -212,7 +213,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateDeviceId('');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1001);
-      expect(result.message.indexOf('空')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_device_empty'));
     });
 
     /**
@@ -228,7 +229,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateDeviceId('device@001');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1003);
-      expect(result.message.indexOf('格式')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_device_format'));
     });
 
     /**
@@ -260,7 +261,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateDeviceId('device01-');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1003);
-      expect(result.message.indexOf('格式')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_device_format'));
     });
 
     /**
@@ -276,7 +277,7 @@ export default function ValidationUtilsMethodsTest(): void {
       const result: ValidationResult = ValidationUtils.validateDeviceId('12345');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('设备ID验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_device_pass'));
     });
 
     /**
@@ -294,8 +295,8 @@ export default function ValidationUtilsMethodsTest(): void {
       expect(channelResult.isValid).assertTrue();
       expect(deviceResult.isValid).assertTrue();
       expect(channelResult.code).assertEqual(deviceResult.code);
-      expect(channelResult.message).assertEqual('渠道号验证通过');
-      expect(deviceResult.message).assertEqual('设备ID验证通过');
+      expect(channelResult.message).assertEqual(TestRes.str('validate_channel_pass'));
+      expect(deviceResult.message).assertEqual(TestRes.str('validate_device_pass'));
     });
   });
 }

@@ -15,15 +15,25 @@
 import { describe, expect, it } from '@ohos/hypium';
 import { ChannelConfigJson, ChannelConfigStatus } from 'library';
 import { UiTestSession } from '../Utils/UiTestSupport';
+import { TestRes } from '../Utils/TestRes';
 
-const SUCCESS_LOG_PREFIX: string = '获取渠道号成功: ';
-const FAILURE_LOG_PREFIX: string = '获取渠道号失败: ';
+/**
+ * Prefix of the fetch-result line that CustomConfigPage appends to the log panel, resolved from
+ * the same resource as the page so that it follows the device language.
+ */
+function successLogPrefix(): string {
+  return TestRes.str1('log_channel_success', '');
+}
+
+function failureLogPrefix(): string {
+  return TestRes.str1('log_channel_failed', '');
+}
 
 /**
  * Total entry count rendered in the log panel title bar, the single authoritative count of the page log array.
  */
 function logCountLabel(count: number): string {
-  return `共 ${count} 条`;
+  return TestRes.str1('log_count', count);
 }
 
 /**
@@ -31,15 +41,15 @@ function logCountLabel(count: number): string {
  */
 function statusTextOf(status: ChannelConfigStatus): string {
   if (status === ChannelConfigStatus.SUCCESS) {
-    return '获取成功';
+    return TestRes.str('status_success');
   }
   if (status === ChannelConfigStatus.FAILED) {
-    return '获取失败';
+    return TestRes.str('status_failed');
   }
   if (status === ChannelConfigStatus.LOADING) {
-    return '获取中';
+    return TestRes.str('status_loading');
   }
-  return '未初始化';
+  return TestRes.str('status_uninitialized');
 }
 
 function isFetchSuccess(detail: ChannelConfigJson): boolean {
@@ -51,11 +61,11 @@ function isFetchSuccess(detail: ChannelConfigJson): boolean {
  * and ChannelConfigModel only writes channelId on success; failures and empty values fall back to not-fetched.
  */
 function displayedChannelId(detail: ChannelConfigJson): string {
-  return isFetchSuccess(detail) ? detail.channelId : '未获取';
+  return isFetchSuccess(detail) ? detail.channelId : TestRes.str('value_not_fetched');
 }
 
 function resultLogPrefix(detail: ChannelConfigJson): string {
-  return isFetchSuccess(detail) ? SUCCESS_LOG_PREFIX : FAILURE_LOG_PREFIX;
+  return isFetchSuccess(detail) ? successLogPrefix() : failureLogPrefix();
 }
 
 function resultLogSuffix(detail: ChannelConfigJson): string {
@@ -68,7 +78,7 @@ function logResult(log: string, prefix: string): string {
 
 async function openCustomConfigPage(session: UiTestSession): Promise<void> {
   await session.start();
-  await session.openHomeEntry('定制配置', '获取渠道号');
+  await session.openHomeEntry(TestRes.str('page_custom_config'), TestRes.str('btn_get_channel_id'));
 }
 
 /**
@@ -88,15 +98,17 @@ export default function customConfigPageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openCustomConfigPage(session);
-        expect(await session.textOf('定制配置')).assertEqual('定制配置');
-        expect(await session.textOf('未获取')).assertEqual('未获取');
-        expect(await session.textOf('未初始化')).assertEqual('未初始化');
-        expect(await session.textOf('获取渠道号')).assertEqual('获取渠道号');
-        expect(await session.textOf('查看详情')).assertEqual('查看详情');
-        expect(await session.textOf('重置')).assertEqual('重置');
+        expect(await session.textOf(TestRes.str('page_custom_config'))).assertEqual(TestRes.str('page_custom_config'));
+        expect(await session.textOf(TestRes.str('value_not_fetched'))).assertEqual(TestRes.str('value_not_fetched'));
+        expect(await session.textOf(TestRes.str('status_uninitialized')))
+          .assertEqual(TestRes.str('status_uninitialized'));
+        expect(await session.textOf(TestRes.str('btn_get_channel_id'))).assertEqual(TestRes.str('btn_get_channel_id'));
+        expect(await session.textOf(TestRes.str('btn_view_detail'))).assertEqual(TestRes.str('btn_view_detail'));
+        expect(await session.textOf(TestRes.str('btn_reset'))).assertEqual(TestRes.str('btn_reset'));
         // aboutToAppear writes exactly one initialization log, so the page log count must equal it
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
-        expect(await session.scrollTextOf('视图模型初始化完成', true)).assertContain('视图模型初始化完成');
+        expect(await session.scrollTextOf(TestRes.str('log_vm_initialized'), true))
+          .assertContain(TestRes.str('log_vm_initialized'));
         const initText: string = await session.scrollTextOf('"channelId"', true);
         const detail: ChannelConfigJson = JSON.parse(initText) as ChannelConfigJson;
         expect(detail.status).assertEqual(ChannelConfigStatus.UNINITIALIZED);
@@ -120,7 +132,7 @@ export default function customConfigPageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openCustomConfigPage(session);
-        await session.scrollClickText('获取渠道号');
+        await session.scrollClickText(TestRes.str('btn_get_channel_id'));
         // fetchChannelId always appends two logs "正在获取" and "结果", three in total with the initialization log
         expect(await session.scrollTextOf(logCountLabel(3))).assertEqual(logCountLabel(3));
 
@@ -169,9 +181,10 @@ export default function customConfigPageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openCustomConfigPage(session);
-        await session.scrollClickText('获取渠道号');
-        await session.scrollClickText('查看详情');
-        expect(await session.scrollTextOf('详细数据')).assertEqual('详细数据');
+        await session.scrollClickText(TestRes.str('btn_get_channel_id'));
+        await session.scrollClickText(TestRes.str('btn_view_detail'));
+        expect(await session.scrollTextOf(TestRes.str('card_detail_title')))
+          .assertEqual(TestRes.str('card_detail_title'));
         const detailText: string = await session.scrollTextOf('"channelId"', true);
         const detail: ChannelConfigJson = JSON.parse(detailText) as ChannelConfigJson;
         expect(detail.fetchCount).assertEqual(1);
@@ -208,15 +221,18 @@ export default function customConfigPageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openCustomConfigPage(session);
-        await session.scrollClickText('获取渠道号');
-        await session.scrollClickText('查看详情');
-        await session.scrollClickText('重置');
-        expect(await session.scrollTextOf('未获取')).assertEqual('未获取');
-        expect(await session.scrollTextOf('未初始化')).assertEqual('未初始化');
+        await session.scrollClickText(TestRes.str('btn_get_channel_id'));
+        await session.scrollClickText(TestRes.str('btn_view_detail'));
+        await session.scrollClickText(TestRes.str('btn_reset'));
+        expect(await session.scrollTextOf(TestRes.str('value_not_fetched')))
+          .assertEqual(TestRes.str('value_not_fetched'));
+        expect(await session.scrollTextOf(TestRes.str('status_uninitialized')))
+          .assertEqual(TestRes.str('status_uninitialized'));
         // resetState clears the log array first then writes "状态已重置", so the panel count must drop back to one,
         // which simultaneously proves both the initialization log and the fetch result logs have been cleared
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
-        expect(await session.scrollTextOf('状态已重置', true)).assertContain('状态已重置');
+        expect(await session.scrollTextOf(TestRes.str('log_state_reset'), true))
+          .assertContain(TestRes.str('log_state_reset'));
 
         const detailText: string = await session.scrollTextOf('"channelId"', true);
         const detail: ChannelConfigJson = JSON.parse(detailText) as ChannelConfigJson;

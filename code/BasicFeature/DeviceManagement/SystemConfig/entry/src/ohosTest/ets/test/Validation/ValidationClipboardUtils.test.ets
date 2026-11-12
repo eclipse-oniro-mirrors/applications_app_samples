@@ -16,6 +16,7 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ClipboardUtils, ClipboardDataType } from 'library';
 import type { ClipboardChangeListener } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -247,11 +248,11 @@ export default function ClipboardUtilsTest(): void {
     it('testValidationClipboardUtils0011', 0, () => {
       hilog.info(DOMAIN, TAG, 'testValidationClipboardUtils0011 begin');
       const clip: ClipboardUtils = new ClipboardUtils();
-      expect(clip.getDataTypeLabel(ClipboardDataType.TEXT)).assertEqual('纯文本');
-      expect(clip.getDataTypeLabel(ClipboardDataType.URL)).assertEqual('网址链接');
-      expect(clip.getDataTypeLabel(ClipboardDataType.IMAGE)).assertEqual('图片资源');
-      expect(clip.getDataTypeLabel(ClipboardDataType.HTML)).assertEqual('HTML富文本');
-      expect(clip.getDataTypeLabel(ClipboardDataType.UNKNOWN)).assertEqual('未知类型');
+      expect(clip.getDataTypeLabel(ClipboardDataType.TEXT)).assertEqual(TestRes.str('clip_type_text'));
+      expect(clip.getDataTypeLabel(ClipboardDataType.URL)).assertEqual(TestRes.str('clip_type_url'));
+      expect(clip.getDataTypeLabel(ClipboardDataType.IMAGE)).assertEqual(TestRes.str('clip_type_image'));
+      expect(clip.getDataTypeLabel(ClipboardDataType.HTML)).assertEqual(TestRes.str('clip_type_html'));
+      expect(clip.getDataTypeLabel(ClipboardDataType.UNKNOWN)).assertEqual(TestRes.str('clip_type_unknown'));
     });
 
     /**

@@ -169,6 +169,14 @@ export class UiTestSession {
       step, Date.now() - startedAt, detail);
   }
 
+  /**
+   * Resolves the localized text of a string resource of the app under test, so that a UI
+   * expectation follows the device language instead of hard-coding one wording.
+   */
+  private resText(name: string): string {
+    return this.delegator.getAppContext().resourceManager.getStringByNameSync(name);
+  }
+
   async start(): Promise<void> {
     const acquiredAt: number = Date.now();
     const driver: Driver = await this.acquireDriver();
@@ -192,7 +200,7 @@ export class UiTestSession {
     this.logStep('startAbility', abilityAt);
     await driver.waitForIdle(NAVIGATION_IDLE_MS, NAVIGATION_IDLE_TIMEOUT_MS);
     const textAt: number = Date.now();
-    await this.waitText('SystemConfig 示例', false, LAUNCH_TIMEOUT_MS);
+    await this.waitText(this.resText('app_intro_title'), false, LAUNCH_TIMEOUT_MS);
     this.logStep('waitHomeTitle', textAt);
     const deadline: number = Date.now() + ABILITY_POLL_TIMEOUT_MS;
     while (this.entryAbility === null && Date.now() < deadline) {

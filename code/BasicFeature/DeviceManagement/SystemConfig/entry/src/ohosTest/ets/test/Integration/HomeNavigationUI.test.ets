@@ -14,6 +14,7 @@
  */
 import { describe, expect, it } from '@ohos/hypium';
 import { UiTestSession } from '../Utils/UiTestSupport';
+import { TestRes } from '../Utils/TestRes';
 
 /**
  * Home page real navigation test.
@@ -32,12 +33,13 @@ export default function homeNavigationUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await session.start();
-        expect(await session.textOf('SystemConfig 示例')).assertEqual('SystemConfig 示例');
-        expect(await session.textOf('本示例演示 Basic Services Kit 中的定制配置、情景模式和设置信息接口。'))
-          .assertEqual('本示例演示 Basic Services Kit 中的定制配置、情景模式和设置信息接口。');
-        expect(await session.textOf('定制配置')).assertEqual('定制配置');
-        expect(await session.textOf('情景模式')).assertEqual('情景模式');
-        expect(await session.textOf('设置信息')).assertEqual('设置信息');
+        expect(await session.textOf(TestRes.str('app_intro_title'))).assertEqual(TestRes.str('app_intro_title'));
+        expect(await session.textOf(TestRes.str('app_intro_desc')))
+          .assertEqual(TestRes.str('app_intro_desc'));
+        expect(await session.textOf(TestRes.str('page_custom_config'))).assertEqual(TestRes.str('page_custom_config'));
+        expect(await session.textOf(TestRes.str('page_intelligent_scene')))
+          .assertEqual(TestRes.str('page_intelligent_scene'));
+        expect(await session.textOf(TestRes.str('page_settings_lite'))).assertEqual(TestRes.str('page_settings_lite'));
       } finally {
         await session.cleanup();
       }
@@ -55,13 +57,14 @@ export default function homeNavigationUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await session.start();
-        await session.openHomeEntry('定制配置', '获取渠道号');
-        expect(await session.textOf('定制配置')).assertEqual('定制配置');
-        expect(await session.textOf('获取渠道号')).assertEqual('获取渠道号');
+        await session.openHomeEntry(TestRes.str('page_custom_config'), TestRes.str('btn_get_channel_id'));
+        expect(await session.textOf(TestRes.str('page_custom_config'))).assertEqual(TestRes.str('page_custom_config'));
+        expect(await session.textOf(TestRes.str('btn_get_channel_id'))).assertEqual(TestRes.str('btn_get_channel_id'));
         await session.pressBack();
-        expect(await session.textOf('定制配置')).assertEqual('定制配置');
-        expect(await session.textOf('情景模式')).assertEqual('情景模式');
-        expect(await session.textOf('设置信息')).assertEqual('设置信息');
+        expect(await session.textOf(TestRes.str('page_custom_config'))).assertEqual(TestRes.str('page_custom_config'));
+        expect(await session.textOf(TestRes.str('page_intelligent_scene')))
+          .assertEqual(TestRes.str('page_intelligent_scene'));
+        expect(await session.textOf(TestRes.str('page_settings_lite'))).assertEqual(TestRes.str('page_settings_lite'));
       } finally {
         await session.cleanup();
       }
@@ -79,13 +82,15 @@ export default function homeNavigationUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await session.start();
-        await session.openHomeEntry('情景模式', '查询全部状态');
-        expect(await session.textOf('情景模式')).assertEqual('情景模式');
-        expect(await session.textOf('查询全部状态')).assertEqual('查询全部状态');
+        await session.openHomeEntry(TestRes.str('page_intelligent_scene'), TestRes.str('btn_query_all'));
+        expect(await session.textOf(TestRes.str('page_intelligent_scene')))
+          .assertEqual(TestRes.str('page_intelligent_scene'));
+        expect(await session.textOf(TestRes.str('btn_query_all'))).assertEqual(TestRes.str('btn_query_all'));
         await session.pressBack();
-        expect(await session.textOf('定制配置')).assertEqual('定制配置');
-        expect(await session.textOf('情景模式')).assertEqual('情景模式');
-        expect(await session.textOf('设置信息')).assertEqual('设置信息');
+        expect(await session.textOf(TestRes.str('page_custom_config'))).assertEqual(TestRes.str('page_custom_config'));
+        expect(await session.textOf(TestRes.str('page_intelligent_scene')))
+          .assertEqual(TestRes.str('page_intelligent_scene'));
+        expect(await session.textOf(TestRes.str('page_settings_lite'))).assertEqual(TestRes.str('page_settings_lite'));
       } finally {
         await session.cleanup();
       }
@@ -103,13 +108,15 @@ export default function homeNavigationUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await session.start();
-        await session.openHomeEntry('设置信息', '查询双击应用');
-        expect(await session.textOf('设置信息')).assertEqual('设置信息');
-        expect(await session.textOf('查询双击应用')).assertEqual('查询双击应用');
+        await session.openHomeEntry(TestRes.str('page_settings_lite'), TestRes.str('btn_query_double_click'));
+        expect(await session.textOf(TestRes.str('page_settings_lite'))).assertEqual(TestRes.str('page_settings_lite'));
+        expect(await session.textOf(TestRes.str('btn_query_double_click')))
+          .assertEqual(TestRes.str('btn_query_double_click'));
         await session.pressBack();
-        expect(await session.textOf('定制配置')).assertEqual('定制配置');
-        expect(await session.textOf('情景模式')).assertEqual('情景模式');
-        expect(await session.textOf('设置信息')).assertEqual('设置信息');
+        expect(await session.textOf(TestRes.str('page_custom_config'))).assertEqual(TestRes.str('page_custom_config'));
+        expect(await session.textOf(TestRes.str('page_intelligent_scene')))
+          .assertEqual(TestRes.str('page_intelligent_scene'));
+        expect(await session.textOf(TestRes.str('page_settings_lite'))).assertEqual(TestRes.str('page_settings_lite'));
       } finally {
         await session.cleanup();
       }

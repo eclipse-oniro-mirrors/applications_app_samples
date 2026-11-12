@@ -373,7 +373,8 @@ export class EventService {
         : hiAppEvent.EventType.BEHAVIOR,
       params: eventData
     };
-    // Parameter validation of hiAppEvent.write may throw synchronously; catching it keeps local history and listener notifications unaffected
+    // Parameter validation of hiAppEvent.write may throw synchronously;
+    // catching it keeps local history and listener notifications unaffected
     try {
       hiAppEvent.write(info).then(() => {
         this.writeSuccessCount += 1;

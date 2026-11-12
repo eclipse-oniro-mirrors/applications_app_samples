@@ -110,9 +110,9 @@ export class MathUtils {
   // ========================================
 
   /**
-   * Rounds to the specified decimal places
+   * Rounds to the given number of digits after the decimal point
    * @param value - Value to round
-   * @param decimals - Decimal places, default 2
+   * @param decimals - Digits after the decimal point, default 2
    * @returns Rounded value
    */
   static round(value: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
@@ -121,9 +121,9 @@ export class MathUtils {
   }
 
   /**
-   * Ceils to the specified decimal places
+   * Ceils to the given number of digits after the decimal point
    * @param value - Value to process
-   * @param decimals - Decimal places, default 2
+   * @param decimals - Digits after the decimal point, default 2
    * @returns Ceiled result
    */
   static ceil(value: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
@@ -132,9 +132,9 @@ export class MathUtils {
   }
 
   /**
-   * Floors to the specified decimal places
+   * Floors to the given number of digits after the decimal point
    * @param value - Value to process
-   * @param decimals - Decimal places, default 2
+   * @param decimals - Digits after the decimal point, default 2
    * @returns Floored result
    */
   static floor(value: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {
@@ -323,7 +323,7 @@ export class MathUtils {
    * Calculates a percentage
    * @param part - Partial value
    * @param total - Total value
-   * @param decimals - Decimal places, default 2
+   * @param decimals - Digits after the decimal point, default 2
    * @returns Percentage value
    */
   static percentage(part: number, total: number, decimals: number = MathUtils.DEFAULT_PRECISION): number {

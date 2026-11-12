@@ -21,17 +21,18 @@ import {
   SystemConfigConstants
 } from 'library';
 import { UiTestSession } from '../Utils/UiTestSupport';
+import { TestRes } from '../Utils/TestRes';
 
 async function openSettingsLitePage(session: UiTestSession): Promise<void> {
   await session.start();
-  await session.openHomeEntry('设置信息', '查询双击应用');
+  await session.openHomeEntry(TestRes.str('page_settings_lite'), TestRes.str('btn_query_double_click'));
 }
 
 /**
  * The total number of entries rendered in the log panel title bar, which is the single authoritative count of the page log array.
  */
 function logCountLabel(count: number): string {
-  return `共 ${count} 条`;
+  return TestRes.str1('log_count', count);
 }
 
 async function readSettingsDetail(session: UiTestSession): Promise<SettingsItemModelJson[]> {
@@ -67,14 +68,17 @@ export default function settingsLitePageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openSettingsLitePage(session);
-        expect(await session.scrollTextOf('PIN 码设置')).assertEqual('PIN 码设置');
-        expect(await session.scrollTextOf('NFC 设置')).assertEqual('NFC 设置');
-        expect(await session.scrollTextOf('双击设置')).assertEqual('双击设置');
-        expect(await session.textCount('空闲')).assertEqual(3);
-        expect(await session.scrollTextOf('未查询')).assertEqual('未查询');
+        expect(await session.scrollTextOf(TestRes.str('card_pin_title'))).assertEqual(TestRes.str('card_pin_title'));
+        expect(await session.scrollTextOf(TestRes.str('card_nfc_title'))).assertEqual(TestRes.str('card_nfc_title'));
+        expect(await session.scrollTextOf(TestRes.str('card_double_click_title')))
+          .assertEqual(TestRes.str('card_double_click_title'));
+        expect(await session.textCount(TestRes.str('status_idle'))).assertEqual(3);
+        expect(await session.scrollTextOf(TestRes.str('value_not_queried')))
+          .assertEqual(TestRes.str('value_not_queried'));
         // aboutToAppear writes only one initialization log entry, so the page log count must equal it
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
-        expect(await session.scrollTextOf('视图模型初始化完成', true)).assertContain('视图模型初始化完成');
+        expect(await session.scrollTextOf(TestRes.str('log_vm_initialized'), true))
+          .assertContain(TestRes.str('log_vm_initialized'));
         const details: SettingsItemModelJson[] = await readSettingsDetail(session);
         expect(details.length).assertEqual(3);
         expect(modelOf(details, SettingsItemType.PIN_SETTING).operationStatus)
@@ -100,11 +104,14 @@ export default function settingsLitePageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openSettingsLitePage(session);
-        await session.scrollClickText('查询双击应用');
+        await session.scrollClickText(TestRes.str('btn_query_double_click'));
         // settingsLite is an FA-only interface; in a Stage environment the query honestly returns an unsupported error
-        expect(await session.scrollTextOf('查询出错')).assertEqual('查询出错');
-        expect(await session.scrollTextOf('操作失败')).assertEqual('操作失败');
-        expect(await session.scrollTextOf('双击查询失败', true)).assertContain('双击查询失败');
+        expect(await session.scrollTextOf(TestRes.str('result_click_error')))
+          .assertEqual(TestRes.str('result_click_error'));
+        expect(await session.scrollTextOf(TestRes.str('settings_status_failed')))
+          .assertEqual(TestRes.str('settings_status_failed'));
+        expect(await session.scrollTextOf(TestRes.str1('log_double_click_query_failed', ''), true))
+          .assertContain(TestRes.str1('log_double_click_query_failed', ''));
         // one init entry, one query-in-progress entry, one query-failed entry
         expect(await session.scrollTextOf(logCountLabel(3))).assertEqual(logCountLabel(3));
         const details: SettingsItemModelJson[] = await readSettingsDetail(session);
@@ -133,17 +140,20 @@ export default function settingsLitePageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openSettingsLitePage(session);
-        await session.scrollClickText('查询双击应用');
-        expect(await session.scrollTextOf('查询出错')).assertEqual('查询出错');
-        await session.scrollClickText('重置');
-        expect(await session.textCount('空闲')).assertEqual(3);
-        expect(await session.textCount('操作失败')).assertEqual(0);
-        expect(await session.scrollTextOf('未查询')).assertEqual('未查询');
+        await session.scrollClickText(TestRes.str('btn_query_double_click'));
+        expect(await session.scrollTextOf(TestRes.str('result_click_error')))
+          .assertEqual(TestRes.str('result_click_error'));
+        await session.scrollClickText(TestRes.str('btn_reset'));
+        expect(await session.textCount(TestRes.str('status_idle'))).assertEqual(3);
+        expect(await session.textCount(TestRes.str('settings_status_failed'))).assertEqual(0);
+        expect(await session.scrollTextOf(TestRes.str('value_not_queried')))
+          .assertEqual(TestRes.str('value_not_queried'));
         // the query result field is the same node as before the reset; here it has been scrolled into view, so a count of 0 proves the stale value was cleared
-        expect(await session.textCount('查询出错')).assertEqual(0);
+        expect(await session.textCount(TestRes.str('result_click_error'))).assertEqual(0);
         // resetState first clears the log array then writes the "status reset" entry; the panel count falling back to one proves all history logs were cleared
         expect(await session.scrollTextOf(logCountLabel(1))).assertEqual(logCountLabel(1));
-        expect(await session.scrollTextOf('状态已重置', true)).assertContain('状态已重置');
+        expect(await session.scrollTextOf(TestRes.str('log_state_reset'), true))
+          .assertContain(TestRes.str('log_state_reset'));
         const details: SettingsItemModelJson[] = await readSettingsDetail(session);
         expect(details.length).assertEqual(3);
         for (const model of details) {

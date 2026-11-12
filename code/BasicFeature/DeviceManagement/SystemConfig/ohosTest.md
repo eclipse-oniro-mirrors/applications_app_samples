@@ -89,7 +89,7 @@ SystemConfig 示例聚焦设备管理层三类能力：定制配置（渠道号�
 | testChannelConfigModel0002 | 正向用例：调用 markSuccess 后状态变为 SUCCESS，渠道号更新，获取次数加一 | 调用 markSuccess 后状态变为 SUCCESS，渠道号更新，获取次数加一 | 通过 |
 | testChannelConfigModel0003 | 正向用例：调用 markFailed 后状态变为 FAILED，错误信息正确记录 | 调用 markFailed 后状态变为 FAILED，错误信息正确记录 | 通过 |
 | testChannelConfigModel0004 | 正向用例：调用 markLoading 后状态变为 LOADING，错误信息清空 | 调用 markLoading 后状态变为 LOADING，错误信息清空 | 通过 |
-| testChannelConfigModel0005 | 正向用例：markSuccess 后 isSuccess 返回 true，其他状态返回 false | markSuccess 后 isSuccess 返回 true，其他状态返回 false | 通过 |
+| testChannelConfigModel0005 | 正向用例：markSuccess 后 isSuccess 返回 true，其余状态返回 false | markSuccess 后 isSuccess 返回 true，其余状态返回 false | 通过 |
 | testChannelConfigModel0006 | 正向用例：reset 后所有字段恢复为初始值 | reset 后所有字段恢复为初始值 | 通过 |
 | testChannelConfigModel0007 | 正向用例：toJSON 返回包含全部字段的对象 | toJSON 返回包含全部字段的对象 | 通过 |
 | testChannelConfigModel0008 | 正向用例：toString 返回包含模型信息的非空字符串 | toString 返回包含模型信息的非空字符串 | 通过 |
@@ -240,7 +240,7 @@ SystemConfig 示例聚焦设备管理层三类能力：定制配置（渠道号�
 | --- | --- | --- | --- |
 | testMultiServiceIntegration0001 | 正向: 三个服务均可初始化 | 三个服务均可初始化 | 通过 |
 | testMultiServiceIntegration0002 | 正向: 获取渠道号 + 追踪 + 事件上报 | 获取渠道号 + 追踪 + 事件上报 | 通过 |
-| testMultiServiceIntegration0003 | 正向: 按顺序销毁服务不影响其他服务 | 按顺序销毁服务不影响其他服务 | 通过 |
+| testMultiServiceIntegration0003 | 正向: 按顺序销毁服务不影响其余服务 | 按顺序销毁服务不影响其余服务 | 通过 |
 | testMultiServiceIntegration0004 | 正向: 多个追踪并行，计数正确 | 多个追踪并行，计数正确 | 通过 |
 
 ## IntegrationExtendedTest XTS 用例
@@ -438,7 +438,7 @@ SystemConfig 示例聚焦设备管理层三类能力：定制配置（渠道号�
 | testPermissionUtils0006 | 正向: 判断已授予 - NOT_DETERMINED 返回 false | 判断已授予 - NOT_DETERMINED 返回 false | 通过 |
 | testPermissionUtils0007 | 正向: 判断受限 - RESTRICTED 返回 true | 判断受限 - RESTRICTED 返回 true | 通过 |
 | testPermissionUtils0008 | 正向: 判断受限 - GRANTED 返回 false | 判断受限 - GRANTED 返回 false | 通过 |
-| testPermissionUtils0009 | 正向: 判断受限 - 其他状态返回 false | 判断受限 - 其他状态返回 false | 通过 |
+| testPermissionUtils0009 | 正向: 判断受限 - 其余状态返回 false | 判断受限 - 其余状态返回 false | 通过 |
 | testPermissionUtils0010 | 正向: 获取标签 - DND 权限返回中文描述 | 获取标签 - DND 权限返回中文描述 | 通过 |
 | testPermissionUtils0011 | 正向: 获取标签 - INTERNET 权限返回中文描述 | 获取标签 - INTERNET 权限返回中文描述 | 通过 |
 | testPermissionUtils0012 | 正向: 获取标签 - 位置权限返回中文描述 | 获取标签 - 位置权限返回中文描述 | 通过 |
@@ -536,7 +536,7 @@ SystemConfig 示例聚焦设备管理层三类能力：定制配置（渠道号�
 | testEventServiceExtended0015 | 边界: 上报事件超过 MAX_LOG_ENTRIES(200) 后历史被裁剪 | 上报事件超过 MAX_LOG_ENTRIES(200) 后历史被裁剪 | 通过 |
 | testEventServiceExtended0016 | 边界: 未初始化直接上报事件仍记录到历史 | 未初始化直接上报事件仍记录到历史 | 通过 |
 | testEventServiceExtended0017 | 正向: 多种类型事件上报后统计按类型分组 | 多种类型事件上报后统计按类型分组 | 通过 |
-| testEventServiceExtended0018 | 边界: 监听器回调抛异常不影响其他监听器和历史记录 | 监听器回调抛异常不影响其他监听器和历史记录 | 通过 |
+| testEventServiceExtended0018 | 边界: 监听器回调抛异常不影响其余监听器和历史记录 | 监听器回调抛异常不影响其余监听器和历史记录 | 通过 |
 | testEventServiceExtended0019 | 正向: destroy 后监听器被清除，重新初始化后无旧监听器 | destroy 后监听器被清除，重新初始化后无旧监听器 | 通过 |
 | testEventServiceExtended0020 | 边界: 无事件时统计信息返回零值 | 无事件时统计信息返回零值 | 通过 |
 | testEventServiceExtended0021 | 正向: hiAppEvent 上报计数器返回契约与不变量 | hiAppEvent 上报计数器返回契约与不变量 | 通过 |
@@ -793,7 +793,7 @@ SystemConfig 示例聚焦设备管理层三类能力：定制配置（渠道号�
 | testUtilsCommonUtils0006 | 正向: 数组深拷贝 | 数组深拷贝 | 通过 |
 | testUtilsCommonUtils0007 | 正向: 合法JSON解析 | 合法JSON解析 | 通过 |
 | testUtilsCommonUtils0008 | 反向: 非法JSON解析返回null | 非法JSON解析返回null | 通过 |
-| testUtilsCommonUtils0009 | 正向: 重试成功（首次即成功） | 重试成功（首次即成功） | 通过 |
+| testUtilsCommonUtils0009 | 正向: 重试成功（第 1 次调用即成功） | 重试成功（第 1 次调用即成功） | 通过 |
 | testUtilsCommonUtils0010 | 边界: ID非空检查 | ID非空检查 | 通过 |
 
 ## ConstantsTest XTS 用例
@@ -1090,7 +1090,7 @@ SystemConfig 示例聚焦设备管理层三类能力：定制配置（渠道号�
 - 构建：entry main 与 `entry@ohosTest` 测试 HAP 均 `BUILD SUCCESSFUL`，main / library / ohosTest 三棵源码树通过 ArkTS 编译。
 - 用例审计：`files=54, total=627`，重名、重复编号、元数据缺失、命名与编号违规、静态断言不足 3 条的用例均为 0。
 - 结果判读：以 `OHOS_REPORT_RESULT` 与 `Tests run` 行为准（状态码 `1` 用例开始、`0` 通过、`-2` 断言失败、`-1` 执行异常）；`TestFinished-ResultCode: 0` 仅表示 runner 执行完毕，不代表用例全部通过。
-- 合入前说明：本轮改动涉及 main 源码与库实现，历史真机基线不能直接代表本轮结果，合入前需在目标设备重新安装并执行一次全量 ohosTest 回归。
+- 合入前说明：本轮改动涉及 main 源码与库实现，历史真机基线不能直接代表本轮结果；2026-11-12 已在目标设备重新安装并执行一次全量 ohosTest 回归，627 条用例全部通过（见上）。
 
 ## 已知环境限制与缺陷记录
 

@@ -19,6 +19,7 @@ import {
   SettingsItemModel,
   SettingsOperationStatus
 } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -308,9 +309,9 @@ export default function SettingsLiteServiceExtendedTest(): void {
       const nfcModel: SettingsItemModel = service.getNfcModel();
       const doubleClickModel: SettingsItemModel = service.getDoubleClickModel();
 
-      expect(pinModel.getTypeName()).assertEqual('PIN 码设置');
-      expect(nfcModel.getTypeName()).assertEqual('NFC 设置');
-      expect(doubleClickModel.getTypeName()).assertEqual('双击设置');
+      expect(pinModel.getTypeName()).assertEqual(TestRes.str('card_pin_title'));
+      expect(nfcModel.getTypeName()).assertEqual(TestRes.str('card_nfc_title'));
+      expect(doubleClickModel.getTypeName()).assertEqual(TestRes.str('card_double_click_title'));
 
       const models: SettingsItemModel[] = service.getAllModels();
       expect(models.length).assertEqual(3);

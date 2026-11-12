@@ -21,6 +21,7 @@ import {
   ClickResult
 } from 'library';
 import type { SettingsItemModelJson } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -48,12 +49,12 @@ export default function SettingsItemModelExtendedTest(): void {
     it('testSettingsItemModelExtended0001', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsItemModelExtended0001: begin');
       const model: SettingsItemModel = new SettingsItemModel(
-        SettingsItemType.NFC_SETTING, 'NFC 设置', '打开 NFC 设置页面'
+        SettingsItemType.NFC_SETTING, TestRes.str('card_nfc_title'), '打开 NFC 设置页面'
       );
       model.markSuccess('操作完成');
       const json: SettingsItemModelJson = model.toJSON();
       expect(json.itemType).assertEqual(SettingsItemType.NFC_SETTING);
-      expect(json.title).assertEqual('NFC 设置');
+      expect(json.title).assertEqual(TestRes.str('card_nfc_title'));
       expect(json.operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
       expect(json.operationCount).assertEqual(1);
       expect(json.lastOperationTime).assertLarger(0);
@@ -95,13 +96,13 @@ export default function SettingsItemModelExtendedTest(): void {
     it('testSettingsItemModelExtended0003', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsItemModelExtended0003: begin');
       const model: SettingsItemModel = new SettingsItemModel(
-        SettingsItemType.PIN_SETTING, 'PIN 码设置', '描述'
+        SettingsItemType.PIN_SETTING, TestRes.str('card_pin_title'), '描述'
       );
       model.markSuccess();
       const str: string = model.toString();
       expect(str.indexOf('SettingsItemModel')).assertLarger(-1);
       expect(str.indexOf('pinSetting')).assertLarger(-1);
-      expect(str.indexOf('PIN 码设置')).assertLarger(-1);
+      expect(str.indexOf(TestRes.str('card_pin_title'))).assertLarger(-1);
       expect(str.indexOf('success')).assertLarger(-1);
     });
 
@@ -122,9 +123,9 @@ export default function SettingsItemModelExtendedTest(): void {
       const pinModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.PIN_SETTING);
       const nfcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.NFC_SETTING);
       const dcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.DOUBLE_CLICK_SETTING);
-      expect(pinModel.getTypeName()).assertEqual('PIN 码设置');
-      expect(nfcModel.getTypeName()).assertEqual('NFC 设置');
-      expect(dcModel.getTypeName()).assertEqual('双击设置');
+      expect(pinModel.getTypeName()).assertEqual(TestRes.str('card_pin_title'));
+      expect(nfcModel.getTypeName()).assertEqual(TestRes.str('card_nfc_title'));
+      expect(dcModel.getTypeName()).assertEqual(TestRes.str('card_double_click_title'));
     });
 
     // ========================================
@@ -223,15 +224,15 @@ export default function SettingsItemModelExtendedTest(): void {
     it('testSettingsItemModelExtended0008', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsItemModelExtended0008: begin');
       const model: SettingsItemModel = new SettingsItemModel();
-      expect(model.getStatusDescription()).assertEqual('空闲');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('status_idle'));
       model.markOpening();
-      expect(model.getStatusDescription()).assertEqual('打开页面中');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('settings_status_opening'));
       model.markQuerying();
-      expect(model.getStatusDescription()).assertEqual('查询中');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('status_querying'));
       model.markSuccess();
-      expect(model.getStatusDescription()).assertEqual('操作成功');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('settings_status_success'));
       model.markFailed('err', 1);
-      expect(model.getStatusDescription()).assertEqual('操作失败');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('settings_status_failed'));
     });
 
     // ========================================

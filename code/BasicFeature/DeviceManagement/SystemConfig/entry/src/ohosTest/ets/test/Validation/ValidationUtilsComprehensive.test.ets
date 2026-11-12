@@ -16,6 +16,7 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ValidationUtils } from 'library';
 import type { ValidationResult } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -46,7 +47,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
       const r1: ValidationResult = ValidationUtils.validateErrorCode(0);
       expect(r1.isValid).assertTrue();
       expect(r1.code).assertEqual(0);
-      expect(r1.message).assertEqual('错误码验证通过');
+      expect(r1.message).assertEqual(TestRes.str('validate_code_pass'));
       const r2: ValidationResult = ValidationUtils.validateErrorCode(99999);
       expect(r2.isValid).assertTrue();
       const r3: ValidationResult = ValidationUtils.validateErrorCode(500);
@@ -92,7 +93,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
       const result: ValidationResult = ValidationUtils.validateTimestamp(pastTs);
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('时间戳验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_ts_pass'));
     });
 
     /**
@@ -153,7 +154,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
       const result: ValidationResult = ValidationUtils.validateString('a', 3, 10);
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1002);
-      expect(result.message.indexOf('不能少于')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str1('validate_str_too_short', 3));
     });
 
     /**
@@ -169,7 +170,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
       const result: ValidationResult = ValidationUtils.validateString('abcdefghij', 1, 5);
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1002);
-      expect(result.message.indexOf('不能超过')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str1('validate_str_too_long', 5));
     });
 
     // ========================================
@@ -233,7 +234,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
       const r1: ValidationResult = ValidationUtils.validateEnum('SUCCESS', validValues);
       expect(r1.isValid).assertTrue();
       expect(r1.code).assertEqual(0);
-      expect(r1.message).assertEqual('枚举值验证通过');
+      expect(r1.message).assertEqual(TestRes.str('validate_enum_pass'));
     });
 
     /**
@@ -294,7 +295,7 @@ export default function ValidationUtilsComprehensiveTest(): void {
       const r1: ValidationResult = ValidationUtils.validateArray([1], 3);
       expect(r1.isValid).assertFalse();
       expect(r1.code).assertEqual(1006);
-      expect(r1.message.indexOf('不能少于')).assertLarger(-1);
+      expect(r1.message).assertEqual(TestRes.str1('validate_array_too_short', 3));
       const r2: ValidationResult = ValidationUtils.validateArray([], 1);
       expect(r2.isValid).assertFalse();
     });

@@ -15,6 +15,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { StorageUtils } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -157,11 +158,11 @@ export default function StorageUtilsTest(): void {
     it('testDeviceStorageUtils0006', 0, () => {
       hilog.info(DOMAIN, TAG, 'testDeviceStorageUtils0006 begin');
       const total: number = 1000;
-      expect(StorageUtils.getStorageLevel(600, total)).assertEqual('充足');
-      expect(StorageUtils.getStorageLevel(350, total)).assertEqual('一般');
-      expect(StorageUtils.getStorageLevel(150, total)).assertEqual('不足');
-      expect(StorageUtils.getStorageLevel(50, total)).assertEqual('危险');
-      expect(StorageUtils.getStorageLevel(0, 0)).assertEqual('危险');
+      expect(StorageUtils.getStorageLevel(600, total)).assertEqual(TestRes.str('storage_level_sufficient'));
+      expect(StorageUtils.getStorageLevel(350, total)).assertEqual(TestRes.str('storage_level_normal'));
+      expect(StorageUtils.getStorageLevel(150, total)).assertEqual(TestRes.str('storage_level_low'));
+      expect(StorageUtils.getStorageLevel(50, total)).assertEqual(TestRes.str('storage_level_critical'));
+      expect(StorageUtils.getStorageLevel(0, 0)).assertEqual(TestRes.str('storage_level_critical'));
     });
 
     // ========================================

@@ -18,6 +18,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { HttpUtils, HttpMethod } from 'library';
 import type { HttpRequestConfig } from 'library';
 import { SystemConfigConstants } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -556,9 +557,9 @@ export default function httpUtilsTest(): void {
      */
     it('testHttpUtils0028', 0, () => {
       hilog.info(DOMAIN, TAG, 'testHttpUtils0028: begin');
-      expect(HttpUtils.getStatusText(200)).assertEqual('成功');
-      expect(HttpUtils.getStatusText(201)).assertEqual('已创建');
-      expect(HttpUtils.getStatusText(204)).assertEqual('无内容');
+      expect(HttpUtils.getStatusText(200)).assertEqual(TestRes.str('http_status_200'));
+      expect(HttpUtils.getStatusText(201)).assertEqual(TestRes.str('http_status_201'));
+      expect(HttpUtils.getStatusText(204)).assertEqual(TestRes.str('http_status_204'));
       hilog.info(DOMAIN, TAG, 'testHttpUtils0028: end');
     });
 
@@ -572,10 +573,10 @@ export default function httpUtilsTest(): void {
      */
     it('testHttpUtils0029', 0, () => {
       hilog.info(DOMAIN, TAG, 'testHttpUtils0029: begin');
-      expect(HttpUtils.getStatusText(301)).assertEqual('永久重定向');
-      expect(HttpUtils.getStatusText(302)).assertEqual('临时重定向');
-      expect(HttpUtils.getStatusText(400)).assertEqual('错误请求');
-      expect(HttpUtils.getStatusText(401)).assertEqual('未授权');
+      expect(HttpUtils.getStatusText(301)).assertEqual(TestRes.str('http_status_301'));
+      expect(HttpUtils.getStatusText(302)).assertEqual(TestRes.str('http_status_302'));
+      expect(HttpUtils.getStatusText(400)).assertEqual(TestRes.str('http_status_400'));
+      expect(HttpUtils.getStatusText(401)).assertEqual(TestRes.str('http_status_401'));
       hilog.info(DOMAIN, TAG, 'testHttpUtils0029: end');
     });
 
@@ -589,10 +590,10 @@ export default function httpUtilsTest(): void {
      */
     it('testHttpUtils0030', 0, () => {
       hilog.info(DOMAIN, TAG, 'testHttpUtils0030: begin');
-      expect(HttpUtils.getStatusText(403)).assertEqual('禁止访问');
-      expect(HttpUtils.getStatusText(404)).assertEqual('未找到');
-      expect(HttpUtils.getStatusText(408)).assertEqual('请求超时');
-      expect(HttpUtils.getStatusText(500)).assertEqual('服务器内部错误');
+      expect(HttpUtils.getStatusText(403)).assertEqual(TestRes.str('http_status_403'));
+      expect(HttpUtils.getStatusText(404)).assertEqual(TestRes.str('http_status_404'));
+      expect(HttpUtils.getStatusText(408)).assertEqual(TestRes.str('http_status_408'));
+      expect(HttpUtils.getStatusText(500)).assertEqual(TestRes.str('http_status_500'));
       hilog.info(DOMAIN, TAG, 'testHttpUtils0030: end');
     });
 
@@ -606,8 +607,8 @@ export default function httpUtilsTest(): void {
      */
     it('testHttpUtils0031', 0, () => {
       hilog.info(DOMAIN, TAG, 'testHttpUtils0031: begin');
-      expect(HttpUtils.getStatusText(502)).assertEqual('错误网关');
-      expect(HttpUtils.getStatusText(503)).assertEqual('服务不可用');
+      expect(HttpUtils.getStatusText(502)).assertEqual(TestRes.str('http_status_502'));
+      expect(HttpUtils.getStatusText(503)).assertEqual(TestRes.str('http_status_503'));
       expect(HttpUtils.getStatusText(502).length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testHttpUtils0031: end');
     });
@@ -622,9 +623,9 @@ export default function httpUtilsTest(): void {
      */
     it('testHttpUtils0032', 0, () => {
       hilog.info(DOMAIN, TAG, 'testHttpUtils0032: begin');
-      expect(HttpUtils.getStatusText(999)).assertEqual('未知状态');
-      expect(HttpUtils.getStatusText(0)).assertEqual('未知状态');
-      expect(HttpUtils.getStatusText(100)).assertEqual('未知状态');
+      expect(HttpUtils.getStatusText(999)).assertEqual(TestRes.str('http_status_unknown'));
+      expect(HttpUtils.getStatusText(0)).assertEqual(TestRes.str('http_status_unknown'));
+      expect(HttpUtils.getStatusText(100)).assertEqual(TestRes.str('http_status_unknown'));
       hilog.info(DOMAIN, TAG, 'testHttpUtils0032: end');
     });
 

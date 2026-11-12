@@ -15,10 +15,11 @@
 import { describe, expect, it } from '@ohos/hypium';
 import { DoNotDisturbModelJson, DoNotDisturbStatus } from 'library';
 import { UiTestSession } from '../Utils/UiTestSupport';
+import { TestRes } from '../Utils/TestRes';
 
 async function openIntelligentScenePage(session: UiTestSession): Promise<void> {
   await session.start();
-  await session.openHomeEntry('情景模式', '查询全部状态');
+  await session.openHomeEntry(TestRes.str('page_intelligent_scene'), TestRes.str('btn_query_all'));
 }
 
 async function readDndDetail(session: UiTestSession): Promise<DoNotDisturbModelJson> {
@@ -44,10 +45,11 @@ export default function intelligentScenePageUITest(): void {
       const session: UiTestSession = new UiTestSession();
       try {
         await openIntelligentScenePage(session);
-        expect(await session.scrollTextOf('未启用')).assertEqual('未启用');
-        expect(await session.scrollTextOf('允许')).assertEqual('允许');
-        expect(await session.scrollTextOf('空闲')).assertEqual('空闲');
-        expect(await session.scrollTextOf('视图模型初始化完成', true)).assertContain('视图模型初始化完成');
+        expect(await session.scrollTextOf(TestRes.str('value_disabled'))).assertEqual(TestRes.str('value_disabled'));
+        expect(await session.scrollTextOf(TestRes.str('value_allowed'))).assertEqual(TestRes.str('value_allowed'));
+        expect(await session.scrollTextOf(TestRes.str('status_idle'))).assertEqual(TestRes.str('status_idle'));
+        expect(await session.scrollTextOf(TestRes.str('log_vm_initialized'), true))
+          .assertContain(TestRes.str('log_vm_initialized'));
         const detail: DoNotDisturbModelJson = await readDndDetail(session);
         expect(detail.status).assertEqual(DoNotDisturbStatus.IDLE);
         expect(detail.queryCount).assertEqual(0);

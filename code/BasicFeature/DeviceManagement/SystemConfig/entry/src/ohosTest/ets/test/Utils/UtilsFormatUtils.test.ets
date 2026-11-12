@@ -16,6 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { FormatUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TestRes } from './TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -119,11 +120,12 @@ export default function utilsFormatUtilsTest(): void {
     it('testUtilsFormatUtils0005', 0, () => {
       hilog.info(DOMAIN, TAG, 'testUtilsFormatUtils0005: begin');
       const result: string = FormatUtils.formatDuration(3661000);
-      expect(result).assertEqual('1小时1分1秒');
-      expect(result.indexOf('小时')).assertLarger(-1);
-      expect(FormatUtils.formatDuration(0)).assertEqual('0秒');
-      expect(FormatUtils.formatDuration(-1000)).assertEqual('0秒');
-      expect(FormatUtils.formatDuration(60000)).assertEqual('1分');
+      const expectedDuration: string = TestRes.str1('duration_hours', 1) + TestRes.str1('duration_minutes', 1)
+        + TestRes.str1('duration_seconds', 1);
+      expect(result).assertEqual(expectedDuration);
+      expect(FormatUtils.formatDuration(0)).assertEqual(TestRes.str('duration_zero'));
+      expect(FormatUtils.formatDuration(-1000)).assertEqual(TestRes.str('duration_zero'));
+      expect(FormatUtils.formatDuration(60000)).assertEqual(TestRes.str1('duration_minutes', 1));
       hilog.info(DOMAIN, TAG, 'testUtilsFormatUtils0005: end');
     });
 

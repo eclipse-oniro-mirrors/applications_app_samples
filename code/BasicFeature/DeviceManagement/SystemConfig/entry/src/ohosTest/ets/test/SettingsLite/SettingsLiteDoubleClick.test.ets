@@ -21,6 +21,7 @@ import {
   SettingsOperationStatus,
   ClickResult
 } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -61,7 +62,7 @@ export default function SettingsLiteDoubleClickTest(): void {
     it('testSettingsLiteDoubleClick0002', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsLiteDoubleClick0002: begin');
       const model: SettingsItemModel = new SettingsItemModel(
-        SettingsItemType.DOUBLE_CLICK_SETTING, '双击设置', '测试'
+        SettingsItemType.DOUBLE_CLICK_SETTING, TestRes.str('card_double_click_title'), '测试'
       );
       model.markOpening();
       expect(model.isOpening()).assertTrue();

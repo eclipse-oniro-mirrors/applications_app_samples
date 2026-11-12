@@ -21,6 +21,7 @@ import {
   ClickResult,
   SystemConfigConstants
 } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 class RecordingAbilityContext {
   capturedWant: Want | null = null;
@@ -95,7 +96,7 @@ export default function settingsLiteServiceOperationTest(): void {
       expect(wantUri).assertEqual('systemui://security/pin');
       expect(service.getPinModel().operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
       expect(service.getPinModel().operationCount).assertEqual(1);
-      expect(service.getPinModel().description).assertEqual('PIN 设置页面已打开');
+      expect(service.getPinModel().description).assertEqual(TestRes.str('log_pin_opened'));
       expect(service.getNfcModel().operationStatus).assertEqual(SettingsOperationStatus.IDLE);
       service.destroy();
     });
@@ -122,7 +123,7 @@ export default function settingsLiteServiceOperationTest(): void {
       expect(wantUri).assertEqual('systemui://settings/nfc');
       expect(service.getNfcModel().operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
       expect(service.getNfcModel().operationCount).assertEqual(1);
-      expect(service.getNfcModel().description).assertEqual('NFC 设置页面已打开');
+      expect(service.getNfcModel().description).assertEqual(TestRes.str('log_nfc_opened'));
       expect(service.getPinModel().operationStatus).assertEqual(SettingsOperationStatus.IDLE);
       service.destroy();
     });
@@ -149,7 +150,7 @@ export default function settingsLiteServiceOperationTest(): void {
       expect(wantUri).assertEqual('systemui://settings/gesture');
       expect(service.getDoubleClickModel().operationStatus).assertEqual(SettingsOperationStatus.SUCCESS);
       expect(service.getDoubleClickModel().operationCount).assertEqual(1);
-      expect(service.getDoubleClickModel().description).assertEqual('双击设置页面已打开');
+      expect(service.getDoubleClickModel().description).assertEqual(TestRes.str('log_double_click_opened'));
       expect(service.getNfcModel().operationStatus).assertEqual(SettingsOperationStatus.IDLE);
       service.destroy();
     });

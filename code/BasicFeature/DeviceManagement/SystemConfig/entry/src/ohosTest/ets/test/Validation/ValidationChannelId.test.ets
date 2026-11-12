@@ -16,6 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { ValidationUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -65,7 +66,7 @@ export default function validateChannelIdTest(): void {
       const result = ValidationUtils.validateChannelId('a');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('渠道号验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_channel_pass'));
       hilog.info(DOMAIN, TAG, 'testValidationChannelId0002: end');
     });
 
@@ -86,7 +87,7 @@ export default function validateChannelIdTest(): void {
       const result = ValidationUtils.validateChannelId('');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1001);
-      expect(result.message.indexOf('空')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_channel_empty'));
       hilog.info(DOMAIN, TAG, 'testValidationChannelId0003: end');
     });
 
@@ -103,7 +104,7 @@ export default function validateChannelIdTest(): void {
       const result = ValidationUtils.validateChannelId('   ');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1001);
-      expect(result.message.indexOf('空')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_channel_empty'));
       hilog.info(DOMAIN, TAG, 'testValidationChannelId0004: end');
     });
 
@@ -125,7 +126,7 @@ export default function validateChannelIdTest(): void {
       const result = ValidationUtils.validateChannelId(longId);
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1002);
-      expect(result.message.indexOf('长度')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str1('validate_channel_too_long', 64));
       hilog.info(DOMAIN, TAG, 'testValidationChannelId0005: end');
     });
 
@@ -143,7 +144,7 @@ export default function validateChannelIdTest(): void {
       const result = ValidationUtils.validateChannelId(maxId);
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('渠道号验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_channel_pass'));
       hilog.info(DOMAIN, TAG, 'testValidationChannelId0006: end');
     });
 
@@ -160,7 +161,7 @@ export default function validateChannelIdTest(): void {
       const result = ValidationUtils.validateChannelId('ch@nnel#001!');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('渠道号验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_channel_pass'));
       hilog.info(DOMAIN, TAG, 'testValidationChannelId0007: end');
     });
   });

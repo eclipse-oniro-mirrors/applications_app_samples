@@ -16,6 +16,7 @@ import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { FormValidator } from 'library';
 import type { FormValidationResult, FieldRule } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -202,7 +203,7 @@ export default function FormValidatorTest(): void {
       validator.addRule('code', { required: false, pattern: /^\d{6}$/ });
       const failResult = validator.validateField('code', 'abc');
       expect(failResult.valid).assertFalse();
-      expect(failResult.error).assertEqual('code 格式不正确');
+      expect(failResult.error).assertEqual(TestRes.str1('validate_field_pattern', 'code'));
       const passResult = validator.validateField('code', '123456');
       expect(passResult.valid).assertTrue();
       expect(passResult.error).assertNull();

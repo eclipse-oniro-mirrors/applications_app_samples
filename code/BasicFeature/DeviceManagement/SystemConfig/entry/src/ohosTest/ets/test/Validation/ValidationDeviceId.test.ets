@@ -16,6 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { ValidationUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -48,7 +49,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId('device-001');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('设备ID验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_device_pass'));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0001: end');
     });
 
@@ -65,7 +66,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId('AB12');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('设备ID验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_device_pass'));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0002: end');
     });
 
@@ -86,7 +87,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId('');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1001);
-      expect(result.message.indexOf('空')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_device_empty'));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0003: end');
     });
 
@@ -103,7 +104,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId('dev@ice!');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1003);
-      expect(result.message.indexOf('格式')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_device_format'));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0004: end');
     });
 
@@ -120,7 +121,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId('-device01');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1003);
-      expect(result.message.indexOf('格式')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str('validate_device_format'));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0005: end');
     });
 
@@ -141,7 +142,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId('a');
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1002);
-      expect(result.message.indexOf('长度')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str1('validate_device_too_short', 2));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0006: end');
     });
 
@@ -159,7 +160,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId(longId);
       expect(result.isValid).assertFalse();
       expect(result.code).assertEqual(1002);
-      expect(result.message.indexOf('长度')).assertLarger(-1);
+      expect(result.message).assertEqual(TestRes.str1('validate_device_too_long', 128));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0007: end');
     });
 
@@ -176,7 +177,7 @@ export default function validateDeviceIdTest(): void {
       const result = ValidationUtils.validateDeviceId('ab');
       expect(result.isValid).assertTrue();
       expect(result.code).assertEqual(0);
-      expect(result.message).assertEqual('设备ID验证通过');
+      expect(result.message).assertEqual(TestRes.str('validate_device_pass'));
       hilog.info(DOMAIN, TAG, 'testValidationDeviceId0008: end');
     });
   });

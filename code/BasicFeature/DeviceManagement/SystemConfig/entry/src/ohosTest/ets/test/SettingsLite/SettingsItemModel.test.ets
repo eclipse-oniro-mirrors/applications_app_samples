@@ -21,6 +21,7 @@ import {
   SettingsOperationStatus,
   ClickResult
 } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -70,11 +71,11 @@ export default function SettingsItemModelTest(): void {
     it('testSettingsItemModel0002', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsItemModel0002: start test');
       const model: SettingsItemModel = new SettingsItemModel(
-        SettingsItemType.NFC_SETTING, 'NFC 设置', '打开 NFC 设置页面'
+        SettingsItemType.NFC_SETTING, TestRes.str('card_nfc_title'), TestRes.str('settings_desc_open_nfc')
       );
       expect(model.itemType).assertEqual(SettingsItemType.NFC_SETTING);
-      expect(model.title).assertEqual('NFC 设置');
-      expect(model.description).assertEqual('打开 NFC 设置页面');
+      expect(model.title).assertEqual(TestRes.str('card_nfc_title'));
+      expect(model.description).assertEqual(TestRes.str('settings_desc_open_nfc'));
       expect(model.operationStatus).assertEqual(SettingsOperationStatus.IDLE);
     });
 
@@ -186,15 +187,15 @@ export default function SettingsItemModelTest(): void {
     it('testSettingsItemModel0008', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsItemModel0008: start test');
       const model: SettingsItemModel = new SettingsItemModel();
-      expect(model.getStatusDescription()).assertEqual('空闲');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('status_idle'));
       model.markOpening();
-      expect(model.getStatusDescription()).assertEqual('打开页面中');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('settings_status_opening'));
       model.markQuerying();
-      expect(model.getStatusDescription()).assertEqual('查询中');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('status_querying'));
       model.markSuccess();
-      expect(model.getStatusDescription()).assertEqual('操作成功');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('settings_status_success'));
       model.markFailed('err', 1);
-      expect(model.getStatusDescription()).assertEqual('操作失败');
+      expect(model.getStatusDescription()).assertEqual(TestRes.str('settings_status_failed'));
     });
 
     /**
@@ -208,11 +209,11 @@ export default function SettingsItemModelTest(): void {
     it('testSettingsItemModel0009', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsItemModel0009: start test');
       const pinModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.PIN_SETTING);
-      expect(pinModel.getTypeName()).assertEqual('PIN 码设置');
+      expect(pinModel.getTypeName()).assertEqual(TestRes.str('card_pin_title'));
       const nfcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.NFC_SETTING);
-      expect(nfcModel.getTypeName()).assertEqual('NFC 设置');
+      expect(nfcModel.getTypeName()).assertEqual(TestRes.str('card_nfc_title'));
       const dcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.DOUBLE_CLICK_SETTING);
-      expect(dcModel.getTypeName()).assertEqual('双击设置');
+      expect(dcModel.getTypeName()).assertEqual(TestRes.str('card_double_click_title'));
     });
 
     // ========================================
@@ -230,7 +231,7 @@ export default function SettingsItemModelTest(): void {
     it('testSettingsItemModel0010', 0, () => {
       hilog.info(DOMAIN, TAG, 'testSettingsItemModel0010: start test');
       const model: SettingsItemModel = new SettingsItemModel(
-        SettingsItemType.DOUBLE_CLICK_SETTING, '双击设置', '描述'
+        SettingsItemType.DOUBLE_CLICK_SETTING, TestRes.str('card_double_click_title'), '描述'
       );
       model.markSuccess();
       model.updateClickResult(ClickResult.IS_SELF);
@@ -242,7 +243,7 @@ export default function SettingsItemModelTest(): void {
       expect(model.errorCode).assertEqual(0);
       expect(model.operationCount).assertEqual(0);
       expect(model.itemType).assertEqual(SettingsItemType.DOUBLE_CLICK_SETTING);
-      expect(model.title).assertEqual('双击设置');
+      expect(model.title).assertEqual(TestRes.str('card_double_click_title'));
     });
   });
 }

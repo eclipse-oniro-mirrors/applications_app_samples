@@ -16,6 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { PermissionUtils, PermissionStatus, ResourceHelper, SystemConfigConstants } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -67,7 +68,7 @@ export default function permissionUtilsTest(): void {
       const unknownPerm: string = 'ohos.permission.UNKNOWN_TEST_PERMISSION';
       const status: PermissionStatus = PermissionUtils.checkPermissionStatus(unknownPerm);
       expect(status).assertEqual(PermissionStatus.NOT_DETERMINED);
-      expect(PermissionUtils.getPermissionStatusLabel(status)).assertEqual('未决定');
+      expect(PermissionUtils.getPermissionStatusLabel(status)).assertEqual(TestRes.str('perm_status_not_determined'));
       expect(PermissionUtils.getPermissionLabel(unknownPerm)).assertEqual(unknownPerm);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0002: end');
     });
@@ -106,7 +107,8 @@ export default function permissionUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0004: begin');
       const result: boolean = PermissionUtils.isPermissionGranted(PermissionStatus.GRANTED);
       expect(result).assertTrue();
-      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.GRANTED)).assertEqual('已授予');
+      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.GRANTED))
+        .assertEqual(TestRes.str('perm_status_granted'));
       expect(PermissionUtils.isPermissionRestricted(PermissionStatus.GRANTED)).assertFalse();
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0004: end');
     });
@@ -123,7 +125,8 @@ export default function permissionUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0005: begin');
       const result: boolean = PermissionUtils.isPermissionGranted(PermissionStatus.DENIED);
       expect(result).assertFalse();
-      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.DENIED)).assertEqual('已拒绝');
+      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.DENIED))
+        .assertEqual(TestRes.str('perm_status_denied'));
       expect(PermissionUtils.isPermissionRestricted(PermissionStatus.DENIED)).assertFalse();
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0005: end');
     });
@@ -163,7 +166,8 @@ export default function permissionUtilsTest(): void {
       const result: boolean = PermissionUtils.isPermissionRestricted(PermissionStatus.RESTRICTED);
       expect(result).assertTrue();
       expect(PermissionUtils.isPermissionGranted(PermissionStatus.RESTRICTED)).assertFalse();
-      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.RESTRICTED)).assertEqual('受限');
+      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.RESTRICTED))
+        .assertEqual(TestRes.str('perm_status_restricted'));
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0007: end');
     });
 
@@ -180,7 +184,8 @@ export default function permissionUtilsTest(): void {
       const result: boolean = PermissionUtils.isPermissionRestricted(PermissionStatus.GRANTED);
       expect(result).assertFalse();
       expect(PermissionUtils.isPermissionGranted(PermissionStatus.GRANTED)).assertTrue();
-      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.GRANTED)).assertEqual('已授予');
+      expect(PermissionUtils.getPermissionStatusLabel(PermissionStatus.GRANTED))
+        .assertEqual(TestRes.str('perm_status_granted'));
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0008: end');
     });
 
@@ -218,9 +223,8 @@ export default function permissionUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0010: begin');
       const dndPerm: string = 'ohos.permission.GET_DONOTDISTURB_STATE';
       const result: string = PermissionUtils.getPermissionLabel(dndPerm);
-      expect(result).assertEqual('免打扰状态查询');
+      expect(result).assertEqual(TestRes.str('perm_dnd'));
       expect(result.length).assertLarger(0);
-      expect(result.indexOf('免打扰')).assertLarger(-1);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0010: end');
     });
 
@@ -235,9 +239,8 @@ export default function permissionUtilsTest(): void {
     it('testPermissionUtils0011', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0011: begin');
       const result: string = PermissionUtils.getPermissionLabel('ohos.permission.INTERNET');
-      expect(result).assertEqual('网络访问');
-      expect(result.length).assertEqual(4);
-      expect(result.indexOf('网络')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('perm_internet'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0011: end');
     });
 
@@ -253,8 +256,8 @@ export default function permissionUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0012: begin');
       const result1: string = PermissionUtils.getPermissionLabel('ohos.permission.LOCATION');
       const result2: string = PermissionUtils.getPermissionLabel('ohos.permission.CAMERA');
-      expect(result1).assertEqual('位置信息');
-      expect(result2).assertEqual('相机使用');
+      expect(result1).assertEqual(TestRes.str('perm_location'));
+      expect(result2).assertEqual(TestRes.str('perm_camera'));
       expect(result1.length).assertLarger(0);
       expect(result2.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0012: end');
@@ -293,9 +296,8 @@ export default function permissionUtilsTest(): void {
     it('testPermissionUtils0014', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0014: begin');
       const result: string = PermissionUtils.getPermissionStatusLabel(PermissionStatus.GRANTED);
-      expect(result).assertEqual('已授予');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('已')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('perm_status_granted'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0014: end');
     });
 
@@ -310,9 +312,8 @@ export default function permissionUtilsTest(): void {
     it('testPermissionUtils0015', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0015: begin');
       const result: string = PermissionUtils.getPermissionStatusLabel(PermissionStatus.DENIED);
-      expect(result).assertEqual('已拒绝');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('拒')).assertLarger(-1);
+      expect(result).assertEqual(TestRes.str('perm_status_denied'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0015: end');
     });
 
@@ -327,9 +328,8 @@ export default function permissionUtilsTest(): void {
     it('testPermissionUtils0016', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0016: begin');
       const result: string = PermissionUtils.getPermissionStatusLabel(PermissionStatus.NOT_DETERMINED);
-      expect(result).assertEqual('未决定');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('未')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('perm_status_not_determined'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0016: end');
     });
 
@@ -344,9 +344,8 @@ export default function permissionUtilsTest(): void {
     it('testPermissionUtils0017', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0017: begin');
       const result: string = PermissionUtils.getPermissionStatusLabel(PermissionStatus.RESTRICTED);
-      expect(result).assertEqual('受限');
-      expect(result.length).assertEqual(2);
-      expect(result.indexOf('限')).assertLarger(-1);
+      expect(result).assertEqual(TestRes.str('perm_status_restricted'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0017: end');
     });
 
@@ -367,7 +366,7 @@ export default function permissionUtilsTest(): void {
       const permissions: string[] = PermissionUtils.getRequiredPermissions();
       expect(permissions.length).assertEqual(1);
       expect(permissions[0]).assertEqual(SystemConfigConstants.PERMISSION_DND);
-      expect(PermissionUtils.getPermissionLabel(permissions[0])).assertEqual('免打扰状态查询');
+      expect(PermissionUtils.getPermissionLabel(permissions[0])).assertEqual(TestRes.str('perm_dnd'));
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0018: end');
     });
 
@@ -387,7 +386,7 @@ export default function permissionUtilsTest(): void {
       const second: string[] = PermissionUtils.getRequiredPermissions();
       expect(second.length).assertEqual(1);
       expect(second.includes('ohos.permission.CAMERA')).assertFalse();
-      expect(PermissionUtils.formatPermissionList(second)).assertEqual('免打扰状态查询');
+      expect(PermissionUtils.formatPermissionList(second)).assertEqual(TestRes.str('perm_dnd'));
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0019: end');
     });
 
@@ -409,7 +408,7 @@ export default function permissionUtilsTest(): void {
       expect(permissions.length).assertEqual(25);
       expect(permissions[0]).assertEqual(SystemConfigConstants.PERMISSION_DND);
       expect(permissions.includes('ohos.permission.INTERNET')).assertTrue();
-      expect(PermissionUtils.getPermissionLabel(permissions[0])).assertEqual('免打扰状态查询');
+      expect(PermissionUtils.getPermissionLabel(permissions[0])).assertEqual(TestRes.str('perm_dnd'));
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0020: end');
     });
 
@@ -474,9 +473,8 @@ export default function permissionUtilsTest(): void {
     it('testPermissionUtils0023', 0, () => {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0023: begin');
       const result: string = PermissionUtils.formatPermissionList([]);
-      expect(result).assertEqual('无权限');
-      expect(result.length).assertEqual(3);
-      expect(result.indexOf('无')).assertEqual(0);
+      expect(result).assertEqual(TestRes.str('perm_none'));
+      expect(result.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0023: end');
     });
 
@@ -492,8 +490,8 @@ export default function permissionUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0024: begin');
       const separator: string = ResourceHelper.getStringByName('list_separator');
       const result: string = PermissionUtils.formatPermissionList(['ohos.permission.INTERNET']);
-      expect(result).assertEqual('网络访问');
-      expect(result.length).assertEqual(4);
+      expect(result).assertEqual(TestRes.str('perm_internet'));
+      expect(result.length).assertLarger(0);
       expect(result.indexOf(separator)).assertEqual(-1);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0024: end');
     });
@@ -512,8 +510,8 @@ export default function permissionUtilsTest(): void {
       const perms: string[] = ['ohos.permission.INTERNET', 'ohos.permission.LOCATION'];
       const result: string = PermissionUtils.formatPermissionList(perms);
       expect(result.indexOf(separator)).assertLarger(-1);
-      expect(result.indexOf('网络访问')).assertLarger(-1);
-      expect(result.indexOf('位置信息')).assertLarger(-1);
+      expect(result.indexOf(TestRes.str('perm_internet'))).assertLarger(-1);
+      expect(result.indexOf(TestRes.str('perm_location'))).assertLarger(-1);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0025: end');
     });
 
@@ -534,9 +532,9 @@ export default function permissionUtilsTest(): void {
         'ohos.permission.LOCATION'
       ];
       const result: string = PermissionUtils.formatPermissionList(perms);
-      expect(result.indexOf('网络访问')).assertLarger(-1);
-      expect(result.indexOf('相机使用')).assertLarger(-1);
-      expect(result.indexOf('位置信息')).assertLarger(-1);
+      expect(result.indexOf(TestRes.str('perm_internet'))).assertLarger(-1);
+      expect(result.indexOf(TestRes.str('perm_camera'))).assertLarger(-1);
+      expect(result.indexOf(TestRes.str('perm_location'))).assertLarger(-1);
       const separatorCount: number = result.split(separator).length - 1;
       expect(separatorCount).assertEqual(2);
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0026: end');
@@ -684,10 +682,10 @@ export default function permissionUtilsTest(): void {
       const deniedLabel: string = PermissionUtils.getPermissionStatusLabel(PermissionStatus.DENIED);
       const notDeterminedLabel: string = PermissionUtils.getPermissionStatusLabel(PermissionStatus.NOT_DETERMINED);
       const restrictedLabel: string = PermissionUtils.getPermissionStatusLabel(PermissionStatus.RESTRICTED);
-      expect(grantedLabel).assertEqual('已授予');
-      expect(deniedLabel).assertEqual('已拒绝');
-      expect(notDeterminedLabel).assertEqual('未决定');
-      expect(restrictedLabel).assertEqual('受限');
+      expect(grantedLabel).assertEqual(TestRes.str('perm_status_granted'));
+      expect(deniedLabel).assertEqual(TestRes.str('perm_status_denied'));
+      expect(notDeterminedLabel).assertEqual(TestRes.str('perm_status_not_determined'));
+      expect(restrictedLabel).assertEqual(TestRes.str('perm_status_restricted'));
       hilog.info(DOMAIN, TAG, 'testPermissionUtils0033: end');
     });
 

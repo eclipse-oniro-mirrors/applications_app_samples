@@ -15,6 +15,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { DateUtils, MathUtils, StringUtils, FormatUtils } from 'library';
+import { TestRes } from './TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -387,11 +388,11 @@ export default function BoundaryValueTest(): void {
      */
     it('testUtilsBoundaryValue0020', 0, () => {
       hilog.info(DOMAIN, TAG, 'testUtilsBoundaryValue0020 begin');
-      expect(FormatUtils.formatDuration(0)).assertEqual('0秒');
-      expect(FormatUtils.formatDuration(-1000)).assertEqual('0秒');
-      expect(FormatUtils.formatDuration(1000)).assertEqual('1秒');
-      expect(FormatUtils.formatDuration(60000)).assertEqual('1分');
-      expect(FormatUtils.formatDuration(3600000)).assertEqual('1小时');
+      expect(FormatUtils.formatDuration(0)).assertEqual(TestRes.str('duration_zero'));
+      expect(FormatUtils.formatDuration(-1000)).assertEqual(TestRes.str('duration_zero'));
+      expect(FormatUtils.formatDuration(1000)).assertEqual(TestRes.str1('duration_seconds', 1));
+      expect(FormatUtils.formatDuration(60000)).assertEqual(TestRes.str1('duration_minutes', 1));
+      expect(FormatUtils.formatDuration(3600000)).assertEqual(TestRes.str1('duration_hours', 1));
     });
 
     /**

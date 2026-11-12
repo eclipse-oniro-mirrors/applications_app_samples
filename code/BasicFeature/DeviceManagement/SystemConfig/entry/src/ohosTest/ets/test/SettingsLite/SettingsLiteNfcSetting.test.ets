@@ -15,6 +15,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SettingsLiteService, SettingsItemModel, SettingsItemType, SettingsOperationStatus } from 'library';
+import { TestRes } from '../Utils/TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -59,7 +60,7 @@ export default function SettingsLiteNfcSettingTest(): void {
       const model: SettingsItemModel = service.getNfcModel();
       const typeName: string = model.getTypeName();
       expect(typeName.length).assertLarger(0);
-      expect(typeName).assertEqual('NFC 设置');
+      expect(typeName).assertEqual(TestRes.str('card_nfc_title'));
       expect(model.itemType).assertEqual(SettingsItemType.NFC_SETTING);
       service.destroy();
     });

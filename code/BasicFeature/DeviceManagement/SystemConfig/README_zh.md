@@ -55,7 +55,7 @@ SystemConfig/
 │       │   ├── SettingsLiteService.ets    # 设置信息服务
 │       │   ├── TraceService.ets           # hiTraceMeter 追踪服务
 │       │   └── EventService.ets           # hiAppEvent 事件服务
-│       └── utils/                         # 工具类（4 大类 20 个）
+│       └── utils/                         # 工具类（4 大类 21 个）
 │           ├── basic/                     # 基础工具
 │           ├── device/                    # 设备与存储工具
 │           ├── network/                   # 网络与权限工具
@@ -72,7 +72,7 @@ SystemConfig/
 │       │   │   ├── intelligentScene/      # 情景模式页面
 │       │   │   └── settingslite/          # 设置信息页面
 │       │   └── viewmodel/                 # 视图模型
-│       ├── ohosTest/                      # UI 自动化测试（54 个套件 / 624 条用例）
+│       ├── ohosTest/                      # UI 自动化测试（54 个套件 / 627 条用例）
 │       │   └── ets/test/                  # 测试套件（9 个分类）
 │       └── main/resources/                # 模块资源
 ├── build-profile.json5                    # 工程构建配置（API 26）
@@ -89,7 +89,7 @@ Library 模块封装了系统配置的核心接口，可独立编译为 HAR 复�
 - **服务层**（[library/src/main/ets/service/](library/src/main/ets/service/)）：每个 API 模块对应一个 Service 类，封装实际 API 调用并集成日志、追踪和错误处理。例如 `CustomConfigService` 封装了 `customConfig.getChannelId()` 的调用。
 - **数据模型**（[library/src/main/ets/model/](library/src/main/ets/model/)）：三个模型类（`ChannelConfigModel`、`DoNotDisturbModel`、`SettingsItemModel`）管理状态、追踪操作历史并提供序列化能力。
 - **追踪与事件**（[library/src/main/ets/service/TraceService.ets](library/src/main/ets/service/TraceService.ets)）：`TraceService` 封装 hiTraceMeter 性能追踪；`EventService` 封装 hiAppEvent 事件上报。
-- **工具类**（[library/src/main/ets/utils/](library/src/main/ets/utils/)）：4 大类共 20 个工具类，覆盖基础运算、设备存储、网络权限、数据校验等场景。
+- **工具类**（[library/src/main/ets/utils/](library/src/main/ets/utils/)）：4 大类共 21 个工具类，覆盖基础运算、设备存储、网络权限、数据校验等场景。
 - **模块导出**（[library/Index.ets](library/Index.ets)）：统一导出所有公开 API。
 
 ### Entry 模块
@@ -108,11 +108,11 @@ Entry 模块负责业务逻辑和页面展示。
 
 ## 自动化测试
 
-本示例提供完整的 ohosTest 自动化测试，共 **54 个测试套件、624 条用例**，分为 9 个分类，覆盖服务层、数据模型、工具类、数据校验、网络权限、设备存储、常量、页面导航与多服务集成场景。
+本示例提供完整的 ohosTest 自动化测试，共 **54 个测试套件、627 条用例**，分为 9 个分类，覆盖服务层、数据模型、工具类、数据校验、网络权限、设备存储、常量、页面导航与多服务集成场景。
 
 - **用例命名**：`it()` 与 `@tc.name` 统一为 `test<Feature><NNNN>`，后四位从 `0001` 起每条自增 1；`@tc.number` 为 `SUB_<MODULE>_<SEQ>`，后四位从 `0100` 起每条自增 100，同一文件内连续编号、全局唯一。
 - **运行方式**：构建并安装 ohosTest HAP 后，在目标设备上启动 ohosTest 用例进行全量运行，也可指定套件或单条用例。
-- **最新结果**：连续两轮全量运行均为 `Tests run: 624, Failure: 0, Error: 0, Pass: 624, Ignore: 0`。
+- **最新结果**：连续两轮全量运行均为 `Tests run: 627, Failure: 0, Error: 0, Pass: 627, Ignore: 0`。
 
 详细用例清单、命名规范与执行说明见 [ohosTest.md](ohosTest.md)。
 

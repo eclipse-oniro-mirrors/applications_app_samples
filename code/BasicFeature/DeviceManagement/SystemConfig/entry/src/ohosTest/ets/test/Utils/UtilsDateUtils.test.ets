@@ -16,6 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { DateUtils } from 'library';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TestRes } from './TestRes';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_SystemConfig]';
@@ -194,10 +195,10 @@ export default function utilsDateUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testUtilsDateUtils0008: begin');
       const now: number = Date.now();
       const result: string = DateUtils.getRelativeTime(now);
-      expect(result).assertEqual('刚刚');
+      expect(result).assertEqual(TestRes.str('date_just_now'));
       expect(result.length).assertLarger(0);
       const oneMinuteAgo: number = now - 30000;
-      expect(DateUtils.getRelativeTime(oneMinuteAgo)).assertEqual('刚刚');
+      expect(DateUtils.getRelativeTime(oneMinuteAgo)).assertEqual(TestRes.str('date_just_now'));
       hilog.info(DOMAIN, TAG, 'testUtilsDateUtils0008: end');
     });
 
@@ -213,10 +214,9 @@ export default function utilsDateUtilsTest(): void {
       hilog.info(DOMAIN, TAG, 'testUtilsDateUtils0009: begin');
       const fiveMinutesAgo: number = Date.now() - 5 * 60000;
       const result: string = DateUtils.getRelativeTime(fiveMinutesAgo);
-      expect(result).assertEqual('5分钟前');
-      expect(result.indexOf('分钟')).assertLarger(-1);
+      expect(result).assertEqual(TestRes.str1('date_minutes_ago', 5));
       const oneHourAgo: number = Date.now() - 2 * 3600000;
-      expect(DateUtils.getRelativeTime(oneHourAgo)).assertEqual('2小时前');
+      expect(DateUtils.getRelativeTime(oneHourAgo)).assertEqual(TestRes.str1('date_hours_ago', 2));
       hilog.info(DOMAIN, TAG, 'testUtilsDateUtils0009: end');
     });
 
