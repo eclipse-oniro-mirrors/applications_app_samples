@@ -58,9 +58,7 @@ entry/src/main/ets/
 
 ## 相关权限
 
-| 权限名 | 权限等级 | 说明 |
-|-------|--------|------|
-| [ohos.permission.KEEP_BACKGROUND_RUNNING](https://docs.openharmony.cn/pages/v5.0/zh-CN/application-dev/security/permissions/permission-list.md#ohospermissionkeep_background_running) | normal | 允许应用在后台继续播放音频 |
+本示例未声明额外权限。原 `ohos.permission.KEEP_BACKGROUND_RUNNING` 在代码中没有后台任务调用，已移除，避免安装时出现 `grant request permissions failed`。
 
 ## 依赖
 
@@ -68,12 +66,13 @@ entry/src/main/ets/
 
 ## 约束与限制
 
-- 支持设备类型: 手机、平板、2in1 设备.
-- OpenHarmony SDK: 5.0.0(12)(开源版本).
-- DevEco Studio: 5.0+.
+- 支持设备类型: 手机、平板、2in1 设备，以及 deviceType 为 `default` 的开发板（已在 32 位 OpenHarmony 开发板上验证）.
+- 已适配 API version 26.0.0（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `"26.0.0"`，`runtimeOS: HarmonyOS`）.
+- DevEco Studio: 26.0.0 Release 及以上.
 - 本示例未使用系统 API, 无需 Full SDK, 使用 Public SDK 即可编译运行.
-- 本示例仅包含播放场景的焦点管控演示, 内录(PlaybackCapture)相关 API 需要 API 26+ 支持, 当前 SDK 版本下不包含录制代码.
+- 本示例仅包含播放场景的焦点管控演示, 内录(PlaybackCapture)相关 API 需要 API 26+ 支持, 当前示例不包含录制代码.
 - 运行前需完成设备签名配置: 开发阶段使用调试签名, 发布前需配置正式签名.
+- `ohosTest` 包含 13 条自动化用例（控制器 API + 三个场景 UI + 应用管控开/关两态），运行命令见 `ohosTest.md`.
 
 ## 下载
 
