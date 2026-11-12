@@ -18,12 +18,14 @@ import common from '@ohos.app.ability.common';
 import camera from '@ohos.multimedia.camera';
 import { Resolution } from './CommonTypes';
 
+type OutputProfiles = Array<camera.Profile>;
+
 export default class CameraServiceNative {
   private cameraManager: camera.CameraManager | undefined = undefined;
   private cameras: Array<camera.CameraDevice> | undefined = undefined;
   private cameraOutputCapability: camera.CameraOutputCapability | undefined = undefined;
-  private videoProfiles: Array<camera.VideoProfile> | undefined = undefined;
-  private previewProfiles: Array<camera.Profile> | undefined = undefined;
+  private videoOutputProfiles: OutputProfiles | undefined = undefined;
+  private previewProfiles: OutputProfiles | undefined = undefined;
   private cameraInput: camera.CameraInput | undefined = undefined;
   private previewOutput: camera.PreviewOutput | undefined = undefined;
   private videoOutput: camera.VideoOutput | undefined = undefined;
@@ -51,7 +53,7 @@ export default class CameraServiceNative {
     }
     this.cameraOutputCapability = this.cameraManager.getSupportedOutputCapability(this.cameras[this.cameraIndex],
       camera.SceneMode.NORMAL_VIDEO);
-    this.videoProfiles = this.cameraOutputCapability.videoProfiles;
+    this.videoOutputProfiles = this.cameraOutputCapability.videoProfiles;
   }
 
   async createInput(): Promise<void> {
@@ -72,20 +74,20 @@ export default class CameraServiceNative {
     }
   }
 
-  selectProfile(profiles: Array<camera.Profile>, resolution: Resolution): number {
+  selectProfile(profiles: OutputProfiles, resolution: Resolution): number {
     for (let index = 0; index < profiles.length; index++) {
-      let profile = profiles[index];
-      if (profile.size.height == resolution.frameHeight && profile.size.width == resolution.frameWidth) {
+      let candidate = profiles[index];
+      if (candidate.size.height == resolution.frameHeight && candidate.size.width == resolution.frameWidth) {
         return index;
       }
     }
     return 0;
   }
 
-  selectVideoProfile(profiles: Array<camera.VideoProfile>, resolution: Resolution): number {
+  selectVideoOutputProfile(profiles: OutputProfiles, resolution: Resolution): number {
     for (let index = 0; index < profiles.length; index++) {
-      let profile = profiles[index];
-      if (profile.size.height == resolution.frameHeight && profile.size.width == resolution.frameWidth) {
+      let candidate = profiles[index];
+      if (candidate.size.height == resolution.frameHeight && candidate.size.width == resolution.frameWidth) {
         return index;
       }
     }
@@ -182,9 +184,9 @@ export default class CameraServiceNative {
 
   async createVideoOutput(surfaceId: string): Promise<void> {
     try {
-      if (this.videoProfiles && this.cameraManager) {
-        let index: number = this.selectVideoProfile(this.videoProfiles, this.videoResolution);
-        this.videoOutput = this.cameraManager.createVideoOutput(this.videoProfiles[index], surfaceId);
+      if (this.videoOutputProfiles && this.cameraManager) {
+        let index: number = this.selectVideoOutputProfile(this.videoOutputProfiles, this.videoResolution);
+        this.videoOutput = this.cameraManager.createVideoOutput(this.videoOutputProfiles[index] as camera.VideoProfile, surfaceId);
         if (!this.videoOutput) {
           console.error('[CameraServiceNative/createVideoOutput] create videoOutPut fail');
           return;

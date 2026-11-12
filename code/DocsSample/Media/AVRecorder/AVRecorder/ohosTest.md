@@ -93,5 +93,5 @@
 
 - 2026-10-29 运行时探针确认 `findComponent` 未命中返回 **`null`**（不是 `undefined`），原约 40 处 `component !== undefined` 属于恒真断言；已全部改为 `assertComponentExist` 封装的 `existsById` / `waitForId`，并用不存在的 id 反向验证会失败。
 - `if (component)` 之类的真值判断本身是正确的（`null` 为假），仅为统一写法改为显式存在性校验。
-- 主工程无假函数：`AVRecorderService` 使用真实 `AVRecorder`；`CameraService`/`CameraServiceNative` 真实创建 `CameraInput`、`PreviewOutput`、`VideoOutput`；`entry/src/main/cpp/avrecorder_ndk.cpp` 为 576 行真实 Native 实现；未发现 TODO/mock/空函数。
+- 主工程无假函数：`AVRecorderService` 使用真实 `AVRecorder`；`CameraService`/`CameraServiceNative` 真实创建 `CameraInput`、`PreviewOutput`、`VideoOutput`；`entry/src/main/cpp` 为 576 行真实 Native 实现；未发现 TODO/mock/空函数。
 - Native 视频“文件 > 0”是真实但较弱的断言，受 32 位板限制，已在“已知限制”说明；不是恒真断言。
