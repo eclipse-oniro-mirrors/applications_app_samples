@@ -181,30 +181,43 @@ export default function signingSignatureVerificationTest() {
       console.info('uitest: testSigningSignatureVerificationTest010 end');
     })
     /**
-     * 点击按钮，SM2签名数据R,S格式转换为DER格式(C/C++)
+     * 点击按钮，使用SM2密钥对签名(C/C++)
      */
     it('testSigningSignatureVerificationTest011', 0, async () => {
       console.info('uitest: testSigningSignatureVerificationTest011 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('Call SM2Sign'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SM2SignSuccess Result:0'));
+      console.info('uitest: testSigningSignatureVerificationTest011 end');
+    })
+    /**
+     * 点击按钮，SM2签名数据R,S格式转换为DER格式(C/C++)
+     */
+    it('testSigningSignatureVerificationTest012', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest012 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call SM2 RS to DER'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SM2RStoDERSuccess Result:0'));
-      console.info('uitest: testSigningSignatureVerificationTest011 end');
+      console.info('uitest: testSigningSignatureVerificationTest012 end');
     })
     /**
      * 点击按钮，SM2签名数据DER格式转换为R,S格式(C/C++)
      */
-    it('testSigningSignatureVerificationTest012', 0, async () => {
-      console.info('uitest: testSigningSignatureVerificationTest012 begin');
+    it('testSigningSignatureVerificationTest013', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest013 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call SM2 DER Convert RS'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SM2DerConvertRSSuccess Result:0'));
-      console.info('uitest: testSigningSignatureVerificationTest012 end');
+      console.info('uitest: testSigningSignatureVerificationTest013 end');
     })
   })
 }

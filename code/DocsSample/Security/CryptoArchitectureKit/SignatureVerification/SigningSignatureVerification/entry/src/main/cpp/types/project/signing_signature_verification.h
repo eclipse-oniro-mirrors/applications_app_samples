@@ -29,6 +29,7 @@ bool DoTestRsaPssSignSeg();
 bool DoTestEcdsaSign();
 bool DoTestEcdsaVerify();
 bool DoTestSm2Signature();
+OH_Crypto_ErrCode DoTestSm2Sign();
 OH_Crypto_ErrCode DoTestSm2RStoDER();
 OH_Crypto_ErrCode DoTestSm2DerConvertRS();
 
