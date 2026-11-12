@@ -16,23 +16,23 @@
 import { PageConstants } from 'library';
 
 /**
- * 信息卡片组件。
- * 通用的信息展示卡片，包含标题和内容区域。
+ * Info card component.
+ * A generic information card containing a title and a content area.
  */
 @Component
 export struct InfoCard {
-  /** 卡片标题 */
+  /** Card title */
   @Prop title: ResourceStr = '';
-  /** 卡片副标题 */
+  /** Card subtitle */
   @Prop subtitle: ResourceStr = '';
-  /** 是否显示分割线 */
+  /** Whether to show the divider */
   @Prop showDivider: boolean = true;
-  /** 卡片内容构建器 */
+  /** Card content builder */
   @BuilderParam content: () => void = this.defaultContent;
 
   /**
-   * 判断副标题是否有效（支持字符串与资源两种类型）。
-   * @returns {boolean} 是否需要展示副标题
+   * Checks whether the subtitle is valid (supports both string and resource types).
+   * @returns {boolean} Whether the subtitle should be displayed
    */
   private hasSubtitle(): boolean {
     if (typeof this.subtitle === 'string') {
@@ -42,8 +42,8 @@ export struct InfoCard {
   }
 
   /**
-   * 默认内容构建器。
-   * 当未提供自定义内容时显示占位文本。
+   * Default content builder.
+   * Shows placeholder text when no custom content is provided.
    */
   @Builder
   defaultContent() {
@@ -54,7 +54,7 @@ export struct InfoCard {
 
   build() {
     Column() {
-      // 卡片头部区域
+      // Card header area
       Column() {
         Text(this.title)
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
@@ -79,7 +79,7 @@ export struct InfoCard {
           .margin({ top: PageConstants.ITEM_SPACING, bottom: PageConstants.ITEM_SPACING })
       }
 
-      // 卡片内容区域
+      // Card content area
       Column() {
         this.content()
       }
@@ -91,7 +91,7 @@ export struct InfoCard {
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
     .shadow({
       radius: 4,
-      color: 'rgba(0,0,0,0.1)',
+      color: PageConstants.COLOR_SHADOW,
       offsetX: 0,
       offsetY: 2
     })

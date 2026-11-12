@@ -16,37 +16,37 @@
 import { PageConstants } from 'library';
 
 /**
- * 操作按钮组件属性接口。
+ * Props interface for the action button component.
  */
 export interface ActionButtonProps {
-  /** 按钮文本 */
+  /** Button text */
   text: string;
-  /** 按钮类型 */
+  /** Button type */
   type: 'primary' | 'secondary' | 'danger';
-  /** 是否禁用 */
+  /** Whether the button is disabled */
   disabled: boolean;
-  /** 点击回调 */
+  /** Click callback */
   onClick: () => void;
 }
 
 /**
- * 操作按钮组件。
- * 提供三种样式（主要、次要、危险）的按钮，支持禁用状态。
+ * Action button component.
+ * Provides three styles (primary, secondary, danger) and supports a disabled state.
  */
 @Component
 export struct ActionButton {
-  /** 按钮文本 */
+  /** Button text */
   @Prop buttonText: ResourceStr = '';
-  /** 按钮类型标识 */
+  /** Button type identifier */
   @Prop buttonType: string = 'primary';
-  /** 是否禁用 */
+  /** Whether the button is disabled */
   @Prop isDisabled: boolean = false;
-  /** 点击回调 */
+  /** Click callback */
   onButtonClick: () => void = () => {};
 
   /**
-   * 获取按钮背景颜色。
-   * @returns {string} 背景颜色值
+   * Gets the button background color.
+   * @returns {string} The background color value
    */
   private getBackgroundColor(): string {
     if (this.isDisabled) {
@@ -65,8 +65,8 @@ export struct ActionButton {
   }
 
   /**
-   * 获取按钮文字颜色。
-   * @returns {string} 文字颜色值
+   * Gets the button text color.
+   * @returns {string} The text color value
    */
   private getTextColor(): string {
     if (this.isDisabled) {
@@ -85,8 +85,8 @@ export struct ActionButton {
   }
 
   /**
-   * 获取按钮边框颜色。
-   * @returns {string} 边框颜色值
+   * Gets the button border color.
+   * @returns {string} The border color value
    */
   private getBorderColor(): string {
     if (this.isDisabled) {

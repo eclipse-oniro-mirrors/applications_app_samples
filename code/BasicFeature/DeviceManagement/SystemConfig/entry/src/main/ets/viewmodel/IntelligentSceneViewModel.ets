@@ -14,6 +14,7 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { common } from '@kit.AbilityKit';
 import { SystemConfigConstants } from 'library';
 import { IntelligentSceneService } from 'library';
 import { TraceService, TraceName } from 'library';
@@ -24,53 +25,57 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 情景模式视图模型。
- * 负责管理 IntelligentScenePage 页面的数据和业务逻辑，
- * 协调 IntelligentSceneService、TraceService 和 EventService 的调用。
+ * Intelligent Scene view model.
+ * Manages the data and business logic of IntelligentScenePage,
+ * coordinating calls to IntelligentSceneService, TraceService and EventService.
  */
 export class IntelligentSceneViewModel {
-  /** 情景模式服务实例 */
+  /** Intelligent scene service instance */
   private sceneService: IntelligentSceneService = new IntelligentSceneService();
-  /** 追踪服务实例 */
+  /** Trace service instance */
   private traceService: TraceService = new TraceService();
-  /** 事件服务实例 */
+  /** Event service instance */
   private eventService: EventService = new EventService();
-  /** 页面操作日志 */
+  /** UIAbility context (used to resolve localized text resources) */
+  private context: common.UIAbilityContext | null = null;
+  /** Page operation logs */
   public pageLogs: string[] = [];
-  /** 免打扰是否启用 */
+  /** Whether Do Not Disturb is enabled */
   public isDndEnabled: boolean = false;
-  /** 免打扰时是否允许通知 */
+  /** Whether notifications are allowed during Do Not Disturb */
   public isNotifyAllowed: boolean = true;
-  /** 当前查询状态 */
+  /** Current query status */
   public currentStatus: DoNotDisturbStatus = DoNotDisturbStatus.IDLE;
-  /** 是否正在加载 */
+  /** Whether loading */
   public isLoading: boolean = false;
 
   /**
-   * 初始化视图模型。
-   * 创建并初始化所有依赖服务。
+   * Initializes the view model.
+   * Creates and initializes all dependent services.
+   * @param {common.UIAbilityContext} context - UIAbility context, used to resolve localized text resources
    */
-  initialize(): void {
+  initialize(context: common.UIAbilityContext): void {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel initialize: starting');
+    this.context = context;
     this.traceService.initialize(true);
     this.eventService.initialize();
     this.sceneService.initialize();
-    this.addLog('视图模型初始化完成');
+    this.addLog(this.fmt($r('app.string.log_vm_initialized')));
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel initialize: complete');
   }
 
   // ========================================
-  // 业务操作方法
+  // Business operation methods
   // ========================================
 
   /**
-   * 查询免打扰启用状态。
-   * 调用 IntelligentSceneService.isDoNotDisturbEnabled() 异步接口。
+   * Queries the Do Not Disturb enabled status.
+   * Calls the IntelligentSceneService.isDoNotDisturbEnabled() asynchronous API.
    */
   async queryDndState(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel queryDndState: starting');
     this.isLoading = true;
-    this.addLog('正在查询免打扰状态...');
+    this.addLog(this.fmt($r('app.string.log_querying_dnd')));
 
     const enabled: boolean = await this.traceService.traceAsync(
       TraceName.SCENE_QUERY_DND,
@@ -82,10 +87,10 @@ export class IntelligentSceneViewModel {
     this.currentStatus = model.status;
 
     if (model.isReady()) {
-      this.addLog(`免打扰状态: ${enabled ? '已启用' : '未启用'}`);
+      this.addLog(this.fmt($r('app.string.log_dnd_state'), this.enabledText(enabled)));
       this.eventService.reportDndStateChanged(enabled, this.isNotifyAllowed);
     } else {
-      this.addLog(`查询失败: ${model.errorMessage}`);
+      this.addLog(this.fmt($r('app.string.log_query_failed'), model.errorMessage));
     }
 
     this.isLoading = false;
@@ -93,13 +98,13 @@ export class IntelligentSceneViewModel {
   }
 
   /**
-   * 查询免打扰时通知允许状态。
-   * 调用 IntelligentSceneService.isNotifyAllowedInDoNotDisturb() 异步接口。
+   * Queries the notification-allowed status during Do Not Disturb.
+   * Calls the IntelligentSceneService.isNotifyAllowedInDoNotDisturb() asynchronous API.
    */
   async queryNotifyState(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel queryNotifyState: starting');
     this.isLoading = true;
-    this.addLog('正在查询通知允许状态...');
+    this.addLog(this.fmt($r('app.string.log_querying_notify')));
 
     const allowed: boolean = await this.traceService.traceAsync(
       TraceName.SCENE_QUERY_NOTIFY,
@@ -111,10 +116,10 @@ export class IntelligentSceneViewModel {
     this.currentStatus = model.status;
 
     if (model.isReady()) {
-      this.addLog(`通知允许状态: ${allowed ? '允许' : '不允许'}`);
+      this.addLog(this.fmt($r('app.string.log_notify_state'), this.allowedText(allowed)));
       this.eventService.reportDndStateChanged(this.isDndEnabled, allowed);
     } else {
-      this.addLog(`查询失败: ${model.errorMessage}`);
+      this.addLog(this.fmt($r('app.string.log_query_failed'), model.errorMessage));
     }
 
     this.isLoading = false;
@@ -122,13 +127,13 @@ export class IntelligentSceneViewModel {
   }
 
   /**
-   * 同时查询所有免打扰相关状态。
-   * 调用 IntelligentSceneService.queryAllDndStates() 一次性获取。
+   * Queries all Do Not Disturb related statuses at once.
+   * Calls IntelligentSceneService.queryAllDndStates() to fetch them in a single request.
    */
   async queryAllStates(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel queryAllStates: starting');
     this.isLoading = true;
-    this.addLog('正在查询所有免打扰状态...');
+    this.addLog(this.fmt($r('app.string.log_querying_all')));
 
     const model: DoNotDisturbModel = await this.traceService.traceAsync(
       TraceName.SCENE_QUERY_ALL,
@@ -140,18 +145,18 @@ export class IntelligentSceneViewModel {
     this.currentStatus = model.status;
 
     if (model.isReady()) {
-      this.addLog(`查询完成 - 免打扰: ${this.isDndEnabled ? '启用' : '未启用'}, 通知: ${this.isNotifyAllowed ? '允许' : '不允许'}`);
+      this.addLog(this.fmt($r('app.string.log_query_all_done'), this.enabledText(this.isDndEnabled), this.allowedText(this.isNotifyAllowed)));
       this.eventService.reportDndStateChanged(this.isDndEnabled, this.isNotifyAllowed);
     } else {
-      this.addLog(`查询失败: ${model.errorMessage}`);
+      this.addLog(this.fmt($r('app.string.log_query_failed'), model.errorMessage));
     }
 
     this.isLoading = false;
   }
 
   /**
-   * 重置视图模型状态。
-   * 清除所有已查询的数据和日志。
+   * Resets the view model state.
+   * Clears all queried data and logs.
    */
   resetState(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel resetState: clearing');
@@ -161,12 +166,12 @@ export class IntelligentSceneViewModel {
     this.currentStatus = DoNotDisturbStatus.IDLE;
     this.isLoading = false;
     this.pageLogs = [];
-    this.addLog('状态已重置');
+    this.addLog(this.fmt($r('app.string.log_state_reset')));
   }
 
   /**
-   * 获取免打扰模型的 JSON 表示。
-   * @returns {string} JSON 字符串
+   * Gets the JSON representation of the Do Not Disturb model.
+   * @returns {string} JSON string
    */
   getDndDetail(): string {
     const model: DoNotDisturbModel = this.sceneService.getDoNotDisturbModel();
@@ -174,12 +179,43 @@ export class IntelligentSceneViewModel {
   }
 
   // ========================================
-  // 日志管理方法
+  // Log management methods
   // ========================================
 
   /**
-   * 添加页面操作日志。
-   * @param {string} message - 日志消息
+   * Resolves a localized text resource into a string.
+   * @param {Resource} resource - Resource object obtained via $r reference
+   * @param {Array<string | number>} args - Format placeholder arguments
+   * @returns {string} The resolved localized string, or an empty string when the context is not ready
+   */
+  private fmt(resource: Resource, ...args: Array<string | number>): string {
+    if (!this.context) {
+      return '';
+    }
+    return this.context.resourceManager.getStringSync(resource.id, ...args);
+  }
+
+  /**
+   * Gets the localized text for the enabled status.
+   * @param {boolean} enabled - Whether enabled
+   * @returns {string} Localized status text
+   */
+  private enabledText(enabled: boolean): string {
+    return this.fmt(enabled ? $r('app.string.value_enabled') : $r('app.string.value_disabled'));
+  }
+
+  /**
+   * Gets the localized text for the notification-allowed status.
+   * @param {boolean} allowed - Whether allowed
+   * @returns {string} Localized status text
+   */
+  private allowedText(allowed: boolean): string {
+    return this.fmt(allowed ? $r('app.string.value_allowed') : $r('app.string.value_not_allowed'));
+  }
+
+  /**
+   * Adds a page operation log.
+   * @param {string} message - Log message
    */
   private addLog(message: string): void {
     const timestamp: string = new Date().toLocaleTimeString();
@@ -188,19 +224,19 @@ export class IntelligentSceneViewModel {
     if (this.pageLogs.length > SystemConfigConstants.MAX_LOG_ENTRIES) {
       this.pageLogs = this.pageLogs.slice(-SystemConfigConstants.MAX_LOG_ENTRIES);
     }
-    hilog.debug(DOMAIN, TAG, 'IntelligentSceneViewModel addLog: %{public}s', message);
+    hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel addLog: %{public}s', message);
   }
 
   /**
-   * 获取所有页面日志。
-   * @returns {string[]} 日志数组
+   * Gets all page logs.
+   * @returns {string[]} Log array
    */
   getLogs(): string[] {
     return [...this.pageLogs];
   }
 
   /**
-   * 清空页面日志。
+   * Clears page logs.
    */
   clearLogs(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel clearLogs');
@@ -208,11 +244,11 @@ export class IntelligentSceneViewModel {
   }
 
   // ========================================
-  // 销毁方法
+  // Destroy methods
   // ========================================
 
   /**
-   * 销毁视图模型，释放所有服务资源。
+   * Destroys the view model and releases all service resources.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneViewModel destroy: releasing');

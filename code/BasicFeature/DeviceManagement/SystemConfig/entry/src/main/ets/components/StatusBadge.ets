@@ -16,29 +16,29 @@
 import { PageConstants } from 'library';
 
 /**
- * 状态标签组件属性接口。
- * 定义状态标签的输入参数。
+ * Props interface for the status badge component.
+ * Defines the input parameters of the status badge.
  */
 export interface StatusBadgeProps {
-  /** 标签文本 */
+  /** Badge text */
   text: string;
-  /** 标签颜色 */
+  /** Badge color */
   color: string;
-  /** 背景颜色 */
+  /** Background color */
   backgroundColor: string;
 }
 
 /**
- * 状态标签组件。
- * 显示带颜色的状态标签，用于标识操作结果或当前状态。
+ * Status badge component.
+ * Displays a colored badge used to indicate the operation result or current status.
  */
 @Component
 export struct StatusBadge {
-  /** 标签文本 */
+  /** Badge text */
   @Prop text: ResourceStr = '';
-  /** 标签文字颜色 */
+  /** Badge text color */
   @Prop textColor: string = PageConstants.COLOR_TEXT_PRIMARY;
-  /** 标签背景颜色 */
+  /** Badge background color */
   @Prop bgColor: string = PageConstants.COLOR_CARD;
 
   build() {

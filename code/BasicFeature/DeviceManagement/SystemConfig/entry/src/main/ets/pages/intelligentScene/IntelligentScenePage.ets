@@ -14,6 +14,7 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { common } from '@kit.AbilityKit';
 import { SystemConfigConstants, PageConstants, DoNotDisturbStatus } from 'library';
 import { IntelligentSceneViewModel } from '../../viewmodel/IntelligentSceneViewModel';
 import { InfoCard } from '../../components/InfoCard';
@@ -25,44 +26,45 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 情景模式页面。
- * 展示 intelligentScene 模块的免打扰状态查询功能，
- * 通过 IntelligentSceneViewModel 驱动异步数据获取和状态更新。
- * 需要权限：ohos.permission.GET_DONOTDISTURB_STATE
+ * Intelligent Scene page.
+ * Demonstrates the Do Not Disturb status query feature of the intelligentScene module,
+ * driving asynchronous data fetching and state updates through IntelligentSceneViewModel.
+ * Requires permission: ohos.permission.GET_DONOTDISTURB_STATE
  */
 @Entry
 @Component
 struct IntelligentScenePage {
-  /** 视图模型实例 */
+  /** View model instance */
   @State viewModel: IntelligentSceneViewModel = new IntelligentSceneViewModel();
-  /** 免打扰启用状态显示 */
+  /** DND enabled status display */
   @State displayDndEnabled: ResourceStr = $r('app.string.value_not_queried');
-  /** 通知允许状态显示 */
+  /** Notification allowed status display */
   @State displayNotifyAllowed: ResourceStr = $r('app.string.value_not_queried');
-  /** 当前查询状态文本 */
+  /** Current query status text */
   @State displayStatus: ResourceStr = $r('app.string.status_idle');
-  /** 状态标签颜色 */
+  /** Status badge text color */
   @State statusColor: string = PageConstants.COLOR_TEXT_HINT;
-  /** 状态标签背景色 */
-  @State statusBgColor: string = '#F0F0F0';
-  /** 日志列表 */
+  /** Status badge background color */
+  @State statusBgColor: string = PageConstants.COLOR_STATUS_DEFAULT_BG;
+  /** Log list */
   @State displayLogs: string[] = [];
-  /** 详情文本 */
+  /** Detail text */
   @State detailText: string = '';
 
   /**
-   * 页面约创建回调。
-   * 初始化视图模型。
+   * Page aboutToAppear callback.
+   * Initializes the view model.
    */
   aboutToAppear(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentScenePage aboutToAppear');
-    this.viewModel.initialize();
+    const context = getContext(this) as common.UIAbilityContext;
+    this.viewModel.initialize(context);
     this.refreshDisplay();
   }
 
   /**
-   * 页面约消失回调。
-   * 销毁视图模型释放资源。
+   * Page aboutToDisappear callback.
+   * Destroys the view model to release resources.
    */
   aboutToDisappear(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentScenePage aboutToDisappear');
@@ -70,8 +72,8 @@ struct IntelligentScenePage {
   }
 
   /**
-   * 刷新页面显示状态。
-   * 从视图模型同步数据到 @State 变量。
+   * Refreshes the page display state.
+   * Syncs data from the view model into @State variables.
    */
   private refreshDisplay(): void {
     this.displayDndEnabled = this.viewModel.isDndEnabled ? $r('app.string.value_enabled') : $r('app.string.value_disabled');
@@ -83,9 +85,9 @@ struct IntelligentScenePage {
   }
 
   /**
-   * 获取状态对应的本地化文本资源。
-   * @param {DoNotDisturbStatus} status - 状态枚举值
-   * @returns {Resource} 状态文本资源
+   * Gets the localized text resource for a status.
+   * @param {DoNotDisturbStatus} status - Status enum value
+   * @returns {Resource} Status text resource
    */
   private getStatusText(status: DoNotDisturbStatus): Resource {
     switch (status) {
@@ -103,37 +105,37 @@ struct IntelligentScenePage {
   }
 
   /**
-   * 更新状态标签的样式。
-   * @param {DoNotDisturbStatus} status - 状态枚举值
+   * Updates the status badge style.
+   * @param {DoNotDisturbStatus} status - Status enum value
    */
   private updateStatusStyle(status: DoNotDisturbStatus): void {
     switch (status) {
       case DoNotDisturbStatus.SUCCESS:
         this.statusColor = PageConstants.COLOR_SUCCESS;
-        this.statusBgColor = '#E8F5E9';
+        this.statusBgColor = PageConstants.COLOR_STATUS_SUCCESS_BG;
         break;
       case DoNotDisturbStatus.FAILED:
         this.statusColor = PageConstants.COLOR_ERROR;
-        this.statusBgColor = '#FFEBEE';
+        this.statusBgColor = PageConstants.COLOR_STATUS_FAIL_BG;
         break;
       case DoNotDisturbStatus.QUERYING:
         this.statusColor = PageConstants.COLOR_WARNING;
-        this.statusBgColor = '#FFF3E0';
+        this.statusBgColor = PageConstants.COLOR_STATUS_WARNING_BG;
         break;
       default:
         this.statusColor = PageConstants.COLOR_TEXT_HINT;
-        this.statusBgColor = '#F0F0F0';
+        this.statusBgColor = PageConstants.COLOR_STATUS_DEFAULT_BG;
         break;
     }
   }
 
   /**
-   * 页面构建方法。
-   * 渲染情景模式页面的完整 UI 布局。
+   * Page build method.
+   * Renders the full UI layout of the Intelligent Scene page.
    */
   build() {
     Column() {
-      // 标题栏
+      // Title bar
       Row() {
         Text($r('app.string.page_intelligent_scene'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
@@ -146,20 +148,20 @@ struct IntelligentScenePage {
       .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
-      // 可滚动内容区域
+      // Scrollable content area
       Scroll() {
         Column({ space: PageConstants.SECTION_SPACING }) {
-          // 免打扰状态信息卡片
+          // Do Not Disturb status info card
           InfoCard({
             title: $r('app.string.card_dnd_title'),
             subtitle: $r('app.string.card_dnd_subtitle')
           }) {
-            Column({ space: 8 }) {
+            Column({ space: PageConstants.CARD_INNER_SPACING }) {
               Row() {
                 Text($r('app.string.label_dnd_mode'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-                  .width(100)
+                  .width(PageConstants.LABEL_WIDTH_LONG)
                 Text(this.displayDndEnabled)
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
@@ -171,7 +173,7 @@ struct IntelligentScenePage {
                 Text($r('app.string.label_notify_allowed'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-                  .width(100)
+                  .width(PageConstants.LABEL_WIDTH_LONG)
                 Text(this.displayNotifyAllowed)
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
@@ -183,7 +185,7 @@ struct IntelligentScenePage {
                 Text($r('app.string.label_query_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-                  .width(100)
+                  .width(PageConstants.LABEL_WIDTH_LONG)
                 StatusBadge({
                   text: this.displayStatus,
                   textColor: this.statusColor,
@@ -197,20 +199,20 @@ struct IntelligentScenePage {
                 Text($r('app.string.label_required_permission'))
                   .fontSize(PageConstants.FONT_SIZE_SMALL)
                   .fontColor(PageConstants.COLOR_TEXT_HINT)
-                  .width(100)
+                  .width(PageConstants.LABEL_WIDTH_LONG)
                 Text(SystemConfigConstants.PERMISSION_DND)
                   .fontSize(PageConstants.FONT_SIZE_SMALL)
                   .fontColor(PageConstants.COLOR_TEXT_HINT)
                   .fontFamily('monospace')
               }
               .width('100%')
-              .margin({ top: 4 })
+              .margin({ top: PageConstants.PERMISSION_TIP_MARGIN_TOP })
             }
             .width('100%')
             .alignItems(HorizontalAlign.Start)
           }
 
-          // 操作按钮区域
+          // Action button area
           Column({ space: PageConstants.ITEM_SPACING }) {
             ActionButton({
               buttonText: $r('app.string.btn_check_dnd'),
@@ -254,7 +256,7 @@ struct IntelligentScenePage {
           }
           .width('100%')
 
-          // 详情信息卡片
+          // Detail info card
           if (this.detailText.length > 0) {
             InfoCard({
               title: $r('app.string.card_detail_title'),
@@ -268,11 +270,11 @@ struct IntelligentScenePage {
             }
           }
 
-          // 日志面板
+          // Log panel
           LogPanel({
             panelTitle: $r('app.string.log_panel_title'),
             logs: this.displayLogs,
-            maxHeight: 200
+            maxHeight: PageConstants.LOG_PANEL_MAX_HEIGHT
           })
         }
         .width('100%')

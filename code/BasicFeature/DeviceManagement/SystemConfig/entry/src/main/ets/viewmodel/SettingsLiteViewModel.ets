@@ -31,37 +31,36 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 设置信息视图模型。
- * 负责管理 SettingsLitePage 页面的数据和业务逻辑，
- * 协调 SettingsLiteService、TraceService 和 EventService 的调用。
+ * Settings Lite view model.
+ * Manages the data and business logic of SettingsLitePage,
+ * coordinating calls to SettingsLiteService, TraceService and EventService.
  */
 export class SettingsLiteViewModel {
-  /** 设置信息服务实例 */
+  /** Settings info service instance */
   private settingsService: SettingsLiteService = new SettingsLiteService();
-  /** 追踪服务实例 */
+  /** Trace service instance */
   private traceService: TraceService = new TraceService();
-  /** 事件服务实例 */
+  /** Event service instance */
   private eventService: EventService = new EventService();
-  /** UIAbility 上下文 */
+  /** UIAbility context */
   private context: common.UIAbilityContext | null = null;
-  /** 页面操作日志 */
+  /** Page operation logs */
   public pageLogs: string[] = [];
-  /** PIN 设置项模型 */
-  public pinModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.PIN_SETTING, 'PIN 码设置', '打开 PIN 码设置页面');
-  /** NFC 设置项模型 */
-  public nfcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.NFC_SETTING, 'NFC 设置', '打开 NFC 设置页面');
-  /** 双击设置项模型 */
-  public doubleClickModel: SettingsItemModel = new SettingsItemModel(
-    SettingsItemType.DOUBLE_CLICK_SETTING, '双击设置', '打开双击设置页面');
-  /** 双击查询结果 */
+  /** PIN setting item model */
+  public pinModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.PIN_SETTING);
+  /** NFC setting item model */
+  public nfcModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.NFC_SETTING);
+  /** Double-click setting item model */
+  public doubleClickModel: SettingsItemModel = new SettingsItemModel(SettingsItemType.DOUBLE_CLICK_SETTING);
+  /** Double-click query result */
   public clickResultText: string = '';
-  /** 是否正在加载 */
+  /** Whether loading */
   public isLoading: boolean = false;
 
   /**
-   * 初始化视图模型。
-   * 创建并初始化所有依赖服务。
-   * @param {common.UIAbilityContext} context - UIAbility 上下文
+   * Initializes the view model.
+   * Creates and initializes all dependent services.
+   * @param {common.UIAbilityContext} context - UIAbility context
    */
   initialize(context: common.UIAbilityContext): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel initialize: starting');
@@ -69,28 +68,29 @@ export class SettingsLiteViewModel {
     this.traceService.initialize(true);
     this.eventService.initialize();
     this.settingsService.initialize();
+    this.applyLocalizedMeta();
     this.syncModels();
-    this.addLog('视图模型初始化完成');
+    this.addLog(this.fmt($r('app.string.log_vm_initialized')));
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel initialize: complete');
   }
 
   // ========================================
-  // 业务操作方法
+  // Business operation methods
   // ========================================
 
   /**
-   * 打开 PIN 码设置页面。
-   * 调用 SettingsLiteService.openPinSettingPage() 接口。
+   * Opens the PIN code settings page.
+   * Calls the SettingsLiteService.openPinSettingPage() API.
    */
   async openPinSettings(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel openPinSettings: opening');
-    this.addLog('正在打开 PIN 设置页面...');
+    this.addLog(this.fmt($r('app.string.log_opening_pin')));
 
     const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_OPEN_PIN, 'openPin');
 
     try {
       if (!this.context) {
-        this.addLog('错误: 上下文未初始化');
+        this.addLog(this.fmt($r('app.string.log_error_no_context')));
         return;
       }
 
@@ -98,10 +98,10 @@ export class SettingsLiteViewModel {
       this.syncModels();
 
       if (success) {
-        this.addLog('PIN 设置页面已打开');
+        this.addLog(this.fmt($r('app.string.log_pin_opened')));
         this.eventService.reportSettingsPageOpened('pin', true);
       } else {
-        this.addLog(`打开 PIN 设置页面失败: ${this.pinModel.errorMessage}`);
+        this.addLog(this.fmt($r('app.string.log_open_pin_failed'), this.pinModel.errorMessage));
         this.eventService.reportSettingsPageOpened('pin', false);
         this.eventService.reportError('openPinSettings', this.pinModel.errorMessage, this.pinModel.errorCode);
       }
@@ -111,18 +111,18 @@ export class SettingsLiteViewModel {
   }
 
   /**
-   * 打开 NFC 设置页面。
-   * 调用 SettingsLiteService.openNfcSettingsPage() 接口。
+   * Opens the NFC settings page.
+   * Calls the SettingsLiteService.openNfcSettingsPage() API.
    */
   async openNfcSettings(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel openNfcSettings: opening');
-    this.addLog('正在打开 NFC 设置页面...');
+    this.addLog(this.fmt($r('app.string.log_opening_nfc')));
 
     const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_OPEN_NFC, 'openNfc');
 
     try {
       if (!this.context) {
-        this.addLog('错误: 上下文未初始化');
+        this.addLog(this.fmt($r('app.string.log_error_no_context')));
         return;
       }
 
@@ -130,10 +130,10 @@ export class SettingsLiteViewModel {
       this.syncModels();
 
       if (success) {
-        this.addLog('NFC 设置页面已打开');
+        this.addLog(this.fmt($r('app.string.log_nfc_opened')));
         this.eventService.reportSettingsPageOpened('nfc', true);
       } else {
-        this.addLog(`打开 NFC 设置页面失败: ${this.nfcModel.errorMessage}`);
+        this.addLog(this.fmt($r('app.string.log_open_nfc_failed'), this.nfcModel.errorMessage));
         this.eventService.reportSettingsPageOpened('nfc', false);
         this.eventService.reportError('openNfcSettings', this.nfcModel.errorMessage, this.nfcModel.errorCode);
       }
@@ -143,18 +143,18 @@ export class SettingsLiteViewModel {
   }
 
   /**
-   * 打开双击设置页面。
-   * 调用 SettingsLiteService.openDoubleClickSettingsPage() 接口。
+   * Opens the double-click settings page.
+   * Calls the SettingsLiteService.openDoubleClickSettingsPage() API.
    */
   async openDoubleClickSettings(): Promise<void> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel openDoubleClickSettings: opening');
-    this.addLog('正在打开双击设置页面...');
+    this.addLog(this.fmt($r('app.string.log_opening_double_click')));
 
     const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_OPEN_DOUBLE_CLICK, 'openDoubleClick');
 
     try {
       if (!this.context) {
-        this.addLog('错误: 上下文未初始化');
+        this.addLog(this.fmt($r('app.string.log_error_no_context')));
         return;
       }
 
@@ -162,10 +162,10 @@ export class SettingsLiteViewModel {
       this.syncModels();
 
       if (success) {
-        this.addLog('双击设置页面已打开');
+        this.addLog(this.fmt($r('app.string.log_double_click_opened')));
         this.eventService.reportSettingsPageOpened('doubleClick', true);
       } else {
-        this.addLog(`打开双击设置页面失败: ${this.doubleClickModel.errorMessage}`);
+        this.addLog(this.fmt($r('app.string.log_open_double_click_failed'), this.doubleClickModel.errorMessage));
         this.eventService.reportSettingsPageOpened('doubleClick', false);
         this.eventService.reportError('openDoubleClickSettings', this.doubleClickModel.errorMessage, this.doubleClickModel.errorCode);
       }
@@ -175,18 +175,18 @@ export class SettingsLiteViewModel {
   }
 
   /**
-   * 查询双击应用是否为自身。
-   * 调用 SettingsLiteService.isDoubleClickAppForSelf() 接口。
-   * settingsLite 为 FA 模型专用接口，Stage 环境下回调返回不支持错误。
+   * Queries whether the double-click app is itself.
+   * Calls the SettingsLiteService.isDoubleClickAppForSelf() API.
+   * settingsLite is an FA-model-only API; in the Stage model the callback returns an unsupported error.
    */
   queryDoubleClickApp(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel queryDoubleClickApp: querying');
-    this.addLog('正在查询双击应用信息...');
+    this.addLog(this.fmt($r('app.string.log_querying_double_click')));
 
     const taskId: number = this.traceService.startTrace(TraceName.SETTINGS_QUERY_DOUBLE_CLICK, 'queryDoubleClick');
 
     if (!this.context) {
-      this.addLog('错误: 上下文未初始化');
+      this.addLog(this.fmt($r('app.string.log_error_no_context')));
       this.traceService.finishTrace(TraceName.SETTINGS_QUERY_DOUBLE_CLICK, taskId);
       return;
     }
@@ -196,10 +196,10 @@ export class SettingsLiteViewModel {
       this.clickResultText = this.getClickResultDescription(cb.result);
 
       if (cb.result === ClickResult.ERROR) {
-        this.addLog(`双击查询失败: ${cb.errorMessage}`);
+        this.addLog(this.fmt($r('app.string.log_double_click_query_failed'), cb.errorMessage));
         this.eventService.reportError('queryDoubleClickApp', cb.errorMessage, cb.errorCode);
       } else {
-        this.addLog(`双击查询结果: ${this.clickResultText}`);
+        this.addLog(this.fmt($r('app.string.log_double_click_result'), this.clickResultText));
         this.eventService.reportDoubleClickQueried(this.clickResultText);
       }
 
@@ -208,8 +208,8 @@ export class SettingsLiteViewModel {
   }
 
   /**
-   * 重置视图模型状态。
-   * 清除所有设置项的操作记录和日志。
+   * Resets the view model state.
+   * Clears the operation records and logs of all setting items.
    */
   resetState(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel resetState: clearing');
@@ -218,15 +218,28 @@ export class SettingsLiteViewModel {
     this.clickResultText = '';
     this.isLoading = false;
     this.pageLogs = [];
-    this.addLog('状态已重置');
+    this.addLog(this.fmt($r('app.string.log_state_reset')));
   }
 
   // ========================================
-  // 辅助方法
+  // Helper methods
   // ========================================
 
   /**
-   * 从服务同步模型数据到视图模型。
+   * Initializes the title and description of the setting item models using localized resources.
+   * Sets the view-model side display text before syncModels syncs from the service.
+   */
+  private applyLocalizedMeta(): void {
+    this.pinModel.title = this.fmt($r('app.string.card_pin_title'));
+    this.pinModel.description = this.fmt($r('app.string.setting_pin_desc'));
+    this.nfcModel.title = this.fmt($r('app.string.card_nfc_title'));
+    this.nfcModel.description = this.fmt($r('app.string.setting_nfc_desc'));
+    this.doubleClickModel.title = this.fmt($r('app.string.card_double_click_title'));
+    this.doubleClickModel.description = this.fmt($r('app.string.setting_double_click_desc'));
+  }
+
+  /**
+   * Syncs model data from the service into the view model.
    */
   private syncModels(): void {
     this.pinModel = this.settingsService.getPinModel();
@@ -235,35 +248,35 @@ export class SettingsLiteViewModel {
   }
 
   /**
-   * 获取双击结果的中文描述。
-   * @param {ClickResult} result - 查询结果
-   * @returns {string} 中文描述
+   * Gets the localized description of the double-click result.
+   * @param {ClickResult} result - Query result
+   * @returns {string} Localized description
    */
   private getClickResultDescription(result: ClickResult): string {
     switch (result) {
       case ClickResult.IS_SELF:
-        return '是双击应用自身';
+        return this.fmt($r('app.string.result_click_self'));
       case ClickResult.NOT_SELF:
-        return '不是双击应用自身';
+        return this.fmt($r('app.string.result_click_not_self'));
       case ClickResult.ERROR:
-        return '查询出错';
+        return this.fmt($r('app.string.result_click_error'));
       default:
-        return '未知结果';
+        return this.fmt($r('app.string.result_click_unknown'));
     }
   }
 
   /**
-   * 获取设置项的状态描述。
-   * @param {SettingsItemModel} model - 设置项模型
-   * @returns {string} 状态描述
+   * Gets the status description of a setting item.
+   * @param {SettingsItemModel} model - Setting item model
+   * @returns {string} Status description
    */
   getItemStatusText(model: SettingsItemModel): string {
     return model.getStatusDescription();
   }
 
   /**
-   * 获取所有设置项的 JSON 表示。
-   * @returns {string} JSON 字符串
+   * Gets the JSON representation of all setting items.
+   * @returns {string} JSON string
    */
   getAllSettingsDetail(): string {
     const models: SettingsItemModel[] = this.settingsService.getAllModels();
@@ -272,12 +285,25 @@ export class SettingsLiteViewModel {
   }
 
   // ========================================
-  // 日志管理方法
+  // Log management methods
   // ========================================
 
   /**
-   * 添加页面操作日志。
-   * @param {string} message - 日志消息
+   * Resolves a localized text resource into a string.
+   * @param {Resource} resource - Resource object obtained via $r reference
+   * @param {Array<string | number>} args - Format placeholder arguments
+   * @returns {string} The resolved localized string, or an empty string when the context is not ready
+   */
+  private fmt(resource: Resource, ...args: Array<string | number>): string {
+    if (!this.context) {
+      return '';
+    }
+    return this.context.resourceManager.getStringSync(resource.id, ...args);
+  }
+
+  /**
+   * Adds a page operation log.
+   * @param {string} message - Log message
    */
   private addLog(message: string): void {
     const timestamp: string = new Date().toLocaleTimeString();
@@ -286,19 +312,19 @@ export class SettingsLiteViewModel {
     if (this.pageLogs.length > SystemConfigConstants.MAX_LOG_ENTRIES) {
       this.pageLogs = this.pageLogs.slice(-SystemConfigConstants.MAX_LOG_ENTRIES);
     }
-    hilog.debug(DOMAIN, TAG, 'SettingsLiteViewModel addLog: %{public}s', message);
+    hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel addLog: %{public}s', message);
   }
 
   /**
-   * 获取所有页面日志。
-   * @returns {string[]} 日志数组
+   * Gets all page logs.
+   * @returns {string[]} Log array
    */
   getLogs(): string[] {
     return [...this.pageLogs];
   }
 
   /**
-   * 清空页面日志。
+   * Clears page logs.
    */
   clearLogs(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel clearLogs');
@@ -306,11 +332,11 @@ export class SettingsLiteViewModel {
   }
 
   // ========================================
-  // 销毁方法
+  // Destroy methods
   // ========================================
 
   /**
-   * 销毁视图模型，释放所有服务资源。
+   * Destroys the view model and releases all service resources.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteViewModel destroy: releasing');

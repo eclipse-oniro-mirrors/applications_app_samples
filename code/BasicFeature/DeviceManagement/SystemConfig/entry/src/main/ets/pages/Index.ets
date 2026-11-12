@@ -21,62 +21,62 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 导航项数据接口。
- * 定义首页导航列表的每一项数据结构。
+ * Navigation item data interface.
+ * Defines the data structure of each item in the home page navigation list.
  */
 interface NavItem {
-  /** 导航项唯一标识（用于列表 key） */
+  /** Navigation item unique id (used as list key) */
   id: string;
-  /** 导航项标题 */
+  /** Navigation item title */
   title: ResourceStr;
-  /** 导航项描述 */
+  /** Navigation item description */
   description: ResourceStr;
-  /** 导航项图标 */
-  icon: string;
-  /** 目标页面路由 */
+  /** Navigation item icon */
+  icon: ResourceStr;
+  /** Target page route */
   targetPage: string;
 }
 
 /**
- * 首页。
- * 展示系统配置示例的所有功能入口，
- * 包括定制配置、情景模式和设置信息三个模块。
+ * Home page.
+ * Shows all feature entries of the system config sample,
+ * including the Custom Config, Intelligent Scene and Settings Lite modules.
  */
 @Entry
 @Component
 struct Index {
-  /** 导航项列表 */
+  /** Navigation item list */
   @State navItems: NavItem[] = [
     {
       id: 'custom_config',
       title: $r('app.string.page_custom_config'),
       description: $r('app.string.nav_desc_custom_config'),
-      icon: '📋',
+      icon: $r('app.media.ic_nav_custom_config'),
       targetPage: PageConstants.PAGE_CUSTOM_CONFIG
     },
     {
       id: 'intelligent_scene',
       title: $r('app.string.page_intelligent_scene'),
       description: $r('app.string.nav_desc_intelligent_scene'),
-      icon: '🔕',
+      icon: $r('app.media.ic_nav_intelligent_scene'),
       targetPage: PageConstants.PAGE_INTELLIGENT_SCENE
     },
     {
       id: 'settings_lite',
       title: $r('app.string.page_settings_lite'),
       description: $r('app.string.nav_desc_settings_lite'),
-      icon: '⚙️',
+      icon: $r('app.media.ic_nav_settings_lite'),
       targetPage: PageConstants.PAGE_SETTINGS_LITE
     }
   ];
 
   /**
-   * 页面构建方法。
-   * 渲染首页导航列表和标题栏。
+   * Page build method.
+   * Renders the home page navigation list and title bar.
    */
   build() {
     Column() {
-      // 标题栏
+      // Title bar
       Row() {
         Text($r('app.string.page_index_title'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
@@ -92,7 +92,7 @@ struct Index {
       .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
-      // 应用信息卡片
+      // App info card
       Column() {
         Text($r('app.string.app_intro_title'))
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
@@ -128,13 +128,13 @@ struct Index {
       .borderRadius(PageConstants.CARD_BORDER_RADIUS)
       .shadow({
         radius: 4,
-        color: 'rgba(0,0,0,0.1)',
+        color: PageConstants.COLOR_SHADOW,
         offsetX: 0,
         offsetY: 2
       })
       .alignItems(HorizontalAlign.Start)
 
-      // 功能入口列表
+      // Feature entry list
       List({ space: PageConstants.ITEM_SPACING }) {
         ForEach(this.navItems, (item: NavItem) => {
           ListItem() {
@@ -156,19 +156,20 @@ struct Index {
   }
 
   /**
-   * 导航项卡片构建器。
-   * 渲染单个功能入口卡片，点击后跳转到对应页面。
-   * @param {NavItem} item - 导航项数据
+   * Navigation item card builder.
+   * Renders a single feature entry card; tapping it navigates to the corresponding page.
+   * @param {NavItem} item - Navigation item data
    */
   @Builder
   navItemCard(item: NavItem) {
     Row() {
-      // 图标区域
-      Text(item.icon)
-        .fontSize(32)
-        .margin({ right: 12 })
+      // Icon area
+      Image(item.icon)
+        .width(PageConstants.NAV_ICON_SIZE)
+        .height(PageConstants.NAV_ICON_SIZE)
+        .margin({ right: PageConstants.ITEM_SPACING })
 
-      // 文本区域
+      // Text area
       Column() {
         Text(item.title)
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
@@ -178,17 +179,17 @@ struct Index {
         Text(item.description)
           .fontSize(PageConstants.FONT_SIZE_SMALL)
           .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-          .margin({ top: 4 })
+          .margin({ top: PageConstants.SPACING_TINY })
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
       .alignItems(HorizontalAlign.Start)
       .layoutWeight(1)
 
-      // 箭头指示
-      Text('>')
-        .fontSize(20)
-        .fontColor(PageConstants.COLOR_TEXT_HINT)
+      // Arrow indicator
+      SymbolGlyph($r('sys.symbol.chevron_right'))
+        .fontSize(PageConstants.FONT_SIZE_TITLE)
+        .fontColor([PageConstants.COLOR_TEXT_HINT])
     }
     .width('100%')
     .padding(PageConstants.CARD_PADDING)
@@ -196,7 +197,7 @@ struct Index {
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
     .shadow({
       radius: 4,
-      color: 'rgba(0,0,0,0.1)',
+      color: PageConstants.COLOR_SHADOW,
       offsetX: 0,
       offsetY: 2
     })

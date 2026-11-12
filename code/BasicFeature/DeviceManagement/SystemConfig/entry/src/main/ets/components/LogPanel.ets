@@ -16,24 +16,24 @@
 import { PageConstants } from 'library';
 
 /**
- * 日志面板组件。
- * 显示操作日志列表，支持自动滚动到最新日志。
+ * Log panel component.
+ * Displays a list of operation logs and supports auto-scrolling to the latest log.
  */
 @Component
 export struct LogPanel {
-  /** 日志标题 */
+  /** Log title */
   @Prop panelTitle: ResourceStr = $r('app.string.log_panel_title');
-  /** 日志条目列表 */
+  /** Log entry list */
   @Prop logs: string[] = [];
-  /** 面板最大高度 */
+  /** Maximum panel height */
   @Prop maxHeight: number = 200;
 
-  /** 日志滚动控制器 */
+  /** Log scroll controller */
   private logScroller: Scroller = new Scroller();
 
   build() {
     Column() {
-      // 面板标题
+      // Panel title
       Row() {
         Text(this.panelTitle)
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
@@ -52,7 +52,7 @@ export struct LogPanel {
       Divider()
         .color('#E0E0E0')
 
-      // 日志列表区域
+      // Log list area
       if (this.logs.length === 0) {
         Column() {
           Text($r('app.string.log_empty'))
@@ -83,7 +83,7 @@ export struct LogPanel {
         .width('100%')
         .height(this.maxHeight)
         .onAppear(() => {
-          // 滚动到最新日志
+          // Scroll to the latest log
           if (this.logs.length > 0) {
             this.logScroller.scrollToIndex(this.logs.length - 1);
           }
@@ -95,7 +95,7 @@ export struct LogPanel {
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
     .shadow({
       radius: 4,
-      color: 'rgba(0,0,0,0.1)',
+      color: PageConstants.COLOR_SHADOW,
       offsetX: 0,
       offsetY: 2
     })

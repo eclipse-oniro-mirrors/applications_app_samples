@@ -14,6 +14,7 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { common } from '@kit.AbilityKit';
 import { SystemConfigConstants } from 'library';
 import { CustomConfigService } from 'library';
 import { TraceService, TraceName } from 'library';
@@ -24,51 +25,55 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 定制配置视图模型。
- * 负责管理 CustomConfigPage 页面的数据和业务逻辑，
- * 协调 CustomConfigService、TraceService 和 EventService 的调用。
+ * Custom Config view model.
+ * Manages the data and business logic of CustomConfigPage,
+ * coordinating calls to CustomConfigService, TraceService and EventService.
  */
 export class CustomConfigViewModel {
-  /** 定制配置服务实例 */
+  /** Custom config service instance */
   private configService: CustomConfigService = new CustomConfigService();
-  /** 追踪服务实例 */
+  /** Trace service instance */
   private traceService: TraceService = new TraceService();
-  /** 事件服务实例 */
+  /** Event service instance */
   private eventService: EventService = new EventService();
-  /** 页面操作日志 */
+  /** UIAbility context (used to resolve localized text resources) */
+  private context: common.UIAbilityContext | null = null;
+  /** Page operation logs */
   public pageLogs: string[] = [];
-  /** 当前渠道号 */
+  /** Current channel id */
   public currentChannelId: string = '';
-  /** 当前状态 */
+  /** Current status */
   public currentStatus: ChannelConfigStatus = ChannelConfigStatus.UNINITIALIZED;
-  /** 是否正在加载 */
+  /** Whether loading */
   public isLoading: boolean = false;
 
   /**
-   * 初始化视图模型。
-   * 创建并初始化所有依赖服务。
+   * Initializes the view model.
+   * Creates and initializes all dependent services.
+   * @param {common.UIAbilityContext} context - UIAbility context, used to resolve localized text resources
    */
-  initialize(): void {
+  initialize(context: common.UIAbilityContext): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigViewModel initialize: starting');
+    this.context = context;
     this.traceService.initialize(true);
     this.eventService.initialize();
     this.configService.initialize();
-    this.addLog('视图模型初始化完成');
+    this.addLog(this.fmt($r('app.string.log_vm_initialized')));
     hilog.info(DOMAIN, TAG, 'CustomConfigViewModel initialize: complete');
   }
 
   // ========================================
-  // 业务操作方法
+  // Business operation methods
   // ========================================
 
   /**
-   * 获取渠道号。
-   * 调用 CustomConfigService.getChannelId() 并通过追踪和事件服务记录。
+   * Fetches the channel id.
+   * Calls CustomConfigService.getChannelId() and records it via the trace and event services.
    */
   fetchChannelId(): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigViewModel fetchChannelId: starting');
     this.isLoading = true;
-    this.addLog('正在获取渠道号...');
+    this.addLog(this.fmt($r('app.string.log_fetching_channel_id')));
 
     const taskId: number = this.traceService.startTrace(TraceName.CUSTOM_CONFIG_GET_CHANNEL, 'fetchChannelId');
 
@@ -80,16 +85,16 @@ export class CustomConfigViewModel {
       this.currentStatus = model.status;
 
       if (model.isSuccess()) {
-        this.addLog(`获取渠道号成功: ${channelId}`);
+        this.addLog(this.fmt($r('app.string.log_channel_success'), channelId));
         hilog.info(DOMAIN, TAG, 'CustomConfigViewModel fetchChannelId: success, id=%{public}s', channelId);
       } else {
-        this.addLog(`获取渠道号失败: ${model.errorMessage}`);
+        this.addLog(this.fmt($r('app.string.log_channel_failed'), model.errorMessage));
         hilog.error(DOMAIN, TAG, 'CustomConfigViewModel fetchChannelId: failed');
       }
 
       this.eventService.reportChannelFetched(channelId, model.isSuccess());
     } catch (err) {
-      this.addLog('获取渠道号异常');
+      this.addLog(this.fmt($r('app.string.log_channel_exception')));
       hilog.error(DOMAIN, TAG, 'CustomConfigViewModel fetchChannelId: exception');
     } finally {
       this.traceService.finishTrace(TraceName.CUSTOM_CONFIG_GET_CHANNEL, taskId);
@@ -98,8 +103,8 @@ export class CustomConfigViewModel {
   }
 
   /**
-   * 重置视图模型状态。
-   * 清除所有已获取的数据和日志。
+   * Resets the view model state.
+   * Clears all fetched data and logs.
    */
   resetState(): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigViewModel resetState: clearing');
@@ -108,12 +113,12 @@ export class CustomConfigViewModel {
     this.currentStatus = ChannelConfigStatus.UNINITIALIZED;
     this.isLoading = false;
     this.pageLogs = [];
-    this.addLog('状态已重置');
+    this.addLog(this.fmt($r('app.string.log_state_reset')));
   }
 
   /**
-   * 获取渠道配置模型的 JSON 表示。
-   * @returns {string} JSON 字符串
+   * Gets the JSON representation of the channel config model.
+   * @returns {string} JSON string
    */
   getConfigDetail(): string {
     const model: ChannelConfigModel = this.configService.getChannelConfigModel();
@@ -121,12 +126,25 @@ export class CustomConfigViewModel {
   }
 
   // ========================================
-  // 日志管理方法
+  // Log management methods
   // ========================================
 
   /**
-   * 添加页面操作日志。
-   * @param {string} message - 日志消息
+   * Resolves a localized text resource into a string.
+   * @param {Resource} resource - Resource object obtained via $r reference
+   * @param {Array<string | number>} args - Format placeholder arguments
+   * @returns {string} The resolved localized string, or an empty string when the context is not ready
+   */
+  private fmt(resource: Resource, ...args: Array<string | number>): string {
+    if (!this.context) {
+      return '';
+    }
+    return this.context.resourceManager.getStringSync(resource.id, ...args);
+  }
+
+  /**
+   * Adds a page operation log.
+   * @param {string} message - Log message
    */
   private addLog(message: string): void {
     const timestamp: string = new Date().toLocaleTimeString();
@@ -135,19 +153,19 @@ export class CustomConfigViewModel {
     if (this.pageLogs.length > SystemConfigConstants.MAX_LOG_ENTRIES) {
       this.pageLogs = this.pageLogs.slice(-SystemConfigConstants.MAX_LOG_ENTRIES);
     }
-    hilog.debug(DOMAIN, TAG, 'CustomConfigViewModel addLog: %{public}s', message);
+    hilog.info(DOMAIN, TAG, 'CustomConfigViewModel addLog: %{public}s', message);
   }
 
   /**
-   * 获取所有页面日志。
-   * @returns {string[]} 日志数组
+   * Gets all page logs.
+   * @returns {string[]} Log array
    */
   getLogs(): string[] {
     return [...this.pageLogs];
   }
 
   /**
-   * 清空页面日志。
+   * Clears page logs.
    */
   clearLogs(): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigViewModel clearLogs');
@@ -155,11 +173,11 @@ export class CustomConfigViewModel {
   }
 
   // ========================================
-  // 销毁方法
+  // Destroy methods
   // ========================================
 
   /**
-   * 销毁视图模型，释放所有服务资源。
+   * Destroys the view model and releases all service resources.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigViewModel destroy: releasing');

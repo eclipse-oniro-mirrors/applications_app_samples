@@ -26,37 +26,37 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 设置信息页面。
- * 展示 settingsLite 模块的设置页面打开和双击查询功能，
- * 通过 SettingsLiteViewModel 驱动操作和状态更新。
+ * Settings Lite page.
+ * Shows the settings page launching and double-click query features of the settingsLite module,
+ * driving operations and state updates through SettingsLiteViewModel.
  */
 @Entry
 @Component
 struct SettingsLitePage {
-  /** 视图模型实例 */
+  /** View model instance */
   @State viewModel: SettingsLiteViewModel = new SettingsLiteViewModel();
-  /** PIN 设置状态文本 */
+  /** PIN settings status text */
   @State pinStatusText: ResourceStr = $r('app.string.status_idle');
-  /** NFC 设置状态文本 */
+  /** NFC settings status text */
   @State nfcStatusText: ResourceStr = $r('app.string.status_idle');
-  /** 双击设置状态文本 */
+  /** Double-click settings status text */
   @State doubleClickStatusText: ResourceStr = $r('app.string.status_idle');
-  /** PIN 设置操作状态 */
+  /** PIN settings operation status */
   @State pinStatus: SettingsOperationStatus = SettingsOperationStatus.IDLE;
-  /** NFC 设置操作状态 */
+  /** NFC settings operation status */
   @State nfcStatus: SettingsOperationStatus = SettingsOperationStatus.IDLE;
-  /** 双击设置操作状态 */
+  /** Double-click settings operation status */
   @State doubleClickStatus: SettingsOperationStatus = SettingsOperationStatus.IDLE;
-  /** 双击查询结果文本 */
+  /** Double-click query result text */
   @State clickResultDisplay: ResourceStr = $r('app.string.value_not_queried');
-  /** 日志列表 */
+  /** Log list */
   @State displayLogs: string[] = [];
-  /** 详情文本 */
+  /** Detail text */
   @State detailText: string = '';
 
   /**
-   * 页面约创建回调。
-   * 初始化视图模型。
+   * Page aboutToAppear callback.
+   * Initializes the view model.
    */
   aboutToAppear(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLitePage aboutToAppear');
@@ -66,8 +66,8 @@ struct SettingsLitePage {
   }
 
   /**
-   * 页面约消失回调。
-   * 销毁视图模型释放资源。
+   * Page aboutToDisappear callback.
+   * Destroys the view model to release resources.
    */
   aboutToDisappear(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLitePage aboutToDisappear');
@@ -75,8 +75,8 @@ struct SettingsLitePage {
   }
 
   /**
-   * 刷新页面显示状态。
-   * 从视图模型同步数据到 @State 变量。
+   * Refreshes the page display state.
+   * Syncs data from the view model into @State variables.
    */
   private refreshDisplay(): void {
     this.pinStatusText = this.viewModel.getItemStatusText(this.viewModel.pinModel);
@@ -91,10 +91,10 @@ struct SettingsLitePage {
   }
 
   /**
-   * 获取状态标签的文字颜色。
-   * 基于操作状态枚举判断，不依赖显示文本。
-   * @param {SettingsOperationStatus} status - 操作状态
-   * @returns {string} 颜色值
+   * Gets the text color of the status badge.
+   * Determined by the operation status enum, not by the displayed text.
+   * @param {SettingsOperationStatus} status - Operation status
+   * @returns {string} Color value
    */
   private getStatusTextColor(status: SettingsOperationStatus): string {
     switch (status) {
@@ -111,32 +111,32 @@ struct SettingsLitePage {
   }
 
   /**
-   * 获取状态标签的背景颜色。
-   * 基于操作状态枚举判断，不依赖显示文本。
-   * @param {SettingsOperationStatus} status - 操作状态
-   * @returns {string} 颜色值
+   * Gets the background color of the status badge.
+   * Determined by the operation status enum, not by the displayed text.
+   * @param {SettingsOperationStatus} status - Operation status
+   * @returns {string} Color value
    */
   private getStatusBgColor(status: SettingsOperationStatus): string {
     switch (status) {
       case SettingsOperationStatus.SUCCESS:
-        return '#E8F5E9';
+        return PageConstants.COLOR_STATUS_SUCCESS_BG;
       case SettingsOperationStatus.FAILED:
-        return '#FFEBEE';
+        return PageConstants.COLOR_STATUS_FAIL_BG;
       case SettingsOperationStatus.OPENING:
       case SettingsOperationStatus.QUERYING:
-        return '#FFF3E0';
+        return PageConstants.COLOR_STATUS_WARNING_BG;
       default:
-        return '#F0F0F0';
+        return PageConstants.COLOR_STATUS_DEFAULT_BG;
     }
   }
 
   /**
-   * 页面构建方法。
-   * 渲染设置信息页面的完整 UI 布局。
+   * Page build method.
+   * Renders the full UI layout of the Settings Lite page.
    */
   build() {
     Column() {
-      // 标题栏
+      // Title bar
       Row() {
         Text($r('app.string.page_settings_lite'))
           .fontSize(PageConstants.FONT_SIZE_TITLE)
@@ -149,20 +149,20 @@ struct SettingsLitePage {
       .backgroundColor(PageConstants.COLOR_CARD)
       .justifyContent(FlexAlign.Center)
 
-      // 可滚动内容区域
+      // Scrollable content area
       Scroll() {
         Column({ space: PageConstants.SECTION_SPACING }) {
-          // PIN 设置卡片
+          // PIN settings card
           InfoCard({
             title: $r('app.string.card_pin_title'),
-            subtitle: 'settingsLite.openPinSettingPage()'
+            subtitle: $r('app.string.card_pin_subtitle')
           }) {
-            Column({ space: 8 }) {
+            Column({ space: PageConstants.CARD_INNER_SPACING }) {
               Row() {
                 Text($r('app.string.label_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-                  .width(60)
+                  .width(PageConstants.LABEL_WIDTH_SHORT)
                 StatusBadge({
                   text: this.pinStatusText,
                   textColor: this.getStatusTextColor(this.pinStatus),
@@ -185,17 +185,17 @@ struct SettingsLitePage {
             .width('100%')
           }
 
-          // NFC 设置卡片
+          // NFC settings card
           InfoCard({
             title: $r('app.string.card_nfc_title'),
-            subtitle: 'settingsLite.openNfcSettingsPage()'
+            subtitle: $r('app.string.card_nfc_subtitle')
           }) {
-            Column({ space: 8 }) {
+            Column({ space: PageConstants.CARD_INNER_SPACING }) {
               Row() {
                 Text($r('app.string.label_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-                  .width(60)
+                  .width(PageConstants.LABEL_WIDTH_SHORT)
                 StatusBadge({
                   text: this.nfcStatusText,
                   textColor: this.getStatusTextColor(this.nfcStatus),
@@ -218,17 +218,17 @@ struct SettingsLitePage {
             .width('100%')
           }
 
-          // 双击设置卡片
+          // Double-click settings card
           InfoCard({
             title: $r('app.string.card_double_click_title'),
-            subtitle: 'settingsLite.openDoubleClickSettingsPage() / isDoubleClickAppForSelf()'
+            subtitle: $r('app.string.card_double_click_subtitle')
           }) {
-            Column({ space: 8 }) {
+            Column({ space: PageConstants.CARD_INNER_SPACING }) {
               Row() {
                 Text($r('app.string.label_status'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-                  .width(60)
+                  .width(PageConstants.LABEL_WIDTH_SHORT)
                 StatusBadge({
                   text: this.doubleClickStatusText,
                   textColor: this.getStatusTextColor(this.doubleClickStatus),
@@ -242,7 +242,7 @@ struct SettingsLitePage {
                 Text($r('app.string.label_query_result'))
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-                  .width(80)
+                  .width(PageConstants.LABEL_WIDTH_MEDIUM)
                 Text(this.clickResultDisplay)
                   .fontSize(PageConstants.FONT_SIZE_BODY)
                   .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
@@ -273,7 +273,7 @@ struct SettingsLitePage {
             .width('100%')
           }
 
-          // 操作按钮区域
+          // Action button area
           Column({ space: PageConstants.ITEM_SPACING }) {
             ActionButton({
               buttonText: $r('app.string.btn_reset'),
@@ -287,7 +287,7 @@ struct SettingsLitePage {
           }
           .width('100%')
 
-          // 详情信息卡片
+          // Detail info card
           if (this.detailText.length > 0) {
             InfoCard({
               title: $r('app.string.card_detail_title'),
@@ -301,11 +301,11 @@ struct SettingsLitePage {
             }
           }
 
-          // 日志面板
+          // Log panel
           LogPanel({
             panelTitle: $r('app.string.log_panel_title'),
             logs: this.displayLogs,
-            maxHeight: 200
+            maxHeight: PageConstants.LOG_PANEL_MAX_HEIGHT
           })
         }
         .width('100%')
