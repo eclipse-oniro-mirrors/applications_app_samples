@@ -59,7 +59,7 @@ OH_AudioStreamManager* audioStreamManager = nullptr;
 OH_AudioStreamBuilder* g_ultraBuilder = nullptr;
 OH_AudioRenderer* g_ultraAudioRenderer = nullptr;
 std::atomic<OH_AudioStream_FastStatus> g_ultraFastStatus {AUDIOSTREAM_FASTSTATUS_NORMAL};
-FILE * g_ultraFp = nullptr;
+FILE *g_ultraFp = nullptr;
 
 std::string g_filePath = "/data/storage/el2/base/haps/entry/files/S16LE_2_48000.pcm";
 FILE *g_fp = nullptr;
@@ -421,8 +421,8 @@ napi_value CheckUltraFastPlaybackSupported(napi_env env, napi_callback_info info
     napi_create_string_utf8(env, ss.str().c_str(), NAPI_AUTO_LENGTH, &retVal);
     return retVal;
 }
- 
-napi_value CreateUltraFastAudioRender(napi_env env, napi_callback_info info)
+
+void ClearLastUltraFastAudioRender()
 {
     // 重复创建前先释放上一次的播放流。
     if (g_ultraAudioRenderer) {
@@ -438,7 +438,11 @@ napi_value CreateUltraFastAudioRender(napi_env env, napi_callback_info info)
         (void)fclose(g_ultraFp);
         g_ultraFp = nullptr;
     }
- 
+}
+
+napi_value CreateUltraFastAudioRender(napi_env env, napi_callback_info info)
+{
+    ClearLastUltraFastAudioRender();
     // [Start Render_CreateUltraFast]
     OH_AudioStreamBuilder_Create(&g_ultraBuilder, AUDIOSTREAM_TYPE_RENDERER);
     // 设置音频采样率。
@@ -455,15 +459,15 @@ napi_value CreateUltraFastAudioRender(napi_env env, napi_callback_info info)
     OH_AudioStreamBuilder_SetRendererInfo(g_ultraBuilder, AUDIOSTREAM_USAGE_MUSIC);
     // 设置声道布局。
     OH_AudioStreamBuilder_SetChannelLayout(g_ultraBuilder, CH_LAYOUT_STEREO);
- 
+
     // 配置写入音频数据回调函数。
     OH_AudioStreamBuilder_SetRendererWriteDataCallback(g_ultraBuilder, UltraMyOnWriteData_New, nullptr);
- 
+
     // [Start Render_SetUltraFastLatencyMode]
     OH_AudioStream_LatencyMode latencyMode = AUDIOSTREAM_LATENCY_MODE_ULTRA_FAST;
     OH_AudioStreamBuilder_SetLatencyMode(g_ultraBuilder, latencyMode);
     // [End Render_SetUltraFastLatencyMode]
- 
+
     // [Start Render_SetRendererUltraFastStatusChangeCallback]
     OH_AudioStreamBuilder_SetRendererFastStatusChangeCallback(g_ultraBuilder, MyOnUltraFastStatusChange, nullptr);
     // [End Render_SetRendererUltraFastStatusChangeCallback]
@@ -472,14 +476,13 @@ napi_value CreateUltraFastAudioRender(napi_env env, napi_callback_info info)
     OH_AudioStream_Result generateResult =
         OH_AudioStreamBuilder_GenerateRenderer(g_ultraBuilder, &g_ultraAudioRenderer);
     // [End Render_CreateUltraFast]
- 
     if (generateResult != AUDIOSTREAM_SUCCESS) {
         // 构造失败时释放构造器，避免资源泄漏。
         OH_AudioStreamBuilder_Destroy(g_ultraBuilder);
         g_ultraBuilder = nullptr;
         g_ultraAudioRenderer = nullptr;
     }
- 
+
     std::stringstream ss;
     switch (generateResult) {
         case AUDIOSTREAM_SUCCESS:
