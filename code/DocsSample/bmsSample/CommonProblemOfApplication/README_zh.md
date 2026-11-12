@@ -32,6 +32,12 @@ entry/src/
 |        |--- module.json5                            // 测试模块配置
 |        |--- ets/test/List.test.ets                  // 测试套件入口
 |        |--- ets/test/Ability.test.ets               // 应用常见问题示例测试用例
+|        |--- ets/test/DriverProbe.test.ets           // UiTest Driver 可用性探测
+|        |--- ets/test/ProbeSmoke.test.ets            // getBundleInfoForSelf 冒烟用例
+|        |--- ets/test/Bundle*.test.ets               // BundleFlag/签名/应用/模块等测试套件
+|        |--- ets/test/shared/                        // 测试公共工具（BundleProbe、TestPace 等）
+|        |--- ets/testability/                        // TestAbility 与测试页面
+|        |--- ets/testrunner/                         // OpenHarmonyTestRunner
 ```
 
 ### 相关权限
@@ -44,9 +50,9 @@ entry/src/
 
 ### 约束与限制
 
-1.本示例仅支持标准系统上运行, 支持设备：tablet（平板或者平板模拟器）。
+1.本示例仅支持标准系统上运行，deviceTypes 配置为 `default`（覆盖平板等 default 类型设备）。
 
-2.本示例为Stage模型，支持API20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony_6.0.0.47；当前已升级至API 26版本SDK，SDK版本号(API Version 26)，镜像版本号(7.1.0.21)。
+2.本示例为Stage模型，支持API20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony_6.0.0.47；当前已升级至API 26版本SDK，SDK版本号(API Version 26)，镜像版本号(7.1.0.21)。`compileSdkVersion`/`targetSdkVersion` 为 `26.0.0`，`compatibleSdkVersion` 保持 `20`（最低兼容 API 20）。
 
 3.本示例需要使用DevEco Studio 5.1.1 Release (Build Version: 5.1.1.840, built on September 5, 2025)及以上版本才可编译运行；当前已升级至DevEco Studio 26.0.0 Release及以上版本。
 

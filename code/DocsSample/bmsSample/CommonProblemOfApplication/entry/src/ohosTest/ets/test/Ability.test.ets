@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,6 +18,7 @@ import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { bundleManager, UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { ERR_PERMISSION_DENIED } from './shared/BundleProbe';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = 'CommonProblemOfApplication01Test';
@@ -29,7 +30,7 @@ const NOT_EXIST_BUNDLE: string = 'ohos.app.hap.notexist';
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
 
-const sleep = (time: number): Promise<void> => new Promise<void>((resolve: Function) => setTimeout(resolve, time));
+const sleep = (time: number): Promise<void> => new Promise<void>((resolve: () => void) => setTimeout(resolve, time));
 
 export default function CommonProblem01Test() {
   describe('CommonProblem01Test', () => {
@@ -41,7 +42,7 @@ export default function CommonProblem01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCommonProblemOfApplication01Chapter0001', 0,
+    it('testCommonProblemOfApplication01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0100 begin');
         const want: Want = {
@@ -54,8 +55,8 @@ export default function CommonProblem01Test() {
         const topAbilityName: string = ability.context.abilityInfo.name;
         hilog.info(DOMAIN, TAG, `top ability name: ${topAbilityName}`);
         expect(topAbilityName).assertEqual('EntryAbility');
-        done();
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0100 end');
+        done();
       })
 
         /**
@@ -66,7 +67,7 @@ export default function CommonProblem01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCommonProblemOfApplication01Chapter0002', 0,
+    it('testCommonProblemOfApplication01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0200 begin');
         const driver: Driver = Driver.create();
@@ -87,8 +88,8 @@ export default function CommonProblem01Test() {
         const fingerprintText: string = await getFingerprintText.getText();
         hilog.info(DOMAIN, TAG, `GetFingerprintHelloWorld text: ${fingerprintText}`);
         expect(fingerprintText).assertEqual(INITIAL_TEXT);
-        done();
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0200 end');
+        done();
       })
 
         /**
@@ -99,7 +100,7 @@ export default function CommonProblem01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCommonProblemOfApplication01Chapter0003', 0,
+    it('testCommonProblemOfApplication01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0300 begin');
         const driver: Driver = Driver.create();
@@ -111,8 +112,8 @@ export default function CommonProblem01Test() {
         const content: string = await changedText.getText();
         hilog.info(DOMAIN, TAG, `GetFingerprintHelloWorld text after click: ${content}`);
         expect(content).assertEqual(CLICKED_TEXT);
-        done();
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0300 end');
+        done();
       })
 
         /**
@@ -123,15 +124,15 @@ export default function CommonProblem01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCommonProblemOfApplication01Chapter0004', 0,
+    it('testCommonProblemOfApplication01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0400 begin');
         const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(BUNDLE_FLAGS);
         const appId: string = bundleInfo.signatureInfo.appId;
         hilog.info(DOMAIN, TAG, `appId: ${appId}`);
         expect(appId).assertContain(bundleName);
-        done();
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0400 end');
+        done();
       })
 
         /**
@@ -142,15 +143,15 @@ export default function CommonProblem01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCommonProblemOfApplication01Chapter0005', 0,
+    it('testCommonProblemOfApplication01Chapter0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0500 begin');
         const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(BUNDLE_FLAGS);
         const appIdentifier: string = bundleInfo.signatureInfo.appIdentifier;
         hilog.info(DOMAIN, TAG, `appIdentifier: ${appIdentifier}, type: ${typeof appIdentifier}`);
         expect(typeof appIdentifier).assertEqual('string');
-        done();
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0500 end');
+        done();
       })
 
         /**
@@ -161,15 +162,15 @@ export default function CommonProblem01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCommonProblemOfApplication01Chapter0006', 0,
+    it('testCommonProblemOfApplication01Chapter0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0600 begin');
         const bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(BUNDLE_FLAGS);
         const fingerprint: string = bundleInfo.signatureInfo.fingerprint;
         hilog.info(DOMAIN, TAG, `fingerprint: ${fingerprint}`);
         expect(fingerprint.length > 0).assertTrue();
-        done();
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0600 end');
+        done();
       })
 
         /**
@@ -180,7 +181,7 @@ export default function CommonProblem01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCommonProblemOfApplication01Chapter0007', 0,
+    it('testCommonProblemOfApplication01Chapter0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
       async (done: Function) => {
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0700 begin');
         try {
@@ -191,10 +192,10 @@ export default function CommonProblem01Test() {
         } catch (error) {
           const err: BusinessError = error as BusinessError;
           hilog.info(DOMAIN, TAG, `getBundleInfo error code: ${err.code}, message: ${err.message}`);
-          expect(err.code).assertEqual(201);
+          expect(err.code).assertEqual(ERR_PERMISSION_DENIED);
         }
-        done();
         hilog.info(DOMAIN, TAG, 'testCommonProblemOfApplication01Chapter0700 end');
+        done();
       })
   })
 }
