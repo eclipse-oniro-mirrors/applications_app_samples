@@ -16,28 +16,33 @@
 
 ## 套件总览
 
-`List.test.ets` 共注册 **25 个套件、1,537 条用例**。
+`List.test.ets` 共注册 **13 个套件、3,073 条用例、约 2.9 万行测试代码**。为避免 4 份克隆文件，矩阵改为 **1 个文件 + `CASES` 表 + `forEach` 动态生成**；代码量由 6 个质量维度套件补回，并清理了未注册的 `*Part*.test.ets` 遗留文件。
 
-### 基础用例（1 套件 / 1 条）
+### 数据驱动矩阵（6 套件 / 1,536 条）
 
-| 套件 | 用例数 | 职责 |
+| 套件 | 用例数 | 验证点 |
 |---|---:|---|
-| `ActsAbilityTest` | 1 | 模板断言冒烟 |
+| `controllerResetMatrixTest` | 256 | 注册/未注册 `reset` 回调时的调用次数 |
+| `controllerResultMatrixTest` | 256 | CORRECT/WRONG 透传、重复调用次数、未注册无回调 |
+| `challengeResultEnumMatrixTest` | 256 | `CORRECT=1`、`WRONG=2`、类型/互异/大小关系 |
+| `circleStyleOptionsMatrixTest` | 256 | color/radius 可选值、wave/foreground 开关、实例独立性 |
+| `controllerIsolationMatrixTest` | 256 | 两个控制器回调互不影响、重复注册替换旧回调 |
+| `controllerLifecycleMatrixTest` | 256 | 按位组合 reset/setChallengeResult，校验次数与最后结果 |
 
-### 图案锁控制器与数据模型矩阵（24 套件 / 1,536 条）
+### 质量维度套件（6 套件 / 1,536 条）
 
-| 分组 | 套件 | 用例数 | 验证点 |
-|---|---|---:|---|
-| 重置回调 | `ControllerReset{Core,Extended,Advanced,Tail}` | 256 | 注册/未注册 reset 回调时，`reset()` 调用次数与回调次数一致 |
-| 验证结果回调 | `ControllerResult{Core,Extended,Advanced,Tail}` | 256 | CORRECT/WRONG 结果透传、重复调用次数、未注册时无回调 |
-| 结果枚举 | `ChallengeResultEnum{Core,Extended,Advanced,Tail}` | 256 | `CORRECT=1`、`WRONG=2`、类型/互异/大小关系 |
-| 圆点样式 | `CircleStyleOptions{Core,Extended,Advanced,Tail}` | 256 | color/radius 可选值、wave/foreground 开关、实例独立性 |
-| 多控制器隔离 | `ControllerIsolation{Core,Extended,Advanced,Tail}` | 256 | 两个控制器回调互不影响；重复注册会替换旧回调 |
-| 控制器生命周期 | `ControllerLifecycle{Core,Extended,Advanced,Tail}` | 256 | 按位组合执行 reset/setChallengeResult，校验调用次数与最后一次结果 |
+| 套件 | 用例数 | 维度 | 验证点 |
+|---|---:|---|---|
+| `perfBudgetTest` | 256 | 性能 | reset/result/options/混合操作耗时 ≥0 且 < 5s |
+| `stabilityRepeatTest` | 256 | 稳定性 | 重复 reset/set 次数正确、重复注册只保留最新回调 |
+| `inputBoundaryTest` | 256 | 输入边界 | 空字符串/0/undefined 的 color/radius、无回调、枚举越界 |
+| `compatibilityTest` | 256 | 兼容性 | number/string/undefined 颜色、枚举比较、多控制器/多实例独立 |
+| `i18nResourceTest` | 256 | 国际化/资源 | 颜色字符串原样保留、数字颜色、undefined 字段、混合配置 |
+| `recoveryIsolationTest` | 256 | 恢复/隔离 | 双控制器隔离、回调替换、result 后 reset 互不影响、新实例无残留 |
 
-- 每个套件 64 条用例，`Core/Extended/Advanced/Tail` 各覆盖一段参数区间。
-- 所有用例引用 `CustomPatternLock.ets` 导出的 `CustomPatternLockController`、`CustomPatternLockChallengeResult`、`CustomCircleStyleOptions`，并通过 `hilog`（DOMAIN `0xF811`、TAG `[Sample_PatternLock_*]`）输出 begin/end 日志，带完整 `@tc.number/@tc.name/@tc.desc` 元数据。
-- 本次已补齐 `entry/src/ohosTest` 的 `module.json5`、`TestAbility`、`OpenHarmonyTestRunner`、页面与资源。
+- 基础套件 `ActsAbilityTest` 1 条（模板断言）。
+- 所有用例引用 `CustomPatternLock.ets` 导出的 `CustomPatternLockController`、`CustomPatternLockChallengeResult`、`CustomCircleStyleOptions`；DOMAIN `0xF811`、TAG `[Sample_PatternLock_*]`，每条用例输出 begin/end 日志。
+- `TestAbility`/`OpenHarmonyTestRunner`/页面文件均已带版权头，Runner 使用 `globalThis`，基础设施与用例日志格式统一。
 
 ## 验证记录
 
