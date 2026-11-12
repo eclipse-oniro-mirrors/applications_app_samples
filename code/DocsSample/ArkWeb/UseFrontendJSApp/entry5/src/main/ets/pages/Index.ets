@@ -46,6 +46,7 @@ struct Index {
           .height(100)
           .border({ width: 1 })
         Text('App_Side_Button')
+        // 创建应用侧与H5侧通信的消息端口
         Row() {
           Button('createNoControllerTagPort')
             .id('create_no_tag_btn')
@@ -54,7 +55,7 @@ struct Index {
                 testNapi.createWebMessagePorts('noTag');
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('createPort')
@@ -64,11 +65,12 @@ struct Index {
                 testNapi.createWebMessagePorts(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
 
+        // 注册应用侧消息接收回调，setHandler直接调用注册，setHandlerThread演示在独立线程中调用注册接口
         Row({ space: 10 }) {
 
           Button('setHandler')
@@ -78,7 +80,7 @@ struct Index {
                 testNapi.setMessageEventHandler(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
 
@@ -89,11 +91,12 @@ struct Index {
                 testNapi.setMessageEventHandlerThread(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
 
+        // 应用侧向H5侧发送不同类型的消息（字符串、二进制、空消息）
         Row({ space: 10 }) {
           Button('SendString')
             .id('send_string_btn')
@@ -103,7 +106,7 @@ struct Index {
                 testNapi.postMessage(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('SendStringThread')
@@ -114,7 +117,7 @@ struct Index {
                 testNapi.postMessageThread(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -128,7 +131,7 @@ struct Index {
                 testNapi.postBufferMessage(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('SendNone')
@@ -139,7 +142,7 @@ struct Index {
                 testNapi.postNoneMessage(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -153,7 +156,7 @@ struct Index {
                 testNapi.closeMessagePort(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('destroyNullPort')
@@ -163,7 +166,7 @@ struct Index {
                 testNapi.destroyNullMessagePort(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
           Button('destroyPort')
@@ -173,7 +176,7 @@ struct Index {
                 testNapi.destroyMessagePort(this.webTag);
               } catch (error) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
               }
             })
         }
@@ -181,6 +184,7 @@ struct Index {
         .padding(10)
         .border({ width: 1 })
 
+        // 通过执行前端脚本，触发H5侧向应用侧发送不同类型的消息
         Column({ space: 10 }) {
           Text('H5_Side_Send_Button')
           Row({ space: 10 }) {
@@ -191,7 +195,7 @@ struct Index {
                   this.controller.runJavaScript('for(var i = 0; i < 2000; i++) postStringToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Buffer')
@@ -201,7 +205,7 @@ struct Index {
                   this.controller.runJavaScript('postBufferToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Number')
@@ -211,7 +215,7 @@ struct Index {
                   this.controller.runJavaScript('postNumberToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
           }
@@ -224,7 +228,7 @@ struct Index {
                   this.controller.runJavaScript('postJsonToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Array')
@@ -234,7 +238,7 @@ struct Index {
                   this.controller.runJavaScript('postArrayStringToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
             Button('H5Object')
@@ -244,7 +248,7 @@ struct Index {
                   this.controller.runJavaScript('postObjectToApp()');
                 } catch (error) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
                 }
               })
           }
@@ -254,6 +258,7 @@ struct Index {
         .padding(10)
         .border({ width: 1 })
 
+        // 加载H5页面，并通过onConsole过滤展示以H5开头的日志
         Web({ src: $rawfile('index.html'), controller: this.controller })
           .onConsole((event) => {
             if (event) {

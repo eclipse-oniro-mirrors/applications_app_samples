@@ -47,7 +47,7 @@ struct Index {
             this.webviewController.deleteJavaScriptRegister('testObjName');
             this.webviewController.refresh();
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index1.html'), controller: this.webviewController })
@@ -69,7 +69,7 @@ struct Index {
               this.webviewController.refresh();              
             }
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
     }
