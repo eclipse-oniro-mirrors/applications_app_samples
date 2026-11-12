@@ -12,12 +12,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, beforeEach, Level, Size, TestType } from '@ohos/hypium';
+import { describe, it as hypiumIt, expect as hypiumExpect, beforeEach, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { audio } from '@kit.AudioKit';
 import Utils from '../Util.test';
 import { DefaultKeyboardController } from '../../../main/ets/common/controllers/KeyboardSoundController';
 import { AudioConstants } from '../../../main/ets/common/constants/AudioConstants';
 import Logger from '../../../main/ets/common/utils/Logger';
+
+const TAG: string = '[Sample_keyboardSound]';
+const DOMAIN: number = 0xF811;
+
+function it(name: string, filter: number, func: () => void | Promise<void>): void {
+  hypiumIt(name, filter, async () => {
+    hilog.info(DOMAIN, TAG, '%{public}s', name + ' begin');
+    try {
+      await func();
+    } finally {
+      hilog.info(DOMAIN, TAG, '%{public}s', name + ' end');
+    }
+  });
+}
+
+interface ExpectAssert {
+  assertEqual(expectValue: string | number | boolean | Object | null | undefined): void;
+  assertTrue(): void;
+  assertFalse(): void;
+  assertLarger(expectValue: number): void;
+  assertLargerOrEqual(expectValue: number): void;
+  assertLess(expectValue: number): void;
+  assertLessOrEqual(expectValue: number): void;
+  assertUndefined(): void;
+  assertFail(): void;
+}
+
+function expect(actual: string | number | boolean | Object | null | undefined): ExpectAssert {
+  hilog.info(DOMAIN, TAG, '%{public}s', 'actual: ' + String(actual));
+  return hypiumExpect(actual);
+}
 
 export default function KeyboardSoundTest(): void {
   describe('KeyboardSoundTest', () => {

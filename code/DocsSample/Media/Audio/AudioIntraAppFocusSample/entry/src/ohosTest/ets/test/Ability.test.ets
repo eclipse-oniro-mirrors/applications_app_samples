@@ -462,6 +462,9 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
+          expect(await ensureIndex(driver)).assertTrue();
+          expect(await clickId(driver, 'shareModeBtn', 3000)).assertTrue();
+          await sleep(500);
           expect(await openScenario(driver, 'enter_musicVsGame')).assertTrue();
           const stopText: string = await getString($r('app.string.stop_btn'));
           expect(await clickId(driver, 'playStopmusicG', 3000)).assertTrue();
