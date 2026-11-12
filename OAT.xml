@@ -109,17 +109,36 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/foreground.png" desc="Provided by NetworkSecurity"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/startIcon.png" desc="Provided by NetworkSecurity"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/screenshots/main_page.png" desc="Provided by NetworkSecurity screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/background.png" desc="Provided by FontAndResource"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/foreground.png" desc="Provided by FontAndResource"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/entry/src/main/resources/base/media/background.png" desc="Provided by FontAndResource"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/entry/src/main/resources/base/media/foreground.png" desc="Provided by FontAndResource"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/entry/src/main/resources/base/media/startIcon.png" desc="Provided by FontAndResource"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/screenshots/main_page.png" desc="Provided by FontAndResource screenshots"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/screenshots/handedness.gif" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIHandedness/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIHandedness"/>
+                <filteritem type="filepath" name="code/DocsSample/Ability/CliInvocation/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/Ability/CliInvocation"/>
+                <filteritem type="filepath" name="code/DocsSample/Ability/CliInvocation/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Ability/CliInvocation"/>
+                <filteritem type="filepath" name="code/DocsSample/Ability/CliInvocation/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/Ability/CliInvocation"/>
+                <filteritem type="filepath" name="code/DocsSample/Ability/CliInvocation/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/Ability/CliInvocation"/>
+                <filteritem type="filepath" name="code/DocsSample/Ability/CliInvocation/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Ability/CliInvocation"/>
                 <filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleJS/screenshots/Sample-Run-C.jpeg" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleJS"/>
                 <filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleJS/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleJS"/>
                 <filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleJS/entry/src/main/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleJS"/>
                 <filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleJS/screenshots/Sample-Run-JS.jpeg" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleJS"/>
                 <filteritem type="filepath" name="code/DocsSample/Media/AVCodec/AVCodec/screenshots/transcoding-page.png" desc="Screenshot captured from the AVCodec sample transcoding page"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/screenshots/main_page.jpeg" desc="Screenshot captured from the UiInfoCollectionAndInjection sample main page"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/screenshots/tree_collection.jpeg" desc="Screenshot captured from the UiInfoCollectionAndInjection sample tree collection page"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/screenshots/command_injection.jpeg" desc="Screenshot captured from the UiInfoCollectionAndInjection sample command injection page"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/AppScope/resources/base/media/background.png" desc="Template icon provided by code/DocsSample/ArkUISample/UiInfoCollectionAndInjection"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/AppScope/resources/base/media/foreground.png" desc="Template icon provided by code/DocsSample/ArkUISample/UiInfoCollectionAndInjection"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/entry/src/main/resources/base/media/background.png" desc="Template icon provided by code/DocsSample/ArkUISample/UiInfoCollectionAndInjection"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/entry/src/main/resources/base/media/foreground.png" desc="Template icon provided by code/DocsSample/ArkUISample/UiInfoCollectionAndInjection"/>
+                <filteritem type="filepath" name="code/DocsSample/ArkUISample/UiInfoCollectionAndInjection/entry/src/main/resources/base/media/startIcon.png" desc="Template icon provided by code/DocsSample/ArkUISample/UiInfoCollectionAndInjection"/>
 				<filteritem type="filepath" name="code\DocsSample\Stationary\DeviceStatus\screenshots\MultimodalAwareness_01.jpg" desc="Provide by code/DocsSample/Stationary/DeviceStatus"/>
 				<filteritem type="filepath" name="code\DocsSample\Stationary\DeviceStatus\screenshots\MultimodalAwareness_02.jpg" desc="Provide by code/DocsSample/Stationary/DeviceStatus"/>
 				<filteritem type="filepath" name="code\DocsSample\Stationary\DeviceStatus\screenshots\MultimodalAwareness_03.jpg" desc="Provide by code/DocsSample/Stationary/DeviceStatus"/>
@@ -281,6 +300,13 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/VideoPlayer.tgz" desc="Provided by code/Solutions/Media/MultiMedia"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/CameraPage-1.0.0.tgz" desc="Provided by code/Solutions/Media/MultiMedia"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AVRecorder/lib/VideoRecorder-1.0.0.tgz" desc="Provided by code/BasicFeature/Media/AVRecorder"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/background.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/foreground.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/background.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/foreground.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/startIcon.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/ohosTest/resources/base/media/startIcon.png" desc="Provided by PhotoPickerAndSendable"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/screenshots/main_page.png" desc="Provided by PhotoPickerAndSendable screenshots"/>
 				<filteritem type="filepath" name="code/SystemFeature/FileManagement/MediaCollections/screenshots/devices/drm_play_page.png" desc="Provided by code/SystemFeature/FileManagement/FileManager/MediaCollections"/>
 				<filteritem type="filepath" name="code/SystemFeature/FileManagement/MediaCollections/screenshots/devices/drm_playlist.png" desc="Provided by code/SystemFeature/FileManagement/FileManager/MediaCollections"/>
 				<filteritem type="filepath" name="code/SystemFeature/FileManagement/MediaCollections/screenshots/devices/video.png" desc="Provided by code/SystemFeature/FileManagement/FileManager/MediaCollections"/>
@@ -1357,6 +1383,17 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/ArkWebPageHeight/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/ArkWeb"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/WebWriteScreenIssue/screenshots/img_3.png" desc="Provided by code/DocsSample/ArkWeb"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/WebWriteScreenIssue/screenshots/img_4.png" desc="Provided by code/DocsSample/ArkWeb"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/entry/src/main/resources/base/media/background.png" desc="auto menu uiability sample icon backgroud"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/entry/src/main/resources/base/media/foreground.png" desc="auto menu uiability sample icon foreground"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/AppScope/resources/base/media/background.png" desc="auto menu uiability sample icon backgroud"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/AppScope/resources/base/media/foreground.png" desc="auto menu uiability sample icon foreground"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUIAbilityDemo/entry/src/main/resources/base/media/startIcon.png" desc="auto menu uiability sample startIcon"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/entry/src/main/resources/base/media/background.png" desc="auto menu uiextensionability sample icon backgroud"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/entry/src/main/resources/base/media/foreground.png" desc="auto menu uiextensionability sample icon foreground"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/AppScope/resources/base/media/background.png" desc="auto menu uiability sample icon backgroud"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/AppScope/resources/base/media/foreground.png" desc="auto menu uiability sample icon foreground"/>
+				<filteritem type="filepath" name="code/DocsSample/Security/SecurityPrivacyCenter/MenuUECDemo/entry/src/main/resources/base/media/startIcon.png" desc="auto menu uiextensionability sample startIcon"/>
+
 	        <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryOverlay/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/sceenshots/device/snapshot_directory.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryOverlay/src/main/resources/base/media/setting.jpeg" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
@@ -2572,6 +2609,8 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
+				<filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/Library/src/main/resources/rawfile/fonts/DroidSerif-Regular.ttf" desc="Provided by FontAndResource"/>
+				<filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/Library/src/main/resources/base/media/demo_picture.png" desc="Provided by FontAndResource"/>
 				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/AppScope/resources/base/media/background.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
 				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/AppScope/resources/base/media/foreground.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
 				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/base/media/background.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
@@ -2605,6 +2644,13 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/Solutions/Shopping/OrangeShopping/libs/ohos-notification-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/VideoPlayer.tgz" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AVRecorder/lib/VideoRecorder-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/ohosTest/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/screenshots/main_page.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Connectivity/VPN/lib/VPNFoundation-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/UI/ArkTsComponentCollection/ComponentCollection/lib/DragEvent-1.0.0.tgz" desc="二进制文件，无需添加License头"/>
 				<filteritem type="filepath" name="code/UI/TabContentTouchHotZone/casesfeature/tabcontentoverflow/src/main/resources/rawfile/tabcontentoverflow_play_video.MP4" desc="二进制文件，无需添加License头"/>
@@ -2664,6 +2710,14 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/Library/src/main/resources/base/media/demo_picture.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/Library/src/main/resources/rawfile/fonts/DroidSerif-Regular.ttf" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
@@ -2684,6 +2738,13 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/Solutions/Shopping/OrangeShopping/libs/ohos-video-component-1.0.5.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/VideoPlayer.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AVRecorder/lib/VideoRecorder-1.0.0.tgz" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/entry/src/ohosTest/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/PhotoPickerAndSendable/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Connectivity/VPN/lib/VPNFoundation-1.0.0.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/UI/ArkTsComponentCollection/ComponentCollection/lib/DragEvent-1.0.0.tgz" desc="二进制文件，无需添加版权头"/>
 				<filteritem type="filepath" name="code/UI/TabContentTouchHotZone/casesfeature/tabcontentoverflow/src/main/resources/rawfile/tabcontentoverflow_play_video.MP4" desc="二进制文件，无需添加版权头"/>

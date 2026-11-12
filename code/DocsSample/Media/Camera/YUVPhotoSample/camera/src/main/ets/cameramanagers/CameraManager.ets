@@ -81,17 +81,29 @@ export class CameraManager {
 
     // find target ratio best profile
     let profile: camera.Profile | undefined = undefined;
-    let format: camera.CameraFormat;
     if (outputType === OutputType.PREVIEW) {
-      // previewOutput
+      // Prefer YUV_420_SP for preview; some devices only support RGBA_8888, so fall back.
       if (sceneMode === camera.SceneMode.NORMAL_PHOTO) {
-        format = camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
+        profile = profileArr.find(t => t.format === camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP &&
+          Math.abs(t.size.width / t.size.height - targetRatio) < 0.2);
+        if (profile === undefined) {
+          profile = profileArr.find(t => t.format === camera.CameraFormat.CAMERA_FORMAT_RGBA_8888 &&
+            Math.abs(t.size.width / t.size.height - targetRatio) < 0.2);
+          if (profile !== undefined) {
+            Logger.info(TAG, 'preview falls back to RGBA_8888 profile.');
+          }
+        }
       }
-      profile = profileArr.find(t => t.format === format &&
-        Math.abs(t.size.width / t.size.height - targetRatio) < 0.2);
     } else if (outputType === OutputType.PHOTO) {
       profile = profileArr.find(t => t.format === camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP &&
               Math.abs(t.size.width / t.size.height - targetRatio) < 0.2);
+      if (profile === undefined) {
+        // Some devices only provide JPEG for photo, so reuse the first profile with the same ratio.
+        profile = profileArr.find(t => Math.abs(t.size.width / t.size.height - targetRatio) < 0.2);
+        if (profile !== undefined) {
+          Logger.info(TAG, `photo falls back to format ${profile.format}.`);
+        }
+      }
     }
     Logger.info(TAG,
       `getProfile profileType:${outputType} format:${profile?.format} width:${profile?.size.width} height:${profile?.size.height}`);

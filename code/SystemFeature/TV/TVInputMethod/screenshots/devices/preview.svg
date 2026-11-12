@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="18" fill="#f7f8fa"/>
+  <text x="40" y="62" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="28" fill="#1f2329">输入法预览</text>
+  <text x="920" y="62" text-anchor="end" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18" fill="#9aa0a6">09:26</text>
+
+  <text x="40" y="126" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18" fill="#5b6168">输入法管理</text>
+
+  <rect x="40" y="146" width="880" height="72" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="68" y="190" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="22" fill="#1f2329">默认输入法</text>
+  <text x="856" y="190" text-anchor="end" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18" fill="#8a9099">kikaInput  ›</text>
+
+  <text x="40" y="272" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18" fill="#5b6168">输入测试</text>
+
+  <rect x="40" y="292" width="880" height="72" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="68" y="336" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="20" fill="#b8bec6">输入文本</text>
+  <rect x="68" y="316" width="2" height="22" fill="#0a59f7"/>
+
+  <rect x="520" y="180" width="380" height="300" rx="16" fill="#ffffff" stroke="#d9dde3"/>
+  <text x="548" y="222" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="20" fill="#1f2329">选择输入法</text>
+  <line x1="520" y1="240" x2="900" y2="240" stroke="#eef0f3"/>
+
+  <circle cx="556" cy="278" r="10" fill="#0a59f7"/>
+  <circle cx="556" cy="278" r="4" fill="#ffffff"/>
+  <text x="584" y="286" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="20" fill="#1f2329">kikaInput</text>
+
+  <circle cx="556" cy="338" r="10" fill="none" stroke="#b8bec6" stroke-width="2"/>
+  <text x="584" y="346" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="20" fill="#5b6168">系统默认输入法</text>
+
+  <text x="40" y="500" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="16" fill="#8a9099">运行 EntryAbility 打开预览页，可验证键盘拉起、输入法切换与预上屏效果</text>
+</svg>

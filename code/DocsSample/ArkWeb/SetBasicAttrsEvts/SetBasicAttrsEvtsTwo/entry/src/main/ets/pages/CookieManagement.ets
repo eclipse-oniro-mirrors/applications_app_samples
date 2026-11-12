@@ -30,7 +30,7 @@ struct WebComponent {
             webview.WebCookieManager.configCookieSync('https://www.example.com', 'value=test');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: 'www.example.com', controller: this.controller });

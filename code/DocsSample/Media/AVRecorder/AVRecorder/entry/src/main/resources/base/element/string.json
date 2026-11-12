@@ -54,11 +54,11 @@
     },
     {
       "name": "page_title_video_ndk",
-      "value": "VideoRecorder(NDK)"
+      "value": "VideoRecorder(Native)"
     },
     {
       "name": "page_title_audio_ndk",
-      "value": "AudioRecorder(NDK)"
+      "value": "AudioRecorder(Native)"
     }
   ]
 }

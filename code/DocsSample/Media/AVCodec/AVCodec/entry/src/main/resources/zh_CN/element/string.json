@@ -1248,16 +1248,25 @@
     {"name":"transcode_preview_running","value":"正在生成预览…"},
     {"name":"transcode_preview_hint","value":"取所选时间或其后的同一帧，对比 CPU 处理前后效果，缩略图长边不超过 640 像素。不模拟 GPU 色彩转换、编码压缩或容器旋转。"},
     {"name":"transcode_validation_warning","value":"文件已生成，但一项或多项输出检查发现差异或轨道未保留，分享前请查看报告。"},
-    {"name":"transcode_codec_mode","value":"视频编解码调度"},
+    {"name":"transcode_codec_mode","value":"编解码调度"},
     {"name":"transcode_codec_sync","value":"同步模式"},
     {"name":"transcode_codec_async","value":"异步模式"},
-    {"name":"transcode_codec_mode_hint","value":"同时作用于视频解码和编码，支持 Buffer 和 Surface 输入。AAC 转换与画面预览仍用同步模式；原码流转封装不创建编解码器。"},
+    {"name":"transcode_codec_mode_hint","value":"同时作用于视频和AAC的解码、编码，视频支持Buffer和Surface输入。画面预览使用同步模式；原码流转封装不创建编解码器。"},
     {"name":"recorder_input_mode","value":"视频编码输入"},
     {"name":"recorder_input_direct","value":"Surface（相机直连）"},
     {"name":"recorder_input_buffer","value":"Buffer（复制相机 YUV）"},
     {"name":"recorder_buffer_requirements","value":"Buffer 输入要求 API 23 及以上、SDR、720P/1080P、30fps。选择后会重置不兼容的草稿选项，并禁用 HDR、编码前处理和一入二出。同步、异步编码均可使用。"},
     {"name":"recorder_buffer_capability_hint","value":"编码尺寸与帧率已通过能力查询。相机双预览输出、YUV 的 CPU 可读性及编码器 NV12 输入布局会在启动录制时继续检查。"},
     {"name":"recorder_buffer_profile_unavailable","value":"相机不支持所选尺寸、30fps 的 YUV 预览流，请更换分辨率或选择 Surface 输入。"},
-    {"name":"recorder_buffer_combination_unavailable","value":"相机 Buffer 采集配置失败，设备需要同时支持画面预览和 YUV 预览输出。请查看录制结果了解详情，或选择 Surface 输入。"}
+    {"name":"recorder_buffer_combination_unavailable","value":"相机 Buffer 采集配置失败，设备需要同时支持画面预览和 YUV 预览输出。请查看录制结果了解详情，或选择 Surface 输入。"},
+    {"name":"recorder_color_unavailable","value":"设备不支持录制所需的色彩空间"},
+    {"name":"subtitle_delay_ms","value":"字幕偏移（毫秒，正值延后，负值提前）"},
+    {"name":"subtitle_delay_apply","value":"应用偏移"},
+    {"name":"subtitle_delay_invalid","value":"请输入-600000到600000之间的整数"},
+    {"name":"recorder_pause","value":"暂停录制"},
+    {"name":"recorder_resume","value":"继续录制"},
+    {"name":"recorder_paused","value":"已暂停"},
+    {"name":"recorder_pause_hint","value":"暂停仅支持SDR单路Buffer录制；暂停期间相机预览继续，音视频不写入文件。"},
+    {"name":"recorder_pause_failed","value":"暂停或继续失败，请重试或结束录制"}
   ]
 }

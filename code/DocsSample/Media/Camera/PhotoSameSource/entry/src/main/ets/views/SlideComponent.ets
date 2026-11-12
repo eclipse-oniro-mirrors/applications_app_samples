@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -19,10 +19,10 @@ import { Constants } from '../common/Constants';
 
 const TAG: string = 'SlideComponent';
 
-// 变焦组件
+// 变焦组件。
 @Component
 export struct SlideComponent {
-  // slide滑块
+  // slide滑块。
   @StorageLink('zoomRatio') zoomRatio: number = 1;
   @StorageLink('sliderValue') sliderValue: SliderValue | undefined = undefined;
   private fractionDigits = 2;

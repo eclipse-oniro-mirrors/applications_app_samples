@@ -167,6 +167,7 @@ struct VideoRecorder {
             .width('100%').height('100%')
             .backgroundColor(Color.Black)
           Text(this.videoRecorderTimeText)
+            .id('videoTime')
             .fontFamily('HarmonyHeiTi-Light')
             .width(70)
             .height(40)

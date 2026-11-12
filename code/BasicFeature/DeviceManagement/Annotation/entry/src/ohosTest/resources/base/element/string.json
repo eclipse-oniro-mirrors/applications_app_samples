@@ -1,0 +1,19 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "Annotation UI test module",
+      "description": "Test module description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "Runs Annotation UI tests",
+      "description": "Test ability description"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "Annotation Test",
+      "description": "Test ability label"
+    }
+  ]
+}

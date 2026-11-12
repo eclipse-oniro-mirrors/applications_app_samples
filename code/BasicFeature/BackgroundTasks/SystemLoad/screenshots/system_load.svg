@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f2f3f5; }
+            .card { fill: #ffffff; rx: 20; }
+            .text-main { font-family: sans-serif; fill: #333; }
+            .text-sub { font-family: sans-serif; fill: #888; font-size: 26px; }
+            .text-title { font-family: sans-serif; fill: #000; font-size: 46px; font-weight: bold; }
+            .text-level { font-family: sans-serif; fill: #0066ff; font-size: 72px; font-weight: bold; }
+            .text-level-sub { font-family: sans-serif; fill: #888; font-size: 32px; }
+            .btn-blue { fill: #0066ff; rx: 40; }
+            .btn-light { fill: #e5f0ff; rx: 40; }
+            .btn-text { font-family: sans-serif; fill: #ffffff; font-size: 28px; text-anchor: middle; dominant-baseline: middle; }
+            .btn-text-blue { font-family: sans-serif; fill: #0066ff; font-size: 28px; text-anchor: middle; dominant-baseline: middle; }
+        </style>
+    </defs>
+
+    <!-- 背景 -->
+    <rect width="720" height="1280" class="bg" />
+
+    <!-- 标题区 -->
+    <text x="40" y="140" class="text-title">系统负载</text>
+    <text x="40" y="190" class="text-sub">性能功耗热融合档位</text>
+
+    <!-- 顶部 Tab -->
+    <rect x="30" y="240" width="270" height="70" class="btn-blue" />
+    <text x="165" y="275" class="btn-text">本机信息</text>
+    <rect x="310" y="240" width="260" height="70" class="btn-light" />
+    <text x="440" y="275" class="btn-text-blue">模拟数据</text>
+    <rect x="580" y="240" width="110" height="70" class="btn-blue" />
+    <text x="635" y="275" class="btn-text">刷新</text>
+
+    <!-- 数据来源 -->
+    <text x="40" y="370" class="text-sub">数据来源： 本机信息</text>
+
+    <!-- 核心卡片 -->
+    <rect x="30" y="400" width="660" height="420" class="card" />
+    <text x="360" y="500" class="text-level" text-anchor="middle">LOW</text>
+    <text x="360" y="550" class="text-level-sub" text-anchor="middle">Level 0</text>
+    <text x="360" y="620" class="text-main" font-size="30" text-anchor="middle">设备温度和负载较低，无高负载场景。</text>
+    <text x="60" y="690" class="text-sub">应用调度建议</text>
+    <text x="60" y="740" class="text-main" font-size="30">前台和后台业务可正常运行。</text>
+
+    <!-- 监听接口验证卡片 -->
+    <rect x="30" y="850" width="660" height="380" class="card" />
+    <text x="60" y="920" class="text-title" font-size="38">监听接口验证</text>
+
+    <text x="60" y="990" class="text-sub">主监听器：</text>
+    <text x="640" y="990" class="text-sub" text-anchor="end">已注册</text>
+    <text x="60" y="1030" class="text-sub" font-size="24">主监听回调次数： 0</text>
+    <rect x="60" y="1050" width="280" height="70" class="btn-blue" />
+    <text x="200" y="1085" class="btn-text">注册主监听</text>
+    <rect x="380" y="1050" width="280" height="70" class="btn-blue" />
+    <text x="520" y="1085" class="btn-text">注销主监听</text>
+
+    <text x="60" y="1170" class="text-sub">副监听器：</text>
+    <text x="640" y="1170" class="text-sub" text-anchor="end">未注册</text>
+    <text x="60" y="1210" class="text-sub" font-size="24">副监听回调次数： 0</text>
+
+    <!-- 底部按钮 -->
+    <rect x="60" y="1240" width="280" height="70" class="btn-blue" />
+    <text x="200" y="1275" class="btn-text">注册副监听</text>
+    <rect x="380" y="1240" width="280" height="70" class="btn-blue" />
+    <text x="520" y="1275" class="btn-text">注销副监听</text>
+</svg>

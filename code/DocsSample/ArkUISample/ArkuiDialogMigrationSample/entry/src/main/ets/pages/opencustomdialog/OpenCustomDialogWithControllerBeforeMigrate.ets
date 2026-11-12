@@ -33,6 +33,8 @@ function buildText(params: Params) {
       .margin({ bottom: 10 })
   }
   .padding(20)
+  .borderRadius(10)
+  .backgroundColor(Color.Gray)
 }
 
 @Entry

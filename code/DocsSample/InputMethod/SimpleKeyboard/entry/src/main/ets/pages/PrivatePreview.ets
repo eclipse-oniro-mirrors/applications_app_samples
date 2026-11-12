@@ -1,4 +1,3 @@
-'use static'
 
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
@@ -15,21 +14,6 @@
  * limitations under the License.
  */
 
-import {
-  Entry,
-  StorageLink,
-  Component,
-  BorderOptions,
-  Column,
-  TextInput,
-  TextInputController,
-  TextArea,
-  KeyboardAppearance,
-  Text,
-  State,
-  Color,
-  $r,
-} from '@kit.ArkUI';
 import { inputMethod } from '@kit.IMEKit';
 import Log from '../model/Log';
 import { BusinessError } from '@ohos.base';
@@ -90,6 +74,7 @@ struct PrivatePreview {
         .backgroundColor('#FFFFFF')
         .border({ width: 1, color: Color.Gray, radius: 18 } as BorderOptions)
         .maxLength(50)
+        .id('previewInput')
         .onChange((value: string) => {
           this.addLog('preViewText onChange.');
         })
@@ -102,9 +87,11 @@ struct PrivatePreview {
 
       // [Start input_case_input_KeyboardAppearance]
       TextArea({ placeholder: '沉浸模式' })
+        .id('immersiveInput')
         .keyboardAppearance(KeyboardAppearance.IMMERSIVE)
 
       TextArea({ placeholder: '非沉浸模式' })
+        .id('noneImmersiveInput')
         .keyboardAppearance(KeyboardAppearance.NONE_IMMERSIVE)
       // [End input_case_input_KeyboardAppearance]
     }

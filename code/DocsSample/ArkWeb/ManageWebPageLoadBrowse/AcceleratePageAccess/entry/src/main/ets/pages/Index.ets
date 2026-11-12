@@ -26,7 +26,7 @@ struct WebComponent {
     try {
       result = this.getUIContext().getHostContext()!.resourceManager.getStringSync(resource.id);
     } catch (error) {
-      console.error(`getStringSync failed, ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+      console.error(`getStringSync failed, ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
     }
     return result;
   }
@@ -40,7 +40,7 @@ struct WebComponent {
               this.webviewController.backward();
             }
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: this.resourceToString($r('app.string.web_path_one')), controller: this.webviewController })

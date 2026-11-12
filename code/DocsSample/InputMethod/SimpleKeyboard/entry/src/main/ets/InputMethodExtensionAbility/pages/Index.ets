@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,21 +14,6 @@
  */
 
 // [Start input_case_input_index]
-import {
-  Entry,
-  StorageLink,
-  Provide,
-  Component,
-  Column,
-  Row,
-  Stack,
-  $r,
-  InputType,
-  Watch,
-  Color,
-  FlexAlign,
-  AppStorage
-} from '@kit.ArkUI';
 import deviceInfo from '@ohos.deviceInfo';
 import Log from '../../model/Log';
 import { EditView } from '../../components/EditView';
@@ -52,7 +36,7 @@ const TAG: string = 'index->';
 struct Index {
   @Provide menuType: number = MenuType.NORMAL;
   @StorageLink('inputPattern') @Watch('inputPatternChange') inputPattern: InputType =
-    InputType.fromValue(InputType.Normal)
+    InputType.Normal
   @StorageLink('submenuType') submenuType: number = SubMenuType.NORMAL;
   @StorageLink('isLandscape') @Watch('change') isLandscape: boolean = false;
   @StorageLink('isRkDevice') isRkDevice: boolean = true;
@@ -65,7 +49,7 @@ struct Index {
     // [Start input_case_input_immersiveMode]
     // 感知是否设置沉浸模式，如果是沉浸模式选择沉浸模式类型
     // [Start input_case_input_immersiveModeeditorAttributeChanged]
-    inputMethodEngine.getKeyboardDelegate()?.onEditorAttributeChanged((attr: inputMethodEngine.EditorAttribute) => {
+    inputMethodEngine.getKeyboardDelegate()?.on('editorAttributeChanged', (attr: inputMethodEngine.EditorAttribute) => {
       // [End input_case_input_immersiveModeeditorAttributeChanged]
       console.info('recv editorAttributeChanged, immersiveMode: ', attr.immersiveMode);
       if (attr.immersiveMode == inputMethodEngine.ImmersiveMode.DARK_IMMERSIVE) {
@@ -84,7 +68,7 @@ struct Index {
   }
 
   inputPatternChange(value: string): void {
-    if (this.inputPattern === InputType.NUMBER || this.inputPattern === InputType.PhoneNumber) {
+    if (this.inputPattern === InputType.Number || this.inputPattern === InputType.PhoneNumber) {
       this.menuType = MenuType.NUMBER;
     } else {
       this.menuType = MenuType.NORMAL;

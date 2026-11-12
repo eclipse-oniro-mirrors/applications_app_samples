@@ -41,6 +41,7 @@ struct AsyncCallbackInfo {
     SampleInfo sampleInfo;
     std::string sessionId;
     bool primary = true;
+    bool paused = false;
     bool requestKeyFrame = false;
     int64_t bitrate = 0;
 };
@@ -245,6 +246,33 @@ napi_value RecorderNative::UpdateParameters(napi_env env, napi_callback_info inf
         auto *task = static_cast<AsyncCallbackInfo *>(data);
         task->resultCode = Recorder::GetInstance().UpdateVideoParameters(
             task->sessionId, task->primary, task->bitrate, task->requestKeyFrame);
+    });
+    return promise;
+}
+
+napi_value RecorderNative::SetPaused(napi_env env, napi_callback_info info)
+{
+    constexpr size_t parameterCount = 2;
+    size_t count = parameterCount;
+    napi_value args[parameterCount] = {};
+    char session[128] = {};
+    size_t length = 0;
+    bool paused = false;
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != parameterCount ||
+        napi_get_value_string_utf8(env, args[0], session, sizeof(session), &length) != napi_ok ||
+        length == 0 || length >= sizeof(session) - 1 || napi_get_value_bool(env, args[1], &paused) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "Expected sessionId and paused");
+        return nullptr;
+    }
+    napi_value promise = nullptr;
+    napi_deferred deferred = nullptr;
+    if (napi_create_promise(env, &deferred, &promise) != napi_ok) { return nullptr; }
+    auto *task = CreateAsyncInfo(env, deferred, SampleInfo());
+    task->sessionId.assign(session, length);
+    task->paused = paused;
+    (void)StartAsyncWork(env, task, [](napi_env, void *data) {
+        auto *task = static_cast<AsyncCallbackInfo *>(data);
+        task->resultCode = Recorder::GetInstance().SetPaused(task->sessionId, task->paused);
     });
     return promise;
 }
@@ -472,6 +500,7 @@ static napi_value Init(napi_env env, napi_value exports)
         {"updateParameters", nullptr, RecorderNative::UpdateParameters,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"startNative", nullptr, RecorderNative::Start, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setPaused", nullptr, RecorderNative::SetPaused, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stopBeginNative", nullptr, RecorderNative::StopStart, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stopEndNative", nullptr, RecorderNative::StopEnd, nullptr, nullptr, nullptr, napi_default, nullptr},
     };

@@ -1,0 +1,18 @@
+<!--
+  Copyright (c) 2026 Huawei Device Co., Ltd.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 108 108">
+  <rect width="108" height="108" rx="24" fill="#0A59F7"/>
+  <ellipse cx="54" cy="32" rx="30" ry="12" fill="#FFFFFF"/>
+  <path d="M24 32v20c0 7 13 12 30 12s30-5 30-12V32c0 7-13 12-30 12S24 39 24 32z" fill="#D9E8FF"/>
+  <path d="M24 52v20c0 7 13 12 30 12s30-5 30-12V52c0 7-13 12-30 12S24 59 24 52z" fill="#FFFFFF"/>
+</svg>
