@@ -74,6 +74,15 @@ export default class PreviewInputMethod extends InputMethodExtensionAbility {
       hilog.info(DOMAIN, TAG, '%{public}s', `STA display ${screen.width}x${screen.height}, density ${screen.densityPixels}`);
       hilog.info(DOMAIN, TAG, '%{public}s', `STA panel request ${screen.width}x${panelHeight}, root height ${panelHeightVp}vp`);
       await panel.resize(screen.width, panelHeight);
+      const portraitWidth = Math.min(screen.width, screen.height).toInt();
+      const portraitHeight = Math.max(screen.width, screen.height).toInt();
+      const panelRect: inputMethodEngine.PanelRect = {
+        portraitRect: { left: 0, top: 0, width: portraitWidth,
+          height: Math.min(panelHeight.toInt(), Math.floor(portraitHeight * 0.7)).toInt() },
+        landscapeRect: { left: 0, top: 0, width: portraitHeight,
+          height: Math.min(panelHeight.toInt(), Math.floor(portraitWidth * 0.7)).toInt() }
+      };
+      panel.adjustPanelRect(inputMethodEngine.PanelFlag.FLG_FIXED, panelRect);
       hilog.info(DOMAIN, TAG, '%{public}s', `STA panel resize complete ${screen.width}x${panelHeight}`);
       await panel.setUiContent('keyboard/KeyboardPanel');
       hilog.info(DOMAIN, TAG, '%{public}s', 'STA keyboard content loaded');
