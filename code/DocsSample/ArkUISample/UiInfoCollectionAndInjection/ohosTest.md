@@ -21,10 +21,3 @@
 |指令JSON编辑|位于CommandPage|在指令JSON输入框修改参数后提交|按修改后的JSON执行，非法JSON经错误路径显示异常信息|否|Pass|
 |指令类型与目标不匹配|位于CommandPage，目标为Swiper|提交setText预设|执行阶段失败，状态行显示result=2（指令不支持）|否|Pass|
 |页面退出保护|位于TreePage或CommandPage，请求进行中|采集或提交过程中快速返回主页|页面退出后无崩溃，迟到结果不更新已退出页面|否|Pass|
-
-## 说明
-
-- 自动化用例位于entry/src/ohosTest/ets/test/Index.test.ets，基于@kit.TestKit的Driver执行，通过组件id定位控件，通过状态行文本断言结果；
-- 状态行格式（schema=、result=）为固定英文标记，不受设备语言影响；
-- 已执行用例于2026-11-10在真机验证（OpenHarmony，API 26），以与自动化用例相同的UI操作步骤执行：同步采集返回schema=1; target=true; hidden=true; nodes=44，仅可见树组合返回hidden=false; nodes=33，叠加纯布局过滤返回nodes=32；setText返回result=0且输入框内容替换为hello，swiperSwitch返回result=0且Swiper索引由0变为1，tabsSwitch返回result=0且Tabs索引变为1；
-- 2026-11-11在OpenHarmony工程构建真机（API 26）完成全量回归：自动化套件（abilitySmoke、IndexTree、TreeSync、TreeAsync、TreeOptions、CommandSetText、CommandSwiper、CommandTabs共8条）经aa test全部通过；原"待验证"用例以相同UI操作步骤在设备上执行，结果均为Pass：交互开关返回clickable等字段，无障碍开关返回accessibilityContent（目标节点需设置无障碍文本），高阶属性开关返回advanced.visual/functional组；追加文本后输入框显示hello world，删除文本后前5字符被删除，选择与复制两次提交均返回result=0；非法JSON返回request submission failed: 401，修改value后提交返回result=0且按修改值执行；Swiper目标提交setText返回result=2；异步采集进行中返回主页无崩溃且进程存活。
