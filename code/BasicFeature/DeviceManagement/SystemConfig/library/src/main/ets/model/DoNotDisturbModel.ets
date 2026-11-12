@@ -20,22 +20,22 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 免打扰查询状态枚举。
- * 用于标识免打扰相关信息的查询状态。
+ * Do Not Disturb query status enum.
+ * Identifies the query status of Do Not Disturb related information.
  */
 export enum DoNotDisturbStatus {
-  /** 未查询 */
+  /** Not queried */
   IDLE = 'idle',
-  /** 查询中 */
+  /** Querying */
   QUERYING = 'querying',
-  /** 查询成功 */
+  /** Query succeeded */
   SUCCESS = 'success',
-  /** 查询失败 */
+  /** Query failed */
   FAILED = 'failed'
 }
 
 /**
- * 免打扰模型 JSON 序列化接口。
+ * Do Not Disturb model JSON serialization interface.
  */
 export interface DoNotDisturbModelJson {
   isDoNotDisturbEnabled: boolean;
@@ -48,31 +48,31 @@ export interface DoNotDisturbModelJson {
 }
 
 /**
- * 免打扰模式数据模型。
- * 封装 intelligentScene 模块的免打扰状态查询结果，
- * 包括免打扰开关状态和通知允许状态。
+ * Do Not Disturb data model.
+ * Encapsulates the query results of the intelligentScene module's Do Not Disturb status,
+ * including the Do Not Disturb switch state and the notification-allowed state.
  */
 export class DoNotDisturbModel {
-  /** 免打扰功能是否启用 */
+  /** Whether the Do Not Disturb feature is enabled */
   public isDoNotDisturbEnabled: boolean;
-  /** 免打扰模式下是否允许通知 */
+  /** Whether notifications are allowed in Do Not Disturb mode */
   public isNotifyAllowed: boolean;
-  /** 查询状态 */
+  /** Query status */
   public status: DoNotDisturbStatus;
-  /** 最后一次查询的时间戳 */
+  /** Timestamp of the last query */
   public lastQueryTime: number;
-  /** 错误信息 */
+  /** Error message */
   public errorMessage: string;
-  /** 错误码 */
+  /** Error code */
   public errorCode: number;
-  /** 查询次数统计 */
+  /** Query count statistic */
   public queryCount: number;
 
   /**
-   * 创建免打扰模型实例。
-   * @param {boolean} isDoNotDisturbEnabled - 免打扰是否启用
-   * @param {boolean} isNotifyAllowed - 免打扰时是否允许通知
-   * @param {DoNotDisturbStatus} status - 初始查询状态
+   * Creates a Do Not Disturb model instance.
+   * @param {boolean} isDoNotDisturbEnabled - Whether Do Not Disturb is enabled
+   * @param {boolean} isNotifyAllowed - Whether notifications are allowed during Do Not Disturb
+   * @param {DoNotDisturbStatus} status - Initial query status
    */
   constructor(
     isDoNotDisturbEnabled: boolean = false,
@@ -92,12 +92,12 @@ export class DoNotDisturbModel {
   }
 
   // ========================================
-  // 状态管理方法
+  // Status management methods
   // ========================================
 
   /**
-   * 标记为查询中状态。
-   * 在调用异步查询接口之前调用。
+   * Marks the status as querying.
+   * Called before invoking the asynchronous query API.
    */
   markQuerying(): void {
     hilog.info(DOMAIN, TAG, 'DoNotDisturbModel markQuerying: setting status to QUERYING');
@@ -107,9 +107,9 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 标记为查询成功并更新免打扰状态。
-   * @param {boolean} dndEnabled - 免打扰是否启用
-   * @param {boolean} notifyAllowed - 免打扰时是否允许通知
+   * Marks the query as success and updates the Do Not Disturb status.
+   * @param {boolean} dndEnabled - Whether Do Not Disturb is enabled
+   * @param {boolean} notifyAllowed - Whether notifications are allowed during Do Not Disturb
    */
   markSuccess(dndEnabled: boolean, notifyAllowed: boolean): void {
     hilog.info(DOMAIN, TAG, 'DoNotDisturbModel markSuccess: dnd=%{public}s, notify=%{public}s',
@@ -124,8 +124,8 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 仅更新免打扰启用状态。
-   * @param {boolean} dndEnabled - 免打扰是否启用
+   * Updates only the Do Not Disturb enabled state.
+   * @param {boolean} dndEnabled - Whether Do Not Disturb is enabled
    */
   updateDndState(dndEnabled: boolean): void {
     hilog.info(DOMAIN, TAG, 'DoNotDisturbModel updateDndState: dnd=%{public}s', dndEnabled.toString());
@@ -134,8 +134,8 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 仅更新通知允许状态。
-   * @param {boolean} notifyAllowed - 是否允许通知
+   * Updates only the notification-allowed state.
+   * @param {boolean} notifyAllowed - Whether notifications are allowed
    */
   updateNotifyState(notifyAllowed: boolean): void {
     hilog.info(DOMAIN, TAG, 'DoNotDisturbModel updateNotifyState: notify=%{public}s', notifyAllowed.toString());
@@ -144,9 +144,9 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 标记为查询失败。
-   * @param {string} errorMessage - 错误描述
-   * @param {number} errorCode - 错误码
+   * Marks the query as failed.
+   * @param {string} errorMessage - Error description
+   * @param {number} errorCode - Error code
    */
   markFailed(errorMessage: string, errorCode: number): void {
     hilog.error(DOMAIN, TAG, 'DoNotDisturbModel markFailed: error=%{public}s, code=%{public}d',
@@ -159,12 +159,12 @@ export class DoNotDisturbModel {
   }
 
   // ========================================
-  // 查询方法
+  // Query methods
   // ========================================
 
   /**
-   * 判断免打扰功能是否处于启用状态。
-   * @returns {boolean} 是否启用
+   * Determines whether the Do Not Disturb feature is active.
+   * @returns {boolean} Whether it is enabled
    */
   isDndActive(): boolean {
     const result: boolean = this.status === DoNotDisturbStatus.SUCCESS && this.isDoNotDisturbEnabled;
@@ -173,8 +173,8 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 判断免打扰模式下通知是否被允许。
-   * @returns {boolean} 是否允许
+   * Determines whether notifications are allowed in Do Not Disturb mode.
+   * @returns {boolean} Whether they are allowed
    */
   canNotify(): boolean {
     const result: boolean = this.status === DoNotDisturbStatus.SUCCESS && this.isNotifyAllowed;
@@ -183,16 +183,16 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 判断数据是否已就绪（至少成功查询过一次）。
-   * @returns {boolean} 是否就绪
+   * Determines whether the data is ready (at least one successful query).
+   * @returns {boolean} Whether it is ready
    */
   isReady(): boolean {
     return this.status === DoNotDisturbStatus.SUCCESS;
   }
 
   /**
-   * 获取距上次查询的时间差（毫秒）。
-   * @returns {number} 时间差，未查询过返回 -1
+   * Gets the time elapsed since the last query (milliseconds).
+   * @returns {number} The elapsed time, or -1 if never queried
    */
   getTimeSinceLastQuery(): number {
     if (this.lastQueryTime === 0) {
@@ -202,12 +202,12 @@ export class DoNotDisturbModel {
   }
 
   // ========================================
-  // 序列化方法
+  // Serialization methods
   // ========================================
 
   /**
-   * 序列化为 JSON 兼容对象。
-   * @returns {DoNotDisturbModelJson} JSON 表示
+   * Serializes to a JSON-compatible object.
+   * @returns {DoNotDisturbModelJson} JSON representation
    */
   toJSON(): DoNotDisturbModelJson {
     hilog.debug(DOMAIN, TAG, 'DoNotDisturbModel toJSON: serializing');
@@ -224,8 +224,8 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 转换为可读字符串。
-   * @returns {string} 字符串描述
+   * Converts to a readable string.
+   * @returns {string} String description
    */
   toString(): string {
     const result: string = `DoNotDisturbModel[dnd=${this.isDoNotDisturbEnabled}, ` +
@@ -235,8 +235,8 @@ export class DoNotDisturbModel {
   }
 
   /**
-   * 重置模型到初始状态。
-   * 清除所有查询结果和统计信息。
+   * Resets the model to its initial status.
+   * Clears all query results and statistics.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'DoNotDisturbModel reset: clearing all data');

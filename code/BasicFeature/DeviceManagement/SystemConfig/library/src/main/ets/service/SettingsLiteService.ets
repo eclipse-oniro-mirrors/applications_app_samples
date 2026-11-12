@@ -24,61 +24,69 @@ import {
 } from '../model/SettingsItemModel';
 import { common } from '@kit.AbilityKit';
 import { Want } from '@kit.AbilityKit';
+import { ResourceHelper } from '../utils/basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 设置信息服务。
- * 通过 Want + startAbility 方式打开系统 PIN / NFC / 双击设置页面
- * （@ohos.settingsLite 为 FA 模型专用接口，Stage 模型下不可直接调用）。
- * 双击应用归属查询依赖 settingsLite，Stage 运行环境下如实返回不支持错误。
- * 集成日志、追踪和事件上报。
+ * Settings lite service.
+ * Opens the system PIN / NFC / double-click settings pages via Want + startAbility
+ * (@ohos.settingsLite is an FA-model-only API and cannot be called directly under the Stage model).
+ * The double-click app ownership query depends on settingsLite; under the Stage runtime it
+ * faithfully returns an unsupported error instead of simulated results.
+ * Integrates logging, tracing and event reporting.
  */
 export class SettingsLiteService {
-  /** PIN 设置项模型 */
+  /** PIN setting item model */
   private pinModel: SettingsItemModel = new SettingsItemModel(
-    SettingsItemType.PIN_SETTING, 'PIN 码设置', '打开 PIN 码设置页面'
+    SettingsItemType.PIN_SETTING, ResourceHelper.getStringByName('settings_type_pin'),
+    ResourceHelper.getStringByName('settings_desc_open_pin')
   );
-  /** NFC 设置项模型 */
+  /** NFC setting item model */
   private nfcModel: SettingsItemModel = new SettingsItemModel(
-    SettingsItemType.NFC_SETTING, 'NFC 设置', '打开 NFC 设置页面'
+    SettingsItemType.NFC_SETTING, ResourceHelper.getStringByName('settings_type_nfc'),
+    ResourceHelper.getStringByName('settings_desc_open_nfc')
   );
-  /** 双击设置项模型 */
+  /** Double-click setting item model */
   private doubleClickModel: SettingsItemModel = new SettingsItemModel(
-    SettingsItemType.DOUBLE_CLICK_SETTING, '双击设置', '打开双击设置页面'
+    SettingsItemType.DOUBLE_CLICK_SETTING, ResourceHelper.getStringByName('settings_type_double_click'),
+    ResourceHelper.getStringByName('settings_desc_open_double_click')
   );
-  /** 服务是否已初始化 */
+  /** Whether the service has been initialized */
   private isInitialized: boolean = false;
 
   /**
-   * 初始化设置信息服务。
-   * 在首次使用前调用，完成内部状态准备。
+   * Initializes the settings lite service.
+   * Called before first use to prepare internal state.
    */
   initialize(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService initialize: starting initialization');
     this.pinModel = new SettingsItemModel(
-      SettingsItemType.PIN_SETTING, 'PIN 码设置', '打开 PIN 码设置页面'
+      SettingsItemType.PIN_SETTING, ResourceHelper.getStringByName('settings_type_pin'),
+      ResourceHelper.getStringByName('settings_desc_open_pin')
     );
     this.nfcModel = new SettingsItemModel(
-      SettingsItemType.NFC_SETTING, 'NFC 设置', '打开 NFC 设置页面'
+      SettingsItemType.NFC_SETTING, ResourceHelper.getStringByName('settings_type_nfc'),
+      ResourceHelper.getStringByName('settings_desc_open_nfc')
     );
     this.doubleClickModel = new SettingsItemModel(
-      SettingsItemType.DOUBLE_CLICK_SETTING, '双击设置', '打开双击设置页面'
+      SettingsItemType.DOUBLE_CLICK_SETTING, ResourceHelper.getStringByName('settings_type_double_click'),
+      ResourceHelper.getStringByName('settings_desc_open_double_click')
     );
     this.isInitialized = true;
     hilog.info(DOMAIN, TAG, 'SettingsLiteService initialize: initialization complete');
   }
 
   // ========================================
-  // PIN 设置相关方法
+  // PIN setting methods
   // ========================================
 
   /**
-   * 打开 PIN 码设置页面。
-   * 使用 startAbility 打开系统设置页面，await 启动结果后再更新状态。
-   * @param {common.UIAbilityContext} context - UIAbility 上下文
-   * @returns {Promise<boolean>} 是否成功打开
+   * Opens the PIN code settings page.
+   * Uses startAbility to open the system settings page, awaiting the result before updating state.
+   * @param {common.UIAbilityContext} context - UIAbility context
+   * @returns {Promise<boolean>} Whether the page was opened successfully
    */
   async openPinSettingPage(context: common.UIAbilityContext): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService openPinSettingPage: opening PIN settings');
@@ -86,12 +94,12 @@ export class SettingsLiteService {
 
     try {
       const want: Want = {
-        action: 'action.settings.security',
-        uri: 'systemui://security/pin'
+        action: SystemConfigConstants.SETTINGS_PIN_ACTION,
+        uri: SystemConfigConstants.SETTINGS_PIN_URI
       };
       await context.startAbility(want);
       hilog.info(DOMAIN, TAG, 'SettingsLiteService openPinSettingPage: page opened successfully');
-      this.pinModel.markSuccess('PIN 设置页面已打开');
+      this.pinModel.markSuccess(ResourceHelper.getStringByName('settings_result_pin_opened'));
       return true;
     } catch (err) {
       const businessErr = err as BusinessError;
@@ -105,14 +113,14 @@ export class SettingsLiteService {
   }
 
   // ========================================
-  // NFC 设置相关方法
+  // NFC setting methods
   // ========================================
 
   /**
-   * 打开 NFC 设置页面。
-   * 使用 startAbility 打开系统 NFC 设置页面，await 启动结果后再更新状态。
-   * @param {common.UIAbilityContext} context - UIAbility 上下文
-   * @returns {Promise<boolean>} 是否成功打开
+   * Opens the NFC settings page.
+   * Uses startAbility to open the system NFC settings page, awaiting the result before updating state.
+   * @param {common.UIAbilityContext} context - UIAbility context
+   * @returns {Promise<boolean>} Whether the page was opened successfully
    */
   async openNfcSettingsPage(context: common.UIAbilityContext): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService openNfcSettingsPage: opening NFC settings');
@@ -120,12 +128,12 @@ export class SettingsLiteService {
 
     try {
       const want: Want = {
-        action: 'action.settings.nfc',
-        uri: 'systemui://settings/nfc'
+        action: SystemConfigConstants.SETTINGS_NFC_ACTION,
+        uri: SystemConfigConstants.SETTINGS_NFC_URI
       };
       await context.startAbility(want);
       hilog.info(DOMAIN, TAG, 'SettingsLiteService openNfcSettingsPage: page opened successfully');
-      this.nfcModel.markSuccess('NFC 设置页面已打开');
+      this.nfcModel.markSuccess(ResourceHelper.getStringByName('settings_result_nfc_opened'));
       return true;
     } catch (err) {
       const businessErr = err as BusinessError;
@@ -139,14 +147,14 @@ export class SettingsLiteService {
   }
 
   // ========================================
-  // 双击设置相关方法
+  // Double-click setting methods
   // ========================================
 
   /**
-   * 打开双击设置页面。
-   * 使用 startAbility 打开系统手势设置页面，await 启动结果后再更新状态。
-   * @param {common.UIAbilityContext} context - UIAbility 上下文
-   * @returns {Promise<boolean>} 是否成功打开
+   * Opens the double-click settings page.
+   * Uses startAbility to open the system gesture settings page, awaiting the result before updating state.
+   * @param {common.UIAbilityContext} context - UIAbility context
+   * @returns {Promise<boolean>} Whether the page was opened successfully
    */
   async openDoubleClickSettingsPage(context: common.UIAbilityContext): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService openDoubleClickSettingsPage: opening double click settings');
@@ -154,12 +162,12 @@ export class SettingsLiteService {
 
     try {
       const want: Want = {
-        action: 'action.settings.gesture',
-        uri: 'systemui://settings/gesture'
+        action: SystemConfigConstants.SETTINGS_GESTURE_ACTION,
+        uri: SystemConfigConstants.SETTINGS_GESTURE_URI
       };
       await context.startAbility(want);
       hilog.info(DOMAIN, TAG, 'SettingsLiteService openDoubleClickSettingsPage: page opened successfully');
-      this.doubleClickModel.markSuccess('双击设置页面已打开');
+      this.doubleClickModel.markSuccess(ResourceHelper.getStringByName('settings_result_double_click_opened'));
       return true;
     } catch (err) {
       const businessErr = err as BusinessError;
@@ -173,11 +181,12 @@ export class SettingsLiteService {
   }
 
   /**
-   * 查询双击应用是否为自身。
-   * settingsLite.isDoubleClickAppForSelf 为 FA 模型专用接口，
-   * Stage 运行环境下不可调用，此处如实回调不支持错误，不返回模拟结果。
-   * @param {common.UIAbilityContext} context - UIAbility 上下文（保留以保持接口一致）
-   * @param {function(err: Object | null, cb: ClickCallback): void} callback - 查询结果回调
+   * Queries whether the double-click app is itself.
+   * settingsLite.isDoubleClickAppForSelf is an FA-model-only API,
+   * unavailable under the Stage runtime; this faithfully invokes the callback with an
+   * unsupported error and never returns simulated results.
+   * @param {common.UIAbilityContext} context - UIAbility context (kept for API consistency)
+   * @param {function(err: Object | null, cb: ClickCallback): void} callback - Query result callback
    */
   isDoubleClickAppForSelf(
     context: common.UIAbilityContext,
@@ -203,36 +212,36 @@ export class SettingsLiteService {
   }
 
   // ========================================
-  // 模型访问方法
+  // Model access methods
   // ========================================
 
   /**
-   * 获取 PIN 设置项模型。
-   * @returns {SettingsItemModel} PIN 设置模型
+   * Gets the PIN setting item model.
+   * @returns {SettingsItemModel} PIN setting model
    */
   getPinModel(): SettingsItemModel {
     return this.pinModel;
   }
 
   /**
-   * 获取 NFC 设置项模型。
-   * @returns {SettingsItemModel} NFC 设置模型
+   * Gets the NFC setting item model.
+   * @returns {SettingsItemModel} NFC setting model
    */
   getNfcModel(): SettingsItemModel {
     return this.nfcModel;
   }
 
   /**
-   * 获取双击设置项模型。
-   * @returns {SettingsItemModel} 双击设置模型
+   * Gets the double-click setting item model.
+   * @returns {SettingsItemModel} Double-click setting model
    */
   getDoubleClickModel(): SettingsItemModel {
     return this.doubleClickModel;
   }
 
   /**
-   * 获取所有设置项模型列表。
-   * @returns {SettingsItemModel[]} 设置项模型数组
+   * Gets the list of all setting item models.
+   * @returns {SettingsItemModel[]} Array of setting item models
    */
   getAllModels(): SettingsItemModel[] {
     hilog.debug(DOMAIN, TAG, 'SettingsLiteService getAllModels: returning 3 models');
@@ -240,16 +249,16 @@ export class SettingsLiteService {
   }
 
   /**
-   * 判断服务是否已初始化。
-   * @returns {boolean} 是否已初始化
+   * Determines whether the service has been initialized.
+   * @returns {boolean} Whether it is initialized
    */
   isServiceInitialized(): boolean {
     return this.isInitialized;
   }
 
   /**
-   * 重置服务状态。
-   * 清除所有设置项的操作记录和统计信息。
+   * Resets the service state.
+   * Clears operation records and statistics of all setting items.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService reset: clearing state');
@@ -260,8 +269,8 @@ export class SettingsLiteService {
   }
 
   /**
-   * 销毁服务实例。
-   * 释放内部资源并重置所有状态。
+   * Destroys the service instance.
+   * Releases internal resources and resets all state.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'SettingsLiteService destroy: releasing resources');

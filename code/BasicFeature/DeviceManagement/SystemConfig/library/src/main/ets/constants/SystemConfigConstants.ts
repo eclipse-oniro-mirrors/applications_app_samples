@@ -14,36 +14,48 @@
  */
 
 /**
- * 系统配置示例常量定义。
- * 包含日志、权限、API 相关的全局常量。
+ * System config sample constants.
+ * Contains global constants related to logging, permissions and APIs.
  */
 export class SystemConfigConstants {
-  /** 日志标签 */
+  /** Log tag */
   static readonly TAG: string = '[Sample_SystemConfig]';
-  /** 日志域 */
-  static readonly DOMAIN: number = 0xFF00;
-  /** 应用 bundleName */
+  /** Log domain */
+  static readonly DOMAIN: number = 0xF811;
+  /** Application bundleName */
   static readonly BUNDLE_NAME: string = 'com.samples.systemconfig';
-  /** hiTraceMeter 域标识 */
-  static readonly TRACE_DOMAIN: number = 0xFF00;
-  /** hiAppEvent 域标识 */
-  static readonly EVENT_DOMAIN: number = 0xFF00;
-  /** hiAppEvent 事件组名称 */
+  /** hiTraceMeter domain identifier */
+  static readonly TRACE_DOMAIN: number = 0xF811;
+  /** hiAppEvent domain identifier */
+  static readonly EVENT_DOMAIN: number = 0xF811;
+  /** hiAppEvent event group name */
   static readonly EVENT_GROUP: string = 'systemConfigEvent';
-  /** 默认渠道号（模拟器环境返回值） */
+  /** Default channel id (value returned in the emulator environment) */
   static readonly DEFAULT_CHANNEL_ID: string = 'default';
-  /** 免打扰权限 */
+  /** Do Not Disturb permission */
   static readonly PERMISSION_DND: string = 'ohos.permission.GET_DONOTDISTURB_STATE';
-  /** 错误码 - 权限拒绝 */
+  /** Want action for the PIN settings page */
+  static readonly SETTINGS_PIN_ACTION: string = 'action.settings.security';
+  /** Want uri for the PIN settings page */
+  static readonly SETTINGS_PIN_URI: string = 'systemui://security/pin';
+  /** Want action for the NFC settings page */
+  static readonly SETTINGS_NFC_ACTION: string = 'action.settings.nfc';
+  /** Want uri for the NFC settings page */
+  static readonly SETTINGS_NFC_URI: string = 'systemui://settings/nfc';
+  /** Want action for the double-click settings page */
+  static readonly SETTINGS_GESTURE_ACTION: string = 'action.settings.gesture';
+  /** Want uri for the double-click settings page */
+  static readonly SETTINGS_GESTURE_URI: string = 'systemui://settings/gesture';
+  /** Error code - permission denied */
   static readonly ERROR_PERMISSION_DENIED: number = 201;
-  /** 错误码 - 内部错误 */
+  /** Error code - internal error */
   static readonly ERROR_INTERNAL: number = 35200001;
-  /** 最大日志条目数 */
+  /** Maximum number of log entries */
   static readonly MAX_LOG_ENTRIES: number = 200;
-  /** 最大重试次数 */
+  /** Maximum retry count */
   static readonly MAX_RETRY_COUNT: number = 3;
-  /** 操作超时时间（毫秒） */
+  /** Operation timeout (milliseconds) */
   static readonly OPERATION_TIMEOUT_MS: number = 10000;
-  /** 状态刷新间隔（毫秒） */
+  /** Status refresh interval (milliseconds) */
   static readonly REFRESH_INTERVAL_MS: number = 5000;
 }

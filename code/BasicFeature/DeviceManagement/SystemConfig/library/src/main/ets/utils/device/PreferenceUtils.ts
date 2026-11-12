@@ -20,51 +20,51 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 偏好设置变更监听接口
+// Preference change listener interface
 // ========================================
 
 /**
- * 偏好设置变更监听接口。
- * 定义监听偏好设置数据变化时的回调方法。
+ * Preference change listener interface.
+ * Defines callbacks invoked when preference data changes.
  */
 export interface PreferenceChangeListener {
   /**
-   * 当某个键的值发生变化时回调。
-   * @param {string} key - 发生变化的键
-   * @param {string | null} oldValue - 变化前的值
-   * @param {string | null} newValue - 变化后的值
+   * Invoked when the value of a key changes.
+   * @param {string} key - The changed key
+   * @param {string | null} oldValue - Value before the change
+   * @param {string | null} newValue - Value after the change
    */
   onChanged(key: string, oldValue: string | null, newValue: string | null): void;
 
   /**
-   * 当所有数据被清除时回调。
+   * Invoked when all data is cleared.
    */
   onCleared(): void;
 }
 
 // ========================================
-// 偏好设置存储工具类
+// Preference storage utility class
 // ========================================
 
 /**
- * 偏好设置存储工具类。
- * 模拟 Preferences 数据持久化能力，
- * 提供键值对的存取、删除、清空操作，
- * 并支持注册变更监听器以响应数据变化。
+ * Preference storage utility class.
+ * Simulates Preferences-style data persistence,
+ * providing key-value get/set/remove/clear operations,
+ * with change listeners notified on data updates.
  */
 export class PreferenceUtils {
-  /** 存储名称标识 */
+  /** Store name identifier */
   private storeName: string;
-  /** 内部键值存储 */
+  /** Internal key-value storage */
   private storage: Map<string, string>;
-  /** 变更监听器列表 */
+  /** Change listener list */
   private listeners: PreferenceChangeListener[];
-  /** 是否已初始化 */
+  /** Whether initialized */
   private initialized: boolean;
 
   /**
-   * 创建偏好设置存储实例。
-   * @param {string} storeName - 存储名称标识
+   * Creates a preference storage instance.
+   * @param {string} storeName - Store name identifier
    */
   constructor(storeName: string) {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils constructor: storeName=%{public}s', storeName);
@@ -76,14 +76,14 @@ export class PreferenceUtils {
   }
 
   // ========================================
-  // 基础存取方法
+  // Basic get/set methods
   // ========================================
 
   /**
-   * 获取指定键的值。
-   * 从存储中查找键对应的值，不存在时返回 null。
-   * @param {string} key - 要获取的键名
-   * @returns {string | null} 键对应的值，不存在返回 null
+   * Gets the value of a key.
+   * Looks up the key in storage, returning null when absent.
+   * @param {string} key - Key to retrieve
+   * @returns {string | null} Value of the key, or null if absent
    */
   get(key: string): string | null {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils get: store=%{public}s, key=%{public}s', this.storeName, key);
@@ -99,10 +99,10 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取指定键的值，不存在时返回默认值。
-   * @param {string} key - 要获取的键名
-   * @param {string} defaultVal - 键不存在时的默认值
-   * @returns {string} 键对应的值或默认值
+   * Gets the value of a key, falling back to a default when absent.
+   * @param {string} key - Key to retrieve
+   * @param {string} defaultVal - Default value when the key is absent
+   * @returns {string} Value of the key or the default
    */
   getWithDefault(key: string, defaultVal: string): string {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils getWithDefault: store=%{public}s, key=%{public}s', this.storeName, key);
@@ -113,10 +113,10 @@ export class PreferenceUtils {
   }
 
   /**
-   * 设置键值对。
-   * 将指定键设置为给定值，若键已存在则覆盖，并通知所有注册的监听器。
-   * @param {string} key - 要设置的键名
-   * @param {string} value - 要设置的值
+   * Sets a key-value pair.
+   * Overwrites an existing key and notifies all registered listeners.
+   * @param {string} key - Key to set
+   * @param {string} value - Value to set
    */
   set(key: string, value: string): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils set: store=%{public}s, key=%{public}s', this.storeName, key);
@@ -130,8 +130,8 @@ export class PreferenceUtils {
   }
 
   /**
-   * 删除指定键及其值。
-   * @param {string} key - 要删除的键名
+   * Removes a key and its value.
+   * @param {string} key - Key to remove
    */
   remove(key: string): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils remove: store=%{public}s, key=%{public}s', this.storeName, key);
@@ -146,8 +146,8 @@ export class PreferenceUtils {
   }
 
   /**
-   * 清空所有存储数据。
-   * 删除存储中的所有键值对，并通知监听器数据已清除。
+   * Clears all stored data.
+   * Removes all key-value pairs and notifies listeners that data was cleared.
    */
   clear(): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils clear: store=%{public}s, entries=%{public}d',
@@ -162,13 +162,13 @@ export class PreferenceUtils {
   }
 
   // ========================================
-  // 查询方法
+  // Query methods
   // ========================================
 
   /**
-   * 判断指定键是否存在。
-   * @param {string} key - 要检查的键名
-   * @returns {boolean} 键是否存在
+   * Checks whether a key exists.
+   * @param {string} key - Key to check
+   * @returns {boolean} Whether the key exists
    */
   has(key: string): boolean {
     const result: boolean = this.storage.has(key);
@@ -178,8 +178,8 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取所有存储的键名列表。
-   * @returns {string[]} 所有键名组成的数组
+   * Gets all stored key names.
+   * @returns {string[]} Array of all keys
    */
   keys(): string[] {
     const keyArray: string[] = Array.from(this.storage.keys());
@@ -189,9 +189,9 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取所有存储的键值对。
-   * 返回内部存储的副本，防止外部直接修改。
-   * @returns {Map<string, string>} 所有键值对的 Map 副本
+   * Gets all stored key-value pairs.
+   * Returns a copy of the internal storage to prevent external mutation.
+   * @returns {Map<string, string>} Map copy of all key-value pairs
    */
   getAll(): Map<string, string> {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils getAll: store=%{public}s, size=%{public}d',
@@ -200,8 +200,8 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取当前存储条目数量。
-   * @returns {number} 存储条目数
+   * Gets the current entry count.
+   * @returns {number} Number of stored entries
    */
   size(): number {
     const count: number = this.storage.size;
@@ -210,20 +210,20 @@ export class PreferenceUtils {
   }
 
   /**
-   * 获取存储名称。
-   * @returns {string} 存储名称标识
+   * Gets the store name.
+   * @returns {string} Store name identifier
    */
   getStoreName(): string {
     return this.storeName;
   }
 
   // ========================================
-  // 监听器管理方法
+  // Listener management methods
   // ========================================
 
   /**
-   * 添加偏好设置变更监听器。
-   * @param {PreferenceChangeListener} listener - 要添加的监听器
+   * Adds a preference change listener.
+   * @param {PreferenceChangeListener} listener - Listener to add
    */
   addListener(listener: PreferenceChangeListener): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils addListener: store=%{public}s, adding listener', this.storeName);
@@ -237,8 +237,8 @@ export class PreferenceUtils {
   }
 
   /**
-   * 移除偏好设置变更监听器。
-   * @param {PreferenceChangeListener} listener - 要移除的监听器
+   * Removes a preference change listener.
+   * @param {PreferenceChangeListener} listener - Listener to remove
    */
   removeListener(listener: PreferenceChangeListener): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils removeListener: store=%{public}s, removing listener', this.storeName);
@@ -252,10 +252,10 @@ export class PreferenceUtils {
   }
 
   /**
-   * 通知所有监听器某个键值发生了变化。
-   * @param {string} key - 发生变化的键
-   * @param {string | null} oldValue - 变化前的值
-   * @param {string | null} newValue - 变化后的值
+   * Notifies all listeners that a key's value changed.
+   * @param {string} key - The changed key
+   * @param {string | null} oldValue - Value before the change
+   * @param {string | null} newValue - Value after the change
    */
   private notifyListeners(key: string, oldValue: string | null, newValue: string | null): void {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils notifyListeners: key=%{public}s, listenerCount=%{public}d',
@@ -270,7 +270,7 @@ export class PreferenceUtils {
   }
 
   /**
-   * 通知所有监听器数据已被清除。
+   * Notifies all listeners that data was cleared.
    */
   private notifyCleared(): void {
     hilog.debug(DOMAIN, TAG, 'PreferenceUtils notifyCleared: listenerCount=%{public}d', this.listeners.length);
@@ -284,12 +284,12 @@ export class PreferenceUtils {
   }
 
   // ========================================
-  // 生命周期方法
+  // Lifecycle methods
   // ========================================
 
   /**
-   * 销毁存储实例。
-   * 清除所有数据和监听器，释放资源。
+   * Destroys the storage instance.
+   * Clears all data and listeners, releasing resources.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'PreferenceUtils destroy: store=%{public}s', this.storeName);

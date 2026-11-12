@@ -20,22 +20,22 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 渠道配置状态枚举。
- * 用于标识渠道配置的获取状态。
+ * Channel config status enum.
+ * Identifies the fetch status of the channel configuration.
  */
 export enum ChannelConfigStatus {
-  /** 未初始化 */
+  /** Uninitialized */
   UNINITIALIZED = 'uninitialized',
-  /** 获取成功 */
+  /** Fetch succeeded */
   SUCCESS = 'success',
-  /** 获取失败 */
+  /** Fetch failed */
   FAILED = 'failed',
-  /** 获取中 */
+  /** Fetching */
   LOADING = 'loading'
 }
 
 /**
- * 渠道配置 JSON 序列化接口。
+ * Channel config JSON serialization interface.
  */
 export interface ChannelConfigJson {
   channelId: string;
@@ -47,32 +47,32 @@ export interface ChannelConfigJson {
 }
 
 /**
- * 渠道配置数据模型。
- * 封装 customConfig.getChannelId() 返回的渠道信息，
- * 提供状态追踪和时间戳记录能力。
+ * Channel config data model.
+ * Encapsulates the channel info returned by customConfig.getChannelId(),
+ * providing status tracking and timestamp recording.
  */
 export class ChannelConfigModel {
-  /** 渠道标识符 */
+  /** Channel identifier */
   public channelId: string;
-  /** 渠道配置状态 */
+  /** Channel config status */
   public status: ChannelConfigStatus;
-  /** 最后一次获取的时间戳 */
+  /** Timestamp of the last fetch */
   public lastFetchTime: number;
-  /** 错误信息（获取失败时记录） */
+  /** Error message (recorded when the fetch fails) */
   public errorMessage: string;
-  /** 错误码 */
+  /** Error code */
   public errorCode: number;
-  /** 获取次数统计 */
+  /** Fetch count statistic */
   public fetchCount: number;
 
   /**
-   * 创建渠道配置模型实例。
-   * @param {string} channelId - 渠道标识符
-   * @param {ChannelConfigStatus} status - 初始状态
-   * @param {number} lastFetchTime - 最后获取时间戳
-   * @param {string} errorMessage - 错误信息
-   * @param {number} errorCode - 错误码
-   * @param {number} fetchCount - 获取次数
+   * Creates a channel config model instance.
+   * @param {string} channelId - Channel identifier
+   * @param {ChannelConfigStatus} status - Initial status
+   * @param {number} lastFetchTime - Last fetch timestamp
+   * @param {string} errorMessage - Error message
+   * @param {number} errorCode - Error code
+   * @param {number} fetchCount - Fetch count
    */
   constructor(
     channelId: string = '',
@@ -93,12 +93,12 @@ export class ChannelConfigModel {
   }
 
   // ========================================
-  // 状态管理方法
+  // Status management methods
   // ========================================
 
   /**
-   * 标记为加载中状态。
-   * 在调用 getChannelId 之前调用。
+   * Marks the status as loading.
+   * Called before invoking getChannelId.
    */
   markLoading(): void {
     hilog.info(DOMAIN, TAG, 'ChannelConfigModel markLoading: setting status to LOADING');
@@ -108,8 +108,8 @@ export class ChannelConfigModel {
   }
 
   /**
-   * 标记为成功状态并更新渠道号。
-   * @param {string} channelId - 获取到的渠道号
+   * Marks the status as success and updates the channel id.
+   * @param {string} channelId - The fetched channel id
    */
   markSuccess(channelId: string): void {
     hilog.info(DOMAIN, TAG, 'ChannelConfigModel markSuccess: channelId=%{public}s', channelId);
@@ -122,9 +122,9 @@ export class ChannelConfigModel {
   }
 
   /**
-   * 标记为失败状态并记录错误信息。
-   * @param {string} errorMessage - 错误描述
-   * @param {number} errorCode - 错误码
+   * Marks the status as failed and records the error info.
+   * @param {string} errorMessage - Error description
+   * @param {number} errorCode - Error code
    */
   markFailed(errorMessage: string, errorCode: number): void {
     hilog.error(DOMAIN, TAG, 'ChannelConfigModel markFailed: error=%{public}s, code=%{public}d',
@@ -137,12 +137,12 @@ export class ChannelConfigModel {
   }
 
   // ========================================
-  // 查询方法
+  // Query methods
   // ========================================
 
   /**
-   * 判断当前是否已成功获取渠道号。
-   * @returns {boolean} 是否成功
+   * Determines whether the channel id has been fetched successfully.
+   * @returns {boolean} Whether it succeeded
    */
   isSuccess(): boolean {
     const result: boolean = this.status === ChannelConfigStatus.SUCCESS && this.channelId.length > 0;
@@ -151,24 +151,24 @@ export class ChannelConfigModel {
   }
 
   /**
-   * 判断当前是否正在加载中。
-   * @returns {boolean} 是否加载中
+   * Determines whether it is currently loading.
+   * @returns {boolean} Whether it is loading
    */
   isLoading(): boolean {
     return this.status === ChannelConfigStatus.LOADING;
   }
 
   /**
-   * 判断当前是否获取失败。
-   * @returns {boolean} 是否失败
+   * Determines whether the current fetch failed.
+   * @returns {boolean} Whether it failed
    */
   isFailed(): boolean {
     return this.status === ChannelConfigStatus.FAILED;
   }
 
   /**
-   * 获取距上次获取的时间差（毫秒）。
-   * @returns {number} 时间差，未获取过返回 -1
+   * Gets the time elapsed since the last fetch (milliseconds).
+   * @returns {number} The elapsed time, or -1 if never fetched
    */
   getTimeSinceLastFetch(): number {
     if (this.lastFetchTime === 0) {
@@ -178,12 +178,12 @@ export class ChannelConfigModel {
   }
 
   // ========================================
-  // 序列化方法
+  // Serialization methods
   // ========================================
 
   /**
-   * 序列化为 JSON 兼容对象。
-   * @returns {ChannelConfigJson} JSON 表示
+   * Serializes to a JSON-compatible object.
+   * @returns {ChannelConfigJson} JSON representation
    */
   toJSON(): ChannelConfigJson {
     hilog.debug(DOMAIN, TAG, 'ChannelConfigModel toJSON: serializing');
@@ -199,8 +199,8 @@ export class ChannelConfigModel {
   }
 
   /**
-   * 转换为可读字符串。
-   * @returns {string} 字符串描述
+   * Converts to a readable string.
+   * @returns {string} String description
    */
   toString(): string {
     const result: string = `ChannelConfigModel[id=${this.channelId}, status=${this.status}, ` +
@@ -210,8 +210,8 @@ export class ChannelConfigModel {
   }
 
   /**
-   * 重置模型到初始状态。
-   * 清除所有已获取的数据和统计信息。
+   * Resets the model to its initial status.
+   * Clears all fetched data and statistics.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'ChannelConfigModel reset: clearing all data');

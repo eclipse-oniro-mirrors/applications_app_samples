@@ -22,44 +22,44 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 设备类型常量定义
+// Device type constants
 // ========================================
 
-/** 设备类型 - 默认（手机） */
+/** Device type - default (phone) */
 const DEVICE_TYPE_DEFAULT: string = 'default';
-/** 设备类型 - 平板 */
+/** Device type - tablet */
 const DEVICE_TYPE_TABLET: string = 'tablet';
-/** 设备类型 - 电视 */
+/** Device type - TV */
 const DEVICE_TYPE_TV: string = 'tv';
-/** 设备类型 - 穿戴 */
+/** Device type - wearable */
 const DEVICE_TYPE_WEARABLE: string = 'wearable';
-/** 设备类型 - 车机 */
+/** Device type - car */
 const DEVICE_TYPE_CAR: string = 'car';
 
 // ========================================
-// 设备信息工具类
+// Device info utility class
 // ========================================
 
 /**
- * 设备信息工具类。
- * 基于 deviceInfo 与 display 模块提供静态方法，
- * 获取设备类型、屏幕尺寸、系统版本等真实设备信息。
+ * Device info utility class.
+ * Provides static methods based on the deviceInfo and display modules
+ * to obtain real device info such as device type, screen size and OS version.
  */
 export class DeviceUtils {
-  /** 缓存的设备类型 */
+  /** Cached device type */
   private static cachedDeviceType: string = '';
-  /** 缓存的设备 ID */
+  /** Cached device id */
   private static cachedDeviceId: string = '';
-  /** 屏幕宽度（像素，0 表示尚未获取） */
+  /** Screen width in pixels (0 means not fetched yet) */
   private static screenWidth: number = 0;
-  /** 屏幕高度（像素，0 表示尚未获取） */
+  /** Screen height in pixels (0 means not fetched yet) */
   private static screenHeight: number = 0;
 
   /**
-   * 获取设备类型。
-   * 读取 deviceInfo.deviceType 真实设备类型标识，
-   * 归一化为 default、tablet、tv、wearable、car 等类型。
-   * @returns {string} 设备类型字符串
+   * Gets the device type.
+   * Reads the real deviceInfo.deviceType identifier and normalizes it into
+   * default, tablet, tv, wearable, car, etc.
+   * @returns {string} Device type string
    */
   static getDeviceType(): string {
     if (DeviceUtils.cachedDeviceType.length > 0) {
@@ -79,7 +79,7 @@ export class DeviceUtils {
       } else if (rawType === DEVICE_TYPE_CAR) {
         deviceType = DEVICE_TYPE_CAR;
       } else {
-        // 未归一化的真实设备类型原样返回，空值兜底为 default 以免缓存空串
+        // Non-normalized real device types are returned as-is; empty values fall back to default to avoid caching an empty string
         deviceType = rawType.length > 0 ? rawType : DEVICE_TYPE_DEFAULT;
       }
       hilog.info(DOMAIN, TAG, 'DeviceUtils getDeviceType: detected=%{public}s', deviceType);
@@ -92,8 +92,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 从 display 模块惰性获取真实屏幕尺寸。
-   * 获取失败时保持当前值（可能为 0），不伪造默认尺寸。
+   * Lazily fetches the real screen size from the display module.
+   * Keeps current values (possibly 0) on failure without fabricating defaults.
    */
   private static ensureScreenSize(): void {
     if (DeviceUtils.screenWidth > 0 && DeviceUtils.screenHeight > 0) {
@@ -111,9 +111,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取屏幕宽度。
-   * 返回当前设备屏幕的宽度（像素值）。
-   * @returns {number} 屏幕宽度（像素）
+   * Gets the screen width.
+   * Returns the width of the current device screen in pixels.
+   * @returns {number} Screen width (pixels)
    */
   static getScreenWidth(): number {
     DeviceUtils.ensureScreenSize();
@@ -122,9 +122,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取屏幕高度。
-   * 返回当前设备屏幕的高度（像素值）。
-   * @returns {number} 屏幕高度（像素）
+   * Gets the screen height.
+   * Returns the height of the current device screen in pixels.
+   * @returns {number} Screen height (pixels)
    */
   static getScreenHeight(): number {
     DeviceUtils.ensureScreenSize();
@@ -133,10 +133,10 @@ export class DeviceUtils {
   }
 
   /**
-   * 设置屏幕尺寸。
-   * 用于在获取到实际屏幕尺寸后更新缓存值。
-   * @param {number} width - 屏幕宽度（像素）
-   * @param {number} height - 屏幕高度（像素）
+   * Sets the screen size.
+   * Updates the cached values after the actual screen size is obtained.
+   * @param {number} width - Screen width (pixels)
+   * @param {number} height - Screen height (pixels)
    */
   static setScreenSize(width: number, height: number): void {
     hilog.info(DOMAIN, TAG, 'DeviceUtils setScreenSize: width=%{public}d, height=%{public}d', width, height);
@@ -145,14 +145,14 @@ export class DeviceUtils {
   }
 
   // ========================================
-  // 设备状态判断方法
+  // Device state checks
   // ========================================
 
   /**
-   * 判断当前设备是否为模拟器。
-   * 通过 deviceInfo 的 productModel / marketName / displayVersion
-   * 中的模拟器特征标识判断，default 设备类型不再视为模拟器。
-   * @returns {boolean} 是否为模拟器
+   * Checks whether the current device is an emulator.
+   * Detects emulator markers in deviceInfo productModel / marketName / displayVersion;
+   * the default device type is no longer treated as an emulator.
+   * @returns {boolean} Whether it is an emulator
    */
   static isEmulator(): boolean {
     let isEmu: boolean = false;
@@ -171,9 +171,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 判断当前屏幕方向是否为竖屏。
-   * 当屏幕高度大于或等于宽度时判定为竖屏模式。
-   * @returns {boolean} 是否为竖屏
+   * Checks whether the current orientation is portrait.
+   * Portrait mode when screen height is greater than or equal to width.
+   * @returns {boolean} Whether it is portrait
    */
   static isPortrait(): boolean {
     const result: boolean = DeviceUtils.getScreenHeight() >= DeviceUtils.getScreenWidth();
@@ -182,9 +182,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 判断当前屏幕方向是否为横屏。
-   * 当屏幕宽度大于高度时判定为横屏模式。
-   * @returns {boolean} 是否为横屏
+   * Checks whether the current orientation is landscape.
+   * Landscape mode when screen width is greater than height.
+   * @returns {boolean} Whether it is landscape
    */
   static isLandscape(): boolean {
     const result: boolean = DeviceUtils.getScreenWidth() > DeviceUtils.getScreenHeight();
@@ -193,8 +193,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 判断当前设备是否为平板。
-   * @returns {boolean} 是否为平板设备
+   * Checks whether the current device is a tablet.
+   * @returns {boolean} Whether it is a tablet device
    */
   static isTablet(): boolean {
     const result: boolean = DeviceUtils.getDeviceType() === DEVICE_TYPE_TABLET;
@@ -203,8 +203,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 判断当前设备是否为电视。
-   * @returns {boolean} 是否为电视设备
+   * Checks whether the current device is a TV.
+   * @returns {boolean} Whether it is a TV device
    */
   static isTv(): boolean {
     const result: boolean = DeviceUtils.getDeviceType() === DEVICE_TYPE_TV;
@@ -213,13 +213,13 @@ export class DeviceUtils {
   }
 
   // ========================================
-  // 设备标识与版本方法
+  // Device identity and version methods
   // ========================================
 
   /**
-   * 获取设备唯一标识。
-   * 基于设备信息生成哈希 ID，用于标识唯一设备。
-   * @returns {string} 设备唯一 ID
+   * Gets the unique device identifier.
+   * Generates a hashed ID from device info to identify the device.
+   * @returns {string} Unique device id
    */
   static getDeviceId(): string {
     if (DeviceUtils.cachedDeviceId.length > 0) {
@@ -245,9 +245,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取操作系统版本。
-   * 返回当前设备的 OpenHarmony 系统版本全称（deviceInfo.osFullName）。
-   * @returns {string} 系统版本号
+   * Gets the OS version.
+   * Returns the full OpenHarmony version of the device (deviceInfo.osFullName).
+   * @returns {string} OS version string
    */
   static getOsVersion(): string {
     hilog.debug(DOMAIN, TAG, 'DeviceUtils getOsVersion: fetching OS version');
@@ -263,9 +263,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取 API 版本号。
-   * 返回当前设备 SDK 支持的 API 版本（deviceInfo.sdkApiVersion）。
-   * @returns {number} API 版本号
+   * Gets the API version.
+   * Returns the API version supported by the device SDK (deviceInfo.sdkApiVersion).
+   * @returns {number} API version number
    */
   static getApiVersion(): number {
     let apiVersion: number = 0;
@@ -280,9 +280,9 @@ export class DeviceUtils {
   }
 
   /**
-   * 获取应用包名。
-   * 返回当前应用的 bundleName。
-   * @returns {string} 应用包名
+   * Gets the application bundle name.
+   * Returns the bundleName of the current application.
+   * @returns {string} Bundle name
    */
   static getBundleName(): string {
     hilog.debug(DOMAIN, TAG, 'DeviceUtils getBundleName: bundleName=%{public}s', SystemConfigConstants.BUNDLE_NAME);
@@ -290,8 +290,8 @@ export class DeviceUtils {
   }
 
   /**
-   * 清除设备信息缓存。
-   * 重置所有缓存的设备信息，下次获取时重新检测。
+   * Clears the device info cache.
+   * Resets all cached device info so the next retrieval re-detects it.
    */
   static clearCache(): void {
     hilog.info(DOMAIN, TAG, 'DeviceUtils clearCache: clearing all cached device info');

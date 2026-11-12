@@ -13,88 +13,127 @@
  * limitations under the License.
  */
 
+import { ResourceHelper } from '../utils/basic/ResourceHelper';
+
 /**
- * 页面路由常量和 UI 尺寸常量定义。
- * 集中管理所有页面路径和布局参数，避免硬编码。
+ * Page routing constants and UI dimension constants.
+ * Centralizes all page paths and layout parameters to avoid hardcoding.
  */
 export class PageConstants {
-  /** 首页路由 */
+  /** Home page route */
   static readonly PAGE_INDEX: string = 'pages/Index';
-  /** 定制配置页面路由 */
+  /** Custom Config page route */
   static readonly PAGE_CUSTOM_CONFIG: string = 'pages/customconfig/CustomConfigPage';
-  /** 情景模式页面路由 */
+  /** Intelligent Scene page route */
   static readonly PAGE_INTELLIGENT_SCENE: string = 'pages/intelligentScene/IntelligentScenePage';
-  /** 设置信息页面路由 */
+  /** Settings Lite page route */
   static readonly PAGE_SETTINGS_LITE: string = 'pages/settingslite/SettingsLitePage';
 
-  /** 首页标题 */
-  static readonly TITLE_INDEX: string = '系统配置示例';
-  /** 定制配置标题 */
-  static readonly TITLE_CUSTOM_CONFIG: string = '定制配置';
-  /** 情景模式标题 */
-  static readonly TITLE_INTELLIGENT_SCENE: string = '情景模式';
-  /** 设置信息标题 */
-  static readonly TITLE_SETTINGS_LITE: string = '设置信息';
+  /** Home page title (text in string.json page_title_index, resolved by name) */
+  static get TITLE_INDEX(): string {
+    return ResourceHelper.getStringByName('page_title_index');
+  }
 
-  /** 状态栏高度 */
+  /** Custom Config title (text in string.json page_title_custom_config) */
+  static get TITLE_CUSTOM_CONFIG(): string {
+    return ResourceHelper.getStringByName('page_title_custom_config');
+  }
+
+  /** Intelligent Scene title (text in string.json page_title_intelligent_scene) */
+  static get TITLE_INTELLIGENT_SCENE(): string {
+    return ResourceHelper.getStringByName('page_title_intelligent_scene');
+  }
+
+  /** Settings Lite title (text in string.json page_title_settings_lite) */
+  static get TITLE_SETTINGS_LITE(): string {
+    return ResourceHelper.getStringByName('page_title_settings_lite');
+  }
+
+  /** Status bar height */
   static readonly STATUS_BAR_HEIGHT: number = 56;
-  /** 导航栏高度 */
+  /** Navigation bar height */
   static readonly NAV_BAR_HEIGHT: number = 56;
-  /** 导航项高度 */
+  /** Navigation item height */
   static readonly NAV_ITEM_HEIGHT: number = 64;
-  /** 页面内边距 */
+  /** Page padding */
   static readonly PAGE_PADDING: number = 16;
-  /** 卡片内边距 */
+  /** Card padding */
   static readonly CARD_PADDING: number = 16;
-  /** 卡片圆角 */
+  /** Card corner radius */
   static readonly CARD_BORDER_RADIUS: number = 12;
-  /** 按钮圆角 */
+  /** Button corner radius */
   static readonly BUTTON_BORDER_RADIUS: number = 8;
-  /** 按钮高度 */
+  /** Button height */
   static readonly BUTTON_HEIGHT: number = 40;
-  /** 项目间距 */
+  /** Item spacing */
   static readonly ITEM_SPACING: number = 12;
-  /** 区块间距 */
+  /** Section spacing */
   static readonly SECTION_SPACING: number = 16;
+  /** Small inner spacing of cards */
+  static readonly CARD_INNER_SPACING: number = 8;
+  /** Navigation icon size */
+  static readonly NAV_ICON_SIZE: number = 32;
+  /** Label column width (short) */
+  static readonly LABEL_WIDTH_SHORT: number = 60;
+  /** Label column width (medium) */
+  static readonly LABEL_WIDTH_MEDIUM: number = 80;
+  /** Label column width (long) */
+  static readonly LABEL_WIDTH_LONG: number = 100;
+  /** Maximum log panel height */
+  static readonly LOG_PANEL_MAX_HEIGHT: number = 200;
+  /** Permission tip top margin */
+  static readonly PERMISSION_TIP_MARGIN_TOP: number = 4;
+  /** Tiny spacing */
+  static readonly SPACING_TINY: number = 4;
 
-  /** 标题字号 */
+  /** Title font size */
   static readonly FONT_SIZE_TITLE: number = 20;
-  /** 副标题字号 */
+  /** Subtitle font size */
   static readonly FONT_SIZE_SUBTITLE: number = 16;
-  /** 正文字号 */
+  /** Body font size */
   static readonly FONT_SIZE_BODY: number = 14;
-  /** 小字号 */
+  /** Small font size */
   static readonly FONT_SIZE_SMALL: number = 12;
-  /** 注释字号 */
+  /** Caption font size */
   static readonly FONT_SIZE_CAPTION: number = 11;
 
-  /** 粗体 */
+  /** Bold */
   static readonly FONT_WEIGHT_BOLD: number = 700;
-  /** 中等粗细 */
+  /** Medium weight */
   static readonly FONT_WEIGHT_MEDIUM: number = 500;
-  /** 正常粗细 */
+  /** Normal weight */
   static readonly FONT_WEIGHT_NORMAL: number = 400;
 
-  /** 背景色 */
+  /** Background color */
   static readonly COLOR_BACKGROUND: string = '#F5F5F5';
-  /** 卡片背景色 */
+  /** Card background color */
   static readonly COLOR_CARD: string = '#FFFFFF';
-  /** 主色调 */
+  /** Primary color */
   static readonly COLOR_PRIMARY: string = '#007DFF';
-  /** 成功色 */
+  /** Success color */
   static readonly COLOR_SUCCESS: string = '#4CAF50';
-  /** 警告色 */
+  /** Warning color */
   static readonly COLOR_WARNING: string = '#FF9800';
-  /** 错误色 */
+  /** Error color */
   static readonly COLOR_ERROR: string = '#F44336';
-  /** 已连接指示色 */
+  /** Connected indicator color */
   static readonly COLOR_CONNECTED: string = '#4CAF50';
-  /** 已断开指示色 */
+  /** Disconnected indicator color */
   static readonly COLOR_DISCONNECTED: string = '#F44336';
-  /** 主要文字色 */
+  /** Primary text color */
   static readonly COLOR_TEXT_PRIMARY: string = '#333333';
-  /** 次要文字色 */
+  /** Secondary text color */
   static readonly COLOR_TEXT_SECONDARY: string = '#666666';
-  /** 提示文字色 */
+  /** Hint text color */
   static readonly COLOR_TEXT_HINT: string = '#999999';
+  /** Success status background color */
+  static readonly COLOR_STATUS_SUCCESS_BG: string = '#E8F5E9';
+  /** Failure status background color */
+  static readonly COLOR_STATUS_FAIL_BG: string = '#FFEBEE';
+  /** Warning/loading status background color */
+  static readonly COLOR_STATUS_WARNING_BG: string = '#FFF3E0';
+  /** Default status background color */
+  static readonly COLOR_STATUS_DEFAULT_BG: string = '#F0F0F0';
+  /** Card shadow color */
+  static readonly COLOR_SHADOW: string = 'rgba(0,0,0,0.1)';
 }

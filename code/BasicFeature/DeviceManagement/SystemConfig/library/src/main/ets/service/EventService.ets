@@ -20,112 +20,112 @@ import { SystemConfigConstants } from '../constants/SystemConfigConstants';
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
-/** hiAppEvent 自定义事件域（仅字母/数字/下划线，字母开头） */
+/** hiAppEvent custom event domain (letters/digits/underscore only, starting with a letter) */
 const EVENT_DOMAIN: string = 'SystemConfig';
 
 /**
- * 事件类型枚举。
- * 定义所有通过 hiAppEvent 上报的事件类型。
+ * Event type enum.
+ * Defines all event types reported via hiAppEvent.
  */
 export enum EventTypeName {
-  /** 渠道号获取事件 */
+  /** Channel fetch event */
   CHANNEL_FETCHED = 'channelFetched',
-  /** 免打扰状态变更事件 */
+  /** DND state changed event */
   DND_STATE_CHANGED = 'dndStateChanged',
-  /** 通知允许状态变更事件 */
+  /** Notify-allowed state changed event */
   NOTIFY_STATE_CHANGED = 'notifyStateChanged',
-  /** 设置页面打开事件 */
+  /** Settings page opened event */
   SETTINGS_PAGE_OPENED = 'settingsPageOpened',
-  /** 双击查询事件 */
+  /** Double-click query event */
   DOUBLE_CLICK_QUERIED = 'doubleClickQueried',
-  /** 错误事件 */
+  /** Error event */
   ERROR_OCCURRED = 'errorOccurred',
-  /** 服务初始化事件 */
+  /** Service initialization event */
   SERVICE_INITIALIZED = 'serviceInitialized'
 }
 
 /**
- * 事件过滤器接口。
- * 用于按事件类型和时间范围过滤事件。
+ * Event filter interface.
+ * Used to filter events by type and time range.
  */
 export interface EventFilter {
-  /** 要过滤的事件类型列表 */
+  /** Event types to filter */
   eventTypes?: EventTypeName[];
-  /** 起始时间戳 */
+  /** Start timestamp */
   startTime?: number;
-  /** 结束时间戳 */
+  /** End timestamp */
   endTime?: number;
-  /** 最大返回数量 */
+  /** Maximum number of results */
   maxCount?: number;
 }
 
 /**
- * 事件统计信息接口。
- * 用于汇总事件上报的统计结果。
+ * Event statistics interface.
+ * Used to summarize event reporting statistics.
  */
 export interface EventStatistics {
-  /** 总事件数 */
+  /** Total event count */
   totalCount: number;
-  /** 按类型分组的事件计数 */
+  /** Event counts grouped by type */
   countByType: Map<string, number>;
-  /** 最早事件时间 */
+  /** Earliest event time */
   earliestTime: number;
-  /** 最近事件时间 */
+  /** Latest event time */
   latestTime: number;
 }
 
 /**
- * 事件监听器接口。
- * 用于接收事件上报通知。
+ * Event listener interface.
+ * Used to receive event reporting notifications.
  */
 export interface EventListener {
-  /** 事件上报时回调 */
+  /** Invoked when an event is reported */
   onEvent(eventName: string, eventData: Record<string, Object>): void;
 }
 
 /**
- * 事件历史记录接口。
- * 用于存储单条事件记录。
+ * Event history record interface.
+ * Used to store a single event record.
  */
 export interface EventHistoryRecord {
-  /** 事件名称 */
+  /** Event name */
   name: string;
-  /** 事件数据 */
+  /** Event data */
   data: Record<string, Object>;
-  /** 事件时间戳 */
+  /** Event timestamp */
   time: number;
 }
 
 /**
- * 事件服务。
- * 封装 hiAppEvent 的事件上报能力（hiAppEvent.write），
- * 每次上报同时维护本地历史与监听器通知，便于观测。
- * 提供事件注册、上报、过滤和统计功能。
+ * Event service.
+ * Encapsulates the event reporting capability of hiAppEvent (hiAppEvent.write);
+ * each report also maintains local history and listener notifications for observability.
+ * Provides event registration, reporting, filtering and statistics.
  */
 export class EventService {
-  /** 事件监听器列表 */
+  /** Event listener list */
   private listeners: EventListener[] = [];
-  /** 事件历史记录 */
+  /** Event history records */
   private eventHistory: EventHistoryRecord[] = [];
-  /** 服务是否已初始化 */
+  /** Whether the service has been initialized */
   private isInitialized: boolean = false;
-  /** 最大历史记录数 */
+  /** Maximum history record count */
   private maxHistorySize: number = SystemConfigConstants.MAX_LOG_ENTRIES;
-  /** hiAppEvent.write 成功次数 */
+  /** hiAppEvent.write success count */
   private writeSuccessCount: number = 0;
-  /** hiAppEvent.write 失败次数 */
+  /** hiAppEvent.write failure count */
   private writeFailCount: number = 0;
 
   /**
-   * 初始化事件服务。
-   * 初始化事件历史记录。
-   * @returns {boolean} 初始化是否成功
+   * Initializes the event service.
+   * Initializes the event history.
+   * @returns {boolean} Whether initialization succeeded
    */
   initialize(): boolean {
     hilog.info(DOMAIN, TAG, 'EventService initialize: starting initialization');
 
     try {
-      // Stage 模型下直接通过 hiAppEvent.write 上报应用事件，无需注册 watcher
+      // Under the Stage model, app events are reported directly via hiAppEvent.write without registering a watcher
       hilog.info(DOMAIN, TAG, 'EventService initialize: event service initialized');
       this.isInitialized = true;
       this.eventHistory = [];
@@ -142,13 +142,13 @@ export class EventService {
   }
 
   // ========================================
-  // 事件上报方法
+  // Event reporting methods
   // ========================================
 
   /**
-   * 上报渠道号获取事件。
-   * @param {string} channelId - 获取到的渠道号
-   * @param {boolean} success - 是否成功
+   * Reports a channel fetch event.
+   * @param {string} channelId - The fetched channel id
+   * @param {boolean} success - Whether it succeeded
    */
   reportChannelFetched(channelId: string, success: boolean): void {
     hilog.info(DOMAIN, TAG, 'EventService reportChannelFetched: channelId=%{public}s, success=%{public}s',
@@ -161,9 +161,9 @@ export class EventService {
   }
 
   /**
-   * 上报免打扰状态变更事件。
-   * @param {boolean} dndEnabled - 免打扰是否启用
-   * @param {boolean} notifyAllowed - 通知是否允许
+   * Reports a DND state changed event.
+   * @param {boolean} dndEnabled - Whether DND is enabled
+   * @param {boolean} notifyAllowed - Whether notifications are allowed
    */
   reportDndStateChanged(dndEnabled: boolean, notifyAllowed: boolean): void {
     hilog.info(DOMAIN, TAG, 'EventService reportDndStateChanged: dnd=%{public}s, notify=%{public}s',
@@ -176,9 +176,9 @@ export class EventService {
   }
 
   /**
-   * 上报设置页面打开事件。
-   * @param {string} pageType - 页面类型（pin/nfc/doubleClick）
-   * @param {boolean} success - 是否成功
+   * Reports a settings page opened event.
+   * @param {string} pageType - Page type (pin/nfc/doubleClick)
+   * @param {boolean} success - Whether it succeeded
    */
   reportSettingsPageOpened(pageType: string, success: boolean): void {
     hilog.info(DOMAIN, TAG, 'EventService reportSettingsPageOpened: page=%{public}s, success=%{public}s',
@@ -191,8 +191,8 @@ export class EventService {
   }
 
   /**
-   * 上报双击查询事件。
-   * @param {string} result - 查询结果
+   * Reports a double-click query event.
+   * @param {string} result - Query result
    */
   reportDoubleClickQueried(result: string): void {
     hilog.info(DOMAIN, TAG, 'EventService reportDoubleClickQueried: result=%{public}s', result);
@@ -203,10 +203,10 @@ export class EventService {
   }
 
   /**
-   * 上报错误事件。
-   * @param {string} source - 错误来源
-   * @param {string} errorMessage - 错误信息
-   * @param {number} errorCode - 错误码
+   * Reports an error event.
+   * @param {string} source - Error source
+   * @param {string} errorMessage - Error message
+   * @param {number} errorCode - Error code
    */
   reportError(source: string, errorMessage: string, errorCode: number): void {
     hilog.error(DOMAIN, TAG, 'EventService reportError: source=%{public}s, error=%{public}s, code=%{public}d',
@@ -220,8 +220,8 @@ export class EventService {
   }
 
   /**
-   * 上报服务初始化事件。
-   * @param {string} serviceName - 服务名称
+   * Reports a service initialization event.
+   * @param {string} serviceName - Service name
    */
   reportServiceInitialized(serviceName: string): void {
     hilog.info(DOMAIN, TAG, 'EventService reportServiceInitialized: service=%{public}s', serviceName);
@@ -232,12 +232,12 @@ export class EventService {
   }
 
   // ========================================
-  // 事件监听方法
+  // Event listener methods
   // ========================================
 
   /**
-   * 添加事件监听器。
-   * @param {EventListener} listener - 监听器实例
+   * Adds an event listener.
+   * @param {EventListener} listener - Listener instance
    */
   addListener(listener: EventListener): void {
     hilog.info(DOMAIN, TAG, 'EventService addListener: adding listener');
@@ -245,8 +245,8 @@ export class EventService {
   }
 
   /**
-   * 移除事件监听器。
-   * @param {EventListener} listener - 要移除的监听器
+   * Removes an event listener.
+   * @param {EventListener} listener - Listener to remove
    */
   removeListener(listener: EventListener): void {
     hilog.info(DOMAIN, TAG, 'EventService removeListener: removing listener');
@@ -257,9 +257,9 @@ export class EventService {
   }
 
   /**
-   * 获取事件历史记录。
-   * @param {EventFilter} [filter] - 过滤条件
-   * @returns {EventHistoryRecord[]} 事件历史
+   * Gets the event history.
+   * @param {EventFilter} [filter] - Filter criteria
+   * @returns {EventHistoryRecord[]} Event history
    */
   getEventHistory(filter?: EventFilter): EventHistoryRecord[] {
     hilog.debug(DOMAIN, TAG, 'EventService getEventHistory: historySize=%{public}d', this.eventHistory.length);
@@ -285,8 +285,8 @@ export class EventService {
   }
 
   /**
-   * 获取事件统计信息。
-   * @returns {EventStatistics} 统计结果
+   * Gets event statistics.
+   * @returns {EventStatistics} Statistics result
    */
   getStatistics(): EventStatistics {
     hilog.info(DOMAIN, TAG, 'EventService getStatistics: calculating');
@@ -321,14 +321,14 @@ export class EventService {
   }
 
   // ========================================
-  // 内部方法
+  // Internal methods
   // ========================================
 
   /**
-   * 发送事件到所有监听器并记录历史，
-   * 同时通过 hiAppEvent.write 上报应用事件。
-   * @param {EventTypeName} eventName - 事件名称
-   * @param {Record<string, Object>} eventData - 事件数据
+   * Dispatches the event to all listeners and records history,
+   * while also reporting the app event via hiAppEvent.write.
+   * @param {EventTypeName} eventName - Event name
+   * @param {Record<string, Object>} eventData - Event data
    */
   private emitEvent(eventName: EventTypeName, eventData: Record<string, Object>): void {
     hilog.debug(DOMAIN, TAG, 'EventService emitEvent: name=%{public}s', eventName);
@@ -358,11 +358,11 @@ export class EventService {
   }
 
   /**
-   * 通过 hiAppEvent.write 上报应用事件。
-   * 错误事件使用 FAULT 类型，其余使用 BEHAVIOR 类型。
-   * 上报失败仅记录日志，不影响本地历史与监听器通知。
-   * @param {EventTypeName} eventName - 事件名称
-   * @param {Record<string, Object>} eventData - 事件数据
+   * Reports the app event via hiAppEvent.write.
+   * Error events use the FAULT type, others use the BEHAVIOR type.
+   * Reporting failures are only logged and do not affect local history or listener notifications.
+   * @param {EventTypeName} eventName - Event name
+   * @param {Record<string, Object>} eventData - Event data
    */
   private writeToHiAppEvent(eventName: EventTypeName, eventData: Record<string, Object>): void {
     const info: hiAppEvent.AppEventInfo = {
@@ -373,7 +373,7 @@ export class EventService {
         : hiAppEvent.EventType.BEHAVIOR,
       params: eventData
     };
-    // hiAppEvent.write 参数校验可能以同步异常返回，捕获后不影响本地历史与监听器通知
+    // Parameter validation of hiAppEvent.write may throw synchronously; catching it keeps local history and listener notifications unaffected
     try {
       hiAppEvent.write(info).then(() => {
         this.writeSuccessCount += 1;
@@ -392,23 +392,23 @@ export class EventService {
   }
 
   /**
-   * 获取 hiAppEvent.write 上报统计。
-   * @returns {number[]} [成功次数, 失败次数]
+   * Gets hiAppEvent.write reporting statistics.
+   * @returns {number[]} [success count, failure count]
    */
   getWriteCounters(): number[] {
     return [this.writeSuccessCount, this.writeFailCount];
   }
 
   /**
-   * 判断服务是否已初始化。
-   * @returns {boolean} 是否已初始化
+   * Determines whether the service has been initialized.
+   * @returns {boolean} Whether it is initialized
    */
   isServiceInitialized(): boolean {
     return this.isInitialized;
   }
 
   /**
-   * 清空事件历史。
+   * Clears the event history.
    */
   clearHistory(): void {
     hilog.info(DOMAIN, TAG, 'EventService clearHistory: clearing %{public}d events', this.eventHistory.length);
@@ -416,8 +416,8 @@ export class EventService {
   }
 
   /**
-   * 销毁事件服务。
-   * 移除所有监听器并清空历史。
+   * Destroys the event service.
+   * Removes all listeners and clears the history.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'EventService destroy: releasing resources');

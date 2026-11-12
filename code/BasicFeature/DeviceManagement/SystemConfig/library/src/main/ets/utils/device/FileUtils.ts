@@ -15,28 +15,29 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 文件扩展名常量定义
+// File extension constants
 // ========================================
 
-/** 图片文件扩展名列表 */
+/** Image file extension list */
 const IMAGE_EXTENSIONS: string[] = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg', 'ico', 'tiff', 'tif'];
-/** 文档文件扩展名列表 */
+/** Document file extension list */
 const DOCUMENT_EXTENSIONS: string[] = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'csv', 'md', 'rtf'];
-/** 音频文件扩展名列表 */
+/** Audio file extension list */
 const AUDIO_EXTENSIONS: string[] = ['mp3', 'wav', 'aac', 'flac', 'ogg', 'wma', 'm4a', 'amr', 'opus'];
-/** 视频文件扩展名列表 */
+/** Video file extension list */
 const VIDEO_EXTENSIONS: string[] = ['mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm', '3gp', 'm4v', 'ts'];
 
 // ========================================
-// MIME 类型映射表
+// MIME type mapping table
 // ========================================
 
-/** MIME 类型映射 */
+/** MIME type mapping */
 const MIME_TYPE_MAP: Map<string, string> = new Map<string, string>([
   ['jpg', 'image/jpeg'], ['jpeg', 'image/jpeg'], ['png', 'image/png'],
   ['gif', 'image/gif'], ['bmp', 'image/bmp'], ['webp', 'image/webp'],
@@ -56,27 +57,36 @@ const MIME_TYPE_MAP: Map<string, string> = new Map<string, string>([
   ['html', 'text/html'], ['zip', 'application/zip'],
 ]);
 
-/** 默认 MIME 类型 */
+/** Default MIME type */
 const DEFAULT_MIME_TYPE: string = 'application/octet-stream';
 
+/** Illegal file name characters (control chars and <>:"/\|?*), used by sanitizeFileName */
+const ILLEGAL_FILE_NAME_CHARS: RegExp = /[<>:"/\\|?*\x00-\x1F]/g;
+
+/** Maximum file name length */
+const MAX_FILE_NAME_LENGTH: number = 200;
+
+/** Default name when sanitization results in an empty string */
+const DEFAULT_FILE_NAME: string = 'unnamed_file';
+
 // ========================================
-// 文件操作工具类
+// File operation utility class
 // ========================================
 
 /**
- * 文件操作工具类。
- * 提供静态方法处理文件扩展名解析、类型判断、
- * MIME 类型获取、文件名清理等常见文件操作。
+ * File operation utility class.
+ * Provides static methods for common file operations such as extension parsing,
+ * type detection, MIME type lookup and file name sanitization.
  */
 export class FileUtils {
-  /** 自增临时文件计数器 */
+  /** Auto-incrementing temp file counter */
   private static tempFileCounter: number = 0;
 
   /**
-   * 获取文件扩展名。
-   * 从文件名或路径中提取扩展名（不含点号），转为小写。
-   * @param {string} filename - 文件名或完整路径
-   * @returns {string} 文件扩展名（小写，不含点号），无扩展名时返回空字符串
+   * Gets the file extension.
+   * Extracts the extension from a file name or path (without the dot), lowercased.
+   * @param {string} filename - File name or full path
+   * @returns {string} Lowercase extension without the dot, or empty string if none
    */
   static getFileExtension(filename: string): string {
     hilog.debug(DOMAIN, TAG, 'FileUtils getFileExtension: input=%{public}s', filename);
@@ -95,10 +105,10 @@ export class FileUtils {
   }
 
   /**
-   * 获取文件名（不含路径）。
-   * 从完整路径中提取最后的文件名部分。
-   * @param {string} path - 文件完整路径
-   * @returns {string} 文件名
+   * Gets the file name (without path).
+   * Extracts the trailing file name part from a full path.
+   * @param {string} path - Full file path
+   * @returns {string} File name
    */
   static getFileName(path: string): string {
     hilog.debug(DOMAIN, TAG, 'FileUtils getFileName: input=%{public}s', path);
@@ -119,14 +129,14 @@ export class FileUtils {
   }
 
   // ========================================
-  // 文件大小格式化方法
+  // File size formatting methods
   // ========================================
 
   /**
-   * 格式化文件大小为可读字符串。
-   * 将字节数转换为 B/KB/MB/GB/TB 等人类可读格式。
-   * @param {number} size - 文件大小（字节）
-   * @returns {string} 格式化后的文件大小字符串
+   * Formats a file size into a readable string.
+   * Converts bytes into human-readable B/KB/MB/GB/TB formats.
+   * @param {number} size - File size in bytes
+   * @returns {string} Formatted file size string
    */
   static getFileSize(size: number): string {
     hilog.debug(DOMAIN, TAG, 'FileUtils getFileSize: input bytes=%{public}s', size.toString());
@@ -151,14 +161,14 @@ export class FileUtils {
   }
 
   // ========================================
-  // 文件类型判断方法
+  // File type detection methods
   // ========================================
 
   /**
-   * 判断是否为图片文件。
-   * 根据扩展名判断文件是否属于图片类型。
-   * @param {string} ext - 文件扩展名（不含点号）
-   * @returns {boolean} 是否为图片文件
+   * Checks whether the file is an image.
+   * Detects image types by extension.
+   * @param {string} ext - File extension (without the dot)
+   * @returns {boolean} Whether it is an image file
    */
   static isImageFile(ext: string): boolean {
     const lowerExt: string = ext.toLowerCase();
@@ -168,10 +178,10 @@ export class FileUtils {
   }
 
   /**
-   * 判断是否为文档文件。
-   * 根据扩展名判断文件是否属于文档类型。
-   * @param {string} ext - 文件扩展名（不含点号）
-   * @returns {boolean} 是否为文档文件
+   * Checks whether the file is a document.
+   * Detects document types by extension.
+   * @param {string} ext - File extension (without the dot)
+   * @returns {boolean} Whether it is a document file
    */
   static isDocumentFile(ext: string): boolean {
     const lowerExt: string = ext.toLowerCase();
@@ -181,10 +191,10 @@ export class FileUtils {
   }
 
   /**
-   * 判断是否为音频文件。
-   * 根据扩展名判断文件是否属于音频类型。
-   * @param {string} ext - 文件扩展名（不含点号）
-   * @returns {boolean} 是否为音频文件
+   * Checks whether the file is audio.
+   * Detects audio types by extension.
+   * @param {string} ext - File extension (without the dot)
+   * @returns {boolean} Whether it is an audio file
    */
   static isAudioFile(ext: string): boolean {
     const lowerExt: string = ext.toLowerCase();
@@ -194,10 +204,10 @@ export class FileUtils {
   }
 
   /**
-   * 判断是否为视频文件。
-   * 根据扩展名判断文件是否属于视频类型。
-   * @param {string} ext - 文件扩展名（不含点号）
-   * @returns {boolean} 是否为视频文件
+   * Checks whether the file is video.
+   * Detects video types by extension.
+   * @param {string} ext - File extension (without the dot)
+   * @returns {boolean} Whether it is a video file
    */
   static isVideoFile(ext: string): boolean {
     const lowerExt: string = ext.toLowerCase();
@@ -207,14 +217,14 @@ export class FileUtils {
   }
 
   // ========================================
-  // MIME 类型与文件名处理方法
+  // MIME type and file name handling methods
   // ========================================
 
   /**
-   * 获取文件的 MIME 类型。
-   * 根据扩展名查找对应的 MIME 类型字符串。
-   * @param {string} ext - 文件扩展名（不含点号）
-   * @returns {string} MIME 类型字符串
+   * Gets the MIME type of a file.
+   * Looks up the MIME type string by extension.
+   * @param {string} ext - File extension (without the dot)
+   * @returns {string} MIME type string
    */
   static getMimeType(ext: string): string {
     const lowerExt: string = ext.toLowerCase();
@@ -225,23 +235,22 @@ export class FileUtils {
   }
 
   /**
-   * 清理文件名。
-   * 移除文件名中的非法字符，保留安全字符集合。
-   * @param {string} name - 原始文件名
-   * @returns {string} 清理后的安全文件名
+   * Sanitizes a file name.
+   * Removes illegal characters, keeping only the safe character set.
+   * @param {string} name - Original file name
+   * @returns {string} Sanitized safe file name
    */
   static sanitizeFileName(name: string): string {
     hilog.debug(DOMAIN, TAG, 'FileUtils sanitizeFileName: input=%{public}s', name);
     if (name.length === 0) {
       hilog.warn(DOMAIN, TAG, 'FileUtils sanitizeFileName: empty name, returning default');
-      return 'unnamed_file';
+      return DEFAULT_FILE_NAME;
     }
-    const illegalChars: RegExp = /[<>:"/\\|?*\x00-\x1F]/g;
-    let sanitized: string = name.replace(illegalChars, '_').trim();
+    let sanitized: string = name.replace(ILLEGAL_FILE_NAME_CHARS, '_').trim();
     if (sanitized.length === 0) {
-      sanitized = 'unnamed_file';
+      sanitized = DEFAULT_FILE_NAME;
     }
-    if (sanitized.length > 200) {
+    if (sanitized.length > MAX_FILE_NAME_LENGTH) {
       sanitized = FileUtils.truncateFileName(sanitized);
     }
     hilog.debug(DOMAIN, TAG, 'FileUtils sanitizeFileName: sanitized=%{public}s', sanitized);
@@ -249,21 +258,21 @@ export class FileUtils {
   }
 
   /**
-   * 将超长文件名截断到 200 字符以内，同时保留扩展名。
-   * @param {string} sanitized - 已清理的超长文件名
-   * @returns {string} 截断后的文件名
+   * Truncates an over-long file name to at most 200 characters while keeping the extension.
+   * @param {string} sanitized - Sanitized over-long file name
+   * @returns {string} Truncated file name
    */
   private static truncateFileName(sanitized: string): string {
     const ext: string = FileUtils.getFileExtension(sanitized);
     const baseName: string = sanitized.substring(0, sanitized.lastIndexOf('.'));
-    return baseName.substring(0, 200 - ext.length - 1) + '.' + ext;
+    return baseName.substring(0, MAX_FILE_NAME_LENGTH - ext.length - 1) + '.' + ext;
   }
 
   /**
-   * 生成临时文件名。
-   * 基于前缀、时间戳和自增计数器生成唯一的临时文件名。
-   * @param {string} prefix - 文件名前缀
-   * @returns {string} 临时文件名
+   * Generates a temporary file name.
+   * Builds a unique temp name from a prefix, timestamp and auto-increment counter.
+   * @param {string} prefix - File name prefix
+   * @returns {string} Temporary file name
    */
   static generateTempFileName(prefix: string): string {
     FileUtils.tempFileCounter++;
@@ -277,23 +286,23 @@ export class FileUtils {
   }
 
   /**
-   * 获取文件类型分类描述。
-   * 根据扩展名返回文件类型的中文描述。
-   * @param {string} ext - 文件扩展名（不含点号）
-   * @returns {string} 文件类型中文描述
+   * Gets the localized file type category description.
+   * Returns the type description by extension from string.json resources.
+   * @param {string} ext - File extension (without the dot)
+   * @returns {string} Localized file type description
    */
   static getFileTypeDescription(ext: string): string {
     const lowerExt: string = ext.toLowerCase();
     if (FileUtils.isImageFile(lowerExt)) {
-      return '图片文件';
+      return ResourceHelper.getStringByName('file_type_image');
     } else if (FileUtils.isDocumentFile(lowerExt)) {
-      return '文档文件';
+      return ResourceHelper.getStringByName('file_type_document');
     } else if (FileUtils.isAudioFile(lowerExt)) {
-      return '音频文件';
+      return ResourceHelper.getStringByName('file_type_audio');
     } else if (FileUtils.isVideoFile(lowerExt)) {
-      return '视频文件';
+      return ResourceHelper.getStringByName('file_type_video');
     } else {
-      return '其他文件';
+      return ResourceHelper.getStringByName('file_type_other');
     }
   }
 }

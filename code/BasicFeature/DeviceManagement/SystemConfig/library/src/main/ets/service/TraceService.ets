@@ -21,64 +21,64 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 追踪名称常量。
- * 定义所有 hiTraceMeter 追踪点的名称标识。
+ * Trace name constants.
+ * Defines the name identifiers of all hiTraceMeter trace points.
  */
 export class TraceName {
-  /** 定制配置 - 获取渠道号 */
+  /** Custom config - get channel id */
   public static readonly CUSTOM_CONFIG_GET_CHANNEL: string = 'CustomConfig_getChannelId';
-  /** 情景模式 - 查询免打扰状态 */
+  /** Intelligent scene - query DND state */
   public static readonly SCENE_QUERY_DND: string = 'IntelligentScene_queryDnd';
-  /** 情景模式 - 查询通知允许状态 */
+  /** Intelligent scene - query notify-allowed state */
   public static readonly SCENE_QUERY_NOTIFY: string = 'IntelligentScene_queryNotify';
-  /** 情景模式 - 查询全部状态 */
+  /** Intelligent scene - query all states */
   public static readonly SCENE_QUERY_ALL: string = 'IntelligentScene_queryAll';
-  /** 设置信息 - 打开 PIN 设置 */
+  /** Settings lite - open PIN setting */
   public static readonly SETTINGS_OPEN_PIN: string = 'SettingsLite_openPin';
-  /** 设置信息 - 打开 NFC 设置 */
+  /** Settings lite - open NFC setting */
   public static readonly SETTINGS_OPEN_NFC: string = 'SettingsLite_openNfc';
-  /** 设置信息 - 打开双击设置 */
+  /** Settings lite - open double-click setting */
   public static readonly SETTINGS_OPEN_DOUBLE_CLICK: string = 'SettingsLite_openDoubleClick';
-  /** 设置信息 - 查询双击应用 */
+  /** Settings lite - query double-click app */
   public static readonly SETTINGS_QUERY_DOUBLE_CLICK: string = 'SettingsLite_queryDoubleClick';
-  /** 服务初始化 */
+  /** Service initialization */
   public static readonly SERVICE_INIT: string = 'Service_initialize';
-  /** 页面加载 */
+  /** Page load */
   public static readonly PAGE_LOAD: string = 'Page_load';
 }
 
 /**
- * 活动追踪任务记录。
- * 保存 hiTraceMeter 打点时使用的完整名称与 taskId，
- * 保证 startTrace / finishTrace 严格配对。
+ * Active trace task record.
+ * Stores the full name and taskId used by hiTraceMeter instrumentation,
+ * ensuring strict startTrace / finishTrace pairing.
  */
 interface TraceTask {
-  /** 业务侧追踪基础名称 */
+  /** Base trace name from the business side */
   traceName: string;
-  /** 实际打点使用的完整名称（含 processStage） */
+  /** Full name actually used for instrumentation (including processStage) */
   fullTraceName: string;
-  /** hiTraceMeter taskId，start/finish 必须一致 */
+  /** hiTraceMeter taskId; must match between start and finish */
   taskId: number;
 }
 
 /**
- * 追踪服务。
- * 封装 hiTraceMeter 的性能追踪能力，
- * 在关键操作前后自动打点，支持嵌套追踪和 taskId 配对。
+ * Trace service.
+ * Encapsulates the performance tracing capability of hiTraceMeter,
+ * automatically instrumenting around key operations with nested tracing and taskId pairing.
  */
 export class TraceService {
-  /** 当前活跃的追踪计数 */
+  /** Current active trace count */
   private activeTraceCount: number = 0;
-  /** 追踪是否已启用 */
+  /** Whether tracing is enabled */
   private isEnabled: boolean = true;
-  /** 下一个可用的 taskId（hiTraceMeter 要求正整数） */
+  /** Next available taskId (hiTraceMeter requires a positive integer) */
   private nextTaskId: number = 1;
-  /** 活跃追踪任务列表 */
+  /** List of active trace tasks */
   private activeTasks: TraceTask[] = [];
 
   /**
-   * 初始化追踪服务。
-   * @param {boolean} enabled - 是否启用追踪
+   * Initializes the trace service.
+   * @param {boolean} enabled - Whether tracing is enabled
    */
   initialize(enabled: boolean = true): void {
     hilog.info(DOMAIN, TAG, 'TraceService initialize: enabled=%{public}s', enabled.toString());
@@ -89,11 +89,11 @@ export class TraceService {
   }
 
   /**
-   * 开始一个追踪点。
-   * 在操作开始前调用，与 finishTrace 配对使用。
-   * @param {string} traceName - 追踪名称
-   * @param {string} [processStage] - 处理阶段描述
-   * @returns {number} 本次追踪的 taskId（未启用时返回 0）
+   * Starts a trace point.
+   * Called before an operation begins, paired with finishTrace.
+   * @param {string} traceName - Trace name
+   * @param {string} [processStage] - Processing stage description
+   * @returns {number} taskId of this trace (0 when tracing is disabled)
    */
   startTrace(traceName: string, processStage?: string): number {
     if (!this.isEnabled) {
@@ -118,11 +118,11 @@ export class TraceService {
   }
 
   /**
-   * 结束一个追踪点。
-   * 使用与 startTrace 相同的名称和 taskId 调用 hiTraceMeter.finishTrace。
-   * @param {string} traceName - 追踪名称（startTrace 的基础名称）
-   * @param {number} [taskId] - startTrace 返回的 taskId；
-   *   未提供时结束最近一条同名追踪
+   * Finishes a trace point.
+   * Calls hiTraceMeter.finishTrace with the same name and taskId as startTrace.
+   * @param {string} traceName - Trace name (the base name passed to startTrace)
+   * @param {number} [taskId] - taskId returned by startTrace;
+   *   when omitted, finishes the most recent trace with the same name
    */
   finishTrace(traceName: string, taskId?: number): void {
     if (!this.isEnabled) {
@@ -161,11 +161,11 @@ export class TraceService {
   }
 
   /**
-   * 在异步操作周围执行追踪。
-   * 自动在 Promise 执行前后打点，简化异步追踪的使用。
-   * @param {string} traceName - 追踪名称
-   * @param {function(): Promise<T>} operation - 异步操作函数
-   * @returns {Promise<T>} 操作结果
+   * Traces around an asynchronous operation.
+   * Automatically instruments before and after the Promise to simplify async tracing.
+   * @param {string} traceName - Trace name
+   * @param {function(): Promise<T>} operation - Asynchronous operation function
+   * @returns {Promise<T>} Operation result
    */
   async traceAsync<T>(traceName: string, operation: () => Promise<T>): Promise<T> {
     hilog.info(DOMAIN, TAG, 'TraceService traceAsync: wrapping %{public}s', traceName);
@@ -184,11 +184,11 @@ export class TraceService {
   }
 
   /**
-   * 在同步操作周围执行追踪。
-   * 自动在函数执行前后打点，简化同步追踪的使用。
-   * @param {string} traceName - 追踪名称
-   * @param {function(): T} operation - 同步操作函数
-   * @returns {T} 操作结果
+   * Traces around a synchronous operation.
+   * Automatically instruments before and after the function to simplify sync tracing.
+   * @param {string} traceName - Trace name
+   * @param {function(): T} operation - Synchronous operation function
+   * @returns {T} Operation result
    */
   traceSync<T>(traceName: string, operation: () => T): T {
     hilog.info(DOMAIN, TAG, 'TraceService traceSync: wrapping %{public}s', traceName);
@@ -207,8 +207,8 @@ export class TraceService {
   }
 
   /**
-   * 获取当前活跃追踪点数量。
-   * @returns {number} 活跃追踪计数
+   * Gets the number of currently active trace points.
+   * @returns {number} Active trace count
    */
   getActiveTraceCount(): number {
     hilog.debug(DOMAIN, TAG, 'TraceService getActiveTraceCount: %{public}d', this.activeTraceCount);
@@ -216,16 +216,16 @@ export class TraceService {
   }
 
   /**
-   * 判断追踪服务是否已启用。
-   * @returns {boolean} 是否启用
+   * Determines whether the trace service is enabled.
+   * @returns {boolean} Whether it is enabled
    */
   isTraceEnabled(): boolean {
     return this.isEnabled;
   }
 
   /**
-   * 启用或禁用追踪服务。
-   * @param {boolean} enabled - 是否启用
+   * Enables or disables the trace service.
+   * @param {boolean} enabled - Whether to enable
    */
   setEnabled(enabled: boolean): void {
     hilog.info(DOMAIN, TAG, 'TraceService setEnabled: %{public}s', enabled.toString());
@@ -233,8 +233,8 @@ export class TraceService {
   }
 
   /**
-   * 重置追踪服务状态。
-   * 结束所有活跃追踪点并清除计数。
+   * Resets the trace service state.
+   * Closes all active trace points and clears the counter.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'TraceService reset: closing %{public}d active traces',
@@ -244,8 +244,8 @@ export class TraceService {
   }
 
   /**
-   * 销毁追踪服务。
-   * 确保所有活跃追踪点都已关闭。
+   * Destroys the trace service.
+   * Ensures all active trace points are closed.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'TraceService destroy: activeCount=%{public}d', this.activeTraceCount);
@@ -255,7 +255,7 @@ export class TraceService {
   }
 
   /**
-   * 结束全部活动追踪，保证 hiTraceMeter 打点成对关闭。
+   * Closes all active traces to guarantee paired hiTraceMeter instrumentation.
    */
   private closeAllActiveTraces(): void {
     for (const task of this.activeTasks) {

@@ -22,21 +22,21 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 情景模式服务。
- * 封装 @ohos.intelligentScene 模块的免打扰相关接口调用，
- * 提供免打扰状态查询和通知允许状态查询能力，
- * 集成日志、追踪和事件上报。
- * 需要权限：ohos.permission.GET_DONOTDISTURB_STATE
+ * Intelligent scene service.
+ * Encapsulates the Do Not Disturb related API calls of the @ohos.intelligentScene module,
+ * providing DND state and notification-allowed state queries,
+ * with integrated logging, tracing and event reporting.
+ * Required permission: ohos.permission.GET_DONOTDISTURB_STATE
  */
 export class IntelligentSceneService {
-  /** 免打扰数据模型（单例持有状态） */
+  /** Do Not Disturb data model (state held by the singleton) */
   private dndModel: DoNotDisturbModel = new DoNotDisturbModel();
-  /** 服务是否已初始化 */
+  /** Whether the service has been initialized */
   private isInitialized: boolean = false;
 
   /**
-   * 初始化情景模式服务。
-   * 在首次使用前调用，完成内部状态准备。
+   * Initializes the intelligent scene service.
+   * Called before first use to prepare internal state.
    */
   initialize(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneService initialize: starting initialization');
@@ -46,9 +46,9 @@ export class IntelligentSceneService {
   }
 
   /**
-   * 查询免打扰功能是否启用。
-   * 调用 intelligentScene.isDoNotDisturbEnabled() 异步接口。
-   * @returns {Promise<boolean>} 免打扰是否启用
+   * Queries whether the Do Not Disturb feature is enabled.
+   * Calls the intelligentScene.isDoNotDisturbEnabled() asynchronous API.
+   * @returns {Promise<boolean>} Whether DND is enabled
    */
   async isDoNotDisturbEnabled(): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneService isDoNotDisturbEnabled: querying DND state');
@@ -75,9 +75,9 @@ export class IntelligentSceneService {
   }
 
   /**
-   * 查询免打扰模式下是否允许通知。
-   * 调用 intelligentScene.isNotifyAllowedInDoNotDisturb() 异步接口。
-   * @returns {Promise<boolean>} 免打扰时是否允许通知
+   * Queries whether notifications are allowed in Do Not Disturb mode.
+   * Calls the intelligentScene.isNotifyAllowedInDoNotDisturb() asynchronous API.
+   * @returns {Promise<boolean>} Whether notifications are allowed during DND
    */
   async isNotifyAllowedInDoNotDisturb(): Promise<boolean> {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneService isNotifyAllowedInDoNotDisturb: querying notify state');
@@ -104,9 +104,9 @@ export class IntelligentSceneService {
   }
 
   /**
-   * 同时查询免打扰状态和通知允许状态。
-   * 并发调用两个异步接口，一次性获取完整的免打扰信息。
-   * @returns {Promise<DoNotDisturbModel>} 更新后的免打扰模型
+   * Queries both the DND state and the notification-allowed state.
+   * Calls the two asynchronous APIs concurrently to fetch complete DND info at once.
+   * @returns {Promise<DoNotDisturbModel>} The updated Do Not Disturb model
    */
   async queryAllDndStates(): Promise<DoNotDisturbModel> {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneService queryAllDndStates: querying all states');
@@ -133,9 +133,9 @@ export class IntelligentSceneService {
   }
 
   /**
-   * 获取免打扰数据模型。
-   * 返回当前服务持有的 DoNotDisturbModel 引用。
-   * @returns {DoNotDisturbModel} 免打扰模型
+   * Gets the Do Not Disturb data model.
+   * Returns the DoNotDisturbModel reference held by this service.
+   * @returns {DoNotDisturbModel} Do Not Disturb model
    */
   getDoNotDisturbModel(): DoNotDisturbModel {
     hilog.debug(DOMAIN, TAG, 'IntelligentSceneService getDoNotDisturbModel: returning model');
@@ -143,8 +143,8 @@ export class IntelligentSceneService {
   }
 
   /**
-   * 获取当前查询状态。
-   * @returns {DoNotDisturbStatus} 当前状态枚举值
+   * Gets the current query status.
+   * @returns {DoNotDisturbStatus} Current status enum value
    */
   getCurrentStatus(): DoNotDisturbStatus {
     const status: DoNotDisturbStatus = this.dndModel.status;
@@ -153,16 +153,16 @@ export class IntelligentSceneService {
   }
 
   /**
-   * 判断服务是否已初始化。
-   * @returns {boolean} 是否已初始化
+   * Determines whether the service has been initialized.
+   * @returns {boolean} Whether it is initialized
    */
   isServiceInitialized(): boolean {
     return this.isInitialized;
   }
 
   /**
-   * 重置服务状态。
-   * 清除已查询的免打扰信息和统计数据。
+   * Resets the service state.
+   * Clears the queried DND info and statistics.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneService reset: clearing state');
@@ -171,8 +171,8 @@ export class IntelligentSceneService {
   }
 
   /**
-   * 销毁服务实例。
-   * 释放内部资源并重置所有状态。
+   * Destroys the service instance.
+   * Releases internal resources and resets all state.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'IntelligentSceneService destroy: releasing resources');

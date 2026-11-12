@@ -15,57 +15,51 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 存储级别与阈值常量定义
+// Storage level and threshold constants
 // ========================================
 
-/** 存储级别 - 充足 */
-const LEVEL_SUFFICIENT: string = '充足';
-/** 存储级别 - 一般 */
-const LEVEL_NORMAL: string = '一般';
-/** 存储级别 - 不足 */
-const LEVEL_LOW: string = '不足';
-/** 存储级别 - 危险 */
-const LEVEL_CRITICAL: string = '危险';
+// Storage level texts moved into string.json (storage_level_*), resolved by name in getStorageLevel.
 
-/** 存储低阈值百分比（可用空间低于此值视为不足） */
+/** Low storage threshold percent (available space below this is considered insufficient) */
 const STORAGE_LOW_THRESHOLD_PERCENT: number = 10;
-/** 存储充足阈值百分比 */
+/** Sufficient storage threshold percent */
 const STORAGE_SUFFICIENT_THRESHOLD: number = 50;
-/** 存储一般阈值百分比 */
+/** Normal storage threshold percent */
 const STORAGE_NORMAL_THRESHOLD: number = 25;
-/** 估算时假设的已用比例 */
+/** Assumed usage ratio for estimation */
 const ESTIMATED_USAGE_RATIO: number = 0.65;
 
 // ========================================
-// 存储单位常量
+// Storage unit constants
 // ========================================
 
-/** 字节单位基数 */
+/** Byte unit base */
 const UNIT_BASE: number = 1024;
-/** 存储单位列表 */
+/** Storage unit list */
 const STORAGE_UNITS: string[] = ['B', 'KB', 'MB', 'GB', 'TB'];
 
 // ========================================
-// 存储计算工具类
+// Storage calculation utility class
 // ========================================
 
 /**
- * 存储计算工具类。
- * 提供静态方法进行存储容量的格式化、解析、
- * 百分比计算、可用空间评估和存储级别判断等操作。
+ * Storage calculation utility class.
+ * Provides static methods for formatting and parsing storage capacity,
+ * percentage calculation, free-space evaluation and storage level determination.
  */
 export class StorageUtils {
   /**
-   * 格式化存储容量为可读字符串。
-   * 将字节数转换为 B/KB/MB/GB/TB 等人类可读格式，
-   * 保留两位小数。
-   * @param {number} bytes - 存储容量（字节）
-   * @returns {string} 格式化后的存储容量字符串
+   * Formats a storage capacity into a readable string.
+   * Converts bytes into human-readable B/KB/MB/GB/TB formats
+   * with two decimal places.
+   * @param {number} bytes - Storage capacity in bytes
+   * @returns {string} Formatted capacity string
    */
   static formatStorageSize(bytes: number): string {
     hilog.debug(DOMAIN, TAG, 'StorageUtils formatStorageSize: input bytes=%{public}s', bytes.toString());
@@ -88,10 +82,10 @@ export class StorageUtils {
   }
 
   /**
-   * 解析存储容量字符串为字节数。
-   * 支持 B、KB、MB、GB、TB 等单位，不区分大小写。
-   * @param {string} str - 存储容量字符串（如 "1.5 GB"）
-   * @returns {number} 对应的字节数，解析失败返回 0
+   * Parses a storage capacity string into bytes.
+   * Supports B, KB, MB, GB, TB units, case-insensitive.
+   * @param {string} str - Capacity string (e.g. "1.5 GB")
+   * @returns {number} Corresponding bytes, or 0 on parse failure
    */
   static parseStorageSize(str: string): number {
     hilog.debug(DOMAIN, TAG, 'StorageUtils parseStorageSize: input=%{public}s', str);
@@ -118,9 +112,9 @@ export class StorageUtils {
   }
 
   /**
-   * 拆分容量字符串的数值部分与单位部分。
-   * @param {string} trimmedUpper - 已去空白并转大写的字符串
-   * @returns {string[]} [数值部分, 单位部分]
+   * Splits a capacity string into its numeric and unit parts.
+   * @param {string} trimmedUpper - String already trimmed and uppercased
+   * @returns {string[]} [numeric part, unit part]
    */
   private static splitNumberAndUnit(trimmedUpper: string): string[] {
     let numericPart: string = '';
@@ -139,9 +133,9 @@ export class StorageUtils {
   }
 
   /**
-   * 将单位字符串换算为字节倍率，未知单位按 1 处理。
-   * @param {string} unitPart - 单位字符串（已转大写）
-   * @returns {number} 字节倍率
+   * Converts a unit string to its byte multiplier; unknown units are treated as 1.
+   * @param {string} unitPart - Unit string (already uppercased)
+   * @returns {number} Byte multiplier
    */
   private static resolveUnitMultiplier(unitPart: string): number {
     switch (unitPart) {
@@ -167,15 +161,15 @@ export class StorageUtils {
   }
 
   // ========================================
-  // 百分比与级别计算方法
+  // Percentage and level calculation methods
   // ========================================
 
   /**
-   * 获取可用空间百分比。
-   * 计算可用空间占总容量的百分比。
-   * @param {number} used - 已用空间（字节）
-   * @param {number} total - 总容量（字节）
-   * @returns {number} 可用空间百分比（0-100）
+   * Gets the available space percentage.
+   * Calculates the available space as a percentage of total capacity.
+   * @param {number} used - Used space in bytes
+   * @param {number} total - Total capacity in bytes
+   * @returns {number} Available percentage (0-100)
    */
   static getAvailablePercent(used: number, total: number): number {
     hilog.debug(DOMAIN, TAG, 'StorageUtils getAvailablePercent: used=%{public}s, total=%{public}s',
@@ -199,12 +193,12 @@ export class StorageUtils {
   }
 
   /**
-   * 判断存储空间是否不足。
-   * 当可用空间占总容量百分比低于阈值时返回 true。
-   * 非法输入（可用空间为负或总容量非正）返回 false。
-   * @param {number} available - 可用空间（字节）
-   * @param {number} total - 总容量（字节）
-   * @returns {boolean} 存储空间是否不足
+   * Checks whether storage space is low.
+   * Returns true when available space is below the threshold percentage of total capacity.
+   * Invalid inputs (negative available or non-positive total) return false.
+   * @param {number} available - Available space in bytes
+   * @param {number} total - Total capacity in bytes
+   * @returns {boolean} Whether storage is low
    */
   static isStorageLow(available: number, total: number): boolean {
     hilog.debug(DOMAIN, TAG, 'StorageUtils isStorageLow: available=%{public}s, total=%{public}s',
@@ -222,30 +216,30 @@ export class StorageUtils {
   }
 
   /**
-   * 获取存储级别描述。
-   * 根据可用空间和总容量计算当前存储级别，
-   * 返回中文描述："充足"、"一般"、"不足"、"危险"。
-   * @param {number} available - 可用空间（字节）
-   * @param {number} total - 总容量（字节）
-   * @returns {string} 存储级别中文描述
+   * Gets the storage level description.
+   * Determines the current storage level from available and total capacity;
+   * texts come from string.json storage_level_* resources.
+   * @param {number} available - Available space in bytes
+   * @param {number} total - Total capacity in bytes
+   * @returns {string} Localized storage level description
    */
   static getStorageLevel(available: number, total: number): string {
     hilog.debug(DOMAIN, TAG, 'StorageUtils getStorageLevel: available=%{public}s, total=%{public}s',
       available.toString(), total.toString());
     if (total <= 0) {
       hilog.warn(DOMAIN, TAG, 'StorageUtils getStorageLevel: total is zero or negative');
-      return LEVEL_CRITICAL;
+      return ResourceHelper.getStringByName('storage_level_critical');
     }
     const percent: number = StorageUtils.getAvailablePercent(total - available, total);
     let level: string;
     if (percent >= STORAGE_SUFFICIENT_THRESHOLD) {
-      level = LEVEL_SUFFICIENT;
+      level = ResourceHelper.getStringByName('storage_level_sufficient');
     } else if (percent >= STORAGE_NORMAL_THRESHOLD) {
-      level = LEVEL_NORMAL;
+      level = ResourceHelper.getStringByName('storage_level_normal');
     } else if (percent >= STORAGE_LOW_THRESHOLD_PERCENT) {
-      level = LEVEL_LOW;
+      level = ResourceHelper.getStringByName('storage_level_low');
     } else {
-      level = LEVEL_CRITICAL;
+      level = ResourceHelper.getStringByName('storage_level_critical');
     }
     hilog.info(DOMAIN, TAG, 'StorageUtils getStorageLevel: percent=%{public}s, level=%{public}s',
       percent.toString(), level);
@@ -253,14 +247,14 @@ export class StorageUtils {
   }
 
   // ========================================
-  // 估算与使用率计算方法
+  // Estimation and usage percent methods
   // ========================================
 
   /**
-   * 估算可用空间对应的总容量。
-   * 基于经验使用比例估算设备的总存储空间。
-   * @param {number} total - 总容量（字节）
-   * @returns {number} 估算的可用空间（字节）
+   * Estimates free space from the total capacity.
+   * Uses an empirical usage ratio to estimate the free space.
+   * @param {number} total - Total capacity in bytes
+   * @returns {number} Estimated free space in bytes
    */
   static estimateFreeSpace(total: number): number {
     hilog.debug(DOMAIN, TAG, 'StorageUtils estimateFreeSpace: total=%{public}s', total.toString());
@@ -274,11 +268,11 @@ export class StorageUtils {
   }
 
   /**
-   * 计算存储使用百分比。
-   * 返回已用空间占总容量的百分比。
-   * @param {number} used - 已用空间（字节）
-   * @param {number} total - 总容量（字节）
-   * @returns {number} 使用百分比（0-100）
+   * Calculates the storage usage percentage.
+   * Returns the used space as a percentage of total capacity.
+   * @param {number} used - Used space in bytes
+   * @param {number} total - Total capacity in bytes
+   * @returns {number} Usage percentage (0-100)
    */
   static calculateUsagePercent(used: number, total: number): number {
     hilog.debug(DOMAIN, TAG, 'StorageUtils calculateUsagePercent: used=%{public}s, total=%{public}s',
@@ -301,11 +295,11 @@ export class StorageUtils {
   }
 
   /**
-   * 获取存储使用摘要信息。
-   * 汇总已用、可用、总量及级别信息为可读字符串。
-   * @param {number} used - 已用空间（字节）
-   * @param {number} total - 总容量（字节）
-   * @returns {string} 存储使用摘要
+   * Gets a storage usage summary.
+   * Combines used, available, total and level info into a readable string.
+   * @param {number} used - Used space in bytes
+   * @param {number} total - Total capacity in bytes
+   * @returns {string} Storage usage summary
    */
   static getStorageSummary(used: number, total: number): string {
     hilog.info(DOMAIN, TAG, 'StorageUtils getStorageSummary: building summary');

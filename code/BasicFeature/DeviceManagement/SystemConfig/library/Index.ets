@@ -18,6 +18,7 @@
 // ========================================
 export { SystemConfigConstants } from './src/main/ets/constants/SystemConfigConstants';
 export { PageConstants } from './src/main/ets/constants/PageConstants';
+export { ResourceHelper } from './src/main/ets/utils/basic/ResourceHelper';
 
 // ========================================
 // Models
@@ -35,7 +36,7 @@ export {
 export type { ClickCallback, SettingsItemModelJson } from './src/main/ets/model/SettingsItemModel';
 
 // ========================================
-// Services
+  // Services
 // ========================================
 export { CustomConfigService } from './src/main/ets/service/CustomConfigService';
 export { IntelligentSceneService } from './src/main/ets/service/IntelligentSceneService';

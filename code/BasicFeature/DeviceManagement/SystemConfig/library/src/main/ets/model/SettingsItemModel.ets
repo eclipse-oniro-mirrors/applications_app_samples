@@ -15,68 +15,69 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../constants/SystemConfigConstants';
+import { ResourceHelper } from '../utils/basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 设置项类型枚举。
- * 标识不同的设置页面类型。
+ * Settings item type enum.
+ * Identifies the different settings page types.
  */
 export enum SettingsItemType {
-  /** PIN 码设置 */
+  /** PIN code setting */
   PIN_SETTING = 'pinSetting',
-  /** NFC 设置 */
+  /** NFC setting */
   NFC_SETTING = 'nfcSetting',
-  /** 双击设置 */
+  /** Double-click setting */
   DOUBLE_CLICK_SETTING = 'doubleClickSetting'
 }
 
 /**
- * 设置项操作状态枚举。
- * 标识设置项的当前操作状态。
+ * Settings item operation status enum.
+ * Identifies the current operation status of a settings item.
  */
 export enum SettingsOperationStatus {
-  /** 空闲 */
+  /** Idle */
   IDLE = 'idle',
-  /** 打开页面中 */
+  /** Opening page */
   OPENING = 'opening',
-  /** 查询中 */
+  /** Querying */
   QUERYING = 'querying',
-  /** 操作成功 */
+  /** Operation succeeded */
   SUCCESS = 'success',
-  /** 操作失败 */
+  /** Operation failed */
   FAILED = 'failed'
 }
 
 /**
- * 双击回调结果枚举。
- * 用于 isDoubleClickAppForSelf 的回调结果。
+ * Double-click callback result enum.
+ * Used for the callback result of isDoubleClickAppForSelf.
  */
 export enum ClickResult {
-  /** 是双击应用自身 */
+  /** The double-click app is itself */
   IS_SELF = 'isSelf',
-  /** 不是双击应用自身 */
+  /** The double-click app is not itself */
   NOT_SELF = 'notSelf',
-  /** 查询失败 */
+  /** Query failed */
   ERROR = 'error'
 }
 
 /**
- * 双击回调接口。
- * 对应 settingsLite.isDoubleClickAppForSelf 的回调参数。
+ * Double-click callback interface.
+ * Corresponds to the callback parameter of settingsLite.isDoubleClickAppForSelf.
  */
 export interface ClickCallback {
-  /** 回调结果 */
+  /** Callback result */
   result: ClickResult;
-  /** 错误信息（失败时） */
+  /** Error message (on failure) */
   errorMessage: string;
-  /** 错误码（失败时） */
+  /** Error code (on failure) */
   errorCode: number;
 }
 
 /**
- * 设置项模型 JSON 序列化接口。
+ * Settings item model JSON serialization interface.
  */
 export interface SettingsItemModelJson {
   itemType: SettingsItemType;
@@ -91,35 +92,35 @@ export interface SettingsItemModelJson {
 }
 
 /**
- * 设置项数据模型。
- * 封装 settingsLite 模块各设置项的状态和操作结果，
- * 支持 PIN 设置、NFC 设置和双击设置三种类型。
+ * Settings item data model.
+ * Encapsulates the status and operation results of each settings item of the settingsLite module,
+ * supporting three types: PIN setting, NFC setting and double-click setting.
  */
 export class SettingsItemModel {
-  /** 设置项类型 */
+  /** Settings item type */
   public itemType: SettingsItemType;
-  /** 设置项显示标题 */
+  /** Settings item display title */
   public title: string;
-  /** 设置项描述信息 */
+  /** Settings item description */
   public description: string;
-  /** 操作状态 */
+  /** Operation status */
   public operationStatus: SettingsOperationStatus;
-  /** 双击回调结果（仅双击设置类型有效） */
+  /** Double-click callback result (only valid for the double-click setting type) */
   public clickResult: ClickResult;
-  /** 最后一次操作的时间戳 */
+  /** Timestamp of the last operation */
   public lastOperationTime: number;
-  /** 错误信息 */
+  /** Error message */
   public errorMessage: string;
-  /** 错误码 */
+  /** Error code */
   public errorCode: number;
-  /** 操作次数统计 */
+  /** Operation count statistic */
   public operationCount: number;
 
   /**
-   * 创建设置项模型实例。
-   * @param {SettingsItemType} itemType - 设置项类型
-   * @param {string} title - 显示标题
-   * @param {string} description - 描述信息
+   * Creates a settings item model instance.
+   * @param {SettingsItemType} itemType - Settings item type
+   * @param {string} title - Display title
+   * @param {string} description - Description
    */
   constructor(
     itemType: SettingsItemType = SettingsItemType.PIN_SETTING,
@@ -141,12 +142,12 @@ export class SettingsItemModel {
   }
 
   // ========================================
-  // 状态管理方法
+  // Status management methods
   // ========================================
 
   /**
-   * 标记为打开页面中状态。
-   * 在调用 openXxxSettingsPage 之前调用。
+   * Marks the status as opening.
+   * Called before invoking openXxxSettingsPage.
    */
   markOpening(): void {
     hilog.info(DOMAIN, TAG, 'SettingsItemModel markOpening: type=%{public}s', this.itemType);
@@ -156,8 +157,8 @@ export class SettingsItemModel {
   }
 
   /**
-   * 标记为查询中状态。
-   * 在调用 isDoubleClickAppForSelf 之前调用。
+   * Marks the status as querying.
+   * Called before invoking isDoubleClickAppForSelf.
    */
   markQuerying(): void {
     hilog.info(DOMAIN, TAG, 'SettingsItemModel markQuerying: type=%{public}s', this.itemType);
@@ -167,8 +168,8 @@ export class SettingsItemModel {
   }
 
   /**
-   * 标记为操作成功。
-   * @param {string} [additionalInfo] - 附加信息
+   * Marks the operation as success.
+   * @param {string} [additionalInfo] - Additional info
    */
   markSuccess(additionalInfo?: string): void {
     hilog.info(DOMAIN, TAG, 'SettingsItemModel markSuccess: type=%{public}s, info=%{public}s',
@@ -184,9 +185,9 @@ export class SettingsItemModel {
   }
 
   /**
-   * 标记为操作失败。
-   * @param {string} errorMessage - 错误描述
-   * @param {number} errorCode - 错误码
+   * Marks the operation as failed.
+   * @param {string} errorMessage - Error description
+   * @param {number} errorCode - Error code
    */
   markFailed(errorMessage: string, errorCode: number): void {
     hilog.error(DOMAIN, TAG, 'SettingsItemModel markFailed: type=%{public}s, error=%{public}s, code=%{public}d',
@@ -199,8 +200,8 @@ export class SettingsItemModel {
   }
 
   /**
-   * 更新双击回调结果。
-   * @param {ClickResult} result - 回调结果
+   * Updates the double-click callback result.
+   * @param {ClickResult} result - Callback result
    */
   updateClickResult(result: ClickResult): void {
     hilog.info(DOMAIN, TAG, 'SettingsItemModel updateClickResult: result=%{public}s', result);
@@ -209,78 +210,78 @@ export class SettingsItemModel {
   }
 
   // ========================================
-  // 查询方法
+  // Query methods
   // ========================================
 
   /**
-   * 判断当前操作是否成功。
-   * @returns {boolean} 是否成功
+   * Determines whether the current operation succeeded.
+   * @returns {boolean} Whether it succeeded
    */
   isSuccess(): boolean {
     return this.operationStatus === SettingsOperationStatus.SUCCESS;
   }
 
   /**
-   * 判断当前是否正在打开页面。
-   * @returns {boolean} 是否打开中
+   * Determines whether the page is currently being opened.
+   * @returns {boolean} Whether it is opening
    */
   isOpening(): boolean {
     return this.operationStatus === SettingsOperationStatus.OPENING;
   }
 
   /**
-   * 判断当前是否正在查询。
-   * @returns {boolean} 是否查询中
+   * Determines whether a query is currently in progress.
+   * @returns {boolean} Whether it is querying
    */
   isQuerying(): boolean {
     return this.operationStatus === SettingsOperationStatus.QUERYING;
   }
 
   /**
-   * 获取操作状态的中文描述。
-   * @returns {string} 状态描述
+   * Gets the localized description of the operation status.
+   * @returns {string} Status description
    */
   getStatusDescription(): string {
     switch (this.operationStatus) {
       case SettingsOperationStatus.IDLE:
-        return '空闲';
+        return ResourceHelper.getStringByName('settings_status_idle');
       case SettingsOperationStatus.OPENING:
-        return '打开页面中';
+        return ResourceHelper.getStringByName('settings_status_opening');
       case SettingsOperationStatus.QUERYING:
-        return '查询中';
+        return ResourceHelper.getStringByName('settings_status_querying');
       case SettingsOperationStatus.SUCCESS:
-        return '操作成功';
+        return ResourceHelper.getStringByName('settings_status_success');
       case SettingsOperationStatus.FAILED:
-        return '操作失败';
+        return ResourceHelper.getStringByName('settings_status_failed');
       default:
-        return '未知状态';
+        return ResourceHelper.getStringByName('settings_status_unknown');
     }
   }
 
   /**
-   * 获取设置项类型的中文名称。
-   * @returns {string} 类型名称
+   * Gets the localized name of the settings item type.
+   * @returns {string} Type name
    */
   getTypeName(): string {
     switch (this.itemType) {
       case SettingsItemType.PIN_SETTING:
-        return 'PIN 码设置';
+        return ResourceHelper.getStringByName('settings_type_pin');
       case SettingsItemType.NFC_SETTING:
-        return 'NFC 设置';
+        return ResourceHelper.getStringByName('settings_type_nfc');
       case SettingsItemType.DOUBLE_CLICK_SETTING:
-        return '双击设置';
+        return ResourceHelper.getStringByName('settings_type_double_click');
       default:
-        return '未知设置';
+        return ResourceHelper.getStringByName('settings_type_unknown');
     }
   }
 
   // ========================================
-  // 序列化方法
+  // Serialization methods
   // ========================================
 
   /**
-   * 序列化为 JSON 兼容对象。
-   * @returns {SettingsItemModelJson} JSON 表示
+   * Serializes to a JSON-compatible object.
+   * @returns {SettingsItemModelJson} JSON representation
    */
   toJSON(): SettingsItemModelJson {
     hilog.debug(DOMAIN, TAG, 'SettingsItemModel toJSON: serializing type=%{public}s', this.itemType);
@@ -299,8 +300,8 @@ export class SettingsItemModel {
   }
 
   /**
-   * 转换为可读字符串。
-   * @returns {string} 字符串描述
+   * Converts to a readable string.
+   * @returns {string} String description
    */
   toString(): string {
     const result: string = `SettingsItemModel[type=${this.itemType}, title=${this.title}, ` +
@@ -310,8 +311,8 @@ export class SettingsItemModel {
   }
 
   /**
-   * 重置模型到初始状态。
-   * 清除所有操作记录和统计信息。
+   * Resets the model to its initial status.
+   * Clears all operation records and statistics.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'SettingsItemModel reset: type=%{public}s', this.itemType);

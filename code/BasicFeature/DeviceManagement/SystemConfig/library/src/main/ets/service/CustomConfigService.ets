@@ -22,19 +22,19 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 /**
- * 定制配置服务。
- * 封装 @ohos.customization.customConfig 模块的接口调用，
- * 提供渠道号获取能力，并集成日志、追踪和事件上报。
+ * Custom config service.
+ * Encapsulates the API calls of the @ohos.customization.customConfig module,
+ * providing channel id retrieval with integrated logging, tracing and event reporting.
  */
 export class CustomConfigService {
-  /** 渠道配置数据模型（单例持有状态） */
+  /** Channel config data model (state held by the singleton) */
   private channelConfig: ChannelConfigModel = new ChannelConfigModel();
-  /** 服务是否已初始化 */
+  /** Whether the service has been initialized */
   private isInitialized: boolean = false;
 
   /**
-   * 初始化定制配置服务。
-   * 在首次使用前调用，完成内部状态准备。
+   * Initializes the custom config service.
+   * Called before first use to prepare internal state.
    */
   initialize(): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigService initialize: starting initialization');
@@ -44,10 +44,10 @@ export class CustomConfigService {
   }
 
   /**
-   * 获取当前渠道标识符。
-   * 调用 customConfig.getChannelId() 同步接口获取渠道号。
-   * 获取结果会更新内部 ChannelConfigModel 状态。
-   * @returns {string} 渠道标识符，失败时返回默认值
+   * Gets the current channel identifier.
+   * Calls the customConfig.getChannelId() synchronous API to fetch the channel id.
+   * The result updates the internal ChannelConfigModel state.
+   * @returns {string} Channel identifier, or the default value on failure
    */
   getChannelId(): string {
     hilog.info(DOMAIN, TAG, 'CustomConfigService getChannelId: requesting channel ID');
@@ -70,10 +70,10 @@ export class CustomConfigService {
   }
 
   /**
-   * 获取渠道配置数据模型。
-   * 返回当前服务持有的 ChannelConfigModel 引用，
-   * 可用于查询获取状态、错误信息等。
-   * @returns {ChannelConfigModel} 渠道配置模型
+   * Gets the channel config data model.
+   * Returns the ChannelConfigModel reference held by this service,
+   * which can be used to query fetch status and error info.
+   * @returns {ChannelConfigModel} Channel config model
    */
   getChannelConfigModel(): ChannelConfigModel {
     hilog.debug(DOMAIN, TAG, 'CustomConfigService getChannelConfigModel: returning model');
@@ -81,8 +81,8 @@ export class CustomConfigService {
   }
 
   /**
-   * 获取当前渠道配置状态。
-   * @returns {ChannelConfigStatus} 当前状态枚举值
+   * Gets the current channel config status.
+   * @returns {ChannelConfigStatus} Current status enum value
    */
   getCurrentStatus(): ChannelConfigStatus {
     const status: ChannelConfigStatus = this.channelConfig.status;
@@ -91,16 +91,16 @@ export class CustomConfigService {
   }
 
   /**
-   * 判断服务是否已初始化。
-   * @returns {boolean} 是否已初始化
+   * Determines whether the service has been initialized.
+   * @returns {boolean} Whether it is initialized
    */
   isServiceInitialized(): boolean {
     return this.isInitialized;
   }
 
   /**
-   * 重置服务状态。
-   * 清除已获取的渠道信息和统计数据。
+   * Resets the service state.
+   * Clears the fetched channel info and statistics.
    */
   reset(): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigService reset: clearing state');
@@ -109,8 +109,8 @@ export class CustomConfigService {
   }
 
   /**
-   * 销毁服务实例。
-   * 释放内部资源并重置所有状态。
+   * Destroys the service instance.
+   * Releases internal resources and resets all state.
    */
   destroy(): void {
     hilog.info(DOMAIN, TAG, 'CustomConfigService destroy: releasing resources');
