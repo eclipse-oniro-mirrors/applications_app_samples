@@ -20,45 +20,45 @@ const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 默认字符集常量
+// Default character set constants
 // ========================================
 
-/** 字母数字字符集 */
+/** Alphanumeric character set */
 const ALPHANUMERIC_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-/** 十六进制字符集 */
+/** Hexadecimal character set */
 const HEX_CHARS: string = '0123456789abcdef';
 
 // ========================================
-// 随机数权重项接口
+// Random weight item interface
 // ========================================
 
 /**
- * 加权随机项接口。
- * 用于 weightedRandom 方法中的条目与权重配对。
+ * Weighted random item interface.
+ * Pairs an entry with its weight for the weightedRandom method.
  */
 export interface WeightedItem<T> {
-  /** 随机项的数据值 */
+  /** Data value of the random item */
   item: T;
-  /** 随机项的权重值（越大越容易被选中） */
+  /** Weight of the random item (larger means more likely to be chosen) */
   weight: number;
 }
 
 // ========================================
-// 随机工具类
+// Random utility class
 // ========================================
 
 /**
- * 随机数生成工具类。
- * 提供多种随机数据生成能力，包括整数、浮点数、字符串、
- * UUID、颜色值、数组洗牌和加权随机等。
+ * Random number generation utility class.
+ * Provides various random data generation capabilities including integers,
+ * floats, strings, UUIDs, color values, array shuffling and weighted random.
  */
 export class RandomUtils {
   /**
-   * 生成指定范围内的随机整数。
-   * 包含最小值，不包含最大值。
-   * @param {number} min - 最小值（含）
-   * @param {number} max - 最大值（不含）
-   * @returns {number} 随机整数
+   * Generates a random integer within the specified range.
+   * Includes the minimum value, excludes the maximum value.
+   * @param {number} min - Minimum value (inclusive)
+   * @param {number} max - Maximum value (exclusive)
+   * @returns {number} Random integer
    */
   static nextInt(min: number, max: number): number {
     if (min >= max) {
@@ -72,10 +72,10 @@ export class RandomUtils {
   }
 
   /**
-   * 生成指定范围内的随机浮点数。
-   * @param {number} min - 最小值（含）
-   * @param {number} max - 最大值（含）
-   * @returns {number} 随机浮点数
+   * Generates a random float within the specified range.
+   * @param {number} min - Minimum value (inclusive)
+   * @param {number} max - Maximum value (inclusive)
+   * @returns {number} Random float
    */
   static nextFloat(min: number, max: number): number {
     if (min > max) {
@@ -90,8 +90,8 @@ export class RandomUtils {
   }
 
   /**
-   * 生成随机布尔值。
-   * @returns {boolean} 随机的 true 或 false
+   * Generates a random boolean value.
+   * @returns {boolean} Random true or false
    */
   static nextBoolean(): boolean {
     const result: boolean = Math.random() >= 0.5;
@@ -100,11 +100,11 @@ export class RandomUtils {
   }
 
   /**
-   * 生成指定长度的随机字符串。
-   * 默认使用字母数字字符集，也可自定义字符集。
-   * @param {number} length - 生成字符串的长度
-   * @param {string} [chars] - 可选的自定义字符集
-   * @returns {string} 随机字符串
+   * Generates a random string of the specified length.
+   * Uses the alphanumeric character set by default, with an optional custom set.
+   * @param {number} length - Length of the string to generate
+   * @param {string} [chars] - Optional custom character set
+   * @returns {string} Random string
    */
   static nextString(length: number, chars?: string): string {
     const charSet: string = chars ?? ALPHANUMERIC_CHARS;
@@ -121,9 +121,9 @@ export class RandomUtils {
   }
 
   /**
-   * 生成指定长度的随机十六进制字符串。
-   * @param {number} length - 十六进制字符串长度
-   * @returns {string} 随机十六进制字符串（小写）
+   * Generates a random hexadecimal string of the specified length.
+   * @param {number} length - Length of the hexadecimal string
+   * @returns {string} Random hexadecimal string (lowercase)
    */
   static nextHex(length: number): string {
     let result: string = '';
@@ -138,14 +138,14 @@ export class RandomUtils {
   }
 
   // ========================================
-  // UUID 生成
+  // UUID generation
   // ========================================
 
   /**
-   * 生成模拟 UUID（v4 格式）字符串。
-   * 格式为 xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx，
-   * 其中 y 为 8、9、a、b 之一。
-   * @returns {string} 模拟的 UUID 字符串
+   * Generates a simulated UUID (v4 format) string.
+   * Format: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx,
+   * where y is one of 8, 9, a or b.
+   * @returns {string} Simulated UUID string
    */
   static nextUuid(): string {
     const section1: string = RandomUtils.nextHex(8);
@@ -162,13 +162,13 @@ export class RandomUtils {
   }
 
   // ========================================
-  // 颜色与元素操作
+  // Color and element operations
   // ========================================
 
   /**
-   * 生成随机的十六进制颜色值。
-   * 格式为 #RRGGBB，每个通道为两位十六进制数。
-   * @returns {string} 随机颜色值（如 #a3f2c1）
+   * Generates a random hexadecimal color value.
+   * Format: #RRGGBB, each channel being two hexadecimal digits.
+   * @returns {string} Random color value (e.g. #a3f2c1)
    */
   static nextColor(): string {
     const color: string = '#' + RandomUtils.nextHex(6);
@@ -177,10 +177,10 @@ export class RandomUtils {
   }
 
   /**
-   * 从数组中随机选取一个元素。
-   * 数组不能为空，否则返回 undefined。
-   * @param {T[]} array - 源数组
-   * @returns {T | undefined} 随机选取的元素
+   * Picks a random element from an array.
+   * The array must not be empty, otherwise undefined is returned.
+   * @param {T[]} array - Source array
+   * @returns {T | undefined} Randomly selected element
    */
   static nextElement<T>(array: T[]): T | undefined {
     if (array.length === 0) {
@@ -193,10 +193,10 @@ export class RandomUtils {
   }
 
   /**
-   * 使用 Fisher-Yates 算法对数组进行原地洗牌。
-   * 返回洗牌后的新数组，不修改原数组。
-   * @param {T[]} array - 待洗牌的数组
-   * @returns {T[]} 洗牌后的新数组
+   * Shuffles an array with the Fisher-Yates algorithm.
+   * Returns a new shuffled array without modifying the original one.
+   * @param {T[]} array - Array to shuffle
+   * @returns {T[]} New shuffled array
    */
   static shuffle<T>(array: T[]): T[] {
     const result: T[] = [...array];
@@ -214,16 +214,16 @@ export class RandomUtils {
   }
 
   // ========================================
-  // 范围与加权随机
+  // Range and weighted random
   // ========================================
 
   /**
-   * 在指定范围内按步长生成随机值。
-   * 从 min 开始，以 step 为步递增，随机选取其中一个值。
-   * @param {number} min - 范围最小值（含）
-   * @param {number} max - 范围最大值（含）
-   * @param {number} step - 步长（必须大于 0）
-   * @returns {number} 范围内的随机步进值
+   * Generates a random value within a range by step.
+   * Starting from min and advancing by step, one of the values is picked randomly.
+   * @param {number} min - Range minimum (inclusive)
+   * @param {number} max - Range maximum (inclusive)
+   * @param {number} step - Step size (must be greater than 0)
+   * @returns {number} Random stepped value within the range
    */
   static nextInRange(min: number, max: number, step: number): number {
     if (step <= 0) {
@@ -243,11 +243,11 @@ export class RandomUtils {
   }
 
   /**
-   * 根据权重从条目列表中随机选取一项。
-   * 权重越大的条目被选中的概率越高。
-   * @param {T[]} items - 候选条目数组
-   * @param {number[]} weights - 对应的权重数组（需与 items 等长）
-   * @returns {T | undefined} 选中的条目，列表为空时返回 undefined
+   * Picks one entry randomly from a list according to its weights.
+   * Entries with larger weights are more likely to be chosen.
+   * @param {T[]} items - Candidate item array
+   * @param {number[]} weights - Corresponding weight array (must match items in length)
+   * @returns {T | undefined} Selected item, or undefined when the list is empty
    */
   static weightedRandom<T>(items: T[], weights: number[]): T | undefined {
     if (items.length === 0 || weights.length === 0) {
@@ -260,7 +260,7 @@ export class RandomUtils {
       return undefined;
     }
 
-    // 计算权重总和
+    // Compute the total weight
     let totalWeight: number = 0;
     for (const weight of weights) {
       totalWeight += Math.max(0, weight);
@@ -271,7 +271,7 @@ export class RandomUtils {
       return items[Math.floor(Math.random() * items.length)];
     }
 
-    // 生成随机值并在权重区间中查找
+    // Generate a random value and look it up in the weight intervals
     let randomValue: number = Math.random() * totalWeight;
     for (let i: number = 0; i < items.length; i++) {
       randomValue -= Math.max(0, weights[i]);
@@ -281,7 +281,7 @@ export class RandomUtils {
       }
     }
 
-    // 兜底返回最后一个元素
+    // Fall back to the last element
     return items[items.length - 1];
   }
 }

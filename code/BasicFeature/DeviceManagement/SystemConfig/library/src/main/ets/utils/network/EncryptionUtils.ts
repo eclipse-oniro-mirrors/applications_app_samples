@@ -20,21 +20,21 @@ import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
-/** Base64 标准编码字符表 */
+/** Base64 standard encoding character table */
 const BASE64_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-/** 十六进制字符表 */
+/** Hexadecimal character table */
 const HEX_CHARS: string = '0123456789abcdef';
-/** Nonce 使用的 Base62 字符表 */
+/** Base62 character table used for Nonce */
 const NONCE_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-/** Base62 无偏取样的字节阈值（62 * 4 = 248，248 以上字节丢弃重取） */
+/** Byte threshold for unbiased Base62 sampling (62 * 4 = 248, bytes above 248 are discarded and redrawn) */
 const NONCE_REJECT_THRESHOLD: number = 248;
 /**
- * 加密与哈希工具类。
+ * Encryption and hashing utility class.
  */
 export class EncryptionUtils {
   /**
-   * 将字符串进行 Base64 编码。
-   * @returns {string} Base64 编码后的字符串
+   * Encodes a string into Base64.
+   * @returns {string} Base64-encoded string
    */
   static base64Encode(str: string): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils base64Encode: encoding, length=%{public}d', str.length);
@@ -56,9 +56,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 将 Base64 编码的字符串解码为原始字符串。
-   * @param {string} str - Base64 编码的字符串
-   * @returns {string} 解码后的原始字符串
+   * Decodes a Base64-encoded string back to the original string.
+   * @param {string} str - Base64-encoded string
+   * @returns {string} Decoded original string
    */
   static base64Decode(str: string): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils base64Decode: decoding, length=%{public}d', str.length);
@@ -83,9 +83,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 计算字符串的 MD5 哈希值（标准 MD5，基于 cryptoFramework）。
-   * @param {string} str - 待哈希的字符串
-   * @returns {string} 32 位十六进制哈希值
+   * Computes the MD5 hash of a string (standard MD5, based on cryptoFramework).
+   * @param {string} str - String to hash
+   * @returns {string} 32-character hexadecimal hash value
    */
   static md5Hash(str: string): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils md5Hash: computing, length=%{public}d', str.length);
@@ -93,9 +93,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 计算字符串的 SHA-256 哈希值（标准 SHA-256，基于 cryptoFramework）。
-   * @param {string} str - 待哈希的字符串
-   * @returns {string} 64 位十六进制哈希值
+   * Computes the SHA-256 hash of a string (standard SHA-256, based on cryptoFramework).
+   * @param {string} str - String to hash
+   * @returns {string} 64-character hexadecimal hash value
    */
   static sha256Hash(str: string): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils sha256Hash: computing, length=%{public}d', str.length);
@@ -103,16 +103,17 @@ export class EncryptionUtils {
   }
 
   /**
-   * 使用 cryptoFramework 消息摘要算法计算 UTF-8 字节串的哈希。
-   * @param {string} algName - 摘要算法名称（MD5 / SHA256）
-   * @param {string} str - 待哈希的字符串
-   * @returns {string} 十六进制哈希值
+   * Hashes the UTF-8 byte sequence with a cryptoFramework message digest algorithm.
+   * @param {string} algName - Digest algorithm name (MD5 / SHA256)
+   * @param {string} str - String to hash
+   * @returns {string} Hexadecimal hash value
    */
   private static digestHex(algName: string, str: string): string {
     const md: cryptoFramework.Md = cryptoFramework.createMd(algName);
     const bytes: number[] = EncryptionUtils.stringToBytes(str);
-    // 空输入不构造空 DataBlob 调用 updateSync（部分实现判为非法参数），
-    // 直接 digestSync 即得到零字节的标准摘要（MD5("")/SHA256("") 标准向量）
+    // For empty input, do not call updateSync with an empty DataBlob (some
+    // implementations treat it as an invalid argument); calling digestSync
+    // directly yields the standard zero-byte digest (MD5("")/SHA256("") vectors)
     if (bytes.length > 0) {
       const input: cryptoFramework.DataBlob = { data: new Uint8Array(bytes) };
       md.updateSync(input);
@@ -127,9 +128,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 生成指定长度的随机 Nonce 字符串（密码学安全随机数 + 拒绝采样）。
-   * @param {number} length - Nonce 长度，必须大于 0
-   * @returns {string} 随机 Nonce 字符串
+   * Generates a random Nonce string of the given length (cryptographically secure random + rejection sampling).
+   * @param {number} length - Nonce length, must be greater than 0
+   * @returns {string} Random Nonce string
    */
   static generateNonce(length: number): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils generateNonce: length=%{public}d', length);
@@ -152,8 +153,8 @@ export class EncryptionUtils {
   }
 
   /**
-   * 生成随机 Token 字符串（64 位十六进制，32 字节密码学安全随机数）。
-   * @returns {string} 64 位十六进制随机令牌
+   * Generates a random Token string (64-character hexadecimal, 32 bytes of cryptographically secure random data).
+   * @returns {string} 64-character hexadecimal random token
    */
   static generateToken(): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils generateToken: generating random token');
@@ -167,10 +168,10 @@ export class EncryptionUtils {
   }
 
   /**
-   * 使用凯撒密码对字符串进行加密。
-   * @param {string} str - 待加密的字符串
-   * @param {number} shift - 移位量，范围 1-25
-   * @returns {string} 加密后的字符串
+   * Encrypts a string with the Caesar cipher.
+   * @param {string} str - String to encrypt
+   * @param {number} shift - Shift amount, range 1-25
+   * @returns {string} Encrypted string
    */
   static encryptCaesar(str: string, shift: number): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils encryptCaesar: shift=%{public}d', shift);
@@ -190,10 +191,10 @@ export class EncryptionUtils {
   }
 
   /**
-   * 使用凯撒密码对字符串进行解密。
-   * @param {string} str - 待解密的字符串
-   * @param {number} shift - 加密时使用的移位量
-   * @returns {string} 解密后的原始字符串
+   * Decrypts a string with the Caesar cipher.
+   * @param {string} str - String to decrypt
+   * @param {number} shift - Shift amount used during encryption
+   * @returns {string} Decrypted original string
    */
   static decryptCaesar(str: string, shift: number): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils decryptCaesar: shift=%{public}d', shift);
@@ -201,9 +202,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 将十六进制字符串转换为字节数组。
-   * @param {string} hex - 十六进制字符串
-   * @returns {number[]} 字节数组
+   * Converts a hexadecimal string to a byte array.
+   * @param {string} hex - Hexadecimal string
+   * @returns {number[]} Byte array
    */
   static hexToBytes(hex: string): number[] {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils hexToBytes: hex length=%{public}d', hex.length);
@@ -220,9 +221,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 将字节数组转换为十六进制字符串。
-   * @param {number[]} bytes - 字节数组
-   * @returns {string} 十六进制字符串
+   * Converts a byte array to a hexadecimal string.
+   * @param {number[]} bytes - Byte array
+   * @returns {string} Hexadecimal string
    */
   static bytesToHex(bytes: number[]): string {
     hilog.info(DOMAIN, TAG, 'EncryptionUtils bytesToHex: byte count=%{public}d', bytes.length);
@@ -236,9 +237,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 将字符串转换为 UTF-8 字节数组。
-   * @param {string} str - 输入字符串
-   * @returns {number[]} UTF-8 字节数组
+   * Converts a string to a UTF-8 byte array.
+   * @param {string} str - Input string
+   * @returns {number[]} UTF-8 byte array
    */
   private static stringToBytes(str: string): number[] {
     const bytes: number[] = [];
@@ -259,9 +260,9 @@ export class EncryptionUtils {
   }
 
   /**
-   * 将 UTF-8 字节数组转换为字符串。
-   * @param {number[]} bytes - UTF-8 字节数组
-   * @returns {string} 解码后的字符串
+   * Converts a UTF-8 byte array to a string.
+   * @param {number[]} bytes - UTF-8 byte array
+   * @returns {string} Decoded string
    */
   private static bytesToString(bytes: number[]): string {
     let result: string = '';

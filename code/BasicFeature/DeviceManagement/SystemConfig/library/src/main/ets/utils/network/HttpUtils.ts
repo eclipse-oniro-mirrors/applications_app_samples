@@ -15,128 +15,130 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// HTTP 方法枚举
+// HTTP method enum
 // ========================================
 
 /**
- * HTTP 请求方法枚举。
- * 定义标准的 RESTful HTTP 方法类型。
+ * HTTP request method enum.
+ * Defines standard RESTful HTTP method types.
  */
 export enum HttpMethod {
-  /** GET 请求，用于获取资源 */
+  /** GET request, retrieves a resource */
   GET = 'GET',
-  /** POST 请求，用于创建资源 */
+  /** POST request, creates a resource */
   POST = 'POST',
-  /** PUT 请求，用于全量更新资源 */
+  /** PUT request, fully updates a resource */
   PUT = 'PUT',
-  /** DELETE 请求，用于删除资源 */
+  /** DELETE request, deletes a resource */
   DELETE = 'DELETE',
-  /** PATCH 请求，用于局部更新资源 */
+  /** PATCH request, partially updates a resource */
   PATCH = 'PATCH'
 }
 
 // ========================================
-// HTTP 响应接口
+// HTTP response interface
 // ========================================
 
 /**
- * HTTP 响应数据接口。
- * 封装服务器返回的完整响应信息。
+ * HTTP response data interface.
+ * Encapsulates the full response returned by the server.
  */
 export interface HttpResponse {
-  /** HTTP 状态码 */
+  /** HTTP status code */
   status: number;
-  /** 响应体数据 */
+  /** Response body data */
   data: string;
-  /** 响应头键值对 */
+  /** Response header key-value pairs */
   headers: Map<string, string>;
-  /** 响应时间戳（毫秒） */
+  /** Response timestamp (milliseconds) */
   timestamp: number;
 }
 
 // ========================================
-// HTTP 请求配置接口
+// HTTP request config interface
 // ========================================
 
 /**
- * HTTP 请求配置接口。
- * 定义发起 HTTP 请求所需的全部参数。
+ * HTTP request configuration interface.
+ * Defines all parameters required to issue an HTTP request.
  */
 export interface HttpRequestConfig {
-  /** 请求 URL 地址 */
+  /** Request URL */
   url: string;
-  /** 请求方法 */
+  /** Request method */
   method: HttpMethod;
-  /** 请求头键值对 */
+  /** Request header key-value pairs */
   headers: Map<string, string>;
-  /** 请求体内容 */
+  /** Request body content */
   body: string;
-  /** 请求超时时间（毫秒） */
+  /** Request timeout (milliseconds) */
   timeout: number;
 }
 
 // ========================================
-// 拦截器接口
+// Interceptor interfaces
 // ========================================
 
 /**
- * 请求拦截器接口。
- * 在请求发送前对请求配置进行预处理。
+ * Request interceptor interface.
+ * Preprocesses the request configuration before the request is sent.
  */
 export interface RequestInterceptor {
   /**
-   * 拦截并处理请求配置。
-   * @param {HttpRequestConfig} config - 原始请求配置
-   * @returns {HttpRequestConfig} 处理后的请求配置
+   * Intercepts and processes the request configuration.
+   * @param {HttpRequestConfig} config - Original request configuration
+   * @returns {HttpRequestConfig} Processed request configuration
    */
   onRequest(config: HttpRequestConfig): HttpRequestConfig;
 }
 
 /**
- * 响应拦截器接口。
- * 在收到响应后对响应数据进行后处理。
+ * Response interceptor interface.
+ * Postprocesses the response data after it is received.
  */
 export interface ResponseInterceptor {
   /**
-   * 拦截并处理响应数据。
-   * @param {HttpResponse} response - 原始响应数据
-   * @returns {HttpResponse} 处理后的响应数据
+   * Intercepts and processes the response data.
+   * @param {HttpResponse} response - Original response data
+   * @returns {HttpResponse} Processed response data
    */
   onResponse(response: HttpResponse): HttpResponse;
 }
 
 // ========================================
-// HTTP 工具类
+// HTTP utility class
 // ========================================
 
 /**
- * HTTP 工具类。
- * 提供 URL 构建、查询字符串解析、默认配置创建、
- * 状态码判断等静态方法，简化 HTTP 请求处理流程。
+ * HTTP utility class.
+ * Provides static methods for URL building, query string parsing,
+ * default config creation and status code checking to simplify
+ * the HTTP request handling flow.
  */
 export class HttpUtils {
-  /** 默认请求超时时间（毫秒） */
+  /** Default request timeout (milliseconds) */
   private static readonly DEFAULT_TIMEOUT: number = SystemConfigConstants.OPERATION_TIMEOUT_MS;
-  /** 默认 Content-Type */
+  /** Default Content-Type */
   private static readonly DEFAULT_CONTENT_TYPE: string = 'application/json';
-  /** 默认 Accept 头 */
+  /** Default Accept header */
   private static readonly DEFAULT_ACCEPT: string = 'application/json';
 
   // ========================================
-  // URL 构建与解析方法
+  // URL building and parsing methods
   // ========================================
 
   /**
-   * 构建带查询参数的完整 URL。
-   * 将参数对象拼接为 URL 查询字符串并附加到基础 URL 后。
-   * @param {string} base - 基础 URL 地址
-   * @param {Map<string, string>} params - 查询参数键值对
-   * @returns {string} 完整的 URL 字符串
+   * Builds a full URL with query parameters.
+   * Joins the parameter map into a URL query string and appends it to the base URL.
+   * @param {string} base - Base URL
+   * @param {Map<string, string>} params - Query parameter key-value pairs
+   * @returns {string} Complete URL string
    */
   static buildUrl(base: string, params: Map<string, string>): string {
     hilog.info(DOMAIN, TAG, 'HttpUtils buildUrl: building URL from base=%{public}s, paramCount=%{public}d',
@@ -161,10 +163,10 @@ export class HttpUtils {
   }
 
   /**
-   * 解析查询字符串为键值对映射。
-   * 自动处理 URL 编码并忽略空参数。
-   * @param {string} qs - 查询字符串（可带或不带 '?' 前缀）
-   * @returns {Map<string, string>} 解析后的参数键值对
+   * Parses a query string into a key-value map.
+   * Handles URL encoding automatically and ignores empty parameters.
+   * @param {string} qs - Query string (with or without a leading '?')
+   * @returns {Map<string, string>} Parsed parameter key-value pairs
    */
   static parseQueryString(qs: string): Map<string, string> {
     hilog.info(DOMAIN, TAG, 'HttpUtils parseQueryString: parsing query string, length=%{public}d', qs.length);
@@ -195,13 +197,13 @@ export class HttpUtils {
   }
 
   // ========================================
-  // 配置创建方法
+  // Config creation methods
   // ========================================
 
   /**
-   * 创建默认请求配置。
-   * 返回包含默认超时、Content-Type 和 Accept 头的请求配置。
-   * @returns {HttpRequestConfig} 默认请求配置
+   * Creates a default request configuration.
+   * Returns a request config with default timeout, Content-Type and Accept headers.
+   * @returns {HttpRequestConfig} Default request configuration
    */
   static createDefaultConfig(): HttpRequestConfig {
     hilog.info(DOMAIN, TAG, 'HttpUtils createDefaultConfig: creating default config');
@@ -221,14 +223,14 @@ export class HttpUtils {
   }
 
   // ========================================
-  // 状态码判断方法
+  // Status code checking methods
   // ========================================
 
   /**
-   * 判断 HTTP 状态码是否为成功状态。
-   * 2xx 状态码表示请求成功处理。
-   * @param {number} code - HTTP 状态码
-   * @returns {boolean} 是否为成功状态
+   * Checks whether an HTTP status code indicates success.
+   * 2xx status codes mean the request was handled successfully.
+   * @param {number} code - HTTP status code
+   * @returns {boolean} Whether the status is a success
    */
   static isSuccessStatus(code: number): boolean {
     const result: boolean = code >= 200 && code < 300;
@@ -238,10 +240,10 @@ export class HttpUtils {
   }
 
   /**
-   * 判断 HTTP 状态码是否为客户端错误。
-   * 4xx 状态码表示客户端请求有误。
-   * @param {number} code - HTTP 状态码
-   * @returns {boolean} 是否为客户端错误
+   * Checks whether an HTTP status code indicates a client error.
+   * 4xx status codes mean the client request is faulty.
+   * @param {number} code - HTTP status code
+   * @returns {boolean} Whether the status is a client error
    */
   static isClientError(code: number): boolean {
     const result: boolean = code >= 400 && code < 500;
@@ -251,10 +253,10 @@ export class HttpUtils {
   }
 
   /**
-   * 判断 HTTP 状态码是否为服务器错误。
-   * 5xx 状态码表示服务器端处理异常。
-   * @param {number} code - HTTP 状态码
-   * @returns {boolean} 是否为服务器错误
+   * Checks whether an HTTP status code indicates a server error.
+   * 5xx status codes mean server-side processing failed.
+   * @param {number} code - HTTP status code
+   * @returns {boolean} Whether the status is a server error
    */
   static isServerError(code: number): boolean {
     const result: boolean = code >= 500 && code < 600;
@@ -264,21 +266,21 @@ export class HttpUtils {
   }
 
   // ========================================
-  // 辅助方法
+  // Helper methods
   // ========================================
 
   /**
-   * 获取状态码的中文描述文本。
-   * @param {number} code - HTTP 状态码
-   * @returns {string} 状态码描述文本
+   * Gets the localized description text for a status code.
+   * @param {number} code - HTTP status code
+   * @returns {string} Status code description text
    */
   static getStatusText(code: number): string {
     const statusMap: Map<number, string> = new Map<number, string>([
-      [200, '成功'], [201, '已创建'], [204, '无内容'], [301, '永久重定向'],
-      [302, '临时重定向'], [400, '错误请求'], [401, '未授权'], [403, '禁止访问'],
-      [404, '未找到'], [408, '请求超时'], [500, '服务器内部错误'],
-      [502, '错误网关'], [503, '服务不可用']
+      [200, 'http_status_200'], [201, 'http_status_201'], [204, 'http_status_204'], [301, 'http_status_301'],
+      [302, 'http_status_302'], [400, 'http_status_400'], [401, 'http_status_401'], [403, 'http_status_403'],
+      [404, 'http_status_404'], [408, 'http_status_408'], [500, 'http_status_500'],
+      [502, 'http_status_502'], [503, 'http_status_503']
     ]);
-    return statusMap.get(code) ?? '未知状态';
+    return ResourceHelper.getStringByName(statusMap.get(code) ?? 'http_status_unknown');
   }
 }

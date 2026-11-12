@@ -15,83 +15,84 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 表单验证结果接口
+// Form validation result interface
 // ========================================
 
 /**
- * 表单验证结果接口。
- * 包含验证是否通过以及各字段的错误信息映射。
+ * Form validation result interface.
+ * Contains the overall pass/fail flag and a field-to-error message map.
  */
 export interface FormValidationResult {
-  /** 整体验证是否通过 */
+  /** Whether the overall validation passed */
   isValid: boolean;
-  /** 字段名到错误信息的映射表 */
+  /** Mapping from field names to error messages */
   errors: Map<string, string>;
 }
 
 // ========================================
-// 字段验证规则接口
+// Field validation rule interface
 // ========================================
 
 /**
- * 字段验证规则接口。
- * 定义单个表单字段可应用的验证约束。
+ * Field validation rule interface.
+ * Defines the validation constraints applicable to a single form field.
  */
 export interface FieldRule {
-  /** 是否为必填字段 */
+  /** Whether the field is required */
   required: boolean;
-  /** 最小长度限制（可选） */
+  /** Minimum length limit (optional) */
   minLength?: number;
-  /** 最大长度限制（可选） */
+  /** Maximum length limit (optional) */
   maxLength?: number;
-  /** 正则表达式模式匹配（可选） */
+  /** Regular expression pattern matching (optional) */
   pattern?: RegExp;
-  /** 自定义验证函数（可选） */
+  /** Custom validation function (optional) */
   customValidator?: (value: string) => string | null;
 }
 
 // ========================================
-// 单字段验证结果接口
+// Single field validation result interface
 // ========================================
 
 /**
- * 单字段验证结果接口。
- * 包含字段验证是否通过及错误描述。
+ * Single field validation result interface.
+ * Contains whether the field passed validation and the error description.
  */
 export interface FieldValidationResult {
-  /** 字段验证是否通过 */
+  /** Whether the field validation passed */
   valid: boolean;
-  /** 验证失败时的错误描述，通过时为 null */
+  /** Error description when validation fails, null when passed */
   error: string | null;
 }
 
 // ========================================
-// 表单验证工具类
+// Form validation utility class
 // ========================================
 
 /**
- * 表单验证工具类。
- * 提供基于规则的表单字段验证能力，
- * 支持必填检查、长度限制、正则匹配和自定义验证器。
+ * Form validation utility class.
+ * Provides rule-based form field validation, supporting required checks,
+ * length limits, regex matching and custom validators.
  */
 export class FormValidator {
-  /** 字段名到验证规则的映射 */
+  /** Mapping from field names to validation rules */
   private rules: Map<string, FieldRule> = new Map();
 
   // ========================================
-  // 规则管理
+  // Rule management
   // ========================================
 
   /**
-   * 为指定字段添加验证规则。
-   * 如果字段已存在规则，则覆盖更新。
-   * @param {string} fieldName - 表单字段名称
-   * @param {FieldRule} rule - 验证规则配置
+   * Adds a validation rule for the specified field.
+   * Overwrites the existing rule when the field already has one.
+   * @param {string} fieldName - Form field name
+   * @param {FieldRule} rule - Validation rule configuration
    */
   addRule(fieldName: string, rule: FieldRule): void {
     hilog.info(DOMAIN, TAG, 'FormValidator addRule: field=%{public}s, required=%{public}s',
@@ -101,8 +102,8 @@ export class FormValidator {
   }
 
   /**
-   * 移除指定字段的验证规则。
-   * @param {string} fieldName - 要移除规则的字段名称
+   * Removes the validation rule of the specified field.
+   * @param {string} fieldName - Field name whose rule is to be removed
    */
   removeRule(fieldName: string): void {
     hilog.info(DOMAIN, TAG, 'FormValidator removeRule: field=%{public}s', fieldName);
@@ -115,7 +116,7 @@ export class FormValidator {
   }
 
   /**
-   * 清除所有已注册的验证规则。
+   * Clears all registered validation rules.
    */
   clearRules(): void {
     hilog.info(DOMAIN, TAG, 'FormValidator clearRules: clearing all %{public}d rules', this.rules.size);
@@ -123,8 +124,8 @@ export class FormValidator {
   }
 
   /**
-   * 获取当前已注册的规则数量。
-   * @returns {number} 规则总数
+   * Gets the number of currently registered rules.
+   * @returns {number} Total number of rules
    */
   getRuleCount(): number {
     hilog.debug(DOMAIN, TAG, 'FormValidator getRuleCount: %{public}d', this.rules.size);
@@ -132,14 +133,14 @@ export class FormValidator {
   }
 
   // ========================================
-  // 表单验证
+  // Form validation
   // ========================================
 
   /**
-   * 对整张表单执行验证。
-   * 遍历所有已注册规则的字段，逐一进行校验。
-   * @param {Map<string, string>} fields - 表单字段名到值的映射
-   * @returns {FormValidationResult} 验证结果，包含是否通过和错误信息
+   * Validates the entire form.
+   * Iterates over all fields with registered rules and checks them one by one.
+   * @param {Map<string, string>} fields - Mapping from form field names to values
+   * @returns {FormValidationResult} Validation result with pass flag and error messages
    */
   validate(fields: Map<string, string>): FormValidationResult {
     hilog.info(DOMAIN, TAG, 'FormValidator validate: validating %{public}d fields', fields.size);
@@ -165,11 +166,12 @@ export class FormValidator {
   }
 
   /**
-   * 对单个字段执行验证。
-   * 按顺序检查必填、最小长度、最大长度、正则模式和自定义验证器。
-   * @param {string} name - 字段名称
-   * @param {string} value - 字段值
-   * @returns {FieldValidationResult} 字段验证结果
+   * Validates a single field.
+   * Checks required, minimum length, maximum length, regex pattern and custom
+   * validator in order; error texts come from validate_field_* resources in string.json.
+   * @param {string} name - Field name
+   * @param {string} value - Field value
+   * @returns {FieldValidationResult} Field validation result
    */
   validateField(name: string, value: string): FieldValidationResult {
     const rule: FieldRule | undefined = this.rules.get(name);
@@ -181,32 +183,38 @@ export class FormValidator {
 
     hilog.debug(DOMAIN, TAG, 'FormValidator validateField: checking field=%{public}s', name);
 
-    // 必填检查
+    // Required check
     if (rule.required && value.trim().length === 0) {
-      return { valid: false, error: `${name} 为必填项` };
+      return { valid: false, error: ResourceHelper.getStringByName('validate_field_required', name) };
     }
 
-    // 空值时跳过后续规则检查
+    // Skip subsequent rule checks when the value is empty
     if (value.length === 0) {
       return { valid: true, error: null };
     }
 
-    // 最小长度检查
+    // Minimum length check
     if (rule.minLength !== undefined && value.length < rule.minLength) {
-      return { valid: false, error: `${name} 长度不能少于 ${rule.minLength} 个字符` };
+      return {
+        valid: false,
+        error: ResourceHelper.getStringByName('validate_field_min_length', name, rule.minLength)
+      };
     }
 
-    // 最大长度检查
+    // Maximum length check
     if (rule.maxLength !== undefined && value.length > rule.maxLength) {
-      return { valid: false, error: `${name} 长度不能超过 ${rule.maxLength} 个字符` };
+      return {
+        valid: false,
+        error: ResourceHelper.getStringByName('validate_field_max_length', name, rule.maxLength)
+      };
     }
 
-    // 正则模式匹配
+    // Regex pattern match
     if (rule.pattern !== undefined && !rule.pattern.test(value)) {
-      return { valid: false, error: `${name} 格式不正确` };
+      return { valid: false, error: ResourceHelper.getStringByName('validate_field_pattern', name) };
     }
 
-    // 自定义验证器
+    // Custom validator
     if (rule.customValidator !== undefined) {
       const customError: string | null = rule.customValidator(value);
       if (customError !== null) {
@@ -218,13 +226,13 @@ export class FormValidator {
   }
 
   // ========================================
-  // 内置验证器（静态方法）
+  // Built-in validators (static methods)
   // ========================================
 
   /**
-   * 验证字符串是否为合法的电子邮件地址。
-   * @param {string} value - 待验证的字符串
-   * @returns {boolean} 是否为合法邮箱格式
+   * Validates whether a string is a legal email address.
+   * @param {string} value - String to validate
+   * @returns {boolean} Whether it is a valid email format
    */
   static isEmail(value: string): boolean {
     const emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -234,10 +242,10 @@ export class FormValidator {
   }
 
   /**
-   * 验证字符串是否为合法的手机号码。
-   * 支持中国大陆 11 位手机号格式。
-   * @param {string} value - 待验证的字符串
-   * @returns {boolean} 是否为合法手机号格式
+   * Validates whether a string is a legal mobile phone number.
+   * Supports the 11-digit mainland China mobile number format.
+   * @param {string} value - String to validate
+   * @returns {boolean} Whether it is a valid phone number format
    */
   static isPhone(value: string): boolean {
     const phonePattern: RegExp = /^1[3-9]\d{9}$/;
@@ -247,10 +255,10 @@ export class FormValidator {
   }
 
   /**
-   * 验证字符串是否为合法的 URL 地址。
-   * 支持 http、https、ftp 协议。
-   * @param {string} value - 待验证的字符串
-   * @returns {boolean} 是否为合法 URL
+   * Validates whether a string is a legal URL.
+   * Supports http, https and ftp protocols.
+   * @param {string} value - String to validate
+   * @returns {boolean} Whether it is a valid URL
    */
   static isUrl(value: string): boolean {
     const urlPattern: RegExp = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
@@ -260,10 +268,10 @@ export class FormValidator {
   }
 
   /**
-   * 验证字符串是否非空。
-   * 去除首尾空白后判断长度是否大于零。
-   * @param {string} value - 待验证的字符串
-   * @returns {boolean} 是否非空
+   * Validates whether a string is non-empty.
+   * Checks whether the length is greater than zero after trimming whitespace.
+   * @param {string} value - String to validate
+   * @returns {boolean} Whether non-empty
    */
   static isNotEmpty(value: string): boolean {
     const result: boolean = value.trim().length > 0;
@@ -272,10 +280,10 @@ export class FormValidator {
   }
 
   /**
-   * 验证字符串是否匹配指定的正则表达式。
-   * @param {string} value - 待验证的字符串
-   * @param {RegExp} pattern - 匹配模式
-   * @returns {boolean} 是否匹配
+   * Validates whether a string matches the given regular expression.
+   * @param {string} value - String to validate
+   * @param {RegExp} pattern - Matching pattern
+   * @returns {boolean} Whether it matches
    */
   static matchesPattern(value: string, pattern: RegExp): boolean {
     const result: boolean = pattern.test(value);

@@ -15,99 +15,100 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 网络类型枚举
+// Network type enum
 // ========================================
 
 /**
- * 网络类型枚举。
- * 定义设备可连接的各类网络接入方式。
+ * Network type enum.
+ * Defines the various network access methods a device can connect to.
  */
 export enum NetworkType {
-  /** Wi-Fi 无线网络 */
+  /** Wi-Fi wireless network */
   WIFI = 'wifi',
-  /** 蜂窝移动网络 */
+  /** Cellular mobile network */
   CELLULAR = 'cellular',
-  /** 以太网有线网络 */
+  /** Ethernet wired network */
   ETHERNET = 'ethernet',
-  /** 蓝牙网络 */
+  /** Bluetooth network */
   BLUETOOTH = 'bluetooth',
-  /** 未知网络类型 */
+  /** Unknown network type */
   UNKNOWN = 'unknown'
 }
 
 // ========================================
-// 网络状态枚举
+// Network state enum
 // ========================================
 
 /**
- * 网络状态枚举。
- * 描述当前网络连接的实时状态。
+ * Network state enum.
+ * Describes the real-time state of the current network connection.
  */
 export enum NetworkState {
-  /** 已连接，网络可用 */
+  /** Connected, network available */
   CONNECTED = 'connected',
-  /** 已断开，网络不可用 */
+  /** Disconnected, network unavailable */
   DISCONNECTED = 'disconnected',
-  /** 正在连接中 */
+  /** Connecting */
   CONNECTING = 'connecting',
-  /** 网络已暂停 */
+  /** Network suspended */
   SUSPENDED = 'suspended'
 }
 
 // ========================================
-// 网络回调接口
+// Network callback interface
 // ========================================
 
 /**
- * 网络状态变化回调接口。
- * 当网络状态或网络类型发生变化时触发。
+ * Network state change callback interface.
+ * Triggered when the network state or network type changes.
  */
 export interface NetworkCallback {
   /**
-   * 网络状态变化回调。
-   * @param {NetworkState} newState - 新的网络状态
+   * Network state change callback.
+   * @param {NetworkState} newState - New network state
    */
   onStateChange(newState: NetworkState): void;
 
   /**
-   * 网络类型变化回调。
-   * @param {NetworkType} newType - 新的网络类型
+   * Network type change callback.
+   * @param {NetworkType} newType - New network type
    */
   onTypeChange(newType: NetworkType): void;
 }
 
 // ========================================
-// 信号等级阈值常量
+// Signal level threshold constants
 // ========================================
 
-/** 信号等级对应的 RSSI 阈值（dBm） */
+/** RSSI thresholds (dBm) corresponding to signal levels */
 const SIGNAL_LEVEL_EXCELLENT: number = -50;
 const SIGNAL_LEVEL_GOOD: number = -60;
 const SIGNAL_LEVEL_FAIR: number = -70;
 const SIGNAL_LEVEL_POOR: number = -80;
 
 // ========================================
-// 网络工具类
+// Network utility class
 // ========================================
 
 /**
- * 网络状态工具类。
- * 提供网络类型与状态的标签获取、连接判断、
- * 带宽评估、信号等级计算、延迟估算等静态方法。
+ * Network state utility class.
+ * Provides static methods for type/state labels, connection checking,
+ * bandwidth evaluation, signal level calculation and latency estimation.
  */
 export class NetworkUtils {
-  /** 高带宽网络类型列表 */
+  /** High-bandwidth network type list */
   private static readonly HIGH_BANDWIDTH_TYPES: NetworkType[] = [
     NetworkType.WIFI,
     NetworkType.ETHERNET
   ];
 
-  /** 各网络类型的估算延迟（毫秒） */
+  /** Estimated latency per network type (milliseconds) */
   private static readonly LATENCY_MAP: Map<NetworkType, number> = new Map<NetworkType, number>([
     [NetworkType.WIFI, 20],
     [NetworkType.ETHERNET, 5],
@@ -117,13 +118,13 @@ export class NetworkUtils {
   ]);
 
   // ========================================
-  // 标签获取方法
+  // Label getter methods
   // ========================================
 
   /**
-   * 获取网络类型的中文标签。
-   * @param {NetworkType} type - 网络类型枚举值
-   * @returns {string} 网络类型的中文描述
+   * Gets the localized label of a network type.
+   * @param {NetworkType} type - Network type enum value
+   * @returns {string} Localized network type description
    */
   static getNetworkTypeLabel(type: NetworkType): string {
     hilog.debug(DOMAIN, TAG, 'NetworkUtils getNetworkTypeLabel: type=%{public}s', type);
@@ -131,47 +132,47 @@ export class NetworkUtils {
       case NetworkType.WIFI:
         return 'Wi-Fi';
       case NetworkType.CELLULAR:
-        return '蜂窝网络';
+        return ResourceHelper.getStringByName('net_type_cellular');
       case NetworkType.ETHERNET:
-        return '以太网';
+        return ResourceHelper.getStringByName('net_type_ethernet');
       case NetworkType.BLUETOOTH:
-        return '蓝牙';
+        return ResourceHelper.getStringByName('net_type_bluetooth');
       case NetworkType.UNKNOWN:
-        return '未知网络';
+        return ResourceHelper.getStringByName('net_type_unknown');
       default:
-        return '未识别';
+        return ResourceHelper.getStringByName('net_type_none');
     }
   }
 
   /**
-   * 获取网络状态的中文标签。
-   * @param {NetworkState} state - 网络状态枚举值
-   * @returns {string} 网络状态的中文描述
+   * Gets the localized label of a network state.
+   * @param {NetworkState} state - Network state enum value
+   * @returns {string} Localized network state description
    */
   static getNetworkStateLabel(state: NetworkState): string {
     hilog.debug(DOMAIN, TAG, 'NetworkUtils getNetworkStateLabel: state=%{public}s', state);
     switch (state) {
       case NetworkState.CONNECTED:
-        return '已连接';
+        return ResourceHelper.getStringByName('net_state_connected');
       case NetworkState.DISCONNECTED:
-        return '已断开';
+        return ResourceHelper.getStringByName('net_state_disconnected');
       case NetworkState.CONNECTING:
-        return '连接中';
+        return ResourceHelper.getStringByName('net_state_connecting');
       case NetworkState.SUSPENDED:
-        return '已暂停';
+        return ResourceHelper.getStringByName('net_state_suspended');
       default:
-        return '未知状态';
+        return ResourceHelper.getStringByName('net_state_unknown');
     }
   }
 
   // ========================================
-  // 状态判断方法
+  // State checking methods
   // ========================================
 
   /**
-   * 判断当前网络状态是否为已连接。
-   * @param {NetworkState} state - 网络状态
-   * @returns {boolean} 是否已连接
+   * Checks whether the current network state is connected.
+   * @param {NetworkState} state - Network state
+   * @returns {boolean} Whether connected
    */
   static isConnected(state: NetworkState): boolean {
     const result: boolean = state === NetworkState.CONNECTED;
@@ -181,9 +182,9 @@ export class NetworkUtils {
   }
 
   /**
-   * 判断当前网络状态是否可用（已连接且未暂停）。
-   * @param {NetworkState} state - 网络状态
-   * @returns {boolean} 网络是否可用
+   * Checks whether the current network state is available (connected and not suspended).
+   * @param {NetworkState} state - Network state
+   * @returns {boolean} Whether the network is available
    */
   static isAvailable(state: NetworkState): boolean {
     const result: boolean = state === NetworkState.CONNECTED || state === NetworkState.CONNECTING;
@@ -193,10 +194,10 @@ export class NetworkUtils {
   }
 
   /**
-   * 判断指定网络类型是否为高带宽网络。
-   * Wi-Fi 和以太网被视为高带宽网络。
-   * @param {NetworkType} type - 网络类型
-   * @returns {boolean} 是否为高带宽网络
+   * Checks whether the given network type is a high-bandwidth network.
+   * Wi-Fi and Ethernet are treated as high-bandwidth networks.
+   * @param {NetworkType} type - Network type
+   * @returns {boolean} Whether it is a high-bandwidth network
    */
   static isHighBandwidth(type: NetworkType): boolean {
     let result: boolean = false;
@@ -212,14 +213,14 @@ export class NetworkUtils {
   }
 
   // ========================================
-  // 信号与延迟估算方法
+  // Signal and latency estimation methods
   // ========================================
 
   /**
-   * 根据 RSSI 值计算信号等级。
-   * 信号等级范围 0-4，值越大信号越强。
-   * @param {number} rssi - 接收信号强度指示（dBm），典型范围 -30 至 -100
-   * @returns {number} 信号等级，0 表示无信号，4 表示信号极好
+   * Calculates the signal level from an RSSI value.
+   * Signal level ranges from 0 to 4, larger values mean stronger signal.
+   * @param {number} rssi - Received Signal Strength Indicator (dBm), typical range -30 to -100
+   * @returns {number} Signal level, 0 means no signal, 4 means excellent signal
    */
   static getSignalLevel(rssi: number): number {
     let level: number;
@@ -239,10 +240,10 @@ export class NetworkUtils {
   }
 
   /**
-   * 根据网络类型估算延迟。
-   * 返回典型场景下的估算往返延迟时间（毫秒）。
-   * @param {NetworkType} type - 网络类型
-   * @returns {number} 估算延迟（毫秒）
+   * Estimates latency from the network type.
+   * Returns the estimated round-trip latency (milliseconds) in typical scenarios.
+   * @param {NetworkType} type - Network type
+   * @returns {number} Estimated latency (milliseconds)
    */
   static estimateLatency(type: NetworkType): number {
     const latency: number = NetworkUtils.LATENCY_MAP.get(type) ?? 200;
@@ -251,26 +252,26 @@ export class NetworkUtils {
   }
 
   // ========================================
-  // 网络信息描述方法
+  // Network info description methods
   // ========================================
 
   /**
-   * 获取网络类型的带宽描述。
-   * @param {NetworkType} type - 网络类型
-   * @returns {string} 带宽描述文本
+   * Gets the bandwidth description of a network type.
+   * @param {NetworkType} type - Network type
+   * @returns {string} Bandwidth description text
    */
   static getBandwidthDescription(type: NetworkType): string {
     switch (type) {
       case NetworkType.ETHERNET:
-        return '千兆级带宽';
+        return ResourceHelper.getStringByName('net_bw_gigabit');
       case NetworkType.WIFI:
-        return '百兆级带宽';
+        return ResourceHelper.getStringByName('net_bw_megabit');
       case NetworkType.CELLULAR:
-        return '移动网络带宽';
+        return ResourceHelper.getStringByName('net_bw_mobile');
       case NetworkType.BLUETOOTH:
-        return '低功耗窄带';
+        return ResourceHelper.getStringByName('net_bw_low_power');
       default:
-        return '未知带宽';
+        return ResourceHelper.getStringByName('net_bw_unknown');
     }
   }
 }

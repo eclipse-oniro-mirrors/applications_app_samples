@@ -15,113 +15,114 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 验证结果接口
+// Validation result interface
 // ========================================
 
 /**
- * 通用验证结果接口。
- * 包含验证是否通过、描述消息和状态码。
+ * Generic validation result interface.
+ * Contains the pass flag, description message and status code.
  */
 export interface ValidationResult {
-  /** 验证是否通过 */
+  /** Whether validation passed */
   isValid: boolean;
-  /** 验证结果描述消息 */
+  /** Validation result description message */
   message: string;
-  /** 验证结果状态码（0 表示成功） */
+  /** Validation result status code (0 means success) */
   code: number;
 }
 
 // ========================================
-// 验证错误码常量
+// Validation error code constants
 // ========================================
 
-/** 验证成功 */
+/** Validation succeeded */
 const CODE_SUCCESS: number = 0;
-/** 验证失败 - 值为空 */
+/** Validation failed - value is empty */
 const CODE_EMPTY: number = 1001;
-/** 验证失败 - 超出长度限制 */
+/** Validation failed - length limit exceeded */
 const CODE_LENGTH_EXCEEDED: number = 1002;
-/** 验证失败 - 格式不正确 */
+/** Validation failed - incorrect format */
 const CODE_INVALID_FORMAT: number = 1003;
-/** 验证失败 - 超出数值范围 */
+/** Validation failed - numeric range exceeded */
 const CODE_OUT_OF_RANGE: number = 1004;
-/** 验证失败 - 值不在枚举范围内 */
+/** Validation failed - value not in the enum set */
 const CODE_INVALID_ENUM: number = 1005;
-/** 验证失败 - 数组长度不足 */
+/** Validation failed - array too short */
 const CODE_ARRAY_TOO_SHORT: number = 1006;
-/** 验证失败 - 时间戳无效 */
+/** Validation failed - invalid timestamp */
 const CODE_INVALID_TIMESTAMP: number = 1007;
 
 // ========================================
-// 通用验证工具类
+// Generic validation utility class
 // ========================================
 
 /**
- * 通用验证工具类。
- * 提供渠道号、设备号、错误码、时间戳、字符串、数值、
- * 枚举值和数组等多种数据格式的校验能力。
+ * Generic validation utility class.
+ * Provides validation for channel ids, device ids, error codes, timestamps,
+ * strings, numbers, enum values and arrays.
  */
 export class ValidationUtils {
-  /** 渠道号最大长度 */
+  /** Maximum channel id length */
   private static readonly CHANNEL_ID_MAX_LENGTH: number = 64;
-  /** 设备 ID 最大长度 */
+  /** Maximum device ID length */
   private static readonly DEVICE_ID_MAX_LENGTH: number = 128;
-  /** 设备 ID 格式正则（字母数字和连字符） */
+  /** Device ID format pattern (alphanumerics and hyphens) */
   private static readonly DEVICE_ID_PATTERN: RegExp = /^[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9]$/;
-  /** 设备 ID 最小长度 */
+  /** Minimum device ID length */
   private static readonly DEVICE_ID_MIN_LENGTH: number = 2;
 
   // ========================================
-  // 渠道号与设备号验证
+  // Channel id and device id validation
   // ========================================
 
   /**
-   * 验证渠道号是否合法。
-   * 渠道号不能为空且长度不能超过最大限制。
-   * @param {string} id - 待验证的渠道号
-   * @returns {ValidationResult} 验证结果
+   * Validates a channel id.
+   * A channel id must not be empty and must not exceed the maximum length.
+   * @param {string} id - Channel id to validate
+   * @returns {ValidationResult} Validation result
    */
   static validateChannelId(id: string): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateChannelId: validating channel ID');
 
     if (!id || id.trim().length === 0) {
-      return { isValid: false, message: '渠道号不能为空', code: CODE_EMPTY };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_channel_empty'), code: CODE_EMPTY };
     }
 
     if (id.length > ValidationUtils.CHANNEL_ID_MAX_LENGTH) {
       return {
         isValid: false,
-        message: `渠道号长度不能超过 ${ValidationUtils.CHANNEL_ID_MAX_LENGTH} 个字符`,
+        message: ResourceHelper.getStringByName('validate_channel_too_long', ValidationUtils.CHANNEL_ID_MAX_LENGTH),
         code: CODE_LENGTH_EXCEEDED
       };
     }
 
-    return { isValid: true, message: '渠道号验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_channel_pass'), code: CODE_SUCCESS };
   }
 
   /**
-   * 验证设备 ID 是否合法。
-   * 设备 ID 须满足格式要求：仅含字母、数字和连字符，
-   * 且长度在允许范围内。
-   * @param {string} id - 待验证的设备 ID
-   * @returns {ValidationResult} 验证结果
+   * Validates a device ID.
+   * A device ID must satisfy the format requirements: only letters, digits
+   * and hyphens, with a length within the allowed range.
+   * @param {string} id - Device ID to validate
+   * @returns {ValidationResult} Validation result
    */
   static validateDeviceId(id: string): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateDeviceId: validating device ID');
 
     if (!id || id.trim().length === 0) {
-      return { isValid: false, message: '设备ID不能为空', code: CODE_EMPTY };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_device_empty'), code: CODE_EMPTY };
     }
 
     if (id.length < ValidationUtils.DEVICE_ID_MIN_LENGTH) {
       return {
         isValid: false,
-        message: `设备ID长度不能少于 ${ValidationUtils.DEVICE_ID_MIN_LENGTH} 个字符`,
+        message: ResourceHelper.getStringByName('validate_device_too_short', ValidationUtils.DEVICE_ID_MIN_LENGTH),
         code: CODE_LENGTH_EXCEEDED
       };
     }
@@ -129,7 +130,7 @@ export class ValidationUtils {
     if (id.length > ValidationUtils.DEVICE_ID_MAX_LENGTH) {
       return {
         isValid: false,
-        message: `设备ID长度不能超过 ${ValidationUtils.DEVICE_ID_MAX_LENGTH} 个字符`,
+        message: ResourceHelper.getStringByName('validate_device_too_long', ValidationUtils.DEVICE_ID_MAX_LENGTH),
         code: CODE_LENGTH_EXCEEDED
       };
     }
@@ -137,160 +138,160 @@ export class ValidationUtils {
     if (!ValidationUtils.DEVICE_ID_PATTERN.test(id)) {
       return {
         isValid: false,
-        message: '设备ID格式不正确，仅允许字母、数字和连字符，且首尾不能为连字符',
+        message: ResourceHelper.getStringByName('validate_device_format'),
         code: CODE_INVALID_FORMAT
       };
     }
 
-    return { isValid: true, message: '设备ID验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_device_pass'), code: CODE_SUCCESS };
   }
 
   // ========================================
-  // 错误码与时间戳验证
+  // Error code and timestamp validation
   // ========================================
 
   /**
-   * 验证错误码是否在合法范围内。
-   * 错误码须为非负整数且在 0~99999 范围内。
-   * @param {number} code - 待验证的错误码
-   * @returns {ValidationResult} 验证结果
+   * Validates whether an error code is within the legal range.
+   * An error code must be a non-negative integer within 0~99999.
+   * @param {number} code - Error code to validate
+   * @returns {ValidationResult} Validation result
    */
   static validateErrorCode(code: number): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateErrorCode: validating code=%{public}d', code);
 
     if (!Number.isInteger(code)) {
-      return { isValid: false, message: '错误码必须为整数', code: CODE_INVALID_FORMAT };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_code_not_int'), code: CODE_INVALID_FORMAT };
     }
 
     if (code < 0 || code > 99999) {
-      return { isValid: false, message: '错误码必须在 0 到 99999 之间', code: CODE_OUT_OF_RANGE };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_code_out_of_range'), code: CODE_OUT_OF_RANGE };
     }
 
-    return { isValid: true, message: '错误码验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_code_pass'), code: CODE_SUCCESS };
   }
 
   /**
-   * 验证时间戳是否合法。
-   * 时间戳须为正数且不能超过当前系统时间（不允许未来时间）。
-   * @param {number} ts - 待验证的时间戳（毫秒级）
-   * @returns {ValidationResult} 验证结果
+   * Validates a timestamp.
+   * A timestamp must be a positive number and must not exceed the current system time (future times are not allowed).
+   * @param {number} ts - Timestamp to validate (milliseconds)
+   * @returns {ValidationResult} Validation result
    */
   static validateTimestamp(ts: number): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateTimestamp: validating timestamp=%{public}d', ts);
 
     if (!Number.isFinite(ts)) {
-      return { isValid: false, message: '时间戳必须为有效数字', code: CODE_INVALID_TIMESTAMP };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_ts_invalid'), code: CODE_INVALID_TIMESTAMP };
     }
 
     if (ts <= 0) {
-      return { isValid: false, message: '时间戳必须为正数', code: CODE_INVALID_TIMESTAMP };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_ts_negative'), code: CODE_INVALID_TIMESTAMP };
     }
 
     const now: number = Date.now();
     if (ts > now) {
-      return { isValid: false, message: '时间戳不能晚于当前时间', code: CODE_INVALID_TIMESTAMP };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_ts_future'), code: CODE_INVALID_TIMESTAMP };
     }
 
-    return { isValid: true, message: '时间戳验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_ts_pass'), code: CODE_SUCCESS };
   }
 
   // ========================================
-  // 通用类型验证
+  // Generic type validation
   // ========================================
 
   /**
-   * 验证字符串长度是否在指定范围内。
-   * @param {string} str - 待验证的字符串
-   * @param {number} minLen - 最小长度（含）
-   * @param {number} maxLen - 最大长度（含）
-   * @returns {ValidationResult} 验证结果
+   * Validates whether a string length is within the specified range.
+   * @param {string} str - String to validate
+   * @param {number} minLen - Minimum length (inclusive)
+   * @param {number} maxLen - Maximum length (inclusive)
+   * @returns {ValidationResult} Validation result
    */
   static validateString(str: string, minLen: number, maxLen: number): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateString: minLen=%{public}d, maxLen=%{public}d', minLen, maxLen);
 
     if (str === undefined || str === null) {
-      return { isValid: false, message: '字符串不能为空', code: CODE_EMPTY };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_str_empty'), code: CODE_EMPTY };
     }
 
     if (str.length < minLen) {
-      return { isValid: false, message: `字符串长度不能少于 ${minLen} 个字符`, code: CODE_LENGTH_EXCEEDED };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_str_too_short', minLen), code: CODE_LENGTH_EXCEEDED };
     }
 
     if (str.length > maxLen) {
-      return { isValid: false, message: `字符串长度不能超过 ${maxLen} 个字符`, code: CODE_LENGTH_EXCEEDED };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_str_too_long', maxLen), code: CODE_LENGTH_EXCEEDED };
     }
 
-    return { isValid: true, message: '字符串验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_str_pass'), code: CODE_SUCCESS };
   }
 
   /**
-   * 验证数值是否在指定范围内。
-   * @param {number} num - 待验证的数值
-   * @param {number} min - 最小值（含）
-   * @param {number} max - 最大值（含）
-   * @returns {ValidationResult} 验证结果
+   * Validates whether a number is within the specified range.
+   * @param {number} num - Number to validate
+   * @param {number} min - Minimum value (inclusive)
+   * @param {number} max - Maximum value (inclusive)
+   * @returns {ValidationResult} Validation result
    */
   static validateNumber(num: number, min: number, max: number): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateNumber: num=%{public}s, min=%{public}s, max=%{public}s',
       num.toString(), min.toString(), max.toString());
 
     if (typeof num !== 'number' || Number.isNaN(num)) {
-      return { isValid: false, message: '值必须为有效数字', code: CODE_INVALID_FORMAT };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_num_invalid'), code: CODE_INVALID_FORMAT };
     }
 
     if (num < min || num > max) {
-      return { isValid: false, message: `数值必须在 ${min} 到 ${max} 之间`, code: CODE_OUT_OF_RANGE };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_num_out_of_range', min, max), code: CODE_OUT_OF_RANGE };
     }
 
-    return { isValid: true, message: '数值验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_num_pass'), code: CODE_SUCCESS };
   }
 
   /**
-   * 验证值是否在合法的枚举值列表中。
-   * @param {string} value - 待验证的值
-   * @param {string[]} validValues - 合法枚举值数组
-   * @returns {ValidationResult} 验证结果
+   * Validates whether a value is in the list of legal enum values.
+   * @param {string} value - Value to validate
+   * @param {string[]} validValues - Array of valid enum values
+   * @returns {ValidationResult} Validation result
    */
   static validateEnum(value: string, validValues: string[]): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateEnum: value=%{public}s', value);
 
     if (!value || value.trim().length === 0) {
-      return { isValid: false, message: '枚举值不能为空', code: CODE_EMPTY };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_enum_empty'), code: CODE_EMPTY };
     }
 
     if (validValues.length === 0) {
-      return { isValid: false, message: '枚举值列表不能为空', code: CODE_INVALID_ENUM };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_enum_list_empty'), code: CODE_INVALID_ENUM };
     }
 
     if (validValues.indexOf(value) < 0) {
       return {
         isValid: false,
-        message: `值 "${value}" 不在允许的枚举范围内`,
+        message: ResourceHelper.getStringByName('validate_enum_not_allowed', value),
         code: CODE_INVALID_ENUM
       };
     }
 
-    return { isValid: true, message: '枚举值验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_enum_pass'), code: CODE_SUCCESS };
   }
 
   /**
-   * 验证数组长度是否满足最小要求。
-   * @param {unknown[]} arr - 待验证的数组
-   * @param {number} minLen - 最小长度（含）
-   * @returns {ValidationResult} 验证结果
+   * Validates whether an array meets the minimum length requirement.
+   * @param {unknown[]} arr - Array to validate
+   * @param {number} minLen - Minimum length (inclusive)
+   * @returns {ValidationResult} Validation result
    */
   static validateArray(arr: unknown[], minLen: number): ValidationResult {
     hilog.info(DOMAIN, TAG, 'ValidationUtils validateArray: arrLen=%{public}d, minLen=%{public}d',
       arr.length, minLen);
 
     if (!Array.isArray(arr)) {
-      return { isValid: false, message: '参数必须为数组', code: CODE_INVALID_FORMAT };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_array_not_array'), code: CODE_INVALID_FORMAT };
     }
 
     if (arr.length < minLen) {
-      return { isValid: false, message: `数组长度不能少于 ${minLen}`, code: CODE_ARRAY_TOO_SHORT };
+      return { isValid: false, message: ResourceHelper.getStringByName('validate_array_too_short', minLen), code: CODE_ARRAY_TOO_SHORT };
     }
 
-    return { isValid: true, message: '数组验证通过', code: CODE_SUCCESS };
+    return { isValid: true, message: ResourceHelper.getStringByName('validate_array_pass'), code: CODE_SUCCESS };
   }
 }

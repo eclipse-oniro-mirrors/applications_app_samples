@@ -15,88 +15,89 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 剪贴板数据类型枚举
+// Clipboard data type enum
 // ========================================
 
 /**
- * 剪贴板数据类型枚举。
- * 定义剪贴板中可能存储的数据种类。
+ * Clipboard data type enum.
+ * Defines the kinds of data that may be stored in the clipboard.
  */
 export enum ClipboardDataType {
-  /** 纯文本类型 */
+  /** Plain text */
   TEXT = 'TEXT',
-  /** 网址链接类型 */
+  /** URL link */
   URL = 'URL',
-  /** 图片资源类型 */
+  /** Image resource */
   IMAGE = 'IMAGE',
-  /** HTML 富文本类型 */
+  /** HTML rich text */
   HTML = 'HTML',
-  /** 未知类型 */
+  /** Unknown type */
   UNKNOWN = 'UNKNOWN'
 }
 
 // ========================================
-// 剪贴板变更监听接口
+// Clipboard change listener interface
 // ========================================
 
 /**
- * 剪贴板内容变更监听接口。
- * 当剪贴板数据发生变化时，通过此接口回调通知。
+ * Clipboard content change listener interface.
+ * Notified via callback when clipboard data changes.
  */
 export interface ClipboardChangeListener {
   /**
-   * 剪贴板内容变更回调。
-   * @param {ClipboardDataType} type - 变更后的数据类型
-   * @param {string} data - 变更后的数据内容
+   * Clipboard content change callback.
+   * @param {ClipboardDataType} type - Data type after the change
+   * @param {string} data - Data content after the change
    */
   onClip(type: ClipboardDataType, data: string): void;
 }
 
 // ========================================
-// 剪贴板内容解析结果接口
+// Clipboard content parse result interface
 // ========================================
 
 /**
- * 剪贴板内容解析结果。
- * 包含解析后的数据类型和数据内容。
+ * Clipboard content parse result.
+ * Contains the parsed data type and data content.
  */
 export interface ClipboardParseResult {
-  /** 解析得到的数据类型 */
+  /** Parsed data type */
   type: ClipboardDataType;
-  /** 解析得到的数据内容 */
+  /** Parsed data content */
   data: string;
 }
 
 // ========================================
-// 剪贴板工具类
+// Clipboard utility class
 // ========================================
 
 /**
- * 剪贴板模拟工具类。
- * 提供剪贴板数据的存取、类型检测、变更监听等能力，
- * 用于在系统配置场景中模拟剪贴板操作。
+ * Simulated clipboard utility class.
+ * Provides clipboard data storage, type detection and change listening,
+ * used to simulate clipboard operations in system config scenarios.
  */
 export class ClipboardUtils {
-  /** 内部剪贴板数据存储 */
+  /** Internal clipboard data store */
   private clipboardData: string = '';
-  /** 当前剪贴板数据类型 */
+  /** Current clipboard data type */
   private currentType: ClipboardDataType = ClipboardDataType.UNKNOWN;
-  /** 变更监听器列表 */
+  /** Change listener list */
   private listeners: ClipboardChangeListener[] = [];
-  /** 剪贴板操作历史记录 */
+  /** Clipboard operation history */
   private operationHistory: string[] = [];
-  /** 最大历史记录条数 */
+  /** Maximum number of history records */
   private readonly maxHistorySize: number = 50;
 
   /**
-   * 设置剪贴板数据。
-   * 自动检测数据类型并通知所有监听器。
-   * @param {string} data - 要写入剪贴板的数据
+   * Sets clipboard data.
+   * Detects the data type automatically and notifies all listeners.
+   * @param {string} data - Data to write into the clipboard
    */
   setData(data: string): void {
     hilog.info(DOMAIN, TAG, 'ClipboardUtils setData: length=%{public}d', data.length);
@@ -116,8 +117,8 @@ export class ClipboardUtils {
   }
 
   /**
-   * 获取剪贴板数据。
-   * @returns {string} 当前剪贴板中的文本数据
+   * Gets clipboard data.
+   * @returns {string} Current text data in the clipboard
    */
   getData(): string {
     this.recordOperation('GET');
@@ -125,24 +126,24 @@ export class ClipboardUtils {
   }
 
   /**
-   * 获取当前剪贴板数据类型。
-   * @returns {ClipboardDataType} 数据类型枚举值
+   * Gets the current clipboard data type.
+   * @returns {ClipboardDataType} Data type enum value
    */
   getDataType(): ClipboardDataType {
     return this.currentType;
   }
 
   /**
-   * 判断剪贴板是否包含数据。
-   * @returns {boolean} 是否包含非空数据
+   * Checks whether the clipboard contains data.
+   * @returns {boolean} Whether non-empty data exists
    */
   hasData(): boolean {
     return this.clipboardData.length > 0;
   }
 
   /**
-   * 清空剪贴板数据。
-   * 重置数据类型为 UNKNOWN 并记录操作历史。
+   * Clears clipboard data.
+   * Resets the data type to UNKNOWN and records the operation history.
    */
   clear(): void {
     hilog.info(DOMAIN, TAG, 'ClipboardUtils clear: clearing clipboard data');
@@ -152,8 +153,8 @@ export class ClipboardUtils {
   }
 
   /**
-   * 添加剪贴板变更监听器。
-   * @param {ClipboardChangeListener} listener - 要添加的监听器
+   * Adds a clipboard change listener.
+   * @param {ClipboardChangeListener} listener - Listener to add
    */
   addListener(listener: ClipboardChangeListener): void {
     this.listeners.push(listener);
@@ -161,8 +162,8 @@ export class ClipboardUtils {
   }
 
   /**
-   * 移除剪贴板变更监听器。
-   * @param {ClipboardChangeListener} listener - 要移除的监听器
+   * Removes a clipboard change listener.
+   * @param {ClipboardChangeListener} listener - Listener to remove
    */
   removeListener(listener: ClipboardChangeListener): void {
     const index: number = this.listeners.indexOf(listener);
@@ -172,44 +173,44 @@ export class ClipboardUtils {
   }
 
   /**
-   * 获取当前监听器数量。
-   * @returns {number} 已注册的监听器数量
+   * Gets the current listener count.
+   * @returns {number} Number of registered listeners
    */
   getListenerCount(): number {
     return this.listeners.length;
   }
 
   // ========================================
-  // 类型检测与解析
+  // Type detection and parsing
   // ========================================
 
   /**
-   * 获取数据类型的可读标签。
-   * @param {ClipboardDataType} type - 数据类型枚举值
-   * @returns {string} 类型的中文描述标签
+   * Gets the readable label of a data type.
+   * @param {ClipboardDataType} type - Data type enum value
+   * @returns {string} Localized type description label
    */
   getDataTypeLabel(type: ClipboardDataType): string {
     switch (type) {
       case ClipboardDataType.TEXT:
-        return '纯文本';
+        return ResourceHelper.getStringByName('clip_type_text');
       case ClipboardDataType.URL:
-        return '网址链接';
+        return ResourceHelper.getStringByName('clip_type_url');
       case ClipboardDataType.IMAGE:
-        return '图片资源';
+        return ResourceHelper.getStringByName('clip_type_image');
       case ClipboardDataType.HTML:
-        return 'HTML富文本';
+        return ResourceHelper.getStringByName('clip_type_html');
       case ClipboardDataType.UNKNOWN:
-        return '未知类型';
+        return ResourceHelper.getStringByName('clip_type_unknown');
       default:
-        return '未识别';
+        return ResourceHelper.getStringByName('clip_type_none');
     }
   }
 
   /**
-   * 判断字符串是否为有效的 URL 地址。
-   * 支持 http、https、ftp 等常见协议。
-   * @param {string} str - 待检测的字符串
-   * @returns {boolean} 是否为有效 URL
+   * Checks whether a string is a valid URL.
+   * Supports common protocols such as http, https and ftp.
+   * @param {string} str - String to check
+   * @returns {boolean} Whether it is a valid URL
    */
   isUrl(str: string): boolean {
     const urlPattern: RegExp = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
@@ -217,10 +218,10 @@ export class ClipboardUtils {
   }
 
   /**
-   * 判断字符串是否为 HTML 内容。
-   * 通过检测常见的 HTML 标签来判断。
-   * @param {string} str - 待检测的字符串
-   * @returns {boolean} 是否为 HTML 内容
+   * Checks whether a string is HTML content.
+   * Detected by looking for common HTML tags.
+   * @param {string} str - String to check
+   * @returns {boolean} Whether it is HTML content
    */
   isHtml(str: string): boolean {
     const htmlPattern: RegExp = /<[a-z][\s\S]*>/i;
@@ -228,10 +229,10 @@ export class ClipboardUtils {
   }
 
   /**
-   * 解析原始剪贴板内容，识别其类型和数据。
-   * 按照 URL、HTML、IMAGE、TEXT 的优先级依次检测。
-   * @param {string} raw - 原始剪贴板内容字符串
-   * @returns {ClipboardParseResult} 解析结果，包含类型和数据
+   * Parses raw clipboard content to identify its type and data.
+   * Checks in the priority order of URL, HTML, IMAGE and TEXT.
+   * @param {string} raw - Raw clipboard content string
+   * @returns {ClipboardParseResult} Parse result containing type and data
    */
   parseClipboardContent(raw: string): ClipboardParseResult {
     hilog.info(DOMAIN, TAG, 'ClipboardUtils parseClipboardContent: parsing raw content');
@@ -249,21 +250,21 @@ export class ClipboardUtils {
   }
 
   /**
-   * 获取剪贴板操作历史记录。
-   * @returns {string[]} 操作历史数组，每条记录格式为 "操作类型:时间戳"
+   * Gets the clipboard operation history.
+   * @returns {string[]} History array, each record formatted as "operation type:timestamp"
    */
   getOperationHistory(): string[] {
     return [...this.operationHistory];
   }
 
   // ========================================
-  // 内部辅助方法
+  // Internal helper methods
   // ========================================
 
   /**
-   * 自动检测字符串的数据类型。
-   * @param {string} data - 待检测的字符串
-   * @returns {ClipboardDataType} 检测到的数据类型
+   * Detects the data type of a string automatically.
+   * @param {string} data - String to detect
+   * @returns {ClipboardDataType} Detected data type
    */
   private detectDataType(data: string): ClipboardDataType {
     if (data.length === 0) {
@@ -282,15 +283,15 @@ export class ClipboardUtils {
   }
 
   /**
-   * 记录剪贴板操作到历史。
-   * @param {string} operation - 操作类型标识
+   * Records a clipboard operation into the history.
+   * @param {string} operation - Operation type identifier
    */
   private recordOperation(operation: string): void {
     const timestamp: number = Date.now();
     const record: string = `${operation}:${timestamp}`;
     this.operationHistory.push(record);
 
-    // 超出最大历史条数时移除最早的记录
+    // Remove the oldest record when the maximum history size is exceeded
     if (this.operationHistory.length > this.maxHistorySize) {
       this.operationHistory.shift();
     }

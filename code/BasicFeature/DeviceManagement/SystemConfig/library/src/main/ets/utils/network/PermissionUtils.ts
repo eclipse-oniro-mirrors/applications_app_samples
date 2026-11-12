@@ -15,113 +15,115 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SystemConfigConstants } from '../../constants/SystemConfigConstants';
+import { ResourceHelper } from '../basic/ResourceHelper';
 
 const TAG: string = SystemConfigConstants.TAG;
 const DOMAIN: number = SystemConfigConstants.DOMAIN;
 
 // ========================================
-// 权限状态枚举
+// Permission status enum
 // ========================================
 
 /**
- * 权限授予状态枚举。
- * 描述应用对某项系统权限的当前获取状态。
+ * Permission grant status enum.
+ * Describes the current state of a system permission for the app.
  */
 export enum PermissionStatus {
-  /** 权限已授予 */
+  /** Permission granted */
   GRANTED = 'granted',
-  /** 权限被拒绝 */
+  /** Permission denied */
   DENIED = 'denied',
-  /** 用户尚未做出决定 */
+  /** User has not decided yet */
   NOT_DETERMINED = 'not_determined',
-  /** 权限受系统限制，无法申请 */
+  /** Permission is system-restricted and cannot be requested */
   RESTRICTED = 'restricted'
 }
 
 // ========================================
-// 权限回调接口
+// Permission callback interfaces
 // ========================================
 
 /**
- * 权限状态查询结果回调接口。
- * 用于返回单个权限的当前状态。
+ * Permission status query result callback interface.
+ * Returns the current status of a single permission.
  */
 export interface PermissionResultCallback {
-  /** 权限授予状态 */
+  /** Permission grant status */
   status: PermissionStatus;
-  /** 权限标识名称 */
+  /** Permission identifier name */
   permission: string;
 }
 
 /**
- * 权限申请结果回调接口。
- * 用于批量返回权限申请的结果。
+ * Permission request result callback interface.
+ * Returns the results of a batch permission request.
  */
 export interface PermissionRequestCallback {
-  /** 已授予的权限列表 */
+  /** List of granted permissions */
   granted: string[];
-  /** 被拒绝的权限列表 */
+  /** List of denied permissions */
   denied: string[];
 }
 
 // ========================================
-// 权限标签映射表
+// Permission label mapping table
 // ========================================
 
-/** 常见权限标识与中文描述的映射 */
+/** Mapping from common permission identifiers to string resource names (label texts moved into string.json, resolved by name) */
 const PERMISSION_LABEL_MAP: Map<string, string> = new Map<string, string>([
-  ['ohos.permission.GET_DONOTDISTURB_STATE', '免打扰状态查询'],
-  ['ohos.permission.INTERNET', '网络访问'],
-  ['ohos.permission.GET_NETWORK_INFO', '网络信息查询'],
-  ['ohos.permission.SET_WIFI_CONFIG', 'Wi-Fi 配置设置'],
-  ['ohos.permission.GET_WIFI_INFO', 'Wi-Fi 信息查询'],
-  ['ohos.permission.SET_BLUETOOTH', '蓝牙设置'],
-  ['ohos.permission.USE_BLUETOOTH', '蓝牙使用'],
-  ['ohos.permission.GET_BLUETOOTH_LOCAL_INFO', '蓝牙本地信息查询'],
-  ['ohos.permission.CAMERA', '相机使用'],
-  ['ohos.permission.MICROPHONE', '麦克风使用'],
-  ['ohos.permission.READ_MEDIA', '媒体文件读取'],
-  ['ohos.permission.WRITE_MEDIA', '媒体文件写入'],
-  ['ohos.permission.LOCATION', '位置信息'],
-  ['ohos.permission.APPROXIMATELY_LOCATION', '粗略位置信息'],
-  ['ohos.permission.READ_CONTACTS', '联系人读取'],
-  ['ohos.permission.WRITE_CONTACTS', '联系人写入'],
-  ['ohos.permission.READ_CALL_LOG', '通话记录读取'],
-  ['ohos.permission.WRITE_CALL_LOG', '通话记录写入'],
-  ['ohos.permission.READ_SMS', '短信读取'],
-  ['ohos.permission.SEND_SMS', '短信发送'],
-  ['ohos.permission.READ_STORAGE', '存储读取'],
-  ['ohos.permission.WRITE_STORAGE', '存储写入'],
-  ['ohos.permission.VIBRATE', '振动控制'],
-  ['ohos.permission.SET_WALLPAPER', '壁纸设置'],
-  ['ohos.permission.PUBLISH_AGENT_REMINDER', '发布代理提醒']
+  ['ohos.permission.GET_DONOTDISTURB_STATE', 'perm_dnd'],
+  ['ohos.permission.INTERNET', 'perm_internet'],
+  ['ohos.permission.GET_NETWORK_INFO', 'perm_network_info'],
+  ['ohos.permission.SET_WIFI_CONFIG', 'perm_wifi_config'],
+  ['ohos.permission.GET_WIFI_INFO', 'perm_wifi_info'],
+  ['ohos.permission.SET_BLUETOOTH', 'perm_bluetooth_set'],
+  ['ohos.permission.USE_BLUETOOTH', 'perm_bluetooth_use'],
+  ['ohos.permission.GET_BLUETOOTH_LOCAL_INFO', 'perm_bluetooth_local_info'],
+  ['ohos.permission.CAMERA', 'perm_camera'],
+  ['ohos.permission.MICROPHONE', 'perm_microphone'],
+  ['ohos.permission.READ_MEDIA', 'perm_read_media'],
+  ['ohos.permission.WRITE_MEDIA', 'perm_write_media'],
+  ['ohos.permission.LOCATION', 'perm_location'],
+  ['ohos.permission.APPROXIMATELY_LOCATION', 'perm_approx_location'],
+  ['ohos.permission.READ_CONTACTS', 'perm_read_contacts'],
+  ['ohos.permission.WRITE_CONTACTS', 'perm_write_contacts'],
+  ['ohos.permission.READ_CALL_LOG', 'perm_read_call_log'],
+  ['ohos.permission.WRITE_CALL_LOG', 'perm_write_call_log'],
+  ['ohos.permission.READ_SMS', 'perm_read_sms'],
+  ['ohos.permission.SEND_SMS', 'perm_send_sms'],
+  ['ohos.permission.READ_STORAGE', 'perm_read_storage'],
+  ['ohos.permission.WRITE_STORAGE', 'perm_write_storage'],
+  ['ohos.permission.VIBRATE', 'perm_vibrate'],
+  ['ohos.permission.SET_WALLPAPER', 'perm_wallpaper'],
+  ['ohos.permission.PUBLISH_AGENT_REMINDER', 'perm_agent_reminder']
 ]);
 
 // ========================================
-// 权限工具类
+// Permission utility class
 // ========================================
 
 /**
- * 权限检查工具类。
- * 提供权限状态模拟检查、权限标签获取、
- * 必要权限列表管理和权限列表格式化等静态方法。
+ * Permission checking utility class.
+ * Provides static methods for simulated permission status checks,
+ * permission label lookup, required permission list management and
+ * permission list formatting.
  */
 export class PermissionUtils {
-  /** 已模拟授予的权限集合 */
+  /** Set of simulated granted permissions */
   private static grantedPermissions: Set<string> = new Set<string>();
 
-  /** 已模拟拒绝的权限集合 */
+  /** Set of simulated denied permissions */
   private static deniedPermissions: Set<string> = new Set<string>();
 
   // ========================================
-  // 权限状态检查方法
+  // Permission status checking methods
   // ========================================
 
   /**
-   * 检查指定权限的当前授予状态（模拟实现）。
-   * 根据内部维护的权限集合返回对应的权限状态。
-   * @param {string} permission - 权限标识字符串
-   * @returns {PermissionStatus} 权限当前状态
+   * Checks the current grant status of a permission (simulated implementation).
+   * Returns the corresponding status based on the internally maintained permission sets.
+   * @param {string} permission - Permission identifier string
+   * @returns {PermissionStatus} Current permission status
    */
   static checkPermissionStatus(permission: string): PermissionStatus {
     hilog.info(DOMAIN, TAG, 'PermissionUtils checkPermissionStatus: checking permission=%{public}s', permission);
@@ -138,9 +140,9 @@ export class PermissionUtils {
   }
 
   /**
-   * 判断权限状态是否为已授予。
-   * @param {PermissionStatus} status - 权限状态枚举值
-   * @returns {boolean} 是否已授予
+   * Checks whether a permission status is granted.
+   * @param {PermissionStatus} status - Permission status enum value
+   * @returns {boolean} Whether granted
    */
   static isPermissionGranted(status: PermissionStatus): boolean {
     const result: boolean = status === PermissionStatus.GRANTED;
@@ -150,10 +152,10 @@ export class PermissionUtils {
   }
 
   /**
-   * 判断权限状态是否为受限状态。
-   * 受限权限无法通过申请获取。
-   * @param {PermissionStatus} status - 权限状态枚举值
-   * @returns {boolean} 是否受限
+   * Checks whether a permission status is restricted.
+   * Restricted permissions cannot be obtained by requesting.
+   * @param {PermissionStatus} status - Permission status enum value
+   * @returns {boolean} Whether restricted
    */
   static isPermissionRestricted(status: PermissionStatus): boolean {
     const result: boolean = status === PermissionStatus.RESTRICTED;
@@ -163,51 +165,52 @@ export class PermissionUtils {
   }
 
   // ========================================
-  // 权限标签方法
+  // Permission label methods
   // ========================================
 
   /**
-   * 获取权限标识的中文描述标签。
-   * 若权限不在映射表中，则返回权限标识本身。
-   * @param {string} permission - 权限标识字符串
-   * @returns {string} 权限中文标签
+   * Gets the localized label of a permission identifier.
+   * Returns the permission identifier itself when it is not in the mapping table.
+   * @param {string} permission - Permission identifier string
+   * @returns {string} Localized permission label
    */
   static getPermissionLabel(permission: string): string {
     hilog.debug(DOMAIN, TAG, 'PermissionUtils getPermissionLabel: looking up label for=%{public}s', permission);
-    const label: string = PERMISSION_LABEL_MAP.get(permission) ?? permission;
+    const resName: string | undefined = PERMISSION_LABEL_MAP.get(permission);
+    const label: string = resName !== undefined ? ResourceHelper.getStringByName(resName) : permission;
     hilog.debug(DOMAIN, TAG, 'PermissionUtils getPermissionLabel: label=%{public}s', label);
     return label;
   }
 
   /**
-   * 获取权限状态的中文描述。
-   * @param {PermissionStatus} status - 权限状态枚举值
-   * @returns {string} 权限状态的中文描述
+   * Gets the localized description of a permission status.
+   * @param {PermissionStatus} status - Permission status enum value
+   * @returns {string} Localized permission status description
    */
   static getPermissionStatusLabel(status: PermissionStatus): string {
     hilog.debug(DOMAIN, TAG, 'PermissionUtils getPermissionStatusLabel: status=%{public}s', status);
     switch (status) {
       case PermissionStatus.GRANTED:
-        return '已授予';
+        return ResourceHelper.getStringByName('perm_status_granted');
       case PermissionStatus.DENIED:
-        return '已拒绝';
+        return ResourceHelper.getStringByName('perm_status_denied');
       case PermissionStatus.NOT_DETERMINED:
-        return '未决定';
+        return ResourceHelper.getStringByName('perm_status_not_determined');
       case PermissionStatus.RESTRICTED:
-        return '受限';
+        return ResourceHelper.getStringByName('perm_status_restricted');
       default:
-        return '未知';
+        return ResourceHelper.getStringByName('perm_status_unknown');
     }
   }
 
   // ========================================
-  // 必要权限管理方法
+  // Required permission management methods
   // ========================================
 
   /**
-   * 获取应用所需的权限列表。
-   * 返回系统配置示例所需的免打扰权限。
-   * @returns {string[]} 所需权限标识数组
+   * Gets the permission list required by the app.
+   * Returns the Do Not Disturb permission needed by the system config sample.
+   * @returns {string[]} Array of required permission identifiers
    */
   static getRequiredPermissions(): string[] {
     hilog.info(DOMAIN, TAG, 'PermissionUtils getRequiredPermissions: returning required permissions');
@@ -217,8 +220,8 @@ export class PermissionUtils {
   }
 
   /**
-   * 获取所有已知权限的标识列表。
-   * @returns {string[]} 所有已知权限标识数组
+   * Gets the identifiers of all known permissions.
+   * @returns {string[]} Array of all known permission identifiers
    */
   static getAllKnownPermissions(): string[] {
     const permissions: string[] = [];
@@ -229,24 +232,25 @@ export class PermissionUtils {
   }
 
   // ========================================
-  // 权限列表格式化方法
+  // Permission list formatting methods
   // ========================================
 
   /**
-   * 将权限列表格式化为可读字符串。
-   * 每个权限显示为中文标签，以顿号分隔。
-   * @param {string[]} perms - 权限标识数组
-   * @returns {string} 格式化后的权限描述字符串
+   * Formats a permission list into a readable string.
+   * Each permission is shown as its localized label, joined by the separator defined in the list_separator resource.
+   * @param {string[]} perms - Array of permission identifiers
+   * @returns {string} Formatted permission description string
    */
   static formatPermissionList(perms: string[]): string {
     hilog.info(DOMAIN, TAG, 'PermissionUtils formatPermissionList: formatting %{public}d permissions', perms.length);
     if (perms.length === 0) {
-      return '无权限';
+      return ResourceHelper.getStringByName('perm_none');
     }
+    const separator: string = ResourceHelper.getStringByName('list_separator');
     let result: string = '';
     for (let i: number = 0; i < perms.length; i++) {
       if (i > 0) {
-        result += '、';
+        result += separator;
       }
       result += PermissionUtils.getPermissionLabel(perms[i]);
     }
