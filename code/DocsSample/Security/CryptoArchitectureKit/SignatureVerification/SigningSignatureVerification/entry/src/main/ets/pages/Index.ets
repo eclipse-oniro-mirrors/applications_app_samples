@@ -84,6 +84,12 @@ struct Index {
           let ret: number = testNapi.sm2Signature();
           this.message = 'SM2SignatureSuccess Result:' + ret.toString();
         })
+      Button($r('app.string.call_sm2_sign'))
+        .width('70%')
+        .onClick(() => {
+          let ret: number = testNapi.sm2Sign();
+          this.message = 'SM2SignSuccess Result:' + ret.toString();
+        })
       Button($r('app.string.call_sm2_rs_to_der'))
         .width('70%')
         .onClick(() => {
