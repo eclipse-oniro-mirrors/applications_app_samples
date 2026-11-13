@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start cli_start_index]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import testNapi from 'libentry.so';
 
@@ -44,3 +45,4 @@ struct Index {
     .height('100%')
   }
 }
+// [End cli_start_index]
