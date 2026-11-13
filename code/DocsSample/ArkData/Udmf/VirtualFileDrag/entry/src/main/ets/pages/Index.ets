@@ -18,7 +18,7 @@ import unifiedDataChannel from '@ohos.data.unifiedDataChannel';
 import uniformTypeDescriptor from '@ohos.data.uniformTypeDescriptor';
 import { common } from '@kit.AbilityKit';
 import { VirtualFileProvider } from '../model/VirtualFileProvider';
-import { copyDroppedFiles } from '../model/DropReceiver';
+import { getDroppedFileUris } from '../model/DropReceiver';
 
 enum ExportScenario {
   DOCUMENT,
@@ -79,15 +79,21 @@ struct Index {
   }
 // [End virtual_drag_js_data]
 
-  private async receive(event: DragEvent): Promise<void> {
+// [Start virtual_drag_js_drop_result]
+  private receive(event: DragEvent): void {
     try {
-      await copyDroppedFiles(event, this.getUIContext().getHostContext() as common.UIAbilityContext);
-      this.getUIContext().getPromptAction().showToast({ message: '文件已保存' });
+      this.handleUris(getDroppedFileUris(event));
     } catch (error) {
-      console.error(`Copy dropped files failed: ${JSON.stringify(error)}`);
-      this.getUIContext().getPromptAction().showToast({ message: '文件保存失败，请重试' });
+      console.error(`Get dropped URIs failed: ${JSON.stringify(error)}`);
+      this.getUIContext().getPromptAction().showToast({ message: '未获取到文件 URI，请重试' });
     }
   }
+
+  private handleUris(uris: string[]): void {
+    // 业务可在此根据 URI 读取、复制或打开文件，示例仅提示已接收。
+    this.getUIContext().getPromptAction().showToast({ message: `已接收 ${uris.length} 个文件 URI` });
+  }
+// [End virtual_drag_js_drop_result]
 
   build() {
     Column({ space: 20 }) {
@@ -110,10 +116,12 @@ struct Index {
           }
         })
 // [End virtual_drag_js_start]
-      Text('拖入文件以保存')
+// [Start virtual_drag_js_drop_target]
+      Text('拖入文件以获取 URI')
         .width('100%').height(120).backgroundColor('#DCF2DF')
         .allowDrop([uniformTypeDescriptor.UniformDataType.FILE_URI])
         .onDrop((event: DragEvent) => { this.receive(event); })
+// [End virtual_drag_js_drop_target]
     }.padding(24).width('100%').height('100%')
   }
 }

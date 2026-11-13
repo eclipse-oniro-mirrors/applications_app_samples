@@ -5,6 +5,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(DEFINED PACKAGE_FIND_FILE)
     include(${PACKAGE_FIND_FILE})
 endif()
-add_library(entry SHARED napi_init.cpp virtual_file_provider.cpp)
-# NDK means Native Development Kit; the following names are SDK-provided libraries.
+add_library(entry SHARED napi_init.cpp virtual_file_provider.cpp virtual_file_receiver.cpp)
 target_link_libraries(entry PUBLIC libace_napi.z.so libace_ndk.z.so libhilog_ndk.z.so libudmf.so libz.so)

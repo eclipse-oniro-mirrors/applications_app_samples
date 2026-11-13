@@ -15,9 +15,6 @@
 
 import nativeEntry from 'libentry.so';
 import { NodeContent } from '@kit.ArkUI';
-import { common } from '@kit.AbilityKit';
-import uniformTypeDescriptor from '@ohos.data.uniformTypeDescriptor';
-import { copyDroppedFiles } from '../model/DropReceiver';
 
 enum ExportScenario {
   DOCUMENT,
@@ -32,7 +29,7 @@ struct Index {
   private content: NodeContent = new NodeContent();
 
   aboutToAppear(): void {
-    nativeEntry.createNativeNode(this.content);
+    nativeEntry.createNativeNode(this.content, (uris: string[]) => { this.handleUris(uris); });
     this.prepare(this.scenario);
   }
 
@@ -50,14 +47,11 @@ struct Index {
     }
   }
 
-  private async receive(event: DragEvent): Promise<void> {
-    try {
-      await copyDroppedFiles(event, this.getUIContext().getHostContext() as common.UIAbilityContext);
-      this.getUIContext().getPromptAction().showToast({ message: '文件已保存' });
-    } catch (error) {
-      console.error(`Copy dropped files failed: ${JSON.stringify(error)}`);
-      this.getUIContext().getPromptAction().showToast({ message: '文件保存失败，请重试' });
-    }
+  private handleUris(uris: string[]): void {
+    // 业务可在此根据 URI 读取、复制或打开文件，示例仅提示已接收。
+    this.getUIContext().getPromptAction().showToast({
+      message: uris.length > 0 ? `已接收 ${uris.length} 个文件 URI` : '未获取到文件 URI，请重试'
+    });
   }
 
   build() {
@@ -70,11 +64,7 @@ struct Index {
       }
       Row() {
         ContentSlot(this.content)
-      }.width('100%').height(120).backgroundColor('#D9E8FF')
-      Text('拖入文件以保存')
-        .width('100%').height(120).backgroundColor('#DCF2DF')
-        .allowDrop([uniformTypeDescriptor.UniformDataType.FILE_URI])
-        .onDrop((event: DragEvent) => { this.receive(event); })
+      }.width('100%').height(260)
     }.padding(24).width('100%').height('100%')
   }
 }

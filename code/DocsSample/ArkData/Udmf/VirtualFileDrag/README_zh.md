@@ -12,14 +12,14 @@
 2. 设备 ROM 必须已支持 UDMF 虚拟文件拖拽及沙箱配置；仅补充 SDK 声明不能使旧 ROM 具备此能力。建议使用支持鼠标拖拽的 PC 形态或可分屏设备。
 3. 默认选择文档，可切换“文档”“目录”或“按需解压”，等候元数据准备完成。ZIP 来自工程自带的 documents.zip，只有第一次读取时才解压。
 4. 将蓝色区域拖到文件管理器或支持接收文件的桌面位置，保存后打开核对内容。也可分别安装两个示例，分屏后互相拖入绿色接收区。
-5. 接收区仅以简短提示反馈保存成功或失败，不显示日志。文件保存在应用私有 filesDir 下的 received-<时间戳> 目录。
+5. 绿色接收区只获取 URI 并交给业务回调，显示接收数量；读取、复制、保存或打开由业务决定。
 
 ### 工程目录
 
-- [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和普通文件接收区。
+- [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和文件 URI 接收区。
 - [VirtualFileProvider.ets](entry/src/main/ets/model/VirtualFileProvider.ets)：文件树、stat/read/cancel 回调和延迟解压。
 - [documents.zip](entry/src/main/resources/rawfile/documents.zip)：内含 106 字节的 archive-note.txt，用于按需解压验证。
-- [DropReceiver.ets](entry/src/main/ets/model/DropReceiver.ets)：使用异步普通文件 API 遍历、读取、复制拖入的文件。
+- [DropReceiver.ets](entry/src/main/ets/model/DropReceiver.ets)：获取落入文件的 URI 列表，交给业务处理。
 - [ohosTest.md](ohosTest.md)：人工验证步骤和预期现象。
 
 ### 接口用法和约束

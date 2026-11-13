@@ -4,7 +4,7 @@
 
 本示例展示通过拖拽导出尚未准备好完整内容的文件或目录。提供方先声明文件树和准确大小，再通过读取回调按需提供内容；目标应用使用普通文件接口读取。
 
-对应指南：[拖拽事件：虚拟文件拖拽](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-common-events-drag-event.md#虚拟文件拖拽)。
+对应指南：[拖拽事件：虚拟文件拖拽](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/ndk-drag-event.md#虚拟文件拖拽)。
 
 ### 使用说明
 
@@ -13,14 +13,14 @@
 3. 默认选择文档，可通过“文档”“目录”“按需解压”三个按钮切换场景。选择“按需解压”后，文件内容在第一次读取时由 C 回调解压。按钮顺序、拖出区域和接收区域与动态接口示例一致。
 4. 长按蓝色区域拖出。此区域由 Native ArkUI 创建，通过 OH_ArkUI_DragEvent_SetData 设置 C 接口创建的数据。
 5. 将蓝色区域拖到文件管理器或支持接收文件的桌面位置，保存后打开核对内容。也可分别安装两个示例，分屏后互相拖入绿色接收区。
-6. 接收区仅以简短提示反馈保存成功或失败，不显示日志。文件保存在应用私有 filesDir 下的 received-<时间戳> 目录。
+6. 绿色接收区只获取 URI 并交给业务回调，显示接收数量；读取、复制、保存或打开由业务决定。
 
 ### 工程目录
 
-- [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和普通文件接收区。
+- [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和文件 URI 接收区。
 - [virtual_file_provider.cpp](entry/src/main/cpp/virtual_file_provider.cpp)：虚拟节点、stat/read/cancel/finalize 回调与数据组装。
 - [napi_init.cpp](entry/src/main/cpp/napi_init.cpp)：NAPI 场景配置、Native ArkUI 拖拽及清理。
-- [DropReceiver.ets](entry/src/main/ets/model/DropReceiver.ets)：使用异步普通文件 API 遍历、读取、复制拖入的文件。
+- [virtual_file_receiver.cpp](entry/src/main/cpp/virtual_file_receiver.cpp)：通过C接口获取落入数据并复制 URI 字符串，交给业务处理。
 - [ohosTest.md](ohosTest.md)：人工验证步骤和预期现象。
 
 ### 接口用法和约束
@@ -35,7 +35,7 @@
 
 ### 权限与依赖
 
-不涉及额外权限。使用 SDK 提供的 UDMF、Native ArkUI、NAPI、HiLog 和 zlib 库。采用 Stage 模型和动态 ArkTS，不包含 ArkTS 1.2 静态接口。
+不涉及额外权限。使用 SDK 提供的 UDMF、Native ArkUI、NAPI、HiLog和 zlib 库。采用 Stage 模型和动态 ArkTS，不包含 ArkTS 1.2 静态接口。
 
 ### 资料同源
 

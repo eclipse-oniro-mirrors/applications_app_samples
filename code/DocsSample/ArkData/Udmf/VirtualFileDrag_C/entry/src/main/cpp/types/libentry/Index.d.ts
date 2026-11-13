@@ -15,6 +15,6 @@
 
 import { NodeContent } from '@kit.ArkUI';
 
-export const createNativeNode: (content: NodeContent) => void;
+export const createNativeNode: (content: NodeContent, onReceive: (uris: string[]) => void) => void;
 export const destroyNativeNode: () => void;
 export const configure: (directory: boolean, compressed: boolean) => void;
