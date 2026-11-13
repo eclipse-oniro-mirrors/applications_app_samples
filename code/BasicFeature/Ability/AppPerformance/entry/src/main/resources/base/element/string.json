@@ -2500,5 +2500,1465 @@
       "value": "Actual {0} bytes",
       "description": "App performance display text: Actual value bytes"
     },
+    {
+      "name": "ap_dynamic_text_decoding_failed",
+      "value": "Text decoding failed",
+      "description": "App performance display text: Text decoding failed"
+    },
+    {
+      "name": "ap_dynamic_text_is_readable",
+      "value": "Text is readable",
+      "description": "App performance display text: Text is readable"
+    },
+    {
+      "name": "ap_dynamic_no_valid_lines",
+      "value": "No valid lines",
+      "description": "App performance display text: No valid lines"
+    },
+    {
+      "name": "ap_dynamic_nonempty_lines",
+      "value": "{0} nonempty lines",
+      "description": "App performance display text: value nonempty lines"
+    },
+    {
+      "name": "ap_dynamic_first_line",
+      "value": "First line: {0}",
+      "description": "App performance display text: First line: value"
+    },
+    {
+      "name": "ap_dynamic_empty",
+      "value": "(empty)",
+      "description": "App performance display text: (empty)"
+    },
+    {
+      "name": "ap_dynamic_insufficient_note_sample",
+      "value": "Insufficient note sample",
+      "description": "App performance display text: Insufficient note sample"
+    },
+    {
+      "name": "ap_dynamic_note_list_structure_is_complete",
+      "value": "Note list structure is complete",
+      "description": "App performance display text: Note list structure is complete"
+    },
+    {
+      "name": "ap_dynamic_note_list_issues_malformed_rows_empty_rows",
+      "value": "Note list issues ({0} malformed rows, {1} empty rows)",
+      "description": "App performance display text: Note list issues (value malformed rows, value empty rows)"
+    },
+    {
+      "name": "ap_dynamic_notes",
+      "value": "{0} notes",
+      "description": "App performance display text: value notes"
+    },
+    {
+      "name": "ap_dynamic_first_entry",
+      "value": "First entry: {0}",
+      "description": "App performance display text: First entry: value"
+    },
+    {
+      "name": "ap_dynamic_image_index_is_parseable",
+      "value": "Image index is parseable",
+      "description": "App performance display text: Image index is parseable"
+    },
+    {
+      "name": "ap_dynamic_index_entries_have_invalid_dimensions",
+      "value": "{0} index entries have invalid dimensions",
+      "description": "App performance display text: value index entries have invalid dimensions"
+    },
+    {
+      "name": "ap_dynamic_index_entries",
+      "value": "{0} index entries",
+      "description": "App performance display text: value index entries"
+    },
+    {
+      "name": "ap_dynamic_pixels_in_total",
+      "value": "{0} pixels in total",
+      "description": "App performance display text: value pixels in total"
+    },
+    {
+      "name": "ap_dynamic_form_draft_fields_are_complete",
+      "value": "Form draft fields are complete",
+      "description": "App performance display text: Form draft fields are complete"
+    },
+    {
+      "name": "ap_dynamic_missing_fields",
+      "value": "Missing fields: {0}",
+      "description": "App performance display text: Missing fields: value"
+    },
+    {
+      "name": "ap_dynamic_required_fields_filled",
+      "value": "{0}/{1} required fields filled",
+      "description": "App performance display text: value/value required fields filled"
+    },
+    {
+      "name": "ap_dynamic_current_step",
+      "value": "Current step: {0}",
+      "description": "App performance display text: Current step: value"
+    },
+    {
+      "name": "ap_dynamic_workload_catalog_is_consistent",
+      "value": "Workload catalog is consistent",
+      "description": "App performance display text: Workload catalog is consistent"
+    },
+    {
+      "name": "ap_dynamic_duplicate_workload_id",
+      "value": "Duplicate workload ID: {0}",
+      "description": "App performance display text: Duplicate workload ID: value"
+    },
+    {
+      "name": "ap_dynamic_missing_sample_path",
+      "value": "Missing sample path: {0}",
+      "description": "App performance display text: Missing sample path: value"
+    },
+    {
+      "name": "ap_dynamic_invalid_byte_threshold",
+      "value": "Invalid byte threshold: {0}",
+      "description": "App performance display text: Invalid byte threshold: value"
+    },
+    {
+      "name": "ap_dynamic_ledger_v1_6_stages_single_run_same_resource_re_read",
+      "value": "ledger-v1 · 6 stages · single run · same-resource re-read",
+      "description": "App performance display text: ledger-v1 · 6 stages · single run · same-resource re-read"
+    },
+    {
+      "name": "ap_dynamic_status_marker_320",
+      "value": "{0}: {1}",
+      "description": "App performance display text: value: value"
+    },
+    {
+      "name": "ap_dynamic_entries_321",
+      "value": "{0} entries",
+      "description": "App performance display text: value entries"
+    },
+    {
+      "name": "ap_dynamic_status_marker_322",
+      "value": "✓ {0}",
+      "description": "App performance display text: ✓ value"
+    },
+    {
+      "name": "ap_dynamic_status_marker_323",
+      "value": "✗ {0}",
+      "description": "App performance display text: ✗ value"
+    },
+    {
+      "name": "ap_dynamic_status_marker_324",
+      "value": "- {0}",
+      "description": "App performance display text: - value"
+    },
+    {
+      "name": "ap_dynamic_ms_325",
+      "value": "{0} {1} | {2} | {3} | {4} ms",
+      "description": "App performance display text: value value | value | value | value ms"
+    },
+    {
+      "name": "ap_dynamic_file_scanning_should_finish_within_400_ms",
+      "value": "File scanning should finish within 400 ms",
+      "description": "App performance display text: File scanning should finish within 400 ms"
+    },
+    {
+      "name": "ap_dynamic_cache_scanning_should_finish_within_300_ms",
+      "value": "Cache scanning should finish within 300 ms",
+      "description": "App performance display text: Cache scanning should finish within 300 ms"
+    },
+    {
+      "name": "ap_dynamic_memory_snapshot_reads_should_be_quick_exceeding_the_limit_indicates_blockin",
+      "value": "Memory snapshot reads should be quick; exceeding the limit indicates blocking",
+      "description": "App performance display text: Memory snapshot reads should be quick; exceeding the limit indicates blocking"
+    },
+    {
+      "name": "ap_dynamic_inventory_validation_only_compares_in_memory_data",
+      "value": "Inventory validation only compares in-memory data",
+      "description": "App performance display text: Inventory validation only compares in-memory data"
+    },
+    {
+      "name": "ap_dynamic_cache_inventory_validation_also_compares_in_memory_data",
+      "value": "Cache inventory validation also compares in-memory data",
+      "description": "App performance display text: Cache inventory validation also compares in-memory data"
+    },
+    {
+      "name": "ap_dynamic_budget_calculation_should_be_pure_computation",
+      "value": "Budget calculation should be pure computation",
+      "description": "App performance display text: Budget calculation should be pure computation"
+    },
+    {
+      "name": "ap_dynamic_cleanup_time_estimated_for_500_files",
+      "value": "Cleanup time estimated for 500 files",
+      "description": "App performance display text: Cleanup time estimated for 500 files"
+    },
+    {
+      "name": "ap_dynamic_estimated_for_500_cache_files",
+      "value": "Estimated for 500 cache files",
+      "description": "App performance display text: Estimated for 500 cache files"
+    },
+    {
+      "name": "ap_dynamic_memory_reclamation_depends_on_system_scheduling",
+      "value": "Memory reclamation depends on system scheduling",
+      "description": "App performance display text: Memory reclamation depends on system scheduling"
+    },
+    {
+      "name": "ap_dynamic_at_least_one_task_batch_is_expected",
+      "value": "At least one task batch is expected",
+      "description": "App performance display text: At least one task batch is expected"
+    },
+    {
+      "name": "ap_dynamic_verification_reads_metadata_only",
+      "value": "Verification reads metadata only",
+      "description": "App performance display text: Verification reads metadata only"
+    },
+    {
+      "name": "ap_dynamic_verification_also_reads_metadata_only",
+      "value": "Verification also reads metadata only",
+      "description": "App performance display text: Verification also reads metadata only"
+    },
+    {
+      "name": "ap_dynamic_summary_generation_should_only_assemble_strings",
+      "value": "Summary generation should only assemble strings",
+      "description": "App performance display text: Summary generation should only assemble strings"
+    },
+    {
+      "name": "ap_dynamic_total_budget_for_the_maintenance_flow",
+      "value": "Total budget for the maintenance flow",
+      "description": "App performance display text: Total budget for the maintenance flow"
+    },
+    {
+      "name": "ap_dynamic_critical_steps_should_not_fail",
+      "value": "Critical steps should not fail",
+      "description": "App performance display text: Critical steps should not fail"
+    },
+    {
+      "name": "ap_dynamic_skipped_steps_indicate_unmet_dependencies",
+      "value": "Skipped steps indicate unmet dependencies",
+      "description": "App performance display text: Skipped steps indicate unmet dependencies"
+    },
+    {
+      "name": "ap_dynamic_cold_launch_p90_budget",
+      "value": "Cold-launch P90 budget",
+      "description": "App performance display text: Cold-launch P90 budget"
+    },
+    {
+      "name": "ap_dynamic_warm_launch_p90_budget",
+      "value": "Warm-launch P90 budget",
+      "description": "App performance display text: Warm-launch P90 budget"
+    },
+    {
+      "name": "ap_dynamic_hot_launch_p90_budget",
+      "value": "Hot-launch P90 budget",
+      "description": "App performance display text: Hot-launch P90 budget"
+    },
+    {
+      "name": "ap_dynamic_first_frame_budget",
+      "value": "First-frame budget",
+      "description": "App performance display text: First-frame budget"
+    },
+    {
+      "name": "ap_dynamic_interactivity_budget",
+      "value": "Interactivity budget",
+      "description": "App performance display text: Interactivity budget"
+    },
+    {
+      "name": "ap_dynamic_byte_limit_per_maintenance_flow",
+      "value": "Byte limit per maintenance flow",
+      "description": "App performance display text: Byte limit per maintenance flow"
+    },
+    {
+      "name": "ap_dynamic_maintenance_step_success_rate",
+      "value": "Maintenance step success rate",
+      "description": "App performance display text: Maintenance step success rate"
+    },
+    {
+      "name": "ap_dynamic_a_high_retry_ratio_indicates_frequent_initial_failures",
+      "value": "A high retry ratio indicates frequent initial failures",
+      "description": "App performance display text: A high retry ratio indicates frequent initial failures"
+    },
+    {
+      "name": "ap_dynamic_critical_steps_must_not_fail",
+      "value": "Critical steps must not fail",
+      "description": "App performance display text: Critical steps must not fail"
+    },
+    {
+      "name": "ap_dynamic_the_maintenance_flow_must_not_exceed_6_seconds",
+      "value": "The maintenance flow must not exceed 6 seconds",
+      "description": "App performance display text: The maintenance flow must not exceed 6 seconds"
+    },
+    {
+      "name": "ap_dynamic_file_cleanup_must_not_exceed_2_seconds",
+      "value": "File cleanup must not exceed 2 seconds",
+      "description": "App performance display text: File cleanup must not exceed 2 seconds"
+    },
+    {
+      "name": "ap_dynamic_cache_cleanup_must_not_exceed_1_5_seconds",
+      "value": "Cache cleanup must not exceed 1.5 seconds",
+      "description": "App performance display text: Cache cleanup must not exceed 1.5 seconds"
+    },
+    {
+      "name": "ap_dynamic_excess_file_scanning_time_is_a_minor_regression",
+      "value": "Excess file scanning time is a minor regression",
+      "description": "App performance display text: Excess file scanning time is a minor regression"
+    },
+    {
+      "name": "ap_dynamic_excess_cache_scanning_time_is_a_minor_regression",
+      "value": "Excess cache scanning time is a minor regression",
+      "description": "App performance display text: Excess cache scanning time is a minor regression"
+    },
+    {
+      "name": "ap_dynamic_inventory_validation_should_remain_lightweight",
+      "value": "Inventory validation should remain lightweight",
+      "description": "App performance display text: Inventory validation should remain lightweight"
+    },
+    {
+      "name": "ap_dynamic_verification_read_duration_should_be_stable",
+      "value": "Verification read duration should be stable",
+      "description": "App performance display text: Verification read duration should be stable"
+    },
+    {
+      "name": "ap_dynamic_step_success_rate_must_be_at_least_95",
+      "value": "Step success rate must be at least 95%",
+      "description": "App performance display text: Step success rate must be at least 95%"
+    },
+    {
+      "name": "ap_dynamic_retry_ratio_must_not_exceed_10",
+      "value": "Retry ratio must not exceed 10%",
+      "description": "App performance display text: Retry ratio must not exceed 10%"
+    },
+    {
+      "name": "ap_dynamic_skipped_steps_indicate_unmet_dependencies_360",
+      "value": "Skipped steps indicate unmet dependencies",
+      "description": "App performance display text: Skipped steps indicate unmet dependencies"
+    },
+    {
+      "name": "ap_dynamic_cold_launch_p90_budget_361",
+      "value": "Cold-launch P90 budget",
+      "description": "App performance display text: Cold-launch P90 budget"
+    },
+    {
+      "name": "ap_dynamic_warm_launch_p90_budget_362",
+      "value": "Warm-launch P90 budget",
+      "description": "App performance display text: Warm-launch P90 budget"
+    },
+    {
+      "name": "ap_dynamic_hot_launch_p90_budget_363",
+      "value": "Hot-launch P90 budget",
+      "description": "App performance display text: Hot-launch P90 budget"
+    },
+    {
+      "name": "ap_dynamic_exceeding_the_first_frame_budget_produces_a_warning",
+      "value": "Exceeding the first-frame budget produces a warning",
+      "description": "App performance display text: Exceeding the first-frame budget produces a warning"
+    },
+    {
+      "name": "ap_dynamic_exceeding_the_interactivity_budget_produces_a_warning",
+      "value": "Exceeding the interactivity budget produces a warning",
+      "description": "App performance display text: Exceeding the interactivity budget produces a warning"
+    },
+    {
+      "name": "ap_dynamic_byte_limit_per_operation",
+      "value": "Byte limit per operation",
+      "description": "App performance display text: Byte limit per operation"
+    },
+    {
+      "name": "ap_dynamic_summary_generation_should_remain_lightweight",
+      "value": "Summary generation should remain lightweight",
+      "description": "App performance display text: Summary generation should remain lightweight"
+    },
+    {
+      "name": "ap_dynamic_this_sample_s_real_stage_budget_is_not_a_system_guarantee",
+      "value": "This sample's real-stage budget is not a system guarantee",
+      "description": "App performance display text: This sample's real-stage budget is not a system guarantee"
+    },
+    {
+      "name": "ap_dynamic_all_actual_stages_must_succeed_early_stops_or_missing_results_cannot_pass",
+      "value": "All actual stages must succeed; early stops or missing results cannot pass",
+      "description": "App performance display text: All actual stages must succeed; early stops or missing results cannot pass"
+    },
+    {
+      "name": "ap_dynamic_failures_must_block_the_gate",
+      "value": "Failures must block the gate",
+      "description": "App performance display text: Failures must block the gate"
+    },
+    {
+      "name": "ap_series_default_scope",
+      "value": "Select the workload and mode above; default repetitions: {0}",
+      "description": "App performance display text: Select the workload and mode above; default repetitions: value"
+    },
+    {
+      "name": "ap_series_not_started",
+      "value": "Series has not started",
+      "description": "App performance display text: Series has not started"
+    },
+    {
+      "name": "ap_series_phase_not_started",
+      "value": "Not started",
+      "description": "App performance display text: Not started"
+    },
+    {
+      "name": "ap_series_no_archive",
+      "value": "No series archive yet",
+      "description": "App performance display text: No series archive yet"
+    },
+    {
+      "name": "ap_series_references",
+      "value": "Available {0} / {1} records; missing {2}",
+      "description": "App performance display text: Available value / value records; missing value"
+    },
+    {
+      "name": "ap_series_phase_preparing",
+      "value": "Preparing",
+      "description": "App performance display text: Preparing"
+    },
+    {
+      "name": "ap_series_phase_running",
+      "value": "Running",
+      "description": "App performance display text: Running"
+    },
+    {
+      "name": "ap_series_phase_stopping",
+      "value": "Stopping after the current run",
+      "description": "App performance display text: Stopping after the current run"
+    },
+    {
+      "name": "ap_series_phase_cancelling",
+      "value": "Cancelling local waiting",
+      "description": "App performance display text: Cancelling local waiting"
+    },
+    {
+      "name": "ap_series_phase_completed",
+      "value": "Completed",
+      "description": "App performance display text: Completed"
+    },
+    {
+      "name": "ap_series_phase_stopped",
+      "value": "Stopped",
+      "description": "App performance display text: Stopped"
+    },
+    {
+      "name": "ap_series_phase_cancelled",
+      "value": "Cancelled",
+      "description": "App performance display text: Cancelled"
+    },
+    {
+      "name": "ap_series_phase_condition_changed",
+      "value": "Stopped: conditions changed",
+      "description": "App performance display text: Stopped: conditions changed"
+    },
+    {
+      "name": "ap_series_phase_save_failed",
+      "value": "Stopped: save failed",
+      "description": "App performance display text: Stopped: save failed"
+    },
+    {
+      "name": "ap_series_phase_interrupted",
+      "value": "Process ended; series interrupted",
+      "description": "App performance display text: Process ended; series interrupted"
+    },
+    {
+      "name": "ap_series_phase_failed",
+      "value": "Stopped: experiment failed",
+      "description": "App performance display text: Stopped: experiment failed"
+    },
+    {
+      "name": "ap_series_sdk_isolated",
+      "value": "The SDK has not settled; isolation continues and no request will be resent automatically",
+      "description": "App performance display text: The SDK has not settled; isolation continues and no request will be resent automatically"
+    },
+    {
+      "name": "ap_series_current_iteration",
+      "value": "Run {0} / {1}; ",
+      "description": "App performance display text: Run value / value; "
+    },
+    {
+      "name": "ap_series_progress",
+      "value": "{0}Started {1}; ended {2}; valid {3}; failed/missing {4}; not run {5}",
+      "description": "App performance display text: valueStarted value; ended value; valid value; failed/missing value; not run value"
+    },
+    {
+      "name": "ap_series_scope",
+      "value": "Result source: {0} / {1}; planned runs: {2}",
+      "description": "App performance display text: Result source: value / value; planned runs: value"
+    },
+    {
+      "name": "ap_series_saved",
+      "value": "Saved",
+      "description": "App performance display text: Saved"
+    },
+    {
+      "name": "ap_series_save_failed",
+      "value": "Save failed; current results are retained in memory only",
+      "description": "App performance display text: Save failed; current results are retained in memory only"
+    },
+    {
+      "name": "ap_series_saving",
+      "value": "Saving; disk persistence is not yet confirmed",
+      "description": "App performance display text: Saving; disk persistence is not yet confirmed"
+    },
+    {
+      "name": "ap_series_repetition_count",
+      "value": "Repetitions: {0}",
+      "description": "App performance display text: Repetitions: value"
+    },
+    {
+      "name": "ap_series_reason_separator",
+      "value": "; ",
+      "description": "App performance display text: ; "
+    },
+    {
+      "name": "ap_series_comparison_group_incomparable",
+      "value": "{0} | Not comparable: {1} | Valid samples: left {2}/{3}, right {4}/{5}; missing values are not zero",
+      "description": "App performance display text: value | Not comparable: value | Valid samples: left value/value, right value/value; missin"
+    },
+    {
+      "name": "ap_series_comparison_group_comparable",
+      "value": "{0} | Valid same-condition samples: left {1}, right {2} | P50 {3} → {4} ms (delta {5} ms) | P90 {6} → {7} ms (delta {8} ms) | Mean {9} → {10} ms (delta {11} ms)",
+      "description": "App performance display text: value | Valid same-condition samples: left value, right value | P50 value → value ms (delt"
+    },
+    {
+      "name": "ap_series_comparison_rejected",
+      "value": "Not comparable: {0}",
+      "description": "App performance display text: Not comparable: value"
+    },
+    {
+      "name": "ap_series_comparison_no_samples",
+      "value": "Not comparable: no actual samples are available",
+      "description": "App performance display text: Not comparable: no actual samples are available"
+    },
+    {
+      "name": "ap_series_comparison_groups",
+      "value": "{0} same-condition groups are comparable; the other {1} groups are not pooled",
+      "description": "App performance display text: value same-condition groups are comparable; the other value groups are not pooled"
+    },
+    {
+      "name": "ap_series_comparison_no_valid_pair",
+      "value": "Not comparable: no valid same-condition samples on both sides; missing values are not zero",
+      "description": "App performance display text: Not comparable: no valid same-condition samples on both sides; missing values are not zero"
+    },
+    {
+      "name": "ap_series_comparison_references",
+      "value": "References: left available {0}, missing {1}; right available {2}, missing {3}",
+      "description": "App performance display text: References: left available value, missing value; right available value, missing value"
+    },
+    {
+      "name": "ap_series_comparison_limits",
+      "value": "Only actual stage timings are compared. Different modes, assets or conditions are not pooled; no reclaimed amount or statistical significance is inferred.",
+      "description": "App performance display text: Only actual stage timings are compared. Different modes, assets or conditions are not pool"
+    },
+    {
+      "name": "ap_series_comparison_left_unavailable",
+      "value": "The left series does not exist or its metadata has been evicted",
+      "description": "App performance display text: The left series does not exist or its metadata has been evicted"
+    },
+    {
+      "name": "ap_series_comparison_right_unavailable",
+      "value": "The right series does not exist or its metadata has been evicted",
+      "description": "App performance display text: The right series does not exist or its metadata has been evicted"
+    },
+    {
+      "name": "ap_series_comparison_distinct_required",
+      "value": "Select two different series",
+      "description": "App performance display text: Select two different series"
+    },
+    {
+      "name": "ap_series_comparison_workload_differs",
+      "value": "Workloads differ",
+      "description": "App performance display text: Workloads differ"
+    },
+    {
+      "name": "ap_series_comparison_mode_differs",
+      "value": "Reclaim modes differ; this is not a same-condition comparison",
+      "description": "App performance display text: Reclaim modes differ; this is not a same-condition comparison"
+    },
+    {
+      "name": "ap_series_comparison_group_label",
+      "value": "Condition comparison {0}",
+      "description": "App performance display text: Condition comparison value"
+    },
+    {
+      "name": "ap_series_comparison_left_no_valid_samples",
+      "value": "No valid same-condition samples on the left",
+      "description": "App performance display text: No valid same-condition samples on the left"
+    },
+    {
+      "name": "ap_series_comparison_right_no_valid_samples",
+      "value": "No valid same-condition samples on the right",
+      "description": "App performance display text: No valid same-condition samples on the right"
+    },
+    {
+      "name": "ap_series_history_none_selected",
+      "value": "No series history selected",
+      "description": "App performance display text: No series history selected"
+    },
+    {
+      "name": "ap_series_history_no_baseline",
+      "value": "No other series selected as a baseline",
+      "description": "App performance display text: No other series selected as a baseline"
+    },
+    {
+      "name": "ap_series_history_no_references",
+      "value": "No references for the selected series",
+      "description": "App performance display text: No references for the selected series"
+    },
+    {
+      "name": "ap_series_history_format_markdown",
+      "value": "Markdown",
+      "description": "App performance display text: Markdown"
+    },
+    {
+      "name": "ap_series_history_format_csv",
+      "value": "CSV",
+      "description": "App performance display text: CSV"
+    },
+    {
+      "name": "ap_series_history_choose_comparison",
+      "value": "Select two different series to compare same-condition samples",
+      "description": "App performance display text: Select two different series to compare same-condition samples"
+    },
+    {
+      "name": "ap_series_history_row_title",
+      "value": "Series {0} | {1} / {2} | {3}",
+      "description": "App performance display text: Series value | value / value | value"
+    },
+    {
+      "name": "ap_series_history_row_detail",
+      "value": "Planned {0}; started {1}; records {2}; available {3}; missing {4}",
+      "description": "App performance display text: Planned value; started value; records value; available value; missing value"
+    },
+    {
+      "name": "ap_series_history_selected",
+      "value": "Selected: {0}",
+      "description": "App performance display text: Selected: value"
+    },
+    {
+      "name": "ap_series_history_baseline",
+      "value": "Baseline: {0}",
+      "description": "App performance display text: Baseline: value"
+    },
+    {
+      "name": "ap_series_history_selection_evicted",
+      "value": "The selected series metadata has been evicted; explicitly select another series",
+      "description": "App performance display text: The selected series metadata has been evicted; explicitly select another series"
+    },
+    {
+      "name": "ap_series_history_records_unavailable",
+      "value": "Unavailable: records are not borrowed from other series",
+      "description": "App performance display text: Unavailable: records are not borrowed from other series"
+    },
+    {
+      "name": "ap_series_history_baseline_evicted",
+      "value": "The baseline series metadata has been evicted; select another baseline",
+      "description": "App performance display text: The baseline series metadata has been evicted; select another baseline"
+    },
+    {
+      "name": "ap_series_history_report_unavailable",
+      "value": "History report was not generated: {0}",
+      "description": "App performance display text: History report was not generated: value"
+    },
+    {
+      "name": "ap_series_history_copying",
+      "value": "Copying the selected series history ({0})",
+      "description": "App performance display text: Copying the selected series history (value)"
+    },
+    {
+      "name": "ap_series_history_copied",
+      "value": "Selected series history copied ({0})",
+      "description": "App performance display text: Selected series history copied (value)"
+    },
+    {
+      "name": "ap_series_history_copy_failed",
+      "value": "Copy failed; the selected series is unchanged. Check the actual call records",
+      "description": "App performance display text: Copy failed; the selected series is unchanged. Check the actual call records"
+    },
+    {
+      "name": "ap_series_history_copy_selected",
+      "value": "Copy selected series history ({0})",
+      "description": "App performance display text: Copy selected series history (value)"
+    },
+    {
+      "name": "report_verdict_same",
+      "value": "Same conditions",
+      "description": "App performance display text: Same conditions"
+    },
+    {
+      "name": "report_verdict_partial",
+      "value": "Partially different",
+      "description": "App performance display text: Partially different"
+    },
+    {
+      "name": "report_verdict_incomparable",
+      "value": "Not comparable",
+      "description": "App performance display text: Not comparable"
+    },
+    {
+      "name": "report_sampling_protocol",
+      "value": "ledger-v1 · 6 stages · single run · reread the same resource",
+      "description": "App performance display text: ledger-v1 · 6 stages · single run · reread the same resource"
+    },
+    {
+      "name": "report_field_device",
+      "value": "Device model",
+      "description": "App performance display text: Device model"
+    },
+    {
+      "name": "report_field_os",
+      "value": "OS version",
+      "description": "App performance display text: OS version"
+    },
+    {
+      "name": "report_field_app",
+      "value": "App version",
+      "description": "App performance display text: App version"
+    },
+    {
+      "name": "report_field_workload",
+      "value": "Workload ID",
+      "description": "App performance display text: Workload ID"
+    },
+    {
+      "name": "report_field_mode",
+      "value": "Reclaim mode",
+      "description": "App performance display text: Reclaim mode"
+    },
+    {
+      "name": "report_field_size",
+      "value": "Resource size",
+      "description": "App performance display text: Resource size"
+    },
+    {
+      "name": "report_field_digest",
+      "value": "Resource digest",
+      "description": "App performance display text: Resource digest"
+    },
+    {
+      "name": "report_field_targets",
+      "value": "Target set",
+      "description": "App performance display text: Target set"
+    },
+    {
+      "name": "report_field_protocol",
+      "value": "Sampling protocol",
+      "description": "App performance display text: Sampling protocol"
+    },
+    {
+      "name": "report_field_foreground",
+      "value": "Foreground/background",
+      "description": "App performance display text: Foreground/background"
+    },
+    {
+      "name": "report_field_scope",
+      "value": "Installation/reclaim target inventory",
+      "description": "App performance display text: Installation/reclaim target inventory"
+    },
+    {
+      "name": "report_field_fingerprint",
+      "value": "Condition fingerprint",
+      "description": "App performance display text: Condition fingerprint"
+    },
+    {
+      "name": "report_mode_files",
+      "value": "File reclaim",
+      "description": "App performance display text: File reclaim"
+    },
+    {
+      "name": "report_mode_modules",
+      "value": "Module reclaim",
+      "description": "App performance display text: Module reclaim"
+    },
+    {
+      "name": "report_mode_control",
+      "value": "Control group",
+      "description": "App performance display text: Control group"
+    },
+    {
+      "name": "report_mode_unrecorded",
+      "value": "Mode not recorded",
+      "description": "App performance display text: Mode not recorded"
+    },
+    {
+      "name": "report_bytes",
+      "value": "{0} bytes",
+      "description": "App performance display text: value bytes"
+    },
+    {
+      "name": "report_items",
+      "value": "{0} items",
+      "description": "App performance display text: value items"
+    },
+    {
+      "name": "report_size_unrecorded",
+      "value": "Size not recorded",
+      "description": "App performance display text: Size not recorded"
+    },
+    {
+      "name": "report_count_unrecorded",
+      "value": "Count not recorded",
+      "description": "App performance display text: Count not recorded"
+    },
+    {
+      "name": "report_unrecorded",
+      "value": "Not recorded",
+      "description": "App performance display text: Not recorded"
+    },
+    {
+      "name": "report_size_digest",
+      "value": "{0} / digest {1}",
+      "description": "App performance display text: value / digest value"
+    },
+    {
+      "name": "report_condition_diff",
+      "value": "{0} ({1} → {2})",
+      "description": "App performance display text: value (value → value)"
+    },
+    {
+      "name": "report_list_separator",
+      "value": "; ",
+      "description": "App performance display text: ; "
+    },
+    {
+      "name": "report_field_separator",
+      "value": ", ",
+      "description": "App performance display text: , "
+    },
+    {
+      "name": "report_comparison_incomparable",
+      "value": "Not comparable: {0}",
+      "description": "App performance display text: Not comparable: value"
+    },
+    {
+      "name": "report_key_fields_missing",
+      "value": "Required fields missing",
+      "description": "App performance display text: Required fields missing"
+    },
+    {
+      "name": "report_comparison_same",
+      "value": "Same conditions (fingerprint {0})",
+      "description": "App performance display text: Same conditions (fingerprint value)"
+    },
+    {
+      "name": "report_comparison_partial",
+      "value": "Partially different (fingerprint {0}): {1}",
+      "description": "App performance display text: Partially different (fingerprint value): value"
+    },
+    {
+      "name": "report_field_values_differ",
+      "value": "Field values differ",
+      "description": "App performance display text: Field values differ"
+    },
+    {
+      "name": "report_device_unrecorded",
+      "value": "Device not recorded",
+      "description": "App performance display text: Device not recorded"
+    },
+    {
+      "name": "report_os_unrecorded",
+      "value": "OS not recorded",
+      "description": "App performance display text: OS not recorded"
+    },
+    {
+      "name": "report_version_unrecorded",
+      "value": "Version not recorded",
+      "description": "App performance display text: Version not recorded"
+    },
+    {
+      "name": "report_workload_unrecorded",
+      "value": "Workload not recorded",
+      "description": "App performance display text: Workload not recorded"
+    },
+    {
+      "name": "report_protocol_unrecorded",
+      "value": "Protocol not recorded",
+      "description": "App performance display text: Protocol not recorded"
+    },
+    {
+      "name": "report_workload_named",
+      "value": "{0} ({1})",
+      "description": "App performance display text: value (value)"
+    },
+    {
+      "name": "report_foreground",
+      "value": "Foreground",
+      "description": "App performance display text: Foreground"
+    },
+    {
+      "name": "report_background",
+      "value": "Background",
+      "description": "App performance display text: Background"
+    },
+    {
+      "name": "report_foreground_suffix",
+      "value": " · {0}",
+      "description": "App performance display text:  · value"
+    },
+    {
+      "name": "report_condition_description",
+      "value": "{0} · {1} · APP {2}｜{3} · {4}｜Resource {5} · digest {6}｜Targets {7} · digest {8}｜Protocol {9}{10}",
+      "description": "App performance display text: value · value · APP value｜value · value｜Resource value · digest value｜Targets value · dige"
+    },
+    {
+      "name": "report_left_missing",
+      "value": "Left side is missing {0}",
+      "description": "App performance display text: Left side is missing value"
+    },
+    {
+      "name": "report_right_missing",
+      "value": "Right side is missing {0}",
+      "description": "App performance display text: Right side is missing value"
+    },
+    {
+      "name": "report_samples",
+      "value": "Sample count",
+      "description": "App performance display text: Sample count"
+    },
+    {
+      "name": "report_p50",
+      "value": "P50",
+      "description": "App performance display text: P50"
+    },
+    {
+      "name": "report_p90",
+      "value": "P90",
+      "description": "App performance display text: P90"
+    },
+    {
+      "name": "report_mean",
+      "value": "Mean",
+      "description": "App performance display text: Mean"
+    },
+    {
+      "name": "report_failed_count",
+      "value": "Failed/missing count",
+      "description": "App performance display text: Failed/missing count"
+    },
+    {
+      "name": "report_workload",
+      "value": "Workload",
+      "description": "App performance display text: Workload"
+    },
+    {
+      "name": "report_all_workloads",
+      "value": "All workloads",
+      "description": "App performance display text: All workloads"
+    },
+    {
+      "name": "report_all_modes",
+      "value": "All modes",
+      "description": "App performance display text: All modes"
+    },
+    {
+      "name": "report_evaluable_only",
+      "value": "Evaluable only",
+      "description": "App performance display text: Evaluable only"
+    },
+    {
+      "name": "report_include_unevaluable",
+      "value": "Include unevaluable",
+      "description": "App performance display text: Include unevaluable"
+    },
+    {
+      "name": "report_filter",
+      "value": "{0}｜{1}｜{2}",
+      "description": "App performance display text: value｜value｜value"
+    },
+    {
+      "name": "report_unevaluable",
+      "value": "Not evaluable",
+      "description": "App performance display text: Not evaluable"
+    },
+    {
+      "name": "report_milliseconds",
+      "value": "{0} ms",
+      "description": "App performance display text: value ms"
+    },
+    {
+      "name": "report_stage_row",
+      "value": "{0}｜Samples {1}｜P50 {2}｜Mean {3}{4}",
+      "description": "App performance display text: value｜Samples value｜P50 value｜Mean valuevalue"
+    },
+    {
+      "name": "report_unevaluable_suffix",
+      "value": "｜Not evaluable",
+      "description": "App performance display text: ｜Not evaluable"
+    },
+    {
+      "name": "report_group_label",
+      "value": "Condition group {0}",
+      "description": "App performance display text: Condition group value"
+    },
+    {
+      "name": "report_status_suffix",
+      "value": "｜{0}",
+      "description": "App performance display text: ｜value"
+    },
+    {
+      "name": "report_group_row",
+      "value": "{0}｜{1}｜{2}｜Samples {3} (valid {4})｜Failed/missing {5}｜P50 {6}｜P90 {7}｜Mean {8}{9}",
+      "description": "App performance display text: value｜value｜value｜Samples value (valid value)｜Failed/missing value｜P50 value｜P90 value｜Mea"
+    },
+    {
+      "name": "report_skipped_records",
+      "value": "{0} records did not finish normally or lack conditions; excluded from P50, P90 and mean",
+      "description": "App performance display text: value records did not finish normally or lack conditions; excluded from P50, P90 and mean"
+    },
+    {
+      "name": "report_no_valid_samples",
+      "value": "No valid samples: P50, P90 and mean are not evaluable (must not be replaced with 0)",
+      "description": "App performance display text: No valid samples: P50, P90 and mean are not evaluable (must not be replaced with 0)"
+    },
+    {
+      "name": "report_missing_fields",
+      "value": "Not comparable: missing {0}",
+      "description": "App performance display text: Not comparable: missing value"
+    },
+    {
+      "name": "report_empty_table",
+      "value": "No condition groups: the ledger is empty or all records are excluded by the current filter",
+      "description": "App performance display text: No condition groups: the ledger is empty or all records are excluded by the current filter"
+    },
+    {
+      "name": "report_table_header",
+      "value": "Condition group\tWorkload\tMode\tSamples\tValid\tFailed/missing\tP50\tP90\tMean\tComparability",
+      "description": "App performance display text: Condition group Workload Mode Samples Valid Failed/missing P50 P90 Mean Comparability"
+    },
+    {
+      "name": "report_table_row",
+      "value": "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}",
+      "description": "App performance display text: value value value value value value value value value value"
+    },
+    {
+      "name": "report_can_aggregate",
+      "value": "Can aggregate",
+      "description": "App performance display text: Can aggregate"
+    },
+    {
+      "name": "report_format_csv",
+      "value": "CSV",
+      "description": "App performance display text: CSV"
+    },
+    {
+      "name": "report_format_markdown",
+      "value": "Markdown",
+      "description": "App performance display text: Markdown"
+    },
+    {
+      "name": "report_title",
+      "value": "Application Performance Experiment Report",
+      "description": "App performance display text: Application Performance Experiment Report"
+    },
+    {
+      "name": "report_check_passed",
+      "value": "All required sections are present; no residual sensitive information found",
+      "description": "App performance display text: All required sections are present; no residual sensitive information found"
+    },
+    {
+      "name": "report_section_conditions",
+      "value": "Condition description",
+      "description": "App performance display text: Condition description"
+    },
+    {
+      "name": "report_section_stats",
+      "value": "Grouped statistics",
+      "description": "App performance display text: Grouped statistics"
+    },
+    {
+      "name": "report_section_stages",
+      "value": "Stage timings",
+      "description": "App performance display text: Stage timings"
+    },
+    {
+      "name": "report_section_gaps",
+      "value": "Data gaps",
+      "description": "App performance display text: Data gaps"
+    },
+    {
+      "name": "report_section_time",
+      "value": "Generated at",
+      "description": "App performance display text: Generated at"
+    },
+    {
+      "name": "report_section_comparison",
+      "value": "Comparison between conditions",
+      "description": "App performance display text: Comparison between conditions"
+    },
+    {
+      "name": "report_redacted_path",
+      "value": "[path redacted]",
+      "description": "App performance display text: [path redacted]"
+    },
+    {
+      "name": "report_redacted_credentials",
+      "value": "[credentials redacted]",
+      "description": "App performance display text: [credentials redacted]"
+    },
+    {
+      "name": "report_redacted_digits",
+      "value": "[long number redacted]",
+      "description": "App performance display text: [long number redacted]"
+    },
+    {
+      "name": "report_clipped",
+      "value": "{0}… (truncated; originally {1} characters)",
+      "description": "App performance display text: value… (truncated; originally value characters)"
+    },
+    {
+      "name": "report_truncated",
+      "value": "(Report exceeded {0} characters and was truncated; originally {1} characters)",
+      "description": "App performance display text: (Report exceeded value characters and was truncated; originally value characters)"
+    },
+    {
+      "name": "report_truncation",
+      "value": "Truncation",
+      "description": "App performance display text: Truncation"
+    },
+    {
+      "name": "report_redaction_notice",
+      "value": "This report was generated from the local experiment ledger and redacted: it contains no file paths, file contents, credentials or device serial numbers. Missing samples are marked “not evaluable”, not replaced with 0.",
+      "description": "App performance display text: This report was generated from the local experiment ledger and redacted: it contains no fi"
+    },
+    {
+      "name": "report_counts",
+      "value": "Condition groups: {0}; records: {1}",
+      "description": "App performance display text: Condition groups: value; records: value"
+    },
+    {
+      "name": "report_filter_line",
+      "value": "Filter: {0}",
+      "description": "App performance display text: Filter: value"
+    },
+    {
+      "name": "report_note_line",
+      "value": "Note: {0}",
+      "description": "App performance display text: Note: value"
+    },
+    {
+      "name": "report_no_groups",
+      "value": "No condition groups: the ledger is empty or all records are excluded by the filter.",
+      "description": "App performance display text: No condition groups: the ledger is empty or all records are excluded by the filter."
+    },
+    {
+      "name": "report_fingerprint_line",
+      "value": "Fingerprint: {0}",
+      "description": "App performance display text: Fingerprint: value"
+    },
+    {
+      "name": "report_fingerprint_missing",
+      "value": "Unavailable (required fields missing)",
+      "description": "App performance display text: Unavailable (required fields missing)"
+    },
+    {
+      "name": "report_workload_line",
+      "value": "Workload: {0}",
+      "description": "App performance display text: Workload: value"
+    },
+    {
+      "name": "report_mode_line",
+      "value": "Reclaim mode: {0}",
+      "description": "App performance display text: Reclaim mode: value"
+    },
+    {
+      "name": "report_condition_line",
+      "value": "Condition description: {0}",
+      "description": "App performance display text: Condition description: value"
+    },
+    {
+      "name": "report_comparability_line",
+      "value": "Comparability: {0}",
+      "description": "App performance display text: Comparability: value"
+    },
+    {
+      "name": "report_comparable_baseline",
+      "value": "Required fields are complete; suitable as a same-condition comparison baseline",
+      "description": "App performance display text: Required fields are complete; suitable as a same-condition comparison baseline"
+    },
+    {
+      "name": "report_single_group",
+      "value": "Only one condition group; no cross-group comparison was performed.",
+      "description": "App performance display text: Only one condition group; no cross-group comparison was performed."
+    },
+    {
+      "name": "report_compare_groups",
+      "value": "Using {0} as the baseline, {1}: {2}",
+      "description": "App performance display text: Using value as the baseline, value: value"
+    },
+    {
+      "name": "report_markdown_stats_header",
+      "value": "| No. | Condition group | Workload | Mode | Samples | Valid | Failed/missing | P50 | P90 | Mean |",
+      "description": "App performance display text: | No. | Condition group | Workload | Mode | Samples | Valid | Failed/missing | P50 | P90 |"
+    },
+    {
+      "name": "report_stats_notice",
+      "value": "P50, P90 and mean are totals of stage timings. “Not evaluable” means no valid samples, not 0.",
+      "description": "App performance display text: P50, P90 and mean are totals of stage timings. “Not evaluable” means no valid samples, not"
+    },
+    {
+      "name": "report_markdown_stages_header",
+      "value": "| Condition group | Stage | Samples | P50 | Mean |",
+      "description": "App performance display text: | Condition group | Stage | Samples | P50 | Mean |"
+    },
+    {
+      "name": "report_stages_notice",
+      "value": "Stage timings include only valid samples that completed normally. Per-stage P90 is not recalculated in the report (existing P90 is provided only per condition group, avoiding a duplicated percentile implementation).",
+      "description": "App performance display text: Stage timings include only valid samples that completed normally. Per-stage P90 is not rec"
+    },
+    {
+      "name": "report_no_gaps_line",
+      "value": "No gaps recorded: all samples completed normally and condition fields are complete.",
+      "description": "App performance display text: No gaps recorded: all samples completed normally and condition fields are complete."
+    },
+    {
+      "name": "report_source_notice",
+      "value": "Source: local experiment ledger (bounded retention), excluding evicted historical records. Resident-page changes are unobservable; reclaim effectiveness is not quantified.",
+      "description": "App performance display text: Source: local experiment ledger (bounded retention), excluding evicted historical records."
+    },
+    {
+      "name": "report_generated_line",
+      "value": "Generated at: {0} (local device time)",
+      "description": "App performance display text: Generated at: value (local device time)"
+    },
+    {
+      "name": "report_version_line",
+      "value": "Report version: {0}",
+      "description": "App performance display text: Report version: value"
+    },
+    {
+      "name": "report_environment_line",
+      "value": "Device: {0}｜OS: {1}｜App version: {2}",
+      "description": "App performance display text: Device: value｜OS: value｜App version: value"
+    },
+    {
+      "name": "report_protocol_line",
+      "value": "Sampling protocol: {0}",
+      "description": "App performance display text: Sampling protocol: value"
+    },
+    {
+      "name": "report_format_line",
+      "value": "Export format: {0}",
+      "description": "App performance display text: Export format: value"
+    },
+    {
+      "name": "report_column_section",
+      "value": "Section",
+      "description": "App performance display text: Section"
+    },
+    {
+      "name": "report_group",
+      "value": "Condition group",
+      "description": "App performance display text: Condition group"
+    },
+    {
+      "name": "report_column_item",
+      "value": "Item",
+      "description": "App performance display text: Item"
+    },
+    {
+      "name": "report_column_value",
+      "value": "Value",
+      "description": "App performance display text: Value"
+    },
+    {
+      "name": "report_note",
+      "value": "Note",
+      "description": "App performance display text: Note"
+    },
+    {
+      "name": "report_report",
+      "value": "Report",
+      "description": "App performance display text: Report"
+    },
+    {
+      "name": "report_all",
+      "value": "All",
+      "description": "App performance display text: All"
+    },
+    {
+      "name": "report_local_time",
+      "value": "Local device time",
+      "description": "App performance display text: Local device time"
+    },
+    {
+      "name": "report_version",
+      "value": "Report version",
+      "description": "App performance display text: Report version"
+    },
+    {
+      "name": "report_record_count",
+      "value": "Record count",
+      "description": "App performance display text: Record count"
+    },
+    {
+      "name": "report_filter_label",
+      "value": "Filter",
+      "description": "App performance display text: Filter"
+    },
+    {
+      "name": "report_comparable_stats",
+      "value": "Required fields complete; can aggregate",
+      "description": "App performance display text: Required fields complete; can aggregate"
+    },
+    {
+      "name": "report_unavailable",
+      "value": "Unavailable",
+      "description": "App performance display text: Unavailable"
+    },
+    {
+      "name": "report_no_fingerprint_notice",
+      "value": "No fingerprint is generated when required fields are missing",
+      "description": "App performance display text: No fingerprint is generated when required fields are missing"
+    },
+    {
+      "name": "report_comparability",
+      "value": "Comparability",
+      "description": "App performance display text: Comparability"
+    },
+    {
+      "name": "report_compare_with",
+      "value": "Compare with {0}",
+      "description": "App performance display text: Compare with value"
+    },
+    {
+      "name": "report_valid_samples",
+      "value": "Valid samples",
+      "description": "App performance display text: Valid samples"
+    },
+    {
+      "name": "report_failed",
+      "value": "Failed/missing",
+      "description": "App performance display text: Failed/missing"
+    },
+    {
+      "name": "report_stage_total",
+      "value": "Total stage time",
+      "description": "App performance display text: Total stage time"
+    },
+    {
+      "name": "report_p50_value",
+      "value": "P50 {0}",
+      "description": "App performance display text: P50 value"
+    },
+    {
+      "name": "report_stage_stats",
+      "value": "Samples {0} · mean {1}",
+      "description": "App performance display text: Samples value · mean value"
+    },
+    {
+      "name": "report_gap_number",
+      "value": "Gap {0}",
+      "description": "App performance display text: Gap value"
+    },
+    {
+      "name": "report_no_gaps",
+      "value": "No gaps recorded",
+      "description": "App performance display text: No gaps recorded"
+    },
+    {
+      "name": "report_all_samples_complete",
+      "value": "All samples completed normally and condition fields are complete",
+      "description": "App performance display text: All samples completed normally and condition fields are complete"
+    },
+    {
+      "name": "report_source",
+      "value": "Data source",
+      "description": "App performance display text: Data source"
+    },
+    {
+      "name": "report_local_ledger",
+      "value": "Local experiment ledger (bounded retention)",
+      "description": "App performance display text: Local experiment ledger (bounded retention)"
+    },
+    {
+      "name": "report_reclaim_unobservable",
+      "value": "Resident-page changes are unobservable; reclaim effectiveness is not quantified",
+      "description": "App performance display text: Resident-page changes are unobservable; reclaim effectiveness is not quantified"
+    },
+    {
+      "name": "report_sensitive_path",
+      "value": "Suspected file path",
+      "description": "App performance display text: Suspected file path"
+    },
+    {
+      "name": "report_sensitive_credentials",
+      "value": "Suspected credential or serial-number field",
+      "description": "App performance display text: Suspected credential or serial-number field"
+    },
+    {
+      "name": "report_sensitive_digits",
+      "value": "Suspected long numeric sequence (possibly a serial number)",
+      "description": "App performance display text: Suspected long numeric sequence (possibly a serial number)"
+    },
+    {
+      "name": "report_check_empty_title",
+      "value": "Report title is empty",
+      "description": "App performance display text: Report title is empty"
+    },
+    {
+      "name": "report_check_invalid_time",
+      "value": "Generation time is invalid",
+      "description": "App performance display text: Generation time is invalid"
+    },
+    {
+      "name": "report_check_no_records",
+      "value": "No experiment records; condition descriptions and grouped statistics cannot be generated",
+      "description": "App performance display text: No experiment records; condition descriptions and grouped statistics cannot be generated"
+    },
+    {
+      "name": "report_check_no_stats",
+      "value": "Grouped statistics rows are missing",
+      "description": "App performance display text: Grouped statistics rows are missing"
+    },
+    {
+      "name": "report_check_no_condition",
+      "value": "{0} is missing its condition description",
+      "description": "App performance display text: value is missing its condition description"
+    },
+    {
+      "name": "report_check_no_stages",
+      "value": "{0} is missing stage timing rows",
+      "description": "App performance display text: value is missing stage timing rows"
+    },
+    {
+      "name": "report_check_missing_section",
+      "value": "{0} is missing a required section: {1}",
+      "description": "App performance display text: value is missing a required section: value"
+    },
+    {
+      "name": "report_check_no_comparison",
+      "value": "Markdown is missing the comparison-between-conditions section",
+      "description": "App performance display text: Markdown is missing the comparison-between-conditions section"
+    },
+    {
+      "name": "report_check_empty_render",
+      "value": "Rendered output is empty",
+      "description": "App performance display text: Rendered output is empty"
+    },
+    {
+      "name": "report_check_sensitive",
+      "value": "{0} contains residual sensitive information: {1}",
+      "description": "App performance display text: value contains residual sensitive information: value"
+    },
+    {
+      "name": "ap_resource_unavailable",
+      "value": "Resource unavailable",
+      "description": "App performance display text: Resource unavailable"
+    },
+    {
+      "name": "ap_resource_preview",
+      "value": "{0} bytes · {1}",
+      "description": "App performance display text: value bytes · value"
+    },
+    {
+      "name": "ap_request_not_requested",
+      "value": "Not requested",
+      "description": "App performance display text: Not requested"
+    },
+    {
+      "name": "ap_request_not_dispatched",
+      "value": "Not dispatched",
+      "description": "App performance display text: Not dispatched"
+    },
+    {
+      "name": "ap_request_rejected",
+      "value": "Rejected",
+      "description": "App performance display text: Rejected"
+    },
+    {
+      "name": "ap_request_not_observed",
+      "value": "Not observed",
+      "description": "App performance display text: Not observed"
+    }
   ]
 }
