@@ -43,7 +43,7 @@
 | `UiStateMatrixTest` | 5 | UI 状态 | 未知文本/未知 id 不存在、id 文本值、重启保持 Welcome、重启后置顶 |
 | `StateTransitionTest` | 11 | 状态机 | false/true 两前置态 × init/print 序列矩阵；手动复位后 init 恢复；重复复位-初始化循环 |
 | `OpStateParityTest` | 4 | 行为一致性 | 两份 ServiceManager 类副本在相同操作下状态迁移一致；两实例状态互不影响 |
-| `StateSequenceMatrix_Part01..15` | 1020 | 状态序列枚举 | 2 前置态 × `init/print` 长度 1–8 全序列（PR 11995 风格），逐条显式 `@tc` 与期望状态 |
+| `StateSequenceMatrixPart01..15` | 1020 | 状态序列枚举 | 2 前置态 × `init/print` 长度 1–8 全序列（PR 11995 风格），逐条显式 `@tc` 与期望状态 |
 | `PerfThroughputTest` | 3 | 吞吐 | 50k/100k init 上界；混合流量后状态保持 |
 | `StabilityExtendedTest` | 3 | 稳定性（扩展） | 200 轮交替调用、100 轮 init/print、负载下实例隔离 |
 | `PerfScalingTest` | 3 | 性能（规模） | 1k/5k/20k init 的宽松上界与状态保持 |

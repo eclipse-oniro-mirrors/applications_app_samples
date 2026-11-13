@@ -27,21 +27,21 @@ import perfThroughputTest from './PerfThroughput.test';
 import abilityTest from './Ability.test';
 import uiStateMatrixTest from './UiStateMatrix.test';
 
-import stateSequenceMatrixPart01Test from './StateSequenceMatrix_Part01.test';
-import stateSequenceMatrixPart02Test from './StateSequenceMatrix_Part02.test';
-import stateSequenceMatrixPart03Test from './StateSequenceMatrix_Part03.test';
-import stateSequenceMatrixPart04Test from './StateSequenceMatrix_Part04.test';
-import stateSequenceMatrixPart05Test from './StateSequenceMatrix_Part05.test';
-import stateSequenceMatrixPart06Test from './StateSequenceMatrix_Part06.test';
-import stateSequenceMatrixPart07Test from './StateSequenceMatrix_Part07.test';
-import stateSequenceMatrixPart08Test from './StateSequenceMatrix_Part08.test';
-import stateSequenceMatrixPart09Test from './StateSequenceMatrix_Part09.test';
-import stateSequenceMatrixPart10Test from './StateSequenceMatrix_Part10.test';
-import stateSequenceMatrixPart11Test from './StateSequenceMatrix_Part11.test';
-import stateSequenceMatrixPart12Test from './StateSequenceMatrix_Part12.test';
-import stateSequenceMatrixPart13Test from './StateSequenceMatrix_Part13.test';
-import stateSequenceMatrixPart14Test from './StateSequenceMatrix_Part14.test';
-import stateSequenceMatrixPart15Test from './StateSequenceMatrix_Part15.test';
+import stateSequenceMatrixPart01Test from './StateSequenceMatrixPart01.test';
+import stateSequenceMatrixPart02Test from './StateSequenceMatrixPart02.test';
+import stateSequenceMatrixPart03Test from './StateSequenceMatrixPart03.test';
+import stateSequenceMatrixPart04Test from './StateSequenceMatrixPart04.test';
+import stateSequenceMatrixPart05Test from './StateSequenceMatrixPart05.test';
+import stateSequenceMatrixPart06Test from './StateSequenceMatrixPart06.test';
+import stateSequenceMatrixPart07Test from './StateSequenceMatrixPart07.test';
+import stateSequenceMatrixPart08Test from './StateSequenceMatrixPart08.test';
+import stateSequenceMatrixPart09Test from './StateSequenceMatrixPart09.test';
+import stateSequenceMatrixPart10Test from './StateSequenceMatrixPart10.test';
+import stateSequenceMatrixPart11Test from './StateSequenceMatrixPart11.test';
+import stateSequenceMatrixPart12Test from './StateSequenceMatrixPart12.test';
+import stateSequenceMatrixPart13Test from './StateSequenceMatrixPart13.test';
+import stateSequenceMatrixPart14Test from './StateSequenceMatrixPart14.test';
+import stateSequenceMatrixPart15Test from './StateSequenceMatrixPart15.test';
 
 export default function testsuite() {
   serviceManagerPathTest();
