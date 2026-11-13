@@ -14,6 +14,7 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { HttpMethod, HttpUtils } from 'library';
 
 /**
@@ -37,16 +38,36 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0001', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0001', 'begin');
       const empty: Record<string, string> = {};
       const single: Record<string, string> = { 'page': '2' };
       const pair: Record<string, string> = { 'name': 'BT Speaker', 'page': '2' };
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0001',
+        '#1 assert ' + "expect(HttpUtils.buildQueryString(empty)).assertEqual('')");
       expect(HttpUtils.buildQueryString(empty)).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0001',
+        '#2 assert ' + "expect(HttpUtils.buildQueryString(single)).assertEqual('page=2')");
       expect(HttpUtils.buildQueryString(single)).assertEqual('page=2');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0001',
+        '#3 assert ' + "expect(HttpUtils.buildQueryString(pair)).assertEqual('name=BT%20Speaker&page=2')");
       expect(HttpUtils.buildQueryString(pair)).assertEqual('name=BT%20Speaker&page=2');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0001',
+        '#4 assert ' + "expect(HttpUtils.buildQueryString(pair).indexOf('&')).assertEqual(17)");
       expect(HttpUtils.buildQueryString(pair).indexOf('&')).assertEqual(17);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0001',
+        '#5 assert ' + "expect(HttpUtils.buildQueryString(pair).split('&').length).assertEqual(2)");
       expect(HttpUtils.buildQueryString(pair).split('&').length).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0001',
+        '#6 assert ' + "expect(HttpUtils.buildQueryString(single).indexOf('=')).assertEqual(4)");
       expect(HttpUtils.buildQueryString(single).indexOf('=')).assertEqual(4);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0001', 'end');
     });
 
     /*
@@ -58,17 +79,37 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0002', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0002', 'begin');
       const reserved: Record<string, string> = { 'a&b': 'c=d' };
       const spaced: Record<string, string> = { 'q': 'device name' };
       const built: string = HttpUtils.buildQueryString(reserved);
       const spacedBuilt: string = HttpUtils.buildQueryString(spaced);
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0002',
+        '#1 ' + "built" + ' = ' + JSON.stringify(built));
       expect(built).assertEqual('a%26b=c%3Dd');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0002',
+        '#2 ' + "spacedBuilt" + ' = ' + JSON.stringify(spacedBuilt));
       expect(spacedBuilt).assertEqual('q=device%20name');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0002',
+        '#3 assert ' + "expect(built.indexOf(' ')).assertEqual(-1)");
       expect(built.indexOf(' ')).assertEqual(-1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0002',
+        '#4 assert ' + "expect(spacedBuilt.indexOf(' ')).assertEqual(-1)");
       expect(spacedBuilt.indexOf(' ')).assertEqual(-1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0002',
+        '#5 assert ' + "expect(built.split('&').length).assertEqual(1)");
       expect(built.split('&').length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0002',
+        '#6 assert ' + "expect(HttpUtils.parseQueryString(built)['a&b']).assertEqual('c=d')");
       expect(HttpUtils.parseQueryString(built)['a&b']).assertEqual('c=d');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0002', 'end');
     });
 
     // ==================== check query string decode parse (3 cases) ====================
@@ -82,16 +123,36 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0003', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0003', 'begin');
       const empty: Record<string, string> = HttpUtils.parseQueryString('');
       const bare: Record<string, string> = HttpUtils.parseQueryString('?');
       const partial: Record<string, string> = HttpUtils.parseQueryString('a=1&bogus&b=2');
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0003',
+        '#1 assert ' + "expect(Object.keys(empty).length).assertEqual(0)");
       expect(Object.keys(empty).length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0003',
+        '#2 assert ' + "expect(Object.keys(bare).length).assertEqual(0)");
       expect(Object.keys(bare).length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0003',
+        '#3 assert ' + "expect(Object.keys(partial).length).assertEqual(2)");
       expect(Object.keys(partial).length).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0003',
+        '#4 ' + "partial['a']" + ' = ' + JSON.stringify(partial['a']));
       expect(partial['a']).assertEqual('1');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0003',
+        '#5 ' + "partial['b']" + ' = ' + JSON.stringify(partial['b']));
       expect(partial['b']).assertEqual('2');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0003',
+        '#6 assert ' + "expect(Object.keys(partial).indexOf('bogus')).assertEqual(-1)");
       expect(Object.keys(partial).indexOf('bogus')).assertEqual(-1);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0003', 'end');
     });
 
     /*
@@ -103,19 +164,42 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0004', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0004', 'begin');
       const prefixed: Record<string, string> = HttpUtils.parseQueryString('?device=earbud&mode=a2dp');
       const emptyValue: Record<string, string> = HttpUtils.parseQueryString('k=&x=1');
       const duplicated: Record<string, string> = HttpUtils.parseQueryString('a=1&a=2');
       const extraEquals: Record<string, string> = HttpUtils.parseQueryString('a=b=c');
       const headless: Record<string, string> = HttpUtils.parseQueryString('=v');
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0004',
+        '#1 ' + "prefixed['device']" + ' = ' + JSON.stringify(prefixed['device']));
       expect(prefixed['device']).assertEqual('earbud');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0004',
+        '#2 ' + "prefixed['mode']" + ' = ' + JSON.stringify(prefixed['mode']));
       expect(prefixed['mode']).assertEqual('a2dp');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0004',
+        '#3 ' + "emptyValue['k']" + ' = ' + JSON.stringify(emptyValue['k']));
       expect(emptyValue['k']).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0004',
+        '#4 ' + "emptyValue['x']" + ' = ' + JSON.stringify(emptyValue['x']));
       expect(emptyValue['x']).assertEqual('1');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0004',
+        '#5 ' + "duplicated['a']" + ' = ' + JSON.stringify(duplicated['a']));
       expect(duplicated['a']).assertEqual('2');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0004',
+        '#6 ' + "extraEquals['a']" + ' = ' + JSON.stringify(extraEquals['a']));
       expect(extraEquals['a']).assertEqual('b=c');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0004',
+        '#7 assert ' + "expect(Object.keys(headless).length).assertEqual(0)");
       expect(Object.keys(headless).length).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0004', 'end');
     });
 
     /*
@@ -127,18 +211,44 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0005', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0005', 'begin');
       const source: Record<string, string> = { 'address': '00:1A:2B:3C:4D:5E', 'name': 'BT Speaker', 'page': '3' };
       const built: string = HttpUtils.buildQueryString(source);
       const restored: Record<string, string> = HttpUtils.parseQueryString(built);
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#1 assert ' + "expect(Object.keys(restored).length).assertEqual(3)");
       expect(Object.keys(restored).length).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#2 ' + "restored['address']" + ' = ' + JSON.stringify(restored['address']));
       expect(restored['address']).assertEqual('00:1A:2B:3C:4D:5E');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#3 ' + "restored['name']" + ' = ' + JSON.stringify(restored['name']));
       expect(restored['name']).assertEqual('BT Speaker');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#4 ' + "restored['page']" + ' = ' + JSON.stringify(restored['page']));
       expect(restored['page']).assertEqual('3');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#5 assert ' + "expect(HttpUtils.buildQueryString(restored)).assertEqual(built)");
       expect(HttpUtils.buildQueryString(restored)).assertEqual(built);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#6 assert ' + "expect(built.split('&').length).assertEqual(3)");
       expect(built.split('&').length).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#7 assert ' + "expect(Object.keys(restored).indexOf('missing')).assertEqual(-1)");
       expect(Object.keys(restored).indexOf('missing')).assertEqual(-1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0005',
+        '#8 ' + "restored['name'] === source['name']" + ' = ' + JSON.stringify(restored['name'] === source['name']));
       expect(restored['name'] === source['name']).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0005', 'end');
     });
 
     // ==================== URL concat connect (2 cases) ====================
@@ -152,12 +262,32 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0006', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0006', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0006',
+        '#1 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, 'api')).assertEqual(BASE_URL + '/api')");
       expect(HttpUtils.buildUrl(BASE_URL, 'api')).assertEqual(BASE_URL + '/api');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0006',
+        '#2 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, '/api')).assertEqual(BASE_URL + '/api')");
       expect(HttpUtils.buildUrl(BASE_URL, '/api')).assertEqual(BASE_URL + '/api');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0006',
+        '#3 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, 'api/v2')).assertEqual(BASE_URL + '/api/v2')");
       expect(HttpUtils.buildUrl(BASE_URL, 'api/v2')).assertEqual(BASE_URL + '/api/v2');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0006',
+        '#4 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, '/api/v2/')).assertEqual(BASE_URL + '/api/v2/')");
       expect(HttpUtils.buildUrl(BASE_URL, '/api/v2/')).assertEqual(BASE_URL + '/api/v2/');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0006',
+        '#5 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, '')).assertEqual(BASE_URL)");
       expect(HttpUtils.buildUrl(BASE_URL, '')).assertEqual(BASE_URL);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0006',
+        '#6 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, 'devices', undefined)).assertEqual(BASE_URL + '/devices')");
       expect(HttpUtils.buildUrl(BASE_URL, 'devices', undefined)).assertEqual(BASE_URL + '/devices');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0006', 'end');
     });
 
     /*
@@ -169,16 +299,40 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0007', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0007', 'begin');
       const params: Record<string, string> = { 'n': 'a b', 'p': '1' };
       const empty: Record<string, string> = {};
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0007',
+        '#1 assert ' +
+        "expect(HttpUtils.buildUrl(BASE_URL, 'api', params)).assertEqual(BASE_URL + '/api?n=a%20b&p=1')");
       expect(HttpUtils.buildUrl(BASE_URL, 'api', params)).assertEqual(BASE_URL + '/api?n=a%20b&p=1');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0007',
+        '#2 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, 'api', empty)).assertEqual(BASE_URL + '/api')");
       expect(HttpUtils.buildUrl(BASE_URL, 'api', empty)).assertEqual(BASE_URL + '/api');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0007',
+        '#3 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, '', params)).assertEqual(BASE_URL + '?n=a%20b&p=1')");
       expect(HttpUtils.buildUrl(BASE_URL, '', params)).assertEqual(BASE_URL + '?n=a%20b&p=1');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0007',
+        '#4 assert ' +
+        "expect(HttpUtils.buildUrl(BASE_URL + '/api?x=1', 'y', { 'z': '2' })) .assertEqual(BASE_URL + '/api?x=1/y&z=" +
+        "2')");
       expect(HttpUtils.buildUrl(BASE_URL + '/api?x=1', 'y', { 'z': '2' }))
         .assertEqual(BASE_URL + '/api?x=1/y&z=2');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0007',
+        '#5 assert ' +
+        "expect(HttpUtils.buildUrl(BASE_URL, 'api', params).indexOf('?')).assertEqual(BASE_URL.length + 4)");
       expect(HttpUtils.buildUrl(BASE_URL, 'api', params).indexOf('?')).assertEqual(BASE_URL.length + 4);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0007',
+        '#6 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, 'api', empty).indexOf('?')).assertEqual(-1)");
       expect(HttpUtils.buildUrl(BASE_URL, 'api', empty).indexOf('?')).assertEqual(-1);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0007', 'end');
     });
 
     // ==================== request config (3 cases) ====================
@@ -192,16 +346,39 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0008', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0008', 'begin');
       const config = HttpUtils.createConfig(BASE_URL + '/devices');
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0008',
+        '#1 ' + "config.url" + ' = ' + JSON.stringify(config.url));
       expect(config.url).assertEqual(BASE_URL + '/devices');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0008',
+        '#2 ' + "config.method" + ' = ' + JSON.stringify(config.method));
       expect(config.method).assertEqual(HttpMethod.GET);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0008',
+        '#3 ' + "config.timeout" + ' = ' + JSON.stringify(config.timeout));
       expect(config.timeout).assertEqual(DEFAULT_TIMEOUT);
       const headers = config.headers!;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0008',
+        '#4 ' + "headers['Content-Type']" + ' = ' + JSON.stringify(headers['Content-Type']));
       expect(headers['Content-Type']).assertEqual('application/json');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0008',
+        '#5 ' + "config.body === undefined" + ' = ' + JSON.stringify(config.body === undefined));
       expect(config.body === undefined).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0008',
+        '#6 assert ' + "expect(Object.keys(headers).length).assertEqual(1)");
       expect(Object.keys(headers).length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0008',
+        '#7 assert ' + "expect(config.url.indexOf('https://')).assertEqual(0)");
       expect(config.url.indexOf('https://')).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0008', 'end');
     });
 
     /*
@@ -213,6 +390,7 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0009', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0009', 'begin');
       const methods: HttpMethod[] =
         [HttpMethod.GET, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.PATCH];
       const body: string = '{"name":"BT Speaker"}';
@@ -224,12 +402,32 @@ export default function httpUtilsTest(): void {
         }
       }
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0009',
+        '#1 ' + "matched" + ' = ' + JSON.stringify(matched));
       expect(matched).assertEqual(methods.length);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0009',
+        '#2 assert ' + "expect(HttpUtils.createConfig(BASE_URL, HttpMethod.POST, body).url).assertEqual(BASE_URL)");
       expect(HttpUtils.createConfig(BASE_URL, HttpMethod.POST, body).url).assertEqual(BASE_URL);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0009',
+        '#3 assert ' +
+        "expect(HttpUtils.createConfig(BASE_URL, HttpMethod.DELETE, body).method).assertEqual(HttpMethod.DELETE)");
       expect(HttpUtils.createConfig(BASE_URL, HttpMethod.DELETE, body).method).assertEqual(HttpMethod.DELETE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0009',
+        '#4 assert ' + "expect(HttpUtils.createConfig(BASE_URL, HttpMethod.PATCH, body).body).assertEqual(body)");
       expect(HttpUtils.createConfig(BASE_URL, HttpMethod.PATCH, body).body).assertEqual(body);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0009',
+        '#5 assert ' + "expect(HttpUtils.createConfig(BASE_URL, HttpMethod.PUT).body === undefined).assertTrue()");
       expect(HttpUtils.createConfig(BASE_URL, HttpMethod.PUT).body === undefined).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0009',
+        '#6 ' + "methods.length" + ' = ' + JSON.stringify(methods.length));
       expect(methods.length).assertEqual(5);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0009', 'end');
     });
 
     /*
@@ -241,17 +439,43 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0010', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0010', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#1 ' + "HttpMethod.GET" + ' = ' + JSON.stringify(HttpMethod.GET));
       expect(HttpMethod.GET).assertEqual('GET');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#2 ' + "HttpMethod.POST" + ' = ' + JSON.stringify(HttpMethod.POST));
       expect(HttpMethod.POST).assertEqual('POST');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#3 ' + "HttpMethod.PUT" + ' = ' + JSON.stringify(HttpMethod.PUT));
       expect(HttpMethod.PUT).assertEqual('PUT');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#4 ' + "HttpMethod.DELETE" + ' = ' + JSON.stringify(HttpMethod.DELETE));
       expect(HttpMethod.DELETE).assertEqual('DELETE');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#5 ' + "HttpMethod.PATCH" + ' = ' + JSON.stringify(HttpMethod.PATCH));
       expect(HttpMethod.PATCH).assertEqual('PATCH');
       const defaultMethod: string = HttpUtils.createConfig(BASE_URL).method;
       const leftMethod: string = HttpMethod.GET;
       const rightMethod: string = HttpMethod.POST;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#6 ' + "defaultMethod" + ' = ' + JSON.stringify(defaultMethod));
       expect(defaultMethod).assertEqual(leftMethod);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#7 ' + "leftMethod === rightMethod" + ' = ' + JSON.stringify(leftMethod === rightMethod));
       expect(leftMethod === rightMethod).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0010',
+        '#8 assert ' + "expect(HttpUtils.createConfig(BASE_URL, HttpMethod.POST).method).assertEqual('POST')");
       expect(HttpUtils.createConfig(BASE_URL, HttpMethod.POST).method).assertEqual('POST');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0010', 'end');
     });
 
     // ==================== state state code classification (5 cases) ====================
@@ -265,14 +489,40 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0011', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0011', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#1 assert ' + "expect(HttpUtils.isSuccess(199)).assertFalse()");
       expect(HttpUtils.isSuccess(199)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#2 assert ' + "expect(HttpUtils.isSuccess(200)).assertTrue()");
       expect(HttpUtils.isSuccess(200)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#3 assert ' + "expect(HttpUtils.isSuccess(201)).assertTrue()");
       expect(HttpUtils.isSuccess(201)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#4 assert ' + "expect(HttpUtils.isSuccess(204)).assertTrue()");
       expect(HttpUtils.isSuccess(204)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#5 assert ' + "expect(HttpUtils.isSuccess(299)).assertTrue()");
       expect(HttpUtils.isSuccess(299)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#6 assert ' + "expect(HttpUtils.isSuccess(300)).assertFalse()");
       expect(HttpUtils.isSuccess(300)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#7 assert ' + "expect(HttpUtils.isSuccess(0)).assertFalse()");
       expect(HttpUtils.isSuccess(0)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0011',
+        '#8 assert ' + "expect(HttpUtils.isSuccess(500)).assertFalse()");
       expect(HttpUtils.isSuccess(500)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0011', 'end');
     });
 
     /*
@@ -284,13 +534,36 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0012', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0012', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0012',
+        '#1 assert ' + "expect(HttpUtils.isRedirect(299)).assertFalse()");
       expect(HttpUtils.isRedirect(299)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0012',
+        '#2 assert ' + "expect(HttpUtils.isRedirect(300)).assertTrue()");
       expect(HttpUtils.isRedirect(300)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0012',
+        '#3 assert ' + "expect(HttpUtils.isRedirect(301)).assertTrue()");
       expect(HttpUtils.isRedirect(301)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0012',
+        '#4 assert ' + "expect(HttpUtils.isRedirect(304)).assertTrue()");
       expect(HttpUtils.isRedirect(304)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0012',
+        '#5 assert ' + "expect(HttpUtils.isRedirect(399)).assertTrue()");
       expect(HttpUtils.isRedirect(399)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0012',
+        '#6 assert ' + "expect(HttpUtils.isRedirect(400)).assertFalse()");
       expect(HttpUtils.isRedirect(400)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0012',
+        '#7 assert ' + "expect(HttpUtils.isRedirect(200)).assertFalse()");
       expect(HttpUtils.isRedirect(200)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0012', 'end');
     });
 
     /*
@@ -302,13 +575,36 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0013', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0013', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0013',
+        '#1 assert ' + "expect(HttpUtils.isClientError(399)).assertFalse()");
       expect(HttpUtils.isClientError(399)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0013',
+        '#2 assert ' + "expect(HttpUtils.isClientError(400)).assertTrue()");
       expect(HttpUtils.isClientError(400)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0013',
+        '#3 assert ' + "expect(HttpUtils.isClientError(404)).assertTrue()");
       expect(HttpUtils.isClientError(404)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0013',
+        '#4 assert ' + "expect(HttpUtils.isClientError(408)).assertTrue()");
       expect(HttpUtils.isClientError(408)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0013',
+        '#5 assert ' + "expect(HttpUtils.isClientError(499)).assertTrue()");
       expect(HttpUtils.isClientError(499)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0013',
+        '#6 assert ' + "expect(HttpUtils.isClientError(500)).assertFalse()");
       expect(HttpUtils.isClientError(500)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0013',
+        '#7 assert ' + "expect(HttpUtils.isClientError(401)).assertTrue()");
       expect(HttpUtils.isClientError(401)).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0013', 'end');
     });
 
     /*
@@ -320,13 +616,36 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0014', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0014', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0014',
+        '#1 assert ' + "expect(HttpUtils.isServerError(499)).assertFalse()");
       expect(HttpUtils.isServerError(499)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0014',
+        '#2 assert ' + "expect(HttpUtils.isServerError(500)).assertTrue()");
       expect(HttpUtils.isServerError(500)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0014',
+        '#3 assert ' + "expect(HttpUtils.isServerError(502)).assertTrue()");
       expect(HttpUtils.isServerError(502)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0014',
+        '#4 assert ' + "expect(HttpUtils.isServerError(503)).assertTrue()");
       expect(HttpUtils.isServerError(503)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0014',
+        '#5 assert ' + "expect(HttpUtils.isServerError(599)).assertTrue()");
       expect(HttpUtils.isServerError(599)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0014',
+        '#6 assert ' + "expect(HttpUtils.isServerError(1000)).assertTrue()");
       expect(HttpUtils.isServerError(1000)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0014',
+        '#7 assert ' + "expect(HttpUtils.isServerError(200)).assertFalse()");
       expect(HttpUtils.isServerError(200)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0014', 'end');
     });
 
     /*
@@ -338,23 +657,46 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0015', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0015', 'begin');
       const codes: number[] = [100, 200, 302, 404, 500];
       let exclusiveCount: number = 0;
       for (const code of codes) {
         const matches: number = (HttpUtils.isSuccess(code) ? 1 : 0) + (HttpUtils.isRedirect(code) ? 1 : 0) +
           (HttpUtils.isClientError(code) ? 1 : 0) + (HttpUtils.isServerError(code) ? 1 : 0);
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testHttpUtils0015',
+          '#1 ' + "matches < 2" + ' = ' + JSON.stringify(matches < 2));
         expect(matches < 2).assertTrue();
         if (matches === 1) {
           exclusiveCount++;
         }
       }
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0015',
+        '#2 ' + "exclusiveCount" + ' = ' + JSON.stringify(exclusiveCount));
       expect(exclusiveCount).assertEqual(codes.length - 1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0015',
+        '#3 assert ' + "expect(HttpUtils.isSuccess(100)).assertFalse()");
       expect(HttpUtils.isSuccess(100)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0015',
+        '#4 assert ' + "expect(HttpUtils.isRedirect(100)).assertFalse()");
       expect(HttpUtils.isRedirect(100)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0015',
+        '#5 assert ' + "expect(HttpUtils.isClientError(100)).assertFalse()");
       expect(HttpUtils.isClientError(100)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0015',
+        '#6 assert ' + "expect(HttpUtils.isServerError(100)).assertFalse()");
       expect(HttpUtils.isServerError(100)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0015',
+        '#7 assert ' + "expect(HttpUtils.isServerError(599)).assertTrue()");
       expect(HttpUtils.isServerError(599)).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0015', 'end');
     });
 
     // ==================== state state describe describe (2 cases) ====================
@@ -368,16 +710,48 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testHttpUtils0016', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0016', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#1 assert ' + "expect(HttpUtils.getStatusText(200)).assertEqual('OK')");
       expect(HttpUtils.getStatusText(200)).assertEqual('OK');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#2 assert ' + "expect(HttpUtils.getStatusText(201)).assertEqual('Created')");
       expect(HttpUtils.getStatusText(201)).assertEqual('Created');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#3 assert ' + "expect(HttpUtils.getStatusText(204)).assertEqual('No Content')");
       expect(HttpUtils.getStatusText(204)).assertEqual('No Content');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#4 assert ' + "expect(HttpUtils.getStatusText(301)).assertEqual('Moved Permanently')");
       expect(HttpUtils.getStatusText(301)).assertEqual('Moved Permanently');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#5 assert ' + "expect(HttpUtils.getStatusText(302)).assertEqual('Found')");
       expect(HttpUtils.getStatusText(302)).assertEqual('Found');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#6 assert ' + "expect(HttpUtils.getStatusText(304)).assertEqual('Not Modified')");
       expect(HttpUtils.getStatusText(304)).assertEqual('Not Modified');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#7 assert ' + "expect(HttpUtils.getStatusText(400)).assertEqual('Bad Request')");
       expect(HttpUtils.getStatusText(400)).assertEqual('Bad Request');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#8 assert ' + "expect(HttpUtils.getStatusText(401)).assertEqual('Unauthorized')");
       expect(HttpUtils.getStatusText(401)).assertEqual('Unauthorized');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#9 assert ' + "expect(HttpUtils.getStatusText(403)).assertEqual('Forbidden')");
       expect(HttpUtils.getStatusText(403)).assertEqual('Forbidden');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0016',
+        '#10 assert ' + "expect(HttpUtils.getStatusText(404)).assertEqual('Not Found')");
       expect(HttpUtils.getStatusText(404)).assertEqual('Not Found');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0016', 'end');
     });
 
     /*
@@ -389,16 +763,48 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0017', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0017', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#1 assert ' + "expect(HttpUtils.getStatusText(405)).assertEqual('Method Not Allowed')");
       expect(HttpUtils.getStatusText(405)).assertEqual('Method Not Allowed');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#2 assert ' + "expect(HttpUtils.getStatusText(408)).assertEqual('Request Timeout')");
       expect(HttpUtils.getStatusText(408)).assertEqual('Request Timeout');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#3 assert ' + "expect(HttpUtils.getStatusText(500)).assertEqual('Internal Server Error')");
       expect(HttpUtils.getStatusText(500)).assertEqual('Internal Server Error');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#4 assert ' + "expect(HttpUtils.getStatusText(502)).assertEqual('Bad Gateway')");
       expect(HttpUtils.getStatusText(502)).assertEqual('Bad Gateway');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#5 assert ' + "expect(HttpUtils.getStatusText(503)).assertEqual('Service Unavailable')");
       expect(HttpUtils.getStatusText(503)).assertEqual('Service Unavailable');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#6 assert ' + "expect(HttpUtils.getStatusText(202)).assertEqual(UNKNOWN_TEXT)");
       expect(HttpUtils.getStatusText(202)).assertEqual(UNKNOWN_TEXT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#7 assert ' + "expect(HttpUtils.getStatusText(418)).assertEqual(UNKNOWN_TEXT)");
       expect(HttpUtils.getStatusText(418)).assertEqual(UNKNOWN_TEXT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#8 assert ' + "expect(HttpUtils.getStatusText(0)).assertEqual(UNKNOWN_TEXT)");
       expect(HttpUtils.getStatusText(0)).assertEqual(UNKNOWN_TEXT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#9 assert ' + "expect(HttpUtils.getStatusText(-1)).assertEqual(UNKNOWN_TEXT)");
       expect(HttpUtils.getStatusText(-1)).assertEqual(UNKNOWN_TEXT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0017',
+        '#10 assert ' + "expect(HttpUtils.getStatusText(599)).assertEqual(UNKNOWN_TEXT)");
       expect(HttpUtils.getStatusText(599)).assertEqual(UNKNOWN_TEXT);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0017', 'end');
     });
 
     // ==================== interceptor register (1 cases) ====================
@@ -412,33 +818,59 @@ export default function httpUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testHttpUtils0018', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0018', 'begin');
       let invoked: number = 0;
       HttpUtils.addRequestInterceptor({
-        onRequest: (config: ESObject): ESObject => {
+        onRequest: (config) => {
           invoked++;
           return config;
         }
       });
       HttpUtils.addResponseInterceptor({
-        onResponse: (response: ESObject): ESObject => {
+        onResponse: (response) => {
           invoked++;
           return response;
         }
       });
 
       const config = HttpUtils.createConfig(BASE_URL, HttpMethod.POST, '{}');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#1 assert ' + "expect(HttpUtils.buildUrl(BASE_URL, 'api')).assertEqual(BASE_URL + '/api')");
       expect(HttpUtils.buildUrl(BASE_URL, 'api')).assertEqual(BASE_URL + '/api');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#2 ' + "config.method" + ' = ' + JSON.stringify(config.method));
       expect(config.method).assertEqual(HttpMethod.POST);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#3 ' + "config.timeout" + ' = ' + JSON.stringify(config.timeout));
       expect(config.timeout).assertEqual(DEFAULT_TIMEOUT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#4 assert ' + "expect(HttpUtils.isSuccess(200)).assertTrue()");
       expect(HttpUtils.isSuccess(200)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#5 assert ' + "expect(HttpUtils.getStatusText(404)).assertEqual('Not Found')");
       expect(HttpUtils.getStatusText(404)).assertEqual('Not Found');
 
       HttpUtils.clearInterceptors();
       HttpUtils.clearInterceptors();
       const clearedHeaders = HttpUtils.createConfig(BASE_URL).headers!;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#6 ' + "clearedHeaders['Content-Type']" + ' = ' + JSON.stringify(clearedHeaders['Content-Type']));
       expect(clearedHeaders['Content-Type']).assertEqual('application/json');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#7 ' + "invoked" + ' = ' + JSON.stringify(invoked));
       expect(invoked).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testHttpUtils0018',
+        '#8 assert ' + "expect(HttpUtils.parseQueryString('a=1')['a']).assertEqual('1')");
       expect(HttpUtils.parseQueryString('a=1')['a']).assertEqual('1');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testHttpUtils0018', 'end');
     });
   });
 }
