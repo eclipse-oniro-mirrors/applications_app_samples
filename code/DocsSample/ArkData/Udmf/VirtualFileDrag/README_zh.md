@@ -16,6 +16,7 @@
 
 ### 工程目录
 
+- [app_icon.svg](AppScope/resources/base/media/app_icon.svg)：手绘矢量图标，供应用图标和启动图标共用。
 - [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和文件 URI 接收区。
 - [VirtualFileProvider.ets](entry/src/main/ets/model/VirtualFileProvider.ets)：文件树、stat/read/cancel 回调和延迟解压。
 - [documents.zip](entry/src/main/resources/rawfile/documents.zip)：内含 106 字节的 archive-note.txt，用于按需解压验证。

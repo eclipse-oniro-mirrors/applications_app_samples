@@ -17,6 +17,7 @@
 
 ### 工程目录
 
+- [app_icon.svg](AppScope/resources/base/media/app_icon.svg)：手绘矢量图标，供应用图标和启动图标共用。
 - [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和文件 URI 接收区。
 - [virtual_file_provider.cpp](entry/src/main/cpp/virtual_file_provider.cpp)：虚拟节点、stat/read/cancel/finalize 回调与数据组装。
 - [napi_init.cpp](entry/src/main/cpp/napi_init.cpp)：NAPI 场景配置、Native ArkUI 拖拽及清理。
