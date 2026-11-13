@@ -71,7 +71,7 @@
             "abilities": ["EntryAbility"],
             "when": "always"
           },
-        "reason": "$string:EntryAbility_desc"
+        "reason": "$string:permission_reason"
       },
       {
         "name": "ohos.permission.sec.ACCESS_UDID",
@@ -79,7 +79,7 @@
             "abilities": ["EntryAbility"],
             "when": "always"
           },
-        "reason": "$string:EntryAbility_desc"
+        "reason": "$string:permission_reason"
       }
     ]
   }

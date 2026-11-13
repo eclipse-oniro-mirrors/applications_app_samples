@@ -22,10 +22,10 @@ import { hilog } from '@kit.PerformanceAnalysisKit'
 
 const TAG = '[ConversationTestPage]';
 const DOMAIN = 0xF811;
-const messageToSend = 'Hello from ConversationTest!';
-const bundleName = 'com.example.demo';
-const abilityName = 'EntryAbility';
-const deviceId = 'networkId_or_Udid'
+const messageToSend: string = 'Hello from ConversationTest!';
+const bundleName: string = 'com.example.distributedsoftbusconversationdemo';
+const abilityName: string = 'EntryAbility';
+const deviceId: string = 'networkId_or_Udid'
 
 // [Start data_callback]
 // 定义消息回调
@@ -77,7 +77,7 @@ struct Index {
   getTrustedDevices(): void {
     hilog.info(DOMAIN, TAG, 'getTrustedDevices called');
     try {
-      let devices = conversation.getTrustedDevices() as conversation.DeviceNodeInfo[];
+      let devices: conversation.DeviceNodeInfo[] = conversation.getTrustedDevices();
       if (!devices || devices.length === 0) {
         hilog.info(DOMAIN, TAG, 'No trusted devices found');
         return;
