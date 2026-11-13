@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import { QueryOutcome } from '../../../main/ets/autostart/AutoStartupTypes';
 import { ArchiveEntry, DAY_MS } from '../../../main/ets/autostart/archive/ArchiveIndex';
 import {
@@ -43,6 +44,7 @@ function decisionOf(preview: CleanupPreview, entryId: number): CleanupDecision {
 }
 
 export default function retentionPolicyCasesTest(): void {
+  configureTestText();
   describe('RetentionPolicyBasicsCases', (): void => {
     /**
      * @tc.number    SUB_STARTUP_RETENTIONPOLICYBASICSCASES_0100
@@ -54,17 +56,18 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0001', 0, (): void => {
-      expect(MIN_RETENTION_ENTRIES).assertEqual(1);
-      expect(MAX_RETENTION_ENTRIES).assertEqual(100000);
-      expect(MAX_RETENTION_DAYS).assertEqual(3650);
-      expect(MAX_FAILURE_BONUS_DAYS).assertEqual(7);
-      expect(DAY_MS).assertEqual(86400000);
-      expect(cleanupReasonLabel(CleanupReason.AGE_EXPIRED)).assertEqual('超过保留天数');
-      expect(cleanupReasonLabel(CleanupReason.OVER_COUNT)).assertEqual('超出条数上限');
-      expect(cleanupReasonLabel(CleanupReason.KEPT_FAILURE_GRACE)).assertEqual('失败样本多保留一天');
-      expect(cleanupReasonLabel(CleanupReason.KEPT_PROTECTED)).assertEqual('最近有效样本，禁止删除');
-      expect(cleanupReasonLabel(CleanupReason.KEPT_UNKNOWN_TIME)).assertEqual('时间未知，暂不清理');
-      expect(cleanupReasonLabel(CleanupReason.KEPT_RECENT)).assertEqual('在保留范围内');
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0001|assertEqual|actual', MIN_RETENTION_ENTRIES)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0001|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0002|assertEqual|actual', MAX_RETENTION_ENTRIES)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0002|assertEqual|expected', 100000));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0003|assertEqual|actual', MAX_RETENTION_DAYS)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0003|assertEqual|expected', 3650));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0004|assertEqual|actual', MAX_FAILURE_BONUS_DAYS)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0004|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0005|assertEqual|actual', DAY_MS)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0005|assertEqual|expected', 86400000));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0006|assertEqual|actual', cleanupReasonLabel(CleanupReason.AGE_EXPIRED))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0006|assertEqual|expected', '超过保留天数'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0007|assertEqual|actual', cleanupReasonLabel(CleanupReason.OVER_COUNT))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0007|assertEqual|expected', '超出条数上限'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0008|assertEqual|actual', cleanupReasonLabel(CleanupReason.KEPT_FAILURE_GRACE))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0008|assertEqual|expected', '失败样本多保留一天'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0009|assertEqual|actual', cleanupReasonLabel(CleanupReason.KEPT_PROTECTED))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0009|assertEqual|expected', '最近有效样本，禁止删除'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0010|assertEqual|actual', cleanupReasonLabel(CleanupReason.KEPT_UNKNOWN_TIME))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0010|assertEqual|expected', '时间未知，暂不清理'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0011|assertEqual|actual', cleanupReasonLabel(CleanupReason.KEPT_RECENT))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0001|RetentionPolicyCases.test.ets|assert0011|assertEqual|expected', '在保留范围内'));
     });
 
     /**
@@ -77,12 +80,13 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0002', 0, (): void => {
-      expect(isDeleteReason(CleanupReason.AGE_EXPIRED)).assertTrue();
-      expect(isDeleteReason(CleanupReason.OVER_COUNT)).assertTrue();
-      expect(isDeleteReason(CleanupReason.KEPT_RECENT)).assertFalse();
-      expect(isDeleteReason(CleanupReason.KEPT_FAILURE_GRACE)).assertFalse();
-      expect(isDeleteReason(CleanupReason.KEPT_PROTECTED)).assertFalse();
-      expect(isDeleteReason(CleanupReason.KEPT_UNKNOWN_TIME)).assertFalse();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0002|RetentionPolicyCases.test.ets|assert0012|assertTrue|actual|expected=true', isDeleteReason(CleanupReason.AGE_EXPIRED))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0002|RetentionPolicyCases.test.ets|assert0013|assertTrue|actual|expected=true', isDeleteReason(CleanupReason.OVER_COUNT))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0002|RetentionPolicyCases.test.ets|assert0014|assertFalse|actual|expected=false', isDeleteReason(CleanupReason.KEPT_RECENT))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0002|RetentionPolicyCases.test.ets|assert0015|assertFalse|actual|expected=false', isDeleteReason(CleanupReason.KEPT_FAILURE_GRACE))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0002|RetentionPolicyCases.test.ets|assert0016|assertFalse|actual|expected=false', isDeleteReason(CleanupReason.KEPT_PROTECTED))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0002|RetentionPolicyCases.test.ets|assert0017|assertFalse|actual|expected=false', isDeleteReason(CleanupReason.KEPT_UNKNOWN_TIME))).assertFalse();
     });
 
     /**
@@ -95,12 +99,13 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0003', 0, (): void => {
+      configureTestText();
       const policy: RetentionPolicy = new RetentionPolicy(500, 90, 1);
-      expect(policy.retentionDaysFor(QueryOutcome.SUCCESS)).assertEqual(90);
-      expect(policy.retentionDaysFor(QueryOutcome.FAILURE)).assertEqual(91);
-      expect(policy.retentionDaysFor(QueryOutcome.TIMEOUT)).assertEqual(90);
-      expect(policy.retentionDaysFor(QueryOutcome.UNSUPPORTED)).assertEqual(90);
-      expect(policy.retentionDaysFor(QueryOutcome.UNKNOWN)).assertEqual(90);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0018|assertEqual|actual', policy.retentionDaysFor(QueryOutcome.SUCCESS))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0018|assertEqual|expected', 90));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0019|assertEqual|actual', policy.retentionDaysFor(QueryOutcome.FAILURE))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0019|assertEqual|expected', 91));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0020|assertEqual|actual', policy.retentionDaysFor(QueryOutcome.TIMEOUT))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0020|assertEqual|expected', 90));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0021|assertEqual|actual', policy.retentionDaysFor(QueryOutcome.UNSUPPORTED))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0021|assertEqual|expected', 90));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0022|assertEqual|actual', policy.retentionDaysFor(QueryOutcome.UNKNOWN))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0003|RetentionPolicyCases.test.ets|assert0022|assertEqual|expected', 90));
     });
 
     /**
@@ -113,15 +118,16 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0004', 0, (): void => {
+      configureTestText();
       const policy: RetentionPolicy = new RetentionPolicy(500, Number.NaN, Number.NaN);
-      expect(policy.retentionDaysFor(QueryOutcome.SUCCESS)).assertEqual(1);
-      expect(policy.retentionDaysFor(QueryOutcome.FAILURE)).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0023|assertEqual|actual', policy.retentionDaysFor(QueryOutcome.SUCCESS))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0023|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0024|assertEqual|actual', policy.retentionDaysFor(QueryOutcome.FAILURE))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0024|assertEqual|expected', 1));
       const tiny: RetentionPolicy = new RetentionPolicy(500, 0.4, 0.4);
-      expect(tiny.retentionDaysFor(QueryOutcome.SUCCESS)).assertEqual(1);
-      expect(tiny.retentionDaysFor(QueryOutcome.FAILURE)).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0025|assertEqual|actual', tiny.retentionDaysFor(QueryOutcome.SUCCESS))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0025|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0026|assertEqual|actual', tiny.retentionDaysFor(QueryOutcome.FAILURE))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0026|assertEqual|expected', 1));
       const rounded: RetentionPolicy = new RetentionPolicy(500, 10.6, 2.4);
-      expect(rounded.retentionDaysFor(QueryOutcome.SUCCESS)).assertEqual(11);
-      expect(rounded.retentionDaysFor(QueryOutcome.FAILURE)).assertEqual(13);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0027|assertEqual|actual', rounded.retentionDaysFor(QueryOutcome.SUCCESS))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0027|assertEqual|expected', 11));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0028|assertEqual|actual', rounded.retentionDaysFor(QueryOutcome.FAILURE))).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0004|RetentionPolicyCases.test.ets|assert0028|assertEqual|expected', 13));
     });
 
     /**
@@ -134,14 +140,15 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0005', 0, (): void => {
+      configureTestText();
       const clamped: RetentionPolicy = normalizePolicy(new RetentionPolicy(0, 0, -5));
-      expect(clamped.maxEntries).assertEqual(MIN_RETENTION_ENTRIES);
-      expect(clamped.maxDays).assertEqual(1);
-      expect(clamped.failureBonusDays).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0029|assertEqual|actual', clamped.maxEntries)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0029|assertEqual|expected', MIN_RETENTION_ENTRIES));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0030|assertEqual|actual', clamped.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0030|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0031|assertEqual|actual', clamped.failureBonusDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0031|assertEqual|expected', 0));
       const capped: RetentionPolicy = normalizePolicy(new RetentionPolicy(200000, 4000, 9));
-      expect(capped.maxEntries).assertEqual(MAX_RETENTION_ENTRIES);
-      expect(capped.maxDays).assertEqual(MAX_RETENTION_DAYS);
-      expect(capped.failureBonusDays).assertEqual(MAX_FAILURE_BONUS_DAYS);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0032|assertEqual|actual', capped.maxEntries)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0032|assertEqual|expected', MAX_RETENTION_ENTRIES));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0033|assertEqual|actual', capped.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0033|assertEqual|expected', MAX_RETENTION_DAYS));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0034|assertEqual|actual', capped.failureBonusDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0005|RetentionPolicyCases.test.ets|assert0034|assertEqual|expected', MAX_FAILURE_BONUS_DAYS));
     });
 
     /**
@@ -154,15 +161,16 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0006', 0, (): void => {
+      configureTestText();
       const policy: RetentionPolicy = normalizePolicy(
         new RetentionPolicy(Number.NaN, Number.POSITIVE_INFINITY, Number.NaN));
-      expect(policy.maxEntries).assertEqual(MIN_RETENTION_ENTRIES);
-      expect(policy.maxDays).assertEqual(1);
-      expect(policy.failureBonusDays).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0035|assertEqual|actual', policy.maxEntries)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0035|assertEqual|expected', MIN_RETENTION_ENTRIES));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0036|assertEqual|actual', policy.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0036|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0037|assertEqual|actual', policy.failureBonusDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0037|assertEqual|expected', 0));
       const rounded: RetentionPolicy = normalizePolicy(new RetentionPolicy(10.5, 20.4, 1.6));
-      expect(rounded.maxEntries).assertEqual(11);
-      expect(rounded.maxDays).assertEqual(20);
-      expect(rounded.failureBonusDays).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0038|assertEqual|actual', rounded.maxEntries)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0038|assertEqual|expected', 11));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0039|assertEqual|actual', rounded.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0039|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0040|assertEqual|actual', rounded.failureBonusDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0006|RetentionPolicyCases.test.ets|assert0040|assertEqual|expected', 2));
     });
 
     /**
@@ -175,12 +183,13 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0007', 0, (): void => {
+      configureTestText();
       const left: RetentionPolicy = new RetentionPolicy(500.4, 90, 1);
       const right: RetentionPolicy = new RetentionPolicy(500, 90, 1);
-      expect(left.equals(right)).assertFalse();
-      expect(normalizePolicy(left).equals(right)).assertTrue();
-      expect(new RetentionPolicy(500, 90, 1).equals(new RetentionPolicy(500, 90, 1))).assertTrue();
-      expect(new RetentionPolicy(500, 90, 1).equals(new RetentionPolicy(500, 90, 2))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0007|RetentionPolicyCases.test.ets|assert0041|assertFalse|actual|expected=false', left.equals(right))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0007|RetentionPolicyCases.test.ets|assert0042|assertTrue|actual|expected=true', normalizePolicy(left).equals(right))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0007|RetentionPolicyCases.test.ets|assert0043|assertTrue|actual|expected=true', new RetentionPolicy(500, 90, 1).equals(new RetentionPolicy(500, 90, 1)))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0007|RetentionPolicyCases.test.ets|assert0044|assertFalse|actual|expected=false', new RetentionPolicy(500, 90, 1).equals(new RetentionPolicy(500, 90, 2)))).assertFalse();
     });
 
     /**
@@ -193,13 +202,14 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0008', 0, (): void => {
+      configureTestText();
       const policy: RetentionPolicy = defaultRetentionPolicy();
-      expect(policy.maxEntries).assertEqual(500);
-      expect(policy.maxDays).assertEqual(90);
-      expect(policy.failureBonusDays).assertEqual(1);
-      expect(policy.text()).assertEqual('条数上限 500｜天数上限 90 天｜失败样本额外 1 天');
-      expect(new RetentionPolicy().equals(policy)).assertTrue();
-      expect(policy.normalized().equals(policy)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0045|assertEqual|actual', policy.maxEntries)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0045|assertEqual|expected', 500));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0046|assertEqual|actual', policy.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0046|assertEqual|expected', 90));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0047|assertEqual|actual', policy.failureBonusDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0047|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0048|assertEqual|actual', policy.text())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0048|assertEqual|expected', '条数上限 500｜天数上限 90 天｜失败样本额外 1 天'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0049|assertTrue|actual|expected=true', new RetentionPolicy().equals(policy))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0008|RetentionPolicyCases.test.ets|assert0050|assertTrue|actual|expected=true', policy.normalized().equals(policy))).assertTrue();
     });
 
     /**
@@ -212,12 +222,13 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0009', 0, (): void => {
+      configureTestText();
       const lines: string[] = describePolicy(new RetentionPolicy(500, 90, 2));
-      expect(lines.length).assertEqual(4);
-      expect(lines[0]).assertEqual('最多保留 500 条，超出部分按时间从旧到新清理');
-      expect(lines[1]).assertEqual('最多保留 90 天，更早的记录按天数清理');
-      expect(lines[2]).assertEqual('失败样本额外保留 2 天（实际 92 天），用于排查');
-      expect(lines[3]).assertEqual('最近一条有效样本永远保留，不受上述两条规则影响');
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0051|assertEqual|actual', lines.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0051|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0052|assertEqual|actual', lines[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0052|assertEqual|expected', '最多保留 500 条，超出部分按时间从旧到新清理'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0053|assertEqual|actual', lines[1])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0053|assertEqual|expected', '最多保留 90 天，更早的记录按天数清理'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0054|assertEqual|actual', lines[2])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0054|assertEqual|expected', '失败样本额外保留 2 天（实际 92 天），用于排查'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0055|assertEqual|actual', lines[3])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0009|RetentionPolicyCases.test.ets|assert0055|assertEqual|expected', '最近一条有效样本永远保留，不受上述两条规则影响'));
     });
 
     /**
@@ -230,11 +241,12 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0010', 0, (): void => {
+      configureTestText();
       const lines: string[] = describePolicy(new RetentionPolicy(10, 7, 0));
-      expect(lines.length).assertEqual(4);
-      expect(lines[2]).assertEqual('失败样本与其他结果保留天数一致');
-      expect(describePolicy(new RetentionPolicy(0, 0, 0))[0])
-        .assertEqual('最多保留 1 条，超出部分按时间从旧到新清理');
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0010|RetentionPolicyCases.test.ets|assert0056|assertEqual|actual', lines.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0010|RetentionPolicyCases.test.ets|assert0056|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0010|RetentionPolicyCases.test.ets|assert0057|assertEqual|actual', lines[2])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0010|RetentionPolicyCases.test.ets|assert0057|assertEqual|expected', '失败样本与其他结果保留天数一致'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0010|RetentionPolicyCases.test.ets|assert0058|assertEqual|actual', describePolicy(new RetentionPolicy(0, 0, 0))[0]))
+        .assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0010|RetentionPolicyCases.test.ets|assert0058|assertEqual|expected', '最多保留 1 条，超出部分按时间从旧到新清理'));
     });
 
     /**
@@ -247,13 +259,14 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPolicyBasicsCases0011', 0, (): void => {
+      configureTestText();
       const kept: CleanupDecision = new CleanupDecision(7, true, CleanupReason.KEPT_RECENT);
-      expect(kept.describe()).assertEqual('保留 #7｜在保留范围内');
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0059|assertEqual|actual', kept.describe())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0059|assertEqual|expected', '保留 #7｜在保留范围内'));
       kept.detail = '年龄 1/90 天，且在 500 条以内';
-      expect(kept.describe()).assertEqual('保留 #7｜在保留范围内｜年龄 1/90 天，且在 500 条以内');
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0060|assertEqual|actual', kept.describe())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0060|assertEqual|expected', '保留 #7｜在保留范围内｜年龄 1/90 天，且在 500 条以内'));
       const dropped: CleanupDecision = new CleanupDecision(9, false, CleanupReason.OVER_COUNT);
-      expect(dropped.describe()).assertEqual('删除 #9｜超出条数上限');
-      expect(dropped.ageDays).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0061|assertEqual|actual', dropped.describe())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0061|assertEqual|expected', '删除 #9｜超出条数上限'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0062|assertEqual|actual', dropped.ageDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPolicyBasicsCases_0011|RetentionPolicyCases.test.ets|assert0062|assertEqual|expected', -1));
     });
   });
 
@@ -268,10 +281,11 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionAuditCases0001', 0, (): void => {
+      configureTestText();
       const audit: RetentionAudit = auditRetentionPolicy(defaultRetentionPolicy());
-      expect(audit.ok).assertTrue();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.report()).assertEqual('保留策略自洽');
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0001|RetentionPolicyCases.test.ets|assert0063|assertTrue|actual|expected=true', audit.ok)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0001|RetentionPolicyCases.test.ets|assert0064|assertEqual|actual', audit.findings.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0001|RetentionPolicyCases.test.ets|assert0064|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0001|RetentionPolicyCases.test.ets|assert0065|assertEqual|actual', audit.report())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0001|RetentionPolicyCases.test.ets|assert0065|assertEqual|expected', '保留策略自洽'));
     });
 
     /**
@@ -284,11 +298,12 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionAuditCases0002', 0, (): void => {
+      configureTestText();
       const audit: RetentionAudit = auditRetentionPolicy(new RetentionPolicy(0, 90, 1));
-      expect(audit.ok).assertFalse();
-      expect(audit.findings.length).assertEqual(1);
-      expect(audit.findings[0]).assertEqual('条数上限越界：0');
-      expect(audit.report()).assertEqual('条数上限越界：0');
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0002|RetentionPolicyCases.test.ets|assert0066|assertFalse|actual|expected=false', audit.ok)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0002|RetentionPolicyCases.test.ets|assert0067|assertEqual|actual', audit.findings.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0002|RetentionPolicyCases.test.ets|assert0067|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0002|RetentionPolicyCases.test.ets|assert0068|assertEqual|actual', audit.findings[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0002|RetentionPolicyCases.test.ets|assert0068|assertEqual|expected', '条数上限越界：0'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0002|RetentionPolicyCases.test.ets|assert0069|assertEqual|actual', audit.report())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0002|RetentionPolicyCases.test.ets|assert0069|assertEqual|expected', '条数上限越界：0'));
     });
 
     /**
@@ -301,12 +316,13 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionAuditCases0003', 0, (): void => {
+      configureTestText();
       const audit: RetentionAudit = auditRetentionPolicy(new RetentionPolicy(500, 4000, 9));
-      expect(audit.ok).assertFalse();
-      expect(audit.findings.length).assertEqual(2);
-      expect(audit.findings[0]).assertEqual('天数上限越界：4000');
-      expect(audit.findings[1]).assertEqual('失败样本额外天数越界：9');
-      expect(audit.report().indexOf('；') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0070|assertFalse|actual|expected=false', audit.ok)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0071|assertEqual|actual', audit.findings.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0071|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0072|assertEqual|actual', audit.findings[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0072|assertEqual|expected', '天数上限越界：4000'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0073|assertEqual|actual', audit.findings[1])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0073|assertEqual|expected', '失败样本额外天数越界：9'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0003|RetentionPolicyCases.test.ets|assert0074|assertTrue|actual|expected=true', audit.report().indexOf('；') > 0)).assertTrue();
     });
 
     /**
@@ -319,12 +335,13 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionAuditCases0004', 0, (): void => {
+      configureTestText();
       const audit: RetentionAudit = auditRetentionPolicy(new RetentionPolicy(500.5, 90.5, 1.5));
-      expect(audit.ok).assertFalse();
-      expect(audit.findings.length).assertEqual(3);
-      expect(audit.findings[0]).assertEqual('条数上限越界：500.5');
-      expect(audit.findings[1]).assertEqual('天数上限越界：90.5');
-      expect(audit.findings[2]).assertEqual('失败样本额外天数越界：1.5');
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0075|assertFalse|actual|expected=false', audit.ok)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0076|assertEqual|actual', audit.findings.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0076|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0077|assertEqual|actual', audit.findings[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0077|assertEqual|expected', '条数上限越界：500.5'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0078|assertEqual|actual', audit.findings[1])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0078|assertEqual|expected', '天数上限越界：90.5'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0079|assertEqual|actual', audit.findings[2])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionAuditCases_0004|RetentionPolicyCases.test.ets|assert0079|assertEqual|expected', '失败样本额外天数越界：1.5'));
     });
   });
 
@@ -339,12 +356,13 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0001', 0, (): void => {
+      configureTestText();
       const preview: CleanupPreview = previewCleanup([], NOW, defaultRetentionPolicy());
-      expect(preview.emptyInput).assertTrue();
-      expect(preview.decisions.length).assertEqual(0);
-      expect(preview.notes.length).assertEqual(1);
-      expect(preview.summaryText()).assertEqual('没有可清理的归档记录：保留 0 条，删除 0 条');
-      expect(preview.hasDeletions()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0080|assertTrue|actual|expected=true', preview.emptyInput)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0081|assertEqual|actual', preview.decisions.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0081|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0082|assertEqual|actual', preview.notes.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0082|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0083|assertEqual|actual', preview.summaryText())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0083|assertEqual|expected', '没有可清理的归档记录：保留 0 条，删除 0 条'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0001|RetentionPolicyCases.test.ets|assert0084|assertFalse|actual|expected=false', preview.hasDeletions())).assertFalse();
     });
 
     /**
@@ -357,18 +375,19 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0002', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(1, 11, QueryOutcome.SUCCESS),
         agedEntry(2, 1, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 10, 1));
-      expect(preview.deleteCount).assertEqual(1);
-      expect(preview.agedCount).assertEqual(1);
-      expect(preview.countCutCount).assertEqual(0);
-      expect(preview.deletedIds().length).assertEqual(1);
-      expect(preview.deletedIds()[0]).assertEqual(1);
-      expect(decisionOf(preview, 1).detail).assertEqual('年龄 11 天超过 10 天');
-      expect(decisionOf(preview, 1).ageDays).assertEqual(11);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0085|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0085|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0086|assertEqual|actual', preview.agedCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0086|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0087|assertEqual|actual', preview.countCutCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0087|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0088|assertEqual|actual', preview.deletedIds().length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0088|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0089|assertEqual|actual', preview.deletedIds()[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0089|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0090|assertEqual|actual', decisionOf(preview, 1).detail)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0090|assertEqual|expected', '年龄 11 天超过 10 天'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0091|assertEqual|actual', decisionOf(preview, 1).ageDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0002|RetentionPolicyCases.test.ets|assert0091|assertEqual|expected', 11));
     });
 
     /**
@@ -381,15 +400,16 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0003', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(2, 1, QueryOutcome.SUCCESS),
         agedEntry(1, 10, QueryOutcome.TIMEOUT)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 10, 1));
-      expect(preview.deleteCount).assertEqual(0);
-      expect(preview.keepCount).assertEqual(2);
-      expect(decisionOf(preview, 1).reason).assertEqual(CleanupReason.KEPT_RECENT);
-      expect(decisionOf(preview, 1).ageDays).assertEqual(10);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0092|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0092|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0093|assertEqual|actual', preview.keepCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0093|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0094|assertEqual|actual', decisionOf(preview, 1).reason)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0094|assertEqual|expected', CleanupReason.KEPT_RECENT));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0095|assertEqual|actual', decisionOf(preview, 1).ageDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0003|RetentionPolicyCases.test.ets|assert0095|assertEqual|expected', 10));
     });
 
     /**
@@ -402,16 +422,17 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0004', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [agedEntry(5, 100, QueryOutcome.SUCCESS)];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 1));
-      expect(preview.keepCount).assertEqual(1);
-      expect(preview.deleteCount).assertEqual(0);
-      expect(preview.protectedId).assertEqual(5);
-      expect(preview.protectedRescued).assertTrue();
-      expect(decisionOf(preview, 5).reason).assertEqual(CleanupReason.KEPT_PROTECTED);
-      expect(decisionOf(preview, 5).detail)
-        .assertEqual('年龄 100 天已超过 90 天，但作为最近有效样本豁免');
-      expect(preview.notes.indexOf('最近有效样本 #5 本应被清理，已豁免保留') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0096|assertEqual|actual', preview.keepCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0096|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0097|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0097|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0098|assertEqual|actual', preview.protectedId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0098|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0099|assertTrue|actual|expected=true', preview.protectedRescued)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0100|assertEqual|actual', decisionOf(preview, 5).reason)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0100|assertEqual|expected', CleanupReason.KEPT_PROTECTED));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0101|assertEqual|actual', decisionOf(preview, 5).detail))
+        .assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0101|assertEqual|expected', '年龄 100 天已超过 90 天，但作为最近有效样本豁免'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0004|RetentionPolicyCases.test.ets|assert0102|assertTrue|actual|expected=true', preview.notes.indexOf('最近有效样本 #5 本应被清理，已豁免保留') >= 0)).assertTrue();
     });
 
     /**
@@ -424,11 +445,12 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0005', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [agedEntry(5, 3, QueryOutcome.FAILURE)];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 1));
-      expect(preview.protectedRescued).assertFalse();
-      expect(decisionOf(preview, 5).detail).assertEqual('最近一条有效样本，规则不删除');
-      expect(preview.notes.indexOf('最近有效样本 #5 已保留（不受天数/条数规则影响）') >= 0)
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0005|RetentionPolicyCases.test.ets|assert0103|assertFalse|actual|expected=false', preview.protectedRescued)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0005|RetentionPolicyCases.test.ets|assert0104|assertEqual|actual', decisionOf(preview, 5).detail)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0005|RetentionPolicyCases.test.ets|assert0104|assertEqual|expected', '最近一条有效样本，规则不删除'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0005|RetentionPolicyCases.test.ets|assert0105|assertTrue|actual|expected=true', preview.notes.indexOf('最近有效样本 #5 已保留（不受天数/条数规则影响）') >= 0))
         .assertTrue();
     });
 
@@ -442,18 +464,19 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0006', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(1, 3, QueryOutcome.SUCCESS),
         agedEntry(2, 2, QueryOutcome.SUCCESS),
         agedEntry(3, 1, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(2, 90, 1));
-      expect(preview.deleteCount).assertEqual(1);
-      expect(preview.countCutCount).assertEqual(1);
-      expect(preview.deletedIds().length).assertEqual(1);
-      expect(preview.deletedIds()[0]).assertEqual(1);
-      expect(preview.keptIds().length).assertEqual(2);
-      expect(decisionOf(preview, 1).detail).assertEqual('超出条数上限 2，按时间从旧到新清理');
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0106|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0106|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0107|assertEqual|actual', preview.countCutCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0107|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0108|assertEqual|actual', preview.deletedIds().length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0108|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0109|assertEqual|actual', preview.deletedIds()[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0109|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0110|assertEqual|actual', preview.keptIds().length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0110|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0111|assertEqual|actual', decisionOf(preview, 1).detail)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0006|RetentionPolicyCases.test.ets|assert0111|assertEqual|expected', '超出条数上限 2，按时间从旧到新清理'));
     });
 
     /**
@@ -466,17 +489,18 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0007', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         entryOf(1, 0, QueryOutcome.SUCCESS),
         agedEntry(2, 500, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(1, 90, 1));
-      expect(preview.unknownTimeCount).assertEqual(1);
-      expect(decisionOf(preview, 1).reason).assertEqual(CleanupReason.KEPT_UNKNOWN_TIME);
-      expect(decisionOf(preview, 1).ageDays).assertEqual(-1);
-      expect(decisionOf(preview, 1).retentionDays).assertEqual(0);
-      expect(decisionOf(preview, 1).detail).assertEqual('时间戳缺失或非法，已保留且不计入天数/条数');
-      expect(preview.keepCount).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0112|assertEqual|actual', preview.unknownTimeCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0112|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0113|assertEqual|actual', decisionOf(preview, 1).reason)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0113|assertEqual|expected', CleanupReason.KEPT_UNKNOWN_TIME));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0114|assertEqual|actual', decisionOf(preview, 1).ageDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0114|assertEqual|expected', -1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0115|assertEqual|actual', decisionOf(preview, 1).retentionDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0115|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0116|assertEqual|actual', decisionOf(preview, 1).detail)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0116|assertEqual|expected', '时间戳缺失或非法，已保留且不计入天数/条数'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0117|assertEqual|actual', preview.keepCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0007|RetentionPolicyCases.test.ets|assert0117|assertEqual|expected', 2));
     });
 
     /**
@@ -489,17 +513,18 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0008', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         entryOf(3, 0, QueryOutcome.SUCCESS),
         agedEntry(2, 2, QueryOutcome.SUCCESS),
         agedEntry(1, 1, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 1));
-      expect(preview.protectedId).assertEqual(1);
-      expect(preview.decisions[0].entryId).assertEqual(1);
-      expect(preview.decisions[1].entryId).assertEqual(2);
-      expect(preview.decisions[2].entryId).assertEqual(3);
-      expect(decisionOf(preview, 3).reason).assertEqual(CleanupReason.KEPT_UNKNOWN_TIME);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0118|assertEqual|actual', preview.protectedId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0118|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0119|assertEqual|actual', preview.decisions[0].entryId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0119|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0120|assertEqual|actual', preview.decisions[1].entryId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0120|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0121|assertEqual|actual', preview.decisions[2].entryId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0121|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0122|assertEqual|actual', decisionOf(preview, 3).reason)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0008|RetentionPolicyCases.test.ets|assert0122|assertEqual|expected', CleanupReason.KEPT_UNKNOWN_TIME));
     });
 
     /**
@@ -512,16 +537,17 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0009', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(2, 1, QueryOutcome.SUCCESS),
         agedEntry(1, 12, QueryOutcome.FAILURE)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 10, 5));
-      expect(preview.deleteCount).assertEqual(0);
-      expect(decisionOf(preview, 1).reason).assertEqual(CleanupReason.KEPT_FAILURE_GRACE);
-      expect(decisionOf(preview, 1).detail)
-        .assertEqual('失败样本在 10 天基础上多保留 5 天');
-      expect(decisionOf(preview, 1).retentionDays).assertEqual(15);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0123|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0123|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0124|assertEqual|actual', decisionOf(preview, 1).reason)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0124|assertEqual|expected', CleanupReason.KEPT_FAILURE_GRACE));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0125|assertEqual|actual', decisionOf(preview, 1).detail))
+        .assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0125|assertEqual|expected', '失败样本在 10 天基础上多保留 5 天'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0126|assertEqual|actual', decisionOf(preview, 1).retentionDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0009|RetentionPolicyCases.test.ets|assert0126|assertEqual|expected', 15));
     });
 
     /**
@@ -534,15 +560,16 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0010', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(2, 1, QueryOutcome.SUCCESS),
         agedEntry(1, 12, QueryOutcome.TIMEOUT)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 10, 5));
-      expect(preview.deletedIds().length).assertEqual(1);
-      expect(preview.deletedIds()[0]).assertEqual(1);
-      expect(decisionOf(preview, 1).reason).assertEqual(CleanupReason.AGE_EXPIRED);
-      expect(decisionOf(preview, 1).retentionDays).assertEqual(10);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0127|assertEqual|actual', preview.deletedIds().length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0127|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0128|assertEqual|actual', preview.deletedIds()[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0128|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0129|assertEqual|actual', decisionOf(preview, 1).reason)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0129|assertEqual|expected', CleanupReason.AGE_EXPIRED));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0130|assertEqual|actual', decisionOf(preview, 1).retentionDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0010|RetentionPolicyCases.test.ets|assert0130|assertEqual|expected', 10));
     });
 
     /**
@@ -555,14 +582,15 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0011', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [agedEntry(1, 5000, QueryOutcome.SUCCESS)];
       const preview: CleanupPreview = previewCleanup(entries, 0, new RetentionPolicy(500, 90, 1));
-      expect(preview.now).assertEqual(0);
-      expect(preview.deleteCount).assertEqual(0);
-      expect(decisionOf(preview, 1).ageDays).assertEqual(0);
-      expect(preview.notes.indexOf('当前时间无效，已跳过天数规则，仅按条数上限清理') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0131|assertEqual|actual', preview.now)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0131|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0132|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0132|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0133|assertEqual|actual', decisionOf(preview, 1).ageDays)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0133|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0134|assertTrue|actual|expected=true', preview.notes.indexOf('当前时间无效，已跳过天数规则，仅按条数上限清理') >= 0)).assertTrue();
       const negative: CleanupPreview = previewCleanup(entries, -5, new RetentionPolicy(500, 90, 1));
-      expect(negative.deleteCount).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0135|assertEqual|actual', negative.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0011|RetentionPolicyCases.test.ets|assert0135|assertEqual|expected', 0));
     });
 
     /**
@@ -575,15 +603,16 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0012', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(3, 1, QueryOutcome.TIMEOUT),
         agedEntry(2, 2, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(1, 90, 1));
-      expect(preview.protectedId).assertEqual(2);
-      expect(preview.protectedRescued).assertTrue();
-      expect(decisionOf(preview, 3).reason).assertEqual(CleanupReason.OVER_COUNT);
-      expect(preview.deleteCount).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0012|RetentionPolicyCases.test.ets|assert0136|assertEqual|actual', preview.protectedId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0012|RetentionPolicyCases.test.ets|assert0136|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0012|RetentionPolicyCases.test.ets|assert0137|assertTrue|actual|expected=true', preview.protectedRescued)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0012|RetentionPolicyCases.test.ets|assert0138|assertEqual|actual', decisionOf(preview, 3).reason)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0012|RetentionPolicyCases.test.ets|assert0138|assertEqual|expected', CleanupReason.OVER_COUNT));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0012|RetentionPolicyCases.test.ets|assert0139|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0012|RetentionPolicyCases.test.ets|assert0139|assertEqual|expected', 1));
     });
 
     /**
@@ -596,6 +625,7 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0013', 0, (): void => {
+      configureTestText();
       const same: number = NOW - DAY_MS;
       const entries: ArchiveEntry[] = [
         entryOf(1, same, QueryOutcome.SUCCESS),
@@ -603,10 +633,10 @@ export default function retentionPolicyCasesTest(): void {
         entryOf(2, same, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 1));
-      expect(preview.decisions.length).assertEqual(3);
-      expect(preview.decisions[0].entryId).assertEqual(3);
-      expect(preview.decisions[1].entryId).assertEqual(2);
-      expect(preview.decisions[2].entryId).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0140|assertEqual|actual', preview.decisions.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0140|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0141|assertEqual|actual', preview.decisions[0].entryId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0141|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0142|assertEqual|actual', preview.decisions[1].entryId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0142|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0143|assertEqual|actual', preview.decisions[2].entryId)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0013|RetentionPolicyCases.test.ets|assert0143|assertEqual|expected', 1));
     });
 
     /**
@@ -619,16 +649,17 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0014', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         entryOf(1, 0, QueryOutcome.SUCCESS),
         agedEntry(2, 1, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(300, 60, 2));
-      expect(preview.notes.length).assertEqual(4);
-      expect(preview.notes[0]).assertEqual('天数上限 60 天；失败样本额外 2 天（共 62 天）');
-      expect(preview.notes[1]).assertEqual('条数上限 300 条，超出部分按时间从旧到新清理');
-      expect(preview.notes[2]).assertEqual('最近有效样本 #2 已保留（不受天数/条数规则影响）');
-      expect(preview.notes[3]).assertEqual('1 条记录时间未知，已保留且不参与天数/条数计算');
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0144|assertEqual|actual', preview.notes.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0144|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0145|assertEqual|actual', preview.notes[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0145|assertEqual|expected', '天数上限 60 天；失败样本额外 2 天（共 62 天）'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0146|assertEqual|actual', preview.notes[1])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0146|assertEqual|expected', '条数上限 300 条，超出部分按时间从旧到新清理'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0147|assertEqual|actual', preview.notes[2])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0147|assertEqual|expected', '最近有效样本 #2 已保留（不受天数/条数规则影响）'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0148|assertEqual|actual', preview.notes[3])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0014|RetentionPolicyCases.test.ets|assert0148|assertEqual|expected', '1 条记录时间未知，已保留且不参与天数/条数计算'));
     });
 
     /**
@@ -641,13 +672,14 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0015', 0, (): void => {
+      configureTestText();
       const preview: CleanupPreview = previewCleanup([agedEntry(1, 1, QueryOutcome.SUCCESS)], NOW,
         new RetentionPolicy(500, 90, 0));
-      expect(preview.notes.length).assertEqual(3);
-      expect(preview.notes[0]).assertEqual('天数上限 90 天');
-      expect(preview.notes[1]).assertEqual('条数上限 500 条，超出部分按时间从旧到新清理');
-      expect(preview.notes[2]).assertEqual('最近有效样本 #1 已保留（不受天数/条数规则影响）');
-      expect(preview.text().indexOf('保留 1 条，删除 0 条') === 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0149|assertEqual|actual', preview.notes.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0149|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0150|assertEqual|actual', preview.notes[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0150|assertEqual|expected', '天数上限 90 天'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0151|assertEqual|actual', preview.notes[1])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0151|assertEqual|expected', '条数上限 500 条，超出部分按时间从旧到新清理'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0152|assertEqual|actual', preview.notes[2])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0152|assertEqual|expected', '最近有效样本 #1 已保留（不受天数/条数规则影响）'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0015|RetentionPolicyCases.test.ets|assert0153|assertTrue|actual|expected=true', preview.text().indexOf('保留 1 条，删除 0 条') === 0)).assertTrue();
     });
 
     /**
@@ -660,6 +692,7 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0016', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(1, 100, QueryOutcome.SUCCESS),
         agedEntry(2, 2, QueryOutcome.SUCCESS),
@@ -667,12 +700,12 @@ export default function retentionPolicyCasesTest(): void {
         agedEntry(4, 0.5, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(2, 90, 0));
-      expect(preview.agedCount).assertEqual(1);
-      expect(preview.countCutCount).assertEqual(1);
-      expect(preview.deleteCount).assertEqual(2);
-      expect(preview.keepCount).assertEqual(2);
-      expect(preview.summaryText()).assertEqual('保留 2 条，删除 2 条（按天数 1 条，按条数 1 条）');
-      expect(preview.hasDeletions()).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0154|assertEqual|actual', preview.agedCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0154|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0155|assertEqual|actual', preview.countCutCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0155|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0156|assertEqual|actual', preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0156|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0157|assertEqual|actual', preview.keepCount)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0157|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0158|assertEqual|actual', preview.summaryText())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0158|assertEqual|expected', '保留 2 条，删除 2 条（按天数 1 条，按条数 1 条）'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0016|RetentionPolicyCases.test.ets|assert0159|assertTrue|actual|expected=true', preview.hasDeletions())).assertTrue();
     });
 
     /**
@@ -685,17 +718,18 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0017', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [];
       for (let index: number = 1; index <= 5; index++) {
         entries.push(agedEntry(index, index, QueryOutcome.SUCCESS));
       }
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 1));
       const limited: string[] = preview.explainLines(2);
-      expect(limited.length).assertEqual(3);
-      expect(limited[2]).assertEqual('其余 3 条从略');
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0017|RetentionPolicyCases.test.ets|assert0160|assertEqual|actual', limited.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0017|RetentionPolicyCases.test.ets|assert0160|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0017|RetentionPolicyCases.test.ets|assert0161|assertEqual|actual', limited[2])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0017|RetentionPolicyCases.test.ets|assert0161|assertEqual|expected', '其余 3 条从略'));
       const all: string[] = preview.explainLines(0);
-      expect(all.length).assertEqual(5);
-      expect(all[0].indexOf('保留 #1｜') === 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0017|RetentionPolicyCases.test.ets|assert0162|assertEqual|actual', all.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0017|RetentionPolicyCases.test.ets|assert0162|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0017|RetentionPolicyCases.test.ets|assert0163|assertTrue|actual|expected=true', all[0].indexOf('保留 #1｜') === 0)).assertTrue();
     });
 
     /**
@@ -708,15 +742,16 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionPreviewCases0018', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(1, 100, QueryOutcome.SUCCESS),
         agedEntry(2, 1, QueryOutcome.SUCCESS)
       ];
       const before: number = entries[0].id;
       previewCleanup(entries, NOW, new RetentionPolicy(1, 90, 1));
-      expect(entries.length).assertEqual(2);
-      expect(entries[0].id).assertEqual(before);
-      expect(entries[0].timestamp).assertEqual(NOW - 100 * DAY_MS);
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0018|RetentionPolicyCases.test.ets|assert0164|assertEqual|actual', entries.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0018|RetentionPolicyCases.test.ets|assert0164|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0018|RetentionPolicyCases.test.ets|assert0165|assertEqual|actual', entries[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0018|RetentionPolicyCases.test.ets|assert0165|assertEqual|expected', before));
+      expect(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0018|RetentionPolicyCases.test.ets|assert0166|assertEqual|actual', entries[0].timestamp)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionPreviewCases_0018|RetentionPolicyCases.test.ets|assert0166|assertEqual|expected', NOW - 100 * DAY_MS));
     });
   });
 
@@ -731,19 +766,20 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionApplyCases0001', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(1, 100, QueryOutcome.SUCCESS),
         agedEntry(2, 1, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 0));
       const result: RetentionResult = applyRetention(entries, preview);
-      expect(result.executed).assertTrue();
-      expect(result.deletedCount()).assertEqual(1);
-      expect(result.keptCount()).assertEqual(1);
-      expect(result.removed[0].id).assertEqual(1);
-      expect(result.kept[0].id).assertEqual(2);
-      expect(result.matchesPreview()).assertTrue();
-      expect(result.missingIds.length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0167|assertTrue|actual|expected=true', result.executed)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0168|assertEqual|actual', result.deletedCount())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0168|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0169|assertEqual|actual', result.keptCount())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0169|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0170|assertEqual|actual', result.removed[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0170|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0171|assertEqual|actual', result.kept[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0171|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0172|assertTrue|actual|expected=true', result.matchesPreview())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0173|assertEqual|actual', result.missingIds.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0001|RetentionPolicyCases.test.ets|assert0173|assertEqual|expected', 0));
     });
 
     /**
@@ -756,17 +792,18 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionApplyCases0002', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [
         agedEntry(1, 100, QueryOutcome.SUCCESS),
         agedEntry(2, 1, QueryOutcome.SUCCESS)
       ];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 0));
       const result: RetentionResult = applyRetention([entries[1]], preview);
-      expect(result.missingIds.length).assertEqual(1);
-      expect(result.missingIds[0]).assertEqual(1);
-      expect(result.matchesPreview()).assertFalse();
-      expect(result.deletedCount()).assertEqual(0);
-      expect(result.text().indexOf('预览中 1 条待删记录在执行时已不存在') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0174|assertEqual|actual', result.missingIds.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0174|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0175|assertEqual|actual', result.missingIds[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0175|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0176|assertFalse|actual|expected=false', result.matchesPreview())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0177|assertEqual|actual', result.deletedCount())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0177|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0002|RetentionPolicyCases.test.ets|assert0178|assertTrue|actual|expected=true', result.text().indexOf('预览中 1 条待删记录在执行时已不存在') > 0)).assertTrue();
     });
 
     /**
@@ -779,16 +816,17 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionApplyCases0003', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [agedEntry(1, 1, QueryOutcome.SUCCESS)];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 0));
       const extended: ArchiveEntry[] = [entries[0], agedEntry(9, 0.5, QueryOutcome.SUCCESS)];
       const result: RetentionResult = applyRetention(extended, preview);
-      expect(result.unseenIds.length).assertEqual(1);
-      expect(result.unseenIds[0]).assertEqual(9);
-      expect(result.keptCount()).assertEqual(2);
-      expect(result.deletedCount()).assertEqual(0);
-      expect(result.matchesPreview()).assertFalse();
-      expect(result.text().indexOf('预览之后新增 1 条记录，未纳入本次清理，已保留') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0179|assertEqual|actual', result.unseenIds.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0179|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0180|assertEqual|actual', result.unseenIds[0])).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0180|assertEqual|expected', 9));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0181|assertEqual|actual', result.keptCount())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0181|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0182|assertEqual|actual', result.deletedCount())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0182|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0183|assertFalse|actual|expected=false', result.matchesPreview())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0003|RetentionPolicyCases.test.ets|assert0184|assertTrue|actual|expected=true', result.text().indexOf('预览之后新增 1 条记录，未纳入本次清理，已保留') > 0)).assertTrue();
     });
 
     /**
@@ -801,13 +839,14 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionApplyCases0004', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [agedEntry(1, 1, QueryOutcome.SUCCESS)];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 0));
       const result: RetentionResult = applyRetention(entries, preview);
       result.kept[0].outcome = QueryOutcome.TIMEOUT;
-      expect(entries[0].outcome).assertEqual(QueryOutcome.SUCCESS);
-      expect(result.preview.summaryText()).assertEqual(preview.summaryText());
-      expect(result.kept.length).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0004|RetentionPolicyCases.test.ets|assert0185|assertEqual|actual', entries[0].outcome)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0004|RetentionPolicyCases.test.ets|assert0185|assertEqual|expected', QueryOutcome.SUCCESS));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0004|RetentionPolicyCases.test.ets|assert0186|assertEqual|actual', result.preview.summaryText())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0004|RetentionPolicyCases.test.ets|assert0186|assertEqual|expected', preview.summaryText()));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0004|RetentionPolicyCases.test.ets|assert0187|assertEqual|actual', result.kept.length)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0004|RetentionPolicyCases.test.ets|assert0187|assertEqual|expected', 1));
     });
 
     /**
@@ -820,13 +859,14 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionApplyCases0005', 0, (): void => {
+      configureTestText();
       const result: RetentionResult = new RetentionResult();
-      expect(result.executed).assertFalse();
-      expect(result.text()).assertEqual('未执行清理');
-      expect(result.deletedCount()).assertEqual(0);
-      expect(result.matchesPreview()).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0188|assertFalse|actual|expected=false', result.executed)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0189|assertEqual|actual', result.text())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0189|assertEqual|expected', '未执行清理'));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0190|assertEqual|actual', result.deletedCount())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0190|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0191|assertTrue|actual|expected=true', result.matchesPreview())).assertTrue();
       result.executed = true;
-      expect(result.text()).assertEqual('清理完成：删除 0 条，保留 0 条');
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0192|assertEqual|actual', result.text())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0005|RetentionPolicyCases.test.ets|assert0192|assertEqual|expected', '清理完成：删除 0 条，保留 0 条'));
     });
 
     /**
@@ -839,13 +879,14 @@ export default function retentionPolicyCasesTest(): void {
      */
 
     it('testRetentionApplyCases0006', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [agedEntry(4, 200, QueryOutcome.SUCCESS)];
       const preview: CleanupPreview = previewCleanup(entries, NOW, new RetentionPolicy(500, 90, 0));
       const result: RetentionResult = applyRetention(entries, preview);
-      expect(preview.protectedRescued).assertTrue();
-      expect(result.deletedCount()).assertEqual(0);
-      expect(result.kept[0].id).assertEqual(4);
-      expect(result.matchesPreview()).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0006|RetentionPolicyCases.test.ets|assert0193|assertTrue|actual|expected=true', preview.protectedRescued)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0006|RetentionPolicyCases.test.ets|assert0194|assertEqual|actual', result.deletedCount())).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0006|RetentionPolicyCases.test.ets|assert0194|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0006|RetentionPolicyCases.test.ets|assert0195|assertEqual|actual', result.kept[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0006|RetentionPolicyCases.test.ets|assert0195|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_RetentionApplyCases_0006|RetentionPolicyCases.test.ets|assert0196|assertTrue|actual|expected=true', result.matchesPreview())).assertTrue();
     });
   });
 }
