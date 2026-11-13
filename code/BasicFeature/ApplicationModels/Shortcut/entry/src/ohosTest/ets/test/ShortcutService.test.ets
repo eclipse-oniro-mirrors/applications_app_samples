@@ -14,7 +14,8 @@
  */
 
 import { shortcutManager } from '@kit.AbilityKit';
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { CallRecord, ShortcutItem, ShortcutView } from '../../../main/ets/model/ShortcutModels';
 import { CaseScope, getTestContext, runCase } from '../support/CaseScope';
 import { FixtureError, SetRequest, ShortcutFixture, shortcutInfo } from '../support/ShortcutFixture';
@@ -35,8 +36,8 @@ export default function shortcutServiceTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutService0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutService', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutService', '0001'), async (scope: CaseScope): Promise<void> => {
         for (const mode of [0, 1, 2]) {
           const fixture: ShortcutFixture = new ShortcutFixture(scope);
           fixture.api.supported = mode === 0;
@@ -45,26 +46,26 @@ export default function shortcutServiceTests(): void {
           if (mode === 0) { (await fixture.query(0)).resolve([]); }
           await fixture.idle();
           const view: ShortcutView = fixture.service.snapshot();
-          expect(fixture.api.supportCalls).assertEqual(1);
-          expect(view.supported).assertEqual(mode === 0);
-          expect(view.support).assertEqual(mode === 0 ? '支持' : mode === 1 ? '不支持' : '检测失败');
-          expect(view.queryError).assertEqual('');
-          expect(view.busy).assertFalse();
+          expect(fixture.api.supportCalls, caseName('ShortcutService', '0001')).assertEqual(1);
+          expect(view.supported, caseName('ShortcutService', '0001')).assertEqual(mode === 0);
+          expect(view.support, caseName('ShortcutService', '0001')).assertEqual(mode === 0 ? '支持' : mode === 1 ? '不支持' : '检测失败');
+          expect(view.queryError, caseName('ShortcutService', '0001')).assertEqual('');
+          expect(view.busy, caseName('ShortcutService', '0001')).assertFalse();
           if (mode === 2) {
-            expect(view.supportError).assertContain('code=801');
-            expect(hasRecord(view, 'isShortcutSupported', '失败', 'probe failed')).assertTrue();
+            expect(view.supportError, caseName('ShortcutService', '0001')).assertContain('code=801');
+            expect(hasRecord(view, 'isShortcutSupported', '失败', 'probe failed'), caseName('ShortcutService', '0001')).assertTrue();
           } else {
-            expect(view.supportError).assertEqual('');
-            expect(hasRecord(view, 'isShortcutSupported', '成功', `${mode === 0}`)).assertTrue();
+            expect(view.supportError, caseName('ShortcutService', '0001')).assertEqual('');
+            expect(hasRecord(view, 'isShortcutSupported', '成功', `${mode === 0}`), caseName('ShortcutService', '0001')).assertTrue();
           }
           if (mode !== 0) {
             await fixture.service.refresh();
             await fixture.service.setVisible('blocked', false);
             await fixture.service.restoreAll();
-            expect(fixture.api.queries.length).assertEqual(0);
-            expect(fixture.api.settings.length).assertEqual(0);
+            expect(fixture.api.queries.length, caseName('ShortcutService', '0001')).assertEqual(0);
+            expect(fixture.api.settings.length, caseName('ShortcutService', '0001')).assertEqual(0);
           } else {
-            expect(fixture.api.queries.length).assertEqual(1);
+            expect(fixture.api.queries.length, caseName('ShortcutService', '0001')).assertEqual(1);
           }
         }
       });
@@ -79,8 +80,8 @@ export default function shortcutServiceTests(): void {
      * @tc.level     Level 1
      */
 
-    it('testShortcutService0002', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutService', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutService', '0002'), async (scope: CaseScope): Promise<void> => {
         const fixture: ShortcutFixture = new ShortcutFixture(scope);
         const id: string = `sc.${'x'.repeat(60)}`;
         const full: shortcutManager.ShortcutInfo = shortcutInfo(id, false);
@@ -96,40 +97,40 @@ export default function shortcutServiceTests(): void {
         await fixture.load([full, shortcutInfo('default'), resource, numeric]);
         const first: ShortcutView = fixture.service.snapshot();
         const second: ShortcutView = fixture.service.snapshot();
-        expect(first !== second).assertTrue();
-        expect(first.items.length).assertEqual(4);
-        expect(first.items[0] !== second.items[0]).assertTrue();
-        expect(first.items[0].raw !== second.items[0].raw).assertTrue();
-        expect(first.records[0] !== second.records[0]).assertTrue();
+        expect(first !== second, caseName('ShortcutService', '0002')).assertTrue();
+        expect(first.items.length, caseName('ShortcutService', '0002')).assertEqual(4);
+        expect(first.items[0] !== second.items[0], caseName('ShortcutService', '0002')).assertTrue();
+        expect(first.items[0].raw !== second.items[0].raw, caseName('ShortcutService', '0002')).assertTrue();
+        expect(first.records[0] !== second.records[0], caseName('ShortcutService', '0002')).assertTrue();
         const raw: shortcutManager.ShortcutInfo = first.items[0].raw;
-        expect(raw.id).assertEqual(id);
-        expect(raw.bundleName).assertEqual(full.bundleName);
-        expect(raw.moduleName).assertEqual('entry');
-        expect(raw.hostAbility).assertEqual('EntryAbility');
-        expect(raw.icon).assertEqual('$media:shortcut_note');
-        expect(raw.iconId).assertEqual(0);
-        expect(raw.label).assertEqual(full.label);
-        expect(raw.labelId).assertEqual(0);
-        expect(raw.appIndex).assertEqual(0);
-        expect(raw.sourceType).assertEqual(2);
-        expect(raw.visible).assertFalse();
-        expect(first.items[0].title).assertEqual(full.label);
-        expect(first.items[1].visible).assertTrue();
-        expect(first.items[1].visibleExplicit).assertFalse();
-        expect(first.items[1].raw.visible).assertUndefined();
+        expect(raw.id, caseName('ShortcutService', '0002')).assertEqual(id);
+        expect(raw.bundleName, caseName('ShortcutService', '0002')).assertEqual(full.bundleName);
+        expect(raw.moduleName, caseName('ShortcutService', '0002')).assertEqual('entry');
+        expect(raw.hostAbility, caseName('ShortcutService', '0002')).assertEqual('EntryAbility');
+        expect(raw.icon, caseName('ShortcutService', '0002')).assertEqual('$media:shortcut_note');
+        expect(raw.iconId, caseName('ShortcutService', '0002')).assertEqual(0);
+        expect(raw.label, caseName('ShortcutService', '0002')).assertEqual(full.label);
+        expect(raw.labelId, caseName('ShortcutService', '0002')).assertEqual(0);
+        expect(raw.appIndex, caseName('ShortcutService', '0002')).assertEqual(0);
+        expect(raw.sourceType, caseName('ShortcutService', '0002')).assertEqual(2);
+        expect(raw.visible, caseName('ShortcutService', '0002')).assertFalse();
+        expect(first.items[0].title, caseName('ShortcutService', '0002')).assertEqual(full.label);
+        expect(first.items[1].visible, caseName('ShortcutService', '0002')).assertTrue();
+        expect(first.items[1].visibleExplicit, caseName('ShortcutService', '0002')).assertFalse();
+        expect(first.items[1].raw.visible, caseName('ShortcutService', '0002')).assertUndefined();
         const title: string = getTestContext().createModuleContext('entry_test').resourceManager.getStringSync(labelId);
-        expect(first.items[2].title).assertEqual(title);
-        expect(first.items[3].title).assertEqual(title);
+        expect(first.items[2].title, caseName('ShortcutService', '0002')).assertEqual(title);
+        expect(first.items[3].title, caseName('ShortcutService', '0002')).assertEqual(title);
         const wants: shortcutManager.ShortcutWant[] = raw.wants ?? [];
-        expect(wants.length).assertEqual(1);
-        expect(wants[0].targetBundle).assertEqual(full.bundleName);
-        expect(wants[0].targetModule).assertEqual('entry');
-        expect(wants[0].targetAbility).assertEqual('EntryAbility');
+        expect(wants.length, caseName('ShortcutService', '0002')).assertEqual(1);
+        expect(wants[0].targetBundle, caseName('ShortcutService', '0002')).assertEqual(full.bundleName);
+        expect(wants[0].targetModule, caseName('ShortcutService', '0002')).assertEqual('entry');
+        expect(wants[0].targetAbility, caseName('ShortcutService', '0002')).assertEqual('EntryAbility');
         const parameters: shortcutManager.ParameterItem[] = wants[0].parameters ?? [];
-        expect(parameters.length).assertEqual(2);
-        expect(parameters[0].key).assertEqual('page');
-        expect(parameters[0].value).assertEqual('note');
-        expect(parameters[1].value).assertEqual('p'.repeat(180));
+        expect(parameters.length, caseName('ShortcutService', '0002')).assertEqual(2);
+        expect(parameters[0].key, caseName('ShortcutService', '0002')).assertEqual('page');
+        expect(parameters[0].value, caseName('ShortcutService', '0002')).assertEqual('note');
+        expect(parameters[1].value, caseName('ShortcutService', '0002')).assertEqual('p'.repeat(180));
         first.items[0].title = 'changed';
         raw.id = 'changed';
         wants[0].targetAbility = 'changed';
@@ -142,14 +143,14 @@ export default function shortcutServiceTests(): void {
         const fresh: ShortcutView = fixture.service.snapshot();
         const freshWants: shortcutManager.ShortcutWant[] = fresh.items[0].raw.wants ?? [];
         const freshParameters: shortcutManager.ParameterItem[] = freshWants[0].parameters ?? [];
-        expect(fresh.items.length).assertEqual(4);
-        expect(fresh.items[0].id).assertEqual(id);
-        expect(fresh.items[0].raw.id).assertEqual(id);
-        expect(fresh.items[0].title).assertEqual(full.label);
-        expect(freshWants[0].targetAbility).assertEqual('EntryAbility');
-        expect(freshParameters[0].value).assertEqual('note');
-        expect(freshParameters[1].value).assertEqual('p'.repeat(180));
-        expect(fresh.records[0].status).assertEqual('成功');
+        expect(fresh.items.length, caseName('ShortcutService', '0002')).assertEqual(4);
+        expect(fresh.items[0].id, caseName('ShortcutService', '0002')).assertEqual(id);
+        expect(fresh.items[0].raw.id, caseName('ShortcutService', '0002')).assertEqual(id);
+        expect(fresh.items[0].title, caseName('ShortcutService', '0002')).assertEqual(full.label);
+        expect(freshWants[0].targetAbility, caseName('ShortcutService', '0002')).assertEqual('EntryAbility');
+        expect(freshParameters[0].value, caseName('ShortcutService', '0002')).assertEqual('note');
+        expect(freshParameters[1].value, caseName('ShortcutService', '0002')).assertEqual('p'.repeat(180));
+        expect(fresh.records[0].status, caseName('ShortcutService', '0002')).assertEqual('成功');
       });
     });
 
@@ -162,8 +163,8 @@ export default function shortcutServiceTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutService0003', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutService', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutService', '0003'), async (scope: CaseScope): Promise<void> => {
         const fixture: ShortcutFixture = new ShortcutFixture(scope);
         await fixture.load([shortcutInfo('kept', false)]);
         const lastQuery: string = fixture.service.snapshot().lastQuery;
@@ -171,16 +172,16 @@ export default function shortcutServiceTests(): void {
         (await fixture.query(1)).reject(new FixtureError(123456, 'query failed'));
         await refresh;
         const view: ShortcutView = fixture.service.snapshot();
-        expect(view.items.length).assertEqual(1);
-        expect(view.items[0].id).assertEqual('kept');
-        expect(view.items[0].visible).assertFalse();
-        expect(view.lastQuery).assertEqual(lastQuery);
-        expect(view.queryError).assertContain('code=123456');
-        expect(view.supported).assertTrue();
-        expect(view.supportError).assertEqual('');
-        expect(view.busy).assertFalse();
-        expect(view.querying).assertFalse();
-        expect(hasRecord(view, 'getAllShortcutInfoForSelf', '失败', 'query failed')).assertTrue();
+        expect(view.items.length, caseName('ShortcutService', '0003')).assertEqual(1);
+        expect(view.items[0].id, caseName('ShortcutService', '0003')).assertEqual('kept');
+        expect(view.items[0].visible, caseName('ShortcutService', '0003')).assertFalse();
+        expect(view.lastQuery, caseName('ShortcutService', '0003')).assertEqual(lastQuery);
+        expect(view.queryError, caseName('ShortcutService', '0003')).assertContain('code=123456');
+        expect(view.supported, caseName('ShortcutService', '0003')).assertTrue();
+        expect(view.supportError, caseName('ShortcutService', '0003')).assertEqual('');
+        expect(view.busy, caseName('ShortcutService', '0003')).assertFalse();
+        expect(view.querying, caseName('ShortcutService', '0003')).assertFalse();
+        expect(hasRecord(view, 'getAllShortcutInfoForSelf', '失败', 'query failed'), caseName('ShortcutService', '0003')).assertTrue();
       });
     });
 
@@ -193,8 +194,8 @@ export default function shortcutServiceTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutService0004', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutService', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutService', '0004'), async (scope: CaseScope): Promise<void> => {
         const fixture: ShortcutFixture = new ShortcutFixture(scope);
         await fixture.load([shortcutInfo('toggle', true)]);
         const values: boolean[] = [false, true];
@@ -202,23 +203,23 @@ export default function shortcutServiceTests(): void {
           const visible: boolean = values[index];
           const operation: Promise<void> = fixture.service.setVisible('toggle', visible);
           const request: SetRequest = await fixture.setting(index);
-          expect(request.id).assertEqual('toggle');
-          expect(request.visible).assertEqual(visible);
-          expect(fixture.api.queries.length).assertEqual(index + 1);
-          expect(fixture.service.snapshot().settingId).assertEqual('toggle');
-          expect(fixture.service.snapshot().busy).assertTrue();
+          expect(request.id, caseName('ShortcutService', '0004')).assertEqual('toggle');
+          expect(request.visible, caseName('ShortcutService', '0004')).assertEqual(visible);
+          expect(fixture.api.queries.length, caseName('ShortcutService', '0004')).assertEqual(index + 1);
+          expect(fixture.service.snapshot().settingId, caseName('ShortcutService', '0004')).assertEqual('toggle');
+          expect(fixture.service.snapshot().busy, caseName('ShortcutService', '0004')).assertTrue();
           request.pending.resolve(undefined);
           (await fixture.query(index + 1)).resolve([shortcutInfo('toggle', visible)]);
           await operation;
           const view: ShortcutView = fixture.service.snapshot();
-          expect(fixture.api.settings.length).assertEqual(index + 1);
-          expect(fixture.api.queries.length).assertEqual(index + 2);
-          expect(view.items[0].visible).assertEqual(visible);
-          expect(view.items[0].status).assertEqual('回读一致');
-          expect(view.batchMessage).assertEqual('回读一致');
-          expect(view.busy).assertFalse();
-          expect(view.settingId).assertEqual('');
-          expect(hasRecord(view, '可见性核对', '回读一致', `visible=${visible}`)).assertTrue();
+          expect(fixture.api.settings.length, caseName('ShortcutService', '0004')).assertEqual(index + 1);
+          expect(fixture.api.queries.length, caseName('ShortcutService', '0004')).assertEqual(index + 2);
+          expect(view.items[0].visible, caseName('ShortcutService', '0004')).assertEqual(visible);
+          expect(view.items[0].status, caseName('ShortcutService', '0004')).assertEqual('回读一致');
+          expect(view.batchMessage, caseName('ShortcutService', '0004')).assertEqual('回读一致');
+          expect(view.busy, caseName('ShortcutService', '0004')).assertFalse();
+          expect(view.settingId, caseName('ShortcutService', '0004')).assertEqual('');
+          expect(hasRecord(view, '可见性核对', '回读一致', `visible=${visible}`), caseName('ShortcutService', '0004')).assertTrue();
         }
       });
     });
@@ -232,8 +233,8 @@ export default function shortcutServiceTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutService0005', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutService', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutService', '0005'), async (scope: CaseScope): Promise<void> => {
         for (const mode of [0, 1, 2, 3, 4]) {
           const fixture: ShortcutFixture = new ShortcutFixture(scope);
           await fixture.load([shortcutInfo('target', true)]);
@@ -254,34 +255,34 @@ export default function shortcutServiceTests(): void {
           }
           await operation;
           const view: ShortcutView = fixture.service.snapshot();
-          expect(fixture.api.settings.length).assertEqual(1);
-          expect(fixture.api.queries.length).assertEqual(mode === 0 ? 1 : 2);
-          expect(view.busy).assertFalse();
-          expect(view.supported).assertTrue();
-          expect(view.supportError).assertEqual('');
+          expect(fixture.api.settings.length, caseName('ShortcutService', '0005')).assertEqual(1);
+          expect(fixture.api.queries.length, caseName('ShortcutService', '0005')).assertEqual(mode === 0 ? 1 : 2);
+          expect(view.busy, caseName('ShortcutService', '0005')).assertFalse();
+          expect(view.supported, caseName('ShortcutService', '0005')).assertTrue();
+          expect(view.supportError, caseName('ShortcutService', '0005')).assertEqual('');
           if (mode === 0) {
-            expect(view.items[0].error).assertContain('code=17700070');
-            expect(view.items[0].visible).assertTrue();
-            expect(view.batchMessage).assertEqual('设置失败');
-            expect(hasRecord(view, 'setShortcutVisibleForSelf', '失败', '17700070')).assertTrue();
+            expect(view.items[0].error, caseName('ShortcutService', '0005')).assertContain('code=17700070');
+            expect(view.items[0].visible, caseName('ShortcutService', '0005')).assertTrue();
+            expect(view.batchMessage, caseName('ShortcutService', '0005')).assertEqual('设置失败');
+            expect(hasRecord(view, 'setShortcutVisibleForSelf', '失败', '17700070'), caseName('ShortcutService', '0005')).assertTrue();
           } else if (mode === 1) {
-            expect(view.items[0].visible).assertTrue();
-            expect(view.items[0].error).assertContain('期望 visible=false');
-            expect(view.batchMessage).assertEqual('回读不一致');
-            expect(hasRecord(view, '可见性核对', '回读不一致')).assertTrue();
+            expect(view.items[0].visible, caseName('ShortcutService', '0005')).assertTrue();
+            expect(view.items[0].error, caseName('ShortcutService', '0005')).assertContain('期望 visible=false');
+            expect(view.batchMessage, caseName('ShortcutService', '0005')).assertEqual('回读不一致');
+            expect(hasRecord(view, '可见性核对', '回读不一致'), caseName('ShortcutService', '0005')).assertTrue();
           } else {
-            expect(view.batchMessage).assertEqual('已提交，待核对');
-            expect(hasRecord(view, '可见性核对', '待核对')).assertTrue();
+            expect(view.batchMessage, caseName('ShortcutService', '0005')).assertEqual('已提交，待核对');
+            expect(hasRecord(view, '可见性核对', '待核对'), caseName('ShortcutService', '0005')).assertTrue();
             if (mode === 2) {
-              expect(view.queryError).assertContain('code=350001');
-              expect(view.items[0].id).assertEqual('target');
-              expect(view.items[0].error).assertContain('code=350001');
+              expect(view.queryError, caseName('ShortcutService', '0005')).assertContain('code=350001');
+              expect(view.items[0].id, caseName('ShortcutService', '0005')).assertEqual('target');
+              expect(view.items[0].error, caseName('ShortcutService', '0005')).assertContain('code=350001');
             } else if (mode === 3) {
-              expect(view.items[0].visibleExplicit).assertFalse();
-              expect(view.items[0].status).assertEqual('待核对');
+              expect(view.items[0].visibleExplicit, caseName('ShortcutService', '0005')).assertFalse();
+              expect(view.items[0].status, caseName('ShortcutService', '0005')).assertEqual('待核对');
             } else {
-              expect(view.items.length).assertEqual(0);
-              expect(hasRecord(view, '可见性核对', '待核对', '未返回该快捷方式')).assertTrue();
+              expect(view.items.length, caseName('ShortcutService', '0005')).assertEqual(0);
+              expect(hasRecord(view, '可见性核对', '待核对', '未返回该快捷方式'), caseName('ShortcutService', '0005')).assertTrue();
             }
           }
         }
@@ -297,14 +298,14 @@ export default function shortcutServiceTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutService0006', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutService', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutService', '0006'), async (scope: CaseScope): Promise<void> => {
         const shown: ShortcutFixture = new ShortcutFixture(scope);
         await shown.load([shortcutInfo('shown', true), shortcutInfo('default')]);
         await shown.service.restoreAll();
-        expect(shown.api.settings.length).assertEqual(0);
-        expect(shown.api.queries.length).assertEqual(1);
-        expect(shown.service.snapshot().batchMessage).assertEqual('全部入口已显示');
+        expect(shown.api.settings.length, caseName('ShortcutService', '0006')).assertEqual(0);
+        expect(shown.api.queries.length, caseName('ShortcutService', '0006')).assertEqual(1);
+        expect(shown.service.snapshot().batchMessage, caseName('ShortcutService', '0006')).assertEqual('全部入口已显示');
         for (const stop of [false, true]) {
           const fixture: ShortcutFixture = new ShortcutFixture(scope);
           const infos: shortcutManager.ShortcutInfo[] = [shortcutInfo('shown', true),
@@ -313,31 +314,31 @@ export default function shortcutServiceTests(): void {
           const operation: Promise<void> = fixture.service.restoreAll();
           for (let index = 0; index < 3; index++) {
             const request: SetRequest = await fixture.setting(index);
-            expect(request.id).assertEqual(infos[index + 1].id);
-            expect(request.visible).assertTrue();
+            expect(request.id, caseName('ShortcutService', '0006')).assertEqual(infos[index + 1].id);
+            expect(request.visible, caseName('ShortcutService', '0006')).assertTrue();
             if (stop && index === 1) {
               request.pending.reject(new FixtureError(17700070, 'stop here'));
               break;
             }
             request.pending.resolve(undefined);
             const readback = await fixture.query(index + 1);
-            expect(fixture.api.settings.length).assertEqual(index + 1);
+            expect(fixture.api.settings.length, caseName('ShortcutService', '0006')).assertEqual(index + 1);
             infos[index + 1].visible = true;
             readback.resolve(infos);
           }
           await operation;
-          expect(fixture.api.settings.map((request: SetRequest) => request.id).join(','))
+          expect(fixture.api.settings.map((request: SetRequest) => request.id).join(','), caseName('ShortcutService', '0006'))
             .assertEqual(stop ? 'first,second' : 'first,second,third');
-          expect(fixture.api.queries.length).assertEqual(stop ? 2 : 4);
+          expect(fixture.api.queries.length, caseName('ShortcutService', '0006')).assertEqual(stop ? 2 : 4);
           const view: ShortcutView = fixture.service.snapshot();
-          expect(view.busy).assertFalse();
+          expect(view.busy, caseName('ShortcutService', '0006')).assertFalse();
           if (stop) {
-            expect(view.batchMessage).assertContain('已恢复 1/3');
-            expect(view.batchMessage).assertContain('已停止');
-            expect(hasRecord(view, 'setShortcutVisibleForSelf', '失败', '17700070')).assertTrue();
+            expect(view.batchMessage, caseName('ShortcutService', '0006')).assertContain('已恢复 1/3');
+            expect(view.batchMessage, caseName('ShortcutService', '0006')).assertContain('已停止');
+            expect(hasRecord(view, 'setShortcutVisibleForSelf', '失败', '17700070'), caseName('ShortcutService', '0006')).assertTrue();
           } else {
-            expect(view.batchMessage).assertEqual('已恢复 3 项');
-            expect(view.items.every((item: ShortcutItem) => item.visible)).assertTrue();
+            expect(view.batchMessage, caseName('ShortcutService', '0006')).assertEqual('已恢复 3 项');
+            expect(view.items.every((item: ShortcutItem) => item.visible), caseName('ShortcutService', '0006')).assertTrue();
           }
         }
       });
@@ -352,17 +353,17 @@ export default function shortcutServiceTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutService0007', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutService', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutService', '0007'), async (scope: CaseScope): Promise<void> => {
         const fixture: ShortcutFixture = new ShortcutFixture(scope);
         fixture.initialize();
         fixture.service.checkSupport();
         await fixture.service.refresh();
         await fixture.service.setVisible('blocked', false);
         await fixture.service.restoreAll();
-        expect(fixture.api.supportCalls).assertEqual(1);
-        expect(fixture.api.queries.length).assertEqual(1);
-        expect(fixture.api.settings.length).assertEqual(0);
+        expect(fixture.api.supportCalls, caseName('ShortcutService', '0007')).assertEqual(1);
+        expect(fixture.api.queries.length, caseName('ShortcutService', '0007')).assertEqual(1);
+        expect(fixture.api.settings.length, caseName('ShortcutService', '0007')).assertEqual(0);
         (await fixture.query(0)).resolve([shortcutInfo('target', true)]);
         await fixture.idle();
         let notifications: number = 0;
@@ -373,45 +374,45 @@ export default function shortcutServiceTests(): void {
         await fixture.service.restoreAll();
         await fixture.service.refresh();
         fixture.service.checkSupport();
-        expect(fixture.api.settings.length).assertEqual(1);
-        expect(fixture.api.queries.length).assertEqual(1);
-        expect(fixture.api.supportCalls).assertEqual(1);
+        expect(fixture.api.settings.length, caseName('ShortcutService', '0007')).assertEqual(1);
+        expect(fixture.api.queries.length, caseName('ShortcutService', '0007')).assertEqual(1);
+        expect(fixture.api.supportCalls, caseName('ShortcutService', '0007')).assertEqual(1);
         fixture.service.dispose();
         const beforeLate: number = notifications;
         pending.pending.resolve(undefined);
         await operation;
-        expect(notifications).assertEqual(beforeLate);
-        expect(fixture.api.queries.length).assertEqual(1);
-        expect(fixture.service.snapshot().items.length).assertEqual(0);
-        expect(fixture.service.snapshot().records.length).assertEqual(0);
+        expect(notifications, caseName('ShortcutService', '0007')).assertEqual(beforeLate);
+        expect(fixture.api.queries.length, caseName('ShortcutService', '0007')).assertEqual(1);
+        expect(fixture.service.snapshot().items.length, caseName('ShortcutService', '0007')).assertEqual(0);
+        expect(fixture.service.snapshot().records.length, caseName('ShortcutService', '0007')).assertEqual(0);
         fixture.initialize();
         (await fixture.query(1)).resolve([shortcutInfo('new', true)]);
         await fixture.idle();
-        expect(notifications).assertEqual(beforeLate);
+        expect(notifications, caseName('ShortcutService', '0007')).assertEqual(beforeLate);
         let currentNotifications: number = 0;
         const subscription: number = fixture.service.subscribe((): void => { currentNotifications++; });
         fixture.service.recordNavigation('note', 'opened');
-        expect(currentNotifications).assertEqual(1);
+        expect(currentNotifications, caseName('ShortcutService', '0007')).assertEqual(1);
         fixture.service.unsubscribe(subscription);
         for (let index = 0; index < 65; index++) { fixture.service.recordNavigation('note', `${index}`); }
-        expect(currentNotifications).assertEqual(1);
-        expect(fixture.service.snapshot().records.length).assertEqual(60);
-        expect(fixture.service.snapshot().records[0].message).assertEqual('64');
+        expect(currentNotifications, caseName('ShortcutService', '0007')).assertEqual(1);
+        expect(fixture.service.snapshot().records.length, caseName('ShortcutService', '0007')).assertEqual(60);
+        expect(fixture.service.snapshot().records[0].message, caseName('ShortcutService', '0007')).assertEqual('64');
         fixture.service.clearRecords();
-        expect(fixture.service.snapshot().records.length).assertEqual(0);
+        expect(fixture.service.snapshot().records.length, caseName('ShortcutService', '0007')).assertEqual(0);
         const lateQuery: ShortcutFixture = new ShortcutFixture(scope);
         lateQuery.initialize();
         const old = await lateQuery.query(0);
         lateQuery.service.dispose();
         lateQuery.initialize();
-        expect(lateQuery.api.queries.length).assertEqual(1);
+        expect(lateQuery.api.queries.length, caseName('ShortcutService', '0007')).assertEqual(1);
         old.resolve([shortcutInfo('stale', false)]);
         const fresh = await lateQuery.query(1);
-        expect(lateQuery.service.snapshot().items.length).assertEqual(0);
+        expect(lateQuery.service.snapshot().items.length, caseName('ShortcutService', '0007')).assertEqual(0);
         fresh.resolve([shortcutInfo('fresh', true)]);
         await lateQuery.idle();
-        expect(lateQuery.service.snapshot().items[0].id).assertEqual('fresh');
-        expect(lateQuery.api.supportCalls).assertEqual(2);
+        expect(lateQuery.service.snapshot().items[0].id, caseName('ShortcutService', '0007')).assertEqual('fresh');
+        expect(lateQuery.api.supportCalls, caseName('ShortcutService', '0007')).assertEqual(2);
       });
     });
   });

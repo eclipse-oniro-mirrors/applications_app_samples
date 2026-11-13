@@ -14,17 +14,17 @@
  */
 
 import { uiText } from '../../../main/ets/i18n/Strings';
-// 待集中验证：当前仅静态对齐正式组件/SDK，未执行本套件或任何中间门禁。
-import { afterEach, describe, expect, it } from '@ohos/hypium';
-import { ON } from '@kit.TestKit';
+import { describe } from '@ohos/hypium';
+import { caseName, expect } from '../support/TestCase';
+import { ON, uiCase as it, UiTestSession } from '../support/UiTestRuntime';
 import { RecycleBatchAction } from '../../../main/ets/business/RecycleBatch';
 import { MAX_ACTIVE_NOTES, MAX_RECYCLED_NOTES } from '../../../main/ets/business/NoteRecyclePolicy';
-import { currentRecycleUiQa, finishRecycleUiQa, launchRecycleUiQa, recycleQaClick, recycleQaDialog,
+import { currentRecycleUiQa as fixtureForSession, RecycleUiQaFixture, launchRecycleUiQa, recycleQaClick, recycleQaDialog,
   recycleQaNode, recycleQaPreview, recycleQaText, recycleQaUntil } from '../support/RecycleUiQaSupport';
 
 export default function recycleUiQaTests(): void {
   describe('RecycleUiQa', (): void => {
-    afterEach(async (): Promise<void> => { await finishRecycleUiQa(); });
+
 
     /**
      * @tc.number SUB_SHORTCUT_RECYCLEUIQA_0100
@@ -34,12 +34,13 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0001', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('empty');
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
-      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(uiText('shortcut_text_0299', ['0', String(MAX_RECYCLED_NOTES), '0']));
-      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertFalse();
-      expect(currentRecycleUiQa().storage.writes).assertEqual(0);
+    it(caseName('RecycleUiQa', '0001'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('empty', session);
+      expect(await recycleQaText(driver, 'note-trash-empty'), caseName('RecycleUiQa', '0001')).assertEqual(uiText('shortcut_text_0304'));
+      expect(await recycleQaText(driver, 'note-trash-summary'), caseName('RecycleUiQa', '0001')).assertEqual(uiText('shortcut_text_0299', ['0', String(MAX_RECYCLED_NOTES), '0']));
+      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled(), caseName('RecycleUiQa', '0001')).assertFalse();
+      expect(currentRecycleUiQa().storage.writes, caseName('RecycleUiQa', '0001')).assertEqual(0);
     });
 
     /**
@@ -50,16 +51,17 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0002', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('seeded');
+    it(caseName('RecycleUiQa', '0002'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('seeded', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0091"));
-      expect(fixture.store.snapshot().notes[0].body).assertEqual('qa-recycle-private-body');
-      expect(fixture.store.snapshot().notes[0].id).assertEqual(fixture.noteId);
-      expect(fixture.store.historyFor(fixture.noteId)[0].action).assertEqual('create');
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0002')).assertEqual(uiText('shortcut_text_0091'));
+      expect(fixture.store.snapshot().notes[0].body, caseName('RecycleUiQa', '0002')).assertEqual('qa-recycle-private-body');
+      expect(fixture.store.snapshot().notes[0].id, caseName('RecycleUiQa', '0002')).assertEqual(fixture.noteId);
+      expect(fixture.store.historyFor(fixture.noteId)[0].action, caseName('RecycleUiQa', '0002')).assertEqual('create');
+      expect(await recycleQaText(driver, 'note-trash-empty'), caseName('RecycleUiQa', '0002')).assertEqual(uiText('shortcut_text_0304'));
     });
 
     /**
@@ -71,15 +73,16 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0003', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('seeded');
+    it(caseName('RecycleUiQa', '0003'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('seeded', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-purge-${fixture.trashId}`);
-      await recycleQaDialog(driver, uiText("shortcut_text_0452"));
-      expect(fixture.storage.value).assertEqual(fixture.baseline);
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertTrue();
-      expect(fixture.store.snapshot().recycledNotes[0].history[0].action).assertEqual('create');
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
+      await recycleQaDialog(driver, uiText('shortcut_text_0452'));
+      expect(fixture.storage.value, caseName('RecycleUiQa', '0003')).assertEqual(fixture.baseline);
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0003')).assertTrue();
+      expect(fixture.store.snapshot().recycledNotes[0].history[0].action, caseName('RecycleUiQa', '0003')).assertEqual('create');
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0003')).assertEqual(fixture.baselineWrites);
     });
 
     /**
@@ -91,17 +94,18 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0004', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('seeded');
+    it(caseName('RecycleUiQa', '0004'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('seeded', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-purge-${fixture.trashId}`);
-      await recycleQaDialog(driver, uiText("shortcut_text_0696"));
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0687"));
-      expect(fixture.store.snapshot().notes.length).assertEqual(0);
-      expect(fixture.store.historyFor(fixture.noteId).length).assertEqual(0);
-      expect(fixture.storage.value.indexOf('qa-recycle-private-body')).assertEqual(-1);
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
+      await recycleQaDialog(driver, uiText('shortcut_text_0696'));
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0004')).assertEqual(uiText('shortcut_text_0687'));
+      expect(fixture.store.snapshot().notes.length, caseName('RecycleUiQa', '0004')).assertEqual(0);
+      expect(fixture.store.historyFor(fixture.noteId).length, caseName('RecycleUiQa', '0004')).assertEqual(0);
+      expect(fixture.storage.value.indexOf('qa-recycle-private-body'), caseName('RecycleUiQa', '0004')).assertEqual(-1);
+      expect(await recycleQaText(driver, 'note-trash-empty'), caseName('RecycleUiQa', '0004')).assertEqual(uiText('shortcut_text_0304'));
     });
 
     /**
@@ -112,18 +116,19 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0005', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('mixedExpiry');
+    it(caseName('RecycleUiQa', '0005'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('mixedExpiry', session);
       const fixture = currentRecycleUiQa();
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.recentTrashId}`)).isEnabled()).assertTrue();
-      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(uiText('shortcut_text_0299', ['2', String(MAX_RECYCLED_NOTES), '1']));
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0005')).assertFalse();
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.recentTrashId}`)).isEnabled(), caseName('RecycleUiQa', '0005')).assertTrue();
+      expect(await recycleQaText(driver, 'note-trash-summary'), caseName('RecycleUiQa', '0005')).assertEqual(uiText('shortcut_text_0299', ['2', String(MAX_RECYCLED_NOTES), '1']));
       await recycleQaClick(driver, 'note-trash-cleanup');
-      await recycleQaDialog(driver, uiText("shortcut_text_0441"), uiText("shortcut_text_0440"));
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText('shortcut_text_0668', ['1']));
-      expect(fixture.store.snapshot().recycledNotes[0].trashId).assertEqual(fixture.recentTrashId);
-      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertFalse();
+      await recycleQaDialog(driver, uiText('shortcut_text_0441'), uiText('shortcut_text_0440'));
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0005')).assertEqual(uiText('shortcut_text_0668', ['1']));
+      expect(fixture.store.snapshot().recycledNotes[0].trashId, caseName('RecycleUiQa', '0005')).assertEqual(fixture.recentTrashId);
+      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled(), caseName('RecycleUiQa', '0005')).assertFalse();
     });
 
     /**
@@ -135,18 +140,19 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0006', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('pending');
+    it(caseName('RecycleUiQa', '0006'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('pending', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
-      expect(await recycleQaText(driver, 'note-trash-busy')).assertEqual(uiText("shortcut_text_0167"));
-      expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled()).assertFalse();
-      expect(await (await recycleQaNode(driver, 'note-trash-refresh')).isEnabled()).assertFalse();
-      expect(fixture.store.snapshot().notes.length).assertEqual(0);
+      expect(await recycleQaText(driver, 'note-trash-busy'), caseName('RecycleUiQa', '0006')).assertEqual(uiText('shortcut_text_0167'));
+      expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0006')).assertFalse();
+      expect(await (await recycleQaNode(driver, 'note-trash-refresh')).isEnabled(), caseName('RecycleUiQa', '0006')).assertFalse();
+      expect(fixture.store.snapshot().notes.length, caseName('RecycleUiQa', '0006')).assertEqual(0);
       fixture.release();
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0091"));
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 1);
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0006')).assertEqual(uiText('shortcut_text_0091'));
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0006')).assertEqual(fixture.baselineWrites + 1);
     });
 
     /**
@@ -158,18 +164,19 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0007', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('writeFailure');
+    it(caseName('RecycleUiQa', '0007'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('writeFailure', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0049"));
-      expect(fixture.storage.value).assertEqual(fixture.baseline);
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertTrue();
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0007')).assertEqual(uiText('shortcut_text_0049'));
+      expect(fixture.storage.value, caseName('RecycleUiQa', '0007')).assertEqual(fixture.baseline);
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0007')).assertTrue();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(fixture.store.snapshot().notes[0].id).assertEqual(fixture.noteId);
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 2);
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(fixture.store.snapshot().notes[0].id, caseName('RecycleUiQa', '0007')).assertEqual(fixture.noteId);
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0007')).assertEqual(fixture.baselineWrites + 2);
     });
 
     /**
@@ -180,20 +187,21 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0008', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('uncertainApplied');
+    it(caseName('RecycleUiQa', '0008'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('uncertainApplied', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0617"));
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
-      expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled()).assertFalse();
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0008')).assertEqual(uiText('shortcut_text_0617'));
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0008')).assertFalse();
+      expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0008')).assertFalse();
       await recycleQaClick(driver, 'note-trash-reload');
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText('shortcut_text_0024', [uiText('shortcut_text_0091')]));
-      expect(fixture.storage.reloads).assertEqual(1);
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 1);
-      expect(fixture.store.snapshot().notes[0].id).assertEqual(fixture.noteId);
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0008')).assertEqual(uiText('shortcut_text_0024', [uiText('shortcut_text_0091')]));
+      expect(fixture.storage.reloads, caseName('RecycleUiQa', '0008')).assertEqual(1);
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0008')).assertEqual(fixture.baselineWrites + 1);
+      expect(fixture.store.snapshot().notes[0].id, caseName('RecycleUiQa', '0008')).assertEqual(fixture.noteId);
     });
 
     /**
@@ -205,16 +213,18 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0009', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('seeded');
+    it(caseName('RecycleUiQa', '0009'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('seeded', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, `trash-purge-${fixture.trashId}`);
-      await fixture.store.restoreTrashedNote(fixture.trashId);
-      await recycleQaDialog(driver, uiText("shortcut_text_0696"));
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0297"));
-      expect(fixture.store.snapshot().notes[0].id).assertEqual(fixture.noteId);
-      expect(fixture.store.historyFor(fixture.noteId)[0].body).assertEqual('qa-recycle-private-body');
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 1);
+      session.requireLive();
+      await session.guard(fixture.store.restoreTrashedNote(fixture.trashId));
+      await recycleQaDialog(driver, uiText('shortcut_text_0696'));
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0009')).assertEqual(uiText('shortcut_text_0297'));
+      expect(fixture.store.snapshot().notes[0].id, caseName('RecycleUiQa', '0009')).assertEqual(fixture.noteId);
+      expect(fixture.store.historyFor(fixture.noteId)[0].body, caseName('RecycleUiQa', '0009')).assertEqual('qa-recycle-private-body');
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0009')).assertEqual(fixture.baselineWrites + 1);
     });
 
     /**
@@ -226,18 +236,19 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0010', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('readFailure');
+    it(caseName('RecycleUiQa', '0010'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('readFailure', session);
       const fixture = currentRecycleUiQa();
-      expect(await recycleQaText(driver, 'note-trash-status')).assertEqual(uiText("shortcut_text_0224"));
-      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertFalse();
-      expect(await (await recycleQaNode(driver, 'note-trash-reload')).isEnabled()).assertTrue();
+      expect(await recycleQaText(driver, 'note-trash-status'), caseName('RecycleUiQa', '0010')).assertEqual(uiText('shortcut_text_0224'));
+      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled(), caseName('RecycleUiQa', '0010')).assertFalse();
+      expect(await (await recycleQaNode(driver, 'note-trash-reload')).isEnabled(), caseName('RecycleUiQa', '0010')).assertTrue();
       fixture.storage.failRead = false;
       await recycleQaClick(driver, 'note-trash-reload');
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().loading);
-      expect(fixture.store.snapshot().ready).assertTrue();
-      expect(fixture.storage.writes).assertEqual(0);
-      expect(await recycleQaText(driver, 'note-trash-empty')).assertEqual(uiText("shortcut_text_0304"));
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().loading));
+      expect(fixture.store.snapshot().ready, caseName('RecycleUiQa', '0010')).assertTrue();
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0010')).assertEqual(0);
+      expect(await recycleQaText(driver, 'note-trash-empty'), caseName('RecycleUiQa', '0010')).assertEqual(uiText('shortcut_text_0304'));
     });
 
     /**
@@ -249,15 +260,16 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0011', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('seeded');
+    it(caseName('RecycleUiQa', '0011'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('seeded', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, 'note-trash-close');
-      expect(await recycleQaText(driver, 'recycle-qa-closed')).assertEqual('回收站已关闭');
+      expect(await recycleQaText(driver, 'recycle-qa-closed'), caseName('RecycleUiQa', '0011')).assertEqual('回收站已关闭');
       const panel = await driver.findComponent(ON.id('note-trash-panel'));
-      expect(panel === null || panel === undefined).assertTrue();
-      expect(fixture.storage.value).assertEqual(fixture.baseline);
-      expect(fixture.store.snapshot().recycledNotes[0].trashId).assertEqual(fixture.trashId);
+      expect(panel === null || panel === undefined, caseName('RecycleUiQa', '0011')).assertTrue();
+      expect(fixture.storage.value, caseName('RecycleUiQa', '0011')).assertEqual(fixture.baseline);
+      expect(fixture.store.snapshot().recycledNotes[0].trashId, caseName('RecycleUiQa', '0011')).assertEqual(fixture.trashId);
     });
 
     /**
@@ -269,20 +281,22 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0012', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('capacity');
+    it(caseName('RecycleUiQa', '0012'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('capacity', session);
       const fixture = currentRecycleUiQa();
-      expect(await recycleQaText(driver, 'note-trash-capacity')).assertEqual(uiText("shortcut_text_0310"));
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
-      expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled()).assertTrue();
+      expect(await recycleQaText(driver, 'note-trash-capacity'), caseName('RecycleUiQa', '0012')).assertEqual(uiText('shortcut_text_0310'));
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0012')).assertFalse();
+      expect(await (await recycleQaNode(driver, `trash-purge-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0012')).assertTrue();
       const activeId = fixture.store.snapshot().notes[0].id;
-      await fixture.store.moveNoteToTrash(activeId);
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertTrue();
+      session.requireLive();
+      await session.guard(fixture.store.moveNoteToTrash(activeId));
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0012')).assertTrue();
       await recycleQaClick(driver, `trash-restore-${fixture.trashId}`);
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(fixture.store.snapshot().notes.length).assertEqual(MAX_ACTIVE_NOTES);
-      expect(fixture.store.snapshot().notes.some((note): boolean => note.id === fixture.noteId)).assertTrue();
-      expect(fixture.store.snapshot().recycledNotes[0].note.id).assertEqual(activeId);
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(fixture.store.snapshot().notes.length, caseName('RecycleUiQa', '0012')).assertEqual(MAX_ACTIVE_NOTES);
+      expect(fixture.store.snapshot().notes.some((note): boolean => note.id === fixture.noteId), caseName('RecycleUiQa', '0012')).assertTrue();
+      expect(fixture.store.snapshot().recycledNotes[0].note.id, caseName('RecycleUiQa', '0012')).assertEqual(activeId);
     });
 
     /**
@@ -294,16 +308,17 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0013', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('seeded');
+    it(caseName('RecycleUiQa', '0013'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('seeded', session);
       const fixture = currentRecycleUiQa();
       fixture.expireRetainedItems();
       await recycleQaClick(driver, 'note-trash-refresh');
-      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled()).assertFalse();
-      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled()).assertTrue();
-      expect(await recycleQaText(driver, 'note-trash-summary')).assertEqual(uiText('shortcut_text_0299', ['1', String(MAX_RECYCLED_NOTES), '1']));
-      expect(fixture.storage.value).assertEqual(fixture.baseline);
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
+      expect(await (await recycleQaNode(driver, `trash-restore-${fixture.trashId}`)).isEnabled(), caseName('RecycleUiQa', '0013')).assertFalse();
+      expect(await (await recycleQaNode(driver, 'note-trash-cleanup')).isEnabled(), caseName('RecycleUiQa', '0013')).assertTrue();
+      expect(await recycleQaText(driver, 'note-trash-summary'), caseName('RecycleUiQa', '0013')).assertEqual(uiText('shortcut_text_0299', ['1', String(MAX_RECYCLED_NOTES), '1']));
+      expect(fixture.storage.value, caseName('RecycleUiQa', '0013')).assertEqual(fixture.baseline);
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0013')).assertEqual(fixture.baselineWrites);
     });
 
     /**
@@ -315,21 +330,22 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0014', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('batch');
+    it(caseName('RecycleUiQa', '0014'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('batch', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, 'note-trash-multiselect');
-      expect(await (await recycleQaNode(driver, 'note-trash-batch-restore')).isEnabled()).assertFalse();
+      expect(await (await recycleQaNode(driver, 'note-trash-batch-restore')).isEnabled(), caseName('RecycleUiQa', '0014')).assertFalse();
       await recycleQaClick(driver, 'note-trash-select-all-restorable');
       await recycleQaClick(driver, 'note-trash-batch-restore');
       const preview = recycleQaPreview(fixture);
-      expect(preview.selectedCount).assertEqual(3);
-      expect(preview.action).assertEqual(RecycleBatchAction.RESTORE);
-      expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled()).assertTrue();
+      expect(preview.selectedCount, caseName('RecycleUiQa', '0014')).assertEqual(3);
+      expect(preview.action, caseName('RecycleUiQa', '0014')).assertEqual(RecycleBatchAction.RESTORE);
+      expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled(), caseName('RecycleUiQa', '0014')).assertTrue();
       await recycleQaClick(driver, 'note-trash-batch-cancel');
-      expect(fixture.store.snapshot().recycleBatchPreview === undefined).assertTrue();
-      expect(fixture.store.snapshot().notes.length).assertEqual(0);
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
+      expect(fixture.store.snapshot().recycleBatchPreview === undefined, caseName('RecycleUiQa', '0014')).assertTrue();
+      expect(fixture.store.snapshot().notes.length, caseName('RecycleUiQa', '0014')).assertEqual(0);
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0014')).assertEqual(fixture.baselineWrites);
     });
 
     /**
@@ -341,25 +357,26 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0015', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('batch');
+    it(caseName('RecycleUiQa', '0015'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('batch', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, 'note-trash-multiselect');
       await recycleQaClick(driver, 'note-trash-select-all');
       await recycleQaClick(driver, 'note-trash-batch-restore');
       await recycleQaClick(driver, 'note-trash-batch-confirm');
-      await recycleQaDialog(driver, uiText("shortcut_text_0452"), uiText("shortcut_text_0478"));
-      expect(await (await recycleQaNode(driver, `trash-select-${fixture.trashId}`)).isChecked()).assertTrue();
-      expect(fixture.storage.value).assertEqual(fixture.baseline);
+      await recycleQaDialog(driver, uiText('shortcut_text_0452'), uiText('shortcut_text_0478'));
+      expect(await (await recycleQaNode(driver, `trash-select-${fixture.trashId}`)).isChecked(), caseName('RecycleUiQa', '0015')).assertTrue();
+      expect(fixture.storage.value, caseName('RecycleUiQa', '0015')).assertEqual(fixture.baseline);
       await recycleQaClick(driver, `trash-select-${fixture.trashId}`);
       await recycleQaClick(driver, 'note-trash-batch-restore');
-      expect(recycleQaPreview(fixture).selectedCount).assertEqual(2);
+      expect(recycleQaPreview(fixture).selectedCount, caseName('RecycleUiQa', '0015')).assertEqual(2);
       await recycleQaClick(driver, 'note-trash-batch-confirm');
-      await recycleQaDialog(driver, uiText("shortcut_text_0425"), uiText("shortcut_text_0478"));
-      await recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy);
-      expect(fixture.store.snapshot().notes.length).assertEqual(2);
-      expect(fixture.store.snapshot().recycledNotes[0].trashId).assertEqual(fixture.trashId);
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites + 1);
+      await recycleQaDialog(driver, uiText('shortcut_text_0425'), uiText('shortcut_text_0478'));
+      await session.guard(recycleQaUntil(fixture.store, (): boolean => !fixture.store.snapshot().busy));
+      expect(fixture.store.snapshot().notes.length, caseName('RecycleUiQa', '0015')).assertEqual(2);
+      expect(fixture.store.snapshot().recycledNotes[0].trashId, caseName('RecycleUiQa', '0015')).assertEqual(fixture.trashId);
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0015')).assertEqual(fixture.baselineWrites + 1);
     });
 
     /**
@@ -371,8 +388,9 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0016', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('batchExpired');
+    it(caseName('RecycleUiQa', '0016'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('batchExpired', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, 'note-trash-multiselect');
       await recycleQaClick(driver, 'note-trash-select-all');
@@ -380,16 +398,16 @@ export default function recycleUiQaTests(): void {
       const rejected = recycleQaPreview(fixture);
       const old = rejected.rows.find((row): boolean => row.trashId === fixture.trashId);
       if (old === undefined) { throw new Error('Expired target was silently omitted from the preview'); }
-      expect(old.reason).assertEqual(uiText("shortcut_text_0157"));
-      expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled()).assertFalse();
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
+      expect(old.reason, caseName('RecycleUiQa', '0016')).assertEqual(uiText('shortcut_text_0157'));
+      expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled(), caseName('RecycleUiQa', '0016')).assertFalse();
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0016')).assertEqual(fixture.baselineWrites);
       await recycleQaClick(driver, 'note-trash-batch-cancel');
       await recycleQaClick(driver, 'note-trash-select-all-restorable');
-      expect(await (await recycleQaNode(driver, `trash-select-${fixture.trashId}`)).isChecked()).assertFalse();
+      expect(await (await recycleQaNode(driver, `trash-select-${fixture.trashId}`)).isChecked(), caseName('RecycleUiQa', '0016')).assertFalse();
       await recycleQaClick(driver, 'note-trash-batch-restore');
-      expect(recycleQaPreview(fixture).selectedCount).assertEqual(2);
-      expect(recycleQaPreview(fixture).eligible).assertTrue();
-      expect(fixture.store.snapshot().notes.length).assertEqual(0);
+      expect(recycleQaPreview(fixture).selectedCount, caseName('RecycleUiQa', '0016')).assertEqual(2);
+      expect(recycleQaPreview(fixture).eligible, caseName('RecycleUiQa', '0016')).assertTrue();
+      expect(fixture.store.snapshot().notes.length, caseName('RecycleUiQa', '0016')).assertEqual(0);
     });
 
     /**
@@ -401,19 +419,20 @@ export default function recycleUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testRecycleUiQa0017', 0, async (): Promise<void> => {
-      const driver = await launchRecycleUiQa('batchCapacity');
+    it(caseName('RecycleUiQa', '0017'), 0, async (session: UiTestSession): Promise<void> => {
+      const currentRecycleUiQa = (): RecycleUiQaFixture => fixtureForSession(session);
+      const driver = await launchRecycleUiQa('batchCapacity', session);
       const fixture = currentRecycleUiQa();
       await recycleQaClick(driver, 'note-trash-multiselect');
       await recycleQaClick(driver, 'note-trash-select-all-restorable');
       await recycleQaClick(driver, 'note-trash-batch-restore');
       const preview = recycleQaPreview(fixture);
-      expect(preview.selectedCount).assertEqual(3);
-      expect(preview.availableSlots).assertEqual(2);
-      expect(preview.errors.indexOf(uiText('shortcut_text_0309', ['3', '2'])) >= 0).assertTrue();
-      expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled()).assertFalse();
-      expect(fixture.storage.writes).assertEqual(fixture.baselineWrites);
-      expect(fixture.store.snapshot().notes.length).assertEqual(MAX_ACTIVE_NOTES - 2);
+      expect(preview.selectedCount, caseName('RecycleUiQa', '0017')).assertEqual(3);
+      expect(preview.availableSlots, caseName('RecycleUiQa', '0017')).assertEqual(2);
+      expect(preview.errors.indexOf(uiText('shortcut_text_0309', ['3', '2'])) >= 0, caseName('RecycleUiQa', '0017')).assertTrue();
+      expect(await (await recycleQaNode(driver, 'note-trash-batch-confirm')).isEnabled(), caseName('RecycleUiQa', '0017')).assertFalse();
+      expect(fixture.storage.writes, caseName('RecycleUiQa', '0017')).assertEqual(fixture.baselineWrites);
+      expect(fixture.store.snapshot().notes.length, caseName('RecycleUiQa', '0017')).assertEqual(MAX_ACTIVE_NOTES - 2);
     });
   });
 }
