@@ -2,1795 +2,2243 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "Continuation API calls and runtime diagnostics"
+      "value": "Continuation API calls and runtime diagnostics",
+      "description": "Entry module description."
     },
     {
       "name": "EntryAbility_desc",
-      "value": "Call continuation APIs, save text and inspect results"
+      "value": "Call continuation APIs, save text and inspect results",
+      "description": "Entry ability description."
     },
     {
       "name": "EntryAbility_label",
-      "value": "Continuation API Guide"
+      "value": "Continuation API Guide",
+      "description": "Entry ability display name."
     },
     {
       "name": "distributed_datasync_reason",
-      "value": "Synchronize current business state between devices for application continuation"
+      "value": "Synchronize current business state between devices for application continuation",
+      "description": "Distributed data permission rationale."
     },
     {
       "name": "official_doc_url",
-      "value": "https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-continueManager.md"
+      "value": "https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-continueManager.md",
+      "description": "Official continuation API documentation link."
     },
     {
       "name": "ac_learningui_001",
-      "value": "Failure · ERROR"
+      "value": "Failure · ERROR",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_002",
-      "value": "Warning · WARN"
+      "value": "Warning · WARN",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_003",
-      "value": "Information · INFO"
+      "value": "Information · INFO",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_004",
-      "value": "Copied to clipboard."
+      "value": "Copied to clipboard.",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_005",
-      "value": "Copy failed: {0}"
+      "value": "Copy failed: {0}",
+      "description": "Shared continuation UI. Format arguments: {0}."
     },
     {
       "name": "ac_learningui_006",
-      "value": "Clipboard unavailable: {0}"
+      "value": "Clipboard unavailable: {0}",
+      "description": "Shared continuation UI. Format arguments: {0}."
     },
     {
       "name": "ac_learningui_007",
-      "value": "Cancel"
+      "value": "Cancel",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_008",
-      "value": "Confirm"
+      "value": "Confirm",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_009",
-      "value": "Canceled."
+      "value": "Canceled.",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_010",
-      "value": "Confirmation failed: {0}"
+      "value": "Confirmation failed: {0}",
+      "description": "Shared continuation UI. Format arguments: {0}."
     },
     {
       "name": "ac_learningui_011",
-      "value": "Unable to show confirmation: {0}"
+      "value": "Unable to show confirmation: {0}",
+      "description": "Shared continuation UI. Format arguments: {0}."
     },
     {
       "name": "ac_learningui_012",
-      "value": "Unable to open the home page: {0}"
+      "value": "Unable to open the home page: {0}",
+      "description": "Shared continuation UI. Format arguments: {0}."
     },
     {
       "name": "ac_learningui_013",
-      "value": "Navigation unavailable: {0}"
+      "value": "Navigation unavailable: {0}",
+      "description": "Shared continuation UI. Format arguments: {0}."
     },
     {
       "name": "ac_learningui_014",
-      "value": "Platform response fields (redacted)"
+      "value": "Platform response fields (redacted)",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_015",
-      "value": "Collapse"
+      "value": "Collapse",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_016",
-      "value": "Expand"
+      "value": "Expand",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_017",
-      "value": "Notice"
+      "value": "Notice",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_019",
-      "value": "(None / not provided)"
+      "value": "(None / not provided)",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_020",
-      "value": "No information recorded yet."
+      "value": "No information recorded yet.",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_021",
-      "value": "Environment not checked yet."
+      "value": "Environment not checked yet.",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_022",
-      "value": "No events yet."
+      "value": "No events yet.",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_learningui_023",
-      "value": "View details"
+      "value": "View details",
+      "description": "Shared continuation UI."
     },
     {
       "name": "ac_scenecontinuationstatus_002",
-      "value": "Continuation details"
+      "value": "Continuation details",
+      "description": "Continuation stage display."
     },
     {
       "name": "ac_scenecontinuationstatus_003",
-      "value": "System result: {0}"
+      "value": "System result: {0}",
+      "description": "Continuation stage display. Format arguments: {0}."
     },
     {
       "name": "ac_scenecontinuationstatus_004",
-      "value": "Window: {0}"
+      "value": "Window: {0}",
+      "description": "Continuation stage display. Format arguments: {0}."
     },
     {
       "name": "ac_scenecontinuationstatus_005",
-      "value": "Business position: {0}"
+      "value": "Business position: {0}",
+      "description": "Continuation stage display. Format arguments: {0}."
     },
     {
       "name": "ac_scenecontinuationstatus_006",
-      "value": "Accepted; waiting for all gates"
+      "value": "Accepted; waiting for all gates",
+      "description": "Continuation stage display."
     },
     {
       "name": "ac_scenecontinuationstatus_007",
-      "value": "Accept incoming version"
+      "value": "Accept incoming version",
+      "description": "Continuation stage display."
     },
     {
       "name": "ac_scenecontinuationstatus_008",
-      "value": "Keep local and cancel this session"
+      "value": "Keep local and cancel this session",
+      "description": "Continuation stage display."
     },
     {
       "name": "ac_scenecontinuationstatus_009",
-      "value": "Retry business positioning"
+      "value": "Retry business positioning",
+      "description": "Continuation stage display."
     },
     {
       "name": "ac_scenecontinuationstatus_010",
-      "value": "Cancel session and keep local"
+      "value": "Cancel session and keep local",
+      "description": "Continuation stage display."
     },
     {
       "name": "ac_sceneworkspacebackup_001",
-      "value": "Continuation is in progress or the runtime has been released. Generate and preview again later."
+      "value": "Continuation is in progress or the runtime has been released. Generate and preview again later.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_002",
-      "value": "Business state changed. Generate a new backup or validate the preview again."
+      "value": "Business state changed. Generate a new backup or validate the preview again.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_003",
-      "value": "Runtime not initialized. Please try again later."
+      "value": "Runtime not initialized. Please try again later.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_004",
-      "value": "Import text changed. Validate and preview before restoring."
+      "value": "Import text changed. Validate and preview before restoring.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_005",
-      "value": "Select at least one scene to restore."
+      "value": "Select at least one scene to restore.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_006",
-      "value": "Restore scope changed. Validate and preview again."
+      "value": "Restore scope changed. Validate and preview again.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_007",
-      "value": "Select at least one scene to restore. Export and copy still include the entire business workspace."
+      "value": "Select at least one scene to restore. Export and copy still include the entire business workspace.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_008",
-      "value": "Restore scope: {0}; "
+      "value": "Restore scope: {0}; ",
+      "description": "Workspace backup panel. Format arguments: {0}."
     },
     {
       "name": "ac_sceneworkspacebackup_009",
-      "value": "Unselected scenes and their unsaved drafts are preserved and are not written by this operation. Export always includes the entire workspace."
+      "value": "Unselected scenes and their unsaved drafts are preserved and are not written by this operation. Export always includes the entire workspace.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_011",
-      "value": "Restore preview canceled."
+      "value": "Restore preview canceled.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_012",
-      "value": "Unsaved changes in the selected scenes will be replaced. "
+      "value": "Unsaved changes in the selected scenes will be replaced. ",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_013",
-      "value": "Restore the local business workspace?"
+      "value": "Restore the local business workspace?",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_014",
-      "value": "{0}Replace only {1} and their history; "
+      "value": "{0}Replace only {1} and their history; ",
+      "description": "Workspace backup panel. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_sceneworkspacebackup_015",
-      "value": "Unselected scenes and the original text workspace are unaffected. Export a local backup first."
+      "value": "Unselected scenes and the original text workspace are unaffected. Export a local backup first.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_016",
-      "value": "Restore preview expired. Validate and preview again."
+      "value": "Restore preview expired. Validate and preview again.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_017",
-      "value": "Local restore did not complete. Check the current state again; backup contents were not echoed."
+      "value": "Local restore did not complete. Check the current state again; backup contents were not echoed.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_018",
-      "value": "Copy an unencrypted business backup?"
+      "value": "Copy an unencrypted business backup?",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_019",
-      "value": "The copy contains drafts, names, phone numbers, addresses and history. Clipboard sharing is restricted to this device; it is not uploaded automatically. Store and clear the copy responsibly."
+      "value": "The copy contains drafts, names, phone numbers, addresses and history. Clipboard sharing is restricted to this device; it is not uploaded automatically. Store and clear the copy responsibly.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_020",
-      "value": "Waiting for the local clipboard result…"
+      "value": "Waiting for the local clipboard result…",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_021",
-      "value": "Backup copy did not complete; business state is unchanged."
+      "value": "Backup copy did not complete; business state is unchanged.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_022",
-      "value": "Cannot resume this scene now. End continuation or check draft state first."
+      "value": "Cannot resume this scene now. End continuation or check draft state first.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_023",
-      "value": "Other unsaved drafts are preserved. Resuming {0}."
+      "value": "Other unsaved drafts are preserved. Resuming {0}.",
+      "description": "Workspace backup panel. Format arguments: {0}."
     },
     {
       "name": "ac_sceneworkspacebackup_024",
-      "value": "The business page did not open; all unsaved drafts are preserved."
+      "value": "The business page did not open; all unsaved drafts are preserved.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_026",
-      "value": "Collapse backup and restore"
+      "value": "Collapse backup and restore",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_027",
-      "value": "Backup and restore"
+      "value": "Backup and restore",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_028",
-      "value": "Save note, reading and form drafts and history."
+      "value": "Save note, reading and form drafts and history.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_029",
-      "value": "Generate backup"
+      "value": "Generate backup",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_030",
-      "value": "Copy backup"
+      "value": "Copy backup",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_031",
-      "value": "Generated {0} characters; previewing the first 512. This copy is unencrypted. Keep it secure."
+      "value": "Generated {0} characters; previewing the first 512. This copy is unencrypted. Keep it secure.",
+      "description": "Workspace backup panel. Format arguments: {0}."
     },
     {
       "name": "ac_sceneworkspacebackup_032",
-      "value": "Choose what to restore"
+      "value": "Choose what to restore",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_033",
-      "value": "Note"
+      "value": "Note",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_034",
-      "value": "Reading"
+      "value": "Reading",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_035",
-      "value": "Form"
+      "value": "Form",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_036",
-      "value": "Paste the complete backup, then validate and preview"
+      "value": "Paste the complete backup, then validate and preview",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_037",
-      "value": "Input: {0}/{1} characters. Oversized input is rejected, not truncated for restoration."
+      "value": "Input: {0}/{1} characters. Oversized input is rejected, not truncated for restoration.",
+      "description": "Workspace backup panel. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_sceneworkspacebackup_038",
-      "value": "Validate preview"
+      "value": "Validate preview",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_039",
-      "value": "Restore backup"
+      "value": "Restore backup",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_040",
-      "value": "Cancel preview"
+      "value": "Cancel preview",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_041",
-      "value": "Continue editing while preserving other unsaved drafts."
+      "value": "Continue editing while preserving other unsaved drafts.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_042",
-      "value": "Resume note"
+      "value": "Resume note",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_043",
-      "value": "Resume reading"
+      "value": "Resume reading",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_044",
-      "value": "Resume form"
+      "value": "Resume form",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_045",
-      "value": "No preview yet. Validation and cancellation do not write business storage."
+      "value": "No preview yet. Validation and cancellation do not write business storage.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_sceneworkspacebackup_046",
-      "value": "Ready."
+      "value": "Ready.",
+      "description": "Workspace backup panel."
     },
     {
       "name": "ac_calldetailpage_001",
-      "value": "Runtime initializing. Loading operation details."
+      "value": "Runtime initializing. Loading operation details.",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_002",
-      "value": "Record not found. Open diagnostics to view available records."
+      "value": "Record not found. Open diagnostics to view available records.",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_003",
-      "value": "No operation summary is available to copy."
+      "value": "No operation summary is available to copy.",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_004",
-      "value": "Unable to go back: {0}"
+      "value": "Unable to go back: {0}",
+      "description": "Operation details page. Format arguments: {0}."
     },
     {
       "name": "ac_calldetailpage_005",
-      "value": "Call details"
+      "value": "Call details",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_007",
-      "value": "Record not found"
+      "value": "Record not found",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_008",
-      "value": "Back to diagnostics"
+      "value": "Back to diagnostics",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_009",
-      "value": "Result"
+      "value": "Result",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_010",
-      "value": "Phase / level"
+      "value": "Phase / level",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_011",
-      "value": "Start / end"
+      "value": "Start / end",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_012",
-      "value": "In progress"
+      "value": "In progress",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_013",
-      "value": "Duration"
+      "value": "Duration",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_014",
-      "value": "Response"
+      "value": "Response",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_015",
-      "value": "Error code"
+      "value": "Error code",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_016",
-      "value": "Error message"
+      "value": "Error message",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_017",
-      "value": "Result state"
+      "value": "Result state",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_018",
-      "value": "Result information"
+      "value": "Result information",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_019",
-      "value": "Copy response"
+      "value": "Copy response",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_020",
-      "value": "Diagnostics"
+      "value": "Diagnostics",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_021",
-      "value": "Operation records"
+      "value": "Operation records",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_022",
-      "value": "Result explanation"
+      "value": "Result explanation",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_023",
-      "value": "Recommendations"
+      "value": "Recommendations",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_024",
-      "value": "Copy diagnostic summary"
+      "value": "Copy diagnostic summary",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_025",
-      "value": "More information"
+      "value": "More information",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_026",
-      "value": "Hide environment"
+      "value": "Hide environment",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_027",
-      "value": "View environment"
+      "value": "View environment",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_028",
-      "value": "Hide event records"
+      "value": "Hide event records",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_029",
-      "value": "View event records ({0})"
+      "value": "View event records ({0})",
+      "description": "Operation details page. Format arguments: {0}."
     },
     {
       "name": "ac_calldetailpage_030",
-      "value": "Back to operations"
+      "value": "Back to operations",
+      "description": "Operation details page."
     },
     {
       "name": "ac_calldetailpage_031",
-      "value": "Back"
+      "value": "Back",
+      "description": "Operation details page."
     },
     {
       "name": "ac_formscenepage_001",
-      "value": "Back to workbench"
+      "value": "Back to workbench",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_002",
-      "value": "Form draft"
+      "value": "Form draft",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_003",
-      "value": "Step {0}: {1}"
+      "value": "Step {0}: {1}",
+      "description": "Form scene page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_formscenepage_004",
-      "value": "Name"
+      "value": "Name",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_005",
-      "value": "Mobile number"
+      "value": "Mobile number",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_006",
-      "value": "Address"
+      "value": "Address",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_007",
-      "value": "Note (optional)"
+      "value": "Note (optional)",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_008",
-      "value": "I confirm the information is correct"
+      "value": "I confirm the information is correct",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_009",
-      "value": "Step validation: {0}"
+      "value": "Step validation: {0}",
+      "description": "Form scene page. Format arguments: {0}."
     },
     {
       "name": "ac_formscenepage_010",
-      "value": "Passed"
+      "value": "Passed",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_011",
-      "value": "{0} items still need attention"
+      "value": "{0} items still need attention",
+      "description": "Form scene page. Format arguments: {0}."
     },
     {
       "name": "ac_formscenepage_012",
-      "value": "Previous step"
+      "value": "Previous step",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_013",
-      "value": "Next step"
+      "value": "Next step",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_014",
-      "value": "Save draft"
+      "value": "Save draft",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_015",
-      "value": "Validate and confirm completion"
+      "value": "Validate and confirm completion",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_016",
-      "value": "Completion confirmed (local sample only; nothing sent to a server)"
+      "value": "Completion confirmed (local sample only; nothing sent to a server)",
+      "description": "Form scene page."
     },
     {
       "name": "ac_formscenepage_017",
-      "value": "Completion not confirmed"
+      "value": "Completion not confirmed",
+      "description": "Form scene page."
     },
     {
       "name": "ac_index_001",
-      "value": "All"
+      "value": "All",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_003",
-      "value": "Selection not restored yet: {0}"
+      "value": "Selection not restored yet: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_004",
-      "value": "Text update did not complete: {0}"
+      "value": "Text update did not complete: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_005",
-      "value": "Selection update did not complete: {0}"
+      "value": "Selection update did not complete: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_006",
-      "value": "Initializing. Please try again later."
+      "value": "Initializing. Please try again later.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_007",
-      "value": "Operation did not complete: {0}"
+      "value": "Operation did not complete: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_008",
-      "value": "Ability initializing"
+      "value": "Ability initializing",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_009",
-      "value": "Page did not open: {0}"
+      "value": "Page did not open: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_010",
-      "value": "Page unavailable: {0}"
+      "value": "Page unavailable: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_011",
-      "value": "Initializing. Copy the summary later."
+      "value": "Initializing. Copy the summary later.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_012",
-      "value": "Official documentation is unavailable. Please try again later."
+      "value": "Official documentation is unavailable. Please try again later.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_013",
-      "value": "Unable to open documentation: {0}"
+      "value": "Unable to open documentation: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_015",
-      "value": "Replace text with the example?"
+      "value": "Replace text with the example?",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_016",
-      "value": "This replaces the current text and selection."
+      "value": "This replaces the current text and selection.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_017",
-      "value": "The text is already empty."
+      "value": "The text is already empty.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_018",
-      "value": "Clear text?"
+      "value": "Clear text?",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_019",
-      "value": "This clears text and selection and updates the local save."
+      "value": "This clears text and selection and updates the local save.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_020",
-      "value": "Clear records?"
+      "value": "Clear records?",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_021",
-      "value": "This clears operation records but preserves current state and text."
+      "value": "This clears operation records but preserves current state and text.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_023",
-      "value": "Failure"
+      "value": "Failure",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_024",
-      "value": "Warning"
+      "value": "Warning",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_026",
-      "value": "System"
+      "value": "System",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_027",
-      "value": "Waiting for Ability initialization"
+      "value": "Waiting for Ability initialization",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_028",
-      "value": "App continuation"
+      "value": "App continuation",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_029",
-      "value": "Call continuation APIs, save text and inspect results."
+      "value": "Call continuation APIs, save text and inspect results.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_030",
-      "value": "Main features"
+      "value": "Main features",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_031",
-      "value": "API calls"
+      "value": "API calls",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_032",
-      "value": "Check the environment and register or unregister result listeners."
+      "value": "Check the environment and register or unregister result listeners.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_033",
-      "value": "Text continuation"
+      "value": "Text continuation",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_034",
-      "value": "Edit and save text; restore text and selection after continuation."
+      "value": "Edit and save text; restore text and selection after continuation.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_035",
-      "value": "Call diagnostics"
+      "value": "Call diagnostics",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_036",
-      "value": "View operation results, errors and event records."
+      "value": "View operation results, errors and event records.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_037",
-      "value": "Get started"
+      "value": "Get started",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_038",
-      "value": "Official documentation"
+      "value": "Official documentation",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_039",
-      "value": "Continuation workbench"
+      "value": "Continuation workbench",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_040",
-      "value": "View process"
+      "value": "View process",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_044",
-      "value": "Document-switch conflict"
+      "value": "Document-switch conflict",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_045",
-      "value": "Version conflict"
+      "value": "Version conflict",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_046",
-      "value": "Choice recorded; waiting for quick result and page gates"
+      "value": "Choice recorded; waiting for quick result and page gates",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_047",
-      "value": "Incoming version has not overwritten local text"
+      "value": "Incoming version has not overwritten local text",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_048",
-      "value": "Acceptance recorded. Nothing is written until the quick result and this page are ready."
+      "value": "Acceptance recorded. Nothing is written until the quick result and this page are ready.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_050",
-      "value": "Keep local version"
+      "value": "Keep local version",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_051",
-      "value": "Text"
+      "value": "Text",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_052",
-      "value": "Enter text…"
+      "value": "Enter text…",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_053",
-      "value": "Length / selection"
+      "value": "Length / selection",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_054",
-      "value": "Save status"
+      "value": "Save status",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_055",
-      "value": "Save locally"
+      "value": "Save locally",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_056",
-      "value": "Hide more actions"
+      "value": "Hide more actions",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_057",
-      "value": "More text actions"
+      "value": "More text actions",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_058",
-      "value": "Document / revision"
+      "value": "Document / revision",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_059",
-      "value": "v2 payload enabled after the first save"
+      "value": "v2 payload enabled after the first save",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_060",
-      "value": "Fill example"
+      "value": "Fill example",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_061",
-      "value": "Save as new document (keep text)"
+      "value": "Save as new document (keep text)",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_062",
-      "value": "Save as a new document?"
+      "value": "Save as a new document?",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_063",
-      "value": "Save current content with a separate identity starting at r1; previous revisions are not reused."
+      "value": "Save current content with a separate identity starting at r1; previous revisions are not reused.",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_064",
-      "value": "Clear text"
+      "value": "Clear text",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_065",
-      "value": "Continuation settings"
+      "value": "Continuation settings",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_066",
-      "value": "Hide settings"
+      "value": "Hide settings",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_067",
-      "value": "Listener and environment"
+      "value": "Listener and environment",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_068",
-      "value": "Launch"
+      "value": "Launch",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_069",
-      "value": "Listener"
+      "value": "Listener",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_070",
-      "value": "Register listener on"
+      "value": "Register listener on",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_071",
-      "value": "Unregister listener off"
+      "value": "Unregister listener off",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_072",
-      "value": "Check environment"
+      "value": "Check environment",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_075",
-      "value": "Request distributed permission"
+      "value": "Request distributed permission",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_076",
-      "value": "Diagnostics"
+      "value": "Diagnostics",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_077",
-      "value": "Latest result"
+      "value": "Latest result",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_081",
-      "value": "No results yet"
+      "value": "No results yet",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_083",
-      "value": "{0} records"
+      "value": "{0} records",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_089",
-      "value": "No records yet"
+      "value": "No records yet",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_090",
-      "value": "Copy summary"
+      "value": "Copy summary",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_091",
-      "value": "Clear records"
+      "value": "Clear records",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_092",
-      "value": "Payload protocol"
+      "value": "Payload protocol",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_093",
-      "value": "Admission rules"
+      "value": "Admission rules",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_094",
-      "value": "Conflict policy"
+      "value": "Conflict policy",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_095",
-      "value": "Scenarios and validation"
+      "value": "Scenarios and validation",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_097",
-      "value": "v{0} | {1} | Decode: {2} | {3}"
+      "value": "v{0} | {1} | Decode: {2} | {3}",
+      "description": "Main workbench. Format arguments: {0}, {1}, {2}, {3}."
     },
     {
       "name": "ac_index_098",
-      "value": "Success"
+      "value": "Success",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_100",
-      "value": "Escaping example: {0}"
+      "value": "Escaping example: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_101",
-      "value": "Payload limit: {0} characters"
+      "value": "Payload limit: {0} characters",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_107",
-      "value": "Isolation check: {0}"
+      "value": "Isolation check: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_108",
-      "value": "Isolation rules: {0} | Multi-instance categories: {1}"
+      "value": "Isolation rules: {0} | Multi-instance categories: {1}",
+      "description": "Main workbench. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_index_109",
-      "value": "Type"
+      "value": "Type",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_111",
-      "value": "Budget category"
+      "value": "Budget category",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_112",
-      "value": "Note"
+      "value": "Note",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_113",
-      "value": "Visible fields: {0} | Incomplete required fields: {1}"
+      "value": "Visible fields: {0} | Incomplete required fields: {1}",
+      "description": "Main workbench. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_index_114",
-      "value": "Branch rules: {0} | Missing required detail groups: {1}"
+      "value": "Branch rules: {0} | Missing required detail groups: {1}",
+      "description": "Main workbench. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_index_115",
-      "value": "Title"
+      "value": "Title",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_119",
-      "value": "Body"
+      "value": "Body",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_123",
-      "value": "Tags"
+      "value": "Tags",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_126",
-      "value": "Actions available when the target page is missing: {0}"
+      "value": "Actions available when the target page is missing: {0}",
+      "description": "Main workbench. Format arguments: {0}."
     },
     {
       "name": "ac_index_127",
-      "value": "Document workspace"
+      "value": "Document workspace",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_128",
-      "value": "Multi-document isolation"
+      "value": "Multi-document isolation",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_129",
-      "value": "Notes, forms and reading progress remain separate"
+      "value": "Notes, forms and reading progress remain separate",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_130",
-      "value": "Interruptible form"
+      "value": "Interruptible form",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_131",
-      "value": "Field-level merge preview"
+      "value": "Field-level merge preview",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_132",
-      "value": "Confirm three-way values field by field"
+      "value": "Confirm three-way values field by field",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_133",
-      "value": "Continue after restore failure"
+      "value": "Continue after restore failure",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_134",
-      "value": "Read back before deciding when a write is uncertain"
+      "value": "Read back before deciding when a write is uncertain",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_136",
-      "value": "Introduction"
+      "value": "Introduction",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_137",
-      "value": "Workbench"
+      "value": "Workbench",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_138",
-      "value": "Records"
+      "value": "Records",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_139",
-      "value": "Protocol"
+      "value": "Protocol",
+      "description": "Main workbench."
     },
     {
       "name": "ac_index_140",
-      "value": "Examples"
+      "value": "Examples",
+      "description": "Main workbench."
     },
     {
       "name": "ac_notescenepage_002",
-      "value": "Note draft"
+      "value": "Note draft",
+      "description": "Note scene page."
     },
     {
       "name": "ac_notescenepage_003",
-      "value": "Title (up to 80 characters)"
+      "value": "Title (up to 80 characters)",
+      "description": "Note scene page."
     },
     {
       "name": "ac_notescenepage_004",
-      "value": "Write the content you want to continue editing"
+      "value": "Write the content you want to continue editing",
+      "description": "Note scene page."
     },
     {
       "name": "ac_notescenepage_005",
-      "value": "Selection [{0}, {1})"
+      "value": "Selection [{0}, {1})",
+      "description": "Note scene page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_notescenepage_006",
-      "value": "Save note"
+      "value": "Save note",
+      "description": "Note scene page."
     },
     {
       "name": "ac_notescenepage_007",
-      "value": "Discard changes"
+      "value": "Discard changes",
+      "description": "Note scene page."
     },
     {
       "name": "ac_notescenepage_008",
-      "value": "Hide history"
+      "value": "Hide history",
+      "description": "Note scene page."
     },
     {
       "name": "ac_notescenepage_009",
-      "value": "History ({0})"
+      "value": "History ({0})",
+      "description": "Note scene page. Format arguments: {0}."
     },
     {
       "name": "ac_notescenepage_010",
-      "value": "Restoring history creates a new revision."
+      "value": "Restoring history creates a new revision.",
+      "description": "Note scene page."
     },
     {
       "name": "ac_processpage_001",
-      "value": "Stop local waiting?"
+      "value": "Stop local waiting?",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_002",
-      "value": "End the current wait and clean up the listener?"
+      "value": "End the current wait and clean up the listener?",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_003",
-      "value": "Runtime initializing. Please try again later."
+      "value": "Runtime initializing. Please try again later.",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_004",
-      "value": "Local waiting stopped. See diagnostics for listener cleanup results."
+      "value": "Local waiting stopped. See diagnostics for listener cleanup results.",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_005",
-      "value": "Stop request did not complete: {0}"
+      "value": "Stop request did not complete: {0}",
+      "description": "Continuation process page. Format arguments: {0}."
     },
     {
       "name": "ac_processpage_006",
-      "value": "Unable to open this session’s diagnostics: {0}"
+      "value": "Unable to open this session’s diagnostics: {0}",
+      "description": "Continuation process page. Format arguments: {0}."
     },
     {
       "name": "ac_processpage_007",
-      "value": "Session diagnostic navigation unavailable: {0}"
+      "value": "Session diagnostic navigation unavailable: {0}",
+      "description": "Continuation process page. Format arguments: {0}."
     },
     {
       "name": "ac_processpage_009",
-      "value": "Continuation process"
+      "value": "Continuation process",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_011",
-      "value": "Current state"
+      "value": "Current state",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_012",
-      "value": "Continuation"
+      "value": "Continuation",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_015",
-      "value": "Restore progress"
+      "value": "Restore progress",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_016",
-      "value": "Quick start"
+      "value": "Quick start",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_017",
-      "value": "Business data"
+      "value": "Business data",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_018",
-      "value": "Window"
+      "value": "Window",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_019",
-      "value": "Actual business position"
+      "value": "Actual business position",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_020",
-      "value": "State restoration"
+      "value": "State restoration",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_021",
-      "value": "Completed"
+      "value": "Completed",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_022",
-      "value": "Not committed"
+      "value": "Not committed",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_023",
-      "value": "Retry positioning on the actual business page"
+      "value": "Retry positioning on the actual business page",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_024",
-      "value": "Accepted; waiting for all gates"
+      "value": "Accepted; waiting for all gates",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_026",
-      "value": "Keep local and cancel"
+      "value": "Keep local and cancel",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_027",
-      "value": "Restore summary"
+      "value": "Restore summary",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_028",
-      "value": "Event records"
+      "value": "Event records",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_029",
-      "value": "Hide events"
+      "value": "Hide events",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_030",
-      "value": "View events ({0})"
+      "value": "View events ({0})",
+      "description": "Continuation process page. Format arguments: {0}."
     },
     {
       "name": "ac_processpage_031",
-      "value": "Stop waiting"
+      "value": "Stop waiting",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_processpage_032",
-      "value": "View diagnostics"
+      "value": "View diagnostics",
+      "description": "Continuation process page."
     },
     {
       "name": "ac_readingscenepage_002",
-      "value": "Reading progress"
+      "value": "Reading progress",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_readingscenepage_003",
-      "value": "Paragraph {0}/{1}"
+      "value": "Paragraph {0}/{1}",
+      "description": "Reading scene page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_readingscenepage_004",
-      "value": "Previous paragraph"
+      "value": "Previous paragraph",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_readingscenepage_005",
-      "value": "Next paragraph"
+      "value": "Next paragraph",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_readingscenepage_006",
-      "value": "Save progress and bookmarks"
+      "value": "Save progress and bookmarks",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_readingscenepage_007",
-      "value": "Add bookmark"
+      "value": "Add bookmark",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_readingscenepage_008",
-      "value": "Hide contents"
+      "value": "Hide contents",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_readingscenepage_009",
-      "value": "Chapters"
+      "value": "Chapters",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_readingscenepage_010",
-      "value": "Bookmarks ({0})"
+      "value": "Bookmarks ({0})",
+      "description": "Reading scene page. Format arguments: {0}."
     },
     {
       "name": "ac_readingscenepage_011",
-      "value": "Chapter {0}, paragraph {1}"
+      "value": "Chapter {0}, paragraph {1}",
+      "description": "Reading scene page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_readingscenepage_012",
-      "value": "Delete"
+      "value": "Delete",
+      "description": "Reading scene page."
     },
     {
       "name": "ac_scenariopage_003",
-      "value": "High-risk scenarios: {0}"
+      "value": "High-risk scenarios: {0}",
+      "description": "Scenario guide page. Format arguments: {0}."
     },
     {
       "name": "ac_scenariopage_004",
-      "value": "Field rules: {0}; cross-field rules: {1}"
+      "value": "Field rules: {0}; cross-field rules: {1}",
+      "description": "Scenario guide page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_scenariopage_005",
-      "value": "Payload version v{0}; encoded example: {1} characters"
+      "value": "Payload version v{0}; encoded example: {1} characters",
+      "description": "Scenario guide page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_scenariopage_006",
-      "value": "Validation result: {0}"
+      "value": "Validation result: {0}",
+      "description": "Scenario guide page. Format arguments: {0}."
     },
     {
       "name": "ac_scenariopage_007",
-      "value": "Total scenarios: {0}; first shape: {1}"
+      "value": "Total scenarios: {0}; first shape: {1}",
+      "description": "Scenario guide page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_scenariopage_008",
-      "value": "Dictionary fields: {0}; missing mappings: {1}"
+      "value": "Dictionary fields: {0}; missing mappings: {1}",
+      "description": "Scenario guide page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_scenariopage_009",
-      "value": "Network backoff: attempt 1: {0} ms, attempt 2: {1} ms, "
+      "value": "Network backoff: attempt 1: {0} ms, attempt 2: {1} ms, ",
+      "description": "Scenario guide page. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_scenariopage_010",
-      "value": "total: {0} ms"
+      "value": "total: {0} ms",
+      "description": "Scenario guide page. Format arguments: {0}."
     },
     {
       "name": "ac_scenariopage_011",
-      "value": "Runtime not initialized."
+      "value": "Runtime not initialized.",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_012",
-      "value": "Cannot switch business scenes now."
+      "value": "Cannot switch business scenes now.",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_015",
-      "value": "‹ Back"
+      "value": "‹ Back",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_017",
-      "value": "Open note scene"
+      "value": "Open note scene",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_018",
-      "value": "Open reading scene"
+      "value": "Open reading scene",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_019",
-      "value": "Open form scene"
+      "value": "Open form scene",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_020",
-      "value": "Scenario catalog"
+      "value": "Scenario catalog",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_021",
-      "value": "Steps"
+      "value": "Steps",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_022",
-      "value": "Validation rules"
+      "value": "Validation rules",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_023",
-      "value": "Sample payload validation"
+      "value": "Sample payload validation",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_024",
-      "value": "Field dictionary"
+      "value": "Field dictionary",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_scenariopage_025",
-      "value": "Retry policies"
+      "value": "Retry policies",
+      "description": "Scenario guide page."
     },
     {
       "name": "ac_types_off_contract",
-      "value": "SDK API 26 defines the third off argument as the unregistration result callback. This sample uses a separate completion callback to update unregistration state."
+      "value": "SDK API 26 defines the third off argument as the unregistration result callback. This sample uses a separate completion callback to update unregistration state.",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_launch_wait",
-      "value": "Waiting for Ability initialization"
+      "value": "Waiting for Ability initialization",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_listener_none",
-      "value": "Not registered"
+      "value": "Not registered",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_session_none",
-      "value": "No system continuation event received yet"
+      "value": "No system continuation event received yet",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_quick_unneeded",
-      "value": "Not required this session"
+      "value": "Not required this session",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_data_pending",
-      "value": "Not received yet"
+      "value": "Not received yet",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_window_pending",
-      "value": "Not ready"
+      "value": "Not ready",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_position_pending",
-      "value": "Business content not positioned yet"
+      "value": "Business content not positioned yet",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_save_none",
-      "value": "Not saved yet"
+      "value": "Not saved yet",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_environment_none",
-      "value": "Not checked yet"
+      "value": "Not checked yet",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_types_runtime_wait",
-      "value": "Waiting for Ability runtime initialization."
+      "value": "Waiting for Ability runtime initialization.",
+      "description": "Continuation snapshot display."
     },
     {
       "name": "ac_continueclient_001",
-      "value": "[Address hidden]"
+      "value": "[Address hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_002",
-      "value": "[Path hidden]"
+      "value": "[Path hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_004",
-      "value": "[Identifier hidden]"
+      "value": "[Identifier hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_005",
-      "value": "[Hardware address hidden]"
+      "value": "[Hardware address hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_006",
-      "value": "[Network address hidden]"
+      "value": "[Network address hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_008",
-      "value": "[Long identifier hidden]"
+      "value": "[Long identifier hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_009",
-      "value": "[Long number hidden]"
+      "value": "[Long number hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_010",
-      "value": "[Sensitive field hidden]"
+      "value": "[Sensitive field hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_011",
-      "value": "[Quoted content hidden]"
+      "value": "[Quoted content hidden]",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_012",
-      "value": "No readable error message was provided by the platform."
+      "value": "No readable error message was provided by the platform.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_013",
-      "value": "Redacted: {0}"
+      "value": "Redacted: {0}",
+      "description": "Platform continuation diagnostic. Format arguments: {0}."
     },
     {
       "name": "ac_continueclient_015",
-      "value": "Unknown"
+      "value": "Unknown",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_017",
-      "value": "Missing or not numeric"
+      "value": "Missing or not numeric",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_018",
-      "value": "No result description was provided by the platform."
+      "value": "No result description was provided by the platform.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_019",
-      "value": "Result description (redacted): {0}"
+      "value": "Result description (redacted): {0}",
+      "description": "Platform continuation diagnostic. Format arguments: {0}."
     },
     {
       "name": "ac_continueclient_020",
-      "value": "Already listening, waiting for unregistration, or disposed; on was not called again."
+      "value": "Already listening, waiting for unregistration, or disposed; on was not called again.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_021",
-      "value": "on returned synchronously; waiting for the prepareContinue event."
+      "value": "on returned synchronously; waiting for the prepareContinue event.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_022",
-      "value": "on threw synchronously. Register again or try unregistering."
+      "value": "on threw synchronously. Register again or try unregistering.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_023",
-      "value": "Waiting for unregistration callback, up to 8 seconds."
+      "value": "Waiting for unregistration callback, up to 8 seconds.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_024",
-      "value": "No native registration slot needs cleanup in this runtime."
+      "value": "No native registration slot needs cleanup in this runtime.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_025",
-      "value": "Not received yet"
+      "value": "Not received yet",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_026",
-      "value": "Unregistration timed out after 8 seconds. Register again or retry unregistration."
+      "value": "Unregistration timed out after 8 seconds. Register again or retry unregistration.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_027",
-      "value": "off returned synchronously; waiting for its independent completion callback."
+      "value": "off returned synchronously; waiting for its independent completion callback.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_028",
-      "value": "A synchronous exception followed the off completion notification; keeping the completed state."
+      "value": "A synchronous exception followed the off completion notification; keeping the completed state.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_continueclient_029",
-      "value": "off threw synchronously. Local listening is disabled; register again or retry unregistration."
+      "value": "off threw synchronously. Local listening is disabled; register again or retry unregistration.",
+      "description": "Platform continuation diagnostic."
     },
     {
       "name": "ac_documentworkspace_004",
-      "value": "Archived"
+      "value": "Archived",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_006",
-      "value": "{0} ({1}) | Revision {2} | {3}"
+      "value": "{0} ({1}) | Revision {2} | {3}",
+      "description": "Document workspace display. Format arguments: {0}, {1}, {2}, {3}."
     },
     {
       "name": "ac_documentworkspace_007",
-      "value": "Keep draft"
+      "value": "Keep draft",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_008",
-      "value": "Discard draft"
+      "value": "Discard draft",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_009",
-      "value": "Multiple allowed"
+      "value": "Multiple allowed",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_010",
-      "value": "One only"
+      "value": "One only",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_011",
-      "value": "Restorable"
+      "value": "Restorable",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_012",
-      "value": "Not restorable"
+      "value": "Not restorable",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_013",
-      "value": "Keep unsaved note text when switching notes"
+      "value": "Keep unsaved note text when switching notes",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_014",
-      "value": "Archived notes can be restored from the archive"
+      "value": "Archived notes can be restored from the archive",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_015",
-      "value": "Oversized notes are read-only and reject incoming continuation writes"
+      "value": "Oversized notes are read-only and reject incoming continuation writes",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_016",
-      "value": "Saved, unchanged notes do not occupy a draft slot"
+      "value": "Saved, unchanged notes do not occupy a draft slot",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_017",
-      "value": "Keep partially completed fields when leaving a form"
+      "value": "Keep partially completed fields when leaving a form",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_018",
-      "value": "Confirmed forms cannot be edited"
+      "value": "Confirmed forms cannot be edited",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_019",
-      "value": "Archived forms remain viewable as read-only snapshots"
+      "value": "Archived forms remain viewable as read-only snapshots",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_020",
-      "value": "One active slot per form instance prevents duplicate submission"
+      "value": "One active slot per form instance prevents duplicate submission",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_021",
-      "value": "New reading progress may replace old progress"
+      "value": "New reading progress may replace old progress",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_022",
-      "value": "Reading progress creates no drafts and uses no partial-form quota"
+      "value": "Reading progress creates no drafts and uses no partial-form quota",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_023",
-      "value": "Stop recording progress for finished content"
+      "value": "Stop recording progress for finished content",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_024",
-      "value": "Isolate slots from different source apps by ownerApp"
+      "value": "Isolate slots from different source apps by ownerApp",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_025",
-      "value": "Workspace has {0} issues"
+      "value": "Workspace has {0} issues",
+      "description": "Document workspace display. Format arguments: {0}."
     },
     {
       "name": "ac_documentworkspace_026",
-      "value": "Workspace OK: {0} active, {1} archived"
+      "value": "Workspace OK: {0} active, {1} archived",
+      "description": "Document workspace display. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_documentworkspace_027",
-      "value": "A slot has no identifier"
+      "value": "A slot has no identifier",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_028",
-      "value": "Duplicate slot identifier: {0}"
+      "value": "Duplicate slot identifier: {0}",
+      "description": "Document workspace display. Format arguments: {0}."
     },
     {
       "name": "ac_documentworkspace_029",
-      "value": "{0} cannot be restored after archival but remains in the archive"
+      "value": "{0} cannot be restored after archival but remains in the archive",
+      "description": "Document workspace display. Format arguments: {0}."
     },
     {
       "name": "ac_documentworkspace_030",
-      "value": "{0} allows one instance; found {1} ({2})"
+      "value": "{0} allows one instance; found {1} ({2})",
+      "description": "Document workspace display. Format arguments: {0}, {1}, {2}."
     },
     {
       "name": "ac_documentworkspace_031",
-      "value": "Category mismatch: slot {0}, payload {1}"
+      "value": "Category mismatch: slot {0}, payload {1}",
+      "description": "Document workspace display. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_documentworkspace_032",
-      "value": "Source app mismatch: slot {0}, payload {1}"
+      "value": "Source app mismatch: slot {0}, payload {1}",
+      "description": "Document workspace display. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_documentworkspace_033",
-      "value": "Revision regressed: slot {0}, payload {1}"
+      "value": "Revision regressed: slot {0}, payload {1}",
+      "description": "Document workspace display. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_documentworkspace_034",
-      "value": "No active content is available for continuation"
+      "value": "No active content is available for continuation",
+      "description": "Document workspace display."
     },
     {
       "name": "ac_documentworkspace_035",
-      "value": "Archived {0} items: {1}"
+      "value": "Archived {0} items: {1}",
+      "description": "Document workspace display. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_documentworkspace_036",
-      "value": "Issue: {0}"
+      "value": "Issue: {0}",
+      "description": "Document workspace display. Format arguments: {0}."
     },
     {
       "name": "ac_formsession_001",
-      "value": "Empty"
+      "value": "Empty",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_002",
-      "value": "Filled"
+      "value": "Filled",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_003",
-      "value": "Invalid"
+      "value": "Invalid",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_004",
-      "value": "Confirmed"
+      "value": "Confirmed",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_005",
-      "value": "Editing"
+      "value": "Editing",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_006",
-      "value": "Awaiting confirmation"
+      "value": "Awaiting confirmation",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_009",
-      "value": " (required)"
+      "value": " (required)",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_010",
-      "value": "Empty"
+      "value": "Empty",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_011",
-      "value": "{0} | Show {3} when {1}={2}"
+      "value": "{0} | Show {3} when {1}={2}",
+      "description": "Form model display. Format arguments: {0}, {1}, {2}, {3}."
     },
     {
       "name": "ac_formsession_012",
-      "value": "; at least one detail row is required"
+      "value": "; at least one detail row is required",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_013",
-      "value": "Reimbursement"
+      "value": "Reimbursement",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_014",
-      "value": "Leave"
+      "value": "Leave",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_015",
-      "value": "Purchase"
+      "value": "Purchase",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_016",
-      "value": "Yes"
+      "value": "Yes",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_017",
-      "value": "Other"
+      "value": "Other",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_018",
-      "value": "Archived: read-only snapshot; editing is disabled"
+      "value": "Archived: read-only snapshot; editing is disabled",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_019",
-      "value": "{0} | {1} required fields incomplete | Progress {2}%"
+      "value": "{0} | {1} required fields incomplete | Progress {2}%",
+      "description": "Form model display. Format arguments: {0}, {1}, {2}."
     },
     {
       "name": "ac_formsession_020",
-      "value": "{0} | Progress {1}% | {2}"
+      "value": "{0} | Progress {1}% | {2}",
+      "description": "Form model display. Format arguments: {0}, {1}, {2}."
     },
     {
       "name": "ac_formsession_021",
-      "value": "Ready to submit"
+      "value": "Ready to submit",
+      "description": "Form model display."
     },
     {
       "name": "ac_formsession_022",
-      "value": "More detail rows required"
+      "value": "More detail rows required",
+      "description": "Form model display."
     },
     {
       "name": "ac_scenariocatalog_001",
-      "value": "Note"
+      "value": "Note",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_004",
-      "value": "Checklist"
+      "value": "Checklist",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_005",
-      "value": "Media progress"
+      "value": "Media progress",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_006",
-      "value": "Low"
+      "value": "Low",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_007",
-      "value": "Medium"
+      "value": "Medium",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_008",
-      "value": "High"
+      "value": "High",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_009",
-      "value": "{0} | Risk: {1}"
+      "value": "{0} | Risk: {1}",
+      "description": "Scenario catalog display. Format arguments: {0}, {1}."
     },
     {
       "name": "ac_scenariocatalog_010",
-      "value": "Continue editing a phone note on a tablet"
+      "value": "Continue editing a phone note on a tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_011",
-      "value": "Same account"
+      "value": "Same account",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_012",
-      "value": "Continuation permission granted"
+      "value": "Continuation permission granted",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_013",
-      "value": "Open a note on the phone"
+      "value": "Open a note on the phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_014",
-      "value": "Trigger continuation"
+      "value": "Trigger continuation",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_015",
-      "value": "Confirm reception on the tablet"
+      "value": "Confirm reception on the tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_016",
-      "value": "Cursor position matches the text"
+      "value": "Cursor position matches the text",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_017",
-      "value": "Continue editing a tablet note on a phone"
+      "value": "Continue editing a tablet note on a phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_019",
-      "value": "Open a note on the tablet"
+      "value": "Open a note on the tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_021",
-      "value": "Confirm reception on the phone"
+      "value": "Confirm reception on the phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_022",
-      "value": "Selection range is preserved"
+      "value": "Selection range is preserved",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_023",
-      "value": "Continue phone reading progress on a tablet"
+      "value": "Continue phone reading progress on a tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_025",
-      "value": "Reading content cached"
+      "value": "Reading content cached",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_026",
-      "value": "Open the reading page"
+      "value": "Open the reading page",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_027",
-      "value": "Go to a specific page"
+      "value": "Go to a specific page",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_029",
-      "value": "Page and scroll position match"
+      "value": "Page and scroll position match",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_030",
-      "value": "Continue tablet reading progress on a phone"
+      "value": "Continue tablet reading progress on a phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_034",
-      "value": "Restore to the same paragraph"
+      "value": "Restore to the same paragraph",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_035",
-      "value": "Continue filling a phone form draft on a tablet"
+      "value": "Continue filling a phone form draft on a tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_037",
-      "value": "Form not submitted"
+      "value": "Form not submitted",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_038",
-      "value": "Complete some fields"
+      "value": "Complete some fields",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_040",
-      "value": "Continue filling on the tablet"
+      "value": "Continue filling on the tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_041",
-      "value": "Completed fields are preserved"
+      "value": "Completed fields are preserved",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_042",
-      "value": "Continue filling a tablet form draft on a phone"
+      "value": "Continue filling a tablet form draft on a phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_046",
-      "value": "Field order and validation state match"
+      "value": "Field order and validation state match",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_047",
-      "value": "Continue checking a phone checklist on a tablet"
+      "value": "Continue checking a phone checklist on a tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_049",
-      "value": "Check some items"
+      "value": "Check some items",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_051",
-      "value": "Every checked state matches"
+      "value": "Every checked state matches",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_052",
-      "value": "Continue checking a tablet checklist on a phone"
+      "value": "Continue checking a tablet checklist on a phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_056",
-      "value": "New items are not duplicated"
+      "value": "New items are not duplicated",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_057",
-      "value": "Continue phone media playback on a tablet"
+      "value": "Continue phone media playback on a tablet",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_059",
-      "value": "Media accessible"
+      "value": "Media accessible",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_060",
-      "value": "Play to a specific position"
+      "value": "Play to a specific position",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_062",
-      "value": "Playback position differs by at most 1 second"
+      "value": "Playback position differs by at most 1 second",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_063",
-      "value": "Continue tablet media playback on a phone"
+      "value": "Continue tablet media playback on a phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_067",
-      "value": "Playback position and audio track match"
+      "value": "Playback position and audio track match",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_068",
-      "value": "Continue editing from a phone on a PC"
+      "value": "Continue editing from a phone on a PC",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_070",
-      "value": "Same app installed on the PC"
+      "value": "Same app installed on the PC",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_071",
-      "value": "Edit on the phone"
+      "value": "Edit on the phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_073",
-      "value": "Confirm on the PC"
+      "value": "Confirm on the PC",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_074",
-      "value": "Text and selection match"
+      "value": "Text and selection match",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_075",
-      "value": "Continue editing from a PC on a phone"
+      "value": "Continue editing from a PC on a phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_077",
-      "value": "Edit on the PC"
+      "value": "Edit on the PC",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_079",
-      "value": "Text matches without overwriting newer local content"
+      "value": "Text matches without overwriting newer local content",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_080",
-      "value": "Continue from a phone to display on a TV"
+      "value": "Continue from a phone to display on a TV",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_082",
-      "value": "Signed in on the TV"
+      "value": "Signed in on the TV",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_083",
-      "value": "Open media"
+      "value": "Open media",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_085",
-      "value": "TV playback starts at the same position"
+      "value": "TV playback starts at the same position",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_086",
-      "value": "Continue TV playback on a phone"
+      "value": "Continue TV playback on a phone",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_088",
-      "value": "Play on the TV"
+      "value": "Play on the TV",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_090",
-      "value": "Phone playback resumes at the same position"
+      "value": "Phone playback resumes at the same position",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_091",
-      "value": "Continue from a phone to view a summary on a wearable"
+      "value": "Continue from a phone to view a summary on a wearable",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_093",
-      "value": "Wearable paired"
+      "value": "Wearable paired",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_096",
-      "value": "Wearable displays a truncated summary"
+      "value": "Wearable displays a truncated summary",
+      "description": "Scenario catalog display."
     },
     {
       "name": "ac_scenariocatalog_097",
-      "value": "Wearables do not initiate continuation"
+      "value": "Wearables do not initiate continuation",
+      "description": "Scenario catalog display."
     }
   ]
 }
