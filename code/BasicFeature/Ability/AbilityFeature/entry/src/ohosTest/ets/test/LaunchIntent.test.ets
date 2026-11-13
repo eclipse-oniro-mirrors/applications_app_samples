@@ -37,9 +37,9 @@ import {
 const START_WITHOUT_TIPS: number = wantConstant.Flags.FLAG_START_WITHOUT_TIPS;
 
 export default function launchIntentTest() {
-  describe('AbilityFeatureLaunchIntentTest', () => {
+  describe('AbilityFeatureLaunchWantTest', () => {
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0001
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0001
      * @tc.name      testImplicitWantBaseFields0001
      * @tc.desc      隐式启动意图携带 action、type 与 uri 参数
      * @tc.size      SMALLTEST
@@ -54,7 +54,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0002
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0002
      * @tc.name      testImplicitWantUriParameter0002
      * @tc.desc      parameters 里只带 uri 一项，值为零匹配的占位路径
      * @tc.size      SMALLTEST
@@ -69,7 +69,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0003
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0003
      * @tc.name      testImplicitWantWithoutTipsFlag0003
      * @tc.desc      不要求静默时 want 不带 flags 字段
      * @tc.size      SMALLTEST
@@ -84,7 +84,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0004
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0004
      * @tc.name      testImplicitWantWithTipsFlag0004
      * @tc.desc      静默启动时 flags 等于 FLAG_START_WITHOUT_TIPS
      * @tc.size      SMALLTEST
@@ -99,7 +99,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0005
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0005
      * @tc.name      testStartWithoutTipsFlagValue0005
      * @tc.desc      该 flag 是 0x40000000 的单 bit 掩码
      * @tc.size      SMALLTEST
@@ -113,7 +113,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0006
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0006
      * @tc.name      testHasFlagWithArbitraryWant0006
      * @tc.desc      只有带该 bit 的 want 才判定为静默启动
      * @tc.size      SMALLTEST
@@ -130,7 +130,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0007
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0007
      * @tc.name      testHasFlagWithCombinedFlags0007
      * @tc.desc      多个 flag 按位叠加时仍能识别出静默启动位
      * @tc.size      SMALLTEST
@@ -146,7 +146,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0008
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0008
      * @tc.name      testHasFlagWithoutFlagsField0008
      * @tc.desc      完全没有 flags 字段的 want 不会误判为静默启动
      * @tc.size      SMALLTEST
@@ -161,7 +161,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0009
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0009
      * @tc.name      testNewAbilityWant0009
      * @tc.desc      显式启动意图带上传入的包名与 NewAbility 名称
      * @tc.size      SMALLTEST
@@ -176,7 +176,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0010
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0010
      * @tc.name      testNewAbilityWantWithEmptyBundle0010
      * @tc.desc      包名为空串时原样透传，Ability 名不受影响
      * @tc.size      SMALLTEST
@@ -190,7 +190,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0011
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0011
      * @tc.name      testStartOptionsDefaultValues0011
      * @tc.desc      关闭动效时窗口位置与大小取常量值
      * @tc.size      SMALLTEST
@@ -208,7 +208,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0012
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0012
      * @tc.name      testStartOptionsWithAnimation0012
      * @tc.desc      开关动效只影响 withAnimation，其余字段保持一致
      * @tc.size      SMALLTEST
@@ -225,7 +225,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0013
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0013
      * @tc.name      testFormatStartOptionsWithAnimation0013
      * @tc.desc      描述串按固定顺序包含六个字段
      * @tc.size      SMALLTEST
@@ -243,7 +243,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0014
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0014
      * @tc.name      testFormatStartOptionsWithoutAnimation0014
      * @tc.desc      关闭动效时描述串里 withAnimation=false
      * @tc.size      SMALLTEST
@@ -258,7 +258,7 @@ export default function launchIntentTest() {
     })
 
     /**
-     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_INTENT_0015
+     * @tc.number    SUB_ABILITY_FEATURE_LAUNCH_WANT_0015
      * @tc.name      testWantsAreIndependent0015
      * @tc.desc      每次构建都返回新对象，修改一个不影响另一个
      * @tc.size      SMALLTEST

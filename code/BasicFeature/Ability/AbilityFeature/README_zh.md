@@ -106,8 +106,9 @@ entry/src/main/ets/
 ```shell
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.abilityFeature -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000
 ```
+
+安装后在 DevEco Studio 中右键 `entry/src/ohosTest` 运行，或通过 `hdc shell` 执行测试命令，参数为 `-b com.samples.abilityFeature -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000`。
 
 `build-profile.json5` 的 `default` 产品已绑定 `signingConfig: "default"`（DevEco Studio 自动签名材料），`assembleHap` 直接产出 `*-signed.hap`，IDE 运行与命令行构建走同一套证书；测试入口路径中的 `testrunner` 是小写，设备端大小写敏感。若要换另一套证书，必须先用 `hdc uninstall` 卸载，否则会报 `install sign info inconsistent`。
 

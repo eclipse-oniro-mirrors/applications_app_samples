@@ -9,14 +9,14 @@
 - `@tc.number SUB_ABILITY_FEATURE_<主题>_NNNN`、`@tc.name testXxxNNNN`、`@tc.desc`、`@tc.type FUNCTION`、`@tc.size SMALLTEST|MEDIUMTEST`、`@tc.level LEVEL0~2`；
 - `it(name, TestType.FUNCTION | Size.XXX | Level.LEVELn, fn)`，每条生成用例首尾各打一行 `hilog` begin/end；
 - 单文件不超过 2000 行，大主题按 Core / Extended / Advanced / Tail 拆分；
-- 矩阵类用例由 `scripts/gen/gen.js` 生成，期望值全部写成字面量，每条至少 3 个断言，直接调用 `entry/src/main` 的真实代码。
+- 矩阵类用例期望值全部写成字面量，每条至少 3 个断言，直接调用 `entry/src/main` 的真实代码。
 
 ### 存量场景套件
 
 | 套件 | 文件 | 用例数 | 覆盖内容 |
 | ---- | ---- | ------ | -------- |
 | AbilityFeatureStoragePathTest | StoragePath.test.ets | 14 | 路径拼接（空文件名/前导斜杠/中间斜杠/空目录/空格）、五类沙箱目录映射、路径记录形状、`listStoragePaths` 默认名与自定义名、`countExisting`/`countMissing`、`STORAGE_AREAS` 常量 |
-| AbilityFeatureLaunchIntentTest | LaunchIntent.test.ets | 15 | 隐式 Want 的 action/uri/type/parameters、`FLAG_START_WITHOUT_TIPS` 取值与位运算、无 flags 字段、NewAbility Want、StartOptions 默认值与动画开关、`formatStartOptions`、两次构造的 Want 互不影响 |
+| AbilityFeatureLaunchWantTest | LaunchIntent.test.ets | 15 | 隐式 Want 的 action/uri/type/parameters、`FLAG_START_WITHOUT_TIPS` 取值与位运算、无 flags 字段、NewAbility Want、StartOptions 默认值与动画开关、`formatStartOptions`、两次构造的 Want 互不影响 |
 | AbilityFeatureStorageDataTest | StorageData.test.ets | 12 | 五份文件落盘与计数、重复创建幂等、单文件创建、缺失目录补建、全部/部分删除、自定义文件名隔离、文件名不带前导斜杠、结果一致性、缺失列表、preferences 与 database 目录可写 |
 | AbilityFeatureCharacterOperationTest | CharacterOperation.test.ets | 10 | `generateStorageFiles` 返回 5 条路径、自定义名、`createStorageData` 成功、`checkStorageData` 真/假分支、文件不齐时 `clearStorageData` 被拦下、重复创建、生成路径与落盘一致、与模型层路径完全一致 |
 | AbilityFeatureConfigTest | AbilityConfig.test.ets | 9 | 切中文/英文后资源文案、中英往返、深色/浅色 `colorMode`、深浅色往返、同一资源随语言变化、配置对象可重复读取、收尾还原中文浅色 |
@@ -24,7 +24,7 @@
 | AbilityFeatureStartOptionsTest | StartOptions.test.ets | 8 | 带/不带动效启动 NewAbility、栈顶与 abilityInfo 校验、`terminateSelf` 返回首页、重复启动、返回后再启动、StartOptions 字段、Want 与包名匹配 |
 | AbilityFeatureUiSmokeTest | AbilityUiSmoke.test.ets | 11 | 首页三组菜单 id 与标题、动效开关文案切换、语言切换后文案、深浅色切换、界面创建/检查数据的 Toast 与落盘、打开 New 页面、返回首页、隐式静默失败停留在首页 |
 
-### 矩阵套件（生成）
+### 矩阵套件
 
 | 套件文件 | 用例数 | 覆盖内容 |
 | -------- | ------ | -------- |
@@ -61,16 +61,9 @@
 ```shell
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.abilityFeature -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000
 ```
 
-也可以用脚本一次完成构建、安装、执行并汇总失败用例（默认 DevEco 路径可用 `DEVECO_HOME` 覆盖）：
-
-```shell
-node scripts/gen/gen.js                      # 重新生成矩阵用例与 List.test.ets
-node scripts/gen/device-run.js               # 构建 + 安装 + 全量执行
-node scripts/gen/device-run.js --no-build --class AbilityFeatureResourceLocaleMatrixTest
-```
+安装后在 DevEco Studio 中右键 `entry/src/ohosTest` 运行，或通过 `hdc shell` 执行测试命令，参数为 `-b com.samples.abilityFeature -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000`。
 
 签名走 `build-profile.json5` 的 `signingConfig: "default"`，`assembleHap` 直接产出 signed hap；换证书后需先 `hdc uninstall` 再装。
 
