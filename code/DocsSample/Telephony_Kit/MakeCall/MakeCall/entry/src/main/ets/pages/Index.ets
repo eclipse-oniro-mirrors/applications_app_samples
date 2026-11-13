@@ -58,12 +58,12 @@ struct JumpCall {
     let isSupport = call.hasVoiceCapability();
     if (isSupport) {
         // 如果设备支持呼叫能力，调用以下接口进行拨号
-        call.dialCall("13xxxx", (err: BusinessError) => {
+        call.dialCall('13xxxx', (err: BusinessError) => {
             console.error(`callback: dial call err->${JSON.stringify(err)}`);
         })
 
         // 订阅通话业务状态变化（可选）
-        class SlotId {slotId: number = 0}
+        class SlotId {public slotId: number = 0}
         class CallStateCallback {
             public state: call.CallState = call.CallState.CALL_STATE_UNKNOWN;
             public number: string = '';
