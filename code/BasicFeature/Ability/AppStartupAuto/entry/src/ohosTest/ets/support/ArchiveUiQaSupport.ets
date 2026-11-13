@@ -179,8 +179,11 @@ export function failArchiveUiQaInitialization(sessionId: string, phase: string, 
 }
 
 export async function disposeArchiveUiQa(fixture: ArchiveUiQaFixture): Promise<void> {
-  try { await fixture.dispose(); }
-  finally { if (activeFixture === fixture) { activeFixture = undefined; } }
+  try {
+    await fixture.dispose();
+  } finally {
+    if (activeFixture === fixture) { activeFixture = undefined; }
+  }
 }
 
 async function archiveQaIdle(driver: UiTestDriver): Promise<void> {

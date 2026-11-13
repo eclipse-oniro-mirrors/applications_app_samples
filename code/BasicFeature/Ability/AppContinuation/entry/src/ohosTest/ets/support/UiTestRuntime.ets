@@ -437,7 +437,8 @@ export class UiTestDriver {
     }
     let candidate: UiTestComponent | undefined = initial === undefined ? retained : initial;
     while (true) {
-      const component: UiTestComponent | undefined = candidate === undefined ? await this.findComponent(selector) : candidate;
+      const component: UiTestComponent | undefined =
+        candidate === undefined ? await this.findComponent(selector) : candidate;
       if (component !== undefined && await component.getText() === expected) { return; }
       if (Date.now() >= deadline) { throw new Error(`UI text did not reach its requested value: ${selector.traceName()}`); }
       candidate = undefined;
@@ -578,7 +579,7 @@ export class UiTestComponent {
     const top: number = Math.max(0, viewport.top) + 20;
     const bottom: number = Math.min(display.y - 1, viewport.bottom) - 20;
     if (right - left <= 4 || bottom <= top) { return undefined; }
-    // The outer gutter avoids dragging the TextArea's own scroll surface.
+    // The outer gutter keeps the gesture outside the TextArea's internal scroll container.
     const x: number = Math.max(Math.ceil(left) + 1, Math.floor(right - 3));
     let towardTop: boolean = false;
     let directed: boolean = false;

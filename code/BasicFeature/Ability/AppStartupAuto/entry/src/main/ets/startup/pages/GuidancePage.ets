@@ -206,9 +206,11 @@ struct GuidancePage {
             Text(localText('startup_text_0914'))
               .fontSize(12)
               .fontColor($r('app.color.text_secondary'))
-            if (this.archived.length === 0) { Text(localText('startup_text_0915'))
-              .fontSize(14)
-              .fontColor($r('app.color.text_secondary')) }
+            if (this.archived.length === 0) {
+              Text(localText('startup_text_0915'))
+                .fontSize(14)
+                .fontColor($r('app.color.text_secondary'))
+            }
             ForEach(this.archived, (session: RevisitSession) => {
               Button(formatResource('startup_guidance_session_label', [session.sessionId, session.stage as string]))
                 .height(44)

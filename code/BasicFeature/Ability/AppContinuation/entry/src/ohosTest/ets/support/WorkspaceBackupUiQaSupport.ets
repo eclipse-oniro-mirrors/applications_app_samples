@@ -281,7 +281,7 @@ export async function backupQaInput(driver: Driver, text: string): Promise<void>
     requireBackupInputValue(await driver.session.guard(readBackupInput(driver, fixture, input)), text, 'afterPaste');
   }
   // Hide the IME explicitly: Back could navigate away, while leaving it open covers Preview
-  // and makes the outer Scroll swipe hit the keyboard or the TextArea's own scroll surface.
+  // and routes the outer Scroll gesture to the keyboard or the TextArea's internal scroll container.
   await driver.session.guard(driver.hideTextInput());
   // Native node reads/dialog disappearance below verify the result; global animation idle is not required.
   await driver.session.pause(50);

@@ -42,8 +42,12 @@ export default class FeatureQaAbility extends UIAbility {
   private initialize(want: Want): boolean {
     const owner = this.owner === undefined ? this.context : this.owner;
     let session: UiTestSession | undefined = undefined;
-    try { session = claimUiTestSession(want, owner); }
-    catch (error) { testError('backup session claim failed; existing host was not changed'); return false; }
+    try {
+      session = claimUiTestSession(want, owner);
+    } catch (error) {
+      testError('backup session claim failed; existing host was not changed');
+      return false;
+    }
     if (session === undefined) { return false; }
     if (this.session !== undefined && this.session !== session) {
       session.failInitialization('backup.ownerReuse');
@@ -86,8 +90,11 @@ export default class FeatureQaAbility extends UIAbility {
     this.fixture = undefined;
     try {
       if (fixture !== undefined) {
-        try { releaseWorkspaceBackupUiQa(fixture); }
-        catch (error) { session?.failCleanup('backup.fixture'); }
+        try {
+          releaseWorkspaceBackupUiQa(fixture);
+        } catch (error) {
+          session?.failCleanup('backup.fixture');
+        }
       }
     } finally {
       this.stage = undefined;

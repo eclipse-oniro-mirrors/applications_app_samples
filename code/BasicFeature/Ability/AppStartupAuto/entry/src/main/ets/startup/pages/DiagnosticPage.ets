@@ -94,8 +94,10 @@ struct DiagnosticPage {
           .fontColor($r('app.color.text_secondary'))
           .width('100%')
       }, (line: string, index: number) => `${index}-${line}`)
-      if (lines.length === 0) { Text(localText('startup_text_0836'))
-        .fontSize(14) }
+      if (lines.length === 0) {
+        Text(localText('startup_text_0836'))
+          .fontSize(14)
+      }
     }
       .width('100%')
       .padding(16)

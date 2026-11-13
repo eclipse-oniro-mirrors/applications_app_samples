@@ -42,8 +42,12 @@ export default class FormalSceneUiQaAbility extends UIAbility {
   private initialize(want: Want): boolean {
     const owner = this.owner === undefined ? this.context : this.owner;
     let session: UiTestSession | undefined = undefined;
-    try { session = claimUiTestSession(want, owner); }
-    catch (error) { testError('formal session claim failed; existing host was not changed'); return false; }
+    try {
+      session = claimUiTestSession(want, owner);
+    } catch (error) {
+      testError('formal session claim failed; existing host was not changed');
+      return false;
+    }
     if (session === undefined) { return false; }
     if (this.session !== undefined && this.session !== session) {
       session.failInitialization('formal.ownerReuse');
@@ -88,8 +92,11 @@ export default class FormalSceneUiQaAbility extends UIAbility {
     this.fixture = undefined;
     try {
       if (fixture !== undefined) {
-        try { releaseFormalSceneUiQa(fixture); }
-        catch (error) { session?.failCleanup('formal.fixture'); }
+        try {
+          releaseFormalSceneUiQa(fixture);
+        } catch (error) {
+          session?.failCleanup('formal.fixture');
+        }
       }
     } finally {
       this.stage = undefined;

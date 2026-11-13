@@ -153,8 +153,11 @@ export default class FeatureQaAbility extends UIAbility {
     installedResolver: TextResolver | undefined): Promise<void> {
     try {
       if (fixture !== undefined) {
-        try { await disposeArchiveUiQa(fixture); }
-        catch (error) { session.failCleanup('archive-fixture-dispose', archiveQaErrorCode(error as Error)); }
+        try {
+          await disposeArchiveUiQa(fixture);
+        } catch (error) {
+          session.failCleanup('archive-fixture-dispose', archiveQaErrorCode(error as Error));
+        }
       }
       try {
         // An old owner may restore only the resolver it actually installed.

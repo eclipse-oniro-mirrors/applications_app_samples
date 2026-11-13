@@ -144,7 +144,9 @@ export async function formalSceneUiQaNode(driver: Driver, id: string): Promise<C
     const scroll = await driver.session.guard(driver.findComponent(ON.type('Scroll')));
     if (scroll !== undefined) { component = await driver.session.guard(scroll.scrollSearch(ON.id(id), component)); }
   }
-  if (component === undefined) { component = await driver.session.guard(driver.waitForComponent(ON.id(id), CONTROL_LIMIT_MS)); }
+  if (component === undefined) {
+    component = await driver.session.guard(driver.waitForComponent(ON.id(id), CONTROL_LIMIT_MS));
+  }
   requireFormalSceneUiQaSession(driver, fixture);
   if (component === undefined) { throw new Error(`Missing formal scene control: ${id}`); }
   return component;

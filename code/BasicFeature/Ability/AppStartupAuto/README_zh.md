@@ -21,7 +21,7 @@
 
 1. 使用支持 OpenHarmony SDK `26.0.0`、Stage 模型和 ArkTS 的 DevEco Studio 打开工程，安装声明的依赖。
 2. 在本机为 `default` 配置调试签名并部署到兼容的 OpenHarmony 标准系统设备。证书、私钥和签名口令由开发者自行准备。
-3. 首次运行查看首页的设备能力、本应用状态和调用结果。
+3. 第一次运行查看首页的设备能力、本应用状态和调用结果。
 
 ### 操作与预期
 
@@ -73,7 +73,7 @@ entry/src/ohosTest/ets/                 受控模型、原生 RDB 和隔离 UI �
 
 ## 依赖
 
-- 工程仅包含 entry 应用模块，平台、存储和业务实现均在 entry 内；不依赖独立公共模块或其他 Sample。
+- 工程仅包含 entry 应用模块，平台、存储和业务实现均在 entry 内；不依赖独立公共模块或其余 Sample。
 - 除介绍中的 API 外，使用 [ArkUI](<https://gitee.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-arkui>)和 [BasicServicesKit](<https://gitee.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-basic-services-kit>)提供的基础能力。
 - 测试使用 `@ohos/hypium` `1.0.25` 和 [@kit.TestKit](<https://gitee.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-test-kit>)。
 
@@ -81,7 +81,7 @@ entry/src/ohosTest/ets/                 受控模型、原生 RDB 和隔离 UI �
 
 1. 适用于 OpenHarmony 标准系统，主模块声明 `default` 设备类型，接口能力以目标系统返回为准。
 2. compile、target 和 compatible SDK 均为 `26.0.0`，runtimeOS 为 OpenHarmony；IDE 需支持该 SDK、Stage 模型和 ArkTS。测试准备见[环境与运行入口](<ohosTest.md#环境与运行入口>)。
-3. 本示例只查询自身状态，不修改自启开关、不管理其他应用，也不注册 `StartupTask`。能力不支持、开关关闭、失败和超时分别处理。
+3. 本示例只查询自身状态，不修改自启开关、不管理其余应用，也不注册 `StartupTask`。能力不支持、开关关闭、失败和超时分别处理。
 4. 查询超时后原生请求继续占用共享请求位置，完成后释放；正常查询和独立诊断按此规则串行。归档读取失败时暂停写入，恢复使用已成功提交的数据。
 5. 回访记录离开、返回和查询关联；系统设置变更及重启拉起需单独取得系统证据。版本、权限、设备和提醒目录用于说明规则。
 
@@ -101,4 +101,4 @@ git remote add origin https://gitcode.com/openharmony/applications_app_samples.g
 git pull origin master
 ```
 
-如需其他分支，将最后一条命令中的 `master` 替换为对应分支。
+如需其余分支，将最后一条命令中的 `master` 替换为对应分支。
