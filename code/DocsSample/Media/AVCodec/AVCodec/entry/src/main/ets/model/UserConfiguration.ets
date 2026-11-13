@@ -25,6 +25,7 @@ const RECORDER_BASE_FIELDS: number = 22;
 const RECORDER_STORAGE_FIELDS: number = 23;
 const RECORDER_SEGMENT_FIELDS: number = 25;
 const RECORDER_BUFFER_FIELDS: number = 26;
+const RECORDER_EFFECT_FIELDS: number = 29;
 const SHORT_SEGMENT_SECONDS: number = 60;
 const MEDIUM_SEGMENT_SECONDS: number = 180;
 const LONG_SEGMENT_SECONDS: number = 300;
@@ -42,7 +43,8 @@ export class UserConfiguration {
         recorder.audioBitRate, recorder.audioCaptureLatencyMode, recorder.videoStabilizationMode,
         recorder.preprocMode, recorder.cropPercent, recorder.downsamplingTargetHeight, recorder.secondaryTargetHeight,
         recorder.dropToFrameRate, Number(recorder.enableDualOutput), Number(recorder.enableVideoDump),
-        Number(recorder.stopOnLowSpace), recorder.segmentSeconds, recorder.segmentMiB, Number(recorder.bufferInput)],
+        Number(recorder.stopOnLowSpace), recorder.segmentSeconds, recorder.segmentMiB, Number(recorder.bufferInput),
+        Number(recorder.recordAudio), Number(recorder.bufferGrayscale), Number(recorder.bufferWatermark)],
       dump: [DumpPolicyModel.maxMiB, DumpPolicyModel.maxSeconds]
     };
   }
@@ -89,7 +91,10 @@ export class UserConfiguration {
       recorder.stopOnLowSpace = r.length >= 23 && r[22] === 1;
       recorder.segmentSeconds = r.length >= RECORDER_SEGMENT_FIELDS && r[0] === Const.FORMAT_MP4 ? r[23] : 0;
       recorder.segmentMiB = r.length >= RECORDER_SEGMENT_FIELDS && r[0] === Const.FORMAT_MP4 ? r[24] : 0;
-      recorder.bufferInput = r.length === RECORDER_BUFFER_FIELDS && r[25] === 1;
+      recorder.bufferInput = r.length >= RECORDER_BUFFER_FIELDS && r[25] === 1;
+      recorder.recordAudio = r.length < RECORDER_EFFECT_FIELDS || r[26] === 1;
+      recorder.bufferGrayscale = r.length >= RECORDER_EFFECT_FIELDS && r[25] === 1 && r[27] === 1;
+      recorder.bufferWatermark = r.length >= RECORDER_EFFECT_FIELDS && r[25] === 1 && r[28] === 1;
       RecorderPreprocessModel.apply(recorder);
     }
     if (snapshot.dump.length === 2 &&
@@ -131,11 +136,15 @@ export class UserConfiguration {
       (r[3] === Const.VIDEO_WIDTH_720P && r[4] === Const.VIDEO_HEIGHT_720P) ||
       (r[3] === Const.VIDEO_WIDTH_1080P && r[4] === Const.VIDEO_HEIGHT_1080P);
     return (r.length === RECORDER_BASE_FIELDS || r.length === RECORDER_STORAGE_FIELDS ||
-      r.length === RECORDER_SEGMENT_FIELDS || r.length === RECORDER_BUFFER_FIELDS) &&
+      r.length === RECORDER_SEGMENT_FIELDS || r.length === RECORDER_BUFFER_FIELDS ||
+      r.length === RECORDER_EFFECT_FIELDS) &&
       UserConfiguration.integers(r) &&
-      (r.length !== RECORDER_BUFFER_FIELDS || (UserConfiguration.choice(r[25], [0, 1]) && (r[25] === 0 ||
+      (r.length < RECORDER_BUFFER_FIELDS || (UserConfiguration.choice(r[25], [0, 1]) && (r[25] === 0 ||
         (r[1] === 0 && bufferResolution && r[5] === Const.RECORDER_BUFFER_FRAME_RATE &&
           r[15] === 0 && r[19] === 0 && r[20] === 0)))) &&
+      (r.length < RECORDER_EFFECT_FIELDS || (UserConfiguration.choice(r[26], [0, 1]) &&
+        UserConfiguration.choice(r[27], [0, 1]) && UserConfiguration.choice(r[28], [0, 1]) &&
+        (r[25] === 1 || (r[27] === 0 && r[28] === 0)))) &&
       (r.length < RECORDER_SEGMENT_FIELDS || (UserConfiguration.choice(r[23],
         [0, SHORT_SEGMENT_SECONDS, MEDIUM_SEGMENT_SECONDS, LONG_SEGMENT_SECONDS]) &&
         UserConfiguration.choice(r[24], [0, 256, 512, 1024]))) &&

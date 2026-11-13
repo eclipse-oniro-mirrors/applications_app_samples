@@ -21,13 +21,22 @@
 #include <chrono>
 #include <iterator>
 #include <memory>
+#include <unordered_map>
 
 #undef LOG_TAG
 #define LOG_TAG "RecorderFrameReceiver"
 
+struct RecorderArrivalSignal {
+    std::mutex mutex;
+    std::condition_variable condition;
+    bool closing = false;
+    bool arrived = true;
+};
+
 namespace {
 constexpr int32_t RECEIVER_CAPACITY = 3;
-constexpr auto FRAME_POLL_INTERVAL = std::chrono::milliseconds(5);
+std::mutex g_arrivalRegistryMutex;
+std::unordered_map<OH_ImageReceiverNative *, std::shared_ptr<RecorderArrivalSignal>> g_arrivalRegistry;
 
 bool ReadPlanes(const OH_NativeBuffer_Config &config, const OH_NativeBuffer_Planes &planes, size_t bytes, int32_t width,
                 int32_t height, RecorderFrames::Plane &y, RecorderFrames::Plane &u, RecorderFrames::Plane &v)
@@ -74,6 +83,22 @@ void LogPlanes(const OH_NativeBuffer_Planes &planes)
 RecorderFrameReceiver::~RecorderFrameReceiver()
 {
     closing_.store(true);
+    if (arrival_ != nullptr) {
+        std::lock_guard<std::mutex> lock(arrival_->mutex);
+        arrival_->closing = true;
+        arrival_->condition.notify_all();
+    }
+    if (callbackRegistered_) {
+        const auto ret = unregisterArrival_(receiver_, OnImageArrive);
+        if (ret != IMAGE_SUCCESS) {
+            AVCODEC_SAMPLE_LOGW("Unregister image arrival failed: %{public}d", ret);
+        }
+    }
+    {
+        std::lock_guard<std::mutex> lock(g_arrivalRegistryMutex);
+        g_arrivalRegistry.erase(receiver_);
+    }
+    CancelWait();
     if (receiverThread_.joinable()) {
         receiverThread_.join();
     }
@@ -86,13 +111,11 @@ RecorderFrameReceiver::~RecorderFrameReceiver()
     if (imageLibrary_ != nullptr) {
         (void)dlclose(imageLibrary_);
     }
+    if (receiverLibrary_ != nullptr) { (void)dlclose(receiverLibrary_); }
 }
 
-bool RecorderFrameReceiver::Create(int32_t width, int32_t height)
+bool RecorderFrameReceiver::LoadImageApis()
 {
-    if (receiver_ != nullptr || imageLibrary_ != nullptr) {
-        return false;
-    }
     // NAPI模块可能以局部作用域加载，RTLD_DEFAULT无法可靠查到其依赖库中的符号。
     // 从所属库句柄查询API 23接口，旧系统仍可使用Surface录制。
     imageLibrary_ = dlopen("libohimage.so", RTLD_NOW | RTLD_LOCAL);
@@ -102,10 +125,23 @@ bool RecorderFrameReceiver::Create(int32_t width, int32_t height)
     }
     (void)dlerror();
     getBufferData_ = reinterpret_cast<GetBufferData>(dlsym(imageLibrary_, "OH_ImageNative_GetBufferData"));
-    if (getBufferData_ == nullptr) {
+    receiverLibrary_ = dlopen("libimage_receiver.so", RTLD_NOW | RTLD_LOCAL);
+    if (receiverLibrary_ == nullptr) {
+        return false;
+    }
+    registerArrival_ =
+        reinterpret_cast<RegisterArrival>(dlsym(receiverLibrary_, "OH_ImageReceiverNative_OnImageArrive"));
+    unregisterArrival_ =
+        reinterpret_cast<UnregisterArrival>(dlsym(receiverLibrary_, "OH_ImageReceiverNative_OffImageArrive"));
+    if (getBufferData_ == nullptr || registerArrival_ == nullptr || unregisterArrival_ == nullptr) {
         AVCODEC_SAMPLE_LOGE("Resolve image buffer API failed (requires API 23): %{public}s", dlerror());
         return false;
     }
+    return true;
+}
+
+bool RecorderFrameReceiver::CreateReceiver(int32_t width, int32_t height)
+{
     OH_ImageReceiverOptions *rawOptions = nullptr;
     Image_ErrorCode ret = OH_ImageReceiverOptions_Create(&rawOptions);
     if (ret != IMAGE_SUCCESS || rawOptions == nullptr) {
@@ -134,36 +170,100 @@ bool RecorderFrameReceiver::Create(int32_t width, int32_t height)
         AVCODEC_SAMPLE_LOGE("Get image receiver surface failed, ret: %{public}d", ret);
         return false;
     }
+    return true;
+}
+
+bool RecorderFrameReceiver::Create(int32_t width, int32_t height)
+{
+    if (receiver_ != nullptr || imageLibrary_ != nullptr) {
+        return false;
+    }
+    if (!LoadImageApis() || !CreateReceiver(width, height)) {
+        return false;
+    }
     width_ = width;
     height_ = height;
-    receiverThread_ = std::thread(&RecorderFrameReceiver::ReceiveImages, this);
+    arrival_ = std::make_shared<RecorderArrivalSignal>();
+    {
+        std::lock_guard<std::mutex> lock(g_arrivalRegistryMutex);
+        g_arrivalRegistry.emplace(receiver_, arrival_);
+    }
+    // 回调只持有独立通知状态；注销失败或在途回调也不能访问已释放的Receiver业务对象。
+    const Image_ErrorCode ret = registerArrival_(receiver_, OnImageArrive, nullptr);
+    if (ret != IMAGE_SUCCESS) {
+        return false;
+    }
+    callbackRegistered_ = true;
+    try {
+        receiverThread_ = std::thread(&RecorderFrameReceiver::ReceiveImages, this);
+    } catch (const std::system_error &error) {
+        AVCODEC_SAMPLE_LOGE("Create receiver worker failed: %{public}s", error.what());
+        return false;
+    }
     AVCODEC_SAMPLE_LOGI("Camera frame receiver ready: %{public}dx%{public}d", width, height);
     return true;
 }
 
-OH_ImageNative *RecorderFrameReceiver::ReadLatest()
+OH_ImageNative *RecorderFrameReceiver::ReadLatest(int32_t timeoutMs)
 {
-    std::lock_guard<std::mutex> lock(imageMutex_);
+    std::unique_lock<std::mutex> lock(imageMutex_);
+    if (timeoutMs > 0) {
+        imageCond_.wait_for(lock, std::chrono::milliseconds(timeoutMs), [this]() {
+            return latestImage_ != nullptr || inputCancelled_;
+        });
+    }
+    if (inputCancelled_) { return nullptr; }
     OH_ImageNative *image = latestImage_;
     latestImage_ = nullptr;
     return image;
 }
 
+void RecorderFrameReceiver::CancelWait()
+{
+    {
+        std::lock_guard<std::mutex> lock(imageMutex_);
+        inputCancelled_ = true;
+    }
+    imageCond_.notify_all();
+}
+
+void RecorderFrameReceiver::OnImageArrive(OH_ImageReceiverNative *receiver, void *)
+{
+    std::shared_ptr<RecorderArrivalSignal> signal;
+    {
+        std::lock_guard<std::mutex> lock(g_arrivalRegistryMutex);
+        const auto found = g_arrivalRegistry.find(receiver);
+        if (found == g_arrivalRegistry.end()) { return; }
+        signal = found->second;
+    }
+    std::lock_guard<std::mutex> lock(signal->mutex);
+    if (!signal->closing) {
+        signal->arrived = true;
+        signal->condition.notify_one();
+    }
+}
+
 void RecorderFrameReceiver::ReceiveImages()
 {
     while (!closing_.load()) {
+        {
+            std::unique_lock<std::mutex> lock(arrival_->mutex);
+            arrival_->condition.wait(lock, [this]() { return closing_.load() || arrival_->arrived; });
+            if (closing_.load()) { break; }
+            arrival_->arrived = false;
+        }
         OH_ImageNative *image = nullptr;
         if (OH_ImageReceiverNative_ReadLatestImage(receiver_, &image) == IMAGE_SUCCESS && image != nullptr) {
             {
                 std::lock_guard<std::mutex> lock(imageMutex_);
                 std::swap(image, latestImage_);
             }
+            imageCond_.notify_one();
         }
         if (image != nullptr) {
             (void)OH_ImageNative_Release(image);
         }
         // 准备页面尚未开始编码时也持续消费；否则Receiver满后可能连带阻塞相机显示预览。
-        std::this_thread::sleep_for(FRAME_POLL_INTERVAL);
     }
 }
 

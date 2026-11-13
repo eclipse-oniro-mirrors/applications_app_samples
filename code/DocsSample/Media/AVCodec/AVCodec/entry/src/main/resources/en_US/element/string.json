@@ -1,5 +1,9 @@
 {
   "string": [
+    {"name":"recorder_record_audio","value":"Record audio"},
+    {"name":"recorder_buffer_grayscale","value":"Grayscale"},
+    {"name":"recorder_buffer_watermark","value":"AVCODEC watermark"},
+    {"name":"recorder_buffer_effect_preview","value":"Effects apply to the recording; the camera preview shows the original image. The watermark uses encoded-image coordinates and follows container rotation."},
     {"name":"rec_segments_limit_reached","value":"Recording saved; the 1000-segment limit has been reached."},
     {"name":"transcode_preview_position","value":"Preview position within the selected range"},
     {"name":"transcode_preview_before","value":"Source frame"},
@@ -102,6 +106,11 @@
     {"name":"rec_result_back","value":"Back"},
     {"name":"rec_result_finalizing","value":"Finalizing…"},
     {"name":"rec_result_metadata_unavailable","value":"Finalized file metadata unavailable"},
+    {"name":"rec_check_matched","value":"Output parameters match"},
+    {"name":"rec_check_different","value":"Output parameters differ"},
+    {"name":"rec_check_unavailable","value":"Output validation unavailable"},
+    {"name":"rec_check_expected","value":"Expected"},
+    {"name":"rec_check_actual","value":"Actual"},
     {"name":"rec_result_metadata_note","value":"These values come from the finalized file. HDR Vivid bitstream metadata requires a separate check."},
     {"name":"recorder_finalize_failed","value":"Recording finalization failed. Check the system log."},
     {"name":"rec_storage_remaining","value":"Estimated time before storage reserve"},

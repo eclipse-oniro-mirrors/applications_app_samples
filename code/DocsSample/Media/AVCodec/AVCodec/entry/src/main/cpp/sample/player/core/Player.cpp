@@ -132,7 +132,7 @@ int32_t Player::Stop()
     backgroundPausedPlayback_ = false;
     diagnostics_.SetBackgroundPaused(false);
     renderSingleFrameAfterSeek_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     audioStartPendingAfterVideoSeek_ = false;
     audioTrackSwitching_ = false;
     audioStartCond_.notify_all();
@@ -166,6 +166,7 @@ int32_t Player::Pause()
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginPause(), AVCODEC_SAMPLE_ERR_ERROR,
         "Failed to enter paused state");
     paused_ = true;
+    NotifyPlaybackTimingChanged();
     AVCODEC_SAMPLE_LOGI("Playback paused");
     diagnostics_.RecordEvent("playback.pause", playbackPositionUs_.load());
     return AVCODEC_SAMPLE_ERR_OK;
@@ -188,7 +189,7 @@ int32_t Player::Resume()
         "Failed to leave paused state");
     paused_ = false;
     renderSingleFrameAfterSeek_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     AVCODEC_SAMPLE_LOGI("Playback resumed");
     diagnostics_.RecordEvent("playback.resume", playbackPositionUs_.load());
     return AVCODEC_SAMPLE_ERR_OK;
@@ -215,7 +216,7 @@ void Player::SetBackgroundPlaybackEnabled(bool enabled)
         paused_ = false;
         backgroundPausedPlayback_ = false;
         diagnostics_.SetBackgroundPaused(false);
-        pauseCond_.notify_all();
+        NotifyPlaybackTimingChanged();
     }
 }
 
@@ -239,6 +240,7 @@ void Player::PauseForBackground()
     }
     if (stateMachine_.BeginPause()) {
         paused_ = true;
+        NotifyPlaybackTimingChanged();
         backgroundPausedPlayback_ = true;
         diagnostics_.SetBackgroundPaused(true);
     }
@@ -272,7 +274,7 @@ void Player::SetAppBackground(bool background)
     } else if (backgroundPausedPlayback_.load()) {
         ResumeFromBackground();
     }
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
 }
 
 int32_t Player::SelectAudioTrack(int32_t trackIndex)
@@ -345,7 +347,7 @@ void Player::PrepareAudioTrackSwitch()
 {
     audioTrackSwitching_ = true;
     audioWorkerRunning_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     if (audioDecContext_ != nullptr) {
         audioDecContext_->isDestroyed = true;
         audioDecContext_->inputBufferQueue.CancelWait();
@@ -470,6 +472,7 @@ void Player::SetSpeed(float multiplier)
         }
     }
     speed.store(multiplier);
+    NotifyPlaybackTimingChanged();
     if (smartFluencyAvailable_.load() && videoDecoder_ != nullptr) {
         videoDecoder_->OnUserSpeedChanged(multiplier);
     }
@@ -519,4 +522,13 @@ void Player::SetTransform(int32_t hint)
     OHNativeWindow *window = windowLease.GetWindow();
     CHECK_AND_RETURN_LOG(window != nullptr, "Native window is null");
     OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, transformHint);
+}
+
+void Player::NotifyPlaybackTimingChanged()
+{
+    {
+        std::lock_guard<std::mutex> lock(pauseMutex_);
+        videoTimingRevision_.fetch_add(1);
+    }
+    pauseCond_.notify_all();
 }

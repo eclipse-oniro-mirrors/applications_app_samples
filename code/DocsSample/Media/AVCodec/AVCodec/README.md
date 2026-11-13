@@ -501,7 +501,13 @@ Playback and recording Dumps default to a per-file limit of 256 MiB or 30 second
 
 #### Page and controller decomposition
 
-`Index.ets` keeps page state and builders, while flow-specific work moves into controllers:
+`Index.ets` keeps page state and builders.
+
+`PlaybackStartupController` owns the read-only input descriptor, playback lease, Native startup and completion reporting. Failed initialization that is still releasing Native resources keeps the descriptor and lease until completion. `ConfigurationController` loads/saves settings and reads presets; the page checks whether it may still apply an asynchronous load. `RecorderCapabilityController` checks camera profiles and preserves the audio setting when falling back to another profile.
+
+`TranscodeJob.cpp` keeps task progression and snapshots. `TranscodeInitialization.cpp` opens sources and configures tracks/codecs, `TranscodeFramePipeline.cpp` feeds/drains frames and copies audio, and `TranscodeFinalization.cpp` validates output and releases resources. The codec layer retains separate synchronous-query and asynchronous-callback interfaces.
+
+Other controller responsibilities:
 
 - `SeekPreviewController` handles throttling, request generations, and PixelMap release;
 - `PlaybackQueueController` owns queue paths, current index, and repeat/random selection;
@@ -593,9 +599,9 @@ Automated tests are located in `entry/src/ohosTest/ets/test` and use Hypium to c
 
 In DevEco Studio, select the `entry > ohosTest` target and run the test suite. Its entry point registers 13 suites with 49 test cases.
 
-The two Node.js scripts in `tests/host` use the SDK TypeScript loader and system API mocks to check recording and transcoding models: configuration storage, file writes and exports, storage protection, queues, and recovery. The 12 C++ test entry points in `tests/native` check codec-wrapper error handling, Buffer layouts, geometry, frame processing, PCM conversion, callback queues, and statistics. Some Native tests replace system APIs with test doubles. Host tests do not replace an ArkTS build, and Native test doubles do not verify device codecs or graphics drivers.
+The two Node.js scripts in `tests/host` use the SDK TypeScript loader and system API mocks to check recording and transcoding models: configuration storage, file writes and exports, storage protection, queues, and recovery. The 14 C++ test entry points in `tests/native` check codec-wrapper error handling, Buffer layouts, geometry, frame processing, PCM conversion, callback queues, and statistics. Some Native tests replace system APIs with test doubles. Host tests do not replace an ArkTS build, and Native test doubles do not verify device codecs or graphics drivers.
 
-Demuxing, hardware/software codecs, all four output paths, system audio interruptions, permissions, camera recording, transcoded files, and file providers still require device checks. The [test guide](./ohosTest.md) lists automated test entry points and run instructions, plus 244 manual cases covering Buffer recording, preprocessing, dual outputs, recording segments, all three transcoding paths, sampled output decoding, Dump management, and queue recovery. All 244 manual cases have passed; results and category totals are recorded in the test guide. Future runs should update the results for the tested device and code revision.
+Demuxing, device codecs, graphics, permissions, camera streams and file providers require device checks. The [test guide](./ohosTest.md) records 256 passing manual cases, including 12 playback, timing, recording and output-validation regressions. Results apply to the tested environment; repeat device-dependent cases on each target configuration.
 
 The test HAPs can also be built and run from the command line:
 
@@ -680,6 +686,9 @@ AVCodec/
     │   │   │   │   ├── core/ # Session lifecycle and coordination
     │   │   │   │   │   ├── TranscodeInspection.cpp
     │   │   │   │   │   ├── TranscodeJob.cpp/.h
+    │   │   │   │   │   ├── TranscodeInitialization.cpp
+    │   │   │   │   │   ├── TranscodeFramePipeline.cpp
+    │   │   │   │   │   ├── TranscodeFinalization.cpp
     │   │   │   │   │   ├── TranscodeOperations.cpp
     │   │   │   │   │   └── TranscodeTimeRange.cpp
     │   │   │   │   ├── napi/ # ArkTS entry points and parsing
@@ -1501,9 +1510,11 @@ The timeline records monotonic milliseconds from initialization:
 
 A timeline holds at most 128 distinct stages. Parameter changes retain their separate 128-entry bound. Neither stores a per-frame log or retains media buffers. End reasons distinguish user stop, storage protection, startup failure, output failure, and incomplete EOS draining. Failure details remain available alongside the timeline.
 
-The timeline and diagnostics are for the active recording view only. Recording completion does not write a diagnostic JSON/TXT snapshot, and the session reports panel excludes recording details. The recording history retains the output file references, timestamp, duration, and completion state needed to reopen results; existing media files and encoded Dumps are unaffected.
+The timeline and diagnostics are for the active recording view only. Recording completion does not write a diagnostic JSON/TXT snapshot, and the session reports panel excludes recording details. The recording history retains the output file references, timestamp, duration, finalization state and per-output validation needed to reopen results; existing media files and encoded Dumps are unaffected.
 
-The result page reopens finalized files with independent read-only descriptors to obtain dimensions, duration, container MIME, track count, and audio sample rate. The metadata extractor is released before its descriptor is closed. It does not reuse a descriptor owned by a muxer or player, and missing fields remain unavailable rather than falling back to requested settings. Container metadata does not prove valid HDR Vivid dynamic metadata. API 26 metadata retrieval uses a three-second timeout; a metadata read failure does not affect the recording or its history entry.
+After Native releases its Muxers and the output descriptors close, `RecordingSessionController` calls `RecordingMetadataReader` separately for both outputs of every segment. Independent read-only descriptors supply dimensions, audio presence, duration and file size. The extractor is released before its descriptor closes. `RecordingOutputValidation` compares requested output dimensions, the audio setting, elapsed recording time excluding pauses, and Native final file size. Duration tolerance is max(1.5 seconds, 10% of expected duration); final file sizes are compared byte for byte.
+
+Finalization and validation have separate results: successful cleanup does not establish matching metadata. Validation reports matched, different or unavailable. Missing fields, unavailable capability, failed close or extraction preserve errors and file associations without deleting output or substituting requested values for actual values. Checks persist with every segment; old history remains readable without retrospective comparisons. API 26 extraction has a three-second timeout; earlier APIs use the regular asynchronous method. Container metadata does not establish HDR Vivid bitstream correctness or full-file A/V synchronization.
 
 <a id="recording-segments"></a>
 
@@ -1683,9 +1694,21 @@ Stopping recording follows this order:
 9. Release camera objects and navigate back to the home page.
 
 
+##### Audio recording and Buffer pixel effects
+
+Record audio defaults to enabled. When disabled, only camera permission is checked/requested. Native creates no audio capturer, AAC encoder or audio workers; neither Muxer gets an audio track, and stopping sends/waits for no audio EOS. This applies to Surface, Buffer, both outputs and each segment. Older configurations still default to audio enabled.
+
+Buffer mode offers grayscale and an AVCODEC watermark. `SubmitVideoInputImage()` copies NV12 using the encoder stride/sliceHeight, calls `RecorderFrames::ApplyEffects()`, then submits the input Buffer. Grayscale sets only valid UV pixels to 128. The watermark writes a 5×7 luma font and black background in the valid top-left image area. Capacity and even dimensions are checked; row and slice padding stay unchanged. Camera Images and the preview Surface retain their original pixels. These three settings extend the recording snapshot to 29 fields; 25/26-field snapshots remain readable.
+
+##### Playback and recording clocks
+
+For video-only playback or unavailable audio timestamps, `VideoFramePacer` anchors the first PTS to `steady_clock` and computes presentation deadlines from PTS intervals and speed. Pause, resume, Seek and speed changes invalidate the anchor; stop wakes the condition variable. Once audio timestamps are available, audio remains the master clock and its video waits are interruptible too. `RecordingClock` uses `getUptime(STARTUP)` for elapsed recording time and excludes pauses; segment duration thresholds use that timeline. Filenames and `recordedAt` retain wall-clock dates.
+
 <a id="recorder-buffer-input"></a>
 
 #### Camera Buffer Input Recording
+
+`OH_ImageReceiverNative_OnImageArrive` only updates independent notification state and wakes the receiver worker. That worker replaces the pending Image with `ReadLatestImage` and wakes encoder input. Empty waits retain a timeout for stall detection, while frame arrival wakes them immediately. Stop cancels input waits. Release closes notification state, unregisters and removes the callback entry, joins the worker, then releases Images and the Receiver. In-flight callbacks hold shared notification state and never access the recorder object.
 
 **Video encoder input** in recording settings selects Surface (the default) or Buffer. Surface connects the camera directly to the encoder window. Buffer demonstrates acquiring raw camera images, filling encoder-owned `OH_AVBuffer` objects and calling `PushInputBuffer()`. Synchronous/asynchronous scheduling is a separate setting.
 

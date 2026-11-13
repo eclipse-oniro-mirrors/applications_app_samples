@@ -14,10 +14,10 @@
  */
 
 #include "../../core/Recorder.h"
+#include "RecorderFrameEffects.h"
 #include <algorithm>
 
 namespace {
-constexpr int32_t FRAME_POLL_MS = 5;
 constexpr int32_t INPUT_WAIT_MS = 20;
 constexpr int32_t DRAIN_WAIT_MS = 5000;
 constexpr int64_t US_PER_MS = 1000;
@@ -87,9 +87,8 @@ OH_ImageNative *Recorder::ReadVideoInputImage(VideoInputState &state)
         return nullptr;
     }
     // Receiver容量为3，始终读最新帧；编码输入不足时丢弃本帧，避免采集延迟累积。
-    OH_ImageNative *image = frameReceiver_->ReadLatest();
+    OH_ImageNative *image = frameReceiver_->ReadLatest(INPUT_WAIT_MS);
     if (image == nullptr) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(FRAME_POLL_MS));
         return nullptr;
     }
     int64_t timestampNs = 0;
@@ -120,10 +119,9 @@ void Recorder::VideoEncInputSyncThread()
     while (isStarted_.load() && !videoInputStopping_.load()) {
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
         if (isPaused_) {
-            const CameraImage discarded(frameReceiver_->ReadLatest(), OH_ImageNative_Release);
+            const CameraImage discarded(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
             state.lastSubmittedUs = RecorderClockUs();
             inputLock.unlock();
-            std::this_thread::sleep_for(std::chrono::milliseconds(FRAME_POLL_MS));
             continue;
         }
         const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
@@ -157,10 +155,9 @@ void Recorder::VideoEncInputAsyncThread()
     while (isStarted_.load() && !videoInputStopping_.load()) {
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
         if (isPaused_) {
-            const CameraImage discarded(frameReceiver_->ReadLatest(), OH_ImageNative_Release);
+            const CameraImage discarded(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
             state.lastSubmittedUs = RecorderClockUs();
             inputLock.unlock();
-            std::this_thread::sleep_for(std::chrono::milliseconds(FRAME_POLL_MS));
             continue;
         }
         const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
@@ -205,6 +202,14 @@ bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &inf
         AbortRecording("Camera YUV image is not CPU-readable or has an unsupported layout");
         return false;
     }
+    // 仅修改已取得的编码输入Buffer；相机原始Image和预览Surface保持原样。
+    if ((sampleInfo_.video.grayscale || sampleInfo_.video.watermark) &&
+        !RecorderFrames::ApplyEffects(OH_AVBuffer_GetAddr(info.buffer), OH_AVBuffer_GetCapacity(info.buffer),
+            sampleInfo_.video.videoWidth, sampleInfo_.video.videoHeight, encContext_->inputWidthStride,
+            encContext_->inputHeightStride, sampleInfo_.video.grayscale, sampleInfo_.video.watermark)) {
+        AbortRecording("Apply recording pixel effects failed");
+        return false;
+    }
     if (state.firstTimestampNs < 0) {
         state.firstTimestampNs = timestampNs;
         state.initialPausedUs = pausedDurationUs_;
@@ -233,6 +238,7 @@ int32_t Recorder::SendBufferVideoEndOfStream()
     std::lock_guard<std::mutex> inputLock(videoInputMutex_);
     // ArkTS已停止相机输出；先join唯一输入线程，再获取专用于EOS的输入Buffer。
     videoInputStopping_.store(true);
+    frameReceiver_->CancelWait();
     videoInputWorker_.Join();
     if (!isStarted_.load()) {
         return AVCODEC_SAMPLE_ERR_ERROR;

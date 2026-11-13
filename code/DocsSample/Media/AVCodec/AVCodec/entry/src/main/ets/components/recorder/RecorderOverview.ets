@@ -67,7 +67,8 @@ export struct RecorderOverview {
               params: {
                 sessionId: entry.sessionId ?? '', recordedAt: entry.recordedAt,
                 durationSeconds: entry.durationSeconds, title: entry.title, primaryUri: entry.uri,
-                secondaryUri: entry.secondaryUri, complete: entry.complete ?? true, segments: entry.segments
+                secondaryUri: entry.secondaryUri, complete: entry.complete ?? true, segments: entry.segments,
+                validation: entry.validation ?? entry.segments?.[0]?.validation
               } });
           })
       }
